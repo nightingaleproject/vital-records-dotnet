@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Bogus.Extensions.UnitedStates;
 using System.Linq;
-using VR;
 using VRDR;
 
 namespace canary.Models
@@ -13,7 +12,7 @@ namespace canary.Models
     public class DeathRecordFaker
     {
         /// <summary>Mortality data for code translations.</summary>
-        private IJEData MortalityData = IJEData.Instance;
+        private MortalityData MortalityData = MortalityData.Instance;
 
         /// <summary>State to use when generating records.</summary>
         private string state;
@@ -39,6 +38,7 @@ namespace canary.Models
 
             Random random = new Random();
             Bogus.Faker faker = new Bogus.Faker("en");
+            MortalityData dataHelper = MortalityData;
 
             // Grab Gender enum value
             Bogus.DataSets.Name.Gender gender = sex == "Male" ? Bogus.DataSets.Name.Gender.Male : Bogus.DataSets.Name.Gender.Female;
@@ -114,7 +114,7 @@ namespace canary.Models
             placeOfBirth.Add("addressCountry", "US");
             record.PlaceOfBirth = placeOfBirth;
             record.BirthRecordState = state;
-
+           
            // Place of death
 
             record.DeathLocationName = "Bedford Hospital";
@@ -250,7 +250,7 @@ namespace canary.Models
             certifierIdentifier.Add("system", "http://hl7.org/fhir/sid/us-npi");
             certifierIdentifier.Add("value", Convert.ToString(faker.Random.Number(999999)));
             record.CertifierIdentifier = certifierIdentifier;
-
+            
             record.CertifierFamilyName = faker.Name.LastName();
             record.CertifierGivenNames = new string[] { faker.Name.FirstName(Bogus.DataSets.Name.Gender.Female), faker.Name.FirstName(Bogus.DataSets.Name.Gender.Female) };
             record.CertifierSuffix = "MD";
@@ -425,7 +425,7 @@ namespace canary.Models
                     detailsOfInjuryAddr.Add("addressState", "MA");
                     detailsOfInjuryAddr.Add("addressCountry", "US");
                     record.InjuryLocationAddress = detailsOfInjuryAddr;
-
+                    
                     record.InjuryPlaceDescription = "Trade and Service Area";
                 }
                 else if (choice == 2)

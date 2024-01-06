@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using VRDR;
 using canary.Models;
-using VR;
 
 namespace canary.Controllers
 {

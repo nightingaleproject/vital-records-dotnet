@@ -7,7 +7,6 @@ using VRDR;
 using Newtonsoft.Json;
 using System.IO;
 using System.Text.Json.Nodes;
-using VR;
 
 namespace canary.Models
 {

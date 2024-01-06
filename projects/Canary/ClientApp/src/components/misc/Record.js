@@ -4,7 +4,7 @@ import AceEditor from 'react-ace';
 import { toast } from 'react-semantic-toasts';
 import 'react-semantic-toasts/styles/react-semantic-alert.css';
 import { Button, Form, Icon, Menu, Message, Modal, Popup, Segment, Transition } from 'semantic-ui-react';
-import { Issues } from './Issues';
+import { Issues } from '../misc/Issues';
 
 import 'ace-builds/src-noconflict/mode-json';
 import 'ace-builds/src-noconflict/mode-xml';

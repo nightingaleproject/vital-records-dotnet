@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using VRDR;
+using canary.Models;
 
 namespace canary.tests
 {
@@ -17,7 +18,7 @@ namespace canary.tests
     }
 
     [Fact]
-    public async void NewMessagePostCreatesNewCodingResponseMessageObject()
+    public void NewMessagePostCreatesNewCodingResponseMessageObject()
     {
       var stream = new MemoryStream(Encoding.UTF8.GetBytes(File.ReadAllText(FixturePath("fixtures/json/CauseOfDeathCodingMessage.json"))));
       var httpContext = new DefaultHttpContext()
@@ -25,16 +26,16 @@ namespace canary.tests
         Request = { Body = stream, ContentLength = stream.Length }
       };
       _messagesController.ControllerContext.HttpContext = httpContext;
-      var response = await _messagesController.NewMessagePost();
-      var message = response.message;
-      var issues = response.issues;
+      var response = _messagesController.NewMessagePost();
+      var message = response.Result.message;
+      var issues = response.Result.issues;
       Assert.Equal(new List<Dictionary<string, string>>(), issues);
       Assert.IsType<canary.Models.Message>(message);
       Assert.IsAssignableFrom<CauseOfDeathCodingMessage>(message.GetMessage());
     }
 
     [Fact]
-    public async void BadNewMessagePostReturnsIssues()
+    public void BadNewMessagePostReturnsIssues()
     {
       var stream = new MemoryStream(Encoding.UTF8.GetBytes(File.ReadAllText(FixturePath("fixtures/json/EmptyMessage.json"))));
       var httpContext = new DefaultHttpContext()
@@ -42,11 +43,20 @@ namespace canary.tests
         Request = { Body = stream, ContentLength = stream.Length }
       };
       _messagesController.ControllerContext.HttpContext = httpContext;
-      var response = await _messagesController.NewMessagePost();
-      var issues = response.issues[0];
+      var response = _messagesController.NewMessagePost();
+      var message = response.Result.message;
+      var issues = response.Result.issues[0];
       Assert.Equal(2, issues.Count);
       Assert.Contains(new KeyValuePair<string, string>("severity", "error"), issues);
       Assert.Contains(new KeyValuePair<string, string>("message", "Failed to find a Bundle Entry containing a Resource of type MessageHeader. Error occurred at VRDR.BaseMessage in function Parse."), issues);
+    }
+
+    [Fact]
+    public void TestUnknownDescriptionMessageProperties()
+    {
+            string desc = Message.GetDescriptionFor("AUTOP");
+
+            Assert.Equal("Was Autopsy performed", desc, true, true, true, true);
     }
 
     private string FixturePath(string filePath)

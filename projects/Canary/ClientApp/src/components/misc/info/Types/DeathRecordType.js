@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Accordion, Icon } from 'semantic-ui-react';
-import { FHIRInfo } from '../FHIRInfo';
+import { FHIRInfo } from '../../info/FHIRInfo';
 
 export class DeathRecordType extends Component {
   displayName = DeathRecordType.name;
