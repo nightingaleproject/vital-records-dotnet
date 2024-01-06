@@ -7,6 +7,7 @@ using Hl7.Fhir.Serialization;
 using Hl7.FhirPath;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using VR;
 using VRDR;
 
 namespace canary.Models
@@ -90,7 +91,7 @@ namespace canary.Models
             BaseMessage bundle = TestMessage.GetMessage();
             DeathRecord record = ReferenceRecord.GetRecord();
             BaseMessage referenceBundle = new Message(ReferenceRecord, bundle.MessageType).GetMessage();
-            // 
+            //
             // On the frontend this shares the same view as the RecordCompare below. This heading
             // is shown above the results in the app.
             string heading = "Message Validation Results";
@@ -123,7 +124,7 @@ namespace canary.Models
                     //category[property.Name]["SnippetJSON"] = JsonConvert.SerializeObject(recordCompare);
                     // // See if the value of Incorrect changed in 'RecordCompare' and use that to determine if the
                     // // Record matches or not.
-                    // category[property.Name]["Match"] = previousIncorrect.Equals(Incorrect) ? "true" : "false";                    
+                    // category[property.Name]["Match"] = previousIncorrect.Equals(Incorrect) ? "true" : "false";
                 }
                 else if (Message.validatePresenceOnly(property.Name))
                 {
