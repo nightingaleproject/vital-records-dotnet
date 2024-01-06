@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using VRDR;
+using canary.Models;
 
 namespace canary.tests
 {
@@ -43,10 +44,19 @@ namespace canary.tests
       };
       _messagesController.ControllerContext.HttpContext = httpContext;
       var response = await _messagesController.NewMessagePost();
+      var message = response.message;
       var issues = response.issues[0];
       Assert.Equal(2, issues.Count);
       Assert.Contains(new KeyValuePair<string, string>("severity", "error"), issues);
       Assert.Contains(new KeyValuePair<string, string>("message", "Failed to find a Bundle Entry containing a Resource of type MessageHeader. Error occurred at VRDR.BaseMessage in function Parse."), issues);
+    }
+
+    [Fact]
+    public void TestUnknownDescriptionMessageProperties()
+    {
+            string desc = Message.GetDescriptionFor("AUTOP");
+
+            Assert.Equal("Was Autopsy performed", desc, true, true, true, true);
     }
 
     private string FixturePath(string filePath)

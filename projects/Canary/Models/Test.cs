@@ -7,8 +7,8 @@ using Hl7.Fhir.Serialization;
 using Hl7.FhirPath;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using VRDR;
 using VR;
+using VRDR;
 
 namespace canary.Models
 {

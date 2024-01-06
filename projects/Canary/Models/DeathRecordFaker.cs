@@ -39,6 +39,7 @@ namespace canary.Models
 
             Random random = new Random();
             Bogus.Faker faker = new Bogus.Faker("en");
+            IJEData dataHelper = MortalityData;
 
             // Grab Gender enum value
             Bogus.DataSets.Name.Gender gender = sex == "Male" ? Bogus.DataSets.Name.Gender.Male : Bogus.DataSets.Name.Gender.Female;
