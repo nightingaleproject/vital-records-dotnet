@@ -1,0 +1,21 @@
+version: '3'
+
+tasks:
+  post-container-create:
+    cmds:
+      - task: restore
+
+  restore:
+    cmds:
+      - dotnet restore
+
+  commit-all:
+    cmds:
+      - git add .
+      - git commit --amend --no-edit
+
+  vrdr-test:
+    dir: projects
+    cmds:
+      - echo "* dotnet test VRDR.Tests/VRDR.Tests.csproj"
+      - dotnet test VRDR.Tests/VRDR.Tests.csproj

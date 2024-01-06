@@ -1,0 +1,50 @@
+{
+  "types": [
+    {
+      "type": "feat",
+      "section": "Features"
+    },
+    {
+      "type": "fix",
+      "section": "Bug Fixes"
+    },
+    {
+      "type": "chore",
+      "hidden": true
+    },
+    {
+      "type": "docs",
+      "hidden": false
+    },
+    {
+      "type": "style",
+      "hidden": true
+    },
+    {
+      "type": "refactor",
+      "hidden": false
+    },
+    {
+      "type": "perf",
+      "hidden": false
+    },
+    {
+      "type": "test",
+      "hidden": false
+    },
+    {
+      "type": "ci",
+      "hidden": false
+    }
+  ],
+  "bumpFiles": [
+    {
+      "filename": "RELEASE",
+      "type": "plain-text"
+    }
+  ],
+  "skip": {
+    "commit": true
+  },
+  "tagPrefix": ""
+}

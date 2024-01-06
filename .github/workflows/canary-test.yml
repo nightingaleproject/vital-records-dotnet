@@ -1,0 +1,33 @@
+name: Canary Testing
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'projects/Canary/**'
+      - 'projects/Canary.Tests/**'
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.platform }}
+    defaults:
+      run:
+        working-directory: ./projects
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '6.0.x'
+    - name: Run .NET tests
+      run: dotnet test Canary.Tests
+    - name: Run Node.js tests
+      working-directory: ./projects/Canary/ClientApp
+      run: npm run test
