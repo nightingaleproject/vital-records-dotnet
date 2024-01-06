@@ -1,0 +1,678 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VitalRecord</name>
+    </assembly>
+    <members>
+        <member name="T:VR.CodeSystems">
+            <summary>Single definitions for CodeSystem OIDs and URLs used throughout. </summary>
+        </member>
+        <member name="F:VR.CodeSystems.SCT">
+            <summary>SNOMEDCT.</summary>
+        </member>
+        <member name="F:VR.CodeSystems.LOINC">
+            <summary>LOINC.</summary>
+        </member>
+        <member name="F:VR.CodeSystems.ICD10">
+            <summary> ICD10 </summary>
+        </member>
+        <member name="F:VR.CodeSystems.US_SSN">
+            <summary>Social Security Numbers.</summary>
+        </member>
+        <member name="F:VR.CodeSystems.ObservationCategory">
+            <summary>Observation Category. </summary>
+        </member>
+        <member name="F:VR.CodeSystems.NullFlavor_HL7_V3">
+            <summary>HL7 V3 Null Flavor.</summary>
+        </member>
+        <member name="F:VR.CodeSystems.Data_Absent_Reason_HL7_V3">
+            <summary>HL7 Data Absent reason.</summary>
+        </member>
+        <member name="F:VR.CodeSystems.YesNo_0136HL7_V2">
+            <summary>HL7 Yes No.</summary>
+        </member>
+        <member name="F:VR.CodeSystems.PH_MaritalStatus_HL7_2x">
+            <summary>PHINVADS Marital Status.</summary>
+        </member>
+        <member name="F:VR.CodeSystems.HL7_location_physical_type">
+            <summary>HL7 Location Physical Type.</summary>
+        </member>
+        <member name="F:VR.CodeSystems.US_NPI_HL7">
+            <summary> US NPI HL7  </summary>
+        </member>
+        <member name="F:VR.CodeSystems.HL7_identifier_type">
+            <summary>HL7 Identifier Type.</summary>
+        </member>
+        <member name="F:VR.CodeSystems.RoleCode_HL7_V3">
+            <summary>HL7 RoleCode.</summary>
+        </member>
+        <member name="F:VR.CodeSystems.AdministrativeGender">
+            <summary> Administrative Gender </summary>
+        </member>
+        <member name="F:VR.CodeSystems.EducationLevel">
+            <summary> Education Level </summary>
+        </member>
+        <member name="F:VR.CodeSystems.DegreeLicenceAndCertificate">
+            <summary> Degree Licence and Certificate </summary>
+        </member>
+        <member name="F:VR.CodeSystems.UnitsOfMeasure">
+            <summary> Units of Measure </summary>
+        </member>
+        <member name="F:VR.CodeSystems.YesNo">
+            <summary> HL7 Yes No </summary>
+        </member>
+        <member name="F:VR.CodeSystems.BypassEditFlag">
+            <summary> Bypass Edit Flag </summary>
+        </member>
+        <member name="F:VR.CodeSystems.PregnancyStatus">
+            <summary> Pregnancy Status </summary>
+        </member>
+        <member name="F:VR.CodeSystems.MissingValueReason">
+            <summary> Missing Value Reason </summary>
+        </member>
+        <member name="F:VR.CodeSystems.FilingFormat">
+            <summary> Filing Format </summary>
+        </member>
+        <member name="F:VR.CodeSystems.DocumentSections">
+            <summary> Composition document sections </summary>
+        </member>
+        <member name="F:VR.CodeSystems.ReplaceStatus">
+            <summary> Replace Status </summary>
+        </member>
+        <member name="F:VR.CodeSystems.LocationType">
+            <summary> Location Type </summary>
+        </member>
+        <member name="F:VR.CodeSystems.OrganizationType">
+            <summary> Organization Type </summary>
+        </member>
+        <member name="F:VR.CodeSystems.ActivityAtTimeOfDeath">
+            <summary> Activity at Time of Death </summary>
+        </member>
+        <member name="F:VR.CodeSystems.RaceCode">
+            <summary> Race Code </summary>
+        </member>
+        <member name="F:VR.CodeSystems.RaceRecode40">
+            <summary> Race Recode40 </summary>
+        </member>
+        <member name="F:VR.CodeSystems.HispanicOrigin">
+            <summary> Hispanic Origin </summary>
+        </member>
+        <member name="F:VR.CodeSystems.IntentionalReject">
+            <summary> Intentional Reject </summary>
+        </member>
+        <member name="F:VR.CodeSystems.SystemReject">
+            <summary> System Reject </summary>
+        </member>
+        <member name="F:VR.CodeSystems.TransaxConversion">
+            <summary> Hispanic Origin </summary>
+        </member>
+        <member name="F:VR.CodeSystems.ObservationCode">
+            <summary> Observation Codes </summary>
+        </member>
+        <member name="F:VR.CodeSystems.ComponentCode">
+            <summary> Component Codes </summary>
+        </member>
+        <member name="F:VR.CodeSystems.Component">
+            <summary> Component </summary>
+        </member>
+        <member name="F:VR.CodeSystems.DateOfDeathDeterminationMethods">
+            <summary> Date of Death Determination Methods </summary>
+        </member>
+        <member name="T:VR.IJEField">
+            <summary>Property attribute used to describe a field in the IJE format.</summary>
+        </member>
+        <member name="F:VR.IJEField.Field">
+            <summary>Field number.</summary>
+        </member>
+        <member name="F:VR.IJEField.Location">
+            <summary>Beginning location.</summary>
+        </member>
+        <member name="F:VR.IJEField.Length">
+            <summary>Field length.</summary>
+        </member>
+        <member name="F:VR.IJEField.Contents">
+            <summary>Description of what the field contains.</summary>
+        </member>
+        <member name="F:VR.IJEField.Name">
+            <summary>Field name.</summary>
+        </member>
+        <member name="F:VR.IJEField.Priority">
+            <summary>Priority - lower will be "GET" and "SET" earlier.</summary>
+        </member>
+        <member name="M:VR.IJEField.#ctor(System.Int32,System.Int32,System.Int32,System.String,System.String,System.Int32)">
+            <summary>Constructor.</summary>
+        </member>
+        <member name="T:VR.IJE">
+            <summary>Base class for all type-specific IJE converter classes</summary>
+        </member>
+        <member name="P:VR.IJE.IJELength">
+            <summary>Length of the IJE file</summary>
+        </member>
+        <member name="F:VR.IJE.validationErrors">
+            <summary>Validation errors encountered while converting a record</summary>
+        </member>
+        <member name="F:VR.IJE.dataLookup">
+            <summary>IJE data lookup helper. Thread-safe singleton!</summary>
+        </member>
+        <member name="P:VR.IJE.Record">
+            <summary>FHIR based vital record.</summary>
+        </member>
+        <member name="M:VR.IJE.GetTypeOfRecord">
+            <summary>Get the type of record.</summary>
+        </member>
+        <member name="M:VR.IJE.GetIJELength">
+            <summary>Get the length of the IJE string.</summary>
+        </member>
+        <member name="M:VR.IJE.Truncate(System.String,System.Int32)">
+            <summary>Truncates the given string to the given length.</summary>
+        </member>
+        <member name="M:VR.IJE.FieldInfo(System.String)">
+            <summary>Grabs the IJEInfo for a specific IJE field name.</summary>
+        </member>
+        <member name="M:VR.IJE.NumericAllowingUnknown_Get(System.String,System.String)">
+            <summary>Get a value on the VitalRecord that is a numeric string with the option of being set to all 9s on the IJE side and -1 on the
+            FHIR side to represent'unknown' and blank on the IJE side and null on the FHIR side to represent unspecified</summary>
+        </member>
+        <member name="M:VR.IJE.NumericAllowingUnknown_Set(System.String,System.String,System.String)">
+            <summary>Set a value on the VitalRecord that is a numeric string with the option of being set to all 9s on the IJE side and -1 on the
+            FHIR side to represent'unknown' and blank on the IJE side and null on the FHIR side to represent unspecified</summary>
+        </member>
+        <member name="M:VR.IJE.LeftJustified_Get(System.String,System.String)">
+            <summary>Get a value on the VitalRecord whose IJE type is a left justified string.</summary>
+        </member>
+        <member name="M:VR.IJE.LeftJustified_Set(System.String,System.String,System.String)">
+            <summary>Set a value on the VitalRecord whose IJE type is a left justified string.</summary>
+        </member>
+        <member name="M:VR.IJE.RightJustifiedZeroed_Set(System.String,System.String,System.String)">
+            <summary>Set a value on the VitalRecord whose IJE type is a right justified, zero filled string.</summary>
+        </member>
+        <member name="M:VR.IJE.ProcessIJE(System.String,System.Boolean)">
+            <summary>Helper that takes an IJE string and builds a corresponding internal <c>VitalRecord</c>.</summary>
+        </member>
+        <member name="M:VR.IJE.ToRecord">
+            <summary>Returns the corresponding <c>VitalRecord</c> for this IJE string.</summary>
+        </member>
+        <member name="M:VR.IJE.ToString">
+            <summary>Converts the internal <c>VitalRecord</c> into an IJE string.</summary>
+        </member>
+        <member name="M:VR.IJE.CheckForValidationErrors">
+            <summary>Check if there were validation errors.</summary>
+            <exception cref="T:System.ArgumentOutOfRangeException">if there are validation errors</exception>
+        </member>
+        <member name="M:VR.IJE.Get_MappingFHIRToIJE(System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.String)">
+            <summary>Given a Dictionary mapping FHIR codes to IJE strings and the relevant FHIR and IJE fields pull the value
+            from the FHIR record object and provide the appropriate IJE string</summary>
+            <param name="mapping">Dictionary for mapping the desired concept from FHIR to IJE; these dictionaries are defined in Mappings.cs</param>
+            <param name="fhirField">Name of the FHIR field to get from the record; must have a related Helper property, e.g., EducationLevel must have EducationLevelHelper</param>
+            <param name="ijeField">Name of the IJE field that the FHIR field content is being placed into</param>
+            <returns>The IJE value of the field translated from the FHIR value on the record</returns>
+        </member>
+        <member name="M:VR.IJE.Set_MappingIJEToFHIR(System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.String,System.String)">
+            <summary>Given a Dictionary mapping IJE codes to FHIR strings and the relevant IJE and FHIR fields translate the IJE
+            string to the appropriate FHIR code and set the value on the FHIR record object</summary>
+            <param name="mapping">Dictionary for mapping the desired concept from IJE to FHIR; these dictionaries are defined in Mappings.cs</param>
+            <param name="ijeField">Name of the IJE field that the FHIR field content is being set from</param>
+            <param name="fhirField">Name of the FHIR field to set on the record; must have a related Helper property, e.g., EducationLevel must have EducationLevelHelper</param>
+            <param name="value">The value to translate from IJE to FHIR and set on the record</param>
+        </member>
+        <member name="T:VR.IJEData">
+            <summary>Data helper class for dealing with IJE mortality data. Follows Singleton-esque pattern!</summary>
+        </member>
+        <member name="P:VR.IJEData.Instance">
+            <summary>Instance get method for singleton.</summary>
+        </member>
+        <member name="M:VR.IJEData.StateNameToStateCode(System.String)">
+            <summary>Given a State, Territory, or Province name - return the representative State code.</summary>
+        </member>
+        <member name="M:VR.IJEData.JurisdictionNameToJurisdictionCode(System.String)">
+            <summary>Given a Jurisdiction code - return the Jurisdiction name.</summary>
+        </member>
+        <member name="M:VR.IJEData.JurisdictionCodeToJurisdictionName(System.String)">
+            <summary>Given a Jurisdiction name - return the representative Jurisdiction code.</summary>
+        </member>
+        <member name="M:VR.IJEData.StateCodeToStateName(System.String)">
+            <summary>Given a State, Territory, or Province code - return the representative State, Territory, or Province name.</summary>
+        </member>
+        <member name="M:VR.IJEData.CountryNameToCountryCode(System.String)">
+            <summary>Given a Country name - return the representative Country code.</summary>
+        </member>
+        <member name="M:VR.IJEData.CountryCodeToCountryName(System.String)">
+            <summary>Given a Country code - return the representative Country name.</summary>
+        </member>
+        <member name="M:VR.IJEData.DictKeyFinderHelper``1(``0,System.String)">
+            <summary>Given a value in a &lt;string, string&gt; object, return the first matching key.</summary>
+        </member>
+        <member name="M:VR.IJEData.DictValueFinderHelper``1(``0,System.String)">
+            <summary>Given a key in a (string, string) object, return the first matching value.</summary>
+        </member>
+        <member name="F:VR.IJEData.JurisdictionCodes">
+            <summary>Jurisdiction Codes</summary>
+        </member>
+        <member name="F:VR.IJEData.StateTerritoryProvinceCodes">
+            <summary>State and Territory Province Codes</summary>
+        </member>
+        <member name="F:VR.IJEData.CountryCodes">
+            <summary>Country Codes based on PH_Country_GEC = 2.16.840.1.113883.13.250    </summary>
+        </member>
+        <member name="T:VR.LinqHelper">
+            <summary>Internal Helper class which provides Trimming and Case-Insensitive comparison of LINQ Queries.</summary>
+        </member>
+        <member name="M:VR.LinqHelper.EqualsInsensitive(System.String,System.String)">
+            <summary>Adds a extension to handle case insensitive comparisons, always Trims second parameter.</summary>
+        </member>
+        <member name="T:VR.OtherProfileURL">
+            <summary>Profile URLs for non-VRDR Profiles</summary>
+        </member>
+        <member name="F:VR.OtherProfileURL.USCorePractitioner">
+            <summary>URL for USCorePractitioner</summary>
+        </member>
+        <member name="T:VR.OtherExtensionURL">
+            <summary>Extension URLs for non-VRDR Profiles</summary>
+        </member>
+        <member name="F:VR.OtherExtensionURL.DataAbsentReason">
+            <summary>URL for DataAbsentReason</summary>
+        </member>
+        <member name="F:VR.OtherExtensionURL.PatientBirthPlace">
+            <summary>URL for PatientBirthPlace</summary>
+        </member>
+        <member name="F:VR.OtherExtensionURL.BirthSex">
+            <summary>URL for US Core Birthsex </summary>
+        </member>
+        <member name="T:VR.OtherIGURL">
+            <summary>IG URLs for non-VRDR Profiles</summary>
+        </member>
+        <member name="F:VR.OtherIGURL.USCorePractitioner">
+            <summary>URL for USCorePractitioner</summary>
+        </member>
+        <member name="T:VR.ExtensionURL">
+            <summary>Extension URLs</summary>
+        </member>
+        <member name="F:VR.ExtensionURL.PartialDateTime">
+            <summary>URL for PartialDateTime</summary>
+        </member>
+        <member name="F:VR.ExtensionURL.PartialDate">
+            <summary>URL for PartialDate</summary>
+        </member>
+        <member name="F:VR.ExtensionURL.DateDay">
+            <summary>URL for DateDay</summary>
+        </member>
+        <member name="F:VR.ExtensionURL.DateYear">
+            <summary>URL for DateYear</summary>
+        </member>
+        <member name="F:VR.ExtensionURL.DateMonth">
+            <summary>URL for DateMonth</summary>
+        </member>
+        <member name="F:VR.ExtensionURL.DateTime">
+            <summary>URL for DateTime</summary>
+        </member>
+        <member name="F:VR.ExtensionURL.CityCode">
+            <summary>URL for CityCode</summary>
+        </member>
+        <member name="F:VR.ExtensionURL.DistrictCode">
+            <summary>URL for DistrictCode</summary>
+        </member>
+        <member name="F:VR.ExtensionURL.LocationJurisdictionId">
+            <summary>URL for LocationJurisdictionId</summary>
+        </member>
+        <member name="F:VR.ExtensionURL.PreDirectional">
+            <summary>URL for PreDirectional</summary>
+        </member>
+        <member name="F:VR.ExtensionURL.StreetName">
+            <summary>URL for StreetName</summary>
+        </member>
+        <member name="F:VR.ExtensionURL.StreetNumber">
+            <summary>URL for StreetNumber</summary>
+        </member>
+        <member name="F:VR.ExtensionURL.StreetDesignator">
+            <summary>URL for StreetDesignator</summary>
+        </member>
+        <member name="F:VR.ExtensionURL.PostDirectional">
+            <summary>URL for PostDirectional</summary>
+        </member>
+        <member name="F:VR.ExtensionURL.UnitOrAptNumber">
+            <summary>URL for UnitOrAptNumber</summary>
+        </member>
+        <member name="F:VR.ExtensionURL.CertificateNumber">
+            <summary>URL for CertificateNumber</summary>
+        </member>
+        <member name="T:VR.VitalRecord">
+            <summary>Class <c>VitalRecord</c> is a base class for FHIR Vital Records 
+            including Death Reporting (VRDR) and Birth and Fetal Death Reporting (BFDR)
+            and is designed to help produce and consume records.</summary>
+            <summary>Class <c>VitalRecord</c> models a FHIR Vital Record. 
+            This class was designed to help consume and produce vital records that follow the
+            HL7 FHIR Vital Records Implementation Guide, as described at:
+            TODO include VR IG link
+            </summary>
+            <summary>Class <c>VitalRecord</c> is a base class for FHIR Vital Records 
+            including Death Reporting (VRDR) and Birth and Fetal Death Reporting (BFDR)
+            and is designed to help produce and consume records.</summary>
+        </member>
+        <member name="M:VR.VitalRecord.#ctor">
+            <summary>Default constructor that creates a new, empty Record.</summary>
+        </member>
+        <member name="M:VR.VitalRecord.#ctor(System.String,System.Boolean)">
+            <summary>Constructor that takes a string that represents a FHIR Vital Record in either XML or JSON format.</summary>
+            <param name="record">represents a FHIR Vital Record in either XML or JSON format.</param>
+            <param name="permissive">if the parser should be permissive when parsing the given string</param>
+            <exception cref="T:System.ArgumentException">Record is neither valid XML nor JSON.</exception>
+        </member>
+        <member name="M:VR.VitalRecord.RestoreReferences">
+            <summary>Restores class references from a newly parsed record.</summary>
+        </member>
+        <member name="M:VR.VitalRecord.ToXML">
+            <summary>Helper method to return a XML string representation of this Vital Record.</summary>
+            <returns>a string representation of this Vital Record in XML format</returns>
+        </member>
+        <member name="M:VR.VitalRecord.ToXml">
+            <summary>Helper method to return a XML string representation of this Vital Record.</summary>
+            <returns>a string representation of this Vital Record in XML format</returns>
+        </member>
+        <member name="M:VR.VitalRecord.ToJSON">
+            <summary>Helper method to return a JSON string representation of this Vital Record.</summary>
+            <returns>a string representation of this Vital Record in JSON format</returns>
+        </member>
+        <member name="M:VR.VitalRecord.ToJson">
+            <summary>Helper method to return a JSON string representation of this Vital Record.</summary>
+            <returns>a string representation of this Vital Record in JSON format</returns>
+        </member>
+        <member name="M:VR.VitalRecord.GetITypedElement">
+            <summary>Helper method to return an ITypedElement of the record bundle.</summary>
+            <returns>an ITypedElement of the record bundle</returns>
+        </member>
+        <member name="M:VR.VitalRecord.GetBundle">
+            <summary>Helper method to return a the bundle.</summary>
+            <returns>a FHIR Bundle</returns>
+        </member>
+        <member name="M:VR.VitalRecord.AddResourceToBundleIfPresent(Hl7.Fhir.Model.Resource,Hl7.Fhir.Model.Bundle)">
+            <summary>Adds a resource to the bundle if the resource os not null.</summary>
+            <param name="resource">the resource to add, may be null</param>
+            <param name="bundle">the bundle to add to, may not be null</param>
+        </member>
+        <member name="M:VR.VitalRecord.GetComposition">
+            <summary>Return a reference to the Composition object for unit testing.</summary>
+        </member>
+        <member name="M:VR.VitalRecord.RemoveReferenceFromComposition(System.String,System.String)">
+            <summary>Remove a reference from the Vital Record Composition.</summary>
+            <param name="reference">a reference.</param>
+            <param name="code">a code for the section to modify.</param>
+        </member>
+        <member name="M:VR.VitalRecord.AddReferenceToComposition(System.String,System.String)">
+            <summary>Add a reference to the Vital Record Composition.</summary>
+            <param name="reference">a reference.</param>
+            <param name="code">the code for the section to add to.</param>
+            The sections are defined by the child class
+        </member>
+        <member name="M:VR.VitalRecord.CreateRecordFromFHIR``1(System.String,System.Boolean)">
+            <summary>Takes a string that represents a FHIR Death Record in either XML or JSON format and creates a VitalRecord of the specified type from it.</summary>
+            <param name="fhirString">represents a FHIR Vital Record in either XML or JSON format.</param>
+            <param name="permissive">if the parser should be permissive when parsing the given string</param>
+            <exception cref="T:System.ArgumentException">Record is neither valid XML nor JSON.</exception>
+        </member>
+        <member name="F:VR.VitalRecord.Bundle">
+            <summary>Bundle that contains the vital record.</summary>
+        </member>
+        <member name="F:VR.VitalRecord.Composition">
+            <summary>Composition that described what the Bundle is, as well as keeping references to its contents.</summary>
+        </member>
+        <member name="P:VR.VitalRecord.CompositionSections">
+            <summary>CompositionSections that define the codes that represent the different sections in the composition, to be overwritten in the child class</summary>
+        </member>
+        <member name="F:VR.VitalRecord.Navigator">
+            <summary>Useful for navigating around the FHIR Bundle using FHIRPaths.</summary>
+        </member>
+        <member name="M:VR.VitalRecord.updateGivenHumanName(System.String[],System.Collections.Generic.List{Hl7.Fhir.Model.HumanName})">
+            <summary>Helper method to create a HumanName from a list of strings.</summary>
+            <param name="value">A list of strings to be converted into a name.</param>
+            <param name="names">The current list of HumanName attributes for the person.</param>
+        </member>
+        <member name="M:VR.VitalRecord.ValidatePartialDates(Hl7.Fhir.Model.Bundle)">
+            <summary>Helper method to validate that all PartialDate and PartialDateTime exensions are valid and have the valid required sub-extensions.</summary>
+            <param name="bundle">The bundle in which to validate the PartialDate/Time extensions.</param>
+        </member>
+        <member name="M:VR.VitalRecord.GetPartialDate(Hl7.Fhir.Model.Extension,System.String)">
+            <summary>Getter helper for anything that uses PartialDateTime, allowing a particular date field (year, month, or day) to be read
+            from the extension. Returns either a numeric date part, or -1 meaning explicitly unknown, or null meaning not specified.</summary>
+        </member>
+        <member name="M:VR.VitalRecord.NewBlankPartialDateTimeExtension(System.Boolean)">
+            <summary>NewBlankPartialDateTimeExtension, Build a blank PartialDateTime extension (which means all the placeholder data absent
+            reasons are present to note that the data is not in fact present). This method takes an optional flag to determine if this extension
+            should include the time field, which is not always needed</summary>
+        </member>
+        <member name="M:VR.VitalRecord.SetPartialDate(Hl7.Fhir.Model.Extension,System.String,System.Nullable{System.Int32})">
+            <summary>Setter helper for anything that uses PartialDateTime, allowing a particular date field (year, month, or day) to be
+            set in the extension. Arguments are the extension to poplulate, the part of the URL to populate, and the value to specify.
+            The value can be a positive number for an actual value, a -1 meaning that the value is explicitly unknown, or null meaning
+            the data has not been specified.</summary>
+        </member>
+        <member name="M:VR.VitalRecord.GetPartialTime(Hl7.Fhir.Model.Extension)">
+            <summary>Getter helper for anything that uses PartialDateTime, allowing the time to be read from the extension</summary>
+        </member>
+        <member name="M:VR.VitalRecord.SetPartialTime(Hl7.Fhir.Model.Extension,System.String)">
+            <summary>Setter helper for anything that uses PartialDateTime, allowing the time to be set in the extension</summary>
+        </member>
+        <member name="M:VR.VitalRecord.GetDateFragment(Hl7.Fhir.Model.Element,System.String)">
+            <summary>Getter helper for anything that can have a regular FHIR date/time
+            field (year, month, or day) to be read the value
+            supports dates and date times but does NOT support extensions</summary>
+        </member>
+        <member name="M:VR.VitalRecord.GetDateFragmentOrPartialDate(Hl7.Fhir.Model.Element,System.String)">
+            <summary>Getter helper for anything that can have a regular FHIR date/time or a PartialDateTime extension, allowing a particular date
+            field (year, month, or day) to be read from either the value or the extension</summary>
+        </member>
+        <member name="M:VR.VitalRecord.ConvertFhirTimeToFhirDateTime(Hl7.Fhir.Model.Time)">
+            <summary>Convert a time stamp to a datetime stamp using the earliest allowed date.</summary>
+        </member>
+        <member name="M:VR.VitalRecord.FhirTimeHour(Hl7.Fhir.Model.Time)">
+            <summary>Extract the hour.</summary>
+        </member>
+        <member name="M:VR.VitalRecord.FhirTimeMin(Hl7.Fhir.Model.Time)">
+            <summary>Extract the minute.</summary>
+        </member>
+        <member name="M:VR.VitalRecord.FhirTimeSec(Hl7.Fhir.Model.Time)">
+            <summary>Extract the second.</summary>
+        </member>
+        <member name="M:VR.VitalRecord.GetTimeFragment(Hl7.Fhir.Model.Element)">
+            <summary>Getter helper for anything that can have a regular FHIR date/time, allowing the time to be read from the value</summary>
+        </member>
+        <member name="M:VR.VitalRecord.GetTimeFragmentOrPartialTime(Hl7.Fhir.Model.Element)">
+            <summary>Getter helper for anything that can have a regular FHIR date/time or a PartialDateTime extension, allowing the time to be read
+            from either the value or the extension</summary>
+        </member>
+        <member name="M:VR.VitalRecord.SetCodeValue(System.String,System.String,System.String[0:,0:])">
+            <summary>Helper function to set a codeable value based on a code and the set of allowed codes.</summary>
+        </member>
+        <member name="M:VR.VitalRecord.DictToCoding(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>Convert a "code" dictionary to a FHIR Coding.</summary>
+            <param name="dict">represents a code.</param>
+            <returns>the corresponding Coding representation of the code.</returns>
+        </member>
+        <member name="M:VR.VitalRecord.DictToCodeableConcept(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>Convert a "code" dictionary to a FHIR CodableConcept.</summary>
+            <param name="dict">represents a code.</param>
+            <returns>the corresponding CodeableConcept representation of the code.</returns>
+        </member>
+        <member name="M:VR.VitalRecord.IsDictEmptyOrDefault(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>Check if a dictionary is empty or a default empty dictionary (all values are null or empty strings)</summary>
+            <param name="dict">represents a code.</param>
+            <returns>A boolean identifying whether the provided dictionary is empty or default.</returns>
+        </member>
+        <member name="M:VR.VitalRecord.CodingToDict(Hl7.Fhir.Model.Coding)">
+            <summary>Convert a FHIR Coding to a "code" Dictionary</summary>
+            <param name="coding">a FHIR Coding.</param>
+            <returns>the corresponding Dictionary representation of the code.</returns>
+        </member>
+        <member name="M:VR.VitalRecord.CodeableConceptToDict(Hl7.Fhir.Model.CodeableConcept)">
+            <summary>Convert a FHIR CodableConcept to a "code" Dictionary</summary>
+            <param name="codeableConcept">a FHIR CodeableConcept.</param>
+            <returns>the corresponding Dictionary representation of the code.</returns>
+        </member>
+        <member name="M:VR.VitalRecord.DictToAddress(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>Convert an "address" dictionary to a FHIR Address.</summary>
+            <param name="dict">represents an address.</param>
+            <returns>the corresponding FHIR Address representation of the address.</returns>
+        </member>
+        <member name="M:VR.VitalRecord.DatePartsToArray(Hl7.Fhir.Model.Extension)">
+            <summary>Convert a Date Part Extension to an Array.</summary>
+            <param name="datePartAbsent">a Date Part Extension.</param>
+            <returns>the corresponding array representation of the date parts.</returns>
+        </member>
+        <member name="M:VR.VitalRecord.DatePartToIntegerOrCode(System.Tuple{System.String,System.String})">
+            <summary>Convert an element to an integer or code depending on if the input element is a date part.</summary>
+            <param name="pair">A key value pair, the key will be used to identify whether the element is a date part.</param>
+        </member>
+        <member name="M:VR.VitalRecord.AddressToDict(Hl7.Fhir.Model.Address)">
+            <summary>Convert a FHIR Address to an "address" Dictionary.</summary>
+            <param name="addr">a FHIR Address.</param>
+            <returns>the corresponding Dictionary representation of the FHIR Address.</returns>
+        </member>
+        <member name="M:VR.VitalRecord.EmptyAddrDict">
+            <summary>Returns an empty "address" Dictionary.</summary>
+            <returns>an empty "address" Dictionary.</returns>
+        </member>
+        <member name="M:VR.VitalRecord.EmptyCodeDict">
+            <summary>Returns an empty "code" Dictionary.</summary>
+            <returns>an empty "code" Dictionary.</returns>
+        </member>
+        <member name="M:VR.VitalRecord.EmptyCodeableDict">
+            <summary>Returns an empty "codeable" Dictionary.</summary>
+            <returns>an empty "codeable" Dictionary.</returns>
+        </member>
+        <member name="M:VR.VitalRecord.GetAll(System.String)">
+            <summary>Given a FHIR path, return the elements that match the given path;
+            returns an empty array if no matches are found.</summary>
+            <param name="path">represents a FHIR path.</param>
+            <returns>all elements that match the given path, or an empty array if no matches are found.</returns>
+        </member>
+        <member name="M:VR.VitalRecord.GetFirst(System.String)">
+            <summary>Given a FHIR path, return the first element that matches the given path.</summary>
+            <param name="path">represents a FHIR path.</param>
+            <returns>the first element that matches the given path, or null if no match is found.</returns>
+        </member>
+        <member name="M:VR.VitalRecord.GetLast(System.String)">
+            <summary>Given a FHIR path, return the last element that matches the given path.</summary>
+            <param name="path">represents a FHIR path.</param>
+            <returns>the last element that matches the given path, or null if no match is found.</returns>
+        </member>
+        <member name="M:VR.VitalRecord.GetAllString(System.String)">
+            <summary>Given a FHIR path, return the elements that match the given path as a string;
+            returns an empty array if no matches are found.</summary>
+            <param name="path">represents a FHIR path.</param>
+            <returns>all elements that match the given path as a string, or an empty array if no matches are found.</returns>
+        </member>
+        <member name="M:VR.VitalRecord.GetFirstString(System.String)">
+            <summary>Given a FHIR path, return the first element that matches the given path as a string;
+            returns null if no match is found.</summary>
+            <param name="path">represents a FHIR path.</param>
+            <returns>the first element that matches the given path as a string, or null if no match is found.</returns>
+        </member>
+        <member name="M:VR.VitalRecord.GetLastString(System.String)">
+            <summary>Given a FHIR path, return the last element that matches the given path as a string;
+            returns an empty string if no match is found.</summary>
+            <param name="path">represents a FHIR path.</param>
+            <returns>the last element that matches the given path as a string, or null if no match is found.</returns>
+        </member>
+        <member name="M:VR.VitalRecord.GetValue(System.Collections.Generic.Dictionary{System.String,System.String},System.String)">
+            <summary>Get a value from a Dictionary, but return null if the key doesn't exist or the value is an empty string.</summary>
+        </member>
+        <member name="M:VR.VitalRecord.UpdateDictionary(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>Combine the given dictionaries and return the combined result.</summary>
+        </member>
+        <member name="M:VR.VitalRecord.FromDescription``1(System.String)">
+            <summary>Helper method to return a JSON string representation of this Vital Record.</summary>
+            <param name="contents">string that represents </param>
+            <returns>a new VitalRecord that corresponds to the given descriptive format</returns>
+        </member>
+        <member name="M:VR.VitalRecord.ToDescription">
+            <summary>Returns a JSON encoded structure that maps to the various property
+            annotations found in the Vital Record. This is useful for scenarios
+            where you may want to display the data in user interfaces.</summary>
+            <returns>a string representation of this Vital Record in a descriptive format.</returns>
+        </member>
+        <member name="T:VR.PropertyParam">
+            <summary>Property attribute used to describe a VitalRecord property parameter,
+            specifically if the property is a dictionary that has keys.</summary>
+        </member>
+        <member name="F:VR.PropertyParam.Key">
+            <summary>If the related property is a Dictionary, the key name.</summary>
+        </member>
+        <member name="F:VR.PropertyParam.Description">
+            <summary>Description of this parameter.</summary>
+        </member>
+        <member name="M:VR.PropertyParam.#ctor(System.String,System.String)">
+            <summary>Constructor.</summary>
+        </member>
+        <member name="T:VR.FHIRPath">
+            <summary>Describes a FHIR path that can be used to get to the element.</summary>
+        </member>
+        <member name="F:VR.FHIRPath.Path">
+            <summary>The relevant FHIR path.</summary>
+        </member>
+        <member name="F:VR.FHIRPath.Element">
+            <summary>The relevant element.</summary>
+        </member>
+        <member name="M:VR.FHIRPath.#ctor(System.String,System.String)">
+            <summary>Constructor.</summary>
+        </member>
+        <member name="T:VR.Property">
+            <summary>Property attribute used to describe a BirthRecord property.</summary>
+        </member>
+        <member name="T:VR.Property.Types">
+            <summary>Enum for describing the property type.</summary>
+        </member>
+        <member name="F:VR.Property.Types.String">
+            <summary>Parameter is a string.</summary>
+        </member>
+        <member name="F:VR.Property.Types.StringArr">
+            <summary>Parameter is an array of strings.</summary>
+        </member>
+        <member name="F:VR.Property.Types.StringDateTime">
+            <summary>Parameter is like a string, but should be treated as a date and time.</summary>
+        </member>
+        <member name="F:VR.Property.Types.Bool">
+            <summary>Parameter is a bool.</summary>
+        </member>
+        <member name="F:VR.Property.Types.Dictionary">
+            <summary>Parameter is a Dictionary.</summary>
+        </member>
+        <member name="F:VR.Property.Types.TupleArr">
+            <summary>Parameter is an array of Tuples.</summary>
+        </member>
+        <member name="F:VR.Property.Types.TupleCOD">
+            <summary>Parameter is an array of Tuples, specifically for CausesOfDeath. Specific to VRDR</summary>
+        </member>
+        <member name="F:VR.Property.Types.Int32">
+            <summary>Parameter is an unsigned integer.</summary>
+        </member>
+        <member name="F:VR.Property.Types.Tuple4Arr">
+            <summary>Parameter is an array of 4-Tuples, specifically for entity axis codes.</summary>
+        </member>
+        <member name="F:VR.Property.Name">
+            <summary>Name of this property.</summary>
+        </member>
+        <member name="F:VR.Property.Type">
+            <summary>The property type (e.g. string, bool, Dictionary).</summary>
+        </member>
+        <member name="F:VR.Property.Category">
+            <summary>Category of this property.</summary>
+        </member>
+        <member name="F:VR.Property.Description">
+            <summary>Description of this property.</summary>
+        </member>
+        <member name="F:VR.Property.Serialize">
+            <summary>If this field should be kept when serialzing.</summary>
+        </member>
+        <member name="F:VR.Property.IGUrl">
+            <summary>URL that links to the IG description for this property.</summary>
+        </member>
+        <member name="F:VR.Property.CapturedInIJE">
+            <summary>If this field has an equivalent in IJE.</summary>
+        </member>
+        <member name="F:VR.Property.Priority">
+            <summary>Priority that this should show up in generated lists. Lower numbers come first.</summary>
+        </member>
+        <member name="M:VR.Property.#ctor(System.String,VR.Property.Types,System.String,System.String,System.Boolean,System.String,System.Boolean,System.Int32)">
+            <summary>Constructor.</summary>
+        </member>
+    </members>
+</doc>

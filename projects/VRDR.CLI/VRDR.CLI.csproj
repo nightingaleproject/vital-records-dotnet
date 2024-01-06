@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp6.0</TargetFramework>
+    <TargetFrameworks>netcoreapp6.0</TargetFrameworks>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VRDR\VRDR.csproj" />
+    <ProjectReference Include="..\VRDR.Client\VRDR.Client.csproj" />
+    <ProjectReference Include="..\VRDR.Filter\VRDR.Filter.csproj" />
+    <ProjectReference Include="..\VRDR.Messaging\VRDR.Messaging.csproj" />
+    <ProjectReference Include="..\VitalRecord\VitalRecord.csproj" />
+  </ItemGroup>
+</Project>

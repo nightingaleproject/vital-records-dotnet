@@ -1,0 +1,46 @@
+name: VRDR Testing
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'projects/VRDR/**'
+      - 'projects/VRDR.CLI/**'
+      - 'projects/VRDR.Client/**'
+      - 'projects/VRDR.Filter/**'
+      - 'projects/VRDR.Messaging/**'
+      - 'projects/VRDR.Tests/**'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'projects/VRDR/**'
+      - 'projects/VRDR.CLI/**'
+      - 'projects/VRDR.Client/**'
+      - 'projects/VRDR.Filter/**'
+      - 'projects/VRDR.Messaging/**'
+      - 'projects/VRDR.Tests/**'
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./projects
+    strategy:
+      matrix:
+        dotnet-version: [2.1.815, 3.1.408, 6.0.100]
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: ${{ matrix.dotnet-version }}
+    - name: Install dependencies
+      run: dotnet restore vrdr-dotnet.sln
+    - name: Build
+      run: dotnet build vrdr-dotnet.sln --configuration Release --no-restore
+    - name: Test
+      run: ./VRDR.Tests/run_tests.sh
