@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>VRDR</name>
+        <name>DeathRecord</name>
     </assembly>
     <members>
         <member name="T:VRDR.Connectathon">
@@ -4312,123 +4312,6 @@
         </member>
         <member name="M:VRDR.PlaceCode.#ctor(System.String,System.String,System.String,System.String,System.String,System.String)">
             <summary>The complete constructor, normally used when declaring a PlaceCode</summary>
-        </member>
-        <member name="T:VRDR.NvssRace">
-            <summary> String representations of IJE Race fields </summary>
-        </member>
-        <member name="F:VRDR.NvssRace.White">
-            <summary> White </summary>
-        </member>
-        <member name="F:VRDR.NvssRace.BlackOrAfricanAmerican">
-            <summary> BlackOrAfricanAmerican </summary>
-        </member>
-        <member name="F:VRDR.NvssRace.AmericanIndianOrAlaskanNative">
-            <summary> AmericanIndianOrAlaskanNative </summary>
-        </member>
-        <member name="F:VRDR.NvssRace.AsianIndian">
-            <summary> AsianIndian </summary>
-        </member>
-        <member name="F:VRDR.NvssRace.Chinese">
-            <summary> Chinese </summary>
-        </member>
-        <member name="F:VRDR.NvssRace.Filipino">
-            <summary> Filipino </summary>
-        </member>
-        <member name="F:VRDR.NvssRace.Japanese">
-            <summary> Japanese </summary>
-        </member>
-        <member name="F:VRDR.NvssRace.Korean">
-            <summary> Korean </summary>
-        </member>
-        <member name="F:VRDR.NvssRace.Vietnamese">
-            <summary> Vietnamese </summary>
-        </member>
-        <member name="F:VRDR.NvssRace.OtherAsian">
-            <summary> OtherAsian </summary>
-        </member>
-        <member name="F:VRDR.NvssRace.NativeHawaiian">
-            <summary> NativeHawaiian </summary>
-        </member>
-        <member name="F:VRDR.NvssRace.GuamanianOrChamorro">
-            <summary> GuamanianOrChamorro </summary>
-        </member>
-        <member name="F:VRDR.NvssRace.Samoan">
-            <summary> Samoan </summary>
-        </member>
-        <member name="F:VRDR.NvssRace.OtherPacificIslander">
-            <summary> OtherPacificIslander </summary>
-        </member>
-        <member name="F:VRDR.NvssRace.OtherRace">
-            <summary> OtherRace </summary>
-        </member>
-        <member name="F:VRDR.NvssRace.FirstAmericanIndianOrAlaskanNativeLiteral">
-            <summary> FirstAmericanIndianOrAlaskanNativeLiteral </summary>
-        </member>
-        <member name="F:VRDR.NvssRace.SecondAmericanIndianOrAlaskanNativeLiteral">
-            <summary> SecondAmericanIndianOrAlaskanNativeLiteral </summary>
-        </member>
-        <member name="F:VRDR.NvssRace.FirstOtherAsianLiteral">
-            <summary> FirstOtherAsianLiteralFirst </summary>
-        </member>
-        <member name="F:VRDR.NvssRace.SecondOtherAsianLiteral">
-            <summary> SecondOtherPacificIslanderLiteral </summary>
-        </member>
-        <member name="F:VRDR.NvssRace.FirstOtherPacificIslanderLiteral">
-            <summary> FirstOtherPacificIslanderLiteral </summary>
-        </member>
-        <member name="F:VRDR.NvssRace.SecondOtherPacificIslanderLiteral">
-            <summary> SecondOtherPacificIslanderLiteral </summary>
-        </member>
-        <member name="F:VRDR.NvssRace.FirstOtherRaceLiteral">
-            <summary> FirstOtherRaceLiteral </summary>
-        </member>
-        <member name="F:VRDR.NvssRace.SecondOtherRaceLiteral">
-            <summary> SecondOtherRaceLiteral </summary>
-        </member>
-        <member name="F:VRDR.NvssRace.MissingValueReason">
-            <summary> MissingValueReason </summary>
-        </member>
-        <member name="M:VRDR.NvssRace.GetBooleanRaceCodes">
-            <summary> GetBooleanRaceCodes Returns a list of the Boolean Race Codes, Y or N values </summary>
-        </member>
-        <member name="M:VRDR.NvssRace.GetDisplayValueForCode(System.String)">
-            <summary> GetDisplayValueForCode returns the display value for a race code, or the code itself if none exists</summary>
-        </member>
-        <member name="M:VRDR.NvssRace.GetLiteralRaceCodes">
-            <summary> GetLiteralRaceCodes Returns a list of the literal Race Codes</summary>
-        </member>
-        <member name="T:VRDR.NvssEthnicity">
-            <summary> String representations of IJE Ethnicity fields </summary>
-        </member>
-        <member name="F:VRDR.NvssEthnicity.Mexican">
-            <summary> Mexican </summary>
-        </member>
-        <member name="F:VRDR.NvssEthnicity.MexicanDisplay">
-            <summary> Hispanic Mexican </summary>
-        </member>
-        <member name="F:VRDR.NvssEthnicity.PuertoRican">
-            <summary> Puerto Rican </summary>
-        </member>
-        <member name="F:VRDR.NvssEthnicity.PuertoRicanDisplay">
-            <summary> Hispanic Puerto Rican </summary>
-        </member>
-        <member name="F:VRDR.NvssEthnicity.Cuban">
-            <summary> Cuban </summary>
-        </member>
-        <member name="F:VRDR.NvssEthnicity.CubanDisplay">
-            <summary> Hispanic Cuban </summary>
-        </member>
-        <member name="F:VRDR.NvssEthnicity.Other">
-            <summary> Other </summary>
-        </member>
-        <member name="F:VRDR.NvssEthnicity.OtherDisplay">
-            <summary> Hispanic Other </summary>
-        </member>
-        <member name="F:VRDR.NvssEthnicity.Literal">
-            <summary> Literal </summary>
-        </member>
-        <member name="F:VRDR.NvssEthnicity.LiteralDisplay">
-            <summary> Hispanic Literal </summary>
         </member>
         <member name="T:VRDR.ProfileURL">
             <summary>Profile URLs</summary>
