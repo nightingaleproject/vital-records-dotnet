@@ -4054,7 +4054,10 @@ namespace VRDR.Tests
             List<PropertyInfo> properties = typeof(DeathRecord).GetProperties().ToList();
             foreach (PropertyInfo property in properties)
             {
-                property.SetValue(copy, property.GetValue(blank));
+                if (property.GetCustomAttribute<Property>() != null)
+                {
+                    property.SetValue(copy, property.GetValue(blank));
+                }
             }
             Assert.DoesNotContain("\"\"", blank.ToJson());
             Assert.DoesNotContain("\"\"", copy.ToJson());

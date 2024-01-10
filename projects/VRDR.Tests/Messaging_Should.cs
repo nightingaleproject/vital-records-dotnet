@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using Xunit;
 using Hl7.Fhir.Model;
+using VR;
 
 namespace VRDR.Tests
 {
@@ -1084,7 +1085,8 @@ namespace VRDR.Tests
         {
             // verifies the Generic Message Parser allows for messages based on the old IG 1.2
             string trxMsg = FixtureStream("fixtures/json/old-trx-pre-IGv13.json").ReadToEnd();
-            BaseMessage msg = BaseMessage.ParseGenericMessage(trxMsg, true);
+            // Note: generic message parsing was moved from BaseMessage to CommonMessage since it's only used by the API
+            CommonMessage msg = CommonMessage.ParseGenericMessage(trxMsg, true);
             Assert.Equal("http://nchs.cdc.gov/vrdr_coding", msg.MessageType);
         }
 
