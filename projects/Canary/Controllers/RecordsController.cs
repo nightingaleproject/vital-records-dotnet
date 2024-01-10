@@ -206,7 +206,8 @@ namespace canary.Controllers
                 Property info = property.GetCustomAttribute<Property>();
 
                 // Skip properties that shouldn't be serialized.
-                if (!info.Serialize)
+                // Skip properties that shouldn't be serialized.
+                if (info == null || !info.Serialize)
                 {
                     continue;
                 }
