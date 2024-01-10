@@ -16,6 +16,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VRDR\VRDR.csproj" />
-    <ProjectReference Include="..\VitalRecord.Messaging\VRMessaging.csproj" />
+    <ProjectReference Include="..\VR.Messaging\VRMessaging.csproj" />
   </ItemGroup>
 </Project>
