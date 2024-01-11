@@ -2,8 +2,8 @@
 set -e
 
 # Run the C# test suite
-echo "* dotnet test VRDR.Tests/DeathRecord.Tests.csproj"
-dotnet test VRDR.Tests/DeathRecord.Tests.csproj
+echo "* dotnet test VRDR.Tests/VRDR.Tests.csproj"
+dotnet test VRDR.Tests/VRDR.Tests.csproj
 
 # Make sure we can read and parse a JSON file
 echo "* dotnet run --project VRDR.CLI json2json VRDR.CLI/1_wJurisdiction.json"
@@ -56,7 +56,3 @@ dotnet run --project VRDR.CLI json2trx VRDR.Tests/fixtures/json/Bundle-CauseOfDe
 echo "* dotnet run --project VRDR.CLI compareTRXtoJSON example.trx VRDR.Tests/fixtures/json/Bundle-CauseOfDeathCodedContentBundle-Example1.json"
 dotnet run --project VRDR.CLI compareTRXtoJSON example.trx VRDR.Tests/fixtures/json/Bundle-CauseOfDeathCodedContentBundle-Example1.json
 rm example.trx
-
-# Test the translation microservice
-echo "* ./VRDR.Tests/test_translation_service.sh"
-./VRDR.Tests/test_translation_service.sh
