@@ -5,6 +5,9 @@ on:
     branches: [main]
     paths:
       - 'projects/Canary/**'
+  pull_request:
+    branches:
+      - 'workflow/canary'
   release:
     types: [published]
   workflow_dispatch:
@@ -31,7 +34,7 @@ jobs:
         if: ${{ github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.deploy_level == 'latest') }}
         uses: azure/container-apps-deploy-action@v1
         with:
-          appSourcePath: ${{ github.workspace }}
+          appSourcePath: ${{ github.workspace }}/projects/Canary
           registryUrl: ctenvss20221223092705.azurecr.io
           registryUsername: ${{ secrets.CTENVSSCANARY_REGISTRY_USERNAME }}
           registryPassword: ${{ secrets.CTENVSSCANARY_REGISTRY_PASSWORD }}
@@ -42,7 +45,7 @@ jobs:
         if: ${{ github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && inputs.deploy_level == 'release') }}
         uses: azure/container-apps-deploy-action@v1
         with:
-          appSourcePath: ${{ github.workspace }}
+          appSourcePath: ${{ github.workspace }}/projects/Canary
           registryUrl: ctenvss20221223092705.azurecr.io
           registryUsername: ${{ secrets.CTENVSSCANARY_REGISTRY_USERNAME }}
           registryPassword: ${{ secrets.CTENVSSCANARY_REGISTRY_PASSWORD }}
