@@ -10,6 +10,7 @@ using canary.Models;
 using Microsoft.Extensions.Primitives;
 using System.Reflection;
 using Hl7.Fhir.Model;
+using VR;
 
 namespace canary.Controllers
 {
@@ -21,6 +22,8 @@ namespace canary.Controllers
         /// POST Messages/Inspect
         /// </summary>
         [HttpPost("Messages/Inspect")]
+        [HttpPost("Messages/vrdr/Inspect")]
+        [HttpPost("Messages/bfdr/Inspect")]
         public async Task<(Record record, List<Dictionary<string, string>> issues)> NewPost()
         {
             string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
@@ -41,9 +44,10 @@ namespace canary.Controllers
                         }
                     }
                     string deathRecordString = extracted.ToJSON();
-                    var messageInspectResults = Record.CheckGet(deathRecordString, false);
+                    List<Dictionary<string, string>> issues;
+                    var messageInspectResults = CanaryDeathRecord.CheckGet(deathRecordString, false, out issues);
 
-                    return messageInspectResults;
+                    return (messageInspectResults, issues);
                 }
                 else
                 {
@@ -64,6 +68,8 @@ namespace canary.Controllers
         /// POST /api/messages/new
         /// </summary>
         [HttpPost("Messages/New")]
+        [HttpPost("Messages/vrdr/New")]
+        [HttpPost("Messages/bfdr/New")]
         public async Task<(Message message, List<Dictionary<string, string>> issues)> NewMessagePost()
         {
             string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
@@ -90,12 +96,13 @@ namespace canary.Controllers
         /// Creates a new message of the provided type using record provided
         /// POST /api/messages/create?type={type}
         /// </summary>
-        [HttpPost("Messages/Create")]
-        public async Task<(Message message, List<Dictionary<string, string>> issues)> NewMessageRecordPost(String type)
+        [HttpPost("Messages/vrdr/Create")]
+        public async Task<(Message message, List<Dictionary<string, string>> issues)> NewVRDRMessageRecordPost(String type)
         {
             string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
 
-            (Record record, List< Dictionary<string, string> > _) = Record.CheckGet(input, false);
+            // TODO - support Messages/vrdr/create AND Messages/bfdr/create.
+            Record record = CanaryDeathRecord.CheckGet(input, false, out _);
             try {
                 return (new Message(record, type), null);
             }
