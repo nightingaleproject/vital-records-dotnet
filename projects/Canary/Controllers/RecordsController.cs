@@ -200,14 +200,13 @@ namespace canary.Controllers
         private static string GetDescription(VitalRecord record, PropertyInfo[] properties)
         {
             Dictionary<string, Dictionary<string, dynamic>> description = new Dictionary<string, Dictionary<string, dynamic>>();
-            foreach(PropertyInfo property in typeof(DeathRecord).GetProperties().OrderBy(p => p.GetCustomAttribute<Property>()?.Priority))
+            foreach(PropertyInfo property in properties.OrderBy(p => p.GetCustomAttribute<Property>().Priority))
             {
                 // Grab property annotation for this property
                 Property info = property.GetCustomAttribute<Property>();
 
                 // Skip properties that shouldn't be serialized.
-                // Skip properties that shouldn't be serialized.
-                if (info == null || !info.Serialize)
+                if (!info.Serialize)
                 {
                     continue;
                 }

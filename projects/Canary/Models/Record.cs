@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using VR;
-using VRDR;
-using VR;
 using Newtonsoft.Json;
 using System.IO;
 using System.Text.Json.Nodes;
