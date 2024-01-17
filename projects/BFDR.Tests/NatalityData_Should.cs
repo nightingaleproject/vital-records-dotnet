@@ -321,6 +321,55 @@ namespace BFDR.Tests
     }
 
     [Fact]
+    public void TestMotherFatherPlaceOfBirth()
+    {
+      BirthRecord fhir = new BirthRecord();
+      IJENatality ije = new IJENatality(fhir);
+
+      ije.FBPLACD_ST_TER_C = "NH";
+      ije.FBPLACE_CNT_C = "US";
+      
+      ije.BPLACEC_ST_TER = "MA";
+      ije.BPLACEC_CNT = "US";
+      
+      Assert.Equal("NH", ije.FBPLACD_ST_TER_C);
+      Assert.Equal("New Hampshire", ije.FBPLACE_ST_TER_TXT);
+      Assert.Equal("US", ije.FBPLACE_CNT_C);
+      Assert.Equal("United States", ije.FBPLACE_CNTRY_TXT);
+      
+      Assert.Equal("MA", ije.BPLACEC_ST_TER);
+      Assert.Equal("Massachusetts", ije.MBPLACE_ST_TER_TXT);
+      Assert.Equal("US", ije.BPLACEC_CNT);
+      Assert.Equal("United States", ije.MBPLACE_CNTRY_TXT);
+    }
+
+    [Fact]
+    public void TestMotherResidenceAndBilling()
+    {
+      BirthRecord fhir = new BirthRecord();
+      IJENatality ije = new IJENatality(fhir);
+
+      ije.STATEC = "NH";
+      ije.COUNTRYC = "US";
+      ije.LIMITS = "U";
+      
+      ije.MAIL_STATETXT = "Massachusetts";
+      ije.MAIL_CNTRYTXT = "United States";
+      
+      Assert.Equal("NH", ije.STATEC);
+      Assert.Equal("New Hampshire", ije.STATETXT);
+      Assert.Equal("US", ije.COUNTRYC);
+      Assert.Equal("United States", ije.CNTRYTXT);
+      Assert.Equal("U", ije.LIMITS);
+      Assert.Equal("UNK", fhir.MotherResidenceWithinCityLimits["code"]);
+      
+      // Assert.Equal("MA", fhir.MotherBilling["addressState"]);
+      // Assert.Equal("Massachusetts", ije.MAIL_STATETXT);
+      // Assert.Equal("US", fhir.MotherBilling["addressCountry"]);
+      // Assert.Equal("United States", ije.MAIL_CNTRYTXT);
+    }
+
+    [Fact]
     public void TestMethodOfDelivery()
     {
       BirthRecord fhir = new BirthRecord();
