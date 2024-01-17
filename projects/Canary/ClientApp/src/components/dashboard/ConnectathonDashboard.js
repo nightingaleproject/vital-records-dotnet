@@ -20,7 +20,7 @@ export class ConnectathonDashboard extends Component {
   fetchDeathRecords() {
     var self = this;
     axios
-      .get(window.API_URL + '/connectathon')
+      .get(`${window.API_URL}/connectathon`)
       .then(function (response) {
         var records = response.data;
         self.setState({ deathRecords: records, loading: false });
@@ -34,10 +34,10 @@ export class ConnectathonDashboard extends Component {
 
   getUrl(id) {
     if (this.state.params.type === "message") {
-      return `/test-connectathon-messaging/${id}`
+      return `${window.API_URL}/${this.props.params.recordType}/test-connectathon-messaging/${id}`
     }
     else {
-      return `/test-connectathon/${id}`
+      return `${window.API_URL}/${this.props.params.recordType}/test-connectathon/${id}`
     }
   }
 

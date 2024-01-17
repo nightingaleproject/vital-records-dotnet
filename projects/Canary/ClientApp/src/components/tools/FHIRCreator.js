@@ -21,7 +21,7 @@ export class FHIRCreator extends Component {
   componentDidMount() {
     var self = this;
     axios
-      .get(window.API_URL + '/records/description')
+      .get(`${window.API_URL}/records/${this.props.recordType}/description`)
       .then(function(response) {
         self.setState({ fhirInfo: response.data });
       })
@@ -47,7 +47,7 @@ export class FHIRCreator extends Component {
     var self = this;
     self.setState({ loading: true }, () => {
       axios
-        .post(window.API_URL + '/records/description/new', this.setEmptyToNull(this.state.fhirInfo))
+        .post(`${window.API_URL}/records/${this.props.recordType}/description/new`, this.setEmptyToNull(this.state.fhirInfo))
         .then(function(response) {
           self.setState({ loading: false, record: response.data }, () => {
             document.getElementById('scroll-to').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -72,11 +72,11 @@ export class FHIRCreator extends Component {
       <React.Fragment>
         <Grid.Row>
           <Breadcrumb>
-            <Breadcrumb.Section as={Link} to="/">
+            <Breadcrumb.Section as={Link} to={`/${this.props.recordType}`}>
               Dashboard
             </Breadcrumb.Section>
             <Breadcrumb.Divider icon="right chevron" />
-            <Breadcrumb.Section>FHIR VRDR Record Creator</Breadcrumb.Section>
+            <Breadcrumb.Section>FHIR {this.props.recordType.toUpperCase()} Record Creator</Breadcrumb.Section>
           </Breadcrumb>
         </Grid.Row>
         {!!this.state.fhirInfo && (

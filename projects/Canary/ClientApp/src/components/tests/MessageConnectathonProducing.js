@@ -32,7 +32,7 @@ export class MessageConnectathonProducing extends Component {
     if (!!this.props.params.id && !!this.state.certificateNumber && !!this.state.jurisdiction) {
       this.setState({ loading: true }, () => {
         axios
-          .get(window.API_URL + '/tests/connectathon/' + this.props.params.id + '/' + this.state.certificateNumber + '/' + this.state.jurisdiction)
+          .get(window.API_URL + '/tests/' + this.props.params.recordType + '/connectathon/' + this.props.params.id + '/' + this.state.certificateNumber + '/' + this.state.jurisdiction)
           .then(function (response) {
             var test = response.data;
             test.results = JSON.parse(test.results);
@@ -156,7 +156,7 @@ export class MessageConnectathonProducing extends Component {
       <React.Fragment>
         <Grid.Row id="scroll-to">
           <Breadcrumb>
-            <Breadcrumb.Section as={Link} to="/">
+            <Breadcrumb.Section as={Link} to={`/${this.props.params.recordType}`}>
               Dashboard
             </Breadcrumb.Section>
             <Breadcrumb.Divider icon="right chevron" />
@@ -310,7 +310,7 @@ export class MessageConnectathonProducing extends Component {
                           </Header.Content>
                         </Header>
                         <div className="p-b-10" />
-                        <Getter updateRecord={this.updateMessage} strict messageValidation={true} allowIje={false} />
+                        <Getter updateRecord={this.updateMessage} strict messageValidation={true} allowIje={false} recordType={this.props.params.recordType} />
                       </Container>
                     </Grid.Row>
                     <div className="p-b-15" />

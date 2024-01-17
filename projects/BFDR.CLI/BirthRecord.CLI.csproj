@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp6.0</TargetFramework>
+    <TargetFrameworks>netcoreapp6.0</TargetFrameworks>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BFDR\BirthRecord.csproj" />
+    <ProjectReference Include="..\BFDR.Messaging\BFDRMessaging.csproj" />
+  </ItemGroup>
+</Project>

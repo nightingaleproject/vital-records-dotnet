@@ -16,14 +16,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.25" />
-    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="6.0.25" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.14" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.14" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="6.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.10" />
     <PackageReference Include="Bogus" Version="35.3.0" />
-
-    <ProjectReference Include="..\VitalRecord\VitalRecord.csproj" />
-    <ProjectReference Include="..\VRDR.Messaging\VRDR.Messaging.csproj" />
+    <!-- <PackageReference Include="VRDR.Messaging" Version="4.1.4" /> -->
+    <ProjectReference Include="../VitalRecord/VitalRecord.csproj" />
+    <ProjectReference Include="../BFDR/BirthRecord.csproj" /> 
+    <ProjectReference Include="../VRDR/VRDR.csproj" /> 
+    <ProjectReference Include="../VRDR.Messaging/VRDR.Messaging.csproj" />
   </ItemGroup>
 
   <ItemGroup>

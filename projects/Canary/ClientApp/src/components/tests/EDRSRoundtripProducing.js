@@ -24,7 +24,7 @@ export class EDRSRoundtripProducing extends Component {
     var self = this;
     if (!!this.props.params.id) {
       axios
-        .get(window.API_URL + '/tests/' + this.props.params.id)
+        .get(`${window.API_URL}/tests/${this.props.params.recordType}/${this.props.params.id}`)
         .then(function(response) {
           var test = response.data;
           test.results = JSON.parse(test.results);
@@ -37,7 +37,7 @@ export class EDRSRoundtripProducing extends Component {
         });
     } else {
       axios
-        .get(window.API_URL + '/tests/new')
+        .get(`${window.API_URL}/tests/${this.props.params.recordType}/new`)
         .then(function(response) {
           self.setState({ test: response.data, ijeRecord: response.data.referenceRecord, loading: false });
         })
@@ -95,11 +95,11 @@ export class EDRSRoundtripProducing extends Component {
         <Grid id="scroll-to">
           <Grid.Row>
             <Breadcrumb>
-              <Breadcrumb.Section as={Link} to="/">
+              <Breadcrumb.Section as={Link} to={`/${this.props.params.recordType}`}>
                 Dashboard
               </Breadcrumb.Section>
               <Breadcrumb.Divider icon="right chevron" />
-              <Breadcrumb.Section>VRDR Record Roundtrip (Producing)</Breadcrumb.Section>
+              <Breadcrumb.Section>{this.props.params.recordType.toUpperCase()} Record Roundtrip (Producing)</Breadcrumb.Section>
             </Breadcrumb>
           </Grid.Row>
           {!!this.state.test && this.state.test.completedBool && (
@@ -177,7 +177,7 @@ export class EDRSRoundtripProducing extends Component {
                     </Header.Content>
                   </Header>
                   <div className="p-b-10" />
-                  <Getter updateRecord={this.updateRecord} allowIje={false} />
+                  <Getter updateRecord={this.updateRecord} allowIje={false} recordType={this.props.params.recordType} />
                   <Issues issues={this.state.issues} />
                 </Container>
               </Grid.Row>

@@ -37,11 +37,11 @@ export class MessageInspector extends Component {
                 Dashboard
               </Breadcrumb.Section>
               <Breadcrumb.Divider icon="right chevron" />
-              <Breadcrumb.Section>FHIR Message Inspector</Breadcrumb.Section>
+              <Breadcrumb.Section>FHIR {this.props.recordType.toUpperCase()} Message Inspector</Breadcrumb.Section>
             </Breadcrumb>
           </Grid.Row>
           <Grid.Row>
-           <Getter updateRecord={this.updateRecord} strict allowIje={false} source={"MessageInspector"} />
+           <Getter updateRecord={this.updateRecord} recordType={this.props.recordType} strict messageInspector={true} allowIje={false}/>
           </Grid.Row>
                   {!!this.state.fhirInfo && (
                       <Grid.Row>
@@ -64,7 +64,7 @@ export class MessageInspector extends Component {
           <div className="p-b-15" />
             {!!this.state.issues && this.state.issues.length > 0 && (
                 <Grid.Row>
-                    <Record record={null} issues={this.state.issues} showIssues />
+                    <Record record={null} issues={this.state.issues} messageInspector={true} showIssues />
                 </Grid.Row>
           )}
           {!!this.state.fhirInfo && (

@@ -73,30 +73,29 @@ export class Getter extends Component {
   submitPaste() {
     var self = this;
     self.props.updateRecord(this.state.pasteText, null);
-      this.setState({ loading: true }, () => {
-        // When POSTing, be clever about if this component was mounted with a "ijeOnly", and detect any leading "<" and "{"
-        // that would cause the back end to think this was JSON or XML. This allows us to use a more general back end route
-        // to handle all record types. TODO: Should probably migrate away from an unnecessary back end call here if we know
-        // there is bad data.
-        var data = self.state.pasteText;
-        if (!!this.props.ijeOnly) {
-            data.replace(/(\r\n|\n|\r)/gm, ''); // Strip any line breaks if IJE!
-        }
-        if (!!this.props.ijeOnly && (data[0] === '<' || data[0] === '{')) {
-            data = 'bogus'; // The IJE catch in the back end will not like this, and will thus throw an error.
-        }
-        var endpoint = '';
-        if (this.props.returnType) {
-            endpoint = '/records/return/new';
-        } else if (this.props.messageValidation) {
-            endpoint = '/messages/new'
-        } else if (this.props.source == 'MessageInspector') {
-            endpoint = '/messages/inspect';
-        } else {
-            endpoint = '/records/new';
-        } 
-
-       axios
+    this.setState({ loading: true }, () => {
+      // When POSTing, be clever about if this component was mounted with a "ijeOnly", and detect any leading "<" and "{"
+      // that would cause the back end to think this was JSON or XML. This allows us to use a more general back end route
+      // to handle all record types. TODO: Should probably migrate away from an unnecessary back end call here if we know
+      // there is bad data.
+      var data = self.state.pasteText;
+      if (!!this.props.ijeOnly) {
+        data.replace(/(\r\n|\n|\r)/gm, ''); // Strip any line breaks if IJE!
+      }
+      if (!!this.props.ijeOnly && (data[0] === '<' || data[0] === '{')) {
+        data = 'bogus'; // The IJE catch in the back end will not like this, and will thus throw an error.
+      }
+      var endpoint = '';
+      if (this.props.returnType) {
+        endpoint = '/records/return/new';
+      } else if(this.props.messageValidation) {
+        endpoint = '/messages/new'
+      } else if (this.props.messageInspector) {
+        endpoint = '/messages/inspect';
+      } else {
+        endpoint = `/records/${this.props.recordType}/new`;
+      }
+      axios
         .post(window.API_URL + endpoint + (!!this.props.strict ? '?strict=yes' : '?strict=no'), data)
         .then(function(response) {
           self.setState({ loading: false }, () => {
@@ -117,12 +116,13 @@ export class Getter extends Component {
 
   newEndpoint() {
     var self = this;
+    const recordType = this.props.recordType
     axios
-      .get(window.API_URL + '/endpoints/new')
+      .get(`${window.API_URL}/endpoints/${recordType}/new`)
       .then(function(response) {
         self.setState(
           {
-            endpoint: window.location.protocol + '//' + window.location.host + '/endpoints/record/' + response.data,
+            endpoint: `${window.location.protocol}//${window.location.host}/endpoints/${recordType}/record/${response.data}`,
             endpointId: response.data,
             checking: true,
           },
@@ -133,7 +133,7 @@ export class Getter extends Component {
               } else if (!self.state.waiting) {
                 self.setState({ waiting: true }, () => {
                   axios
-                    .get(window.API_URL + '/endpoints/' + self.state.endpointId)
+                    .get(`${window.API_URL}/endpoints/${recordType}/${self.state.endpointId}`)
                     .then(function(response) {
                       if (response.data && response.data.finished) {
                         self.setState({ checking: false, waiting: false }, () => {
@@ -193,15 +193,16 @@ export class Getter extends Component {
   }
 
   render() {
+    const ijeDataType = this.props.recordType.toLowerCase() === 'vrdr' ? 'Mortality' : 'Natality';
     let containerTip;
     if (!!!this.props.ijeOnly) {
       if (!!this.props.allowIje) {
-        containerTip = 'The contents can be formatted as FHIR XML, FHIR JSON, or IJE Mortality.'
+        containerTip = 'The contents can be formatted as FHIR XML, FHIR JSON, or IJE ' + ijeDataType + '.'
       } else {
         containerTip = 'The contents can be formatted as FHIR XML or FHIR JSON.'
       }
     } else {
-      containerTip = 'The contents must be formatted as an IJE Mortality record.'
+      containerTip = 'The contents must be formatted as an IJE ' + ijeDataType + ' record.'
     }
     return (
       <React.Fragment>
