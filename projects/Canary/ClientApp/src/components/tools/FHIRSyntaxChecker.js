@@ -23,15 +23,15 @@ export class FHIRSyntaxChecker extends Component {
         <Grid>
           <Grid.Row>
             <Breadcrumb>
-              <Breadcrumb.Section as={Link} to="/">
+              <Breadcrumb.Section as={Link} to={`/${this.props.recordType}`}>
                 Dashboard
               </Breadcrumb.Section>
               <Breadcrumb.Divider icon="right chevron" />
-              <Breadcrumb.Section>FHIR VRDR Record Syntax Checker</Breadcrumb.Section>
+              <Breadcrumb.Section>FHIR {this.props.recordType.toUpperCase()} Record Syntax Checker</Breadcrumb.Section>
             </Breadcrumb>
           </Grid.Row>
           <Grid.Row>
-            <Getter updateRecord={this.updateRecord} strict allowIje={false} />
+            <Getter updateRecord={this.updateRecord} recordType={this.props.recordType} strict allowIje={false} />
           </Grid.Row>
           <div className="p-b-15" />
           {!!this.state.issues && (

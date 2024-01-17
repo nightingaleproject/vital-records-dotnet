@@ -7,18 +7,20 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using VRDR;
 using canary.Models;
+using BFDR;
 
 namespace canary.Controllers
 {
     [ApiController]
     public class EndpointsController : ControllerBase
     {
-
         /// <summary>
         /// Creates a new endpoint. Returns its id.
         /// GET /api/endpoints/new
         /// </summary>
         [HttpGet("Endpoints/New")]
+        [HttpGet("Endpoints/vrdr/New")]
+        [HttpGet("Endpoints/bfdr/New")]
         public int New()
         {
             // Find the record in the database and return it
@@ -30,7 +32,7 @@ namespace canary.Controllers
                     // TODO: Probably a smoother way to accomplish this. Investigate.
                     db.Endpoints.Remove(db.Endpoints.FirstOrDefault());
                 }
-                Endpoint endpoint = new Endpoint();
+                Endpoint endpoint = new();
                 db.Endpoints.Add(endpoint);
                 db.SaveChanges();
                 return endpoint.EndpointId;
@@ -42,7 +44,11 @@ namespace canary.Controllers
         /// GET /api/records/{id}
         /// </summary>
         [HttpGet("Endpoints/{id:int}")]
+        [HttpGet("Endpoints/vrdr/{id:int}")]
+        [HttpGet("Endpoints/bfdr/{id:int}")]
         [HttpGet("Endpoints/Get/{id:int}")]
+        [HttpGet("Endpoints/Get/vrdr/{id:int}")]
+        [HttpGet("Endpoints/Get/bfdr/{id:int}")]
         public Endpoint Get(int id)
         {
             // Find the record in the database and return it
@@ -56,10 +62,11 @@ namespace canary.Controllers
         /// Lets you post a raw record to Canary, which is processed and added to the Endpoint.
         /// POST /api/endpoints/record/{id:int}
         /// </summary>
-        [HttpPost("Endpoints/Record/{id:int}")]
-        public async Task<int> RecordPost(int id)
+        [HttpPost("Endpoints/vrdr/Record/{id:int}")]
+        public async Task<int> VRDRRecordPost(int id)
         {
-            (Record record, List<Dictionary<string, string>> issues) = (null, null);
+            Record record = null;
+            List<Dictionary<string, string>> issues = null;
             string input;
             using (StreamReader reader = new StreamReader(Request.Body, Encoding.UTF8))
             {
@@ -69,7 +76,7 @@ namespace canary.Controllers
             {
                 if (input.Trim().StartsWith("<") || input.Trim().StartsWith("{")) // XML or JSON?
                 {
-                    (record, issues) = Record.CheckGet(input, false);
+                    record = CanaryDeathRecord.CheckGet(input, false, out issues);
                 }
                 else
                 {
@@ -80,8 +87,8 @@ namespace canary.Controllers
                             (record, issues) = (null, new List<Dictionary<string, string>> { new Dictionary<string, string> { { "severity", "error" }, { "message", "The given input does not appear to be a valid record." } } });
                         }
                         IJEMortality ije = new IJEMortality(input);
-                        DeathRecord deathRecord = ije.ToDeathRecord();
-                        (record, issues) = (new Record(deathRecord), new List<Dictionary<string, string>> {} );
+                        DeathRecord deathRecord = ije.ToRecord();
+                        (record, issues) = (new CanaryDeathRecord(deathRecord), new List<Dictionary<string, string>> {} );
                     }
                     catch (Exception e)
                     {

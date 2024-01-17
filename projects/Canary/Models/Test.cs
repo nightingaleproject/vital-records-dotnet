@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
@@ -9,11 +10,13 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using VR;
 using VRDR;
+using VR;
 
 namespace canary.Models
 {
-    public class Test
+    public abstract class Test
     {
+        [Key]
         public int TestId { get; set; }
 
         public DateTime Created { get; set; }
@@ -45,19 +48,23 @@ namespace canary.Models
             Correct = 0;
             Incorrect = 0;
             CompletedBool = false;
-            ReferenceRecord = new Record();
+            ReferenceRecord = this.CreateEmptyRecord();
             ReferenceRecord.Populate();
         }
 
-        public Test(DeathRecord record)
+        protected abstract Record CreateEmptyRecord();
+
+        public Test(VitalRecord record)
         {
             Created = DateTime.Now;
             Total = 0;
             Correct = 0;
             Incorrect = 0;
             CompletedBool = false;
-            ReferenceRecord = new Record(record);
+            ReferenceRecord = this.CreateRecordFromVitalRecord(record);
         }
+
+        protected abstract Record CreateRecordFromVitalRecord(VitalRecord record);
 
         public Test Run(string description)
         {
@@ -68,7 +75,7 @@ namespace canary.Models
             }
             else
             {
-                TestRecord = new Record(DeathRecord.FromDescription(description));
+                TestRecord = this.CreateRecordFromFHIR(description);
                 Results = JsonConvert.SerializeObject(RecordCompare());
             }
             CompletedDateTime = DateTime.Now;
@@ -76,9 +83,11 @@ namespace canary.Models
             return this;
         }
 
-        public Test Run(DeathRecord record)
+        protected abstract Record CreateRecordFromFHIR(string description);
+
+        public Test Run(VitalRecord record)
         {
-            TestRecord = new Record(record);
+            TestRecord = this.CreateRecordFromVitalRecord(record);
             Results = JsonConvert.SerializeObject(RecordCompare());
             CompletedDateTime = DateTime.Now;
             CompletedBool = true;
@@ -89,7 +98,7 @@ namespace canary.Models
         {
             Dictionary<string, Dictionary<string, dynamic>> description = new Dictionary<string, Dictionary<string, dynamic>>();
             BaseMessage bundle = TestMessage.GetMessage();
-            DeathRecord record = ReferenceRecord.GetRecord();
+            VitalRecord record = ReferenceRecord.GetRecord();
             BaseMessage referenceBundle = new Message(ReferenceRecord, bundle.MessageType).GetMessage();
             // 
             // On the frontend this shares the same view as the RecordCompare below. This heading
@@ -111,8 +120,8 @@ namespace canary.Models
                 // into the message bundle.
                 if (property.PropertyType == typeof(DeathRecord))
                 {
-                    DeathRecord extracted = (DeathRecord)property.GetValue(bundle);
-                    TestRecord = new Record(extracted);
+                    VitalRecord extracted = (VitalRecord) property.GetValue(bundle);
+                    TestRecord = this.CreateRecordFromVitalRecord(extracted);
                     int previousIncorrect = Incorrect;
                     // Add the record comparison results to the message comparison results
                     Dictionary<string, Dictionary<string, dynamic>> recordCompare = RecordCompare();

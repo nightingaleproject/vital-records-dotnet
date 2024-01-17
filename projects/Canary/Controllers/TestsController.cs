@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using VRDR;
 using canary.Models;
+using VR;
+using BFDR;
 
 namespace canary.Controllers
 {
@@ -19,12 +21,12 @@ namespace canary.Controllers
         /// </summary>
         [HttpGet("Tests")]
         [HttpGet("Tests/Index")]
-        public Dictionary<string, string>[] Index()
+        public Dictionary<string, string>[] IndexVRDR()
         {
             using (var db = new RecordContext())
             {
                 List<Dictionary<string, string>> results = new List<Dictionary<string, string>>();
-                foreach(Test test in db.Tests.Take(20))
+                foreach(Test test in db.DeathTests.Take(20))
                 {
                     Dictionary<string, string> result = new Dictionary<string, string>();
                     result.Add("testId", test.TestId.ToString());
@@ -40,15 +42,28 @@ namespace canary.Controllers
         }
 
         /// <summary>
-        /// Gets a test by id.
-        /// GET /api/tests/1
+        /// Gets a death test by id.
+        /// GET /api/tests/vrdr/1
         /// </summary>
-        [HttpGet("Tests/{id:int}")]
-        public Test GetTest(int id)
+        [HttpGet("Tests/vrdr/{id:int}")]
+        public Test GetVRDRTest(int id)
         {
             using (var db = new RecordContext())
             {
-                return db.Tests.Where(t => t.TestId == id).FirstOrDefault();
+                return db.DeathTests.Where(t => t.TestId == id).FirstOrDefault();
+            }
+        }
+
+        /// <summary>
+        /// Gets a birth test by id.
+        /// GET /api/tests/bfdr/1
+        /// </summary>
+        [HttpGet("Tests/{id:int}")]
+        public Test GetBFDRTest(int id)
+        {
+            using (var db = new RecordContext())
+            {
+                return db.BirthTests.Where(t => t.TestId == id).FirstOrDefault();
             }
         }
 
@@ -58,20 +73,38 @@ namespace canary.Controllers
         /// to the provided state.
         /// GET /api/tests/connectathon/1 or /api/tests/connectathon/1/AK
         /// </summary>
-        [HttpGet("Tests/Connectathon/{id:int}/{certificateNumber:int}/{state?}")]
-        public Test GetTestConnectathon(int id, int certificateNumber, string state)
+        [HttpGet("Tests/vrdr/Connectathon/{id:int}/{certificateNumber:int}/{state?}")]
+        public Test GetTestVRDRConnectathon(int id, int certificateNumber, string state)
         {
             using (var db = new RecordContext())
             {
-                Test test = new Test(Connectathon.FromId(id, certificateNumber, state));
-                db.Tests.Add(test);
+                DeathTest test = new DeathTest(Connectathon.FromId(id, certificateNumber, state));
+                db.DeathTests.Add(test);
                 db.SaveChanges();
                 return test;
             }
         }
 
-        [HttpPost("Tests/Validator")]
-        public async Task<Test> GetTestIJEValidator(int id)
+        /// <summary>
+        /// Gets a pre-defined connectathon test by id with a certificate
+        /// number and an optional state parameter which sets the placeOfDeath
+        /// to the provided state.
+        /// GET /api/tests/connectathon/1 or /api/tests/connectathon/1/AK
+        /// </summary>
+        [HttpGet("Tests/bfdr/Connectathon/{id:int}/{certificateNumber:int}/{state?}")]
+        public Test GetTestBFDRConnectathon(int id, int certificateNumber, string state)
+        {
+            using (var db = new RecordContext())
+            {
+                BirthTest test = new BirthTest(Connectathon.FromId(id, certificateNumber, state));
+                db.BirthTests.Add(test);
+                db.SaveChanges();
+                return test;
+            }
+        }
+
+        [HttpPost("Tests/vrdr/Validator")]
+        public async Task<Test> GetTestVRDRIJEValidator(int id)
         {
             using (var db = new RecordContext())
             {
@@ -80,25 +113,41 @@ namespace canary.Controllers
                 {
                     return null;
                 }
-                DeathRecord record = DeathRecord.FromDescription(input);
-                Test test = new Test(record);
-                db.Tests.Add(test);
+                DeathRecord record = VitalRecord.FromDescription<DeathRecord>(input);
+                DeathTest test = new DeathTest(record);
+                db.DeathTests.Add(test);
                 db.SaveChanges();
                 return test;
             }
         }
 
         /// <summary>
-        /// Starts a new test.
+        /// Starts a new VRDR test.
         /// GET /api/tests/new
         /// </summary>
-        [HttpGet("Tests/New")]
-        public Test NewTest()
+        [HttpGet("Tests/vrdr/New")]
+        public Test NewVRDRTest()
         {
             using (var db = new RecordContext())
             {
-                Test test = new Test();
-                db.Tests.Add(test);
+                DeathTest test = new();
+                db.DeathTests.Add(test);
+                db.SaveChanges();
+                return test;
+            }
+        }
+
+        /// <summary>
+        /// Starts a new VRDR test.
+        /// GET /api/tests/new
+        /// </summary>
+        [HttpGet("Tests/bfdr/New")]
+        public Test NewBFDRTest()
+        {
+            using (var db = new RecordContext())
+            {
+                BirthTest test = new();
+                db.BirthTests.Add(test);
                 db.SaveChanges();
                 return test;
             }
@@ -108,25 +157,27 @@ namespace canary.Controllers
         /// Calculates test results.
         /// POST /api/tests/<type>/run/<id>
         /// </summary>
-        [HttpPost("Tests/{type}/Run/{id:int}")]
-        public async Task<Test> RunTest(int id, string type)
+        [HttpPost("Tests/vrdr/{type}/Run/{id:int}")]
+        public async Task<Test> RunVRDRTest(int id, string type)
         {
             using (var db = new RecordContext())
             {
-                Test test = db.Tests.Where(t => t.TestId == id).FirstOrDefault();
+                DeathTest test = db.DeathTests.Where(t => t.TestId == id).FirstOrDefault();
                 string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
                 if (!String.IsNullOrEmpty(input))
                 {
                     test.Type = type;
                     test.Run(input);
                 }
-                db.Tests.Remove(test);
+                db.DeathTests.Remove(test);
                 db.SaveChanges();
                 return test;
             }
         }
 
-        [HttpPost("Tests/{type}/Response")]
+        // [HttpPost("Tests/{type}/Response")]
+        [HttpPost("Tests/bfdr/{type}/Response")]
+        [HttpPost("Tests/vrdr/{type}/Response")]
         public async Task<Dictionary<string, Message>> GetTestResponse(int id, string type)
         {
             using (var db = new RecordContext())

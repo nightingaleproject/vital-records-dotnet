@@ -7,9 +7,11 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using VR;
 using VRDR;
+using VR;
 using canary.Models;
+using VR;
+using BFDR;
 
 namespace canary.Controllers
 {
@@ -22,27 +24,42 @@ namespace canary.Controllers
         /// </summary>
         [HttpGet("Records")]
         [HttpGet("Records/Index")]
-        public Record[] Index()
+        public Record[] VRDRIndex()
         {
             // Find the record in the database and return it
             using (var db = new RecordContext())
             {
-                return db.Records.ToArray();
+                return db.DeathRecords.ToArray();
             }
         }
 
         /// <summary>
-        /// Given an id, returns the corresponding record.
+        /// Given an id, returns the corresponding death record.
         /// GET /api/records/{id}
         /// </summary>
-        [HttpGet("Records/{id:int}")]
-        [HttpGet("Records/Get/{id:int}")]
-        public Record Get(int id)
+        [HttpGet("Records/vrdr/{id:int}")]
+        [HttpGet("Records/vrdr/Get/{id:int}")]
+        public Record GetVRDR(int id)
         {
             // Find the record in the database and return it
             using (var db = new RecordContext())
             {
-                return db.Records.Where(record => record.RecordId == id).FirstOrDefault();
+                return db.DeathRecords.Where(record => record.RecordId == id).FirstOrDefault();
+            }
+        }
+
+        /// <summary>
+        /// Given an id, returns the corresponding birth record.
+        /// GET /api/records/{id}
+        /// </summary>
+        [HttpGet("Records/bfdr/{id:int}")]
+        [HttpGet("Records/bfdr/Get/{id:int}")]
+        public Record GetBFDR(int id)
+        {
+            // Find the record in the database and return it
+            using (var db = new RecordContext())
+            {
+                return db.BirthRecords.Where(record => record.RecordId == id).FirstOrDefault();
             }
         }
 
@@ -70,14 +87,27 @@ namespace canary.Controllers
         /// Creates a new synthetic death record, and returns it. Does not save it to the database.
         /// GET /api/records/new
         /// </summary>
-        [HttpGet("Records/New")]
-        public Record NewGet(string state, string type, string sex)
+        [HttpGet("Records/vrdr/New")]
+        public Record NewVRDRRecordGet(string state, string type, string sex)
         {
             // Create new record from scratch
-            Record record = new Record();
+            CanaryDeathRecord record = new();
 
             // Populate the record with fake data
             record.Populate(state, type, sex);
+
+            // Return the record
+            return record;
+        }
+
+        [HttpGet("Records/bfdr/New")]
+        public Record NewBFDRRecordGet(string state, string sex)
+        {
+            // Create new record from scratch
+            CanaryBirthRecord record = new();
+
+            // Populate the record with fake data
+            record.Populate(state: state, sex: sex);
 
             // Return the record
             return record;
@@ -87,7 +117,7 @@ namespace canary.Controllers
         /// Creates a new death record using the contents provided. Returns the record and any validation issues.
         /// POST /api/records/new
         /// </summary>
-        [HttpPost("Records/New")]
+        [HttpPost("Records/vrdr/New")]
         public async Task<(Record record, List<Dictionary<string, string>> issues)> NewPost()
         {
             string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
@@ -96,7 +126,8 @@ namespace canary.Controllers
             {
                 if (input.Trim().StartsWith("<") || input.Trim().StartsWith("{")) // XML or JSON?
                 {
-                    return Record.CheckGet(input, false);
+                    Record record = CanaryDeathRecord.CheckGet(input, false, out List<Dictionary<string, string>> issues);
+                    return (record, issues);
                 }
                 else
                 {
@@ -112,8 +143,8 @@ namespace canary.Controllers
                             input = input.PadRight(5000, ' ');
                         }
                         IJEMortality ije = new IJEMortality(input);
-                        DeathRecord deathRecord = ije.ToDeathRecord();
-                        return (new Record(deathRecord), new List<Dictionary<string, string>> {} );
+                        DeathRecord deathRecord = ije.ToRecord();
+                        return (new CanaryDeathRecord(deathRecord), new List<Dictionary<string, string>> {} );
                     }
                     catch (Exception e)
                     {
@@ -137,15 +168,15 @@ namespace canary.Controllers
         /// Creates a new death record using the "description" contents provided. Returns the record.
         /// POST /api/records/description/new
         /// </summary>
-        [HttpPost("Records/Description/New")]
+        [HttpPost("Records/vrdr/Description/New")]
         public async Task<Record> NewDescriptionPost()
         {
             string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
 
             if (!String.IsNullOrEmpty(input))
             {
-                DeathRecord record = DeathRecord.FromDescription(input);
-                return new Record(record);
+                DeathRecord record = VitalRecord.FromDescription<DeathRecord>(input);
+                return new CanaryDeathRecord(record);
             }
             return null;
         }
@@ -154,19 +185,28 @@ namespace canary.Controllers
         /// Get's the DeathRecord "Description" structure.
         /// GET /api/records/description
         /// </summary>
-        [HttpGet("Records/Description")]
-        public string GetDescription()
+        [HttpGet("Records/vrdr/Description")]
+        public string GetVRDRDescription()
         {
-            DeathRecord record = new DeathRecord();
+            return GetDescription(new DeathRecord(), typeof(DeathRecord).GetProperties());
+        }
+
+        [HttpGet("Records/bfdr/Description")]
+        public string GetBFDRDescription()
+        {
+            return GetDescription(new BirthRecord(), typeof(BirthRecord).GetProperties());
+        }
+
+        private static string GetDescription(VitalRecord record, PropertyInfo[] properties)
+        {
             Dictionary<string, Dictionary<string, dynamic>> description = new Dictionary<string, Dictionary<string, dynamic>>();
-            foreach(PropertyInfo property in typeof(DeathRecord).GetProperties().OrderBy(p => p.GetCustomAttribute<Property>()?.Priority))
+            foreach(PropertyInfo property in properties.OrderBy(p => p.GetCustomAttribute<Property>().Priority))
             {
                 // Grab property annotation for this property
                 Property info = property.GetCustomAttribute<Property>();
 
                 // Skip properties that shouldn't be serialized.
-                // Skip properties that shouldn't be serialized.
-                if (info == null || !info.Serialize)
+                if (!info.Serialize)
                 {
                     continue;
                 }
@@ -225,24 +265,44 @@ namespace canary.Controllers
         /// Creates a new synthetic death record, saves it to the database, and returns it.
         /// GET /api/records/new
         /// </summary>
-        [HttpGet("Records/Create")]
-        public Record Create(string state, string type)
+        [HttpGet("Records/vrdr/Create")]
+        public Record VRDRCreate(string state, string type)
         {
-            //using (var db = new RecordContext())
-            //{
+            using (var db = new RecordContext())
+            {
                 // Create new record from scratch
-                Record record = new Record();
+                CanaryDeathRecord record = new();
 
                 // Populate the record with fake data
                 record.Populate();
 
                 // Save the record to the database
-                //db.Records.Add(record);
-                //db.SaveChanges();
+                db.DeathRecords.Add(record);
+                db.SaveChanges();
 
                 // Return the record
                 return record;
-            //}
+            }
+        }
+
+        [HttpGet("Records/bfdr/Create")]
+        public Record BFDRCreate(string state, string type)
+        {
+            using (var db = new RecordContext())
+            {
+                // Create new record from scratch
+                CanaryBirthRecord record = new();
+
+                // Populate the record with fake data
+                record.Populate();
+
+                // Save the record to the database
+                db.BirthRecords.Add(record);
+                db.SaveChanges();
+
+                // Return the record
+                return record;
+            }
         }
     }
 }

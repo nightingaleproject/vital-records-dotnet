@@ -29,7 +29,7 @@ export class FHIRMessageCreator extends Component {
     var self = this;
     this.setState({ running: true }, () => {
       axios
-        .post(window.API_URL + '/messages/create?type=' + this.state.messageType, this.state.record.json, { headers: { 'Content-Type': 'application/json' } })
+        .post(`${window.API_URL}/messages/${this.props.recordType}/create?type=${this.state.messageType}`, this.state.record.json, { headers: { 'Content-Type': 'application/json' } })
         .then(function (response) {
             self.setState({
               message: response.data.item1,
@@ -61,11 +61,11 @@ export class FHIRMessageCreator extends Component {
         <Grid id="scroll-to">
           <Grid.Row>
             <Breadcrumb>
-              <Breadcrumb.Section as={Link} to="/">
+              <Breadcrumb.Section as={Link} to={`/${this.props.recordType}`}>
                 Dashboard
               </Breadcrumb.Section>
               <Breadcrumb.Divider icon="right chevron" />
-              <Breadcrumb.Section>Creating FHIR VRDR Messages</Breadcrumb.Section>
+              <Breadcrumb.Section>Creating FHIR {this.props.recordType.toUpperCase()} Messages</Breadcrumb.Section>
             </Breadcrumb>
           </Grid.Row>
           <Grid.Row>
@@ -107,7 +107,7 @@ export class FHIRMessageCreator extends Component {
                   </Header.Subheader>
                 </Header.Content>
               </Header>
-              <Getter updateRecord={this.updateRecord} strict allowIje={false} />
+              <Getter updateRecord={this.updateRecord} recordType={this.props.recordType} strict allowIje={false} />
             </Container>
           </Grid.Row>
           <div className="p-b-15" />

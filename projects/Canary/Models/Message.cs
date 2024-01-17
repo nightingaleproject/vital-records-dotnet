@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using Microsoft.EntityFrameworkCore;
 using VRDR;
-using Newtonsoft.Json;
 using Hl7.Fhir.Model;
+using BFDR;
+using VR;
 
 namespace canary.Models
 {
@@ -290,7 +288,8 @@ namespace canary.Models
 
         public Message(Record record, String type)
         {
-            DeathRecord dr = record.GetRecord();
+            // TODO - support birth message types.
+            DeathRecord dr = (DeathRecord) record.GetRecord();
             switch (type)
             {
                 case "Submission":

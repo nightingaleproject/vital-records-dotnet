@@ -53,7 +53,7 @@ export class RecordGenerator extends Component {
     var self = this;
     this.setState({ loading: true }, () => {
       axios
-        .get(window.API_URL + '/records/new?state=' + self.state.activeState + '&type=' + self.state.activeType + '&sex=' + self.state.activeSex)
+        .get(`${window.API_URL}/records/${this.props.recordType}/new?state=${self.state.activeState}&type=${self.state.activeType}&sex=${self.state.activeSex}`)
         .then(function(response) {
           if (response.data) {
             self.setState({
@@ -77,11 +77,11 @@ export class RecordGenerator extends Component {
         <Grid>
           <Grid.Row>
             <Breadcrumb>
-              <Breadcrumb.Section as={Link} to="/">
+              <Breadcrumb.Section as={Link} to={`/${this.props.recordType}`}>
                 Dashboard
               </Breadcrumb.Section>
               <Breadcrumb.Divider icon="right chevron" />
-              <Breadcrumb.Section>Generate Synthetic VRDR Records</Breadcrumb.Section>
+              <Breadcrumb.Section>{`Generate Synthetic ${this.props.recordType.toUpperCase()} Records`}</Breadcrumb.Section>
             </Breadcrumb>
           </Grid.Row>
           <Grid.Row className="no-padding-b">

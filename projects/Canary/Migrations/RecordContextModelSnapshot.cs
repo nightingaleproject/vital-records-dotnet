@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using canary.Models;
 
+#nullable disable
+
 namespace canary.Migrations
 {
     [DbContext(typeof(RecordContext))]
@@ -13,67 +15,9 @@ namespace canary.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.3");
+            modelBuilder.HasAnnotation("ProductVersion", "7.0.10");
 
-            modelBuilder.Entity("canary.Models.Endpoint", b =>
-                {
-                    b.Property<int>("EndpointId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("Finished")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Issues")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Record")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("EndpointId");
-
-                    b.ToTable("Endpoints");
-                });
-
-            modelBuilder.Entity("canary.Models.Message", b =>
-                {
-                    b.Property<int>("MessageId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("MessageId");
-
-                    b.ToTable("Message");
-                });
-
-            modelBuilder.Entity("canary.Models.Record", b =>
-                {
-                    b.Property<int>("RecordId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("FhirInfo")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Ije")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("IjeInfo")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Json")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Xml")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("RecordId");
-
-                    b.ToTable("Records");
-                });
-
-            modelBuilder.Entity("canary.Models.Test", b =>
+            modelBuilder.Entity("canary.Models.BirthTest", b =>
                 {
                     b.Property<int>("TestId")
                         .ValueGeneratedOnAdd()
@@ -116,14 +60,150 @@ namespace canary.Migrations
 
                     b.HasIndex("TestMessageMessageId");
 
-                    b.ToTable("Tests");
+                    b.ToTable("BirthTests");
                 });
 
-            modelBuilder.Entity("canary.Models.Test", b =>
+            modelBuilder.Entity("canary.Models.DeathTest", b =>
+                {
+                    b.Property<int>("TestId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("CompletedBool")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CompletedDateTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Correct")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Incorrect")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ReferenceRecord")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Results")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("TestMessageMessageId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("TestRecord")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Total")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("TestId");
+
+                    b.HasIndex("TestMessageMessageId");
+
+                    b.ToTable("DeathTests");
+                });
+
+            modelBuilder.Entity("canary.Models.Endpoint", b =>
+                {
+                    b.Property<int>("EndpointId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Finished")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Issues")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Record")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("EndpointId");
+
+                    b.ToTable("Endpoints");
+                });
+
+            modelBuilder.Entity("canary.Models.Message", b =>
+                {
+                    b.Property<int>("MessageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("MessageId");
+
+                    b.ToTable("Message");
+                });
+
+            modelBuilder.Entity("canary.Models.Record", b =>
+                {
+                    b.Property<int>("RecordId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FhirInfo")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Ije")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("IjeInfo")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Json")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Xml")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("RecordId");
+
+                    b.ToTable("Record");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Record");
+
+                    b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("canary.Models.CanaryBirthRecord", b =>
+                {
+                    b.HasBaseType("canary.Models.Record");
+
+                    b.HasDiscriminator().HasValue("CanaryBirthRecord");
+                });
+
+            modelBuilder.Entity("canary.Models.CanaryDeathRecord", b =>
+                {
+                    b.HasBaseType("canary.Models.Record");
+
+                    b.HasDiscriminator().HasValue("CanaryDeathRecord");
+                });
+
+            modelBuilder.Entity("canary.Models.BirthTest", b =>
                 {
                     b.HasOne("canary.Models.Message", "TestMessage")
                         .WithMany()
                         .HasForeignKey("TestMessageMessageId");
+
+                    b.Navigation("TestMessage");
+                });
+
+            modelBuilder.Entity("canary.Models.DeathTest", b =>
+                {
+                    b.HasOne("canary.Models.Message", "TestMessage")
+                        .WithMany()
+                        .HasForeignKey("TestMessageMessageId");
+
+                    b.Navigation("TestMessage");
                 });
 #pragma warning restore 612, 618
         }

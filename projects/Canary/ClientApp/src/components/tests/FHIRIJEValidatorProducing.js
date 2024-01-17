@@ -20,10 +20,11 @@ export class FHIRIJEValidatorProducing extends Component {
   }
 
   createTest() {
+    const recordType = this.props.recordType
     var self = this;
     this.setState({ loading: true }, () => {
       axios
-        .post(window.API_URL + '/tests/validator', this.setEmptyToNull(this.state.ijerecord.fhirInfo))
+        .post(`${window.API_URL}/tests/${recordType}/validator`, this.setEmptyToNull(this.state.ijerecord.fhirInfo))
         .then(function(response) {
           var test = response.data;
           test.results = JSON.parse(test.results);
@@ -67,10 +68,11 @@ export class FHIRIJEValidatorProducing extends Component {
 
   runTest() {
     var self = this;
+    const recordType = this.props.recordType
 
     this.setState({ running: true }, () => {
       axios
-        .post(window.API_URL + '/tests/Produce/run/' + this.state.test.testId, this.setEmptyToNull(this.state.fhirrecord.fhirInfo))
+        .post(`${window.API_URL}/tests/${recordType}/Produce/run/${this.state.test.testId}`, this.setEmptyToNull(this.state.fhirrecord.fhirInfo))
         .then(function(response) {
           var test = response.data;
           test.results = JSON.parse(test.results);
@@ -94,16 +96,18 @@ export class FHIRIJEValidatorProducing extends Component {
   }
 
   render() {
+    const recordType = this.props.recordType;
+    console.log(recordType);
     return (
       <React.Fragment>
         <Grid>
           <Grid.Row id="scroll-to">
             <Breadcrumb>
-              <Breadcrumb.Section as={Link} to="/">
+              <Breadcrumb.Section as={Link} to={`/${this.props.recordType}`}>
                 Dashboard
               </Breadcrumb.Section>
               <Breadcrumb.Divider icon="right chevron" />
-              <Breadcrumb.Section>Validate FHIR VRDR Records with IJE (Producing)</Breadcrumb.Section>
+              <Breadcrumb.Section>Validate FHIR {this.props.recordType.toUpperCase()} Records with IJE (Producing)</Breadcrumb.Section>
             </Breadcrumb>
           </Grid.Row>
           {!!this.state.test && this.state.test.completedBool && (
@@ -155,7 +159,7 @@ export class FHIRIJEValidatorProducing extends Component {
                     </Header.Content>
                   </Header>
                   <div className="p-b-15">
-                    <Getter name="upload-ije" id="upload1" updateRecord={this.updateRecord} ijeOnly noFormat />
+                    <Getter name="upload-ije" id="upload1" updateRecord={this.updateRecord} recordType={this.props.recordType} ijeOnly noFormat />
                   </div>
                 </Container>
               </Grid.Row>
@@ -176,7 +180,7 @@ export class FHIRIJEValidatorProducing extends Component {
                     </Header.Content>
                   </Header>
                   <div className="p-b-15">
-                    <Getter name="upload-fhir" id="upload2" updateRecord={this.updateFHIRRecord} allowIje={false} />
+                    <Getter name="upload-fhir" id="upload2" updateRecord={this.updateFHIRRecord} recordType={this.props.recordType} allowIje={false} />
                   </div>
                 </Container>
               </Grid.Row>

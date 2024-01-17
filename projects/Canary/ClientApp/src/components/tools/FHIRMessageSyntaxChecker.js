@@ -29,15 +29,15 @@ export class FHIRMessageSyntaxChecker extends Component {
         <Grid>
           <Grid.Row>
             <Breadcrumb>
-              <Breadcrumb.Section as={Link} to="/">
+              <Breadcrumb.Section as={Link} to={`/${this.props.recordType}`}>
                 Dashboard
               </Breadcrumb.Section>
               <Breadcrumb.Divider icon="right chevron" />
-              <Breadcrumb.Section>FHIR VRDR Message Syntax Checker</Breadcrumb.Section>
+              <Breadcrumb.Section>FHIR {this.props.recordType.toUpperCase()} Message Syntax Checker</Breadcrumb.Section>
             </Breadcrumb>
           </Grid.Row>
           <Grid.Row>
-            <Getter updateRecord={this.updateMessage} strict messageValidation={true} allowIje={false} />
+            <Getter updateRecord={this.updateMessage} recordType={this.props.recordType} strict messageValidation={true} allowIje={false} />
           </Grid.Row>
           <div className="p-b-15" />
           {!!this.state.issues && (
