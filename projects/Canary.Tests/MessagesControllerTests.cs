@@ -18,7 +18,7 @@ namespace canary.tests
     }
 
     [Fact]
-    public void NewMessagePostCreatesNewCodingResponseMessageObject()
+    public async void NewMessagePostCreatesNewCodingResponseMessageObject()
     {
       var stream = new MemoryStream(Encoding.UTF8.GetBytes(File.ReadAllText(FixturePath("fixtures/json/CauseOfDeathCodingMessage.json"))));
       var httpContext = new DefaultHttpContext()
@@ -26,16 +26,16 @@ namespace canary.tests
         Request = { Body = stream, ContentLength = stream.Length }
       };
       _messagesController.ControllerContext.HttpContext = httpContext;
-      var response = _messagesController.NewMessagePost();
-      var message = response.Result.message;
-      var issues = response.Result.issues;
+      var response = await _messagesController.NewMessagePost();
+      var message = response.message;
+      var issues = response.issues;
       Assert.Equal(new List<Dictionary<string, string>>(), issues);
       Assert.IsType<canary.Models.Message>(message);
       Assert.IsAssignableFrom<CauseOfDeathCodingMessage>(message.GetMessage());
     }
 
     [Fact]
-    public void BadNewMessagePostReturnsIssues()
+    public async void BadNewMessagePostReturnsIssues()
     {
       var stream = new MemoryStream(Encoding.UTF8.GetBytes(File.ReadAllText(FixturePath("fixtures/json/EmptyMessage.json"))));
       var httpContext = new DefaultHttpContext()
@@ -43,9 +43,9 @@ namespace canary.tests
         Request = { Body = stream, ContentLength = stream.Length }
       };
       _messagesController.ControllerContext.HttpContext = httpContext;
-      var response = _messagesController.NewMessagePost();
-      var message = response.Result.message;
-      var issues = response.Result.issues[0];
+      var response = await _messagesController.NewMessagePost();
+      var message = response.message;
+      var issues = response.issues[0];
       Assert.Equal(2, issues.Count);
       Assert.Contains(new KeyValuePair<string, string>("severity", "error"), issues);
       Assert.Contains(new KeyValuePair<string, string>("message", "Failed to find a Bundle Entry containing a Resource of type MessageHeader. Error occurred at VRDR.BaseMessage in function Parse."), issues);
