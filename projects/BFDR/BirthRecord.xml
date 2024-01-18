@@ -72,9 +72,6 @@
             <param name="propertyName">name of the BirthRecord property</param>
             <returns>the subject's resource id</returns>
         </member>
-        <member name="M:BFDR.BirthRecord.AddBirthDateToChild">
-            <summary>Add a BirthDateElement to the Child resource.</summary>
-        </member>
         <member name="M:BFDR.BirthRecord.CreateInputRaceEthnicityObsMother">
             <summary> Create Mother Input Race and Ethnicity </summary>
         </member>
@@ -166,6 +163,13 @@
             <para>// Getter:</para>
             <para>Console.WriteLine($"Child Time of Birth: {ExampleBirthRecord.BirthTime}");</para>
             </example>
+        </member>
+        <member name="M:BFDR.BirthRecord.DateIsComplete(System.String)">
+            <summary>
+             Determines whether a date is a complete date (yyyy-MM-dd).
+            </summary>
+            <param name="date">The date to check.</param>
+            <returns>Whether the given date string is a complete date</returns>
         </member>
         <member name="P:BFDR.BirthRecord.DateOfBirth">
             <summary>Child's Date of Birth.</summary>
