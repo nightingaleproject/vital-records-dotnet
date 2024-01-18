@@ -1982,3 +1982,155 @@ namespace BFDR.Tests
     }
   }
 }
+    
+    public void SetPartialDateOfLastLiveBirthFields()
+    {
+      BirthRecord birthRecord = new BirthRecord();
+      birthRecord.DateOfLastLiveBirthMonth = 5;
+      birthRecord.DateOfLastLiveBirthYear = 2023;
+      Assert.Equal(5, birthRecord.DateOfLastLiveBirthMonth);
+      Assert.Equal(2023, birthRecord.DateOfLastLiveBirthYear);
+    }
+
+    [Fact]
+    public void SetUnknownDateOfLastLiveBirthFields()
+    {
+      IJENatality ije = new IJENatality();
+      ije.MLLB = "99";
+      ije.YLLB = "9999";
+      BirthRecord birthRecord = ije.ToBirthRecord();
+      Assert.Equal(-1, birthRecord.DateOfLastLiveBirthMonth);
+      Assert.Equal(-1, birthRecord.DateOfLastLiveBirthYear);
+    }
+
+    [Fact]
+    public void SetFullDateOfLastLiveBirthFields()
+    {
+      BirthRecord birthRecord = new BirthRecord();
+      birthRecord.DateOfLastLiveBirth = "2020-01-01";
+      Assert.Equal("2020-01-01", birthRecord.DateOfLastLiveBirth);
+    }
+
+    [Fact]
+    public void SetPartialDateOfLastOtherPregnancyOutcome()
+    {
+      BirthRecord birthRecord = new BirthRecord();
+      birthRecord.DateOfLastOtherPregnancyOutcomeMonth = 11;
+      birthRecord.DateOfLastOtherPregnancyOutcomeYear = 2022;
+      Assert.Equal(11, birthRecord.DateOfLastOtherPregnancyOutcomeMonth);
+      Assert.Equal(2022, birthRecord.DateOfLastOtherPregnancyOutcomeYear);
+    }
+
+    [Fact]
+    public void SetUnknownDateOfLastOtherPregnancyOutcome()
+    {
+      IJENatality ije = new IJENatality();
+      ije.MOPO = "99";
+      ije.YOPO = "9999";
+      BirthRecord birthRecord = ije.ToBirthRecord();
+      Assert.Equal(-1, birthRecord.DateOfLastOtherPregnancyOutcomeMonth);
+      Assert.Equal(-1, birthRecord.DateOfLastOtherPregnancyOutcomeYear);
+    }
+
+    [Fact]
+    public void SetFullDateOfLastOtherPregnancyOutcome()
+    {
+      BirthRecord birthRecord = new BirthRecord();
+      birthRecord.DateOfLastOtherPregnancyOutcome = "2022-10-09";
+      Assert.Equal("2022-10-09", birthRecord.DateOfLastOtherPregnancyOutcome);
+    }
+
+    [Fact]
+    public void SetNumberOfPrenatalVisits()
+    {
+      BirthRecord birthRecord = new BirthRecord();
+      birthRecord.NumberOfPrenatalVisits = 5;
+      Assert.Equal(5, birthRecord.NumberOfPrenatalVisits);
+    }
+
+    [Fact]
+    public void SetNumberOfPrenatalVisitsEditBypass()
+    {
+      IJENatality ije = new IJENatality();
+      ije.NPREV_BYPASS = "1";
+      BirthRecord birthRecord = ije.ToBirthRecord();
+      Dictionary<string, string> editBypass = new Dictionary<string, string>();
+      editBypass.Add("code", "editBypass1");
+      editBypass.Add("system", VR.CodeSystems.BirthAndDeathEditFlags);
+      editBypass.Add("display", "Edit Failed, Data Queried, and Verified");
+      Assert.Equal(editBypass, birthRecord.NumberOfPrenatalVisitsEditFlag);
+    }
+
+    [Fact]
+    public void SetObstetricEstimateOfGestation()
+    {
+      BirthRecord birthRecord1 = new BirthRecord();
+      Dictionary<string, string> dict = new Dictionary<string, string>();
+      dict.Add("value", "10");
+      birthRecord1.GestationalAgeAtDelivery = dict;
+      Assert.Equal(dict["value"], birthRecord1.GestationalAgeAtDelivery["value"]);
+
+      IJENatality ije = new IJENatality();
+      ije.OWGEST = "38";
+      BirthRecord birthRecord2 = ije.ToBirthRecord();
+      Assert.Equal("38", birthRecord2.GestationalAgeAtDelivery["value"]);
+    }
+
+    // TODO implement once we have mappings for these codes
+    // [Fact]
+    // public void SetGestationalAgeAtDeliveryEditFlag()
+    // {
+    //   IJENatality ije = new IJENatality();
+    //   ije.OWGEST_BYPASS = "30";
+    //   BirthRecord birthRecord = ije.ToBirthRecord();
+    //   Dictionary<string, string> editBypass = new Dictionary<string, string>();
+    //   editBypass.Add("code", "editBypass1");
+    //   editBypass.Add("system", VR.CodeSystems.BirthAndDeathEditFlags);
+    //   editBypass.Add("display", "Edit Failed, Data Queried, and Verified");
+    //   Assert.Equal(editBypass, birthRecord.GestationalAgeAtDeliveryEditFlag);
+    // }
+
+    [Fact]
+    public void SetNumberOfBirthsNowDead()
+    {
+      BirthRecord birthRecord = new BirthRecord();
+      birthRecord.NumberOfBirthsNowDead = 2;
+      Assert.Equal(2, birthRecord.NumberOfBirthsNowDead);
+    }
+
+    [Fact]
+    public void SetNumberOfBirthsNowLiving()
+    {
+      BirthRecord birthRecord = new BirthRecord();
+      birthRecord.NumberOfBirthsNowLiving = 2;
+      Assert.Equal(2, birthRecord.NumberOfBirthsNowLiving);
+    }
+
+    [Fact]
+    public void SetNumberOfOtherPregnancyOutcomes()
+    {
+      BirthRecord birthRecord = new BirthRecord();
+      birthRecord.NumberOfOtherPregnancyOutcomes = 2;
+      Assert.Equal(2, birthRecord.NumberOfOtherPregnancyOutcomes);
+    }
+
+    [Fact]
+    public void SetMotherReceivedWICFood()
+    {
+      IJENatality ije = new IJENatality();
+      ije.WIC = "Y";
+      BirthRecord birthRecord = ije.ToBirthRecord();
+      Assert.Equal("Y", birthRecord.MotherReceivedWICFoodHelper);
+    }
+
+    [Fact]
+    public void SetInfantBreastfedAtDischarge()
+    {
+      IJENatality ije = new IJENatality();
+      ije.BFED = "Y";
+      BirthRecord birthRecord = ije.ToBirthRecord();
+      Assert.True(birthRecord.InfantBreastfedAtDischarge);
+    }
+  }
+ 
+}

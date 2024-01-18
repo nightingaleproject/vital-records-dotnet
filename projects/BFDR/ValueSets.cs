@@ -116,6 +116,38 @@ namespace BFDR
             public static string Other = "OTH";
             /// <summary> Unknown </summary>
             public static string Unknown = "UNK";
+        /// <summary> PregnancyReportEditFlags </summary>
+        public static class PregnancyReportEditFlags 
+        {
+            // TODO: This will be replaced with with the generated value set
+            /// <summary> Codes </summary>
+            public static string[,] Codes = {
+                { "editBypass0", "Edit Passed", VR.CodeSystems.BirthAndDeathEditFlags },
+                { "editBypass1", "Edit Failed, Data Queried, and Verified", VR.CodeSystems.BirthAndDeathEditFlags },
+                { "editBypass2", "Edit Failed, Data Queried, but not Verified", VR.CodeSystems.BirthAndDeathEditFlags}
+            };
+            /// <summary> EditBypass0 </summary>
+            public static string  EditBypass0 = "editBypass0";
+            /// <summary> EditBypass1 </summary>
+            public static string  EditBypass1 = "editBypass1";
+            /// <summary> EditBypass2 </summary>
+            public static string  EditBypass2 = "editBypass2";
+        };
+    
+        /// <summary> GestationalAgeAtDeliveryEditFlags </summary>
+        public static class GestationalAgeAtDeliveryEditFlags 
+        {
+            // TODO: This will be replaced with with the generated value set
+            /// <summary> Codes </summary>
+            public static string[,] Codes = {
+                { "off", "Off", VR.CodeSystems.BirthAndDeathEditFlags },
+                { "correctOutOfRange", "Queried data correct, out of range", VR.CodeSystems.BirthAndDeathEditFlags }
+            };
+            /// <summary> Off </summary>
+            public static string  Off = "off";
+            /// <summary> CorrectOutOfRange </summary>
+            public static string  CorrectOutOfRange = "correctOutOfRange";
+
         };
 
         /// <summary> BirthWeightEditFlags </summary>
