@@ -11,7 +11,8 @@
 			"version": "lts",
 			"nodeGypDependencies": true
 		},
-		"ghcr.io/devcontainers-contrib/features/go-task:1": {}
+		"ghcr.io/devcontainers-contrib/features/go-task:1": {},
+		"ghcr.io/devcontainers/features/docker-in-docker:1": {}
 	},
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
