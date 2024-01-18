@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
+    <Version>4.0.9</Version>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <IsPackable>false</IsPackable>
@@ -20,9 +21,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.14" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.14" />
     <PackageReference Include="Bogus" Version="35.3.0" />
-    <!-- <PackageReference Include="VRDR.Messaging" Version="4.1.8" /> -->
 
-    <ProjectReference Include="..\VRDR\VRDR.csproj" /> 
+    <ProjectReference Include="..\VitalRecord\VitalRecord.csproj" />
     <ProjectReference Include="..\VRDR.Messaging\VRDR.Messaging.csproj" />
   </ItemGroup>
 
