@@ -355,10 +355,10 @@ namespace BFDR.Tests
       Assert.Equal("13:00:00", firstRecord.BirthTime);
       Assert.Equal(firstRecord.BirthTime, secondRecord.BirthTime);
       // Sex
-      Assert.Equal("F", firstRecord.BirthSex);
+      Assert.Equal("F", firstRecord.BirthSex["code"]);
       Assert.Equal(firstRecord.BirthSex, secondRecord.BirthSex);
       Assert.Equal("F", firstRecord.BirthSexHelper);
-      Assert.Equal(firstRecord.BirthSex, secondRecord.BirthSexHelper);
+      Assert.Equal(firstRecord.BirthSex["code"], secondRecord.BirthSexHelper);
       // Plurality
       // TODO ---
       // Set Order
@@ -571,9 +571,12 @@ namespace BFDR.Tests
     public void TestChildSexSetters()
     {
       BirthRecord record = new BirthRecord();
-      record.BirthSex = "F";
-      Assert.Equal("F", record.BirthSex);
+      record.BirthSexHelper = "F";
+      Assert.Equal("F", record.BirthSex["code"]);
       Assert.Equal("F", record.BirthSexHelper);
+      record.BirthSexHelper = "M";
+      Assert.Equal("M", record.BirthSex["code"]);
+      Assert.Equal("M", record.BirthSexHelper);
     }
 
     [Fact]
