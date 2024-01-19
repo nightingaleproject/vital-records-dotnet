@@ -2788,31 +2788,11 @@ namespace VRDR
         {
             get
             {
-                if (Decedent != null)
-                {
-                    Extension addressExt = Decedent.Extension.FirstOrDefault(extension => extension.Url == OtherExtensionURL.PatientBirthPlace);
-                    if (addressExt != null)
-                    {
-                        Address address = (Address)addressExt.Value;
-                        if (address != null)
-                        {
-                            return AddressToDict((Address)address);
-                        }
-                        return EmptyAddrDict();
-                    }
-                }
-                return EmptyAddrDict();
+                return GetPlaceOfBirth(Decedent);
             }
             set
             {
-                Decedent.Extension.RemoveAll(ext => ext.Url == OtherExtensionURL.PatientBirthPlace);
-                if (!IsDictEmptyOrDefault(value))
-                {
-                    Extension placeOfBirthExt = new Extension();
-                    placeOfBirthExt.Url = OtherExtensionURL.PatientBirthPlace;
-                    placeOfBirthExt.Value = DictToAddress(value);
-                    Decedent.Extension.Add(placeOfBirthExt);
-                }
+                SetPlaceOfBirth(Decedent, value);
             }
         }
 
