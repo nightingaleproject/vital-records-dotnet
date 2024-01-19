@@ -121,6 +121,12 @@ namespace VR
 
        /// <summary> Date of Death Determination Methods </summary>
        public static string DateOfDeathDeterminationMethods = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-date-of-death-determination-methods-cs";
+    
+        /// <summary>
+        /// Input Race and Ethnicity Person
+        /// TODO update once VRCL is published ot hl7
+        /// </summary>
+        public static string InputRaceAndEthnicityPerson = "https://build.fhir.org/ig/HL7/vr-common-library/CodeSystem-CodeSystem-local-observation-codes-vr.html";
     }
 
 }

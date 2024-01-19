@@ -2,12 +2,15 @@ name: Canary Testing
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, Natality-feature ]
     paths:
       - 'projects/Canary/**'
       - 'projects/Canary.Tests/**'
   pull_request:
-    branches: [ main ]
+    branches: [ main, Natality-feature ]
+    paths:
+      - 'projects/Canary/**'
+      - 'projects/Canary.Tests/**'
   workflow_dispatch:
 
 jobs:

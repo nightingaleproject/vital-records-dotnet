@@ -3,6 +3,8 @@ using System.Linq;
 using System.Text;
 using System.Reflection;
 using System.Collections.Generic;
+using System.Globalization;
+using Hl7.Fhir.Model;
 namespace VR
 {
     /// <summary>Property attribute used to describe a field in the IJE format.</summary>
@@ -161,6 +163,49 @@ namespace VR
             }
         }
 
+        /// <summary>Get a value on the DeathRecord that is a time with the option of being set to all 9s on the IJE side and null on the FHIR side to represent null</summary>
+        protected string TimeAllowingUnknown_Get(string ijeFieldName, string fhirFieldName)
+        {
+            IJEField info = FieldInfo(ijeFieldName);
+            string timeString = (string)this.Record.GetType().GetProperty(fhirFieldName).GetValue(this.Record);
+            if (timeString == null) return new String(' ', info.Length); // No value specified
+            if (timeString == "-1") return new String('9', info.Length); // Explicitly set to unknown
+            DateTimeOffset parsedTime;
+            if (DateTimeOffset.TryParse(timeString, out parsedTime))
+            {
+                TimeSpan timeSpan = new TimeSpan(0, parsedTime.Hour, parsedTime.Minute, parsedTime.Second);
+                return timeSpan.ToString(@"hhmm");
+            }
+            // No valid date found
+            validationErrors.Add($"Error: FHIR field {fhirFieldName} contains value '{timeString}' that cannot be parsed into a time for IJE field {ijeFieldName}");
+            return new String(' ', info.Length);
+        }
+
+        /// <summary>Set a value on the DeathRecord that is a time with the option of being set to all 9s on the IJE side and null on the FHIR side to represent null</summary>
+        protected void TimeAllowingUnknown_Set(string ijeFieldName, string fhirFieldName, string value)
+        {
+            IJEField info = FieldInfo(ijeFieldName);
+            if (value == new string(' ', info.Length))
+            {
+                this.Record.GetType().GetProperty(fhirFieldName).SetValue(this.Record, null);
+            }
+            else if (value == new string('9', info.Length))
+            {
+                this.Record.GetType().GetProperty(fhirFieldName).SetValue(this.Record, "-1");
+            }
+            else
+            {
+                if (DateTimeOffset.TryParseExact(value, "HHmm", null, DateTimeStyles.None, out DateTimeOffset parsedTime))
+                {
+                    TimeSpan timeSpan = new TimeSpan(0, parsedTime.Hour, parsedTime.Minute, 0);
+                    this.Record.GetType().GetProperty(fhirFieldName).SetValue(this.Record, timeSpan.ToString(@"hh\:mm\:ss"));
+                }
+                else
+                {
+                    validationErrors.Add($"Error: FHIR field {fhirFieldName} value of '{value}' is invalid for IJE field {ijeFieldName}");
+                }
+            }
+        }
 
         /// <summary>Set a value on the VitalRecord whose IJE type is a right justified, zero filled string.</summary>
         protected void RightJustifiedZeroed_Set(string ijeFieldName, string fhirFieldName, string value)
@@ -312,6 +357,117 @@ namespace VR
                     validationErrors.Add($"Error: Unable to find FHIR {fhirField} mapping for IJE {ijeField} field value '{value}'");
                 }
             }
+        }
+
+        /// <summary>Set a value on the VitalRecord whose property is a Dictionary type.</summary>
+        protected void Dictionary_Set(string ijeFieldName, string fhirFieldName, string key, string value)
+        {
+            IJEField info = FieldInfo(ijeFieldName);
+            Dictionary<string, string> dictionary = (Dictionary<string, string>)this.Record.GetType().GetProperty(fhirFieldName).GetValue(this.Record);
+            if (dictionary == null)
+            {
+                dictionary = new Dictionary<string, string>();
+            }
+            if (!String.IsNullOrWhiteSpace(value))
+            {
+                dictionary[key] = value.Trim();
+            }
+
+            this.Record.GetType().GetProperty(fhirFieldName).SetValue(this.Record, dictionary);
+        }
+
+        /// <summary>Get a value on the VitalRecord whose property is a geographic type (and is contained in a dictionary).</summary>
+        protected string Dictionary_Geo_Get(string ijeFieldName, string fhirFieldName, string keyPrefix, string geoType, bool isCoded)
+        {
+            IJEField info = FieldInfo(ijeFieldName);
+            Dictionary<string, string> dictionary = this.Record == null ? null : (Dictionary<string, string>)this.Record.GetType().GetProperty(fhirFieldName).GetValue(this.Record);
+            string key = keyPrefix + char.ToUpper(geoType[0]) + geoType.Substring(1);
+            if (dictionary == null || !dictionary.ContainsKey(key))
+            {
+                return new String(' ', info.Length);
+            }
+            string current = Convert.ToString(dictionary[key]);
+            if (isCoded)
+            {
+                if (geoType == "insideCityLimits")
+                {
+                    if (String.IsNullOrWhiteSpace(current))
+                    {
+                        current = "U";
+                    }
+                    else if (current == "true" || current == "True")
+                    {
+                        current = "Y";
+                    }
+                    else if (current == "false" || current == "False")
+                    {
+                        current = "N";
+                    }
+                }
+                else if (geoType == "countyC" || geoType == "cityC")
+                {
+                    current = Truncate(current, info.Length).PadLeft(info.Length, '0');
+                }
+            }
+
+            if (geoType == "zip")
+            {  // Remove "-" for zip
+                current.Replace("-", string.Empty);
+            }
+            if (current != null)
+            {
+                return Truncate(current, info.Length).PadRight(info.Length, ' ');
+            }
+            else
+            {
+                return new String(' ', info.Length);
+            }
+        }
+
+        /// <summary>Set a value on the VitalRecord whose property is a geographic type (and is contained in a dictionary).</summary>
+        protected void Dictionary_Geo_Set(string ijeFieldName, string fhirFieldName, string keyPrefix, string geoType, bool isCoded, string value)
+        {
+            IJEField info = FieldInfo(ijeFieldName);
+            Dictionary<string, string> dictionary = (Dictionary<string, string>)this.Record.GetType().GetProperty(fhirFieldName).GetValue(this.Record);
+            string key = keyPrefix + char.ToUpper(geoType[0]) + geoType.Substring(1);
+
+            // if the value is null, and the dictionary does not exist, return
+            if (dictionary == null && String.IsNullOrWhiteSpace(value))
+            {
+                return;
+            }
+            // initialize the dictionary if it does not exist
+            if (dictionary == null)
+            {
+                dictionary = new Dictionary<string, string>();
+            }
+
+            if (!dictionary.ContainsKey(key) || String.IsNullOrWhiteSpace(dictionary[key]))
+            {
+                if (isCoded)
+                {
+                    if (geoType == "insideCityLimits")
+                    {
+                        if (!String.IsNullOrWhiteSpace(value) && value == "N")
+                        {
+                            dictionary[key] = "False";
+                        }
+                    }
+                    else
+                    {
+                        dictionary[key] = value.Trim();
+                    }
+                }
+                else
+                {
+                    dictionary[key] = value.Trim();
+                }
+            }
+            else
+            {
+                dictionary[key] = value.Trim();
+            }
+            this.Record.GetType().GetProperty(fhirFieldName).SetValue(this.Record, dictionary);
         }
     }
 }

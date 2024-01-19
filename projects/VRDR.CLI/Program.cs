@@ -567,7 +567,10 @@ namespace VRDR.CLI
                     {
                         continue;
                     }
-                    property.SetValue(outdr, property.GetValue(indr));
+                    if (property.GetCustomAttribute<Property>() != null)
+                    {
+                        property.SetValue(outdr, property.GetValue(indr));
+                    }
                 }
                 Console.WriteLine(XDocument.Parse(outdr.ToXML()).ToString());
                 return 0;
@@ -584,7 +587,10 @@ namespace VRDR.CLI
                     {
                         continue;
                     }
-                    property.SetValue(outdr, property.GetValue(indr));
+                    if (property.GetCustomAttribute<Property>() != null)
+                    {
+                        property.SetValue(outdr, property.GetValue(indr));
+                    }
                 }
                 Console.WriteLine(outdr.ToJSON());
                 return 0;
@@ -639,7 +645,10 @@ namespace VRDR.CLI
                     {
                         continue;
                     }
-                    property.SetValue(d3, property.GetValue(d2));
+                    if (property.GetCustomAttribute<Property>() != null)
+                    {
+                        property.SetValue(d3, property.GetValue(d2));
+                    }
                 }
 
                 int good = 0;
