@@ -159,13 +159,14 @@ namespace canary.Controllers
         {
             DeathRecord record = new DeathRecord();
             Dictionary<string, Dictionary<string, dynamic>> description = new Dictionary<string, Dictionary<string, dynamic>>();
-            foreach(PropertyInfo property in typeof(DeathRecord).GetProperties().OrderBy(p => p.GetCustomAttribute<Property>().Priority))
+            foreach(PropertyInfo property in typeof(DeathRecord).GetProperties().OrderBy(p => p.GetCustomAttribute<Property>()?.Priority))
             {
                 // Grab property annotation for this property
                 Property info = property.GetCustomAttribute<Property>();
 
                 // Skip properties that shouldn't be serialized.
-                if (!info.Serialize)
+                // Skip properties that shouldn't be serialized.
+                if (info == null || !info.Serialize)
                 {
                     continue;
                 }

@@ -92,6 +92,9 @@
         <member name="M:VRDR.DeathRecord.RestoreReferences">
             <summary>Restores class references from a newly parsed record.</summary>
         </member>
+        <member name="P:VRDR.DeathRecord.VRExtensionURLs">
+            <summary>Overide the extension URL prefix used by the VR library</summary>
+        </member>
         <member name="F:VRDR.DeathRecord.BlankPlaceholder">
             <summary>String to represent a blank value when an empty string is not allowed</summary>
         </member>
@@ -3209,12 +3212,6 @@
         <member name="M:VRDR.IJEMortality.DateTime_Set(System.String,System.String,System.String,System.String,System.Boolean,System.Boolean)">
             <summary>Set a value on the DeathRecord whose type is some part of a DateTime.</summary>
         </member>
-        <member name="M:VRDR.IJEMortality.TimeAllowingUnknown_Get(System.String,System.String)">
-            <summary>Get a value on the DeathRecord that is a time with the option of being set to all 9s on the IJE side and null on the FHIR side to represent null</summary>
-        </member>
-        <member name="M:VRDR.IJEMortality.TimeAllowingUnknown_Set(System.String,System.String,System.String)">
-            <summary>Set a value on the DeathRecord that is a time with the option of being set to all 9s on the IJE side and null on the FHIR side to represent null</summary>
-        </member>
         <member name="M:VRDR.IJEMortality.RightJustifiedZeroed_Get(System.String,System.String)">
             <summary>Get a value on the DeathRecord whose IJE type is a right justified, zero filled string.</summary>
         </member>
@@ -3223,15 +3220,6 @@
         </member>
         <member name="M:VRDR.IJEMortality.Dictionary_Get_Full(System.String,System.String,System.String)">
             <summary>Get a value on the DeathRecord whose property is a Dictionary type, with NO truncating.</summary>
-        </member>
-        <member name="M:VRDR.IJEMortality.Dictionary_Set(System.String,System.String,System.String,System.String)">
-            <summary>Set a value on the DeathRecord whose property is a Dictionary type.</summary>
-        </member>
-        <member name="M:VRDR.IJEMortality.Dictionary_Geo_Get(System.String,System.String,System.String,System.String,System.Boolean)">
-            <summary>Get a value on the DeathRecord whose property is a geographic type (and is contained in a dictionary).</summary>
-        </member>
-        <member name="M:VRDR.IJEMortality.Dictionary_Geo_Set(System.String,System.String,System.String,System.String,System.Boolean,System.String)">
-            <summary>Set a value on the DeathRecord whose property is a geographic type (and is contained in a dictionary).</summary>
         </member>
         <member name="M:VRDR.IJEMortality.Get_Race(System.String)">
             <summary>Checks if the given race exists in the record.</summary>
