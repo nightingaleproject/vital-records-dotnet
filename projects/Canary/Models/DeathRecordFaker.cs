@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Bogus.Extensions.UnitedStates;
+using System.Linq;
 using VRDR;
 using VR;
 
@@ -125,10 +126,15 @@ namespace canary.Models
             // Marital status
 
             record.MaritalStatusHelper = VRDR.ValueSets.MaritalStatus.Codes[faker.Random.Number(VRDR.ValueSets.MaritalStatus.Codes.GetLength(0) - 1), 0];
+            record.MaritalStatusHelper = VRDR.ValueSets.MaritalStatus.Codes[faker.Random.Number(VRDR.ValueSets.MaritalStatus.Codes.GetLength(0) - 1), 0];
 
             // Ethnicity
             if (faker.Random.Bool() && !simple)
             {
+                record.Ethnicity1Helper = VRDR.ValueSets.YesNoUnknown.No;
+                record.Ethnicity2Helper = VRDR.ValueSets.YesNoUnknown.No;
+                record.Ethnicity3Helper = VRDR.ValueSets.YesNoUnknown.No;
+                record.Ethnicity4Helper = VRDR.ValueSets.YesNoUnknown.Yes;
                 record.Ethnicity1Helper = VRDR.ValueSets.YesNoUnknown.No;
                 record.Ethnicity2Helper = VRDR.ValueSets.YesNoUnknown.No;
                 record.Ethnicity3Helper = VRDR.ValueSets.YesNoUnknown.No;
@@ -141,11 +147,30 @@ namespace canary.Models
                 record.Ethnicity2Helper = VRDR.ValueSets.YesNoUnknown.No;
                 record.Ethnicity3Helper = VRDR.ValueSets.YesNoUnknown.No;
                 record.Ethnicity4Helper = VRDR.ValueSets.YesNoUnknown.No;
+                record.Ethnicity1Helper = VRDR.ValueSets.YesNoUnknown.No;
+                record.Ethnicity2Helper = VRDR.ValueSets.YesNoUnknown.No;
+                record.Ethnicity3Helper = VRDR.ValueSets.YesNoUnknown.No;
+                record.Ethnicity4Helper = VRDR.ValueSets.YesNoUnknown.No;
             }
 
             // Race
             Tuple<string, string>[] nvssRaces =
             {
+                Tuple.Create(VR.NvssRace.AmericanIndianOrAlaskanNative, "Y"),
+                Tuple.Create(VR.NvssRace.AsianIndian, "Y"),
+                Tuple.Create(VR.NvssRace.BlackOrAfricanAmerican, "Y"),
+                Tuple.Create(VR.NvssRace.Chinese, "Y"),
+                Tuple.Create(VR.NvssRace.Filipino, "Y"),
+                Tuple.Create(VR.NvssRace.GuamanianOrChamorro, "Y"),
+                Tuple.Create(VR.NvssRace.Japanese, "Y"),
+                Tuple.Create(VR.NvssRace.Korean, "Y"),
+                Tuple.Create(VR.NvssRace.NativeHawaiian, "Y"),
+                Tuple.Create(VR.NvssRace.OtherAsian, "Y"),
+                Tuple.Create(VR.NvssRace.OtherPacificIslander, "Y"),
+                Tuple.Create(VR.NvssRace.OtherRace, "Y"),
+                Tuple.Create(VR.NvssRace.Samoan, "Y"),
+                Tuple.Create(VR.NvssRace.Vietnamese, "Y"),
+                Tuple.Create(VR.NvssRace.White, "Y"),
                 Tuple.Create(VR.NvssRace.AmericanIndianOrAlaskanNative, "Y"),
                 Tuple.Create(VR.NvssRace.AsianIndian, "Y"),
                 Tuple.Create(VR.NvssRace.BlackOrAfricanAmerican, "Y"),
@@ -338,7 +363,11 @@ namespace canary.Models
                     record.AutopsyPerformedIndicatorHelper = VRDR.ValueSets.YesNoUnknown.Yes;
                     record.AutopsyResultsAvailableHelper = VRDR.ValueSets.YesNoUnknown.Yes;
                     record.ExaminerContactedHelper = VRDR.ValueSets.YesNoUnknown.Yes;
+                    record.AutopsyPerformedIndicatorHelper = VRDR.ValueSets.YesNoUnknown.Yes;
+                    record.AutopsyResultsAvailableHelper = VRDR.ValueSets.YesNoUnknown.Yes;
+                    record.ExaminerContactedHelper = VRDR.ValueSets.YesNoUnknown.Yes;
 
+                    record.TobaccoUseHelper = VRDR.ValueSets.ContributoryTobaccoUse.Yes;
                     record.TobaccoUseHelper = VRDR.ValueSets.ContributoryTobaccoUse.Yes;
                 }
             }
@@ -360,9 +389,14 @@ namespace canary.Models
                     record.AutopsyPerformedIndicatorHelper = VRDR.ValueSets.YesNoUnknown.Yes;
                     record.AutopsyResultsAvailableHelper = VRDR.ValueSets.YesNoUnknown.Yes;
                     record.ExaminerContactedHelper = VRDR.ValueSets.YesNoUnknown.Yes;
+                    record.AutopsyPerformedIndicatorHelper = VRDR.ValueSets.YesNoUnknown.Yes;
+                    record.AutopsyResultsAvailableHelper = VRDR.ValueSets.YesNoUnknown.Yes;
+                    record.ExaminerContactedHelper = VRDR.ValueSets.YesNoUnknown.Yes;
 
                     record.TobaccoUseHelper = VRDR.ValueSets.ContributoryTobaccoUse.Unknown;
+                    record.TobaccoUseHelper = VRDR.ValueSets.ContributoryTobaccoUse.Unknown;
 
+                    record.MannerOfDeathTypeHelper = VRDR.ValueSets.MannerOfDeath.Suicide;
                     record.MannerOfDeathTypeHelper = VRDR.ValueSets.MannerOfDeath.Suicide;
 
                     Dictionary<string, string> detailsOfInjury = new Dictionary<string, string>();
@@ -396,9 +430,14 @@ namespace canary.Models
                     record.AutopsyPerformedIndicatorHelper = VRDR.ValueSets.YesNoUnknown.Yes;
                     record.AutopsyResultsAvailableHelper = VRDR.ValueSets.YesNoUnknown.Yes;
                     record.ExaminerContactedHelper = VRDR.ValueSets.YesNoUnknown.No;
+                    record.AutopsyPerformedIndicatorHelper = VRDR.ValueSets.YesNoUnknown.Yes;
+                    record.AutopsyResultsAvailableHelper = VRDR.ValueSets.YesNoUnknown.Yes;
+                    record.ExaminerContactedHelper = VRDR.ValueSets.YesNoUnknown.No;
 
                     record.TobaccoUseHelper = VRDR.ValueSets.ContributoryTobaccoUse.No;
+                    record.TobaccoUseHelper = VRDR.ValueSets.ContributoryTobaccoUse.No;
 
+                    record.MannerOfDeathTypeHelper = VRDR.ValueSets.MannerOfDeath.Homicide;
                     record.MannerOfDeathTypeHelper = VRDR.ValueSets.MannerOfDeath.Homicide;
 
                     Dictionary<string, string> detailsOfInjury = new Dictionary<string, string>();
@@ -415,6 +454,7 @@ namespace canary.Models
                     detailsOfInjuryAddr.Add("addressCountry", "US");
                     record.InjuryLocationAddress = detailsOfInjuryAddr;
                     
+                    
                     record.InjuryPlaceDescription = "Trade and Service Area";
                 }
                 else if (choice == 2)
@@ -430,9 +470,14 @@ namespace canary.Models
                     record.AutopsyPerformedIndicatorHelper = VRDR.ValueSets.YesNoUnknown.No;
                     record.AutopsyResultsAvailableHelper = VRDR.ValueSets.YesNoUnknown.No;
                     record.ExaminerContactedHelper = VRDR.ValueSets.YesNoUnknown.Yes;
+                    record.AutopsyPerformedIndicatorHelper = VRDR.ValueSets.YesNoUnknown.No;
+                    record.AutopsyResultsAvailableHelper = VRDR.ValueSets.YesNoUnknown.No;
+                    record.ExaminerContactedHelper = VRDR.ValueSets.YesNoUnknown.Yes;
 
                     record.TobaccoUseHelper = VRDR.ValueSets.ContributoryTobaccoUse.No;
+                    record.TobaccoUseHelper = VRDR.ValueSets.ContributoryTobaccoUse.No;
 
+                    record.MannerOfDeathTypeHelper = VRDR.ValueSets.MannerOfDeath.Accidental_Death;
                     record.MannerOfDeathTypeHelper = VRDR.ValueSets.MannerOfDeath.Accidental_Death;
 
                     Dictionary<string, string> detailsOfInjury = new Dictionary<string, string>();
@@ -453,15 +498,18 @@ namespace canary.Models
 
                     // TransportationRole
                     record.TransportationRoleHelper = VRDR.ValueSets.TransportationIncidentRole.Passenger;
+                    record.TransportationRoleHelper = VRDR.ValueSets.TransportationIncidentRole.Passenger;
                 }
             }
 
             if (gender == Bogus.DataSets.Name.Gender.Female)
             {
                 record.PregnancyStatusHelper = VRDR.ValueSets.PregnancyStatus.Not_Pregnant_Within_Past_Year;
+                record.PregnancyStatusHelper = VRDR.ValueSets.PregnancyStatus.Not_Pregnant_Within_Past_Year;
             }
             else
             {
+                record.PregnancyStatusHelper = VRDR.ValueSets.PregnancyStatus.Not_Applicable;
                 record.PregnancyStatusHelper = VRDR.ValueSets.PregnancyStatus.Not_Applicable;
             }
 
