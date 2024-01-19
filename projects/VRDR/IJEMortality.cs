@@ -311,51 +311,6 @@ namespace VRDR
             }
         }
 
-        /// <summary>Get a value on the DeathRecord that is a time with the option of being set to all 9s on the IJE side and null on the FHIR side to represent null</summary>
-        private string TimeAllowingUnknown_Get(string ijeFieldName, string fhirFieldName)
-        {
-            IJEField info = FieldInfo(ijeFieldName);
-            string timeString = (string)typeof(DeathRecord).GetProperty(fhirFieldName).GetValue(this.record);
-            if (timeString == null) return new String(' ', info.Length); // No value specified
-            if (timeString == "-1") return new String('9', info.Length); // Explicitly set to unknown
-            DateTimeOffset parsedTime;
-            if (DateTimeOffset.TryParse(timeString, out parsedTime))
-            {
-                TimeSpan timeSpan = new TimeSpan(0, parsedTime.Hour, parsedTime.Minute, parsedTime.Second);
-                return timeSpan.ToString(@"hhmm");
-            }
-            // No valid date found
-            validationErrors.Add($"Error: FHIR field {fhirFieldName} contains value '{timeString}' that cannot be parsed into a time for IJE field {ijeFieldName}");
-            return new String(' ', info.Length);
-        }
-
-        /// <summary>Set a value on the DeathRecord that is a time with the option of being set to all 9s on the IJE side and null on the FHIR side to represent null</summary>
-        private void TimeAllowingUnknown_Set(string ijeFieldName, string fhirFieldName, string value)
-        {
-            IJEField info = FieldInfo(ijeFieldName);
-            if (value == new string(' ', info.Length))
-            {
-                typeof(DeathRecord).GetProperty(fhirFieldName).SetValue(this.record, null);
-            }
-            else if (value == new string('9', info.Length))
-            {
-                typeof(DeathRecord).GetProperty(fhirFieldName).SetValue(this.record, "-1");
-            }
-            else
-            {
-                DateTimeOffset parsedTime;
-                if (DateTimeOffset.TryParseExact(value, "HHmm", null, DateTimeStyles.None, out parsedTime))
-                {
-                    TimeSpan timeSpan = new TimeSpan(0, parsedTime.Hour, parsedTime.Minute, 0);
-                    typeof(DeathRecord).GetProperty(fhirFieldName).SetValue(this.record, timeSpan.ToString(@"hh\:mm\:ss"));
-                }
-                else
-                {
-                    validationErrors.Add($"Error: FHIR field {fhirFieldName} value of '{value}' is invalid for IJE field {ijeFieldName}");
-                }
-            }
-        }
-
         /// <summary>Get a value on the DeathRecord whose IJE type is a right justified, zero filled string.</summary>
         private string RightJustifiedZeroed_Get(string ijeFieldName, string fhirFieldName)
         {
@@ -370,7 +325,6 @@ namespace VRDR
                 return new String('0', info.Length);
             }
         }
-
 
         /// <summary>Get a value on the DeathRecord whose property is a Dictionary type.</summary>
         private string Dictionary_Get(string ijeFieldName, string fhirFieldName, string key)
@@ -410,117 +364,6 @@ namespace VRDR
                 }
             }
             return "";
-        }
-
-        /// <summary>Set a value on the DeathRecord whose property is a Dictionary type.</summary>
-        private void Dictionary_Set(string ijeFieldName, string fhirFieldName, string key, string value)
-        {
-            IJEField info = FieldInfo(ijeFieldName);
-            Dictionary<string, string> dictionary = (Dictionary<string, string>)typeof(DeathRecord).GetProperty(fhirFieldName).GetValue(this.record);
-            if (dictionary == null)
-            {
-                dictionary = new Dictionary<string, string>();
-            }
-            if (!String.IsNullOrWhiteSpace(value))
-            {
-                dictionary[key] = value.Trim();
-            }
-
-            typeof(DeathRecord).GetProperty(fhirFieldName).SetValue(this.record, dictionary);
-        }
-
-        /// <summary>Get a value on the DeathRecord whose property is a geographic type (and is contained in a dictionary).</summary>
-        private string Dictionary_Geo_Get(string ijeFieldName, string fhirFieldName, string keyPrefix, string geoType, bool isCoded)
-        {
-            IJEField info = FieldInfo(ijeFieldName);
-            Dictionary<string, string> dictionary = this.record == null ? null : (Dictionary<string, string>)typeof(DeathRecord).GetProperty(fhirFieldName).GetValue(this.record);
-            string key = keyPrefix + char.ToUpper(geoType[0]) + geoType.Substring(1);
-            if (dictionary == null || !dictionary.ContainsKey(key))
-            {
-                return new String(' ', info.Length);
-            }
-            string current = Convert.ToString(dictionary[key]);
-            if (isCoded)
-            {
-                if (geoType == "insideCityLimits")
-                {
-                    if (String.IsNullOrWhiteSpace(current))
-                    {
-                        current = "U";
-                    }
-                    else if (current == "true" || current == "True")
-                    {
-                        current = "Y";
-                    }
-                    else if (current == "false" || current == "False")
-                    {
-                        current = "N";
-                    }
-                }
-                else if (geoType == "countyC" || geoType == "cityC")
-                {
-                    current = Truncate(current, info.Length).PadLeft(info.Length, '0');
-                }
-            }
-
-            if (geoType == "zip")
-            {  // Remove "-" for zip
-                current.Replace("-", string.Empty);
-            }
-            if (current != null)
-            {
-                return Truncate(current, info.Length).PadRight(info.Length, ' ');
-            }
-            else
-            {
-                return new String(' ', info.Length);
-            }
-        }
-
-        /// <summary>Set a value on the DeathRecord whose property is a geographic type (and is contained in a dictionary).</summary>
-        private void Dictionary_Geo_Set(string ijeFieldName, string fhirFieldName, string keyPrefix, string geoType, bool isCoded, string value)
-        {
-            IJEField info = FieldInfo(ijeFieldName);
-            Dictionary<string, string> dictionary = (Dictionary<string, string>)typeof(DeathRecord).GetProperty(fhirFieldName).GetValue(this.record);
-            string key = keyPrefix + char.ToUpper(geoType[0]) + geoType.Substring(1);
-
-            // if the value is null, and the dictionary does not exist, return
-            if (dictionary == null && String.IsNullOrWhiteSpace(value))
-            {
-                return;
-            }
-            // initialize the dictionary if it does not exist
-            if (dictionary == null)
-            {
-                dictionary = new Dictionary<string, string>();
-            }
-
-            if (!dictionary.ContainsKey(key) || String.IsNullOrWhiteSpace(dictionary[key]))
-            {
-                if (isCoded)
-                {
-                    if (geoType == "insideCityLimits")
-                    {
-                        if (!String.IsNullOrWhiteSpace(value) && value == "N")
-                        {
-                            dictionary[key] = "False";
-                        }
-                    }
-                    else
-                    {
-                        dictionary[key] = value.Trim();
-                    }
-                }
-                else
-                {
-                    dictionary[key] = value.Trim();
-                }
-            }
-            else
-            {
-                dictionary[key] = value.Trim();
-            }
-            typeof(DeathRecord).GetProperty(fhirFieldName).SetValue(this.record, dictionary);
         }
 
         /// <summary>Checks if the given race exists in the record.</summary>
