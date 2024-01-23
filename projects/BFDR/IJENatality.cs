@@ -668,12 +668,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return Get_MappingFHIRToIJE(VR.Mappings.ConceptMapEducationLevelVitalRecords.FHIRToIJE, "MotherEducationLevel", "MEDUC");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Set_MappingIJEToFHIR(VR.Mappings.ConceptMapEducationLevelVitalRecords.IJEToFHIR, "MEDUC", "MotherEducationLevel", value);
+                }
             }
         }
 
@@ -683,12 +685,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return Get_MappingFHIRToIJE(VR.Mappings.ConceptMapEditBypass01234VitalRecords.FHIRToIJE, "MotherEducationLevelEditFlag", "MEDUC_BYPASS");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Set_MappingIJEToFHIR(VR.Mappings.ConceptMapEditBypass01234VitalRecords.IJEToFHIR, "MEDUC_BYPASS", "MotherEducationLevelEditFlag", value);
+                }
             }
         }
 
@@ -1443,12 +1447,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return Get_MappingFHIRToIJE(VR.Mappings.ConceptMapEducationLevelVitalRecords.FHIRToIJE, "FatherEducationLevel", "FEDUC");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Set_MappingIJEToFHIR(VR.Mappings.ConceptMapEducationLevelVitalRecords.IJEToFHIR, "FEDUC", "FatherEducationLevel", value);
+                }
             }
         }
 
@@ -1458,12 +1464,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return Get_MappingFHIRToIJE(VR.Mappings.ConceptMapEditBypass01234VitalRecords.FHIRToIJE, "FatherEducationLevelEditFlag", "FEDUC_BYPASS");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Set_MappingIJEToFHIR(VR.Mappings.ConceptMapEditBypass01234VitalRecords.IJEToFHIR, "FEDUC_BYPASS", "FatherEducationLevelEditFlag", value);
+                }
             }
         }
 
