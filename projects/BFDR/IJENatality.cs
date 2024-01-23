@@ -422,12 +422,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Get_MappingFHIRToIJE(VR.Mappings.ConceptMapMothersDateOfBirthEditFlagsVitalRecords.FHIRToIJE, "MotherDateOfBirthEditFlag", "MAGE_BYPASS").PadLeft(1, ' ');
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                Set_MappingIJEToFHIR(VR.Mappings.ConceptMapMothersDateOfBirthEditFlagsVitalRecords.IJEToFHIR, "MAGE_BYPASS", "MotherDateOfBirthEditFlag", value);
             }
         }
 
@@ -584,12 +583,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Get_MappingFHIRToIJE(VR.Mappings.ConceptMapMothersDateOfBirthEditFlagsVitalRecords.FHIRToIJE, "FatherDateOfBirthEditFlag", "FAGE_BYPASS").PadLeft(1, ' ');
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                Set_MappingIJEToFHIR(VR.Mappings.ConceptMapMothersDateOfBirthEditFlagsVitalRecords.IJEToFHIR, "FAGE_BYPASS", "FatherDateOfBirthEditFlag", value);
             }
         }
 
@@ -3543,12 +3541,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return NumericAllowingUnknown_Get("MAGER", "MotherReportedAgeAtDelivery");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                NumericAllowingUnknown_Set("MAGER", "MotherReportedAgeAtDelivery", value);
             }
         }
 
@@ -3558,12 +3555,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return NumericAllowingUnknown_Get("FAGER", "FatherReportedAgeAtDelivery");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                NumericAllowingUnknown_Set("FAGER", "FatherReportedAgeAtDelivery", value);
             }
         }
 
@@ -4232,12 +4228,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // Not implemented in FHIR 
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // Not implemented in FHIR 
             }
         }
 
@@ -4247,12 +4243,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // Not implemented in FHIR 
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // Not implemented in FHIR 
             }
         }
 

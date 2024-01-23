@@ -18,6 +18,9 @@ namespace VR
 
         /// <summary>URL for US Core Birthsex </summary>
         public const string BirthSex = "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex";
+
+        /// <summary>URL for parent role </summary>
+        public const string ParentRole = "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-role-vr";
     }
 
     /// <summary>IG URLs for non-VRDR Profiles</summary>
