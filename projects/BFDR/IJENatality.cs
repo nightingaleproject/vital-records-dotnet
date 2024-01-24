@@ -220,7 +220,7 @@ namespace BFDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    RightJustifiedZeroed_Set("FILENO", "CertificateNumber", value);
+                    RightJustifiedZeroed_Set("FILENO", "CertificateNumber", value.Trim());
                 }
             }
         }
@@ -246,12 +246,23 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                if (String.IsNullOrWhiteSpace(record?.StateLocalIdentifier1))
+                {
+                    return "".PadLeft(12, '0');
+                }
+                string auxNo = record.StateLocalIdentifier1;
+                if (auxNo.Length > 12)
+                {
+                    auxNo = auxNo.Substring(auxNo.Length - 12);
+                }
+                return auxNo.PadLeft(12, '0');
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    RightJustifiedZeroed_Set("AUXNO", "StateLocalIdentifier1", value.Trim());
+                }
             }
         }
 
