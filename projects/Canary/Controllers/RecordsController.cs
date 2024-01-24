@@ -10,7 +10,6 @@ using Newtonsoft.Json;
 using VRDR;
 using VR;
 using canary.Models;
-using VR;
 using BFDR;
 
 namespace canary.Controllers

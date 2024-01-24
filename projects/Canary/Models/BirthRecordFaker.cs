@@ -20,10 +20,15 @@ namespace canary.Models
             BirthRecord record = new BirthRecord();
             Bogus.Faker faker = new Bogus.Faker("en");
             // Grab Gender enum value
-            string gender = sex == "Male" ? "M" : "F";
+            Bogus.DataSets.Name.Gender gender = sex == "Male" ? Bogus.DataSets.Name.Gender.Male : Bogus.DataSets.Name.Gender.Female;
             record.Identifier = Convert.ToString(faker.Random.Number(999999));
-            // record.BirthSexHelper = gender.ToString().ToLower();
-            record.BirthSexHelper = gender;
+            record.ChildGivenNames = new string[] { faker.Name.FirstName(gender), faker.Name.FirstName(gender) };
+            record.ChildFamilyName = faker.Name.LastName(gender);
+            record.ChildSuffix = faker.Name.Suffix();
+            record.BirthSexHelper = gender.ToString().Substring(0, 1);
+            record.InfantMedicalRecordNumber = "912912";
+            record.MotherMedicalRecordNumber = "876876";
+            record.MotherSocialSecurityNumber = "333-22-1111";
             return record;
         }
     }

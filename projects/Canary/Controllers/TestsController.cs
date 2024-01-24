@@ -58,7 +58,7 @@ namespace canary.Controllers
         /// Gets a birth test by id.
         /// GET /api/tests/bfdr/1
         /// </summary>
-        [HttpGet("Tests/{id:int}")]
+        [HttpGet("Tests/bfdr/{id:int}")]
         public Test GetBFDRTest(int id)
         {
             using (var db = new RecordContext())
@@ -167,9 +167,31 @@ namespace canary.Controllers
                 if (!String.IsNullOrEmpty(input))
                 {
                     test.Type = type;
-                    test.Run(input);
+                    test.Run<DeathRecord>(input);
                 }
                 db.DeathTests.Remove(test);
+                db.SaveChanges();
+                return test;
+            }
+        }
+
+        /// <summary>
+        /// Calculates test results.
+        /// POST /api/tests/<type>/run/<id>
+        /// </summary>
+        [HttpPost("Tests/bfdr/{type}/Run/{id:int}")]
+        public async Task<Test> RunBFDRTest(int id, string type)
+        {
+            using (var db = new RecordContext())
+            {
+                BirthTest test = db.BirthTests.Where(t => t.TestId == id).FirstOrDefault();
+                string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
+                if (!String.IsNullOrEmpty(input))
+                {
+                    test.Type = type;
+                    test.Run<BirthRecord>(input);
+                }
+                db.BirthTests.Remove(test);
                 db.SaveChanges();
                 return test;
             }

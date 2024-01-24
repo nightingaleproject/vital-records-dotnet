@@ -1668,7 +1668,7 @@
                   "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Tme"
                 }
               ],
-              "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDateTime"
+              "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/ExtensionPartialDateTimeVitalRecords"
             }
           ]
         },
