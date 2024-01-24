@@ -205,11 +205,11 @@ namespace BFDR
         {
             get
             {
-                if (String.IsNullOrWhiteSpace(record?.Identifier))
+                if (String.IsNullOrWhiteSpace(record?.CertificateNumber))
                 {
                     return "".PadLeft(6, '0');
                 }
-                string id_str = record.Identifier;
+                string id_str = record.CertificateNumber;
                 if (id_str.Length > 6)
                 {
                     id_str = id_str.Substring(id_str.Length - 6);
@@ -220,7 +220,7 @@ namespace BFDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    RightJustifiedZeroed_Set("FILENO", "Identifier", value);
+                    RightJustifiedZeroed_Set("FILENO", "CertificateNumber", value);
                 }
             }
         }

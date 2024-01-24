@@ -23,7 +23,7 @@ namespace BFDR
         //
         /////////////////////////////////////////////////////////////////////////////////
 
-        /// <summary>Birth Record Identifier, Birth Certificate Number.</summary>
+        /// <summary>Birth Certificate Number.</summary>
         /// <value>a record identification string.</value>
         /// <example>
         /// <para>// Setter:</para>
@@ -31,9 +31,9 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Birth Certificate Number: {ExampleBirthRecord.Identifier}");</para>
         /// </example>
-        [Property("Identifier", Property.Types.String, "Birth Certification", "Birth Certificate Number.", true, IGURL.CertificateNumber, true, 3)]
+        [Property("Certificate Number", Property.Types.String, "Birth Certification", "Birth Certificate Number.", true, IGURL.CertificateNumber, true, 3)]
         [FHIRPath("Bundle", "identifier")]
-        public string Identifier
+        public string CertificateNumber
         {
             get
             {
@@ -63,9 +63,9 @@ namespace BFDR
         private void UpdateBirthRecordIdentifier()
         {
             uint certificateNumber = 0;
-            if (Identifier != null)
+            if (CertificateNumber != null)
             {
-                UInt32.TryParse(Identifier, out certificateNumber);
+                UInt32.TryParse(CertificateNumber, out certificateNumber);
             }
             uint birthYear = 0;
             if (this.BirthYear != null)
@@ -81,7 +81,7 @@ namespace BFDR
             {
                 jurisdictionId = jurisdictionId.Trim().Substring(0, 2).ToUpper();
             }
-            this.BirthRecordIdentifier = $"{birthYear.ToString("D4")}{jurisdictionId}{certificateNumber.ToString("D6")}";
+            this.BirthRecordIdentifier = $"{birthYear:D4}{jurisdictionId}{certificateNumber:D6}";
 
         }
 
