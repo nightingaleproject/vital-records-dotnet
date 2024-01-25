@@ -88,12 +88,6 @@ namespace BFDR
             return subjects.First().subject == FHIRSubject.Subject.Newborn ? Child.Id : Mother.Id;
         }
 
-        /// <summary>Add a BirthDateElement to the Child resource.</summary>
-        private void AddBirthDateToChild()
-        {
-            AddBirthDateToPatient(Child, true);
-        }
-
         /// <summary> Create Mother Input Race and Ethnicity </summary>
         private void CreateInputRaceEthnicityObsMother()
         {
