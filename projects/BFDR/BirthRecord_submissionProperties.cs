@@ -534,30 +534,33 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Sex at Time of Birth: {ExampleBirthRecord.BirthSex}");</para>
         /// </example>
-        [Property("Sex At Birth", Property.Types.String, "Child Demographics", "Child's Sex at Birth.", true, VR.IGURL.Child, true, 12)]
+        [Property("Sex At Birth", Property.Types.Dictionary, "Child Demographics", "Child's Sex at Birth.", true, VR.IGURL.Child, true, 12)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
         [FHIRPath("Bundle.entry.resource.where($this is Patient).extension.where(url='" + OtherExtensionURL.BirthSex + "')", "")]
-        public string BirthSex
+        public Dictionary<string, string> BirthSex
         {
             get
             {
                 if (Child != null)
                 {
-                    Extension sex = Child.Extension.Find(ext => ext.Url == VR.OtherExtensionURL.BirthSex);
-                    if (sex != null && sex.Value != null)
+                    Extension sex = Child.GetExtension(VR.OtherExtensionURL.BirthSex);
+                    if (sex != null && sex.Value != null && sex.Value as CodeableConcept != null)
                     {
-                        return sex.Value.ToString();
+                        return CodeableConceptToDict((CodeableConcept)sex.Value);
                     }
                 }
-                return "";
+                return EmptyCodeableDict();
             }
             set
             {
                 Child.Extension.RemoveAll(ext => ext.Url == VR.OtherExtensionURL.BirthSex);
-                if (value == null && Child.Extension == null)
+                if (IsDictEmptyOrDefault(value) && Child.Extension == null)
                 {
                     return;
                 }
-                Child.AddExtension(VR.OtherExtensionURL.BirthSex, new FhirString(value));
+                Child.SetExtension(VR.OtherExtensionURL.BirthSex, DictToCodeableConcept(value));
             }
         }
 
@@ -573,14 +576,20 @@ namespace BFDR
         [FHIRPath("Bundle.entry.resource.where($this is Patient).extension.where(url='" + OtherExtensionURL.BirthSex + "')", "")]
         public string BirthSexHelper
         {
-            // SexHelper is required for the IJE mapping to work since it appends "Helper" to the end of the property name.
             get
             {
-                return this.BirthSex;
+                if (BirthSex.ContainsKey("code") && !String.IsNullOrWhiteSpace(BirthSex["code"]))
+                {
+                    return BirthSex["code"];
+                }
+                return null;
             }
             set
             {
-                this.BirthSex = value;
+                if(!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("BirthSex", value, ValueSets.BirthSex.Codes);
+                }
             }
         }
 
