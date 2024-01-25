@@ -91,7 +91,6 @@ namespace BFDR.Tests
       Assert.Equal("aaabbbcccdddeee".PadRight(15), ijeImported.INF_MED_REC_NUM);
       Assert.Equal(ijeImported.INF_MED_REC_NUM, ijeConverted.INF_MED_REC_NUM);
       Assert.Equal("aaabbbcccdddeee", br.InfantMedicalRecordNumber);
-<<<<<<< HEAD
     }
 
     [Fact]
@@ -110,9 +109,6 @@ namespace BFDR.Tests
       Assert.Equal("M", ije.ISEX);
       Assert.Equal("M", ije.ToRecord().BirthSex["code"]);
       Assert.Equal("M", ije.ToRecord().BirthSexHelper);
-=======
-
->>>>>>> 229733c (feat: add bfdr library and refactor canary to include bfdr features)
     }
 
     // Test Patient Mother Vital Properties
