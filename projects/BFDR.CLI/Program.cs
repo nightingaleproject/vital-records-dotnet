@@ -1,8 +1,22 @@
 using System;
 using System.IO;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Linq;
+using System.Reflection;
+using System.Net.Http;
+using Hl7.Fhir.Model;
+using Hl7.Fhir.Serialization;
+using Hl7.Fhir.ElementModel;
+using Hl7.FhirPath;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using BFDR;
+using VR;
 
 namespace BFDR.CLI
 {
@@ -16,8 +30,20 @@ namespace BFDR.CLI
   - resubmit: Create a submission update FHIR message wrapping a FHIR birth record (1 argument: FHIR birth record)
   - void: Creates a Void message for a Birth Record (1 argument: FHIR birth record; one optional argument: number of records to void)
   - ack: Create an acknowledgement FHIR message for a submission FHIR message (1 argument: submission FHIR message; many arguments: output directory and FHIR messages)
-  - ije2json: creates an IJE birth record and prints out as JSON
-";
+  - ije2json: Creates an IJE birth record and prints out as JSON
+  - json2xml: Read in the FHIR JSON birth record, completely disassemble then reassemble, and print as FHIR XML (1 argument: FHIR JSON Birth Record)
+  - checkXml: Read in the given FHIR xml (being permissive) and print out the same; useful for doing validation diffs (1 argument: FHIR XML file)
+  - checkJson: Read in the given FHIR json (being permissive) and print out the same; useful for doing validation diffs (1 argument: FHIR JSon file)
+  - xml2json: Read in the IJE birth record and print out as JSON (1 argument: path to death record in XML format)
+  - xml2xml: Read in the IJE birth record and print out as XML (1 argument: path to death record in XML format)
+  - json2json: Read in the FHIR JSON birth record, completely disassemble then reassemble, and print as FHIR JSON (1 argument: FHIR JSON Birth Record)
+  - roundtrip-ije: Convert a record to IJE and back and check field by field to identify any conversion issues (1 argument: FHIR Birth Record)
+  - roundtrip-all: Convert a record to JSON and back and check field by field to identify any conversion issues (1 argument: FHIR Birth Record)
+  - ije: Read in and parse an IJE death record and print out the values for every (supported) field (1 argument: path to death record in IJE format)
+  - ijebuilder: Create json birth record using IJE (natality) mapped fields
+  - compare: Compare an IJE record with a FHIR record by each IJE field (2 arguments:  IJE record, FHIR Record)
+  - extract: Extract a FHIR record from a FHIR message (1 argument: FHIR message)
+    ";
 
         static int Main(string[] args)
         {
@@ -35,6 +61,65 @@ namespace BFDR.CLI
                 birthRecord.BirthDay = 1;
                 birthRecord.Identifier = "100";
                 birthRecord.StateLocalIdentifier1 = "123";
+                birthRecord.DateOfBirth = "2023-01-01";
+                birthRecord.BirthSex = "M";
+
+                string[] childNames = { "Alexander", "Arlo" };
+                birthRecord.ChildGivenNames = childNames;
+                string[] motherName = { "Xenia" };
+                birthRecord.MotherGivenNames = motherName;
+                string lastName = "Adkins";
+                birthRecord.ChildFamilyName = lastName;
+                birthRecord.MotherFamilyName = lastName;
+
+                birthRecord.BirthLocationJurisdiction = "MA";
+                Dictionary<string, string> birthAddress = new Dictionary<string, string>();
+                birthAddress.Add("addressLine1", "123 Fake Street");
+                birthAddress.Add("addressCity", "Springfield");
+                birthAddress.Add("addressCounty", "Hampden");
+                birthAddress.Add("addressState", "MA");
+                birthAddress.Add("addressZip", "01101");
+                birthAddress.Add("addressCountry", "US");
+                birthRecord.PlaceOfBirth = birthAddress;
+
+                birthRecord.InfantMedicalRecordNumber = "7134703";
+                birthRecord.MotherMedicalRecordNumber = "2286144";
+                birthRecord.MotherSocialSecurityNumber = "133756482";
+
+                birthRecord.SetOrder = null;
+                birthRecord.Plurality = null;
+                birthRecord.NoCongenitalAnomaliesOfTheNewborn = true;
+                birthRecord.EpiduralOrSpinalAnesthesia = true;
+                birthRecord.AugmentationOfLabor = true;
+                birthRecord.NoSpecifiedAbnormalConditionsOfNewborn = true;
+                birthRecord.NoInfectionsPresentDuringPregnancy = true;
+                birthRecord.GestationalHypertension = true;
+
+                Dictionary<string, string> route = new Dictionary<string, string>();
+                route.Add("code", "700000006");
+                route.Add("system", "http://snomed.info/sct");
+                route.Add("display", "Vaginal delivery of fetus (procedure)");
+                birthRecord.FinalRouteAndMethodOfDelivery = route;
+
+                birthRecord.NoObstetricProcedures = true;
+
+                birthRecord.MotherBirthDay = 12;
+                birthRecord.MotherBirthMonth = 1;
+                birthRecord.MotherBirthYear = 1992;
+                birthRecord.MotherDateOfBirth = "1992-01-12";
+                birthRecord.FatherBirthDay = 21;
+                birthRecord.FatherBirthMonth = 9;
+                birthRecord.FatherBirthYear = 1990;
+                birthRecord.FatherDateOfBirth = "1990-09-21";
+
+                // TODO: add these back once correct codesystems are used for the component 
+                // Ethnicity
+                // birthRecord.MotherEthnicity3Helper = VR.ValueSets.HispanicNoUnknown.Yes;
+                // // Race
+                // Tuple<string, string>[] motherRace = { Tuple.Create(NvssRace.BlackOrAfricanAmerican, "Y")};
+                // birthRecord.MotherRace = motherRace;
+                // Tuple<string, string>[] fatherRace = { Tuple.Create(NvssRace.White, "Y")};
+                // birthRecord.FatherRace = fatherRace;
 
                 // 1. Write out the Record
                 Console.WriteLine(birthRecord.ToJSON());
@@ -206,7 +291,7 @@ namespace BFDR.CLI
             else if (args.Length == 2 && args[0] == "roundtrip-all")
             {
                 BirthRecord b1 = new BirthRecord(File.ReadAllText(args[1]));
-                BirthRecord b2 = new BirthRecord(d1.ToJSON());
+                BirthRecord b2 = new BirthRecord(b1.ToJSON());
                 BirthRecord b3 = new BirthRecord();
                 List<PropertyInfo> properties = typeof(BirthRecord).GetProperties().ToList();
                 // HashSet<string> skipPropertyNames = new HashSet<string>() { "CausesOfDeath", "AgeAtDeathYears", "AgeAtDeathMonths", "AgeAtDeathDays", "AgeAtDeathHours", "AgeAtDeathMinutes" };
@@ -218,7 +303,7 @@ namespace BFDR.CLI
                     // }
                     if (property.GetCustomAttribute<Property>() != null)
                     {
-                        property.SetValue(d3, property.GetValue(d2));
+                        property.SetValue(b3, property.GetValue(b2));
                     }
                 }
 
@@ -227,19 +312,15 @@ namespace BFDR.CLI
 
                 foreach (PropertyInfo property in properties)
                 {
-                    if (skipPropertyNames.Contains(property.Name))
-                    {
-                        continue;
-                    }
                     // Console.WriteLine($"Property: Name: {property.Name.ToString()} Type: {property.PropertyType.ToString()}");
                     string one;
                     string two;
                     string three;
                     if (property.PropertyType.ToString() == "System.Collections.Generic.Dictionary`2[System.String,System.String]")
                     {
-                        Dictionary<string, string> oneDict = (Dictionary<string, string>)property.GetValue(d1);
-                        Dictionary<string, string> twoDict = (Dictionary<string, string>)property.GetValue(d2);
-                        Dictionary<string, string> threeDict = (Dictionary<string, string>)property.GetValue(d3);
+                        Dictionary<string, string> oneDict = (Dictionary<string, string>)property.GetValue(b1);
+                        Dictionary<string, string> twoDict = (Dictionary<string, string>)property.GetValue(b2);
+                        Dictionary<string, string> threeDict = (Dictionary<string, string>)property.GetValue(b3);
                         // Ignore empty entries in the dictionary so they don't throw off comparisons.
                         one = String.Join(", ", oneDict.Select(x => (x.Value != "") ? (x.Key + "=" + x.Value) : ("")).ToArray()).Replace(" ,", "");
                         two = String.Join(", ", twoDict.Select(x => (x.Value != "") ? (x.Key + "=" + x.Value) : ("")).ToArray()).Replace(" ,", "");
@@ -247,15 +328,15 @@ namespace BFDR.CLI
                     }
                     else if (property.PropertyType.ToString() == "System.String[]")
                     {
-                        one = String.Join(", ", (string[])property.GetValue(d1));
-                        two = String.Join(", ", (string[])property.GetValue(d2));
-                        three = String.Join(", ", (string[])property.GetValue(d3));
+                        one = String.Join(", ", (string[])property.GetValue(b1));
+                        two = String.Join(", ", (string[])property.GetValue(b2));
+                        three = String.Join(", ", (string[])property.GetValue(b3));
                     }
                     else
                     {
-                        one = Convert.ToString(property.GetValue(d1));
-                        two = Convert.ToString(property.GetValue(d2));
-                        three = Convert.ToString(property.GetValue(d3));
+                        one = Convert.ToString(property.GetValue(b1));
+                        two = Convert.ToString(property.GetValue(b2));
+                        three = Convert.ToString(property.GetValue(b3));
                     }
                     if (one.ToLower() != three.ToLower())
                     {
@@ -282,7 +363,7 @@ namespace BFDR.CLI
             else if (args.Length == 2 && args[0] == "ije")
             {
                 string ijeString = File.ReadAllText(args[1]);
-                List<PropertyInfo> properties = typeof(IJEMortality).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Field).ToList();
+                List<PropertyInfo> properties = typeof(IJENatality).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Field).ToList();
 
                 foreach (PropertyInfo property in properties)
                 {
@@ -313,7 +394,7 @@ namespace BFDR.CLI
                 IJENatality ije2 = new IJENatality(record2);
                 string ijeString2 = ije2.ToString();
 
-                List<PropertyInfo> properties = typeof(IJEMortality).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Field).ToList();
+                List<PropertyInfo> properties = typeof(IJENatality).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Field).ToList();
 
                 int differences = 0;
 
@@ -335,7 +416,7 @@ namespace BFDR.CLI
             }
             else if (args.Length == 2 && args[0] == "extract")
             {
-                BaseMessage message = BaseMessage.Parse(File.ReadAllText(args[1]));
+                BirthRecordBaseMessage message = BirthRecordBaseMessage.Parse(File.ReadAllText(args[1]));
                 BirthRecord record;
                 switch (message)
                 {
@@ -351,6 +432,18 @@ namespace BFDR.CLI
                 return 0;
             }
             return 0;
+        }
+
+         private static string Truncate(string value, int length)
+        {
+            if (String.IsNullOrWhiteSpace(value) || value.Length <= length)
+            {
+                return value;
+            }
+            else
+            {
+                return value.Substring(0, length);
+            }
         }
     }
 }
