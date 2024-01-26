@@ -121,6 +121,24 @@ namespace canary.Controllers
             }
         }
 
+        [HttpPost("Tests/bfdr/Validator")]
+        public async Task<Test> GetTestBFDRIJEValidator(int id)
+        {
+            using (var db = new RecordContext())
+            {
+                string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
+                if (String.IsNullOrEmpty(input))
+                {
+                    return null;
+                }
+                BirthRecord record = VitalRecord.FromDescription<BirthRecord>(input);
+                BirthTest test = new BirthTest(record);
+                db.BirthTests.Add(test);
+                db.SaveChanges();
+                return test;
+            }
+        }
+
         /// <summary>
         /// Starts a new VRDR test.
         /// GET /api/tests/new

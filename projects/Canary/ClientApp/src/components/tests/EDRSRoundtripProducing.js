@@ -68,7 +68,7 @@ export class EDRSRoundtripProducing extends Component {
     var self = this;
     this.setState({ running: true }, () => {
       axios
-        .post(window.API_URL + '/tests/RoundtripProducing/run/' + this.state.test.testId, this.state.fhirRecord.fhirInfo)
+        .post(`${window.API_URL}/tests/${this.props.params.recordType}/RoundtripProducing/run/${this.state.test.testId}`, this.state.fhirRecord.fhirInfo)
         .then(function(response) {
           var test = response.data;
           test.results = JSON.parse(test.results);

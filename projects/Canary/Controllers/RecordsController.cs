@@ -114,10 +114,25 @@ namespace canary.Controllers
 
         /// <summary>
         /// Creates a new death record using the contents provided. Returns the record and any validation issues.
-        /// POST /api/records/new
+        /// POST /api/records/vrdr/new
         /// </summary>
         [HttpPost("Records/vrdr/New")]
-        public async Task<(Record record, List<Dictionary<string, string>> issues)> NewPost()
+        public async Task<(Record record, List<Dictionary<string, string>> issues)> NewVRDRPost()
+        {
+            return await NewPost(true);
+        }
+
+        /// <summary>
+        /// Creates a new birth record using the contents provided. Returns the record and any validation issues.
+        /// POST /api/records/bfdr/new
+        /// </summary>
+        [HttpPost("Records/bfdr/New")]
+        public async Task<(Record record, List<Dictionary<string, string>> issues)> NewBFDRPost()
+        {
+            return await NewPost(false);
+        }
+
+        private async Task<(Record record, List<Dictionary<string, string>> issues)> NewPost(bool isVRDR)
         {
             string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
 
@@ -125,7 +140,8 @@ namespace canary.Controllers
             {
                 if (input.Trim().StartsWith("<") || input.Trim().StartsWith("{")) // XML or JSON?
                 {
-                    Record record = CanaryDeathRecord.CheckGet(input, false, out List<Dictionary<string, string>> issues);
+                    List<Dictionary<string, string>> issues;
+                    Record record = isVRDR ? CanaryDeathRecord.CheckGet(input, false, out issues) : CanaryBirthRecord.CheckGet(input, false, out issues);
                     return (record, issues);
                 }
                 else
@@ -141,9 +157,19 @@ namespace canary.Controllers
                         {
                             input = input.PadRight(5000, ' ');
                         }
-                        IJEMortality ije = new IJEMortality(input);
-                        DeathRecord deathRecord = ije.ToRecord();
-                        return (new CanaryDeathRecord(deathRecord), new List<Dictionary<string, string>> {} );
+                        if (isVRDR)
+                        {
+                            IJEMortality ije = new IJEMortality(input);
+                            DeathRecord deathRecord = ije.ToRecord();
+                            return (new CanaryDeathRecord(deathRecord), new List<Dictionary<string, string>> {} );
+                        }
+                        else
+                        {
+                            IJENatality ije = new IJENatality(input);
+                            BirthRecord br = ije.ToRecord();
+                            return (new CanaryBirthRecord(br), new List<Dictionary<string, string>> {} );
+                        }
+
                     }
                     catch (Exception e)
                     {
@@ -165,10 +191,10 @@ namespace canary.Controllers
 
         /// <summary>
         /// Creates a new death record using the "description" contents provided. Returns the record.
-        /// POST /api/records/description/new
+        /// POST /api/records/vrdr/description/new
         /// </summary>
         [HttpPost("Records/vrdr/Description/New")]
-        public async Task<Record> NewDescriptionPost()
+        public async Task<Record> NewVRDRDescriptionPost()
         {
             string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
 
@@ -176,6 +202,23 @@ namespace canary.Controllers
             {
                 DeathRecord record = VitalRecord.FromDescription<DeathRecord>(input);
                 return new CanaryDeathRecord(record);
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Creates a new death record using the "description" contents provided. Returns the record.
+        /// POST /api/records/bfdr/description/new
+        /// </summary>
+        [HttpPost("Records/bfdr/Description/New")]
+        public async Task<Record> NewBFDRDescriptionPost()
+        {
+            string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
+
+            if (!String.IsNullOrEmpty(input))
+            {
+                BirthRecord record = VitalRecord.FromDescription<BirthRecord>(input);
+                return new CanaryBirthRecord(record);
             }
             return null;
         }
