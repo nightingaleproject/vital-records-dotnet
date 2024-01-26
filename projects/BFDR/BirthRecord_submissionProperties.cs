@@ -14,6 +14,11 @@ namespace BFDR
     /// Record. This class was designed to help consume and produce birth records that follow the
     /// HL7 FHIR Birth and Fetal Death Reporting Implementation Guide, as described at:
     /// TODO add link to BFDR IG
+    /// TODO BFDR STU2 has broken up its birth record bundles, the birth bundle has birthCertificateNumber + required birth compositions,
+    /// the fetal death bundle has fetalDeathReportNumber + required fetal death compositions,
+    /// the demographic bundle has a fileNumber + requiredCompositionCodedRaceAndEthnicity,
+    /// and the cause of death bundle has a fetalDeathReportNumber + required CompositionCodedCauseOfFetalDeath
+    /// TODO BFDR STU2 supports usual work and role extension
     /// </summary>
     public partial class BirthRecord
     {
@@ -734,7 +739,7 @@ namespace BFDR
         {
             get
             {
-                return Child?.Name?.Find(name => name.Use == HumanName.NameUse.Official)?.Suffix.First();
+                return Child?.Name?.Find(name => name.Use == HumanName.NameUse.Official)?.Suffix.FirstOrDefault();
             }
             set
             {
@@ -2767,7 +2772,8 @@ namespace BFDR
                 this.Father.BirthDateElement = ConvertToDate(value);
             }
         }
-
+        /// TODO: ethinicty/race component code still uses vrdr codesystem: http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs
+        /// should be http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component
         /// <summary>Father's Age at Delivery</summary>
         /// <value>the father's age at Delivery in years</value>
         /// <example>
@@ -2890,7 +2896,7 @@ namespace BFDR
                 {
                     Observation.ComponentComponent ethnicity = InputRaceAndEthnicityObsMother.Component.FirstOrDefault(c => c.Code.Coding[0].Code == NvssEthnicity.Mexican);
                     if (ethnicity != null && ethnicity.Value != null && ethnicity.Value as CodeableConcept != null)
-                    {
+                    {   
                         return CodeableConceptToDict((CodeableConcept)ethnicity.Value);
                     }
                 }
@@ -2914,7 +2920,7 @@ namespace BFDR
         /// <value>Mother's Ethnicity 1.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.EthnicityLevel = VRDR.ValueSets.YesNoUnknown.Yes;</para>
+        /// <para>ExampleBirthRecord.EthnicityLevel = VR.ValueSets.YesNoUnknown.Yes;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Mother's Ethnicity: {ExampleBirthRecord.MotherEthnicity1Helper}");</para>
         /// </example>
@@ -2993,7 +2999,7 @@ namespace BFDR
         /// <value>Mother's Ethnicity 2.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.EthnicityLevel = VRDR.ValueSets.YesNoUnknown.Yes;</para>
+        /// <para>ExampleBirthRecord.EthnicityLevel = VR.ValueSets.YesNoUnknown.Yes;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Mother's Ethnicity: {ExampleBirthRecord.MotherEthnicity2Helper}");</para>
         /// </example>
@@ -3072,7 +3078,7 @@ namespace BFDR
         /// <value>Mother's Ethnicity 3.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.EthnicityLevel = VRDR.ValueSets.YesNoUnknown.Yes;</para>
+        /// <para>ExampleBirthRecord.EthnicityLevel = VR.ValueSets.YesNoUnknown.Yes;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Mother's Ethnicity: {ExampleBirthRecord.MotherEthnicity3Helper}");</para>
         /// </example>
@@ -3152,7 +3158,7 @@ namespace BFDR
         /// <value>Mother's Ethnicity 4.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.EthnicityLevel = VRDR.ValueSets.YesNoUnknown.Yes;</para>
+        /// <para>ExampleBirthRecord.EthnicityLevel = VR.ValueSets.YesNoUnknown.Yes;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Mother's Ethnicity: {ExampleBirthRecord.MotherEthnicity4Helper}");</para>
         /// </example>
@@ -3385,7 +3391,7 @@ namespace BFDR
         /// <value>Father's Ethnicity 1.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.EthnicityLevel = VRDR.ValueSets.YesNoUnknown.Yes;</para>
+        /// <para>ExampleBirthRecord.EthnicityLevel = VR.ValueSets.YesNoUnknown.Yes;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Father's Ethnicity: {ExampleBirthRecord.FatherEthnicity1Helper}");</para>
         /// </example>
@@ -3464,7 +3470,7 @@ namespace BFDR
         /// <value>Father's Ethnicity 2.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.EthnicityLevel = VRDR.ValueSets.YesNoUnknown.Yes;</para>
+        /// <para>ExampleBirthRecord.EthnicityLevel = VR.ValueSets.YesNoUnknown.Yes;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Father's Ethnicity: {ExampleBirthRecord.FatherEthnicity2Helper}");</para>
         /// </example>
@@ -3543,7 +3549,7 @@ namespace BFDR
         /// <value>Father's Ethnicity 3.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.EthnicityLevel = VRDR.ValueSets.YesNoUnknown.Yes;</para>
+        /// <para>ExampleBirthRecord.EthnicityLevel = VR.ValueSets.YesNoUnknown.Yes;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Father's Ethnicity: {ExampleBirthRecord.FatherEthnicity3Helper}");</para>
         /// </example>
@@ -3623,7 +3629,7 @@ namespace BFDR
         /// <value>Father's Ethnicity 4.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.EthnicityLevel = VRDR.ValueSets.YesNoUnknown.Yes;</para>
+        /// <para>ExampleBirthRecord.EthnicityLevel = VR.ValueSets.YesNoUnknown.Yes;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Father's Ethnicity: {ExampleBirthRecord.FatherEthnicity4Helper}");</para>
         /// </example>
