@@ -51,6 +51,20 @@ namespace BFDR.CLI
   - compare: Compare an IJE record with a FHIR record by each IJE field (2 arguments:  IJE record, FHIR Record)
   - extract: Extract a FHIR record from a FHIR message (1 argument: FHIR message)
     ";
+  - ije2json: Creates an IJE birth record and prints out as JSON
+  - json2xml: Read in the FHIR JSON birth record, completely disassemble then reassemble, and print as FHIR XML (1 argument: FHIR JSON Birth Record)
+  - checkXml: Read in the given FHIR xml (being permissive) and print out the same; useful for doing validation diffs (1 argument: FHIR XML file)
+  - checkJson: Read in the given FHIR json (being permissive) and print out the same; useful for doing validation diffs (1 argument: FHIR JSon file)
+  - xml2json: Read in the IJE birth record and print out as JSON (1 argument: path to death record in XML format)
+  - xml2xml: Read in the IJE birth record and print out as XML (1 argument: path to death record in XML format)
+  - json2json: Read in the FHIR JSON birth record, completely disassemble then reassemble, and print as FHIR JSON (1 argument: FHIR JSON Birth Record)
+  - roundtrip-ije: Convert a record to IJE and back and check field by field to identify any conversion issues (1 argument: FHIR Birth Record)
+  - roundtrip-all: Convert a record to JSON and back and check field by field to identify any conversion issues (1 argument: FHIR Birth Record)
+  - ije: Read in and parse an IJE death record and print out the values for every (supported) field (1 argument: path to death record in IJE format)
+  - ijebuilder: Create json birth record using IJE (natality) mapped fields
+  - compare: Compare an IJE record with a FHIR record by each IJE field (2 arguments:  IJE record, FHIR Record)
+  - extract: Extract a FHIR record from a FHIR message (1 argument: FHIR message)
+    ";
 
         static int Main(string[] args)
         {
@@ -69,7 +83,7 @@ namespace BFDR.CLI
                 birthRecord.CertificateNumber = "100";
                 birthRecord.StateLocalIdentifier1 = "123";
                 birthRecord.DateOfBirth = "2023-01-01";
-                birthRecord.BirthSexHelper = "M";
+                birthRecord.BirthSex = "M";
 
                 string[] childNames = { "Alexander", "Arlo" };
                 birthRecord.ChildGivenNames = childNames;
@@ -323,168 +337,6 @@ namespace BFDR.CLI
                 
            //     FilterService FilterService = new FilterService("./BFDR.Filter/NCHSIJEFilter.json", "./BFDR.Filter/IJEToFHIRMapping.json");
 
-           //     var filteredFile = FilterService.filterMessage(baseMessage).ToJson();
-           //     BirthRecordBaseMessage.Parse(filteredFile);
-           //     Console.WriteLine($"File successfully filtered and saved to {args[2]}");
-                    
-           //     File.WriteAllText(args[2], filteredFile);
-                
-           //     return 0;
-           //  }
-            else if (args.Length == 2 && args[0] == "ije")
-            {
-                string ijeString = File.ReadAllText(args[1]);
-                List<PropertyInfo> properties = typeof(IJENatality).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Field).ToList();
-
-                foreach (PropertyInfo property in properties)
-                {
-                    IJEField info = property.GetCustomAttribute<IJEField>();
-                    string field = ijeString.Substring(info.Location - 1, info.Length);
-                    Console.WriteLine($"{info.Field,-5} {info.Name,-15} {Truncate(info.Contents, 75),-75}: \"{field + "\"",-80}");
-                }
-            }
-            else if (args[0] == "ijebuilder")
-            {
-                IJENatality ije = new IJENatality();
-                foreach (string arg in args)
-                {
-                    string[] keyAndValue = arg.Split('=');
-                    if (keyAndValue.Length == 2)
-                    {
-                        typeof(IJENatality).GetProperty(keyAndValue[0]).SetValue(ije, keyAndValue[1]);
-                    }
-                }
-                BirthRecord b = ije.ToRecord();
-                Console.WriteLine(b.ToJson());
-            }
-            else if (args.Length == 3 && args[0] == "compare")
-            {
-                string ijeString1 = File.ReadAllText(args[1]);
-
-                BirthRecord record2 = new BirthRecord(File.ReadAllText(args[2]));
-                IJENatality ije2 = new IJENatality(record2);
-                string ijeString2 = ije2.ToString();
-
-                List<PropertyInfo> properties = typeof(IJENatality).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Field).ToList();
-
-                int differences = 0;
-
-                foreach (PropertyInfo property in properties)
-                {
-                    IJEField info = property.GetCustomAttribute<IJEField>();
-                    string field1 = ijeString1.Substring(info.Location - 1, info.Length);
-                    string field2 = ijeString2.Substring(info.Location - 1, info.Length);
-                    if (field1 != field2)
-                    {
-                        differences += 1;
-                        Console.WriteLine($" IJE: {info.Field,-5} {info.Name,-15} {Truncate(info.Contents, 75),-75}: \"{field1 + "\"",-80}");
-                        Console.WriteLine($"FHIR: {info.Field,-5} {info.Name,-15} {Truncate(info.Contents, 75),-75}: \"{field2 + "\"",-80}");
-                        Console.WriteLine();
-                    }
-                }
-                Console.WriteLine($"Differences detected: {differences}");
-                return differences;
-            }
-            else if (args.Length == 2 && args[0] == "extract")
-            {
-                BirthRecordBaseMessage message = BirthRecordBaseMessage.Parse(File.ReadAllText(args[1]));
-                BirthRecord record;
-                switch (message)
-                {
-                    case BirthRecordSubmissionMessage submission:
-                        record = submission.BirthRecord;
-                        Console.WriteLine(record.ToJSON());
-                        break;
-                    case BirthRecordDemographicsCodingMessage coding:
-                        record = coding.BirthRecord;
-                        Console.WriteLine(record.ToJSON());
-                        break;
-                }
-                return 0;
-            }
-            else if (args.Length == 2 && args[0] == "json2xml")
-            {
-                BirthRecord b = new BirthRecord(File.ReadAllText(args[1]));
-                Console.WriteLine(XDocument.Parse(b.ToXML()).ToString());
-                return 0;
-            }
-            else if (args.Length == 2 && args[0] == "checkXml")
-            {
-                BirthRecord b = new BirthRecord(File.ReadAllText(args[1]), true);
-                Console.WriteLine(XDocument.Parse(b.ToXML()).ToString());
-                return 0;
-            }
-            else if (args.Length == 2 && args[0] == "checkJson")
-            {
-                BirthRecord b = new BirthRecord(File.ReadAllText(args[1]), true);
-                Console.WriteLine(b.ToJSON());
-                return 0;
-            }
-            else if (args.Length == 2 && args[0] == "xml2json")
-            {
-                BirthRecord b = new BirthRecord(File.ReadAllText(args[1]));
-                Console.WriteLine(b.ToJSON());
-                return 0;
-            }
-            else if (args.Length == 2 && args[0] == "xml2xml")
-            {
-                // Forces record through getters and then setters, prints as xml
-                BirthRecord indr = new BirthRecord(File.ReadAllText(args[1]));
-                BirthRecord outdr = new BirthRecord();
-                List<PropertyInfo> properties = typeof(BirthRecord).GetProperties().ToList();
-                foreach (PropertyInfo property in properties)
-                {
-                    if (property.GetCustomAttribute<Property>() != null)
-                    {
-                        property.SetValue(outdr, property.GetValue(indr));
-                    }
-                }
-                Console.WriteLine(XDocument.Parse(outdr.ToXML()).ToString());
-                return 0;
-            }
-            else if (args.Length == 2 && args[0] == "json2json")
-            {
-                // Forces record through getters and then setters, prints as JSON
-                BirthRecord indr = new BirthRecord(File.ReadAllText(args[1]));
-                BirthRecord outdr = new BirthRecord();
-                List<PropertyInfo> properties = typeof(BirthRecord).GetProperties().ToList();
-                foreach (PropertyInfo property in properties)
-                {
-                    if (property.GetCustomAttribute<Property>() != null)
-                    {
-                        property.SetValue(outdr, property.GetValue(indr));
-                    }
-                }
-                Console.WriteLine(outdr.ToJSON());
-                return 0;
-            }
-            else if (args.Length == 2 && args[0] == "roundtrip-ije")
-            {
-                // Console.WriteLine("Converting FHIR to IJE...\n");
-                BirthRecord b = new BirthRecord(File.ReadAllText(args[1]));
-                IJENatality ije1, ije2, ije3;
-                try
-                {
-                    ije1 = new IJENatality(b);
-                    ije2 = new IJENatality(ije1.ToString());
-                    ije3 = new IJENatality(new BirthRecord(ije2.ToRecord().ToXML()));
-                }
-                catch (Exception e)
-                {
-                    Console.Error.WriteLine(e.Message);
-                    return (1);
-                }
-
-                int issues = 0;
-                int total = 0;
-                foreach (PropertyInfo property in typeof(IJENatality).GetProperties())
-                {
-                    string val1 = Convert.ToString(property.GetValue(ije1, null));
-                    string val2 = Convert.ToString(property.GetValue(ije2, null));
-                    string val3 = Convert.ToString(property.GetValue(ije3, null));
-
-                    IJEField info = property.GetCustomAttribute<IJEField>();
-
                     if (val1.ToUpper() != val2.ToUpper() || val1.ToUpper() != val3.ToUpper() || val2.ToUpper() != val3.ToUpper())
                     {
                         issues++;
@@ -501,8 +353,13 @@ namespace BFDR.CLI
                 BirthRecord b2 = new BirthRecord(b1.ToJSON());
                 BirthRecord b3 = new BirthRecord();
                 List<PropertyInfo> properties = typeof(BirthRecord).GetProperties().ToList();
+                // HashSet<string> skipPropertyNames = new HashSet<string>() { "CausesOfDeath", "AgeAtDeathYears", "AgeAtDeathMonths", "AgeAtDeathDays", "AgeAtDeathHours", "AgeAtDeathMinutes" };
                 foreach (PropertyInfo property in properties)
                 {
+                    // if (skipPropertyNames.Contains(property.Name))
+                    // {
+                    //     continue;
+                    // }
                     if (property.GetCustomAttribute<Property>() != null)
                     {
                         property.SetValue(b3, property.GetValue(b2));
@@ -633,11 +490,19 @@ namespace BFDR.CLI
                 }
                 return 0;
             }
+            return 0;
+        }
+
+         private static string Truncate(string value, int length)
+        {
+            if (String.IsNullOrWhiteSpace(value) || value.Length <= length)
+            {
+                return value;
+            }
             else
             {
-                Console.WriteLine($"**** No such command {args[0]} with the number of arguments supplied");
+                return value.Substring(0, length);
             }
-            return 0;
         }
 
          private static string Truncate(string value, int length)
