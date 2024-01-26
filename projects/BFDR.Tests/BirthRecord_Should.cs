@@ -1176,7 +1176,12 @@ namespace BFDR.Tests
         }
         Assert.Equal(15, b2.FatherRace.Length);
     }
-
+    [Fact]
+    public void IdentifiersPresent()
+    {
+      Assert.Equal("100", FakeBirthRecord.Identifier);
+      Assert.Equal("123", FakeBirthRecord.StateLocalIdentifier1);
+  
     [Fact]
     public void IdentifiersPresent()
     {
@@ -1318,7 +1323,7 @@ namespace BFDR.Tests
       Assert.Equal("2023-01-01", FakeBirthRecord.DateOfBirth);
     }
     [Fact]
-    public void ParentBirthDatesPresent()
+    public void ParenttBirthDatesPresent()
     {
       Assert.Equal(1992, FakeBirthRecord.MotherBirthYear);
       Assert.Equal(1, FakeBirthRecord.MotherBirthMonth);
@@ -1427,6 +1432,7 @@ namespace BFDR.Tests
                 return Path.GetRelativePath(Directory.GetCurrentDirectory(), filePath);
             }
         }
+  }
 
     [Fact]
     public void SetAttendantAfterParse()
