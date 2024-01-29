@@ -395,5 +395,59 @@ namespace BFDR.Tests
       CodeY.Add("system", VR.ValueSets.HispanicNoUnknown.Codes[1, 2]);
       Assert.Equal(CodeY, fhir.FatherEthnicity1);
     }
+
+    [Fact]
+    public void TestSetSmoking()
+    {
+      BirthRecord fhir = new BirthRecord();
+      IJENatality ije = new IJENatality(fhir);
+      Assert.Equal("  ", ije.CIGPN);
+      Assert.Null(fhir.CigarettesPerDayInThreeMonthsPriorToPregancy);
+      ije.CIGPN = "99";
+      Assert.Equal("99", ije.CIGPN);
+      Assert.Equal(-1, fhir.CigarettesPerDayInThreeMonthsPriorToPregancy);
+      ije.CIGPN = "20";
+      Assert.Equal("20", ije.CIGPN);
+      Assert.Equal(20, fhir.CigarettesPerDayInThreeMonthsPriorToPregancy);
+      ije.CIGPN = "  ";
+      Assert.Equal("  ", ije.CIGPN);
+      Assert.Null(fhir.CigarettesPerDayInThreeMonthsPriorToPregancy);
+
+      Assert.Equal("  ", ije.CIGFN);
+      Assert.Null(fhir.CigarettesPerDayInFirstTrimester);
+      ije.CIGFN = "99";
+      Assert.Equal("99", ije.CIGFN);
+      Assert.Equal(-1, fhir.CigarettesPerDayInFirstTrimester);
+      ije.CIGFN = "22";
+      Assert.Equal("22", ije.CIGFN);
+      Assert.Equal(22, fhir.CigarettesPerDayInFirstTrimester);
+      ije.CIGFN = "  ";
+      Assert.Equal("  ", ije.CIGFN);
+      Assert.Null(fhir.CigarettesPerDayInFirstTrimester);
+
+      Assert.Equal("  ", ije.CIGSN);
+      Assert.Null(fhir.CigarettesPerDayInSecondTrimester);
+      ije.CIGSN = "99";
+      Assert.Equal("99", ije.CIGSN);
+      Assert.Equal(-1, fhir.CigarettesPerDayInSecondTrimester);
+      ije.CIGSN = "18";
+      Assert.Equal("18", ije.CIGSN);
+      Assert.Equal(18, fhir.CigarettesPerDayInSecondTrimester);
+      ije.CIGSN = "  ";
+      Assert.Equal("  ", ije.CIGSN);
+      Assert.Null(fhir.CigarettesPerDayInSecondTrimester);
+
+      Assert.Equal("  ", ije.CIGLN);
+      Assert.Null(fhir.CigarettesPerDayInLastTrimester);
+      ije.CIGLN = "99";
+      Assert.Equal("99", ije.CIGLN);
+      Assert.Equal(-1, fhir.CigarettesPerDayInLastTrimester);
+      ije.CIGLN = "21";
+      Assert.Equal("21", ije.CIGLN);
+      Assert.Equal(21, fhir.CigarettesPerDayInLastTrimester);
+      ije.CIGLN = "  ";
+      Assert.Equal("  ", ije.CIGLN);
+      Assert.Null(fhir.CigarettesPerDayInLastTrimester);
+    }
   }
 }

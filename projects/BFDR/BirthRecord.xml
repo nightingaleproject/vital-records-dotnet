@@ -948,6 +948,46 @@
             <para>string boaa = ExampleBirthRecord.RaceBlackOfAfricanAmerican;</para>
             </example>
         </member>
+        <member name="P:BFDR.BirthRecord.CigarettesPerDayInThreeMonthsPriorToPregancy">
+            <summary>Cigarettes Smoked in 3 months prior to Pregnancy.</summary>
+            <value>the number of cigarettes smoked per day in 3 months prior to pregnancy, or -1 if explicitly unknown, or null if never specified</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.CigarettesPerDayInThreeMonthsPriorToPregancy = 20;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Cigarettes In Three Months Prior To Pregancy: {ExampleBirthRecord.CigarettesPerDayInThreeMonthsPriorToPregancy}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.CigarettesPerDayInFirstTrimester">
+            <summary>Cigarettes Smoked in First Trimester.</summary>
+            <value>the number of cigarettes smoked per day in first trimester, or -1 if explicitly unknown, or null if never specified</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.CigarettesPerDayInFirstTrimester = 20;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Cigarettes In First Trimester: {ExampleBirthRecord.CigarettesPerDayInFirstTrimester}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.CigarettesPerDayInSecondTrimester">
+            <summary>Cigarettes Smoked in Second Trimester.</summary>
+            <value>the number of cigarettes smoked per day in second trimester, or -1 if explicitly unknown, or null if never specified</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.CigarettesPerDayInSecondTrimester = 20;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Cigarettes In Second Trimester: {ExampleBirthRecord.CigarettesPerDayInSecondTrimester}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.CigarettesPerDayInLastTrimester">
+            <summary>Cigarettes Smoked in Last Trimester.</summary>
+            <value>the number of cigarettes smoked per day in last trimester, or -1 if explicitly unknown, or null if never specified</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.CigarettesPerDayInLastTrimester = 20;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Cigarettes In Last Trimester: {ExampleBirthRecord.CigarettesPerDayInLastTrimester}");</para>
+            </example>
+        </member>
         <member name="T:BFDR.FHIRSubject">
             <summary>Describes the subject of a birth record field</summary>
         </member>

@@ -2569,12 +2569,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return NumericAllowingUnknown_Get("CIGPN", "CigarettesPerDayInThreeMonthsPriorToPregancy");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                NumericAllowingUnknown_Set("CIGPN", "CigarettesPerDayInThreeMonthsPriorToPregancy", value); 
             }
         }
 
@@ -2584,12 +2583,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return NumericAllowingUnknown_Get("CIGFN", "CigarettesPerDayInFirstTrimester");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                NumericAllowingUnknown_Set("CIGFN", "CigarettesPerDayInFirstTrimester", value); 
             }
         }
 
@@ -2599,12 +2597,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return NumericAllowingUnknown_Get("CIGSN", "CigarettesPerDayInSecondTrimester");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                NumericAllowingUnknown_Set("CIGSN", "CigarettesPerDayInSecondTrimester", value); 
             }
         }
 
@@ -2614,12 +2611,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return NumericAllowingUnknown_Get("CIGLN", "CigarettesPerDayInLastTrimester");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                NumericAllowingUnknown_Set("CIGLN", "CigarettesPerDayInLastTrimester", value); 
             }
         }
 
