@@ -29,17 +29,18 @@ namespace BFDR.CLI
   - description: prints a verbose JSON description of the record (in the format used to drive Canary) (1 argument: the path to the birth record)
   - 2ije: Read in the FHIR XML or JSON birth record and print out as IJE (1 argument: path to birth record in JSON or XML format)
   - 2ijecontent: Read in the FHIR XML or JSON birth record and dump content  in key/value IJE format (1 argument: path to birth record in JSON or XML format)
-  - ije2json: creates an IJE birth record and prints out as JSON
   - ije2json: Read in the IJE birth record and print out as JSON (1 argument: path to birth record in IJE format)
+  - ije2json: Read in several IJE birth records and print out as JSON files to same directory they were imported from (2 or more arguments: list of paths to birth records in IJE format)
   - ije2xml: Read in the IJE birth record and print out as XML (1 argument: path to birth record in IJE format)
   - extract2ijecontent: Dump content of a submission message in key/value IJE format (1 argument: submission message)
   - submit: Create a submission FHIR message wrapping a FHIR birth record (1 argument: FHIR birth record)
   - resubmit: Create a submission update FHIR message wrapping a FHIR birth record (1 argument: FHIR birth record)
   - void: Creates a Void message for a Birth Record (1 argument: FHIR birth record; one optional argument: number of records to void)
   - ack: Create an acknowledgement FHIR message for a submission FHIR message (1 argument: submission FHIR message; many arguments: output directory and FHIR messages)
-  - batch: Read in IJE messages and create a batch submission bundle (2+ arguments: submission URL (for inside bundle) and one or more messages)
-  - filter: Read in the FHIR birth record and filter based on filter array (1 argument: path to birth record to filter)
 ";
+  //- batch: Read in IJE messages and create a batch submission bundle (2+ arguments: submission URL (for inside bundle) and one or more messages)
+  //- filter: Read in the FHIR birth record and filter based on filter array (1 argument: path to birth record to filter)
+
 
         static int Main(string[] args)
         {
