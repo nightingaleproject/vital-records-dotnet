@@ -355,10 +355,10 @@ namespace BFDR.Tests
       Assert.Equal("13:00:00", firstRecord.BirthTime);
       Assert.Equal(firstRecord.BirthTime, secondRecord.BirthTime);
       // Sex
-      Assert.Equal("F", firstRecord.BirthSex);
+      Assert.Equal("F", firstRecord.BirthSex["code"]);
       Assert.Equal(firstRecord.BirthSex, secondRecord.BirthSex);
       Assert.Equal("F", firstRecord.BirthSexHelper);
-      Assert.Equal(firstRecord.BirthSex, secondRecord.BirthSexHelper);
+      Assert.Equal(firstRecord.BirthSex["code"], secondRecord.BirthSexHelper);
       // Plurality
       // TODO ---
       // Set Order
@@ -483,7 +483,124 @@ namespace BFDR.Tests
       Assert.Equal(28, record2.BirthDay);
       Assert.Equal(10, record2.BirthMonth);
       Assert.Equal(2022, record2.BirthYear);
-      // TODO - there may be an issue when changing the year via the full date string setter.
+      Assert.Equal("07:30:00", record2.BirthTime);
+
+      // Test updating a completed date.
+      BirthRecord record3 = new BirthRecord();
+      record3.DateOfBirth = "1990-10-08";
+      record3.BirthMonth = 8;
+      record3.BirthTime = "12:36:00";
+      Assert.Equal("1990-08-08", record3.DateOfBirth);
+      Assert.Equal("12:36:00", record3.BirthTime);
+      
+      // Test partial dates and times.
+      BirthRecord record4 = new BirthRecord();
+      // Birth Time
+      record4.BirthTime = "12:36:00";
+      Assert.Equal("12:36:00", record4.BirthTime);
+      // Date of Birth - Year
+      record4.BirthYear = 1992;
+      Assert.Equal(1992, record4.BirthYear);
+      Assert.Equal("1992", record4.DateOfBirth);
+      Assert.Equal("12:36:00", record4.BirthTime);
+      // Date of Birth - Month
+      record4.BirthMonth = 7;
+      Assert.Equal(7, record4.BirthMonth);
+      Assert.Equal("1992-07", record4.DateOfBirth);
+      Assert.Equal("12:36:00", record4.BirthTime);
+      // Date of Birth - Day
+      record4.BirthDay = 3;
+      Assert.Equal(3, record4.BirthDay);
+      Assert.Equal("12:36:00", record4.BirthTime);
+      // Complete Date of Birth.
+      Assert.Equal("1992-07-03", record4.DateOfBirth);
+      record4.DateOfBirth = "1993-06";
+      Assert.Equal("1993-06", record4.DateOfBirth);
+      Assert.Null(record4.BirthDay);
+      Assert.Equal(6, record4.BirthMonth);
+      Assert.Equal(1993, record4.BirthYear);
+      Assert.Equal("12:36:00", record4.BirthTime);
+      record4.DateOfBirth = "1994";
+      Assert.Equal("1994", record4.DateOfBirth);
+      Assert.Null(record4.BirthDay);
+      Assert.Null(record4.BirthMonth);
+      Assert.Equal(1994, record4.BirthYear);
+      Assert.Equal("12:36:00", record4.BirthTime);
+      // Birth time again
+      record4.BirthTime = "09:45:28";
+      Assert.Equal("1994", record4.DateOfBirth);
+      Assert.Null(record4.BirthDay);
+      Assert.Null(record4.BirthMonth);
+      Assert.Equal(1994, record4.BirthYear);
+      Assert.Equal("09:45:28", record4.BirthTime);
+
+      // Test partial dates and times in weird orders.
+      BirthRecord record5 = new BirthRecord();
+      // Date of Birth - Day
+      record5.BirthDay = 5;
+      Assert.Equal(5, record5.BirthDay);
+      Assert.Null(record5.DateOfBirth);
+      Assert.Null(record5.BirthTime);
+      // Birth Time
+      record5.BirthTime = "01:05:04";
+      Assert.Equal(5, record5.BirthDay);
+      Assert.Null(record5.DateOfBirth);
+      Assert.Equal("01:05:04", record5.BirthTime);
+      // Date of Birth - Month
+      record5.BirthMonth = 9;
+      Assert.Equal(5, record5.BirthDay);
+      Assert.Equal(9, record5.BirthMonth);
+      Assert.Null(record5.DateOfBirth);
+      Assert.Equal("01:05:04", record5.BirthTime);
+      // Date of Birth - Year
+      record5.BirthYear = 1988;
+      Assert.Equal(5, record5.BirthDay);
+      Assert.Equal(9, record5.BirthMonth);
+      Assert.Equal(1988, record5.BirthYear);
+      Assert.Equal("1988-09-05", record5.DateOfBirth);
+      Assert.Equal("01:05:04", record5.BirthTime);
+    }
+
+    [Fact]
+    public void TestChildBirthDateTimeUnknowns()
+    {
+      BirthRecord record1 = new BirthRecord();
+      record1.DateOfBirth = "1990-08-29";
+      record1.BirthTime = "11:22:33";
+      Assert.Equal("1990-08-29", record1.DateOfBirth);
+      Assert.Equal("11:22:33", record1.BirthTime);
+      record1.BirthYear = -1;
+      Assert.Equal(-1, record1.BirthYear);
+      Assert.Equal(8, record1.BirthMonth);
+      Assert.Equal(29, record1.BirthDay);
+      Assert.Null(record1.DateOfBirth);
+      Assert.Equal("11:22:33", record1.BirthTime);
+      record1.BirthYear = 2000;
+      Assert.Equal(2000, record1.BirthYear);
+      Assert.Equal(8, record1.BirthMonth);
+      Assert.Equal(29, record1.BirthDay);
+      Assert.Equal("11:22:33", record1.BirthTime);
+      record1.BirthTime = "-1";
+      Assert.Equal(2000, record1.BirthYear);
+      Assert.Equal(8, record1.BirthMonth);
+      Assert.Equal(29, record1.BirthDay);
+      Assert.Equal("-1", record1.BirthTime);
+      record1.BirthMonth = -1;
+      Assert.Equal("2000", record1.DateOfBirth);
+      Assert.Equal(-1, record1.BirthMonth);
+      Assert.Equal(29, record1.BirthDay);
+      Assert.Equal("-1", record1.BirthTime);
+      record1.BirthMonth = 3;
+      Assert.Equal("2000-03-29", record1.DateOfBirth);
+      Assert.Equal("-1", record1.BirthTime);
+      record1.BirthDay = -1;
+      Assert.Equal(-1, record1.BirthDay);
+      Assert.Equal("2000-03", record1.DateOfBirth);
+      Assert.Equal("-1", record1.BirthTime);
+      record1.BirthTime = "07:52:43";
+      Assert.Equal(-1, record1.BirthDay);
+      Assert.Equal("2000-03", record1.DateOfBirth);
+      Assert.Equal("07:52:43", record1.BirthTime);
     }
 
     [Fact]
@@ -571,9 +688,12 @@ namespace BFDR.Tests
     public void TestChildSexSetters()
     {
       BirthRecord record = new BirthRecord();
-      record.BirthSex = "F";
-      Assert.Equal("F", record.BirthSex);
+      record.BirthSexHelper = "F";
+      Assert.Equal("F", record.BirthSex["code"]);
       Assert.Equal("F", record.BirthSexHelper);
+      record.BirthSexHelper = "M";
+      Assert.Equal("M", record.BirthSex["code"]);
+      Assert.Equal("M", record.BirthSexHelper);
     }
 
     [Fact]

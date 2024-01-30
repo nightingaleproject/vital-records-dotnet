@@ -169,50 +169,21 @@ namespace BFDR
         {
             get
             {
-                if (Child == null || Child.BirthDateElement == null)
-                {
-                    return null;
-                }
-                // First check for a date element in the patient.birthDate PatientBirthTime extension.
-                if (Child.BirthDateElement.Extension.Any(ext => ext.Url == VR.ExtensionURL.PatientBirthTime))
-                {
-                    FhirDateTime fhirDateTimeValue = (FhirDateTime) Child.BirthDateElement.GetExtension(VR.ExtensionURL.PatientBirthTime).Value;
-                    return DateTimeOffset.Parse(fhirDateTimeValue.Value).Year;
-                }
-                // If it's not there, check for a PartialDateTime.
-                return GetDateFragmentOrPartialDate(Child.BirthDateElement, VR.ExtensionURL.PartialDateTimeYearVR);
+                return GetDateElementNoTime(Child?.BirthDateElement, VR.ExtensionURL.PartialDateTimeYearVR);
             }
             set
             {
-                if (value == null)
-                {
-                    return;
-                    // Check for valid year values (0-9999)?
-                }
                 if (Child.BirthDateElement == null)
                 {
-                    AddBirthDateToChild();
+                    AddBirthDateToPatient(Child, false);
                 }
-                // If the birthDate and PatientBirthDate elements have date data, add the day to them.
-                if (Child.BirthDateElement.Extension.Any(ext => ext.Url == VR.ExtensionURL.PatientBirthTime))
+                string time = this.BirthTime;
+                Date newDate = SetYear(value, Child.BirthDateElement, BirthMonth, BirthDay);
+                if (newDate != null)
                 {
-                    Extension patientBirthTime = Child.BirthDateElement.GetExtension(VR.ExtensionURL.PatientBirthTime);
-                    FhirDateTime fhirPatientBirthTime = (FhirDateTime) patientBirthTime.Value;
-                    DateTimeOffset dateTimeOffset = DateTimeOffset.Parse(fhirPatientBirthTime.Value);
-                    FhirDateTime updatedBirthDate = new FhirDateTime( (int)value, dateTimeOffset.Month, dateTimeOffset.Day, dateTimeOffset.Hour, dateTimeOffset.Minute, dateTimeOffset.Second, dateTimeOffset.Offset);
-                    // Need to test that this does not include the time in the birthDate value string.
-                    Child.BirthDate = Child.BirthDateElement.Value;
-                    return;
+                    Child.BirthDateElement = newDate;
                 }
-                // If adding this date element will make the date complete, then wipe the PartialDateTime and build the birthDate field.
-                if (BirthDay != null && BirthMonth != null)
-                {
-                    DateTime date = new DateTime((int) value, (int) BirthMonth, (int) BirthDay);
-                    SetNewlyCompletedDate(date);
-                    return;
-                }
-                // If this date element will not make the date complete, then add the day to a PartialDateTime exension.
-                CreateAndSetPartialDate(Child.BirthDateElement, VR.ExtensionURL.PartialDateTimeYearVR, value);
+                this.BirthTime = time;
             }
         }
 
@@ -268,50 +239,21 @@ namespace BFDR
         {
             get
             {
-                if (Child == null || Child.BirthDateElement == null)
-                {
-                    return null;
-                }
-                // First check for a time in the patient.birthDate extension.
-                if (Child.BirthDateElement.Extension.Any(ext => ext.Url == VR.ExtensionURL.PatientBirthTime))
-                {
-                    FhirDateTime fhirDateTimeValue = (FhirDateTime) Child.BirthDateElement.GetExtension(VR.ExtensionURL.PatientBirthTime).Value;
-                    return DateTimeOffset.Parse(fhirDateTimeValue.Value).Month;
-                }
-                // If it's not there, check for a PartialDateTime.
-                return GetDateFragmentOrPartialDate(Child.BirthDateElement, VR.ExtensionURL.PartialDateTimeMonthVR);
+                return GetDateElementNoTime(Child?.BirthDateElement, VR.ExtensionURL.PartialDateTimeMonthVR);
             }
             set
             {
-                if (value == null)
-                {
-                    return;
-                    // Check for valid month values (1-12)?
-                }
+                string time = this.BirthTime;
                 if (Child.BirthDateElement == null)
                 {
-                    AddBirthDateToChild();
+                    AddBirthDateToPatient(Child, false);
                 }
-                // If the birthDate and PatientBirthDate elements have date data, add the day to them.
-                if (Child.BirthDateElement.Extension.Any(ext => ext.Url == VR.ExtensionURL.PatientBirthTime))
+                Date newDate = SetMonth(value, Child.BirthDateElement, BirthYear, BirthDay);
+                if (newDate != null)
                 {
-                    Extension patientBirthTime = Child.BirthDateElement.GetExtension(VR.ExtensionURL.PatientBirthTime);
-                    FhirDateTime fhirPatientBirthTime = (FhirDateTime) patientBirthTime.Value;
-                    DateTimeOffset dateTimeOffset = DateTimeOffset.Parse(fhirPatientBirthTime.Value);
-                    FhirDateTime updatedBirthDate = new FhirDateTime(dateTimeOffset.Year, (int)value, dateTimeOffset.Day, dateTimeOffset.Hour, dateTimeOffset.Minute, dateTimeOffset.Second, dateTimeOffset.Offset);
-                    // Need to test that this does not include the time in the birthDate value string.
-                    Child.BirthDate = Child.BirthDateElement.Value;
-                    return;
+                    Child.BirthDateElement = newDate;
                 }
-                // If adding this date element will make the date complete, then wipe the PartialDateTime and build the birthDate field.
-                if (BirthDay != null && BirthYear != null)
-                {
-                    DateTime date = new DateTime((int) BirthYear, (int) value, (int) BirthDay);
-                    SetNewlyCompletedDate(date);
-                    return;
-                }
-                // If not, then add the day to a PartialDateTime exension.
-                CreateAndSetPartialDate(Child.BirthDateElement, VR.ExtensionURL.PartialDateTimeMonthVR, value);
+                this.BirthTime = time;
             }
         }
 
@@ -329,50 +271,21 @@ namespace BFDR
         {
             get
             {
-                if (Child == null || Child.BirthDateElement == null)
-                {
-                    return null;
-                }
-                // First check for a time in the patient.birthDate extension.
-                if (Child.BirthDateElement.Extension.Any(ext => ext.Url == VR.ExtensionURL.PatientBirthTime))
-                {
-                    FhirDateTime fhirDateTimeValue = (FhirDateTime) Child.BirthDateElement.GetExtension(VR.ExtensionURL.PatientBirthTime).Value;
-                    return DateTimeOffset.Parse(fhirDateTimeValue.Value).Day;
-                }
-                // If it's not there, check for a PartialDateTime.
-                return GetDateFragmentOrPartialDate(Child.BirthDateElement, VR.ExtensionURL.PartialDateTimeDayVR);
+                return GetDateElementNoTime(Child?.BirthDateElement, VR.ExtensionURL.PartialDateTimeDayVR);
             }
             set
             {
-                if (value == null)
-                {
-                    return;
-                    // Check for valid day values (0-31)?
-                }
+                string time = this.BirthTime;
                 if (Child.BirthDateElement == null)
                 {
-                    AddBirthDateToChild();
+                    AddBirthDateToPatient(Child, false);
                 }
-                // If the birthDate and PatientBirthDate elements have date data, add the day to them.
-                if (Child.BirthDateElement.Extension.Any(ext => ext.Url == VR.ExtensionURL.PatientBirthTime))
+                Date newDate = SetDay(value, Child.BirthDateElement, BirthYear, BirthMonth);
+                if (newDate != null)
                 {
-                    Extension patientBirthTime = Child.BirthDateElement.GetExtension(VR.ExtensionURL.PatientBirthTime);
-                    FhirDateTime fhirPatientBirthTime = (FhirDateTime) patientBirthTime.Value;
-                    DateTimeOffset dateTimeOffset = DateTimeOffset.Parse(fhirPatientBirthTime.Value);
-                    FhirDateTime updatedBirthDate = new FhirDateTime(dateTimeOffset.Year, dateTimeOffset.Month, (int)value, dateTimeOffset.Hour, dateTimeOffset.Minute, dateTimeOffset.Second, dateTimeOffset.Offset);
-                    // Need to test that this does not include the time in the birthDate value string.
-                    Child.BirthDate = Child.BirthDateElement.Value;
-                    return;
+                    Child.BirthDateElement = newDate;
                 }
-                // If adding this date element will make the date complete, then wipe the PartialDateTime and build the birthDate field.
-                if (BirthYear != null && BirthMonth != null)
-                {
-                    DateTime date = new DateTime((int) BirthYear, (int) BirthMonth, (int) value);
-                    SetNewlyCompletedDate(date);
-                    return;
-                }
-                // If not, then add the day to a PartialDateTime exension.
-                CreateAndSetPartialDate(Child.BirthDateElement, VR.ExtensionURL.PartialDateTimeDayVR, value);
+                this.BirthTime = time;
             }
         }
 
@@ -402,60 +315,49 @@ namespace BFDR
                     return GetTimeFragment(dateTime);
                 }
                 // If it's not there, check for a PartialDateTime.
-                if (Child.BirthDateElement.Extension.Any(ext => ext.Url == VRExtensionURLs.PartialDateTimeVR))
-                {
-                    Extension partialDateTime = Child.BirthDateElement.Extension.Find(ext => ext.Url == VRExtensionURLs.PartialDateTimeVR);
-                    if (partialDateTime.Extension.Any(ext => ext.Url == VR.ExtensionURL.PartialDateTimeTimeVR))
-                    {
-                        Extension partialTime = partialDateTime.GetExtension(VR.ExtensionURL.PartialDateTimeTimeVR);
-                        if (partialTime.Extension.FirstOrDefault()?.Url == OtherExtensionURL.DataAbsentReason)
-                        {
-                            return partialTime.Extension.FirstOrDefault().Value.ToString();
-                        }
-                        return partialTime.Value.ToString();
-                    }
-                }
-                return null;
+                return this.GetPartialTime(this.Child.BirthDateElement.GetExtension(PartialDateTimeUrl));
             }
             set
             {
-                // If both the date and time of birth are known and complete, then the .birthDate field should include both the date (as a YYYY-MM-DD string) and PatientBirthTime (with both date and string as a Fhir dateTime).
-                if (String.IsNullOrWhiteSpace(value))
+                if (Child == null)
                 {
                     return;
                 }
                 if (Child.BirthDateElement == null)
                 {
-                    AddBirthDateToChild();
+                    AddBirthDateToPatient(Child, true);
                 }
-                // First, check that this would constitute a complete dateTime, in which case use the PatientBirthTime extension.
-                if (BirthYear != null && BirthMonth != null && BirthDay != null)
+                // If the date is complete, then the birth time should be included in the patientBirthTime extension.
+                if (value != "-1" && DateIsComplete(this.DateOfBirth))
                 {
-                    // Parse out the date to recreate a date object with the time.
-                    // FhirDateTime dateTime = new FhirDateTime(value);
-                    if (value.Length < 8)
-                    {
-                        value += ":";
-                        value = value.PadRight(8, '0');
-                    }
-                    Time time = new Time(value);
-                    FhirDateTime dateTime = new FhirDateTime((int) BirthYear, (int) BirthMonth, (int) BirthDay, FhirTimeHour(time), FhirTimeMin(time), FhirTimeSec(time), TimeSpan.Zero);
+                    FhirDateTime dateTime = new FhirDateTime(this.DateOfBirth + "T" + value);
                     Child.BirthDateElement.SetExtension(VR.ExtensionURL.PatientBirthTime, dateTime);
-                    // Remove extraneous PartialDateTime extension since the dateTime is complete.
-                    Child.BirthDateElement.RemoveExtension(VRExtensionURLs.PartialDateTimeVR);
                     return;
                 }
-                // If this will not be a complete date, then it should be added to the PartialDateTime.
+                // If the date is incomplete, then the birth time should be included in the partialDateTime Time extension.
+                Child.BirthDateElement.RemoveExtension(VR.ExtensionURL.PatientBirthTime);
                 if (!Child.BirthDateElement.Extension.Any(ext => ext.Url == VRExtensionURLs.PartialDateTimeVR))
                 {
-                    Child.BirthDateElement.AddExtension(VRExtensionURLs.PartialDateTimeVR, new Extension());
+                    Child.BirthDateElement.SetExtension(VRExtensionURLs.PartialDateTimeVR, new Extension());
                 }
-                if (!Child.BirthDateElement.Extension.Find(ext => ext.Url == VRExtensionURLs.PartialDateTimeVR).Extension.Any(ext => ext.Url == VR.ExtensionURL.PartialDateTimeTimeVR))
+                if (!Child.BirthDateElement.Extension.Find(ext => ext.Url == VRExtensionURLs.PartialDateTimeVR).Extension.Any(ext => ext.Url == PartialDateTimeTimeUrl))
                 {
-                    Child.BirthDateElement.Extension.Find(ext => ext.Url == VRExtensionURLs.PartialDateTimeVR).AddExtension(VR.ExtensionURL.PartialDateTimeTimeVR, new Extension());
+                    Child.BirthDateElement.GetExtension(VRExtensionURLs.PartialDateTimeVR).SetExtension(PartialDateTimeTimeUrl, new Extension());
                 }
+                // Child.BirthDateElement.GetExtension(VRExtensionURLs.PartialDateTimeVR).SetExtension(PartialDateTimeTimeUrl, new Time(value));
                 SetPartialTime(Child.BirthDateElement.GetExtension(VRExtensionURLs.PartialDateTimeVR), value);
             }
+        }
+
+        /// <summary>
+        ///  Determines whether a date is a complete date (yyyy-MM-dd).
+        /// </summary>
+        /// <param name="date">The date to check.</param>
+        /// <returns>Whether the given date string is a complete date</returns>
+        protected bool DateIsComplete(string date)
+        {
+            ParseDateElements(date, out int? year, out int? month, out int? day);
+            return year != null && month != null && day != null;
         }
 
         /// <summary>Child's Date of Birth.</summary>
@@ -472,24 +374,13 @@ namespace BFDR
         {
             get
             {
-                // We support this legacy API entrypoint via the new partial date entrypoints
-                if (BirthYear != null && BirthYear != -1 && BirthMonth != null && BirthMonth != -1 && BirthDay != null && BirthDay != -1)
-                {
-                    Date result = new Date((int)BirthYear, (int)BirthMonth, (int)BirthDay);
-                    return result.ToString();
-                }
-                return null;
+                return this.Child.BirthDate;
             }
             set
             {
-                // We support this legacy API entrypoint via the new partial date entrypoints
-                DateTimeOffset parsedDate;
-                if (DateTimeOffset.TryParse(value, out parsedDate))
-                {
-                    BirthYear = parsedDate.Year;
-                    BirthMonth = parsedDate.Month;
-                    BirthDay = parsedDate.Day;
-                }
+                string time = this.BirthTime;
+                this.Child.BirthDateElement = ConvertToDate(value);
+                this.BirthTime = time;
             }
         }
 
@@ -534,30 +425,33 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Sex at Time of Birth: {ExampleBirthRecord.BirthSex}");</para>
         /// </example>
-        [Property("Sex At Birth", Property.Types.String, "Child Demographics", "Child's Sex at Birth.", true, VR.IGURL.Child, true, 12)]
+        [Property("Sex At Birth", Property.Types.Dictionary, "Child Demographics", "Child's Sex at Birth.", true, VR.IGURL.Child, true, 12)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
         [FHIRPath("Bundle.entry.resource.where($this is Patient).extension.where(url='" + OtherExtensionURL.BirthSex + "')", "")]
-        public string BirthSex
+        public Dictionary<string, string> BirthSex
         {
             get
             {
                 if (Child != null)
                 {
-                    Extension sex = Child.Extension.Find(ext => ext.Url == VR.OtherExtensionURL.BirthSex);
-                    if (sex != null && sex.Value != null)
+                    Extension sex = Child.GetExtension(VR.OtherExtensionURL.BirthSex);
+                    if (sex != null && sex.Value != null && sex.Value as CodeableConcept != null)
                     {
-                        return sex.Value.ToString();
+                        return CodeableConceptToDict((CodeableConcept)sex.Value);
                     }
                 }
-                return "";
+                return EmptyCodeableDict();
             }
             set
             {
                 Child.Extension.RemoveAll(ext => ext.Url == VR.OtherExtensionURL.BirthSex);
-                if (value == null && Child.Extension == null)
+                if (IsDictEmptyOrDefault(value) && Child.Extension == null)
                 {
                     return;
                 }
-                Child.AddExtension(VR.OtherExtensionURL.BirthSex, new FhirString(value));
+                Child.SetExtension(VR.OtherExtensionURL.BirthSex, DictToCodeableConcept(value));
             }
         }
 
@@ -573,14 +467,20 @@ namespace BFDR
         [FHIRPath("Bundle.entry.resource.where($this is Patient).extension.where(url='" + OtherExtensionURL.BirthSex + "')", "")]
         public string BirthSexHelper
         {
-            // SexHelper is required for the IJE mapping to work since it appends "Helper" to the end of the property name.
             get
             {
-                return this.BirthSex;
+                if (BirthSex.ContainsKey("code") && !String.IsNullOrWhiteSpace(BirthSex["code"]))
+                {
+                    return BirthSex["code"];
+                }
+                return null;
             }
             set
             {
-                this.BirthSex = value;
+                if(!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("BirthSex", value, ValueSets.BirthSex.Codes);
+                }
             }
         }
 
