@@ -70,7 +70,7 @@ namespace canary.Models
         {
             if (Type.Contains("Message"))
             {
-                TestMessage = new Message(description);
+                TestMessage = this.CreateMessage(description);
                 Results = JsonConvert.SerializeObject(MessageCompare());
             }
             else
@@ -97,9 +97,10 @@ namespace canary.Models
         public Dictionary<string, Dictionary<string, dynamic>> MessageCompare()
         {
             Dictionary<string, Dictionary<string, dynamic>> description = new Dictionary<string, Dictionary<string, dynamic>>();
-            BaseMessage bundle = TestMessage.GetMessage();
+            CommonMessage bundle = TestMessage.GetMessage();
             VitalRecord record = ReferenceRecord.GetRecord();
-            BaseMessage referenceBundle = new Message(ReferenceRecord, bundle.MessageType).GetMessage();
+            CommonMessage referenceBundle = this.CreateMessage(ReferenceRecord, bundle.MessageType).GetMessage();
+            // CommonMessage referenceBundle = new Message(ReferenceRecord, bundle.MessageType).GetMessage();
             // 
             // On the frontend this shares the same view as the RecordCompare below. This heading
             // is shown above the results in the app.
@@ -112,7 +113,7 @@ namespace canary.Models
                 category[property.Name] = new Dictionary<string, dynamic>();
                 category[property.Name]["Name"] = property.Name;
                 category[property.Name]["Type"] = (Nullable.GetUnderlyingType(property.PropertyType) ?? property.PropertyType).Name;
-                category[property.Name]["Description"] = Message.GetDescriptionFor(property.Name);
+                category[property.Name]["Description"] = this.GetMessageDescriptionFor(property.Name);
                 category[property.Name]["Value"] = property.GetValue(referenceBundle);
                 category[property.Name]["FoundValue"] = property.GetValue(bundle);
                 // The record should be valid since we check its validity elsewhere.
@@ -182,6 +183,10 @@ namespace canary.Models
 
             return description;
         }
+
+        protected abstract Message CreateMessage(Record referenceRecord, string messageType);
+        protected abstract Message CreateMessage(string description);
+        protected abstract string GetMessageDescriptionFor(string propertyName);
 
         public Dictionary<string, Dictionary<string, dynamic>> RecordCompare<RecordType>() where RecordType : VitalRecord
         {

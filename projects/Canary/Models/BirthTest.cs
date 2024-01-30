@@ -19,6 +19,16 @@ namespace canary.Models
             return new CanaryBirthRecord();
         }
 
+        protected override Message CreateMessage(Record referenceRecord, string messageType)
+        {
+            return new CanaryBirthMessage(referenceRecord, messageType);
+        }
+
+        protected override Message CreateMessage(string description)
+        {
+            return new CanaryBirthMessage(description);
+        }
+
         protected override Record CreateRecordFromFHIR(string description)
         {
             return new CanaryBirthRecord(VitalRecord.FromDescription<BirthRecord>(description));
@@ -27,6 +37,11 @@ namespace canary.Models
         protected override Record CreateRecordFromVitalRecord(VitalRecord record)
         {
             return new CanaryBirthRecord(record);
+        }
+
+        protected override string GetMessageDescriptionFor(string propertyName)
+        {
+            return CanaryBirthMessage.GetDescriptionFor(propertyName);
         }
     }
 }

@@ -215,10 +215,19 @@ namespace canary.Controllers
             }
         }
 
-        // [HttpPost("Tests/{type}/Response")]
-        [HttpPost("Tests/bfdr/{type}/Response")]
         [HttpPost("Tests/vrdr/{type}/Response")]
-        public async Task<Dictionary<string, Message>> GetTestResponse(int id, string type)
+        public async Task<Dictionary<string, Message>> GetVRDRTestResponse(int id, string type)
+        {
+            return await GetTestResponse(id, type, (input) => new CanaryDeathMessage(input));
+        }
+
+        [HttpPost("Tests/bfdr/{type}/Response")]
+        public async Task<Dictionary<string, Message>> GetBFDRTestResponse(int id, string type)
+        {
+            return await GetTestResponse(id, type, (input) => new CanaryBirthMessage(input));
+        }
+
+        private async Task<Dictionary<string, Message>> GetTestResponse(int id, string type, Func<string, Message> createMessage)
         {
             using (var db = new RecordContext())
             {
@@ -229,7 +238,7 @@ namespace canary.Controllers
                 }
 
                 // get the responses for the submitted message
-                Message msg = new Message(input);             
+                Message msg = createMessage(input);
                 Dictionary<string, Message> result = msg.GetResponsesFor(type);
                 
                 return result;
