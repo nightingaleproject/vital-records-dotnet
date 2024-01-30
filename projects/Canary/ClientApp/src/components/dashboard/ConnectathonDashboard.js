@@ -45,7 +45,7 @@ export class ConnectathonDashboard extends Component {
     if (this.props.params.recordType.toLowerCase() != 'vrdr') {
       return (
         <Header>
-          {`There are no Connecathon records for record type ${this.props.params.recordType.toUpperCase()}.`}
+          {`There are no Connectathon records for record type ${this.props.params.recordType.toUpperCase()}.`}
         </Header>
       );
     }
