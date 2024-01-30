@@ -2,10 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
-<<<<<<< HEAD
 using VRDR;
-=======
->>>>>>> 229733c (feat: add bfdr library and refactor canary to include bfdr features)
 using VR;
 using Newtonsoft.Json;
 using System.IO;
