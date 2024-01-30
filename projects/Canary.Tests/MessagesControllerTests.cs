@@ -26,11 +26,11 @@ namespace canary.tests
         Request = { Body = stream, ContentLength = stream.Length }
       };
       _messagesController.ControllerContext.HttpContext = httpContext;
-      var response = await _messagesController.NewMessagePost();
+      var response = await _messagesController.NewVRDRMessagePost();
       var message = response.message;
       var issues = response.issues;
       Assert.Equal(new List<Dictionary<string, string>>(), issues);
-      Assert.IsType<canary.Models.Message>(message);
+      Assert.IsType<canary.Models.CanaryDeathMessage>(message);
       Assert.IsAssignableFrom<CauseOfDeathCodingMessage>(message.GetMessage());
     }
 
@@ -43,7 +43,7 @@ namespace canary.tests
         Request = { Body = stream, ContentLength = stream.Length }
       };
       _messagesController.ControllerContext.HttpContext = httpContext;
-      var response = await _messagesController.NewMessagePost();
+      var response = await _messagesController.NewVRDRMessagePost();
       var message = response.message;
       var issues = response.issues[0];
       Assert.Equal(2, issues.Count);
@@ -54,9 +54,9 @@ namespace canary.tests
     [Fact]
     public void TestUnknownDescriptionMessageProperties()
     {
-            string desc = Message.GetDescriptionFor("AUTOP");
+      string desc = CanaryDeathMessage.GetDescriptionFor("AUTOP");
 
-            Assert.Equal("Was Autopsy performed", desc, true, true, true, true);
+      Assert.Equal("Was Autopsy performed", desc, true, true, true, true);
     }
 
     private string FixturePath(string filePath)
