@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Breadcrumb, Button, Container, Dimmer, Divider, Form, Grid, Header, Icon, Loader, Menu, Message, Statistic, Transition } from 'semantic-ui-react';
-import { responseMessageTypeIcons, messageTypeIcons, messageTypesVRDR, messageTypesBFDR } from '../../data';
+import { responseMessageTypeIconsVRDR, responseMessageTypeIconsBFDR, messageTypeIconsVRDR, messageTypeIconsBFDR, messageTypesVRDR, messageTypesBFDR } from '../../data';
 import { connectionErrorToast } from '../../error';
 import { Getter } from '../misc/Getter';
 import { FHIRInfo } from '../misc/info/FHIRInfo';
@@ -86,7 +86,7 @@ export function FHIRMessageProducing(props) {
 
   const setExpectedMessageType = (_, { name }) => {
     setExpectedType(name);
-
+    const responseMessageTypeIcons = props.recordType.toLowerCase() == 'vrdr' ? responseMessageTypeIconsVRDR : responseMessageTypeIconsBFDR;
     if (name === "Void") {
       // void only provides a subset
       var voidIcons = [responseMessageTypeIcons[0], responseMessageTypeIcons[3]];
@@ -143,6 +143,8 @@ export function FHIRMessageProducing(props) {
     element.setAttribute('download', `canary-report-${new Date().getTime()}.html`);
     element.click();
   }
+
+  const messageTypeIcons = props.recordType.toLowerCase() == 'vrdr' ? messageTypeIconsVRDR : messageTypeIconsBFDR;
 
   return (
     <React.Fragment>

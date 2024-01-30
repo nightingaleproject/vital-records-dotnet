@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Breadcrumb, Button, Container, Dimmer, Divider, Dropdown, Input, Form, Grid, Header, Icon, Loader, Menu, Message, Statistic, Transition } from 'semantic-ui-react';
-import { responseMessageTypeIcons, messageTypeIcons, messageTypesVRDR, messageTypesBFDR, stateOptions } from '../../data';
+import { responseMessageTypeIconsVRDR, messageTypeIconsVRDR, messageTypesVRDR, messageTypesBFDR, stateOptions } from '../../data';
 import { connectionErrorToast } from '../../error';
 import { Getter } from '../misc/Getter';
 import { FHIRInfo } from '../misc/info/FHIRInfo';
@@ -90,10 +90,10 @@ export class MessageConnectathonProducing extends Component {
 
     if (name === "Void") {
       // void only provides a subset
-      var voidIcons = [responseMessageTypeIcons[0], responseMessageTypeIcons[3]];
+      var voidIcons = [responseMessageTypeIconsVRDR[0], responseMessageTypeIconsVRDR[3]];
       this.setState({ responseOptions: voidIcons });
     } else {
-      this.setState({ responseOptions: responseMessageTypeIcons });
+      this.setState({ responseOptions: responseMessageTypeIconsVRDR });
     }
   }
 
@@ -285,7 +285,7 @@ export class MessageConnectathonProducing extends Component {
                         <Header.Subheader>Select the type of message you would like Canary to validate.</Header.Subheader>
                       </Header.Content>
                     </Header>
-                    <Menu items={messageTypeIcons} widths={messageTypeIcons.length} onItemClick={this.setExpectedMessageType} />
+                    <Menu items={messageTypeIconsVRDR} widths={messageTypeIconsVRDR.length} onItemClick={this.setExpectedMessageType} />
                   </Container>
                 </Grid.Row>
                 <Grid.Row>

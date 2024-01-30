@@ -80,7 +80,7 @@ export const messageTypesBFDR = {
 }
 
 
-export const messageTypeIcons = [
+export const messageTypeIconsVRDR = [
   { key: 'submission', name: 'Submission', icon: 'paper plane' },
   // { key: 'acknowledgement', name: 'Acknowledgement', icon: 'thumbs up' },
   { key: 'update', name: 'Update', icon: 'redo' },
@@ -88,9 +88,21 @@ export const messageTypeIcons = [
   { key: 'void', name: 'Void', icon: 'ban' },
 ];
 
-export const responseMessageTypeIcons = [
+export const messageTypeIconsBFDR = [
+  { key: 'submission', name: 'Submission', icon: 'paper plane' },
+  // { key: 'acknowledgement', name: 'Acknowledgement', icon: 'thumbs up' },
+  { key: 'update', name: 'Update', icon: 'redo' },
+  { key: 'void', name: 'Void', icon: 'ban' },
+];
+
+export const responseMessageTypeIconsVRDR = [
   { key: 'ack', name: 'ACK', icon: 'thumbs up' },
   { key: 'trx', name: 'TRX', icon: 'exchange' },
   { key: 'mre', name: 'MRE', icon: 'exchange' },
+  { key: 'error', name: 'Error', icon: 'ban' },
+];
+
+export const responseMessageTypeIconsBFDR = [
+  { key: 'ack', name: 'ACK', icon: 'thumbs up' },
   { key: 'error', name: 'Error', icon: 'ban' },
 ];
