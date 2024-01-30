@@ -18,7 +18,7 @@ jest.mock('react-router-dom', () => ({
 it('renders', () => {
     const tree = renderer.create(
         <MemoryRouter>
-            <ConnectathonDashboard params={{ type: "message" }} />
+            <ConnectathonDashboard params={{ recordType: "vrdr", type: "message" }} />
         </MemoryRouter>
     ).toJSON();
     expect(tree).toMatchSnapshot();
