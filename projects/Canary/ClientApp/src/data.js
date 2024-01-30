@@ -58,7 +58,7 @@ export const stateOptions = [
   { key: 'WY', text: 'Wyoming', value: 'WY' },
 ];
 
-export const messageTypes = {
+export const messageTypesVRDR = {
   "http://nchs.cdc.gov/vrdr_submission": "Submission",
   "http://nchs.cdc.gov/vrdr_submission_update": "Update",
   "http://nchs.cdc.gov/vrdr_acknowledgement": "Acknowledgement",
@@ -68,6 +68,17 @@ export const messageTypes = {
   "http://nchs.cdc.gov/vrdr_coding_update": "Coding Update",
   "http://nchs.cdc.gov/vrdr_extraction_error": "Extraction Error"
 }
+
+export const messageTypesBFDR = {
+  "http://nchs.cdc.gov/bfdr_acknowledgement": "Acknowledgement",
+  "http://nchs.cdc.gov/bfdr_demographics_coding": "Demographics Coding",
+  "http://nchs.cdc.gov/http://nchs.cdc.gov/bfdr_extraction_error": "Error",
+  "http://nchs.cdc.gov/bfdr_status": "Status",
+  "http://nchs.cdc.gov/bfdr_submission": "Submission",
+  "http://nchs.cdc.gov/bfdr_submission_void": "Void",
+  "http://nchs.cdc.gov/bfdr_submission_update": "Update"
+}
+
 
 export const messageTypeIcons = [
   { key: 'submission', name: 'Submission', icon: 'paper plane' },

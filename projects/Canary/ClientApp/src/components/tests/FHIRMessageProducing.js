@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Breadcrumb, Button, Container, Dimmer, Divider, Form, Grid, Header, Icon, Loader, Menu, Message, Statistic, Transition } from 'semantic-ui-react';
-import { responseMessageTypeIcons, messageTypeIcons, messageTypes } from '../../data';
+import { responseMessageTypeIcons, messageTypeIcons, messageTypesVRDR, messageTypesBFDR } from '../../data';
 import { connectionErrorToast } from '../../error';
 import { Getter } from '../misc/Getter';
 import { FHIRInfo } from '../misc/info/FHIRInfo';
@@ -59,8 +59,14 @@ export function FHIRMessageProducing(props) {
 
   const updateMessage = (message, issues) => {
     let messageType = "Unknown";
-    if (message && message.messageType in messageTypes) {
-      messageType = messageTypes[message.messageType];
+    if (props.recordType.toLowerCase() == 'vrdr') {
+      if (message && message.messageType in messageTypesVRDR) {
+        messageType = messageTypesVRDR[message.messageType];
+      }
+    } else {
+      if (message && message.messageType in messageTypesBFDR) {
+        messageType = messageTypesBFDR[message.messageType];
+      }
     }
 
     /*

@@ -25,8 +25,25 @@ namespace canary.Models
 
         public CanaryBirthMessage(Record record, String type)
         {
-            BirthRecord dr = (BirthRecord) record.GetRecord();
-            // Determine message type.
+            BirthRecord br = (BirthRecord) record.GetRecord();
+            switch (type)
+            {
+                case "Submission":
+                case "http://nchs.cdc.gov/bfdr_submission":
+                    message = new BirthRecordSubmissionMessage(br);
+                    break;
+                case "Update":
+                case "http://nchs.cdc.gov/bfdr_submission_update":
+                    message = new BirthRecordUpdateMessage(br);
+                    break;
+                case "Void":
+                case "http://nchs.cdc.gov/bfdr_submission_void":
+                    message = new BirthRecordVoidMessage(br);
+                    break;
+                default:
+                    throw new ArgumentException($"The given message type {type} is not valid.", "type");
+            }
+            message.MessageSource = "https://example.com/jurisdiction/message/endpoint";
         }
 
         public static string GetDescriptionFor(string entry)

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Breadcrumb, Grid } from 'semantic-ui-react';
-import { messageTypes } from '../../data';
+import { messageTypesVRDR, messageTypesBFDR } from '../../data';
 import { Getter } from '../misc/Getter';
 import { Record } from '../misc/Record';
 
@@ -16,8 +16,14 @@ export class FHIRMessageSyntaxChecker extends Component {
 
   updateMessage(message, issues) {
     let messageType = "Unknown";
-    if (message && message.messageType in messageTypes) {
-      messageType = messageTypes[message.messageType];
+    if (props.recordType.toLowerCase() == 'vrdr') {
+      if (message && message.messageType in messageTypesVRDR) {
+        messageType = messageTypesVRDR[message.messageType];
+      }
+    } else {
+      if (message && message.messageType in messageTypesBFDR) {
+        messageType = messageTypesBFDR[message.messageType];
+      }
     }
 
     this.setState({ message: message, messageType: messageType, issues: issues });

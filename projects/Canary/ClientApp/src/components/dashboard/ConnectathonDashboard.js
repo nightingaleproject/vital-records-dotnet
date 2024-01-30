@@ -42,6 +42,13 @@ export class ConnectathonDashboard extends Component {
   }
 
   render() {
+    if (this.props.params.recordType.toLowerCase() != 'vrdr') {
+      return (
+        <Header>
+          {`There are no Connecthon records for record type ${this.props.params.recordType.toUpperCase()}.`}
+        </Header>
+      );
+    }
     return (
       <React.Fragment>
         <Grid centered columns={1}>
