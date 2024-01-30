@@ -25,9 +25,9 @@ export function FHIRMessageProducing(props) {
   const [expectedType, setExpectedType] = React.useState();
   const [responseOptions, setResponseOptions] = React.useState();
   const [response, setResponse] = React.useState();
+  const [responses, setResponses] = React.useState();
 
   useEffect(() => {
-    var self = this;
     if (!!id) {
       axios
         .get(`${window.API_URL}/tests/${props.recordType}/${id}`)
@@ -106,7 +106,6 @@ export function FHIRMessageProducing(props) {
   }
 
   const runTest = () => {
-    var self = this;
     setRunning(true);
     axios
       .post(`${window.API_URL}/tests/${props.recordType}/${expectedType}MessageProducing/run/${test.testId}`, message.json, { headers: { 'Content-Type': 'application/json' } })
@@ -115,10 +114,10 @@ export function FHIRMessageProducing(props) {
         test.results = JSON.parse(test.results);
         setTest(test);
         setRunning(false);
-        return axios.post(`${window.API_URL}/tests/${props.recordType}/${self.expectedType}/response`, self.message.json, { headers: { 'Content-Type': 'application/json' } });
+        return axios.post(`${window.API_URL}/tests/${props.recordType}/${expectedType}/response`, message.json, { headers: { 'Content-Type': 'application/json' } });
       })
       .then(function (response) {
-        setResponse(response.data);
+        setResponses(response.data);
         setLoading(false);
         document.getElementById('scroll-to').scrollIntoView({
           behavior: 'smooth',

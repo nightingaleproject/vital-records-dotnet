@@ -18,9 +18,8 @@ namespace canary.Controllers
     {
         /// <summary>
         /// Inspects a death message using the contents provided. Returns the message + record and any validation issues.
-        /// POST Messages/Inspect
+        /// POST Messages/vrdr/Inspect
         /// </summary>
-        [HttpPost("Messages/Inspect")]
         [HttpPost("Messages/vrdr/Inspect")]
         public async Task<(Record record, List<Dictionary<string, string>> issues)> NewVRDRPost()
         {
@@ -29,9 +28,8 @@ namespace canary.Controllers
 
         /// <summary>
         /// Inspects a birth message using the contents provided. Returns the message + record and any validation issues.
-        /// POST Messages/Inspect
+        /// POST Messages/bfdr/Inspect
         /// </summary>
-        [HttpPost("Messages/Inspect")]
         [HttpPost("Messages/bfdr/Inspect")]
         public async Task<(Record record, List<Dictionary<string, string>> issues)> NewBFDRPost()
         {
@@ -77,9 +75,8 @@ namespace canary.Controllers
 
         /// <summary>
         /// Creates a new message using the contents provided. Returns the message and any validation issues.
-        /// POST /api/messages/new
+        /// POST /api/messages/vrdr/new
         /// </summary>
-        [HttpPost("Messages/New")]
         [HttpPost("Messages/vrdr/New")]
         public async Task<(Message message, List<Dictionary<string, string>> issues)> NewVRDRMessagePost()
         {
@@ -105,9 +102,8 @@ namespace canary.Controllers
 
         /// <summary>
         /// Creates a new message using the contents provided. Returns the message and any validation issues.
-        /// POST /api/messages/new
+        /// POST /api/messages/bfdr/new
         /// </summary>
-        [HttpPost("Messages/New")]
         [HttpPost("Messages/bfdr/New")]
         public async Task<(Message message, List<Dictionary<string, string>> issues)> NewBFDRMessagePost()
         {
@@ -132,15 +128,14 @@ namespace canary.Controllers
         }
 
         /// <summary>
-        /// Creates a new message of the provided type using record provided
-        /// POST /api/messages/create?type={type}
+        /// Creates a new VRDR message of the provided type using record provided
+        /// POST /api/messages/vrdr/create?type={type}
         /// </summary>
         [HttpPost("Messages/vrdr/Create")]
         public async Task<(Message message, List<Dictionary<string, string>> issues)> NewVRDRMessageRecordPost(String type)
         {
             string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
 
-            // TODO - support Messages/vrdr/create AND Messages/bfdr/create.
             Record record = CanaryDeathRecord.CheckGet(input, false, out _);
             try {
                 return (new CanaryDeathMessage(record, type), null);
@@ -150,12 +145,15 @@ namespace canary.Controllers
             }
         }
 
+        /// <summary>
+        /// Creates a new BFDR message of the provided type using record provided
+        /// POST /api/messages/bfdr/create?type={type}
+        /// </summary>
         [HttpPost("Messages/bfdr/Create")]
         public async Task<(Message message, List<Dictionary<string, string>> issues)> NewBFDRMessageRecordPost(String type)
         {
             string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
 
-            // TODO - support Messages/vrdr/create AND Messages/bfdr/create.
             Record record = CanaryBirthRecord.CheckGet(input, false, out _);
             try {
                 return (new CanaryBirthMessage(record, type), null);

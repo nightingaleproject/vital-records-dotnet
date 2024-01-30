@@ -1,4 +1,4 @@
-import axios from 'axios';
+ import axios from 'axios';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Breadcrumb, Button, Container, Dimmer, Divider, Dropdown, Input, Form, Grid, Header, Icon, Loader, Menu, Message, Statistic, Transition } from 'semantic-ui-react';
@@ -108,14 +108,15 @@ export class MessageConnectathonProducing extends Component {
 
   runTest() {
     var self = this;
+    const recordType = this.props.params.recordType
     this.setState({ running: true }, () => {
       axios
-        .post(window.API_URL + '/tests/' + this.state.expectedType + 'MessageProducing/run/' + this.state.test.testId, this.state.message.json, { headers: { 'Content-Type': 'application/json' } })
+        .post(`${window.API_URL}/tests/${recordType}/${this.state.expectedType}MessageProducing/run/${this.state.test.testId}`, this.state.message.json, { headers: { 'Content-Type': 'application/json' } })
         .then(function (response) {
           var test = response.data;
           test.results = JSON.parse(test.results);
           self.setState({ test: test, running: false });
-          return axios.post(window.API_URL + '/tests/' + self.state.expectedType + '/response', self.state.message.json, { headers: { 'Content-Type': 'application/json' } });
+          return axios.post(`${window.API_URL}/tests/${recordType}/${self.state.expectedType}/response`, self.state.message.json, { headers: { 'Content-Type': 'application/json' } });
         })
         .then(function (response) {
           self.setState({ responses: response.data, loading: false });
