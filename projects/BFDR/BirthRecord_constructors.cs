@@ -50,6 +50,7 @@ namespace BFDR
             };
             string[] father_profile = { VR.IGURL.RelatedPersonFatherNatural };
             Father.Meta.Profile = father_profile;
+            Father.Relationship.Add(new CodeableConcept(CodeSystems.RoleCode_HL7_V3, "NFTH"));
 
             // TODO: Start with an empty certifier. - Need reference in Composition
             //CreateCertifier();

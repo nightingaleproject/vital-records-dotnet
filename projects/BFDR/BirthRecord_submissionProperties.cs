@@ -530,6 +530,29 @@ namespace BFDR
             }
         }
 
+        /// <summary>Natural Father's Legal Name - Given. Middle name should be the last entry.</summary>
+        /// <value>the natural father's name (first, etc., middle)</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>string[] names = { "Example", "Something", "Middle" };</para>
+        /// <para>ExampleBirthRecord.FatherGivenNames = names;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Father Given Name(s): {string.Join(", ", ExampleBirthRecord.FatherGivenNames)}");</para>
+        /// </example>
+        [Property("Father Given Names", Property.Types.StringArr, "Father Demographics", "Father First Name.", true, VR.IGURL.RelatedPersonFatherNatural, true, 274)]
+        [FHIRPath("Bundle.entry.resource.where($this is RelatedPerson)", "name")]
+        public string[] FatherGivenNames
+        {
+            get
+            {
+                return Father?.Name?.Find(name => name.Use == HumanName.NameUse.Official)?.Given?.ToArray() ?? new string[0];
+            }
+            set
+            {
+                updateGivenHumanName(value, Father.Name);
+            }
+        }
+
         /// <summary>Mother's Maiden Name - Given. Middle name should be the last entry.</summary>
         /// <value>the mother's maiden name (first, etc., middle)</value>
         /// <example>
@@ -621,6 +644,42 @@ namespace BFDR
                         Family = value
                     };
                     Mother.Name.Add(name);
+                }
+            }
+        }
+
+        /// <summary>Natural Father's Legal Name - Last.</summary>
+        /// <value>the natural father's last name</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>string lastName = "Quinn";</para>
+        /// <para>ExampleBirthRecord.FatherFamilyName = lastName;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Father Family Name(s): {string.Join(", ", ExampleBirthRecord.FatherFamilyName)}");</para>
+        /// </example>
+        [Property("Father Family Name", Property.Types.String, "Father Demographics", "Father's Last Name.", true, VR.IGURL.RelatedPersonFatherNatural, true, 276)]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient)", "name")]
+        public string FatherFamilyName
+        {
+            get
+            {
+                return Father?.Name?.Find(name => name.Use == HumanName.NameUse.Official)?.Family;
+            }
+            set
+            {
+                HumanName name = Father.Name.SingleOrDefault(n => n.Use == HumanName.NameUse.Official);
+                if (name != null && !String.IsNullOrEmpty(value))
+                {
+                    name.Family = value;
+                }
+                else if (!String.IsNullOrEmpty(value))
+                {
+                    name = new HumanName
+                    {
+                        Use = HumanName.NameUse.Official,
+                        Family = value
+                    };
+                    Father.Name.Add(name);
                 }
             }
         }
@@ -735,6 +794,45 @@ namespace BFDR
                     string[] suffix = { value };
                     name.Suffix = suffix;
                     Mother.Name.Add(name);
+                }
+            }
+        }
+
+        /// <summary>Natural Father's Suffix.</summary>
+        /// <value>the natural father's suffix</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.FatherSuffix = "Jr.";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Father Suffix: {ExampleBirthRecord.FatherSuffix}");</para>
+        /// </example>
+        [Property("FatherSuffix", Property.Types.String, "Father Demographics", "Father's Suffix.", true, VR.IGURL.RelatedPersonFatherNatural, true, 277)]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient)", "name")]
+        public string FatherSuffix
+        {
+            get
+            {
+                return Father?.Name?.Find(name => name.Use == HumanName.NameUse.Official)?.Suffix.FirstOrDefault();
+            }
+            set
+            {
+                if (String.IsNullOrEmpty(value))
+                {
+                    return;
+                }
+                HumanName name = Father.Name.SingleOrDefault(n => n.Use == HumanName.NameUse.Official);
+                if (name != null) 
+                {
+                    string[] suffix = { value };
+                    name.Suffix = suffix;
+                }
+                else
+                {
+                    name = new HumanName();
+                    name.Use = HumanName.NameUse.Official;
+                    string[] suffix = { value };
+                    name.Suffix = suffix;
+                    Father.Name.Add(name);
                 }
             }
         }
@@ -875,6 +973,273 @@ namespace BFDR
             }
         }
 
+        /// <summary>Mother's Place Of Birth.</summary>
+        /// <value>Mother's Place Of Birth. A Dictionary representing residence address, containing the following key/value pairs:
+        /// <para>"addressLine1" - address, line one</para>
+        /// <para>"addressLine2" - address, line two</para>
+        /// <para>"addressCity" - address, city</para>
+        /// <para>"addressCounty" - address, county</para>
+        /// <para>"addressState" - address, state</para>
+        /// <para>"addressZip" - address, zip</para>
+        /// <para>"addressCountry" - address, country</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; address = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>address.Add("addressLine1", "123 Test Street");</para>
+        /// <para>address.Add("addressLine2", "Unit 3");</para>
+        /// <para>address.Add("addressCity", "Boston");</para>
+        /// <para>address.Add("addressCounty", "Suffolk");</para>
+        /// <para>address.Add("addressState", "MA");</para>
+        /// <para>address.Add("addressZip", "12345");</para>
+        /// <para>address.Add("addressCountry", "US");</para>
+        /// <para>ExampleBirthRecord.MotherPlaceOfBirth = address;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"State where mother was born: {ExampleBirthRecord.MotherPlaceOfBirth["placeOfBirthState"]}");</para>
+        /// </example>
+        [Property("Mother's Place Of Birth", Property.Types.Dictionary, "Mother Demographics", "Mother's Place Of Birth.", true, VR.IGURL.Mother, true, 305)]
+        [PropertyParam("addressLine1", "address, line one")]
+        [PropertyParam("addressLine2", "address, line two")]
+        [PropertyParam("addressCity", "address, city")]
+        [PropertyParam("addressCounty", "address, county")]
+        [PropertyParam("addressState", "address, state")]
+        [PropertyParam("addressZip", "address, zip")]
+        [PropertyParam("addressCountry", "address, country")]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient).extension.where(url='" + OtherExtensionURL.PatientBirthPlace + "')", "")]
+        public Dictionary<string, string> MotherPlaceOfBirth
+        {
+            get => GetPlaceOfBirth(Mother);
+            set => SetPlaceOfBirth(Mother, value);
+        }
+
+        /// <summary>Father's Place Of Birth.</summary>
+        /// <value>Father's Place Of Birth. A Dictionary representing residence address, containing the following key/value pairs:
+        /// <para>"addressLine1" - address, line one</para>
+        /// <para>"addressLine2" - address, line two</para>
+        /// <para>"addressCity" - address, city</para>
+        /// <para>"addressCounty" - address, county</para>
+        /// <para>"addressState" - address, state</para>
+        /// <para>"addressZip" - address, zip</para>
+        /// <para>"addressCountry" - address, country</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; address = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>address.Add("addressLine1", "123 Test Street");</para>
+        /// <para>address.Add("addressLine2", "Unit 3");</para>
+        /// <para>address.Add("addressCity", "Boston");</para>
+        /// <para>address.Add("addressCounty", "Suffolk");</para>
+        /// <para>address.Add("addressState", "MA");</para>
+        /// <para>address.Add("addressZip", "12345");</para>
+        /// <para>address.Add("addressCountry", "US");</para>
+        /// <para>ExampleBirthRecord.FatherPlaceOfBirth = address;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"State where father was born: {ExampleBirthRecord.FatherPlaceOfBirth["placeOfBirthState"]}");</para>
+        /// </example>
+        [Property("Father's Place Of Birth", Property.Types.Dictionary, "Father Demographics", "Father's Place Of Birth.", true, VR.IGURL.RelatedPersonFather, true, 291)]
+        [PropertyParam("addressLine1", "address, line one")]
+        [PropertyParam("addressLine2", "address, line two")]
+        [PropertyParam("addressCity", "address, city")]
+        [PropertyParam("addressCounty", "address, county")]
+        [PropertyParam("addressState", "address, state")]
+        [PropertyParam("addressZip", "address, zip")]
+        [PropertyParam("addressCountry", "address, country")]
+        [FHIRPath("Bundle.entry.resource.where($this is RelatedPerson).extension.where(url='" + OtherExtensionURL.RelatedPersonBirthPlace + "')", "")]
+        public Dictionary<string, string> FatherPlaceOfBirth
+        {
+            get => GetPlaceOfBirth(Father);
+            set => SetPlaceOfBirth(Father, value);
+        }
+
+        /// <summary>Mother's Residence.</summary>
+        /// <value>Mother's Residence. A Dictionary representing residence address, containing the following key/value pairs:
+        /// <para>"addressLine1" - address, line one</para>
+        /// <para>"addressLine2" - address, line two</para>
+        /// <para>"addressCity" - address, city</para>
+        /// <para>"addressCounty" - address, county</para>
+        /// <para>"addressState" - address, state</para>
+        /// <para>"addressZip" - address, zip</para>
+        /// <para>"addressCountry" - address, country</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; address = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>address.Add("addressLine1", "123 Test Street");</para>
+        /// <para>address.Add("addressLine2", "Unit 3");</para>
+        /// <para>address.Add("addressCity", "Boston");</para>
+        /// <para>address.Add("addressCounty", "Suffolk");</para>
+        /// <para>address.Add("addressState", "MA");</para>
+        /// <para>address.Add("addressZip", "12345");</para>
+        /// <para>address.Add("addressCountry", "US");</para>
+        /// <para>ExampleBirthRecord.MotherResidence = address;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"State where mother resides: {ExampleBirthRecord.MotherResidence["addressState"]}");</para>
+        /// </example>
+        [Property("Mother's Residence", Property.Types.Dictionary, "Mother Demographics", "Mother's Residence.", true, VR.IGURL.Mother, true, 20)]
+        [PropertyParam("addressLine1", "address, line one")]
+        [PropertyParam("addressLine2", "address, line two")]
+        [PropertyParam("addressCity", "address, city")]
+        [PropertyParam("addressCounty", "address, county")]
+        [PropertyParam("addressState", "address, state")]
+        [PropertyParam("addressZip", "address, zip")]
+        [PropertyParam("addressCountry", "address, country")]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient)", "address")]
+        public Dictionary<string, string> MotherResidence
+        {
+            get => AddressToDict(Mother?.Address.Find(addr => addr.Use == Address.AddressUse.Home));
+            set
+            {
+                Address billing = Mother.Address.Find(addr => addr.Use == Address.AddressUse.Billing);
+                Mother.Address.Clear();
+                Address residence = DictToAddress(value);
+                residence.Use = Address.AddressUse.Home;
+                Mother.Address.Add(residence);
+                if (billing != null)
+                {
+                    Mother.Address.Add(billing);
+                }
+            }
+        }
+
+        /// <summary>Mother's Billing.</summary>
+        /// <value>Mother's Billing. A Dictionary representing billing address, containing the following key/value pairs:
+        /// <para>"addressLine1" - address, line one</para>
+        /// <para>"addressLine2" - address, line two</para>
+        /// <para>"addressCity" - address, city</para>
+        /// <para>"addressCounty" - address, county</para>
+        /// <para>"addressState" - address, state</para>
+        /// <para>"addressZip" - address, zip</para>
+        /// <para>"addressCountry" - address, country</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; address = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>address.Add("addressLine1", "123 Test Street");</para>
+        /// <para>address.Add("addressLine2", "Unit 3");</para>
+        /// <para>address.Add("addressCity", "Boston");</para>
+        /// <para>address.Add("addressCounty", "Suffolk");</para>
+        /// <para>address.Add("addressState", "MA");</para>
+        /// <para>address.Add("addressZip", "12345");</para>
+        /// <para>address.Add("addressCountry", "US");</para>
+        /// <para>ExampleBirthRecord.MotherBilling = address;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"State where mother is billed: {ExampleBirthRecord.MotherBilling["addressState"]}");</para>
+        /// </example>
+        [Property("Mother's Billing Address", Property.Types.Dictionary, "Mother Demographics", "Mother's Billing Address.", true, VR.IGURL.Mother, true, 20)]
+        [PropertyParam("addressLine1", "address, line one")]
+        [PropertyParam("addressLine2", "address, line two")]
+        [PropertyParam("addressCity", "address, city")]
+        [PropertyParam("addressCounty", "address, county")]
+        [PropertyParam("addressState", "address, state")]
+        [PropertyParam("addressZip", "address, zip")]
+        [PropertyParam("addressCountry", "address, country")]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient)", "address")]
+        public Dictionary<string, string> MotherBilling
+        {
+            get => AddressToDict(Mother?.Address.Find(addr => addr.Use == Address.AddressUse.Billing));
+            set
+            {
+                Address residence = Mother.Address.Find(addr => addr.Use == Address.AddressUse.Home);
+                Mother.Address.Clear();
+                Address billing = DictToAddress(value);
+                billing.Use = Address.AddressUse.Billing;
+                Mother.Address.Add(billing);
+                if (residence != null)
+                {
+                    Mother.Address.Add(residence);
+                }
+            }
+        }
+
+        /// <summary>Mother's residence is/is not within city limits.</summary>
+        /// <value>Mother's residence is/is not within city limits. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para></value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; within = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>within.Add("code", "Y");</para>
+        /// <para>within.Add("system", VR.CodeSystems.YesNo_0136HL7_V2);</para>
+        /// <para>within.Add("display", "Yes");</para>
+        /// <para>ExampleBirthRecord.MotherResidenceWithinCityLimits = within;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother's Residence within city limits: {ExampleBirthRecord.MotherResidenceWithinCityLimits['display']}");</para>
+        /// </example>
+        [Property("Mother Residence Within City Limits", Property.Types.Dictionary, "Mother Demographics", "Mother's residence is/is not within city limits.", true, VR.IGURL.Mother, true, 24)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient)", "address")]
+        public Dictionary<string, string> MotherResidenceWithinCityLimits
+        {
+            get
+            {
+                Address residence = Mother?.Address.Find(addr => addr.Use == Address.AddressUse.Home);
+                if (residence != null)
+                {
+                    Extension cityLimits = residence.Extension.Where(ext => ext.Url == VRExtensionURLs.WithinCityLimitsIndicator).FirstOrDefault();
+                    if (cityLimits != null && cityLimits.Value != null && cityLimits.Value as Coding != null)
+                    {
+                        return CodingToDict((Coding)cityLimits.Value);
+                    }
+                }
+                return EmptyCodeDict();
+            }
+            set
+            {
+                if (Mother != null)
+                {
+                    Address residence = Mother.Address.Find(addr => addr.Use == Address.AddressUse.Home);
+                    if (residence == null)
+                    {
+                        residence = new Address
+                        {
+                            Use = Address.AddressUse.Home
+                        };
+                        Mother.Address.Add(residence);
+                    }
+                    residence.Extension.RemoveAll(ext => ext.Url == VRExtensionURLs.WithinCityLimitsIndicator);
+                    Extension withinCityLimits = new Extension
+                    {
+                        Url = VRExtensionURLs.WithinCityLimitsIndicator,
+                        Value = DictToCoding(value)
+                    };
+                    residence.Extension.Add(withinCityLimits);
+                }
+            }
+        }
+
+        /// <summary>Mother's Residence Within City Limits Helper</summary>
+        /// <value>Mother Residence Within City Limits.</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotherResidenceWithinCityLimitsHelper = VRDR.ValueSets.YesNoUnknown.Y;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother's Residence within city limits: {ExampleBirthRecord.MotherResidenceWithinCityLimitsHelper}");</para>
+        /// </example>
+        [Property("MotherResidenceWithinCityLimits Helper", Property.Types.String, "Mother Demographics", "Mother's ResidenceWithinCityLimits.", false, VR.IGURL.Mother, false, 24)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient)", "address")]
+        public string MotherResidenceWithinCityLimitsHelper
+        {
+            get
+            {
+                if (MotherResidenceWithinCityLimits.ContainsKey("code") && !String.IsNullOrWhiteSpace(MotherResidenceWithinCityLimits["code"]))
+                {
+                    return MotherResidenceWithinCityLimits["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if(!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("MotherResidenceWithinCityLimits", value, VR.ValueSets.YesNoUnknown.Codes);
+                }
+            }
+        }
+
         /// <summary>Infant's Medical Record Number.</summary>
         /// <value>Infant's Medical Record Number.</value>
         /// <example>
@@ -884,24 +1249,24 @@ namespace BFDR
         /// <para>Console.WriteLine($"Child's InfantMedicalRecordNumber: {ExampleBirthRecord.InfantMedicalRecordNumber}");</para>
         /// </example>
         [Property("Infant's Medical Record Number", Property.Types.String, "Child Demographics", "Infant's Medical Record Number", true, VR.IGURL.Child, true, 34)]
-        [FHIRPath("Bundle.entry.resource.where($this is Patient).identifier.where(url='http://terminology.hl7.org/CodeSystem/v2-0203' and type.coding.code='MR').value", "")]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient).identifier.where(url=CodeSystems.HL7_identifier_type and type.coding.code='MR').value", "")]
         public string InfantMedicalRecordNumber
         {
             get
             {
-                return Child?.Identifier?.Find(id => id.Type.Coding.Any(idCoding => idCoding.System == "http://terminology.hl7.org/CodeSystem/v2-0203" && idCoding.Code == "MR"))?.Value;
+                return Child?.Identifier?.Find(id => id.Type.Coding.Any(idCoding => idCoding.System == CodeSystems.HL7_identifier_type && idCoding.Code == "MR"))?.Value;
             }
             set
             {
-                if (Child.Identifier.Any(id => id.Type.Coding.Any(idCoding => idCoding.System == "http://terminology.hl7.org/CodeSystem/v2-0203" && idCoding.Code == "MR")))
+                if (Child.Identifier.Any(id => id.Type.Coding.Any(idCoding => idCoding.System == CodeSystems.HL7_identifier_type && idCoding.Code == "MR")))
                 {
-                    Child.Identifier.Find(id => id.Type.Coding.Any(idCoding => idCoding.System == "http://terminology.hl7.org/CodeSystem/v2-0203" && idCoding.Code == "MR")).Value = value;
+                    Child.Identifier.Find(id => id.Type.Coding.Any(idCoding => idCoding.System == CodeSystems.HL7_identifier_type && idCoding.Code == "MR")).Value = value;
                 }
                 else
                 {
                     Coding coding = new Coding
                     {
-                        System = "http://terminology.hl7.org/CodeSystem/v2-0203",
+                        System = CodeSystems.HL7_identifier_type,
                         Code = "MR",
                         Display = "Medical Record Number"
                     };
@@ -926,24 +1291,24 @@ namespace BFDR
         /// <para>Console.WriteLine($"Mother's MedicalRecordNumber: {ExampleBirthRecord.MotherMedicalRecordNumber}");</para>
         /// </example>
         [Property("Mother's Medical Record Number", Property.Types.String, "Mother Demographics", "Mother's Medical Record Number", true, VR.IGURL.Mother, true, 333)]
-        [FHIRPath("Bundle.entry.resource.where($this is Patient).identifier.where(url='http://terminology.hl7.org/CodeSystem/v2-0203' and type.coding.code='MR').value", "")]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient).identifier.where(url=CodeSystems.HL7_identifier_type and type.coding.code='MR').value", "")]
         public string MotherMedicalRecordNumber
         {
             get
             {
-                return Mother?.Identifier?.Find(id => id.Type.Coding.Any(idCoding => idCoding.System == "http://terminology.hl7.org/CodeSystem/v2-0203" && idCoding.Code == "MR"))?.Value;
+                return Mother?.Identifier?.Find(id => id.Type.Coding.Any(idCoding => idCoding.System == CodeSystems.HL7_identifier_type && idCoding.Code == "MR"))?.Value;
             }
             set
             {
-                if (Mother.Identifier.Any(id => id.Type.Coding.Any(idCoding => idCoding.System == "http://terminology.hl7.org/CodeSystem/v2-0203" && idCoding.Code == "MR")))
+                if (Mother.Identifier.Any(id => id.Type.Coding.Any(idCoding => idCoding.System == CodeSystems.HL7_identifier_type && idCoding.Code == "MR")))
                 {
-                    Mother.Identifier.Find(id => id.Type.Coding.Any(idCoding => idCoding.System == "http://terminology.hl7.org/CodeSystem/v2-0203" && idCoding.Code == "MR")).Value = value;
+                    Mother.Identifier.Find(id => id.Type.Coding.Any(idCoding => idCoding.System == CodeSystems.HL7_identifier_type && idCoding.Code == "MR")).Value = value;
                 }
                 else
                 {
                     Coding coding = new Coding
                     {
-                        System = "http://terminology.hl7.org/CodeSystem/v2-0203",
+                        System = CodeSystems.HL7_identifier_type,
                         Code = "MR",
                         Display = "Medical Record Number"
                     };
@@ -959,6 +1324,36 @@ namespace BFDR
             }
         }
 
+        private static string GetSSN(List<Identifier> ids)
+        {
+            return ids?.Find(id => id.Type.Coding.Any(idCoding => idCoding.System == CodeSystems.HL7_identifier_type && idCoding.Code == "SS"))?.Value;
+        }
+
+        private static void SetSSN(List<Identifier> ids, string ssn)
+        {
+            if (ids.Any(id => id.Type.Coding.Any(idCoding => idCoding.System == CodeSystems.HL7_identifier_type && idCoding.Code == "SS")))
+            {
+                ids.Find(id => id.Type.Coding.Any(idCoding => idCoding.System == CodeSystems.HL7_identifier_type && idCoding.Code == "SS")).Value = ssn;
+            }
+            else
+            {
+                Coding coding = new Coding
+                {
+                    System = CodeSystems.HL7_identifier_type,
+                    Code = "SS",
+                    Display = "Social Security Number"
+                };
+                CodeableConcept socialSecurityNumber = new CodeableConcept();
+                socialSecurityNumber.Coding.Add(coding);
+                Identifier identifier = new Identifier
+                {
+                    Type = socialSecurityNumber,
+                    Value = ssn
+                };
+                ids.Add(identifier);
+            }
+        }
+
         /// <summary>Mother's Social Security Number.</summary>
         /// <value>Mother's Social Security Number.</value>
         /// <example>
@@ -968,37 +1363,27 @@ namespace BFDR
         /// <para>Console.WriteLine($"Mother's SocialSecurityNumber: {ExampleBirthRecord.MotherSocialSecurityNumber}");</para>
         /// </example>
         [Property("Mother's Social Security Number", Property.Types.String, "Mother Demographics", "Mother's Social Security Number", true, VR.IGURL.Mother, true, 278)]
-        [FHIRPath("Bundle.entry.resource.where($this is Patient).identifier.where(url='http://terminology.hl7.org/CodeSystem/v2-0203' and type.coding.code='SS').value", "")]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient).identifier.where(url=CodeSystems.HL7_identifier_type and type.coding.code='SS').value", "")]
         public string MotherSocialSecurityNumber
         {
-            get
-            {
-                return Mother?.Identifier?.Find(id => id.Type.Coding.Any(idCoding => idCoding.System == "http://terminology.hl7.org/CodeSystem/v2-0203" && idCoding.Code == "SS"))?.Value;
-            }
-            set
-            {
-                if (Mother.Identifier.Any(id => id.Type.Coding.Any(idCoding => idCoding.System == "http://terminology.hl7.org/CodeSystem/v2-0203" && idCoding.Code == "SS")))
-                {
-                    Mother.Identifier.Find(id => id.Type.Coding.Any(idCoding => idCoding.System == "http://terminology.hl7.org/CodeSystem/v2-0203" && idCoding.Code == "SS")).Value = value;
-                }
-                else
-                {
-                    Coding coding = new Coding
-                    {
-                        System = "http://terminology.hl7.org/CodeSystem/v2-0203",
-                        Code = "SS",
-                        Display = "Social Security Number"
-                    };
-                    CodeableConcept socialSecurityNumber = new CodeableConcept();
-                    socialSecurityNumber.Coding.Add(coding);
-                    Identifier identifier = new Identifier
-                    {
-                        Type = socialSecurityNumber,
-                        Value = value
-                    };
-                    Mother.Identifier.Add(identifier);
-                }
-            }
+            get => GetSSN(Mother?.Identifier);
+            set => SetSSN(Mother.Identifier, value);
+        }
+
+        /// <summary>Father's Social Security Number.</summary>
+        /// <value>Father's Social Security Number.</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.FatherSocialSecurityNumber = "123456789";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Father's SocialSecurityNumber: {ExampleBirthRecord.FatherSocialSecurityNumber}");</para>
+        /// </example>
+        [Property("Father's Social Security Number", Property.Types.String, "Father Demographics", "Father's Social Security Number", true, VR.IGURL.RelatedPersonFatherNatural, true, 279)]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient).identifier.where(url=CodeSystems.HL7_identifier_type and type.coding.code='SS').value", "")]
+        public string FatherSocialSecurityNumber
+        {
+            get => GetSSN(Father?.Identifier);
+            set => SetSSN(Father.Identifier, value);
         }
 
         /// <summary>Multiple birth set order</summary>
@@ -1119,15 +1504,10 @@ namespace BFDR
             }
             set
             {
-                if (String.IsNullOrEmpty(value))
+                if (!String.IsNullOrEmpty(value))
                 {
-                    PluralityEditFlag = EmptyCodeDict();
-                    return;
+                    SetCodeValue("PluralityEditFlag", value, VR.ValueSets.PluralityEditFlags.Codes);
                 }
-                Dictionary<string, string> dictionary = new Dictionary<string, string>();
-                dictionary.Add("code", value);
-                dictionary.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");
-                PluralityEditFlag = dictionary;
             }
         }
 
@@ -1835,6 +2215,7 @@ namespace BFDR
             }
             set
             {
+                // TODO: use SetCodeValue once ValueSets.cs has been generated
                 if (String.IsNullOrEmpty(value))
                 {
                     FinalRouteAndMethodOfDelivery = EmptyCodeDict();
