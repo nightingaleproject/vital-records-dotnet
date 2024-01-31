@@ -49,20 +49,20 @@ namespace BFDR.Tests
       Assert.Equal(ijeImported.IDOB_YR + "-" + ijeImported.IDOB_MO + "-" + ijeImported.IDOB_DY, br.DateOfBirth);
       Assert.Equal("2023-11-25", br.DateOfBirth);
       // County of Birth | (CountyCodes) (CNTYO)
-      // TODO --- 
+      // TODO ---
       // Plurality
-      // TODO --- 
+      // TODO ---
       // Set Order
       // TODO ---
       Assert.Equal("06", ijeImported.SORD);
       Assert.Equal(ijeImported.SORD, ijeConverted.SORD);
       Assert.Equal(6, br.SetOrder);
       // Plurality--Edit Flag
-      // TODO --- 
+      // TODO ---
       // Mother's Reported Age
-      // TODO --- 
+      // TODO ---
       // Father's Reported Age
-      // TODO --- 
+      // TODO ---
       // Child's First Name
       Assert.Equal("TestFirst".PadRight(50), ijeImported.KIDFNAME);
       Assert.Equal(ijeImported.KIDFNAME, ijeConverted.KIDFNAME);
@@ -292,7 +292,7 @@ namespace BFDR.Tests
       ije.PLUR = "  ";
       Assert.Equal("  ", ije.PLUR);
     }
-    
+
     [Fact]
     public void TestCongenitalAnomaliesOfTheNewborn()
     {
@@ -394,6 +394,37 @@ namespace BFDR.Tests
       CodeY.Add("display", VR.ValueSets.HispanicNoUnknown.Codes[1, 1]);
       CodeY.Add("system", VR.ValueSets.HispanicNoUnknown.Codes[1, 2]);
       Assert.Equal(CodeY, fhir.FatherEthnicity1);
+    }
+
+    [Fact]
+    public void TestSetWeight()
+    {
+      BirthRecord fhir = new BirthRecord();
+      IJENatality ije = new IJENatality(fhir);
+      Assert.Equal("   ", ije.PWGT);
+      Assert.Null(fhir.MotherPrepregnancyWeight);
+      Assert.Null(fhir.MotherPrepregnancyWeightEditFlagHelper);
+      Assert.Equal("   ", ije.DWGT);
+      Assert.Null(fhir.MotherWeightAtDelivery);
+      Assert.Null(fhir.MotherWeightAtDeliveryEditFlagHelper);
+      Assert.Equal("    ", ije.BWG);
+      Assert.Null(fhir.BirthWeight);
+      Assert.Null(fhir.BirthWeightEditFlagHelper);
+      ije.PWGT = "095";
+      ije.PWGT_BYPASS = "1";
+      ije.DWGT_BYPASS = "0";
+      ije.DWGT = "120";
+      ije.BWG = "3200";
+      ije.BW_BYPASS = "2";
+      Assert.Equal("1", ije.PWGT_BYPASS);
+      Assert.Equal("095", ije.PWGT);
+      Assert.Equal("0", ije.DWGT_BYPASS);
+      Assert.Equal("120", ije.DWGT);
+      Assert.Equal("3200", ije.BWG);
+      Assert.Equal("2", ije.BW_BYPASS);
+      ije.PWGT = "999";
+      Assert.Equal("999", ije.PWGT);
+      Assert.Equal(-1, fhir.MotherPrepregnancyWeight);
     }
   }
 }

@@ -948,6 +948,108 @@
             <para>string boaa = ExampleBirthRecord.RaceBlackOfAfricanAmerican;</para>
             </example>
         </member>
+        <member name="P:BFDR.BirthRecord.MotherPrepregnancyWeight">
+            <summary>Mother's Prepregnancy Weight.</summary>
+            <value>the mother's prepregnancy weight in whole pounds, or -1 if explicitly unknown, or null if never specified</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherPrepregnancyWeight = 120;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's Prepregancy Weight: {ExampleBirthRecord.MotherPrepregnancyWeight}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.MotherWeightAtDelivery">
+            <summary>Mother's Weight at Delivery.</summary>
+            <value>the mother's weight at delivery in whole pounds, or -1 if explicitly unknown, or null if never specified</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherWeightAtDelivery = 120;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's Weight at Delivery: {ExampleBirthRecord.MotherWeightAtDelivery}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.BirthWeight">
+            <summary>Birth Weight.</summary>
+            <value>the birth weight in grams, or -1 if explicitly unknown, or null if never specified</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.BirthWeight = 3200;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Birth Weight: {ExampleBirthRecord.BirthWeight}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.MotherPrepregnancyWeightEditFlag">
+            <summary>Mother's Prepregnancy Weight Edit Flag.</summary>
+            <value>edit flag for the mother's prepregnancy weight</value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; edit = new Dictionary&lt;string, string&gt;();</para>
+            <para>edit.Add("code", "0");</para>
+            <para>edit.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");</para>
+            <para>edit.Add("display", "Edit Passed");</para>
+            <para>ExampleBirthRecord.MotherPrepregnancyWeightEditFlag = route;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's prepregnancy weight edit flag: {ExampleBirthRecord.MotherPrepregnancyWeightEditFlag}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.MotherPrepregnancyWeightEditFlagHelper">
+            <summary>Mother's Prepregnancy Weight Edit Flag Helper.</summary>
+            <value>edit flag for the mother's prepregnancy weight</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherPrepregnancyWeightEditFlagHelper = "0";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's prepregnancy weight edit flag: {ExampleBirthRecord.MotherPrepregnancyWeightEditFlagHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.MotherWeightAtDeliveryEditFlag">
+            <summary>Mother's Weight at Delivery Edit Flag.</summary>
+            <value>edit flag for the mother's weight at delivery</value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; edit = new Dictionary&lt;string, string&gt;();</para>
+            <para>edit.Add("code", "0");</para>
+            <para>edit.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");</para>
+            <para>edit.Add("display", "Edit Passed");</para>
+            <para>ExampleBirthRecord.MotherWeightAtDeliveryEditFlag = route;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's weight at delivery edit flag: {ExampleBirthRecord.MotherWeightAtDeliveryEditFlag}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.MotherWeightAtDeliveryEditFlagHelper">
+            <summary>Mother's Weight at Delivery Edit Flag Helper.</summary>
+            <value>edit flag for the mother's weight at delivery</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherWeightAtDeliveryEditFlag = "0";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's weight at delivery edit flag: {ExampleBirthRecord.MotherWeightAtDeliveryEditFlag}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.BirthWeightEditFlag">
+            <summary>Birth Weight Edit Flag.</summary>
+            <value>edit flag for birth weight</value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; edit = new Dictionary&lt;string, string&gt;();</para>
+            <para>edit.Add("code", "0");</para>
+            <para>edit.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");</para>
+            <para>edit.Add("display", "Edit Passed");</para>
+            <para>ExampleBirthRecord.BirthWeightEditFlag = route;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Birth weight edit flag: {ExampleBirthRecord.BirthWeightEditFlag}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.BirthWeightEditFlagHelper">
+            <summary>Birth Weight at Delivery Edit Flag Helper.</summary>
+            <value>edit flag for birth weight</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.BirthWeightEditFlagHelper = "0";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Birth weight edit flag: {ExampleBirthRecord.BirthWeightEditFlagHelper}");</para>
+            </example>
+        </member>
         <member name="T:BFDR.FHIRSubject">
             <summary>Describes the subject of a birth record field</summary>
         </member>
