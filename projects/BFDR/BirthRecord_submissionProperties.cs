@@ -91,7 +91,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"NCHS identifier: {ExampleBirthRecord.BirthRecordIdentifier}");</para>
         /// </example>
-        [Property("Birth Record Identifier", Property.Types.String, "Birth Certification", "Birth Record identifier.", true, IGURL.CertificateNumber, true, 4)]
+        [Property("Birth Record Identifier", Property.Types.String, "Birth Certification", "Birth Record identifier.", true, IGURL.CertificateNumber, false, 4)]
         [FHIRPath("Bundle", "identifier")]
         public string BirthRecordIdentifier
         {
