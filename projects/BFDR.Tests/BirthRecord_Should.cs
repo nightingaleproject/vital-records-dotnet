@@ -824,6 +824,9 @@ namespace BFDR.Tests
       Assert.Equal(29, record1.MotherBirthDay);
       // Complete Date of Birth.
       Assert.Equal("1990-08-29", record1.MotherDateOfBirth);
+      Assert.Null(record1.MotherReportedAgeAtDelivery);
+      record1.MotherReportedAgeAtDelivery = 27;
+      Assert.Equal(27, record1.MotherReportedAgeAtDelivery);
 
       // Test in a different order.
       BirthRecord record2 = new BirthRecord();
@@ -959,6 +962,9 @@ namespace BFDR.Tests
       Assert.Equal(29, record1.FatherBirthDay);
       // Complete Date of Birth.
       Assert.Equal("1990-08-29", record1.FatherDateOfBirth);
+      Assert.Null(record1.FatherReportedAgeAtDelivery);
+      record1.FatherReportedAgeAtDelivery = 28;
+      Assert.Equal(28, record1.FatherReportedAgeAtDelivery);
 
       // Test in a different order.
       BirthRecord record2 = new BirthRecord();

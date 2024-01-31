@@ -174,9 +174,13 @@ namespace BFDR.Tests
       ije.MDOB_YR = "2000";
       ije.MDOB_MO = "09";
       ije.MDOB_DY = "27";
+      ije.MAGE_BYPASS = "0";
+      ije.MAGER = "29";
       Assert.Equal("2000", ije.MDOB_YR);
       Assert.Equal("09", ije.MDOB_MO);
       Assert.Equal("27", ije.MDOB_DY);
+      Assert.Equal("0", ije.MAGE_BYPASS);
+      Assert.Equal("29", ije.MAGER);
       ije.MDOB_DY = "99";
       Assert.Equal("99", ije.MDOB_DY);
       BirthRecord converted = ije.ToRecord();
@@ -205,9 +209,13 @@ namespace BFDR.Tests
       ije.FDOB_YR = "1999";
       ije.FDOB_MO = "11";
       ije.FDOB_DY = "27";
+      ije.FAGE_BYPASS = "0";
+      ije.FAGER = "31";
       Assert.Equal("1999", ije.FDOB_YR);
       Assert.Equal("11", ije.FDOB_MO);
       Assert.Equal("27", ije.FDOB_DY);
+      Assert.Equal("0", ije.FAGE_BYPASS);
+      Assert.Equal("31", ije.FAGER);
       ije.FDOB_DY = "99";
       Assert.Equal("99", ije.FDOB_DY);
       converted = ije.ToRecord();

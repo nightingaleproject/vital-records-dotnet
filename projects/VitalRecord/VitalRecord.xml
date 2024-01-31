@@ -449,6 +449,9 @@
         <member name="F:VR.OtherExtensionURL.BirthSex">
             <summary>URL for US Core Birthsex </summary>
         </member>
+        <member name="F:VR.OtherExtensionURL.ParentRole">
+            <summary>URL for parent role </summary>
+        </member>
         <member name="T:VR.OtherIGURL">
             <summary>IG URLs for non-VRDR Profiles</summary>
         </member>
