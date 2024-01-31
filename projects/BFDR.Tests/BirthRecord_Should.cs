@@ -1066,5 +1066,38 @@ namespace BFDR.Tests
         }
         Assert.Equal(15, b2.FatherRace.Length);
     }
+
+    [Fact]
+    public void TestImportMotherBirthplace()
+    {
+      // Test FHIR record import.
+      BirthRecord firstRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      string firstDescription = firstRecord.ToDescription();
+      // Test conversion via FromDescription.
+      BirthRecord secondRecord = VitalRecord.FromDescription<BirthRecord>(firstDescription);
+      // Test IJE Conversion.
+      IJENatality ije = new(secondRecord);
+
+      Assert.Equal("US", firstRecord.MotherBirthCountry);
+      Assert.Equal(firstRecord.MotherBirthCountry, secondRecord.MotherBirthCountry);
+      Assert.Equal(firstRecord.MotherBirthCountry, ije.BPLACEC_CNT);
+    }
+
+    [Fact]
+    public void TestSetMotherBirthplace()
+    {
+      // Manually set birth record values.
+      BirthRecord br = new()
+      {
+          MotherBirthCountry = "US"
+      };
+      // Test IJE conversion from BirthRecord.
+      IJENatality ije = new(br);
+
+      Assert.Equal("US", br.MotherBirthCountry);
+      Assert.Equal(ije.BPLACEC_CNT, br.MotherBirthCountry);
+      br.MotherBirthCountry = "CZ";
+      Assert.Equal("CZ", br.MotherBirthCountry);
+    }
   }
 }

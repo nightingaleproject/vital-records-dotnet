@@ -395,5 +395,38 @@ namespace BFDR.Tests
       CodeY.Add("system", VR.ValueSets.HispanicNoUnknown.Codes[1, 2]);
       Assert.Equal(CodeY, fhir.FatherEthnicity1);
     }
+
+    [Fact]
+    public void TestImportMotherBirthplace()
+    {
+      // Test IJE import.
+      IJENatality ijeImported = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/BasicBirthRecord.ije")), true);
+      // Test IJE conversion to BirthRecord.
+      BirthRecord br = ijeImported.ToRecord();
+      // Test IJE conversion from BirthRecord.
+      IJENatality ijeConverted = new(br);
+
+      Assert.Equal("US", ijeImported.BPLACEC_CNT);
+      Assert.Equal(ijeImported.BPLACEC_CNT, br.MotherBirthCountry);
+      Assert.Equal(ijeImported.BPLACEC_CNT, ijeConverted.BPLACEC_CNT);
+    }
+
+    [Fact]
+    public void TestSetMotherBirthplace()
+    {
+      // Manually set ije values.
+      IJENatality ije = new()
+      {
+          BPLACEC_CNT = "US"
+      };
+      // Test IJE conversion to BirthRecord.
+      BirthRecord br = ije.ToRecord();
+      // Test IJE conversion from BirthRecord.
+      IJENatality ijeConverted = new(br);
+
+      Assert.Equal("US", ije.BPLACEC_CNT);
+      Assert.Equal(ije.BPLACEC_CNT, br.MotherBirthCountry);
+      Assert.Equal(ije.BPLACEC_CNT, ijeConverted.BPLACEC_CNT);
+    }
   }
 }

@@ -875,6 +875,49 @@ namespace BFDR
             }
         }
 
+        /// <summary>Birthplace of Mother--Country.</summary>
+        /// <value>Birthplace of Mother--Country.</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotherBirthCountry = "US";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother's Birth Country: {ExampleBirthRecord.MotherBirthCountry}");</para>
+        /// </example>
+        [Property("MotherBirthCountry", Property.Types.String, "Mother Demographics", "Birthplace of Mother--Country.", true, VR.IGURL.Mother, true, 15)]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient).extension.where(url='" + OtherExtensionURL.PatientBirthPlace + "')", "")]
+        public string MotherBirthCountry
+        {
+            get
+            {
+                return GetPlaceOfBirth(Mother)["addressCountry"];
+            }
+            set
+            {
+                if (Mother == null)
+                {
+                    return;
+                }
+                // Check that the given country code exists in the value set: https://hl7.org/fhir/us/vr-common-library/2024Jan/ValueSet-ValueSet-residence-country-vr.html
+                if (value.Length != 2)
+                {
+                    return;
+                }
+                if (Mother.Extension.Any(ext => ext.Url == OtherExtensionURL.PatientBirthPlace))
+                {
+                    Address address = (Address) Mother.GetExtension(OtherExtensionURL.PatientBirthPlace).Value;
+                    address.Country = value;
+                    return;
+                }
+                else
+                {
+                    Dictionary<string, string> countryOnly = new Dictionary<string, string>();
+                    countryOnly["addressCountry"] = value;
+                    SetPlaceOfBirth(Mother, countryOnly);
+                }
+
+            }
+        }
+
         /// <summary>Infant's Medical Record Number.</summary>
         /// <value>Infant's Medical Record Number.</value>
         /// <example>

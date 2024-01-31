@@ -452,12 +452,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return LeftJustified_Get("BPLACEC_CNT", "MotherBirthCountry");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                LeftJustified_Set("BPLACEC_CNT", "MotherBirthCountry", value);
             }
         }
 

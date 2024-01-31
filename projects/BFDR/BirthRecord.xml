@@ -333,6 +333,16 @@
             <para>Console.WriteLine($"State where child was born: {ExampleBirthRecord.PlaceOfBirth["placeOfBirthState"]}");</para>
             </example>
         </member>
+        <member name="P:BFDR.BirthRecord.MotherBirthCountry">
+            <summary>Birthplace of Mother--Country.</summary>
+            <value>Birthplace of Mother--Country.</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherBirthCountry = "US";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's Birth Country: {ExampleBirthRecord.MotherBirthCountry}");</para>
+            </example>
+        </member>
         <member name="P:BFDR.BirthRecord.InfantMedicalRecordNumber">
             <summary>Infant's Medical Record Number.</summary>
             <value>Infant's Medical Record Number.</value>
