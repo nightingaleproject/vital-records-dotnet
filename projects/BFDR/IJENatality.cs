@@ -437,12 +437,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return LeftJustified_Get("BPLACEC_ST_TER", "MotherBirthState");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                LeftJustified_Set("BPLACEC_ST_TER", "MotherBirthState", value);
             }
         }
 

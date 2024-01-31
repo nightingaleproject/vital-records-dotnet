@@ -1078,9 +1078,14 @@ namespace BFDR.Tests
       // Test IJE Conversion.
       IJENatality ije = new(secondRecord);
 
+      // Country
       Assert.Equal("US", firstRecord.MotherBirthCountry);
       Assert.Equal(firstRecord.MotherBirthCountry, secondRecord.MotherBirthCountry);
       Assert.Equal(firstRecord.MotherBirthCountry, ije.BPLACEC_CNT);
+      // State
+      Assert.Equal("UT", firstRecord.MotherBirthState);
+      Assert.Equal(firstRecord.MotherBirthState, secondRecord.MotherBirthState);
+      Assert.Equal(firstRecord.MotherBirthState, ije.BPLACEC_ST_TER);
     }
 
     [Fact]
@@ -1089,15 +1094,19 @@ namespace BFDR.Tests
       // Manually set birth record values.
       BirthRecord br = new()
       {
-          MotherBirthCountry = "US"
+          MotherBirthCountry = "US",
+          MotherBirthState = "UT"
       };
       // Test IJE conversion from BirthRecord.
       IJENatality ije = new(br);
 
       Assert.Equal("US", br.MotherBirthCountry);
       Assert.Equal(ije.BPLACEC_CNT, br.MotherBirthCountry);
-      br.MotherBirthCountry = "CZ";
-      Assert.Equal("CZ", br.MotherBirthCountry);
+      Assert.Equal(ije.BPLACEC_ST_TER, br.MotherBirthState);
+      br.MotherBirthCountry = "AA";
+      Assert.Equal("AA", br.MotherBirthCountry);
+      br.MotherBirthState = "MA";
+      Assert.Equal("MA", br.MotherBirthState);
     }
   }
 }

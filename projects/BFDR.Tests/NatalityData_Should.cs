@@ -406,9 +406,14 @@ namespace BFDR.Tests
       // Test IJE conversion from BirthRecord.
       IJENatality ijeConverted = new(br);
 
+      // Country
       Assert.Equal("US", ijeImported.BPLACEC_CNT);
       Assert.Equal(ijeImported.BPLACEC_CNT, br.MotherBirthCountry);
       Assert.Equal(ijeImported.BPLACEC_CNT, ijeConverted.BPLACEC_CNT);
+      // State
+      Assert.Equal("CA", ijeImported.BPLACEC_ST_TER);
+      Assert.Equal(ijeImported.BPLACEC_ST_TER, br.MotherBirthState);
+      Assert.Equal(ijeImported.BPLACEC_ST_TER, ijeConverted.BPLACEC_ST_TER);
     }
 
     [Fact]
@@ -417,16 +422,26 @@ namespace BFDR.Tests
       // Manually set ije values.
       IJENatality ije = new()
       {
-          BPLACEC_CNT = "US"
+          BPLACEC_CNT = "US",
+          BPLACEC_ST_TER = "FL"
       };
       // Test IJE conversion to BirthRecord.
       BirthRecord br = ije.ToRecord();
       // Test IJE conversion from BirthRecord.
       IJENatality ijeConverted = new(br);
 
+      // Country
       Assert.Equal("US", ije.BPLACEC_CNT);
       Assert.Equal(ije.BPLACEC_CNT, br.MotherBirthCountry);
       Assert.Equal(ije.BPLACEC_CNT, ijeConverted.BPLACEC_CNT);
+      ije.BPLACEC_CNT = "AE";
+      Assert.Equal("AE", ije.BPLACEC_CNT);
+      // State
+      Assert.Equal("FL", ije.BPLACEC_ST_TER);
+      Assert.Equal(ije.BPLACEC_ST_TER, br.MotherBirthState);
+      Assert.Equal(ije.BPLACEC_ST_TER, ijeConverted.BPLACEC_ST_TER);
+      ije.BPLACEC_ST_TER = "AL";
+      Assert.Equal("AL", ije.BPLACEC_ST_TER);
     }
   }
 }
