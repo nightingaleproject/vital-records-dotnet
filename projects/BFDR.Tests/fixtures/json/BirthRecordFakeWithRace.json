@@ -1,0 +1,532 @@
+{
+  "resourceType": "Bundle",
+  "id": "216814bf-3e7f-469e-bf2b-26f49e9f3fde",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/us/bfdr/StructureDefinition/BundleDocumentBFDR"
+    ]
+  },
+  "identifier": {
+    "extension": [
+      {
+        "url": "http://hl7.org/fhir/us/bfdr/StructureDefinition/CertificateNumber",
+        "valueString": "100"
+      },
+      {
+        "url": "http://hl7.org/fhir/us/bfdr/StructureDefinition/AuxiliaryStateIdentifier1",
+        "valueString": "123"
+      }
+    ],
+    "system": "http://nchs.cdc.gov/bfdr_id",
+    "value": "2023XX000100"
+  },
+  "type": "document",
+  "timestamp": "2024-02-01T21:21:53.859704-05:00",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:b6f7b9a9-e58c-436c-b9ef-91ca1fc3bfac",
+      "resource": {
+        "resourceType": "Composition",
+        "id": "b6f7b9a9-e58c-436c-b9ef-91ca1fc3bfac",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/bfdr/StructureDefinition/CompositionJurisdictionLiveBirthReport"
+          ]
+        },
+        "status": "final",
+        "type": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "71230-7",
+              "display": "Birth certificate"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:0e4a4859-fc69-4c0d-8a8d-84f5e86991a6"
+        },
+        "title": "Birth Certificate",
+        "attester": [
+          {
+            "mode": "legal"
+          }
+        ],
+        "event": [
+          {
+            "code": [
+              {
+                "coding": [
+                  {
+                    "system": "http://snomed.info/sct",
+                    "code": "103693007",
+                    "display": "Diagnostic procedure (procedure)"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "section": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "57075-4"
+                }
+              ]
+            },
+            "focus": {
+              "reference": "urn:uuid:0e4a4859-fc69-4c0d-8a8d-84f5e86991a6"
+            },
+            "entry": [
+              {
+                "reference": "urn:uuid:227bdbb7-95f7-4280-b357-5ad9a1215f95"
+              },
+              {
+                "reference": "urn:uuid:71894d78-d6b5-41cd-82f2-5d8242f523c0"
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "55752-0"
+                }
+              ]
+            },
+            "focus": {
+              "reference": "urn:uuid:e0f8c247-78e8-4481-a2f4-b8a4ca6e677e"
+            },
+            "entry": [
+              {
+                "reference": "urn:uuid:c074c803-0d06-4c2b-aac4-5df124bbce49"
+              },
+              {
+                "reference": "urn:uuid:c9df4dd8-0ae6-4acd-8c8f-8dac15bb366f"
+              },
+              {
+                "reference": "urn:uuid:8676af4d-a8bd-4172-bc60-ac3f3315a55e"
+              },
+              {
+                "reference": "urn:uuid:772c0dc6-5a9e-439f-b49c-629ecdf93d3b"
+              },
+              {
+                "reference": "urn:uuid:c2f2320a-b62f-485a-9026-055d78711615"
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "inputraceandethnicityMother"
+                }
+              ]
+            },
+            "entry": [
+              {
+                "reference": "urn:uuid:8bb84c7a-03f0-4b4f-9ea8-db7d2270d98a"
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "inputraceandethnicityFather"
+                }
+              ]
+            },
+            "entry": [
+              {
+                "reference": "urn:uuid:fb19a786-8625-4f3d-bff0-ae5d2dfc5526"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:0e4a4859-fc69-4c0d-8a8d-84f5e86991a6",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "0e4a4859-fc69-4c0d-8a8d-84f5e86991a6",
+        "meta": {
+          "profile": [
+            "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Patient-child-vr.html"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/administrative-gender",
+                  "code": "M",
+                  "display": "Male"
+                }
+              ]
+            }
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/patient-birthPlace",
+            "valueAddress": {
+              "line": [
+                "123 Fake Street"
+              ],
+              "city": "Springfield",
+              "district": "Hampden",
+              "state": "MA",
+              "postalCode": "01101",
+              "country": "US"
+            }
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "MR",
+                  "display": "Medical Record Number"
+                }
+              ]
+            },
+            "value": "7134703"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Adkins",
+            "given": [
+              "Alexander",
+              "Arlo"
+            ]
+          }
+        ],
+        "birthDate": "2023-01-01",
+        "_birthDate": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/patient-birthTime",
+              "valueDateTime": "2023-01-01T00:00:00"
+            }
+          ]
+        },
+        "multipleBirthBoolean": false,
+        "_multipleBirthBoolean": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:e0f8c247-78e8-4481-a2f4-b8a4ca6e677e",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "e0f8c247-78e8-4481-a2f4-b8a4ca6e677e",
+        "meta": {
+          "profile": [
+            "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Patient-mother-vr.html"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "MR",
+                  "display": "Medical Record Number"
+                }
+              ]
+            },
+            "value": "2286144"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "SS",
+                  "display": "Social Security Number"
+                }
+              ]
+            },
+            "value": "133756482"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Adkins",
+            "given": [
+              "Xenia"
+            ]
+          }
+        ],
+        "birthDate": "1992-01-12"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:fb60161f-b348-4581-a43a-e57d913458df",
+      "resource": {
+        "resourceType": "RelatedPerson",
+        "id": "fb60161f-b348-4581-a43a-e57d913458df",
+        "meta": {
+          "profile": [
+            "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-RelatedPerson-father-natural-vr.html"
+          ]
+        },
+        "birthDate": "1990-09-21"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:c074c803-0d06-4c2b-aac4-5df124bbce49",
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "c074c803-0d06-4c2b-aac4-5df124bbce49",
+        "category": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "73813-8"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "18946005"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:e0f8c247-78e8-4481-a2f4-b8a4ca6e677e"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:c9df4dd8-0ae6-4acd-8c8f-8dac15bb366f",
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "c9df4dd8-0ae6-4acd-8c8f-8dac15bb366f",
+        "category": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "73813-8"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "237001001"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:e0f8c247-78e8-4481-a2f4-b8a4ca6e677e"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:8676af4d-a8bd-4172-bc60-ac3f3315a55e",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "8676af4d-a8bd-4172-bc60-ac3f3315a55e",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "73775-9"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "48194001"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:e0f8c247-78e8-4481-a2f4-b8a4ca6e677e"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:772c0dc6-5a9e-439f-b49c-629ecdf93d3b",
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "772c0dc6-5a9e-439f-b49c-629ecdf93d3b",
+        "category": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "73762-7"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "700000006"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:e0f8c247-78e8-4481-a2f4-b8a4ca6e677e"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:c2f2320a-b62f-485a-9026-055d78711615",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "c2f2320a-b62f-485a-9026-055d78711615",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "73814-6"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:e0f8c247-78e8-4481-a2f4-b8a4ca6e677e"
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "260413007"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:8bb84c7a-03f0-4b4f-9ea8-db7d2270d98a",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "8bb84c7a-03f0-4b4f-9ea8-db7d2270d98a",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/input-race-and-ethnicity-vr"
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "https://build.fhir.org/ig/HL7/vr-common-library/CodeSystem-CodeSystem-local-observation-codes-vr.html",
+              "code": "inputraceandethnicityMother",
+              "display": "Input Race and Ethnicity Person"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:0e4a4859-fc69-4c0d-8a8d-84f5e86991a6"
+        },
+        "focus": [
+          {
+            "reference": "urn:uuid:e0f8c247-78e8-4481-a2f4-b8a4ca6e677e"
+          }
+        ],
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/2024Jan/CodeSystem-codesystem-vr-component",
+                  "code": "HispanicCuban",
+                  "display": "Hispanic Cuban"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                  "code": "Y",
+                  "display": "Yes"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/2024Jan/CodeSystem-codesystem-vr-component",
+                  "code": "BlackOrAfricanAmerican",
+                  "display": "Black Or African American"
+                }
+              ]
+            },
+            "valueBoolean": true
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:fb19a786-8625-4f3d-bff0-ae5d2dfc5526",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "fb19a786-8625-4f3d-bff0-ae5d2dfc5526",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/input-race-and-ethnicity-vr"
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "https://build.fhir.org/ig/HL7/vr-common-library/CodeSystem-CodeSystem-local-observation-codes-vr.html",
+              "code": "inputraceandethnicityFather",
+              "display": "Input Race and Ethnicity Person"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:0e4a4859-fc69-4c0d-8a8d-84f5e86991a6"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/2024Jan/CodeSystem-codesystem-vr-component",
+                  "code": "White",
+                  "display": "White"
+                }
+              ]
+            },
+            "valueBoolean": true
+          }
+        ]
+      }
+    }
+  ]
+}

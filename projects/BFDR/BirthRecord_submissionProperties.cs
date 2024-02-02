@@ -2240,13 +2240,16 @@ namespace BFDR
             }
             set
             {
+                if (value["code"] == "") {
+                    return;
+                }
                 if (InputRaceAndEthnicityObsMother == null)
                 {
                     CreateInputRaceEthnicityObsMother();
                 }
                 InputRaceAndEthnicityObsMother.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.Mexican);
                 Observation.ComponentComponent component = new Observation.ComponentComponent();
-                component.Code = new CodeableConcept(CodeSystems.ComponentCode, NvssEthnicity.Mexican, NvssEthnicity.MexicanDisplay, null);
+                component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, NvssEthnicity.Mexican, NvssEthnicity.MexicanDisplay, null);
                 component.Value = DictToCodeableConcept(value);
                 InputRaceAndEthnicityObsMother.Component.Add(component);
             }
@@ -2319,13 +2322,16 @@ namespace BFDR
             }
             set
             {
+                if (value["code"] == "") {
+                    return;
+                }
                 if (InputRaceAndEthnicityObsMother == null)
                 {
                     CreateInputRaceEthnicityObsMother();
                 }
                 InputRaceAndEthnicityObsMother.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.PuertoRican);
                 Observation.ComponentComponent component = new Observation.ComponentComponent();
-                component.Code = new CodeableConcept(CodeSystems.ComponentCode, NvssEthnicity.PuertoRican, NvssEthnicity.PuertoRicanDisplay, null);
+                component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, NvssEthnicity.PuertoRican, NvssEthnicity.PuertoRicanDisplay, null);
                 component.Value = DictToCodeableConcept(value);
                 InputRaceAndEthnicityObsMother.Component.Add(component);
             }
@@ -2398,13 +2404,16 @@ namespace BFDR
             }
             set
             {
+                if (value["code"] == "") {
+                    return;
+                }
                 if (InputRaceAndEthnicityObsMother == null)
                 {
                     CreateInputRaceEthnicityObsMother();
                 }
                 InputRaceAndEthnicityObsMother.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.Cuban);
                 Observation.ComponentComponent component = new Observation.ComponentComponent();
-                component.Code = new CodeableConcept(CodeSystems.ComponentCode, NvssEthnicity.Cuban, NvssEthnicity.CubanDisplay, null);
+                component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, NvssEthnicity.Cuban, NvssEthnicity.CubanDisplay, null);
                 component.Value = DictToCodeableConcept(value);
                 InputRaceAndEthnicityObsMother.Component.Add(component);
             }
@@ -2478,13 +2487,16 @@ namespace BFDR
             }
             set
             {
+                if (value["code"] == "") {
+                    return;
+                }
                 if (InputRaceAndEthnicityObsMother == null)
                 {
                     CreateInputRaceEthnicityObsMother();
                 }
                 InputRaceAndEthnicityObsMother.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.Other);
                 Observation.ComponentComponent component = new Observation.ComponentComponent();
-                component.Code = new CodeableConcept(CodeSystems.ComponentCode, NvssEthnicity.Other, NvssEthnicity.OtherDisplay, null);
+                component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, NvssEthnicity.Other, NvssEthnicity.OtherDisplay, null);
                 component.Value = DictToCodeableConcept(value);
                 InputRaceAndEthnicityObsMother.Component.Add(component);
             }
@@ -2551,17 +2563,17 @@ namespace BFDR
             }
             set
             {
+                if (String.IsNullOrWhiteSpace(value))
+                {
+                    return;
+                }
                 if (InputRaceAndEthnicityObsMother == null)
                 {
                     CreateInputRaceEthnicityObsMother();
                 }
                 InputRaceAndEthnicityObsMother.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.Literal);
-                if (String.IsNullOrWhiteSpace(value))
-                {
-                    return;
-                }
                 Observation.ComponentComponent component = new Observation.ComponentComponent();
-                component.Code = new CodeableConcept(CodeSystems.ComponentCode, NvssEthnicity.Literal, NvssEthnicity.LiteralDisplay, null);
+                component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, NvssEthnicity.Literal, NvssEthnicity.LiteralDisplay, null);
                 component.Value = new FhirString(value);
                 InputRaceAndEthnicityObsMother.Component.Add(component);
             }
@@ -2638,6 +2650,9 @@ namespace BFDR
             }
             set
             {
+                if (value.FirstOrDefault() == null) {
+                    return;
+                }
                 if (InputRaceAndEthnicityObsMother == null)
                 {
                     CreateInputRaceEthnicityObsMother();
@@ -2649,7 +2664,7 @@ namespace BFDR
                     InputRaceAndEthnicityObsMother.Component.RemoveAll(c => c.Code.Coding[0].Code == element.Item1);
                     Observation.ComponentComponent component = new Observation.ComponentComponent();
                     String displayValue = NvssRace.GetDisplayValueForCode(element.Item1);
-                    component.Code = new CodeableConcept(CodeSystems.ComponentCode, element.Item1, displayValue, null);
+                    component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, element.Item1, displayValue, null);
                     if (booleanRaceCodes.Contains(element.Item1))
                     {
                         if (element.Item2 == "Y")
@@ -2712,13 +2727,16 @@ namespace BFDR
             }
             set
             {
+                if (value["code"] == "") {
+                    return;
+                }
                 if (InputRaceAndEthnicityObsFather == null)
                 {
                     CreateInputRaceEthnicityObsFather();
                 }
                 InputRaceAndEthnicityObsFather.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.Mexican);
                 Observation.ComponentComponent component = new Observation.ComponentComponent();
-                component.Code = new CodeableConcept(CodeSystems.ComponentCode, NvssEthnicity.Mexican, NvssEthnicity.MexicanDisplay, null);
+                component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, NvssEthnicity.Mexican, NvssEthnicity.MexicanDisplay, null);
                 component.Value = DictToCodeableConcept(value);
                 InputRaceAndEthnicityObsFather.Component.Add(component);
             }
@@ -2791,13 +2809,16 @@ namespace BFDR
             }
             set
             {
+                if (value["code"] == "") {
+                    return;
+                }
                 if (InputRaceAndEthnicityObsFather == null)
                 {
                     CreateInputRaceEthnicityObsFather();
                 }
                 InputRaceAndEthnicityObsFather.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.PuertoRican);
                 Observation.ComponentComponent component = new Observation.ComponentComponent();
-                component.Code = new CodeableConcept(CodeSystems.ComponentCode, NvssEthnicity.PuertoRican, NvssEthnicity.PuertoRicanDisplay, null);
+                component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, NvssEthnicity.PuertoRican, NvssEthnicity.PuertoRicanDisplay, null);
                 component.Value = DictToCodeableConcept(value);
                 InputRaceAndEthnicityObsFather.Component.Add(component);
             }
@@ -2870,13 +2891,16 @@ namespace BFDR
             }
             set
             {
+                if (value["code"] == "") {
+                    return;
+                }
                 if (InputRaceAndEthnicityObsFather == null)
                 {
                     CreateInputRaceEthnicityObsFather();
                 }
                 InputRaceAndEthnicityObsFather.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.Cuban);
                 Observation.ComponentComponent component = new Observation.ComponentComponent();
-                component.Code = new CodeableConcept(CodeSystems.ComponentCode, NvssEthnicity.Cuban, NvssEthnicity.CubanDisplay, null);
+                component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, NvssEthnicity.Cuban, NvssEthnicity.CubanDisplay, null);
                 component.Value = DictToCodeableConcept(value);
                 InputRaceAndEthnicityObsFather.Component.Add(component);
             }
@@ -2950,13 +2974,16 @@ namespace BFDR
             }
             set
             {
+                if (value["code"] == "") {
+                    return;
+                }
                 if (InputRaceAndEthnicityObsFather == null)
                 {
                     CreateInputRaceEthnicityObsFather();
                 }
                 InputRaceAndEthnicityObsFather.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.Other);
                 Observation.ComponentComponent component = new Observation.ComponentComponent();
-                component.Code = new CodeableConcept(CodeSystems.ComponentCode, NvssEthnicity.Other, NvssEthnicity.OtherDisplay, null);
+                component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, NvssEthnicity.Other, NvssEthnicity.OtherDisplay, null);
                 component.Value = DictToCodeableConcept(value);
                 InputRaceAndEthnicityObsFather.Component.Add(component);
             }
@@ -3023,17 +3050,17 @@ namespace BFDR
             }
             set
             {
+                if (String.IsNullOrWhiteSpace(value))
+                {
+                    return;
+                }
                 if (InputRaceAndEthnicityObsFather == null)
                 {
                     CreateInputRaceEthnicityObsFather();
                 }
                 InputRaceAndEthnicityObsFather.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.Literal);
-                if (String.IsNullOrWhiteSpace(value))
-                {
-                    return;
-                }
                 Observation.ComponentComponent component = new Observation.ComponentComponent();
-                component.Code = new CodeableConcept(CodeSystems.ComponentCode, NvssEthnicity.Literal, NvssEthnicity.LiteralDisplay, null);
+                component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, NvssEthnicity.Literal, NvssEthnicity.LiteralDisplay, null);
                 component.Value = new FhirString(value);
                 InputRaceAndEthnicityObsFather.Component.Add(component);
             }
@@ -3110,6 +3137,9 @@ namespace BFDR
             }
             set
             {
+                if (value.FirstOrDefault() == null) {
+                    return;
+                }
                 if (InputRaceAndEthnicityObsFather == null)
                 {
                     CreateInputRaceEthnicityObsFather();
@@ -3121,7 +3151,7 @@ namespace BFDR
                     InputRaceAndEthnicityObsFather.Component.RemoveAll(c => c.Code.Coding[0].Code == element.Item1);
                     Observation.ComponentComponent component = new Observation.ComponentComponent();
                     String displayValue = NvssRace.GetDisplayValueForCode(element.Item1);
-                    component.Code = new CodeableConcept(CodeSystems.ComponentCode, element.Item1, displayValue, null);
+                    component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, element.Item1, displayValue, null);
                     if (booleanRaceCodes.Contains(element.Item1))
                     {
                         if (element.Item2 == "Y")

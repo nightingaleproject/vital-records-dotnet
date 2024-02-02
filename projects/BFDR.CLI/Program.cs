@@ -62,7 +62,7 @@ namespace BFDR.CLI
                 birthRecord.Identifier = "100";
                 birthRecord.StateLocalIdentifier1 = "123";
                 birthRecord.DateOfBirth = "2023-01-01";
-                birthRecord.BirthSex = "M";
+                birthRecord.BirthSexHelper = "M";
 
                 string[] childNames = { "Alexander", "Arlo" };
                 birthRecord.ChildGivenNames = childNames;
@@ -113,13 +113,13 @@ namespace BFDR.CLI
                 birthRecord.FatherDateOfBirth = "1990-09-21";
 
                 // TODO: add these back once correct codesystems are used for the component 
-                // Ethnicity
-                // birthRecord.MotherEthnicity3Helper = VR.ValueSets.HispanicNoUnknown.Yes;
-                // // Race
-                // Tuple<string, string>[] motherRace = { Tuple.Create(NvssRace.BlackOrAfricanAmerican, "Y")};
-                // birthRecord.MotherRace = motherRace;
-                // Tuple<string, string>[] fatherRace = { Tuple.Create(NvssRace.White, "Y")};
-                // birthRecord.FatherRace = fatherRace;
+                //Ethnicity
+                birthRecord.MotherEthnicity3Helper = VR.ValueSets.HispanicNoUnknown.Yes;
+                // Race
+                Tuple<string, string>[] motherRace = { Tuple.Create(NvssRace.BlackOrAfricanAmerican, "Y")};
+                birthRecord.MotherRace = motherRace;
+                Tuple<string, string>[] fatherRace = { Tuple.Create(NvssRace.White, "Y")};
+                birthRecord.FatherRace = fatherRace;
 
                 // 1. Write out the Record
                 Console.WriteLine(birthRecord.ToJSON());
@@ -238,17 +238,17 @@ namespace BFDR.CLI
             else if (args.Length == 2 && args[0] == "json2json")
             {
                 // Forces record through getters and then setters, prints as JSON
-                BirthRecord indr = new BirthRecord(File.ReadAllText(args[1]));
-                BirthRecord outdr = new BirthRecord();
+                BirthRecord inbr = new BirthRecord(File.ReadAllText(args[1]));
+                BirthRecord outbr = new BirthRecord();
                 List<PropertyInfo> properties = typeof(BirthRecord).GetProperties().ToList();
                 foreach (PropertyInfo property in properties)
                 {
                     if (property.GetCustomAttribute<Property>() != null)
                     {
-                        property.SetValue(outdr, property.GetValue(indr));
+                        property.SetValue(outbr, property.GetValue(inbr));
                     }
                 }
-                Console.WriteLine(outdr.ToJSON());
+                Console.WriteLine(outbr.ToJSON());
                 return 0;
             }
             else if (args.Length == 2 && args[0] == "roundtrip-ije")
