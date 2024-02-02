@@ -112,7 +112,6 @@ namespace BFDR.CLI
                 birthRecord.FatherBirthYear = 1990;
                 birthRecord.FatherDateOfBirth = "1990-09-21";
 
-                // TODO: add these back once correct codesystems are used for the component 
                 //Ethnicity
                 birthRecord.MotherEthnicity3Helper = VR.ValueSets.HispanicNoUnknown.Yes;
                 // Race
