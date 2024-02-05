@@ -821,7 +821,7 @@ namespace BFDR
                     return;
                 }
                 HumanName name = Father.Name.SingleOrDefault(n => n.Use == HumanName.NameUse.Official);
-                if (name != null) 
+                if (name != null)
                 {
                     string[] suffix = { value };
                     name.Suffix = suffix;
@@ -3542,10 +3542,7 @@ namespace BFDR
                     Code = new CodeableConcept(VR.CodeSystems.LOINC, code),
                     Subject = new ResourceReference($"urn:uuid:{subjectId}")
                 };
-                if (section.Equals(NEWBORN_INFORMATION_SECTION))
-                {
-                    obs.Category.Add(new CodeableConcept(CodeSystems.ObservationCategory, "vital-signs"));
-                }
+                obs.Category.Add(new CodeableConcept(CodeSystems.ObservationCategory, "vital-signs"));
                 AddReferenceToComposition(obs.Id, section);
                 Bundle.AddResourceEntry(obs, "urn:uuid:" + obs.Id);
             }
