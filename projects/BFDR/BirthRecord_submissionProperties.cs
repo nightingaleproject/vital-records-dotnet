@@ -3140,5 +3140,265 @@ namespace BFDR
 
             }
         }
+
+/// TODO: Required field in FHIR, needs BLANK placeholder
+        /// <summary>Family name of attendant.</summary>
+        /// <value>the attendant's family name (i.e. last name)</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.AttendantFamilyName = "Seito";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Attendants's Name: {ExampleBirthRecord.AttendantFamilyName}");</para>
+        /// </example>
+        [Property("Attendant Name", Property.Types.String, "Birth Certification", "Family name of attendant.", true, VR.IGURL.Practitioner, true, 6)]
+        [FHIRPath("Bundle.entry.resource.where($this is Practitioner)", "name")]
+        public string AttendantFamilyName
+        {
+            get
+            {
+                if (Attendant != null && Attendant.Name.Count() > 0)
+                {
+                    return Attendant.Name.First().Family;
+                }
+                return null;
+            }
+            set
+            {
+                if (Attendant == null)
+                {
+                    CreatePractitioner();
+                }
+                HumanName name = Attendant.Name.FirstOrDefault();
+                if (name != null && !String.IsNullOrEmpty(value))
+                {
+                    name.Family = value;
+                }
+                else if (!String.IsNullOrEmpty(value))
+                {
+                    name = new HumanName();
+                    name.Use = HumanName.NameUse.Official;
+                    name.Family = value;
+                    Attendant.Name.Add(name);
+                }
+            }
+        }
+
+        /// <summary>Attendant name.</summary>
+        /// <value>the attendant's name</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.AttendantName = "Janet Seito";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Attendants's Name: {ExampleBirthRecord.AttendantName}");</para>
+        /// </example>
+        [Property("Attendant Name", Property.Types.String, "Birth Certification", "Name of attendant.", true, VR.IGURL.Practitioner, true, 6)]
+        [FHIRPath("Bundle.entry.resource.where($this is Practitioner)", "name")]
+        public string AttendantName
+        {
+            get
+            {
+                if (Attendant != null && Attendant.Name != null)
+                {
+                    return Attendant.Name.First().Text;
+                }
+                return null;
+            }
+            set
+            {
+                if (Attendant == null)
+                {
+                    CreatePractitioner();
+                }
+                HumanName name = Attendant.Name.FirstOrDefault();
+                if (name != null && !String.IsNullOrEmpty(value))
+                {
+                    name.Text = value;
+                }
+                else if (!String.IsNullOrEmpty(value))
+                {
+                    name = new HumanName();
+                    name.Use = HumanName.NameUse.Official;
+                    name.Text = value;
+                    Attendant.Name.Add(name);
+                }
+            }
+        }
+
+        /// <summary>Attendants NPI</summary>
+        /// <value>the attendants npi</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.AttendantNPI = "1234567890";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Attendants NPI: {ExampleBirthRecord.AttendantNPI}");</para>
+        /// </example>
+        [Property("Attendants NPI", Property.Types.String, "Birth Certification", "Attendant's NPI.", true, VR.IGURL.Practitioner, true, 13)]
+        [FHIRPath("Bundle.entry.resource.where($this is Practitioner).identifier.where(system='http://hl7.org/fhir/sid/us-npi')", "value")]
+        public string AttendantNPI
+        {
+            get
+            {
+                return Attendant?.Identifier?.Find(id => id.System == "http://hl7.org/fhir/sid/us-npi")?.Value;
+            }
+            set
+            {
+                if (Attendant == null)
+                {
+                    CreatePractitioner();
+                }
+                if (Attendant.Identifier.Count > 0)
+                {
+                    Attendant.Identifier.Clear();
+                }
+                Attendant.Identifier.RemoveAll(iden => iden.System == CodeSystems.US_NPI_HL7);
+                if (String.IsNullOrWhiteSpace(value))
+                {
+                    return;
+                }
+                Identifier npi = new Identifier();
+                npi.Type = new CodeableConcept(CodeSystems.HL7_identifier_type, "NPI", "National Provider Identifier", null);
+                npi.System = CodeSystems.US_NPI_HL7;
+                npi.Value = value.Replace("-", string.Empty).Replace(" ", string.Empty);
+                Attendant.Identifier.Add(npi);
+            }
+        }
+
+        /// <summary>Attendant Title</summary>
+        /// <value>the title/qualification of the person who attended the birth. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; title = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>title.Add("code", "112247003");</para>
+        /// <para>title.Add("system", CodeSystems.SCT);</para>
+        /// <para>title.Add("display", "Medical Doctor");</para>
+        /// <para>ExampleBirthRecord.AttendantTitle = title;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Attendant Title: {ExampleBirthRecord.AttendantTitle['display']}");</para>
+        /// </example>
+        [Property("Attendants Title", Property.Types.Dictionary, "Birth Certification", "Attendant's Title.", true, VR.IGURL.Practitioner, true, 13)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Practitioner)", "qualification")]
+        public Dictionary<string, string> AttendantTitle
+        {
+            get
+            {
+                if (Attendant == null)
+                {
+                    return EmptyCodeableDict();
+                }
+                Practitioner.QualificationComponent qualification = Attendant.Qualification.FirstOrDefault();
+                if (Attendant != null && qualification != null)
+                {
+                    return CodeableConceptToDict(qualification.Code);
+                }
+                return EmptyCodeableDict();
+            }
+            set
+            {
+                if (Attendant == null)
+                {
+                    CreatePractitioner();
+                }
+                Practitioner.QualificationComponent qualification = new Practitioner.QualificationComponent();
+                qualification.Code = DictToCodeableConcept(value);
+                Attendant.Qualification.Clear();
+                Attendant.Qualification.Add(qualification);
+            }
+        }
+
+        /// <summary>Attendant Title Helper.</summary>
+        /// <value>the title/qualification of the attendant.
+        /// <para>"code" - the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.AttendantTitleHelper = ValueSets.BirthAttendantsTitles.MedicalDoctor;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Attendant Title: {ExampleBirthRecord.AttendantTitleHelper}");</para>
+        /// </example>
+        [Property("Attendant Title Helper", Property.Types.String, "Birth Certification", "Attendant Title.", false, VR.IGURL.Practitioner, true, 4)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Practitioner)", "qualification")]
+        public string AttendantTitleHelper
+        {
+            get
+            {
+                if (AttendantTitle.ContainsKey("code"))
+                {
+                    string code = AttendantTitle["code"];
+                    if (!String.IsNullOrWhiteSpace(code))
+                    {
+                        return code;
+                    }
+                }
+                return null;
+            }
+            set
+            {
+                if (String.IsNullOrWhiteSpace(value))
+                {
+                    // do nothing
+                    return;
+                }
+                if (!VR.Mappings.ConceptMapBirthAttendantTitlesVitalRecords.FHIRToIJE.ContainsKey(value))
+                { //other
+                    AttendantTitle = CodeableConceptToDict(new CodeableConcept(CodeSystems.NullFlavor_HL7_V3, "OTH", "Other", value));
+                }
+                else
+                { // normal path
+                    SetCodeValue("AttendantTitle", value, VR.ValueSets.BirthAttendantsTitles.Codes);
+                }
+            }
+        }
+
+        /// <summary>Attendant Other Helper.</summary>
+        /// <value>the "other" title/qualification of the attendant.
+        /// <para>"code" - the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.AttendantOtherHelper = "Birth Clerk";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Attendant Other: {ExampleBirthRecord.AttendantOtherHelper}");</para>
+        /// </example>
+        [Property("Attendant Other Helper", Property.Types.String, "Birth Certification", "Attendant Other.", false, VR.IGURL.Practitioner, true, 4)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Practitioner).qualification", "other")]
+        public string AttendantOtherHelper
+        {
+            get
+            {
+                if (AttendantTitle.ContainsKey("code"))
+                {
+                    string code = AttendantTitle["code"];
+                    if (code == "OTH")
+                    {
+                        if (AttendantTitle.ContainsKey("text") && !String.IsNullOrWhiteSpace(AttendantTitle["text"]))
+                        {
+                            return (AttendantTitle["text"]);
+                        }
+                    }
+                }
+                return null;
+            }
+            set
+            {
+                if (String.IsNullOrWhiteSpace(value))
+                {
+                    // do nothing
+                    return;
+                }
+                else
+                { 
+                    AttendantTitle = CodeableConceptToDict(new CodeableConcept(CodeSystems.NullFlavor_HL7_V3, "OTH", "Other", value));
+                }
+            }
+        }
     }
 }

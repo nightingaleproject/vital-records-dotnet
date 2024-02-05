@@ -2194,12 +2194,26 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                var ret = record.AttendantTitleHelper;
+                if (ret != null && Mappings.BirthAttendantTitles.FHIRToIJE.ContainsKey(ret))
+                {
+                    return Get_MappingFHIRToIJE(Mappings.BirthAttendantTitles.FHIRToIJE, "AttendantTitle", "ATTEND");
+                }
+                else  // If the return value is not a code, it is just an arbitrary string, so return it.
+                {
+                    return ret;
+                }
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (Mappings.BirthAttendantTitles.IJEToFHIR.ContainsKey(value.Split(' ')[0]))
+                {
+                    Set_MappingIJEToFHIR(Mappings.BirthAttendantTitles.IJEToFHIR, "ATTEND", "AttendantTitle", value.Trim());
+                }
+                else  // If the value is not a valid code, it is just an arbitrary string.  The helper will deal with it.
+                {
+                    record.AttendantTitleHelper = value;
+                }
             }
         }
 
@@ -4592,12 +4606,18 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                if (record.AttendantOtherHelper != null)
+                {
+                    return record.AttendantOtherHelper.Trim();
+                }
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    record.AttendantOtherHelper = value.Trim();
+                }
             }
         }
 
@@ -4922,12 +4942,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return LeftJustified_Get("ATTEND_NAME", "AttendantName");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                LeftJustified_Set("ATTEND_NAME", "AttendantName", value);
             }
         }
 
@@ -4937,12 +4956,43 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                string fhirFieldName = "NPI";
+                string ijeFieldName = "NPI";
+                int npiLength = 10;
+                string npi = record.AttendantNPI;
+                if (!String.IsNullOrWhiteSpace(npi))
+                {
+                    string formattedNPI = npi.Replace("-", string.Empty).Replace(" ", string.Empty);
+                    if (formattedNPI.Length != npiLength)
+                    {
+                        validationErrors.Add($"Error: FHIR field {fhirFieldName} contains string '{npi}' which is not the expected length (without dashes or spaces) for IJE field {ijeFieldName} of length {npiLength}");
+                    }
+                    return Truncate(formattedNPI, npiLength).PadRight(npiLength, ' ');
+                }
+                else
+                {
+                    return new String(' ', npiLength);
+                }
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                string fhirFieldName = "NPI";
+                string ijeFieldName = "NPI";
+                int npiLength = 9;
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    string npi = value.Trim();
+                    if (npi.Contains("-") || npi.Contains(" "))
+                    {
+                        validationErrors.Add($"Error: IJE field {ijeFieldName} contains string '{value}' which cannot contain ` ` or `-` characters for FHIR field {fhirFieldName}.");
+                    }
+                    string formattedNPI = npi.Replace("-", string.Empty).Replace(" ", string.Empty);
+                    if (formattedNPI.Length != npiLength)
+                    {
+                        validationErrors.Add($"Error: IJE field {ijeFieldName} contains string '{value}' which is not the expected length (without dashes or spaces) for FHIR field {fhirFieldName} of length {npiLength}");
+                    }
+                }
+                LeftJustified_Set(ijeFieldName, fhirFieldName, value);
             }
         }
 
