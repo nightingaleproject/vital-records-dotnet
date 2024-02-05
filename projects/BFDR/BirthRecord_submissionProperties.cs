@@ -6,7 +6,7 @@ using VR;
 using Hl7.Fhir.Support;
 
 // BirthRecord_submissionProperties.cs
-// These fields are used primarily for submitting birth records to NCHS. 
+// These fields are used primarily for submitting birth records to NCHS.
 
 namespace BFDR
 {
@@ -743,7 +743,7 @@ namespace BFDR
                     return;
                 }
                 HumanName name = Child.Name.SingleOrDefault(n => n.Use == HumanName.NameUse.Official);
-                if (name != null) 
+                if (name != null)
                 {
                     string[] suffix = { value };
                     name.Suffix = suffix;
@@ -782,7 +782,7 @@ namespace BFDR
                     return;
                 }
                 HumanName name = Mother.Name.SingleOrDefault(n => n.Use == HumanName.NameUse.Official);
-                if (name != null) 
+                if (name != null)
                 {
                     string[] suffix = { value };
                     name.Suffix = suffix;
@@ -860,7 +860,7 @@ namespace BFDR
                     return;
                 }
                 HumanName name = Mother.Name.SingleOrDefault(n => n.Use == HumanName.NameUse.Maiden);
-                if (name != null) 
+                if (name != null)
                 {
                     string[] suffix = { value };
                     name.Suffix = suffix;
@@ -1408,7 +1408,7 @@ namespace BFDR
                     else if (Child.MultipleBirth as Hl7.Fhir.Model.Integer != null && (Child.MultipleBirth as Hl7.Fhir.Model.Integer).Value != null)
                     {
                         return (Child.MultipleBirth as Hl7.Fhir.Model.Integer).Value;
-                    } 
+                    }
                     else if (Child.MultipleBirth.Extension.Find(ext => ext.Url == ExtensionURL.DataAbsentReason) != null)
                     {
                         return -1;
@@ -1571,9 +1571,9 @@ namespace BFDR
         //
         // Congenital Anomalies of the Newborn Section
         //
-        
+
         /// <summary>No Congenital Anomalies of the Newborn.</summary>
-        [Property("No Congenital Anomalies of the Newborn", Property.Types.Bool, "Congenital Anomalies of the Newborn", 
+        [Property("No Congenital Anomalies of the Newborn", Property.Types.Bool, "Congenital Anomalies of the Newborn",
                   "No Congenital Anomalies of the Newborn", true, IGURL.ObservationNoneOfSpecifiedCongenitalAnomoliesOfTheNewborn, false, 219)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Observation, categoryCode: "73780-9", code: VitalRecord.NONE_OF_THE_ABOVE, section: NEWBORN_INFORMATION_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.Newborn)]
@@ -1584,7 +1584,7 @@ namespace BFDR
         }
 
         /// <summary>Congenital Anomalies of the Newborn, Anencephaly.</summary>
-        [Property("Anencephaly", Property.Types.Bool, "Congenital Anomalies of the Newborn", 
+        [Property("Anencephaly", Property.Types.Bool, "Congenital Anomalies of the Newborn",
                   "Congenital Anomalies of the Newborn, Anencephaly", true, IGURL.ConditionCongenitalAnomalyOfNewborn, true, 219)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "73780-9", code: "89369001", section: NEWBORN_INFORMATION_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.Newborn)]
@@ -1595,7 +1595,7 @@ namespace BFDR
         }
 
         /// <summary>Congenital Anomalies of the Newborn, Cleft Lip with or without Cleft Palate.</summary>
-        [Property("Cleft Lip with or without Cleft Palate", Property.Types.Bool, "Congenital Anomalies of the Newborn", 
+        [Property("Cleft Lip with or without Cleft Palate", Property.Types.Bool, "Congenital Anomalies of the Newborn",
                   "Congenital Anomalies of the Newborn, Cleft Lip with or without Cleft Palate", true, IGURL.ConditionCongenitalAnomalyOfNewborn, true, 226)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "73780-9", code: "80281008", section: NEWBORN_INFORMATION_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.Newborn)]
@@ -1606,7 +1606,7 @@ namespace BFDR
         }
 
         /// <summary>Congenital Anomalies of the Newborn, Cleft Palate Alone.</summary>
-        [Property("Cleft Palate Alone", Property.Types.Bool, "Congenital Anomalies of the Newborn", 
+        [Property("Cleft Palate Alone", Property.Types.Bool, "Congenital Anomalies of the Newborn",
                   "Congenital Anomalies of the Newborn, Cleft Palate Alone", true, IGURL.ConditionCongenitalAnomalyOfNewborn, true, 227)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "73780-9", code: "87979003", section: NEWBORN_INFORMATION_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.Newborn)]
@@ -1617,7 +1617,7 @@ namespace BFDR
         }
 
         /// <summary>Congenital Anomalies of the Newborn, Congenital Diaphragmatic Hernia.</summary>
-        [Property("Congenital Diaphragmatic Hernia", Property.Types.Bool, "Congenital Anomalies of the Newborn", 
+        [Property("Congenital Diaphragmatic Hernia", Property.Types.Bool, "Congenital Anomalies of the Newborn",
                   "Congenital Anomalies of the Newborn, Congenital Diaphragmatic Hernia", true, IGURL.ConditionCongenitalAnomalyOfNewborn, true, 222)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "73780-9", code: "17190001", section: NEWBORN_INFORMATION_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.Newborn)]
@@ -1628,7 +1628,7 @@ namespace BFDR
         }
 
         /// <summary>Congenital Anomalies of the Newborn, Cyanotic Congenital Heart Disease.</summary>
-        [Property("Cyanotic Congenital Heart Disease", Property.Types.Bool, "Congenital Anomalies of the Newborn", 
+        [Property("Cyanotic Congenital Heart Disease", Property.Types.Bool, "Congenital Anomalies of the Newborn",
                   "Congenital Anomalies of the Newborn, Cyanotic Congenital Heart Disease", true, IGURL.ConditionCongenitalAnomalyOfNewborn, true, 221)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "73780-9", code: "12770006", section: NEWBORN_INFORMATION_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.Newborn)]
@@ -1639,7 +1639,7 @@ namespace BFDR
         }
 
         /// <summary>Congenital Anomalies of the Newborn, Down Syndrome.</summary>
-        [Property("Down Syndrome", Property.Types.Bool, "Congenital Anomalies of the Newborn", 
+        [Property("Down Syndrome", Property.Types.Bool, "Congenital Anomalies of the Newborn",
                   "Congenital Anomalies of the Newborn, Down Syndrome", true, IGURL.ConditionCongenitalAnomalyOfNewborn, true, 228)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "73780-9", code: "70156005", section: NEWBORN_INFORMATION_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.Newborn)]
@@ -1650,7 +1650,7 @@ namespace BFDR
         }
 
         /// <summary>Congenital Anomalies of the Newborn, Gastroschisis.</summary>
-        [Property("Gastroschisis", Property.Types.Bool, "Congenital Anomalies of the Newborn", 
+        [Property("Gastroschisis", Property.Types.Bool, "Congenital Anomalies of the Newborn",
                   "Congenital Anomalies of the Newborn, Gastroschisis", true, IGURL.ConditionCongenitalAnomalyOfNewborn, true, 224)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "73780-9", code: "72951007", section: NEWBORN_INFORMATION_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.Newborn)]
@@ -1661,7 +1661,7 @@ namespace BFDR
         }
 
         /// <summary>Congenital Anomalies of the Newborn, Hypospadias.</summary>
-        [Property("Hypospadias", Property.Types.Bool, "Congenital Anomalies of the Newborn", 
+        [Property("Hypospadias", Property.Types.Bool, "Congenital Anomalies of the Newborn",
                   "Congenital Anomalies of the Newborn, Hypospadias", true, IGURL.ConditionCongenitalAnomalyOfNewborn, true, 230)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "73780-9", code: "416010008", section: NEWBORN_INFORMATION_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.Newborn)]
@@ -1672,7 +1672,7 @@ namespace BFDR
         }
 
         /// <summary>Congenital Anomalies of the Newborn, Limb Reduction Defect.</summary>
-        [Property("Limb Reduction Defect", Property.Types.Bool, "Congenital Anomalies of the Newborn", 
+        [Property("Limb Reduction Defect", Property.Types.Bool, "Congenital Anomalies of the Newborn",
                   "Congenital Anomalies of the Newborn, Limb Reduction Defect", true, IGURL.ConditionCongenitalAnomalyOfNewborn, true, 225)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "73780-9", code: "67341007", section: NEWBORN_INFORMATION_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.Newborn)]
@@ -1683,7 +1683,7 @@ namespace BFDR
         }
 
         /// <summary>Congenital Anomalies of the Newborn, Meningomyelocele.</summary>
-        [Property("Meningomyelocele", Property.Types.Bool, "Congenital Anomalies of the Newborn", 
+        [Property("Meningomyelocele", Property.Types.Bool, "Congenital Anomalies of the Newborn",
                   "Congenital Anomalies of the Newborn, Meningomyelocele", true, IGURL.ConditionCongenitalAnomalyOfNewborn, true, 220)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "73780-9", code: "67531005", section: NEWBORN_INFORMATION_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.Newborn)]
@@ -1694,7 +1694,7 @@ namespace BFDR
         }
 
         /// <summary>Congenital Anomalies of the Newborn, Omphalocele.</summary>
-        [Property("Omphalocele", Property.Types.Bool, "Congenital Anomalies of the Newborn", 
+        [Property("Omphalocele", Property.Types.Bool, "Congenital Anomalies of the Newborn",
                   "Congenital Anomalies of the Newborn, Omphalocele", true, IGURL.ConditionCongenitalAnomalyOfNewborn, true, 223)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "73780-9", code: "18735004", section: NEWBORN_INFORMATION_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.Newborn)]
@@ -1705,7 +1705,7 @@ namespace BFDR
         }
 
         /// <summary>Congenital Anomalies of the Newborn, Suspected Chromosomal Disorder.</summary>
-        [Property("Suspected Chromosomal Disorder", Property.Types.Bool, "Congenital Anomalies of the Newborn", 
+        [Property("Suspected Chromosomal Disorder", Property.Types.Bool, "Congenital Anomalies of the Newborn",
                   "Congenital Anomalies of the Newborn, Suspected Chromosomal Disorder", true, IGURL.ConditionCongenitalAnomalyOfNewborn, true, 229)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "73780-9", code: "409709004", section: NEWBORN_INFORMATION_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.Newborn)]
@@ -1720,7 +1720,7 @@ namespace BFDR
         //
 
         /// <summary>No Characteristics of Labor and Delivery.</summary>
-        [Property("No Characteristics of Labor and Delivery", Property.Types.Bool, "Characteristics of Labor and Delivery", 
+        [Property("No Characteristics of Labor and Delivery", Property.Types.Bool, "Characteristics of Labor and Delivery",
                   "No Characteristics of Labor and Delivery", true, IGURL.ObservationNoneOfSpecifiedCharacteristicsOfLaborAndDelivery, false, 185)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Observation, categoryCode: "73813-8", code: VitalRecord.NONE_OF_THE_ABOVE, section: MEDICAL_INFORMATION_SECTION)]
         public bool NoCharacteristicsOfLaborAndDelivery
@@ -1730,7 +1730,7 @@ namespace BFDR
         }
 
         /// <summary>Characteristics of Labor and Delivery, Epidural or Spinal Anesthesia.</summary>
-        [Property("Epidural or Spinal Anesthesia", Property.Types.Bool, "Characteristics of Labor and Delivery", 
+        [Property("Epidural or Spinal Anesthesia", Property.Types.Bool, "Characteristics of Labor and Delivery",
                   "Characteristics of Labor and Delivery, Epidural or Spinal Anesthesia", true, IGURL.ProcedureEpiduralOrSpinalAnesthesia, true, 189)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Procedure, categoryCode: "73813-8", code: "18946005", section: MEDICAL_INFORMATION_SECTION)]
         public bool EpiduralOrSpinalAnesthesia
@@ -1740,7 +1740,7 @@ namespace BFDR
         }
 
         /// <summary>Characteristics of Labor and Delivery, Antibiotics Administered During Labor.</summary>
-        [Property("Antibiotics Administered During Labor", Property.Types.Bool, "Characteristics of Labor and Delivery", 
+        [Property("Antibiotics Administered During Labor", Property.Types.Bool, "Characteristics of Labor and Delivery",
                   "Characteristics of Labor and Delivery, Antibiotics Administered During Labor", true, IGURL.ObservationAntibioticsAdministeredDuringLabor, true, 185)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Observation, categoryCode: "73813-8", code: "434691000124101", section: MEDICAL_INFORMATION_SECTION)]
         public bool AntibioticsAdministeredDuringLabor
@@ -1750,7 +1750,7 @@ namespace BFDR
         }
 
         /// <summary>Characteristics of Labor and Delivery, Augmentation of Labor.</summary>
-        [Property("Augmentation Of Labor", Property.Types.Bool, "Characteristics of Labor and Delivery", 
+        [Property("Augmentation Of Labor", Property.Types.Bool, "Characteristics of Labor and Delivery",
                   "Characteristics of Labor and Delivery, Augmentation Of Labor", true, IGURL.ProcedureAugmentationOfLabor, true, 182)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Procedure, categoryCode: "73813-8", code: "237001001", section: MEDICAL_INFORMATION_SECTION)]
         public bool AugmentationOfLabor
@@ -1760,7 +1760,7 @@ namespace BFDR
         }
 
         /// <summary>Characteristics of Labor and Delivery, Chorioamnionitis.</summary>
-        [Property("Chorioamnionitis", Property.Types.Bool, "Characteristics of Labor and Delivery", 
+        [Property("Chorioamnionitis", Property.Types.Bool, "Characteristics of Labor and Delivery",
                   "Characteristics of Labor and Delivery, Chorioamnionitis", true, IGURL.ConditionChorioamnionitis, true, 186)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "73813-8", code: "11612004", section: MEDICAL_INFORMATION_SECTION)]
         public bool Chorioamnionitis
@@ -1770,7 +1770,7 @@ namespace BFDR
         }
 
         /// <summary>Characteristics of Labor and Delivery, Induction of Labor.</summary>
-        [Property("Induction Of Labor", Property.Types.Bool, "Characteristics of Labor and Delivery", 
+        [Property("Induction Of Labor", Property.Types.Bool, "Characteristics of Labor and Delivery",
                   "Characteristics of Labor and Delivery, Induction Of Labor", true, IGURL.ProcedureInductionOfLabor, true, 181)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Procedure, categoryCode: "73813-8", code: "236958009", section: MEDICAL_INFORMATION_SECTION)]
         public bool InductionOfLabor
@@ -1780,7 +1780,7 @@ namespace BFDR
         }
 
         /// <summary>Characteristics of Labor and Delivery, Administration of Steroids for Fetal Lung Maturation.</summary>
-        [Property("Administration of Steroids for Fetal Lung Maturation", Property.Types.Bool, "Characteristics of Labor and Delivery", 
+        [Property("Administration of Steroids for Fetal Lung Maturation", Property.Types.Bool, "Characteristics of Labor and Delivery",
                   "Characteristics of Labor and Delivery, Administration of Steroids for Fetal Lung Maturation", true, IGURL.ObservationSteroidsFetalLungMaturation, true, 184)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Observation, categoryCode: "73813-8", code: "434611000124106", section: MEDICAL_INFORMATION_SECTION)]
         public bool AdministrationOfSteroidsForFetalLungMaturation
@@ -1794,7 +1794,7 @@ namespace BFDR
         //
 
         /// <summary>No Specified Abnormal Conditions of Newborn.</summary>
-        [Property("No Specified Abnormal Conditions of Newborn", Property.Types.Bool, "Specified Abnormal Conditions of Newborn", 
+        [Property("No Specified Abnormal Conditions of Newborn", Property.Types.Bool, "Specified Abnormal Conditions of Newborn",
                   "No Specified Abnormal Conditions of Newborn", true, IGURL.ObservationNoneOfSpecifiedAbnormalConditionsOfNewborn, false, 212)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Observation, categoryCode: "73812-0", code: VitalRecord.NONE_OF_THE_ABOVE, section: NEWBORN_INFORMATION_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.Newborn)]
@@ -1805,7 +1805,7 @@ namespace BFDR
         }
 
         /// <summary>Specified Abnormal Conditions of Newborn, NICU Admission.</summary>
-        [Property("NICU Admission", Property.Types.Bool, "Specified Abnormal Conditions of Newborn", 
+        [Property("NICU Admission", Property.Types.Bool, "Specified Abnormal Conditions of Newborn",
                   "No Specified Abnormal Conditions of Newborn, NICU Admission", true, IGURL.ObservationNICUAdmission, true, 214)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Observation, categoryCode: "73812-0", code: "830077005", section: NEWBORN_INFORMATION_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.Newborn)]
@@ -1816,7 +1816,7 @@ namespace BFDR
         }
 
         /// <summary>Specified Abnormal Conditions of Newborn, Antibiotic for Suspected Neonatal Sepsis.</summary>
-        [Property("Antibiotic for Suspected Neonatal Sepsis", Property.Types.Bool, "Specified Abnormal Conditions of Newborn", 
+        [Property("Antibiotic for Suspected Neonatal Sepsis", Property.Types.Bool, "Specified Abnormal Conditions of Newborn",
                   "No Specified Abnormal Conditions of Newborn, Antibiotic for Suspected Neonatal Sepsis", true, IGURL.ProcedureAntibioticSuspectedNeonatalSepsis, true, 216)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Procedure, categoryCode: "73812-0", code: "434621000124103", section: NEWBORN_INFORMATION_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.Newborn)]
@@ -1827,9 +1827,9 @@ namespace BFDR
         }
 
         /// <summary>Specified Abnormal Conditions of Newborn, Assisted Ventilation Following Delivery.</summary>
-        [Property("Assisted Ventilation Following Delivery", Property.Types.Bool, "Specified Abnormal Conditions of Newborn", 
+        [Property("Assisted Ventilation Following Delivery", Property.Types.Bool, "Specified Abnormal Conditions of Newborn",
                   "No Specified Abnormal Conditions of Newborn, Assisted Ventilation Following Delivery", true, IGURL.ProcedureAssistedVentilationFollowingDelivery, true, 212)]
-        [FHIRPath(fhirType: FHIRPath.FhirType.Procedure, categoryCode: "73812-0", code: "assistedventfollowingdelivery", 
+        [FHIRPath(fhirType: FHIRPath.FhirType.Procedure, categoryCode: "73812-0", code: "assistedventfollowingdelivery",
                   codeSystem: CodeSystemURL.AbnormalConditionsNewborn, section: NEWBORN_INFORMATION_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public bool AssistedVentilationFollowingDelivery
@@ -1839,7 +1839,7 @@ namespace BFDR
         }
 
         /// <summary>Specified Abnormal Conditions of Newborn, Assisted Ventilation More Than Six Hours.</summary>
-        [Property("Assisted Ventilation More Than Six Hours", Property.Types.Bool, "Specified Abnormal Conditions of Newborn", 
+        [Property("Assisted Ventilation More Than Six Hours", Property.Types.Bool, "Specified Abnormal Conditions of Newborn",
                   "No Specified Abnormal Conditions of Newborn, Assisted Ventilation More Than Six Hours", true, IGURL.ProcedureAssistedVentilationMoreThanSixHours, true, 213)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Procedure, categoryCode: "73812-0", code: "assistedventmorethan6hrs",
                   codeSystem: CodeSystemURL.AbnormalConditionsNewborn, section: NEWBORN_INFORMATION_SECTION)]
@@ -1851,7 +1851,7 @@ namespace BFDR
         }
 
         /// <summary>Specified Abnormal Conditions of Newborn, Seizure.</summary>
-        [Property("Seizure", Property.Types.Bool, "Specified Abnormal Conditions of Newborn", 
+        [Property("Seizure", Property.Types.Bool, "Specified Abnormal Conditions of Newborn",
                   "No Specified Abnormal Conditions of Newborn, Seizure", true, IGURL.ConditionSeizure, true, 217)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "73812-0", code: "91175000", section: NEWBORN_INFORMATION_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.Newborn)]
@@ -1862,7 +1862,7 @@ namespace BFDR
         }
 
         /// <summary>Specified Abnormal Conditions of Newborn, Surfactant Replacement Therapy.</summary>
-        [Property("Surfactant Replacement Therapy", Property.Types.Bool, "Specified Abnormal Conditions of Newborn", 
+        [Property("Surfactant Replacement Therapy", Property.Types.Bool, "Specified Abnormal Conditions of Newborn",
                   "No Specified Abnormal Conditions of Newborn, Surfactant Replacement Therapy", true, IGURL.ProcedureSurfactantReplacementTherapy, true, 215)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Procedure, categoryCode: "73812-0", code: "434701000124101", section: NEWBORN_INFORMATION_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.Newborn)]
@@ -1877,7 +1877,7 @@ namespace BFDR
         //
 
         /// <summary>No Infections Present During Pregnancy.</summary>
-        [Property("No Infections Present During Pregnancy", Property.Types.Bool, "No Infections Present During Pregnancy", 
+        [Property("No Infections Present During Pregnancy", Property.Types.Bool, "No Infections Present During Pregnancy",
                   "No Infections Present During Pregnancy", true, IGURL.ObservationNoneOfSpecifiedInfectionsPresentDuringPregnancy, false, 168)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Observation, categoryCode: "72519-2", code: VitalRecord.NONE_OF_THE_ABOVE, section: MEDICAL_INFORMATION_SECTION)]
         public bool NoInfectionsPresentDuringPregnancy
@@ -1887,7 +1887,7 @@ namespace BFDR
         }
 
         /// <summary>Infections Present During Pregnancy, Chlamydia.</summary>
-        [Property("Chlamydia", Property.Types.Bool, "Infections Present During Pregnancy", 
+        [Property("Chlamydia", Property.Types.Bool, "Infections Present During Pregnancy",
                   "Infections Present During Pregnancy, Chlamydia", true, IGURL.ConditionInfectionPresentDuringPregnancy, true, 171)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "72519-2", code: "105629000", section: MEDICAL_INFORMATION_SECTION)]
         public bool Chlamydia
@@ -1897,7 +1897,7 @@ namespace BFDR
         }
 
         /// <summary>Infections Present During Pregnancy, Gonorrhea.</summary>
-        [Property("Gonorrhea", Property.Types.Bool, "Infections Present During Pregnancy", 
+        [Property("Gonorrhea", Property.Types.Bool, "Infections Present During Pregnancy",
                   "Infections Present During Pregnancy, Gonorrhea", true, IGURL.ConditionInfectionPresentDuringPregnancy, true, 168)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "72519-2", code: "15628003", section: MEDICAL_INFORMATION_SECTION)]
         public bool Gonorrhea
@@ -1907,7 +1907,7 @@ namespace BFDR
         }
 
         /// <summary>Infections Present During Pregnancy, Hepatitis B.</summary>
-        [Property("Hepatitis B", Property.Types.Bool, "Infections Present During Pregnancy", 
+        [Property("Hepatitis B", Property.Types.Bool, "Infections Present During Pregnancy",
                   "Infections Present During Pregnancy, Hepatitis B", true, IGURL.ConditionInfectionPresentDuringPregnancy, true, 172)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "72519-2", code: "66071002", section: MEDICAL_INFORMATION_SECTION)]
         public bool HepatitisB
@@ -1917,7 +1917,7 @@ namespace BFDR
         }
 
         /// <summary>Infections Present During Pregnancy, Hepatitis C.</summary>
-        [Property("Hepatitis C", Property.Types.Bool, "Infections Present During Pregnancy", 
+        [Property("Hepatitis C", Property.Types.Bool, "Infections Present During Pregnancy",
                   "Infections Present During Pregnancy, Hepatitis C", true, IGURL.ConditionInfectionPresentDuringPregnancy, true, 173)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "72519-2", code: "50711007", section: MEDICAL_INFORMATION_SECTION)]
         public bool HepatitisC
@@ -1927,7 +1927,7 @@ namespace BFDR
         }
 
         /// <summary>Infections Present During Pregnancy, Syphilis.</summary>
-        [Property("Syphilis", Property.Types.Bool, "Infections Present During Pregnancy", 
+        [Property("Syphilis", Property.Types.Bool, "Infections Present During Pregnancy",
                   "Infections Present During Pregnancy, Syphilis", true, IGURL.ConditionInfectionPresentDuringPregnancy, true, 169)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "72519-2", code: "76272004", section: MEDICAL_INFORMATION_SECTION)]
         public bool Syphilis
@@ -1937,7 +1937,7 @@ namespace BFDR
         }
 
         /// <summary>Infections Present During Pregnancy, Genital Herpes Simplex.</summary>
-        [Property("Genital Herpes Simplex", Property.Types.Bool, "Infections Present During Pregnancy", 
+        [Property("Genital Herpes Simplex", Property.Types.Bool, "Infections Present During Pregnancy",
                   "Infections Present During Pregnancy, Genital Herpes Simplex", true, IGURL.ConditionInfectionPresentDuringPregnancy, false, 173)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "72519-2", code: "33839006", section: MEDICAL_INFORMATION_SECTION)]
         public bool GenitalHerpesSimplex
@@ -1951,7 +1951,7 @@ namespace BFDR
         //
 
         /// <summary>No Maternal Morbidities.</summary>
-        [Property("No Maternal Morbidities", Property.Types.Bool, "Maternal Morbidities", 
+        [Property("No Maternal Morbidities", Property.Types.Bool, "Maternal Morbidities",
                   "Maternal Morbidities, None", true, IGURL.ObservationNoneOfSpecifiedMaternalMorbidities, false, 195)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Observation, categoryCode: "73781-7", code: VitalRecord.NONE_OF_THE_ABOVE, section: MEDICAL_INFORMATION_SECTION)]
         public bool NoMaternalMorbidities
@@ -1961,7 +1961,7 @@ namespace BFDR
         }
 
         /// <summary>ICU Admission.</summary>
-        [Property("ICU Admission", Property.Types.Bool, "Maternal Morbidities", 
+        [Property("ICU Admission", Property.Types.Bool, "Maternal Morbidities",
                   "Maternal Morbidities, ICU Admission", true, IGURL.ObservationICUAdmission, true, 199)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Observation, categoryCode: "73781-7", code: "309904001", section: MEDICAL_INFORMATION_SECTION)]
         public bool ICUAdmission
@@ -1971,7 +1971,7 @@ namespace BFDR
         }
 
         /// <summary>Maternal Transfusion.</summary>
-        [Property("Maternal Transfusion", Property.Types.Bool, "Maternal Morbidities", 
+        [Property("Maternal Transfusion", Property.Types.Bool, "Maternal Morbidities",
                   "Maternal Morbidities, Maternal Transfusion", true, IGURL.ProcedureBloodTransfusion, true, 195)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Procedure, categoryCode: "73781-7", code: "116859006", section: MEDICAL_INFORMATION_SECTION)]
         public bool MaternalTransfusion
@@ -1981,7 +1981,7 @@ namespace BFDR
         }
 
         /// <summary>Perineal Laceration.</summary>
-        [Property("Perineal Laceration", Property.Types.Bool, "Maternal Morbidities", 
+        [Property("Perineal Laceration", Property.Types.Bool, "Maternal Morbidities",
                   "Maternal Morbidities, Perineal Laceration", true, IGURL.ConditionPerinealLaceration, true, 196)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "73781-7", code: "398019008", section: MEDICAL_INFORMATION_SECTION)]
         public bool PerinealLaceration
@@ -1991,7 +1991,7 @@ namespace BFDR
         }
 
         /// <summary>Ruptured Uterus.</summary>
-        [Property("Ruptured Uterus", Property.Types.Bool, "Maternal Morbidities", 
+        [Property("Ruptured Uterus", Property.Types.Bool, "Maternal Morbidities",
                   "Maternal Morbidities, Ruptured Uterus", true, IGURL.ConditionRupturedUterus, true, 197)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "73781-7", code: "34430009", section: MEDICAL_INFORMATION_SECTION)]
         public bool RupturedUterus
@@ -2001,7 +2001,7 @@ namespace BFDR
         }
 
         /// <summary>Unplanned Hysterectomy.</summary>
-        [Property("Unplanned Hysterectomy", Property.Types.Bool, "Maternal Morbidities", 
+        [Property("Unplanned Hysterectomy", Property.Types.Bool, "Maternal Morbidities",
                   "Maternal Morbidities, Unplanned Hysterectomy", true, IGURL.ProcedureUnplannedHysterectomy, true, 198)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Procedure, categoryCode: "73781-7", code: "236987005", section: MEDICAL_INFORMATION_SECTION)]
         public bool UnplannedHysterectomy
@@ -2015,7 +2015,7 @@ namespace BFDR
         //
 
         /// <summary>No Pregnancy Risk Factors.</summary>
-        [Property("No Pregnancy Risk Factors", Property.Types.Bool, "Pregnancy Risk Factors", 
+        [Property("No Pregnancy Risk Factors", Property.Types.Bool, "Pregnancy Risk Factors",
                   "Pregnancy Risk Factors, None", true, IGURL.ObservationNoneOfSpecifiedPregnancyRiskFactors, false, 157)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Observation, categoryCode: "73775-9", code: VitalRecord.NONE_OF_THE_ABOVE, section: MEDICAL_INFORMATION_SECTION)]
         public bool NoPregnancyRiskFactors
@@ -2025,7 +2025,7 @@ namespace BFDR
         }
 
         /// <summary>Eclampsia Hypertension.</summary>
-        [Property("Eclampsia Hypertension", Property.Types.Bool, "Pregnancy Risk Factors", 
+        [Property("Eclampsia Hypertension", Property.Types.Bool, "Pregnancy Risk Factors",
                   "Pregnancy Risk Factors, Eclampsia Hypertension", true, IGURL.ConditionEclampsiaHypertension, true, 239)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "73775-9", code: "15938005", section: MEDICAL_INFORMATION_SECTION)]
         public bool EclampsiaHypertension
@@ -2035,7 +2035,7 @@ namespace BFDR
         }
 
         /// <summary>Gestational Diabetes.</summary>
-        [Property("Gestational Diabetes", Property.Types.Bool, "Pregnancy Risk Factors", 
+        [Property("Gestational Diabetes", Property.Types.Bool, "Pregnancy Risk Factors",
                   "Pregnancy Risk Factors, Gestational Diabetes", true, IGURL.ConditionGestationalDiabetes, true, 158)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "73775-9", code: "11687002", section: MEDICAL_INFORMATION_SECTION)]
         public bool GestationalDiabetes
@@ -2045,7 +2045,7 @@ namespace BFDR
         }
 
         /// <summary>Gestational Hypertension.</summary>
-        [Property("Gestational Hypertension", Property.Types.Bool, "Pregnancy Risk Factors", 
+        [Property("Gestational Hypertension", Property.Types.Bool, "Pregnancy Risk Factors",
                   "Pregnancy Risk Factors, Gestational Hypertension", true, IGURL.ConditionGestationalHypertension, true, 160)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "73775-9", code: "48194001", section: MEDICAL_INFORMATION_SECTION)]
         public bool GestationalHypertension
@@ -2055,7 +2055,7 @@ namespace BFDR
         }
 
         /// <summary>Prepregnancy Diabetes.</summary>
-        [Property("Prepregnancy Diabetes", Property.Types.Bool, "Pregnancy Risk Factors", 
+        [Property("Prepregnancy Diabetes", Property.Types.Bool, "Pregnancy Risk Factors",
                   "Pregnancy Risk Factors, Prepregnancy Diabetes", true, IGURL.ConditionPrepregnancyDiabetes, true, 157)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "73775-9", code: "73211009", section: MEDICAL_INFORMATION_SECTION)]
         public bool PrepregnancyDiabetes
@@ -2065,7 +2065,7 @@ namespace BFDR
         }
 
         /// <summary>Prepregnancy Hypertension.</summary>
-        [Property("Prepregnancy Hypertension", Property.Types.Bool, "Pregnancy Risk Factors", 
+        [Property("Prepregnancy Hypertension", Property.Types.Bool, "Pregnancy Risk Factors",
                   "Pregnancy Risk Factors, Prepregnancy Hypertension", true, IGURL.ConditionPrepregnancyHypertension, true, 159)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "73775-9", code: "38341003", section: MEDICAL_INFORMATION_SECTION)]
         public bool PrepregnancyHypertension
@@ -2075,7 +2075,7 @@ namespace BFDR
         }
 
         /// <summary>Previous Cesarean.</summary>
-        [Property("Previous Cesarean", Property.Types.Bool, "Pregnancy Risk Factors", 
+        [Property("Previous Cesarean", Property.Types.Bool, "Pregnancy Risk Factors",
                   "Pregnancy Risk Factors, Previous Cesarean", true, IGURL.ObservationPreviousCesarean, true, 165)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Observation, categoryCode: "73775-9", code: "200144004", section: MEDICAL_INFORMATION_SECTION)]
         public bool PreviousCesarean
@@ -2085,7 +2085,7 @@ namespace BFDR
         }
 
         /// <summary>Previous Preterm Birth.</summary>
-        [Property("Previous Preterm Birth", Property.Types.Bool, "Pregnancy Risk Factors", 
+        [Property("Previous Preterm Birth", Property.Types.Bool, "Pregnancy Risk Factors",
                   "Pregnancy Risk Factors, Previous Preterm Birth", true, IGURL.ObservationPreviousPretermBirth, true, 161)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Observation, categoryCode: "73775-9", code: "161765003", section: MEDICAL_INFORMATION_SECTION)]
         public bool PreviousPretermBirth
@@ -2095,7 +2095,7 @@ namespace BFDR
         }
 
         /// <summary>Artificial Insemination.</summary>
-        [Property("Artificial Insemination", Property.Types.Bool, "Pregnancy Risk Factors", 
+        [Property("Artificial Insemination", Property.Types.Bool, "Pregnancy Risk Factors",
                   "Pregnancy Risk Factors, Artificial Insemination", true, IGURL.ProcedureArtificialInsemination, true, 240)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Procedure, categoryCode: "73775-9", code: "58533008", section: MEDICAL_INFORMATION_SECTION)]
         public bool ArtificialInsemination
@@ -2105,7 +2105,7 @@ namespace BFDR
         }
 
         /// <summary>Assisted Fertilization.</summary>
-        [Property("Assisted Fertilization", Property.Types.Bool, "Pregnancy Risk Factors", 
+        [Property("Assisted Fertilization", Property.Types.Bool, "Pregnancy Risk Factors",
                   "Pregnancy Risk Factors, Assisted Fertilization", true, IGURL.ProcedureAssistedFertilization, true, 241)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Procedure, categoryCode: "73775-9", code: "63487001", section: MEDICAL_INFORMATION_SECTION)]
         public bool AssistedFertilization
@@ -2115,7 +2115,7 @@ namespace BFDR
         }
 
         /// <summary>Infertility Treatment.</summary>
-        [Property("Infertility Treatment", Property.Types.Bool, "Pregnancy Risk Factors", 
+        [Property("Infertility Treatment", Property.Types.Bool, "Pregnancy Risk Factors",
                   "Pregnancy Risk Factors, Infertility Treatment", true, IGURL.ProcedureInfertilityTreatment, true, 164)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Procedure, categoryCode: "73775-9", code: "445151000124101", section: MEDICAL_INFORMATION_SECTION)]
         public bool InfertilityTreatment
@@ -2129,7 +2129,7 @@ namespace BFDR
         //
 
         /// <summary>Unknown Final Route and Method of Delivery.</summary>
-        [Property("Unknown Final Route and Method of Delivery", Property.Types.Bool, "Final Route and Method of Delivery", 
+        [Property("Unknown Final Route and Method of Delivery", Property.Types.Bool, "Final Route and Method of Delivery",
                   "Final Route and Method of Delivery, Unknown", true, IGURL.ObservationUnknownFinalRouteMethodDelivery, false, 193)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Observation, categoryCode: "73762-7", code: VitalRecord.UNKNOWN, section: MEDICAL_INFORMATION_SECTION)]
         public bool UnknownFinalRouteAndMethodOfDelivery
@@ -2232,7 +2232,7 @@ namespace BFDR
         //
 
         /// <summary>No Obstetric Procedures.</summary>
-        [Property("No Obstetric Procedures", Property.Types.Bool, "Obstetric Procedures", 
+        [Property("No Obstetric Procedures", Property.Types.Bool, "Obstetric Procedures",
                   "Obstetric Procedures, None", true, IGURL.ObservationNoneOfSpecifiedObstetricProcedures, false, 176)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Observation, categoryCode: "73814-6", code: VitalRecord.NONE_OF_THE_ABOVE, section: MEDICAL_INFORMATION_SECTION)]
         public bool NoObstetricProcedures
@@ -2242,7 +2242,7 @@ namespace BFDR
         }
 
         /// <summary>Successful External Cephalic Version.</summary>
-        [Property("Successful External Cephalic Version", Property.Types.Bool, "Obstetric Procedures", 
+        [Property("Successful External Cephalic Version", Property.Types.Bool, "Obstetric Procedures",
                   "Obstetric Procedures, Successful External Cephalic Version", true, IGURL.ProcedureObstetric, true, 176)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Procedure, categoryCode: "73814-6", code: "240278000", section: MEDICAL_INFORMATION_SECTION)]
         public bool SuccessfulExternalCephalicVersion
@@ -2297,7 +2297,7 @@ namespace BFDR
         }
 
         /// <summary>Unsuccessful External Cephalic Version.</summary>
-        [Property("Unsuccessful External Cephalic Version", Property.Types.Bool, "Obstetric Procedures", 
+        [Property("Unsuccessful External Cephalic Version", Property.Types.Bool, "Obstetric Procedures",
                   "Obstetric Procedures, Unsuccessful External Cephalic Version", true, IGURL.ProcedureObstetric, true, 177)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Procedure, categoryCode: "73814-6", code: "240278000", section: MEDICAL_INFORMATION_SECTION)]
         public bool UnsuccessfulExternalCephalicVersion
@@ -3803,6 +3803,105 @@ namespace BFDR
                 }
 
             }
+        }
+
+        private int? GetCigarettesSmoked(string code)
+        {
+            var entry = Bundle.Entry.Where(e => e.Resource is Observation obs && CodeableConceptToDict(obs.Code)["code"] == code).FirstOrDefault();
+            if (entry != null)
+            {
+                Observation observation = (Observation)entry.Resource;
+                return (observation.Value as Hl7.Fhir.Model.Integer)?.Value;
+            }
+            return null;
+        }
+
+        private void SetCigarettesSmoked(string code, int? value)
+        {
+            var entry = Bundle.Entry.Where(e => e.Resource is Observation obs && CodeableConceptToDict(obs.Code)["code"] == code).FirstOrDefault();
+            if (entry == null)
+            {
+                Observation obs = new Observation();
+                obs.Id = Guid.NewGuid().ToString();
+                obs.Code = new CodeableConcept(VR.CodeSystems.LOINC, code);
+                obs.Value = new Hl7.Fhir.Model.Integer(value);
+                obs.Subject = new ResourceReference($"urn:uuid:{Mother.Id}");
+                obs.Focus.Add(new ResourceReference($"urn:uuid:{Child.Id}"));
+                AddReferenceToComposition(obs.Id, MOTHER_PRENATAL_SECTION);
+                Bundle.AddResourceEntry(obs, "urn:uuid:" + obs.Id);
+            }
+            else
+            {
+                (entry.Resource as Observation).Value = new Hl7.Fhir.Model.Integer(value);
+            }
+        }
+
+        /// <summary>Cigarettes Smoked in 3 months prior to Pregnancy.</summary>
+        /// <value>the number of cigarettes smoked per day in 3 months prior to pregnancy, or -1 if explicitly unknown, or null if never specified</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.CigarettesPerDayInThreeMonthsPriorToPregancy = 20;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Cigarettes In Three Months Prior To Pregancy: {ExampleBirthRecord.CigarettesPerDayInThreeMonthsPriorToPregancy}");</para>
+        /// </example>
+        [Property("CigarettesPerDayInThreeMonthsPriorToPregancy", Property.Types.Int32, "Mother Prenatal", "Cigarettes Smoked In Three Months Prior To Pregancy.", false, BFDR.IGURL.ObservationCigaretteSmokingBeforeDuringPregnancy, true, 149)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='64794-1')", "")]
+        public int? CigarettesPerDayInThreeMonthsPriorToPregancy
+        {
+            // TODO update with constants once BFDR value sets are autogenerated
+            get => GetCigarettesSmoked("64794-1");
+            set => SetCigarettesSmoked("64794-1", value);
+        }
+
+        /// <summary>Cigarettes Smoked in First Trimester.</summary>
+        /// <value>the number of cigarettes smoked per day in first trimester, or -1 if explicitly unknown, or null if never specified</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.CigarettesPerDayInFirstTrimester = 20;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Cigarettes In First Trimester: {ExampleBirthRecord.CigarettesPerDayInFirstTrimester}");</para>
+        /// </example>
+        [Property("CigarettesPerDayInFirstTrimester", Property.Types.Int32, "Mother Prenatal", "Cigarettes Smoked In First Trimester.", false, BFDR.IGURL.ObservationCigaretteSmokingBeforeDuringPregnancy, true, 150)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87298-6')", "")]
+        public int? CigarettesPerDayInFirstTrimester
+        {
+            // TODO update with constants once BFDR value sets are autogenerated
+            get => GetCigarettesSmoked("87298-6");
+            set => SetCigarettesSmoked("87298-6", value);
+        }
+
+        /// <summary>Cigarettes Smoked in Second Trimester.</summary>
+        /// <value>the number of cigarettes smoked per day in second trimester, or -1 if explicitly unknown, or null if never specified</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.CigarettesPerDayInSecondTrimester = 20;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Cigarettes In Second Trimester: {ExampleBirthRecord.CigarettesPerDayInSecondTrimester}");</para>
+        /// </example>
+        [Property("CigarettesPerDayInSecondTrimester", Property.Types.Int32, "Mother Prenatal", "Cigarettes Smoked In Second Trimester.", false, BFDR.IGURL.ObservationCigaretteSmokingBeforeDuringPregnancy, true, 151)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87299-4')", "")]
+        public int? CigarettesPerDayInSecondTrimester
+        {
+            // TODO update with constants once BFDR value sets are autogenerated
+            get => GetCigarettesSmoked("87299-4");
+            set => SetCigarettesSmoked("87299-4", value);
+        }
+
+        /// <summary>Cigarettes Smoked in Last Trimester.</summary>
+        /// <value>the number of cigarettes smoked per day in last trimester, or -1 if explicitly unknown, or null if never specified</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.CigarettesPerDayInLastTrimester = 20;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Cigarettes In Last Trimester: {ExampleBirthRecord.CigarettesPerDayInLastTrimester}");</para>
+        /// </example>
+        [Property("CigarettesPerDayInLastTrimester", Property.Types.Int32, "Mother Prenatal", "Cigarettes Smoked In Last Trimester.", false, BFDR.IGURL.ObservationCigaretteSmokingBeforeDuringPregnancy, true, 152)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='64795-8')", "")]
+        public int? CigarettesPerDayInLastTrimester
+        {
+            // TODO update with constants once BFDR value sets are autogenerated
+            get => GetCigarettesSmoked("64795-8");
+            set => SetCigarettesSmoked("64795-8", value);
         }
     }
 }
