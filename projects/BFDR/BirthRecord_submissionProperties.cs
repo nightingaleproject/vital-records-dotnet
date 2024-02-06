@@ -3166,7 +3166,7 @@ namespace BFDR
             {
                 if (Attendant == null)
                 {
-                    CreatePractitioner();
+                    CreateAttendant();
                 }
                 HumanName name = Attendant.Name.FirstOrDefault();
                 if (name != null && !String.IsNullOrEmpty(value))
@@ -3207,7 +3207,7 @@ namespace BFDR
             {
                 if (Attendant == null)
                 {
-                    CreatePractitioner();
+                    CreateAttendant();
                 }
                 HumanName name = Attendant.Name.FirstOrDefault();
                 if (name != null && !String.IsNullOrEmpty(value))
@@ -3228,7 +3228,7 @@ namespace BFDR
         /// <value>the attendants npi</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.AttendantNPI = "1234567890";</para>
+        /// <para>ExampleBirthRecord.AttendantNPI = "123456789011";</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Attendants NPI: {ExampleBirthRecord.AttendantNPI}");</para>
         /// </example>
@@ -3244,7 +3244,7 @@ namespace BFDR
             {
                 if (Attendant == null)
                 {
-                    CreatePractitioner();
+                    CreateAttendant();
                 }
                 if (Attendant.Identifier.Count > 0)
                 {
@@ -3258,7 +3258,7 @@ namespace BFDR
                 Identifier npi = new Identifier();
                 npi.Type = new CodeableConcept(CodeSystems.HL7_identifier_type, "NPI", "National Provider Identifier", null);
                 npi.System = CodeSystems.US_NPI_HL7;
-                npi.Value = value.Replace("-", string.Empty).Replace(" ", string.Empty);
+                npi.Value = value;
                 Attendant.Identifier.Add(npi);
             }
         }
@@ -3303,7 +3303,7 @@ namespace BFDR
             {
                 if (Attendant == null)
                 {
-                    CreatePractitioner();
+                    CreateAttendant();
                 }
                 Practitioner.QualificationComponent qualification = new Practitioner.QualificationComponent();
                 qualification.Code = DictToCodeableConcept(value);

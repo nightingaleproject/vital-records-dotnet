@@ -81,8 +81,8 @@
         <member name="M:BFDR.BirthRecord.CreateInputRaceEthnicityObsFather">
             <summary> Create Father Input Race and Ethnicity </summary>
         </member>
-        <member name="M:BFDR.BirthRecord.CreatePractitioner">
-            <summary>Create Practitioner.</summary>
+        <member name="M:BFDR.BirthRecord.CreateAttendant">
+            <summary>Create Attendant/Practitioner.</summary>
         </member>
         <member name="P:BFDR.BirthRecord.Identifier">
             <summary>Birth Record Identifier, Birth Certificate Number.</summary>
@@ -980,7 +980,7 @@
             <value>the attendants npi</value>
             <example>
             <para>// Setter:</para>
-            <para>ExampleBirthRecord.AttendantNPI = "1234567890";</para>
+            <para>ExampleBirthRecord.AttendantNPI = "123456789011";</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Attendants NPI: {ExampleBirthRecord.AttendantNPI}");</para>
             </example>

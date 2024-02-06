@@ -4608,7 +4608,7 @@ namespace BFDR
             {
                 if (record.AttendantOtherHelper != null)
                 {
-                    return record.AttendantOtherHelper.Trim();
+                    return LeftJustified_Get("ATTEND_OTH_TXT", "AttendantOtherHelper");
                 }
                 return "";
             }
@@ -4616,7 +4616,7 @@ namespace BFDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    record.AttendantOtherHelper = value.Trim();
+                    LeftJustified_Set("ATTEND_OTH_TXT", "AttendantOtherHelper", value);
                 }
             }
         }
@@ -4956,43 +4956,11 @@ namespace BFDR
         {
             get
             {
-                string fhirFieldName = "NPI";
-                string ijeFieldName = "NPI";
-                int npiLength = 10;
-                string npi = record.AttendantNPI;
-                if (!String.IsNullOrWhiteSpace(npi))
-                {
-                    string formattedNPI = npi.Replace("-", string.Empty).Replace(" ", string.Empty);
-                    if (formattedNPI.Length != npiLength)
-                    {
-                        validationErrors.Add($"Error: FHIR field {fhirFieldName} contains string '{npi}' which is not the expected length (without dashes or spaces) for IJE field {ijeFieldName} of length {npiLength}");
-                    }
-                    return Truncate(formattedNPI, npiLength).PadRight(npiLength, ' ');
-                }
-                else
-                {
-                    return new String(' ', npiLength);
-                }
+                return LeftJustified_Get("ATTEND_NPI", "AttendantNPI");
             }
             set
             {
-                string fhirFieldName = "NPI";
-                string ijeFieldName = "NPI";
-                int npiLength = 9;
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    string npi = value.Trim();
-                    if (npi.Contains("-") || npi.Contains(" "))
-                    {
-                        validationErrors.Add($"Error: IJE field {ijeFieldName} contains string '{value}' which cannot contain ` ` or `-` characters for FHIR field {fhirFieldName}.");
-                    }
-                    string formattedNPI = npi.Replace("-", string.Empty).Replace(" ", string.Empty);
-                    if (formattedNPI.Length != npiLength)
-                    {
-                        validationErrors.Add($"Error: IJE field {ijeFieldName} contains string '{value}' which is not the expected length (without dashes or spaces) for FHIR field {fhirFieldName} of length {npiLength}");
-                    }
-                }
-                LeftJustified_Set(ijeFieldName, fhirFieldName, value);
+                LeftJustified_Set("ATTEND_NPI", "AttendantNPI", value);
             }
         }
 

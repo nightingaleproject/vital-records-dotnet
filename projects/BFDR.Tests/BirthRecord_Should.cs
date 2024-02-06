@@ -1077,8 +1077,8 @@ namespace BFDR.Tests
         Assert.Equal("Janet Seito", record.AttendantName);
         // Attendant's NPI
         Assert.Null(record.AttendantNPI);
-        record.AttendantNPI = "1234567890";
-        Assert.Equal("1234567890", record.AttendantNPI);
+        record.AttendantNPI = "123456789011";
+        Assert.Equal("123456789011", record.AttendantNPI);
         // Attendant's Title
         Dictionary<string, string> AttendantTitle = new Dictionary<string, string>();
         AttendantTitle.Add("code", "112247003");
@@ -1106,13 +1106,13 @@ namespace BFDR.Tests
         // test IJE translations
         IJENatality ije1 = new IJENatality(record);
         Assert.Equal("Janet Seito", ije1.ATTEND_NAME.Trim());
-        Assert.Equal("1234567890", ije1.ATTEND_NPI);
+        Assert.Equal("123456789011", ije1.ATTEND_NPI);
         Assert.Equal("1", ije1.ATTEND);
         IJENatality ije2 = new IJENatality(record2);
         Assert.Equal("Jessica Leung", ije2.ATTEND_NAME.Trim());
-        Assert.Equal("          ", ije2.ATTEND_NPI);
+        Assert.Equal("            ", ije2.ATTEND_NPI);
         Assert.Equal("5", ije2.ATTEND);
-        Assert.Equal("Birth Clerk", ije2.ATTEND_OTH_TXT);
+        Assert.Equal("Birth Clerk", ije2.ATTEND_OTH_TXT.Trim());
     }  
 
     [Fact]
@@ -1124,8 +1124,8 @@ namespace BFDR.Tests
         Assert.Equal("Janet Seito", sample1.AttendantName);
         //NPI
         Assert.Null(sample1.AttendantNPI);
-        sample1.AttendantNPI = "1234567890";
-        Assert.Equal("1234567890", sample1.AttendantNPI);
+        sample1.AttendantNPI = "123456789011";
+        Assert.Equal("123456789011", sample1.AttendantNPI);
         //title
         Assert.Null(sample1.AttendantTitleHelper);
         Assert.Null(sample1.AttendantOtherHelper);

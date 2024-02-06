@@ -122,8 +122,8 @@ namespace BFDR
             Bundle.AddResourceEntry(InputRaceAndEthnicityObsFather, "urn:uuid:" + InputRaceAndEthnicityObsFather.Id);
         }
 
-        /// <summary>Create Practitioner.</summary>
-        private void CreatePractitioner()
+        /// <summary>Create Attendant/Practitioner.</summary>
+        private void CreateAttendant()
         {
             Attendant = new Practitioner();
             Attendant.Id = Guid.NewGuid().ToString();
