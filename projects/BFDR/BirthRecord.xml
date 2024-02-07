@@ -376,7 +376,7 @@
         </member>
         <member name="P:BFDR.BirthRecord.BirthPhysicalLocation">
             <summary>Child's Place Of Birth Type.</summary>
-            <value>Child's Place Of Birth Type. A Dictionary representing a codeable concept of the physical location type:
+            <value>Place Where Birth Occurred, type of place or institution. A Dictionary representing a codeable concept of the physical location type:
             <para>"code" - The code used to describe this concept.</para>
             <para>"system" - The relevant code system.</para>
             <para>"display" - The human readable version of this code.</para>
