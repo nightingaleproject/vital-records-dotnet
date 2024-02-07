@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Hl7.Fhir.Model;
 using VR;
 using Hl7.Fhir.Support;
+using static Hl7.Fhir.Model.Encounter;
 
 // BirthRecord_submissionProperties.cs
 // These fields are used primarily for submitting birth records to NCHS. 
@@ -479,7 +480,7 @@ namespace BFDR
             {
                 if(!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("BirthSex", value, ValueSets.BirthSex.Codes);
+                    SetCodeValue("BirthSex", value, BFDR.ValueSets.BirthSex.Codes);
                 }
             }
         }
@@ -872,6 +873,87 @@ namespace BFDR
             set
             {
                 SetPlaceOfBirth(Child, value);
+            }
+        }
+
+        [Property("BirthPhysicalLocation", Property.Types.Dictionary, "TODO", "Birth Physical Location.", false, ProfileURL.EncounterBirth, false, 16)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]        
+        [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(meta.profile == " + ProfileURL.EncounterBirth + ")", "")]
+        public Dictionary<string, string> BirthPhysicalLocation
+        {
+            get
+            {
+                if (EncounterBirth == null)
+                {
+                    return EmptyCodeableDict();
+                }
+                return CodeableConceptToDict(EncounterBirth.Location.Select(loc => loc.PhysicalType).FirstOrDefault());
+            }
+            set
+            {
+                if (EncounterBirth == null)
+                {
+                    EncounterBirth = new Encounter()
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        Meta = new Meta()
+                    };
+                    EncounterBirth.Meta.Profile = new List<string>()
+                    {
+                        ProfileURL.EncounterBirth
+                    };
+                }
+                if (EncounterBirth.Location.Count() < 1)
+                {
+                    LocationComponent location = new LocationComponent();
+                    location.PhysicalType = DictToCodeableConcept(value);
+                    EncounterBirth.Location.Add(location);
+                }
+
+            }
+        }
+
+        [Property("BirthPhysicalLocationHelper", Property.Types.String, "BirthPhysicalLocationHelper", "Birth Physical Location Helper.", false, IGURL.EncounterBirth, true, 4)]
+        [FHIRPath("Bundle.entry.resource.where($this is Procedure).where(code.coding.code='308646001')", "performer")]
+        public string BirthPhysicalLocationHelper
+        {
+            get
+            {
+                if (BirthPhysicalLocation.ContainsKey("code"))
+                {
+                    string code = BirthPhysicalLocation["code"];
+                    if (code == "OTH")
+                    {
+                        if (BirthPhysicalLocation.ContainsKey("text") && !String.IsNullOrWhiteSpace(BirthPhysicalLocation["text"]))
+                        {
+                            return BirthPhysicalLocation["text"];
+                        }
+                        return "Other";
+                    }
+                    else if (!String.IsNullOrWhiteSpace(code))
+                    {
+                        return code;
+                    }
+                }
+                return null;
+            }
+            set
+            {
+                if (String.IsNullOrWhiteSpace(value))
+                {
+                    // do nothing
+                    return;
+                }
+                if (!BFDR.Mappings.BirthDeliveryOccurred.FHIRToIJE.ContainsKey(value))
+                { //other
+                    BirthPhysicalLocation = CodeableConceptToDict(new CodeableConcept(CodeSystems.NullFlavor_HL7_V3, "OTH", "Other", value));
+                }
+                else
+                { // normal path
+                    SetCodeValue("BirthPhysicalLocation", value, BFDR.ValueSets.PlaceTypeOfBirth.Codes);
+                }
             }
         }
 

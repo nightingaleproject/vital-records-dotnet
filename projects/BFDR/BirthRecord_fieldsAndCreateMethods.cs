@@ -43,6 +43,9 @@ namespace BFDR
         /// <summary>The Father's Race and Ethnicity provided by Jurisdiction.</summary>
         private Observation InputRaceAndEthnicityObsFather;
 
+        /// <summary>The encounter of the birth.</summary>
+        private Encounter EncounterBirth;
+
         /// <summary>Composition Section Constants</summary>
         private const string RACE_ETHNICITY_PROFILE_MOTHER = "inputraceandethnicityMother";
 

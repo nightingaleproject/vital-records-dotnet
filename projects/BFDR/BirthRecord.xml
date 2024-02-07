@@ -57,6 +57,9 @@
         <member name="F:BFDR.BirthRecord.InputRaceAndEthnicityObsFather">
             <summary>The Father's Race and Ethnicity provided by Jurisdiction.</summary>
         </member>
+        <member name="F:BFDR.BirthRecord.EncounterBirth">
+            <summary>The encounter of the birth.</summary>
+        </member>
         <member name="F:BFDR.BirthRecord.RACE_ETHNICITY_PROFILE_MOTHER">
             <summary>Composition Section Constants</summary>
         </member>
@@ -2815,6 +2818,36 @@
             <summary> Other </summary>
         </member>
         <member name="F:BFDR.ValueSets.BirthSex.Unknown">
+            <summary> Unknown </summary>
+        </member>
+        <member name="T:BFDR.ValueSets.PlaceTypeOfBirth">
+            <summary> PlaceTypeOfBirth </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PlaceTypeOfBirth.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PlaceTypeOfBirth.Hospital">
+            <summary> Hospital </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PlaceTypeOfBirth.Free_Standing_Birthing_Center">
+            <summary> Free_Standing_Birthing_Center </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PlaceTypeOfBirth.Planned_Home_Birth">
+            <summary> Planned_Home_Birth </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PlaceTypeOfBirth.Unplanned_Home_Birth">
+            <summary> Unplanned_Home_Birth </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PlaceTypeOfBirth.Free_Standing_Clinic">
+            <summary> Free_Standing_Clinic </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PlaceTypeOfBirth.Unknown_If_Planned_Home_Birth">
+            <summary> Unknown_If_Planned_Home_Birth </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PlaceTypeOfBirth.Other">
+            <summary> Other </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PlaceTypeOfBirth.Unknown">
             <summary> Unknown </summary>
         </member>
     </members>

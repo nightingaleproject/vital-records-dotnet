@@ -1108,5 +1108,39 @@ namespace BFDR.Tests
       br.MotherBirthState = "MA";
       Assert.Equal("MA", br.MotherBirthState);
     }
+
+    [Fact]
+    public void TestSetPhysicalBirthPlace()
+    {
+      // Manually set birth record values.
+      BirthRecord br1 = new()
+      {
+          BirthPhysicalLocationHelper = "22232009",
+      };
+      // Test IJE conversion from BirthRecord.
+      IJENatality ije1 = new(br1);
+
+      Assert.Equal("22232009", br1.BirthPhysicalLocation["code"]);
+      Assert.Equal("http://snomed.info/sct", br1.BirthPhysicalLocation["system"]);
+      Assert.Equal("Hospital", br1.BirthPhysicalLocation["display"]);
+      Assert.Equal(br1.BirthPhysicalLocationHelper, br1.BirthPhysicalLocation["code"]);
+
+      Dictionary<string, string> birthPlaceCode = new()
+      {
+          ["code"] = "22232009",
+          ["system"] = "http://snomed.info/sct",
+          ["display"] = "Hospital"
+      };
+      BirthRecord br2 = new()
+      {
+          BirthPhysicalLocation = birthPlaceCode
+      };
+      IJENatality ije2 = new(br2);
+
+      Assert.Equal("22232009", br2.BirthPhysicalLocation["code"]);
+      Assert.Equal("http://snomed.info/sct", br2.BirthPhysicalLocation["system"]);
+      Assert.Equal("Hospital", br2.BirthPhysicalLocation["display"]);
+      Assert.Equal(br2.BirthPhysicalLocationHelper, br2.BirthPhysicalLocation["code"]);
+    }
   }
 }
