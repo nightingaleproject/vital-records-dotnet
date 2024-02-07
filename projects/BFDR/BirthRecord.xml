@@ -51,6 +51,9 @@
         <member name="F:BFDR.BirthRecord.Father">
             <summary>The Father.</summary>
         </member>
+        <member name="F:BFDR.BirthRecord.Attendant">
+            <summary>The Attendant.</summary>
+        </member>
         <member name="F:BFDR.BirthRecord.InputRaceAndEthnicityObsMother">
             <summary>The Mother's Race and Ethnicity provided by Jurisdiction.</summary>
         </member>
@@ -80,6 +83,9 @@
         </member>
         <member name="M:BFDR.BirthRecord.CreateInputRaceEthnicityObsFather">
             <summary> Create Father Input Race and Ethnicity </summary>
+        </member>
+        <member name="M:BFDR.BirthRecord.CreateAttendant">
+            <summary>Create Attendant/Practitioner.</summary>
         </member>
         <member name="P:BFDR.BirthRecord.Identifier">
             <summary>Birth Record Identifier, Birth Certificate Number.</summary>
@@ -1220,6 +1226,77 @@
             <para>string boaa = ExampleBirthRecord.RaceBlackOfAfricanAmerican;</para>
             </example>
         </member>
+        <member name="P:BFDR.BirthRecord.AttendantFamilyName">
+            TODO: Required field in FHIR, needs BLANK placeholder
+            <summary>Family name of attendant.</summary>
+            <value>the attendant's family name (i.e. last name)</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.AttendantFamilyName = "Seito";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Attendants's Name: {ExampleBirthRecord.AttendantFamilyName}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.AttendantName">
+            <summary>Attendant name.</summary>
+            <value>the attendant's name</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.AttendantName = "Janet Seito";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Attendants's Name: {ExampleBirthRecord.AttendantName}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.AttendantNPI">
+            <summary>Attendants NPI</summary>
+            <value>the attendants npi</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.AttendantNPI = "123456789011";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Attendants NPI: {ExampleBirthRecord.AttendantNPI}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.AttendantTitle">
+            <summary>Attendant Title</summary>
+            <value>the title/qualification of the person who attended the birth. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; title = new Dictionary&lt;string, string&gt;();</para>
+            <para>title.Add("code", "112247003");</para>
+            <para>title.Add("system", CodeSystems.SCT);</para>
+            <para>title.Add("display", "Medical Doctor");</para>
+            <para>ExampleBirthRecord.AttendantTitle = title;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Attendant Title: {ExampleBirthRecord.AttendantTitle['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.AttendantTitleHelper">
+            <summary>Attendant Title Helper.</summary>
+            <value>the title/qualification of the attendant.
+            <para>"code" - the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.AttendantTitleHelper = ValueSets.BirthAttendantsTitles.MedicalDoctor;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Attendant Title: {ExampleBirthRecord.AttendantTitleHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.AttendantOtherHelper">
+            <summary>Attendant Other Helper.</summary>
+            <value>the "other" title/qualification of the attendant.
+            <para>"code" - the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.AttendantOtherHelper = "Birth Clerk";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Attendant Other: {ExampleBirthRecord.AttendantOtherHelper}");</para>
         <member name="P:BFDR.BirthRecord.CigarettesPerDayInThreeMonthsPriorToPregancy">
             <summary>Cigarettes Smoked in 3 months prior to Pregnancy.</summary>
             <value>the number of cigarettes smoked per day in 3 months prior to pregnancy, or -1 if explicitly unknown, or null if never specified</value>
