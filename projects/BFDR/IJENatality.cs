@@ -2206,12 +2206,26 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                var ret = record.AttendantTitleHelper;
+                if (ret != null && Mappings.BirthAttendantTitles.FHIRToIJE.ContainsKey(ret))
+                {
+                    return Get_MappingFHIRToIJE(Mappings.BirthAttendantTitles.FHIRToIJE, "AttendantTitle", "ATTEND");
+                }
+                else  // If the return value is not a code, it is just an arbitrary string, so return it.
+                {
+                    return ret;
+                }
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (Mappings.BirthAttendantTitles.IJEToFHIR.ContainsKey(value.Split(' ')[0]))
+                {
+                    Set_MappingIJEToFHIR(Mappings.BirthAttendantTitles.IJEToFHIR, "ATTEND", "AttendantTitle", value.Trim());
+                }
+                else  // If the value is not a valid code, it is just an arbitrary string.  The helper will deal with it.
+                {
+                    record.AttendantTitleHelper = value;
+                }
             }
         }
 
@@ -4639,12 +4653,18 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                if (record.AttendantOtherHelper != null)
+                {
+                    return LeftJustified_Get("ATTEND_OTH_TXT", "AttendantOtherHelper");
+                }
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    LeftJustified_Set("ATTEND_OTH_TXT", "AttendantOtherHelper", value);
+                }
             }
         }
 
@@ -4995,12 +5015,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return LeftJustified_Get("ATTEND_NAME", "AttendantName");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                LeftJustified_Set("ATTEND_NAME", "AttendantName", value);
             }
         }
 
@@ -5010,12 +5029,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return LeftJustified_Get("ATTEND_NPI", "AttendantNPI");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                LeftJustified_Set("ATTEND_NPI", "AttendantNPI", value);
             }
         }
 
