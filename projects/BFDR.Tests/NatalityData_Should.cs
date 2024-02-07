@@ -524,17 +524,11 @@ namespace BFDR.Tests
       Assert.Equal("Hospital", ije.ToRecord().BirthPhysicalLocation["display"]);
       Assert.Equal("http://snomed.info/sct", ije.ToRecord().BirthPhysicalLocation["system"]);
 
-      IJENatality ije2 = new()
-      {
-          BPLACE = "3"
-      };
-      Assert.Equal("3", ije2.BPLACE);
-      Assert.Equal("408839006", ije2.ToRecord().BirthPhysicalLocation["code"]);
-      Assert.Equal("Planned home birth", ije2.ToRecord().BirthPhysicalLocation["display"]);
-      Assert.Equal("http://snomed.info/sct", ije2.ToRecord().BirthPhysicalLocation["system"]);
-
-      ije2.BPLACE = "1";
-      Assert.Equal("1", ije2.BPLACE);
+      ije.BPLACE = "3";
+      Assert.Equal("3", ije.BPLACE);
+      Assert.Equal("408839006", ije.ToRecord().BirthPhysicalLocation["code"]);
+      Assert.Equal("Planned home birth", ije.ToRecord().BirthPhysicalLocation["display"]);
+      Assert.Equal("http://snomed.info/sct", ije.ToRecord().BirthPhysicalLocation["system"]);
     }
 
     [Fact]
