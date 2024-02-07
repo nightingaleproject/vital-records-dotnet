@@ -702,6 +702,12 @@
         <member name="P:VR.ExtensionURL.LocationJurisdictionId">
             <summary>URL for LocationJurisdictionId</summary>
         </member>
+        <member name="F:VR.ExtensionURL.CertificateNumber">
+            <summary>URL for CertificateNumber</summary>
+        </member>
+        <member name="F:VR.ExtensionURL.AuxiliaryStateIdentifier1">
+            <summary>URL for AuxiliaryStateIdentifier1</summary>
+        </member>
         <member name="T:VR.IGURL">
             <summary>IG URLs</summary>
         </member>

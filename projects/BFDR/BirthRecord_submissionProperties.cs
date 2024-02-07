@@ -39,7 +39,7 @@ namespace BFDR
             {
                 if (Bundle?.Identifier?.Extension != null)
                 {
-                    Extension ext = Bundle.Identifier.Extension.Find(ex => ex.Url == ExtensionURL.CertificateNumber);
+                    Extension ext = Bundle.Identifier.Extension.Find(ex => ex.Url == VR.ExtensionURL.CertificateNumber);
                     if (ext?.Value != null)
                     {
                         return Convert.ToString(ext.Value);
@@ -49,10 +49,10 @@ namespace BFDR
             }
             set
             {
-                Bundle.Identifier.Extension.RemoveAll(ex => ex.Url == ExtensionURL.CertificateNumber);
+                Bundle.Identifier.Extension.RemoveAll(ex => ex.Url == VR.ExtensionURL.CertificateNumber);
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Extension ext = new Extension(ExtensionURL.CertificateNumber, new FhirString(value));
+                    Extension ext = new Extension(VR.ExtensionURL.CertificateNumber, new FhirString(value));
                     Bundle.Identifier.Extension.Add(ext);
                     UpdateBirthRecordIdentifier();
                 }
@@ -136,7 +136,7 @@ namespace BFDR
             {
                 if (Bundle?.Identifier?.Extension != null)
                 {
-                    Extension ext = Bundle.Identifier.Extension.Find(ex => ex.Url == ExtensionURL.AuxiliaryStateIdentifier1);
+                    Extension ext = Bundle.Identifier.Extension.Find(ex => ex.Url == VR.ExtensionURL.AuxiliaryStateIdentifier1);
                     if (ext?.Value != null)
                     {
                         return Convert.ToString(ext.Value);
@@ -146,10 +146,10 @@ namespace BFDR
             }
             set
             {
-                Bundle.Identifier.Extension.RemoveAll(ex => ex.Url == ExtensionURL.AuxiliaryStateIdentifier1);
+                Bundle.Identifier.Extension.RemoveAll(ex => ex.Url == VR.ExtensionURL.AuxiliaryStateIdentifier1);
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Extension ext = new Extension(ExtensionURL.AuxiliaryStateIdentifier1, new FhirString(value));
+                    Extension ext = new Extension(VR.ExtensionURL.AuxiliaryStateIdentifier1, new FhirString(value));
                     Bundle.Identifier.Extension.Add(ext);
                 }
             }

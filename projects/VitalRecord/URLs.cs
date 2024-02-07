@@ -156,6 +156,12 @@ namespace VR
 
         /// <summary>URL for LocationJurisdictionId</summary>
         public string LocationJurisdictionId => $"{_prefix}/StructureDefinition/Location-Jurisdiction-Id";
+
+        /// <summary>URL for CertificateNumber</summary>
+        public const string CertificateNumber = "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/CertificateNumber";
+
+        /// <summary>URL for AuxiliaryStateIdentifier1</summary>
+        public const string AuxiliaryStateIdentifier1 = "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/AuxiliaryStateIdentifier1";
     }
 
     /// <summary>IG URLs</summary>
