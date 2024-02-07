@@ -1297,6 +1297,8 @@
             <para>ExampleBirthRecord.AttendantOtherHelper = "Birth Clerk";</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Attendant Other: {ExampleBirthRecord.AttendantOtherHelper}");</para>
+            </example>
+        </member>
         <member name="P:BFDR.BirthRecord.CigarettesPerDayInThreeMonthsPriorToPregancy">
             <summary>Cigarettes Smoked in 3 months prior to Pregnancy.</summary>
             <value>the number of cigarettes smoked per day in 3 months prior to pregnancy, or -1 if explicitly unknown, or null if never specified</value>

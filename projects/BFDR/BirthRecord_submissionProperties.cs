@@ -3971,7 +3971,7 @@ namespace BFDR
             {
                 if (Attendant != null && Attendant.Name != null)
                 {
-                    return Attendant.Name.First().Text;
+                    return Attendant.Name.FirstOrDefault()?.Text;
                 }
                 return null;
             }
@@ -4171,6 +4171,7 @@ namespace BFDR
                     AttendantTitle = CodeableConceptToDict(new CodeableConcept(CodeSystems.NullFlavor_HL7_V3, "OTH", "Other", value));
                 }
             }
+        }
           
         private int? GetCigarettesSmoked(string code)
         {
