@@ -152,6 +152,14 @@
             "valueAddress": {
               "city": "Salt Lake City",
               "district": "Salt Lake",
+              "_district": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/DistrictCode",
+                    "valueString": "035"
+                  }
+                ]
+              },
               "state": "UT"
             }
           }

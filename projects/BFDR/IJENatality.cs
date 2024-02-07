@@ -320,12 +320,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Dictionary_Geo_Get("CNTYO", "PlaceOfBirth", "address", "countyC", true);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Dictionary_Geo_Set("CNTYO", "PlaceOfBirth", "address", "countyC", true, value);
+                }
             }
         }
 

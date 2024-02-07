@@ -9,7 +9,7 @@ namespace BFDR.Tests
   public class NatalityData_Should
   {
     [Fact]
-    public void TestPatientChildVitalRecordProperties()
+    public void TestImportPatientChildVitalRecordProperties()
     {
       // Test IJE import.
       IJENatality ijeImported = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/BasicBirthRecord.ije")), true);
@@ -49,7 +49,7 @@ namespace BFDR.Tests
       Assert.Equal(ijeImported.IDOB_YR + "-" + ijeImported.IDOB_MO + "-" + ijeImported.IDOB_DY, br.DateOfBirth);
       Assert.Equal("2023-11-25", br.DateOfBirth);
       // County of Birth | (CountyCodes) (CNTYO)
-      // TODO --- 
+      Assert.Equal("467", ijeImported.CNTYO);
       // Plurality
       // TODO --- 
       // Set Order
@@ -91,6 +91,16 @@ namespace BFDR.Tests
       Assert.Equal("aaabbbcccdddeee".PadRight(15), ijeImported.INF_MED_REC_NUM);
       Assert.Equal(ijeImported.INF_MED_REC_NUM, ijeConverted.INF_MED_REC_NUM);
       Assert.Equal("aaabbbcccdddeee", br.InfantMedicalRecordNumber);
+    }
+
+    [Fact]
+    public void TestSetPatientChildVitalRecordProperties()
+    {
+      IJENatality ije = new()
+      {
+          CNTYO = "635"
+      };
+      Assert.Equal("635", ije.CNTYO);
     }
 
     [Fact]

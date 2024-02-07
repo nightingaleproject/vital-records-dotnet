@@ -384,6 +384,9 @@ namespace BFDR.Tests
       // County of Birth (Literal)
       Assert.Equal("Salt Lake", firstRecord.PlaceOfBirth["addressCounty"]);
       Assert.Equal(firstRecord.PlaceOfBirth["addressCounty"], secondRecord.PlaceOfBirth["addressCounty"]);
+      // County of Birth (Code)
+      Assert.Equal("035", firstRecord.PlaceOfBirth["addressCountyC"]);
+      Assert.Equal(firstRecord.PlaceOfBirth["addressCountyC"], secondRecord.PlaceOfBirth["addressCountyC"].PadLeft(3, '0'));
       // City/town/place of birth (Literal)
       Assert.Equal("Salt Lake City", firstRecord.PlaceOfBirth["addressCity"]);
       Assert.Equal(firstRecord.PlaceOfBirth["addressCity"], secondRecord.PlaceOfBirth["addressCity"]);
@@ -612,6 +615,7 @@ namespace BFDR.Tests
       placeOfBirth["addressState"] = "UT";
       placeOfBirth["addressCounty"] = "Salt Lake";
       placeOfBirth["addressCity"] = "Salt Lake City";
+      placeOfBirth["addressCountyC"] = "035";
       record.PlaceOfBirth = placeOfBirth;
       Assert.Equal("UT", record.PlaceOfBirth["addressState"]);
       Assert.Equal("UT", record.BirthLocationJurisdiction); // TODO - Birth Location Jurisdiction still needs to be finalized.
@@ -619,6 +623,8 @@ namespace BFDR.Tests
       Assert.Equal("Salt Lake", record.PlaceOfBirth["addressCounty"]);
       // City/town/place of birth (Literal)
       Assert.Equal("Salt Lake City", record.PlaceOfBirth["addressCity"]);
+      // County of Birth (Code)
+      Assert.Equal("035", record.PlaceOfBirth["addressCountyC"].PadLeft(3, '0'));
     }
 
     [Fact]
