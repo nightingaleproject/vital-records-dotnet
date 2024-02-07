@@ -611,22 +611,28 @@ namespace BFDR.Tests
     {
       BirthRecord record = new BirthRecord();
       // State of Birth
-      Dictionary<string, string> placeOfBirth = new Dictionary<string, string>();
-      placeOfBirth["addressState"] = "UT";
-      placeOfBirth["addressCounty"] = "Salt Lake";
-      placeOfBirth["addressCity"] = "Salt Lake City";
-      placeOfBirth["addressCountyC"] = "035";
-      record.PlaceOfBirth = placeOfBirth;
+      record.PlaceOfBirth = new Dictionary<string, string>
+      {
+        ["addressState"] = "UT",
+        ["addressCounty"] = "Salt Lake",
+        ["addressCity"] = "Salt Lake City",
+        ["addressCountyC"] = "035"
+      };
+      record.MotherPlaceOfBirth = new Dictionary<string, string>
+      {
+        ["addressState"] = "MA",
+        ["addressCounty"] = "Middlesex",
+        ["addressCity"] = "Bedford",
+        ["addressCountry"] = "US"
+      };
+      record.FatherPlaceOfBirth = new Dictionary<string, string>
+      {
+        ["addressState"] = "NH",
+        ["addressCounty"] = "Hillsboro",
+        ["addressCity"] = "Nashua"
+      };
 
-      placeOfBirth["addressState"] = "MA";
-      placeOfBirth["addressCounty"] = "Middlesex";
-      placeOfBirth["addressCity"] = "Bedford";
-      record.MotherPlaceOfBirth = placeOfBirth;
-
-      placeOfBirth["addressState"] = "NH";
-      placeOfBirth["addressCounty"] = "Hillsboro";
-      placeOfBirth["addressCity"] = "Nashua";
-      record.FatherPlaceOfBirth = placeOfBirth;
+      IJENatality ije = new(record);
 
       Assert.Equal("UT", record.PlaceOfBirth["addressState"]);
       Assert.Equal("UT", record.BirthLocationJurisdiction); // TODO - Birth Location Jurisdiction still needs to be finalized.
@@ -639,9 +645,12 @@ namespace BFDR.Tests
       Assert.Equal("MA", record.MotherPlaceOfBirth["addressState"]);
       Assert.Equal("Middlesex", record.MotherPlaceOfBirth["addressCounty"]);
       Assert.Equal("Bedford", record.MotherPlaceOfBirth["addressCity"]);
+      Assert.Equal("US", record.MotherPlaceOfBirth["addressCountry"]);
       Assert.Equal("NH", record.FatherPlaceOfBirth["addressState"]);
       Assert.Equal("Hillsboro", record.FatherPlaceOfBirth["addressCounty"]);
       Assert.Equal("Nashua", record.FatherPlaceOfBirth["addressCity"]);
+      Assert.Equal(ije.BPLACEC_CNT, record.MotherPlaceOfBirth["addressCountry"]);
+      Assert.Equal(ije.BPLACEC_ST_TER, record.MotherPlaceOfBirth["addressState"]);
     }
 
     [Fact]
@@ -1162,35 +1171,13 @@ namespace BFDR.Tests
       // Test IJE Conversion.
       IJENatality ije = new(secondRecord);
 
+      Assert.Equal(firstRecord.MotherPlaceOfBirth, secondRecord.MotherPlaceOfBirth);
       // Country
-      Assert.Equal("US", firstRecord.MotherBirthCountry);
-      Assert.Equal(firstRecord.MotherBirthCountry, secondRecord.MotherBirthCountry);
-      Assert.Equal(firstRecord.MotherBirthCountry, ije.BPLACEC_CNT);
+      Assert.Equal("US", firstRecord.MotherPlaceOfBirth["addressCountry"]);
+      Assert.Equal(firstRecord.MotherPlaceOfBirth["addressCountry"], ije.BPLACEC_CNT);
       // State
-      Assert.Equal("UT", firstRecord.MotherBirthState);
-      Assert.Equal(firstRecord.MotherBirthState, secondRecord.MotherBirthState);
-      Assert.Equal(firstRecord.MotherBirthState, ije.BPLACEC_ST_TER);
-    }
-
-    [Fact]
-    public void TestSetMotherBirthplace()
-    {
-      // Manually set birth record values.
-      BirthRecord br = new()
-      {
-          MotherBirthCountry = "US",
-          MotherBirthState = "UT"
-      };
-      // Test IJE conversion from BirthRecord.
-      IJENatality ije = new(br);
-
-      Assert.Equal("US", br.MotherBirthCountry);
-      Assert.Equal(ije.BPLACEC_CNT, br.MotherBirthCountry);
-      Assert.Equal(ije.BPLACEC_ST_TER, br.MotherBirthState);
-      br.MotherBirthCountry = "AA";
-      Assert.Equal("AA", br.MotherBirthCountry);
-      br.MotherBirthState = "MA";
-      Assert.Equal("MA", br.MotherBirthState);
+      Assert.Equal("UT", firstRecord.MotherPlaceOfBirth["addressState"]);
+      Assert.Equal(firstRecord.MotherPlaceOfBirth["addressState"], ije.BPLACEC_ST_TER);
     }
 
     [Fact]

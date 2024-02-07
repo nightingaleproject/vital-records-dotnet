@@ -475,11 +475,11 @@ namespace BFDR.Tests
 
       // Country
       Assert.Equal("US", ijeImported.BPLACEC_CNT);
-      Assert.Equal(ijeImported.BPLACEC_CNT, br.MotherBirthCountry);
+      Assert.Equal(ijeImported.BPLACEC_CNT, br.MotherPlaceOfBirth["addressCountry"]);
       Assert.Equal(ijeImported.BPLACEC_CNT, ijeConverted.BPLACEC_CNT);
       // State
       Assert.Equal("CA", ijeImported.BPLACEC_ST_TER);
-      Assert.Equal(ijeImported.BPLACEC_ST_TER, br.MotherBirthState);
+      Assert.Equal(ijeImported.BPLACEC_ST_TER, br.MotherPlaceOfBirth["addressState"]);
       Assert.Equal(ijeImported.BPLACEC_ST_TER, ijeConverted.BPLACEC_ST_TER);
     }
 
@@ -499,13 +499,13 @@ namespace BFDR.Tests
 
       // Country
       Assert.Equal("US", ije.BPLACEC_CNT);
-      Assert.Equal(ije.BPLACEC_CNT, br.MotherBirthCountry);
+      Assert.Equal(ije.BPLACEC_CNT, br.MotherPlaceOfBirth["addressCountry"]);
       Assert.Equal(ije.BPLACEC_CNT, ijeConverted.BPLACEC_CNT);
       ije.BPLACEC_CNT = "AE";
       Assert.Equal("AE", ije.BPLACEC_CNT);
       // State
       Assert.Equal("FL", ije.BPLACEC_ST_TER);
-      Assert.Equal(ije.BPLACEC_ST_TER, br.MotherBirthState);
+      Assert.Equal(ije.BPLACEC_ST_TER, br.MotherPlaceOfBirth["addressState"]);
       Assert.Equal(ije.BPLACEC_ST_TER, ijeConverted.BPLACEC_ST_TER);
       ije.BPLACEC_ST_TER = "AL";
       Assert.Equal("AL", ije.BPLACEC_ST_TER);

@@ -480,7 +480,7 @@ namespace BFDR
             {
                 if(!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("BirthSex", value, BFDR.ValueSets.BirthSex.Codes);
+                    SetCodeValue("BirthSex", value, ValueSets.BirthSex.Codes);
                 }
             }
         }
@@ -1077,95 +1077,6 @@ namespace BFDR
                 {
                     // normal path
                     SetCodeValue("BirthPhysicalLocation", value, BFDR.ValueSets.PlaceTypeOfBirth.Codes);
-                }
-            }
-        }
-
-        /// <summary>Birthplace of Mother--Country.</summary>
-        /// <value>Birthplace of Mother--Country.</value>
-        /// <example>
-        /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.MotherBirthCountry = "US";</para>
-        /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Mother's Birth Country: {ExampleBirthRecord.MotherBirthCountry}");</para>
-        /// </example>
-        [Property("MotherBirthCountry", Property.Types.String, "Mother Demographics", "Birthplace of Mother--Country.", true, VR.IGURL.Mother, true, 15)]
-        [FHIRPath("Bundle.entry.resource.where($this is Patient).extension.where(url='" + OtherExtensionURL.PatientBirthPlace + "')", "")]
-        public string MotherBirthCountry
-        {
-            get
-            {
-                return GetPlaceOfBirth(Mother)["addressCountry"];
-            }
-            set
-            {
-                if (Mother == null)
-                {
-                    return;
-                }
-                // Check that the given country code exists in the value set: https://hl7.org/fhir/us/vr-common-library/2024Jan/ValueSet-ValueSet-residence-country-vr.html
-                if (value.Length != 2)
-                {
-                    return;
-                }
-                if (Mother.Extension.Any(ext => ext.Url == OtherExtensionURL.PatientBirthPlace))
-                {
-                    Address address = (Address) Mother.GetExtension(OtherExtensionURL.PatientBirthPlace).Value;
-                    address.Country = value;
-                    return;
-                }
-                else
-                {
-                    Dictionary<string, string> countryOnly = new Dictionary<string, string>
-                    {
-                        ["addressCountry"] = value
-                    };
-                    SetPlaceOfBirth(Mother, countryOnly);
-                }
-
-            }
-        }
-
-        /// <summary>Birthplace of Mother--State.</summary>
-        /// <value>	State, U.S. Territory or Canadian Province of Birth (Mother) - code.</value>
-        /// <example>
-        /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.MotherBirthState = "UT";</para>
-        /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Mother's Birth State: {ExampleBirthRecord.MotherBirthState}");</para>
-        /// </example>
-        [Property("MotherBirthState", Property.Types.String, "Mother Demographics", "Birthplace of Mother--State.", true, VR.IGURL.Mother, true, 15)]
-        [FHIRPath("Bundle.entry.resource.where($this is Patient).extension.where(url='" + OtherExtensionURL.PatientBirthPlace + "')", "")]
-        public string MotherBirthState
-        {
-            get
-            {
-                return GetPlaceOfBirth(Mother)["addressState"];
-            }
-            set
-            {
-                if (Mother == null)
-                {
-                    return;
-                }
-                // Check that the given state/territory code exists in the value set: https://hl7.org/fhir/us/vr-common-library/2024Jan/ValueSet-ValueSet-states-territories-provinces-vr.html
-                if (value.Length != 2)
-                {
-                    return;
-                }
-                if (Mother.Extension.Any(ext => ext.Url == OtherExtensionURL.PatientBirthPlace))
-                {
-                    Address address = (Address) Mother.GetExtension(OtherExtensionURL.PatientBirthPlace).Value;
-                    address.State = value;
-                    return;
-                }
-                else
-                {
-                    Dictionary<string, string> stateOnly = new Dictionary<string, string>
-                    {
-                        ["addressState"] = value
-                    };
-                    SetPlaceOfBirth(Mother, stateOnly);
                 }
             }
         }

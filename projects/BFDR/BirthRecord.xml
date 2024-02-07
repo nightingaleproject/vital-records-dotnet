@@ -396,24 +396,6 @@
             <para>Console.WriteLine($"Child's Place Of Birth Type: {ExampleBirthRecord.BirthPhysicalLocationHelper}");</para>
             </example>
         </member>
-        <member name="P:BFDR.BirthRecord.MotherBirthCountry">
-            <summary>Birthplace of Mother--Country.</summary>
-            <value>Birthplace of Mother--Country.</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.MotherBirthCountry = "US";</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Mother's Birth Country: {ExampleBirthRecord.MotherBirthCountry}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.BirthRecord.MotherBirthState">
-            <summary>Birthplace of Mother--State.</summary>
-            <value>	State, U.S. Territory or Canadian Province of Birth (Mother) - code.</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.MotherBirthState = "UT";</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Mother's Birth State: {ExampleBirthRecord.MotherBirthState}");</para>
         <member name="P:BFDR.BirthRecord.MotherPlaceOfBirth">
             <summary>Mother's Place Of Birth.</summary>
             <value>Mother's Place Of Birth. A Dictionary representing residence address, containing the following key/value pairs:
