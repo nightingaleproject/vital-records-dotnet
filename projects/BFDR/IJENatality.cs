@@ -335,12 +335,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Get_MappingFHIRToIJE(BFDR.Mappings.BirthDeliveryOccurred.FHIRToIJE, "BirthPhysicalLocation", "BPLACE");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                Set_MappingIJEToFHIR(BFDR.Mappings.BirthDeliveryOccurred.IJEToFHIR, "BPLACE", "BirthPhysicalLocation", value);
             }
         }
 

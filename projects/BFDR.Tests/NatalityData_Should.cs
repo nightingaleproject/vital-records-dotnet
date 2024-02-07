@@ -443,5 +443,48 @@ namespace BFDR.Tests
       ije.BPLACEC_ST_TER = "AL";
       Assert.Equal("AL", ije.BPLACEC_ST_TER);
     }
+
+    [Fact]
+    public void TestSetBirthPlaceType()
+    {
+      // Manually set ije values.
+      IJENatality ije = new()
+      {
+          BPLACE = "1"
+      };
+      Assert.Equal("1", ije.BPLACE);
+      Assert.Equal("22232009", ije.ToRecord().BirthPhysicalLocation["code"]);
+      Assert.Equal("Hospital", ije.ToRecord().BirthPhysicalLocation["display"]);
+      Assert.Equal("http://snomed.info/sct", ije.ToRecord().BirthPhysicalLocation["system"]);
+
+      IJENatality ije2 = new()
+      {
+          BPLACE = "3"
+      };
+      Assert.Equal("3", ije2.BPLACE);
+      Assert.Equal("408839006", ije2.ToRecord().BirthPhysicalLocation["code"]);
+      Assert.Equal("Planned home birth", ije2.ToRecord().BirthPhysicalLocation["display"]);
+      Assert.Equal("http://snomed.info/sct", ije2.ToRecord().BirthPhysicalLocation["system"]);
+
+      ije2.BPLACE = "1";
+      Assert.Equal("1", ije2.BPLACE);
+    }
+
+    [Fact]
+    public void TestImportBirthPlaceType()
+    {
+      // Test IJE import.
+      IJENatality ijeImported = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/BasicBirthRecord.ije")), true);
+      // Test IJE conversion to BirthRecord.
+      BirthRecord br = ijeImported.ToRecord();
+      // Test IJE conversion from BirthRecord.
+      IJENatality ijeConverted = new(br);
+
+      Assert.Equal("2", ijeImported.BPLACE);
+      Assert.Equal(ijeImported.BPLACE, ijeConverted.BPLACE);
+      Assert.Equal("91154008", ijeImported.ToRecord().BirthPhysicalLocation["code"]);
+      Assert.Equal("Free-standing birthing center", ijeImported.ToRecord().BirthPhysicalLocation["display"]);
+      Assert.Equal("http://snomed.info/sct", ijeImported.ToRecord().BirthPhysicalLocation["system"]);
+    }
   }
 }

@@ -921,14 +921,12 @@ namespace BFDR
                         ProfileURL.EncounterBirth
                     };
                 }
-                if (EncounterBirth.Location.Count() < 1)
+                EncounterBirth.Location = new List<Hl7.Fhir.Model.Encounter.LocationComponent>();
+                LocationComponent location = new LocationComponent
                 {
-                    LocationComponent location = new LocationComponent
-                    {
-                        PhysicalType = DictToCodeableConcept(value)
-                    };
-                    EncounterBirth.Location.Add(location);
-                }
+                    PhysicalType = DictToCodeableConcept(value)
+                };
+                EncounterBirth.Location.Add(location);
             }
         }
 

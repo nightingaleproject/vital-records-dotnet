@@ -1118,12 +1118,13 @@ namespace BFDR.Tests
           BirthPhysicalLocationHelper = "22232009",
       };
       // Test IJE conversion from BirthRecord.
-      IJENatality ije1 = new(br1);
+      IJENatality ije = new(br1);
 
       Assert.Equal("22232009", br1.BirthPhysicalLocation["code"]);
       Assert.Equal("http://snomed.info/sct", br1.BirthPhysicalLocation["system"]);
       Assert.Equal("Hospital", br1.BirthPhysicalLocation["display"]);
       Assert.Equal(br1.BirthPhysicalLocationHelper, br1.BirthPhysicalLocation["code"]);
+      Assert.Equal("1", ije.BPLACE);
 
       Dictionary<string, string> birthPlaceCode = new()
       {
@@ -1131,19 +1132,25 @@ namespace BFDR.Tests
           ["system"] = "http://snomed.info/sct",
           ["display"] = "Hospital"
       };
-      BirthRecord br2 = new()
-      {
-          BirthPhysicalLocation = birthPlaceCode
-      };
-      IJENatality ije2 = new(br2);
-      Assert.Equal("22232009", br2.BirthPhysicalLocation["code"]);
-      Assert.Equal("http://snomed.info/sct", br2.BirthPhysicalLocation["system"]);
-      Assert.Equal("Hospital", br2.BirthPhysicalLocation["display"]);
-      Assert.Equal(br2.BirthPhysicalLocationHelper, br2.BirthPhysicalLocation["code"]);
+      br1.BirthPhysicalLocation = birthPlaceCode;
+      ije = new(br1);
+      Assert.Equal("22232009", br1.BirthPhysicalLocation["code"]);
+      Assert.Equal("http://snomed.info/sct", br1.BirthPhysicalLocation["system"]);
+      Assert.Equal("Hospital", br1.BirthPhysicalLocation["display"]);
+      Assert.Equal(br1.BirthPhysicalLocationHelper, br1.BirthPhysicalLocation["code"]);
+      Assert.Equal("1", ije.BPLACE);
+
+      br1.BirthPhysicalLocationHelper = "67190003";
+      ije = new(br1);
+      Assert.Equal("67190003", br1.BirthPhysicalLocation["code"]);
+      Assert.Equal("http://snomed.info/sct", br1.BirthPhysicalLocation["system"]);
+      Assert.Equal("Free-standing clinic", br1.BirthPhysicalLocation["display"]);
+      Assert.Equal(br1.BirthPhysicalLocationHelper, br1.BirthPhysicalLocation["code"]);
+      Assert.Equal("6", ije.BPLACE);
     }
 
     [Fact]
-    public void TestImprotPhysicalBirthPlace()
+    public void TestImportPhysicalBirthPlace()
     {
       // Test FHIR record import.
       BirthRecord firstRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
