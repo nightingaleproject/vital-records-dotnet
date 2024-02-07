@@ -16,8 +16,14 @@ namespace VR
         /// <summary>URL for PatientBirthPlace</summary>
         public const string PatientBirthPlace = "http://hl7.org/fhir/StructureDefinition/patient-birthPlace";
 
+        /// <summary>URL for RelatedPersonBirthPlace</summary>
+        public const string RelatedPersonBirthPlace = "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-relatedperson-birthplace-vr";
+
         /// <summary>URL for US Core Birthsex </summary>
         public const string BirthSex = "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex";
+
+        /// <summary>URL for parent role </summary>
+        public const string ParentRole = "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-role-vr";
     }
 
     /// <summary>IG URLs for non-VRDR Profiles</summary>

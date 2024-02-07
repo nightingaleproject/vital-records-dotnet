@@ -604,7 +604,7 @@ namespace BFDR.Tests
     }
 
     [Fact]
-    public void TestChildBirthPlaceSetters()
+    public void TestBirthPlaceSetters()
     {
       BirthRecord record = new BirthRecord();
       // State of Birth
@@ -613,14 +613,58 @@ namespace BFDR.Tests
       placeOfBirth["addressCounty"] = "Salt Lake";
       placeOfBirth["addressCity"] = "Salt Lake City";
       record.PlaceOfBirth = placeOfBirth;
+
+      placeOfBirth["addressState"] = "MA";
+      placeOfBirth["addressCounty"] = "Middlesex";
+      placeOfBirth["addressCity"] = "Bedford";
+      record.MotherPlaceOfBirth = placeOfBirth;
+
+      placeOfBirth["addressState"] = "NH";
+      placeOfBirth["addressCounty"] = "Hillsboro";
+      placeOfBirth["addressCity"] = "Nashua";
+      record.FatherPlaceOfBirth = placeOfBirth;
+
       Assert.Equal("UT", record.PlaceOfBirth["addressState"]);
       Assert.Equal("UT", record.BirthLocationJurisdiction); // TODO - Birth Location Jurisdiction still needs to be finalized.
       // County of Birth (Literal)
       Assert.Equal("Salt Lake", record.PlaceOfBirth["addressCounty"]);
       // City/town/place of birth (Literal)
       Assert.Equal("Salt Lake City", record.PlaceOfBirth["addressCity"]);
+
+      Assert.Equal("MA", record.MotherPlaceOfBirth["addressState"]);
+      Assert.Equal("Middlesex", record.MotherPlaceOfBirth["addressCounty"]);
+      Assert.Equal("Bedford", record.MotherPlaceOfBirth["addressCity"]);
+
+      Assert.Equal("NH", record.FatherPlaceOfBirth["addressState"]);
+      Assert.Equal("Hillsboro", record.FatherPlaceOfBirth["addressCounty"]);
+      Assert.Equal("Nashua", record.FatherPlaceOfBirth["addressCity"]);
     }
 
+    [Fact]
+    public void TestMotherAddressSetters()
+    {
+      BirthRecord record = new BirthRecord();
+
+      Dictionary<string, string> addr = new Dictionary<string, string>();
+      addr["addressState"] = "UT";
+      addr["addressCounty"] = "Salt Lake";
+      addr["addressCity"] = "Salt Lake City";
+      record.MotherResidence = addr;
+
+      addr["addressState"] = "MA";
+      addr["addressCounty"] = "Middlesex";
+      addr["addressCity"] = "Bedford";
+      record.MotherBilling = addr;
+
+      Assert.Equal("UT", record.MotherResidence["addressState"]);
+      Assert.Equal("Salt Lake", record.MotherResidence["addressCounty"]);
+      Assert.Equal("Salt Lake City", record.MotherResidence["addressCity"]);
+
+      Assert.Equal("MA", record.MotherBilling["addressState"]);
+      Assert.Equal("Middlesex", record.MotherBilling["addressCounty"]);
+      Assert.Equal("Bedford", record.MotherBilling["addressCity"]);
+    }
+    
     [Fact]
     public void TestChildNameSetters()
     {
@@ -661,6 +705,27 @@ namespace BFDR.Tests
       // Mother's Surname Suffix
       record.MotherSuffix = "II";
       Assert.Equal("II", record.MotherSuffix);
+    }
+
+    [Fact]
+    public void TestFatherNameSetters()
+    {
+      BirthRecord record = new BirthRecord();
+      Assert.Empty(record.FatherGivenNames);
+      Assert.Null(record.FatherFamilyName);
+      Assert.Null(record.FatherSuffix);
+      // Father's First Name
+      string[] names = {"Pappy", "C"};
+      record.FatherGivenNames = names;
+      Assert.Equal("Pappy", record.FatherGivenNames[0]);
+      // Father's Middle Name
+      Assert.Equal("C", record.FatherGivenNames[1]);
+      // Father's Last Name
+      record.FatherFamilyName = "Pipp";
+      Assert.Equal("Pipp", record.FatherFamilyName);
+      // Father's Surname Suffix
+      record.FatherSuffix = "III";
+      Assert.Equal("III", record.FatherSuffix);
     }
 
     [Fact]
@@ -720,6 +785,15 @@ namespace BFDR.Tests
     }
 
     [Fact]
+    public void TestFatherIdentifierSetters()
+    {
+      BirthRecord record = new BirthRecord();
+      // Father SSN
+      record.FatherSocialSecurityNumber = "1231231234";
+      Assert.Equal("1231231234", record.FatherSocialSecurityNumber);
+    }
+
+    [Fact]
     public void EmptyRecordToDescription()
     {
       BirthRecord birthRecord = new();
@@ -750,6 +824,9 @@ namespace BFDR.Tests
       Assert.Equal(29, record1.MotherBirthDay);
       // Complete Date of Birth.
       Assert.Equal("1990-08-29", record1.MotherDateOfBirth);
+      Assert.Null(record1.MotherReportedAgeAtDelivery);
+      record1.MotherReportedAgeAtDelivery = 27;
+      Assert.Equal(27, record1.MotherReportedAgeAtDelivery);
 
       // Test in a different order.
       BirthRecord record2 = new BirthRecord();
@@ -885,6 +962,9 @@ namespace BFDR.Tests
       Assert.Equal(29, record1.FatherBirthDay);
       // Complete Date of Birth.
       Assert.Equal("1990-08-29", record1.FatherDateOfBirth);
+      Assert.Null(record1.FatherReportedAgeAtDelivery);
+      record1.FatherReportedAgeAtDelivery = 28;
+      Assert.Equal(28, record1.FatherReportedAgeAtDelivery);
 
       // Test in a different order.
       BirthRecord record2 = new BirthRecord();
