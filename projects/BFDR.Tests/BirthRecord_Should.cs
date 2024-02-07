@@ -1136,11 +1136,28 @@ namespace BFDR.Tests
           BirthPhysicalLocation = birthPlaceCode
       };
       IJENatality ije2 = new(br2);
-
       Assert.Equal("22232009", br2.BirthPhysicalLocation["code"]);
       Assert.Equal("http://snomed.info/sct", br2.BirthPhysicalLocation["system"]);
       Assert.Equal("Hospital", br2.BirthPhysicalLocation["display"]);
       Assert.Equal(br2.BirthPhysicalLocationHelper, br2.BirthPhysicalLocation["code"]);
+    }
+
+    [Fact]
+    public void TestImprotPhysicalBirthPlace()
+    {
+      // Test FHIR record import.
+      BirthRecord firstRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      // Test conversion via FromDescription.
+      BirthRecord secondRecord = VitalRecord.FromDescription<BirthRecord>(firstRecord.ToDescription());
+
+      Assert.Equal("22232009", firstRecord.BirthPhysicalLocation["code"]);
+      Assert.Equal("http://snomed.info/sct", firstRecord.BirthPhysicalLocation["system"]);
+      Assert.Equal("Hospital", firstRecord.BirthPhysicalLocation["display"]);
+      Assert.Equal(firstRecord.BirthPhysicalLocationHelper, firstRecord.BirthPhysicalLocation["code"]);
+      Assert.Equal("22232009", secondRecord.BirthPhysicalLocation["code"]);
+      Assert.Equal("http://snomed.info/sct", secondRecord.BirthPhysicalLocation["system"]);
+      Assert.Equal("Hospital", secondRecord.BirthPhysicalLocation["display"]);
+      Assert.Equal(secondRecord.BirthPhysicalLocationHelper, secondRecord.BirthPhysicalLocation["code"]);
     }
   }
 }

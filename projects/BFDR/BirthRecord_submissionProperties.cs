@@ -464,7 +464,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Sex at Time of Birth: {ExampleBirthRecord.BirthSexHelper}");</para>
         /// </example>
-        [Property("Sex At Birth Helper", Property.Types.String, "Child Demographics", "Child's Sex at Birth.", true, VR.IGURL.Child, true, 12)]
+        [Property("Sex At Birth Helper", Property.Types.String, "Child Demographics", "Child's Sex at Birth.", false, VR.IGURL.Child, true, 12)]
         [FHIRPath("Bundle.entry.resource.where($this is Patient).extension.where(url='" + OtherExtensionURL.BirthSex + "')", "")]
         public string BirthSexHelper
         {
@@ -876,11 +876,27 @@ namespace BFDR
             }
         }
 
-        [Property("BirthPhysicalLocation", Property.Types.Dictionary, "TODO", "Birth Physical Location.", false, ProfileURL.EncounterBirth, false, 16)]
+        /// <summary>Child's Place Of Birth Type.</summary>
+        /// <value>Child's Place Of Birth Type. A Dictionary representing a codeable concept of the physical location type:
+        /// <para>"code" - The code used to describe this concept.</para>
+        /// <para>"system" - The relevant code system.</para>
+        /// <para>"display" - The human readable version of this code.</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; locationType = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>locationType.Add("code", "22232009");</para>
+        /// <para>locationType.Add("system", "http://snomed.info/sct");</para>
+        /// <para>locationType.Add("display", "Hospital");</para>
+        /// <para>ExampleBirthRecord.BirthPhysicalLocation = locationType;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"The place type the child was born: {ExampleBirthRecord.BirthPhysicalLocation["code"]}");</para>
+        /// </example>
+        [Property("BirthPhysicalLocation", Property.Types.Dictionary, "BirthPhysicalLocation", "Birth Physical Location.", true, IGURL.EncounterBirth, true, 16)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [PropertyParam("system", "The relevant code system.")]
-        [PropertyParam("display", "The human readable version of this code.")]        
-        [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(meta.profile == " + ProfileURL.EncounterBirth + ")", "")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Encounter)", "")]
         public Dictionary<string, string> BirthPhysicalLocation
         {
             get
@@ -907,16 +923,25 @@ namespace BFDR
                 }
                 if (EncounterBirth.Location.Count() < 1)
                 {
-                    LocationComponent location = new LocationComponent();
-                    location.PhysicalType = DictToCodeableConcept(value);
+                    LocationComponent location = new LocationComponent
+                    {
+                        PhysicalType = DictToCodeableConcept(value)
+                    };
                     EncounterBirth.Location.Add(location);
                 }
-
             }
         }
 
+        /// <summary>Child's Place Of Birth Type Helper</summary>
+        /// <value>Child's Place Of Birth Type Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.BirthPhysicalLocationHelper = "Hospital";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Child's Place Of Birth Type: {ExampleBirthRecord.BirthPhysicalLocationHelper}");</para>
+        /// </example>
         [Property("BirthPhysicalLocationHelper", Property.Types.String, "BirthPhysicalLocationHelper", "Birth Physical Location Helper.", false, IGURL.EncounterBirth, true, 4)]
-        [FHIRPath("Bundle.entry.resource.where($this is Procedure).where(code.coding.code='308646001')", "performer")]
+        [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(meta.profile == " + IGURL.EncounterBirth + ")", "")]
         public string BirthPhysicalLocationHelper
         {
             get
@@ -947,11 +972,13 @@ namespace BFDR
                     return;
                 }
                 if (!BFDR.Mappings.BirthDeliveryOccurred.FHIRToIJE.ContainsKey(value))
-                { //other
+                {
+                    // other
                     BirthPhysicalLocation = CodeableConceptToDict(new CodeableConcept(CodeSystems.NullFlavor_HL7_V3, "OTH", "Other", value));
                 }
                 else
-                { // normal path
+                {
+                    // normal path
                     SetCodeValue("BirthPhysicalLocation", value, BFDR.ValueSets.PlaceTypeOfBirth.Codes);
                 }
             }
