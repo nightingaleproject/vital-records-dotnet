@@ -422,12 +422,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return Get_MappingFHIRToIJE(VR.Mappings.ConceptMapMothersDateOfBirthEditFlagsVitalRecords.FHIRToIJE, "MotherDateOfBirthEditFlag", "MAGE_BYPASS").PadLeft(1, ' ');
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                Set_MappingIJEToFHIR(VR.Mappings.ConceptMapMothersDateOfBirthEditFlagsVitalRecords.IJEToFHIR, "MAGE_BYPASS", "MotherDateOfBirthEditFlag", value);
             }
         }
 
@@ -444,7 +443,7 @@ namespace BFDR
                 if (!String.IsNullOrWhiteSpace(value))
                 {
                     Dictionary_Set("BPLACEC_ST_TER", "MotherPlaceOfBirth", "addressState", value);
-                } 
+                }
             }
         }
 
@@ -461,7 +460,7 @@ namespace BFDR
                 if (!String.IsNullOrWhiteSpace(value))
                 {
                     Dictionary_Set("BPLACEC_CNT", "MotherPlaceOfBirth", "addressCountry", value);
-                } 
+                }
             }
         }
 
@@ -598,12 +597,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return Get_MappingFHIRToIJE(VR.Mappings.ConceptMapMothersDateOfBirthEditFlagsVitalRecords.FHIRToIJE, "FatherDateOfBirthEditFlag", "FAGE_BYPASS").PadLeft(1, ' ');
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                Set_MappingIJEToFHIR(VR.Mappings.ConceptMapMothersDateOfBirthEditFlagsVitalRecords.IJEToFHIR, "FAGE_BYPASS", "FatherDateOfBirthEditFlag", value);
             }
         }
 
@@ -2208,12 +2206,26 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                var ret = record.AttendantTitleHelper;
+                if (ret != null && Mappings.BirthAttendantTitles.FHIRToIJE.ContainsKey(ret))
+                {
+                    return Get_MappingFHIRToIJE(Mappings.BirthAttendantTitles.FHIRToIJE, "AttendantTitle", "ATTEND");
+                }
+                else  // If the return value is not a code, it is just an arbitrary string, so return it.
+                {
+                    return ret;
+                }
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                if (Mappings.BirthAttendantTitles.IJEToFHIR.ContainsKey(value.Split(' ')[0]))
+                {
+                    Set_MappingIJEToFHIR(Mappings.BirthAttendantTitles.IJEToFHIR, "ATTEND", "AttendantTitle", value.Trim());
+                }
+                else  // If the value is not a valid code, it is just an arbitrary string.  The helper will deal with it.
+                {
+                    record.AttendantTitleHelper = value;
+                }
             }
         }
 
@@ -2580,12 +2592,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return NumericAllowingUnknown_Get("CIGPN", "CigarettesPerDayInThreeMonthsPriorToPregancy");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                NumericAllowingUnknown_Set("CIGPN", "CigarettesPerDayInThreeMonthsPriorToPregancy", value);
             }
         }
 
@@ -2595,12 +2606,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return NumericAllowingUnknown_Get("CIGFN", "CigarettesPerDayInFirstTrimester");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                NumericAllowingUnknown_Set("CIGFN", "CigarettesPerDayInFirstTrimester", value);
             }
         }
 
@@ -2610,12 +2620,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return NumericAllowingUnknown_Get("CIGSN", "CigarettesPerDayInSecondTrimester");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                NumericAllowingUnknown_Set("CIGSN", "CigarettesPerDayInSecondTrimester", value);
             }
         }
 
@@ -2625,12 +2634,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return NumericAllowingUnknown_Get("CIGLN", "CigarettesPerDayInLastTrimester");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                NumericAllowingUnknown_Set("CIGLN", "CigarettesPerDayInLastTrimester", value);
             }
         }
 
@@ -3553,12 +3561,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return NumericAllowingUnknown_Get("MAGER", "MotherReportedAgeAtDelivery");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                NumericAllowingUnknown_Set("MAGER", "MotherReportedAgeAtDelivery", value);
             }
         }
 
@@ -3568,12 +3575,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return NumericAllowingUnknown_Get("FAGER", "FatherReportedAgeAtDelivery");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                NumericAllowingUnknown_Set("FAGER", "FatherReportedAgeAtDelivery", value);
             }
         }
 
@@ -4082,7 +4088,7 @@ namespace BFDR
                 if (!String.IsNullOrWhiteSpace(value))
                 {
                     Dictionary_Geo_Set("ADDRESS", "MotherResidence", "address", "line1", false, value);
-                } 
+                }
             }
         }
 
@@ -4147,7 +4153,7 @@ namespace BFDR
             }
             set
             {
-                STATEC = IJEData.Instance.StateNameToStateCode(value); 
+                STATEC = IJEData.Instance.StateNameToStateCode(value);
             }
         }
 
@@ -4161,7 +4167,7 @@ namespace BFDR
             }
             set
             {
-                COUNTRYC = IJEData.Instance.CountryCodeToCountryName(value); 
+                COUNTRYC = IJEData.Instance.CountryCodeToCountryName(value);
             }
         }
 
@@ -4279,12 +4285,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // Not implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // Not implemented in FHIR
             }
         }
 
@@ -4294,12 +4300,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // Not implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // Not implemented in FHIR
             }
         }
 
@@ -4436,7 +4442,7 @@ namespace BFDR
                 if (!String.IsNullOrWhiteSpace(value))
                 {
                     Dictionary_Set("FBPLACD_ST_TER_C", "FatherPlaceOfBirth", "addressState", value);
-                } 
+                }
             }
         }
 
@@ -4453,7 +4459,7 @@ namespace BFDR
                 if (!String.IsNullOrWhiteSpace(value))
                 {
                     Dictionary_Set("FBPLACE_CNT_C", "FatherPlaceOfBirth", "addressCountry", value);
-                } 
+                }
             }
         }
 
@@ -4643,12 +4649,18 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                if (record.AttendantOtherHelper != null)
+                {
+                    return LeftJustified_Get("ATTEND_OTH_TXT", "AttendantOtherHelper");
+                }
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    LeftJustified_Set("ATTEND_OTH_TXT", "AttendantOtherHelper", value);
+                }
             }
         }
 
@@ -4662,7 +4674,7 @@ namespace BFDR
             }
             set
             {
-                BPLACEC_ST_TER = IJEData.Instance.StateNameToStateCode(value); 
+                BPLACEC_ST_TER = IJEData.Instance.StateNameToStateCode(value);
             }
         }
 
@@ -4676,7 +4688,7 @@ namespace BFDR
             }
             set
             {
-                BPLACEC_CNT = IJEData.Instance.CountryNameToCountryCode(value); 
+                BPLACEC_CNT = IJEData.Instance.CountryNameToCountryCode(value);
             }
         }
 
@@ -4690,7 +4702,7 @@ namespace BFDR
             }
             set
             {
-                FBPLACD_ST_TER_C = IJEData.Instance.StateNameToStateCode(value); 
+                FBPLACD_ST_TER_C = IJEData.Instance.StateNameToStateCode(value);
             }
         }
 
@@ -4704,7 +4716,7 @@ namespace BFDR
             }
             set
             {
-                FBPLACE_CNT_C = IJEData.Instance.CountryNameToCountryCode(value); 
+                FBPLACE_CNT_C = IJEData.Instance.CountryNameToCountryCode(value);
             }
         }
 
@@ -4997,12 +5009,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return LeftJustified_Get("ATTEND_NAME", "AttendantName");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                LeftJustified_Set("ATTEND_NAME", "AttendantName", value);
             }
         }
 
@@ -5012,12 +5023,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return LeftJustified_Get("ATTEND_NPI", "AttendantNPI");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                LeftJustified_Set("ATTEND_NPI", "AttendantNPI", value);
             }
         }
 

@@ -2463,6 +2463,196 @@ namespace BFDR
             }
         }
 
+        // Parent ages at delivery are represented as extensions on the child Patient resource as shown below
+        // {
+        //   "extension" : [
+        //     {
+        //       "url" : "reportedAge",
+        //       "valueQuantity" : {
+        //         "value" : 34,
+        //         "system" : "http://unitsofmeasure.org",
+        //         "code" : "a"
+        //       }
+        //     },
+        //     {
+        //       "url" : "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-role-vr",
+        //       "valueCodeableConcept" : {
+        //         "coding" : [
+        //           {
+        //             "system" : "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+        //             "code" : "MTH",
+        //             "display" : "mother"
+        //           }
+        //         ]
+        //       }
+        //     }
+        //   ],
+        //   "url" : "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-reported-parent-age-at-delivery-vr"
+        // }
+        private int? GetParentReportedAgeAtDelivery(string role)
+        {
+            if (IsDictEmptyOrDefault(GetRoleCode(role)))
+            {
+                throw new System.ArgumentException($"Role '{role}' is not a member of the VR Role value set");
+            }
+            int? age = null;
+
+            Extension parentAge = Child?.Extension.Find(ext => IsParentAgeAtBirthExt(ext, role));
+            if (parentAge != null)
+            {
+                Extension ageExt = parentAge.Extension.Find(ext => ext.Url.Equals("reportedAge"));
+                if (ageExt != null && (ageExt.Value as Quantity) != null)
+                {
+                    age = (int)(ageExt.Value as Quantity).Value;
+                }
+            }
+            return age;
+        }
+
+        private Dictionary<string, string> GetRoleCode(string role)
+        {
+            for (int i = 0; i < VR.ValueSets.Role.Codes.Length; i++)
+            {
+                if (VR.ValueSets.Role.Codes[i,0].Equals(role))
+                {
+                    Dictionary<string, string> dict = new Dictionary<string, string>();
+                    dict.Add("code", VR.ValueSets.Role.Codes[i, 0]);
+                    dict.Add("display", VR.ValueSets.Role.Codes[i, 1]);
+                    dict.Add("system", VR.ValueSets.Role.Codes[i, 2]);
+                    return dict;
+                }
+            }
+            return EmptyCodeDict();
+        }
+
+        private bool IsParentAgeAtBirthExt(Extension ext, string role)
+        {
+            if (ext.Url.Equals(VRExtensionURLs.ReportedParentAgeAtDelivery))
+            {
+                if (ext.Extension.Any(
+                    subExt => subExt.Url == VR.OtherExtensionURL.ParentRole &&
+                    (subExt.Value as CodeableConcept) != null &&
+                    (subExt.Value as CodeableConcept).Coding.Any(code => code.Code.Equals(role))))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private void SetParentReportedAgeAtDelivery(string role, int? value)
+        {
+            Dictionary<string, string> roleCode = GetRoleCode(role);
+            if (IsDictEmptyOrDefault(roleCode))
+            {
+                throw new System.ArgumentException($"Role '{role}' is not a member of the VR Role value set");
+            }
+
+            Child.Extension.RemoveAll(ext => IsParentAgeAtBirthExt(ext, role));
+            Extension parentAgeAtBirth = new Extension(VRExtensionURLs.ReportedParentAgeAtDelivery, null);
+            CodeableConcept parentRole = new CodeableConcept(roleCode["system"], roleCode["code"], roleCode["display"]);
+            parentAgeAtBirth.Extension.Add(new Extension(VR.OtherExtensionURL.ParentRole, parentRole));
+            if (value != null)
+            {
+                Quantity ageInYears = new Quantity((decimal)value, "a");
+                parentAgeAtBirth.Extension.Add(new Extension("reportedAge", ageInYears));
+            }
+            Child.Extension.Add(parentAgeAtBirth);
+        }
+
+        /// <summary>Mother's Age at Delivery</summary>
+        /// <value>the mother's age at Delivery in years</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotherReportedAgeAtDelivery = 29;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother's age at delivery: {ExampleBirthRecord.MotherReportedAgeAtDelivery}");</para>
+        /// </example>
+        [Property("MotherReportedAgeAtDelivery", Property.Types.Int32, "Mother Demographics", "Mother Demographics, Reported age at Delivery", true, VR.IGURL.Mother, true, 237)]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient).extension.where(url = 'http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-reported-parent-age-at-delivery-vr')", "")]
+        public int? MotherReportedAgeAtDelivery
+        {
+            get => GetParentReportedAgeAtDelivery("MTH");
+            set => SetParentReportedAgeAtDelivery("MTH", value);
+        }
+
+        /// <summary>Mother's Date of Birth Edit Flag</summary>
+        /// <value>the mother's date of birth edit flag</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; edit = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>edit.Add("code", "queriedCorrect");</para>
+        /// <para>edit.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");</para>
+        /// <para>edit.Add("display", "Queried, and Correct");</para>
+        /// <para>ExampleBirthRecord.MotherDateOfBirthEditFlag = route;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother's date of birth edit flag: {ExampleBirthRecord.MotherDateOfBirthEditFlag}");</para>
+        /// </example>
+        [Property("MotherDateOfBirthEditFlag", Property.Types.Dictionary, "Mother Demographics", "Mother Demographics, Date of Birth Edit Flag", true, VR.IGURL.Mother, true, 17)]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient).birthDate.extension.where(url = 'http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag')", "")]
+        public Dictionary<string, string> MotherDateOfBirthEditFlag
+        {
+            get
+            {
+                if (Mother != null)
+                {
+                    Extension editFlag = Mother.BirthDateElement?.Extension.Find(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
+                    if (editFlag != null && editFlag.Value != null && editFlag.Value as CodeableConcept != null)
+                    {
+                        return CodeableConceptToDict((CodeableConcept)editFlag.Value);
+                    }
+                }
+                return EmptyCodeableDict();
+            }
+            set
+            {
+                Mother.BirthDateElement?.Extension.RemoveAll(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
+                if (Mother.BirthDateElement == null)
+                {
+                    Mother.BirthDateElement = new Date();
+                }
+                Mother.BirthDateElement.Extension.Add(new Extension(VRExtensionURLs.BypassEditFlag, DictToCodeableConcept(value)));
+            }
+        }
+
+        /// <summary>Mother's Date of Birth Edit Flag helper</summary>
+        /// <value>the mother's date of birth edit flag helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotherDateOfBirthEditFlagHelper = "queriedCorrect";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother's date of birth edit flag: {ExampleBirthRecord.MotherDateOfBirthEditFlagHelper}");</para>
+        /// </example>
+        [Property("MotherDateOfBirthEditFlagHelper", Property.Types.String, "Mother Demographics", "Mother Demographics, Date of Birth Edit Flag", false, VR.IGURL.Child, true, 17)]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient).birthDate.extension.where(url = 'http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag')", "")]
+        public string MotherDateOfBirthEditFlagHelper
+        {
+            get
+            {
+                if (MotherDateOfBirthEditFlag.ContainsKey("code"))
+                {
+                    string code = MotherDateOfBirthEditFlag["code"];
+                    if (!String.IsNullOrWhiteSpace(code))
+                    {
+                        return code;
+                    }
+                }
+                return null;
+            }
+            set
+            {
+                if (String.IsNullOrEmpty(value))
+                {
+                    MotherDateOfBirthEditFlag = EmptyCodeDict();
+                    return;
+                }
+                Dictionary<string, string> dictionary = new Dictionary<string, string>();
+                dictionary.Add("code", value);
+                dictionary.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");
+                MotherDateOfBirthEditFlag = dictionary;
+            }
+        }
+
         /// <summary>Father's Day of Birth.</summary>
         /// <value>the father's day of birth, or -1 if explicitly unknown, or null if never specified</value>
         /// <example>
@@ -2565,7 +2755,7 @@ namespace BFDR
         /// <para>Console.WriteLine($"Father Date of Birth: {ExampleBirthRecord.FatherDateOfBirth}");</para>
         /// </example>
         [Property("FatherDateOfBirth", Property.Types.String, "Father Demographics", "Father's Date of Birth.", true, VR.IGURL.RelatedPersonFatherNatural, true, 14)]
-        [FHIRPath("Bundle.entry.resource.where($this is RelatedPerson).extension.birthDate", "")]// TODO
+        [FHIRPath("Bundle.entry.resource.where($this is RelatedPerson).birthDate", "")]// TODO
         public string FatherDateOfBirth
         {
             get
@@ -2575,6 +2765,99 @@ namespace BFDR
             set
             {
                 this.Father.BirthDateElement = ConvertToDate(value);
+            }
+        }
+
+        /// <summary>Father's Age at Delivery</summary>
+        /// <value>the father's age at Delivery in years</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.FatherReportedAgeAtDelivery = 29;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Father's age at delivery: {ExampleBirthRecord.FatherReportedAgeAtDelivery}");</para>
+        /// </example>
+        [Property("FatherReportedAgeAtDelivery", Property.Types.Int32, "Father Demographics", "Father Demographics, Reported age at Delivery", true, VR.IGURL.RelatedPersonFatherNatural, true, 238)]
+        [FHIRPath("Bundle.entry.resource.where($this is RelatedPerson).extension.where(url = 'http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-reported-parent-age-at-delivery-vr')", "")]
+        public int? FatherReportedAgeAtDelivery
+        {
+            get => GetParentReportedAgeAtDelivery("FTH");
+            set => SetParentReportedAgeAtDelivery("FTH", value);
+        }
+
+        /// <summary>Father's Date of Birth Edit Flag</summary>
+        /// <value>the father's date of birth edit flag</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; edit = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>edit.Add("code", "queriedCorrect");</para>
+        /// <para>edit.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");</para>
+        /// <para>edit.Add("display", "Queried, and Correct");</para>
+        /// <para>ExampleBirthRecord.FatherDateOfBirthEditFlag = route;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Father's date of birth edit flag: {ExampleBirthRecord.FatherDateOfBirthEditFlag}");</para>
+        /// </example>
+        [Property("FatherDateOfBirthEditFlag", Property.Types.Dictionary, "Father Demographics", "Father Demographics, Date of Birth Edit Flag", true, VR.IGURL.RelatedPersonFatherNatural, true, 28)]
+        [FHIRPath("Bundle.entry.resource.where($this is RelatedPerson).birthDate.extension.where(url = 'http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag')", "")]
+        public Dictionary<string, string> FatherDateOfBirthEditFlag
+        {
+            get
+            {
+                if (Father != null)
+                {
+                    Extension editFlag = Father.BirthDateElement?.Extension.Find(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
+                    if (editFlag != null && editFlag.Value != null && editFlag.Value as CodeableConcept != null)
+                    {
+                        return CodeableConceptToDict((CodeableConcept)editFlag.Value);
+                    }
+                }
+                return EmptyCodeableDict();
+            }
+            set
+            {
+                Father.BirthDateElement?.Extension.RemoveAll(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
+                if (Father.BirthDateElement == null)
+                {
+                    Father.BirthDateElement = new Date();
+                }
+                Father.BirthDateElement.Extension.Add(new Extension(VRExtensionURLs.BypassEditFlag, DictToCodeableConcept(value)));
+            }
+        }
+
+        /// <summary>Father's Date of Birth Edit Flag helper</summary>
+        /// <value>the father's date of birth edit flag helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.FatherDateOfBirthEditFlagHelper = "queriedCorrect";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Father's date of birth edit flag: {ExampleBirthRecord.FatherDateOfBirthEditFlagHelper}");</para>
+        /// </example>
+        [Property("FatherDateOfBirthEditFlagHelper", Property.Types.String, "Father Demographics", "Father Demographics, Date of Birth Edit Flag", false, VR.IGURL.Child, true, 28)]
+        [FHIRPath("Bundle.entry.resource.where($this is RelatedPerson).birthDate.extension.where(url = 'http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag')", "")]
+        public string FatherDateOfBirthEditFlagHelper
+        {
+            get
+            {
+                if (FatherDateOfBirthEditFlag.ContainsKey("code"))
+                {
+                    string code = FatherDateOfBirthEditFlag["code"];
+                    if (!String.IsNullOrWhiteSpace(code))
+                    {
+                        return code;
+                    }
+                }
+                return null;
+            }
+            set
+            {
+                if (String.IsNullOrEmpty(value))
+                {
+                    FatherDateOfBirthEditFlag = EmptyCodeDict();
+                    return;
+                }
+                Dictionary<string, string> dictionary = new Dictionary<string, string>();
+                dictionary.Add("code", value);
+                dictionary.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");
+                FatherDateOfBirthEditFlag = dictionary;
             }
         }
 
@@ -3785,6 +4068,365 @@ namespace BFDR
         {
             get => GetWeightEditFlagHelper("8339-4");
             set => SetWeightEditFlagHelper("8339-4", value, NEWBORN_INFORMATION_SECTION, Child.Id);
+        }
+
+/// TODO: Required field in FHIR, needs BLANK placeholder
+        /// <summary>Family name of attendant.</summary>
+        /// <value>the attendant's family name (i.e. last name)</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.AttendantFamilyName = "Seito";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Attendants's Name: {ExampleBirthRecord.AttendantFamilyName}");</para>
+        /// </example>
+        [Property("Attendant Name", Property.Types.String, "Birth Certification", "Family name of attendant.", true, VR.IGURL.Practitioner, true, 6)]
+        [FHIRPath("Bundle.entry.resource.where($this is Practitioner)", "name")]
+        public string AttendantFamilyName
+        {
+            get
+            {
+                if (Attendant != null && Attendant.Name.Count() > 0)
+                {
+                    return Attendant.Name.First().Family;
+                }
+                return null;
+            }
+            set
+            {
+                if (Attendant == null)
+                {
+                    CreateAttendant();
+                }
+                HumanName name = Attendant.Name.FirstOrDefault();
+                if (name != null && !String.IsNullOrEmpty(value))
+                {
+                    name.Family = value;
+                }
+                else if (!String.IsNullOrEmpty(value))
+                {
+                    name = new HumanName();
+                    name.Use = HumanName.NameUse.Official;
+                    name.Family = value;
+                    Attendant.Name.Add(name);
+                }
+            }
+        }
+
+        /// <summary>Attendant name.</summary>
+        /// <value>the attendant's name</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.AttendantName = "Janet Seito";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Attendants's Name: {ExampleBirthRecord.AttendantName}");</para>
+        /// </example>
+        [Property("Attendant Name", Property.Types.String, "Birth Certification", "Name of attendant.", true, VR.IGURL.Practitioner, true, 6)]
+        [FHIRPath("Bundle.entry.resource.where($this is Practitioner)", "name")]
+        public string AttendantName
+        {
+            get
+            {
+                if (Attendant != null && Attendant.Name != null)
+                {
+                    return Attendant.Name.First().Text;
+                }
+                return null;
+            }
+            set
+            {
+                if (Attendant == null)
+                {
+                    CreateAttendant();
+                }
+                HumanName name = Attendant.Name.FirstOrDefault();
+                if (name != null && !String.IsNullOrEmpty(value))
+                {
+                    name.Text = value;
+                }
+                else if (!String.IsNullOrEmpty(value))
+                {
+                    name = new HumanName();
+                    name.Use = HumanName.NameUse.Official;
+                    name.Text = value;
+                    Attendant.Name.Add(name);
+                }
+            }
+        }
+
+        /// <summary>Attendants NPI</summary>
+        /// <value>the attendants npi</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.AttendantNPI = "123456789011";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Attendants NPI: {ExampleBirthRecord.AttendantNPI}");</para>
+        /// </example>
+        [Property("Attendants NPI", Property.Types.String, "Birth Certification", "Attendant's NPI.", true, VR.IGURL.Practitioner, true, 13)]
+        [FHIRPath("Bundle.entry.resource.where($this is Practitioner).identifier.where(system='http://hl7.org/fhir/sid/us-npi')", "value")]
+        public string AttendantNPI
+        {
+            get
+            {
+                return Attendant?.Identifier?.Find(id => id.System == "http://hl7.org/fhir/sid/us-npi")?.Value;
+            }
+            set
+            {
+                if (Attendant == null)
+                {
+                    CreateAttendant();
+                }
+                if (Attendant.Identifier.Count > 0)
+                {
+                    Attendant.Identifier.Clear();
+                }
+                Attendant.Identifier.RemoveAll(iden => iden.System == CodeSystems.US_NPI_HL7);
+                if (String.IsNullOrWhiteSpace(value))
+                {
+                    return;
+                }
+                Identifier npi = new Identifier();
+                npi.Type = new CodeableConcept(CodeSystems.HL7_identifier_type, "NPI", "National Provider Identifier", null);
+                npi.System = CodeSystems.US_NPI_HL7;
+                npi.Value = value;
+                Attendant.Identifier.Add(npi);
+            }
+        }
+
+        /// <summary>Attendant Title</summary>
+        /// <value>the title/qualification of the person who attended the birth. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; title = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>title.Add("code", "112247003");</para>
+        /// <para>title.Add("system", CodeSystems.SCT);</para>
+        /// <para>title.Add("display", "Medical Doctor");</para>
+        /// <para>ExampleBirthRecord.AttendantTitle = title;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Attendant Title: {ExampleBirthRecord.AttendantTitle['display']}");</para>
+        /// </example>
+        [Property("Attendants Title", Property.Types.Dictionary, "Birth Certification", "Attendant's Title.", true, VR.IGURL.Practitioner, true, 13)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Practitioner)", "qualification")]
+        public Dictionary<string, string> AttendantTitle
+        {
+            get
+            {
+                if (Attendant == null)
+                {
+                    return EmptyCodeableDict();
+                }
+                Practitioner.QualificationComponent qualification = Attendant.Qualification.FirstOrDefault();
+                if (Attendant != null && qualification != null)
+                {
+                    return CodeableConceptToDict(qualification.Code);
+                }
+                return EmptyCodeableDict();
+            }
+            set
+            {
+                if (Attendant == null)
+                {
+                    CreateAttendant();
+                }
+                Practitioner.QualificationComponent qualification = new Practitioner.QualificationComponent();
+                qualification.Code = DictToCodeableConcept(value);
+                Attendant.Qualification.Clear();
+                Attendant.Qualification.Add(qualification);
+            }
+        }
+
+        /// <summary>Attendant Title Helper.</summary>
+        /// <value>the title/qualification of the attendant.
+        /// <para>"code" - the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.AttendantTitleHelper = ValueSets.BirthAttendantsTitles.MedicalDoctor;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Attendant Title: {ExampleBirthRecord.AttendantTitleHelper}");</para>
+        /// </example>
+        [Property("Attendant Title Helper", Property.Types.String, "Birth Certification", "Attendant Title.", false, VR.IGURL.Practitioner, true, 4)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Practitioner)", "qualification")]
+        public string AttendantTitleHelper
+        {
+            get
+            {
+                if (AttendantTitle.ContainsKey("code"))
+                {
+                    string code = AttendantTitle["code"];
+                    if (!String.IsNullOrWhiteSpace(code))
+                    {
+                        return code;
+                    }
+                }
+                return null;
+            }
+            set
+            {
+                if (String.IsNullOrWhiteSpace(value))
+                {
+                    // do nothing
+                    return;
+                }
+                if (!VR.Mappings.ConceptMapBirthAttendantTitlesVitalRecords.FHIRToIJE.ContainsKey(value))
+                { //other
+                    AttendantTitle = CodeableConceptToDict(new CodeableConcept(CodeSystems.NullFlavor_HL7_V3, "OTH", "Other", value));
+                }
+                else
+                { // normal path
+                    SetCodeValue("AttendantTitle", value, VR.ValueSets.BirthAttendantsTitles.Codes);
+                }
+            }
+        }
+
+        /// <summary>Attendant Other Helper.</summary>
+        /// <value>the "other" title/qualification of the attendant.
+        /// <para>"code" - the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.AttendantOtherHelper = "Birth Clerk";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Attendant Other: {ExampleBirthRecord.AttendantOtherHelper}");</para>
+        /// </example>
+        [Property("Attendant Other Helper", Property.Types.String, "Birth Certification", "Attendant Other.", false, VR.IGURL.Practitioner, true, 4)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Practitioner).qualification", "other")]
+        public string AttendantOtherHelper
+        {
+            get
+            {
+                if (AttendantTitle.ContainsKey("code"))
+                {
+                    string code = AttendantTitle["code"];
+                    if (code == "OTH")
+                    {
+                        if (AttendantTitle.ContainsKey("text") && !String.IsNullOrWhiteSpace(AttendantTitle["text"]))
+                        {
+                            return (AttendantTitle["text"]);
+                        }
+                    }
+                }
+                return null;
+            }
+            set
+            {
+                if (String.IsNullOrWhiteSpace(value))
+                {
+                    // do nothing
+                    return;
+                }
+                else
+                {
+                    AttendantTitle = CodeableConceptToDict(new CodeableConcept(CodeSystems.NullFlavor_HL7_V3, "OTH", "Other", value));
+                }
+            }
+        }
+
+        private int? GetCigarettesSmoked(string code)
+        {
+            var entry = Bundle.Entry.Where(e => e.Resource is Observation obs && CodeableConceptToDict(obs.Code)["code"] == code).FirstOrDefault();
+            if (entry != null)
+            {
+                Observation observation = (Observation)entry.Resource;
+                return (observation.Value as Hl7.Fhir.Model.Integer)?.Value;
+            }
+            return null;
+        }
+
+        private void SetCigarettesSmoked(string code, int? value)
+        {
+            var entry = Bundle.Entry.Where(e => e.Resource is Observation obs && CodeableConceptToDict(obs.Code)["code"] == code).FirstOrDefault();
+            if (entry == null)
+            {
+                Observation obs = new Observation();
+                obs.Id = Guid.NewGuid().ToString();
+                obs.Code = new CodeableConcept(VR.CodeSystems.LOINC, code);
+                obs.Value = new Hl7.Fhir.Model.Integer(value);
+                obs.Subject = new ResourceReference($"urn:uuid:{Mother.Id}");
+                obs.Focus.Add(new ResourceReference($"urn:uuid:{Child.Id}"));
+                AddReferenceToComposition(obs.Id, MOTHER_PRENATAL_SECTION);
+                Bundle.AddResourceEntry(obs, "urn:uuid:" + obs.Id);
+            }
+            else
+            {
+                (entry.Resource as Observation).Value = new Hl7.Fhir.Model.Integer(value);
+            }
+        }
+
+        /// <summary>Cigarettes Smoked in 3 months prior to Pregnancy.</summary>
+        /// <value>the number of cigarettes smoked per day in 3 months prior to pregnancy, or -1 if explicitly unknown, or null if never specified</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.CigarettesPerDayInThreeMonthsPriorToPregancy = 20;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Cigarettes In Three Months Prior To Pregancy: {ExampleBirthRecord.CigarettesPerDayInThreeMonthsPriorToPregancy}");</para>
+        /// </example>
+        [Property("CigarettesPerDayInThreeMonthsPriorToPregancy", Property.Types.Int32, "Mother Prenatal", "Cigarettes Smoked In Three Months Prior To Pregancy.", false, BFDR.IGURL.ObservationCigaretteSmokingBeforeDuringPregnancy, true, 149)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='64794-1')", "")]
+        public int? CigarettesPerDayInThreeMonthsPriorToPregancy
+        {
+            // TODO update with constants once BFDR value sets are autogenerated
+            get => GetCigarettesSmoked("64794-1");
+            set => SetCigarettesSmoked("64794-1", value);
+        }
+
+        /// <summary>Cigarettes Smoked in First Trimester.</summary>
+        /// <value>the number of cigarettes smoked per day in first trimester, or -1 if explicitly unknown, or null if never specified</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.CigarettesPerDayInFirstTrimester = 20;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Cigarettes In First Trimester: {ExampleBirthRecord.CigarettesPerDayInFirstTrimester}");</para>
+        /// </example>
+        [Property("CigarettesPerDayInFirstTrimester", Property.Types.Int32, "Mother Prenatal", "Cigarettes Smoked In First Trimester.", false, BFDR.IGURL.ObservationCigaretteSmokingBeforeDuringPregnancy, true, 150)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87298-6')", "")]
+        public int? CigarettesPerDayInFirstTrimester
+        {
+            // TODO update with constants once BFDR value sets are autogenerated
+            get => GetCigarettesSmoked("87298-6");
+            set => SetCigarettesSmoked("87298-6", value);
+        }
+
+        /// <summary>Cigarettes Smoked in Second Trimester.</summary>
+        /// <value>the number of cigarettes smoked per day in second trimester, or -1 if explicitly unknown, or null if never specified</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.CigarettesPerDayInSecondTrimester = 20;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Cigarettes In Second Trimester: {ExampleBirthRecord.CigarettesPerDayInSecondTrimester}");</para>
+        /// </example>
+        [Property("CigarettesPerDayInSecondTrimester", Property.Types.Int32, "Mother Prenatal", "Cigarettes Smoked In Second Trimester.", false, BFDR.IGURL.ObservationCigaretteSmokingBeforeDuringPregnancy, true, 151)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87299-4')", "")]
+        public int? CigarettesPerDayInSecondTrimester
+        {
+            // TODO update with constants once BFDR value sets are autogenerated
+            get => GetCigarettesSmoked("87299-4");
+            set => SetCigarettesSmoked("87299-4", value);
+        }
+
+        /// <summary>Cigarettes Smoked in Last Trimester.</summary>
+        /// <value>the number of cigarettes smoked per day in last trimester, or -1 if explicitly unknown, or null if never specified</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.CigarettesPerDayInLastTrimester = 20;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Cigarettes In Last Trimester: {ExampleBirthRecord.CigarettesPerDayInLastTrimester}");</para>
+        /// </example>
+        [Property("CigarettesPerDayInLastTrimester", Property.Types.Int32, "Mother Prenatal", "Cigarettes Smoked In Last Trimester.", false, BFDR.IGURL.ObservationCigaretteSmokingBeforeDuringPregnancy, true, 152)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='64795-8')", "")]
+        public int? CigarettesPerDayInLastTrimester
+        {
+            // TODO update with constants once BFDR value sets are autogenerated
+            get => GetCigarettesSmoked("64795-8");
+            set => SetCigarettesSmoked("64795-8", value);
         }
     }
 }

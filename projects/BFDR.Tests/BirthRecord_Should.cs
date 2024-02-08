@@ -824,6 +824,9 @@ namespace BFDR.Tests
       Assert.Equal(29, record1.MotherBirthDay);
       // Complete Date of Birth.
       Assert.Equal("1990-08-29", record1.MotherDateOfBirth);
+      Assert.Null(record1.MotherReportedAgeAtDelivery);
+      record1.MotherReportedAgeAtDelivery = 27;
+      Assert.Equal(27, record1.MotherReportedAgeAtDelivery);
 
       // Test in a different order.
       BirthRecord record2 = new BirthRecord();
@@ -959,6 +962,9 @@ namespace BFDR.Tests
       Assert.Equal(29, record1.FatherBirthDay);
       // Complete Date of Birth.
       Assert.Equal("1990-08-29", record1.FatherDateOfBirth);
+      Assert.Null(record1.FatherReportedAgeAtDelivery);
+      record1.FatherReportedAgeAtDelivery = 28;
+      Assert.Equal(28, record1.FatherReportedAgeAtDelivery);
 
       // Test in a different order.
       BirthRecord record2 = new BirthRecord();
@@ -1139,6 +1145,85 @@ namespace BFDR.Tests
             }
         }
         Assert.Equal(15, b2.FatherRace.Length);
+    }
+
+    [Fact]
+    public void TestAttendantPropertiesSetter()
+    {
+        BirthRecord record = new BirthRecord();
+        // Attendant's name
+        Assert.Null(record.AttendantName);
+        record.AttendantName = "Janet Seito";
+        Assert.Equal("Janet Seito", record.AttendantName);
+        // Attendant's NPI
+        Assert.Null(record.AttendantNPI);
+        record.AttendantNPI = "123456789011";
+        Assert.Equal("123456789011", record.AttendantNPI);
+        // Attendant's Title
+        Dictionary<string, string> AttendantTitle = new Dictionary<string, string>();
+        AttendantTitle.Add("code", "112247003");
+        AttendantTitle.Add("system", CodeSystems.SCT);
+        AttendantTitle.Add("display", "Medical Doctor");
+        record.AttendantTitle = AttendantTitle;
+        Assert.Equal("112247003", record.AttendantTitle["code"]);
+        Assert.Equal(CodeSystems.SCT, record.AttendantTitle["system"]);
+        Assert.Equal("Medical Doctor", record.AttendantTitle["display"]);
+        // test setting other Attendant Title
+        BirthRecord record2 = new BirthRecord();
+        record2.AttendantName = "Jessica Leung";
+        Assert.Equal("Jessica Leung", record2.AttendantName);
+        record2.AttendantTitleHelper = "Birth Clerk"; //set using Title helper
+        Assert.Equal("OTH", record2.AttendantTitle["code"]);
+        Assert.Equal(CodeSystems.NullFlavor_HL7_V3, record2.AttendantTitle["system"]);
+        Assert.Equal("Other", record2.AttendantTitle["display"]);
+        Assert.Equal("Birth Clerk", record2.AttendantTitle["text"]);
+        record2.AttendantOtherHelper = "Birth Clerk"; //set using Other helper
+        Assert.Equal("OTH", record2.AttendantTitle["code"]);
+        Assert.Equal(CodeSystems.NullFlavor_HL7_V3, record2.AttendantTitle["system"]);
+        Assert.Equal("Other", record2.AttendantTitle["display"]);
+        Assert.Equal("Birth Clerk", record2.AttendantTitle["text"]);
+        Assert.Equal("Birth Clerk", record2.AttendantOtherHelper);
+        // test IJE translations
+        IJENatality ije1 = new IJENatality(record);
+        Assert.Equal("Janet Seito", ije1.ATTEND_NAME.Trim());
+        Assert.Equal("123456789011", ije1.ATTEND_NPI);
+        Assert.Equal("1", ije1.ATTEND);
+        IJENatality ije2 = new IJENatality(record2);
+        Assert.Equal("Jessica Leung", ije2.ATTEND_NAME.Trim());
+        Assert.Equal("            ", ije2.ATTEND_NPI);
+        Assert.Equal("5", ije2.ATTEND);
+        Assert.Equal("Birth Clerk", ije2.ATTEND_OTH_TXT.Trim());
+    }  
+
+    [Fact]
+    public void SetAttendantAfterParse()
+    {
+        BirthRecord sample1 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+        Assert.Null(sample1.AttendantName);
+        sample1.AttendantName = "Janet Seito";
+        Assert.Equal("Janet Seito", sample1.AttendantName);
+        //NPI
+        Assert.Null(sample1.AttendantNPI);
+        sample1.AttendantNPI = "123456789011";
+        Assert.Equal("123456789011", sample1.AttendantNPI);
+        //title
+        Assert.Null(sample1.AttendantTitleHelper);
+        Assert.Null(sample1.AttendantOtherHelper);
+        Dictionary<string, string> AttendantTitle = new Dictionary<string, string>();
+        AttendantTitle.Add("code", "112247003");
+        AttendantTitle.Add("system", CodeSystems.SCT);
+        AttendantTitle.Add("display", "Medical Doctor");
+        sample1.AttendantTitle = AttendantTitle;
+        Assert.Equal("112247003", sample1.AttendantTitle["code"]);
+        Assert.Equal(CodeSystems.SCT, sample1.AttendantTitle["system"]);
+        Assert.Equal("Medical Doctor", sample1.AttendantTitle["display"]);
+        //Other
+        sample1.AttendantOtherHelper = "Nurse";
+        Assert.Equal("OTH", sample1.AttendantTitle["code"]);
+        Assert.Equal(CodeSystems.NullFlavor_HL7_V3, sample1.AttendantTitle["system"]);
+        Assert.Equal("Other", sample1.AttendantTitle["display"]);
+        Assert.Equal("Nurse", sample1.AttendantTitle["text"]);
+        Assert.Equal("Nurse", sample1.AttendantOtherHelper);
     }
   }
 }

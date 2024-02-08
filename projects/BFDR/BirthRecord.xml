@@ -51,6 +51,9 @@
         <member name="F:BFDR.BirthRecord.Father">
             <summary>The Father.</summary>
         </member>
+        <member name="F:BFDR.BirthRecord.Attendant">
+            <summary>The Attendant.</summary>
+        </member>
         <member name="F:BFDR.BirthRecord.InputRaceAndEthnicityObsMother">
             <summary>The Mother's Race and Ethnicity provided by Jurisdiction.</summary>
         </member>
@@ -77,6 +80,9 @@
         </member>
         <member name="M:BFDR.BirthRecord.CreateInputRaceEthnicityObsFather">
             <summary> Create Father Input Race and Ethnicity </summary>
+        </member>
+        <member name="M:BFDR.BirthRecord.CreateAttendant">
+            <summary>Create Attendant/Practitioner.</summary>
         </member>
         <member name="P:BFDR.BirthRecord.Identifier">
             <summary>Birth Record Identifier, Birth Certificate Number.</summary>
@@ -807,6 +813,40 @@
             <para>Console.WriteLine($"Mother Date of Birth: {ExampleBirthRecord.MotherDateOfBirth}");</para>
             </example>
         </member>
+        <member name="P:BFDR.BirthRecord.MotherReportedAgeAtDelivery">
+            <summary>Mother's Age at Delivery</summary>
+            <value>the mother's age at Delivery in years</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherReportedAgeAtDelivery = 29;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's age at delivery: {ExampleBirthRecord.MotherReportedAgeAtDelivery}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.MotherDateOfBirthEditFlag">
+            <summary>Mother's Date of Birth Edit Flag</summary>
+            <value>the mother's date of birth edit flag</value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; edit = new Dictionary&lt;string, string&gt;();</para>
+            <para>edit.Add("code", "queriedCorrect");</para>
+            <para>edit.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");</para>
+            <para>edit.Add("display", "Queried, and Correct");</para>
+            <para>ExampleBirthRecord.MotherDateOfBirthEditFlag = route;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's date of birth edit flag: {ExampleBirthRecord.MotherDateOfBirthEditFlag}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.MotherDateOfBirthEditFlagHelper">
+            <summary>Mother's Date of Birth Edit Flag helper</summary>
+            <value>the mother's date of birth edit flag helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherDateOfBirthEditFlagHelper = "queriedCorrect";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's date of birth edit flag: {ExampleBirthRecord.MotherDateOfBirthEditFlagHelper}");</para>
+            </example>
+        </member>
         <member name="P:BFDR.BirthRecord.FatherBirthDay">
             <summary>Father's Day of Birth.</summary>
             <value>the father's day of birth, or -1 if explicitly unknown, or null if never specified</value>
@@ -845,6 +885,40 @@
             <para>ExampleBirthRecord.DateOfBirth = "1940-02-19";</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Father Date of Birth: {ExampleBirthRecord.FatherDateOfBirth}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.FatherReportedAgeAtDelivery">
+            <summary>Father's Age at Delivery</summary>
+            <value>the father's age at Delivery in years</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.FatherReportedAgeAtDelivery = 29;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Father's age at delivery: {ExampleBirthRecord.FatherReportedAgeAtDelivery}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.FatherDateOfBirthEditFlag">
+            <summary>Father's Date of Birth Edit Flag</summary>
+            <value>the father's date of birth edit flag</value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; edit = new Dictionary&lt;string, string&gt;();</para>
+            <para>edit.Add("code", "queriedCorrect");</para>
+            <para>edit.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");</para>
+            <para>edit.Add("display", "Queried, and Correct");</para>
+            <para>ExampleBirthRecord.FatherDateOfBirthEditFlag = route;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Father's date of birth edit flag: {ExampleBirthRecord.FatherDateOfBirthEditFlag}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.FatherDateOfBirthEditFlagHelper">
+            <summary>Father's Date of Birth Edit Flag helper</summary>
+            <value>the father's date of birth edit flag helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.FatherDateOfBirthEditFlagHelper = "queriedCorrect";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Father's date of birth edit flag: {ExampleBirthRecord.FatherDateOfBirthEditFlagHelper}");</para>
             </example>
         </member>
         <member name="P:BFDR.BirthRecord.MotherEthnicity1">
