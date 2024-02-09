@@ -537,5 +537,56 @@ namespace BFDR.Tests
       Assert.Equal("999", ije.PWGT);
       Assert.Equal(-1, fhir.MotherPrepregnancyWeight);
     }
+
+    [Fact]
+    public void TestSetOccupationAndIndustry()
+    {
+      BirthRecord fhir = new BirthRecord();
+      IJENatality ije = new IJENatality(fhir);
+      Assert.Null(fhir.MotherOccupation);
+      Assert.Null(ije.MOM_OC_T);
+      Assert.Null(fhir.FatherOccupation);
+      Assert.Null(ije.DAD_OC_T);
+      Assert.Null(fhir.MotherIndustry);
+      Assert.Null(ije.MOM_IN_T);
+      Assert.Null(fhir.FatherIndustry);
+      Assert.Null(ije.DAD_IN_T);
+      ije.MOM_OC_T = "scientist";
+      Assert.Equal("scientist", ije.MOM_OC_T);
+      Assert.Equal("scientist", fhir.MotherOccupation);
+      Assert.Null(fhir.MotherIndustry);
+      Assert.Null(ije.MOM_IN_T);
+      Assert.Null(fhir.FatherOccupation);
+      Assert.Null(ije.DAD_OC_T);
+      Assert.Null(fhir.FatherIndustry);
+      Assert.Null(ije.DAD_IN_T);
+      ije.MOM_IN_T = "public health";
+      Assert.Equal("scientist", ije.MOM_OC_T);
+      Assert.Equal("scientist", fhir.MotherOccupation);
+      Assert.Equal("public health", ije.MOM_IN_T);
+      Assert.Equal("public health", fhir.MotherIndustry);
+      Assert.Null(fhir.FatherOccupation);
+      Assert.Null(ije.DAD_OC_T);
+      Assert.Null(fhir.FatherIndustry);
+      Assert.Null(ije.DAD_IN_T);
+      ije.DAD_IN_T = "real estate";
+      Assert.Equal("scientist", ije.MOM_OC_T);
+      Assert.Equal("scientist", fhir.MotherOccupation);
+      Assert.Equal("public health", ije.MOM_IN_T);
+      Assert.Equal("public health", fhir.MotherIndustry);
+      Assert.Null(fhir.FatherOccupation);
+      Assert.Null(ije.DAD_OC_T);
+      Assert.Equal("real estate", ije.DAD_IN_T);
+      Assert.Equal("real estate", fhir.FatherIndustry);
+      ije.DAD_OC_T = "realtor";
+      Assert.Equal("realtor", ije.DAD_OC_T);
+      Assert.Equal("realtor", fhir.FatherOccupation);
+      Assert.Equal("real estate", ije.DAD_IN_T);
+      Assert.Equal("real estate", fhir.FatherIndustry);
+      Assert.Equal("scientist", ije.MOM_OC_T);
+      Assert.Equal("scientist", fhir.MotherOccupation);
+      Assert.Equal("public health", ije.MOM_IN_T);
+      Assert.Equal("public health", fhir.MotherIndustry);
+    }
   }
 }
