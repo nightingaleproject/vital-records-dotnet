@@ -458,6 +458,9 @@
         <member name="F:VR.OtherIGURL.USCorePractitioner">
             <summary>URL for USCorePractitioner</summary>
         </member>
+        <member name="F:VR.OtherIGURL.UsualWork">
+            <summary>URL for UsualWork - TODO figure out why this one isn't generated from the IG</summary>
+        </member>
         <member name="T:VR.NvssRace">
             <summary> String representations of IJE Race fields </summary>
         </member>

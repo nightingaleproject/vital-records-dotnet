@@ -31,5 +31,8 @@ namespace VR
     {
         /// <summary>URL for USCorePractitioner</summary>
         public const string USCorePractitioner = "http://hl7.org/fhir/us/core/STU4/StructureDefinition-us-core-practitioner.html";
+
+        /// <summary>URL for UsualWork - TODO figure out why this one isn't generated from the IG</summary>
+        public const string UsualWork = "https://build.fhir.org/ig/HL7/vr-common-library//StructureDefinition-Observation-usual-work-vr.html";
     }
 }
