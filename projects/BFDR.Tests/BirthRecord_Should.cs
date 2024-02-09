@@ -1209,7 +1209,7 @@ namespace BFDR.Tests
       Assert.Equal("2023-01-01", FakeBirthRecord.DateOfBirth);
     }
     [Fact]
-    public void ParenttBirthDatesPresent()
+    public void ParentBirthDatesPresent()
     {
       Assert.Equal(1992, FakeBirthRecord.MotherBirthYear);
       Assert.Equal(1, FakeBirthRecord.MotherBirthMonth);
