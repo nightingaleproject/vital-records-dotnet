@@ -4428,5 +4428,165 @@ namespace BFDR
             get => GetCigarettesSmoked("64795-8");
             set => SetCigarettesSmoked("64795-8", value);
         }
+
+        private Observation GetOccupationObservation(string role)
+        {
+            if (IsDictEmptyOrDefault(GetRoleCode(role)))
+            {
+                throw new System.ArgumentException($"Role '{role}' is not a member of the VR Role value set");
+            }
+            var entry = Bundle.Entry.Where(
+                e => e.Resource is Observation obs &&
+                CodeableConceptToDict(obs.Code)["code"] == "21843-8" &&
+                obs.Extension.Find(
+                    ext => ext.Url == VR.OtherExtensionURL.ParentRole &&
+                    CodeableConceptToDict(ext.Value as CodeableConcept)["code"] == role
+                ) != null).FirstOrDefault();
+
+            if (entry != null)
+            {
+                return entry.Resource as Observation;
+            }
+            return null;
+        }
+
+        private string GetOccupation(string role)
+        {
+            Observation obs = GetOccupationObservation(role);
+            if (obs != null)
+            {
+                return (obs.Value as CodeableConcept)?.Text;
+            }
+            return null;
+        }
+
+        private string GetIndustry(string role)
+        {
+            Observation obs = GetOccupationObservation(role);
+            if (obs != null)
+            {
+                var comp = obs.Component.Where(c => CodeableConceptToDict(c.Code)["code"] == "21844-6").FirstOrDefault();
+                if (comp != null)
+                {
+                    return (comp.Value as CodeableConcept)?.Text;
+                }
+            }
+            return null;
+        }
+
+        private Observation SetOccupation(string role, string value)
+        {
+            Observation obs = GetOccupationObservation(role);
+            if (obs == null)
+            {
+                obs = new Observation
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Code = new CodeableConcept(VR.CodeSystems.LOINC, "21843-8"),
+                };
+                Extension roleExt = new Extension(VR.OtherExtensionURL.ParentRole, new CodeableConcept(VR.CodeSystems.RoleCode_HL7_V3, role));
+                obs.Extension.Add(roleExt);
+                if (role == "MTH")
+                {
+                    obs.Subject = new ResourceReference($"urn:uuid:{Mother.Id}");
+                    AddReferenceToComposition(obs.Id, MOTHER_INFORMATION_SECTION);
+                }
+                else if (role == "FTH")
+                {
+                    obs.Subject = new ResourceReference($"urn:uuid:{Father.Id}");
+                    AddReferenceToComposition(obs.Id, FATHER_INFORMATION_SECTION);
+                }
+                obs.Focus.Add(new ResourceReference($"urn:uuid:{Child.Id}"));
+                Bundle.AddResourceEntry(obs, "urn:uuid:" + obs.Id);
+            }
+            obs.Value = new CodeableConcept
+            {
+                Text = value
+            };
+            return obs;
+        }
+
+        private void SetIndustry(string role, string value)
+        {
+            Observation obs = GetOccupationObservation(role) ?? SetOccupation(role, null);
+            var comp = obs.Component.Where(c => CodeableConceptToDict(c.Code)["code"] == "21844-6").FirstOrDefault();
+            if (comp == null)
+            {
+                comp = new Observation.ComponentComponent
+                {
+                    Code = new CodeableConcept(CodeSystems.LOINC, "21844-6")
+                };
+                obs.Component.Add(comp);
+            }
+            CodeableConcept cc = new CodeableConcept
+            {
+                Text = value
+            };
+            comp.Value = cc;
+        }
+
+        /// <summary>Occupation of Mother.</summary>
+        /// <value>the occupation of the mother as text</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotherOccupation = "scientist";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother's Occupation: {ExampleBirthRecord.MotherOccupation}");</para>
+        /// </example>
+        [Property("MotherOccupation", Property.Types.String, "Mother Information", "Occupation", false, VR.OtherIGURL.UsualWork, true, 282)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='21843-8')", "")]
+        public string MotherOccupation
+        {
+            get => GetOccupation("MTH");
+            set => SetOccupation("MTH", value);
+        }
+
+        /// <summary>Occupation of Father.</summary>
+        /// <value>the occupation of the father as text</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.FatherOccupation = "scientist";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Father's Occupation: {ExampleBirthRecord.FatherOccupation}");</para>
+        /// </example>
+        [Property("FatherOccupation", Property.Types.String, "Father Information", "Occupation", false, VR.OtherIGURL.UsualWork, true, 284)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='21843-8')", "")]
+        public string FatherOccupation
+        {
+            get => GetOccupation("FTH");
+            set => SetOccupation("FTH", value);
+        }
+
+        /// <summary>Industry of Mother.</summary>
+        /// <value>the industry of the mother as text</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotherIndustry = "public health";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother's Industry: {ExampleBirthRecord.MotherIndustry}");</para>
+        /// </example>
+        [Property("MotherIndustry", Property.Types.String, "Mother Information", "Industry", false, VR.OtherIGURL.UsualWork, true, 286)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='21843-8')", "")]
+        public string MotherIndustry
+        {
+            get => GetIndustry("MTH");
+            set => SetIndustry("MTH", value);
+        }
+
+        /// <summary>Industry of Father.</summary>
+        /// <value>the industry of the father as text</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.FatherIndustry = "public health";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Father's Industry: {ExampleBirthRecord.FatherIndustry}");</para>
+        /// </example>
+        [Property("FatherIndustry", Property.Types.String, "Father Information", "Industry", false, VR.OtherIGURL.UsualWork, true, 288)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='21843-8')", "")]
+        public string FatherIndustry
+        {
+            get => GetIndustry("FTH");
+            set => SetIndustry("FTH", value);
+        }
     }
 }
