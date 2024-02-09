@@ -83,7 +83,7 @@ namespace BFDR.CLI
                 birthRecord.CertificateNumber = "100";
                 birthRecord.StateLocalIdentifier1 = "123";
                 birthRecord.DateOfBirth = "2023-01-01";
-                birthRecord.BirthSex = "M";
+                birthRecord.BirthSexHelper = "M";
 
                 string[] childNames = { "Alexander", "Arlo" };
                 birthRecord.ChildGivenNames = childNames;
@@ -337,88 +337,14 @@ namespace BFDR.CLI
                 
            //     FilterService FilterService = new FilterService("./BFDR.Filter/NCHSIJEFilter.json", "./BFDR.Filter/IJEToFHIRMapping.json");
 
-                    if (val1.ToUpper() != val2.ToUpper() || val1.ToUpper() != val3.ToUpper() || val2.ToUpper() != val3.ToUpper())
-                    {
-                        issues++;
-                        Console.WriteLine($"[***** MISMATCH *****]\t{info.Name}: {info.Contents} \t\t\"{val1}\" != \"{val2}\" != \"{val3}\"");
-                    }
-                    total++;
-                }
-                Console.WriteLine($"\n{issues} issues out of {total} total fields.");
-                return issues;
-            }
-            else if (args.Length == 2 && args[0] == "roundtrip-all")
-            {
-                BirthRecord b1 = new BirthRecord(File.ReadAllText(args[1]));
-                BirthRecord b2 = new BirthRecord(b1.ToJSON());
-                BirthRecord b3 = new BirthRecord();
-                List<PropertyInfo> properties = typeof(BirthRecord).GetProperties().ToList();
-                // HashSet<string> skipPropertyNames = new HashSet<string>() { "CausesOfDeath", "AgeAtDeathYears", "AgeAtDeathMonths", "AgeAtDeathDays", "AgeAtDeathHours", "AgeAtDeathMinutes" };
-                foreach (PropertyInfo property in properties)
-                {
-                    // if (skipPropertyNames.Contains(property.Name))
-                    // {
-                    //     continue;
-                    // }
-                    if (property.GetCustomAttribute<Property>() != null)
-                    {
-                        property.SetValue(b3, property.GetValue(b2));
-                    }
-                }
-
-                int good = 0;
-                int bad = 0;
-
-                foreach (PropertyInfo property in properties)
-                {
-                    // Console.WriteLine($"Property: Name: {property.Name.ToString()} Type: {property.PropertyType.ToString()}");
-                    string one;
-                    string two;
-                    string three;
-                    if (property.PropertyType.ToString() == "System.Collections.Generic.Dictionary`2[System.String,System.String]")
-                    {
-                        Dictionary<string, string> oneDict = (Dictionary<string, string>)property.GetValue(b1);
-                        Dictionary<string, string> twoDict = (Dictionary<string, string>)property.GetValue(b2);
-                        Dictionary<string, string> threeDict = (Dictionary<string, string>)property.GetValue(b3);
-                        // Ignore empty entries in the dictionary so they don't throw off comparisons.
-                        one = String.Join(", ", oneDict.Select(x => (x.Value != "") ? (x.Key + "=" + x.Value) : ("")).ToArray()).Replace(" ,", "");
-                        two = String.Join(", ", twoDict.Select(x => (x.Value != "") ? (x.Key + "=" + x.Value) : ("")).ToArray()).Replace(" ,", "");
-                        three = String.Join(", ", threeDict.Select(x => (x.Value != "") ? (x.Key + "=" + x.Value) : ("")).ToArray()).Replace(" ,", "");
-                    }
-                    else if (property.PropertyType.ToString() == "System.String[]")
-                    {
-                        one = String.Join(", ", (string[])property.GetValue(b1));
-                        two = String.Join(", ", (string[])property.GetValue(b2));
-                        three = String.Join(", ", (string[])property.GetValue(b3));
-                    }
-                    else
-                    {
-                        one = Convert.ToString(property.GetValue(b1));
-                        two = Convert.ToString(property.GetValue(b2));
-                        three = Convert.ToString(property.GetValue(b3));
-                    }
-                    if (one.ToLower() != three.ToLower())
-                    {
-                        Console.WriteLine("[***** MISMATCH *****]\t" + $"\"{one}\" (property: {property.Name}) does not equal \"{three}\"" + $"      1:\"{one}\" 2:\"{two}\" 3:\"{three}\"");
-                        bad++;
-                    }
-                    else
-                    {
-                        // We don't actually need to see all the matches and it makes it hard to see the mismatches
-                        // Console.WriteLine("[MATCH]\t" + $"\"{one}\" (property: {property.Name}) equals \"{three}\"" + $"      1:\"{one}\" 2:\"{two}\" 3:\"{three}\"");
-                        good++;
-                    }
-                }
-                Console.WriteLine($"\n{bad} mismatches out of {good + bad} total properties checked.");
-                if (bad > 0)
-                {
-                    return 1;
-                }
-                else
-                {
-                    return 0;
-                }
-            }
+           //     var filteredFile = FilterService.filterMessage(baseMessage).ToJson();
+           //     BirthRecordBaseMessage.Parse(filteredFile);
+           //     Console.WriteLine($"File successfully filtered and saved to {args[2]}");
+                    
+           //     File.WriteAllText(args[2], filteredFile);
+                
+           //     return 0;
+           //  }
             else if (args.Length == 2 && args[0] == "ije")
             {
                 string ijeString = File.ReadAllText(args[1]);
@@ -586,19 +512,14 @@ namespace BFDR.CLI
             else if (args.Length == 2 && args[0] == "roundtrip-all")
             {
                 BirthRecord b1 = new BirthRecord(File.ReadAllText(args[1]));
-                BirthRecord b2 = new BirthRecord(d1.ToJSON());
+                BirthRecord b2 = new BirthRecord(b1.ToJSON());
                 BirthRecord b3 = new BirthRecord();
                 List<PropertyInfo> properties = typeof(BirthRecord).GetProperties().ToList();
-                // HashSet<string> skipPropertyNames = new HashSet<string>() { "CausesOfDeath", "AgeAtDeathYears", "AgeAtDeathMonths", "AgeAtDeathDays", "AgeAtDeathHours", "AgeAtDeathMinutes" };
                 foreach (PropertyInfo property in properties)
                 {
-                    // if (skipPropertyNames.Contains(property.Name))
-                    // {
-                    //     continue;
-                    // }
                     if (property.GetCustomAttribute<Property>() != null)
                     {
-                        property.SetValue(d3, property.GetValue(d2));
+                        property.SetValue(b3, property.GetValue(b2));
                     }
                 }
 
@@ -607,19 +528,15 @@ namespace BFDR.CLI
 
                 foreach (PropertyInfo property in properties)
                 {
-                    if (skipPropertyNames.Contains(property.Name))
-                    {
-                        continue;
-                    }
                     // Console.WriteLine($"Property: Name: {property.Name.ToString()} Type: {property.PropertyType.ToString()}");
                     string one;
                     string two;
                     string three;
                     if (property.PropertyType.ToString() == "System.Collections.Generic.Dictionary`2[System.String,System.String]")
                     {
-                        Dictionary<string, string> oneDict = (Dictionary<string, string>)property.GetValue(d1);
-                        Dictionary<string, string> twoDict = (Dictionary<string, string>)property.GetValue(d2);
-                        Dictionary<string, string> threeDict = (Dictionary<string, string>)property.GetValue(d3);
+                        Dictionary<string, string> oneDict = (Dictionary<string, string>)property.GetValue(b1);
+                        Dictionary<string, string> twoDict = (Dictionary<string, string>)property.GetValue(b2);
+                        Dictionary<string, string> threeDict = (Dictionary<string, string>)property.GetValue(b3);
                         // Ignore empty entries in the dictionary so they don't throw off comparisons.
                         one = String.Join(", ", oneDict.Select(x => (x.Value != "") ? (x.Key + "=" + x.Value) : ("")).ToArray()).Replace(" ,", "");
                         two = String.Join(", ", twoDict.Select(x => (x.Value != "") ? (x.Key + "=" + x.Value) : ("")).ToArray()).Replace(" ,", "");
@@ -627,15 +544,15 @@ namespace BFDR.CLI
                     }
                     else if (property.PropertyType.ToString() == "System.String[]")
                     {
-                        one = String.Join(", ", (string[])property.GetValue(d1));
-                        two = String.Join(", ", (string[])property.GetValue(d2));
-                        three = String.Join(", ", (string[])property.GetValue(d3));
+                        one = String.Join(", ", (string[])property.GetValue(b1));
+                        two = String.Join(", ", (string[])property.GetValue(b2));
+                        three = String.Join(", ", (string[])property.GetValue(b3));
                     }
                     else
                     {
-                        one = Convert.ToString(property.GetValue(d1));
-                        two = Convert.ToString(property.GetValue(d2));
-                        three = Convert.ToString(property.GetValue(d3));
+                        one = Convert.ToString(property.GetValue(b1));
+                        two = Convert.ToString(property.GetValue(b2));
+                        three = Convert.ToString(property.GetValue(b3));
                     }
                     if (one.ToLower() != three.ToLower())
                     {
@@ -662,7 +579,7 @@ namespace BFDR.CLI
             else if (args.Length == 2 && args[0] == "ije")
             {
                 string ijeString = File.ReadAllText(args[1]);
-                List<PropertyInfo> properties = typeof(IJEMortality).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Field).ToList();
+                List<PropertyInfo> properties = typeof(IJENatality).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Field).ToList();
 
                 foreach (PropertyInfo property in properties)
                 {
@@ -693,7 +610,7 @@ namespace BFDR.CLI
                 IJENatality ije2 = new IJENatality(record2);
                 string ijeString2 = ije2.ToString();
 
-                List<PropertyInfo> properties = typeof(IJEMortality).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Field).ToList();
+                List<PropertyInfo> properties = typeof(IJENatality).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Field).ToList();
 
                 int differences = 0;
 
@@ -715,7 +632,7 @@ namespace BFDR.CLI
             }
             else if (args.Length == 2 && args[0] == "extract")
             {
-                BaseMessage message = BaseMessage.Parse(File.ReadAllText(args[1]));
+                BirthRecordBaseMessage message = BirthRecordBaseMessage.Parse(File.ReadAllText(args[1]));
                 BirthRecord record;
                 switch (message)
                 {
@@ -729,6 +646,10 @@ namespace BFDR.CLI
                         break;
                 }
                 return 0;
+            }
+            else
+            {
+                Console.WriteLine($"**** No such command {args[0]} with the number of arguments supplied");
             }
             return 0;
         }
