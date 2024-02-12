@@ -1152,7 +1152,7 @@ namespace BFDR.Tests
     {
       Assert.Equal("100", FakeBirthRecord.Identifier);
       Assert.Equal("123", FakeBirthRecord.StateLocalIdentifier1);
-  
+    }
     [Fact]
     public void TestAttendantPropertiesSetter()
     {
@@ -1277,7 +1277,6 @@ namespace BFDR.Tests
                 return Path.GetRelativePath(Directory.GetCurrentDirectory(), filePath);
             }
         }
-  }
 
     [Fact]
     public void SetAttendantAfterParse()
