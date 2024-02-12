@@ -454,6 +454,42 @@ namespace BFDR.Tests
     }
 
     [Fact]
+    public void TestImportIdentifiers()
+    {
+      IJENatality ijeImported = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/BasicBirthRecord.ije")), true);
+      BirthRecord br = ijeImported.ToRecord();
+      IJENatality ijeConverted = new(br);
+      // Certificate Number - FILENO
+      Assert.Equal("48858".PadLeft(6, '0'), ijeImported.FILENO);
+      Assert.Equal(ijeImported.FILENO, ijeConverted.FILENO);
+      Assert.Equal(ijeImported.FILENO, br.CertificateNumber.PadLeft(6, '0'));
+      // Auxiliary State file number - AUXNO
+      Assert.Equal("87".PadLeft(12, '0'), ijeImported.AUXNO);
+      Assert.Equal(ijeImported.AUXNO, ijeConverted.AUXNO);
+      Assert.Equal(ijeImported.AUXNO, br.StateLocalIdentifier1.PadLeft(12, '0'));
+      Assert.Equal(ijeImported.IDOB_YR + ijeImported.BSTATE + ijeImported.FILENO, br.BirthRecordIdentifier);
+      Assert.Equal("2023MA048858", br.BirthRecordIdentifier);
+    }
+
+    [Fact]
+    public void TestSetIdentifiers()
+    {
+      IJENatality ije = new IJENatality();
+      ije.FILENO = "765765";
+      Assert.Equal("765765".PadLeft(6, '0'), ije.FILENO);
+      ije.AUXNO = "32";
+      Assert.Equal("32".PadLeft(12, '0'), ije.AUXNO);
+      ije.IDOB_YR = "2010";
+      ije.BSTATE = "HI";
+      ije.FILENO = "897897";
+      Assert.Equal("897897".PadLeft(6, '0'), ije.FILENO);
+      BirthRecord br = ije.ToRecord();
+      Assert.Equal(ije.FILENO, br.CertificateNumber.PadLeft(6, '0'));
+      Assert.Equal(ije.AUXNO, br.StateLocalIdentifier1.PadLeft(12, '0'));
+      Assert.Equal(ije.IDOB_YR + ije.BSTATE + ije.FILENO, br.BirthRecordIdentifier);
+      Assert.Equal("2010HI897897", br.BirthRecordIdentifier);
+    }
+      
     public void TestSetSmoking()
     {
       BirthRecord fhir = new BirthRecord();

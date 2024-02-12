@@ -259,7 +259,7 @@ namespace VR
                 foreach (DataType child in resource.Children.Where(child => child.GetType().IsSubclassOf(typeof(DataType))))
                 {
                     // Extract PartialDates and PartialDateTimes.
-                    List<Extension> partialDateExtensions = child.Extension.Where(ext => ext.Url.Equals(VRExtensionURLs.PartialDate) || ext.Url.Equals(VRExtensionURLs.PartialDateTime)).ToList();
+                    List<Extension> partialDateExtensions = child.Extension.Where(ext => ext.Url.Equals(PartialDateUrl) || ext.Url.Equals(PartialDateTimeUrl)).ToList();
                     foreach (Extension partialDateExtension in partialDateExtensions)
                     {
                         // Validate that the required sub-extensions are in the PartialDate/Time component.
@@ -276,7 +276,7 @@ namespace VR
                         {
                             errors.Append("Missing 'Date-Year' of [" + partialDateExtension.Url + "] for resource [" + resource.Id + "].").AppendLine();
                         }
-                        if (partialDateExtension.Url.Equals(VRExtensionURLs.PartialDateTime) && !partialDateSubExtensions.Contains(VRExtensionURLs.DateTime))
+                        if (partialDateExtension.Url.Equals(PartialDateTimeUrl) && !partialDateSubExtensions.Contains(PartialDateTimeTimeUrl))
                         {
                             errors.Append("Missing 'Date-Time' of [" + partialDateExtension.Url + "] for resource [" + resource.Id + "].").AppendLine();
                         }
@@ -346,7 +346,7 @@ namespace VR
         /// should include the time field, which is not always needed</summary>
         protected Extension NewBlankPartialDateTimeExtension(bool includeTime = true)
         {
-            Extension partialDateTime = new Extension(includeTime ? VRExtensionURLs.PartialDateTime : VRExtensionURLs.PartialDate, null);
+            Extension partialDateTime = new Extension(includeTime ? PartialDateTimeUrl : PartialDateUrl, null);
             Extension year = new Extension(PartialDateYearUrl, null);
             year.Extension.Add(new Extension(OtherExtensionURL.DataAbsentReason, new Code("temp-unknown")));
             partialDateTime.Extension.Add(year);
@@ -612,15 +612,15 @@ namespace VR
         /// <summary>Sets the given value to the given partial date extension and creates any necessary missing extensions.</summary>
         protected void CreateAndSetPartialDate(Date dateElement, string partUrl, int? value)
         {
-            if (!dateElement.Extension.Any(ext => ext.Url == VRExtensionURLs.PartialDateTimeVR))
+            if (!dateElement.Extension.Any(ext => ext.Url == PartialDateTimeUrl))
             {
-                dateElement.AddExtension(VRExtensionURLs.PartialDateTimeVR, new Extension());
+                dateElement.AddExtension(PartialDateTimeUrl, new Extension());
             }
-            if (!dateElement.Extension.Find(ext => ext.Url == VRExtensionURLs.PartialDateTimeVR).Extension.Any(ext => ext.Url == partUrl))
+            if (!dateElement.Extension.Find(ext => ext.Url == PartialDateTimeUrl).Extension.Any(ext => ext.Url == partUrl))
             {
-                dateElement.Extension.Find(ext => ext.Url == VRExtensionURLs.PartialDateTimeVR).AddExtension(partUrl, new Extension());
+                dateElement.Extension.Find(ext => ext.Url == PartialDateTimeUrl).AddExtension(partUrl, new Extension());
             }
-            SetPartialDate(dateElement.Extension.Find(ext => ext.Url == VRExtensionURLs.PartialDateTimeVR), partUrl, value);
+            SetPartialDate(dateElement.Extension.Find(ext => ext.Url == PartialDateTimeUrl), partUrl, value);
         }
 
         /// <summary>Uses the given date information to create a new Fhir Date with the updated year. This includes reformatting and updating partial date extensions and using Fhir incomplete valid dates.</summary>
@@ -799,7 +799,13 @@ namespace VR
         protected virtual string PartialDateTimeTimeUrl => VRExtensionURLs.DateTime;
 
         /// <summary>Overrideable method that dictates which Extension URL to use for PartialDateTime</summary>
-        protected virtual string PartialDateTimeUrl => VRExtensionURLs.PartialDateTimeVR;
+        protected virtual string PartialDateTimeUrl => VRExtensionURLs.PartialDateTime;
+
+        /// <summary>Overrideable method that dictates which Extension URL to use for PartialDate</summary>
+        protected virtual string PartialDateUrl => VRExtensionURLs.PartialDate;
+
+        /// <summary>Overrideable method that dictates which Extension URL to use for LocationJurisdictionId</summary>
+        protected virtual string LocationJurisdictionIdUrl => VRExtensionURLs.LocationJurisdictionId;
 
         /// <summary>Getter helper for anything that can have a regular FHIR date/time or a PartialDateTime extension, allowing a particular date
         /// field (year, month, or day) to be read from either the value or the extension</summary>
@@ -815,10 +821,10 @@ namespace VR
                 return dateFragment;
             }
             // Look for either PartialDate or PartialDateTime
-            Extension extension = value.Extension.Find(ext => ext.Url == VRExtensionURLs.PartialDateTime);
+            Extension extension = value.Extension.Find(ext => ext.Url == PartialDateTimeUrl);
             if (extension == null)
             {
-                extension = value.Extension.Find(ext => ext.Url == VRExtensionURLs.PartialDate);
+                extension = value.Extension.Find(ext => ext.Url == PartialDateUrl);
             }
             return GetPartialDate(extension, partURL);
         }
@@ -871,7 +877,7 @@ namespace VR
             if (time != null) {
                 return time;
             }
-            return GetPartialTime(value.Extension.Find(ext => ext.Url == VRExtensionURLs.PartialDateTime));
+            return GetPartialTime(value.Extension.Find(ext => ext.Url == PartialDateTimeUrl));
         }
 
         /// <summary>Helper function to set a codeable value based on a code and the set of allowed codes.</summary>
@@ -1070,8 +1076,8 @@ namespace VR
                     {
                         address.StateElement = new FhirString();
                     }
-                    address.StateElement.Extension.RemoveAll(ext => ext.Url == VRExtensionURLs.LocationJurisdictionId);
-                    Extension extension = new Extension(VRExtensionURLs.LocationJurisdictionId, new FhirString(dict["addressJurisdiction"]));
+                    address.StateElement.Extension.RemoveAll(ext => ext.Url == LocationJurisdictionIdUrl);
+                    Extension extension = new Extension(LocationJurisdictionIdUrl, new FhirString(dict["addressJurisdiction"]));
                     address.StateElement.Extension.Add(extension);
                 }
                 if (dict.ContainsKey("addressZip") && !String.IsNullOrEmpty(dict["addressZip"]))
@@ -1269,7 +1275,7 @@ namespace VR
                 if (addr.StateElement != null)
                 {
                     dictionary["addressJurisdiction"] = addr.State; // by default.  If extension present, override
-                    Extension stateExt = addr.StateElement.Extension.Where(ext => ext.Url == VRExtensionURLs.LocationJurisdictionId).FirstOrDefault();
+                    Extension stateExt = addr.StateElement.Extension.Where(ext => ext.Url == LocationJurisdictionIdUrl).FirstOrDefault();
                     if (stateExt != null)
                     {
                         dictionary["addressJurisdiction"] = stateExt.Value.ToString();
