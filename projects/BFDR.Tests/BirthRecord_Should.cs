@@ -360,10 +360,10 @@ namespace BFDR.Tests
       Assert.Equal("13:00:00", firstRecord.BirthTime);
       Assert.Equal(firstRecord.BirthTime, secondRecord.BirthTime);
       // Sex
-      Assert.Equal("F", firstRecord.BirthSex);
+      Assert.Equal("F", firstRecord.BirthSex["code"]);
       Assert.Equal(firstRecord.BirthSex, secondRecord.BirthSex);
       Assert.Equal("F", firstRecord.BirthSexHelper);
-      Assert.Equal(firstRecord.BirthSex, secondRecord.BirthSexHelper);
+      Assert.Equal(firstRecord.BirthSex["code"], secondRecord.BirthSexHelper);
       // Plurality
       // TODO ---
       // Set Order
@@ -488,11 +488,128 @@ namespace BFDR.Tests
       Assert.Equal(28, record2.BirthDay);
       Assert.Equal(10, record2.BirthMonth);
       Assert.Equal(2022, record2.BirthYear);
-      // TODO - there may be an issue when changing the year via the full date string setter.
+      Assert.Equal("07:30:00", record2.BirthTime);
+
+      // Test updating a completed date.
+      BirthRecord record3 = new BirthRecord();
+      record3.DateOfBirth = "1990-10-08";
+      record3.BirthMonth = 8;
+      record3.BirthTime = "12:36:00";
+      Assert.Equal("1990-08-08", record3.DateOfBirth);
+      Assert.Equal("12:36:00", record3.BirthTime);
+      
+      // Test partial dates and times.
+      BirthRecord record4 = new BirthRecord();
+      // Birth Time
+      record4.BirthTime = "12:36:00";
+      Assert.Equal("12:36:00", record4.BirthTime);
+      // Date of Birth - Year
+      record4.BirthYear = 1992;
+      Assert.Equal(1992, record4.BirthYear);
+      Assert.Equal("1992", record4.DateOfBirth);
+      Assert.Equal("12:36:00", record4.BirthTime);
+      // Date of Birth - Month
+      record4.BirthMonth = 7;
+      Assert.Equal(7, record4.BirthMonth);
+      Assert.Equal("1992-07", record4.DateOfBirth);
+      Assert.Equal("12:36:00", record4.BirthTime);
+      // Date of Birth - Day
+      record4.BirthDay = 3;
+      Assert.Equal(3, record4.BirthDay);
+      Assert.Equal("12:36:00", record4.BirthTime);
+      // Complete Date of Birth.
+      Assert.Equal("1992-07-03", record4.DateOfBirth);
+      record4.DateOfBirth = "1993-06";
+      Assert.Equal("1993-06", record4.DateOfBirth);
+      Assert.Null(record4.BirthDay);
+      Assert.Equal(6, record4.BirthMonth);
+      Assert.Equal(1993, record4.BirthYear);
+      Assert.Equal("12:36:00", record4.BirthTime);
+      record4.DateOfBirth = "1994";
+      Assert.Equal("1994", record4.DateOfBirth);
+      Assert.Null(record4.BirthDay);
+      Assert.Null(record4.BirthMonth);
+      Assert.Equal(1994, record4.BirthYear);
+      Assert.Equal("12:36:00", record4.BirthTime);
+      // Birth time again
+      record4.BirthTime = "09:45:28";
+      Assert.Equal("1994", record4.DateOfBirth);
+      Assert.Null(record4.BirthDay);
+      Assert.Null(record4.BirthMonth);
+      Assert.Equal(1994, record4.BirthYear);
+      Assert.Equal("09:45:28", record4.BirthTime);
+
+      // Test partial dates and times in weird orders.
+      BirthRecord record5 = new BirthRecord();
+      // Date of Birth - Day
+      record5.BirthDay = 5;
+      Assert.Equal(5, record5.BirthDay);
+      Assert.Null(record5.DateOfBirth);
+      Assert.Null(record5.BirthTime);
+      // Birth Time
+      record5.BirthTime = "01:05:04";
+      Assert.Equal(5, record5.BirthDay);
+      Assert.Null(record5.DateOfBirth);
+      Assert.Equal("01:05:04", record5.BirthTime);
+      // Date of Birth - Month
+      record5.BirthMonth = 9;
+      Assert.Equal(5, record5.BirthDay);
+      Assert.Equal(9, record5.BirthMonth);
+      Assert.Null(record5.DateOfBirth);
+      Assert.Equal("01:05:04", record5.BirthTime);
+      // Date of Birth - Year
+      record5.BirthYear = 1988;
+      Assert.Equal(5, record5.BirthDay);
+      Assert.Equal(9, record5.BirthMonth);
+      Assert.Equal(1988, record5.BirthYear);
+      Assert.Equal("1988-09-05", record5.DateOfBirth);
+      Assert.Equal("01:05:04", record5.BirthTime);
     }
 
     [Fact]
-    public void TestChildBirthPlaceSetters()
+    public void TestChildBirthDateTimeUnknowns()
+    {
+      BirthRecord record1 = new BirthRecord();
+      record1.DateOfBirth = "1990-08-29";
+      record1.BirthTime = "11:22:33";
+      Assert.Equal("1990-08-29", record1.DateOfBirth);
+      Assert.Equal("11:22:33", record1.BirthTime);
+      record1.BirthYear = -1;
+      Assert.Equal(-1, record1.BirthYear);
+      Assert.Equal(8, record1.BirthMonth);
+      Assert.Equal(29, record1.BirthDay);
+      Assert.Null(record1.DateOfBirth);
+      Assert.Equal("11:22:33", record1.BirthTime);
+      record1.BirthYear = 2000;
+      Assert.Equal(2000, record1.BirthYear);
+      Assert.Equal(8, record1.BirthMonth);
+      Assert.Equal(29, record1.BirthDay);
+      Assert.Equal("11:22:33", record1.BirthTime);
+      record1.BirthTime = "-1";
+      Assert.Equal(2000, record1.BirthYear);
+      Assert.Equal(8, record1.BirthMonth);
+      Assert.Equal(29, record1.BirthDay);
+      Assert.Equal("-1", record1.BirthTime);
+      record1.BirthMonth = -1;
+      Assert.Equal("2000", record1.DateOfBirth);
+      Assert.Equal(-1, record1.BirthMonth);
+      Assert.Equal(29, record1.BirthDay);
+      Assert.Equal("-1", record1.BirthTime);
+      record1.BirthMonth = 3;
+      Assert.Equal("2000-03-29", record1.DateOfBirth);
+      Assert.Equal("-1", record1.BirthTime);
+      record1.BirthDay = -1;
+      Assert.Equal(-1, record1.BirthDay);
+      Assert.Equal("2000-03", record1.DateOfBirth);
+      Assert.Equal("-1", record1.BirthTime);
+      record1.BirthTime = "07:52:43";
+      Assert.Equal(-1, record1.BirthDay);
+      Assert.Equal("2000-03", record1.DateOfBirth);
+      Assert.Equal("07:52:43", record1.BirthTime);
+    }
+
+    [Fact]
+    public void TestBirthPlaceSetters()
     {
       BirthRecord record = new BirthRecord();
       // State of Birth
@@ -501,14 +618,58 @@ namespace BFDR.Tests
       placeOfBirth["addressCounty"] = "Salt Lake";
       placeOfBirth["addressCity"] = "Salt Lake City";
       record.PlaceOfBirth = placeOfBirth;
+
+      placeOfBirth["addressState"] = "MA";
+      placeOfBirth["addressCounty"] = "Middlesex";
+      placeOfBirth["addressCity"] = "Bedford";
+      record.MotherPlaceOfBirth = placeOfBirth;
+
+      placeOfBirth["addressState"] = "NH";
+      placeOfBirth["addressCounty"] = "Hillsboro";
+      placeOfBirth["addressCity"] = "Nashua";
+      record.FatherPlaceOfBirth = placeOfBirth;
+
       Assert.Equal("UT", record.PlaceOfBirth["addressState"]);
       Assert.Equal("UT", record.BirthLocationJurisdiction); // TODO - Birth Location Jurisdiction still needs to be finalized.
       // County of Birth (Literal)
       Assert.Equal("Salt Lake", record.PlaceOfBirth["addressCounty"]);
       // City/town/place of birth (Literal)
       Assert.Equal("Salt Lake City", record.PlaceOfBirth["addressCity"]);
+
+      Assert.Equal("MA", record.MotherPlaceOfBirth["addressState"]);
+      Assert.Equal("Middlesex", record.MotherPlaceOfBirth["addressCounty"]);
+      Assert.Equal("Bedford", record.MotherPlaceOfBirth["addressCity"]);
+
+      Assert.Equal("NH", record.FatherPlaceOfBirth["addressState"]);
+      Assert.Equal("Hillsboro", record.FatherPlaceOfBirth["addressCounty"]);
+      Assert.Equal("Nashua", record.FatherPlaceOfBirth["addressCity"]);
     }
 
+    [Fact]
+    public void TestMotherAddressSetters()
+    {
+      BirthRecord record = new BirthRecord();
+
+      Dictionary<string, string> addr = new Dictionary<string, string>();
+      addr["addressState"] = "UT";
+      addr["addressCounty"] = "Salt Lake";
+      addr["addressCity"] = "Salt Lake City";
+      record.MotherResidence = addr;
+
+      addr["addressState"] = "MA";
+      addr["addressCounty"] = "Middlesex";
+      addr["addressCity"] = "Bedford";
+      record.MotherBilling = addr;
+
+      Assert.Equal("UT", record.MotherResidence["addressState"]);
+      Assert.Equal("Salt Lake", record.MotherResidence["addressCounty"]);
+      Assert.Equal("Salt Lake City", record.MotherResidence["addressCity"]);
+
+      Assert.Equal("MA", record.MotherBilling["addressState"]);
+      Assert.Equal("Middlesex", record.MotherBilling["addressCounty"]);
+      Assert.Equal("Bedford", record.MotherBilling["addressCity"]);
+    }
+    
     [Fact]
     public void TestChildNameSetters()
     {
@@ -552,6 +713,27 @@ namespace BFDR.Tests
     }
 
     [Fact]
+    public void TestFatherNameSetters()
+    {
+      BirthRecord record = new BirthRecord();
+      Assert.Empty(record.FatherGivenNames);
+      Assert.Null(record.FatherFamilyName);
+      Assert.Null(record.FatherSuffix);
+      // Father's First Name
+      string[] names = {"Pappy", "C"};
+      record.FatherGivenNames = names;
+      Assert.Equal("Pappy", record.FatherGivenNames[0]);
+      // Father's Middle Name
+      Assert.Equal("C", record.FatherGivenNames[1]);
+      // Father's Last Name
+      record.FatherFamilyName = "Pipp";
+      Assert.Equal("Pipp", record.FatherFamilyName);
+      // Father's Surname Suffix
+      record.FatherSuffix = "III";
+      Assert.Equal("III", record.FatherSuffix);
+    }
+
+    [Fact]
     public void TestMotherMaidenNameSetters()
     {
       BirthRecord record = new BirthRecord();
@@ -576,9 +758,12 @@ namespace BFDR.Tests
     public void TestChildSexSetters()
     {
       BirthRecord record = new BirthRecord();
-      record.BirthSex = "F";
-      Assert.Equal("F", record.BirthSex);
+      record.BirthSexHelper = "F";
+      Assert.Equal("F", record.BirthSex["code"]);
       Assert.Equal("F", record.BirthSexHelper);
+      record.BirthSexHelper = "M";
+      Assert.Equal("M", record.BirthSex["code"]);
+      Assert.Equal("M", record.BirthSexHelper);
     }
 
     [Fact]
@@ -616,6 +801,15 @@ namespace BFDR.Tests
     }
 
     [Fact]
+    public void TestFatherIdentifierSetters()
+    {
+      BirthRecord record = new BirthRecord();
+      // Father SSN
+      record.FatherSocialSecurityNumber = "1231231234";
+      Assert.Equal("1231231234", record.FatherSocialSecurityNumber);
+    }
+
+    [Fact]
     public void EmptyRecordToDescription()
     {
       BirthRecord birthRecord = new();
@@ -646,6 +840,9 @@ namespace BFDR.Tests
       Assert.Equal(29, record1.MotherBirthDay);
       // Complete Date of Birth.
       Assert.Equal("1990-08-29", record1.MotherDateOfBirth);
+      Assert.Null(record1.MotherReportedAgeAtDelivery);
+      record1.MotherReportedAgeAtDelivery = 27;
+      Assert.Equal(27, record1.MotherReportedAgeAtDelivery);
 
       // Test in a different order.
       BirthRecord record2 = new BirthRecord();
@@ -781,6 +978,9 @@ namespace BFDR.Tests
       Assert.Equal(29, record1.FatherBirthDay);
       // Complete Date of Birth.
       Assert.Equal("1990-08-29", record1.FatherDateOfBirth);
+      Assert.Null(record1.FatherReportedAgeAtDelivery);
+      record1.FatherReportedAgeAtDelivery = 28;
+      Assert.Equal(28, record1.FatherReportedAgeAtDelivery);
 
       // Test in a different order.
       BirthRecord record2 = new BirthRecord();
@@ -961,6 +1161,85 @@ namespace BFDR.Tests
             }
         }
         Assert.Equal(15, b2.FatherRace.Length);
+    }
+
+    [Fact]
+    public void TestAttendantPropertiesSetter()
+    {
+        BirthRecord record = new BirthRecord();
+        // Attendant's name
+        Assert.Null(record.AttendantName);
+        record.AttendantName = "Janet Seito";
+        Assert.Equal("Janet Seito", record.AttendantName);
+        // Attendant's NPI
+        Assert.Null(record.AttendantNPI);
+        record.AttendantNPI = "123456789011";
+        Assert.Equal("123456789011", record.AttendantNPI);
+        // Attendant's Title
+        Dictionary<string, string> AttendantTitle = new Dictionary<string, string>();
+        AttendantTitle.Add("code", "112247003");
+        AttendantTitle.Add("system", CodeSystems.SCT);
+        AttendantTitle.Add("display", "Medical Doctor");
+        record.AttendantTitle = AttendantTitle;
+        Assert.Equal("112247003", record.AttendantTitle["code"]);
+        Assert.Equal(CodeSystems.SCT, record.AttendantTitle["system"]);
+        Assert.Equal("Medical Doctor", record.AttendantTitle["display"]);
+        // test setting other Attendant Title
+        BirthRecord record2 = new BirthRecord();
+        record2.AttendantName = "Jessica Leung";
+        Assert.Equal("Jessica Leung", record2.AttendantName);
+        record2.AttendantTitleHelper = "Birth Clerk"; //set using Title helper
+        Assert.Equal("OTH", record2.AttendantTitle["code"]);
+        Assert.Equal(CodeSystems.NullFlavor_HL7_V3, record2.AttendantTitle["system"]);
+        Assert.Equal("Other", record2.AttendantTitle["display"]);
+        Assert.Equal("Birth Clerk", record2.AttendantTitle["text"]);
+        record2.AttendantOtherHelper = "Birth Clerk"; //set using Other helper
+        Assert.Equal("OTH", record2.AttendantTitle["code"]);
+        Assert.Equal(CodeSystems.NullFlavor_HL7_V3, record2.AttendantTitle["system"]);
+        Assert.Equal("Other", record2.AttendantTitle["display"]);
+        Assert.Equal("Birth Clerk", record2.AttendantTitle["text"]);
+        Assert.Equal("Birth Clerk", record2.AttendantOtherHelper);
+        // test IJE translations
+        IJENatality ije1 = new IJENatality(record);
+        Assert.Equal("Janet Seito", ije1.ATTEND_NAME.Trim());
+        Assert.Equal("123456789011", ije1.ATTEND_NPI);
+        Assert.Equal("1", ije1.ATTEND);
+        IJENatality ije2 = new IJENatality(record2);
+        Assert.Equal("Jessica Leung", ije2.ATTEND_NAME.Trim());
+        Assert.Equal("            ", ije2.ATTEND_NPI);
+        Assert.Equal("5", ije2.ATTEND);
+        Assert.Equal("Birth Clerk", ije2.ATTEND_OTH_TXT.Trim());
+    }  
+
+    [Fact]
+    public void SetAttendantAfterParse()
+    {
+        BirthRecord sample1 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+        Assert.Null(sample1.AttendantName);
+        sample1.AttendantName = "Janet Seito";
+        Assert.Equal("Janet Seito", sample1.AttendantName);
+        //NPI
+        Assert.Null(sample1.AttendantNPI);
+        sample1.AttendantNPI = "123456789011";
+        Assert.Equal("123456789011", sample1.AttendantNPI);
+        //title
+        Assert.Null(sample1.AttendantTitleHelper);
+        Assert.Null(sample1.AttendantOtherHelper);
+        Dictionary<string, string> AttendantTitle = new Dictionary<string, string>();
+        AttendantTitle.Add("code", "112247003");
+        AttendantTitle.Add("system", CodeSystems.SCT);
+        AttendantTitle.Add("display", "Medical Doctor");
+        sample1.AttendantTitle = AttendantTitle;
+        Assert.Equal("112247003", sample1.AttendantTitle["code"]);
+        Assert.Equal(CodeSystems.SCT, sample1.AttendantTitle["system"]);
+        Assert.Equal("Medical Doctor", sample1.AttendantTitle["display"]);
+        //Other
+        sample1.AttendantOtherHelper = "Nurse";
+        Assert.Equal("OTH", sample1.AttendantTitle["code"]);
+        Assert.Equal(CodeSystems.NullFlavor_HL7_V3, sample1.AttendantTitle["system"]);
+        Assert.Equal("Other", sample1.AttendantTitle["display"]);
+        Assert.Equal("Nurse", sample1.AttendantTitle["text"]);
+        Assert.Equal("Nurse", sample1.AttendantOtherHelper);
     }
   }
 }

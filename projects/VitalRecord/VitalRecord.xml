@@ -443,14 +443,23 @@
         <member name="F:VR.OtherExtensionURL.PatientBirthPlace">
             <summary>URL for PatientBirthPlace</summary>
         </member>
+        <member name="F:VR.OtherExtensionURL.RelatedPersonBirthPlace">
+            <summary>URL for RelatedPersonBirthPlace</summary>
+        </member>
         <member name="F:VR.OtherExtensionURL.BirthSex">
             <summary>URL for US Core Birthsex </summary>
+        </member>
+        <member name="F:VR.OtherExtensionURL.ParentRole">
+            <summary>URL for parent role </summary>
         </member>
         <member name="T:VR.OtherIGURL">
             <summary>IG URLs for non-VRDR Profiles</summary>
         </member>
         <member name="F:VR.OtherIGURL.USCorePractitioner">
             <summary>URL for USCorePractitioner</summary>
+        </member>
+        <member name="F:VR.OtherIGURL.UsualWork">
+            <summary>URL for UsualWork - TODO figure out why this one isn't generated from the IG</summary>
         </member>
         <member name="T:VR.NvssRace">
             <summary> String representations of IJE Race fields </summary>
@@ -5388,11 +5397,17 @@
         <member name="M:VR.VitalRecord.GetPlaceOfBirth(Hl7.Fhir.Model.Patient)">
             <summary>Gets the given place of birth dictionary address from the given patient.</summary>
         </member>
+        <member name="M:VR.VitalRecord.GetPlaceOfBirth(Hl7.Fhir.Model.RelatedPerson)">
+            <summary>Gets the given place of birth dictionary address from the given related person.</summary>
+        </member>
         <member name="M:VR.VitalRecord.SetPlaceOfBirth(Hl7.Fhir.Model.Patient,System.Collections.Generic.Dictionary{System.String,System.String})">
             <summary>Sets the given place of birth dictionary on the given patient.</summary>
         </member>
         <member name="M:VR.VitalRecord.AddBirthDateToPatient(Hl7.Fhir.Model.Patient,System.Boolean)">
             <summary>Add a BirthDateElement to the given Patient resource.</summary>
+        </member>
+        <member name="M:VR.VitalRecord.SetPlaceOfBirth(Hl7.Fhir.Model.RelatedPerson,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>Sets the given place of birth dictionary on the given patient.</summary>
         </member>
         <member name="T:VR.PropertyParam">
             <summary>Property attribute used to describe a VitalRecord property parameter,

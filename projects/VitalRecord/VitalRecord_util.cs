@@ -387,7 +387,7 @@ namespace VR
         /// <summary>Getter helper for anything that uses PartialDateTime, allowing the time to be read from the extension</summary>
         protected string GetPartialTime(Extension partialDateTime)
         {
-            Extension part = partialDateTime?.Extension?.Find(ext => ext.Url == VRExtensionURLs.DateTime);
+            Extension part = partialDateTime?.Extension?.Find(ext => ext.Url == PartialDateTimeTimeUrl);
             Extension dataAbsent = part?.Extension?.Find(ext => ext.Url == OtherExtensionURL.DataAbsentReason);
             // extension for absent date can be directly on the part as with year, month, day
             if (dataAbsent != null)
@@ -1687,6 +1687,24 @@ namespace VR
             return EmptyAddrDict();
         }
 
+        /// <summary>Gets the given place of birth dictionary address from the given related person.</summary>
+        protected Dictionary<string, string> GetPlaceOfBirth(RelatedPerson person) {
+            if (person != null)
+            {
+                Extension addressExt = person.Extension.FirstOrDefault(extension => extension.Url == VRExtensionURLs.RelatedpersonBirthplace);
+                if (addressExt != null)
+                {
+                    Address address = (Address)addressExt.Value;
+                    if (address != null)
+                    {
+                        return AddressToDict((Address)address);
+                    }
+                    return EmptyAddrDict();
+                }
+            }
+            return EmptyAddrDict();
+        }
+
         /// <summary>Sets the given place of birth dictionary on the given patient.</summary>
         protected void SetPlaceOfBirth(Patient patient, Dictionary<string, string> value) {
             patient.Extension.RemoveAll(ext => ext.Url == OtherExtensionURL.PatientBirthPlace);
@@ -1709,6 +1727,19 @@ namespace VR
         }
     
 
+        /// <summary>Sets the given place of birth dictionary on the given patient.</summary>
+        protected void SetPlaceOfBirth(RelatedPerson person, Dictionary<string, string> value) {
+            person.Extension.RemoveAll(ext => ext.Url == VRExtensionURLs.RelatedpersonBirthplace);
+            if (!IsDictEmptyOrDefault(value))
+            {
+                Extension placeOfBirthExt = new Extension
+                {
+                    Url = VRExtensionURLs.RelatedpersonBirthplace,
+                    Value = DictToAddress(value)
+                };
+                person.Extension.Add(placeOfBirthExt);
+            }
+        }
     }
 
     /// <summary>Property attribute used to describe a VitalRecord property parameter,

@@ -37,6 +37,9 @@ namespace BFDR
         /// <summary>The Father.</summary>
         private RelatedPerson Father;
 
+        /// <summary>The Attendant.</summary>
+        private Practitioner Attendant;
+
         /// <summary>The Mother's Race and Ethnicity provided by Jurisdiction.</summary>
         private Observation InputRaceAndEthnicityObsMother;
 
@@ -88,12 +91,6 @@ namespace BFDR
             return subjects.First().subject == FHIRSubject.Subject.Newborn ? Child.Id : Mother.Id;
         }
 
-        /// <summary>Add a BirthDateElement to the Child resource.</summary>
-        private void AddBirthDateToChild()
-        {
-            AddBirthDateToPatient(Child, true);
-        }
-
         /// <summary> Create Mother Input Race and Ethnicity </summary>
         private void CreateInputRaceEthnicityObsMother()
         {
@@ -123,6 +120,17 @@ namespace BFDR
             InputRaceAndEthnicityObsFather.Subject = new ResourceReference("urn:uuid:" + Child.Id);
             AddReferenceToComposition(InputRaceAndEthnicityObsFather.Id, RACE_ETHNICITY_PROFILE_FATHER);
             Bundle.AddResourceEntry(InputRaceAndEthnicityObsFather, "urn:uuid:" + InputRaceAndEthnicityObsFather.Id);
+        }
+
+        /// <summary>Create Attendant/Practitioner.</summary>
+        private void CreateAttendant()
+        {
+            Attendant = new Practitioner();
+            Attendant.Id = Guid.NewGuid().ToString();
+            Attendant.Meta = new Meta();
+            string[] attendant_profile = { VR.ProfileURL.Practitioner };
+            Attendant.Meta.Profile = attendant_profile;
+            // Not linked to Composition or inserted in bundle, since this is run before the composition exists.
         }
     }
 
