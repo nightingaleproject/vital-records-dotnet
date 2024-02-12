@@ -65,6 +65,9 @@
         <member name="F:BFDR.BirthRecord.InputRaceAndEthnicityObsFather">
             <summary>The Father's Race and Ethnicity provided by Jurisdiction.</summary>
         </member>
+        <member name="F:BFDR.BirthRecord.EncounterBirth">
+            <summary>The encounter of the birth.</summary>
+        </member>
         <member name="F:BFDR.BirthRecord.RACE_ETHNICITY_PROFILE_MOTHER">
             <summary>Composition Section Constants</summary>
         </member>
@@ -224,7 +227,6 @@
             </example>
         </member>
         <member name="P:BFDR.BirthRecord.MotherGivenNames">
-            TODO: should support father's name as well
             <summary>Mother's Legal Name - Given. Middle name should be the last entry.</summary>
             <value>the mother's name (first, etc., middle)</value>
             <example>
@@ -375,6 +377,34 @@
             <para>ExampleBirthRecord.PlaceOfBirth = address;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"State where child was born: {ExampleBirthRecord.PlaceOfBirth["placeOfBirthState"]}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.BirthPhysicalLocation">
+            <summary>Child's Place Of Birth Type.</summary>
+            <value>Place Where Birth Occurred, type of place or institution. A Dictionary representing a codeable concept of the physical location type:
+            <para>"code" - The code used to describe this concept.</para>
+            <para>"system" - The relevant code system.</para>
+            <para>"display" - The human readable version of this code.</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; locationType = new Dictionary&lt;string, string&gt;();</para>
+            <para>locationType.Add("code", "22232009");</para>
+            <para>locationType.Add("system", "http://snomed.info/sct");</para>
+            <para>locationType.Add("display", "Hospital");</para>
+            <para>ExampleBirthRecord.BirthPhysicalLocation = locationType;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"The place type the child was born: {ExampleBirthRecord.BirthPhysicalLocation["code"]}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.BirthPhysicalLocationHelper">
+            <summary>Child's Place Of Birth Type Helper</summary>
+            <value>Child's Place Of Birth Type Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.BirthPhysicalLocationHelper = "Hospital";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Child's Place Of Birth Type: {ExampleBirthRecord.BirthPhysicalLocationHelper}");</para>
             </example>
         </member>
         <member name="P:BFDR.BirthRecord.MotherPlaceOfBirth">
@@ -894,6 +924,8 @@
             </example>
         </member>
         <member name="P:BFDR.BirthRecord.FatherReportedAgeAtDelivery">
+            TODO: ethinicty/race component code still uses vrdr codesystem: http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs
+            should be http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component
             <summary>Father's Age at Delivery</summary>
             <value>the father's age at Delivery in years</value>
             <example>
@@ -928,8 +960,6 @@
             </example>
         </member>
         <member name="P:BFDR.BirthRecord.MotherEthnicity1">
-            TODO: ethinicty/race component code still uses vrdr codesystem: http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs
-            should be http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component
             <summary>Mother's Ethnicity Hispanic Mexican.</summary>
             <value>the mother's ethnicity. A Dictionary representing a code, containing the following key/value pairs:
             <para>"code" - the code</para>
@@ -3305,6 +3335,36 @@
             <summary> Other </summary>
         </member>
         <member name="F:BFDR.ValueSets.BirthSex.Unknown">
+            <summary> Unknown </summary>
+        </member>
+        <member name="T:BFDR.ValueSets.PlaceTypeOfBirth">
+            <summary> PlaceTypeOfBirth </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PlaceTypeOfBirth.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PlaceTypeOfBirth.Hospital">
+            <summary> Hospital </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PlaceTypeOfBirth.Free_Standing_Birthing_Center">
+            <summary> Free_Standing_Birthing_Center </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PlaceTypeOfBirth.Planned_Home_Birth">
+            <summary> Planned_Home_Birth </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PlaceTypeOfBirth.Unplanned_Home_Birth">
+            <summary> Unplanned_Home_Birth </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PlaceTypeOfBirth.Free_Standing_Clinic">
+            <summary> Free_Standing_Clinic </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PlaceTypeOfBirth.Unknown_If_Planned_Home_Birth">
+            <summary> Unknown_If_Planned_Home_Birth </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PlaceTypeOfBirth.Other">
+            <summary> Other </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PlaceTypeOfBirth.Unknown">
             <summary> Unknown </summary>
         </member>
     </members>
