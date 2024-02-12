@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Hl7.Fhir.Model;
 using VR;
 using Hl7.Fhir.Support;
+using static Hl7.Fhir.Model.Encounter;
 
 // BirthRecord_submissionProperties.cs
 // These fields are used primarily for submitting birth records to NCHS.
@@ -468,7 +469,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Sex at Time of Birth: {ExampleBirthRecord.BirthSexHelper}");</para>
         /// </example>
-        [Property("Sex At Birth Helper", Property.Types.String, "Child Demographics", "Child's Sex at Birth.", true, VR.IGURL.Child, true, 12)]
+        [Property("Sex At Birth Helper", Property.Types.String, "Child Demographics", "Child's Sex at Birth.", false, VR.IGURL.Child, true, 12)]
         [FHIRPath("Bundle.entry.resource.where($this is Patient).extension.where(url='" + OtherExtensionURL.BirthSex + "')", "")]
         public string BirthSexHelper
         {
@@ -962,6 +963,7 @@ namespace BFDR
         [PropertyParam("addressLine2", "address, line two")]
         [PropertyParam("addressCity", "address, city")]
         [PropertyParam("addressCounty", "address, county")]
+        [PropertyParam("addressCountyC", "address, county code")]
         [PropertyParam("addressState", "address, state")]
         [PropertyParam("addressZip", "address, zip")]
         [PropertyParam("addressCountry", "address, country")]
@@ -975,6 +977,112 @@ namespace BFDR
             set
             {
                 SetPlaceOfBirth(Child, value);
+            }
+        }
+
+        /// <summary>Child's Place Of Birth Type.</summary>
+        /// <value>Place Where Birth Occurred, type of place or institution. A Dictionary representing a codeable concept of the physical location type:
+        /// <para>"code" - The code used to describe this concept.</para>
+        /// <para>"system" - The relevant code system.</para>
+        /// <para>"display" - The human readable version of this code.</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; locationType = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>locationType.Add("code", "22232009");</para>
+        /// <para>locationType.Add("system", "http://snomed.info/sct");</para>
+        /// <para>locationType.Add("display", "Hospital");</para>
+        /// <para>ExampleBirthRecord.BirthPhysicalLocation = locationType;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"The place type the child was born: {ExampleBirthRecord.BirthPhysicalLocation["code"]}");</para>
+        /// </example>
+        [Property("BirthPhysicalLocation", Property.Types.Dictionary, "BirthPhysicalLocation", "Birth Physical Location.", true, IGURL.EncounterBirth, true, 16)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Encounter)", "")]
+        public Dictionary<string, string> BirthPhysicalLocation
+        {
+            get
+            {
+                if (EncounterBirth == null)
+                {
+                    return EmptyCodeableDict();
+                }
+                return CodeableConceptToDict(EncounterBirth.Location.Select(loc => loc.PhysicalType).FirstOrDefault());
+            }
+            set
+            {
+                if (EncounterBirth == null)
+                {
+                    EncounterBirth = new Encounter()
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        Meta = new Meta()
+                    };
+                    EncounterBirth.Meta.Profile = new List<string>()
+                    {
+                        ProfileURL.EncounterBirth
+                    };
+                }
+                EncounterBirth.Location = new List<Hl7.Fhir.Model.Encounter.LocationComponent>();
+                LocationComponent location = new LocationComponent
+                {
+                    PhysicalType = DictToCodeableConcept(value)
+                };
+                EncounterBirth.Location.Add(location);
+            }
+        }
+
+        /// <summary>Child's Place Of Birth Type Helper</summary>
+        /// <value>Child's Place Of Birth Type Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.BirthPhysicalLocationHelper = "Hospital";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Child's Place Of Birth Type: {ExampleBirthRecord.BirthPhysicalLocationHelper}");</para>
+        /// </example>
+        [Property("BirthPhysicalLocationHelper", Property.Types.String, "BirthPhysicalLocationHelper", "Birth Physical Location Helper.", false, IGURL.EncounterBirth, true, 4)]
+        [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(meta.profile == " + IGURL.EncounterBirth + ")", "")]
+        public string BirthPhysicalLocationHelper
+        {
+            get
+            {
+                if (BirthPhysicalLocation.ContainsKey("code"))
+                {
+                    string code = BirthPhysicalLocation["code"];
+                    if (code == "OTH")
+                    {
+                        if (BirthPhysicalLocation.ContainsKey("text") && !String.IsNullOrWhiteSpace(BirthPhysicalLocation["text"]))
+                        {
+                            return BirthPhysicalLocation["text"];
+                        }
+                        return "Other";
+                    }
+                    else if (!String.IsNullOrWhiteSpace(code))
+                    {
+                        return code;
+                    }
+                }
+                return null;
+            }
+            set
+            {
+                if (String.IsNullOrWhiteSpace(value))
+                {
+                    // do nothing
+                    return;
+                }
+                if (!BFDR.Mappings.BirthDeliveryOccurred.FHIRToIJE.ContainsKey(value))
+                {
+                    // other
+                    BirthPhysicalLocation = CodeableConceptToDict(new CodeableConcept(CodeSystems.NullFlavor_HL7_V3, "OTH", "Other", value));
+                }
+                else
+                {
+                    // normal path
+                    SetCodeValue("BirthPhysicalLocation", value, BFDR.ValueSets.PlaceTypeOfBirth.Codes);
+                }
             }
         }
 
@@ -4134,7 +4242,7 @@ namespace BFDR
             {
                 if (Attendant != null && Attendant.Name != null)
                 {
-                    return Attendant.Name.First().Text;
+                    return Attendant.Name.FirstOrDefault()?.Text;
                 }
                 return null;
             }
