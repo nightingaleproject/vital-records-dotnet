@@ -4904,7 +4904,7 @@ namespace BFDR
             get => GetObservationValueHelper();
             set => SetObservationValueHelper(value, VR.ValueSets.EditBypass01234.Codes);
         }
-
+        
         private Observation GetObservation(string code)
         {
             var entry = Bundle.Entry.Where(
@@ -5091,7 +5091,7 @@ namespace BFDR
                 {
                     return (obs.Value as Hl7.Fhir.Model.Date)?.Value;
                 }
-                return null;
+                                return null;
             }
             set
             {
@@ -5105,6 +5105,56 @@ namespace BFDR
                     obs = CreateObservationEntry("69044-6", Mother.Id, MOTHER_PRENATAL_SECTION, Child.Id);
                     obs.Value = ConvertToDate(value);
                 }
+            }
+        }
+        
+        /// <summary>Marital Description</summary>
+        /// <value>for use of jurisdictions with domestic partnerships, othertypes of relationships</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MaritalStatus = "single";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Marital status: {ExampleBirthRecord.MaritalStatus}");</para>
+        /// </example>
+        [Property("MaritalStatus", Property.Types.String, "MaritalStatus", "MaritalStatus", false, VR.IGURL.Mother, true, 288)]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient)", "maritalStatus")]
+        public string MaritalStatus
+        {
+            get
+            {
+                return Mother?.MaritalStatus?.CodableConcept?.text;
+            }
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    return;
+                }
+                CodeableConcept cc = new CodeableConcept();
+                cc.text = value;
+                Mother.MaritalStatus = cc;
+            }
+        }
+
+        /// <summary>Mother Married During Pregnancy</summary>
+        /// <value>Mother marrier during pregnancy</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotherMarriedDuringPregnancy = yesNoUnknownCC;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother married during pregnancy: {ExampleBirthRecord.MotherMarriedDuringPregnancy}");</para>
+        /// </example>
+        [Property("MotherMarriedDuringPregnancy", Property.Types.Dictionary, "MotherMarriedDuringPregnancy", "MotherMarriedDuringPregnancy", false, BFDR.IGURL.ObservationMotherMarriedDuringPregnancy, true, 288)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='21843-8')", "")]
+        public Dictionary<string,string> MotherMarriedDuringPregnancy
+        {
+            get
+            {
+                return null;
+            }
+            set
+            {
+                return null;
             }
         }
 
@@ -5435,6 +5485,97 @@ namespace BFDR
                     // normal path
                     SetCodeValue("PayorTypeFinancialClass", value, BFDR.ValueSets.BirthAndFetalDeathFinancialClass.Codes);
                 }
+            }
+        }
+        /// <summary>Mother Married During Pregnancy Helper</summary>
+        /// <value>Mother marrier during pregnancy helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotherMarriedDuringPregnancyHelper = "yes";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother married during pregnancy helper: {ExampleBirthRecord.MotherMarriedDuringPregnancyHelper}");</para>
+        /// </example>
+        [Property("MotherMarriedDuringPregnancyHelper", Property.Types.String, "MotherMarriedDuringPregnancyHelper", "MotherMarriedDuringPregnancyHelper", false, BFDR.IGURL.ObservationMotherMarriedDuringPregnancy, true, 288)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87301-8')", "")]
+        public Dictionary<string,string> MotherMarriedDuringPregnancyHelper
+        {
+            get
+            {
+                return null;
+            }
+            set
+            {
+                //TODO 
+            }
+        }
+
+        /// <summary>Paternity Acknowledgement Signed</summary>
+        /// <value>Paternity acknowledgement signed</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.PaternityAcknowledgementSigned = yesNoUnknownCC;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Paternity acknowledgement signed: {ExampleBirthRecord.PaternityAcknowledgementSigned}");</para>
+        /// </example>
+        [Property("PaternityAcknowledgementSigned", Property.Types.Dictionary, "PaternityAcknowledgementSigned", "PaternityAcknowledgementSigned", false, BFDR.IGURL.ObservationPaternityAcknowledgementSigned, true, 288)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87302-6')", "")]
+        public Dictionary<string,string> PaternityAcknowledgementSigned
+        {
+            get
+            {
+                return null;
+            }
+            set
+            {}
+        }
+
+        /// <summary>Paternity Acknowledgement Signed Helper</summary>
+        /// <value>Paternity acknowledgement signed helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.PaternityAcknowledgementSignedHelper = "yes";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Paternity acknowledgement signed: {ExampleBirthRecord.PaternityAcknowledgementSignedHelper}");</para>
+        /// </example>
+        [Property("PaternityAcknowledgementSignedHelper", Property.Types.String, "PaternityAcknowledgementSignedHelper", "PaternityAcknowledgementSignedHelper", false, BFDR.IGURL.ObservationPaternityAcknowledgementSigned, true, 288)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87302-6')", "")]
+        public string PaternityAcknowledgementSignedHelper
+        {
+            get
+            {
+                return null;
+            }
+            set
+            {
+                //TODO 
+            }
+        }
+
+        /// <summary>Mother Transferred</summary>
+        /// <value>Mother transferred</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotherTransferred = "hosp-trans";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother transferred: {ExampleBirthRecord.MotherTransferred}");</para>
+        /// </example>
+        [Property("MotherTransferred", Property.Types.String, "MotherTransferred", "MotherTransferred", false, VR.IGURL.Mother, true, 288)]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient)", "hospitalization")]
+        public Dictionary<string, string> MotherTransferred
+        {
+            get
+            {
+                return Mother?.hospitalization?.admitSource?;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    return;
+                }
+                // TODO define CC
+                CodeableConcept admitSource = new CodeableConcept();
+                Mother.hospitalization = admitSource;
             }
         }
     }
