@@ -612,15 +612,15 @@ namespace VR
         /// <summary>Sets the given value to the given partial date extension and creates any necessary missing extensions.</summary>
         protected void CreateAndSetPartialDate(Date dateElement, string partUrl, int? value)
         {
-            if (!dateElement.Extension.Any(ext => ext.Url == VRExtensionURLs.PartialDateTimeVR))
+            if (!dateElement.Extension.Any(ext => ext.Url == VRExtensionURLs.PartialDateTime))
             {
-                dateElement.AddExtension(VRExtensionURLs.PartialDateTimeVR, new Extension());
+                dateElement.AddExtension(VRExtensionURLs.PartialDateTime, new Extension());
             }
-            if (!dateElement.Extension.Find(ext => ext.Url == VRExtensionURLs.PartialDateTimeVR).Extension.Any(ext => ext.Url == partUrl))
+            if (!dateElement.Extension.Find(ext => ext.Url == VRExtensionURLs.PartialDateTime).Extension.Any(ext => ext.Url == partUrl))
             {
-                dateElement.Extension.Find(ext => ext.Url == VRExtensionURLs.PartialDateTimeVR).AddExtension(partUrl, new Extension());
+                dateElement.Extension.Find(ext => ext.Url == VRExtensionURLs.PartialDateTime).AddExtension(partUrl, new Extension());
             }
-            SetPartialDate(dateElement.Extension.Find(ext => ext.Url == VRExtensionURLs.PartialDateTimeVR), partUrl, value);
+            SetPartialDate(dateElement.Extension.Find(ext => ext.Url == VRExtensionURLs.PartialDateTime), partUrl, value);
         }
 
         /// <summary>Uses the given date information to create a new Fhir Date with the updated year. This includes reformatting and updating partial date extensions and using Fhir incomplete valid dates.</summary>
@@ -799,7 +799,7 @@ namespace VR
         protected virtual string PartialDateTimeTimeUrl => VRExtensionURLs.DateTime;
 
         /// <summary>Overrideable method that dictates which Extension URL to use for PartialDateTime</summary>
-        protected virtual string PartialDateTimeUrl => VRExtensionURLs.PartialDateTimeVR;
+        protected virtual string PartialDateTimeUrl => VRExtensionURLs.PartialDateTime;
 
         /// <summary>Getter helper for anything that can have a regular FHIR date/time or a PartialDateTime extension, allowing a particular date
         /// field (year, month, or day) to be read from either the value or the extension</summary>
