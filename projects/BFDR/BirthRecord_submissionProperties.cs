@@ -28,7 +28,7 @@ namespace BFDR
         //
         /////////////////////////////////////////////////////////////////////////////////
 
-        /// <summary>Birth Record Identifier, Birth Certificate Number.</summary>
+        /// <summary>Birth Certificate Number.</summary>
         /// <value>a record identification string.</value>
         /// <example>
         /// <para>// Setter:</para>
@@ -36,15 +36,15 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Birth Certificate Number: {ExampleBirthRecord.Identifier}");</para>
         /// </example>
-        [Property("Identifier", Property.Types.String, "Birth Certification", "Birth Certificate Number.", true, IGURL.CertificateNumber, true, 3)]
+        [Property("Certificate Number", Property.Types.String, "Birth Certification", "Birth Certificate Number.", true, VR.IGURL.CertificateNumber, true, 3)]
         [FHIRPath("Bundle", "identifier")]
-        public string Identifier
+        public string CertificateNumber
         {
             get
             {
                 if (Bundle?.Identifier?.Extension != null)
                 {
-                    Extension ext = Bundle.Identifier.Extension.Find(ex => ex.Url == ExtensionURL.CertificateNumber);
+                    Extension ext = Bundle.Identifier.Extension.Find(ex => ex.Url == VR.ProfileURL.CertificateNumber);
                     if (ext?.Value != null)
                     {
                         return Convert.ToString(ext.Value);
@@ -54,10 +54,10 @@ namespace BFDR
             }
             set
             {
-                Bundle.Identifier.Extension.RemoveAll(ex => ex.Url == ExtensionURL.CertificateNumber);
+                Bundle.Identifier.Extension.RemoveAll(ex => ex.Url == VR.ProfileURL.CertificateNumber);
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Extension ext = new Extension(ExtensionURL.CertificateNumber, new FhirString(value));
+                    Extension ext = new Extension(VR.ProfileURL.CertificateNumber, new FhirString(value));
                     Bundle.Identifier.Extension.Add(ext);
                     UpdateBirthRecordIdentifier();
                 }
@@ -68,9 +68,9 @@ namespace BFDR
         private void UpdateBirthRecordIdentifier()
         {
             uint certificateNumber = 0;
-            if (Identifier != null)
+            if (CertificateNumber != null)
             {
-                UInt32.TryParse(Identifier, out certificateNumber);
+                UInt32.TryParse(CertificateNumber, out certificateNumber);
             }
             uint birthYear = 0;
             if (this.BirthYear != null)
@@ -86,7 +86,7 @@ namespace BFDR
             {
                 jurisdictionId = jurisdictionId.Trim().Substring(0, 2).ToUpper();
             }
-            this.BirthRecordIdentifier = $"{birthYear.ToString("D4")}{jurisdictionId}{certificateNumber.ToString("D6")}";
+            this.BirthRecordIdentifier = $"{birthYear:D4}{jurisdictionId}{certificateNumber:D6}";
 
         }
 
@@ -96,7 +96,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"NCHS identifier: {ExampleBirthRecord.BirthRecordIdentifier}");</para>
         /// </example>
-        [Property("Birth Record Identifier", Property.Types.String, "Birth Certification", "Birth Record identifier.", true, IGURL.CertificateNumber, true, 4)]
+        [Property("Birth Record Identifier", Property.Types.String, "Birth Certification", "Birth Record identifier.", true, IGURL.CertificateNumber, false, 4)]
         [FHIRPath("Bundle", "identifier")]
         public string BirthRecordIdentifier
         {
@@ -133,7 +133,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"State local identifier: {ExampleBirthRecord.StateLocalIdentifier1}");</para>
         /// </example>
-        [Property("State Local Identifier1", Property.Types.String, "Birth Certification", "State Local Identifier.", true, ProfileURL.CompositionProviderLiveBirthReport, true, 5)]
+        [Property("State Local Identifier1", Property.Types.String, "Birth Certification", "State Local Identifier.", true, VR.IGURL.AuxiliaryStateIdentifier1VitalRecords, true, 5)]
         [FHIRPath("Bundle", "identifier")]
         public string StateLocalIdentifier1
         {
@@ -141,7 +141,7 @@ namespace BFDR
             {
                 if (Bundle?.Identifier?.Extension != null)
                 {
-                    Extension ext = Bundle.Identifier.Extension.Find(ex => ex.Url == ExtensionURL.AuxiliaryStateIdentifier1);
+                    Extension ext = Bundle.Identifier.Extension.Find(ex => ex.Url == VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords);
                     if (ext?.Value != null)
                     {
                         return Convert.ToString(ext.Value);
@@ -151,10 +151,10 @@ namespace BFDR
             }
             set
             {
-                Bundle.Identifier.Extension.RemoveAll(ex => ex.Url == ExtensionURL.AuxiliaryStateIdentifier1);
+                Bundle.Identifier.Extension.RemoveAll(ex => ex.Url == VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords);
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Extension ext = new Extension(ExtensionURL.AuxiliaryStateIdentifier1, new FhirString(value));
+                    Extension ext = new Extension(VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords, new FhirString(value));
                     Bundle.Identifier.Extension.Add(ext);
                 }
             }
@@ -211,7 +211,7 @@ namespace BFDR
                 Child.BirthDateElement.RemoveExtension(VR.ExtensionURL.PatientBirthTime);
             }
             // Remove the now extraneous PartialDateTime.
-            Child.BirthDateElement.RemoveExtension(VRExtensionURLs.PartialDateTimeVR);
+            Child.BirthDateElement.RemoveExtension(VRExtensionURLs.PartialDateTime);
             return;
         }
 
@@ -228,7 +228,7 @@ namespace BFDR
         protected override string PartialDateTimeTimeUrl => VR.ExtensionURL.PartialDateTimeTimeVR;
 
         /// <summary>Overriden method that dictates which Extension URL to use for PartialDateTime</summary>
-        protected override string PartialDateTimeUrl => VRExtensionURLs.PartialDateTimeVR;
+        protected override string PartialDateTimeUrl => VRExtensionURLs.PartialDateTime;
 
         /// <summary>Child's Month of Birth.</summary>
         /// <value>the child's month of birth, or -1 if explicitly unknown, or null if never specified</value>
@@ -341,16 +341,16 @@ namespace BFDR
                 }
                 // If the date is incomplete, then the birth time should be included in the partialDateTime Time extension.
                 Child.BirthDateElement.RemoveExtension(VR.ExtensionURL.PatientBirthTime);
-                if (!Child.BirthDateElement.Extension.Any(ext => ext.Url == VRExtensionURLs.PartialDateTimeVR))
+                if (!Child.BirthDateElement.Extension.Any(ext => ext.Url == VRExtensionURLs.PartialDateTime))
                 {
-                    Child.BirthDateElement.SetExtension(VRExtensionURLs.PartialDateTimeVR, new Extension());
+                    Child.BirthDateElement.SetExtension(VRExtensionURLs.PartialDateTime, new Extension());
                 }
-                if (!Child.BirthDateElement.Extension.Find(ext => ext.Url == VRExtensionURLs.PartialDateTimeVR).Extension.Any(ext => ext.Url == PartialDateTimeTimeUrl))
+                if (!Child.BirthDateElement.Extension.Find(ext => ext.Url == VRExtensionURLs.PartialDateTime).Extension.Any(ext => ext.Url == PartialDateTimeTimeUrl))
                 {
-                    Child.BirthDateElement.GetExtension(VRExtensionURLs.PartialDateTimeVR).SetExtension(PartialDateTimeTimeUrl, new Extension());
+                    Child.BirthDateElement.GetExtension(VRExtensionURLs.PartialDateTime).SetExtension(PartialDateTimeTimeUrl, new Extension());
                 }
                 // Child.BirthDateElement.GetExtension(VRExtensionURLs.PartialDateTimeVR).SetExtension(PartialDateTimeTimeUrl, new Time(value));
-                SetPartialTime(Child.BirthDateElement.GetExtension(VRExtensionURLs.PartialDateTimeVR), value);
+                SetPartialTime(Child.BirthDateElement.GetExtension(VRExtensionURLs.PartialDateTime), value);
             }
         }
 
