@@ -53,7 +53,7 @@ namespace BFDR
         protected void ExtractBusinessIdentifiers(BirthRecord from)
         {
             uint certificateNumber;
-            if (UInt32.TryParse(from?.Identifier, out certificateNumber))
+            if (UInt32.TryParse(from?.CertificateNumber, out certificateNumber))
             {
                 this.CertNo = certificateNumber;
             }

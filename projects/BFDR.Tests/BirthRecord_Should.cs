@@ -9,10 +9,12 @@ namespace BFDR.Tests
   public class BirthRecord_Should
   {
     private BirthRecord SetterBirthRecord;
+    private BirthRecord FakeBirthRecord;
 
     public BirthRecord_Should()
     {
       SetterBirthRecord = new BirthRecord();
+      FakeBirthRecord = new BirthRecord(File.ReadAllText(FixturePath("fixtures/json/BirthRecordFake.json")));
     }
 
     [Fact]
@@ -33,7 +35,6 @@ namespace BFDR.Tests
       Assert.True(SetterBirthRecord.Anencephaly);
       Assert.False(SetterBirthRecord.NoCongenitalAnomaliesOfTheNewborn);
     }
-
     [Fact]
     public void Set_Anencephaly()
     {
@@ -331,10 +332,15 @@ namespace BFDR.Tests
       // Test conversion via FromDescription.
       BirthRecord secondRecord = VitalRecord.FromDescription<BirthRecord>(firstDescription);
 
-      // Record Identifier
-      Assert.Equal("48858", firstRecord.Identifier);
+      // Record Certificate Number
+      Assert.Equal("48858", firstRecord.CertificateNumber);
+      Assert.Equal(firstRecord.CertificateNumber, secondRecord.CertificateNumber);
+      // Record Birth Record Identifier
+      Assert.Equal("2019UT48858", firstRecord.BirthRecordIdentifier);
       Assert.Equal(firstRecord.BirthRecordIdentifier, secondRecord.BirthRecordIdentifier);
-      Assert.Equal(firstRecord.Identifier, secondRecord.Identifier);
+      // Record State Local Identifier 1
+      Assert.Equal("000000000042", firstRecord.StateLocalIdentifier1);
+      Assert.Equal(firstRecord.StateLocalIdentifier1, secondRecord.StateLocalIdentifier1);
       // Date of Birth - Year
       Assert.Equal(2019, firstRecord.BirthYear);
       Assert.Equal(firstRecord.BirthYear, secondRecord.BirthYear);
@@ -778,8 +784,19 @@ namespace BFDR.Tests
     public void TestChildIdentifierSetters()
     {
       BirthRecord record = new BirthRecord();
-      // Record Identifier
-      record.Identifier = "87366";
+      // Record Identifiers
+      record.CertificateNumber = "87366";
+      Assert.Equal("87366", record.CertificateNumber);
+      Assert.Equal("0000XX087366", record.BirthRecordIdentifier);
+      Assert.Null(record.StateLocalIdentifier1);
+      record.StateLocalIdentifier1 = "0000033";
+      Assert.Equal("0000033", record.StateLocalIdentifier1);
+      record.BirthYear = 2020;
+      record.CertificateNumber = "767676";
+      Assert.Equal("2020XX767676", record.BirthRecordIdentifier);
+      record.BirthLocationJurisdiction = "WY";
+      record.CertificateNumber = "898989";
+      Assert.Equal("2020WY898989", record.BirthRecordIdentifier);
       // Infant Medical Record Number
       record.InfantMedicalRecordNumber = "9932734";
       Assert.Equal("9932734", record.InfantMedicalRecordNumber);
@@ -1159,7 +1176,12 @@ namespace BFDR.Tests
         }
         Assert.Equal(15, b2.FatherRace.Length);
     }
-
+    [Fact]
+    public void IdentifiersPresent()
+    {
+      Assert.Equal("100", FakeBirthRecord.Identifier);
+      Assert.Equal("123", FakeBirthRecord.StateLocalIdentifier1);
+    }
     [Fact]
     public void TestImportMotherBirthplace()
     {
@@ -1284,6 +1306,83 @@ namespace BFDR.Tests
         Assert.Equal("5", ije2.ATTEND);
         Assert.Equal("Birth Clerk", ije2.ATTEND_OTH_TXT.Trim());
     }  
+    [Fact]
+    public void PatientBirthDatePresent()
+    {
+      Assert.Equal(2023, FakeBirthRecord.BirthYear);
+      Assert.Equal(1, FakeBirthRecord.BirthMonth);
+      Assert.Equal(1, FakeBirthRecord.BirthDay);
+      Assert.Equal("2023-01-01", FakeBirthRecord.DateOfBirth);
+    }
+    [Fact]
+    public void ParentBirthDatesPresent()
+    {
+      Assert.Equal(1992, FakeBirthRecord.MotherBirthYear);
+      Assert.Equal(1, FakeBirthRecord.MotherBirthMonth);
+      Assert.Equal(12, FakeBirthRecord.MotherBirthDay);
+      Assert.Equal("1992-01-12", FakeBirthRecord.MotherDateOfBirth);
+      Assert.Equal(1990, FakeBirthRecord.FatherBirthYear );
+      Assert.Equal(9, FakeBirthRecord.FatherBirthMonth);
+      Assert.Equal(21, FakeBirthRecord.FatherBirthDay);
+      Assert.Equal("1990-09-21", FakeBirthRecord.FatherDateOfBirth);
+    }
+    [Fact]
+    public void ChildNamesPresent()
+    {
+      Assert.Equal("Alexander", FakeBirthRecord.ChildGivenNames[0]);
+      Assert.Equal("Arlo", FakeBirthRecord.ChildGivenNames[1]);
+      Assert.Equal("Adkins", FakeBirthRecord.ChildFamilyName);
+    }
+    [Fact]
+    public void MotherNamesPresent()
+    {
+      Assert.Equal("Xenia", FakeBirthRecord.MotherGivenNames[0]);
+      Assert.Equal("Adkins", FakeBirthRecord.MotherFamilyName);
+    }
+    [Fact]
+    public void BirthLocationPresent()
+    {
+      Assert.Equal("MA", FakeBirthRecord.BirthLocationJurisdiction);
+      Assert.Equal("123 Fake Street", FakeBirthRecord.PlaceOfBirth["addressLine1"]);
+      Assert.Equal("MA", FakeBirthRecord.PlaceOfBirth["addressState"]);
+      Assert.Equal("01101", FakeBirthRecord.PlaceOfBirth["addressZip"]);
+    }
+    [Fact]
+    public void PersonalIDsPresent()
+    {
+      Assert.Equal("7134703", FakeBirthRecord.InfantMedicalRecordNumber);
+      Assert.Equal("2286144", FakeBirthRecord.MotherMedicalRecordNumber);
+      Assert.Equal("133756482", FakeBirthRecord.MotherSocialSecurityNumber);
+    }
+    [Fact]
+    public void BirthDataPresent()
+    {
+      Assert.Null(FakeBirthRecord.SetOrder);
+      Assert.Null(FakeBirthRecord.Plurality);
+      Assert.True(FakeBirthRecord.NoCongenitalAnomaliesOfTheNewborn);
+      Assert.True(FakeBirthRecord.EpiduralOrSpinalAnesthesia );
+      Assert.True(FakeBirthRecord.AugmentationOfLabor);
+      Assert.True(FakeBirthRecord.NoSpecifiedAbnormalConditionsOfNewborn);
+      Assert.True(FakeBirthRecord.NoInfectionsPresentDuringPregnancy);
+      Assert.True(FakeBirthRecord.GestationalHypertension);
+      Assert.Equal("700000006", FakeBirthRecord.FinalRouteAndMethodOfDelivery["code"]);
+      Assert.True(FakeBirthRecord.NoObstetricProcedures);
+      // some negative cases
+      Assert.False(FakeBirthRecord.GestationalDiabetes);
+      Assert.False(FakeBirthRecord.ArtificialInsemination);
+    }
+
+    private string FixturePath(string filePath)
+        {
+            if (Path.IsPathRooted(filePath))
+            {
+                return filePath;
+            }
+            else
+            {
+                return Path.GetRelativePath(Directory.GetCurrentDirectory(), filePath);
+            }
+        }
 
     [Fact]
     public void SetAttendantAfterParse()

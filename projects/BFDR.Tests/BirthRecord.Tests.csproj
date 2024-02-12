@@ -17,6 +17,7 @@
     <ProjectReference Include="..\BFDR.Messaging\BFDRMessaging.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="fixtures/json/BirthRecordFake.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures/json/BasicBirthRecord.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures/json/RaceEthnicityCaseRecord.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures/json/RaceEthnicityCaseRecord2.json" CopyToOutputDirectory="PreserveNewest" />
