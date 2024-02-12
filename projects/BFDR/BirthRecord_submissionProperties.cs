@@ -822,7 +822,7 @@ namespace BFDR
                     return;
                 }
                 HumanName name = Father.Name.SingleOrDefault(n => n.Use == HumanName.NameUse.Official);
-                if (name != null) 
+                if (name != null)
                 {
                     string[] suffix = { value };
                     name.Suffix = suffix;
@@ -2639,7 +2639,7 @@ namespace BFDR
             {
                 if (ext.Extension.Any(
                     subExt => subExt.Url == VR.OtherExtensionURL.ParentRole &&
-                    (subExt.Value as CodeableConcept) != null && 
+                    (subExt.Value as CodeableConcept) != null &&
                     (subExt.Value as CodeableConcept).Coding.Any(code => code.Code.Equals(role))))
                 {
                     return true;
@@ -3373,10 +3373,9 @@ namespace BFDR
                               continue;
                             }
 
-                            // Todo Find conversion from FhirBoolean to bool
-                            string raceBool = ((FhirBoolean)component.Value).ToString();
+                            bool? raceBool = ((FhirBoolean)component.Value).Value;
 
-                            if (Convert.ToBoolean(raceBool))
+                            if (raceBool.Value)
                             {
                                 var race = Tuple.Create(raceCode, "Y");
                                 races.Add(race);
@@ -3845,10 +3844,9 @@ namespace BFDR
                               continue;
                             }
 
-                            // Todo Find conversion from FhirBoolean to bool
-                            string raceBool = ((FhirBoolean)component.Value).ToString();
+                            bool? raceBool = ((FhirBoolean)component.Value).Value;
 
-                            if (Convert.ToBoolean(raceBool))
+                            if (raceBool.Value)
                             {
                                 var race = Tuple.Create(raceCode, "Y");
                                 races.Add(race);
@@ -3911,6 +3909,273 @@ namespace BFDR
                 }
 
             }
+        }
+
+        private int? GetWeight(string code)
+        {
+            var entry = Bundle.Entry.Where(e => e.Resource is Observation obs && CodeableConceptToDict(obs.Code)["code"] == code).FirstOrDefault();
+            if (entry != null)
+            {
+                Observation observation = (Observation)entry.Resource;
+                return (int?)(observation?.Value as Hl7.Fhir.Model.Quantity)?.Value;
+            }
+            return null;
+        }
+
+        private Observation SetWeight(string code, int? value, string unit, string section, string subjectId)
+        {
+            var entry = Bundle.Entry.Where(e => e.Resource is Observation o && CodeableConceptToDict(o.Code)["code"] == code).FirstOrDefault();
+            if (!(entry?.Resource is Observation obs))
+            {
+                obs = new Observation
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Code = new CodeableConcept(VR.CodeSystems.LOINC, code),
+                    Subject = new ResourceReference($"urn:uuid:{subjectId}")
+                };
+                obs.Category.Add(new CodeableConcept(CodeSystems.ObservationCategory, "vital-signs"));
+                AddReferenceToComposition(obs.Id, section);
+                Bundle.AddResourceEntry(obs, "urn:uuid:" + obs.Id);
+            }
+            // Create an empty quantity if needed
+            if (obs.Value == null || obs.Value as Quantity == null)
+            {
+                obs.Value = new Hl7.Fhir.Model.Quantity();
+            }
+            // Set the properties of the value individually to preserve any existing obs.Value.Extension entries
+            if (value != null)
+            {
+                (obs.Value as Quantity).Value = (int)value;
+                (obs.Value as Quantity).Unit = unit;
+                (obs.Value as Quantity).Code = unit;
+            }
+            return obs;
+        }
+
+        /// <summary>Mother's Prepregnancy Weight.</summary>
+        /// <value>the mother's prepregnancy weight in whole pounds, or -1 if explicitly unknown, or null if never specified</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotherPrepregnancyWeight = 120;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother's Prepregancy Weight: {ExampleBirthRecord.MotherPrepregnancyWeight}");</para>
+        /// </example>
+        [Property("MotherPrepregnancyWeight", Property.Types.Int32, "Mother Prenatal", "Prepregnancy Weight.", false, BFDR.IGURL.ObservationMotherPrepregnancyWeight, true, 137)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='56077-1')", "")]
+        public int? MotherPrepregnancyWeight
+        {
+            // TODO replace codes with constants once BFDR value sets are autogenerated
+            get => GetWeight("56077-1");
+            set => SetWeight("56077-1", value, "lb_av", MOTHER_PRENATAL_SECTION, Mother.Id);
+        }
+
+        /// <summary>Mother's Weight at Delivery.</summary>
+        /// <value>the mother's weight at delivery in whole pounds, or -1 if explicitly unknown, or null if never specified</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotherWeightAtDelivery = 120;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother's Weight at Delivery: {ExampleBirthRecord.MotherWeightAtDelivery}");</para>
+        /// </example>
+        [Property("MotherWeightAtDelivery", Property.Types.Int32, "Mother Prenatal", "Weight at Delivery.", false, BFDR.IGURL.ObservationMotherDeliveryWeight, true, 139)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='69461-2')", "")]
+        public int? MotherWeightAtDelivery
+        {
+            // TODO replace codes with constants once BFDR value sets are autogenerated
+            get => GetWeight("69461-2");
+            set => SetWeight("69461-2", value, "lb_av", MOTHER_PRENATAL_SECTION, Mother.Id);
+        }
+
+        /// <summary>Birth Weight.</summary>
+        /// <value>the birth weight in grams, or -1 if explicitly unknown, or null if never specified</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.BirthWeight = 3200;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Birth Weight: {ExampleBirthRecord.BirthWeight}");</para>
+        /// </example>
+        [Property("BirthWeight", Property.Types.Int32, "Child Demographics", "Weight at Delivery.", false, BFDR.IGURL.ObservationBirthWeight, true, 201)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='8339-4')", "")]
+        public int? BirthWeight
+        {
+            // TODO replace codes with constants once BFDR value sets are autogenerated
+            get => GetWeight("8339-4");
+            set => SetWeight("8339-4", value, "g", NEWBORN_INFORMATION_SECTION, Child.Id);
+        }
+
+        private Dictionary<string, string> GetWeightEditFlag(string code)
+        {
+            var entry = Bundle.Entry.Where(e => e.Resource is Observation obs && CodeableConceptToDict(obs.Code)["code"] == code).FirstOrDefault();
+            if (entry != null)
+            {
+                Observation observation = (Observation)entry.Resource;
+                Extension extension = observation?.Value?.Extension.FirstOrDefault(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
+                if (extension != null && extension.Value != null && extension.Value.GetType() == typeof(CodeableConcept))
+                {
+                    return CodeableConceptToDict((CodeableConcept)extension.Value);
+                }
+            }
+            return EmptyCodeableDict();
+        }
+
+        private string GetWeightEditFlagHelper(string code)
+        {
+            Dictionary<string, string> editFlag = GetWeightEditFlag(code);
+            if (editFlag.ContainsKey("code"))
+            {
+                string flagCode = editFlag["code"];
+                if (!String.IsNullOrWhiteSpace(flagCode))
+                {
+                    return flagCode;
+                }
+            }
+            return null;
+        }
+
+        private void SetWeightEditFlag(string code, Dictionary<string, string> value, string section, string subjectId)
+        {
+            // TODO add validation of value once ValueSets.cs has been generated.
+            var entry = Bundle.Entry.Where(e => e.Resource is Observation o && CodeableConceptToDict(o.Code)["code"] == code).FirstOrDefault();
+            if (!(entry?.Resource is Observation obs))
+            {
+                obs = SetWeight(code, null, "", section, subjectId);
+            }
+
+            // If there's a value clear this extension in case it's previously set, otherwise set an empty value
+            if (obs.Value == null)
+            {
+                obs.Value = new CodeableConcept();
+            }
+            else
+            {
+                obs.Value.Extension.RemoveAll(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
+            }
+            Extension extension = new Extension(VRExtensionURLs.BypassEditFlag, DictToCodeableConcept(value));
+            obs.Value.Extension.Add(extension);
+        }
+
+        private void SetWeightEditFlagHelper(string code, string editFlag, string section, string subjectId)
+        {
+            // TODO add validation of editFlag and automate code system extraction once ValueSets.cs is available
+            if (String.IsNullOrEmpty(editFlag))
+            {
+                SetWeightEditFlag(code, EmptyCodeDict(), section, subjectId);
+                return;
+            }
+            Dictionary<string, string> dictionary = new Dictionary<string, string>
+            {
+                { "code", editFlag },
+                { "system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags" }
+            };
+            SetWeightEditFlag(code, dictionary, section, subjectId);
+        }
+
+        /// <summary>Mother's Prepregnancy Weight Edit Flag.</summary>
+        /// <value>edit flag for the mother's prepregnancy weight</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; edit = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>edit.Add("code", "0");</para>
+        /// <para>edit.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");</para>
+        /// <para>edit.Add("display", "Edit Passed");</para>
+        /// <para>ExampleBirthRecord.MotherPrepregnancyWeightEditFlag = route;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother's prepregnancy weight edit flag: {ExampleBirthRecord.MotherPrepregnancyWeightEditFlag}");</para>
+        /// </example>
+        [Property("MotherPrepregnancyWeightEditFlag", Property.Types.Dictionary, "Mother Prenatal", "Mother Prenatal, Weight at Delivery Edit Flag", true, IGURL.ObservationMotherPrepregnancyWeight, true, 138)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='56077-1')", "")]
+        public Dictionary<string, string> MotherPrepregnancyWeightEditFlag
+        {
+            get => GetWeightEditFlag("56077-1");
+            set => SetWeightEditFlag("56077-1", value, MOTHER_PRENATAL_SECTION, Mother.Id);
+        }
+
+        /// <summary>Mother's Prepregnancy Weight Edit Flag Helper.</summary>
+        /// <value>edit flag for the mother's prepregnancy weight</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotherPrepregnancyWeightEditFlagHelper = "0";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother's prepregnancy weight edit flag: {ExampleBirthRecord.MotherPrepregnancyWeightEditFlagHelper}");</para>
+        /// </example>
+        [Property("MotherWeightAtDeliveryEditFlagHelper", Property.Types.String, "Mother Prenatal", "Mother Prenatal, Weight at Delivery Edit Flag Helper", false, IGURL.ObservationMotherPrepregnancyWeight, true, 138)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='56077-1')", "")]
+        public string MotherPrepregnancyWeightEditFlagHelper
+        {
+            get => GetWeightEditFlagHelper("56077-1");
+            set => SetWeightEditFlagHelper("56077-1", value, MOTHER_PRENATAL_SECTION, Mother.Id);
+        }
+
+        /// <summary>Mother's Weight at Delivery Edit Flag.</summary>
+        /// <value>edit flag for the mother's weight at delivery</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; edit = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>edit.Add("code", "0");</para>
+        /// <para>edit.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");</para>
+        /// <para>edit.Add("display", "Edit Passed");</para>
+        /// <para>ExampleBirthRecord.MotherWeightAtDeliveryEditFlag = route;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother's weight at delivery edit flag: {ExampleBirthRecord.MotherWeightAtDeliveryEditFlag}");</para>
+        /// </example>
+        [Property("MotherWeightAtDeliveryEditFlag", Property.Types.Dictionary, "Mother Prenatal", "Mother Prenatal, Weight at Delivery Edit Flag", true, IGURL.ObservationMotherDeliveryWeight, true, 140)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='69461-2')", "")]
+        public Dictionary<string, string> MotherWeightAtDeliveryEditFlag
+        {
+            get => GetWeightEditFlag("69461-2");
+            set => SetWeightEditFlag("69461-2", value, MOTHER_PRENATAL_SECTION, Mother.Id);
+        }
+
+        /// <summary>Mother's Weight at Delivery Edit Flag Helper.</summary>
+        /// <value>edit flag for the mother's weight at delivery</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotherWeightAtDeliveryEditFlag = "0";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother's weight at delivery edit flag: {ExampleBirthRecord.MotherWeightAtDeliveryEditFlag}");</para>
+        /// </example>
+        [Property("MotherWeightAtDeliveryEditFlagHelper", Property.Types.String, "Mother Prenatal", "Mother Prenatal, Weight at Delivery Edit Flag Helper", false, IGURL.ObservationMotherDeliveryWeight, true, 140)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='69461-2')", "")]
+        public string MotherWeightAtDeliveryEditFlagHelper
+        {
+            get => GetWeightEditFlagHelper("69461-2");
+            set => SetWeightEditFlagHelper("69461-2", value, MOTHER_PRENATAL_SECTION, Mother.Id);
+        }
+
+        /// <summary>Birth Weight Edit Flag.</summary>
+        /// <value>edit flag for birth weight</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; edit = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>edit.Add("code", "0");</para>
+        /// <para>edit.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");</para>
+        /// <para>edit.Add("display", "Edit Passed");</para>
+        /// <para>ExampleBirthRecord.BirthWeightEditFlag = route;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Birth weight edit flag: {ExampleBirthRecord.BirthWeightEditFlag}");</para>
+        /// </example>
+        [Property("BirthWeightEditFlag", Property.Types.Dictionary, "Child Demographics", "Child Demographics, Birth Weight Edit Flag", true, IGURL.ObservationBirthWeight, true, 202)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='8339-4')", "")]
+        public Dictionary<string, string> BirthWeightEditFlag
+        {
+            get => GetWeightEditFlag("8339-4");
+            set => SetWeightEditFlag("8339-4", value, NEWBORN_INFORMATION_SECTION, Child.Id);
+        }
+
+        /// <summary>Birth Weight at Delivery Edit Flag Helper.</summary>
+        /// <value>edit flag for birth weight</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.BirthWeightEditFlagHelper = "0";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Birth weight edit flag: {ExampleBirthRecord.BirthWeightEditFlagHelper}");</para>
+        /// </example>
+        [Property("BirthWeightEditFlagHelper", Property.Types.String, "Child Demographics", "Child Demographics, Birth Weight Edit Flag Helper", false, IGURL.ObservationBirthWeight, true, 202)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='8339-4')", "")]
+        public string BirthWeightEditFlagHelper
+        {
+            get => GetWeightEditFlagHelper("8339-4");
+            set => SetWeightEditFlagHelper("8339-4", value, NEWBORN_INFORMATION_SECTION, Child.Id);
         }
 
 /// TODO: Required field in FHIR, needs BLANK placeholder
@@ -4167,12 +4432,12 @@ namespace BFDR
                     return;
                 }
                 else
-                { 
+                {
                     AttendantTitle = CodeableConceptToDict(new CodeableConcept(CodeSystems.NullFlavor_HL7_V3, "OTH", "Other", value));
                 }
             }
         }
-          
+
         private int? GetCigarettesSmoked(string code)
         {
             var entry = Bundle.Entry.Where(e => e.Resource is Observation obs && CodeableConceptToDict(obs.Code)["code"] == code).FirstOrDefault();
@@ -4270,6 +4535,166 @@ namespace BFDR
             // TODO update with constants once BFDR value sets are autogenerated
             get => GetCigarettesSmoked("64795-8");
             set => SetCigarettesSmoked("64795-8", value);
+        }
+
+        private Observation GetOccupationObservation(string role)
+        {
+            if (IsDictEmptyOrDefault(GetRoleCode(role)))
+            {
+                throw new System.ArgumentException($"Role '{role}' is not a member of the VR Role value set");
+            }
+            var entry = Bundle.Entry.Where(
+                e => e.Resource is Observation obs &&
+                CodeableConceptToDict(obs.Code)["code"] == "21843-8" &&
+                obs.Extension.Find(
+                    ext => ext.Url == VR.OtherExtensionURL.ParentRole &&
+                    CodeableConceptToDict(ext.Value as CodeableConcept)["code"] == role
+                ) != null).FirstOrDefault();
+
+            if (entry != null)
+            {
+                return entry.Resource as Observation;
+            }
+            return null;
+        }
+
+        private string GetOccupation(string role)
+        {
+            Observation obs = GetOccupationObservation(role);
+            if (obs != null)
+            {
+                return (obs.Value as CodeableConcept)?.Text;
+            }
+            return null;
+        }
+
+        private string GetIndustry(string role)
+        {
+            Observation obs = GetOccupationObservation(role);
+            if (obs != null)
+            {
+                var comp = obs.Component.Where(c => CodeableConceptToDict(c.Code)["code"] == "21844-6").FirstOrDefault();
+                if (comp != null)
+                {
+                    return (comp.Value as CodeableConcept)?.Text;
+                }
+            }
+            return null;
+        }
+
+        private Observation SetOccupation(string role, string value)
+        {
+            Observation obs = GetOccupationObservation(role);
+            if (obs == null)
+            {
+                obs = new Observation
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Code = new CodeableConcept(VR.CodeSystems.LOINC, "21843-8"),
+                };
+                Extension roleExt = new Extension(VR.OtherExtensionURL.ParentRole, new CodeableConcept(VR.CodeSystems.RoleCode_HL7_V3, role));
+                obs.Extension.Add(roleExt);
+                if (role == "MTH")
+                {
+                    obs.Subject = new ResourceReference($"urn:uuid:{Mother.Id}");
+                    AddReferenceToComposition(obs.Id, MOTHER_INFORMATION_SECTION);
+                }
+                else if (role == "FTH")
+                {
+                    obs.Subject = new ResourceReference($"urn:uuid:{Father.Id}");
+                    AddReferenceToComposition(obs.Id, FATHER_INFORMATION_SECTION);
+                }
+                obs.Focus.Add(new ResourceReference($"urn:uuid:{Child.Id}"));
+                Bundle.AddResourceEntry(obs, "urn:uuid:" + obs.Id);
+            }
+            obs.Value = new CodeableConcept
+            {
+                Text = value
+            };
+            return obs;
+        }
+
+        private void SetIndustry(string role, string value)
+        {
+            Observation obs = GetOccupationObservation(role) ?? SetOccupation(role, null);
+            var comp = obs.Component.Where(c => CodeableConceptToDict(c.Code)["code"] == "21844-6").FirstOrDefault();
+            if (comp == null)
+            {
+                comp = new Observation.ComponentComponent
+                {
+                    Code = new CodeableConcept(CodeSystems.LOINC, "21844-6")
+                };
+                obs.Component.Add(comp);
+            }
+            CodeableConcept cc = new CodeableConcept
+            {
+                Text = value
+            };
+            comp.Value = cc;
+        }
+
+        /// <summary>Occupation of Mother.</summary>
+        /// <value>the occupation of the mother as text</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotherOccupation = "scientist";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother's Occupation: {ExampleBirthRecord.MotherOccupation}");</para>
+        /// </example>
+        [Property("MotherOccupation", Property.Types.String, "Mother Information", "Occupation", false, VR.OtherIGURL.UsualWork, true, 282)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='21843-8')", "")]
+        public string MotherOccupation
+        {
+            get => GetOccupation("MTH");
+            set => SetOccupation("MTH", value);
+        }
+
+        /// <summary>Occupation of Father.</summary>
+        /// <value>the occupation of the father as text</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.FatherOccupation = "scientist";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Father's Occupation: {ExampleBirthRecord.FatherOccupation}");</para>
+        /// </example>
+        [Property("FatherOccupation", Property.Types.String, "Father Information", "Occupation", false, VR.OtherIGURL.UsualWork, true, 284)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='21843-8')", "")]
+        public string FatherOccupation
+        {
+            get => GetOccupation("FTH");
+            set => SetOccupation("FTH", value);
+        }
+
+        /// <summary>Industry of Mother.</summary>
+        /// <value>the industry of the mother as text</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotherIndustry = "public health";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother's Industry: {ExampleBirthRecord.MotherIndustry}");</para>
+        /// </example>
+        [Property("MotherIndustry", Property.Types.String, "Mother Information", "Industry", false, VR.OtherIGURL.UsualWork, true, 286)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='21843-8')", "")]
+        public string MotherIndustry
+        {
+            get => GetIndustry("MTH");
+            set => SetIndustry("MTH", value);
+        }
+
+        /// <summary>Industry of Father.</summary>
+        /// <value>the industry of the father as text</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.FatherIndustry = "public health";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Father's Industry: {ExampleBirthRecord.FatherIndustry}");</para>
+        /// </example>
+        [Property("FatherIndustry", Property.Types.String, "Father Information", "Industry", false, VR.OtherIGURL.UsualWork, true, 288)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='21843-8')", "")]
+        public string FatherIndustry
+        {
+            get => GetIndustry("FTH");
+            set => SetIndustry("FTH", value);
         }
     }
 }

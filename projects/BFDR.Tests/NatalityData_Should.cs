@@ -51,18 +51,18 @@ namespace BFDR.Tests
       // County of Birth | (CountyCodes) (CNTYO)
       Assert.Equal("467", ijeImported.CNTYO);
       // Plurality
-      // TODO --- 
+      // TODO ---
       // Set Order
       // TODO ---
       Assert.Equal("06", ijeImported.SORD);
       Assert.Equal(ijeImported.SORD, ijeConverted.SORD);
       Assert.Equal(6, br.SetOrder);
       // Plurality--Edit Flag
-      // TODO --- 
+      // TODO ---
       // Mother's Reported Age
-      // TODO --- 
+      // TODO ---
       // Father's Reported Age
-      // TODO --- 
+      // TODO ---
       // Child's First Name
       Assert.Equal("TestFirst".PadRight(50), ijeImported.KIDFNAME);
       Assert.Equal(ijeImported.KIDFNAME, ijeConverted.KIDFNAME);
@@ -310,7 +310,7 @@ namespace BFDR.Tests
       ije.PLUR = "  ";
       Assert.Equal("  ", ije.PLUR);
     }
-    
+
     [Fact]
     public void TestCongenitalAnomaliesOfTheNewborn()
     {
@@ -363,15 +363,15 @@ namespace BFDR.Tests
 
       ije.FBPLACD_ST_TER_C = "NH";
       ije.FBPLACE_CNT_C = "US";
-      
+
       ije.BPLACEC_ST_TER = "MA";
       ije.BPLACEC_CNT = "US";
-      
+
       Assert.Equal("NH", ije.FBPLACD_ST_TER_C);
       Assert.Equal("New Hampshire", ije.FBPLACE_ST_TER_TXT);
       Assert.Equal("US", ije.FBPLACE_CNT_C);
       Assert.Equal("United States", ije.FBPLACE_CNTRY_TXT);
-      
+
       Assert.Equal("MA", ije.BPLACEC_ST_TER);
       Assert.Equal("Massachusetts", ije.MBPLACE_ST_TER_TXT);
       Assert.Equal("US", ije.BPLACEC_CNT);
@@ -387,17 +387,17 @@ namespace BFDR.Tests
       ije.STATEC = "NH";
       ije.COUNTRYC = "US";
       ije.LIMITS = "U";
-      
+
       ije.MAIL_STATETXT = "Massachusetts";
       ije.MAIL_CNTRYTXT = "United States";
-      
+
       Assert.Equal("NH", ije.STATEC);
       Assert.Equal("New Hampshire", ije.STATETXT);
       Assert.Equal("US", ije.COUNTRYC);
       Assert.Equal("United States", ije.CNTRYTXT);
       Assert.Equal("U", ije.LIMITS);
       Assert.Equal("UNK", fhir.MotherResidenceWithinCityLimits["code"]);
-      
+
       // Assert.Equal("MA", fhir.MotherBilling["addressState"]);
       // Assert.Equal("Massachusetts", ije.MAIL_STATETXT);
       // Assert.Equal("US", fhir.MotherBilling["addressCountry"]);
@@ -599,6 +599,88 @@ namespace BFDR.Tests
       ije.CIGLN = "  ";
       Assert.Equal("  ", ije.CIGLN);
       Assert.Null(fhir.CigarettesPerDayInLastTrimester);
+    }
+
+    [Fact]
+    public void TestSetWeight()
+    {
+      BirthRecord fhir = new BirthRecord();
+      IJENatality ije = new IJENatality(fhir);
+      Assert.Equal("   ", ije.PWGT);
+      Assert.Null(fhir.MotherPrepregnancyWeight);
+      Assert.Null(fhir.MotherPrepregnancyWeightEditFlagHelper);
+      Assert.Equal("   ", ije.DWGT);
+      Assert.Null(fhir.MotherWeightAtDelivery);
+      Assert.Null(fhir.MotherWeightAtDeliveryEditFlagHelper);
+      Assert.Equal("    ", ije.BWG);
+      Assert.Null(fhir.BirthWeight);
+      Assert.Null(fhir.BirthWeightEditFlagHelper);
+      ije.PWGT = "095";
+      ije.PWGT_BYPASS = "1";
+      ije.DWGT_BYPASS = "0";
+      ije.DWGT = "120";
+      ije.BWG = "3200";
+      ije.BW_BYPASS = "2";
+      Assert.Equal("1", ije.PWGT_BYPASS);
+      Assert.Equal("095", ije.PWGT);
+      Assert.Equal("0", ije.DWGT_BYPASS);
+      Assert.Equal("120", ije.DWGT);
+      Assert.Equal("3200", ije.BWG);
+      Assert.Equal("2", ije.BW_BYPASS);
+      ije.PWGT = "999";
+      Assert.Equal("999", ije.PWGT);
+      Assert.Equal(-1, fhir.MotherPrepregnancyWeight);
+    }
+
+    [Fact]
+    public void TestSetOccupationAndIndustry()
+    {
+      BirthRecord fhir = new BirthRecord();
+      IJENatality ije = new IJENatality(fhir);
+      Assert.Null(fhir.MotherOccupation);
+      Assert.Null(ije.MOM_OC_T);
+      Assert.Null(fhir.FatherOccupation);
+      Assert.Null(ije.DAD_OC_T);
+      Assert.Null(fhir.MotherIndustry);
+      Assert.Null(ije.MOM_IN_T);
+      Assert.Null(fhir.FatherIndustry);
+      Assert.Null(ije.DAD_IN_T);
+      ije.MOM_OC_T = "scientist";
+      Assert.Equal("scientist", ije.MOM_OC_T);
+      Assert.Equal("scientist", fhir.MotherOccupation);
+      Assert.Null(fhir.MotherIndustry);
+      Assert.Null(ije.MOM_IN_T);
+      Assert.Null(fhir.FatherOccupation);
+      Assert.Null(ije.DAD_OC_T);
+      Assert.Null(fhir.FatherIndustry);
+      Assert.Null(ije.DAD_IN_T);
+      ije.MOM_IN_T = "public health";
+      Assert.Equal("scientist", ije.MOM_OC_T);
+      Assert.Equal("scientist", fhir.MotherOccupation);
+      Assert.Equal("public health", ije.MOM_IN_T);
+      Assert.Equal("public health", fhir.MotherIndustry);
+      Assert.Null(fhir.FatherOccupation);
+      Assert.Null(ije.DAD_OC_T);
+      Assert.Null(fhir.FatherIndustry);
+      Assert.Null(ije.DAD_IN_T);
+      ije.DAD_IN_T = "real estate";
+      Assert.Equal("scientist", ije.MOM_OC_T);
+      Assert.Equal("scientist", fhir.MotherOccupation);
+      Assert.Equal("public health", ije.MOM_IN_T);
+      Assert.Equal("public health", fhir.MotherIndustry);
+      Assert.Null(fhir.FatherOccupation);
+      Assert.Null(ije.DAD_OC_T);
+      Assert.Equal("real estate", ije.DAD_IN_T);
+      Assert.Equal("real estate", fhir.FatherIndustry);
+      ije.DAD_OC_T = "realtor";
+      Assert.Equal("realtor", ije.DAD_OC_T);
+      Assert.Equal("realtor", fhir.FatherOccupation);
+      Assert.Equal("real estate", ije.DAD_IN_T);
+      Assert.Equal("real estate", fhir.FatherIndustry);
+      Assert.Equal("scientist", ije.MOM_OC_T);
+      Assert.Equal("scientist", fhir.MotherOccupation);
+      Assert.Equal("public health", ije.MOM_IN_T);
+      Assert.Equal("public health", fhir.MotherIndustry);
     }
   }
 }
