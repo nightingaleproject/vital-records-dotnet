@@ -1176,12 +1176,14 @@ namespace BFDR.Tests
         }
         Assert.Equal(15, b2.FatherRace.Length);
     }
+
     [Fact]
     public void IdentifiersPresent()
     {
-      Assert.Equal("100", FakeBirthRecord.Identifier);
+      Assert.Equal("100", FakeBirthRecord.CertificateNumber);
       Assert.Equal("123", FakeBirthRecord.StateLocalIdentifier1);
     }
+
     [Fact]
     public void TestImportMotherBirthplace()
     {

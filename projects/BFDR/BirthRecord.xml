@@ -227,7 +227,6 @@
             </example>
         </member>
         <member name="P:BFDR.BirthRecord.MotherGivenNames">
-            TODO: should support father's name as well
             <summary>Mother's Legal Name - Given. Middle name should be the last entry.</summary>
             <value>the mother's name (first, etc., middle)</value>
             <example>
@@ -925,6 +924,8 @@
             </example>
         </member>
         <member name="P:BFDR.BirthRecord.FatherReportedAgeAtDelivery">
+            TODO: ethinicty/race component code still uses vrdr codesystem: http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs
+            should be http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component
             <summary>Father's Age at Delivery</summary>
             <value>the father's age at Delivery in years</value>
             <example>
@@ -959,8 +960,6 @@
             </example>
         </member>
         <member name="P:BFDR.BirthRecord.MotherEthnicity1">
-            TODO: ethinicty/race component code still uses vrdr codesystem: http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs
-            should be http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component
             <summary>Mother's Ethnicity Hispanic Mexican.</summary>
             <value>the mother's ethnicity. A Dictionary representing a code, containing the following key/value pairs:
             <para>"code" - the code</para>

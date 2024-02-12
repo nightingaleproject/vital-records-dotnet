@@ -9,11 +9,11 @@
   "identifier": {
     "extension": [
       {
-        "url": "http://hl7.org/fhir/us/bfdr/StructureDefinition/CertificateNumber",
+        "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/CertificateNumber",
         "valueString": "100"
       },
       {
-        "url": "http://hl7.org/fhir/us/bfdr/StructureDefinition/AuxiliaryStateIdentifier1",
+        "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/AuxiliaryStateIdentifier1",
         "valueString": "123"
       }
     ],
