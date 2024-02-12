@@ -1551,6 +1551,27 @@
             <para>Console.WriteLine($"Decedent Year of Birth: {ExampleDeathRecord.BirthYear}");</para>
             </example>
         </member>
+        <member name="P:VRDR.DeathRecord.PartialDateYearUrl">
+            <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Year</summary>
+        </member>
+        <member name="P:VRDR.DeathRecord.PartialDateMonthUrl">
+            <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Month</summary>
+        </member>
+        <member name="P:VRDR.DeathRecord.PartialDateDayUrl">
+            <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Day</summary>
+        </member>
+        <member name="P:VRDR.DeathRecord.PartialDateTimeTimeUrl">
+            <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Time</summary>
+        </member>
+        <member name="P:VRDR.DeathRecord.PartialDateUrl">
+            <summary>Overriden method that dictates which Extension URL to use for PartialDate</summary>
+        </member>
+        <member name="P:VRDR.DeathRecord.PartialDateTimeUrl">
+            <summary>Overriden method that dictates which Extension URL to use for PartialDateTime</summary>
+        </member>
+        <member name="P:VRDR.DeathRecord.LocationJurisdictionIdUrl">
+            <summary>Overriden method that dictates which Extension URL to use for LocationJurisdictionId</summary>
+        </member>
         <member name="P:VRDR.DeathRecord.BirthMonth">
             <summary>Decedent's Month of Birth.</summary>
             <value>the decedent's month of birth, or -1 if explicitly unknown, or null if never specified</value>

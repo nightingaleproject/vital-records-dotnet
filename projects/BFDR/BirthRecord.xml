@@ -81,13 +81,11 @@
         <member name="M:BFDR.BirthRecord.CreateInputRaceEthnicityObsFather">
             <summary> Create Father Input Race and Ethnicity </summary>
         </member>
-        <member name="P:BFDR.BirthRecord.CertificateNumber">
-            <summary>Birth Certificate Number.</summary>
         <member name="M:BFDR.BirthRecord.CreateAttendant">
             <summary>Create Attendant/Practitioner.</summary>
         </member>
-        <member name="P:BFDR.BirthRecord.Identifier">
-            <summary>Birth Record Identifier, Birth Certificate Number.</summary>
+        <member name="P:BFDR.BirthRecord.CertificateNumber">
+            <summary>Birth Certificate Number.</summary>
             <value>a record identification string.</value>
             <example>
             <para>// Setter:</para>

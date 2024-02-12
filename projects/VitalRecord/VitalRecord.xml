@@ -5261,6 +5261,12 @@
         <member name="P:VR.VitalRecord.PartialDateTimeUrl">
             <summary>Overrideable method that dictates which Extension URL to use for PartialDateTime</summary>
         </member>
+        <member name="P:VR.VitalRecord.PartialDateUrl">
+            <summary>Overrideable method that dictates which Extension URL to use for PartialDate</summary>
+        </member>
+        <member name="P:VR.VitalRecord.LocationJurisdictionIdUrl">
+            <summary>Overrideable method that dictates which Extension URL to use for LocationJurisdictionId</summary>
+        </member>
         <member name="M:VR.VitalRecord.GetDateFragmentOrPartialDate(Hl7.Fhir.Model.Element,System.String)">
             <summary>Getter helper for anything that can have a regular FHIR date/time or a PartialDateTime extension, allowing a particular date
             field (year, month, or day) to be read from either the value or the extension</summary>

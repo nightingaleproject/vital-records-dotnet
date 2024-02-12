@@ -336,16 +336,16 @@ namespace BFDR
                 }
                 // If the date is incomplete, then the birth time should be included in the partialDateTime Time extension.
                 Child.BirthDateElement.RemoveExtension(VR.ExtensionURL.PatientBirthTime);
-                if (!Child.BirthDateElement.Extension.Any(ext => ext.Url == VRExtensionURLs.PartialDateTimeVR))
+                if (!Child.BirthDateElement.Extension.Any(ext => ext.Url == VRExtensionURLs.PartialDateTime))
                 {
-                    Child.BirthDateElement.SetExtension(VRExtensionURLs.PartialDateTimeVR, new Extension());
+                    Child.BirthDateElement.SetExtension(VRExtensionURLs.PartialDateTime, new Extension());
                 }
-                if (!Child.BirthDateElement.Extension.Find(ext => ext.Url == VRExtensionURLs.PartialDateTimeVR).Extension.Any(ext => ext.Url == PartialDateTimeTimeUrl))
+                if (!Child.BirthDateElement.Extension.Find(ext => ext.Url == VRExtensionURLs.PartialDateTime).Extension.Any(ext => ext.Url == PartialDateTimeTimeUrl))
                 {
-                    Child.BirthDateElement.GetExtension(VRExtensionURLs.PartialDateTimeVR).SetExtension(PartialDateTimeTimeUrl, new Extension());
+                    Child.BirthDateElement.GetExtension(VRExtensionURLs.PartialDateTime).SetExtension(PartialDateTimeTimeUrl, new Extension());
                 }
                 // Child.BirthDateElement.GetExtension(VRExtensionURLs.PartialDateTimeVR).SetExtension(PartialDateTimeTimeUrl, new Time(value));
-                SetPartialTime(Child.BirthDateElement.GetExtension(VRExtensionURLs.PartialDateTimeVR), value);
+                SetPartialTime(Child.BirthDateElement.GetExtension(VRExtensionURLs.PartialDateTime), value);
             }
         }
 
