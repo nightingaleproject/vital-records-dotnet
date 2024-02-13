@@ -5559,7 +5559,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Mother transferred: {ExampleBirthRecord.MotherTransferred}");</para>
         /// </example>
-        [Property("MotherTransferred", Property.Types.String, "MotherTransferred", "MotherTransferred", false, VR.IGURL.Mother, true, 288)]
+        [Property("MotherTransferred", Property.Types.Dictionary, "MotherTransferred", "MotherTransferred", false, VR.IGURL.Mother, true, 288)]
         [FHIRPath("Bundle.entry.resource.where($this is Patient)", "hospitalization")]
         public Dictionary<string, string> MotherTransferred
         {
@@ -5576,6 +5576,292 @@ namespace BFDR
                 // TODO define CC
                 CodeableConcept admitSource = new CodeableConcept();
                 Mother.hospitalization = admitSource;
+            }
+        }
+
+        /// <summary>Mother Transferred Helper</summary>
+        /// <value>Mother transferred helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotherTransferredHelper = "hosp-trans";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother transferred: {ExampleBirthRecord.MotherTransferredHelper}");</para>
+        /// </example>
+        [Property("MotherTransferred", Property.Types.String, "MotherTransferred", "MotherTransferred", false, VR.IGURL.Mother, true, 288)]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient)", "hospitalization")]
+        public Dictionary<string, string> MotherTransferredHelper
+        {
+            get
+            {
+                if (MotherTransferred.ContainsKey("code"))
+                {
+                    string code = MotherTransferred["code"];
+                    if (code == "OTH")
+                    {
+                        if (MotherTransferred.ContainsKey("text") && !String.IsNullOrWhiteSpace(MotherTransferred["text"]))
+                        {
+                            return (MotherTransferred["text"]);
+                        }
+                    }
+                }
+                return null;
+            }
+            set
+            {
+                if (String.IsNullOrWhiteSpace(value))
+                {
+                    // do nothing
+                    return;
+                }
+                else
+                {
+                    // TODO update this value set to http://hl7.org/fhir/us/core/ValueSet/us-core-discharge-disposition
+                    MotherTransferred = CodeableConceptToDict(new CodeableConcept(CodeSystems.NullFlavor_HL7_V3, "OTH", "Other", value));
+                }
+            }
+        }
+
+        /// <summary>Infant Living</summary>
+        /// <value>Infant Living</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.InfantLiving = true;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother transferred: {ExampleBirthRecord.MotherTransferred}");</para>
+        /// </example>
+        [Property("InfantLiving", Property.Types.Bool, "InfantLiving", "InfantLiving", false, VR.IGURL.ObservationInfantLiving, true, 288)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='73757-7')", "")]
+        public bool InfantLiving
+        {
+            get
+            {
+                Observation obs;
+                var entry = Bundle.Entry.Where(
+                    e => e.Resource is Observation obs &&
+                    CodeableConceptToDict(obs.Code)["code"] == "73757-7").FirstOrDefault();
+
+                if (entry != null)
+                {
+                    obs = entry.Resource as Observation;
+                    return obs.Value as bool;
+                }
+                return null;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    return;
+                }
+                Observation obs;
+                var entry = Bundle.Entry.Where(
+                    e => e.Resource is Observation obs &&
+                    CodeableConceptToDict(obs.Code)["code"] == "73757-7").FirstOrDefault();
+
+                if (entry != null)
+                {
+                    obs = entry.Resource as Observation;
+                    obs.Value = value;
+                }
+                else
+                {
+
+                    obs = new Observation
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        Code = new CodeableConcept(VR.CodeSystems.LOINC, "73757-7"),
+                    };
+                    obs.Subject.Add(new ResourceReference($"urn:uuid:{Child.Id}"));
+                    Bundle.AddResourceEntry(obs, "urn:uuid:" + obs.Id);
+                    
+                    obs.Value = value;
+                }
+            }
+        }
+
+        /// <summary>Infant Transferred</summary>
+        /// <value>Infant transferred</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.InfantTransferred = "hosp-trans";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Infant transferred: {ExampleBirthRecord.InfantTransferred}");</para>
+        /// </example>
+        [Property("InfantTransferred", Property.Types.Dictionary, "InfantTransferred", "InfantTransferred", false, VR.IGURL.EncounterBirth, true, 288)]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient)", "hospitalization")]
+        public Dictionary<string, string> InfantTransferred
+        {
+            get
+            {
+                return Encounter?.hospitalization?.dischargeDisposition?;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    return;
+                }
+                // TODO define CC
+                CodeableConcept dischargeDisposition = new CodeableConcept();
+                Encounter.hospitalization = dischargeDisposition;
+            }
+        }
+
+        /// <summary>Infant Transferred Helper</summary>
+        /// <value>Infant transferred helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.InfantTransferredHelper = "hosp-trans";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Infant transferred helper: {ExampleBirthRecord.InfantTransferredHelper}");</para>
+        /// </example>
+        [Property("InfantTransferred", Property.Types.String, "InfantTransferred", "InfantTransferred", false, VR.IGURL.EncounterBirth, true, 288)]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient)", "hospitalization")]
+        public string InfantTransferredHelper
+        {
+            get
+            {
+                if (InfantTransferred.ContainsKey("code"))
+                {
+                    string code = InfantTransferred["code"];
+                    if (code == "OTH")
+                    {
+                        if (InfantTransferred.ContainsKey("text") && !String.IsNullOrWhiteSpace(InfantTransferred["text"]))
+                        {
+                            return (InfantTransferred["text"]);
+                        }
+                    }
+                }
+                return null;
+            }
+            set
+            {
+                if (String.IsNullOrWhiteSpace(value))
+                {
+                    // do nothing
+                    return;
+                }
+                else
+                {
+                    // TODO update this value set to http://hl7.org/fhir/us/core/ValueSet/us-core-discharge-disposition
+                    InfantTransferred = CodeableConceptToDict(new CodeableConcept(CodeSystems.NullFlavor_HL7_V3, "OTH", "Other", value));
+                }
+            }
+        }
+
+        /// <summary>Number Live Born</summary>
+        /// <value>Number of live born</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.NumberLiveBorn = 1;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Number of live born: {ExampleBirthRecord.NumberLiveBorn}");</para>
+        /// </example>
+        [Property("NumberLiveBorn", Property.Types.Integer, "NumberLiveBorn", "NumberLiveBorn", false, VR.IGURL.ObservationNumberLiveBirthsThisDelivery, true, 288)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='73773-4')", "")]
+        public int? NumberLiveBorn
+        {
+            get
+            {
+                Observation obs;
+                var entry = Bundle.Entry.Where(
+                    e => e.Resource is Observation obs &&
+                    CodeableConceptToDict(obs.Code)["code"] == "73773-4").FirstOrDefault();
+
+                if (entry != null)
+                {
+                    obs = entry.Resource as Observation;
+                    return obs.Value;
+                }
+                return null;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    return;
+                }
+                Observation obs;
+                var entry = Bundle.Entry.Where(
+                    e => e.Resource is Observation obs &&
+                    CodeableConceptToDict(obs.Code)["code"] == "73773-4").FirstOrDefault();
+
+                if (entry != null)
+                {
+                    obs = entry.Resource as Observation;
+                    obs.Value = value;
+                }
+                else
+                {
+
+                    obs = new Observation
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        Code = new CodeableConcept(VR.CodeSystems.LOINC, "73773-4"),
+                    };
+                    obs.Subject.Add(new ResourceReference($"urn:uuid:{Mother.Id}"));
+                    Bundle.AddResourceEntry(obs, "urn:uuid:" + obs.Id);
+                    
+                    obs.Value = value;
+                }
+            }
+        }
+
+        /// <summary>SSNRequested</summary>
+        /// <value>SSN requested</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.SSNRequested = true;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"SSN Requested: {ExampleBirthRecord.SSNRequested}");</para>
+        /// </example>
+        [Property("SSNRequested", Property.Types.Bool, "SSNRequested", "SSNRequested", false, VR.IGURL.ObservationSSNRequestedForChild, true, 288)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87295-2')", "")]
+        public bool SSNRequested
+        {
+            get
+            {
+                Observation obs;
+                var entry = Bundle.Entry.Where(
+                    e => e.Resource is Observation obs &&
+                    CodeableConceptToDict(obs.Code)["code"] == "87295-2").FirstOrDefault();
+
+                if (entry != null)
+                {
+                    obs = entry.Resource as Observation;
+                    return obs.Value as bool;
+                }
+                return null;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    return;
+                }
+                Observation obs;
+                var entry = Bundle.Entry.Where(
+                    e => e.Resource is Observation obs &&
+                    CodeableConceptToDict(obs.Code)["code"] == "87295-2").FirstOrDefault();
+
+                if (entry != null)
+                {
+                    obs = entry.Resource as Observation;
+                    obs.Value = value;
+                }
+                else
+                {
+
+                    obs = new Observation
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        Code = new CodeableConcept(VR.CodeSystems.LOINC, "87295-2"),
+                    };
+                    obs.Subject.Add(new ResourceReference($"urn:uuid:{Child.Id}"));
+                    Bundle.AddResourceEntry(obs, "urn:uuid:" + obs.Id);
+                    
+                    obs.Value = value;
+                }
             }
         }
     }
