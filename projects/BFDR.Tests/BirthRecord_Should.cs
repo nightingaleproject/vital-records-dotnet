@@ -1183,13 +1183,6 @@ namespace BFDR.Tests
       Assert.Equal("123", FakeBirthRecord.StateLocalIdentifier1);
     }
     [Fact]
-    public void IdentifiersPresent()
-    {
-      Assert.Equal("100", FakeBirthRecord.CertificateNumber);
-      Assert.Equal("123", FakeBirthRecord.StateLocalIdentifier1);
-    }
-
-    [Fact]
     public void TestImportMotherBirthplace()
     {
       // Test FHIR record import.
