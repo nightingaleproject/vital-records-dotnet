@@ -205,11 +205,11 @@ namespace BFDR
         {
             get
             {
-                if (String.IsNullOrWhiteSpace(record?.Identifier))
+                if (String.IsNullOrWhiteSpace(record?.CertificateNumber))
                 {
                     return "".PadLeft(6, '0');
                 }
-                string id_str = record.Identifier;
+                string id_str = record.CertificateNumber;
                 if (id_str.Length > 6)
                 {
                     id_str = id_str.Substring(id_str.Length - 6);
@@ -220,7 +220,7 @@ namespace BFDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    RightJustifiedZeroed_Set("FILENO", "Identifier", value);
+                    RightJustifiedZeroed_Set("FILENO", "CertificateNumber", value.Trim());
                 }
             }
         }
@@ -246,12 +246,23 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                if (String.IsNullOrWhiteSpace(record?.StateLocalIdentifier1))
+                {
+                    return "".PadLeft(12, '0');
+                }
+                string auxNo = record.StateLocalIdentifier1;
+                if (auxNo.Length > 12)
+                {
+                    auxNo = auxNo.Substring(auxNo.Length - 12);
+                }
+                return auxNo.PadLeft(12, '0');
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    RightJustifiedZeroed_Set("AUXNO", "StateLocalIdentifier1", value.Trim());
+                }
             }
         }
 
@@ -320,12 +331,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return Dictionary_Geo_Get("CNTYO", "PlaceOfBirth", "address", "countyC", true);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Dictionary_Geo_Set("CNTYO", "PlaceOfBirth", "address", "countyC", true, value);
+                }
             }
         }
 
@@ -335,12 +348,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return Get_MappingFHIRToIJE(BFDR.Mappings.BirthDeliveryOccurred.FHIRToIJE, "BirthPhysicalLocation", "BPLACE");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                Set_MappingIJEToFHIR(BFDR.Mappings.BirthDeliveryOccurred.IJEToFHIR, "BPLACE", "BirthPhysicalLocation", value);
             }
         }
 
@@ -4315,12 +4327,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return record.MotherOccupation;
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                record.MotherOccupation = value;
             }
         }
 
@@ -4330,12 +4341,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // Not implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // Not implemented in FHIR
             }
         }
 
@@ -4345,12 +4356,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return record.FatherOccupation;
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                record.FatherOccupation = value;
             }
         }
 
@@ -4360,12 +4370,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // Not implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // Not implemented in FHIR
             }
         }
 
@@ -4375,12 +4385,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return record.MotherIndustry;
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                record.MotherIndustry = value;
             }
         }
 
@@ -4390,12 +4399,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // Not implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // Not implemented in FHIR
             }
         }
 
@@ -4405,12 +4414,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return record.FatherIndustry;
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                record.FatherIndustry = value;
             }
         }
 
@@ -4420,12 +4428,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // Not implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // Not implemented in FHIR
             }
         }
 

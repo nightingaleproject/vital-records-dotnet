@@ -9,7 +9,7 @@ namespace BFDR.Tests
   public class NatalityData_Should
   {
     [Fact]
-    public void TestPatientChildVitalRecordProperties()
+    public void TestImportPatientChildVitalRecordProperties()
     {
       // Test IJE import.
       IJENatality ijeImported = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/BasicBirthRecord.ije")), true);
@@ -49,7 +49,7 @@ namespace BFDR.Tests
       Assert.Equal(ijeImported.IDOB_YR + "-" + ijeImported.IDOB_MO + "-" + ijeImported.IDOB_DY, br.DateOfBirth);
       Assert.Equal("2023-11-25", br.DateOfBirth);
       // County of Birth | (CountyCodes) (CNTYO)
-      // TODO ---
+      Assert.Equal("467", ijeImported.CNTYO);
       // Plurality
       // TODO ---
       // Set Order
@@ -91,6 +91,16 @@ namespace BFDR.Tests
       Assert.Equal("aaabbbcccdddeee".PadRight(15), ijeImported.INF_MED_REC_NUM);
       Assert.Equal(ijeImported.INF_MED_REC_NUM, ijeConverted.INF_MED_REC_NUM);
       Assert.Equal("aaabbbcccdddeee", br.InfantMedicalRecordNumber);
+    }
+
+    [Fact]
+    public void TestSetPatientChildVitalRecordProperties()
+    {
+      IJENatality ije = new()
+      {
+          CNTYO = "635"
+      };
+      Assert.Equal("635", ije.CNTYO);
     }
 
     [Fact]
@@ -454,6 +464,126 @@ namespace BFDR.Tests
     }
 
     [Fact]
+    public void TestImportMotherBirthplace()
+    {
+      // Test IJE import.
+      IJENatality ijeImported = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/BasicBirthRecord.ije")), true);
+      // Test IJE conversion to BirthRecord.
+      BirthRecord br = ijeImported.ToRecord();
+      // Test IJE conversion from BirthRecord.
+      IJENatality ijeConverted = new(br);
+
+      // Country
+      Assert.Equal("US", ijeImported.BPLACEC_CNT);
+      Assert.Equal(ijeImported.BPLACEC_CNT, br.MotherPlaceOfBirth["addressCountry"]);
+      Assert.Equal(ijeImported.BPLACEC_CNT, ijeConverted.BPLACEC_CNT);
+      // State
+      Assert.Equal("CA", ijeImported.BPLACEC_ST_TER);
+      Assert.Equal(ijeImported.BPLACEC_ST_TER, br.MotherPlaceOfBirth["addressState"]);
+      Assert.Equal(ijeImported.BPLACEC_ST_TER, ijeConverted.BPLACEC_ST_TER);
+    }
+
+    [Fact]
+    public void TestSetMotherBirthplace()
+    {
+      // Manually set ije values.
+      IJENatality ije = new()
+      {
+          BPLACEC_CNT = "US",
+          BPLACEC_ST_TER = "FL"
+      };
+      // Test IJE conversion to BirthRecord.
+      BirthRecord br = ije.ToRecord();
+      // Test IJE conversion from BirthRecord.
+      IJENatality ijeConverted = new(br);
+
+      // Country
+      Assert.Equal("US", ije.BPLACEC_CNT);
+      Assert.Equal(ije.BPLACEC_CNT, br.MotherPlaceOfBirth["addressCountry"]);
+      Assert.Equal(ije.BPLACEC_CNT, ijeConverted.BPLACEC_CNT);
+      ije.BPLACEC_CNT = "AE";
+      Assert.Equal("AE", ije.BPLACEC_CNT);
+      // State
+      Assert.Equal("FL", ije.BPLACEC_ST_TER);
+      Assert.Equal(ije.BPLACEC_ST_TER, br.MotherPlaceOfBirth["addressState"]);
+      Assert.Equal(ije.BPLACEC_ST_TER, ijeConverted.BPLACEC_ST_TER);
+      ije.BPLACEC_ST_TER = "AL";
+      Assert.Equal("AL", ije.BPLACEC_ST_TER);
+    }
+
+    [Fact]
+    public void TestSetBirthPlaceType()
+    {
+      // Manually set ije values.
+      IJENatality ije = new()
+      {
+          BPLACE = "1"
+      };
+      Assert.Equal("1", ije.BPLACE);
+      Assert.Equal("22232009", ije.ToRecord().BirthPhysicalLocation["code"]);
+      Assert.Equal("Hospital", ije.ToRecord().BirthPhysicalLocation["display"]);
+      Assert.Equal("http://snomed.info/sct", ije.ToRecord().BirthPhysicalLocation["system"]);
+
+      ije.BPLACE = "3";
+      Assert.Equal("3", ije.BPLACE);
+      Assert.Equal("408839006", ije.ToRecord().BirthPhysicalLocation["code"]);
+      Assert.Equal("Planned home birth", ije.ToRecord().BirthPhysicalLocation["display"]);
+      Assert.Equal("http://snomed.info/sct", ije.ToRecord().BirthPhysicalLocation["system"]);
+    }
+
+    [Fact]
+    public void TestImportBirthPlaceType()
+    {
+      // Test IJE import.
+      IJENatality ijeImported = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/BasicBirthRecord.ije")), true);
+      // Test IJE conversion to BirthRecord.
+      BirthRecord br = ijeImported.ToRecord();
+      // Test IJE conversion from BirthRecord.
+      IJENatality ijeConverted = new(br);
+
+      Assert.Equal("2", ijeImported.BPLACE);
+      Assert.Equal(ijeImported.BPLACE, ijeConverted.BPLACE);
+      Assert.Equal("91154008", ijeImported.ToRecord().BirthPhysicalLocation["code"]);
+      Assert.Equal("Free-standing birthing center", ijeImported.ToRecord().BirthPhysicalLocation["display"]);
+      Assert.Equal("http://snomed.info/sct", ijeImported.ToRecord().BirthPhysicalLocation["system"]);
+    }
+    
+    public void TestImportIdentifiers()
+    {
+      IJENatality ijeImported = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/BasicBirthRecord.ije")), true);
+      BirthRecord br = ijeImported.ToRecord();
+      IJENatality ijeConverted = new(br);
+      // Certificate Number - FILENO
+      Assert.Equal("48858".PadLeft(6, '0'), ijeImported.FILENO);
+      Assert.Equal(ijeImported.FILENO, ijeConverted.FILENO);
+      Assert.Equal(ijeImported.FILENO, br.CertificateNumber.PadLeft(6, '0'));
+      // Auxiliary State file number - AUXNO
+      Assert.Equal("87".PadLeft(12, '0'), ijeImported.AUXNO);
+      Assert.Equal(ijeImported.AUXNO, ijeConverted.AUXNO);
+      Assert.Equal(ijeImported.AUXNO, br.StateLocalIdentifier1.PadLeft(12, '0'));
+      Assert.Equal(ijeImported.IDOB_YR + ijeImported.BSTATE + ijeImported.FILENO, br.BirthRecordIdentifier);
+      Assert.Equal("2023MA048858", br.BirthRecordIdentifier);
+    }
+
+    [Fact]
+    public void TestSetIdentifiers()
+    {
+      IJENatality ije = new IJENatality();
+      ije.FILENO = "765765";
+      Assert.Equal("765765".PadLeft(6, '0'), ije.FILENO);
+      ije.AUXNO = "32";
+      Assert.Equal("32".PadLeft(12, '0'), ije.AUXNO);
+      ije.IDOB_YR = "2010";
+      ije.BSTATE = "HI";
+      ije.FILENO = "897897";
+      Assert.Equal("897897".PadLeft(6, '0'), ije.FILENO);
+      BirthRecord br = ije.ToRecord();
+      Assert.Equal(ije.FILENO, br.CertificateNumber.PadLeft(6, '0'));
+      Assert.Equal(ije.AUXNO, br.StateLocalIdentifier1.PadLeft(12, '0'));
+      Assert.Equal(ije.IDOB_YR + ije.BSTATE + ije.FILENO, br.BirthRecordIdentifier);
+      Assert.Equal("2010HI897897", br.BirthRecordIdentifier);
+    }
+
     public void TestSetSmoking()
     {
       BirthRecord fhir = new BirthRecord();
@@ -536,6 +666,57 @@ namespace BFDR.Tests
       ije.PWGT = "999";
       Assert.Equal("999", ije.PWGT);
       Assert.Equal(-1, fhir.MotherPrepregnancyWeight);
+    }
+
+    [Fact]
+    public void TestSetOccupationAndIndustry()
+    {
+      BirthRecord fhir = new BirthRecord();
+      IJENatality ije = new IJENatality(fhir);
+      Assert.Null(fhir.MotherOccupation);
+      Assert.Null(ije.MOM_OC_T);
+      Assert.Null(fhir.FatherOccupation);
+      Assert.Null(ije.DAD_OC_T);
+      Assert.Null(fhir.MotherIndustry);
+      Assert.Null(ije.MOM_IN_T);
+      Assert.Null(fhir.FatherIndustry);
+      Assert.Null(ije.DAD_IN_T);
+      ije.MOM_OC_T = "scientist";
+      Assert.Equal("scientist", ije.MOM_OC_T);
+      Assert.Equal("scientist", fhir.MotherOccupation);
+      Assert.Null(fhir.MotherIndustry);
+      Assert.Null(ije.MOM_IN_T);
+      Assert.Null(fhir.FatherOccupation);
+      Assert.Null(ije.DAD_OC_T);
+      Assert.Null(fhir.FatherIndustry);
+      Assert.Null(ije.DAD_IN_T);
+      ije.MOM_IN_T = "public health";
+      Assert.Equal("scientist", ije.MOM_OC_T);
+      Assert.Equal("scientist", fhir.MotherOccupation);
+      Assert.Equal("public health", ije.MOM_IN_T);
+      Assert.Equal("public health", fhir.MotherIndustry);
+      Assert.Null(fhir.FatherOccupation);
+      Assert.Null(ije.DAD_OC_T);
+      Assert.Null(fhir.FatherIndustry);
+      Assert.Null(ije.DAD_IN_T);
+      ije.DAD_IN_T = "real estate";
+      Assert.Equal("scientist", ije.MOM_OC_T);
+      Assert.Equal("scientist", fhir.MotherOccupation);
+      Assert.Equal("public health", ije.MOM_IN_T);
+      Assert.Equal("public health", fhir.MotherIndustry);
+      Assert.Null(fhir.FatherOccupation);
+      Assert.Null(ije.DAD_OC_T);
+      Assert.Equal("real estate", ije.DAD_IN_T);
+      Assert.Equal("real estate", fhir.FatherIndustry);
+      ije.DAD_OC_T = "realtor";
+      Assert.Equal("realtor", ije.DAD_OC_T);
+      Assert.Equal("realtor", fhir.FatherOccupation);
+      Assert.Equal("real estate", ije.DAD_IN_T);
+      Assert.Equal("real estate", fhir.FatherIndustry);
+      Assert.Equal("scientist", ije.MOM_OC_T);
+      Assert.Equal("scientist", fhir.MotherOccupation);
+      Assert.Equal("public health", ije.MOM_IN_T);
+      Assert.Equal("public health", fhir.MotherIndustry);
     }
   }
 }

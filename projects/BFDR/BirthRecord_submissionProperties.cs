@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Hl7.Fhir.Model;
 using VR;
 using Hl7.Fhir.Support;
+using static Hl7.Fhir.Model.Encounter;
 
 // BirthRecord_submissionProperties.cs
 // These fields are used primarily for submitting birth records to NCHS.
@@ -14,6 +15,11 @@ namespace BFDR
     /// Record. This class was designed to help consume and produce birth records that follow the
     /// HL7 FHIR Birth and Fetal Death Reporting Implementation Guide, as described at:
     /// TODO add link to BFDR IG
+    /// TODO BFDR STU2 has broken up its birth record bundles, the birth bundle has birthCertificateNumber + required birth compositions,
+    /// the fetal death bundle has fetalDeathReportNumber + required fetal death compositions,
+    /// the demographic bundle has a fileNumber + requiredCompositionCodedRaceAndEthnicity,
+    /// and the cause of death bundle has a fetalDeathReportNumber + required CompositionCodedCauseOfFetalDeath
+    /// TODO BFDR STU2 supports usual work and role extension
     /// </summary>
     public partial class BirthRecord
     {
@@ -23,7 +29,7 @@ namespace BFDR
         //
         /////////////////////////////////////////////////////////////////////////////////
 
-        /// <summary>Birth Record Identifier, Birth Certificate Number.</summary>
+        /// <summary>Birth Certificate Number.</summary>
         /// <value>a record identification string.</value>
         /// <example>
         /// <para>// Setter:</para>
@@ -31,15 +37,15 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Birth Certificate Number: {ExampleBirthRecord.Identifier}");</para>
         /// </example>
-        [Property("Identifier", Property.Types.String, "Birth Certification", "Birth Certificate Number.", true, IGURL.CertificateNumber, true, 3)]
+        [Property("Certificate Number", Property.Types.String, "Birth Certification", "Birth Certificate Number.", true, VR.IGURL.CertificateNumber, true, 3)]
         [FHIRPath("Bundle", "identifier")]
-        public string Identifier
+        public string CertificateNumber
         {
             get
             {
                 if (Bundle?.Identifier?.Extension != null)
                 {
-                    Extension ext = Bundle.Identifier.Extension.Find(ex => ex.Url == ExtensionURL.CertificateNumber);
+                    Extension ext = Bundle.Identifier.Extension.Find(ex => ex.Url == VR.ProfileURL.CertificateNumber);
                     if (ext?.Value != null)
                     {
                         return Convert.ToString(ext.Value);
@@ -49,10 +55,10 @@ namespace BFDR
             }
             set
             {
-                Bundle.Identifier.Extension.RemoveAll(ex => ex.Url == ExtensionURL.CertificateNumber);
+                Bundle.Identifier.Extension.RemoveAll(ex => ex.Url == VR.ProfileURL.CertificateNumber);
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Extension ext = new Extension(ExtensionURL.CertificateNumber, new FhirString(value));
+                    Extension ext = new Extension(VR.ProfileURL.CertificateNumber, new FhirString(value));
                     Bundle.Identifier.Extension.Add(ext);
                     UpdateBirthRecordIdentifier();
                 }
@@ -63,9 +69,9 @@ namespace BFDR
         private void UpdateBirthRecordIdentifier()
         {
             uint certificateNumber = 0;
-            if (Identifier != null)
+            if (CertificateNumber != null)
             {
-                UInt32.TryParse(Identifier, out certificateNumber);
+                UInt32.TryParse(CertificateNumber, out certificateNumber);
             }
             uint birthYear = 0;
             if (this.BirthYear != null)
@@ -81,7 +87,7 @@ namespace BFDR
             {
                 jurisdictionId = jurisdictionId.Trim().Substring(0, 2).ToUpper();
             }
-            this.BirthRecordIdentifier = $"{birthYear.ToString("D4")}{jurisdictionId}{certificateNumber.ToString("D6")}";
+            this.BirthRecordIdentifier = $"{birthYear:D4}{jurisdictionId}{certificateNumber:D6}";
 
         }
 
@@ -91,7 +97,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"NCHS identifier: {ExampleBirthRecord.BirthRecordIdentifier}");</para>
         /// </example>
-        [Property("Birth Record Identifier", Property.Types.String, "Birth Certification", "Birth Record identifier.", true, IGURL.CertificateNumber, true, 4)]
+        [Property("Birth Record Identifier", Property.Types.String, "Birth Certification", "Birth Record identifier.", true, IGURL.CertificateNumber, false, 4)]
         [FHIRPath("Bundle", "identifier")]
         public string BirthRecordIdentifier
         {
@@ -128,7 +134,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"State local identifier: {ExampleBirthRecord.StateLocalIdentifier1}");</para>
         /// </example>
-        [Property("State Local Identifier1", Property.Types.String, "Birth Certification", "State Local Identifier.", true, ProfileURL.CompositionProviderLiveBirthReport, true, 5)]
+        [Property("State Local Identifier1", Property.Types.String, "Birth Certification", "State Local Identifier.", true, VR.IGURL.AuxiliaryStateIdentifier1VitalRecords, true, 5)]
         [FHIRPath("Bundle", "identifier")]
         public string StateLocalIdentifier1
         {
@@ -136,7 +142,7 @@ namespace BFDR
             {
                 if (Bundle?.Identifier?.Extension != null)
                 {
-                    Extension ext = Bundle.Identifier.Extension.Find(ex => ex.Url == ExtensionURL.AuxiliaryStateIdentifier1);
+                    Extension ext = Bundle.Identifier.Extension.Find(ex => ex.Url == VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords);
                     if (ext?.Value != null)
                     {
                         return Convert.ToString(ext.Value);
@@ -146,10 +152,10 @@ namespace BFDR
             }
             set
             {
-                Bundle.Identifier.Extension.RemoveAll(ex => ex.Url == ExtensionURL.AuxiliaryStateIdentifier1);
+                Bundle.Identifier.Extension.RemoveAll(ex => ex.Url == VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords);
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Extension ext = new Extension(ExtensionURL.AuxiliaryStateIdentifier1, new FhirString(value));
+                    Extension ext = new Extension(VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords, new FhirString(value));
                     Bundle.Identifier.Extension.Add(ext);
                 }
             }
@@ -206,7 +212,7 @@ namespace BFDR
                 Child.BirthDateElement.RemoveExtension(VR.ExtensionURL.PatientBirthTime);
             }
             // Remove the now extraneous PartialDateTime.
-            Child.BirthDateElement.RemoveExtension(VRExtensionURLs.PartialDateTimeVR);
+            Child.BirthDateElement.RemoveExtension(VRExtensionURLs.PartialDateTime);
             return;
         }
 
@@ -223,7 +229,7 @@ namespace BFDR
         protected override string PartialDateTimeTimeUrl => VR.ExtensionURL.PartialDateTimeTimeVR;
 
         /// <summary>Overriden method that dictates which Extension URL to use for PartialDateTime</summary>
-        protected override string PartialDateTimeUrl => VRExtensionURLs.PartialDateTimeVR;
+        protected override string PartialDateTimeUrl => VRExtensionURLs.PartialDateTime;
 
         /// <summary>Child's Month of Birth.</summary>
         /// <value>the child's month of birth, or -1 if explicitly unknown, or null if never specified</value>
@@ -336,16 +342,16 @@ namespace BFDR
                 }
                 // If the date is incomplete, then the birth time should be included in the partialDateTime Time extension.
                 Child.BirthDateElement.RemoveExtension(VR.ExtensionURL.PatientBirthTime);
-                if (!Child.BirthDateElement.Extension.Any(ext => ext.Url == VRExtensionURLs.PartialDateTimeVR))
+                if (!Child.BirthDateElement.Extension.Any(ext => ext.Url == VRExtensionURLs.PartialDateTime))
                 {
-                    Child.BirthDateElement.SetExtension(VRExtensionURLs.PartialDateTimeVR, new Extension());
+                    Child.BirthDateElement.SetExtension(VRExtensionURLs.PartialDateTime, new Extension());
                 }
-                if (!Child.BirthDateElement.Extension.Find(ext => ext.Url == VRExtensionURLs.PartialDateTimeVR).Extension.Any(ext => ext.Url == PartialDateTimeTimeUrl))
+                if (!Child.BirthDateElement.Extension.Find(ext => ext.Url == VRExtensionURLs.PartialDateTime).Extension.Any(ext => ext.Url == PartialDateTimeTimeUrl))
                 {
-                    Child.BirthDateElement.GetExtension(VRExtensionURLs.PartialDateTimeVR).SetExtension(PartialDateTimeTimeUrl, new Extension());
+                    Child.BirthDateElement.GetExtension(VRExtensionURLs.PartialDateTime).SetExtension(PartialDateTimeTimeUrl, new Extension());
                 }
                 // Child.BirthDateElement.GetExtension(VRExtensionURLs.PartialDateTimeVR).SetExtension(PartialDateTimeTimeUrl, new Time(value));
-                SetPartialTime(Child.BirthDateElement.GetExtension(VRExtensionURLs.PartialDateTimeVR), value);
+                SetPartialTime(Child.BirthDateElement.GetExtension(VRExtensionURLs.PartialDateTime), value);
             }
         }
 
@@ -463,7 +469,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Sex at Time of Birth: {ExampleBirthRecord.BirthSexHelper}");</para>
         /// </example>
-        [Property("Sex At Birth Helper", Property.Types.String, "Child Demographics", "Child's Sex at Birth.", true, VR.IGURL.Child, true, 12)]
+        [Property("Sex At Birth Helper", Property.Types.String, "Child Demographics", "Child's Sex at Birth.", false, VR.IGURL.Child, true, 12)]
         [FHIRPath("Bundle.entry.resource.where($this is Patient).extension.where(url='" + OtherExtensionURL.BirthSex + "')", "")]
         public string BirthSexHelper
         {
@@ -734,7 +740,7 @@ namespace BFDR
         {
             get
             {
-                return Child?.Name?.Find(name => name.Use == HumanName.NameUse.Official)?.Suffix.First();
+                return Child?.Name?.Find(name => name.Use == HumanName.NameUse.Official)?.Suffix.FirstOrDefault();
             }
             set
             {
@@ -957,6 +963,7 @@ namespace BFDR
         [PropertyParam("addressLine2", "address, line two")]
         [PropertyParam("addressCity", "address, city")]
         [PropertyParam("addressCounty", "address, county")]
+        [PropertyParam("addressCountyC", "address, county code")]
         [PropertyParam("addressState", "address, state")]
         [PropertyParam("addressZip", "address, zip")]
         [PropertyParam("addressCountry", "address, country")]
@@ -970,6 +977,112 @@ namespace BFDR
             set
             {
                 SetPlaceOfBirth(Child, value);
+            }
+        }
+
+        /// <summary>Child's Place Of Birth Type.</summary>
+        /// <value>Place Where Birth Occurred, type of place or institution. A Dictionary representing a codeable concept of the physical location type:
+        /// <para>"code" - The code used to describe this concept.</para>
+        /// <para>"system" - The relevant code system.</para>
+        /// <para>"display" - The human readable version of this code.</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; locationType = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>locationType.Add("code", "22232009");</para>
+        /// <para>locationType.Add("system", "http://snomed.info/sct");</para>
+        /// <para>locationType.Add("display", "Hospital");</para>
+        /// <para>ExampleBirthRecord.BirthPhysicalLocation = locationType;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"The place type the child was born: {ExampleBirthRecord.BirthPhysicalLocation["code"]}");</para>
+        /// </example>
+        [Property("BirthPhysicalLocation", Property.Types.Dictionary, "BirthPhysicalLocation", "Birth Physical Location.", true, IGURL.EncounterBirth, true, 16)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Encounter)", "")]
+        public Dictionary<string, string> BirthPhysicalLocation
+        {
+            get
+            {
+                if (EncounterBirth == null)
+                {
+                    return EmptyCodeableDict();
+                }
+                return CodeableConceptToDict(EncounterBirth.Location.Select(loc => loc.PhysicalType).FirstOrDefault());
+            }
+            set
+            {
+                if (EncounterBirth == null)
+                {
+                    EncounterBirth = new Encounter()
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        Meta = new Meta()
+                    };
+                    EncounterBirth.Meta.Profile = new List<string>()
+                    {
+                        ProfileURL.EncounterBirth
+                    };
+                }
+                EncounterBirth.Location = new List<Hl7.Fhir.Model.Encounter.LocationComponent>();
+                LocationComponent location = new LocationComponent
+                {
+                    PhysicalType = DictToCodeableConcept(value)
+                };
+                EncounterBirth.Location.Add(location);
+            }
+        }
+
+        /// <summary>Child's Place Of Birth Type Helper</summary>
+        /// <value>Child's Place Of Birth Type Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.BirthPhysicalLocationHelper = "Hospital";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Child's Place Of Birth Type: {ExampleBirthRecord.BirthPhysicalLocationHelper}");</para>
+        /// </example>
+        [Property("BirthPhysicalLocationHelper", Property.Types.String, "BirthPhysicalLocationHelper", "Birth Physical Location Helper.", false, IGURL.EncounterBirth, true, 4)]
+        [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(meta.profile == " + IGURL.EncounterBirth + ")", "")]
+        public string BirthPhysicalLocationHelper
+        {
+            get
+            {
+                if (BirthPhysicalLocation.ContainsKey("code"))
+                {
+                    string code = BirthPhysicalLocation["code"];
+                    if (code == "OTH")
+                    {
+                        if (BirthPhysicalLocation.ContainsKey("text") && !String.IsNullOrWhiteSpace(BirthPhysicalLocation["text"]))
+                        {
+                            return BirthPhysicalLocation["text"];
+                        }
+                        return "Other";
+                    }
+                    else if (!String.IsNullOrWhiteSpace(code))
+                    {
+                        return code;
+                    }
+                }
+                return null;
+            }
+            set
+            {
+                if (String.IsNullOrWhiteSpace(value))
+                {
+                    // do nothing
+                    return;
+                }
+                if (!BFDR.Mappings.BirthDeliveryOccurred.FHIRToIJE.ContainsKey(value))
+                {
+                    // other
+                    BirthPhysicalLocation = CodeableConceptToDict(new CodeableConcept(CodeSystems.NullFlavor_HL7_V3, "OTH", "Other", value));
+                }
+                else
+                {
+                    // normal path
+                    SetCodeValue("BirthPhysicalLocation", value, BFDR.ValueSets.PlaceTypeOfBirth.Codes);
+                }
             }
         }
 
@@ -2767,7 +2880,8 @@ namespace BFDR
                 this.Father.BirthDateElement = ConvertToDate(value);
             }
         }
-
+        /// TODO: ethinicty/race component code still uses vrdr codesystem: http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs
+        /// should be http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component
         /// <summary>Father's Age at Delivery</summary>
         /// <value>the father's age at Delivery in years</value>
         /// <example>
@@ -2890,7 +3004,7 @@ namespace BFDR
                 {
                     Observation.ComponentComponent ethnicity = InputRaceAndEthnicityObsMother.Component.FirstOrDefault(c => c.Code.Coding[0].Code == NvssEthnicity.Mexican);
                     if (ethnicity != null && ethnicity.Value != null && ethnicity.Value as CodeableConcept != null)
-                    {
+                    {   
                         return CodeableConceptToDict((CodeableConcept)ethnicity.Value);
                     }
                 }
@@ -2914,7 +3028,7 @@ namespace BFDR
         /// <value>Mother's Ethnicity 1.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.EthnicityLevel = VRDR.ValueSets.YesNoUnknown.Yes;</para>
+        /// <para>ExampleBirthRecord.EthnicityLevel = VR.ValueSets.YesNoUnknown.Yes;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Mother's Ethnicity: {ExampleBirthRecord.MotherEthnicity1Helper}");</para>
         /// </example>
@@ -2993,7 +3107,7 @@ namespace BFDR
         /// <value>Mother's Ethnicity 2.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.EthnicityLevel = VRDR.ValueSets.YesNoUnknown.Yes;</para>
+        /// <para>ExampleBirthRecord.EthnicityLevel = VR.ValueSets.YesNoUnknown.Yes;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Mother's Ethnicity: {ExampleBirthRecord.MotherEthnicity2Helper}");</para>
         /// </example>
@@ -3072,7 +3186,7 @@ namespace BFDR
         /// <value>Mother's Ethnicity 3.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.EthnicityLevel = VRDR.ValueSets.YesNoUnknown.Yes;</para>
+        /// <para>ExampleBirthRecord.EthnicityLevel = VR.ValueSets.YesNoUnknown.Yes;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Mother's Ethnicity: {ExampleBirthRecord.MotherEthnicity3Helper}");</para>
         /// </example>
@@ -3152,7 +3266,7 @@ namespace BFDR
         /// <value>Mother's Ethnicity 4.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.EthnicityLevel = VRDR.ValueSets.YesNoUnknown.Yes;</para>
+        /// <para>ExampleBirthRecord.EthnicityLevel = VR.ValueSets.YesNoUnknown.Yes;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Mother's Ethnicity: {ExampleBirthRecord.MotherEthnicity4Helper}");</para>
         /// </example>
@@ -3385,7 +3499,7 @@ namespace BFDR
         /// <value>Father's Ethnicity 1.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.EthnicityLevel = VRDR.ValueSets.YesNoUnknown.Yes;</para>
+        /// <para>ExampleBirthRecord.EthnicityLevel = VR.ValueSets.YesNoUnknown.Yes;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Father's Ethnicity: {ExampleBirthRecord.FatherEthnicity1Helper}");</para>
         /// </example>
@@ -3464,7 +3578,7 @@ namespace BFDR
         /// <value>Father's Ethnicity 2.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.EthnicityLevel = VRDR.ValueSets.YesNoUnknown.Yes;</para>
+        /// <para>ExampleBirthRecord.EthnicityLevel = VR.ValueSets.YesNoUnknown.Yes;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Father's Ethnicity: {ExampleBirthRecord.FatherEthnicity2Helper}");</para>
         /// </example>
@@ -3543,7 +3657,7 @@ namespace BFDR
         /// <value>Father's Ethnicity 3.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.EthnicityLevel = VRDR.ValueSets.YesNoUnknown.Yes;</para>
+        /// <para>ExampleBirthRecord.EthnicityLevel = VR.ValueSets.YesNoUnknown.Yes;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Father's Ethnicity: {ExampleBirthRecord.FatherEthnicity3Helper}");</para>
         /// </example>
@@ -3623,7 +3737,7 @@ namespace BFDR
         /// <value>Father's Ethnicity 4.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.EthnicityLevel = VRDR.ValueSets.YesNoUnknown.Yes;</para>
+        /// <para>ExampleBirthRecord.EthnicityLevel = VR.ValueSets.YesNoUnknown.Yes;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Father's Ethnicity: {ExampleBirthRecord.FatherEthnicity4Helper}");</para>
         /// </example>
@@ -4128,7 +4242,7 @@ namespace BFDR
             {
                 if (Attendant != null && Attendant.Name != null)
                 {
-                    return Attendant.Name.First().Text;
+                    return Attendant.Name.FirstOrDefault()?.Text;
                 }
                 return null;
             }
@@ -4427,6 +4541,166 @@ namespace BFDR
             // TODO update with constants once BFDR value sets are autogenerated
             get => GetCigarettesSmoked("64795-8");
             set => SetCigarettesSmoked("64795-8", value);
+        }
+
+        private Observation GetOccupationObservation(string role)
+        {
+            if (IsDictEmptyOrDefault(GetRoleCode(role)))
+            {
+                throw new System.ArgumentException($"Role '{role}' is not a member of the VR Role value set");
+            }
+            var entry = Bundle.Entry.Where(
+                e => e.Resource is Observation obs &&
+                CodeableConceptToDict(obs.Code)["code"] == "21843-8" &&
+                obs.Extension.Find(
+                    ext => ext.Url == VR.OtherExtensionURL.ParentRole &&
+                    CodeableConceptToDict(ext.Value as CodeableConcept)["code"] == role
+                ) != null).FirstOrDefault();
+
+            if (entry != null)
+            {
+                return entry.Resource as Observation;
+            }
+            return null;
+        }
+
+        private string GetOccupation(string role)
+        {
+            Observation obs = GetOccupationObservation(role);
+            if (obs != null)
+            {
+                return (obs.Value as CodeableConcept)?.Text;
+            }
+            return null;
+        }
+
+        private string GetIndustry(string role)
+        {
+            Observation obs = GetOccupationObservation(role);
+            if (obs != null)
+            {
+                var comp = obs.Component.Where(c => CodeableConceptToDict(c.Code)["code"] == "21844-6").FirstOrDefault();
+                if (comp != null)
+                {
+                    return (comp.Value as CodeableConcept)?.Text;
+                }
+            }
+            return null;
+        }
+
+        private Observation SetOccupation(string role, string value)
+        {
+            Observation obs = GetOccupationObservation(role);
+            if (obs == null)
+            {
+                obs = new Observation
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Code = new CodeableConcept(VR.CodeSystems.LOINC, "21843-8"),
+                };
+                Extension roleExt = new Extension(VR.OtherExtensionURL.ParentRole, new CodeableConcept(VR.CodeSystems.RoleCode_HL7_V3, role));
+                obs.Extension.Add(roleExt);
+                if (role == "MTH")
+                {
+                    obs.Subject = new ResourceReference($"urn:uuid:{Mother.Id}");
+                    AddReferenceToComposition(obs.Id, MOTHER_INFORMATION_SECTION);
+                }
+                else if (role == "FTH")
+                {
+                    obs.Subject = new ResourceReference($"urn:uuid:{Father.Id}");
+                    AddReferenceToComposition(obs.Id, FATHER_INFORMATION_SECTION);
+                }
+                obs.Focus.Add(new ResourceReference($"urn:uuid:{Child.Id}"));
+                Bundle.AddResourceEntry(obs, "urn:uuid:" + obs.Id);
+            }
+            obs.Value = new CodeableConcept
+            {
+                Text = value
+            };
+            return obs;
+        }
+
+        private void SetIndustry(string role, string value)
+        {
+            Observation obs = GetOccupationObservation(role) ?? SetOccupation(role, null);
+            var comp = obs.Component.Where(c => CodeableConceptToDict(c.Code)["code"] == "21844-6").FirstOrDefault();
+            if (comp == null)
+            {
+                comp = new Observation.ComponentComponent
+                {
+                    Code = new CodeableConcept(CodeSystems.LOINC, "21844-6")
+                };
+                obs.Component.Add(comp);
+            }
+            CodeableConcept cc = new CodeableConcept
+            {
+                Text = value
+            };
+            comp.Value = cc;
+        }
+
+        /// <summary>Occupation of Mother.</summary>
+        /// <value>the occupation of the mother as text</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotherOccupation = "scientist";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother's Occupation: {ExampleBirthRecord.MotherOccupation}");</para>
+        /// </example>
+        [Property("MotherOccupation", Property.Types.String, "Mother Information", "Occupation", false, VR.OtherIGURL.UsualWork, true, 282)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='21843-8')", "")]
+        public string MotherOccupation
+        {
+            get => GetOccupation("MTH");
+            set => SetOccupation("MTH", value);
+        }
+
+        /// <summary>Occupation of Father.</summary>
+        /// <value>the occupation of the father as text</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.FatherOccupation = "scientist";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Father's Occupation: {ExampleBirthRecord.FatherOccupation}");</para>
+        /// </example>
+        [Property("FatherOccupation", Property.Types.String, "Father Information", "Occupation", false, VR.OtherIGURL.UsualWork, true, 284)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='21843-8')", "")]
+        public string FatherOccupation
+        {
+            get => GetOccupation("FTH");
+            set => SetOccupation("FTH", value);
+        }
+
+        /// <summary>Industry of Mother.</summary>
+        /// <value>the industry of the mother as text</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotherIndustry = "public health";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother's Industry: {ExampleBirthRecord.MotherIndustry}");</para>
+        /// </example>
+        [Property("MotherIndustry", Property.Types.String, "Mother Information", "Industry", false, VR.OtherIGURL.UsualWork, true, 286)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='21843-8')", "")]
+        public string MotherIndustry
+        {
+            get => GetIndustry("MTH");
+            set => SetIndustry("MTH", value);
+        }
+
+        /// <summary>Industry of Father.</summary>
+        /// <value>the industry of the father as text</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.FatherIndustry = "public health";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Father's Industry: {ExampleBirthRecord.FatherIndustry}");</para>
+        /// </example>
+        [Property("FatherIndustry", Property.Types.String, "Father Information", "Industry", false, VR.OtherIGURL.UsualWork, true, 288)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='21843-8')", "")]
+        public string FatherIndustry
+        {
+            get => GetIndustry("FTH");
+            set => SetIndustry("FTH", value);
         }
     }
 }
