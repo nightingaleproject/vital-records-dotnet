@@ -4904,7 +4904,7 @@ namespace BFDR
             get => GetObservationValueHelper();
             set => SetObservationValueHelper(value, VR.ValueSets.EditBypass01234.Codes);
         }
-        
+
         private Observation GetObservation(string code)
         {
             var entry = Bundle.Entry.Where(
@@ -5145,16 +5145,52 @@ namespace BFDR
         /// <para>Console.WriteLine($"Mother married during pregnancy: {ExampleBirthRecord.MotherMarriedDuringPregnancy}");</para>
         /// </example>
         [Property("MotherMarriedDuringPregnancy", Property.Types.Dictionary, "MotherMarriedDuringPregnancy", "MotherMarriedDuringPregnancy", false, BFDR.IGURL.ObservationMotherMarriedDuringPregnancy, true, 288)]
-        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='21843-8')", "")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87301-8')", "")]
         public Dictionary<string,string> MotherMarriedDuringPregnancy
         {
             get
             {
+                Observation obs;
+                var entry = Bundle.Entry.Where(
+                    e => e.Resource is Observation obs &&
+                    CodeableConceptToDict(obs.Code)["code"] == "87301-8").FirstOrDefault();
+
+                if (entry != null)
+                {
+                    obs = entry.Resource as Observation;
+                    return obs.Value as bool;
+                }
                 return null;
             }
             set
             {
-                return null;
+                if (value == null)
+                {
+                    return;
+                }
+                Observation obs;
+                var entry = Bundle.Entry.Where(
+                    e => e.Resource is Observation obs &&
+                    CodeableConceptToDict(obs.Code)["code"] == "87301-8").FirstOrDefault();
+
+                if (entry != null)
+                {
+                    obs = entry.Resource as Observation;
+                    obs.Value = DictToCodeableConcept(value);
+                }
+                else
+                {
+
+                    obs = new Observation
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        Code = new CodeableConcept(VR.CodeSystems.LOINC, "87301-8"),
+                    };
+                    obs.Subject.Add(new ResourceReference($"urn:uuid:{Mother.Id}"));
+                    Bundle.AddResourceEntry(obs, "urn:uuid:" + obs.Id);
+                    
+                    obs.Value = DictToCodeableConcept(value);
+                }
             }
         }
 
@@ -5383,6 +5419,7 @@ namespace BFDR
                 if (newDate != null)
                 {
                     this.Composition.DateElement = newDate;
+
                 }
             }
         }
@@ -5501,11 +5538,30 @@ namespace BFDR
         {
             get
             {
+                if (MotherMarriedDuringPregnancy.ContainsKey("code"))
+                {
+                    string code = MotherMarriedDuringPregnancy["code"];
+                    if (code == "OTH")
+                    {
+                        if (MotherMarriedDuringPregnancy.ContainsKey("text") && !String.IsNullOrWhiteSpace(MotherMarriedDuringPregnancy["text"]))
+                        {
+                            return (MotherMarriedDuringPregnancy["text"]);
+                        }
+                    }
+                }
                 return null;
             }
             set
             {
-                //TODO 
+                if (String.IsNullOrWhiteSpace(value))
+                {
+                    // do nothing
+                    return;
+                }
+                else
+                {
+                    MotherMarriedDuringPregnancy = CodeableConceptToDict(new CodeableConcept(CodeSystems.NullFlavor_HL7_V3, "OTH", "Other", value));
+                }
             }
         }
 
@@ -5523,10 +5579,48 @@ namespace BFDR
         {
             get
             {
+                Observation obs;
+                var entry = Bundle.Entry.Where(
+                    e => e.Resource is Observation obs &&
+                    CodeableConceptToDict(obs.Code)["code"] == "87302-6").FirstOrDefault();
+
+                if (entry != null)
+                {
+                    obs = entry.Resource as Observation;
+                    return obs.Value as bool;
+                }
                 return null;
             }
             set
-            {}
+            {
+                if (value == null)
+                {
+                    return;
+                }
+                Observation obs;
+                var entry = Bundle.Entry.Where(
+                    e => e.Resource is Observation obs &&
+                    CodeableConceptToDict(obs.Code)["code"] == "87302-6").FirstOrDefault();
+
+                if (entry != null)
+                {
+                    obs = entry.Resource as Observation;
+                    obs.Value = DictToCodeableConcept(value);
+                }
+                else
+                {
+
+                    obs = new Observation
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        Code = new CodeableConcept(VR.CodeSystems.LOINC, "87302-6"),
+                    };
+                    obs.Subject.Add(new ResourceReference($"urn:uuid:{Father.Id}"));
+                    Bundle.AddResourceEntry(obs, "urn:uuid:" + obs.Id);
+                    
+                    obs.Value = DictToCodeableConcept(value);
+                }
+            }
         }
 
         /// <summary>Paternity Acknowledgement Signed Helper</summary>
