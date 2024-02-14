@@ -9,7 +9,7 @@ on:
       - 'projects/BFDR/**'
       - 'projects/BFDR.CLI/**'
       - 'projects/BFDR.Messaging/**'
-      - 'projects/VRBFDRDR.Tests/**'
+      - 'projects/BFDR.Tests/**'
   pull_request:
     branches:
       - main
@@ -18,7 +18,7 @@ on:
       - 'projects/BFDR/**'
       - 'projects/BFDR.CLI/**'
       - 'projects/BFDR.Messaging/**'
-      - 'projects/VRBFDRDR.Tests/**'
+      - 'projects/BFDR.Tests/**'
   workflow_dispatch:
 
 jobs:
