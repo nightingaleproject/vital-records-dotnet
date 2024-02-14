@@ -19,6 +19,11 @@
             Record. This class was designed to help consume and produce birth records that follow the
             HL7 FHIR Birth and Fetal Death Reporting Implementation Guide, as described at:
             TODO add link to BFDR IG
+            TODO BFDR STU2 has broken up its birth record bundles, the birth bundle has birthCertificateNumber + required birth compositions,
+            the fetal death bundle has fetalDeathReportNumber + required fetal death compositions,
+            the demographic bundle has a fileNumber + requiredCompositionCodedRaceAndEthnicity,
+            and the cause of death bundle has a fetalDeathReportNumber + required CompositionCodedCauseOfFetalDeath
+            TODO BFDR STU2 supports usual work and role extension
             </summary>
         </member>
         <member name="M:BFDR.BirthRecord.#ctor">
@@ -60,6 +65,9 @@
         <member name="F:BFDR.BirthRecord.InputRaceAndEthnicityObsFather">
             <summary>The Father's Race and Ethnicity provided by Jurisdiction.</summary>
         </member>
+        <member name="F:BFDR.BirthRecord.EncounterBirth">
+            <summary>The encounter of the birth.</summary>
+        </member>
         <member name="F:BFDR.BirthRecord.RACE_ETHNICITY_PROFILE_MOTHER">
             <summary>Composition Section Constants</summary>
         </member>
@@ -84,8 +92,8 @@
         <member name="M:BFDR.BirthRecord.CreateAttendant">
             <summary>Create Attendant/Practitioner.</summary>
         </member>
-        <member name="P:BFDR.BirthRecord.Identifier">
-            <summary>Birth Record Identifier, Birth Certificate Number.</summary>
+        <member name="P:BFDR.BirthRecord.CertificateNumber">
+            <summary>Birth Certificate Number.</summary>
             <value>a record identification string.</value>
             <example>
             <para>// Setter:</para>
@@ -369,6 +377,34 @@
             <para>ExampleBirthRecord.PlaceOfBirth = address;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"State where child was born: {ExampleBirthRecord.PlaceOfBirth["placeOfBirthState"]}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.BirthPhysicalLocation">
+            <summary>Child's Place Of Birth Type.</summary>
+            <value>Place Where Birth Occurred, type of place or institution. A Dictionary representing a codeable concept of the physical location type:
+            <para>"code" - The code used to describe this concept.</para>
+            <para>"system" - The relevant code system.</para>
+            <para>"display" - The human readable version of this code.</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; locationType = new Dictionary&lt;string, string&gt;();</para>
+            <para>locationType.Add("code", "22232009");</para>
+            <para>locationType.Add("system", "http://snomed.info/sct");</para>
+            <para>locationType.Add("display", "Hospital");</para>
+            <para>ExampleBirthRecord.BirthPhysicalLocation = locationType;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"The place type the child was born: {ExampleBirthRecord.BirthPhysicalLocation["code"]}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.BirthPhysicalLocationHelper">
+            <summary>Child's Place Of Birth Type Helper</summary>
+            <value>Child's Place Of Birth Type Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.BirthPhysicalLocationHelper = "Hospital";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Child's Place Of Birth Type: {ExampleBirthRecord.BirthPhysicalLocationHelper}");</para>
             </example>
         </member>
         <member name="P:BFDR.BirthRecord.MotherPlaceOfBirth">
@@ -888,6 +924,8 @@
             </example>
         </member>
         <member name="P:BFDR.BirthRecord.FatherReportedAgeAtDelivery">
+            TODO: ethinicty/race component code still uses vrdr codesystem: http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs
+            should be http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component
             <summary>Father's Age at Delivery</summary>
             <value>the father's age at Delivery in years</value>
             <example>
@@ -944,7 +982,7 @@
             <value>Mother's Ethnicity 1.</value>
             <example>
             <para>// Setter:</para>
-            <para>ExampleBirthRecord.EthnicityLevel = VRDR.ValueSets.YesNoUnknown.Yes;</para>
+            <para>ExampleBirthRecord.EthnicityLevel = VR.ValueSets.YesNoUnknown.Yes;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Mother's Ethnicity: {ExampleBirthRecord.MotherEthnicity1Helper}");</para>
             </example>
@@ -972,7 +1010,7 @@
             <value>Mother's Ethnicity 2.</value>
             <example>
             <para>// Setter:</para>
-            <para>ExampleBirthRecord.EthnicityLevel = VRDR.ValueSets.YesNoUnknown.Yes;</para>
+            <para>ExampleBirthRecord.EthnicityLevel = VR.ValueSets.YesNoUnknown.Yes;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Mother's Ethnicity: {ExampleBirthRecord.MotherEthnicity2Helper}");</para>
             </example>
@@ -1000,7 +1038,7 @@
             <value>Mother's Ethnicity 3.</value>
             <example>
             <para>// Setter:</para>
-            <para>ExampleBirthRecord.EthnicityLevel = VRDR.ValueSets.YesNoUnknown.Yes;</para>
+            <para>ExampleBirthRecord.EthnicityLevel = VR.ValueSets.YesNoUnknown.Yes;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Mother's Ethnicity: {ExampleBirthRecord.MotherEthnicity3Helper}");</para>
             </example>
@@ -1028,7 +1066,7 @@
             <value>Mother's Ethnicity 4.</value>
             <example>
             <para>// Setter:</para>
-            <para>ExampleBirthRecord.EthnicityLevel = VRDR.ValueSets.YesNoUnknown.Yes;</para>
+            <para>ExampleBirthRecord.EthnicityLevel = VR.ValueSets.YesNoUnknown.Yes;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Mother's Ethnicity: {ExampleBirthRecord.MotherEthnicity4Helper}");</para>
             </example>
@@ -1081,7 +1119,7 @@
             <value>Father's Ethnicity 1.</value>
             <example>
             <para>// Setter:</para>
-            <para>ExampleBirthRecord.EthnicityLevel = VRDR.ValueSets.YesNoUnknown.Yes;</para>
+            <para>ExampleBirthRecord.EthnicityLevel = VR.ValueSets.YesNoUnknown.Yes;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Father's Ethnicity: {ExampleBirthRecord.FatherEthnicity1Helper}");</para>
             </example>
@@ -1109,7 +1147,7 @@
             <value>Father's Ethnicity 2.</value>
             <example>
             <para>// Setter:</para>
-            <para>ExampleBirthRecord.EthnicityLevel = VRDR.ValueSets.YesNoUnknown.Yes;</para>
+            <para>ExampleBirthRecord.EthnicityLevel = VR.ValueSets.YesNoUnknown.Yes;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Father's Ethnicity: {ExampleBirthRecord.FatherEthnicity2Helper}");</para>
             </example>
@@ -1137,7 +1175,7 @@
             <value>Father's Ethnicity 3.</value>
             <example>
             <para>// Setter:</para>
-            <para>ExampleBirthRecord.EthnicityLevel = VRDR.ValueSets.YesNoUnknown.Yes;</para>
+            <para>ExampleBirthRecord.EthnicityLevel = VR.ValueSets.YesNoUnknown.Yes;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Father's Ethnicity: {ExampleBirthRecord.FatherEthnicity3Helper}");</para>
             </example>
@@ -1165,7 +1203,7 @@
             <value>Father's Ethnicity 4.</value>
             <example>
             <para>// Setter:</para>
-            <para>ExampleBirthRecord.EthnicityLevel = VRDR.ValueSets.YesNoUnknown.Yes;</para>
+            <para>ExampleBirthRecord.EthnicityLevel = VR.ValueSets.YesNoUnknown.Yes;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Father's Ethnicity: {ExampleBirthRecord.FatherEthnicity4Helper}");</para>
             </example>
@@ -1408,6 +1446,46 @@
             <para>ExampleBirthRecord.CigarettesPerDayInLastTrimester = 20;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Cigarettes In Last Trimester: {ExampleBirthRecord.CigarettesPerDayInLastTrimester}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.MotherOccupation">
+            <summary>Occupation of Mother.</summary>
+            <value>the occupation of the mother as text</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherOccupation = "scientist";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's Occupation: {ExampleBirthRecord.MotherOccupation}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.FatherOccupation">
+            <summary>Occupation of Father.</summary>
+            <value>the occupation of the father as text</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.FatherOccupation = "scientist";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Father's Occupation: {ExampleBirthRecord.FatherOccupation}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.MotherIndustry">
+            <summary>Industry of Mother.</summary>
+            <value>the industry of the mother as text</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherIndustry = "public health";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's Industry: {ExampleBirthRecord.MotherIndustry}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.FatherIndustry">
+            <summary>Industry of Father.</summary>
+            <value>the industry of the father as text</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.FatherIndustry = "public health";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Father's Industry: {ExampleBirthRecord.FatherIndustry}");</para>
             </example>
         </member>
         <member name="T:BFDR.FHIRSubject">
@@ -3257,6 +3335,36 @@
             <summary> Other </summary>
         </member>
         <member name="F:BFDR.ValueSets.BirthSex.Unknown">
+            <summary> Unknown </summary>
+        </member>
+        <member name="T:BFDR.ValueSets.PlaceTypeOfBirth">
+            <summary> PlaceTypeOfBirth </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PlaceTypeOfBirth.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PlaceTypeOfBirth.Hospital">
+            <summary> Hospital </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PlaceTypeOfBirth.Free_Standing_Birthing_Center">
+            <summary> Free_Standing_Birthing_Center </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PlaceTypeOfBirth.Planned_Home_Birth">
+            <summary> Planned_Home_Birth </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PlaceTypeOfBirth.Unplanned_Home_Birth">
+            <summary> Unplanned_Home_Birth </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PlaceTypeOfBirth.Free_Standing_Clinic">
+            <summary> Free_Standing_Clinic </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PlaceTypeOfBirth.Unknown_If_Planned_Home_Birth">
+            <summary> Unknown_If_Planned_Home_Birth </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PlaceTypeOfBirth.Other">
+            <summary> Other </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PlaceTypeOfBirth.Unknown">
             <summary> Unknown </summary>
         </member>
     </members>

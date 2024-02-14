@@ -1,0 +1,383 @@
+{
+  "resourceType": "Bundle",
+  "id": "9022d58c-4217-41ff-8388-8a6836d0c1af",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/us/bfdr/StructureDefinition/BundleDocumentBFDR"
+    ]
+  },
+  "identifier": {
+    "extension": [
+      {
+        "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/CertificateNumber",
+        "valueString": "100"
+      },
+      {
+        "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/AuxiliaryStateIdentifier1",
+        "valueString": "123"
+      }
+    ],
+    "system": "http://nchs.cdc.gov/bfdr_id",
+    "value": "2023XX000100"
+  },
+  "type": "document",
+  "timestamp": "2024-01-25T14:07:12.516136-05:00",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:9b4b8a46-7659-41bf-8499-e3f1b1b32b28",
+      "resource": {
+        "resourceType": "Composition",
+        "id": "9b4b8a46-7659-41bf-8499-e3f1b1b32b28",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/bfdr/StructureDefinition/CompositionJurisdictionLiveBirthReport"
+          ]
+        },
+        "status": "final",
+        "type": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "71230-7",
+              "display": "Birth certificate"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:eb12d4fa-b109-4f9f-a32b-e3be13b33493"
+        },
+        "title": "Birth Certificate",
+        "attester": [
+          {
+            "mode": "legal"
+          }
+        ],
+        "event": [
+          {
+            "code": [
+              {
+                "coding": [
+                  {
+                    "system": "http://snomed.info/sct",
+                    "code": "103693007",
+                    "display": "Diagnostic procedure (procedure)"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "section": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "57075-4"
+                }
+              ]
+            },
+            "focus": {
+              "reference": "urn:uuid:eb12d4fa-b109-4f9f-a32b-e3be13b33493"
+            },
+            "entry": [
+              {
+                "reference": "urn:uuid:9d7b4de6-dc9f-4232-bb23-ed08170f8c2c"
+              },
+              {
+                "reference": "urn:uuid:54e5bd85-ec0a-4b98-9725-5d534767d0a9"
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "55752-0"
+                }
+              ]
+            },
+            "focus": {
+              "reference": "urn:uuid:af0aab9d-93e3-40eb-bde5-093b54b8ce5d"
+            },
+            "entry": [
+              {
+                "reference": "urn:uuid:275eeeca-27c5-4197-a314-5e813816aa9d"
+              },
+              {
+                "reference": "urn:uuid:a14df606-bd54-48ae-a06a-fe16a2ff3726"
+              },
+              {
+                "reference": "urn:uuid:470ad320-930d-45c9-9862-486ae00d3f62"
+              },
+              {
+                "reference": "urn:uuid:7e51c41c-68a4-46b9-91cd-2a0bd824d495"
+              },
+              {
+                "reference": "urn:uuid:7326765f-9689-43e4-8b11-322886f8747a"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:eb12d4fa-b109-4f9f-a32b-e3be13b33493",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "eb12d4fa-b109-4f9f-a32b-e3be13b33493",
+        "meta": {
+          "profile": [
+            "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Patient-child-vr.html"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
+            "valueString": "M"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/patient-birthPlace",
+            "valueAddress": {
+              "line": [
+                "123 Fake Street"
+              ],
+              "city": "Springfield",
+              "district": "Hampden",
+              "state": "MA",
+              "postalCode": "01101",
+              "country": "US"
+            }
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "MR",
+                  "display": "Medical Record Number"
+                }
+              ]
+            },
+            "value": "7134703"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Adkins",
+            "given": [
+              "Alexander",
+              "Arlo"
+            ]
+          }
+        ],
+        "birthDate": "2023-01-01",
+        "multipleBirthBoolean": false,
+        "_multipleBirthBoolean": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:af0aab9d-93e3-40eb-bde5-093b54b8ce5d",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "af0aab9d-93e3-40eb-bde5-093b54b8ce5d",
+        "meta": {
+          "profile": [
+            "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Patient-mother-vr.html"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "MR",
+                  "display": "Medical Record Number"
+                }
+              ]
+            },
+            "value": "2286144"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "SS",
+                  "display": "Social Security Number"
+                }
+              ]
+            },
+            "value": "133756482"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Adkins",
+            "given": [
+              "Xenia"
+            ]
+          }
+        ],
+        "birthDate": "1992-01-12"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:cb9e84e9-bbbe-4120-9166-100cde0dba9c",
+      "resource": {
+        "resourceType": "RelatedPerson",
+        "id": "cb9e84e9-bbbe-4120-9166-100cde0dba9c",
+        "meta": {
+          "profile": [
+            "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-RelatedPerson-father-natural-vr.html"
+          ]
+        },
+        "birthDate": "1990-09-21"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:275eeeca-27c5-4197-a314-5e813816aa9d",
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "275eeeca-27c5-4197-a314-5e813816aa9d",
+        "category": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "73813-8"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "18946005"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:af0aab9d-93e3-40eb-bde5-093b54b8ce5d"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:a14df606-bd54-48ae-a06a-fe16a2ff3726",
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "a14df606-bd54-48ae-a06a-fe16a2ff3726",
+        "category": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "73813-8"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "237001001"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:af0aab9d-93e3-40eb-bde5-093b54b8ce5d"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:470ad320-930d-45c9-9862-486ae00d3f62",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "470ad320-930d-45c9-9862-486ae00d3f62",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "73775-9"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "48194001"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:af0aab9d-93e3-40eb-bde5-093b54b8ce5d"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:7e51c41c-68a4-46b9-91cd-2a0bd824d495",
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "7e51c41c-68a4-46b9-91cd-2a0bd824d495",
+        "category": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "73762-7"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "700000006"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:af0aab9d-93e3-40eb-bde5-093b54b8ce5d"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:7326765f-9689-43e4-8b11-322886f8747a",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "7326765f-9689-43e4-8b11-322886f8747a",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "73814-6"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:af0aab9d-93e3-40eb-bde5-093b54b8ce5d"
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "260413007"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
