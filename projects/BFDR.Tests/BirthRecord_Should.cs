@@ -501,7 +501,7 @@ namespace BFDR.Tests
       record3.BirthTime = "12:36:00";
       Assert.Equal("1990-08-08", record3.DateOfBirth);
       Assert.Equal("12:36:00", record3.BirthTime);
-      
+
       // Test partial dates and times.
       BirthRecord record4 = new BirthRecord();
       // Birth Time
@@ -683,7 +683,7 @@ namespace BFDR.Tests
       Assert.Equal("Middlesex", record.MotherBilling["addressCounty"]);
       Assert.Equal("Bedford", record.MotherBilling["addressCity"]);
     }
-    
+
     [Fact]
     public void TestChildNameSetters()
     {
@@ -1262,6 +1262,7 @@ namespace BFDR.Tests
       Assert.Equal(secondRecord.BirthPhysicalLocationHelper, secondRecord.BirthPhysicalLocation["code"]);
     }
 
+    [Fact]
     public void TestAttendantPropertiesSetter()
     {
         BirthRecord record = new BirthRecord();
@@ -1307,7 +1308,7 @@ namespace BFDR.Tests
         Assert.Equal("            ", ije2.ATTEND_NPI);
         Assert.Equal("5", ije2.ATTEND);
         Assert.Equal("Birth Clerk", ije2.ATTEND_OTH_TXT.Trim());
-    }  
+    }
     [Fact]
     public void PatientBirthDatePresent()
     {

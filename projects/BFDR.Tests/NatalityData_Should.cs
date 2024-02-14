@@ -547,7 +547,8 @@ namespace BFDR.Tests
       Assert.Equal("Free-standing birthing center", ijeImported.ToRecord().BirthPhysicalLocation["display"]);
       Assert.Equal("http://snomed.info/sct", ijeImported.ToRecord().BirthPhysicalLocation["system"]);
     }
-    
+
+    [Fact]
     public void TestImportIdentifiers()
     {
       IJENatality ijeImported = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/BasicBirthRecord.ije")), true);
@@ -584,6 +585,7 @@ namespace BFDR.Tests
       Assert.Equal("2010HI897897", br.BirthRecordIdentifier);
     }
 
+    [Fact]
     public void TestSetSmoking()
     {
       BirthRecord fhir = new BirthRecord();
