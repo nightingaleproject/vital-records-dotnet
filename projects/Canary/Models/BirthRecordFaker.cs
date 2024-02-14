@@ -21,14 +21,31 @@ namespace canary.Models
             Bogus.Faker faker = new Bogus.Faker("en");
             // Grab Gender enum value
             Bogus.DataSets.Name.Gender gender = sex == "Male" ? Bogus.DataSets.Name.Gender.Male : Bogus.DataSets.Name.Gender.Female;
-            record.Identifier = Convert.ToString(faker.Random.Number(999999));
+            record.CertificateNumber = Convert.ToString(faker.Random.Number(999999));
             record.ChildGivenNames = new string[] { faker.Name.FirstName(gender), faker.Name.FirstName(gender) };
             record.ChildFamilyName = faker.Name.LastName(gender);
             record.ChildSuffix = faker.Name.Suffix();
             record.BirthSexHelper = gender.ToString().Substring(0, 1);
             record.InfantMedicalRecordNumber = "912912";
             record.MotherMedicalRecordNumber = "876876";
-            record.MotherSocialSecurityNumber = "333-22-1111";
+            record.MotherSocialSecurityNumber = faker.Person.Ssn();
+            record.FatherSocialSecurityNumber = faker.Person.Ssn();
+            record.MotherPrepregnancyWeightEditFlagHelper = "1";
+            record.MotherWeightAtDeliveryEditFlagHelper = "0";
+            record.BirthWeightEditFlagHelper = "2";
+            record.MotherIndustry = "mother";
+            record.FatherIndustry = "father";
+            record.MotherOccupation = "CEO";
+            record.FatherOccupation = "COO";
+            DateTime birth = faker.Date.Recent();
+            DateTimeOffset birthUtc = new DateTimeOffset(birth.Year, birth.Month, birth.Day, 0, 0, 0, TimeSpan.Zero);
+            record.DateOfBirth = birthUtc.ToString("yyyy-MM-dd");
+            birth = faker.Date.Past(123, DateTime.Today.AddYears(-18));
+            birthUtc = new DateTimeOffset(birth.Year, birth.Month, birth.Day, 0, 0, 0, TimeSpan.Zero);
+            record.FatherDateOfBirth = birthUtc.ToString("yyyy-MM-dd");
+            birth = faker.Date.Past(123, DateTime.Today.AddYears(-18));
+            birthUtc = new DateTimeOffset(birth.Year, birth.Month, birth.Day, 0, 0, 0, TimeSpan.Zero);
+            record.FatherDateOfBirth = birthUtc.ToString("yyyy-MM-dd");
             return record;
         }
     }
