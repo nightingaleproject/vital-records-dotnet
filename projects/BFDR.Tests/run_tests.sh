@@ -6,11 +6,11 @@ echo "* dotnet test BFDR.Tests/BirthRecord.Tests.csproj"
 dotnet test BFDR.Tests/BirthRecord.Tests.csproj
 
 # Make sure we can read and parse a JSON file
-echo "* dotnet run --project BFDR.CLI json2json BFDR.Tests/fixtures/json/BasicBirthRecord.json"
+echo "* dotnet run --project BFDR.CLI 2ije BFDR.Tests/fixtures/json/BasicBirthRecord.json"
 dotnet run --project BFDR.CLI 2ije BFDR.Tests/fixtures/json/BasicBirthRecord.json > /dev/null
 
 # Make sure we can read and parse an XML file
-echo "* dotnet run --project BFDR.CLI xml2xml BFDR.Tests/fixtures/json/BasicBirthRecord.json"
+echo "* dotnet run --project BFDR.CLI 2ijecontent BFDR.Tests/fixtures/json/BasicBirthRecord.json"
 dotnet run --project BFDR.CLI 2ijecontent BFDR.Tests/fixtures/json/BasicBirthRecord.json > /dev/null
 
 # Make sure we can pull all information out of a JSON file
