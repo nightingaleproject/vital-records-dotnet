@@ -4721,7 +4721,7 @@ namespace BFDR
         public Dictionary<string, string> MotherEducationLevel
         {
             get => GetObservationValue("57712-2");
-            set => SetObservationValue(value, "57712-2", CodeSystems.LOINC, "Highest level of education Mother", VR.ProfileURL.EducationLevel, NEWBORN_INFORMATION_SECTION);
+            set => SetObservationValue(value, "57712-2", CodeSystems.LOINC, "Highest level of education Mother", VR.ProfileURL.EducationLevel, MOTHER_INFORMATION_SECTION);
         }
 
         /// <summary>Mother's Education Level Helper</summary>
@@ -4764,9 +4764,8 @@ namespace BFDR
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='57712-2')", "")]
         public Dictionary<string, string> MotherEducationLevelEditFlag
         {
-            // TODO: Replace URL string with VR.ExtensionURL.BypassEditFlag once VR.ExtensionURLs are static again
-            get => GetObservationValue("57712-2", "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag");
-            set => SetObservationValue(value, "57712-2", CodeSystems.LOINC, "Highest level of education Mother", VR.ProfileURL.EducationLevel, NEWBORN_INFORMATION_SECTION, "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag");
+            get => GetObservationValue("57712-2", VRExtensionURLs.BypassEditFlag);
+            set => SetObservationValue(value, "57712-2", CodeSystems.LOINC, "Highest level of education Mother", VR.ProfileURL.EducationLevel, MOTHER_INFORMATION_SECTION, "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag");
         }
 
         /// <summary>Mother's Education Level Edit Flag Helper</summary>
@@ -4810,7 +4809,7 @@ namespace BFDR
         public Dictionary<string, string> FatherEducationLevel
         {
             get => GetObservationValue("87300-0");
-            set => SetObservationValue(value, "87300-0", CodeSystems.LOINC, "Highest level of education Father", VR.ProfileURL.EducationLevel, NEWBORN_INFORMATION_SECTION);
+            set => SetObservationValue(value, "87300-0", CodeSystems.LOINC, "Highest level of education Father", VR.ProfileURL.EducationLevel, FATHER_INFORMATION_SECTION);
         }
 
         /// <summary>Father's Education Level Helper</summary>
@@ -4853,9 +4852,8 @@ namespace BFDR
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87300-0')", "")]
         public Dictionary<string, string> FatherEducationLevelEditFlag
         {
-            // TODO: Replace URL string with VR.ExtensionURL.BypassEditFlag once VR.ExtensionURLs are static again
-            get => GetObservationValue("87300-0", "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag");
-            set => SetObservationValue(value, "87300-0", CodeSystems.LOINC, "Highest level of education Father", VR.ProfileURL.EducationLevel, NEWBORN_INFORMATION_SECTION, "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag");
+            get => GetObservationValue("87300-0", VRExtensionURLs.BypassEditFlag);
+            set => SetObservationValue(value, "87300-0", CodeSystems.LOINC, "Highest level of education Father", VR.ProfileURL.EducationLevel, FATHER_INFORMATION_SECTION, "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag");
         }
 
         /// <summary>Father's Education Level Edit Flag Helper</summary>
