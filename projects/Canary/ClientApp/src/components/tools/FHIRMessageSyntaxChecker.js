@@ -16,7 +16,7 @@ export class FHIRMessageSyntaxChecker extends Component {
 
   updateMessage(message, issues) {
     let messageType = "Unknown";
-    if (props.recordType.toLowerCase() == 'vrdr') {
+    if (this.props.recordType.toLowerCase() == 'vrdr') {
       if (message && message.messageType in messageTypesVRDR) {
         messageType = messageTypesVRDR[message.messageType];
       }
