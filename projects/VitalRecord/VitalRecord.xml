@@ -5170,6 +5170,46 @@
             <param name="shouldExist">if true the entry will be created unless it already exists, if false the entry will be removed if it exists</param>
             <param name="propertyName">the name of the C# property, must have a FHIRPath annotation, will default to the name of the calling property</param>
         </member>
+        <member name="M:VR.VitalRecord.GetObservationValue(System.String,System.String)">
+            <summary>Helper to support vital record property getter helper methods for values stored in Observations.</summary>
+            <param name="code">the code to identify the type of Observation</param>
+            <param name="extensionURL">if present, specifies that the value should be set on an extension with the provided URL instead</param>
+        </member>
+        <member name="M:VR.VitalRecord.SetObservationValue(System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>Helper to support vital record property setter helper methods for values stored in Observations.</summary>
+            <param name="value">the coded value to set as the value of the property</param>
+            <param name="code">the code to specify the type of Observation</param>
+            <param name="codeSystem">the code system of the code specifying the type of Observation</param>
+            <param name="text">the text for the code specifying the type of Observation</param>
+            <param name="profileURL">the profile URL to include in the meta of the Observation</param>
+            <param name="section">the section of the composition the Observation should be added to</param>
+            <param name="extensionURL">if present, specifies that the value should be set on an extension with the provided URL instead</param>
+            <param name="propertyName">the name of the C# property, used to determine the subject ID</param>
+        </member>
+        <member name="M:VR.VitalRecord.GetObservationValueHelper(System.String)">
+            <summary>Helper to support vital record property getter helper methods for getting and setting coded values.</summary>
+            <param name="propertyName">the name of the C# helper property, used to determine which underlying property to call</param>
+            <example>
+            <para>// Given a property named MotherEducationLevel, the getter for MotherEducationLevelHelper can be defined using:</para>
+            <para>public string MotherEducationLevelHelper</para>
+            <para>{</para>
+            <para>    get => GetObservationValueHelper();</para>
+            <para>}</para>
+            </example>
+        </member>
+        <member name="M:VR.VitalRecord.SetObservationValueHelper(System.String,System.String[0:,0:],System.String)">
+            <summary>Helper to support vital record property setter helper methods for getting and setting coded values.</summary>
+            <param name="value">the coded value to set as the code in the underlying property value</param>
+            <param name="codes">the list of allowed codes</param>
+            <param name="propertyName">the name of the C# helper property, used to determine which underlying property to call</param>
+            <example>
+            <para>// Given a property named MotherEducationLevel, the setter for MotherEducationLevelHelper can be defined using:</para>
+            <para>public string MotherEducationLevelHelper</para>
+            <para>{</para>
+            <para>    set => SetObservationValueHelper(value, VR.ValueSets.EducationLevel.Codes);</para>
+            <para>}</para>
+            </example>
+        </member>
         <member name="M:VR.VitalRecord.RemoveAllEntries(VR.FHIRPath)">
             <summary>Remove all of the entries for the supplied category</summary>
             <param name="fhirPath">the FHIRPath of a none-of-the-above entry</param>

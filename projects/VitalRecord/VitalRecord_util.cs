@@ -94,6 +94,143 @@ namespace VR
             }
         }
 
+        // TODO: How can we make this flexible to support more types?
+        /// <summary>Helper to support vital record property getter helper methods for values stored in Observations.</summary>
+        /// <param name="code">the code to identify the type of Observation</param>
+        /// <param name="extensionURL">if present, specifies that the value should be get from an extension with the provided URL instead</param>
+        protected Dictionary<string, string> GetObservationValue(string code, string extensionURL = null)
+        {
+            var entry = Bundle.Entry.Where(e => e.Resource is Observation obs && CodeableConceptToDict(obs.Code)["code"] == code).FirstOrDefault();
+            if (entry != null)
+            {
+                Observation observation = (Observation)entry.Resource;
+                if (extensionURL != null)
+                {
+                    Extension extension = observation?.Value?.Extension.FirstOrDefault(ext => ext.Url == extensionURL);
+                    if (extension != null && extension.Value != null && extension.Value.GetType() == typeof(CodeableConcept))
+                    {
+                        return CodeableConceptToDict((CodeableConcept)extension.Value);
+                    }
+                }
+                else
+                {
+                    return CodeableConceptToDict((CodeableConcept)observation.Value);
+                }
+            }
+            return EmptyCodeableDict();
+        }
+
+        /// <summary>Helper to support vital record property setter helper methods for values stored in Observations.</summary>
+        /// <param name="value">the coded value to set as the value of the property</param>
+        /// <param name="code">the code to specify the type of Observation</param>
+        /// <param name="codeSystem">the code system of the code specifying the type of Observation</param>
+        /// <param name="text">the text for the code specifying the type of Observation</param>
+        /// <param name="profileURL">the profile URL to include in the meta of the Observation</param>
+        /// <param name="section">the section of the composition the Observation should be added to</param>
+        /// <param name="extensionURL">if present, specifies that the value should be set on an extension with the provided URL instead</param>
+        /// <param name="propertyName">the name of the C# property, used to determine the subject ID</param>
+        protected void SetObservationValue(Dictionary<string, string> value, string code, string codeSystem, string text, string profileURL, string section, string extensionURL = null, [CallerMemberName] string propertyName = null)
+        {
+            var entry = Bundle.Entry.Where(e => e.Resource is Observation obs && CodeableConceptToDict(obs.Code)["code"] == code).FirstOrDefault();
+            Observation observation;
+            // If the observation is there we use it, otherwise create it
+            if (entry != null)
+            {
+                observation = (Observation)entry.Resource;
+            }
+            else
+            {
+                observation = new Observation();
+                observation.Id = Guid.NewGuid().ToString();
+                observation.Meta = new Meta();
+                string[] profile = { profileURL };
+                observation.Meta.Profile = profile;
+                observation.Code = new CodeableConcept(codeSystem, code, text, null);
+                observation.Subject = new ResourceReference($"urn:uuid:{SubjectId(propertyName)}");
+                observation.Status = ObservationStatus.Final; // TODO: is this correct?
+                // TODO: We need to set the focus to something sane
+                AddReferenceToComposition(observation.Id, section);
+                Bundle.AddResourceEntry(observation, "urn:uuid:" + observation.Id);
+            }
+
+            // Set the value or the extension, depending on what's desired
+            if (extensionURL != null)
+            {
+                // If there's a value clear this extension in case it's previously set, otherwise set an empty value
+                if (observation.Value == null)
+                {
+                    observation.Value = new CodeableConcept();
+                }
+                else
+                {
+                    observation.Value.Extension.RemoveAll(ext => ext.Url == extensionURL);
+                }
+                Extension extension = new Extension(extensionURL, DictToCodeableConcept(value));
+                observation.Value.Extension.Add(extension);
+            }
+            else
+            {
+                // Need to keep any existing extension that could be there
+                List<Extension> extensions = observation.Value?.Extension?.FindAll(e => true);
+                observation.Value = DictToCodeableConcept(value);
+                if (extensions != null)
+                {
+                    observation.Value.Extension.AddRange(extensions);
+                }
+            }
+        }
+
+        /// <summary>Helper to support vital record property getter helper methods for getting and setting coded values.</summary>
+        /// <param name="propertyName">the name of the C# helper property, used to determine which underlying property to call</param>
+        /// <example>
+        /// <para>// Given a property named MotherEducationLevel, the getter for MotherEducationLevelHelper can be defined using:</para>
+        /// <para>public string MotherEducationLevelHelper</para>
+        /// <para>{</para>
+        /// <para>    get => GetObservationValueHelper();</para>
+        /// <para>}</para>
+        /// </example>
+        protected string GetObservationValueHelper([CallerMemberName] string propertyName = null)
+        {
+            // Find the base property name by stripping off the "Helper" from the calling property
+            if (!propertyName.EndsWith("Helper"))
+            {
+                throw new ArgumentException("GetObservationValueHelper called with a non-helper property");
+            }
+            string basePropertyName = propertyName.Replace("Helper", "");
+            Dictionary<string, string> value = (Dictionary<string, string>)this.GetType().GetProperty(basePropertyName).GetValue(this);
+            if (value.ContainsKey("code") && !string.IsNullOrWhiteSpace(value["code"]))
+            {
+                return value["code"];
+            }
+            return null;
+        }
+
+        /// <summary>Helper to support vital record property setter helper methods for getting and setting coded values.</summary>
+        /// <param name="value">the coded value to set as the code in the underlying property value</param>
+        /// <param name="codes">the list of allowed codes</param>
+        /// <param name="propertyName">the name of the C# helper property, used to determine which underlying property to call</param>
+        /// <example>
+        /// <para>// Given a property named MotherEducationLevel, the setter for MotherEducationLevelHelper can be defined using:</para>
+        /// <para>public string MotherEducationLevelHelper</para>
+        /// <para>{</para>
+        /// <para>    set => SetObservationValueHelper(value, VR.ValueSets.EducationLevel.Codes);</para>
+        /// <para>}</para>
+        /// </example>
+        protected void SetObservationValueHelper(string value, string[,] codes, [CallerMemberName] string propertyName = null)
+        {
+            // Find the base property name by stripping off the "Helper" from the calling property
+            // Find the base property name by stripping off the "Helper" from the calling property
+            if (!propertyName.EndsWith("Helper"))
+            {
+                throw new ArgumentException("GetObservationValueHelper called with a non-helper property");
+            }
+            if (!string.IsNullOrWhiteSpace(value))
+            {
+                string basePropertyName = propertyName.Replace("Helper", "");
+                SetCodeValue(basePropertyName, value, codes);
+            }
+        }
+
         /// <summary>Remove all of the entries for the supplied category</summary>
         /// <param name="fhirPath">the FHIRPath of a none-of-the-above entry</param>
         protected void RemoveAllEntries(FHIRPath fhirPath)
@@ -1811,7 +1948,7 @@ namespace VR
         }
 
         /// <summary>Constructor.</summary>
-        public FHIRPath(FhirType fhirType, string categoryCode = "", string code = "", string section = "", string codeSystem = null)
+        public FHIRPath(FhirType fhirType, string categoryCode = "", string code = null, string section = null, string codeSystem = null)
         {
             if (fhirType == FhirType.Observation)
             {

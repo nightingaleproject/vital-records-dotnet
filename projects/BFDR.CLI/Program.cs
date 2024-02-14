@@ -119,6 +119,11 @@ namespace BFDR.CLI
                 birthRecord.FatherBirthYear = 1990;
                 birthRecord.FatherDateOfBirth = "1990-09-21";
 
+                birthRecord.MotherEducationLevelHelper = VR.ValueSets.EducationLevel.Doctoral_Or_Post_Graduate_Education;
+                birthRecord.MotherEducationLevelEditFlagHelper = VR.ValueSets.EditBypass01234.Edit_Passed;
+                birthRecord.FatherEducationLevelHelper = VR.ValueSets.EducationLevel.Bachelors_Degree;
+                birthRecord.FatherEducationLevelEditFlagHelper = VR.ValueSets.EditBypass01234.Edit_Failed_Data_Queried_But_Not_Verified;
+
                 // TODO: add these back once correct codesystems are used for the component 
                 // Ethnicity
                 // birthRecord.MotherEthnicity3Helper = VR.ValueSets.HispanicNoUnknown.Yes;
