@@ -37,11 +37,17 @@ namespace BFDR
         /// <summary>The Father.</summary>
         private RelatedPerson Father;
 
+        /// <summary>The Attendant.</summary>
+        private Practitioner Attendant;
+
         /// <summary>The Mother's Race and Ethnicity provided by Jurisdiction.</summary>
         private Observation InputRaceAndEthnicityObsMother;
 
         /// <summary>The Father's Race and Ethnicity provided by Jurisdiction.</summary>
         private Observation InputRaceAndEthnicityObsFather;
+
+        /// <summary>The encounter of the birth.</summary>
+        private Encounter EncounterBirth;
 
         /// <summary>Composition Section Constants</summary>
         private const string RACE_ETHNICITY_PROFILE_MOTHER = "inputraceandethnicityMother";
@@ -117,6 +123,17 @@ namespace BFDR
             InputRaceAndEthnicityObsFather.Subject = new ResourceReference("urn:uuid:" + Child.Id);
             AddReferenceToComposition(InputRaceAndEthnicityObsFather.Id, RACE_ETHNICITY_PROFILE_FATHER);
             Bundle.AddResourceEntry(InputRaceAndEthnicityObsFather, "urn:uuid:" + InputRaceAndEthnicityObsFather.Id);
+        }
+
+        /// <summary>Create Attendant/Practitioner.</summary>
+        private void CreateAttendant()
+        {
+            Attendant = new Practitioner();
+            Attendant.Id = Guid.NewGuid().ToString();
+            Attendant.Meta = new Meta();
+            string[] attendant_profile = { VR.ProfileURL.Practitioner };
+            Attendant.Meta.Profile = attendant_profile;
+            // Not linked to Composition or inserted in bundle, since this is run before the composition exists.
         }
     }
 

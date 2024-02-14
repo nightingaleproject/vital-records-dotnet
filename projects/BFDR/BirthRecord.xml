@@ -19,6 +19,11 @@
             Record. This class was designed to help consume and produce birth records that follow the
             HL7 FHIR Birth and Fetal Death Reporting Implementation Guide, as described at:
             TODO add link to BFDR IG
+            TODO BFDR STU2 has broken up its birth record bundles, the birth bundle has birthCertificateNumber + required birth compositions,
+            the fetal death bundle has fetalDeathReportNumber + required fetal death compositions,
+            the demographic bundle has a fileNumber + requiredCompositionCodedRaceAndEthnicity,
+            and the cause of death bundle has a fetalDeathReportNumber + required CompositionCodedCauseOfFetalDeath
+            TODO BFDR STU2 supports usual work and role extension
             </summary>
         </member>
         <member name="M:BFDR.BirthRecord.#ctor">
@@ -51,11 +56,17 @@
         <member name="F:BFDR.BirthRecord.Father">
             <summary>The Father.</summary>
         </member>
+        <member name="F:BFDR.BirthRecord.Attendant">
+            <summary>The Attendant.</summary>
+        </member>
         <member name="F:BFDR.BirthRecord.InputRaceAndEthnicityObsMother">
             <summary>The Mother's Race and Ethnicity provided by Jurisdiction.</summary>
         </member>
         <member name="F:BFDR.BirthRecord.InputRaceAndEthnicityObsFather">
             <summary>The Father's Race and Ethnicity provided by Jurisdiction.</summary>
+        </member>
+        <member name="F:BFDR.BirthRecord.EncounterBirth">
+            <summary>The encounter of the birth.</summary>
         </member>
         <member name="F:BFDR.BirthRecord.RACE_ETHNICITY_PROFILE_MOTHER">
             <summary>Composition Section Constants</summary>
@@ -78,8 +89,11 @@
         <member name="M:BFDR.BirthRecord.CreateInputRaceEthnicityObsFather">
             <summary> Create Father Input Race and Ethnicity </summary>
         </member>
-        <member name="P:BFDR.BirthRecord.Identifier">
-            <summary>Birth Record Identifier, Birth Certificate Number.</summary>
+        <member name="M:BFDR.BirthRecord.CreateAttendant">
+            <summary>Create Attendant/Practitioner.</summary>
+        </member>
+        <member name="P:BFDR.BirthRecord.CertificateNumber">
+            <summary>Birth Certificate Number.</summary>
             <value>a record identification string.</value>
             <example>
             <para>// Setter:</para>
@@ -223,6 +237,17 @@
             <para>Console.WriteLine($"Mother Given Name(s): {string.Join(", ", ExampleBirthRecord.MotherGivenNames)}");</para>
             </example>
         </member>
+        <member name="P:BFDR.BirthRecord.FatherGivenNames">
+            <summary>Natural Father's Legal Name - Given. Middle name should be the last entry.</summary>
+            <value>the natural father's name (first, etc., middle)</value>
+            <example>
+            <para>// Setter:</para>
+            <para>string[] names = { "Example", "Something", "Middle" };</para>
+            <para>ExampleBirthRecord.FatherGivenNames = names;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Father Given Name(s): {string.Join(", ", ExampleBirthRecord.FatherGivenNames)}");</para>
+            </example>
+        </member>
         <member name="P:BFDR.BirthRecord.MotherMaidenGivenNames">
             <summary>Mother's Maiden Name - Given. Middle name should be the last entry.</summary>
             <value>the mother's maiden name (first, etc., middle)</value>
@@ -256,6 +281,17 @@
             <para>Console.WriteLine($"Mother Family Name(s): {string.Join(", ", ExampleBirthRecord.MotherFamilyName)}");</para>
             </example>
         </member>
+        <member name="P:BFDR.BirthRecord.FatherFamilyName">
+            <summary>Natural Father's Legal Name - Last.</summary>
+            <value>the natural father's last name</value>
+            <example>
+            <para>// Setter:</para>
+            <para>string lastName = "Quinn";</para>
+            <para>ExampleBirthRecord.FatherFamilyName = lastName;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Father Family Name(s): {string.Join(", ", ExampleBirthRecord.FatherFamilyName)}");</para>
+            </example>
+        </member>
         <member name="P:BFDR.BirthRecord.MotherMaidenFamilyName">
             <summary>Mother's Maiden Name - Last.</summary>
             <value>the mother's maiden last name</value>
@@ -285,6 +321,16 @@
             <para>ExampleBirthRecord.MotherSuffix = "Jr.";</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Mother Suffix: {ExampleBirthRecord.MotherSuffix}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.FatherSuffix">
+            <summary>Natural Father's Suffix.</summary>
+            <value>the natural father's suffix</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.FatherSuffix = "Jr.";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Father Suffix: {ExampleBirthRecord.FatherSuffix}");</para>
             </example>
         </member>
         <member name="P:BFDR.BirthRecord.MotherMaidenSuffix">
@@ -333,6 +379,165 @@
             <para>Console.WriteLine($"State where child was born: {ExampleBirthRecord.PlaceOfBirth["placeOfBirthState"]}");</para>
             </example>
         </member>
+        <member name="P:BFDR.BirthRecord.BirthPhysicalLocation">
+            <summary>Child's Place Of Birth Type.</summary>
+            <value>Place Where Birth Occurred, type of place or institution. A Dictionary representing a codeable concept of the physical location type:
+            <para>"code" - The code used to describe this concept.</para>
+            <para>"system" - The relevant code system.</para>
+            <para>"display" - The human readable version of this code.</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; locationType = new Dictionary&lt;string, string&gt;();</para>
+            <para>locationType.Add("code", "22232009");</para>
+            <para>locationType.Add("system", "http://snomed.info/sct");</para>
+            <para>locationType.Add("display", "Hospital");</para>
+            <para>ExampleBirthRecord.BirthPhysicalLocation = locationType;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"The place type the child was born: {ExampleBirthRecord.BirthPhysicalLocation["code"]}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.BirthPhysicalLocationHelper">
+            <summary>Child's Place Of Birth Type Helper</summary>
+            <value>Child's Place Of Birth Type Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.BirthPhysicalLocationHelper = "Hospital";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Child's Place Of Birth Type: {ExampleBirthRecord.BirthPhysicalLocationHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.MotherPlaceOfBirth">
+            <summary>Mother's Place Of Birth.</summary>
+            <value>Mother's Place Of Birth. A Dictionary representing residence address, containing the following key/value pairs:
+            <para>"addressLine1" - address, line one</para>
+            <para>"addressLine2" - address, line two</para>
+            <para>"addressCity" - address, city</para>
+            <para>"addressCounty" - address, county</para>
+            <para>"addressState" - address, state</para>
+            <para>"addressZip" - address, zip</para>
+            <para>"addressCountry" - address, country</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; address = new Dictionary&lt;string, string&gt;();</para>
+            <para>address.Add("addressLine1", "123 Test Street");</para>
+            <para>address.Add("addressLine2", "Unit 3");</para>
+            <para>address.Add("addressCity", "Boston");</para>
+            <para>address.Add("addressCounty", "Suffolk");</para>
+            <para>address.Add("addressState", "MA");</para>
+            <para>address.Add("addressZip", "12345");</para>
+            <para>address.Add("addressCountry", "US");</para>
+            <para>ExampleBirthRecord.MotherPlaceOfBirth = address;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"State where mother was born: {ExampleBirthRecord.MotherPlaceOfBirth["placeOfBirthState"]}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.FatherPlaceOfBirth">
+            <summary>Father's Place Of Birth.</summary>
+            <value>Father's Place Of Birth. A Dictionary representing residence address, containing the following key/value pairs:
+            <para>"addressLine1" - address, line one</para>
+            <para>"addressLine2" - address, line two</para>
+            <para>"addressCity" - address, city</para>
+            <para>"addressCounty" - address, county</para>
+            <para>"addressState" - address, state</para>
+            <para>"addressZip" - address, zip</para>
+            <para>"addressCountry" - address, country</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; address = new Dictionary&lt;string, string&gt;();</para>
+            <para>address.Add("addressLine1", "123 Test Street");</para>
+            <para>address.Add("addressLine2", "Unit 3");</para>
+            <para>address.Add("addressCity", "Boston");</para>
+            <para>address.Add("addressCounty", "Suffolk");</para>
+            <para>address.Add("addressState", "MA");</para>
+            <para>address.Add("addressZip", "12345");</para>
+            <para>address.Add("addressCountry", "US");</para>
+            <para>ExampleBirthRecord.FatherPlaceOfBirth = address;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"State where father was born: {ExampleBirthRecord.FatherPlaceOfBirth["placeOfBirthState"]}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.MotherResidence">
+            <summary>Mother's Residence.</summary>
+            <value>Mother's Residence. A Dictionary representing residence address, containing the following key/value pairs:
+            <para>"addressLine1" - address, line one</para>
+            <para>"addressLine2" - address, line two</para>
+            <para>"addressCity" - address, city</para>
+            <para>"addressCounty" - address, county</para>
+            <para>"addressState" - address, state</para>
+            <para>"addressZip" - address, zip</para>
+            <para>"addressCountry" - address, country</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; address = new Dictionary&lt;string, string&gt;();</para>
+            <para>address.Add("addressLine1", "123 Test Street");</para>
+            <para>address.Add("addressLine2", "Unit 3");</para>
+            <para>address.Add("addressCity", "Boston");</para>
+            <para>address.Add("addressCounty", "Suffolk");</para>
+            <para>address.Add("addressState", "MA");</para>
+            <para>address.Add("addressZip", "12345");</para>
+            <para>address.Add("addressCountry", "US");</para>
+            <para>ExampleBirthRecord.MotherResidence = address;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"State where mother resides: {ExampleBirthRecord.MotherResidence["addressState"]}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.MotherBilling">
+            <summary>Mother's Billing.</summary>
+            <value>Mother's Billing. A Dictionary representing billing address, containing the following key/value pairs:
+            <para>"addressLine1" - address, line one</para>
+            <para>"addressLine2" - address, line two</para>
+            <para>"addressCity" - address, city</para>
+            <para>"addressCounty" - address, county</para>
+            <para>"addressState" - address, state</para>
+            <para>"addressZip" - address, zip</para>
+            <para>"addressCountry" - address, country</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; address = new Dictionary&lt;string, string&gt;();</para>
+            <para>address.Add("addressLine1", "123 Test Street");</para>
+            <para>address.Add("addressLine2", "Unit 3");</para>
+            <para>address.Add("addressCity", "Boston");</para>
+            <para>address.Add("addressCounty", "Suffolk");</para>
+            <para>address.Add("addressState", "MA");</para>
+            <para>address.Add("addressZip", "12345");</para>
+            <para>address.Add("addressCountry", "US");</para>
+            <para>ExampleBirthRecord.MotherBilling = address;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"State where mother is billed: {ExampleBirthRecord.MotherBilling["addressState"]}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.MotherResidenceWithinCityLimits">
+            <summary>Mother's residence is/is not within city limits.</summary>
+            <value>Mother's residence is/is not within city limits. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para></value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; within = new Dictionary&lt;string, string&gt;();</para>
+            <para>within.Add("code", "Y");</para>
+            <para>within.Add("system", VR.CodeSystems.YesNo_0136HL7_V2);</para>
+            <para>within.Add("display", "Yes");</para>
+            <para>ExampleBirthRecord.MotherResidenceWithinCityLimits = within;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's Residence within city limits: {ExampleBirthRecord.MotherResidenceWithinCityLimits['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.MotherResidenceWithinCityLimitsHelper">
+            <summary>Mother's Residence Within City Limits Helper</summary>
+            <value>Mother Residence Within City Limits.</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherResidenceWithinCityLimitsHelper = VRDR.ValueSets.YesNoUnknown.Y;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's Residence within city limits: {ExampleBirthRecord.MotherResidenceWithinCityLimitsHelper}");</para>
+            </example>
+        </member>
         <member name="P:BFDR.BirthRecord.InfantMedicalRecordNumber">
             <summary>Infant's Medical Record Number.</summary>
             <value>Infant's Medical Record Number.</value>
@@ -361,6 +566,16 @@
             <para>ExampleBirthRecord.MotherSocialSecurityNumber = "123456789";</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Mother's SocialSecurityNumber: {ExampleBirthRecord.MotherSocialSecurityNumber}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.FatherSocialSecurityNumber">
+            <summary>Father's Social Security Number.</summary>
+            <value>Father's Social Security Number.</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.FatherSocialSecurityNumber = "123456789";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Father's SocialSecurityNumber: {ExampleBirthRecord.FatherSocialSecurityNumber}");</para>
             </example>
         </member>
         <member name="P:BFDR.BirthRecord.SetOrder">
@@ -634,6 +849,40 @@
             <para>Console.WriteLine($"Mother Date of Birth: {ExampleBirthRecord.MotherDateOfBirth}");</para>
             </example>
         </member>
+        <member name="P:BFDR.BirthRecord.MotherReportedAgeAtDelivery">
+            <summary>Mother's Age at Delivery</summary>
+            <value>the mother's age at Delivery in years</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherReportedAgeAtDelivery = 29;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's age at delivery: {ExampleBirthRecord.MotherReportedAgeAtDelivery}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.MotherDateOfBirthEditFlag">
+            <summary>Mother's Date of Birth Edit Flag</summary>
+            <value>the mother's date of birth edit flag</value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; edit = new Dictionary&lt;string, string&gt;();</para>
+            <para>edit.Add("code", "queriedCorrect");</para>
+            <para>edit.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");</para>
+            <para>edit.Add("display", "Queried, and Correct");</para>
+            <para>ExampleBirthRecord.MotherDateOfBirthEditFlag = route;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's date of birth edit flag: {ExampleBirthRecord.MotherDateOfBirthEditFlag}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.MotherDateOfBirthEditFlagHelper">
+            <summary>Mother's Date of Birth Edit Flag helper</summary>
+            <value>the mother's date of birth edit flag helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherDateOfBirthEditFlagHelper = "queriedCorrect";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's date of birth edit flag: {ExampleBirthRecord.MotherDateOfBirthEditFlagHelper}");</para>
+            </example>
+        </member>
         <member name="P:BFDR.BirthRecord.FatherBirthDay">
             <summary>Father's Day of Birth.</summary>
             <value>the father's day of birth, or -1 if explicitly unknown, or null if never specified</value>
@@ -674,6 +923,42 @@
             <para>Console.WriteLine($"Father Date of Birth: {ExampleBirthRecord.FatherDateOfBirth}");</para>
             </example>
         </member>
+        <member name="P:BFDR.BirthRecord.FatherReportedAgeAtDelivery">
+            TODO: ethinicty/race component code still uses vrdr codesystem: http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs
+            should be http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component
+            <summary>Father's Age at Delivery</summary>
+            <value>the father's age at Delivery in years</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.FatherReportedAgeAtDelivery = 29;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Father's age at delivery: {ExampleBirthRecord.FatherReportedAgeAtDelivery}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.FatherDateOfBirthEditFlag">
+            <summary>Father's Date of Birth Edit Flag</summary>
+            <value>the father's date of birth edit flag</value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; edit = new Dictionary&lt;string, string&gt;();</para>
+            <para>edit.Add("code", "queriedCorrect");</para>
+            <para>edit.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");</para>
+            <para>edit.Add("display", "Queried, and Correct");</para>
+            <para>ExampleBirthRecord.FatherDateOfBirthEditFlag = route;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Father's date of birth edit flag: {ExampleBirthRecord.FatherDateOfBirthEditFlag}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.FatherDateOfBirthEditFlagHelper">
+            <summary>Father's Date of Birth Edit Flag helper</summary>
+            <value>the father's date of birth edit flag helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.FatherDateOfBirthEditFlagHelper = "queriedCorrect";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Father's date of birth edit flag: {ExampleBirthRecord.FatherDateOfBirthEditFlagHelper}");</para>
+            </example>
+        </member>
         <member name="P:BFDR.BirthRecord.MotherEthnicity1">
             <summary>Mother's Ethnicity Hispanic Mexican.</summary>
             <value>the mother's ethnicity. A Dictionary representing a code, containing the following key/value pairs:
@@ -697,7 +982,7 @@
             <value>Mother's Ethnicity 1.</value>
             <example>
             <para>// Setter:</para>
-            <para>ExampleBirthRecord.EthnicityLevel = VRDR.ValueSets.YesNoUnknown.Yes;</para>
+            <para>ExampleBirthRecord.EthnicityLevel = VR.ValueSets.YesNoUnknown.Yes;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Mother's Ethnicity: {ExampleBirthRecord.MotherEthnicity1Helper}");</para>
             </example>
@@ -725,7 +1010,7 @@
             <value>Mother's Ethnicity 2.</value>
             <example>
             <para>// Setter:</para>
-            <para>ExampleBirthRecord.EthnicityLevel = VRDR.ValueSets.YesNoUnknown.Yes;</para>
+            <para>ExampleBirthRecord.EthnicityLevel = VR.ValueSets.YesNoUnknown.Yes;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Mother's Ethnicity: {ExampleBirthRecord.MotherEthnicity2Helper}");</para>
             </example>
@@ -753,7 +1038,7 @@
             <value>Mother's Ethnicity 3.</value>
             <example>
             <para>// Setter:</para>
-            <para>ExampleBirthRecord.EthnicityLevel = VRDR.ValueSets.YesNoUnknown.Yes;</para>
+            <para>ExampleBirthRecord.EthnicityLevel = VR.ValueSets.YesNoUnknown.Yes;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Mother's Ethnicity: {ExampleBirthRecord.MotherEthnicity3Helper}");</para>
             </example>
@@ -781,7 +1066,7 @@
             <value>Mother's Ethnicity 4.</value>
             <example>
             <para>// Setter:</para>
-            <para>ExampleBirthRecord.EthnicityLevel = VRDR.ValueSets.YesNoUnknown.Yes;</para>
+            <para>ExampleBirthRecord.EthnicityLevel = VR.ValueSets.YesNoUnknown.Yes;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Mother's Ethnicity: {ExampleBirthRecord.MotherEthnicity4Helper}");</para>
             </example>
@@ -834,7 +1119,7 @@
             <value>Father's Ethnicity 1.</value>
             <example>
             <para>// Setter:</para>
-            <para>ExampleBirthRecord.EthnicityLevel = VRDR.ValueSets.YesNoUnknown.Yes;</para>
+            <para>ExampleBirthRecord.EthnicityLevel = VR.ValueSets.YesNoUnknown.Yes;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Father's Ethnicity: {ExampleBirthRecord.FatherEthnicity1Helper}");</para>
             </example>
@@ -862,7 +1147,7 @@
             <value>Father's Ethnicity 2.</value>
             <example>
             <para>// Setter:</para>
-            <para>ExampleBirthRecord.EthnicityLevel = VRDR.ValueSets.YesNoUnknown.Yes;</para>
+            <para>ExampleBirthRecord.EthnicityLevel = VR.ValueSets.YesNoUnknown.Yes;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Father's Ethnicity: {ExampleBirthRecord.FatherEthnicity2Helper}");</para>
             </example>
@@ -890,7 +1175,7 @@
             <value>Father's Ethnicity 3.</value>
             <example>
             <para>// Setter:</para>
-            <para>ExampleBirthRecord.EthnicityLevel = VRDR.ValueSets.YesNoUnknown.Yes;</para>
+            <para>ExampleBirthRecord.EthnicityLevel = VR.ValueSets.YesNoUnknown.Yes;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Father's Ethnicity: {ExampleBirthRecord.FatherEthnicity3Helper}");</para>
             </example>
@@ -918,7 +1203,7 @@
             <value>Father's Ethnicity 4.</value>
             <example>
             <para>// Setter:</para>
-            <para>ExampleBirthRecord.EthnicityLevel = VRDR.ValueSets.YesNoUnknown.Yes;</para>
+            <para>ExampleBirthRecord.EthnicityLevel = VR.ValueSets.YesNoUnknown.Yes;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Father's Ethnicity: {ExampleBirthRecord.FatherEthnicity4Helper}");</para>
             </example>
@@ -946,6 +1231,261 @@
             <para>ExampleBirthRecord.FatherRace = {NvssRace.BlackOrAfricanAmerican, "Y"};</para>
             <para>// Getter:</para>
             <para>string boaa = ExampleBirthRecord.RaceBlackOfAfricanAmerican;</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.MotherPrepregnancyWeight">
+            <summary>Mother's Prepregnancy Weight.</summary>
+            <value>the mother's prepregnancy weight in whole pounds, or -1 if explicitly unknown, or null if never specified</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherPrepregnancyWeight = 120;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's Prepregancy Weight: {ExampleBirthRecord.MotherPrepregnancyWeight}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.MotherWeightAtDelivery">
+            <summary>Mother's Weight at Delivery.</summary>
+            <value>the mother's weight at delivery in whole pounds, or -1 if explicitly unknown, or null if never specified</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherWeightAtDelivery = 120;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's Weight at Delivery: {ExampleBirthRecord.MotherWeightAtDelivery}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.BirthWeight">
+            <summary>Birth Weight.</summary>
+            <value>the birth weight in grams, or -1 if explicitly unknown, or null if never specified</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.BirthWeight = 3200;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Birth Weight: {ExampleBirthRecord.BirthWeight}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.MotherPrepregnancyWeightEditFlag">
+            <summary>Mother's Prepregnancy Weight Edit Flag.</summary>
+            <value>edit flag for the mother's prepregnancy weight</value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; edit = new Dictionary&lt;string, string&gt;();</para>
+            <para>edit.Add("code", "0");</para>
+            <para>edit.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");</para>
+            <para>edit.Add("display", "Edit Passed");</para>
+            <para>ExampleBirthRecord.MotherPrepregnancyWeightEditFlag = route;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's prepregnancy weight edit flag: {ExampleBirthRecord.MotherPrepregnancyWeightEditFlag}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.MotherPrepregnancyWeightEditFlagHelper">
+            <summary>Mother's Prepregnancy Weight Edit Flag Helper.</summary>
+            <value>edit flag for the mother's prepregnancy weight</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherPrepregnancyWeightEditFlagHelper = "0";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's prepregnancy weight edit flag: {ExampleBirthRecord.MotherPrepregnancyWeightEditFlagHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.MotherWeightAtDeliveryEditFlag">
+            <summary>Mother's Weight at Delivery Edit Flag.</summary>
+            <value>edit flag for the mother's weight at delivery</value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; edit = new Dictionary&lt;string, string&gt;();</para>
+            <para>edit.Add("code", "0");</para>
+            <para>edit.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");</para>
+            <para>edit.Add("display", "Edit Passed");</para>
+            <para>ExampleBirthRecord.MotherWeightAtDeliveryEditFlag = route;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's weight at delivery edit flag: {ExampleBirthRecord.MotherWeightAtDeliveryEditFlag}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.MotherWeightAtDeliveryEditFlagHelper">
+            <summary>Mother's Weight at Delivery Edit Flag Helper.</summary>
+            <value>edit flag for the mother's weight at delivery</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherWeightAtDeliveryEditFlag = "0";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's weight at delivery edit flag: {ExampleBirthRecord.MotherWeightAtDeliveryEditFlag}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.BirthWeightEditFlag">
+            <summary>Birth Weight Edit Flag.</summary>
+            <value>edit flag for birth weight</value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; edit = new Dictionary&lt;string, string&gt;();</para>
+            <para>edit.Add("code", "0");</para>
+            <para>edit.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");</para>
+            <para>edit.Add("display", "Edit Passed");</para>
+            <para>ExampleBirthRecord.BirthWeightEditFlag = route;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Birth weight edit flag: {ExampleBirthRecord.BirthWeightEditFlag}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.BirthWeightEditFlagHelper">
+            <summary>Birth Weight at Delivery Edit Flag Helper.</summary>
+            <value>edit flag for birth weight</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.BirthWeightEditFlagHelper = "0";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Birth weight edit flag: {ExampleBirthRecord.BirthWeightEditFlagHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.AttendantFamilyName">
+            TODO: Required field in FHIR, needs BLANK placeholder
+            <summary>Family name of attendant.</summary>
+            <value>the attendant's family name (i.e. last name)</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.AttendantFamilyName = "Seito";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Attendants's Name: {ExampleBirthRecord.AttendantFamilyName}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.AttendantName">
+            <summary>Attendant name.</summary>
+            <value>the attendant's name</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.AttendantName = "Janet Seito";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Attendants's Name: {ExampleBirthRecord.AttendantName}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.AttendantNPI">
+            <summary>Attendants NPI</summary>
+            <value>the attendants npi</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.AttendantNPI = "123456789011";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Attendants NPI: {ExampleBirthRecord.AttendantNPI}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.AttendantTitle">
+            <summary>Attendant Title</summary>
+            <value>the title/qualification of the person who attended the birth. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; title = new Dictionary&lt;string, string&gt;();</para>
+            <para>title.Add("code", "112247003");</para>
+            <para>title.Add("system", CodeSystems.SCT);</para>
+            <para>title.Add("display", "Medical Doctor");</para>
+            <para>ExampleBirthRecord.AttendantTitle = title;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Attendant Title: {ExampleBirthRecord.AttendantTitle['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.AttendantTitleHelper">
+            <summary>Attendant Title Helper.</summary>
+            <value>the title/qualification of the attendant.
+            <para>"code" - the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.AttendantTitleHelper = ValueSets.BirthAttendantsTitles.MedicalDoctor;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Attendant Title: {ExampleBirthRecord.AttendantTitleHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.AttendantOtherHelper">
+            <summary>Attendant Other Helper.</summary>
+            <value>the "other" title/qualification of the attendant.
+            <para>"code" - the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.AttendantOtherHelper = "Birth Clerk";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Attendant Other: {ExampleBirthRecord.AttendantOtherHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.CigarettesPerDayInThreeMonthsPriorToPregancy">
+            <summary>Cigarettes Smoked in 3 months prior to Pregnancy.</summary>
+            <value>the number of cigarettes smoked per day in 3 months prior to pregnancy, or -1 if explicitly unknown, or null if never specified</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.CigarettesPerDayInThreeMonthsPriorToPregancy = 20;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Cigarettes In Three Months Prior To Pregancy: {ExampleBirthRecord.CigarettesPerDayInThreeMonthsPriorToPregancy}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.CigarettesPerDayInFirstTrimester">
+            <summary>Cigarettes Smoked in First Trimester.</summary>
+            <value>the number of cigarettes smoked per day in first trimester, or -1 if explicitly unknown, or null if never specified</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.CigarettesPerDayInFirstTrimester = 20;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Cigarettes In First Trimester: {ExampleBirthRecord.CigarettesPerDayInFirstTrimester}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.CigarettesPerDayInSecondTrimester">
+            <summary>Cigarettes Smoked in Second Trimester.</summary>
+            <value>the number of cigarettes smoked per day in second trimester, or -1 if explicitly unknown, or null if never specified</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.CigarettesPerDayInSecondTrimester = 20;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Cigarettes In Second Trimester: {ExampleBirthRecord.CigarettesPerDayInSecondTrimester}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.CigarettesPerDayInLastTrimester">
+            <summary>Cigarettes Smoked in Last Trimester.</summary>
+            <value>the number of cigarettes smoked per day in last trimester, or -1 if explicitly unknown, or null if never specified</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.CigarettesPerDayInLastTrimester = 20;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Cigarettes In Last Trimester: {ExampleBirthRecord.CigarettesPerDayInLastTrimester}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.MotherOccupation">
+            <summary>Occupation of Mother.</summary>
+            <value>the occupation of the mother as text</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherOccupation = "scientist";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's Occupation: {ExampleBirthRecord.MotherOccupation}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.FatherOccupation">
+            <summary>Occupation of Father.</summary>
+            <value>the occupation of the father as text</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.FatherOccupation = "scientist";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Father's Occupation: {ExampleBirthRecord.FatherOccupation}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.MotherIndustry">
+            <summary>Industry of Mother.</summary>
+            <value>the industry of the mother as text</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherIndustry = "public health";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's Industry: {ExampleBirthRecord.MotherIndustry}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.FatherIndustry">
+            <summary>Industry of Father.</summary>
+            <value>the industry of the father as text</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.FatherIndustry = "public health";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Father's Industry: {ExampleBirthRecord.FatherIndustry}");</para>
             </example>
         </member>
         <member name="T:BFDR.FHIRSubject">
@@ -2795,6 +3335,36 @@
             <summary> Other </summary>
         </member>
         <member name="F:BFDR.ValueSets.BirthSex.Unknown">
+            <summary> Unknown </summary>
+        </member>
+        <member name="T:BFDR.ValueSets.PlaceTypeOfBirth">
+            <summary> PlaceTypeOfBirth </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PlaceTypeOfBirth.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PlaceTypeOfBirth.Hospital">
+            <summary> Hospital </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PlaceTypeOfBirth.Free_Standing_Birthing_Center">
+            <summary> Free_Standing_Birthing_Center </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PlaceTypeOfBirth.Planned_Home_Birth">
+            <summary> Planned_Home_Birth </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PlaceTypeOfBirth.Unplanned_Home_Birth">
+            <summary> Unplanned_Home_Birth </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PlaceTypeOfBirth.Free_Standing_Clinic">
+            <summary> Free_Standing_Clinic </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PlaceTypeOfBirth.Unknown_If_Planned_Home_Birth">
+            <summary> Unknown_If_Planned_Home_Birth </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PlaceTypeOfBirth.Other">
+            <summary> Other </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PlaceTypeOfBirth.Unknown">
             <summary> Unknown </summary>
         </member>
     </members>

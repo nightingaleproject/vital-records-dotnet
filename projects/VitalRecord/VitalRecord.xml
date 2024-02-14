@@ -443,14 +443,23 @@
         <member name="F:VR.OtherExtensionURL.PatientBirthPlace">
             <summary>URL for PatientBirthPlace</summary>
         </member>
+        <member name="F:VR.OtherExtensionURL.RelatedPersonBirthPlace">
+            <summary>URL for RelatedPersonBirthPlace</summary>
+        </member>
         <member name="F:VR.OtherExtensionURL.BirthSex">
             <summary>URL for US Core Birthsex </summary>
+        </member>
+        <member name="F:VR.OtherExtensionURL.ParentRole">
+            <summary>URL for parent role </summary>
         </member>
         <member name="T:VR.OtherIGURL">
             <summary>IG URLs for non-VRDR Profiles</summary>
         </member>
         <member name="F:VR.OtherIGURL.USCorePractitioner">
             <summary>URL for USCorePractitioner</summary>
+        </member>
+        <member name="F:VR.OtherIGURL.UsualWork">
+            <summary>URL for UsualWork - TODO figure out why this one isn't generated from the IG</summary>
         </member>
         <member name="T:VR.NvssRace">
             <summary> String representations of IJE Race fields </summary>
@@ -572,6 +581,18 @@
         <member name="T:VR.ProfileURL">
             <summary>Profile URLs</summary>
         </member>
+        <member name="F:VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords">
+            <summary>URL for AuxiliaryStateIdentifier1VitalRecords</summary>
+        </member>
+        <member name="F:VR.ProfileURL.AuxiliaryStateIdentifier2VitalRecords">
+            <summary>URL for AuxiliaryStateIdentifier2VitalRecords</summary>
+        </member>
+        <member name="F:VR.ProfileURL.CertificateNumber">
+            <summary>URL for CertificateNumber</summary>
+        </member>
+        <member name="F:VR.ProfileURL.Location">
+            <summary>URL for Location</summary>
+        </member>
         <member name="F:VR.ProfileURL.AutopsyPerformedIndicator">
             <summary>URL for AutopsyPerformedIndicator</summary>
         </member>
@@ -580,6 +601,9 @@
         </member>
         <member name="F:VR.ProfileURL.EmergingIssues">
             <summary>URL for EmergingIssues</summary>
+        </member>
+        <member name="F:VR.ProfileURL.UsualWork">
+            <summary>URL for UsualWork</summary>
         </member>
         <member name="F:VR.ProfileURL.Child">
             <summary>URL for Child</summary>
@@ -627,6 +651,15 @@
         <member name="P:VR.ExtensionURL.DistrictCode">
             <summary>URL for DistrictCode</summary>
         </member>
+        <member name="P:VR.ExtensionURL.LocationJurisdictionId">
+            <summary>URL for LocationJurisdictionId</summary>
+        </member>
+        <member name="P:VR.ExtensionURL.PartialDateTime">
+            <summary>URL for PartialDateTime</summary>
+        </member>
+        <member name="P:VR.ExtensionURL.PartialDate">
+            <summary>URL for PartialDate</summary>
+        </member>
         <member name="P:VR.ExtensionURL.PatientFetalDeath">
             <summary>URL for PatientFetalDeath</summary>
         </member>
@@ -639,17 +672,11 @@
         <member name="P:VR.ExtensionURL.ReportedParentAgeAtDelivery">
             <summary>URL for ReportedParentAgeAtDelivery</summary>
         </member>
+        <member name="P:VR.ExtensionURL.Role">
+            <summary>URL for Role</summary>
+        </member>
         <member name="P:VR.ExtensionURL.WithinCityLimitsIndicator">
             <summary>URL for WithinCityLimitsIndicator</summary>
-        </member>
-        <member name="P:VR.ExtensionURL.DatePartAbsentReason">
-            <summary>URL for DatePartAbsentReason</summary>
-        </member>
-        <member name="P:VR.ExtensionURL.PartialDateTime">
-            <summary>URL for PartialDateTime</summary>
-        </member>
-        <member name="P:VR.ExtensionURL.PartialDate">
-            <summary>URL for PartialDate</summary>
         </member>
         <member name="P:VR.ExtensionURL.PostDirectional">
             <summary>URL for PostDirectional</summary>
@@ -684,9 +711,6 @@
         <member name="F:VR.ExtensionURL.PatientBirthTime">
             <summary>URL for PatientBirthTime as defined in the VitalRecords IG</summary>
         </member>
-        <member name="P:VR.ExtensionURL.PartialDateTimeVR">
-            <summary>URL for PartialDateTime as defined in the VitalRecords IG</summary>
-        </member>
         <member name="F:VR.ExtensionURL.PartialDateTimeDayVR">
             <summary>URL for PartialDateTime Day as defined in the VitalRecords IG</summary>
         </member>
@@ -699,20 +723,35 @@
         <member name="F:VR.ExtensionURL.PartialDateTimeTimeVR">
             <summary>URL for PartialDateTime Time as defined in the VitalRecords IG</summary>
         </member>
-        <member name="P:VR.ExtensionURL.LocationJurisdictionId">
-            <summary>URL for LocationJurisdictionId</summary>
-        </member>
         <member name="T:VR.IGURL">
             <summary>IG URLs</summary>
         </member>
+        <member name="F:VR.IGURL.AuxiliaryStateIdentifier1VitalRecords">
+            <summary>URL for AuxiliaryStateIdentifier1VitalRecords</summary>
+        </member>
+        <member name="F:VR.IGURL.AuxiliaryStateIdentifier2VitalRecords">
+            <summary>URL for AuxiliaryStateIdentifier2VitalRecords</summary>
+        </member>
         <member name="F:VR.IGURL.BypassEditFlag">
             <summary>URL for BypassEditFlag</summary>
+        </member>
+        <member name="F:VR.IGURL.CertificateNumber">
+            <summary>URL for CertificateNumber</summary>
         </member>
         <member name="F:VR.IGURL.CityCode">
             <summary>URL for CityCode</summary>
         </member>
         <member name="F:VR.IGURL.DistrictCode">
             <summary>URL for DistrictCode</summary>
+        </member>
+        <member name="F:VR.IGURL.LocationJurisdictionId">
+            <summary>URL for LocationJurisdictionId</summary>
+        </member>
+        <member name="F:VR.IGURL.PartialDateTime">
+            <summary>URL for PartialDateTime</summary>
+        </member>
+        <member name="F:VR.IGURL.PartialDate">
+            <summary>URL for PartialDate</summary>
         </member>
         <member name="F:VR.IGURL.PatientFetalDeath">
             <summary>URL for PatientFetalDeath</summary>
@@ -726,17 +765,14 @@
         <member name="F:VR.IGURL.ReportedParentAgeAtDelivery">
             <summary>URL for ReportedParentAgeAtDelivery</summary>
         </member>
+        <member name="F:VR.IGURL.Role">
+            <summary>URL for Role</summary>
+        </member>
         <member name="F:VR.IGURL.WithinCityLimitsIndicator">
             <summary>URL for WithinCityLimitsIndicator</summary>
         </member>
-        <member name="F:VR.IGURL.DatePartAbsentReason">
-            <summary>URL for DatePartAbsentReason</summary>
-        </member>
-        <member name="F:VR.IGURL.PartialDateTime">
-            <summary>URL for PartialDateTime</summary>
-        </member>
-        <member name="F:VR.IGURL.PartialDate">
-            <summary>URL for PartialDate</summary>
+        <member name="F:VR.IGURL.Location">
+            <summary>URL for Location</summary>
         </member>
         <member name="F:VR.IGURL.AutopsyPerformedIndicator">
             <summary>URL for AutopsyPerformedIndicator</summary>
@@ -746,6 +782,9 @@
         </member>
         <member name="F:VR.IGURL.EmergingIssues">
             <summary>URL for EmergingIssues</summary>
+        </member>
+        <member name="F:VR.IGURL.UsualWork">
+            <summary>URL for UsualWork</summary>
         </member>
         <member name="F:VR.IGURL.Child">
             <summary>URL for Child</summary>
@@ -5222,6 +5261,12 @@
         <member name="P:VR.VitalRecord.PartialDateTimeUrl">
             <summary>Overrideable method that dictates which Extension URL to use for PartialDateTime</summary>
         </member>
+        <member name="P:VR.VitalRecord.PartialDateUrl">
+            <summary>Overrideable method that dictates which Extension URL to use for PartialDate</summary>
+        </member>
+        <member name="P:VR.VitalRecord.LocationJurisdictionIdUrl">
+            <summary>Overrideable method that dictates which Extension URL to use for LocationJurisdictionId</summary>
+        </member>
         <member name="M:VR.VitalRecord.GetDateFragmentOrPartialDate(Hl7.Fhir.Model.Element,System.String)">
             <summary>Getter helper for anything that can have a regular FHIR date/time or a PartialDateTime extension, allowing a particular date
             field (year, month, or day) to be read from either the value or the extension</summary>
@@ -5358,11 +5403,17 @@
         <member name="M:VR.VitalRecord.GetPlaceOfBirth(Hl7.Fhir.Model.Patient)">
             <summary>Gets the given place of birth dictionary address from the given patient.</summary>
         </member>
+        <member name="M:VR.VitalRecord.GetPlaceOfBirth(Hl7.Fhir.Model.RelatedPerson)">
+            <summary>Gets the given place of birth dictionary address from the given related person.</summary>
+        </member>
         <member name="M:VR.VitalRecord.SetPlaceOfBirth(Hl7.Fhir.Model.Patient,System.Collections.Generic.Dictionary{System.String,System.String})">
             <summary>Sets the given place of birth dictionary on the given patient.</summary>
         </member>
         <member name="M:VR.VitalRecord.AddBirthDateToPatient(Hl7.Fhir.Model.Patient,System.Boolean)">
             <summary>Add a BirthDateElement to the given Patient resource.</summary>
+        </member>
+        <member name="M:VR.VitalRecord.SetPlaceOfBirth(Hl7.Fhir.Model.RelatedPerson,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>Sets the given place of birth dictionary on the given patient.</summary>
         </member>
         <member name="T:VR.PropertyParam">
             <summary>Property attribute used to describe a VitalRecord property parameter,

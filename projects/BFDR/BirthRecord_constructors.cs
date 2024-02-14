@@ -50,6 +50,18 @@ namespace BFDR
             };
             string[] father_profile = { VR.IGURL.RelatedPersonFatherNatural };
             Father.Meta.Profile = father_profile;
+            Father.Relationship.Add(new CodeableConcept(CodeSystems.RoleCode_HL7_V3, "NFTH"));
+
+            // Start with an empty EncounterBirth.
+            EncounterBirth = new Encounter()
+            {
+                Id = Guid.NewGuid().ToString(),
+                Meta = new Meta()
+            };
+            EncounterBirth.Meta.Profile = new List<string>()
+            {
+                ProfileURL.EncounterBirth
+            };
 
             // TODO: Start with an empty certifier. - Need reference in Composition
             //CreateCertifier();
@@ -161,7 +173,8 @@ namespace BFDR
             Mother = patients.Find(patient => patient.Meta.Profile.Any(patientProfile => patientProfile == VR.IGURL.Mother));
             // Grab Father
             Father = Bundle.Entry.FindAll(entry => entry.Resource is RelatedPerson).ConvertAll(entry => (RelatedPerson) entry.Resource).Find(resource => resource.Meta.Profile.Any(relatedPersonProfile => relatedPersonProfile == VR.IGURL.RelatedPersonFatherNatural));
-            
+            EncounterBirth = Bundle.Entry.FindAll(entry => entry.Resource is Encounter).ConvertAll(entry => (Encounter) entry.Resource).Find(resource => resource.Meta.Profile.Any(relatedPersonProfile => relatedPersonProfile == ProfileURL.EncounterBirth));
+
             if (fullRecord && Child == null)
             {
                 throw new System.ArgumentException("Failed to find a Child (Patient).");

@@ -9,10 +9,12 @@ namespace BFDR.Tests
   public class BirthRecord_Should
   {
     private BirthRecord SetterBirthRecord;
+    private BirthRecord FakeBirthRecord;
 
     public BirthRecord_Should()
     {
       SetterBirthRecord = new BirthRecord();
+      FakeBirthRecord = new BirthRecord(File.ReadAllText(FixturePath("fixtures/json/BirthRecordFake.json")));
     }
 
     [Fact]
@@ -33,7 +35,6 @@ namespace BFDR.Tests
       Assert.True(SetterBirthRecord.Anencephaly);
       Assert.False(SetterBirthRecord.NoCongenitalAnomaliesOfTheNewborn);
     }
-
     [Fact]
     public void Set_Anencephaly()
     {
@@ -331,10 +332,15 @@ namespace BFDR.Tests
       // Test conversion via FromDescription.
       BirthRecord secondRecord = VitalRecord.FromDescription<BirthRecord>(firstDescription);
 
-      // Record Identifier
-      Assert.Equal("48858", firstRecord.Identifier);
+      // Record Certificate Number
+      Assert.Equal("48858", firstRecord.CertificateNumber);
+      Assert.Equal(firstRecord.CertificateNumber, secondRecord.CertificateNumber);
+      // Record Birth Record Identifier
+      Assert.Equal("2019UT48858", firstRecord.BirthRecordIdentifier);
       Assert.Equal(firstRecord.BirthRecordIdentifier, secondRecord.BirthRecordIdentifier);
-      Assert.Equal(firstRecord.Identifier, secondRecord.Identifier);
+      // Record State Local Identifier 1
+      Assert.Equal("000000000042", firstRecord.StateLocalIdentifier1);
+      Assert.Equal(firstRecord.StateLocalIdentifier1, secondRecord.StateLocalIdentifier1);
       // Date of Birth - Year
       Assert.Equal(2019, firstRecord.BirthYear);
       Assert.Equal(firstRecord.BirthYear, secondRecord.BirthYear);
@@ -384,6 +390,9 @@ namespace BFDR.Tests
       // County of Birth (Literal)
       Assert.Equal("Salt Lake", firstRecord.PlaceOfBirth["addressCounty"]);
       Assert.Equal(firstRecord.PlaceOfBirth["addressCounty"], secondRecord.PlaceOfBirth["addressCounty"]);
+      // County of Birth (Code)
+      Assert.Equal("035", firstRecord.PlaceOfBirth["addressCountyC"]);
+      Assert.Equal(firstRecord.PlaceOfBirth["addressCountyC"], secondRecord.PlaceOfBirth["addressCountyC"].PadLeft(3, '0'));
       // City/town/place of birth (Literal)
       Assert.Equal("Salt Lake City", firstRecord.PlaceOfBirth["addressCity"]);
       Assert.Equal(firstRecord.PlaceOfBirth["addressCity"], secondRecord.PlaceOfBirth["addressCity"]);
@@ -604,23 +613,77 @@ namespace BFDR.Tests
     }
 
     [Fact]
-    public void TestChildBirthPlaceSetters()
+    public void TestBirthPlaceSetters()
     {
       BirthRecord record = new BirthRecord();
       // State of Birth
-      Dictionary<string, string> placeOfBirth = new Dictionary<string, string>();
-      placeOfBirth["addressState"] = "UT";
-      placeOfBirth["addressCounty"] = "Salt Lake";
-      placeOfBirth["addressCity"] = "Salt Lake City";
-      record.PlaceOfBirth = placeOfBirth;
+      record.PlaceOfBirth = new Dictionary<string, string>
+      {
+        ["addressState"] = "UT",
+        ["addressCounty"] = "Salt Lake",
+        ["addressCity"] = "Salt Lake City",
+        ["addressCountyC"] = "035"
+      };
+      record.MotherPlaceOfBirth = new Dictionary<string, string>
+      {
+        ["addressState"] = "MA",
+        ["addressCounty"] = "Middlesex",
+        ["addressCity"] = "Bedford",
+        ["addressCountry"] = "US"
+      };
+      record.FatherPlaceOfBirth = new Dictionary<string, string>
+      {
+        ["addressState"] = "NH",
+        ["addressCounty"] = "Hillsboro",
+        ["addressCity"] = "Nashua"
+      };
+
+      IJENatality ije = new(record);
+
       Assert.Equal("UT", record.PlaceOfBirth["addressState"]);
       Assert.Equal("UT", record.BirthLocationJurisdiction); // TODO - Birth Location Jurisdiction still needs to be finalized.
       // County of Birth (Literal)
       Assert.Equal("Salt Lake", record.PlaceOfBirth["addressCounty"]);
       // City/town/place of birth (Literal)
       Assert.Equal("Salt Lake City", record.PlaceOfBirth["addressCity"]);
+      // County of Birth (Code)
+      Assert.Equal("035", record.PlaceOfBirth["addressCountyC"].PadLeft(3, '0'));
+      Assert.Equal("MA", record.MotherPlaceOfBirth["addressState"]);
+      Assert.Equal("Middlesex", record.MotherPlaceOfBirth["addressCounty"]);
+      Assert.Equal("Bedford", record.MotherPlaceOfBirth["addressCity"]);
+      Assert.Equal("US", record.MotherPlaceOfBirth["addressCountry"]);
+      Assert.Equal("NH", record.FatherPlaceOfBirth["addressState"]);
+      Assert.Equal("Hillsboro", record.FatherPlaceOfBirth["addressCounty"]);
+      Assert.Equal("Nashua", record.FatherPlaceOfBirth["addressCity"]);
+      Assert.Equal(ije.BPLACEC_CNT, record.MotherPlaceOfBirth["addressCountry"]);
+      Assert.Equal(ije.BPLACEC_ST_TER, record.MotherPlaceOfBirth["addressState"]);
     }
 
+    [Fact]
+    public void TestMotherAddressSetters()
+    {
+      BirthRecord record = new BirthRecord();
+
+      Dictionary<string, string> addr = new Dictionary<string, string>();
+      addr["addressState"] = "UT";
+      addr["addressCounty"] = "Salt Lake";
+      addr["addressCity"] = "Salt Lake City";
+      record.MotherResidence = addr;
+
+      addr["addressState"] = "MA";
+      addr["addressCounty"] = "Middlesex";
+      addr["addressCity"] = "Bedford";
+      record.MotherBilling = addr;
+
+      Assert.Equal("UT", record.MotherResidence["addressState"]);
+      Assert.Equal("Salt Lake", record.MotherResidence["addressCounty"]);
+      Assert.Equal("Salt Lake City", record.MotherResidence["addressCity"]);
+
+      Assert.Equal("MA", record.MotherBilling["addressState"]);
+      Assert.Equal("Middlesex", record.MotherBilling["addressCounty"]);
+      Assert.Equal("Bedford", record.MotherBilling["addressCity"]);
+    }
+    
     [Fact]
     public void TestChildNameSetters()
     {
@@ -664,6 +727,27 @@ namespace BFDR.Tests
     }
 
     [Fact]
+    public void TestFatherNameSetters()
+    {
+      BirthRecord record = new BirthRecord();
+      Assert.Empty(record.FatherGivenNames);
+      Assert.Null(record.FatherFamilyName);
+      Assert.Null(record.FatherSuffix);
+      // Father's First Name
+      string[] names = {"Pappy", "C"};
+      record.FatherGivenNames = names;
+      Assert.Equal("Pappy", record.FatherGivenNames[0]);
+      // Father's Middle Name
+      Assert.Equal("C", record.FatherGivenNames[1]);
+      // Father's Last Name
+      record.FatherFamilyName = "Pipp";
+      Assert.Equal("Pipp", record.FatherFamilyName);
+      // Father's Surname Suffix
+      record.FatherSuffix = "III";
+      Assert.Equal("III", record.FatherSuffix);
+    }
+
+    [Fact]
     public void TestMotherMaidenNameSetters()
     {
       BirthRecord record = new BirthRecord();
@@ -700,8 +784,19 @@ namespace BFDR.Tests
     public void TestChildIdentifierSetters()
     {
       BirthRecord record = new BirthRecord();
-      // Record Identifier
-      record.Identifier = "87366";
+      // Record Identifiers
+      record.CertificateNumber = "87366";
+      Assert.Equal("87366", record.CertificateNumber);
+      Assert.Equal("0000XX087366", record.BirthRecordIdentifier);
+      Assert.Null(record.StateLocalIdentifier1);
+      record.StateLocalIdentifier1 = "0000033";
+      Assert.Equal("0000033", record.StateLocalIdentifier1);
+      record.BirthYear = 2020;
+      record.CertificateNumber = "767676";
+      Assert.Equal("2020XX767676", record.BirthRecordIdentifier);
+      record.BirthLocationJurisdiction = "WY";
+      record.CertificateNumber = "898989";
+      Assert.Equal("2020WY898989", record.BirthRecordIdentifier);
       // Infant Medical Record Number
       record.InfantMedicalRecordNumber = "9932734";
       Assert.Equal("9932734", record.InfantMedicalRecordNumber);
@@ -717,6 +812,15 @@ namespace BFDR.Tests
       // Mother SSN
       record.MotherSocialSecurityNumber = "1234567890";
       Assert.Equal("1234567890", record.MotherSocialSecurityNumber);
+    }
+
+    [Fact]
+    public void TestFatherIdentifierSetters()
+    {
+      BirthRecord record = new BirthRecord();
+      // Father SSN
+      record.FatherSocialSecurityNumber = "1231231234";
+      Assert.Equal("1231231234", record.FatherSocialSecurityNumber);
     }
 
     [Fact]
@@ -750,6 +854,9 @@ namespace BFDR.Tests
       Assert.Equal(29, record1.MotherBirthDay);
       // Complete Date of Birth.
       Assert.Equal("1990-08-29", record1.MotherDateOfBirth);
+      Assert.Null(record1.MotherReportedAgeAtDelivery);
+      record1.MotherReportedAgeAtDelivery = 27;
+      Assert.Equal(27, record1.MotherReportedAgeAtDelivery);
 
       // Test in a different order.
       BirthRecord record2 = new BirthRecord();
@@ -885,6 +992,9 @@ namespace BFDR.Tests
       Assert.Equal(29, record1.FatherBirthDay);
       // Complete Date of Birth.
       Assert.Equal("1990-08-29", record1.FatherDateOfBirth);
+      Assert.Null(record1.FatherReportedAgeAtDelivery);
+      record1.FatherReportedAgeAtDelivery = 28;
+      Assert.Equal(28, record1.FatherReportedAgeAtDelivery);
 
       // Test in a different order.
       BirthRecord record2 = new BirthRecord();
@@ -1065,6 +1175,246 @@ namespace BFDR.Tests
             }
         }
         Assert.Equal(15, b2.FatherRace.Length);
+    }
+
+    [Fact]
+    public void IdentifiersPresent()
+    {
+      Assert.Equal("100", FakeBirthRecord.CertificateNumber);
+      Assert.Equal("123", FakeBirthRecord.StateLocalIdentifier1);
+    }
+
+    [Fact]
+    public void TestImportMotherBirthplace()
+    {
+      // Test FHIR record import.
+      BirthRecord firstRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      string firstDescription = firstRecord.ToDescription();
+      // Test conversion via FromDescription.
+      BirthRecord secondRecord = VitalRecord.FromDescription<BirthRecord>(firstDescription);
+      // Test IJE Conversion.
+      IJENatality ije = new(secondRecord);
+
+      Assert.Equal(firstRecord.MotherPlaceOfBirth, secondRecord.MotherPlaceOfBirth);
+      // Country
+      Assert.Equal("US", firstRecord.MotherPlaceOfBirth["addressCountry"]);
+      Assert.Equal(firstRecord.MotherPlaceOfBirth["addressCountry"], ije.BPLACEC_CNT);
+      // State
+      Assert.Equal("UT", firstRecord.MotherPlaceOfBirth["addressState"]);
+      Assert.Equal(firstRecord.MotherPlaceOfBirth["addressState"], ije.BPLACEC_ST_TER);
+    }
+
+    [Fact]
+    public void TestSetPhysicalBirthPlace()
+    {
+      // Manually set birth record values.
+      BirthRecord br1 = new()
+      {
+          BirthPhysicalLocationHelper = "22232009",
+      };
+      // Test IJE conversion from BirthRecord.
+      IJENatality ije = new(br1);
+
+      Assert.Equal("22232009", br1.BirthPhysicalLocation["code"]);
+      Assert.Equal("http://snomed.info/sct", br1.BirthPhysicalLocation["system"]);
+      Assert.Equal("Hospital", br1.BirthPhysicalLocation["display"]);
+      Assert.Equal(br1.BirthPhysicalLocationHelper, br1.BirthPhysicalLocation["code"]);
+      Assert.Equal("1", ije.BPLACE);
+
+      Dictionary<string, string> birthPlaceCode = new()
+      {
+          ["code"] = "22232009",
+          ["system"] = "http://snomed.info/sct",
+          ["display"] = "Hospital"
+      };
+      br1.BirthPhysicalLocation = birthPlaceCode;
+      ije = new(br1);
+      Assert.Equal("22232009", br1.BirthPhysicalLocation["code"]);
+      Assert.Equal("http://snomed.info/sct", br1.BirthPhysicalLocation["system"]);
+      Assert.Equal("Hospital", br1.BirthPhysicalLocation["display"]);
+      Assert.Equal(br1.BirthPhysicalLocationHelper, br1.BirthPhysicalLocation["code"]);
+      Assert.Equal("1", ije.BPLACE);
+
+      br1.BirthPhysicalLocationHelper = "67190003";
+      ije = new(br1);
+      Assert.Equal("67190003", br1.BirthPhysicalLocation["code"]);
+      Assert.Equal("http://snomed.info/sct", br1.BirthPhysicalLocation["system"]);
+      Assert.Equal("Free-standing clinic", br1.BirthPhysicalLocation["display"]);
+      Assert.Equal(br1.BirthPhysicalLocationHelper, br1.BirthPhysicalLocation["code"]);
+      Assert.Equal("6", ije.BPLACE);
+    }
+
+    [Fact]
+    public void TestImportPhysicalBirthPlace()
+    {
+      // Test FHIR record import.
+      BirthRecord firstRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      // Test conversion via FromDescription.
+      BirthRecord secondRecord = VitalRecord.FromDescription<BirthRecord>(firstRecord.ToDescription());
+
+      Assert.Equal("22232009", firstRecord.BirthPhysicalLocation["code"]);
+      Assert.Equal("http://snomed.info/sct", firstRecord.BirthPhysicalLocation["system"]);
+      Assert.Equal("Hospital", firstRecord.BirthPhysicalLocation["display"]);
+      Assert.Equal(firstRecord.BirthPhysicalLocationHelper, firstRecord.BirthPhysicalLocation["code"]);
+      Assert.Equal("22232009", secondRecord.BirthPhysicalLocation["code"]);
+      Assert.Equal("http://snomed.info/sct", secondRecord.BirthPhysicalLocation["system"]);
+      Assert.Equal("Hospital", secondRecord.BirthPhysicalLocation["display"]);
+      Assert.Equal(secondRecord.BirthPhysicalLocationHelper, secondRecord.BirthPhysicalLocation["code"]);
+    }
+
+    public void TestAttendantPropertiesSetter()
+    {
+        BirthRecord record = new BirthRecord();
+        // Attendant's name
+        Assert.Null(record.AttendantName);
+        record.AttendantName = "Janet Seito";
+        Assert.Equal("Janet Seito", record.AttendantName);
+        // Attendant's NPI
+        Assert.Null(record.AttendantNPI);
+        record.AttendantNPI = "123456789011";
+        Assert.Equal("123456789011", record.AttendantNPI);
+        // Attendant's Title
+        Dictionary<string, string> AttendantTitle = new Dictionary<string, string>();
+        AttendantTitle.Add("code", "112247003");
+        AttendantTitle.Add("system", CodeSystems.SCT);
+        AttendantTitle.Add("display", "Medical Doctor");
+        record.AttendantTitle = AttendantTitle;
+        Assert.Equal("112247003", record.AttendantTitle["code"]);
+        Assert.Equal(CodeSystems.SCT, record.AttendantTitle["system"]);
+        Assert.Equal("Medical Doctor", record.AttendantTitle["display"]);
+        // test setting other Attendant Title
+        BirthRecord record2 = new BirthRecord();
+        record2.AttendantName = "Jessica Leung";
+        Assert.Equal("Jessica Leung", record2.AttendantName);
+        record2.AttendantTitleHelper = "Birth Clerk"; //set using Title helper
+        Assert.Equal("OTH", record2.AttendantTitle["code"]);
+        Assert.Equal(CodeSystems.NullFlavor_HL7_V3, record2.AttendantTitle["system"]);
+        Assert.Equal("Other", record2.AttendantTitle["display"]);
+        Assert.Equal("Birth Clerk", record2.AttendantTitle["text"]);
+        record2.AttendantOtherHelper = "Birth Clerk"; //set using Other helper
+        Assert.Equal("OTH", record2.AttendantTitle["code"]);
+        Assert.Equal(CodeSystems.NullFlavor_HL7_V3, record2.AttendantTitle["system"]);
+        Assert.Equal("Other", record2.AttendantTitle["display"]);
+        Assert.Equal("Birth Clerk", record2.AttendantTitle["text"]);
+        Assert.Equal("Birth Clerk", record2.AttendantOtherHelper);
+        // test IJE translations
+        IJENatality ije1 = new IJENatality(record);
+        Assert.Equal("Janet Seito", ije1.ATTEND_NAME.Trim());
+        Assert.Equal("123456789011", ije1.ATTEND_NPI);
+        Assert.Equal("1", ije1.ATTEND);
+        IJENatality ije2 = new IJENatality(record2);
+        Assert.Equal("Jessica Leung", ije2.ATTEND_NAME.Trim());
+        Assert.Equal("            ", ije2.ATTEND_NPI);
+        Assert.Equal("5", ije2.ATTEND);
+        Assert.Equal("Birth Clerk", ije2.ATTEND_OTH_TXT.Trim());
+    }  
+    [Fact]
+    public void PatientBirthDatePresent()
+    {
+      Assert.Equal(2023, FakeBirthRecord.BirthYear);
+      Assert.Equal(1, FakeBirthRecord.BirthMonth);
+      Assert.Equal(1, FakeBirthRecord.BirthDay);
+      Assert.Equal("2023-01-01", FakeBirthRecord.DateOfBirth);
+    }
+    [Fact]
+    public void ParentBirthDatesPresent()
+    {
+      Assert.Equal(1992, FakeBirthRecord.MotherBirthYear);
+      Assert.Equal(1, FakeBirthRecord.MotherBirthMonth);
+      Assert.Equal(12, FakeBirthRecord.MotherBirthDay);
+      Assert.Equal("1992-01-12", FakeBirthRecord.MotherDateOfBirth);
+      Assert.Equal(1990, FakeBirthRecord.FatherBirthYear );
+      Assert.Equal(9, FakeBirthRecord.FatherBirthMonth);
+      Assert.Equal(21, FakeBirthRecord.FatherBirthDay);
+      Assert.Equal("1990-09-21", FakeBirthRecord.FatherDateOfBirth);
+    }
+    [Fact]
+    public void ChildNamesPresent()
+    {
+      Assert.Equal("Alexander", FakeBirthRecord.ChildGivenNames[0]);
+      Assert.Equal("Arlo", FakeBirthRecord.ChildGivenNames[1]);
+      Assert.Equal("Adkins", FakeBirthRecord.ChildFamilyName);
+    }
+    [Fact]
+    public void MotherNamesPresent()
+    {
+      Assert.Equal("Xenia", FakeBirthRecord.MotherGivenNames[0]);
+      Assert.Equal("Adkins", FakeBirthRecord.MotherFamilyName);
+    }
+    [Fact]
+    public void BirthLocationPresent()
+    {
+      Assert.Equal("MA", FakeBirthRecord.BirthLocationJurisdiction);
+      Assert.Equal("123 Fake Street", FakeBirthRecord.PlaceOfBirth["addressLine1"]);
+      Assert.Equal("MA", FakeBirthRecord.PlaceOfBirth["addressState"]);
+      Assert.Equal("01101", FakeBirthRecord.PlaceOfBirth["addressZip"]);
+    }
+    [Fact]
+    public void PersonalIDsPresent()
+    {
+      Assert.Equal("7134703", FakeBirthRecord.InfantMedicalRecordNumber);
+      Assert.Equal("2286144", FakeBirthRecord.MotherMedicalRecordNumber);
+      Assert.Equal("133756482", FakeBirthRecord.MotherSocialSecurityNumber);
+    }
+    [Fact]
+    public void BirthDataPresent()
+    {
+      Assert.Null(FakeBirthRecord.SetOrder);
+      Assert.Null(FakeBirthRecord.Plurality);
+      Assert.True(FakeBirthRecord.NoCongenitalAnomaliesOfTheNewborn);
+      Assert.True(FakeBirthRecord.EpiduralOrSpinalAnesthesia );
+      Assert.True(FakeBirthRecord.AugmentationOfLabor);
+      Assert.True(FakeBirthRecord.NoSpecifiedAbnormalConditionsOfNewborn);
+      Assert.True(FakeBirthRecord.NoInfectionsPresentDuringPregnancy);
+      Assert.True(FakeBirthRecord.GestationalHypertension);
+      Assert.Equal("700000006", FakeBirthRecord.FinalRouteAndMethodOfDelivery["code"]);
+      Assert.True(FakeBirthRecord.NoObstetricProcedures);
+      // some negative cases
+      Assert.False(FakeBirthRecord.GestationalDiabetes);
+      Assert.False(FakeBirthRecord.ArtificialInsemination);
+    }
+
+    private string FixturePath(string filePath)
+        {
+            if (Path.IsPathRooted(filePath))
+            {
+                return filePath;
+            }
+            else
+            {
+                return Path.GetRelativePath(Directory.GetCurrentDirectory(), filePath);
+            }
+        }
+
+    [Fact]
+    public void SetAttendantAfterParse()
+    {
+        BirthRecord sample1 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+        Assert.Null(sample1.AttendantName);
+        sample1.AttendantName = "Janet Seito";
+        Assert.Equal("Janet Seito", sample1.AttendantName);
+        //NPI
+        Assert.Null(sample1.AttendantNPI);
+        sample1.AttendantNPI = "123456789011";
+        Assert.Equal("123456789011", sample1.AttendantNPI);
+        //title
+        Assert.Null(sample1.AttendantTitleHelper);
+        Assert.Null(sample1.AttendantOtherHelper);
+        Dictionary<string, string> AttendantTitle = new Dictionary<string, string>();
+        AttendantTitle.Add("code", "112247003");
+        AttendantTitle.Add("system", CodeSystems.SCT);
+        AttendantTitle.Add("display", "Medical Doctor");
+        sample1.AttendantTitle = AttendantTitle;
+        Assert.Equal("112247003", sample1.AttendantTitle["code"]);
+        Assert.Equal(CodeSystems.SCT, sample1.AttendantTitle["system"]);
+        Assert.Equal("Medical Doctor", sample1.AttendantTitle["display"]);
+        //Other
+        sample1.AttendantOtherHelper = "Nurse";
+        Assert.Equal("OTH", sample1.AttendantTitle["code"]);
+        Assert.Equal(CodeSystems.NullFlavor_HL7_V3, sample1.AttendantTitle["system"]);
+        Assert.Equal("Other", sample1.AttendantTitle["display"]);
+        Assert.Equal("Nurse", sample1.AttendantTitle["text"]);
+        Assert.Equal("Nurse", sample1.AttendantOtherHelper);
     }
   }
 }
