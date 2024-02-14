@@ -66,7 +66,7 @@ namespace BFDR.CLI
                 birthRecord.BirthYear = 2023;
                 birthRecord.BirthMonth = 1;
                 birthRecord.BirthDay = 1;
-                birthRecord.Identifier = "100";
+                birthRecord.CertificateNumber = "100";
                 birthRecord.StateLocalIdentifier1 = "123";
                 birthRecord.DateOfBirth = "2023-01-01";
                 birthRecord.BirthSexHelper = "M";
