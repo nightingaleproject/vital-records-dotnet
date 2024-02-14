@@ -97,7 +97,7 @@ namespace VR
         // TODO: How can we make this flexible to support more types?
         /// <summary>Helper to support vital record property getter helper methods for values stored in Observations.</summary>
         /// <param name="code">the code to identify the type of Observation</param>
-        /// <param name="extensionURL">if present, specifies that the value should be set on an extension with the provided URL instead</param>
+        /// <param name="extensionURL">if present, specifies that the value should be get from an extension with the provided URL instead</param>
         protected Dictionary<string, string> GetObservationValue(string code, string extensionURL = null)
         {
             var entry = Bundle.Entry.Where(e => e.Resource is Observation obs && CodeableConceptToDict(obs.Code)["code"] == code).FirstOrDefault();
