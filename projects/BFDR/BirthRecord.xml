@@ -974,7 +974,7 @@
             <para>ethnicity.Add("display", "Yes");</para>
             <para>ExampleBirthRecord.MotherEthnicity1 = ethnicity;</para>
             <para>// Getter:</para>
-            <para>Console.WriteLine($"Mother Ethnicity: {ExampleBirthRecord.MotherEthnicity1['display']}");</para>
+            <para>Console.WriteLine($"Mother Ethnicity: {ExampleBirthRecord.MotherEthnicity1["display"]}");</para>
             </example>
         </member>
         <member name="P:BFDR.BirthRecord.MotherEthnicity1Helper">
@@ -1002,7 +1002,7 @@
             <para>ethnicity.Add("display", "Yes");</para>
             <para>ExampleBirthRecord.MotherEthnicity2 = ethnicity;</para>
             <para>// Getter:</para>
-            <para>Console.WriteLine($"Mother Ethnicity: {ExampleBirthRecord.MotherEthnicity2['display']}");</para>
+            <para>Console.WriteLine($"Mother Ethnicity: {ExampleBirthRecord.MotherEthnicity2["display"]}");</para>
             </example>
         </member>
         <member name="P:BFDR.BirthRecord.MotherEthnicity2Helper">
@@ -1030,7 +1030,7 @@
             <para>ethnicity.Add("display", "Yes");</para>
             <para>ExampleBirthRecord.MotherEthnicity3 = ethnicity;</para>
             <para>// Getter:</para>
-            <para>Console.WriteLine($"Mother Ethnicity: {ExampleBirthRecord.MotherEthnicity3['display']}");</para>
+            <para>Console.WriteLine($"Mother Ethnicity: {ExampleBirthRecord.MotherEthnicity3["display"]}");</para>
             </example>
         </member>
         <member name="P:BFDR.BirthRecord.MotherEthnicity3Helper">
@@ -1058,7 +1058,7 @@
             <para>ethnicity.Add("display", "Yes");</para>
             <para>ExampleBirthRecord.MotherEthnicity3 = ethnicity;</para>
             <para>// Getter:</para>
-            <para>Console.WriteLine($"Mother Ethnicity: {ExampleBirthRecord.MotherEthnicity4['display']}");</para>
+            <para>Console.WriteLine($"Mother Ethnicity: {ExampleBirthRecord.MotherEthnicity4["display"]}");</para>
             </example>
         </member>
         <member name="P:BFDR.BirthRecord.MotherEthnicity4Helper">
@@ -1082,7 +1082,7 @@
             <para>// Setter:</para>
             <para>ExampleBirthRecord.MotherEthnicityLiteral = ethnicity;</para>
             <para>// Getter:</para>
-            <para>Console.WriteLine($"Ethnicity: {ExampleBirthRecord.MotherEthnicityLiteral['display']}");</para>
+            <para>Console.WriteLine($"Ethnicity: {ExampleBirthRecord.MotherEthnicityLiteral["display"]}");</para>
             </example>
         </member>
         <member name="P:BFDR.BirthRecord.MotherRace">
@@ -1111,7 +1111,7 @@
             <para>ethnicity.Add("display", "Yes");</para>
             <para>ExampleBirthRecord.FatherEthnicity1 = ethnicity;</para>
             <para>// Getter:</para>
-            <para>Console.WriteLine($"Father Ethnicity: {ExampleBirthRecord.FatherEthnicity1['display']}");</para>
+            <para>Console.WriteLine($"Father Ethnicity: {ExampleBirthRecord.FatherEthnicity1["display"]}");</para>
             </example>
         </member>
         <member name="P:BFDR.BirthRecord.FatherEthnicity1Helper">
@@ -1139,7 +1139,7 @@
             <para>ethnicity.Add("display", "Yes");</para>
             <para>ExampleBirthRecord.FatherEthnicity1 = ethnicity;</para>
             <para>// Getter:</para>
-            <para>Console.WriteLine($"Father Ethnicity: {ExampleBirthRecord.FatherEthnicity2['display']}");</para>
+            <para>Console.WriteLine($"Father Ethnicity: {ExampleBirthRecord.FatherEthnicity2["display"]}");</para>
             </example>
         </member>
         <member name="P:BFDR.BirthRecord.FatherEthnicity2Helper">
@@ -1167,7 +1167,7 @@
             <para>ethnicity.Add("display", "Yes");</para>
             <para>ExampleBirthRecord.FatherEthnicity3 = ethnicity;</para>
             <para>// Getter:</para>
-            <para>Console.WriteLine($"Father Ethnicity: {ExampleBirthRecord.FatherEthnicity3['display']}");</para>
+            <para>Console.WriteLine($"Father Ethnicity: {ExampleBirthRecord.FatherEthnicity3["display"]}");</para>
             </example>
         </member>
         <member name="P:BFDR.BirthRecord.FatherEthnicity3Helper">
@@ -1195,7 +1195,7 @@
             <para>ethnicity.Add("display", "Yes");</para>
             <para>ExampleBirthRecord.FatherEthnicity4 = ethnicity;</para>
             <para>// Getter:</para>
-            <para>Console.WriteLine($"Father Ethnicity: {ExampleBirthRecord.FatherEthnicity4['display']}");</para>
+            <para>Console.WriteLine($"Father Ethnicity: {ExampleBirthRecord.FatherEthnicity4["display"]}");</para>
             </example>
         </member>
         <member name="P:BFDR.BirthRecord.FatherEthnicity4Helper">
@@ -1219,7 +1219,7 @@
             <para>// Setter:</para>
             <para>ExampleBirthRecord.EthnicityLiteral = ethnicity;</para>
             <para>// Getter:</para>
-            <para>Console.WriteLine($"Ethnicity: {ExampleBirthRecord.EthnicityLiteral['display']}");</para>
+            <para>Console.WriteLine($"Ethnicity: {ExampleBirthRecord.EthnicityLiteral["display"]}");</para>
             </example>
         </member>
         <member name="P:BFDR.BirthRecord.FatherRace">
@@ -1486,6 +1486,101 @@
             <para>ExampleBirthRecord.FatherIndustry = "public health";</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Father's Industry: {ExampleBirthRecord.FatherIndustry}");</para>
+            </example>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:BFDR.BirthRecord.MotherEducationLevel" -->
+        <member name="P:BFDR.BirthRecord.MotherEducationLevelHelper">
+            <summary>Mother's Education Level Helper</summary>
+            <value>Mother's Education Level.</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherEducationLevelHelper = VR.ValueSets.EducationLevel.Bachelors_Degree;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's Education Level: {ExampleBirthRecord.EducationLevelHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.MotherEducationLevelEditFlag">
+            <summary>Mother's Education Level Edit Flag.</summary>
+            <value>the mother's education level edit flag. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; elevel = new Dictionary&lt;string, string&gt;();</para>
+            <para>elevel.Add("code", "0");</para>
+            <para>elevel.Add("system", VR.CodeSystems.BypassEditFlag);</para>
+            <para>elevel.Add("display", "Edit Passed");</para>
+            <para>ExampleBirthRecord.MotherEducationLevelEditFlag = elevel;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's Education Level Edit Flag: {ExampleBirthRecord.EducationLevelEditFlag["display"]}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.MotherEducationLevelEditFlagHelper">
+            <summary>Mother's Education Level Edit Flag Helper</summary>
+            <value>Mother's Education Level Edit Flag.</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherEducationLevelEditFlag = VRDR.ValueSets.EditBypass01234.EditPassed;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's Education Level Edit Flag: {ExampleBirthRecord.EducationLevelHelperEditFlag}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.FatherEducationLevel">
+            <summary>Father's Education Level.</summary>
+            <value>the father's education level. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; elevel = new Dictionary&lt;string, string&gt;();</para>
+            <para>elevel.Add("code", "BA");</para>
+            <para>elevel.Add("system", VR.CodeSystems.EducationLevel);</para>
+            <para>elevel.Add("display", "Bachelor’s Degree");</para>
+            <para>ExampleBirthRecord.FatherEducationLevel = elevel;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Father's Education Level: {ExampleBirthRecord.FatherEducationLevel["display"]}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.FatherEducationLevelHelper">
+            <summary>Father's Education Level Helper</summary>
+            <value>Father's Education Level.</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.FatherEducationLevelHelper = VR.ValueSets.EducationLevel.Bachelors_Degree;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Father's Education Level: {ExampleBirthRecord.EducationLevelHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.FatherEducationLevelEditFlag">
+            <summary>Father's Education Level Edit Flag.</summary>
+            <value>the father's education level edit flag. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; elevel = new Dictionary&lt;string, string&gt;();</para>
+            <para>elevel.Add("code", "0");</para>
+            <para>elevel.Add("system", VR.CodeSystems.BypassEditFlag);</para>
+            <para>elevel.Add("display", "Edit Passed");</para>
+            <para>ExampleBirthRecord.FatherEducationLevelEditFlag = elevel;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Father's Education Level Edit Flag: {ExampleBirthRecord.EducationLevelEditFlag["display"]}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.FatherEducationLevelEditFlagHelper">
+            <summary>Father's Education Level Edit Flag Helper</summary>
+            <value>Father's Education Level Edit Flag.</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.FatherEducationLevelEditFlag = VRDR.ValueSets.EditBypass01234.EditPassed;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Father's Education Level Edit Flag: {ExampleBirthRecord.EducationLevelHelperEditFlag}");</para>
             </example>
         </member>
         <member name="T:BFDR.FHIRSubject">

@@ -2989,7 +2989,7 @@ namespace BFDR
         /// <para>ethnicity.Add("display", "Yes");</para>
         /// <para>ExampleBirthRecord.MotherEthnicity1 = ethnicity;</para>
         /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Mother Ethnicity: {ExampleBirthRecord.MotherEthnicity1['display']}");</para>
+        /// <para>Console.WriteLine($"Mother Ethnicity: {ExampleBirthRecord.MotherEthnicity1["display"]}");</para>
         /// </example>
         [Property("MotherEthnicity1", Property.Types.Dictionary, "Race and Ethnicity Profiles", "Mother's Ethnicity Hispanic Mexican.", true, VR.IGURL.InputRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
@@ -3068,7 +3068,7 @@ namespace BFDR
         /// <para>ethnicity.Add("display", "Yes");</para>
         /// <para>ExampleBirthRecord.MotherEthnicity2 = ethnicity;</para>
         /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Mother Ethnicity: {ExampleBirthRecord.MotherEthnicity2['display']}");</para>
+        /// <para>Console.WriteLine($"Mother Ethnicity: {ExampleBirthRecord.MotherEthnicity2["display"]}");</para>
         /// </example>
         [Property("MotherEthnicity2", Property.Types.Dictionary, "Race and Ethnicity Profiles", "Mother's Ethnicity Hispanic Puerto Rican.", true, VR.IGURL.InputRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
@@ -3147,7 +3147,7 @@ namespace BFDR
         /// <para>ethnicity.Add("display", "Yes");</para>
         /// <para>ExampleBirthRecord.MotherEthnicity3 = ethnicity;</para>
         /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Mother Ethnicity: {ExampleBirthRecord.MotherEthnicity3['display']}");</para>
+        /// <para>Console.WriteLine($"Mother Ethnicity: {ExampleBirthRecord.MotherEthnicity3["display"]}");</para>
         /// </example>
         [Property("MotherEthnicity3", Property.Types.Dictionary, "Race and Ethnicity Profiles", "Mother's Ethnicity Hispanic Cuban.", true, VR.IGURL.InputRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
@@ -3227,7 +3227,7 @@ namespace BFDR
         /// <para>ethnicity.Add("display", "Yes");</para>
         /// <para>ExampleBirthRecord.MotherEthnicity3 = ethnicity;</para>
         /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Mother Ethnicity: {ExampleBirthRecord.MotherEthnicity4['display']}");</para>
+        /// <para>Console.WriteLine($"Mother Ethnicity: {ExampleBirthRecord.MotherEthnicity4["display"]}");</para>
         /// </example>
         [Property("MotherEthnicity4", Property.Types.Dictionary, "Race and Ethnicity Profiles", "Mother's Ethnicity Hispanic Other.", true, VR.IGURL.InputRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
@@ -3302,7 +3302,7 @@ namespace BFDR
         /// <para>// Setter:</para>
         /// <para>ExampleBirthRecord.MotherEthnicityLiteral = ethnicity;</para>
         /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Ethnicity: {ExampleBirthRecord.MotherEthnicityLiteral['display']}");</para>
+        /// <para>Console.WriteLine($"Ethnicity: {ExampleBirthRecord.MotherEthnicityLiteral["display"]}");</para>
         /// </example>
         [Property("MotherEthnicityLiteral", Property.Types.String, "Race and Ethnicity Profiles", "Mother's Ethnicity Literal.", true, VR.IGURL.InputRaceAndEthnicity, false, 34)]
         [PropertyParam("ethnicity", "The literal string to describe ethnicity.")]
@@ -3460,7 +3460,7 @@ namespace BFDR
         /// <para>ethnicity.Add("display", "Yes");</para>
         /// <para>ExampleBirthRecord.FatherEthnicity1 = ethnicity;</para>
         /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Father Ethnicity: {ExampleBirthRecord.FatherEthnicity1['display']}");</para>
+        /// <para>Console.WriteLine($"Father Ethnicity: {ExampleBirthRecord.FatherEthnicity1["display"]}");</para>
         /// </example>
         [Property("FatherEthnicity1", Property.Types.Dictionary, "Race and Ethnicity Profiles", "Father's Ethnicity Hispanic Mexican.", true, VR.IGURL.InputRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
@@ -3539,7 +3539,7 @@ namespace BFDR
         /// <para>ethnicity.Add("display", "Yes");</para>
         /// <para>ExampleBirthRecord.FatherEthnicity1 = ethnicity;</para>
         /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Father Ethnicity: {ExampleBirthRecord.FatherEthnicity2['display']}");</para>
+        /// <para>Console.WriteLine($"Father Ethnicity: {ExampleBirthRecord.FatherEthnicity2["display"]}");</para>
         /// </example>
         [Property("FatherEthnicity2", Property.Types.Dictionary, "Race and Ethnicity Profiles", "Father's Ethnicity Hispanic PuertoRican.", true, VR.IGURL.InputRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
@@ -3618,7 +3618,7 @@ namespace BFDR
         /// <para>ethnicity.Add("display", "Yes");</para>
         /// <para>ExampleBirthRecord.FatherEthnicity3 = ethnicity;</para>
         /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Father Ethnicity: {ExampleBirthRecord.FatherEthnicity3['display']}");</para>
+        /// <para>Console.WriteLine($"Father Ethnicity: {ExampleBirthRecord.FatherEthnicity3["display"]}");</para>
         /// </example>
         [Property("FatherEthnicity3", Property.Types.Dictionary, "Race and Ethnicity Profiles", "Father's Ethnicity Hispanic Cuban.", true, VR.IGURL.InputRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
@@ -3698,7 +3698,7 @@ namespace BFDR
         /// <para>ethnicity.Add("display", "Yes");</para>
         /// <para>ExampleBirthRecord.FatherEthnicity4 = ethnicity;</para>
         /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Father Ethnicity: {ExampleBirthRecord.FatherEthnicity4['display']}");</para>
+        /// <para>Console.WriteLine($"Father Ethnicity: {ExampleBirthRecord.FatherEthnicity4["display"]}");</para>
         /// </example>
         [Property("FatherEthnicity4", Property.Types.Dictionary, "Race and Ethnicity Profiles", "Father's Ethnicity Hispanic Other.", true, VR.IGURL.InputRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
@@ -3773,7 +3773,7 @@ namespace BFDR
         /// <para>// Setter:</para>
         /// <para>ExampleBirthRecord.EthnicityLiteral = ethnicity;</para>
         /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Ethnicity: {ExampleBirthRecord.EthnicityLiteral['display']}");</para>
+        /// <para>Console.WriteLine($"Ethnicity: {ExampleBirthRecord.EthnicityLiteral["display"]}");</para>
         /// </example>
         [Property("FatherEthnicityLiteral", Property.Types.String, "Race and Ethnicity Profiles", "Father's Ethnicity Literal.", true, VR.IGURL.InputRaceAndEthnicity, false, 34)]
         [PropertyParam("ethnicity", "The literal string to describe ethnicity.")]
@@ -3913,7 +3913,6 @@ namespace BFDR
                     }
                     InputRaceAndEthnicityObsFather.Component.Add(component);
                 }
-
             }
         }
 
@@ -4701,6 +4700,177 @@ namespace BFDR
         {
             get => GetIndustry("FTH");
             set => SetIndustry("FTH", value);
+        }
+
+        /// <summary>Mother's Education Level.</summary>
+        /// <value>the mother's education level. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>Dictionary&lt;string, string&gt; elevel = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>elevel.Add("code", "BA");</para>
+        /// <para>elevel.Add("system", VR.CodeSystems.EducationLevel);</para>
+        /// <para>elevel.Add("display", "Bachelor’s Degree");</para>
+        /// <para>ExampleBirthRecord.MotherEducationLevel = elevel;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother's Education Level: {ExampleBirthRecord.MotherEducationLevel["display"]}");</para>
+        /// </example>
+        [Property("Mother's Education Level", Property.Types.Dictionary, "Education Profiles", "Mother's Education Level.", true, VR.IGURL.EducationLevel, false, 32)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='57712-2').value.coding", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public Dictionary<string, string> MotherEducationLevel
+        {
+            get => GetObservationValue("57712-2");
+            set => SetObservationValue(value, "57712-2", CodeSystems.LOINC, "Highest level of education Mother", VR.ProfileURL.EducationLevel, MOTHER_INFORMATION_SECTION);
+        }
+
+        /// <summary>Mother's Education Level Helper</summary>
+        /// <value>Mother's Education Level.</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotherEducationLevelHelper = VR.ValueSets.EducationLevel.Bachelors_Degree;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother's Education Level: {ExampleBirthRecord.EducationLevelHelper}");</para>
+        /// </example>
+        [Property("Mother's Education Level Helper", Property.Types.String, "Education Profiles", "Mother's Education Level.", false, VR.IGURL.EducationLevel, false, 32)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='57712-2').value.coding", "")]
+        public string MotherEducationLevelHelper
+        {
+            get => GetObservationValueHelper();
+            set => SetObservationValueHelper(value, VR.ValueSets.EducationLevel.Codes);
+        }
+
+        /// <summary>Mother's Education Level Edit Flag.</summary>
+        /// <value>the mother's education level edit flag. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; elevel = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>elevel.Add("code", "0");</para>
+        /// <para>elevel.Add("system", VR.CodeSystems.BypassEditFlag);</para>
+        /// <para>elevel.Add("display", "Edit Passed");</para>
+        /// <para>ExampleBirthRecord.MotherEducationLevelEditFlag = elevel;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother's Education Level Edit Flag: {ExampleBirthRecord.EducationLevelEditFlag["display"]}");</para>
+        /// </example>
+        [Property("Mother's Education Level Edit Flag", Property.Types.Dictionary, "Education Profiles", "Mother's Education Level Edit Flag.", true, VR.IGURL.EducationLevel, false, 33)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='57712-2')", "")]
+        public Dictionary<string, string> MotherEducationLevelEditFlag
+        {
+            get => GetObservationValue("57712-2", VRExtensionURLs.BypassEditFlag);
+            set => SetObservationValue(value, "57712-2", CodeSystems.LOINC, "Highest level of education Mother", VR.ProfileURL.EducationLevel, MOTHER_INFORMATION_SECTION, "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag");
+        }
+
+        /// <summary>Mother's Education Level Edit Flag Helper</summary>
+        /// <value>Mother's Education Level Edit Flag.</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotherEducationLevelEditFlag = VRDR.ValueSets.EditBypass01234.EditPassed;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother's Education Level Edit Flag: {ExampleBirthRecord.EducationLevelHelperEditFlag}");</para>
+        /// </example>
+        [Property("Education Level Edit Flag Helper", Property.Types.String, "Decedent Demographics", "Mother's Education Level Edit Flag Helper.", false, VR.IGURL.EducationLevel, false, 34)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='57712-2')", "")]
+        public string MotherEducationLevelEditFlagHelper
+        {
+            get => GetObservationValueHelper();
+            set => SetObservationValueHelper(value, VR.ValueSets.EditBypass01234.Codes);
+        }
+
+        /// <summary>Father's Education Level.</summary>
+        /// <value>the father's education level. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; elevel = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>elevel.Add("code", "BA");</para>
+        /// <para>elevel.Add("system", VR.CodeSystems.EducationLevel);</para>
+        /// <para>elevel.Add("display", "Bachelor’s Degree");</para>
+        /// <para>ExampleBirthRecord.FatherEducationLevel = elevel;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Father's Education Level: {ExampleBirthRecord.FatherEducationLevel["display"]}");</para>
+        /// </example>
+        [Property("Father's Education Level", Property.Types.Dictionary, "Education Profiles", "Father's Education Level.", true, VR.IGURL.EducationLevel, false, 78)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87300-0').value.coding", "")]
+        public Dictionary<string, string> FatherEducationLevel
+        {
+            get => GetObservationValue("87300-0");
+            set => SetObservationValue(value, "87300-0", CodeSystems.LOINC, "Highest level of education Father", VR.ProfileURL.EducationLevel, FATHER_INFORMATION_SECTION);
+        }
+
+        /// <summary>Father's Education Level Helper</summary>
+        /// <value>Father's Education Level.</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.FatherEducationLevelHelper = VR.ValueSets.EducationLevel.Bachelors_Degree;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Father's Education Level: {ExampleBirthRecord.EducationLevelHelper}");</para>
+        /// </example>
+        [Property("Father's Education Level Helper", Property.Types.String, "Education Profiles", "Father's Education Level.", false, VR.IGURL.EducationLevel, false, 32)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87300-0').value.coding", "")]
+        public string FatherEducationLevelHelper
+        {
+            get => GetObservationValueHelper();
+            set => SetObservationValueHelper(value, VR.ValueSets.EducationLevel.Codes);
+        }
+
+        /// <summary>Father's Education Level Edit Flag.</summary>
+        /// <value>the father's education level edit flag. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; elevel = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>elevel.Add("code", "0");</para>
+        /// <para>elevel.Add("system", VR.CodeSystems.BypassEditFlag);</para>
+        /// <para>elevel.Add("display", "Edit Passed");</para>
+        /// <para>ExampleBirthRecord.FatherEducationLevelEditFlag = elevel;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Father's Education Level Edit Flag: {ExampleBirthRecord.EducationLevelEditFlag["display"]}");</para>
+        /// </example>
+        [Property("Father's Education Level Edit Flag", Property.Types.Dictionary, "Education Profiles", "Father's Education Level Edit Flag.", true, VR.IGURL.EducationLevel, false, 33)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87300-0')", "")]
+        public Dictionary<string, string> FatherEducationLevelEditFlag
+        {
+            get => GetObservationValue("87300-0", VRExtensionURLs.BypassEditFlag);
+            set => SetObservationValue(value, "87300-0", CodeSystems.LOINC, "Highest level of education Father", VR.ProfileURL.EducationLevel, FATHER_INFORMATION_SECTION, "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag");
+        }
+
+        /// <summary>Father's Education Level Edit Flag Helper</summary>
+        /// <value>Father's Education Level Edit Flag.</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.FatherEducationLevelEditFlag = VRDR.ValueSets.EditBypass01234.EditPassed;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Father's Education Level Edit Flag: {ExampleBirthRecord.EducationLevelHelperEditFlag}");</para>
+        /// </example>
+        [Property("Education Level Edit Flag Helper", Property.Types.String, "Decedent Demographics", "Father's Education Level Edit Flag Helper.", false, VR.IGURL.EducationLevel, false, 34)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87300-0')", "")]
+        public string FatherEducationLevelEditFlagHelper
+        {
+            get => GetObservationValueHelper();
+            set => SetObservationValueHelper(value, VR.ValueSets.EditBypass01234.Codes);
         }
     }
 }

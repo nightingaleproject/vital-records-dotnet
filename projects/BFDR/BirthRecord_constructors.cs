@@ -142,6 +142,8 @@ namespace BFDR
             // Make sure to include the base identifiers, including certificate number and auxiliary state IDs
             dccBundle.Identifier = Bundle.Identifier;
             // TODO: Here we'd determine what resources to add to this particular bundle, see VRDR for example
+            // NOTE: If we want to put observations in the coded content bundle that don't have references we'll
+            // need to move them over by grabbing them by the observation code
             return dccBundle;
         }
 
