@@ -1297,6 +1297,119 @@
             <para>Console.WriteLine($"Birth weight edit flag: {ExampleBirthRecord.BirthWeightEditFlagHelper}");</para>
             </example>
         </member>
+        <member name="P:BFDR.BirthRecord.AttendantFamilyName">
+            TODO: Required field in FHIR, needs BLANK placeholder
+            <summary>Family name of attendant.</summary>
+            <value>the attendant's family name (i.e. last name)</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.AttendantFamilyName = "Seito";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Attendants's Name: {ExampleBirthRecord.AttendantFamilyName}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.AttendantName">
+            <summary>Attendant name.</summary>
+            <value>the attendant's name</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.AttendantName = "Janet Seito";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Attendants's Name: {ExampleBirthRecord.AttendantName}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.AttendantNPI">
+            <summary>Attendants NPI</summary>
+            <value>the attendants npi</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.AttendantNPI = "123456789011";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Attendants NPI: {ExampleBirthRecord.AttendantNPI}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.AttendantTitle">
+            <summary>Attendant Title</summary>
+            <value>the title/qualification of the person who attended the birth. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; title = new Dictionary&lt;string, string&gt;();</para>
+            <para>title.Add("code", "112247003");</para>
+            <para>title.Add("system", CodeSystems.SCT);</para>
+            <para>title.Add("display", "Medical Doctor");</para>
+            <para>ExampleBirthRecord.AttendantTitle = title;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Attendant Title: {ExampleBirthRecord.AttendantTitle['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.AttendantTitleHelper">
+            <summary>Attendant Title Helper.</summary>
+            <value>the title/qualification of the attendant.
+            <para>"code" - the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.AttendantTitleHelper = ValueSets.BirthAttendantsTitles.MedicalDoctor;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Attendant Title: {ExampleBirthRecord.AttendantTitleHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.AttendantOtherHelper">
+            <summary>Attendant Other Helper.</summary>
+            <value>the "other" title/qualification of the attendant.
+            <para>"code" - the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.AttendantOtherHelper = "Birth Clerk";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Attendant Other: {ExampleBirthRecord.AttendantOtherHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.CigarettesPerDayInThreeMonthsPriorToPregancy">
+            <summary>Cigarettes Smoked in 3 months prior to Pregnancy.</summary>
+            <value>the number of cigarettes smoked per day in 3 months prior to pregnancy, or -1 if explicitly unknown, or null if never specified</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.CigarettesPerDayInThreeMonthsPriorToPregancy = 20;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Cigarettes In Three Months Prior To Pregancy: {ExampleBirthRecord.CigarettesPerDayInThreeMonthsPriorToPregancy}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.CigarettesPerDayInFirstTrimester">
+            <summary>Cigarettes Smoked in First Trimester.</summary>
+            <value>the number of cigarettes smoked per day in first trimester, or -1 if explicitly unknown, or null if never specified</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.CigarettesPerDayInFirstTrimester = 20;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Cigarettes In First Trimester: {ExampleBirthRecord.CigarettesPerDayInFirstTrimester}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.CigarettesPerDayInSecondTrimester">
+            <summary>Cigarettes Smoked in Second Trimester.</summary>
+            <value>the number of cigarettes smoked per day in second trimester, or -1 if explicitly unknown, or null if never specified</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.CigarettesPerDayInSecondTrimester = 20;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Cigarettes In Second Trimester: {ExampleBirthRecord.CigarettesPerDayInSecondTrimester}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.CigarettesPerDayInLastTrimester">
+            <summary>Cigarettes Smoked in Last Trimester.</summary>
+            <value>the number of cigarettes smoked per day in last trimester, or -1 if explicitly unknown, or null if never specified</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.CigarettesPerDayInLastTrimester = 20;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Cigarettes In Last Trimester: {ExampleBirthRecord.CigarettesPerDayInLastTrimester}");</para>
+            </example>
+        </member>
         <member name="T:BFDR.FHIRSubject">
             <summary>Describes the subject of a birth record field</summary>
         </member>
