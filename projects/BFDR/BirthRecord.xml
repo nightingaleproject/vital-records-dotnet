@@ -2811,23 +2811,32 @@
         <member name="T:BFDR.ProfileURL">
             <summary>Profile URLs</summary>
         </member>
-        <member name="F:BFDR.ProfileURL.BundleDocumentBFDR">
-            <summary>URL for BundleDocumentBFDR</summary>
+        <member name="F:BFDR.ProfileURL.BundleDocumentBirthReport">
+            <summary>URL for BundleDocumentBirthReport</summary>
         </member>
-        <member name="F:BFDR.ProfileURL.CompositionCodedRaceAndEthnicity">
-            <summary>URL for CompositionCodedRaceAndEthnicity</summary>
+        <member name="F:BFDR.ProfileURL.BundleDocumentCodedCauseOfFetalDeath">
+            <summary>URL for BundleDocumentCodedCauseOfFetalDeath</summary>
         </member>
-        <member name="F:BFDR.ProfileURL.CompositionProviderFetalDeathReport">
-            <summary>URL for CompositionProviderFetalDeathReport</summary>
+        <member name="F:BFDR.ProfileURL.BundleDocumentDemographicCodedContent">
+            <summary>URL for BundleDocumentDemographicCodedContent</summary>
+        </member>
+        <member name="F:BFDR.ProfileURL.BundleDocumentFetalDeathReport">
+            <summary>URL for BundleDocumentFetalDeathReport</summary>
         </member>
         <member name="F:BFDR.ProfileURL.CompositionCodedCauseOfFetalDeath">
             <summary>URL for CompositionCodedCauseOfFetalDeath</summary>
+        </member>
+        <member name="F:BFDR.ProfileURL.CompositionCodedRaceAndEthnicity">
+            <summary>URL for CompositionCodedRaceAndEthnicity</summary>
         </member>
         <member name="F:BFDR.ProfileURL.CompositionJurisdictionFetalDeathReport">
             <summary>URL for CompositionJurisdictionFetalDeathReport</summary>
         </member>
         <member name="F:BFDR.ProfileURL.CompositionJurisdictionLiveBirthReport">
             <summary>URL for CompositionJurisdictionLiveBirthReport</summary>
+        </member>
+        <member name="F:BFDR.ProfileURL.CompositionProviderFetalDeathReport">
+            <summary>URL for CompositionProviderFetalDeathReport</summary>
         </member>
         <member name="F:BFDR.ProfileURL.CompositionProviderLiveBirthReport">
             <summary>URL for CompositionProviderLiveBirthReport</summary>
@@ -2877,8 +2886,8 @@
         <member name="F:BFDR.ProfileURL.EncounterBirth">
             <summary>URL for EncounterBirth</summary>
         </member>
-        <member name="F:BFDR.ProfileURL.Encounter_Maternity">
-            <summary>URL for Encounter_Maternity</summary>
+        <member name="F:BFDR.ProfileURL.EncounterMaternity">
+            <summary>URL for EncounterMaternity</summary>
         </member>
         <member name="F:BFDR.ProfileURL.ObservationNoneOfSpecifiedCongenitalAnomoliesOfTheNewborn">
             <summary>URL for ObservationNoneOfSpecifiedCongenitalAnomoliesOfTheNewborn</summary>
@@ -2891,6 +2900,9 @@
         </member>
         <member name="F:BFDR.ProfileURL.ObservationAutopsyHistologicalExamResultsUsed">
             <summary>URL for ObservationAutopsyHistologicalExamResultsUsed</summary>
+        </member>
+        <member name="F:BFDR.ProfileURL.ObservationBirthPluralityOfPregnancy">
+            <summary>URL for ObservationBirthPluralityOfPregnancy</summary>
         </member>
         <member name="F:BFDR.ProfileURL.ObservationBirthWeight">
             <summary>URL for ObservationBirthWeight</summary>
@@ -3069,38 +3081,11 @@
         <member name="T:BFDR.ExtensionURL">
             <summary>Extension URLs</summary>
         </member>
-        <member name="F:BFDR.ExtensionURL.AuxiliaryStateIdentifier1">
-            <summary>URL for AuxiliaryStateIdentifier1</summary>
-        </member>
-        <member name="F:BFDR.ExtensionURL.AuxiliaryStateIdentifier2">
-            <summary>URL for AuxiliaryStateIdentifier2</summary>
-        </member>
-        <member name="F:BFDR.ExtensionURL.CertificateNumber">
-            <summary>URL for CertificateNumber</summary>
-        </member>
-        <member name="F:BFDR.ExtensionURL.ExtensionDateFiledByRegistrar">
-            <summary>URL for ExtensionDateFiledByRegistrar</summary>
-        </member>
-        <member name="F:BFDR.ExtensionURL.ExtensionDatereceivedByRegistrar">
-            <summary>URL for ExtensionDatereceivedByRegistrar</summary>
-        </member>
         <member name="F:BFDR.ExtensionURL.ExtensionEncounterMaternityReference">
             <summary>URL for ExtensionEncounterMaternityReference</summary>
         </member>
-        <member name="F:BFDR.ExtensionURL.ExtensionFetalDeathLocalFileNumber">
-            <summary>URL for ExtensionFetalDeathLocalFileNumber</summary>
-        </member>
-        <member name="F:BFDR.ExtensionURL.ExtensionFetalDeathReportNumber">
-            <summary>URL for ExtensionFetalDeathReportNumber</summary>
-        </member>
-        <member name="F:BFDR.ExtensionURL.ExtensionLiveBirthCertificateNumber">
-            <summary>URL for ExtensionLiveBirthCertificateNumber</summary>
-        </member>
-        <member name="F:BFDR.ExtensionURL.ExtensionLiveBirthLocalFileNumber">
-            <summary>URL for ExtensionLiveBirthLocalFileNumber</summary>
-        </member>
-        <member name="F:BFDR.ExtensionURL.DemographicCodedContentBundleBFDR">
-            <summary>URL for DemographicCodedContentBundleBFDR</summary>
+        <member name="F:BFDR.ExtensionURL.LocationBFDR">
+            <summary>URL for LocationBFDR</summary>
         </member>
         <member name="F:BFDR.ExtensionURL.BirthSex">
             <summary>URL for BirthSex</summary>
@@ -3114,32 +3099,32 @@
         <member name="T:BFDR.IGURL">
             <summary>IG URLs</summary>
         </member>
-        <member name="F:BFDR.IGURL.AuxiliaryStateIdentifier1">
-            <summary>URL for AuxiliaryStateIdentifier1</summary>
+        <member name="F:BFDR.IGURL.BundleDocumentBirthReport">
+            <summary>URL for BundleDocumentBirthReport</summary>
         </member>
-        <member name="F:BFDR.IGURL.AuxiliaryStateIdentifier2">
-            <summary>URL for AuxiliaryStateIdentifier2</summary>
+        <member name="F:BFDR.IGURL.BundleDocumentCodedCauseOfFetalDeath">
+            <summary>URL for BundleDocumentCodedCauseOfFetalDeath</summary>
         </member>
-        <member name="F:BFDR.IGURL.BundleDocumentBFDR">
-            <summary>URL for BundleDocumentBFDR</summary>
+        <member name="F:BFDR.IGURL.BundleDocumentDemographicCodedContent">
+            <summary>URL for BundleDocumentDemographicCodedContent</summary>
         </member>
-        <member name="F:BFDR.IGURL.CertificateNumber">
-            <summary>URL for CertificateNumber</summary>
-        </member>
-        <member name="F:BFDR.IGURL.CompositionCodedRaceAndEthnicity">
-            <summary>URL for CompositionCodedRaceAndEthnicity</summary>
-        </member>
-        <member name="F:BFDR.IGURL.CompositionProviderFetalDeathReport">
-            <summary>URL for CompositionProviderFetalDeathReport</summary>
+        <member name="F:BFDR.IGURL.BundleDocumentFetalDeathReport">
+            <summary>URL for BundleDocumentFetalDeathReport</summary>
         </member>
         <member name="F:BFDR.IGURL.CompositionCodedCauseOfFetalDeath">
             <summary>URL for CompositionCodedCauseOfFetalDeath</summary>
+        </member>
+        <member name="F:BFDR.IGURL.CompositionCodedRaceAndEthnicity">
+            <summary>URL for CompositionCodedRaceAndEthnicity</summary>
         </member>
         <member name="F:BFDR.IGURL.CompositionJurisdictionFetalDeathReport">
             <summary>URL for CompositionJurisdictionFetalDeathReport</summary>
         </member>
         <member name="F:BFDR.IGURL.CompositionJurisdictionLiveBirthReport">
             <summary>URL for CompositionJurisdictionLiveBirthReport</summary>
+        </member>
+        <member name="F:BFDR.IGURL.CompositionProviderFetalDeathReport">
+            <summary>URL for CompositionProviderFetalDeathReport</summary>
         </member>
         <member name="F:BFDR.IGURL.CompositionProviderLiveBirthReport">
             <summary>URL for CompositionProviderLiveBirthReport</summary>
@@ -3189,29 +3174,14 @@
         <member name="F:BFDR.IGURL.EncounterBirth">
             <summary>URL for EncounterBirth</summary>
         </member>
-        <member name="F:BFDR.IGURL.Encounter_Maternity">
-            <summary>URL for Encounter_Maternity</summary>
-        </member>
-        <member name="F:BFDR.IGURL.ExtensionDateFiledByRegistrar">
-            <summary>URL for ExtensionDateFiledByRegistrar</summary>
-        </member>
-        <member name="F:BFDR.IGURL.ExtensionDatereceivedByRegistrar">
-            <summary>URL for ExtensionDatereceivedByRegistrar</summary>
+        <member name="F:BFDR.IGURL.EncounterMaternity">
+            <summary>URL for EncounterMaternity</summary>
         </member>
         <member name="F:BFDR.IGURL.ExtensionEncounterMaternityReference">
             <summary>URL for ExtensionEncounterMaternityReference</summary>
         </member>
-        <member name="F:BFDR.IGURL.ExtensionFetalDeathLocalFileNumber">
-            <summary>URL for ExtensionFetalDeathLocalFileNumber</summary>
-        </member>
-        <member name="F:BFDR.IGURL.ExtensionFetalDeathReportNumber">
-            <summary>URL for ExtensionFetalDeathReportNumber</summary>
-        </member>
-        <member name="F:BFDR.IGURL.ExtensionLiveBirthCertificateNumber">
-            <summary>URL for ExtensionLiveBirthCertificateNumber</summary>
-        </member>
-        <member name="F:BFDR.IGURL.ExtensionLiveBirthLocalFileNumber">
-            <summary>URL for ExtensionLiveBirthLocalFileNumber</summary>
+        <member name="F:BFDR.IGURL.LocationBFDR">
+            <summary>URL for LocationBFDR</summary>
         </member>
         <member name="F:BFDR.IGURL.ObservationNoneOfSpecifiedCongenitalAnomoliesOfTheNewborn">
             <summary>URL for ObservationNoneOfSpecifiedCongenitalAnomoliesOfTheNewborn</summary>
@@ -3224,6 +3194,9 @@
         </member>
         <member name="F:BFDR.IGURL.ObservationAutopsyHistologicalExamResultsUsed">
             <summary>URL for ObservationAutopsyHistologicalExamResultsUsed</summary>
+        </member>
+        <member name="F:BFDR.IGURL.ObservationBirthPluralityOfPregnancy">
+            <summary>URL for ObservationBirthPluralityOfPregnancy</summary>
         </member>
         <member name="F:BFDR.IGURL.ObservationBirthWeight">
             <summary>URL for ObservationBirthWeight</summary>
@@ -3398,9 +3371,6 @@
         </member>
         <member name="F:BFDR.IGURL.ProcedureUnplannedHysterectomy">
             <summary>URL for ProcedureUnplannedHysterectomy</summary>
-        </member>
-        <member name="F:BFDR.IGURL.DemographicCodedContentBundleBFDR">
-            <summary>URL for DemographicCodedContentBundleBFDR</summary>
         </member>
         <member name="T:BFDR.CodeSystemURL">
             <summary>BFDR Custom Code System URLs</summary>

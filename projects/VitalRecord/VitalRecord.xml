@@ -5173,7 +5173,7 @@
         <member name="M:VR.VitalRecord.GetObservationValue(System.String,System.String)">
             <summary>Helper to support vital record property getter helper methods for values stored in Observations.</summary>
             <param name="code">the code to identify the type of Observation</param>
-            <param name="extensionURL">if present, specifies that the value should be set on an extension with the provided URL instead</param>
+            <param name="extensionURL">if present, specifies that the value should be get from an extension with the provided URL instead</param>
         </member>
         <member name="M:VR.VitalRecord.SetObservationValue(System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
             <summary>Helper to support vital record property setter helper methods for values stored in Observations.</summary>

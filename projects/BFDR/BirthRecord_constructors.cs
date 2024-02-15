@@ -24,7 +24,7 @@ namespace BFDR
             Bundle.Id = Guid.NewGuid().ToString();
             Bundle.Type = Bundle.BundleType.Document; // By default, Bundle type is "document".
             Bundle.Meta = new Meta();
-            string[] bundle_profile = { ProfileURL.BundleDocumentBFDR };
+            string[] bundle_profile = { ProfileURL.BundleDocumentBirthReport };
             Bundle.Timestamp = DateTime.Now;
             Bundle.Meta.Profile = bundle_profile;
 
@@ -136,7 +136,7 @@ namespace BFDR
             dccBundle.Type = Bundle.BundleType.Collection;
             dccBundle.Meta = new Meta();
             // TODO: URLs.cs has the profile URL with the extensions instead of the profiles, fix this once URLs.cs is fixed
-            string[] profile = { ExtensionURL.DemographicCodedContentBundleBFDR };
+            string[] profile = { ProfileURL.BundleDocumentDemographicCodedContent };
             dccBundle.Meta.Profile = profile;
             dccBundle.Timestamp = DateTime.Now;
             // Make sure to include the base identifiers, including certificate number and auxiliary state IDs
