@@ -63,6 +63,18 @@ namespace BFDR
                 ProfileURL.EncounterBirth
             };
 
+            // Start with an empty location.
+            LocationBirth = new Location
+            {
+                Meta = new Meta()
+                {
+                    Profile = new List<string>()
+                    {
+                        ExtensionURL.LocationBFDR
+                    }
+                }
+            };
+
             // TODO: Start with an empty certifier. - Need reference in Composition
             //CreateCertifier();
 
@@ -175,7 +187,8 @@ namespace BFDR
             Mother = patients.Find(patient => patient.Meta.Profile.Any(patientProfile => patientProfile == VR.IGURL.Mother));
             // Grab Father
             Father = Bundle.Entry.FindAll(entry => entry.Resource is RelatedPerson).ConvertAll(entry => (RelatedPerson) entry.Resource).Find(resource => resource.Meta.Profile.Any(relatedPersonProfile => relatedPersonProfile == VR.IGURL.RelatedPersonFatherNatural));
-            EncounterBirth = Bundle.Entry.FindAll(entry => entry.Resource is Encounter).ConvertAll(entry => (Encounter) entry.Resource).Find(resource => resource.Meta.Profile.Any(relatedPersonProfile => relatedPersonProfile == ProfileURL.EncounterBirth));
+            EncounterBirth = Bundle.Entry.FindAll(entry => entry.Resource is Encounter).ConvertAll(entry => (Encounter) entry.Resource).Find(resource => resource.Meta.Profile.Any(encounterProfile => encounterProfile == ProfileURL.EncounterBirth));
+            LocationBirth = Bundle.Entry.FindAll(entry => entry.Resource is Location).ConvertAll(entry => (Location) entry.Resource).Find(resource => resource.Meta.Profile.Any(locProfile => locProfile == ExtensionURL.LocationBFDR));
 
             if (fullRecord && Child == null)
             {
