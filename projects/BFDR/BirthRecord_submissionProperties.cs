@@ -485,7 +485,7 @@ namespace BFDR
             {
                 if(!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("BirthSex", value, ValueSets.BirthSex.Codes);
+                    SetCodeValue("BirthSex", value, VR.ValueSets.SexAssignedAtBirth.Codes);
                 }
             }
         }
@@ -1081,7 +1081,7 @@ namespace BFDR
                 else
                 {
                     // normal path
-                    SetCodeValue("BirthPhysicalLocation", value, BFDR.ValueSets.PlaceTypeOfBirth.Codes);
+                    SetCodeValue("BirthPhysicalLocation", value, BFDR.ValueSets.BirthDeliveryOccurred.Codes);
                 }
             }
         }
@@ -4419,13 +4419,13 @@ namespace BFDR
                     // do nothing
                     return;
                 }
-                if (!VR.Mappings.ConceptMapBirthAttendantTitlesVitalRecords.FHIRToIJE.ContainsKey(value))
+                if (!VR.Mappings.BirthAttendantTitles.FHIRToIJE.ContainsKey(value))
                 { //other
                     AttendantTitle = CodeableConceptToDict(new CodeableConcept(CodeSystems.NullFlavor_HL7_V3, "OTH", "Other", value));
                 }
                 else
                 { // normal path
-                    SetCodeValue("AttendantTitle", value, VR.ValueSets.BirthAttendantsTitles.Codes);
+                    SetCodeValue("AttendantTitle", value, VR.ValueSets.BirthAttendantTitles.Codes);
                 }
             }
         }
@@ -5403,13 +5403,13 @@ namespace BFDR
                 if (PayorTypeFinancialClass.ContainsKey("code"))
                 {
                     string code = PayorTypeFinancialClass["code"];
-                    if (code == "unknown")
+                    if (code == "9999")
                     {
                         if (PayorTypeFinancialClass.ContainsKey("text") && !String.IsNullOrWhiteSpace(PayorTypeFinancialClass["text"]))
                         {
                             return PayorTypeFinancialClass["text"];
                         }
-                        return "unknown";
+                        return "9999";
                     }
                     else if (!String.IsNullOrWhiteSpace(code))
                     {
@@ -5428,12 +5428,12 @@ namespace BFDR
                 if (!BFDR.Mappings.BirthAndFetalDeathFinancialClass.FHIRToIJE.ContainsKey(value))
                 {
                     // unknown
-                    PayorTypeFinancialClass = CodeableConceptToDict(new CodeableConcept(CodeSystems.NullFlavor_HL7_V3, "unknown", "Unavailable / Unknown", value));
+                    PayorTypeFinancialClass = CodeableConceptToDict(new CodeableConcept(CodeSystems.NAHDO, "9999", "Unavailable / Unknown", value));
                 }
                 else
                 {
                     // normal path
-                    SetCodeValue("PayorTypeFinancialClass", value, BFDR.ValueSets.PayorType.Codes);
+                    SetCodeValue("PayorTypeFinancialClass", value, BFDR.ValueSets.BirthAndFetalDeathFinancialClass.Codes);
                 }
             }
         }

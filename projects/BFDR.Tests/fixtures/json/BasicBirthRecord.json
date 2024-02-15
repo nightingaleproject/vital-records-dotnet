@@ -1157,12 +1157,12 @@
         "type": {
           "coding": [
             {
-              "system": "http://hl7.org/fhir/us/bfdr/CodeSystem/CodeSystem-vr-birth-and-fetal-death-financial-class",
-              "code": "privateinsurance",
-              "display": "Private Health Insurance"
+              "system": "https://nahdo.org/sopt",
+              "code": "5",
+              "display": "PRIVATE HEALTH INSURANCE"
             }
           ],
-          "text": "Private Health Insurance"
+          "text": "PRIVATE HEALTH INSURANCE"
         },
         "beneficiary": {
           "reference": "Patient/patient-mother-jada-ann-quinn",

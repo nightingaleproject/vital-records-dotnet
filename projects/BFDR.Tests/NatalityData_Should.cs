@@ -796,15 +796,15 @@ namespace BFDR.Tests
           PAY = "1"
       };
       Assert.Equal("1", ije.PAY);
-      Assert.Equal("medicaid", ije.ToRecord().PayorTypeFinancialClass["code"]);
+      Assert.Equal("2", ije.ToRecord().PayorTypeFinancialClass["code"]);
       Assert.Equal("MEDICAID", ije.ToRecord().PayorTypeFinancialClass["display"]);
-      Assert.Equal(VR.CodeSystems.PayorType, ije.ToRecord().PayorTypeFinancialClass["system"]);
+      Assert.Equal(VR.CodeSystems.NAHDO, ije.ToRecord().PayorTypeFinancialClass["system"]);
 
       ije.PAY = "3";
       Assert.Equal("3", ije.PAY);
-      Assert.Equal("selfpay", ije.ToRecord().PayorTypeFinancialClass["code"]);
+      Assert.Equal("81", ije.ToRecord().PayorTypeFinancialClass["code"]);
       Assert.Equal("Self-pay", ije.ToRecord().PayorTypeFinancialClass["display"]);
-      Assert.Equal(VR.CodeSystems.PayorType, ije.ToRecord().PayorTypeFinancialClass["system"]);
+      Assert.Equal(VR.CodeSystems.NAHDO, ije.ToRecord().PayorTypeFinancialClass["system"]);
     }
 
     [Fact]
@@ -819,9 +819,9 @@ namespace BFDR.Tests
 
       Assert.Equal("6", ijeImported.PAY);
       Assert.Equal(ijeImported.PAY, ijeConverted.PAY);
-      Assert.Equal("othergov", ijeImported.ToRecord().PayorTypeFinancialClass["code"]);
+      Assert.Equal("38", ijeImported.ToRecord().PayorTypeFinancialClass["code"]);
       Assert.Equal("Other Government (Federal, State, Local not specified)", ijeImported.ToRecord().PayorTypeFinancialClass["display"]);
-      Assert.Equal(VR.CodeSystems.PayorType, ijeImported.ToRecord().PayorTypeFinancialClass["system"]);
+      Assert.Equal(VR.CodeSystems.NAHDO, ijeImported.ToRecord().PayorTypeFinancialClass["system"]);
     }
   }
 }
