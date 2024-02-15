@@ -1458,5 +1458,31 @@ namespace BFDR.Tests
         Assert.Equal("Nurse", sample1.AttendantTitle["text"]);
         Assert.Equal("Nurse", sample1.AttendantOtherHelper);
     }
+    
+    [Fact]
+    public void TestImportLocation()
+    {
+      BirthRecord br = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.Equal("116441967701", br.FacilityNPI);
+      Assert.Equal("UT1234567", br.FacilityJFI);
+    }
+
+    [Fact]
+    public void TestSetLocation()
+    {
+      BirthRecord br = new()
+      {
+          FacilityNPI = "4815162342",
+          FacilityJFI = "636-555-3226"
+      };
+      Assert.Equal("4815162342", br.FacilityNPI);
+      Assert.Equal("636-555-3226", br.FacilityJFI);
+      br.FacilityNPI = "999";
+      Assert.Equal("999", br.FacilityNPI);
+      Assert.Equal("636-555-3226", br.FacilityJFI);
+      br.FacilityJFI = "0909090";
+      Assert.Equal("999", br.FacilityNPI);
+      Assert.Equal("0909090", br.FacilityJFI);
+    }
   }
 }

@@ -68,6 +68,9 @@
         <member name="F:BFDR.BirthRecord.EncounterBirth">
             <summary>The encounter of the birth.</summary>
         </member>
+        <member name="F:BFDR.BirthRecord.LocationBirth">
+            <summary>The Location of the birth.</summary>
+        </member>
         <member name="F:BFDR.BirthRecord.RACE_ETHNICITY_PROFILE_MOTHER">
             <summary>Composition Section Constants</summary>
         </member>
@@ -1581,6 +1584,26 @@
             <para>ExampleBirthRecord.FatherEducationLevelEditFlag = VRDR.ValueSets.EditBypass01234.EditPassed;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Father's Education Level Edit Flag: {ExampleBirthRecord.EducationLevelHelperEditFlag}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.FacilityNPI">
+            <summary>Facility ID (NPI), National Provider Identifier</summary>
+            <value>Facility ID (NPI).</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.FacilityNPI = 123456789;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Facility National Provider Identifier: {ExampleBirthRecord.FacilityNPI}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.FacilityJFI">
+            <summary>Facility ID (JFI), Jurisdictional Facility Identifier</summary>
+            <value>Facility ID (JFI).</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.FacilityJFI = 123456789;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Jurisdictional Facility Identifier: {ExampleBirthRecord.FacilityJFI}");</para>
             </example>
         </member>
         <member name="T:BFDR.FHIRSubject">
