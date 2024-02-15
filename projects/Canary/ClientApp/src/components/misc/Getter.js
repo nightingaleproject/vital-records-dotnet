@@ -87,11 +87,11 @@ export class Getter extends Component {
       }
       var endpoint = '';
       if (this.props.returnType) {
-        endpoint = '/records/return/new';
+        endpoint = `/records/${this.props.recordType}/return/new`;
       } else if(this.props.messageValidation) {
-        endpoint = '/messages/new'
+        endpoint = `/messages/${this.props.recordType}/new`
       } else if (this.props.messageInspector) {
-        endpoint = '/messages/inspect';
+        endpoint = `/messages/${this.props.recordType}/inspect`;
       } else {
         endpoint = `/records/${this.props.recordType}/new`;
       }

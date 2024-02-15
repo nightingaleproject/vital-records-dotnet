@@ -396,20 +396,21 @@ namespace VR
                 foreach (DataType child in resource.Children.Where(child => child.GetType().IsSubclassOf(typeof(DataType))))
                 {
                     // Extract PartialDates and PartialDateTimes.
+                    //List<Extension> partialDateExtensions = child.Extension.Where(ext => ext.Url.Equals(VRExtensionURLs.PartialDate) || ext.Url.Equals(PartialDateTimeUrl)).ToList();
                     List<Extension> partialDateExtensions = child.Extension.Where(ext => ext.Url.Equals(PartialDateUrl) || ext.Url.Equals(PartialDateTimeUrl)).ToList();
                     foreach (Extension partialDateExtension in partialDateExtensions)
                     {
                         // Validate that the required sub-extensions are in the PartialDate/Time component.
                         List<String> partialDateSubExtensions = partialDateExtension.Extension.Select(ext => ext.Url).ToList();
-                        if (!partialDateSubExtensions.Contains(VRExtensionURLs.DateDay))
+                        if (!partialDateSubExtensions.Contains(PartialDateDayUrl))
                         {
                             errors.Append("Missing 'Date-Day' of [" + partialDateExtension.Url + "] for resource [" + resource.Id + "].").AppendLine();
                         }
-                        if (!partialDateSubExtensions.Contains(VRExtensionURLs.DateMonth))
+                        if (!partialDateSubExtensions.Contains(PartialDateMonthUrl))
                         {
                             errors.Append("Missing 'Date-Month' of [" + partialDateExtension.Url + "] for resource [" + resource.Id + "].").AppendLine();
                         }
-                        if (!partialDateSubExtensions.Contains(VRExtensionURLs.DateYear))
+                        if (!partialDateSubExtensions.Contains(PartialDateYearUrl))
                         {
                             errors.Append("Missing 'Date-Year' of [" + partialDateExtension.Url + "] for resource [" + resource.Id + "].").AppendLine();
                         }
@@ -418,10 +419,10 @@ namespace VR
                             errors.Append("Missing 'Date-Time' of [" + partialDateExtension.Url + "] for resource [" + resource.Id + "].").AppendLine();
                         }
                         // Validate that there are no extraneous invalid sub-extensions of the PartialDate/Time component.
-                        partialDateSubExtensions.Remove(VRExtensionURLs.DateDay);
-                        partialDateSubExtensions.Remove(VRExtensionURLs.DateMonth);
-                        partialDateSubExtensions.Remove(VRExtensionURLs.DateYear);
-                        partialDateSubExtensions.Remove(VRExtensionURLs.DateTime);
+                        partialDateSubExtensions.Remove(PartialDateDayUrl);
+                        partialDateSubExtensions.Remove(PartialDateMonthUrl);
+                        partialDateSubExtensions.Remove(PartialDateYearUrl);
+                        partialDateSubExtensions.Remove(PartialDateTimeTimeUrl);
                         if (partialDateSubExtensions.Count() > 0) {
                             errors.Append("[" + partialDateExtension.Url + "] component contains extra invalid fields [" + string.Join(", ", partialDateSubExtensions) + "] for resource [" + resource.Id + "].").AppendLine();
                         }

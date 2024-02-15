@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Breadcrumb, Button, Container, Dimmer, Divider, Form, Grid, Header, Icon, Loader, Menu, Message, Statistic, Transition } from 'semantic-ui-react';
-import { responseMessageTypeIcons, messageTypeIcons, messageTypes } from '../../data';
+import { responseMessageTypeIconsVRDR, responseMessageTypeIconsBFDR, messageTypeIconsVRDR, messageTypeIconsBFDR, messageTypesVRDR, messageTypesBFDR } from '../../data';
 import { connectionErrorToast } from '../../error';
 import { Getter } from '../misc/Getter';
 import { FHIRInfo } from '../misc/info/FHIRInfo';
@@ -25,9 +25,9 @@ export function FHIRMessageProducing(props) {
   const [expectedType, setExpectedType] = React.useState();
   const [responseOptions, setResponseOptions] = React.useState();
   const [response, setResponse] = React.useState();
+  const [responses, setResponses] = React.useState();
 
   useEffect(() => {
-    var self = this;
     if (!!id) {
       axios
         .get(`${window.API_URL}/tests/${props.recordType}/${id}`)
@@ -59,8 +59,14 @@ export function FHIRMessageProducing(props) {
 
   const updateMessage = (message, issues) => {
     let messageType = "Unknown";
-    if (message && message.messageType in messageTypes) {
-      messageType = messageTypes[message.messageType];
+    if (props.recordType.toLowerCase() == 'vrdr') {
+      if (message && message.messageType in messageTypesVRDR) {
+        messageType = messageTypesVRDR[message.messageType];
+      }
+    } else {
+      if (message && message.messageType in messageTypesBFDR) {
+        messageType = messageTypesBFDR[message.messageType];
+      }
     }
 
     /*
@@ -80,7 +86,7 @@ export function FHIRMessageProducing(props) {
 
   const setExpectedMessageType = (_, { name }) => {
     setExpectedType(name);
-
+    const responseMessageTypeIcons = props.recordType.toLowerCase() == 'vrdr' ? responseMessageTypeIconsVRDR : responseMessageTypeIconsBFDR;
     if (name === "Void") {
       // void only provides a subset
       var voidIcons = [responseMessageTypeIcons[0], responseMessageTypeIcons[3]];
@@ -106,7 +112,6 @@ export function FHIRMessageProducing(props) {
   }
 
   const runTest = () => {
-    var self = this;
     setRunning(true);
     axios
       .post(`${window.API_URL}/tests/${props.recordType}/${expectedType}MessageProducing/run/${test.testId}`, message.json, { headers: { 'Content-Type': 'application/json' } })
@@ -115,10 +120,10 @@ export function FHIRMessageProducing(props) {
         test.results = JSON.parse(test.results);
         setTest(test);
         setRunning(false);
-        return axios.post(`${window.API_URL}/tests/${props.recordType}/${self.expectedType}/response`, self.message.json, { headers: { 'Content-Type': 'application/json' } });
+        return axios.post(`${window.API_URL}/tests/${props.recordType}/${expectedType}/response`, message.json, { headers: { 'Content-Type': 'application/json' } });
       })
       .then(function (response) {
-        setResponse(response.data);
+        setResponses(response.data);
         setLoading(false);
         document.getElementById('scroll-to').scrollIntoView({
           behavior: 'smooth',
@@ -138,6 +143,8 @@ export function FHIRMessageProducing(props) {
     element.setAttribute('download', `canary-report-${new Date().getTime()}.html`);
     element.click();
   }
+
+  const messageTypeIcons = props.recordType.toLowerCase() == 'vrdr' ? messageTypeIconsVRDR : messageTypeIconsBFDR;
 
   return (
     <React.Fragment>

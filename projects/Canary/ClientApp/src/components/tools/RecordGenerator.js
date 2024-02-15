@@ -13,7 +13,7 @@ export class RecordGenerator extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { ...this.props, record: null, loading: false, activeState: 'MA', activeType: 'Natural', activeSex: 'Male' };
+    this.state = { ...this.props, record: null, loading: false, activeState: 'MA', activeType: 'Natural', activeSex: 'Male', isVRDR: props.recordType.toUpperCase() == "VRDR" };
     this.generateRecord = this.generateRecord.bind(this);
     this.changeState = this.changeState.bind(this);
     this.changeSex = this.changeSex.bind(this);
@@ -105,7 +105,7 @@ export class RecordGenerator extends Component {
                   </Button.Group>
                 </Form.Field>
                 <Form.Field>
-                  <Button.Group>
+                  { !this.state.isVRDR ? <div></div> : <Button.Group>
                     <Button primary={this.state.activeType === 'Natural'} active={this.state.activeType === 'Natural'} onClick={this.changeType}>
                       Natural Death
                     </Button>
@@ -113,7 +113,7 @@ export class RecordGenerator extends Component {
                     <Button primary={this.state.activeType === 'Injury'} active={this.state.activeType === 'Injury'} onClick={this.changeType}>
                       Injury or Poisoning
                     </Button>
-                  </Button.Group>
+                  </Button.Group> }
                 </Form.Field>
                 <Form.Field
                   control={Select}
