@@ -4872,5 +4872,99 @@ namespace BFDR
             get => GetObservationValueHelper();
             set => SetObservationValueHelper(value, VR.ValueSets.EditBypass01234.Codes);
         }
+
+        /// <summary>Facility ID (NPI), National Provider Identifier</summary>
+        /// <value>Facility ID (NPI).</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.FacilityNPI = 123456789;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Facility National Provider Identifier: {ExampleBirthRecord.FacilityNPI}");</para>
+        /// </example>
+        [Property("Facility ID (NPI)", Property.Types.String, "Birth Location", "Facility ID (NPI), National Provider Identifier", true, IGURL.LocationBFDR, true, 34)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87300-0')", "")]
+        public string FacilityNPI
+        {
+            get => LocationBirth?.Identifier?.Find(identifier => identifier.System == VR.CodeSystems.US_NPI_HL7)?.Value.ToString();
+            set
+            {
+                if (LocationBirth == null)
+                {
+                    LocationBirth = new Location
+                    {
+                        Meta = new Meta()
+                        {
+                            Profile = new List<string>()
+                            {
+                                ExtensionURL.LocationBFDR
+                            }
+                        }
+                    };
+                }
+                if (LocationBirth.Identifier == null)
+                {
+                    LocationBirth.Identifier = new List<Identifier>();
+                }
+                // Check for an existing Facility NPI and if it exists, overwrite it.
+                if (LocationBirth.Identifier.Any(id => id.System == VR.CodeSystems.US_NPI_HL7))
+                {
+                    Identifier npiIdentifier = LocationBirth.Identifier.Find(identifier => identifier.System == VR.CodeSystems.US_NPI_HL7);
+                    npiIdentifier.Value = value;
+                    return;
+                }
+                LocationBirth.Identifier.Add(new Identifier(VR.CodeSystems.US_NPI_HL7, value));
+                return;
+            }
+        }
+
+        /// <summary>Facility ID (JFI), Jurisdictional Facility Identifier</summary>
+        /// <value>Facility ID (JFI).</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.FacilityJFI = 123456789;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Jurisdictional Facility Identifier: {ExampleBirthRecord.FacilityJFI}");</para>
+        /// </example>
+        [Property("Facility ID (JFI)", Property.Types.String, "Birth Location", "Facility ID (JFI), Jurisdictional Facility Identifier", true, IGURL.LocationBFDR, true, 34)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87300-0')", "")]
+        public string FacilityJFI
+        {
+            get => LocationBirth?.Identifier?.Find(identifier => identifier.Extension.Any(ext => ext.Url == VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords))?.GetExtension(VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords).Value.ToString();
+            set
+            {
+                if (LocationBirth == null)
+                {
+                    LocationBirth = new Location
+                    {
+                        Meta = new Meta()
+                        {
+                            Profile = new List<string>()
+                            {
+                                ExtensionURL.LocationBFDR
+                            }
+                        }
+                    };
+                }
+                if (LocationBirth.Identifier == null)
+                {
+                    LocationBirth.Identifier = new List<Identifier>();
+                }
+                // Check for an existing Facility JFI and if it exists, overwrite it.
+                if (LocationBirth.Identifier.Any(id => id.Extension.Any(ext => ext.Url == VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords)))
+                {
+                    Identifier jfiIdentifier = LocationBirth.Identifier.Find(id => id.Extension.Any(ext => ext.Url == VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords));
+                    jfiIdentifier.SetExtension(VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords, new FhirString(value));
+                    return;
+                }
+                if (LocationBirth.Identifier.Count() < 1)
+                {
+                    Identifier id = new Identifier();
+                    id.SetExtension(VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords, new FhirString(value));
+                    LocationBirth.Identifier.Add(id);
+                    return;
+                }
+                LocationBirth.Identifier.First().SetExtension(VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords, new FhirString(value));
+            }
+        }
     }
 }
