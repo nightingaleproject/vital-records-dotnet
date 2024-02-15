@@ -58,7 +58,7 @@ namespace canary.Controllers
         /// Gets a birth test by id.
         /// GET /api/tests/bfdr/1
         /// </summary>
-        [HttpGet("Tests/{id:int}")]
+        [HttpGet("Tests/bfdr/{id:int}")]
         public Test GetBFDRTest(int id)
         {
             using (var db = new RecordContext())
@@ -121,6 +121,24 @@ namespace canary.Controllers
             }
         }
 
+        [HttpPost("Tests/bfdr/Validator")]
+        public async Task<Test> GetTestBFDRIJEValidator(int id)
+        {
+            using (var db = new RecordContext())
+            {
+                string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
+                if (String.IsNullOrEmpty(input))
+                {
+                    return null;
+                }
+                BirthRecord record = VitalRecord.FromDescription<BirthRecord>(input);
+                BirthTest test = new BirthTest(record);
+                db.BirthTests.Add(test);
+                db.SaveChanges();
+                return test;
+            }
+        }
+
         /// <summary>
         /// Starts a new VRDR test.
         /// GET /api/tests/new
@@ -167,7 +185,7 @@ namespace canary.Controllers
                 if (!String.IsNullOrEmpty(input))
                 {
                     test.Type = type;
-                    test.Run(input);
+                    test.Run<DeathRecord>(input);
                 }
                 db.DeathTests.Remove(test);
                 db.SaveChanges();
@@ -175,10 +193,41 @@ namespace canary.Controllers
             }
         }
 
-        // [HttpPost("Tests/{type}/Response")]
-        [HttpPost("Tests/bfdr/{type}/Response")]
+        /// <summary>
+        /// Calculates test results.
+        /// POST /api/tests/<type>/run/<id>
+        /// </summary>
+        [HttpPost("Tests/bfdr/{type}/Run/{id:int}")]
+        public async Task<Test> RunBFDRTest(int id, string type)
+        {
+            using (var db = new RecordContext())
+            {
+                BirthTest test = db.BirthTests.Where(t => t.TestId == id).FirstOrDefault();
+                string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
+                if (!String.IsNullOrEmpty(input))
+                {
+                    test.Type = type;
+                    test.Run<BirthRecord>(input);
+                }
+                db.BirthTests.Remove(test);
+                db.SaveChanges();
+                return test;
+            }
+        }
+
         [HttpPost("Tests/vrdr/{type}/Response")]
-        public async Task<Dictionary<string, Message>> GetTestResponse(int id, string type)
+        public async Task<Dictionary<string, Message>> GetVRDRTestResponse(int id, string type)
+        {
+            return await GetTestResponse(id, type, (input) => new CanaryDeathMessage(input));
+        }
+
+        [HttpPost("Tests/bfdr/{type}/Response")]
+        public async Task<Dictionary<string, Message>> GetBFDRTestResponse(int id, string type)
+        {
+            return await GetTestResponse(id, type, (input) => new CanaryBirthMessage(input));
+        }
+
+        private async Task<Dictionary<string, Message>> GetTestResponse(int id, string type, Func<string, Message> createMessage)
         {
             using (var db = new RecordContext())
             {
@@ -189,7 +238,7 @@ namespace canary.Controllers
                 }
 
                 // get the responses for the submitted message
-                Message msg = new Message(input);             
+                Message msg = createMessage(input);
                 Dictionary<string, Message> result = msg.GetResponsesFor(type);
                 
                 return result;
