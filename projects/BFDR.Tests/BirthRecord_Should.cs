@@ -1464,7 +1464,8 @@ namespace BFDR.Tests
     {
       BirthRecord br = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
       Assert.Equal("116441967701", br.FacilityNPI);
-      Assert.Equal("UT1234567", br.FacilityJFI);
+      Assert.Equal("UT12", br.FacilityJFI);
+      Assert.Equal("South Hospital", br.FacilityName);
     }
 
     [Fact]
@@ -1473,16 +1474,18 @@ namespace BFDR.Tests
       BirthRecord br = new()
       {
           FacilityNPI = "4815162342",
-          FacilityJFI = "636-555-3226"
+          FacilityJFI = "636",
+          FacilityName = "Lahey Hospital"
       };
       Assert.Equal("4815162342", br.FacilityNPI);
-      Assert.Equal("636-555-3226", br.FacilityJFI);
+      Assert.Equal("636", br.FacilityJFI);
+      Assert.Equal("Lahey Hospital", br.FacilityName);
       br.FacilityNPI = "999";
       Assert.Equal("999", br.FacilityNPI);
-      Assert.Equal("636-555-3226", br.FacilityJFI);
-      br.FacilityJFI = "0909090";
+      Assert.Equal("636", br.FacilityJFI);
+      br.FacilityJFI = "0909";
       Assert.Equal("999", br.FacilityNPI);
-      Assert.Equal("0909090", br.FacilityJFI);
+      Assert.Equal("0909", br.FacilityJFI);
     }
   }
 }

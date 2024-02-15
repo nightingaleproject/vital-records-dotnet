@@ -138,6 +138,21 @@ namespace BFDR
             Attendant.Meta.Profile = attendant_profile;
             // Not linked to Composition or inserted in bundle, since this is run before the composition exists.
         }
+
+        /// <summary>Create Location Birth.</summary>
+        private void CreateLocationBirth()
+        {
+            LocationBirth = new Location
+            {
+                Meta = new Meta()
+                {
+                    Profile = new List<string>()
+                    {
+                        ExtensionURL.LocationBFDR
+                    }
+                }
+            };
+        }
     }
 
     /// <summary>Describes the subject of a birth record field</summary>

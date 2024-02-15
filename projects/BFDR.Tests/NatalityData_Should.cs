@@ -720,5 +720,45 @@ namespace BFDR.Tests
       Assert.Equal("public health", ije.MOM_IN_T);
       Assert.Equal("public health", fhir.MotherIndustry);
     }
+
+    [Fact]
+    public void TestImportLocation()
+    {
+      IJENatality ije = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/BasicBirthRecord.ije")));
+      BirthRecord br = ije.ToRecord();
+      Assert.Equal("878787878787", ije.FNPI);
+      Assert.Equal("6678", ije.SFN);
+      Assert.Equal("Bryant Medical".PadRight(50), ije.HOSP);
+      Assert.Equal("878787878787", br.FacilityNPI);
+      Assert.Equal("6678", br.FacilityJFI);
+      Assert.Equal("Bryant Medical", br.FacilityName);
+    }
+
+    [Fact]
+    public void TestSetLocation()
+    {
+      IJENatality ije = new()
+      {
+          FNPI = "25789",
+          SFN = "1111",
+          HOSP = "Griffin Hospital"
+      };
+      BirthRecord br = ije.ToRecord();
+      Assert.Equal("25789".PadRight(12), ije.FNPI);
+      Assert.Equal("1111", ije.SFN);
+      Assert.Equal("Griffin Hospital".PadRight(50), ije.HOSP);
+      Assert.Equal("25789", br.FacilityNPI);
+      Assert.Equal("1111", br.FacilityJFI);
+      Assert.Equal("Griffin Hospital", br.FacilityName);
+      ije.SFN = "55";
+      ije.FNPI = "09870987";
+      ije.HOSP = "Simpson Medical";
+      Assert.Equal("09870987".PadRight(12), ije.FNPI);
+      Assert.Equal("55".PadRight(4), ije.SFN);
+      Assert.Equal("Simpson Medical".PadRight(50), ije.HOSP);
+      Assert.Equal("09870987", br.FacilityNPI);
+      Assert.Equal("55", br.FacilityJFI);
+      Assert.Equal("Simpson Medical", br.FacilityName);
+    }
   }
 }

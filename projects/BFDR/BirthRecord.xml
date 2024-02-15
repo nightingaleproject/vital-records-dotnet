@@ -95,6 +95,9 @@
         <member name="M:BFDR.BirthRecord.CreateAttendant">
             <summary>Create Attendant/Practitioner.</summary>
         </member>
+        <member name="M:BFDR.BirthRecord.CreateLocationBirth">
+            <summary>Create Location Birth.</summary>
+        </member>
         <member name="P:BFDR.BirthRecord.CertificateNumber">
             <summary>Birth Certificate Number.</summary>
             <value>a record identification string.</value>
@@ -1604,6 +1607,16 @@
             <para>ExampleBirthRecord.FacilityJFI = 123456789;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Jurisdictional Facility Identifier: {ExampleBirthRecord.FacilityJFI}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.FacilityName">
+            <summary>Name of Facility of Birth</summary>
+            <value>FacilityName.</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.FacilityName = "South Hospital";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Jurisdictional Facility Identifier: {ExampleBirthRecord.FacilityName}");</para>
             </example>
         </member>
         <member name="T:BFDR.FHIRSubject">

@@ -64,16 +64,7 @@ namespace BFDR
             };
 
             // Start with an empty location.
-            LocationBirth = new Location
-            {
-                Meta = new Meta()
-                {
-                    Profile = new List<string>()
-                    {
-                        ExtensionURL.LocationBFDR
-                    }
-                }
-            };
+            CreateLocationBirth();
 
             // TODO: Start with an empty certifier. - Need reference in Composition
             //CreateCertifier();

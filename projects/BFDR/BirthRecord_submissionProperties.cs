@@ -4890,16 +4890,7 @@ namespace BFDR
             {
                 if (LocationBirth == null)
                 {
-                    LocationBirth = new Location
-                    {
-                        Meta = new Meta()
-                        {
-                            Profile = new List<string>()
-                            {
-                                ExtensionURL.LocationBFDR
-                            }
-                        }
-                    };
+                    CreateLocationBirth();
                 }
                 if (LocationBirth.Identifier == null)
                 {
@@ -4934,16 +4925,7 @@ namespace BFDR
             {
                 if (LocationBirth == null)
                 {
-                    LocationBirth = new Location
-                    {
-                        Meta = new Meta()
-                        {
-                            Profile = new List<string>()
-                            {
-                                ExtensionURL.LocationBFDR
-                            }
-                        }
-                    };
+                    CreateLocationBirth();
                 }
                 if (LocationBirth.Identifier == null)
                 {
@@ -4964,6 +4946,29 @@ namespace BFDR
                     return;
                 }
                 LocationBirth.Identifier.First().SetExtension(VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords, new FhirString(value));
+            }
+        }
+
+        /// <summary>Name of Facility of Birth</summary>
+        /// <value>FacilityName.</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.FacilityName = "South Hospital";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Jurisdictional Facility Identifier: {ExampleBirthRecord.FacilityName}");</para>
+        /// </example>
+        [Property("Facility ID (JFI)", Property.Types.String, "Birth Location", "Facility ID (JFI), Jurisdictional Facility Identifier", true, IGURL.LocationBFDR, true, 34)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87300-0')", "")]
+        public string FacilityName
+        {
+            get => LocationBirth?.Name;
+            set
+            {
+                if (LocationBirth == null)
+                {
+
+                }
+                LocationBirth.Name = value;
             }
         }
     }

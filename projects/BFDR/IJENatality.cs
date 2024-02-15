@@ -360,30 +360,16 @@ namespace BFDR
         [IJEField(12, 39, 12, "Facility ID (NPI) - if available", "FNPI", 1)]
         public string FNPI
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => LeftJustified_Get("FNPI", "FacilityNPI");
+            set => LeftJustified_Set("FNPI", "FacilityNPI", value);
         }
 
         /// <summary>Facility ID (State-Assigned)</summary>
         [IJEField(13, 51, 4, "Facility ID (State-Assigned)", "SFN", 1)]
         public string SFN
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => LeftJustified_Get("SFN", "FacilityJFI");
+            set => LeftJustified_Set("SFN", "FacilityJFI", value);
         }
 
         /// <summary>Date of Birth (Mother)--Year</summary>
@@ -3821,15 +3807,8 @@ namespace BFDR
         [IJEField(253, 1233, 50, "Name of Facility of Birth", "HOSP", 1)]
         public string HOSP
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => LeftJustified_Get("HOSP", "FacilityName");
+            set => LeftJustified_Set("HOSP", "FacilityName", value);
         }
 
         /// <summary>Mother's First Name</summary>
