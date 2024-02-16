@@ -51,20 +51,6 @@ namespace BFDR.CLI
   - compare: Compare an IJE record with a FHIR record by each IJE field (2 arguments:  IJE record, FHIR Record)
   - extract: Extract a FHIR record from a FHIR message (1 argument: FHIR message)
     ";
-  - ije2json: Creates an IJE birth record and prints out as JSON
-  - json2xml: Read in the FHIR JSON birth record, completely disassemble then reassemble, and print as FHIR XML (1 argument: FHIR JSON Birth Record)
-  - checkXml: Read in the given FHIR xml (being permissive) and print out the same; useful for doing validation diffs (1 argument: FHIR XML file)
-  - checkJson: Read in the given FHIR json (being permissive) and print out the same; useful for doing validation diffs (1 argument: FHIR JSon file)
-  - xml2json: Read in the IJE birth record and print out as JSON (1 argument: path to death record in XML format)
-  - xml2xml: Read in the IJE birth record and print out as XML (1 argument: path to death record in XML format)
-  - json2json: Read in the FHIR JSON birth record, completely disassemble then reassemble, and print as FHIR JSON (1 argument: FHIR JSON Birth Record)
-  - roundtrip-ije: Convert a record to IJE and back and check field by field to identify any conversion issues (1 argument: FHIR Birth Record)
-  - roundtrip-all: Convert a record to JSON and back and check field by field to identify any conversion issues (1 argument: FHIR Birth Record)
-  - ije: Read in and parse an IJE death record and print out the values for every (supported) field (1 argument: path to death record in IJE format)
-  - ijebuilder: Create json birth record using IJE (natality) mapped fields
-  - compare: Compare an IJE record with a FHIR record by each IJE field (2 arguments:  IJE record, FHIR Record)
-  - extract: Extract a FHIR record from a FHIR message (1 argument: FHIR message)
-    ";
 
         static int Main(string[] args)
         {
@@ -138,7 +124,6 @@ namespace BFDR.CLI
                 birthRecord.FatherEducationLevelHelper = VR.ValueSets.EducationLevel.Bachelors_Degree;
                 birthRecord.FatherEducationLevelEditFlagHelper = VR.ValueSets.EditBypass01234.Edit_Failed_Data_Queried_But_Not_Verified;
 
-                // TODO: add these back once correct codesystems are used for the component 
                 //Ethnicity
                 birthRecord.MotherEthnicity3Helper = VR.ValueSets.HispanicNoUnknown.Yes;
                 // Race
@@ -147,7 +132,7 @@ namespace BFDR.CLI
                 Tuple<string, string>[] fatherRace = { Tuple.Create(NvssRace.White, "Y")};
                 birthRecord.FatherRace = fatherRace;
 
-                // 1. Write out the Record
+                // Write out the Record
                 Console.WriteLine(birthRecord.ToJSON());
 
                 return 0;
@@ -652,18 +637,6 @@ namespace BFDR.CLI
                 Console.WriteLine($"**** No such command {args[0]} with the number of arguments supplied");
             }
             return 0;
-        }
-
-         private static string Truncate(string value, int length)
-        {
-            if (String.IsNullOrWhiteSpace(value) || value.Length <= length)
-            {
-                return value;
-            }
-            else
-            {
-                return value.Substring(0, length);
-            }
         }
 
          private static string Truncate(string value, int length)
