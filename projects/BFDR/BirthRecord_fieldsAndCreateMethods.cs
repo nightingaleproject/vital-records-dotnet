@@ -170,6 +170,9 @@ namespace BFDR
             Extension roleExt = new Extension(VRExtensionURLs.Role, new CodeableConcept(CodeSystems.RoleCode_HL7_V3, "CHILD"));
             EncounterBirth.Extension.Add(roleExt);
         }
+
+        /// <summary>Emerging Issues.</summary>
+        protected Observation EmergingIssues;
     }
 
     /// <summary>Describes the subject of a birth record field</summary>
