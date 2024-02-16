@@ -81,7 +81,7 @@ namespace VR
         }
 
         /// <summary>Truncates the given string to the given length.</summary>
-        protected static string Truncate(string value, int length)
+        public static string Truncate(string value, int length)
         {
             if (String.IsNullOrWhiteSpace(value) || value.Length <= length)
             {

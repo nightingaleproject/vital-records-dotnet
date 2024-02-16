@@ -339,7 +339,7 @@ namespace BFDR.CLI
                 {
                     IJEField info = property.GetCustomAttribute<IJEField>();
                     string field = ijeString.Substring(info.Location - 1, info.Length);
-                    Console.WriteLine($"{info.Field,-5} {info.Name,-15} {Truncate(info.Contents, 75),-75}: \"{field + "\"",-80}");
+                    Console.WriteLine($"{info.Field,-5} {info.Name,-15} {VR.IJE.Truncate(info.Contents, 75),-75}: \"{field + "\"",-80}");
                 }
             }
             else if (args[0] == "ijebuilder")
@@ -376,8 +376,8 @@ namespace BFDR.CLI
                     if (field1 != field2)
                     {
                         differences += 1;
-                        Console.WriteLine($" IJE: {info.Field,-5} {info.Name,-15} {Truncate(info.Contents, 75),-75}: \"{field1 + "\"",-80}");
-                        Console.WriteLine($"FHIR: {info.Field,-5} {info.Name,-15} {Truncate(info.Contents, 75),-75}: \"{field2 + "\"",-80}");
+                        Console.WriteLine($" IJE: {info.Field,-5} {info.Name,-15} {VR.IJE.Truncate(info.Contents, 75),-75}: \"{field1 + "\"",-80}");
+                        Console.WriteLine($"FHIR: {info.Field,-5} {info.Name,-15} {VR.IJE.Truncate(info.Contents, 75),-75}: \"{field2 + "\"",-80}");
                         Console.WriteLine();
                     }
                 }
@@ -570,7 +570,7 @@ namespace BFDR.CLI
                 {
                     IJEField info = property.GetCustomAttribute<IJEField>();
                     string field = ijeString.Substring(info.Location - 1, info.Length);
-                    Console.WriteLine($"{info.Field,-5} {info.Name,-15} {Truncate(info.Contents, 75),-75}: \"{field + "\"",-80}");
+                    Console.WriteLine($"{info.Field,-5} {info.Name,-15} {VR.IJE.Truncate(info.Contents, 75),-75}: \"{field + "\"",-80}");
                 }
             }
             else if (args[0] == "ijebuilder")
@@ -607,8 +607,8 @@ namespace BFDR.CLI
                     if (field1 != field2)
                     {
                         differences += 1;
-                        Console.WriteLine($" IJE: {info.Field,-5} {info.Name,-15} {Truncate(info.Contents, 75),-75}: \"{field1 + "\"",-80}");
-                        Console.WriteLine($"FHIR: {info.Field,-5} {info.Name,-15} {Truncate(info.Contents, 75),-75}: \"{field2 + "\"",-80}");
+                        Console.WriteLine($" IJE: {info.Field,-5} {info.Name,-15} {VR.IJE.Truncate(info.Contents, 75),-75}: \"{field1 + "\"",-80}");
+                        Console.WriteLine($"FHIR: {info.Field,-5} {info.Name,-15} {VR.IJE.Truncate(info.Contents, 75),-75}: \"{field2 + "\"",-80}");
                         Console.WriteLine();
                     }
                 }
@@ -637,18 +637,6 @@ namespace BFDR.CLI
                 Console.WriteLine($"**** No such command {args[0]} with the number of arguments supplied");
             }
             return 0;
-        }
-
-         private static string Truncate(string value, int length)
-        {
-            if (String.IsNullOrWhiteSpace(value) || value.Length <= length)
-            {
-                return value;
-            }
-            else
-            {
-                return value.Substring(0, length);
-            }
         }
     }
 }
