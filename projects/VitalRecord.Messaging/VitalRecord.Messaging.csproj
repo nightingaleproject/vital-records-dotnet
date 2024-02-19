@@ -1,9 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <PackageId>VitalRecord.Messaging</PackageId>
+    <Version>1.0.0</Version>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>VR</RootNamespace>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <PackageId>VR.Messaging</PackageId>
     <Title>FHIR VR Messaging</Title>
     <PackageDescription>A library for supporting FHIR messaging for VR FHIR records.</PackageDescription>
     <Authors>smacadam@mitre.org,rscalfani@mitre.org,pete@mitre.org</Authors>
