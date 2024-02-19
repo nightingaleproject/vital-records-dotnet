@@ -1458,5 +1458,86 @@ namespace BFDR.Tests
         Assert.Equal("Nurse", sample1.AttendantTitle["text"]);
         Assert.Equal("Nurse", sample1.AttendantOtherHelper);
     }
+
+    [Fact]
+    public void SetLastMenstrualPeriod()
+    {
+      Assert.Null(SetterBirthRecord.LastMenstrualPeriod);
+      Assert.Null(SetterBirthRecord.LastMenstrualPeriodYear);
+      Assert.Null(SetterBirthRecord.LastMenstrualPeriodMonth);
+      Assert.Null(SetterBirthRecord.LastMenstrualPeriodDay);
+      SetterBirthRecord.LastMenstrualPeriod = "2023-02";
+      Assert.Equal("2023-02", SetterBirthRecord.LastMenstrualPeriod);
+      Assert.Equal(2023, SetterBirthRecord.LastMenstrualPeriodYear);
+      Assert.Equal(2, SetterBirthRecord.LastMenstrualPeriodMonth);
+      Assert.Null(SetterBirthRecord.LastMenstrualPeriodDay);
+      SetterBirthRecord.LastMenstrualPeriod = null;
+      Assert.Null(SetterBirthRecord.LastMenstrualPeriod);
+      Assert.Null(SetterBirthRecord.LastMenstrualPeriodYear);
+      Assert.Null(SetterBirthRecord.LastMenstrualPeriodMonth);
+      Assert.Null(SetterBirthRecord.LastMenstrualPeriodDay);
+      SetterBirthRecord.LastMenstrualPeriodMonth = 4;
+      Assert.Null(SetterBirthRecord.LastMenstrualPeriod);
+      Assert.Null(SetterBirthRecord.LastMenstrualPeriodYear);
+      Assert.Equal(4, SetterBirthRecord.LastMenstrualPeriodMonth);
+      Assert.Null(SetterBirthRecord.LastMenstrualPeriodDay);
+    }
+
+    [Fact]
+    public void SetFirstPrenatalCareVisit()
+    {
+      Assert.Null(SetterBirthRecord.FirstPrenatalCareVisit);
+      Assert.Null(SetterBirthRecord.FirstPrenatalCareVisitYear);
+      Assert.Null(SetterBirthRecord.FirstPrenatalCareVisitMonth);
+      Assert.Null(SetterBirthRecord.FirstPrenatalCareVisitDay);
+      SetterBirthRecord.FirstPrenatalCareVisit = "2023-02";
+      Assert.Equal("2023-02", SetterBirthRecord.FirstPrenatalCareVisit);
+      Assert.Equal(2023, SetterBirthRecord.FirstPrenatalCareVisitYear);
+      Assert.Equal(2, SetterBirthRecord.FirstPrenatalCareVisitMonth);
+      Assert.Null(SetterBirthRecord.FirstPrenatalCareVisitDay);
+      SetterBirthRecord.FirstPrenatalCareVisit = null;
+      Assert.Null(SetterBirthRecord.FirstPrenatalCareVisit);
+      Assert.Null(SetterBirthRecord.FirstPrenatalCareVisitYear);
+      Assert.Null(SetterBirthRecord.FirstPrenatalCareVisitMonth);
+      Assert.Null(SetterBirthRecord.FirstPrenatalCareVisitDay);
+      SetterBirthRecord.FirstPrenatalCareVisitMonth = 4;
+      Assert.Null(SetterBirthRecord.FirstPrenatalCareVisit);
+      Assert.Null(SetterBirthRecord.FirstPrenatalCareVisitYear);
+      Assert.Equal(4, SetterBirthRecord.FirstPrenatalCareVisitMonth);
+      Assert.Null(SetterBirthRecord.FirstPrenatalCareVisitDay);
+    }
+
+        [Fact]
+    public void SetRegistrationDate()
+    {
+      Assert.Null(SetterBirthRecord.RegistrationDate);
+      Assert.Null(SetterBirthRecord.RegistrationDateYear);
+      Assert.Null(SetterBirthRecord.RegistrationDateMonth);
+      Assert.Null(SetterBirthRecord.RegistrationDateDay);
+      SetterBirthRecord.RegistrationDate = "2023-02";
+      Assert.Equal("2023-02", SetterBirthRecord.RegistrationDate);
+      Assert.Equal(2023, SetterBirthRecord.RegistrationDateYear);
+      Assert.Equal(2, SetterBirthRecord.RegistrationDateMonth);
+      SetterBirthRecord.RegistrationDateYear = 2022;
+      Assert.Equal("2022-02", SetterBirthRecord.RegistrationDate);
+      Assert.Equal(2022, SetterBirthRecord.RegistrationDateYear);
+      Assert.Equal(2, SetterBirthRecord.RegistrationDateMonth);
+      SetterBirthRecord.RegistrationDateDay = 3;
+      Assert.Equal("2022-02-03", SetterBirthRecord.RegistrationDate);
+      Assert.Equal(2022, SetterBirthRecord.RegistrationDateYear);
+      Assert.Equal(2, SetterBirthRecord.RegistrationDateMonth);
+      Assert.Equal(3, SetterBirthRecord.RegistrationDateDay);
+      SetterBirthRecord.RegistrationDate = null;
+      Assert.Null(SetterBirthRecord.RegistrationDate);
+      Assert.Null(SetterBirthRecord.RegistrationDateYear);
+      Assert.Null(SetterBirthRecord.RegistrationDateMonth);
+      Assert.Null(SetterBirthRecord.RegistrationDateDay);
+      SetterBirthRecord.RegistrationDateMonth = 4;
+      Assert.Null(SetterBirthRecord.RegistrationDate);
+      Assert.Null(SetterBirthRecord.RegistrationDateYear);
+      Assert.Equal(4, SetterBirthRecord.RegistrationDateMonth);
+      Assert.Null(SetterBirthRecord.RegistrationDateDay);
+    }
+
   }
 }

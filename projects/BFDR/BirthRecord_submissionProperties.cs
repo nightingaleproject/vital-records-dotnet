@@ -5,6 +5,7 @@ using Hl7.Fhir.Model;
 using VR;
 using Hl7.Fhir.Support;
 using static Hl7.Fhir.Model.Encounter;
+using System.Security.Cryptography.X509Certificates;
 
 // BirthRecord_submissionProperties.cs
 // These fields are used primarily for submitting birth records to NCHS.
@@ -2880,6 +2881,7 @@ namespace BFDR
                 this.Father.BirthDateElement = ConvertToDate(value);
             }
         }
+
         /// TODO: ethinicty/race component code still uses vrdr codesystem: http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs
         /// should be http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component
         /// <summary>Father's Age at Delivery</summary>
@@ -3004,7 +3006,7 @@ namespace BFDR
                 {
                     Observation.ComponentComponent ethnicity = InputRaceAndEthnicityObsMother.Component.FirstOrDefault(c => c.Code.Coding[0].Code == NvssEthnicity.Mexican);
                     if (ethnicity != null && ethnicity.Value != null && ethnicity.Value as CodeableConcept != null)
-                    {   
+                    {
                         return CodeableConceptToDict((CodeableConcept)ethnicity.Value);
                     }
                 }
@@ -4703,7 +4705,8 @@ namespace BFDR
         }
 
         /// <summary>Mother's Education Level.</summary>
-        /// <value>the mother's education level. A Dictionary representing a code, containing the following key/value pairs:
+        /// <value>the mother's education level. A Dictionary representing a code, containing the following key/value pairs:</value>
+        /// <example>
         /// <para>Dictionary&lt;string, string&gt; elevel = new Dictionary&lt;string, string&gt;();</para>
         /// <para>elevel.Add("code", "BA");</para>
         /// <para>elevel.Add("system", VR.CodeSystems.EducationLevel);</para>
@@ -4871,6 +4874,438 @@ namespace BFDR
         {
             get => GetObservationValueHelper();
             set => SetObservationValueHelper(value, VR.ValueSets.EditBypass01234.Codes);
+        }
+
+        private Observation GetObservation(string code)
+        {
+            var entry = Bundle.Entry.Where(
+                e => e.Resource is Observation obs &&
+                CodeableConceptToDict(obs.Code)["code"] == code
+            ).FirstOrDefault();
+
+            if (entry != null)
+            {
+                Observation obs = entry.Resource as Observation;
+                return obs;
+            }
+            return null;
+        }
+
+        private Observation CreateObservationEntry(string loincCode, string subjectId, string compositionSection, string focusId = null)
+        {
+            Observation obs = new Observation
+            {
+                Id = Guid.NewGuid().ToString(),
+                Subject = new ResourceReference($"urn:uuid:{subjectId}"),
+                Code = new CodeableConcept(VR.CodeSystems.LOINC, loincCode),
+            };
+            if (focusId != null)
+            {
+                obs.Focus.Add(new ResourceReference($"urn:uuid:{focusId}"));
+            }
+            AddReferenceToComposition(obs.Id, compositionSection);
+            Bundle.AddResourceEntry(obs, "urn:uuid:" + obs.Id);
+            return obs;
+        }
+
+        /// <summary>Last Menstrual Period.</summary>
+        /// <value>the date that the last normal menstrual period began</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.LastMenstrualPeriod = "2023-02-19";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Last Menstrual Period: {ExampleBirthRecord.LastMenstrualPeriod}");</para>
+        /// </example>
+        [Property("LastMenstrualPeriod", Property.Types.String, "Mother Prenatal", "Last Menstrual Period.", true, BFDR.IGURL.ObservationLastMenstrualPeriod, true, 154)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='8665-2')", "")]
+        public string LastMenstrualPeriod
+        {
+            get
+            {
+                Observation obs = GetObservation("8665-2");
+                if (obs != null)
+                {
+                    return (obs.Value as Hl7.Fhir.Model.Date)?.Value;
+                }
+                return null;
+            }
+            set
+            {
+                Observation obs = GetObservation("8665-2");
+                if (obs != null)
+                {
+                    obs.Value = ConvertToDate(value);
+                }
+                else
+                {
+                    obs = CreateObservationEntry("8665-2", Mother.Id, MOTHER_PRENATAL_SECTION);
+                    obs.Value = ConvertToDate(value);
+                }
+            }
+        }
+
+        /// <summary>Year of Last Menstrual Period.</summary>
+        /// <value>the year that the last normal menstrual period began</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.LastMenstrualPeriodYear = 2023;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Year of Last Menstrual Period: {ExampleBirthRecord.LastMenstrualPeriodYear}");</para>
+        /// </example>
+        [Property("LastMenstrualPeriodYear", Property.Types.Int32, "Mother Prenatal", "Year of Last Menstrual Period.", true, BFDR.IGURL.ObservationLastMenstrualPeriod, true, 154)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='8665-2')", "")]
+        public int? LastMenstrualPeriodYear
+        {
+            get
+            {
+                Observation obs = GetObservation("8665-2");
+                return GetDateElementNoTime(obs?.Value as Hl7.Fhir.Model.Date, VR.ExtensionURL.PartialDateTimeYearVR);
+            }
+            set
+            {
+                Observation obs = GetObservation("8665-2") ?? CreateObservationEntry("8665-2", Mother.Id, MOTHER_PRENATAL_SECTION);
+                if (obs.Value as Hl7.Fhir.Model.Date == null)
+                {
+                    obs.Value = new Date();
+                    obs.Value.Extension.Add(NewBlankPartialDateTimeExtension(false));
+                }
+                Date newDate = SetYear(value, obs.Value as Hl7.Fhir.Model.Date, LastMenstrualPeriodMonth, LastMenstrualPeriodDay);
+                if (newDate != null)
+                {
+                    obs.Value = newDate;
+                }
+            }
+        }
+
+        /// <summary>Month of Last Menstrual Period.</summary>
+        /// <value>the month that the last normal menstrual period began</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.LastMenstrualPeriodMonth = 2;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Month of Last Menstrual Period: {ExampleBirthRecord.LastMenstrualPeriodMonth}");</para>
+        /// </example>
+        [Property("LastMenstrualPeriodMonth", Property.Types.Int32, "Mother Prenatal", "Month of Last Menstrual Period.", true, BFDR.IGURL.ObservationLastMenstrualPeriod, true, 155)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='8665-2')", "")]
+        public int? LastMenstrualPeriodMonth
+        {
+            get
+            {
+                Observation obs = GetObservation("8665-2");
+                return GetDateElementNoTime(obs?.Value as Hl7.Fhir.Model.Date, VR.ExtensionURL.PartialDateTimeMonthVR);
+            }
+            set
+            {
+                Observation obs = GetObservation("8665-2") ?? CreateObservationEntry("8665-2", Mother.Id, MOTHER_PRENATAL_SECTION);
+                if (obs.Value as Hl7.Fhir.Model.Date == null)
+                {
+                    obs.Value = new Date();
+                    obs.Value.Extension.Add(NewBlankPartialDateTimeExtension(false));
+                }
+                Date newDate = SetMonth(value, obs.Value as Hl7.Fhir.Model.Date, LastMenstrualPeriodYear, LastMenstrualPeriodDay);
+                if (newDate != null)
+                {
+                    obs.Value = newDate;
+                }
+            }
+        }
+
+        /// <summary>Day of Last Menstrual Period.</summary>
+        /// <value>the day that the last normal menstrual period began</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.LastMenstrualPeriodDay = 28;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Day of Last Menstrual Period: {ExampleBirthRecord.LastMenstrualPeriodDay}");</para>
+        /// </example>
+        [Property("LastMenstrualPeriodDay", Property.Types.Int32, "Mother Prenatal", "Day of Last Menstrual Period.", true, BFDR.IGURL.ObservationLastMenstrualPeriod, true, 156)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='8665-2')", "")]
+        public int? LastMenstrualPeriodDay
+        {
+            get
+            {
+                Observation obs = GetObservation("8665-2");
+                return GetDateElementNoTime(obs?.Value as Hl7.Fhir.Model.Date, VR.ExtensionURL.PartialDateTimeDayVR);
+            }
+            set
+            {
+                Observation obs = GetObservation("8665-2") ?? CreateObservationEntry("8665-2", Mother.Id, MOTHER_PRENATAL_SECTION);
+                if (obs.Value as Hl7.Fhir.Model.Date == null)
+                {
+                    obs.Value = new Date();
+                    obs.Value.Extension.Add(NewBlankPartialDateTimeExtension(false));
+                }
+                Date newDate = SetDay(value, obs.Value as Hl7.Fhir.Model.Date, LastMenstrualPeriodYear, LastMenstrualPeriodMonth);
+                if (newDate != null)
+                {
+                    obs.Value = newDate;
+                }
+            }
+        }
+
+        /// <summary>First Prenatal Care Visit.</summary>
+        /// <value>the date of the first prenatal care visit</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.FirstPrenatalCareVisit = "2023-02-19";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"First prenatal care visit on: {ExampleBirthRecord.FirstPrenatalCareVisit}");</para>
+        /// </example>
+        [Property("FirstPrenatalCareVisit", Property.Types.String, "Mother Prenatal", "First Prenatal Care Visit.", true, BFDR.IGURL.ObservationDateOfFirstPrenatalCareVisit, true, 126)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='69044-6')", "")]
+        public string FirstPrenatalCareVisit
+        {
+            get
+            {
+                Observation obs = GetObservation("69044-6");
+                if (obs != null)
+                {
+                    return (obs.Value as Hl7.Fhir.Model.Date)?.Value;
+                }
+                return null;
+            }
+            set
+            {
+                Observation obs = GetObservation("69044-6");
+                if (obs != null)
+                {
+                    obs.Value = ConvertToDate(value);
+                }
+                else
+                {
+                    obs = CreateObservationEntry("69044-6", Mother.Id, MOTHER_PRENATAL_SECTION, Child.Id);
+                    obs.Value = ConvertToDate(value);
+                }
+            }
+        }
+
+        /// <summary>Year of the First Prenatal Care Visit.</summary>
+        /// <value>the year of the first prenatal care visit</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.FirstPrenatalCareVisitYear = 2023;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Year of the First Prenatal Visit: {ExampleBirthRecord.FirstPrenatalCareVisitYear}");</para>
+        /// </example>
+        [Property("FirstPrenatalCareVisitYear", Property.Types.Int32, "Mother Prenatal", "Year of First Prenatal Care Visit.", true, BFDR.IGURL.ObservationDateOfFirstPrenatalCareVisit, true, 128)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='69044-6')", "")]
+        public int? FirstPrenatalCareVisitYear
+        {
+            get
+            {
+                Observation obs = GetObservation("69044-6");
+                return GetDateElementNoTime(obs?.Value as Hl7.Fhir.Model.Date, VR.ExtensionURL.PartialDateTimeYearVR);
+            }
+            set
+            {
+                Observation obs = GetObservation("69044-6") ?? CreateObservationEntry("69044-6", Mother.Id, MOTHER_PRENATAL_SECTION, Child.Id);
+                if (obs.Value as Hl7.Fhir.Model.Date == null)
+                {
+                    obs.Value = new Date();
+                    obs.Value.Extension.Add(NewBlankPartialDateTimeExtension(false));
+                }
+                Date newDate = SetYear(value, obs.Value as Hl7.Fhir.Model.Date, FirstPrenatalCareVisitMonth, FirstPrenatalCareVisitDay);
+                if (newDate != null)
+                {
+                    obs.Value = newDate;
+                }
+            }
+        }
+
+        /// <summary>Month of First Prenatal Care Visit.</summary>
+        /// <value>the month of the first prenatal care visit</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.FirstPrenatalCareVisitMonth = 2;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Month of First Prenatal Visit: {ExampleBirthRecord.FirstPrenatalCareVisitMonth}");</para>
+        /// </example>
+        [Property("FirstPrenatalCareVisitMonth", Property.Types.Int32, "Mother Prenatal", "Month of First Prenatal Care Visit.", true, BFDR.IGURL.ObservationDateOfFirstPrenatalCareVisit, true, 126)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='69044-6')", "")]
+        public int? FirstPrenatalCareVisitMonth
+        {
+            get
+            {
+                Observation obs = GetObservation("69044-6");
+                return GetDateElementNoTime(obs?.Value as Hl7.Fhir.Model.Date, VR.ExtensionURL.PartialDateTimeMonthVR);
+            }
+            set
+            {
+                Observation obs = GetObservation("69044-6") ?? CreateObservationEntry("69044-6", Mother.Id, MOTHER_PRENATAL_SECTION, Child.Id);
+                if (obs.Value as Hl7.Fhir.Model.Date == null)
+                {
+                    obs.Value = new Date();
+                    obs.Value.Extension.Add(NewBlankPartialDateTimeExtension(false));
+                }
+                Date newDate = SetMonth(value, obs.Value as Hl7.Fhir.Model.Date, FirstPrenatalCareVisitYear, FirstPrenatalCareVisitDay);
+                if (newDate != null)
+                {
+                    obs.Value = newDate;
+                }
+            }
+        }
+
+        /// <summary>Day of First Prenatal Care Visit.</summary>
+        /// <value>the day of the first prenatal care visit</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.FirstPrenatalCareVisitDay = 2;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Month of First Prenatal Visit: {ExampleBirthRecord.FirstPrenatalCareVisitDay}");</para>
+        /// </example>
+        [Property("FirstPrenatalCareVisitDay", Property.Types.Int32, "Mother Prenatal", "Day of First Prenatal Care Visit.", true, BFDR.IGURL.ObservationDateOfFirstPrenatalCareVisit, true, 127)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='69044-6')", "")]
+        public int? FirstPrenatalCareVisitDay
+        {
+            get
+            {
+                Observation obs = GetObservation("69044-6");
+                return GetDateElementNoTime(obs?.Value as Hl7.Fhir.Model.Date, VR.ExtensionURL.PartialDateTimeDayVR);
+            }
+            set
+            {
+                Observation obs = GetObservation("69044-6") ?? CreateObservationEntry("69044-6", Mother.Id, MOTHER_PRENATAL_SECTION, Child.Id);
+                if (obs.Value as Hl7.Fhir.Model.Date == null)
+                {
+                    obs.Value = new Date();
+                    obs.Value.Extension.Add(NewBlankPartialDateTimeExtension(false));
+                }
+                Date newDate = SetDay(value, obs.Value as Hl7.Fhir.Model.Date, FirstPrenatalCareVisitYear, FirstPrenatalCareVisitMonth);
+                if (newDate != null)
+                {
+                    obs.Value = newDate;
+                }
+            }
+        }
+
+        /// <summary>Date of Registration.</summary>
+        /// <value>the date that the birth was registered</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.RegistrationDate = "2023-02-19";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Date of birth registration: {ExampleBirthRecord.RegistrationDate}");</para>
+        /// </example>
+        [Property("RegistrationDate", Property.Types.String, "Birth Certification", "Date of Registration.", true, BFDR.IGURL.CompositionProviderLiveBirthReport, true, 243)]
+        [FHIRPath("Bundle.entry.resource.where($this is Composition)", "date")]
+        public string RegistrationDate
+        {
+            get
+            {
+                return this.Composition.Date;
+            }
+            set
+            {
+                this.Composition.DateElement = ConvertToDateTime(value);
+            }
+        }
+
+        /// <summary>Year of Registration.</summary>
+        /// <value>the year that the birth was registered</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.RegistrationDateYear = 2023;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Year of birth registration: {ExampleBirthRecord.RegistrationDateYear}");</para>
+        /// </example>
+        [Property("RegistrationDateYear", Property.Types.Int32, "Birth Certification", "Year of Registration.", true, BFDR.IGURL.CompositionProviderLiveBirthReport, true, 243)]
+        [FHIRPath("Bundle.entry.resource.where($this is Composition)", "date")]
+        public int? RegistrationDateYear
+        {
+            get
+            {
+                // First check the value string
+                if (this.Composition.Date != null && ParseDateElements(this.Composition.Date, out int? year, out int? month, out int? day))
+                {
+                    return year;
+                }
+                return GetDateFragmentOrPartialDate(this.Composition.DateElement, VR.ExtensionURL.PartialDateTimeYearVR);
+            }
+            set
+            {
+                if (this.Composition.DateElement == null)
+                {
+                    this.Composition.DateElement = new FhirDateTime();
+                    this.Composition.DateElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
+                }
+                FhirDateTime newDate = SetYear(value, this.Composition.DateElement, RegistrationDateMonth, RegistrationDateDay);
+                if (newDate != null)
+                {
+                    this.Composition.DateElement = newDate;
+                }
+            }
+        }
+
+        /// <summary>Month of Registration.</summary>
+        /// <value>the month that the birth was registered</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.RegistrationDateMonth = 10;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Month of birth registration: {ExampleBirthRecord.RegistrationDateMonth}");</para>
+        /// </example>
+        [Property("RegistrationDateMonth", Property.Types.Int32, "Birth Certification", "Month of Registration.", true, BFDR.IGURL.CompositionProviderLiveBirthReport, true, 244)]
+        [FHIRPath("Bundle.entry.resource.where($this is Composition)", "date")]
+        public int? RegistrationDateMonth
+        {
+            get
+            {
+                // First check the value string
+                if (this.Composition.Date != null && ParseDateElements(this.Composition.Date, out int? year, out int? month, out int? day))
+                {
+                    return month;
+                }
+                return GetDateFragmentOrPartialDate(this.Composition.DateElement, VR.ExtensionURL.PartialDateTimeMonthVR);
+            }
+            set
+            {
+                if (this.Composition.DateElement == null)
+                {
+                    this.Composition.DateElement = new FhirDateTime();
+                    this.Composition.DateElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
+                }
+                FhirDateTime newDate = SetMonth(value, this.Composition.DateElement, RegistrationDateYear, RegistrationDateDay);
+                if (newDate != null)
+                {
+                    this.Composition.DateElement = newDate;
+                }
+            }
+        }
+
+        /// <summary>Day of Registration.</summary>
+        /// <value>the day that the birth was registered</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.RegistrationDateDay = 23;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Day of birth registration: {ExampleBirthRecord.RegistrationDateDay}");</para>
+        /// </example>
+        [Property("RegistrationDateDay", Property.Types.Int32, "Birth Certification", "Day of Registration.", true, BFDR.IGURL.CompositionProviderLiveBirthReport, true, 245)]
+        [FHIRPath("Bundle.entry.resource.where($this is Composition)", "date")]
+        public int? RegistrationDateDay
+        {
+            get
+            {
+                // First check the value string
+                if (this.Composition.Date != null && ParseDateElements(this.Composition.Date, out int? year, out int? month, out int? day))
+                {
+                    return day;
+                }
+                return GetDateFragmentOrPartialDate(this.Composition.DateElement, VR.ExtensionURL.PartialDateTimeDayVR);
+            }
+            set
+            {
+                if (this.Composition.DateElement == null)
+                {
+                    this.Composition.DateElement = new FhirDateTime();
+                    this.Composition.DateElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
+                }
+                FhirDateTime newDate = SetDay(value, this.Composition.DateElement, RegistrationDateYear, RegistrationDateMonth);
+                if (newDate != null)
+                {
+                    this.Composition.DateElement = newDate;
+                }
+            }
         }
     }
 }
