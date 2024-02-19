@@ -4532,7 +4532,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Cigarettes In First Trimester: {ExampleBirthRecord.CigarettesPerDayInFirstTrimester}");</para>
         /// </example>
-        [Property("CigarettesPerDayInFirstTrimester", Property.Types.Int32, "Mother Prenatal", "Cigarettes Smoked In First Trimester.", false, BFDR.IGURL.ObservationCigaretteSmokingBeforeDuringPregnancy, true, 150)]
+        [Property("CigarettesPerDayInFirstTrimester", Property.Types.Int32, "Mother Prenatal", "Cigarettes Smoked In First Trimester.", true, BFDR.IGURL.ObservationCigaretteSmokingBeforeDuringPregnancy, true, 150)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87298-6')", "")]
         public int? CigarettesPerDayInFirstTrimester
         {
@@ -4549,7 +4549,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Cigarettes In Second Trimester: {ExampleBirthRecord.CigarettesPerDayInSecondTrimester}");</para>
         /// </example>
-        [Property("CigarettesPerDayInSecondTrimester", Property.Types.Int32, "Mother Prenatal", "Cigarettes Smoked In Second Trimester.", false, BFDR.IGURL.ObservationCigaretteSmokingBeforeDuringPregnancy, true, 151)]
+        [Property("CigarettesPerDayInSecondTrimester", Property.Types.Int32, "Mother Prenatal", "Cigarettes Smoked In Second Trimester.", true, BFDR.IGURL.ObservationCigaretteSmokingBeforeDuringPregnancy, true, 151)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87299-4')", "")]
         public int? CigarettesPerDayInSecondTrimester
         {
@@ -4566,7 +4566,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Cigarettes In Last Trimester: {ExampleBirthRecord.CigarettesPerDayInLastTrimester}");</para>
         /// </example>
-        [Property("CigarettesPerDayInLastTrimester", Property.Types.Int32, "Mother Prenatal", "Cigarettes Smoked In Last Trimester.", false, BFDR.IGURL.ObservationCigaretteSmokingBeforeDuringPregnancy, true, 152)]
+        [Property("CigarettesPerDayInLastTrimester", Property.Types.Int32, "Mother Prenatal", "Cigarettes Smoked In Last Trimester.", true, BFDR.IGURL.ObservationCigaretteSmokingBeforeDuringPregnancy, true, 152)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='64795-8')", "")]
         public int? CigarettesPerDayInLastTrimester
         {
@@ -5062,7 +5062,7 @@ namespace BFDR
                 obs.Value = ConvertToDate(value);
             }
         }
-        
+
         /// <summary>Marital Description</summary>
         /// <value>for use of jurisdictions with domestic partnerships, othertypes of relationships</value>
         /// <example>
@@ -5734,6 +5734,77 @@ namespace BFDR
                 Observation obs = GetOrCreateObservation("87295-2", CodeSystems.LOINC, "SSN requested", BFDR.ProfileURL.ObservationSSNRequestedForChild, NEWBORN_INFORMATION_SECTION);
                 obs.Value = new FhirBoolean(value);
             }
+        }
+
+        private int? GetIntegerObservationValue(string code)
+        {
+            var entry = Bundle.Entry.Where(e => e.Resource is Observation obs && CodeableConceptToDict(obs.Code)["code"] == code).FirstOrDefault();
+            if (entry != null)
+            {
+                Observation observation = (Observation)entry.Resource;
+                return (int?)(observation?.Value as Hl7.Fhir.Model.Integer)?.Value;
+            }
+            return null;
+        }
+
+        private Observation SetIntegerObservationValue(string code, int? value, string section, string subjectId)
+        {
+            var entry = Bundle.Entry.Where(e => e.Resource is Observation o && CodeableConceptToDict(o.Code)["code"] == code).FirstOrDefault();
+            if (!(entry?.Resource is Observation obs))
+            {
+                obs = new Observation
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Code = new CodeableConcept(VR.CodeSystems.LOINC, code),
+                    Subject = new ResourceReference($"urn:uuid:{subjectId}")
+                };
+                obs.Category.Add(new CodeableConcept(CodeSystems.ObservationCategory, "vital-signs"));
+                AddReferenceToComposition(obs.Id, section);
+                Bundle.AddResourceEntry(obs, "urn:uuid:" + obs.Id);
+            }
+            // Create an empty Integer if needed
+            if (obs.Value == null || obs.Value as Integer == null)
+            {
+                obs.Value = new Hl7.Fhir.Model.Integer();
+            }
+            // Set the properties of the value individually to preserve any existing obs.Value.Extension entries
+            if (value != null)
+            {
+                (obs.Value as Integer).Value = (int)value;
+            }
+            return obs;
+        }
+
+        /// <summary>APGAR score at 5 mins.</summary>
+        /// <value>the APGAR score at 5 minutes, or -1 if explicitly unknown, or null if never specified</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.ApgarScoreFiveMinutes = 20;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"APGAR score at 5 minutes: {ExampleBirthRecord.ApgarScoreFiveMinutes}");</para>
+        /// </example>
+        [Property("ApgarScoreFiveMinutes", Property.Types.Int32, "Newborn Information", "APGAR score at 5 minutes.", true, BFDR.IGURL.ObservationApgarScore, true, 205)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='9274-2')", "")]
+        public int? ApgarScoreFiveMinutes
+        {
+            get => GetIntegerObservationValue("9274-2");
+            set => SetIntegerObservationValue("9274-2", value, NEWBORN_INFORMATION_SECTION, Child.Id);
+        }
+
+        /// <summary>APGAR score at 10 mins.</summary>
+        /// <value>the APGAR score at 10 minutes, or -1 if explicitly unknown, or null if never specified</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.ApgarScoreTenMinutes = 20;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"APGAR score at 10 minutes: {ExampleBirthRecord.ApgarScoreTenMinutes}");</para>
+        /// </example>
+        [Property("ApgarScoreTenMinutes", Property.Types.Int32, "Newborn Information", "APGAR score at 10 minutes.", true, BFDR.IGURL.ObservationApgarScore, true, 206)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='9271-8')", "")]
+        public int? ApgarScoreTenMinutes
+        {
+            get => GetIntegerObservationValue("9271-8");
+            set => SetIntegerObservationValue("9271-8", value, NEWBORN_INFORMATION_SECTION, Child.Id);
         }
 
     }

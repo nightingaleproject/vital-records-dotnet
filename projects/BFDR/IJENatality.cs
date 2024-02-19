@@ -3226,30 +3226,16 @@ namespace BFDR
         [IJEField(205, 873, 2, "Apgar Score at 5 Minutes", "APGAR5", 1)]
         public string APGAR5
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => NumericAllowingUnknown_Get("APGAR5", "ApgarScoreFiveMinutes");
+            set => NumericAllowingUnknown_Set("APGAR5", "ApgarScoreFiveMinutes", value);
         }
 
         /// <summary>Apgar Score at 10 Minutes</summary>
         [IJEField(206, 875, 2, "Apgar Score at 10 Minutes", "APGAR10", 1)]
         public string APGAR10
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => NumericAllowingUnknown_Get("APGAR10", "ApgarScoreTenMinutes");
+            set => NumericAllowingUnknown_Set("APGAR10", "ApgarScoreTenMinutes", value);
         }
 
         /// <summary>Plurality</summary>
