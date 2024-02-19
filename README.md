@@ -1,4 +1,6 @@
 # Vital Records .NET Monorepo
+[![VitalRecord on NuGet](https://img.shields.io/nuget/v/VitalRecord?label=VitalRecord)](https://www.nuget.org/packages/VitalRecord/) [![VitalRecord.Messaging on NuGet](https://img.shields.io/nuget/v/VitalRecord?label=VitalRecord.Messaging)](https://www.nuget.org/packages/VitalRecord.Messaging/) [![VRDR on NuGet](https://img.shields.io/nuget/v/VRDR?label=VRDR)](https://www.nuget.org/packages/VRDR/) [![VRDR.Messaging on NuGet](https://img.shields.io/nuget/v/VRDR.Messaging?label=VRDR.Messaging)](https://www.nuget.org/packages/VRDR.Messaging/) [![VRDR.Client on NuGet](https://img.shields.io/nuget/v/VRDR?label=VRDR.Client)](https://www.nuget.org/packages/VRDR.Client/)
+
 
 ## Projects
 
