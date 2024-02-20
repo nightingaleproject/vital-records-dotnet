@@ -5457,7 +5457,7 @@
             <param name="code">the code to identify the type of Observation</param>
             <param name="extensionURL">if present, specifies that the value should be get from an extension with the provided URL instead</param>
         </member>
-        <member name="M:VR.VitalRecord.CreateObservation(System.String,System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:VR.VitalRecord.CreateObservation(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
             <summary>Helper to support vital record property setter helper methods for values stored in Observations.</summary>
             <param name="value">the coded value to set as the value of the property</param>
             <param name="code">the code to specify the type of Observation</param>
@@ -5473,7 +5473,7 @@
             <param name="code">the code to identify the type of Observation</param>
             <param name="extensionURL">if present, specifies that the value should be get from an extension with the provided URL instead</param>
         </member>
-        <member name="M:VR.VitalRecord.SetObservationValue(System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:VR.VitalRecord.SetObservationValue(System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
             <summary>Helper to support vital record property setter helper methods for values stored in Observations.</summary>
             <param name="value">the coded value to set as the value of the property</param>
             <param name="code">the code to specify the type of Observation</param>

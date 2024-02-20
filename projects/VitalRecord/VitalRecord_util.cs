@@ -118,7 +118,7 @@ namespace VR
         /// <param name="section">the section of the composition the Observation should be added to</param>
         /// <param name="extensionURL">if present, specifies that the value should be set on an extension with the provided URL instead</param>
         /// <param name="propertyName">the name of the C# property, used to determine the subject ID</param>
-        protected Observation CreateObservation(string code, string codeSystem, string text, string profileURL, string section, [CallerMemberName] string propertyName = null)
+        protected Observation CreateObservation(string code, string codeSystem, string text, string profileURL, string section, string focusId = null, [CallerMemberName] string propertyName = null)
         {
             var entry = Bundle.Entry.Where(e => e.Resource is Observation obs && CodeableConceptToDict(obs.Code)["code"] == code).FirstOrDefault();
             Observation observation;
@@ -137,7 +137,10 @@ namespace VR
                 observation.Code = new CodeableConcept(codeSystem, code, text, null);
                 observation.Subject = new ResourceReference($"urn:uuid:{SubjectId(propertyName)}");
                 observation.Status = ObservationStatus.Final; // TODO: is this correct?
-                // TODO: We need to set the focus to something sane
+                if (focusId != null)
+                {
+                    observation.Focus.Add(new ResourceReference($"urn:uuid:{focusId}"));
+                }
                 AddReferenceToComposition(observation.Id, section);
                 Bundle.AddResourceEntry(observation, "urn:uuid:" + observation.Id);
             }
@@ -178,9 +181,9 @@ namespace VR
         /// <param name="section">the section of the composition the Observation should be added to</param>
         /// <param name="extensionURL">if present, specifies that the value should be set on an extension with the provided URL instead</param>
         /// <param name="propertyName">the name of the C# property, used to determine the subject ID</param>
-        protected void SetObservationValue(Dictionary<string, string> value, string code, string codeSystem, string text, string profileURL, string section, string extensionURL = null, [CallerMemberName] string propertyName = null)
+        protected void SetObservationValue(Dictionary<string, string> value, string code, string codeSystem, string text, string profileURL, string section, string extensionURL = null, string focusId = null, [CallerMemberName] string propertyName = null)
         {
-            Observation observation = CreateObservation(code, codeSystem, text, profileURL, section, propertyName);
+            Observation observation = CreateObservation(code, codeSystem, text, profileURL, section, focusId, propertyName);
 
             // Set the value or the extension, depending on what's desired
             if (extensionURL != null)
