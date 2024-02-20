@@ -1488,7 +1488,19 @@
             <para>Console.WriteLine($"Father's Industry: {ExampleBirthRecord.FatherIndustry}");</para>
             </example>
         </member>
-        <!-- Badly formed XML comment ignored for member "P:BFDR.BirthRecord.MotherEducationLevel" -->
+        <member name="P:BFDR.BirthRecord.MotherEducationLevel">
+            <summary>Mother's Education Level.</summary>
+            <value>the mother's education level. A Dictionary representing a code, containing the following key/value pairs:</value>
+            <example>
+            <para>Dictionary&lt;string, string&gt; elevel = new Dictionary&lt;string, string&gt;();</para>
+            <para>elevel.Add("code", "BA");</para>
+            <para>elevel.Add("system", VR.CodeSystems.EducationLevel);</para>
+            <para>elevel.Add("display", "Bachelor’s Degree");</para>
+            <para>ExampleBirthRecord.MotherEducationLevel = elevel;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's Education Level: {ExampleBirthRecord.MotherEducationLevel["display"]}");</para>
+            </example>
+        </member>
         <member name="P:BFDR.BirthRecord.MotherEducationLevelHelper">
             <summary>Mother's Education Level Helper</summary>
             <value>Mother's Education Level.</value>
@@ -1581,6 +1593,126 @@
             <para>ExampleBirthRecord.FatherEducationLevelEditFlag = VRDR.ValueSets.EditBypass01234.EditPassed;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Father's Education Level Edit Flag: {ExampleBirthRecord.EducationLevelHelperEditFlag}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.LastMenstrualPeriod">
+            <summary>Last Menstrual Period.</summary>
+            <value>the date that the last normal menstrual period began</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.LastMenstrualPeriod = "2023-02-19";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Last Menstrual Period: {ExampleBirthRecord.LastMenstrualPeriod}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.LastMenstrualPeriodYear">
+            <summary>Year of Last Menstrual Period.</summary>
+            <value>the year that the last normal menstrual period began</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.LastMenstrualPeriodYear = 2023;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Year of Last Menstrual Period: {ExampleBirthRecord.LastMenstrualPeriodYear}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.LastMenstrualPeriodMonth">
+            <summary>Month of Last Menstrual Period.</summary>
+            <value>the month that the last normal menstrual period began</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.LastMenstrualPeriodMonth = 2;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Month of Last Menstrual Period: {ExampleBirthRecord.LastMenstrualPeriodMonth}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.LastMenstrualPeriodDay">
+            <summary>Day of Last Menstrual Period.</summary>
+            <value>the day that the last normal menstrual period began</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.LastMenstrualPeriodDay = 28;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Day of Last Menstrual Period: {ExampleBirthRecord.LastMenstrualPeriodDay}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.FirstPrenatalCareVisit">
+            <summary>First Prenatal Care Visit.</summary>
+            <value>the date of the first prenatal care visit</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.FirstPrenatalCareVisit = "2023-02-19";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"First prenatal care visit on: {ExampleBirthRecord.FirstPrenatalCareVisit}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.FirstPrenatalCareVisitYear">
+            <summary>Year of the First Prenatal Care Visit.</summary>
+            <value>the year of the first prenatal care visit</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.FirstPrenatalCareVisitYear = 2023;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Year of the First Prenatal Visit: {ExampleBirthRecord.FirstPrenatalCareVisitYear}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.FirstPrenatalCareVisitMonth">
+            <summary>Month of First Prenatal Care Visit.</summary>
+            <value>the month of the first prenatal care visit</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.FirstPrenatalCareVisitMonth = 2;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Month of First Prenatal Visit: {ExampleBirthRecord.FirstPrenatalCareVisitMonth}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.FirstPrenatalCareVisitDay">
+            <summary>Day of First Prenatal Care Visit.</summary>
+            <value>the day of the first prenatal care visit</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.FirstPrenatalCareVisitDay = 2;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Month of First Prenatal Visit: {ExampleBirthRecord.FirstPrenatalCareVisitDay}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.RegistrationDate">
+            <summary>Date of Registration.</summary>
+            <value>the date that the birth was registered</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.RegistrationDate = "2023-02-19";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Date of birth registration: {ExampleBirthRecord.RegistrationDate}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.RegistrationDateYear">
+            <summary>Year of Registration.</summary>
+            <value>the year that the birth was registered</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.RegistrationDateYear = 2023;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Year of birth registration: {ExampleBirthRecord.RegistrationDateYear}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.RegistrationDateMonth">
+            <summary>Month of Registration.</summary>
+            <value>the month that the birth was registered</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.RegistrationDateMonth = 10;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Month of birth registration: {ExampleBirthRecord.RegistrationDateMonth}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.RegistrationDateDay">
+            <summary>Day of Registration.</summary>
+            <value>the day that the birth was registered</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.RegistrationDateDay = 23;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Day of birth registration: {ExampleBirthRecord.RegistrationDateDay}");</para>
             </example>
         </member>
         <member name="T:BFDR.FHIRSubject">
