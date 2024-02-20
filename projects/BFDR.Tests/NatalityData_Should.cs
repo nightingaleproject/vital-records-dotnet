@@ -720,5 +720,71 @@ namespace BFDR.Tests
       Assert.Equal("public health", ije.MOM_IN_T);
       Assert.Equal("public health", fhir.MotherIndustry);
     }
+
+    [Fact]
+    public void TestLastMenses()
+    {
+      BirthRecord fhir = new BirthRecord();
+      IJENatality ije = new IJENatality(fhir);
+      Assert.Equal("    ", ije.DLMP_YR);
+      Assert.Equal("  ", ije.DLMP_MO);
+      Assert.Equal("  ", ije.DLMP_DY);
+      ije.DLMP_DY = "24";
+      Assert.Equal("    ", ije.DLMP_YR);
+      Assert.Equal("  ", ije.DLMP_MO);
+      Assert.Equal("24", ije.DLMP_DY);
+      ije.DLMP_MO = "02";
+      Assert.Equal("    ", ije.DLMP_YR);
+      Assert.Equal("02", ije.DLMP_MO);
+      Assert.Equal("24", ije.DLMP_DY);
+      ije.DLMP_YR = "2023";
+      Assert.Equal("2023", ije.DLMP_YR);
+      Assert.Equal("02", ije.DLMP_MO);
+      Assert.Equal("24", ije.DLMP_DY);
+    }
+
+    [Fact]
+    public void TestFirstPrenatalCare()
+    {
+      BirthRecord fhir = new BirthRecord();
+      IJENatality ije = new IJENatality(fhir);
+      Assert.Equal("    ", ije.DOFP_YR);
+      Assert.Equal("  ", ije.DOFP_MO);
+      Assert.Equal("  ", ije.DOFP_DY);
+      ije.DOFP_DY = "24";
+      Assert.Equal("    ", ije.DOFP_YR);
+      Assert.Equal("  ", ije.DOFP_MO);
+      Assert.Equal("24", ije.DOFP_DY);
+      ije.DOFP_MO = "02";
+      Assert.Equal("    ", ije.DOFP_YR);
+      Assert.Equal("02", ije.DOFP_MO);
+      Assert.Equal("24", ije.DOFP_DY);
+      ije.DOFP_YR = "2023";
+      Assert.Equal("2023", ije.DOFP_YR);
+      Assert.Equal("02", ije.DOFP_MO);
+      Assert.Equal("24", ije.DOFP_DY);
+    }
+
+    [Fact]
+    public void TestRegistrationDate()
+    {
+      BirthRecord fhir = new BirthRecord();
+      IJENatality ije = new IJENatality(fhir);
+      Assert.Equal("    ", ije.DOR_YR);
+      Assert.Equal("  ", ije.DOR_MO);
+      Assert.Equal("  ", ije.DOR_DY);
+      ije.DOR_DY = "24";
+      Assert.Equal("    ", ije.DOR_YR);
+      Assert.Equal("  ", ije.DOR_MO);
+      Assert.Equal("24", ije.DOR_DY);
+      ije.DOR_MO = "02";
+      Assert.Equal("    ", ije.DOR_YR);
+      Assert.Equal("02", ije.DOR_MO);
+      Assert.Equal("24", ije.DOR_DY);
+      ije.DOR_YR = "2023";
+      Assert.Equal("2023", ije.DOR_YR);
+      Assert.Equal("02", ije.DOR_MO);
+      Assert.Equal("24", ije.DOR_DY);
+    }
   }
 }
