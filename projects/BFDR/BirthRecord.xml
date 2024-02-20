@@ -70,6 +70,8 @@
         </member>
         <member name="F:BFDR.BirthRecord.Coverage">
             <summary>The coverage associated with the birth.</summary>
+        <member name="F:BFDR.BirthRecord.EncounterMaternity">
+            <summary>The maternity encounter.</summary>
         </member>
         <member name="F:BFDR.BirthRecord.RACE_ETHNICITY_PROFILE_MOTHER">
             <summary>Composition Section Constants</summary>

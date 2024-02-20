@@ -5546,7 +5546,7 @@ namespace BFDR
         {
             get
             {
-                Dictionary<string, string> admitSource = CodeableConceptToDict(EncounterBirth?.Hospitalization?.AdmitSource);
+                Dictionary<string, string> admitSource = CodeableConceptToDict(EncounterMaternity?.Hospitalization?.AdmitSource);
                 return admitSource;
             }
             set
@@ -5557,7 +5557,9 @@ namespace BFDR
                 }
                 // TODO define CC
                 CodeableConcept admitSource = DictToCodeableConcept(value);
-                EncounterBirth.Hospitalization.AdmitSource = admitSource;
+                HospitalizationComponent hosp = new HospitalizationComponent();
+                hosp.AdmitSource = admitSource;
+                EncounterMaternity.Hospitalization = hosp;
             }
         }
 
@@ -5661,7 +5663,9 @@ namespace BFDR
                     return;
                 }
                 CodeableConcept dischargeDisposition = DictToCodeableConcept(value);
-                EncounterBirth.Hospitalization.DischargeDisposition = dischargeDisposition;
+                HospitalizationComponent hosp = new HospitalizationComponent();
+                hosp.DischargeDisposition = dischargeDisposition;
+                EncounterBirth.Hospitalization = hosp;
             }
         }
 
@@ -5697,7 +5701,7 @@ namespace BFDR
                 if (value == "Y")
                 {
                     // TODO update this to point to generated code system
-                    InfantTransferred = CodeableConceptToDict(new CodeableConcept("http://terminology.hl7.org/CodeSystem/discharge-disposition", "other-hcf", "Other healthcare facility", null));
+                    InfantTransferred = CodeableConceptToDict(new CodeableConcept("http://terminology.hl7.org/CodeSystem/discharge-disposition", "other-hcf", "Other healthcare facility", "The patient was transferred to another healthcare facility."));
                 }
                 else if (value == "N")
                 {

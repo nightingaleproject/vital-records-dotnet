@@ -1676,16 +1676,88 @@ namespace BFDR.Tests
       cc.Add("code", "hosp-trans");
       cc.Add("system", "http://terminology.hl7.org/CodeSystem/admit-source");
       cc.Add("display", "Transferred from other hospital");
+      cc.Add("text", "The Patient has been transferred from another hospital for this encounter.");
       Assert.Equal(cc, birthRecord.MotherTransferred);
 
       IJENatality ije = new IJENatality();
       ije.TRAN = "N";
       BirthRecord birthRecord2 = ije.ToBirthRecord();
-      Assert.Equal("N", birthRecord2.PaternityAcknowledgementSignedHelper);
+      Assert.Equal("N", birthRecord2.MotherTransferredHelper);
 
       BirthRecord birthRecord3 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
-      Assert.Equal("Y", birthRecord3.PaternityAcknowledgementSignedHelper);
-      Assert.Equal(cc, birthRecord3.PaternityAcknowledgementSigned);
+      Assert.Equal("Y", birthRecord3.MotherTransferredHelper);
+      Assert.Equal(cc, birthRecord3.MotherTransferred);
+    }
+
+    [Fact]
+    public void SetInfantLiving()
+    {
+      BirthRecord birthRecord = new BirthRecord();
+      birthRecord.InfantLiving = true;
+      Assert.True(birthRecord.InfantLiving);
+
+      IJENatality ije = new IJENatality();
+      ije.ILIV = "N";
+      BirthRecord birthRecord2 = ije.ToBirthRecord();
+      Assert.False(birthRecord2.InfantLiving);
+
+      BirthRecord birthRecord3 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.True(birthRecord3.InfantLiving);
+    }
+
+    [Fact]
+    public void SetInfantTransferred()
+    {
+      BirthRecord birthRecord = new BirthRecord();
+      birthRecord.InfantTransferredHelper = "Y";
+      Assert.Equal("Y", birthRecord.InfantTransferredHelper);
+      Dictionary<string, string> cc = new Dictionary<string, string>();
+      cc.Add("code", "other-hcf");
+      cc.Add("system", "http://terminology.hl7.org/CodeSystem/discharge-disposition");
+      cc.Add("display", "Other healthcare facility");
+      cc.Add("text", "The patient was transferred to another healthcare facility.");
+      Assert.Equal(cc, birthRecord.InfantTransferred);
+
+      IJENatality ije = new IJENatality();
+      ije.ITRAN = "N";
+      BirthRecord birthRecord2 = ije.ToBirthRecord();
+      Assert.Equal("N", birthRecord2.InfantTransferredHelper);
+
+      BirthRecord birthRecord3 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.Equal("Y", birthRecord3.InfantTransferredHelper);
+      Assert.Equal(cc, birthRecord3.InfantTransferred);
+    }
+
+    [Fact]
+    public void SetNumberLiveBorn()
+    {
+      BirthRecord birthRecord = new BirthRecord();
+      birthRecord.NumberLiveBorn = 2;
+      Assert.Equal(2, birthRecord.NumberLiveBorn);
+
+      IJENatality ije = new IJENatality();
+      ije.LIVEB = "1";
+      BirthRecord birthRecord2 = ije.ToBirthRecord();
+      Assert.Equal(1, birthRecord2.NumberLiveBorn);
+
+      BirthRecord birthRecord3 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.Equal(3, birthRecord3.NumberLiveBorn);
+    }
+
+    [Fact]
+    public void SetSSNRequested()
+    {
+      BirthRecord birthRecord = new BirthRecord();
+      birthRecord.SSNRequested = true;
+      Assert.True(birthRecord.SSNRequested);
+
+      IJENatality ije = new IJENatality();
+      ije.SSN_REQ = "N";
+      BirthRecord birthRecord2 = ije.ToBirthRecord();
+      Assert.False(birthRecord2.SSNRequested);
+
+      BirthRecord birthRecord3 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.True(birthRecord3.SSNRequested);
     }
   }
 }
