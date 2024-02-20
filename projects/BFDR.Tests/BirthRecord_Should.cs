@@ -1607,5 +1607,85 @@ namespace BFDR.Tests
       Assert.Equal("Indian Health Service or Tribe", br.PayorTypeFinancialClass["display"]);
       Assert.Equal(br.PayorTypeFinancialClass["code"], br.PayorTypeFinancialClassHelper);
     }
+    public void SetMaritalStatus()
+    {
+      BirthRecord birthRecord = new BirthRecord();
+      birthRecord.MaritalStatus = "Single";
+      Assert.Equal("Single", birthRecord.MaritalStatus);
+
+      IJENatality ije = new IJENatality();
+      ije.MARITAL_DESCRIP = "Married";
+      BirthRecord birthRecord2 = ije.ToBirthRecord();
+      Assert.Equal("Married", birthRecord2.MaritalStatus);
+
+      BirthRecord birthRecord3 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.Equal("Divorced", birthRecord3.MaritalStatus);
+    }
+
+    [Fact]
+    public void SetMotherMarriedDuringPregnancy()
+    {
+      BirthRecord birthRecord = new BirthRecord();
+      birthRecord.MotherMarriedDuringPregnancyHelper = "Y";
+      Assert.Equal("Y", birthRecord.MotherMarriedDuringPregnancyHelper);
+      Dictionary<string, string> cc = new Dictionary<string, string>();
+      cc.Add("code", VR.ValueSets.YesNoUnknown.Codes[1, 0]);
+      cc.Add("system", VR.ValueSets.YesNoUnknown.Codes[1, 2]);
+      cc.Add("display", VR.ValueSets.YesNoUnknown.Codes[1, 1]);
+      Assert.Equal(cc, birthRecord.MotherMarriedDuringPregnancy);
+
+      IJENatality ije = new IJENatality();
+      ije.MARN = "N";
+      BirthRecord birthRecord2 = ije.ToBirthRecord();
+      Assert.Equal("N", birthRecord2.MotherMarriedDuringPregnancyHelper);
+
+      BirthRecord birthRecord3 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.Equal("Y", birthRecord3.MotherMarriedDuringPregnancyHelper);
+      Assert.Equal(cc, birthRecord3.MotherMarriedDuringPregnancy);
+    }
+
+    [Fact]
+    public void SetPaternityAcknowledgementSigned()
+    {
+      BirthRecord birthRecord = new BirthRecord();
+      birthRecord.PaternityAcknowledgementSignedHelper = "Y";
+      Assert.Equal("Y", birthRecord.PaternityAcknowledgementSignedHelper);
+      Dictionary<string, string> cc = new Dictionary<string, string>();
+      cc.Add("code", VR.ValueSets.YesNoNotApplicable.Codes[1, 0]);
+      cc.Add("system", VR.ValueSets.YesNoNotApplicable.Codes[1, 2]);
+      cc.Add("display", VR.ValueSets.YesNoNotApplicable.Codes[1, 1]);
+      Assert.Equal(cc, birthRecord.PaternityAcknowledgementSigned);
+
+      IJENatality ije = new IJENatality();
+      ije.ACKN = "X";
+      BirthRecord birthRecord2 = ije.ToBirthRecord();
+      Assert.Equal("NA", birthRecord2.PaternityAcknowledgementSignedHelper);
+
+      BirthRecord birthRecord3 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.Equal("Y", birthRecord3.PaternityAcknowledgementSignedHelper);
+      Assert.Equal(cc, birthRecord3.PaternityAcknowledgementSigned);
+    }
+
+    [Fact]
+    public void SetMotherTransferred()
+    {
+      BirthRecord birthRecord = new BirthRecord();
+      birthRecord.MotherTransferredHelper = "Y";
+      Assert.Equal("Y", birthRecord.MotherTransferredHelper);
+      Dictionary<string, string> cc = new Dictionary<string, string>();
+      cc.Add("code", "hosp-trans");
+      cc.Add("system", "http://terminology.hl7.org/CodeSystem/admit-source");
+      cc.Add("display", "Transferred from other hospital");
+      Assert.Equal(cc, birthRecord.MotherTransferred);
+
+      IJENatality ije = new IJENatality();
+      ije.TRAN = "N";
+      BirthRecord birthRecord2 = ije.ToBirthRecord();
+      Assert.Equal("N", birthRecord2.PaternityAcknowledgementSignedHelper);
+
+      BirthRecord birthRecord3 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.Equal("Y", birthRecord3.PaternityAcknowledgementSignedHelper);
+      Assert.Equal(cc, birthRecord3.PaternityAcknowledgementSigned);
+    }
   }
 }

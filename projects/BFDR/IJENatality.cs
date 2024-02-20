@@ -638,12 +638,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return Get_MappingFHIRToIJE(VR.Mappings.ConceptMapYesNoUnknownVitalRecords.FHIRToIJE, "MotherMarriedDuringPregnancy", "MARN");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Set_MappingIJEToFHIR(VR.Mappings.ConceptMapYesNoUnknownVitalRecords.IJEToFHIR, "MARN", "MotherMarriedDuringPregnancy", value);
+                }
             }
         }
 
@@ -653,12 +655,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return Get_MappingFHIRToIJE(VR.Mappings.ConceptMapYesNoNotApplicableVitalRecords.IJEToFHIR, "PaternityAcknowledgementSigned", "ACKN");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Set_MappingIJEToFHIR(VR.Mappings.ConceptMapYesNoNotApplicableVitalRecords.IJEToFHIR, "ACKN", "PaternityAcknowledgementSigned", value);
+                }
             }
         }
 
@@ -3282,12 +3286,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return NumericAllowingUnknown_Get("LIVEB", "NumberLiveBorn");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                NumericAllowingUnknown_Set("LIVEB", "NumberLiveBorn", value);
             }
         }
 
@@ -3493,12 +3496,29 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                // translate fhir boolean to Y, N, or U
+                if (record.InfantLiving != null)
+                {
+                    if ((bool)record.InfantLiving)
+                    {
+                        return "Y";
+                    }
+                    return "N";
+                }
+                return "U";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // translate Y, N, U to fhir boolean
+                if (value == "Y")
+                {
+                    record.InfantLiving = true;
+                }
+                else if (value == "N")
+                {
+                    record.InfantLiving = false;
+                }
+                return;
             }
         }
 
@@ -4934,12 +4954,26 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                if (record.SSNRequested != null)
+                {
+                    if ((bool)record.SSNRequested)
+                    {
+                        return "Y";
+                    }
+                    return "N";
+                }
+                return "U";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                if (value == "Y")
+                {   
+                    record.SSNRequested = true;
+                }
+                else if (value == "N")
+                {
+                    record.SSNRequested = false;
+                }
             }
         }
 
@@ -5217,12 +5251,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return LeftJustified_Get("MARITAL_DESCRIP", "MaritalStatus");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                LeftJustified_Set("MARITAL_DESCRIP", "MaritalStatus", value);
             }
         }
 

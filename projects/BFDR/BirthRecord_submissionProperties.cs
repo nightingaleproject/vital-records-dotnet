@@ -317,7 +317,7 @@ namespace BFDR
                 // First check for a time in the patient.birthDate PatientBirthTime extension.
                 if (Child.BirthDateElement.Extension.Any(ext => ext.Url == VR.ExtensionURL.PatientBirthTime))
                 {
-                    FhirDateTime dateTime = (FhirDateTime) Child.BirthDateElement.Extension.Find(ext => ext.Url == VR.ExtensionURL.PatientBirthTime).Value;
+                    FhirDateTime dateTime = (FhirDateTime)Child.BirthDateElement.Extension.Find(ext => ext.Url == VR.ExtensionURL.PatientBirthTime).Value;
                     return GetTimeFragment(dateTime);
                 }
                 // If it's not there, check for a PartialDateTime.
@@ -483,7 +483,7 @@ namespace BFDR
             }
             set
             {
-                if(!String.IsNullOrWhiteSpace(value))
+                if (!String.IsNullOrWhiteSpace(value))
                 {
                     SetCodeValue("BirthSex", value, VR.ValueSets.SexAssignedAtBirth.Codes);
                 }
@@ -925,8 +925,8 @@ namespace BFDR
                     // }
                     // else
                     // {
-                        currentAddress["addressJurisdiction"] = value;
-                        currentAddress["addressState"] = value;
+                    currentAddress["addressJurisdiction"] = value;
+                    currentAddress["addressState"] = value;
                     // }
                     PlaceOfBirth = currentAddress;
                     // TODO - UpdateDeathRecordIdentifier();
@@ -1346,7 +1346,7 @@ namespace BFDR
             }
             set
             {
-                if(!String.IsNullOrWhiteSpace(value))
+                if (!String.IsNullOrWhiteSpace(value))
                 {
                     SetCodeValue("MotherResidenceWithinCityLimits", value, VR.ValueSets.YesNoUnknown.Codes);
                 }
@@ -2626,7 +2626,7 @@ namespace BFDR
         {
             for (int i = 0; i < VR.ValueSets.Role.Codes.Length; i++)
             {
-                if (VR.ValueSets.Role.Codes[i,0].Equals(role))
+                if (VR.ValueSets.Role.Codes[i, 0].Equals(role))
                 {
                     Dictionary<string, string> dict = new Dictionary<string, string>();
                     dict.Add("code", VR.ValueSets.Role.Codes[i, 0]);
@@ -3051,7 +3051,7 @@ namespace BFDR
             }
             set
             {
-                if(!String.IsNullOrWhiteSpace(value))
+                if (!String.IsNullOrWhiteSpace(value))
                 {
                     SetCodeValue("MotherEthnicity1", value, VR.ValueSets.HispanicNoUnknown.Codes);
                 }
@@ -3133,7 +3133,7 @@ namespace BFDR
             }
             set
             {
-                if(!String.IsNullOrWhiteSpace(value))
+                if (!String.IsNullOrWhiteSpace(value))
                 {
                     SetCodeValue("MotherEthnicity2", value, VR.ValueSets.HispanicNoUnknown.Codes);
                 }
@@ -3215,7 +3215,7 @@ namespace BFDR
             }
             set
             {
-                if(!String.IsNullOrWhiteSpace(value))
+                if (!String.IsNullOrWhiteSpace(value))
                 {
                     SetCodeValue("MotherEthnicity3", value, VR.ValueSets.HispanicNoUnknown.Codes);
                 }
@@ -3298,7 +3298,7 @@ namespace BFDR
             }
             set
             {
-                if(!String.IsNullOrWhiteSpace(value))
+                if (!String.IsNullOrWhiteSpace(value))
                 {
                     SetCodeValue("MotherEthnicity4", value, VR.ValueSets.HispanicNoUnknown.Codes);
                 }
@@ -3385,11 +3385,12 @@ namespace BFDR
                         // convert boolean race codes to strings
                         if (booleanRaceCodes.Contains(raceCode))
                         {
-                            if (component.Value == null) {
-                              // If there is no value given, set the race to blank.
-                              var race = Tuple.Create(raceCode, "");
-                              races.Add(race);
-                              continue;
+                            if (component.Value == null)
+                            {
+                                // If there is no value given, set the race to blank.
+                                var race = Tuple.Create(raceCode, "");
+                                races.Add(race);
+                                continue;
                             }
 
                             bool? raceBool = ((FhirBoolean)component.Value).Value;
@@ -3537,7 +3538,7 @@ namespace BFDR
             }
             set
             {
-                if(!String.IsNullOrWhiteSpace(value))
+                if (!String.IsNullOrWhiteSpace(value))
                 {
                     SetCodeValue("FatherEthnicity1", value, VR.ValueSets.HispanicNoUnknown.Codes);
                 }
@@ -3619,7 +3620,7 @@ namespace BFDR
             }
             set
             {
-                if(!String.IsNullOrWhiteSpace(value))
+                if (!String.IsNullOrWhiteSpace(value))
                 {
                     SetCodeValue("FatherEthnicity2", value, VR.ValueSets.HispanicNoUnknown.Codes);
                 }
@@ -3701,7 +3702,7 @@ namespace BFDR
             }
             set
             {
-                if(!String.IsNullOrWhiteSpace(value))
+                if (!String.IsNullOrWhiteSpace(value))
                 {
                     SetCodeValue("FatherEthnicity3", value, VR.ValueSets.HispanicNoUnknown.Codes);
                 }
@@ -3784,7 +3785,7 @@ namespace BFDR
             }
             set
             {
-                if(!String.IsNullOrWhiteSpace(value))
+                if (!String.IsNullOrWhiteSpace(value))
                 {
                     SetCodeValue("FatherEthnicity4", value, VR.ValueSets.HispanicNoUnknown.Codes);
                 }
@@ -3871,11 +3872,12 @@ namespace BFDR
                         // convert boolean race codes to strings
                         if (booleanRaceCodes.Contains(raceCode))
                         {
-                            if (component.Value == null) {
-                              // If there is no value given, set the race to blank.
-                              var race = Tuple.Create(raceCode, "");
-                              races.Add(race);
-                              continue;
+                            if (component.Value == null)
+                            {
+                                // If there is no value given, set the race to blank.
+                                var race = Tuple.Create(raceCode, "");
+                                races.Add(race);
+                                continue;
                             }
 
                             bool? raceBool = ((FhirBoolean)component.Value).Value;
@@ -4214,7 +4216,7 @@ namespace BFDR
             set => SetWeightEditFlagHelper("8339-4", value, NEWBORN_INFORMATION_SECTION, Child.Id);
         }
 
-/// TODO: Required field in FHIR, needs BLANK placeholder
+        /// TODO: Required field in FHIR, needs BLANK placeholder
         /// <summary>Family name of attendant.</summary>
         /// <value>the attendant's family name (i.e. last name)</value>
         /// <example>
@@ -5122,7 +5124,7 @@ namespace BFDR
         {
             get
             {
-                return Mother?.MaritalStatus?.CodableConcept?.text;
+                return Mother?.MaritalStatus?.Text;
             }
             set
             {
@@ -5131,7 +5133,7 @@ namespace BFDR
                     return;
                 }
                 CodeableConcept cc = new CodeableConcept();
-                cc.text = value;
+                cc.Text = value;
                 Mother.MaritalStatus = cc;
             }
         }
@@ -5146,52 +5148,10 @@ namespace BFDR
         /// </example>
         [Property("MotherMarriedDuringPregnancy", Property.Types.Dictionary, "MotherMarriedDuringPregnancy", "MotherMarriedDuringPregnancy", false, BFDR.IGURL.ObservationMotherMarriedDuringPregnancy, true, 288)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87301-8')", "")]
-        public Dictionary<string,string> MotherMarriedDuringPregnancy
+        public Dictionary<string, string> MotherMarriedDuringPregnancy
         {
-            get
-            {
-                Observation obs;
-                var entry = Bundle.Entry.Where(
-                    e => e.Resource is Observation obs &&
-                    CodeableConceptToDict(obs.Code)["code"] == "87301-8").FirstOrDefault();
-
-                if (entry != null)
-                {
-                    obs = entry.Resource as Observation;
-                    return obs.Value as bool;
-                }
-                return null;
-            }
-            set
-            {
-                if (value == null)
-                {
-                    return;
-                }
-                Observation obs;
-                var entry = Bundle.Entry.Where(
-                    e => e.Resource is Observation obs &&
-                    CodeableConceptToDict(obs.Code)["code"] == "87301-8").FirstOrDefault();
-
-                if (entry != null)
-                {
-                    obs = entry.Resource as Observation;
-                    obs.Value = DictToCodeableConcept(value);
-                }
-                else
-                {
-
-                    obs = new Observation
-                    {
-                        Id = Guid.NewGuid().ToString(),
-                        Code = new CodeableConcept(VR.CodeSystems.LOINC, "87301-8"),
-                    };
-                    obs.Subject.Add(new ResourceReference($"urn:uuid:{Mother.Id}"));
-                    Bundle.AddResourceEntry(obs, "urn:uuid:" + obs.Id);
-                    
-                    obs.Value = DictToCodeableConcept(value);
-                }
-            }
+            get => GetObservationValue("87301-8");
+            set => SetObservationValue(value, "87301-8", CodeSystems.LOINC, "Mother married during pregnancy", BFDR.ProfileURL.ObservationMotherMarriedDuringPregnancy, MOTHER_INFORMATION_SECTION);
         }
 
         /// <summary>Year of the First Prenatal Care Visit.</summary>
@@ -5534,35 +5494,10 @@ namespace BFDR
         /// </example>
         [Property("MotherMarriedDuringPregnancyHelper", Property.Types.String, "MotherMarriedDuringPregnancyHelper", "MotherMarriedDuringPregnancyHelper", false, BFDR.IGURL.ObservationMotherMarriedDuringPregnancy, true, 288)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87301-8')", "")]
-        public Dictionary<string,string> MotherMarriedDuringPregnancyHelper
+        public string MotherMarriedDuringPregnancyHelper
         {
-            get
-            {
-                if (MotherMarriedDuringPregnancy.ContainsKey("code"))
-                {
-                    string code = MotherMarriedDuringPregnancy["code"];
-                    if (code == "OTH")
-                    {
-                        if (MotherMarriedDuringPregnancy.ContainsKey("text") && !String.IsNullOrWhiteSpace(MotherMarriedDuringPregnancy["text"]))
-                        {
-                            return (MotherMarriedDuringPregnancy["text"]);
-                        }
-                    }
-                }
-                return null;
-            }
-            set
-            {
-                if (String.IsNullOrWhiteSpace(value))
-                {
-                    // do nothing
-                    return;
-                }
-                else
-                {
-                    MotherMarriedDuringPregnancy = CodeableConceptToDict(new CodeableConcept(CodeSystems.NullFlavor_HL7_V3, "OTH", "Other", value));
-                }
-            }
+            get => GetObservationValueHelper();
+            set => SetObservationValueHelper(value, VR.ValueSets.YesNoUnknown.Codes);
         }
 
         /// <summary>Paternity Acknowledgement Signed</summary>
@@ -5575,52 +5510,10 @@ namespace BFDR
         /// </example>
         [Property("PaternityAcknowledgementSigned", Property.Types.Dictionary, "PaternityAcknowledgementSigned", "PaternityAcknowledgementSigned", false, BFDR.IGURL.ObservationPaternityAcknowledgementSigned, true, 288)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87302-6')", "")]
-        public Dictionary<string,string> PaternityAcknowledgementSigned
+        public Dictionary<string, string> PaternityAcknowledgementSigned
         {
-            get
-            {
-                Observation obs;
-                var entry = Bundle.Entry.Where(
-                    e => e.Resource is Observation obs &&
-                    CodeableConceptToDict(obs.Code)["code"] == "87302-6").FirstOrDefault();
-
-                if (entry != null)
-                {
-                    obs = entry.Resource as Observation;
-                    return obs.Value as bool;
-                }
-                return null;
-            }
-            set
-            {
-                if (value == null)
-                {
-                    return;
-                }
-                Observation obs;
-                var entry = Bundle.Entry.Where(
-                    e => e.Resource is Observation obs &&
-                    CodeableConceptToDict(obs.Code)["code"] == "87302-6").FirstOrDefault();
-
-                if (entry != null)
-                {
-                    obs = entry.Resource as Observation;
-                    obs.Value = DictToCodeableConcept(value);
-                }
-                else
-                {
-
-                    obs = new Observation
-                    {
-                        Id = Guid.NewGuid().ToString(),
-                        Code = new CodeableConcept(VR.CodeSystems.LOINC, "87302-6"),
-                    };
-                    obs.Subject.Add(new ResourceReference($"urn:uuid:{Father.Id}"));
-                    Bundle.AddResourceEntry(obs, "urn:uuid:" + obs.Id);
-                    
-                    obs.Value = DictToCodeableConcept(value);
-                }
-            }
+            get => GetObservationValue("87302-6");
+            set => SetObservationValue(value, "87302-6", CodeSystems.LOINC, "Paternity acknowledgement signed", BFDR.ProfileURL.ObservationPaternityAcknowledgementSigned, FATHER_INFORMATION_SECTION);
         }
 
         /// <summary>Paternity Acknowledgement Signed Helper</summary>
@@ -5635,14 +5528,8 @@ namespace BFDR
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87302-6')", "")]
         public string PaternityAcknowledgementSignedHelper
         {
-            get
-            {
-                return null;
-            }
-            set
-            {
-                //TODO 
-            }
+            get => GetObservationValueHelper();
+            set => SetObservationValueHelper(value, VR.ValueSets.YesNoNotApplicable.Codes);
         }
 
         /// <summary>Mother Transferred</summary>
@@ -5659,7 +5546,8 @@ namespace BFDR
         {
             get
             {
-                return Mother?.hospitalization?.admitSource?;
+                Dictionary<string, string> admitSource = CodeableConceptToDict(EncounterBirth?.Hospitalization?.AdmitSource);
+                return admitSource;
             }
             set
             {
@@ -5668,8 +5556,8 @@ namespace BFDR
                     return;
                 }
                 // TODO define CC
-                CodeableConcept admitSource = new CodeableConcept();
-                Mother.hospitalization = admitSource;
+                CodeableConcept admitSource = DictToCodeableConcept(value);
+                EncounterBirth.Hospitalization.AdmitSource = admitSource;
             }
         }
 
@@ -5683,34 +5571,35 @@ namespace BFDR
         /// </example>
         [Property("MotherTransferred", Property.Types.String, "MotherTransferred", "MotherTransferred", false, VR.IGURL.Mother, true, 288)]
         [FHIRPath("Bundle.entry.resource.where($this is Patient)", "hospitalization")]
-        public Dictionary<string, string> MotherTransferredHelper
+        public string MotherTransferredHelper
         {
             get
             {
+                // TODO there should be a mapping for this
                 if (MotherTransferred.ContainsKey("code"))
                 {
                     string code = MotherTransferred["code"];
-                    if (code == "OTH")
+                    if (code == "hosp-trans")
                     {
-                        if (MotherTransferred.ContainsKey("text") && !String.IsNullOrWhiteSpace(MotherTransferred["text"]))
-                        {
-                            return (MotherTransferred["text"]);
-                        }
+                        return "Y";
                     }
+                    return "N";
                 }
-                return null;
+                return "";
             }
             set
             {
-                if (String.IsNullOrWhiteSpace(value))
+                // IJE values are Y, N, U, only set to "hosp-trans" if value is Y
+                // https://build.fhir.org/ig/HL7/fhir-bfdr/usage.html#mother-or-infant-transferred
+                if (value == "Y")
                 {
-                    // do nothing
-                    return;
+                    // TODO update this to point to generated code system
+                    MotherTransferred = CodeableConceptToDict(new CodeableConcept("http://terminology.hl7.org/CodeSystem/admit-source", "hosp-trans", "Transferred from other hospital", "The Patient has been transferred from another hospital for this encounter."));
                 }
-                else
+                if (value == "N")
                 {
-                    // TODO update this value set to http://hl7.org/fhir/us/core/ValueSet/us-core-discharge-disposition
-                    MotherTransferred = CodeableConceptToDict(new CodeableConcept(CodeSystems.NullFlavor_HL7_V3, "OTH", "Other", value));
+                    // TODO update this to point to generated code system
+                    MotherTransferred = CodeableConceptToDict(new CodeableConcept("http://terminology.hl7.org/CodeSystem/admit-source", "other", "Other", "Did not transfer"));
                 }
             }
         }
@@ -5723,21 +5612,17 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Mother transferred: {ExampleBirthRecord.MotherTransferred}");</para>
         /// </example>
-        [Property("InfantLiving", Property.Types.Bool, "InfantLiving", "InfantLiving", false, VR.IGURL.ObservationInfantLiving, true, 288)]
+        [Property("InfantLiving", Property.Types.Bool, "InfantLiving", "InfantLiving", false, BFDR.IGURL.ObservationInfantLiving, true, 288)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='73757-7')", "")]
-        public bool InfantLiving
+        public bool? InfantLiving
         {
             get
             {
-                Observation obs;
-                var entry = Bundle.Entry.Where(
-                    e => e.Resource is Observation obs &&
-                    CodeableConceptToDict(obs.Code)["code"] == "73757-7").FirstOrDefault();
-
-                if (entry != null)
+                Observation obs = GetObservation("73757-7");
+                if (obs != null)
                 {
-                    obs = entry.Resource as Observation;
-                    return obs.Value as bool;
+                    bool? infantLiving = ((FhirBoolean)obs.Value).Value;
+                    return infantLiving;
                 }
                 return null;
             }
@@ -5747,29 +5632,8 @@ namespace BFDR
                 {
                     return;
                 }
-                Observation obs;
-                var entry = Bundle.Entry.Where(
-                    e => e.Resource is Observation obs &&
-                    CodeableConceptToDict(obs.Code)["code"] == "73757-7").FirstOrDefault();
-
-                if (entry != null)
-                {
-                    obs = entry.Resource as Observation;
-                    obs.Value = value;
-                }
-                else
-                {
-
-                    obs = new Observation
-                    {
-                        Id = Guid.NewGuid().ToString(),
-                        Code = new CodeableConcept(VR.CodeSystems.LOINC, "73757-7"),
-                    };
-                    obs.Subject.Add(new ResourceReference($"urn:uuid:{Child.Id}"));
-                    Bundle.AddResourceEntry(obs, "urn:uuid:" + obs.Id);
-                    
-                    obs.Value = value;
-                }
+                Observation obs = CreateObservation("73757-7", CodeSystems.LOINC, "Infant living", BFDR.ProfileURL.ObservationInfantLiving, NEWBORN_INFORMATION_SECTION);
+                obs.Value = new FhirBoolean(value);
             }
         }
 
@@ -5781,13 +5645,14 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Infant transferred: {ExampleBirthRecord.InfantTransferred}");</para>
         /// </example>
-        [Property("InfantTransferred", Property.Types.Dictionary, "InfantTransferred", "InfantTransferred", false, VR.IGURL.EncounterBirth, true, 288)]
+        [Property("InfantTransferred", Property.Types.Dictionary, "InfantTransferred", "InfantTransferred", false, BFDR.IGURL.EncounterBirth, true, 288)]
         [FHIRPath("Bundle.entry.resource.where($this is Patient)", "hospitalization")]
         public Dictionary<string, string> InfantTransferred
         {
             get
             {
-                return Encounter?.hospitalization?.dischargeDisposition?;
+                Dictionary<string, string> dischargeDisposition = CodeableConceptToDict(EncounterBirth?.Hospitalization?.DischargeDisposition);
+                return dischargeDisposition;
             }
             set
             {
@@ -5795,9 +5660,8 @@ namespace BFDR
                 {
                     return;
                 }
-                // TODO define CC
-                CodeableConcept dischargeDisposition = new CodeableConcept();
-                Encounter.hospitalization = dischargeDisposition;
+                CodeableConcept dischargeDisposition = DictToCodeableConcept(value);
+                EncounterBirth.Hospitalization.DischargeDisposition = dischargeDisposition;
             }
         }
 
@@ -5809,7 +5673,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Infant transferred helper: {ExampleBirthRecord.InfantTransferredHelper}");</para>
         /// </example>
-        [Property("InfantTransferred", Property.Types.String, "InfantTransferred", "InfantTransferred", false, VR.IGURL.EncounterBirth, true, 288)]
+        [Property("InfantTransferred", Property.Types.String, "InfantTransferred", "InfantTransferred", false, BFDR.IGURL.EncounterBirth, true, 288)]
         [FHIRPath("Bundle.entry.resource.where($this is Patient)", "hospitalization")]
         public string InfantTransferredHelper
         {
@@ -5818,27 +5682,33 @@ namespace BFDR
                 if (InfantTransferred.ContainsKey("code"))
                 {
                     string code = InfantTransferred["code"];
-                    if (code == "OTH")
+                    if (code == "other-hcf")
                     {
-                        if (InfantTransferred.ContainsKey("text") && !String.IsNullOrWhiteSpace(InfantTransferred["text"]))
-                        {
-                            return (InfantTransferred["text"]);
-                        }
+                        return "Y";
                     }
+                    return "N";
                 }
-                return null;
+                return "U";
             }
             set
             {
-                if (String.IsNullOrWhiteSpace(value))
+                // IJE values are Y, N, U, only set to "hosp-trans" if value is Y
+                // IG guidance https://build.fhir.org/ig/HL7/fhir-bfdr/usage.html#mother-or-infant-transferred
+                if (value == "Y")
                 {
-                    // do nothing
-                    return;
+                    // TODO update this to point to generated code system
+                    InfantTransferred = CodeableConceptToDict(new CodeableConcept("http://terminology.hl7.org/CodeSystem/discharge-disposition", "other-hcf", "Other healthcare facility", null));
                 }
-                else
+                else if (value == "N")
                 {
-                    // TODO update this value set to http://hl7.org/fhir/us/core/ValueSet/us-core-discharge-disposition
-                    InfantTransferred = CodeableConceptToDict(new CodeableConcept(CodeSystems.NullFlavor_HL7_V3, "OTH", "Other", value));
+                    // TODO update this to point to generated code system
+                    InfantTransferred = CodeableConceptToDict(new CodeableConcept("http://terminology.hl7.org/CodeSystem/discharge-disposition", "other", "Other", "Did not transfer"));
+                }
+                else if (value == "U")
+                {
+                    // TODO when HOSPTO is implemented, set the Location.Name to "Unknown"
+                    // and set destination to a reference of the location
+                    //EncounterBirth.Hospitalization.Destination = transferLocation.Id;
                 }
             }
         }
@@ -5851,53 +5721,28 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Number of live born: {ExampleBirthRecord.NumberLiveBorn}");</para>
         /// </example>
-        [Property("NumberLiveBorn", Property.Types.Integer, "NumberLiveBorn", "NumberLiveBorn", false, VR.IGURL.ObservationNumberLiveBirthsThisDelivery, true, 288)]
+        [Property("NumberLiveBorn", Property.Types.Int32, "NumberLiveBorn", "NumberLiveBorn", false, BFDR.IGURL.ObservationNumberLiveBirthsThisDelivery, true, 288)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='73773-4')", "")]
         public int? NumberLiveBorn
         {
             get
             {
-                Observation obs;
-                var entry = Bundle.Entry.Where(
-                    e => e.Resource is Observation obs &&
-                    CodeableConceptToDict(obs.Code)["code"] == "73773-4").FirstOrDefault();
-
-                if (entry != null)
+                Observation obs = GetObservation("73773-4");
+                if (obs != null)
                 {
-                    obs = entry.Resource as Observation;
-                    return obs.Value;
+                    return (obs.Value as Hl7.Fhir.Model.Integer).Value;
                 }
                 return null;
             }
             set
             {
+                // The observation value for NumberLiveBorn is an int not a codeable concept so we can't use the util functions
                 if (value == null)
                 {
                     return;
                 }
-                Observation obs;
-                var entry = Bundle.Entry.Where(
-                    e => e.Resource is Observation obs &&
-                    CodeableConceptToDict(obs.Code)["code"] == "73773-4").FirstOrDefault();
-
-                if (entry != null)
-                {
-                    obs = entry.Resource as Observation;
-                    obs.Value = value;
-                }
-                else
-                {
-
-                    obs = new Observation
-                    {
-                        Id = Guid.NewGuid().ToString(),
-                        Code = new CodeableConcept(VR.CodeSystems.LOINC, "73773-4"),
-                    };
-                    obs.Subject.Add(new ResourceReference($"urn:uuid:{Mother.Id}"));
-                    Bundle.AddResourceEntry(obs, "urn:uuid:" + obs.Id);
-                    
-                    obs.Value = value;
-                }
+                Observation obs = CreateObservation("73773-4", CodeSystems.LOINC, "Number live born", BFDR.ProfileURL.ObservationNumberLiveBirthsThisDelivery, MOTHER_INFORMATION_SECTION);
+                obs.Value = new Hl7.Fhir.Model.Integer(value);
             }
         }
 
@@ -5909,21 +5754,17 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"SSN Requested: {ExampleBirthRecord.SSNRequested}");</para>
         /// </example>
-        [Property("SSNRequested", Property.Types.Bool, "SSNRequested", "SSNRequested", false, VR.IGURL.ObservationSSNRequestedForChild, true, 288)]
+        [Property("SSNRequested", Property.Types.Bool, "SSNRequested", "SSNRequested", false, BFDR.IGURL.ObservationSSNRequestedForChild, true, 288)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87295-2')", "")]
-        public bool SSNRequested
+        public bool? SSNRequested
         {
             get
             {
-                Observation obs;
-                var entry = Bundle.Entry.Where(
-                    e => e.Resource is Observation obs &&
-                    CodeableConceptToDict(obs.Code)["code"] == "87295-2").FirstOrDefault();
-
-                if (entry != null)
+                Observation obs = GetObservation("87295-2");
+                if (obs != null)
                 {
-                    obs = entry.Resource as Observation;
-                    return obs.Value as bool;
+                    bool? ssnRequested = ((FhirBoolean)obs.Value).Value;
+                    return ssnRequested;
                 }
                 return null;
             }
@@ -5933,30 +5774,10 @@ namespace BFDR
                 {
                     return;
                 }
-                Observation obs;
-                var entry = Bundle.Entry.Where(
-                    e => e.Resource is Observation obs &&
-                    CodeableConceptToDict(obs.Code)["code"] == "87295-2").FirstOrDefault();
-
-                if (entry != null)
-                {
-                    obs = entry.Resource as Observation;
-                    obs.Value = value;
-                }
-                else
-                {
-
-                    obs = new Observation
-                    {
-                        Id = Guid.NewGuid().ToString(),
-                        Code = new CodeableConcept(VR.CodeSystems.LOINC, "87295-2"),
-                    };
-                    obs.Subject.Add(new ResourceReference($"urn:uuid:{Child.Id}"));
-                    Bundle.AddResourceEntry(obs, "urn:uuid:" + obs.Id);
-                    
-                    obs.Value = value;
-                }
+                Observation obs = CreateObservation("87295-2", CodeSystems.LOINC, "SSN requested", BFDR.ProfileURL.ObservationSSNRequestedForChild, NEWBORN_INFORMATION_SECTION);
+                obs.Value = new FhirBoolean(value);
             }
         }
+
     }
 }

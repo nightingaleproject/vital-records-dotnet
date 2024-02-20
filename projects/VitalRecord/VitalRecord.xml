@@ -5452,6 +5452,22 @@
             <param name="shouldExist">if true the entry will be created unless it already exists, if false the entry will be removed if it exists</param>
             <param name="propertyName">the name of the C# property, must have a FHIRPath annotation, will default to the name of the calling property</param>
         </member>
+        <member name="M:VR.VitalRecord.GetObservation(System.String)">
+            <summary>Helper to support vital record property getter helper methods for values stored in Observations.</summary>
+            <param name="code">the code to identify the type of Observation</param>
+            <param name="extensionURL">if present, specifies that the value should be get from an extension with the provided URL instead</param>
+        </member>
+        <member name="M:VR.VitalRecord.CreateObservation(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>Helper to support vital record property setter helper methods for values stored in Observations.</summary>
+            <param name="value">the coded value to set as the value of the property</param>
+            <param name="code">the code to specify the type of Observation</param>
+            <param name="codeSystem">the code system of the code specifying the type of Observation</param>
+            <param name="text">the text for the code specifying the type of Observation</param>
+            <param name="profileURL">the profile URL to include in the meta of the Observation</param>
+            <param name="section">the section of the composition the Observation should be added to</param>
+            <param name="extensionURL">if present, specifies that the value should be set on an extension with the provided URL instead</param>
+            <param name="propertyName">the name of the C# property, used to determine the subject ID</param>
+        </member>
         <member name="M:VR.VitalRecord.GetObservationValue(System.String,System.String)">
             <summary>Helper to support vital record property getter helper methods for values stored in Observations.</summary>
             <param name="code">the code to identify the type of Observation</param>
