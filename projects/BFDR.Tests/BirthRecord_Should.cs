@@ -1602,6 +1602,12 @@ namespace BFDR.Tests
       Assert.Equal("Unavailable / Unknown", br.PayorTypeFinancialClass["display"]);
       Assert.Equal("xxx", br.PayorTypeFinancialClass["text"]);
       Assert.Equal(br.PayorTypeFinancialClass["text"], br.PayorTypeFinancialClassHelper);
+
+      br.PayorTypeFinancialClassHelper = "indianhealth";
+      Assert.Equal("indianhealth", br.PayorTypeFinancialClass["code"]);
+      Assert.Equal(VR.CodeSystems.PayorType, br.PayorTypeFinancialClass["system"]);
+      Assert.Equal("Indian Health Service or Tribe", br.PayorTypeFinancialClass["display"]);
+      Assert.Equal(br.PayorTypeFinancialClass["code"], br.PayorTypeFinancialClassHelper);
     }
   }
 }
