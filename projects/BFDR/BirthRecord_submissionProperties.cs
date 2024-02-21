@@ -5375,13 +5375,13 @@ namespace BFDR
                 if (PayorTypeFinancialClass.ContainsKey("code"))
                 {
                     string code = PayorTypeFinancialClass["code"];
-                    if (code == "OTH")
+                    if (code == "unknown")
                     {
                         if (PayorTypeFinancialClass.ContainsKey("text") && !String.IsNullOrWhiteSpace(PayorTypeFinancialClass["text"]))
                         {
                             return PayorTypeFinancialClass["text"];
                         }
-                        return "Other";
+                        return "unknown";
                     }
                     else if (!String.IsNullOrWhiteSpace(code))
                     {
@@ -5399,8 +5399,8 @@ namespace BFDR
                 }
                 if (!BFDR.Mappings.BirthAndFetalDeathFinancialClass.FHIRToIJE.ContainsKey(value))
                 {
-                    // other
-                    PayorTypeFinancialClass = CodeableConceptToDict(new CodeableConcept(CodeSystems.NullFlavor_HL7_V3, "OTH", "Other", value));
+                    // unknown
+                    PayorTypeFinancialClass = CodeableConceptToDict(new CodeableConcept(CodeSystems.NullFlavor_HL7_V3, "unknown", "Unavailable / Unknown", value));
                 }
                 else
                 {

@@ -1589,6 +1589,19 @@ namespace BFDR.Tests
       Assert.Equal(VR.CodeSystems.PayorType, br.PayorTypeFinancialClass["system"]);
       Assert.Equal("Indian Health Service or Tribe", br.PayorTypeFinancialClass["display"]);
       Assert.Equal(br.PayorTypeFinancialClass["code"], br.PayorTypeFinancialClassHelper);
+
+      br.PayorTypeFinancialClassHelper = null;
+      Assert.Equal("indianhealth", br.PayorTypeFinancialClass["code"]);
+      Assert.Equal(VR.CodeSystems.PayorType, br.PayorTypeFinancialClass["system"]);
+      Assert.Equal("Indian Health Service or Tribe", br.PayorTypeFinancialClass["display"]);
+      Assert.Equal(br.PayorTypeFinancialClass["code"], br.PayorTypeFinancialClassHelper);
+
+      br.PayorTypeFinancialClassHelper = "xxx";
+      Assert.Equal("unknown", br.PayorTypeFinancialClass["code"]);
+      Assert.Equal(VR.CodeSystems.NullFlavor_HL7_V3, br.PayorTypeFinancialClass["system"]);
+      Assert.Equal("Unavailable / Unknown", br.PayorTypeFinancialClass["display"]);
+      Assert.Equal("xxx", br.PayorTypeFinancialClass["text"]);
+      Assert.Equal(br.PayorTypeFinancialClass["text"], br.PayorTypeFinancialClassHelper);
     }
   }
 }
