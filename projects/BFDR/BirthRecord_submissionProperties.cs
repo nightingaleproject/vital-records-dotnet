@@ -5327,8 +5327,7 @@ namespace BFDR
         [PropertyParam("code", "The code used to describe this concept.")]
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
-        // [FHIRPath("Bundle.entry.resource.where($this is Coverage).where(meta.profile == " + ProfileURL.CoveragePrincipalPayerDelivery + ")", "")]
-        [FHIRPath("Bundle.entry.resource.where($this is Composition)", "date")]
+        [FHIRPath("Bundle.entry.resource.where($this is Coverage)", "")]
         public Dictionary<string, string> PayorTypeFinancialClass
         {
             get
@@ -5366,8 +5365,7 @@ namespace BFDR
         /// <para>Console.WriteLine($"Child's Place Of Birth Type: {ExampleBirthRecord.PayorTypeFinancialClassHelper}");</para>
         /// </example>
         [Property("PayorTypeFinancialClassHelper", Property.Types.String, "PayorTypeFinancialClassHelper", "Principal source of Payment for this delivery Helper.", false, IGURL.CoveragePrincipalPayerDelivery, true, 4)]
-        // [FHIRPath("Bundle.entry.resource.where($this is Coverage).where(meta.profile == " + ProfileURL.CoveragePrincipalPayerDelivery + ")", "")]
-        [FHIRPath("Bundle.entry.resource.where($this is Composition)", "date")]
+        [FHIRPath("Bundle.entry.resource.where($this is Coverage).where(meta.profile == " + ProfileURL.CoveragePrincipalPayerDelivery + ")", "")]
         public string PayorTypeFinancialClassHelper
         {
             get
