@@ -49,6 +49,9 @@ namespace BFDR
         /// <summary>The encounter of the birth.</summary>
         private Encounter EncounterBirth;
 
+        /// <summary>The coverage associated with the birth.</summary>
+        private Coverage Coverage;
+
         /// <summary>Composition Section Constants</summary>
         private const string RACE_ETHNICITY_PROFILE_MOTHER = "inputraceandethnicityMother";
 
