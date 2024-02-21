@@ -3523,12 +3523,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // NOTE: This is a placeholder, the IJE field R_YR is not currently implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // NOTE: This is a placeholder, the IJE field R_YR is not currently implemented in FHIR
             }
         }
 
@@ -3538,12 +3538,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // NOTE: This is a placeholder, the IJE field R_MO is not currently implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // NOTE: This is a placeholder, the IJE field R_MO is not currently implemented in FHIR
             }
         }
 
@@ -3553,12 +3553,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // NOTE: This is a placeholder, the IJE field R_DY is not currently implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // NOTE: This is a placeholder, the IJE field R_DY is not currently implemented in FHIR
             }
         }
 
