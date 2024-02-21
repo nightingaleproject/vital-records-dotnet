@@ -5306,5 +5306,108 @@ namespace BFDR
                 }
             }
         }
+
+        /// <summary>Principal source of Payment for this delivery.</summary>
+        /// <value>Principal source of Payment for this delivery. A Dictionary representing a codeable concept of the payor type:
+        /// <para>"code" - The code used to describe this concept.</para>
+        /// <para>"system" - The relevant code system.</para>
+        /// <para>"display" - The human readable version of this code.</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; locationType = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>locationType.Add("code", "privateinsurance");</para>
+        /// <para>locationType.Add("system", "http://hl7.org/fhir/us/bfdr/CodeSystem/CodeSystem-vr-birth-and-fetal-death-financial-class");</para>
+        /// <para>locationType.Add("display", "PRIVATE HEALTH INSURANCE");</para>
+        /// <para>ExampleBirthRecord.PayorTypeFinancialClass = locationType;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Principal source of Payment for this delivery: {ExampleBirthRecord.PayorTypeFinancialClass["code"]}");</para>
+        /// </example>
+        [Property("PayorTypeFinancialClass", Property.Types.Dictionary, "PayorTypeFinancialClass", "Source of Payment.", true, IGURL.CoveragePrincipalPayerDelivery, true, 16)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        // [FHIRPath("Bundle.entry.resource.where($this is Coverage).where(meta.profile == " + ProfileURL.CoveragePrincipalPayerDelivery + ")", "")]
+        [FHIRPath("Bundle.entry.resource.where($this is Composition)", "date")]
+        public Dictionary<string, string> PayorTypeFinancialClass
+        {
+            get
+            {
+                if (Coverage == null)
+                {
+                    return EmptyCodeableDict();
+                }
+                return CodeableConceptToDict(Coverage.Type);
+            }
+            set
+            {
+                if (Coverage == null)
+                {
+                    Coverage = new Coverage()
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        Meta = new Meta()
+                    };
+                    Coverage.Meta.Profile = new List<string>()
+                    {
+                        ProfileURL.CoveragePrincipalPayerDelivery
+                    };
+                }
+                Coverage.Type = DictToCodeableConcept(value);
+            }
+        }
+
+        /// <summary>Principal source of Payment for this delivery Helper</summary>
+        /// <value>Principal source of Payment for this delivery Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.PayorTypeFinancialClassHelper = "Hospital";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Child's Place Of Birth Type: {ExampleBirthRecord.PayorTypeFinancialClassHelper}");</para>
+        /// </example>
+        [Property("PayorTypeFinancialClassHelper", Property.Types.String, "PayorTypeFinancialClassHelper", "Principal source of Payment for this delivery Helper.", false, IGURL.CoveragePrincipalPayerDelivery, true, 4)]
+        // [FHIRPath("Bundle.entry.resource.where($this is Coverage).where(meta.profile == " + ProfileURL.CoveragePrincipalPayerDelivery + ")", "")]
+        [FHIRPath("Bundle.entry.resource.where($this is Composition)", "date")]
+        public string PayorTypeFinancialClassHelper
+        {
+            get
+            {
+                if (PayorTypeFinancialClass.ContainsKey("code"))
+                {
+                    string code = PayorTypeFinancialClass["code"];
+                    if (code == "OTH")
+                    {
+                        if (PayorTypeFinancialClass.ContainsKey("text") && !String.IsNullOrWhiteSpace(PayorTypeFinancialClass["text"]))
+                        {
+                            return PayorTypeFinancialClass["text"];
+                        }
+                        return "Other";
+                    }
+                    else if (!String.IsNullOrWhiteSpace(code))
+                    {
+                        return code;
+                    }
+                }
+                return null;
+            }
+            set
+            {
+                if (String.IsNullOrWhiteSpace(value))
+                {
+                    // do nothing
+                    return;
+                }
+                if (!BFDR.Mappings.BirthAndFetalDeathFinancialClass.FHIRToIJE.ContainsKey(value))
+                {
+                    // other
+                    PayorTypeFinancialClass = CodeableConceptToDict(new CodeableConcept(CodeSystems.NullFlavor_HL7_V3, "OTH", "Other", value));
+                }
+                else
+                {
+                    // normal path
+                    SetCodeValue("PayorTypeFinancialClass", value, BFDR.ValueSets.PayorType.Codes);
+                }
+            }
+        }
     }
 }
