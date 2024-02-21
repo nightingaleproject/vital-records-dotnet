@@ -116,6 +116,7 @@ namespace BFDR
             public static string Other = "OTH";
             /// <summary> Unknown </summary>
             public static string Unknown = "UNK";
+        }
         /// <summary> PregnancyReportEditFlags </summary>
         public static class PregnancyReportEditFlags 
         {

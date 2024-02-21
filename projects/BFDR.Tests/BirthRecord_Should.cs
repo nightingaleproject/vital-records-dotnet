@@ -1988,8 +1988,10 @@ namespace BFDR.Tests
       BirthRecord birthRecord = new BirthRecord();
       birthRecord.DateOfLastLiveBirthMonth = 5;
       birthRecord.DateOfLastLiveBirthYear = 2023;
-      Assert.Equal(5, birthRecord.DateOfLastLiveBirthMonth);
-      Assert.Equal(2023, birthRecord.DateOfLastLiveBirthYear);
+      IJENatality ije = new(birthRecord);
+      BirthRecord birthRecord2 = ije.ToBirthRecord();
+      Assert.Equal(5, birthRecord2.DateOfLastLiveBirthMonth);
+      Assert.Equal(2023, birthRecord2.DateOfLastLiveBirthYear);
     }
 
     [Fact]
@@ -2008,7 +2010,9 @@ namespace BFDR.Tests
     {
       BirthRecord birthRecord = new BirthRecord();
       birthRecord.DateOfLastLiveBirth = "2020-01-01";
-      Assert.Equal("2020-01-01", birthRecord.DateOfLastLiveBirth);
+      IJENatality ije = new(birthRecord);
+      BirthRecord birthRecord2 = ije.ToBirthRecord();
+      Assert.Equal("2020-01-01", birthRecord2.DateOfLastLiveBirth);
     }
 
     [Fact]
@@ -2017,8 +2021,10 @@ namespace BFDR.Tests
       BirthRecord birthRecord = new BirthRecord();
       birthRecord.DateOfLastOtherPregnancyOutcomeMonth = 11;
       birthRecord.DateOfLastOtherPregnancyOutcomeYear = 2022;
-      Assert.Equal(11, birthRecord.DateOfLastOtherPregnancyOutcomeMonth);
-      Assert.Equal(2022, birthRecord.DateOfLastOtherPregnancyOutcomeYear);
+      IJENatality ije = new(birthRecord);
+      BirthRecord birthRecord2 = ije.ToBirthRecord();
+      Assert.Equal(11, birthRecord2.DateOfLastOtherPregnancyOutcomeMonth);
+      Assert.Equal(2022, birthRecord2.DateOfLastOtherPregnancyOutcomeYear);
     }
 
     [Fact]
@@ -2037,7 +2043,9 @@ namespace BFDR.Tests
     {
       BirthRecord birthRecord = new BirthRecord();
       birthRecord.DateOfLastOtherPregnancyOutcome = "2022-10-09";
-      Assert.Equal("2022-10-09", birthRecord.DateOfLastOtherPregnancyOutcome);
+      IJENatality ije = new(birthRecord);
+      BirthRecord birthRecord2 = ije.ToBirthRecord();
+      Assert.Equal("2022-10-09", birthRecord2.DateOfLastOtherPregnancyOutcome);
     }
 
     [Fact]
@@ -2045,7 +2053,9 @@ namespace BFDR.Tests
     {
       BirthRecord birthRecord = new BirthRecord();
       birthRecord.NumberOfPrenatalVisits = 5;
-      Assert.Equal(5, birthRecord.NumberOfPrenatalVisits);
+      IJENatality ije = new(birthRecord);
+      BirthRecord birthRecord2 = ije.ToBirthRecord();
+      Assert.Equal(5, birthRecord2.NumberOfPrenatalVisits);
     }
 
     [Fact]
@@ -2095,23 +2105,29 @@ namespace BFDR.Tests
     {
       BirthRecord birthRecord = new BirthRecord();
       birthRecord.NumberOfBirthsNowDead = 2;
-      Assert.Equal(2, birthRecord.NumberOfBirthsNowDead);
+      IJENatality ije = new(birthRecord);
+      BirthRecord birthRecord2 = ije.ToBirthRecord();
+      Assert.Equal(2, birthRecord2.NumberOfBirthsNowDead);
     }
 
     [Fact]
     public void SetNumberOfBirthsNowLiving()
     {
       BirthRecord birthRecord = new BirthRecord();
-      birthRecord.NumberOfBirthsNowLiving = 2;
-      Assert.Equal(2, birthRecord.NumberOfBirthsNowLiving);
+      birthRecord.NumberOfBirthsNowLiving = 3;
+      IJENatality ije = new(birthRecord);
+      BirthRecord birthRecord2 = ije.ToBirthRecord();
+      Assert.Equal(3, birthRecord2.NumberOfBirthsNowLiving);
     }
 
     [Fact]
     public void SetNumberOfOtherPregnancyOutcomes()
     {
       BirthRecord birthRecord = new BirthRecord();
-      birthRecord.NumberOfOtherPregnancyOutcomes = 2;
-      Assert.Equal(2, birthRecord.NumberOfOtherPregnancyOutcomes);
+      birthRecord.NumberOfOtherPregnancyOutcomes = 1;
+      IJENatality ije = new(birthRecord);
+      BirthRecord birthRecord2 = ije.ToBirthRecord();
+      Assert.Equal(1, birthRecord2.NumberOfOtherPregnancyOutcomes);
     }
 
     [Fact]

@@ -562,6 +562,7 @@ namespace BFDR.Tests
       Assert.Equal("87".PadLeft(12, '0'), ijeImported.AUXNO);
       Assert.Equal(ijeImported.AUXNO, ijeConverted.AUXNO);
       Assert.Equal(ijeImported.AUXNO, br.StateLocalIdentifier1.PadLeft(12, '0'));
+      Assert.Equal(2023, br.BirthYear);
       Assert.Equal(ijeImported.IDOB_YR + ijeImported.BSTATE + ijeImported.FILENO, br.BirthRecordIdentifier);
       Assert.Equal("2023MA048858", br.BirthRecordIdentifier);
     }

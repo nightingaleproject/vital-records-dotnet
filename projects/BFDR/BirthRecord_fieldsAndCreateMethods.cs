@@ -51,33 +51,6 @@ namespace BFDR
 
         /// <summary>The encounter of the birth.</summary>
         private Encounter EncounterBirth;
-        /// <summary>The date of the Mother's last live birth.</summary>
-        private Observation DateOfLastLiveBirthObs;
-
-        /// <summary>The date of the Mother's last pregnancy outcome.</summary>
-        private Observation DateOfLastOtherPregnancyOutcomeObs;
-
-        /// <summary>The number of prenatal visits.</summary>
-        private Observation NumberOfPrenatalVisitsObs;
-
-        /// <summary>The estimation of gestation.</summary>
-        private Observation GestationalAgeAtDeliveryObs;
-
-        /// <summary>The number of births now dead.</summary>
-        private Observation NumberOfBirthsNowDeadObs;
-
-        /// <summary>The number of births now living.</summary>
-        private Observation NumberOfBirthsNowLivingObs;
-
-        /// <summary>The number of other pregnancy outcomes.</summary>
-        private Observation NumberOfOtherPregnancyOutcomesObs;
-
-        /// <summary>Mother received WIC food.</summary>
-        private Observation MotherReceivedWICFoodObs;
-
-        /// <summary>Infant breastfed at dicharge.</summary>
-        private Observation InfantBreastfedAtDischargeObs;
-        
 
         /// <summary>The coverage associated with the birth.</summary>
         private Coverage Coverage;
@@ -94,7 +67,6 @@ namespace BFDR
         private const string FATHER_INFORMATION_SECTION = "92013-2";
         private const string PATIENT_QUESTIONAIRRE_RESPONSE_SECTION = "74465-6";
         private const string EMERGING_ISSUES_SECTION = "emergingIssues";
-
         private const string SUCCESSFUL_OUTCOME = "385669000";
         private const string UNSUCCESSFUL_OUTCOME = "385671000";
         private const string DATE_OF_LAST_LIVE_BIRTH = "68499-3";
@@ -106,25 +78,6 @@ namespace BFDR
         private const string NUMBER_OF_OTHER_PREGNANCY_OUTCOMES = "69043-8";
         private const string MOTHER_RECEIVED_WIC_FOOD = "87303-4";
         private const string INFANT_BREASTFED_AT_DISCHARGE = "73756-9";
-
-        /// <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Year</summary>
-        protected override string PartialDateYearUrl => VR.ExtensionURL.PartialDateTimeYearVR;
-
-        /// <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Month</summary>
-        protected override string PartialDateMonthUrl => VR.ExtensionURL.PartialDateTimeMonthVR;
-
-        /// <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Day</summary>
-        protected override string PartialDateDayUrl => VR.ExtensionURL.PartialDateTimeDayVR;
-
-        /// <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Time</summary>
-        protected override string PartialDateTimeTimeUrl => VR.ExtensionURL.PartialDateTimeTimeVR;
-
-        /// <summary>Overriden method that dictates which Extension URL to use for PartialDateTime</summary>
-        protected override string PartialDateTimeUrl => VRExtensionURLs.PartialDateTime;
-
-        /// <summary>Overrideable method that dictates which Extension URL to use for PartialDate</summary>
-        protected override string PartialDateUrl => VRExtensionURLs.PartialDate;
-
 
         /// <summary>CompositionSections that define the codes that represent the different sections in the composition</summary>
         protected override string[] CompositionSections
