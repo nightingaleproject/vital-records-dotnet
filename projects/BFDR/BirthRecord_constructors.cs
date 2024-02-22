@@ -63,6 +63,17 @@ namespace BFDR
                 ProfileURL.EncounterBirth
             };
 
+            // Start with an empty Coverage.
+            Coverage = new Coverage()
+            {
+                Id = Guid.NewGuid().ToString(),
+                Meta = new Meta()
+            };
+            Coverage.Meta.Profile = new List<string>()
+            {
+                ProfileURL.CoveragePrincipalPayerDelivery
+            };
+
             // TODO: Start with an empty certifier. - Need reference in Composition
             //CreateCertifier();
 
@@ -176,6 +187,7 @@ namespace BFDR
             // Grab Father
             Father = Bundle.Entry.FindAll(entry => entry.Resource is RelatedPerson).ConvertAll(entry => (RelatedPerson) entry.Resource).Find(resource => resource.Meta.Profile.Any(relatedPersonProfile => relatedPersonProfile == VR.IGURL.RelatedPersonFatherNatural));
             EncounterBirth = Bundle.Entry.FindAll(entry => entry.Resource is Encounter).ConvertAll(entry => (Encounter) entry.Resource).Find(resource => resource.Meta.Profile.Any(relatedPersonProfile => relatedPersonProfile == ProfileURL.EncounterBirth));
+            Coverage = Bundle.Entry.FindAll(entry => entry.Resource is Coverage).ConvertAll(entry => (Coverage) entry.Resource).Find(resource => resource.Meta.Profile.Any(coverageProfile => coverageProfile == ProfileURL.CoveragePrincipalPayerDelivery));
 
             if (fullRecord && Child == null)
             {

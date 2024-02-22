@@ -127,6 +127,9 @@ namespace VR
         /// TODO update once VRCL is published ot hl7
         /// </summary>
         public static string InputRaceAndEthnicityPerson = "https://build.fhir.org/ig/HL7/vr-common-library/CodeSystem-CodeSystem-local-observation-codes-vr.html";
+
+        /// <summary> Payor Type Birth and Fetal Death Financial Class </summary>
+        public static string PayorType = "http://hl7.org/fhir/us/bfdr/CodeSystem/CodeSystem-vr-birth-and-fetal-death-financial-class";
     }
 
 }

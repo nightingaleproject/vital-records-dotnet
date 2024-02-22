@@ -124,6 +124,9 @@
             TODO update once VRCL is published ot hl7
             </summary>
         </member>
+        <member name="F:VR.CodeSystems.PayorType">
+            <summary> Payor Type Birth and Fetal Death Financial Class </summary>
+        </member>
         <member name="T:VR.IJEField">
             <summary>Property attribute used to describe a field in the IJE format.</summary>
         </member>

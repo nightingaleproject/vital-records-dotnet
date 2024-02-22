@@ -56,12 +56,14 @@ require 'json'
 require 'pry'
 codesystems = {
     "http://snomed.info/sct" => "VR.CodeSystems.SCT",
+    "http://hl7.org/fhir/us/bfdr/CodeSystem/CodeSystem-vr-birth-and-fetal-death-financial-class" => "VR.CodeSystems.PayorType",
     "http://hl7.org/fhir/us/bfdr/CodeSystem/CodeSystem-vr-birth-delivery-occurred" => "\"http://hl7.org/fhir/us/bfdr/CodeSystem/CodeSystem-vr-birth-delivery-occurred\"",
     "http://terminology.hl7.org/CodeSystem/v3-NullFlavor" => "VR.CodeSystems.NullFlavor_HL7_V3"
 }
 
 valuesets = {
-    "ValueSet-ValueSet-birth-delivery-occurred.json" => "PlaceTypeOfBirth"
+    "ValueSet-ValueSet-birth-delivery-occurred.json" => "PlaceTypeOfBirth",
+    "ValueSet-ValueSet-birth-and-fetal-death-financial-class.json" => "PayorType"
 }
 # These are special cases that we want to shorten the string produced by the general approach, for practical reasons
 special_cases =
