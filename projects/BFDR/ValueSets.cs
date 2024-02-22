@@ -63,5 +63,36 @@ namespace BFDR
             /// <summary> Unknown </summary>
             public static string Unknown = "UNK";
         };
+
+        /// <summary> PayorType </summary>
+        public static class PayorType {
+            /// <summary> Codes </summary>
+            public static string[,] Codes = {
+                { "indianhealth", "Indian Health Service or Tribe", VR.CodeSystems.PayorType },
+                { "medicaid", "MEDICAID", VR.CodeSystems.PayorType },
+                { "nosource", "No Typology Code available for payment source", VR.CodeSystems.PayorType },
+                { "othergov", "Other Government (Federal, State, Local not specified)", VR.CodeSystems.PayorType },
+                { "privateinsurance", "PRIVATE HEALTH INSURANCE", VR.CodeSystems.PayorType },
+                { "selfpay", "Self-pay", VR.CodeSystems.PayorType },
+                { "tricare", "TRICARE (CHAMPUS)", VR.CodeSystems.PayorType },
+                { "unknown", "Unavailable / Unknown", VR.CodeSystems.PayorType }
+            };
+            /// <summary> Indian_Health_Service_Or_Tribe </summary>
+            public static string  Indian_Health_Service_Or_Tribe = "indianhealth";
+            /// <summary> Medicaid </summary>
+            public static string  Medicaid = "medicaid";
+            /// <summary> No_Typology_Code_Available_For_Payment_Source </summary>
+            public static string  No_Typology_Code_Available_For_Payment_Source = "nosource";
+            /// <summary> Other_Government_Federal_State_Local_Not_Specified </summary>
+            public static string  Other_Government_Federal_State_Local_Not_Specified = "othergov";
+            /// <summary> Private_Health_Insurance </summary>
+            public static string  Private_Health_Insurance = "privateinsurance";
+            /// <summary> Self_Pay </summary>
+            public static string  Self_Pay = "selfpay";
+            /// <summary> Tricare_Champus </summary>
+            public static string  Tricare_Champus = "tricare";
+            /// <summary> Unavailable_Unknown </summary>
+            public static string  Unavailable_Unknown = "unknown";
+        };
     }
 }

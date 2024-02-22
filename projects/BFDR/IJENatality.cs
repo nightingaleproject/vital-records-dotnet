@@ -2663,15 +2663,8 @@ namespace BFDR
         [IJEField(153, 811, 1, "Principal source of Payment for this delivery", "PAY", 1)]
         public string PAY
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => Get_MappingFHIRToIJE(BFDR.Mappings.BirthAndFetalDeathFinancialClass.FHIRToIJE, "PayorTypeFinancialClass", "PAY");
+            set => Set_MappingIJEToFHIR(BFDR.Mappings.BirthAndFetalDeathFinancialClass.IJEToFHIR, "PAY", "PayorTypeFinancialClass", value);
         }
 
         /// <summary>Date Last Normal Menses Began--Year</summary>
@@ -3530,12 +3523,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // NOTE: This is a placeholder, the IJE field R_YR is not currently implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // NOTE: This is a placeholder, the IJE field R_YR is not currently implemented in FHIR
             }
         }
 
@@ -3545,12 +3538,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // NOTE: This is a placeholder, the IJE field R_MO is not currently implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // NOTE: This is a placeholder, the IJE field R_MO is not currently implemented in FHIR
             }
         }
 
@@ -3560,12 +3553,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // NOTE: This is a placeholder, the IJE field R_DY is not currently implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // NOTE: This is a placeholder, the IJE field R_DY is not currently implemented in FHIR
             }
         }
 
