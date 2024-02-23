@@ -1992,6 +1992,12 @@ namespace BFDR.Tests
       BirthRecord birthRecord2 = ije.ToBirthRecord();
       Assert.Equal(5, birthRecord2.DateOfLastLiveBirthMonth);
       Assert.Equal(2023, birthRecord2.DateOfLastLiveBirthYear);
+
+      BirthRecord parsedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.Equal(2019, parsedRecord.DateOfLastLiveBirthYear);
+      Assert.Equal(12, parsedRecord.DateOfLastLiveBirthMonth);
+      Assert.Equal("2019-12-02", parsedRecord.DateOfLastLiveBirth);
+
     }
 
     [Fact]
@@ -2025,6 +2031,11 @@ namespace BFDR.Tests
       BirthRecord birthRecord2 = ije.ToBirthRecord();
       Assert.Equal(11, birthRecord2.DateOfLastOtherPregnancyOutcomeMonth);
       Assert.Equal(2022, birthRecord2.DateOfLastOtherPregnancyOutcomeYear);
+
+      BirthRecord parsedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.Equal(2015, parsedRecord.DateOfLastOtherPregnancyOutcomeYear);
+      Assert.Equal(5, parsedRecord.DateOfLastOtherPregnancyOutcomeMonth);
+      Assert.Equal("2015-05-10", parsedRecord.DateOfLastOtherPregnancyOutcome);
     }
 
     [Fact]
@@ -2056,6 +2067,9 @@ namespace BFDR.Tests
       IJENatality ije = new(birthRecord);
       BirthRecord birthRecord2 = ije.ToBirthRecord();
       Assert.Equal(5, birthRecord2.NumberOfPrenatalVisits);
+
+      BirthRecord parsedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.Equal(8, parsedRecord.NumberOfPrenatalVisits);
     }
 
     [Fact]
@@ -2069,6 +2083,8 @@ namespace BFDR.Tests
       editBypass.Add("system", VR.CodeSystems.BirthAndDeathEditFlags);
       editBypass.Add("display", "Edit Failed, Data Queried, and Verified");
       Assert.Equal(editBypass, birthRecord.NumberOfPrenatalVisitsEditFlag);
+
+      // TODO add test for edit bypass parsing
     }
 
     [Fact]
@@ -2084,6 +2100,9 @@ namespace BFDR.Tests
       ije.OWGEST = "38";
       BirthRecord birthRecord2 = ije.ToBirthRecord();
       Assert.Equal("38", birthRecord2.GestationalAgeAtDelivery["value"]);
+
+      BirthRecord parsedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.Equal("36", parsedRecord.GestationalAgeAtDelivery["value"]);
     }
 
     // TODO implement once we have mappings for these codes
@@ -2108,6 +2127,9 @@ namespace BFDR.Tests
       IJENatality ije = new(birthRecord);
       BirthRecord birthRecord2 = ije.ToBirthRecord();
       Assert.Equal(2, birthRecord2.NumberOfBirthsNowDead);
+
+      BirthRecord parsedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.Equal(1, parsedRecord.NumberOfBirthsNowDead);
     }
 
     [Fact]
@@ -2118,6 +2140,9 @@ namespace BFDR.Tests
       IJENatality ije = new(birthRecord);
       BirthRecord birthRecord2 = ije.ToBirthRecord();
       Assert.Equal(3, birthRecord2.NumberOfBirthsNowLiving);
+
+      BirthRecord parsedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.Equal(2, parsedRecord.NumberOfBirthsNowLiving);
     }
 
     [Fact]
@@ -2128,6 +2153,9 @@ namespace BFDR.Tests
       IJENatality ije = new(birthRecord);
       BirthRecord birthRecord2 = ije.ToBirthRecord();
       Assert.Equal(1, birthRecord2.NumberOfOtherPregnancyOutcomes);
+
+      BirthRecord parsedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.Equal(3, parsedRecord.NumberOfOtherPregnancyOutcomes);
     }
 
     [Fact]
@@ -2137,6 +2165,9 @@ namespace BFDR.Tests
       ije.WIC = "Y";
       BirthRecord birthRecord = ije.ToBirthRecord();
       Assert.Equal("Y", birthRecord.MotherReceivedWICFoodHelper);
+
+      BirthRecord parsedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.Equal("N", parsedRecord.MotherReceivedWICFoodHelper);
     }
 
     [Fact]
@@ -2146,6 +2177,9 @@ namespace BFDR.Tests
       ije.BFED = "Y";
       BirthRecord birthRecord = ije.ToBirthRecord();
       Assert.True(birthRecord.InfantBreastfedAtDischarge);
+
+      BirthRecord parsedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.True(parsedRecord.InfantBreastfedAtDischarge);
     }
   }
  

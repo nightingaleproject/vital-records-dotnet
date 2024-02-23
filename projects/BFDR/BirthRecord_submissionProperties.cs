@@ -4228,7 +4228,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"NumberOfPrenatalVisits: {ExampleBirthRecord.NumberOfPrenatalVisits}");</para>
         /// </example>
-        [Property("Number Of Prenatal Visits", Property.Types.String, "Number of Prenatal Visits", "Number of Prenatal Visits.", true, IGURL.ObservationNumberPrenatalVisits, true, 14)]
+        [Property("Number Of Prenatal Visits", Property.Types.Int32, "Number of Prenatal Visits", "Number of Prenatal Visits.", true, IGURL.ObservationNumberPrenatalVisits, true, 14)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='68493-6')", "")]
         public int? NumberOfPrenatalVisits
         {
@@ -4237,9 +4237,9 @@ namespace BFDR
                 Observation obs = GetObservation("68493-6");
                 if (obs != null)
                 {
-                    if (obs != null && obs.Value != null)
+                    if (obs != null && obs.Value != null && obs.Value as Hl7.Fhir.Model.Integer != null)
                     {
-                        return (int?)((UnsignedInt)obs.Value).Value;
+                        return (obs.Value as Hl7.Fhir.Model.Integer).Value;
                     }
                 }
                 return null;
@@ -4254,9 +4254,9 @@ namespace BFDR
                 if (obs == null)
                 {
                     obs = CreateObservationEntry("68493-6", CodeSystems.LOINC, NUMBER_OF_PRENATAL_VISITS);
-                    obs.Value = new UnsignedInt();
+                    obs.Value = new Hl7.Fhir.Model.Integer();
                 }
-                obs.Value = new UnsignedInt(value);
+                obs.Value = new Hl7.Fhir.Model.Integer(value);
             }
         }
 
@@ -4459,7 +4459,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"NumberOfBirthsNowDead: {ExampleBirthRecord.NumberOfBirthsNowDead}");</para>
         /// </example>
-        [Property("NumberOfBirthsNowDead", Property.Types.String, "NumberOfBirthsNowDead", "NumberOfBirthsNowDead", true, IGURL.ObservationNumberBirthsNowDead, true, 14)]
+        [Property("NumberOfBirthsNowDead", Property.Types.Int32, "NumberOfBirthsNowDead", "NumberOfBirthsNowDead", true, IGURL.ObservationNumberBirthsNowDead, true, 14)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='68496-9')", "")]
         public int? NumberOfBirthsNowDead
         {
@@ -4470,7 +4470,7 @@ namespace BFDR
                 {
                     if (obs != null && obs.Value != null)
                     {
-                        return (int?)((UnsignedInt)obs.Value).Value;
+                        return (obs.Value as Hl7.Fhir.Model.Integer).Value;
                     }
                 }
                 return null;
@@ -4482,7 +4482,7 @@ namespace BFDR
                     return;
                 }
                 Observation obs = CreateObservationEntry("68496-9", CodeSystems.LOINC, NUMBER_OF_BIRTHS_NOW_DEAD);
-                obs.Value = new UnsignedInt(value);
+                obs.Value = new Hl7.Fhir.Model.Integer(value);
             }   
         }
 
@@ -4494,7 +4494,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"NumberOfBirthsNowLiving: {ExampleBirthRecord.NumberOfBirthsNowLiving}");</para>
         /// </example>
-        [Property("NumberOfBirthsNowLiving", Property.Types.String, "NumberOfBirthsNowLiving", "NumberOfBirthsNowLiving", true, IGURL.ObservationNumberBirthsNowLiving, true, 14)]
+        [Property("NumberOfBirthsNowLiving", Property.Types.Int32, "NumberOfBirthsNowLiving", "NumberOfBirthsNowLiving", true, IGURL.ObservationNumberBirthsNowLiving, true, 14)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='11638-4')", "")]
         public int? NumberOfBirthsNowLiving
         {
@@ -4505,7 +4505,7 @@ namespace BFDR
                 {
                     if (obs != null && obs.Value != null)
                     {
-                        return (int?)((UnsignedInt)obs.Value).Value;
+                        return (obs.Value as Hl7.Fhir.Model.Integer).Value;
                     }
                 }
                 return null;
@@ -4517,7 +4517,7 @@ namespace BFDR
                     return;
                 }
                 Observation obs = CreateObservationEntry("11638-4", CodeSystems.LOINC, NUMBER_OF_BIRTHS_NOW_LIVING);
-                obs.Value = new UnsignedInt(value);
+                obs.Value = new Hl7.Fhir.Model.Integer(value);
             }
         }
 
@@ -4565,12 +4565,12 @@ namespace BFDR
         /// <para>Console.WriteLine($"MotherReceivedWICFood: {ExampleBirthRecord.MotherReceivedWICFood}");</para>
         /// </example>
         [Property("MotherReceivedWICFood", Property.Types.Dictionary, "MotherReceivedWICFood", "MotherReceivedWICFood", true, IGURL.ObservationMotherReceivedWICFood, true, 14)]
-        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='69043-8')", "")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87303-4')", "")]
         public Dictionary<string, string> MotherReceivedWICFood
         {
             get
             {
-                Observation obs = GetObservation("69043-8");
+                Observation obs = GetObservation("87303-4");
                 if (obs != null)
                 {
                     if (obs != null && obs.Value != null && obs.Value as CodeableConcept != null)
@@ -4582,7 +4582,7 @@ namespace BFDR
             }
             set
             {
-                Observation obs = CreateObservationEntry("69043-8", CodeSystems.LOINC, MOTHER_RECEIVED_WIC_FOOD);
+                Observation obs = CreateObservationEntry("87303-4", CodeSystems.LOINC, MOTHER_RECEIVED_WIC_FOOD);
                 obs.Value = DictToCodeableConcept(value);
             }
         }
@@ -4596,7 +4596,7 @@ namespace BFDR
         /// <para>Console.WriteLine($"MotherReceivedWICFoodHelper: {ExampleBirthRecord.MotherReceivedWICFoodHelper}");</para>
         /// </example>
         [Property("MotherReceivedWICFoodHelper", Property.Types.String, "MotherReceivedWICFoodHelper", "MotherReceivedWICFoodHelper", true, IGURL.ObservationMotherReceivedWICFood, true, 14)]
-        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='69043-8')", "")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87303-4')", "")]
         public string MotherReceivedWICFoodHelper
         {
             get

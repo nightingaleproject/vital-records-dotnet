@@ -141,8 +141,8 @@ namespace BFDR
             // TODO: This will be replaced with with the generated value set
             /// <summary> Codes </summary>
             public static string[,] Codes = {
-                { "off", "Off", VR.CodeSystems.BirthAndDeathEditFlags },
-                { "correctOutOfRange", "Queried data correct, out of range", VR.CodeSystems.BirthAndDeathEditFlags }
+                { "0off", "Off", VR.CodeSystems.BirthAndDeathEditFlags },
+                { "1correctOutOfRange", "Queried data correct, out of range", VR.CodeSystems.BirthAndDeathEditFlags }
             };
             /// <summary> Off </summary>
             public static string  Off = "off";
