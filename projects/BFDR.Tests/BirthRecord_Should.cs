@@ -14,7 +14,7 @@ namespace BFDR.Tests
     public BirthRecord_Should()
     {
       SetterBirthRecord = new BirthRecord();
-      FakeBirthRecord = new BirthRecord(File.ReadAllText(FixturePath("fixtures/json/BirthRecordFake.json")));
+      FakeBirthRecord = new BirthRecord(File.ReadAllText(FixturePath("fixtures/json/BirthRecordFakeNoRace.json")));
     }
 
     [Fact]
@@ -1176,14 +1176,12 @@ namespace BFDR.Tests
         }
         Assert.Equal(15, b2.FatherRace.Length);
     }
-
     [Fact]
     public void IdentifiersPresent()
     {
       Assert.Equal("100", FakeBirthRecord.CertificateNumber);
       Assert.Equal("123", FakeBirthRecord.StateLocalIdentifier1);
     }
-
     [Fact]
     public void TestImportMotherBirthplace()
     {

@@ -119,6 +119,9 @@ namespace VR
         /// <summary> Component </summary>
         public static string Component = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs";
 
+        /// <summary> Component </summary>
+        public static string ComponentCodeVR = "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component";
+
        /// <summary> Date of Death Determination Methods </summary>
        public static string DateOfDeathDeterminationMethods = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-date-of-death-determination-methods-cs";
     

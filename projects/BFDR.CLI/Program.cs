@@ -124,16 +124,15 @@ namespace BFDR.CLI
                 birthRecord.FatherEducationLevelHelper = VR.ValueSets.EducationLevel.Bachelors_Degree;
                 birthRecord.FatherEducationLevelEditFlagHelper = VR.ValueSets.EditBypass01234.Edit_Failed_Data_Queried_But_Not_Verified;
 
-                // TODO: add these back once correct codesystems are used for the component 
-                // Ethnicity
-                // birthRecord.MotherEthnicity3Helper = VR.ValueSets.HispanicNoUnknown.Yes;
-                // // Race
-                // Tuple<string, string>[] motherRace = { Tuple.Create(NvssRace.BlackOrAfricanAmerican, "Y")};
-                // birthRecord.MotherRace = motherRace;
-                // Tuple<string, string>[] fatherRace = { Tuple.Create(NvssRace.White, "Y")};
-                // birthRecord.FatherRace = fatherRace;
+                //Ethnicity
+                birthRecord.MotherEthnicity3Helper = VR.ValueSets.HispanicNoUnknown.Yes;
+                // Race
+                Tuple<string, string>[] motherRace = { Tuple.Create(NvssRace.BlackOrAfricanAmerican, "Y")};
+                birthRecord.MotherRace = motherRace;
+                Tuple<string, string>[] fatherRace = { Tuple.Create(NvssRace.White, "Y")};
+                birthRecord.FatherRace = fatherRace;
 
-                // 1. Write out the Record
+                // Write out the Record
                 Console.WriteLine(birthRecord.ToJSON());
 
                 return 0;
@@ -340,7 +339,7 @@ namespace BFDR.CLI
                 {
                     IJEField info = property.GetCustomAttribute<IJEField>();
                     string field = ijeString.Substring(info.Location - 1, info.Length);
-                    Console.WriteLine($"{info.Field,-5} {info.Name,-15} {Truncate(info.Contents, 75),-75}: \"{field + "\"",-80}");
+                    Console.WriteLine($"{info.Field,-5} {info.Name,-15} {VR.IJE.Truncate(info.Contents, 75),-75}: \"{field + "\"",-80}");
                 }
             }
             else if (args[0] == "ijebuilder")
@@ -377,8 +376,8 @@ namespace BFDR.CLI
                     if (field1 != field2)
                     {
                         differences += 1;
-                        Console.WriteLine($" IJE: {info.Field,-5} {info.Name,-15} {Truncate(info.Contents, 75),-75}: \"{field1 + "\"",-80}");
-                        Console.WriteLine($"FHIR: {info.Field,-5} {info.Name,-15} {Truncate(info.Contents, 75),-75}: \"{field2 + "\"",-80}");
+                        Console.WriteLine($" IJE: {info.Field,-5} {info.Name,-15} {VR.IJE.Truncate(info.Contents, 75),-75}: \"{field1 + "\"",-80}");
+                        Console.WriteLine($"FHIR: {info.Field,-5} {info.Name,-15} {VR.IJE.Truncate(info.Contents, 75),-75}: \"{field2 + "\"",-80}");
                         Console.WriteLine();
                     }
                 }
@@ -445,17 +444,17 @@ namespace BFDR.CLI
             else if (args.Length == 2 && args[0] == "json2json")
             {
                 // Forces record through getters and then setters, prints as JSON
-                BirthRecord indr = new BirthRecord(File.ReadAllText(args[1]));
-                BirthRecord outdr = new BirthRecord();
+                BirthRecord inbr = new BirthRecord(File.ReadAllText(args[1]));
+                BirthRecord outbr = new BirthRecord();
                 List<PropertyInfo> properties = typeof(BirthRecord).GetProperties().ToList();
                 foreach (PropertyInfo property in properties)
                 {
                     if (property.GetCustomAttribute<Property>() != null)
                     {
-                        property.SetValue(outdr, property.GetValue(indr));
+                        property.SetValue(outbr, property.GetValue(inbr));
                     }
                 }
-                Console.WriteLine(outdr.ToJSON());
+                Console.WriteLine(outbr.ToJSON());
                 return 0;
             }
             else if (args.Length == 2 && args[0] == "roundtrip-ije")
@@ -571,7 +570,7 @@ namespace BFDR.CLI
                 {
                     IJEField info = property.GetCustomAttribute<IJEField>();
                     string field = ijeString.Substring(info.Location - 1, info.Length);
-                    Console.WriteLine($"{info.Field,-5} {info.Name,-15} {Truncate(info.Contents, 75),-75}: \"{field + "\"",-80}");
+                    Console.WriteLine($"{info.Field,-5} {info.Name,-15} {VR.IJE.Truncate(info.Contents, 75),-75}: \"{field + "\"",-80}");
                 }
             }
             else if (args[0] == "ijebuilder")
@@ -608,8 +607,8 @@ namespace BFDR.CLI
                     if (field1 != field2)
                     {
                         differences += 1;
-                        Console.WriteLine($" IJE: {info.Field,-5} {info.Name,-15} {Truncate(info.Contents, 75),-75}: \"{field1 + "\"",-80}");
-                        Console.WriteLine($"FHIR: {info.Field,-5} {info.Name,-15} {Truncate(info.Contents, 75),-75}: \"{field2 + "\"",-80}");
+                        Console.WriteLine($" IJE: {info.Field,-5} {info.Name,-15} {VR.IJE.Truncate(info.Contents, 75),-75}: \"{field1 + "\"",-80}");
+                        Console.WriteLine($"FHIR: {info.Field,-5} {info.Name,-15} {VR.IJE.Truncate(info.Contents, 75),-75}: \"{field2 + "\"",-80}");
                         Console.WriteLine();
                     }
                 }
@@ -638,18 +637,6 @@ namespace BFDR.CLI
                 Console.WriteLine($"**** No such command {args[0]} with the number of arguments supplied");
             }
             return 0;
-        }
-
-         private static string Truncate(string value, int length)
-        {
-            if (String.IsNullOrWhiteSpace(value) || value.Length <= length)
-            {
-                return value;
-            }
-            else
-            {
-                return value.Substring(0, length);
-            }
         }
     }
 }
