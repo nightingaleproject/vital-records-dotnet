@@ -1538,7 +1538,7 @@ namespace BFDR.Tests
     }
 
     [Fact]
-    public void TestImportPayerFinancialClass()
+    public void TestImportPayorFinancialClass()
     {
       // Test FHIR record import.
       BirthRecord firstRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
@@ -1546,64 +1546,64 @@ namespace BFDR.Tests
       // Test conversion via FromDescription.
       BirthRecord secondRecord = VitalRecord.FromDescription<BirthRecord>(firstDescription);
 
-      Assert.Equal("privateinsurance", firstRecord.PayorTypeFinancialClass["code"]);
-      Assert.Equal(VR.CodeSystems.PayorType, firstRecord.PayorTypeFinancialClass["system"]);
-      Assert.Equal("Private Health Insurance", firstRecord.PayorTypeFinancialClass["display"]);
+      Assert.Equal("5", firstRecord.PayorTypeFinancialClass["code"]);
+      Assert.Equal(VR.CodeSystems.NAHDO, firstRecord.PayorTypeFinancialClass["system"]);
+      Assert.Equal("PRIVATE HEALTH INSURANCE", firstRecord.PayorTypeFinancialClass["display"]);
       Assert.Equal(firstRecord.PayorTypeFinancialClass["code"], firstRecord.PayorTypeFinancialClassHelper);
 
-      Assert.Equal("privateinsurance", secondRecord.PayorTypeFinancialClass["code"]);
-      Assert.Equal(VR.CodeSystems.PayorType, secondRecord.PayorTypeFinancialClass["system"]);
-      Assert.Equal("Private Health Insurance", secondRecord.PayorTypeFinancialClass["display"]);
+      Assert.Equal("5", secondRecord.PayorTypeFinancialClass["code"]);
+      Assert.Equal(VR.CodeSystems.NAHDO, secondRecord.PayorTypeFinancialClass["system"]);
+      Assert.Equal("PRIVATE HEALTH INSURANCE", secondRecord.PayorTypeFinancialClass["display"]);
       Assert.Equal(secondRecord.PayorTypeFinancialClass["code"], secondRecord.PayorTypeFinancialClassHelper);
     }
 
     [Fact]
-    public void TestSetPayerFinancialClass()
+    public void TestSetPayorFinancialClass()
     {
       BirthRecord br = new()
       {
-          PayorTypeFinancialClassHelper = "tricare"
+          PayorTypeFinancialClassHelper = "311"
       };
 
-      Assert.Equal("tricare", br.PayorTypeFinancialClass["code"]);
-      Assert.Equal(VR.CodeSystems.PayorType, br.PayorTypeFinancialClass["system"]);
+      Assert.Equal("311", br.PayorTypeFinancialClass["code"]);
+      Assert.Equal(VR.CodeSystems.NAHDO, br.PayorTypeFinancialClass["system"]);
       Assert.Equal("TRICARE (CHAMPUS)", br.PayorTypeFinancialClass["display"]);
       Assert.Equal(br.PayorTypeFinancialClass["code"], br.PayorTypeFinancialClassHelper);
 
       Dictionary<string, string> payorType = new()
       {
-          ["code"] = "medicaid",
-          ["system"] = VR.CodeSystems.PayorType,
+          ["code"] = "2",
+          ["system"] = VR.CodeSystems.NAHDO,
           ["display"] = "MEDICAID"
       };
       br.PayorTypeFinancialClass = payorType;
-      Assert.Equal("medicaid", br.PayorTypeFinancialClass["code"]);
-      Assert.Equal(VR.CodeSystems.PayorType, br.PayorTypeFinancialClass["system"]);
+      Assert.Equal("2", br.PayorTypeFinancialClass["code"]);
+      Assert.Equal(VR.CodeSystems.NAHDO, br.PayorTypeFinancialClass["system"]);
       Assert.Equal("MEDICAID", br.PayorTypeFinancialClass["display"]);
       Assert.Equal(br.PayorTypeFinancialClass["code"], br.PayorTypeFinancialClassHelper);
 
-      br.PayorTypeFinancialClassHelper = "indianhealth";
-      Assert.Equal("indianhealth", br.PayorTypeFinancialClass["code"]);
-      Assert.Equal(VR.CodeSystems.PayorType, br.PayorTypeFinancialClass["system"]);
+      br.PayorTypeFinancialClassHelper = "33";
+      Assert.Equal("33", br.PayorTypeFinancialClass["code"]);
+      Assert.Equal(VR.CodeSystems.NAHDO, br.PayorTypeFinancialClass["system"]);
       Assert.Equal("Indian Health Service or Tribe", br.PayorTypeFinancialClass["display"]);
       Assert.Equal(br.PayorTypeFinancialClass["code"], br.PayorTypeFinancialClassHelper);
 
       br.PayorTypeFinancialClassHelper = null;
-      Assert.Equal("indianhealth", br.PayorTypeFinancialClass["code"]);
-      Assert.Equal(VR.CodeSystems.PayorType, br.PayorTypeFinancialClass["system"]);
+      Assert.Equal("33", br.PayorTypeFinancialClass["code"]);
+      Assert.Equal(VR.CodeSystems.NAHDO, br.PayorTypeFinancialClass["system"]);
       Assert.Equal("Indian Health Service or Tribe", br.PayorTypeFinancialClass["display"]);
       Assert.Equal(br.PayorTypeFinancialClass["code"], br.PayorTypeFinancialClassHelper);
 
       br.PayorTypeFinancialClassHelper = "xxx";
-      Assert.Equal("unknown", br.PayorTypeFinancialClass["code"]);
-      Assert.Equal(VR.CodeSystems.NullFlavor_HL7_V3, br.PayorTypeFinancialClass["system"]);
+      Assert.Equal("9999", br.PayorTypeFinancialClass["code"]);
+      Assert.Equal(VR.CodeSystems.NAHDO, br.PayorTypeFinancialClass["system"]);
       Assert.Equal("Unavailable / Unknown", br.PayorTypeFinancialClass["display"]);
       Assert.Equal("xxx", br.PayorTypeFinancialClass["text"]);
       Assert.Equal(br.PayorTypeFinancialClass["text"], br.PayorTypeFinancialClassHelper);
 
-      br.PayorTypeFinancialClassHelper = "indianhealth";
-      Assert.Equal("indianhealth", br.PayorTypeFinancialClass["code"]);
-      Assert.Equal(VR.CodeSystems.PayorType, br.PayorTypeFinancialClass["system"]);
+      br.PayorTypeFinancialClassHelper = "33";
+      Assert.Equal("33", br.PayorTypeFinancialClass["code"]);
+      Assert.Equal(VR.CodeSystems.NAHDO, br.PayorTypeFinancialClass["system"]);
       Assert.Equal("Indian Health Service or Tribe", br.PayorTypeFinancialClass["display"]);
       Assert.Equal(br.PayorTypeFinancialClass["code"], br.PayorTypeFinancialClassHelper);
     }

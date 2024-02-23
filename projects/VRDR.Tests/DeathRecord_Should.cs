@@ -3376,14 +3376,14 @@ namespace VRDR.Tests
         [Fact]
         public void Set_AcmeSystemReject()
         {
-            SetterDeathRecord.AcmeSystemRejectHelper = ValueSets.AcmeSystemReject.Not_Rejected;
-            Assert.Equal(ValueSets.AcmeSystemReject.Not_Rejected, SetterDeathRecord.AcmeSystemRejectHelper);
+            SetterDeathRecord.AcmeSystemRejectHelper = ValueSets.SystemReject.Not_Rejected;
+            Assert.Equal(ValueSets.SystemReject.Not_Rejected, SetterDeathRecord.AcmeSystemRejectHelper);
         }
 
         [Fact]
         public void Get_AcmeSystemReject()
         {
-            Assert.Equal(VRDR.ValueSets.AcmeSystemReject.Not_Rejected, DeathCertificateDocument2_JSON.AcmeSystemRejectHelper);
+            Assert.Equal(VRDR.ValueSets.SystemReject.Not_Rejected, DeathCertificateDocument2_JSON.AcmeSystemRejectHelper);
         }
 
         [Fact]
