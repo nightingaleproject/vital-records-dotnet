@@ -1,15 +1,15 @@
 # This script takes the JSON files that are generated as part of the BFDR IG and creates an output
 # file with static URL strings for each StructureDefinition, Extension, and IG HTML page
 #
-# Usage: ruby tools/generate_url_strings_from_BFDR_IG.rb <path-to-json-files> > BFDR/URLs.cs
+# Usage: ruby scripts/generate_url_strings_from_BFDR_IG.rb <path-to-json-files> > projects/BFDR/URLs.cs
 #
 # If you need to generate the concept map JSON files, first install sushi (https://github.com/FHIR/sushi) then
 #
-#     git clone https://github.com/HL7/bfdr.git
-#     cd bfdr
+#     git clone https://github.com/HL7/fhir-bfdr.git
+#     cd fhir-bfdr
 #     sushi
 #
-# The JSON files will be built in vrdr/fsh-generated/resources/
+# The JSON files will be built in fhir-bfdr/fsh-generated/resources/
 
 require 'json'
 require 'erb'
