@@ -115,6 +115,9 @@
         <member name="F:VR.CodeSystems.Component">
             <summary> Component </summary>
         </member>
+        <member name="F:VR.CodeSystems.ComponentCodeVR">
+            <summary> Component </summary>
+        </member>
         <member name="F:VR.CodeSystems.DateOfDeathDeterminationMethods">
             <summary> Date of Death Determination Methods </summary>
         </member>
