@@ -2105,19 +2105,18 @@ namespace BFDR.Tests
       Assert.Equal("36", parsedRecord.GestationalAgeAtDelivery["value"]);
     }
 
-    // TODO implement once we have mappings for these codes
-    // [Fact]
-    // public void SetGestationalAgeAtDeliveryEditFlag()
-    // {
-    //   IJENatality ije = new IJENatality();
-    //   ije.OWGEST_BYPASS = "30";
-    //   BirthRecord birthRecord = ije.ToBirthRecord();
-    //   Dictionary<string, string> editBypass = new Dictionary<string, string>();
-    //   editBypass.Add("code", "editBypass1");
-    //   editBypass.Add("system", VR.CodeSystems.BirthAndDeathEditFlags);
-    //   editBypass.Add("display", "Edit Failed, Data Queried, and Verified");
-    //   Assert.Equal(editBypass, birthRecord.GestationalAgeAtDeliveryEditFlag);
-    // }
+    [Fact]
+    public void SetGestationalAgeAtDeliveryEditFlag()
+    {
+      IJENatality ije = new IJENatality();
+      ije.OWGEST_BYPASS = "30";
+      BirthRecord birthRecord = ije.ToBirthRecord();
+      Dictionary<string, string> editBypass = new Dictionary<string, string>();
+      editBypass.Add("code", "editBypass1");
+      editBypass.Add("system", VR.CodeSystems.BirthAndDeathEditFlags);
+      editBypass.Add("display", "Edit Failed, Data Queried, and Verified");
+      Assert.Equal(editBypass, birthRecord.GestationalAgeAtDeliveryEditFlag);
+    }
 
     [Fact]
     public void SetNumberOfBirthsNowDead()

@@ -1203,6 +1203,20 @@
           }
         ],
         "valueQuantity" : {
+          "extension" : [
+            {
+              "url" : "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
+              "valueCodeableConcept" : {
+                "coding" : [
+                  {
+                    "system" : "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
+                    "code" : "0off",
+                    "display" : "Off"
+                  }
+                ]
+              }
+            }
+          ],
           "value" : 36,
           "system" : "http://unitsofmeasure.org",
           "code" : "wk"
