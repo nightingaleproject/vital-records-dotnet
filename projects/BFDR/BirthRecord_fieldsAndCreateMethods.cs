@@ -50,7 +50,7 @@ namespace BFDR
         private Encounter EncounterBirth;
 
         /// <summary>The Location of the birth.</summary>
-        private Location LocationBirth;
+        // private Location LocationBirth;
         
         /// <summary>The coverage associated with the birth.</summary>
         private Coverage Coverage;
@@ -143,18 +143,25 @@ namespace BFDR
         }
 
         /// <summary>Create Location Birth.</summary>
-        private void CreateLocationBirth()
+        private Location CreateLocationBirth(string code)
         {
-            LocationBirth = new Location
+            Location locationBirth = new Location
             {
+                Id = Guid.NewGuid().ToString(),
                 Meta = new Meta()
                 {
                     Profile = new List<string>()
                     {
                         ExtensionURL.LocationBFDR
                     }
+                },
+                Type = new List<CodeableConcept>()
+                {
+                    new CodeableConcept(CodeSystems.LocalBFDRCodes, code)
                 }
             };
+            Bundle.AddResourceEntry(locationBirth, "urn:uuid:" + locationBirth.Id);
+            return locationBirth;
         }
     }
 

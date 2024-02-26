@@ -1464,6 +1464,8 @@ namespace BFDR.Tests
       Assert.Equal("116441967701", br.FacilityNPI);
       Assert.Equal("UT12", br.FacilityJFI);
       Assert.Equal("South Hospital", br.FacilityName);
+      Assert.Equal("Transfer From Hospital", br.FacilityMotherTransferredFrom);
+      Assert.Equal("Transfer To Hospital", br.FacilityInfantTransferredTo);
     }
 
     [Fact]
@@ -1473,17 +1475,34 @@ namespace BFDR.Tests
       {
           FacilityNPI = "4815162342",
           FacilityJFI = "636",
-          FacilityName = "Lahey Hospital"
+          FacilityName = "Lahey Hospital",
+          FacilityMotherTransferredFrom = "Sunnyvale Medical",
+          FacilityInfantTransferredTo = "LD Care"
       };
       Assert.Equal("4815162342", br.FacilityNPI);
       Assert.Equal("636", br.FacilityJFI);
       Assert.Equal("Lahey Hospital", br.FacilityName);
+      Assert.Equal("Sunnyvale Medical", br.FacilityMotherTransferredFrom);
+      Assert.Equal("LD Care", br.FacilityInfantTransferredTo);
       br.FacilityNPI = "999";
       Assert.Equal("999", br.FacilityNPI);
       Assert.Equal("636", br.FacilityJFI);
+      Assert.Equal("Lahey Hospital", br.FacilityName);
       br.FacilityJFI = "0909";
       Assert.Equal("999", br.FacilityNPI);
       Assert.Equal("0909", br.FacilityJFI);
+      Assert.Equal("Lahey Hospital", br.FacilityName);
+      br.FacilityName = "Bob's Medical Center";
+      Assert.Equal("999", br.FacilityNPI);
+      Assert.Equal("0909", br.FacilityJFI);
+      Assert.Equal("Bob's Medical Center", br.FacilityName);
+      br.FacilityMotherTransferredFrom = "Abignale Hospital";
+      br.FacilityInfantTransferredTo = "Pittsfield Medical Facility";
+      Assert.Equal("999", br.FacilityNPI);
+      Assert.Equal("0909", br.FacilityJFI);
+      Assert.Equal("Bob's Medical Center", br.FacilityName);
+      Assert.Equal("Abignale Hospital", br.FacilityMotherTransferredFrom);
+      Assert.Equal("Pittsfield Medical Facility", br.FacilityInfantTransferredTo);
     }
 
     [Fact]

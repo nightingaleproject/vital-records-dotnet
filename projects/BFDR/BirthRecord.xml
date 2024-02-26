@@ -95,7 +95,7 @@
         <member name="M:BFDR.BirthRecord.CreateAttendant">
             <summary>Create Attendant/Practitioner.</summary>
         </member>
-        <member name="M:BFDR.BirthRecord.CreateLocationBirth">
+        <member name="M:BFDR.BirthRecord.CreateLocationBirth(System.String)">
             <summary>Create Location Birth.</summary>
         </member>
         <member name="P:BFDR.BirthRecord.CertificateNumber">
@@ -1599,6 +1599,56 @@
             <para>ExampleBirthRecord.FatherEducationLevelEditFlag = VRDR.ValueSets.EditBypass01234.EditPassed;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Father's Education Level Edit Flag: {ExampleBirthRecord.EducationLevelHelperEditFlag}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.FacilityNPI">
+            <summary>Facility ID (NPI), National Provider Identifier</summary>
+            <value>Facility ID (NPI).</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.FacilityNPI = 123456789;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Facility National Provider Identifier: {ExampleBirthRecord.FacilityNPI}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.FacilityJFI">
+            <summary>Facility ID (JFI), Jurisdictional Facility Identifier</summary>
+            <value>Facility ID (JFI).</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.FacilityJFI = 123456789;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Jurisdictional Facility Identifier: {ExampleBirthRecord.FacilityJFI}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.FacilityName">
+            <summary>Name of Facility of Birth</summary>
+            <value>FacilityName.</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.FacilityName = "South Hospital";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Jurisdictional Facility Identifier: {ExampleBirthRecord.FacilityName}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.FacilityMotherTransferredFrom">
+            <summary>Name of Facility mother moved from (if transfered)</summary>
+            <value>FacilityMotherTransferredFrom.</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.FacilityMotherTransferredFrom = "South Hospital";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Facility Mother Transferred From: {ExampleBirthRecord.FacilityMotherTransferredFrom}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.FacilityInfantTransferredTo">
+            <summary>Name of Facility Infant Transferred To (if transfered w/in 24 hours)</summary>
+            <value>FacilityInfantTransferredTo.</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.FacilityInfantTransferredTo = "South Hospital";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Facility Mother Transferred From: {ExampleBirthRecord.FacilityInfantTransferredTo}");</para>
             </example>
         </member>
         <member name="P:BFDR.BirthRecord.LastMenstrualPeriod">

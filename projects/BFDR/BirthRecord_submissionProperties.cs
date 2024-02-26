@@ -4917,12 +4917,13 @@ namespace BFDR
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87300-0')", "")]
         public string FacilityNPI
         {
-            get => LocationBirth?.Identifier?.Find(identifier => identifier.System == VR.CodeSystems.US_NPI_HL7)?.Value.ToString();
+            get => GetFacilityLocation(ValueSets.LocationTypes.Birth_Location)?.Identifier?.Find(identifier => identifier.System == VR.CodeSystems.US_NPI_HL7)?.Value.ToString();
             set
             {
+                Location LocationBirth = GetFacilityLocation(ValueSets.LocationTypes.Birth_Location);
                 if (LocationBirth == null)
                 {
-                    CreateLocationBirth();
+                    LocationBirth = CreateLocationBirth(ValueSets.LocationTypes.Birth_Location);
                 }
                 if (LocationBirth.Identifier == null)
                 {
@@ -4952,12 +4953,13 @@ namespace BFDR
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87300-0')", "")]
         public string FacilityJFI
         {
-            get => LocationBirth?.Identifier?.Find(identifier => identifier.Extension.Any(ext => ext.Url == VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords))?.GetExtension(VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords).Value.ToString();
+            get => GetFacilityLocation(ValueSets.LocationTypes.Birth_Location)?.Identifier?.Find(identifier => identifier.Extension.Any(ext => ext.Url == VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords))?.GetExtension(VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords).Value.ToString();
             set
             {
+                Location LocationBirth = GetFacilityLocation(ValueSets.LocationTypes.Birth_Location);
                 if (LocationBirth == null)
                 {
-                    CreateLocationBirth();
+                    LocationBirth = CreateLocationBirth(ValueSets.LocationTypes.Birth_Location);
                 }
                 if (LocationBirth.Identifier == null)
                 {
@@ -4993,15 +4995,56 @@ namespace BFDR
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87300-0')", "")]
         public string FacilityName
         {
-            get => LocationBirth?.Name;
+            get => GetFacilityLocation(ValueSets.LocationTypes.Birth_Location)?.Name;
             set
             {
-                if (LocationBirth == null)
-                {
-
-                }
-                LocationBirth.Name = value;
+                Location location = GetFacilityLocation(ValueSets.LocationTypes.Birth_Location) ?? CreateLocationBirth(ValueSets.LocationTypes.Birth_Location);
+                location.Name = value;
             }
+        }
+
+        /// <summary>Name of Facility mother moved from (if transfered)</summary>
+        /// <value>FacilityMotherTransferredFrom.</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.FacilityMotherTransferredFrom = "South Hospital";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Facility Mother Transferred From: {ExampleBirthRecord.FacilityMotherTransferredFrom}");</para>
+        /// </example>
+        [Property("Facility Mother Transferred From", Property.Types.String, "Birth Location", "Facility Mother Moved From (if transferred)", true, IGURL.LocationBFDR, true, 34)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87300-0')", "")]
+        public string FacilityMotherTransferredFrom
+        {
+            get => GetFacilityLocation(ValueSets.LocationTypes.Transfer_From_Location)?.Name;
+            set
+            {
+                Location location = GetFacilityLocation(ValueSets.LocationTypes.Transfer_From_Location) ?? CreateLocationBirth(ValueSets.LocationTypes.Transfer_From_Location);
+                location.Name = value;
+            }
+        }
+
+        /// <summary>Name of Facility Infant Transferred To (if transfered w/in 24 hours)</summary>
+        /// <value>FacilityInfantTransferredTo.</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.FacilityInfantTransferredTo = "South Hospital";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Facility Mother Transferred From: {ExampleBirthRecord.FacilityInfantTransferredTo}");</para>
+        /// </example>
+        [Property("cility Infant Transferred To", Property.Types.String, "Birth Location", "Facility Infant Transferred To (if transferred w/in 24 hours)", true, IGURL.LocationBFDR, true, 34)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87300-0')", "")]
+        public string FacilityInfantTransferredTo
+        {
+            get => GetFacilityLocation(ValueSets.LocationTypes.Transfer_To_Location)?.Name;
+            set
+            {
+                Location location = GetFacilityLocation(ValueSets.LocationTypes.Transfer_To_Location) ?? CreateLocationBirth(ValueSets.LocationTypes.Transfer_To_Location);
+                location.Name = value;
+            }
+        }
+
+        private Location GetFacilityLocation(string code) {
+            return (Location)Bundle.Entry.Where(e => e.Resource is Location loc && loc.Type.Any(type => type.Coding.Any(coding => coding.System == CodeSystems.LocalBFDRCodes && coding.Code == code))).FirstOrDefault()?.Resource;
         }
         
         private Observation GetObservation(string code)
