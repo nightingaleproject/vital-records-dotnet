@@ -4314,7 +4314,7 @@ namespace BFDR
         {
             get
             {
-                return Attendant?.Identifier?.Find(id => id.System == "http://hl7.org/fhir/sid/us-npi")?.Value;
+                return Attendant?.Identifier?.Find(id => id.System == CodeSystems.US_NPI_HL7)?.Value;
             }
             set
             {
@@ -5857,7 +5857,7 @@ namespace BFDR
         {
             get
             {
-                return Certifier?.Identifier?.Find(id => id.System == "http://hl7.org/fhir/sid/us-npi")?.Value;
+                return Certifier?.Identifier?.Find(id => id.System == CodeSystems.US_NPI_HL7)?.Value;
             }
             set
             {
