@@ -4596,30 +4596,16 @@ namespace BFDR
         [IJEField(302, 2284, 50, "Facility Mother Moved From (if transferred)", "HOSPFROM", 1)]
         public string HOSPFROM
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => LeftJustified_Get("HOSPFROM", "FacilityMotherTransferredFrom");
+            set => LeftJustified_Set("HOSPFROM", "FacilityMotherTransferredFrom", value);
         }
 
         /// <summary>Facility Infant Transferred To (if transferred w/in 24 hours)</summary>
         [IJEField(303, 2334, 50, "Facility Infant Transferred To (if transferred w/in 24 hours)", "HOSPTO", 1)]
         public string HOSPTO
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => LeftJustified_Get("HOSPTO", "FacilityInfantTransferredTo");
+            set => LeftJustified_Set("HOSPTO", "FacilityInfantTransferredTo", value);
         }
 
         /// <summary>Attendant ("Other" specified text)</summary>
