@@ -14,7 +14,7 @@ namespace BFDR.Tests
     public BirthRecord_Should()
     {
       SetterBirthRecord = new BirthRecord();
-      FakeBirthRecord = new BirthRecord(File.ReadAllText(FixturePath("fixtures/json/BirthRecordFake.json")));
+      FakeBirthRecord = new BirthRecord(File.ReadAllText(FixturePath("fixtures/json/BirthRecordFakeNoRace.json")));
     }
 
     [Fact]
@@ -1176,14 +1176,12 @@ namespace BFDR.Tests
         }
         Assert.Equal(15, b2.FatherRace.Length);
     }
-
     [Fact]
     public void IdentifiersPresent()
     {
       Assert.Equal("100", FakeBirthRecord.CertificateNumber);
       Assert.Equal("123", FakeBirthRecord.StateLocalIdentifier1);
     }
-
     [Fact]
     public void TestImportMotherBirthplace()
     {
@@ -1486,6 +1484,157 @@ namespace BFDR.Tests
       br.FacilityJFI = "0909";
       Assert.Equal("999", br.FacilityNPI);
       Assert.Equal("0909", br.FacilityJFI);
+    }
+
+    [Fact]
+    public void SetLastMenstrualPeriod()
+    {
+      Assert.Null(SetterBirthRecord.LastMenstrualPeriod);
+      Assert.Null(SetterBirthRecord.LastMenstrualPeriodYear);
+      Assert.Null(SetterBirthRecord.LastMenstrualPeriodMonth);
+      Assert.Null(SetterBirthRecord.LastMenstrualPeriodDay);
+      SetterBirthRecord.LastMenstrualPeriod = "2023-02";
+      Assert.Equal("2023-02", SetterBirthRecord.LastMenstrualPeriod);
+      Assert.Equal(2023, SetterBirthRecord.LastMenstrualPeriodYear);
+      Assert.Equal(2, SetterBirthRecord.LastMenstrualPeriodMonth);
+      Assert.Null(SetterBirthRecord.LastMenstrualPeriodDay);
+      SetterBirthRecord.LastMenstrualPeriod = null;
+      Assert.Null(SetterBirthRecord.LastMenstrualPeriod);
+      Assert.Null(SetterBirthRecord.LastMenstrualPeriodYear);
+      Assert.Null(SetterBirthRecord.LastMenstrualPeriodMonth);
+      Assert.Null(SetterBirthRecord.LastMenstrualPeriodDay);
+      SetterBirthRecord.LastMenstrualPeriodMonth = 4;
+      Assert.Null(SetterBirthRecord.LastMenstrualPeriod);
+      Assert.Null(SetterBirthRecord.LastMenstrualPeriodYear);
+      Assert.Equal(4, SetterBirthRecord.LastMenstrualPeriodMonth);
+      Assert.Null(SetterBirthRecord.LastMenstrualPeriodDay);
+    }
+
+    [Fact]
+    public void SetFirstPrenatalCareVisit()
+    {
+      Assert.Null(SetterBirthRecord.FirstPrenatalCareVisit);
+      Assert.Null(SetterBirthRecord.FirstPrenatalCareVisitYear);
+      Assert.Null(SetterBirthRecord.FirstPrenatalCareVisitMonth);
+      Assert.Null(SetterBirthRecord.FirstPrenatalCareVisitDay);
+      SetterBirthRecord.FirstPrenatalCareVisit = "2023-02";
+      Assert.Equal("2023-02", SetterBirthRecord.FirstPrenatalCareVisit);
+      Assert.Equal(2023, SetterBirthRecord.FirstPrenatalCareVisitYear);
+      Assert.Equal(2, SetterBirthRecord.FirstPrenatalCareVisitMonth);
+      Assert.Null(SetterBirthRecord.FirstPrenatalCareVisitDay);
+      SetterBirthRecord.FirstPrenatalCareVisit = null;
+      Assert.Null(SetterBirthRecord.FirstPrenatalCareVisit);
+      Assert.Null(SetterBirthRecord.FirstPrenatalCareVisitYear);
+      Assert.Null(SetterBirthRecord.FirstPrenatalCareVisitMonth);
+      Assert.Null(SetterBirthRecord.FirstPrenatalCareVisitDay);
+      SetterBirthRecord.FirstPrenatalCareVisitMonth = 4;
+      Assert.Null(SetterBirthRecord.FirstPrenatalCareVisit);
+      Assert.Null(SetterBirthRecord.FirstPrenatalCareVisitYear);
+      Assert.Equal(4, SetterBirthRecord.FirstPrenatalCareVisitMonth);
+      Assert.Null(SetterBirthRecord.FirstPrenatalCareVisitDay);
+    }
+
+        [Fact]
+    public void SetRegistrationDate()
+    {
+      Assert.Null(SetterBirthRecord.RegistrationDate);
+      Assert.Null(SetterBirthRecord.RegistrationDateYear);
+      Assert.Null(SetterBirthRecord.RegistrationDateMonth);
+      Assert.Null(SetterBirthRecord.RegistrationDateDay);
+      SetterBirthRecord.RegistrationDate = "2023-02";
+      Assert.Equal("2023-02", SetterBirthRecord.RegistrationDate);
+      Assert.Equal(2023, SetterBirthRecord.RegistrationDateYear);
+      Assert.Equal(2, SetterBirthRecord.RegistrationDateMonth);
+      SetterBirthRecord.RegistrationDateYear = 2022;
+      Assert.Equal("2022-02", SetterBirthRecord.RegistrationDate);
+      Assert.Equal(2022, SetterBirthRecord.RegistrationDateYear);
+      Assert.Equal(2, SetterBirthRecord.RegistrationDateMonth);
+      SetterBirthRecord.RegistrationDateDay = 3;
+      Assert.Equal("2022-02-03", SetterBirthRecord.RegistrationDate);
+      Assert.Equal(2022, SetterBirthRecord.RegistrationDateYear);
+      Assert.Equal(2, SetterBirthRecord.RegistrationDateMonth);
+      Assert.Equal(3, SetterBirthRecord.RegistrationDateDay);
+      SetterBirthRecord.RegistrationDate = null;
+      Assert.Null(SetterBirthRecord.RegistrationDate);
+      Assert.Null(SetterBirthRecord.RegistrationDateYear);
+      Assert.Null(SetterBirthRecord.RegistrationDateMonth);
+      Assert.Null(SetterBirthRecord.RegistrationDateDay);
+      SetterBirthRecord.RegistrationDateMonth = 4;
+      Assert.Null(SetterBirthRecord.RegistrationDate);
+      Assert.Null(SetterBirthRecord.RegistrationDateYear);
+      Assert.Equal(4, SetterBirthRecord.RegistrationDateMonth);
+      Assert.Null(SetterBirthRecord.RegistrationDateDay);
+    }
+
+    [Fact]
+    public void TestImportPayorFinancialClass()
+    {
+      // Test FHIR record import.
+      BirthRecord firstRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      string firstDescription = firstRecord.ToDescription();
+      // Test conversion via FromDescription.
+      BirthRecord secondRecord = VitalRecord.FromDescription<BirthRecord>(firstDescription);
+
+      Assert.Equal("5", firstRecord.PayorTypeFinancialClass["code"]);
+      Assert.Equal(VR.CodeSystems.NAHDO, firstRecord.PayorTypeFinancialClass["system"]);
+      Assert.Equal("PRIVATE HEALTH INSURANCE", firstRecord.PayorTypeFinancialClass["display"]);
+      Assert.Equal(firstRecord.PayorTypeFinancialClass["code"], firstRecord.PayorTypeFinancialClassHelper);
+
+      Assert.Equal("5", secondRecord.PayorTypeFinancialClass["code"]);
+      Assert.Equal(VR.CodeSystems.NAHDO, secondRecord.PayorTypeFinancialClass["system"]);
+      Assert.Equal("PRIVATE HEALTH INSURANCE", secondRecord.PayorTypeFinancialClass["display"]);
+      Assert.Equal(secondRecord.PayorTypeFinancialClass["code"], secondRecord.PayorTypeFinancialClassHelper);
+    }
+
+    [Fact]
+    public void TestSetPayorFinancialClass()
+    {
+      BirthRecord br = new()
+      {
+          PayorTypeFinancialClassHelper = "311"
+      };
+
+      Assert.Equal("311", br.PayorTypeFinancialClass["code"]);
+      Assert.Equal(VR.CodeSystems.NAHDO, br.PayorTypeFinancialClass["system"]);
+      Assert.Equal("TRICARE (CHAMPUS)", br.PayorTypeFinancialClass["display"]);
+      Assert.Equal(br.PayorTypeFinancialClass["code"], br.PayorTypeFinancialClassHelper);
+
+      Dictionary<string, string> payorType = new()
+      {
+          ["code"] = "2",
+          ["system"] = VR.CodeSystems.NAHDO,
+          ["display"] = "MEDICAID"
+      };
+      br.PayorTypeFinancialClass = payorType;
+      Assert.Equal("2", br.PayorTypeFinancialClass["code"]);
+      Assert.Equal(VR.CodeSystems.NAHDO, br.PayorTypeFinancialClass["system"]);
+      Assert.Equal("MEDICAID", br.PayorTypeFinancialClass["display"]);
+      Assert.Equal(br.PayorTypeFinancialClass["code"], br.PayorTypeFinancialClassHelper);
+
+      br.PayorTypeFinancialClassHelper = "33";
+      Assert.Equal("33", br.PayorTypeFinancialClass["code"]);
+      Assert.Equal(VR.CodeSystems.NAHDO, br.PayorTypeFinancialClass["system"]);
+      Assert.Equal("Indian Health Service or Tribe", br.PayorTypeFinancialClass["display"]);
+      Assert.Equal(br.PayorTypeFinancialClass["code"], br.PayorTypeFinancialClassHelper);
+
+      br.PayorTypeFinancialClassHelper = null;
+      Assert.Equal("33", br.PayorTypeFinancialClass["code"]);
+      Assert.Equal(VR.CodeSystems.NAHDO, br.PayorTypeFinancialClass["system"]);
+      Assert.Equal("Indian Health Service or Tribe", br.PayorTypeFinancialClass["display"]);
+      Assert.Equal(br.PayorTypeFinancialClass["code"], br.PayorTypeFinancialClassHelper);
+
+      br.PayorTypeFinancialClassHelper = "xxx";
+      Assert.Equal("9999", br.PayorTypeFinancialClass["code"]);
+      Assert.Equal(VR.CodeSystems.NAHDO, br.PayorTypeFinancialClass["system"]);
+      Assert.Equal("Unavailable / Unknown", br.PayorTypeFinancialClass["display"]);
+      Assert.Equal("xxx", br.PayorTypeFinancialClass["text"]);
+      Assert.Equal(br.PayorTypeFinancialClass["text"], br.PayorTypeFinancialClassHelper);
+
+      br.PayorTypeFinancialClassHelper = "33";
+      Assert.Equal("33", br.PayorTypeFinancialClass["code"]);
+      Assert.Equal(VR.CodeSystems.NAHDO, br.PayorTypeFinancialClass["system"]);
+      Assert.Equal("Indian Health Service or Tribe", br.PayorTypeFinancialClass["display"]);
+      Assert.Equal(br.PayorTypeFinancialClass["code"], br.PayorTypeFinancialClassHelper);
     }
   }
 }

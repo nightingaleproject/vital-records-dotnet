@@ -1206,6 +1206,48 @@
           "display": "Organization - South Hospital"
         }
       }
+    },
+    {
+      "fullUrl": "coverage-resource-url",
+      "resource": {
+        "resourceType": "Coverage",
+        "id": "coverage-principal-payer-for-delivery-jada-ann-quinn",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/bfdr/StructureDefinition/Coverage-principal-payer-delivery"
+          ]
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div></div>"
+        },
+        "status": "active",
+        "type": {
+          "coding": [
+            {
+              "system": "https://nahdo.org/sopt",
+              "code": "5",
+              "display": "PRIVATE HEALTH INSURANCE"
+            }
+          ],
+          "text": "PRIVATE HEALTH INSURANCE"
+        },
+        "beneficiary": {
+          "reference": "Patient/patient-mother-jada-ann-quinn",
+          "display": "Patient - Mother (Jada Ann Quinn)"
+        },
+        "payor": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                "valueCode": "not-asked"
+              }
+            ],
+            "display": "Not asked"
+          }
+        ]
+      }
     }
   ]
 }

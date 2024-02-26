@@ -760,5 +760,107 @@ namespace BFDR.Tests
       Assert.Equal("55", br.FacilityJFI);
       Assert.Equal("Simpson Medical", br.FacilityName);
     }
+    
+    public void TestLastMenses()
+    {
+      BirthRecord fhir = new BirthRecord();
+      IJENatality ije = new IJENatality(fhir);
+      Assert.Equal("    ", ije.DLMP_YR);
+      Assert.Equal("  ", ije.DLMP_MO);
+      Assert.Equal("  ", ije.DLMP_DY);
+      ije.DLMP_DY = "24";
+      Assert.Equal("    ", ije.DLMP_YR);
+      Assert.Equal("  ", ije.DLMP_MO);
+      Assert.Equal("24", ije.DLMP_DY);
+      ije.DLMP_MO = "02";
+      Assert.Equal("    ", ije.DLMP_YR);
+      Assert.Equal("02", ije.DLMP_MO);
+      Assert.Equal("24", ije.DLMP_DY);
+      ije.DLMP_YR = "2023";
+      Assert.Equal("2023", ije.DLMP_YR);
+      Assert.Equal("02", ije.DLMP_MO);
+      Assert.Equal("24", ije.DLMP_DY);
+    }
+
+    [Fact]
+    public void TestFirstPrenatalCare()
+    {
+      BirthRecord fhir = new BirthRecord();
+      IJENatality ije = new IJENatality(fhir);
+      Assert.Equal("    ", ije.DOFP_YR);
+      Assert.Equal("  ", ije.DOFP_MO);
+      Assert.Equal("  ", ije.DOFP_DY);
+      ije.DOFP_DY = "24";
+      Assert.Equal("    ", ije.DOFP_YR);
+      Assert.Equal("  ", ije.DOFP_MO);
+      Assert.Equal("24", ije.DOFP_DY);
+      ije.DOFP_MO = "02";
+      Assert.Equal("    ", ije.DOFP_YR);
+      Assert.Equal("02", ije.DOFP_MO);
+      Assert.Equal("24", ije.DOFP_DY);
+      ije.DOFP_YR = "2023";
+      Assert.Equal("2023", ije.DOFP_YR);
+      Assert.Equal("02", ije.DOFP_MO);
+      Assert.Equal("24", ije.DOFP_DY);
+    }
+
+    [Fact]
+    public void TestRegistrationDate()
+    {
+      BirthRecord fhir = new BirthRecord();
+      IJENatality ije = new IJENatality(fhir);
+      Assert.Equal("    ", ije.DOR_YR);
+      Assert.Equal("  ", ije.DOR_MO);
+      Assert.Equal("  ", ije.DOR_DY);
+      ije.DOR_DY = "24";
+      Assert.Equal("    ", ije.DOR_YR);
+      Assert.Equal("  ", ije.DOR_MO);
+      Assert.Equal("24", ije.DOR_DY);
+      ije.DOR_MO = "02";
+      Assert.Equal("    ", ije.DOR_YR);
+      Assert.Equal("02", ije.DOR_MO);
+      Assert.Equal("24", ije.DOR_DY);
+      ije.DOR_YR = "2023";
+      Assert.Equal("2023", ije.DOR_YR);
+      Assert.Equal("02", ije.DOR_MO);
+      Assert.Equal("24", ije.DOR_DY);
+    }
+
+        [Fact]
+    public void TestSetPayorType()
+    {
+      // Manually set ije values.
+      IJENatality ije = new()
+      {
+          PAY = "1"
+      };
+      Assert.Equal("1", ije.PAY);
+      Assert.Equal("2", ije.ToRecord().PayorTypeFinancialClass["code"]);
+      Assert.Equal("MEDICAID", ije.ToRecord().PayorTypeFinancialClass["display"]);
+      Assert.Equal(VR.CodeSystems.NAHDO, ije.ToRecord().PayorTypeFinancialClass["system"]);
+
+      ije.PAY = "3";
+      Assert.Equal("3", ije.PAY);
+      Assert.Equal("81", ije.ToRecord().PayorTypeFinancialClass["code"]);
+      Assert.Equal("Self-pay", ije.ToRecord().PayorTypeFinancialClass["display"]);
+      Assert.Equal(VR.CodeSystems.NAHDO, ije.ToRecord().PayorTypeFinancialClass["system"]);
+    }
+
+    [Fact]
+    public void TestImportPayorType()
+    {
+      // Test IJE import.
+      IJENatality ijeImported = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/BasicBirthRecord.ije")), true);
+      // Test IJE conversion to BirthRecord.
+      BirthRecord br = ijeImported.ToRecord();
+      // Test IJE conversion from BirthRecord.
+      IJENatality ijeConverted = new(br);
+
+      Assert.Equal("6", ijeImported.PAY);
+      Assert.Equal(ijeImported.PAY, ijeConverted.PAY);
+      Assert.Equal("38", ijeImported.ToRecord().PayorTypeFinancialClass["code"]);
+      Assert.Equal("Other Government (Federal, State, Local not specified)", ijeImported.ToRecord().PayorTypeFinancialClass["display"]);
+      Assert.Equal(VR.CodeSystems.NAHDO, ijeImported.ToRecord().PayorTypeFinancialClass["system"]);
+    }
   }
 }

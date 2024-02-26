@@ -5,7 +5,7 @@ import { Breadcrumb, Button, Container, Divider, Grid, Header, Icon, Menu, Messa
 import { connectionErrorToast } from '../../error';
 import { Getter } from '../misc/Getter';
 import { Record } from '../misc/Record';
-import { messageTypeIcons } from '../../data';
+import { messageTypeIconsVRDR, messageTypeIconsBFDR } from '../../data';
 
 export class FHIRMessageCreator extends Component {
   displayName = FHIRMessageCreator.name;
@@ -56,6 +56,9 @@ export class FHIRMessageCreator extends Component {
   }
 
   render() {
+
+    const messageTypeIcons = this.props.recordType.toLowerCase() == 'vrdr' ? messageTypeIconsVRDR : messageTypeIconsBFDR;
+
     return (
       <React.Fragment>
         <Grid id="scroll-to">

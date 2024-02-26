@@ -49,12 +49,16 @@ namespace canary.Models
             modelBuilder.Entity<DeathTest>().Property(t => t.TestRecord).HasConversion(t => t.GetRecord().ToXML(),
                 t => new CanaryDeathRecord(t));
 
+            modelBuilder.Entity<CanaryDeathMessage>();
+
             // BFDR
             modelBuilder.Entity<BirthTest>().Property(t => t.ReferenceRecord).HasConversion(t => t.GetRecord().ToXML(),
                 t => new CanaryBirthRecord(t));
 
             modelBuilder.Entity<BirthTest>().Property(t => t.TestRecord).HasConversion(t => t.GetRecord().ToXML(),
                 t => new CanaryBirthRecord(t));
+
+            modelBuilder.Entity<CanaryBirthMessage>();
         }
     }
 

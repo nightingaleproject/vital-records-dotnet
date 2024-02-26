@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using canary.Models;
 
@@ -10,9 +11,11 @@ using canary.Models;
 namespace canary.Migrations
 {
     [DbContext(typeof(RecordContext))]
-    partial class RecordContextModelSnapshot : ModelSnapshot
+    [Migration("20240130173156_AddBirthMessaging")]
+    partial class AddBirthMessaging
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.10");

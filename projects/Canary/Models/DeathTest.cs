@@ -19,6 +19,16 @@ namespace canary.Models
             return new CanaryDeathRecord();
         }
 
+        protected override Message CreateMessage(Record referenceRecord, string messageType)
+        {
+            return new CanaryDeathMessage(referenceRecord, messageType);
+        }
+
+        protected override Message CreateMessage(string description)
+        {
+            return new CanaryDeathMessage(description);
+        }
+
         protected override Record CreateRecordFromFHIR(string description)
         {
             return new CanaryDeathRecord(VitalRecord.FromDescription<DeathRecord>(description));
@@ -27,6 +37,11 @@ namespace canary.Models
         protected override Record CreateRecordFromVitalRecord(VitalRecord record)
         {
             return new CanaryDeathRecord(record);
+        }
+
+        protected override string GetMessageDescriptionFor(string propertyName)
+        {
+            return CanaryDeathMessage.GetDescriptionFor(propertyName);
         }
     }
 }

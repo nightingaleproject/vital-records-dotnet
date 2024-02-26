@@ -11,7 +11,7 @@ export function RecordTesting(recordType) {
     {
       icon: "download",
       title: `Consuming FHIR ${recordType} Records`,
-      description: "Test a data provider system's ability to consume a valid FHIR ${recordType} Record document.",
+      description: `Test a data provider system's ability to consume a valid FHIR ${recordType} Record document.`,
       route: `test-fhir-consuming`
     },
     {
