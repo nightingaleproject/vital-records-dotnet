@@ -638,13 +638,13 @@ namespace BFDR
         {
             get
             {
-                return Get_MappingFHIRToIJE(VR.Mappings.ConceptMapYesNoUnknownVitalRecords.FHIRToIJE, "MotherMarriedDuringPregnancy", "MARN");
+                return Get_MappingFHIRToIJE(VR.Mappings.YesNoUnknown.FHIRToIJE, "MotherMarriedDuringPregnancy", "MARN");
             }
             set
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Set_MappingIJEToFHIR(VR.Mappings.ConceptMapYesNoUnknownVitalRecords.IJEToFHIR, "MARN", "MotherMarriedDuringPregnancy", value);
+                    Set_MappingIJEToFHIR(VR.Mappings.YesNoUnknown.IJEToFHIR, "MARN", "MotherMarriedDuringPregnancy", value);
                 }
             }
         }
@@ -655,13 +655,13 @@ namespace BFDR
         {
             get
             {
-                return Get_MappingFHIRToIJE(VR.Mappings.ConceptMapYesNoNotApplicableVitalRecords.IJEToFHIR, "PaternityAcknowledgementSigned", "ACKN");
+                return Get_MappingFHIRToIJE(VR.Mappings.YesNoUnknownNotApplicable.IJEToFHIR, "PaternityAcknowledgementSigned", "ACKN");
             }
             set
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Set_MappingIJEToFHIR(VR.Mappings.ConceptMapYesNoNotApplicableVitalRecords.IJEToFHIR, "ACKN", "PaternityAcknowledgementSigned", value);
+                    Set_MappingIJEToFHIR(VR.Mappings.YesNoUnknownNotApplicable.IJEToFHIR, "ACKN", "PaternityAcknowledgementSigned", value);
                 }
             }
         }

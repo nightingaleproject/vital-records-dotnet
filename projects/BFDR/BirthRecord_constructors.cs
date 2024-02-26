@@ -64,7 +64,11 @@ namespace BFDR
             };
 
             // Start with an empty Coverage.
-            Coverage = new Coverage();
+            Coverage = new Coverage()
+            {
+                Id = Guid.NewGuid().ToString(),
+                Meta = new Meta()
+            };
             Coverage.Meta.Profile = new List<string>()
             {
                 ProfileURL.CoveragePrincipalPayerDelivery

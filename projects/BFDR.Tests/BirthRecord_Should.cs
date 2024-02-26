@@ -1373,58 +1373,58 @@ namespace BFDR.Tests
       Assert.False(FakeBirthRecord.ArtificialInsemination);
     }
 
-        [Fact]
-        public void TestPropertiesWithHelpers()
-        {
-            // Test all properties that have helpers
-            // TODO: Move some existing property tests here
-            TestCodedPropertyWithHelper("MotherEducationLevel", VR.ValueSets.EducationLevel.Codes);
-            TestCodedPropertyWithHelper("MotherEducationLevelEditFlag", VR.ValueSets.EditBypass01234.Codes);
-            TestCodedPropertyWithHelper("FatherEducationLevel", VR.ValueSets.EducationLevel.Codes);
-            TestCodedPropertyWithHelper("FatherEducationLevelEditFlag", VR.ValueSets.EditBypass01234.Codes);
-        }
+    [Fact]
+    public void TestPropertiesWithHelpers()
+    {
+        // Test all properties that have helpers
+        // TODO: Move some existing property tests here
+        TestCodedPropertyWithHelper("MotherEducationLevel", VR.ValueSets.EducationLevel.Codes);
+        TestCodedPropertyWithHelper("MotherEducationLevelEditFlag", VR.ValueSets.EditBypass01234.Codes);
+        TestCodedPropertyWithHelper("FatherEducationLevel", VR.ValueSets.EducationLevel.Codes);
+        TestCodedPropertyWithHelper("FatherEducationLevelEditFlag", VR.ValueSets.EditBypass01234.Codes);
+    }
 
-        // Given a property name that takes a code and has a helper property, and a list of codes to test,
-        // test setting and getting all the valid codes
-        private void TestCodedPropertyWithHelper(string propertyName, string[,] codes)
+    // Given a property name that takes a code and has a helper property, and a list of codes to test,
+    // test setting and getting all the valid codes
+    private void TestCodedPropertyWithHelper(string propertyName, string[,] codes)
+    {
+        // Helper name is just an extension of the property name
+        string helperName = propertyName + "Helper";
+        BirthRecord record = new BirthRecord();
+        // Default should be null
+        Assert.Equal("", ((Dictionary<string, string>)record.GetType().GetProperty(propertyName).GetValue(record))["code"]);
+        Assert.Null(record.GetType().GetProperty(helperName).GetValue(record));
+        for (int i = 0; i < codes.GetLength(0); i++)
         {
-            // Helper name is just an extension of the property name
-            string helperName = propertyName + "Helper";
-            BirthRecord record = new BirthRecord();
-            // Default should be null
-            Assert.Equal("", ((Dictionary<string, string>)record.GetType().GetProperty(propertyName).GetValue(record))["code"]);
+            // Set to the code via the helper and make sure the get returns the same code for both the helper and the base
+            // property along with the appropriate system and display values
+            record.GetType().GetProperty(helperName).SetValue(record, codes[i, 0]);
+            Assert.Equal(codes[i, 0], record.GetType().GetProperty(helperName).GetValue(record));
+            Assert.Equal(codes[i, 0], ((Dictionary<string, string>)record.GetType().GetProperty(propertyName).GetValue(record))["code"]);
+            Assert.Equal(codes[i, 1], ((Dictionary<string, string>)record.GetType().GetProperty(propertyName).GetValue(record))["display"]);
+            Assert.Equal(codes[i, 2], ((Dictionary<string, string>)record.GetType().GetProperty(propertyName).GetValue(record))["system"]);
+            // Reset it and then set the value via the base property coded value and make sure the correct values are present
+            record.GetType().GetProperty(propertyName).SetValue(record, null);
             Assert.Null(record.GetType().GetProperty(helperName).GetValue(record));
-            for (int i = 0; i < codes.GetLength(0); i++)
-            {
-                // Set to the code via the helper and make sure the get returns the same code for both the helper and the base
-                // property along with the appropriate system and display values
-                record.GetType().GetProperty(helperName).SetValue(record, codes[i, 0]);
-                Assert.Equal(codes[i, 0], record.GetType().GetProperty(helperName).GetValue(record));
-                Assert.Equal(codes[i, 0], ((Dictionary<string, string>)record.GetType().GetProperty(propertyName).GetValue(record))["code"]);
-                Assert.Equal(codes[i, 1], ((Dictionary<string, string>)record.GetType().GetProperty(propertyName).GetValue(record))["display"]);
-                Assert.Equal(codes[i, 2], ((Dictionary<string, string>)record.GetType().GetProperty(propertyName).GetValue(record))["system"]);
-                // Reset it and then set the value via the base property coded value and make sure the correct values are present
-                record.GetType().GetProperty(propertyName).SetValue(record, null);
-                Assert.Null(record.GetType().GetProperty(helperName).GetValue(record));
-                Dictionary<string, string> dict = new Dictionary<string, string>();
-                dict.Add("code", codes[i, 0]);
-                record.GetType().GetProperty(propertyName).SetValue(record, dict);
-                Assert.Equal(codes[i, 0], record.GetType().GetProperty(helperName).GetValue(record));
-                Assert.Equal(codes[i, 0], ((Dictionary<string, string>)record.GetType().GetProperty(propertyName).GetValue(record))["code"]);
-            }
+            Dictionary<string, string> dict = new Dictionary<string, string>();
+            dict.Add("code", codes[i, 0]);
+            record.GetType().GetProperty(propertyName).SetValue(record, dict);
+            Assert.Equal(codes[i, 0], record.GetType().GetProperty(helperName).GetValue(record));
+            Assert.Equal(codes[i, 0], ((Dictionary<string, string>)record.GetType().GetProperty(propertyName).GetValue(record))["code"]);
         }
+    }
 
     private string FixturePath(string filePath)
+    {
+        if (Path.IsPathRooted(filePath))
         {
-            if (Path.IsPathRooted(filePath))
-            {
-                return filePath;
-            }
-            else
-            {
-                return Path.GetRelativePath(Directory.GetCurrentDirectory(), filePath);
-            }
+            return filePath;
         }
+        else
+        {
+            return Path.GetRelativePath(Directory.GetCurrentDirectory(), filePath);
+        }
+    }
 
     [Fact]
     public void SetAttendantAfterParse()
@@ -1505,7 +1505,7 @@ namespace BFDR.Tests
       Assert.Null(SetterBirthRecord.FirstPrenatalCareVisitDay);
     }
 
-        [Fact]
+    [Fact]
     public void SetRegistrationDate()
     {
       Assert.Null(SetterBirthRecord.RegistrationDate);
@@ -1607,6 +1607,8 @@ namespace BFDR.Tests
       Assert.Equal("Indian Health Service or Tribe", br.PayorTypeFinancialClass["display"]);
       Assert.Equal(br.PayorTypeFinancialClass["code"], br.PayorTypeFinancialClassHelper);
     }
+    
+    [Fact]
     public void SetMaritalStatus()
     {
       BirthRecord birthRecord = new BirthRecord();

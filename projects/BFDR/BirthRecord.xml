@@ -70,6 +70,7 @@
         </member>
         <member name="F:BFDR.BirthRecord.Coverage">
             <summary>The coverage associated with the birth.</summary>
+        </member>
         <member name="F:BFDR.BirthRecord.EncounterMaternity">
             <summary>The maternity encounter.</summary>
         </member>
@@ -1766,6 +1767,8 @@
             <para>ExampleBirthRecord.PayorTypeFinancialClassHelper = "Hospital";</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Child's Place Of Birth Type: {ExampleBirthRecord.PayorTypeFinancialClassHelper}");</para>
+            </example>
+        </member>
         <member name="P:BFDR.BirthRecord.MotherMarriedDuringPregnancyHelper">
             <summary>Mother Married During Pregnancy Helper</summary>
             <value>Mother marrier during pregnancy helper</value>
