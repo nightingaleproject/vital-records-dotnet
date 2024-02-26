@@ -5062,7 +5062,7 @@ namespace BFDR
                 {
                     return (obs.Value as Hl7.Fhir.Model.Date)?.Value;
                 }
-                                return null;
+                    return null;
             }
             set
             {
