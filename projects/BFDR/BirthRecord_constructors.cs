@@ -186,11 +186,9 @@ namespace BFDR
             Mother = patients.Find(patient => patient.Meta.Profile.Any(patientProfile => patientProfile == VR.IGURL.Mother));
             // Grab Father
             Father = Bundle.Entry.FindAll(entry => entry.Resource is RelatedPerson).ConvertAll(entry => (RelatedPerson) entry.Resource).Find(resource => resource.Meta.Profile.Any(relatedPersonProfile => relatedPersonProfile == VR.IGURL.RelatedPersonFatherNatural));
-            // EncounterBirth = Bundle.Entry.FindAll(entry => entry.Resource is Encounter).ConvertAll(entry => (Encounter) entry.Resource).Find(resource => resource.Meta.Profile.Any(encounterProfile => encounterProfile == ProfileURL.EncounterBirth));
-            // LocationBirth = Bundle.Entry.FindAll(entry => entry.Resource is Location).ConvertAll(entry => (Location) entry.Resource).Find(resource => resource.Meta.Profile.Any(locProfile => locProfile == ExtensionURL.LocationBFDR));
             EncounterBirth = Bundle.Entry.FindAll(entry => entry.Resource is Encounter).ConvertAll(entry => (Encounter) entry.Resource).Find(resource => resource.Meta.Profile.Any(relatedPersonProfile => relatedPersonProfile == ProfileURL.EncounterBirth));
             Coverage = Bundle.Entry.FindAll(entry => entry.Resource is Coverage).ConvertAll(entry => (Coverage) entry.Resource).Find(resource => resource.Meta.Profile.Any(coverageProfile => coverageProfile == ProfileURL.CoveragePrincipalPayerDelivery));
-            
+
             if (fullRecord && Child == null)
             {
                 throw new System.ArgumentException("Failed to find a Child (Patient).");

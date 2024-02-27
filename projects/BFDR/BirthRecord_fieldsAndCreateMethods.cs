@@ -49,9 +49,6 @@ namespace BFDR
         /// <summary>The encounter of the birth.</summary>
         private Encounter EncounterBirth;
 
-        /// <summary>The Location of the birth.</summary>
-        // private Location LocationBirth;
-        
         /// <summary>The coverage associated with the birth.</summary>
         private Coverage Coverage;
 
@@ -142,7 +139,7 @@ namespace BFDR
             // Not linked to Composition or inserted in bundle, since this is run before the composition exists.
         }
 
-        /// <summary>Create Location Birth.</summary>
+        /// <summary>Create and set Birth Location.</summary>
         private Location CreateLocationBirth(string code)
         {
             Location locationBirth = new Location

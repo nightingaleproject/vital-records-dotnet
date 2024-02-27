@@ -4988,11 +4988,7 @@ namespace BFDR
         public string FacilityName
         {
             get => GetFacilityLocation(ValueSets.LocationTypes.Birth_Location)?.Name;
-            set
-            {
-                Location location = GetFacilityLocation(ValueSets.LocationTypes.Birth_Location) ?? CreateLocationBirth(ValueSets.LocationTypes.Birth_Location);
-                location.Name = value;
-            }
+            set => (GetFacilityLocation(ValueSets.LocationTypes.Birth_Location) ?? CreateLocationBirth(ValueSets.LocationTypes.Birth_Location)).Name = value;
         }
 
         /// <summary>Name of Facility mother moved from (if transfered)</summary>
@@ -5008,11 +5004,7 @@ namespace BFDR
         public string FacilityMotherTransferredFrom
         {
             get => GetFacilityLocation(ValueSets.LocationTypes.Transfer_From_Location)?.Name;
-            set
-            {
-                Location location = GetFacilityLocation(ValueSets.LocationTypes.Transfer_From_Location) ?? CreateLocationBirth(ValueSets.LocationTypes.Transfer_From_Location);
-                location.Name = value;
-            }
+            set => (GetFacilityLocation(ValueSets.LocationTypes.Transfer_From_Location) ?? CreateLocationBirth(ValueSets.LocationTypes.Transfer_From_Location)).Name = value;
         }
 
         /// <summary>Name of Facility Infant Transferred To (if transfered w/in 24 hours)</summary>
@@ -5028,11 +5020,7 @@ namespace BFDR
         public string FacilityInfantTransferredTo
         {
             get => GetFacilityLocation(ValueSets.LocationTypes.Transfer_To_Location)?.Name;
-            set
-            {
-                Location location = GetFacilityLocation(ValueSets.LocationTypes.Transfer_To_Location) ?? CreateLocationBirth(ValueSets.LocationTypes.Transfer_To_Location);
-                location.Name = value;
-            }
+            set => (GetFacilityLocation(ValueSets.LocationTypes.Transfer_To_Location) ?? CreateLocationBirth(ValueSets.LocationTypes.Transfer_To_Location)).Name = value;
         }
 
         private Location GetFacilityLocation(string code) {

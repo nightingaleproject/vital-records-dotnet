@@ -96,7 +96,7 @@
             <summary>Create Attendant/Practitioner.</summary>
         </member>
         <member name="M:BFDR.BirthRecord.CreateLocationBirth(System.String)">
-            <summary>Create Location Birth.</summary>
+            <summary>Create and set Birth Location.</summary>
         </member>
         <member name="P:BFDR.BirthRecord.CertificateNumber">
             <summary>Birth Certificate Number.</summary>
