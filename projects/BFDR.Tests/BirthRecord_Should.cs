@@ -1835,8 +1835,7 @@ namespace BFDR.Tests
       BirthRecord birthRecord3 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
       Assert.True(birthRecord3.SSNRequested);
     }
-  }
-}
+    
     [Fact]
     public void ParseCertificationDate()
     { 

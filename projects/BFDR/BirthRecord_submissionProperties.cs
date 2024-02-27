@@ -5965,13 +5965,13 @@ namespace BFDR
                     // do nothing
                     return;
                 }
-                if (!VR.Mappings.ConceptMapBirthAttendantTitlesVitalRecords.FHIRToIJE.ContainsKey(value))
+                if (!VR.Mappings.BirthAttendantTitles.FHIRToIJE.ContainsKey(value))
                 { //other
                     CertifierTitle = CodeableConceptToDict(new CodeableConcept(CodeSystems.NullFlavor_HL7_V3, "OTH", "Other", value));
                 }
                 else
                 { // normal path
-                    SetCodeValue("CertifierTitle", value, VR.ValueSets.BirthAttendantsTitles.Codes);
+                    SetCodeValue("CertifierTitle", value, VR.ValueSets.BirthAttendantTitles.Codes);
                 }
             }
         }
