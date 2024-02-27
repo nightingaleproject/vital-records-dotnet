@@ -232,9 +232,6 @@ namespace BFDR
                     case "inputraceandethnicityFather":
                         InputRaceAndEthnicityObsFather = (Observation)obs;
                         break;
-                    case "emergingissues":
-                        EmergingIssues = (Observation)obs;
-                        break;
                     default:
                         // skip
                         break;

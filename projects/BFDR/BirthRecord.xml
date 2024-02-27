@@ -107,9 +107,6 @@
         <member name="M:BFDR.BirthRecord.CreateBirthEncounter">
             <summary>Create Birth Encounter.</summary>
         </member>
-        <member name="F:BFDR.BirthRecord.EmergingIssues">
-            <summary>Emerging Issues.</summary>
-        </member>
         <member name="P:BFDR.BirthRecord.CertificateNumber">
             <summary>Birth Certificate Number.</summary>
             <value>a record identification string.</value>

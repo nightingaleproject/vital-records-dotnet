@@ -6393,22 +6393,14 @@ namespace BFDR
         /// <summary>Set an emerging issue value, creating an empty EmergingIssues Observation as needed.</summary>
         private void SetEmergingIssue(string identifier, string value)
         {
+            Observation EmergingIssues = GetObservation("emergingissues");
             if (String.IsNullOrEmpty(value) && EmergingIssues == null)
             {
                 return;
             }
             if (EmergingIssues == null)
             {
-                EmergingIssues = new Observation();
-                EmergingIssues.Id = Guid.NewGuid().ToString();
-                EmergingIssues.Meta = new Meta();
-                string[] tb_profile = { VR.IGURL.EmergingIssues };
-                EmergingIssues.Meta.Profile = tb_profile;
-                EmergingIssues.Status = ObservationStatus.Final;
-                EmergingIssues.Code = new CodeableConcept(CodeSystems.ObservationCode, "emergingissues", "NCHS-required Parameter Slots for Emerging Issues", null);
-                EmergingIssues.Subject = new ResourceReference("urn:uuid:" + Child.Id);
-                AddReferenceToComposition(EmergingIssues.Id, EMERGING_ISSUES_SECTION);
-                Bundle.AddResourceEntry(EmergingIssues, "urn:uuid:" + EmergingIssues.Id);
+                EmergingIssues = CreateObservationEntry("emergingissues", Child.Id, EMERGING_ISSUES_SECTION);
             }
             // Remove existing component (if it exists) and add an appropriate component.
             EmergingIssues.Component.RemoveAll(cmp => cmp.Code != null && cmp.Code.Coding != null && cmp.Code.Coding.Count() > 0 && cmp.Code.Coding.First().Code == identifier);
@@ -6419,8 +6411,9 @@ namespace BFDR
         }
 
         /// <summary>Get an emerging issue value.</summary>
-        private string GetEmergingIssue(string identifier)
+        private string GetEmergingIssue(string identifier)             
         {
+            Observation EmergingIssues = GetObservation("emergingissues");
             if (EmergingIssues == null)
             {
                 return null;
