@@ -1476,33 +1476,59 @@ namespace BFDR.Tests
     [Fact]
     public void SetAttendantAfterParse()
     {
-        BirthRecord sample1 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
         //name
-        Assert.Null(sample1.AttendantName);
-        sample1.AttendantName = "Janet Seito";
-        Assert.Equal("Janet Seito", sample1.AttendantName);
+        Assert.Equal("Avery Jones", FakeBirthRecord.AttendantName);
+        FakeBirthRecord.AttendantName = "Janet Seito";
+        Assert.Equal("Janet Seito", FakeBirthRecord.AttendantName);
         //NPI
-        Assert.Null(sample1.AttendantNPI);
-        sample1.AttendantNPI = "123456789011";
-        Assert.Equal("123456789011", sample1.AttendantNPI);
+        Assert.Equal("762310012345", FakeBirthRecord.AttendantNPI);
+        FakeBirthRecord.AttendantNPI = "762310012000";
+        Assert.Equal("762310012000", FakeBirthRecord.AttendantNPI);
         //title
-        Assert.Null(sample1.AttendantTitleHelper);
-        Assert.Null(sample1.AttendantOtherHelper);
+        Assert.Equal("76231001", FakeBirthRecord.AttendantTitle["code"]);
+        Assert.Equal(CodeSystems.SCT, FakeBirthRecord.AttendantTitle["system"]);
+        Assert.Equal("Osteopath (occupation)", FakeBirthRecord.AttendantTitle["display"]);
         Dictionary<string, string> AttendantTitle = new Dictionary<string, string>();
         AttendantTitle.Add("code", "112247003");
         AttendantTitle.Add("system", CodeSystems.SCT);
         AttendantTitle.Add("display", "Medical Doctor");
-        sample1.AttendantTitle = AttendantTitle;
-        Assert.Equal("112247003", sample1.AttendantTitle["code"]);
-        Assert.Equal(CodeSystems.SCT, sample1.AttendantTitle["system"]);
-        Assert.Equal("Medical Doctor", sample1.AttendantTitle["display"]);
+        FakeBirthRecord.AttendantTitle = AttendantTitle;
         //Other
-        sample1.AttendantOtherHelper = "Nurse";
-        Assert.Equal("OTH", sample1.AttendantTitle["code"]);
-        Assert.Equal(CodeSystems.NullFlavor_HL7_V3, sample1.AttendantTitle["system"]);
-        Assert.Equal("Other", sample1.AttendantTitle["display"]);
-        Assert.Equal("Nurse", sample1.AttendantTitle["text"]);
-        Assert.Equal("Nurse", sample1.AttendantOtherHelper);
+        FakeBirthRecord.AttendantOtherHelper = "Nurse";
+        Assert.Equal("OTH", FakeBirthRecord.AttendantTitle["code"]);
+        Assert.Equal(CodeSystems.NullFlavor_HL7_V3, FakeBirthRecord.AttendantTitle["system"]);
+        Assert.Equal("Other", FakeBirthRecord.AttendantTitle["display"]);
+        Assert.Equal("Nurse", FakeBirthRecord.AttendantTitle["text"]);
+        Assert.Equal("Nurse", FakeBirthRecord.AttendantOtherHelper);
+    }
+
+    [Fact]
+    public void SetCertifierAfterParse()
+    {
+        //name
+        Assert.Equal("Janet Seito", FakeBirthRecord.CertifierName);
+        FakeBirthRecord.CertifierName = "Janet Seto";
+        Assert.Equal("Janet Seto", FakeBirthRecord.CertifierName);
+        //NPI
+        Assert.Equal("223347044", FakeBirthRecord.CertifierNPI);
+        FakeBirthRecord.CertifierNPI = "762310012000";
+        Assert.Equal("762310012000", FakeBirthRecord.CertifierNPI);
+        //title
+        Assert.Equal("76231001", FakeBirthRecord.CertifierTitle["code"]);
+        Assert.Equal(CodeSystems.SCT, FakeBirthRecord.CertifierTitle["system"]);
+        Assert.Equal("Osteopath (occupation)", FakeBirthRecord.CertifierTitle["display"]);
+        Dictionary<string, string> CertifierTitle = new Dictionary<string, string>();
+        CertifierTitle.Add("code", "112247003");
+        CertifierTitle.Add("system", CodeSystems.SCT);
+        CertifierTitle.Add("display", "Medical Doctor");
+        FakeBirthRecord.CertifierTitle = CertifierTitle;
+        //Other
+        FakeBirthRecord.CertifierOtherHelper = "Nurse";
+        Assert.Equal("OTH", FakeBirthRecord.CertifierTitle["code"]);
+        Assert.Equal(CodeSystems.NullFlavor_HL7_V3, FakeBirthRecord.CertifierTitle["system"]);
+        Assert.Equal("Other", FakeBirthRecord.CertifierTitle["display"]);
+        Assert.Equal("Nurse", FakeBirthRecord.CertifierTitle["text"]);
+        Assert.Equal("Nurse", FakeBirthRecord.CertifierOtherHelper);
     }
 
     [Fact]
