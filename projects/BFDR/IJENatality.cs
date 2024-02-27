@@ -3791,8 +3791,8 @@ namespace BFDR
         [IJEField(253, 1233, 50, "Name of Facility of Birth", "HOSP", 1)]
         public string HOSP
         {
-            get => LeftJustified_Get("HOSP", "FacilityName");
-            set => LeftJustified_Set("HOSP", "FacilityName", value);
+            get => LeftJustified_Get("HOSP", "BirthFacilityName");
+            set => LeftJustified_Set("HOSP", "BirthFacilityName", value);
         }
 
         /// <summary>Mother's First Name</summary>

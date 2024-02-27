@@ -1621,14 +1621,14 @@
             <para>Console.WriteLine($"Jurisdictional Facility Identifier: {ExampleBirthRecord.FacilityJFI}");</para>
             </example>
         </member>
-        <member name="P:BFDR.BirthRecord.FacilityName">
+        <member name="P:BFDR.BirthRecord.BirthFacilityName">
             <summary>Name of Facility of Birth</summary>
-            <value>FacilityName.</value>
+            <value>BirthFacilityName.</value>
             <example>
             <para>// Setter:</para>
-            <para>ExampleBirthRecord.FacilityName = "South Hospital";</para>
+            <para>ExampleBirthRecord.BirthFacilityName = "South Hospital";</para>
             <para>// Getter:</para>
-            <para>Console.WriteLine($"Jurisdictional Facility Identifier: {ExampleBirthRecord.FacilityName}");</para>
+            <para>Console.WriteLine($"Jurisdictional Facility Identifier: {ExampleBirthRecord.BirthFacilityName}");</para>
             </example>
         </member>
         <member name="P:BFDR.BirthRecord.FacilityMotherTransferredFrom">

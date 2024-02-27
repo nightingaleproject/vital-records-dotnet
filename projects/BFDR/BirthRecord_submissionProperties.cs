@@ -4976,16 +4976,16 @@ namespace BFDR
         }
 
         /// <summary>Name of Facility of Birth</summary>
-        /// <value>FacilityName.</value>
+        /// <value>BirthFacilityName.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.FacilityName = "South Hospital";</para>
+        /// <para>ExampleBirthRecord.BirthFacilityName = "South Hospital";</para>
         /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Jurisdictional Facility Identifier: {ExampleBirthRecord.FacilityName}");</para>
+        /// <para>Console.WriteLine($"Jurisdictional Facility Identifier: {ExampleBirthRecord.BirthFacilityName}");</para>
         /// </example>
         [Property("Facility ID (JFI)", Property.Types.String, "Birth Location", "Facility ID (JFI), Jurisdictional Facility Identifier", true, IGURL.LocationBFDR, true, 34)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87300-0')", "")]
-        public string FacilityName
+        public string BirthFacilityName
         {
             get => GetFacilityLocation(ValueSets.LocationTypes.Birth_Location)?.Name;
             set => (GetFacilityLocation(ValueSets.LocationTypes.Birth_Location) ?? CreateLocationBirth(ValueSets.LocationTypes.Birth_Location)).Name = value;

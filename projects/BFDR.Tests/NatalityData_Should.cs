@@ -733,7 +733,7 @@ namespace BFDR.Tests
       Assert.Equal("Starr Hospital".PadRight(50), ije.HOSPTO);
       Assert.Equal("878787878787", br.FacilityNPI);
       Assert.Equal("6678", br.FacilityJFI);
-      Assert.Equal("Bryant Medical", br.FacilityName);
+      Assert.Equal("Bryant Medical", br.BirthFacilityName);
       Assert.Equal("Lennon Medical", br.FacilityMotherTransferredFrom);
       Assert.Equal("Starr Hospital", br.FacilityInfantTransferredTo);
     }
@@ -757,7 +757,7 @@ namespace BFDR.Tests
       Assert.Equal("Oswald Medical".PadRight(50), ije.HOSPTO);
       Assert.Equal("25789", br.FacilityNPI);
       Assert.Equal("1111", br.FacilityJFI);
-      Assert.Equal("Griffin Hospital", br.FacilityName);
+      Assert.Equal("Griffin Hospital", br.BirthFacilityName);
       Assert.Equal("Taylor Hospital", br.FacilityMotherTransferredFrom);
       Assert.Equal("Oswald Medical", br.FacilityInfantTransferredTo);
       ije.SFN = "55";
@@ -772,7 +772,7 @@ namespace BFDR.Tests
       Assert.Equal("Jones Hospital".PadRight(50), ije.HOSPTO);
       Assert.Equal("09870987", br.FacilityNPI);
       Assert.Equal("55", br.FacilityJFI);
-      Assert.Equal("Simpson Medical", br.FacilityName);
+      Assert.Equal("Simpson Medical", br.BirthFacilityName);
       Assert.Equal("Swanson Facility", br.FacilityMotherTransferredFrom);
       Assert.Equal("Jones Hospital", br.FacilityInfantTransferredTo);
     }
