@@ -31,8 +31,7 @@ mappings, and value set listings.
 
 ## Generate C# source code files containing value set listings and helper static variables
 
-* `generate_value_set_lookups_from_VRCL_IG.rb`
-* `generate_value_set_lookups_from_VRDR_IG.rb`
+* `generate_value_set_lookups.rb`
 
 ## Generate C# source code for handling race and ethnicity
 

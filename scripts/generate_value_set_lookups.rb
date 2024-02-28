@@ -94,21 +94,20 @@ raise "No Value Sets Found" unless value_set_files.size > 0
 
 # Map the file name to a class name
 valuesets = {}
-# The set of prefixes we can remove
+# The set of prefixes and postfixes we can remove
 prefixes = ['ValueSet-ValueSet-', 'ValueSet-vrdr-', 'ValueSet-valueset-', 'ValueSet-']
+postfixes = ['-vs.json', '-vr.json', '.json']
 value_set_files.each do |filename|
   shortname = File.basename(filename)
   prefixes.each { |prefix| shortname.gsub!(prefix, '') }
-  shortname.gsub!('-vs.json', '')
-  shortname.gsub!('-vr.json', '')
-  shortname.gsub!('.json', '')
+  postfixes.each { |postfix| shortname.gsub!(postfix, '') }
   classname = shortname.split('-').map(&:capitalize).join('')
   valuesets[classname] = JSON.parse(File.read(filename))
 end
 
 # There is a special case where the SexAssignedAtBirth value set refers to VSAC, which we can't easily
 # process, so we populate it here
-# TODO: Reconsider this work around if the SexAssignedAtBirth value set is updated
+# TODO: Reconsider this workaround if the SexAssignedAtBirth value set is updated
 if valuesets['SexAssignedAtBirth']
   if valuesets['SexAssignedAtBirth']['compose']['include'].any? { |include| include&.[]('concept')&.any? { |concept| concept['code'] == 'F' } }
     raise "Workaround for SexAssignedAtBirth value set no longer needed"
@@ -122,6 +121,28 @@ if valuesets['SexAssignedAtBirth']
     'concept' => [ { 'code' => 'UNK', 'display' => 'unknown' } ]
   }
 end
+
+# The PregnancyStatus value set doesn't have a display value for N/A, so we add it here
+# TODO: Remove this workaround if PregnancyStatus is updated
+if valuesets['PregnancyStatus']
+  if valuesets.dig('PregnancyStatus', 'compose', 'include', 1, 'concept', 0, 'code') != 'NA'
+    raise 'Workaround for PregnancyStatus is not longer finding the correct coding to update'
+  end
+  if valuesets.dig('PregnancyStatus', 'compose', 'include', 1, 'concept', 0, 'display')
+    raise 'Workaround for PregnancyStatus value set no longer needed'
+  end
+  valuesets.dig('PregnancyStatus', 'compose', 'include', 1, 'concept', 0)['display'] = 'not applicable'
+end
+
+# Some value set definitions only have null flavor values, leave those out
+valuesets.reject! do |classname, data|
+  data.dig('compose', 'include').all? do |subset|
+    subset['system'].nil? || subset['concept'].nil? || subset['system'].match(/NullFlavor/)
+  end
+end
+
+# The JurisdictionsProvinces value set is obsolete, so leave it out
+valuesets.delete('JurisdictionsProvinces')
 
 # These are special cases that we want to shorten the string produced by the general approach, for practical reasons
 special_cases =
@@ -170,7 +191,7 @@ namespace <%= namespace %>
 <% next unless group['concept'] -%>
 <% system = codesystems[group['system']] || group['system'] -%>
 <% group['concept'].each do |concept| -%>
-<% next unless concept['display'] -%>
+<% raise 'Concept ' + concept.inspect + ' in ' + classname + ' found without a display value' unless concept['display'] -%>
 <% display = concept['display'].gsub("'", '').split(/[^a-z0-9]+/i).map(&:capitalize).join('_') -%>
 <% display = "_" + display if display.match(/^\\d/) -%>
 <% display = special_cases[display] if special_cases[display] -%>

@@ -54,22 +54,6 @@ namespace VRDR
             public static string Unknown = "unknown";
         };
 
-        /// <summary> BirthplaceCountry </summary>
-        public static class BirthplaceCountry {
-            /// <summary> Codes </summary>
-            public static string[,] Codes = {
-            };
-
-        };
-
-        /// <summary> CanadaProvinces </summary>
-        public static class CanadaProvinces {
-            /// <summary> Codes </summary>
-            public static string[,] Codes = {
-            };
-
-        };
-
         /// <summary> CertifierTypes </summary>
         public static class CertifierTypes {
             /// <summary> Codes </summary>
@@ -482,14 +466,6 @@ namespace VRDR
             public static string First_Pass_Reject = "999";
         };
 
-        /// <summary> Icd10CausesOfDeath </summary>
-        public static class Icd10CausesOfDeath {
-            /// <summary> Codes </summary>
-            public static string[,] Codes = {
-            };
-
-        };
-
         /// <summary> IntentionalReject </summary>
         public static class IntentionalReject {
             /// <summary> Codes </summary>
@@ -521,18 +497,6 @@ namespace VRDR
             /// <summary> Codes </summary>
             public static string[,] Codes = {
                 { "YC", "New York City", VR.CodeSystems.Jurisdictions },
-            };
-
-            /// <summary> New_York_City </summary>
-            public static string New_York_City = "YC";
-        };
-
-        /// <summary> JurisdictionsProvinces </summary>
-        public static class JurisdictionsProvinces {
-            /// <summary> Codes </summary>
-            public static string[,] Codes = {
-                { "YC", "New York City", VR.CodeSystems.Jurisdictions },
-                { "UNK", "", VR.CodeSystems.NullFlavor_HL7_V3 },
             };
 
             /// <summary> New_York_City </summary>
@@ -700,7 +664,7 @@ namespace VRDR
                 { "4", "Not pregnant, but pregnant 43 days to 1 year before death", VR.CodeSystems.PregnancyStatus },
                 { "7", "Not reported on certificate", VR.CodeSystems.PregnancyStatus },
                 { "9", "Unknown if pregnant within the past year", VR.CodeSystems.PregnancyStatus },
-                { "NA", "", VR.CodeSystems.NullFlavor_HL7_V3 },
+                { "NA", "not applicable", VR.CodeSystems.NullFlavor_HL7_V3 },
             };
 
             /// <summary> Not_Pregnant_Within_Past_Year </summary>
@@ -715,6 +679,8 @@ namespace VRDR
             public static string Not_Reported_On_Certificate = "7";
             /// <summary> Unknown_If_Pregnant_Within_The_Past_Year </summary>
             public static string Unknown_If_Pregnant_Within_The_Past_Year = "9";
+            /// <summary> Not_Applicable </summary>
+            public static string Not_Applicable = "NA";
         };
 
         /// <summary> RaceCode </summary>
@@ -4397,14 +4363,6 @@ namespace VRDR
             public static string Updated_Record_Not_For_Nchs = "updated_notforNCHS";
         };
 
-        /// <summary> ResidenceCountry </summary>
-        public static class ResidenceCountry {
-            /// <summary> Codes </summary>
-            public static string[,] Codes = {
-            };
-
-        };
-
         /// <summary> SpouseAlive </summary>
         public static class SpouseAlive {
             /// <summary> Codes </summary>
@@ -4423,15 +4381,6 @@ namespace VRDR
             public static string Unknown = "UNK";
             /// <summary> Not_Applicable </summary>
             public static string Not_Applicable = "NA";
-        };
-
-        /// <summary> StatesTerritoriesProvinces </summary>
-        public static class StatesTerritoriesProvinces {
-            /// <summary> Codes </summary>
-            public static string[,] Codes = {
-                { "UNK", "", VR.CodeSystems.NullFlavor_HL7_V3 },
-            };
-
         };
 
         /// <summary> SystemReject </summary>
@@ -4527,14 +4476,6 @@ namespace VRDR
             public static string Years = "a";
             /// <summary> Unknown </summary>
             public static string Unknown = "UNK";
-        };
-
-        /// <summary> UsstatesTerritories </summary>
-        public static class UsstatesTerritories {
-            /// <summary> Codes </summary>
-            public static string[,] Codes = {
-            };
-
         };
 
         /// <summary> YesNoUnknownNotApplicable </summary>
