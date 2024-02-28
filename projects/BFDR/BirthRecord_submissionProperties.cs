@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Hl7.Fhir.Model;
 using VR;
 using Hl7.Fhir.Support;
@@ -5738,29 +5739,20 @@ namespace BFDR
 
         private int? GetIntegerObservationValue(string code)
         {
-            var entry = Bundle.Entry.Where(e => e.Resource is Observation obs && CodeableConceptToDict(obs.Code)["code"] == code).FirstOrDefault();
-            if (entry != null)
+            Observation observation = GetObservation(code);
+            if (observation != null)
             {
-                Observation observation = (Observation)entry.Resource;
                 return (int?)(observation?.Value as Hl7.Fhir.Model.Integer)?.Value;
             }
             return null;
         }
 
-        private Observation SetIntegerObservationValue(string code, int? value, string section, string subjectId)
+        private Observation SetIntegerObservationValue(string code, string codeDesc, int? value, string section, string profileURL, string subjectId, [CallerMemberName] string propertyName = null)
         {
-            var entry = Bundle.Entry.Where(e => e.Resource is Observation o && CodeableConceptToDict(o.Code)["code"] == code).FirstOrDefault();
-            if (!(entry?.Resource is Observation obs))
+            Observation obs = GetOrCreateObservation(code, CodeSystems.LOINC, codeDesc, profileURL, section, null, propertyName);
+            if (obs.Category.FirstOrDefault(cat => cat.Coding.Any(catCode => catCode.Code == "vital-signs")) == null)
             {
-                obs = new Observation
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    Code = new CodeableConcept(VR.CodeSystems.LOINC, code),
-                    Subject = new ResourceReference($"urn:uuid:{subjectId}")
-                };
                 obs.Category.Add(new CodeableConcept(CodeSystems.ObservationCategory, "vital-signs"));
-                AddReferenceToComposition(obs.Id, section);
-                Bundle.AddResourceEntry(obs, "urn:uuid:" + obs.Id);
             }
             // Create an empty Integer if needed
             if (obs.Value == null || obs.Value as Integer == null)
@@ -5785,10 +5777,11 @@ namespace BFDR
         /// </example>
         [Property("ApgarScoreFiveMinutes", Property.Types.Int32, "Newborn Information", "APGAR score at 5 minutes.", true, BFDR.IGURL.ObservationApgarScore, true, 205)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='9274-2')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public int? ApgarScoreFiveMinutes
         {
             get => GetIntegerObservationValue("9274-2");
-            set => SetIntegerObservationValue("9274-2", value, NEWBORN_INFORMATION_SECTION, Child.Id);
+            set => SetIntegerObservationValue("9274-2", "5 minute Apgar Score", value, NEWBORN_INFORMATION_SECTION, BFDR.ProfileURL.ObservationApgarScore, Child.Id);
         }
 
         /// <summary>APGAR score at 10 mins.</summary>
@@ -5801,10 +5794,11 @@ namespace BFDR
         /// </example>
         [Property("ApgarScoreTenMinutes", Property.Types.Int32, "Newborn Information", "APGAR score at 10 minutes.", true, BFDR.IGURL.ObservationApgarScore, true, 206)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='9271-8')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public int? ApgarScoreTenMinutes
         {
             get => GetIntegerObservationValue("9271-8");
-            set => SetIntegerObservationValue("9271-8", value, NEWBORN_INFORMATION_SECTION, Child.Id);
+            set => SetIntegerObservationValue("9271-8", "10 minute Apgar Score", value, NEWBORN_INFORMATION_SECTION, BFDR.ProfileURL.ObservationApgarScore, Child.Id);
         }
 
     }

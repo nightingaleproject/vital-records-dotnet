@@ -1867,6 +1867,8 @@
             <para>ExampleBirthRecord.SSNRequested = true;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"SSN Requested: {ExampleBirthRecord.SSNRequested}");</para>
+            </example>
+        </member>
         <member name="P:BFDR.BirthRecord.ApgarScoreFiveMinutes">
             <summary>APGAR score at 5 mins.</summary>
             <value>the APGAR score at 5 minutes, or -1 if explicitly unknown, or null if never specified</value>
