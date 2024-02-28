@@ -5455,9 +5455,8 @@
         <member name="M:VR.VitalRecord.GetObservation(System.String)">
             <summary>Helper to support vital record property getter helper methods for values stored in Observations.</summary>
             <param name="code">the code to identify the type of Observation</param>
-            <param name="extensionURL">if present, specifies that the value should be get from an extension with the provided URL instead</param>
         </member>
-        <member name="M:VR.VitalRecord.CreateObservation(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:VR.VitalRecord.GetOrCreateObservation(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
             <summary>Helper to support vital record property setter helper methods for values stored in Observations.</summary>
             <param name="value">the coded value to set as the value of the property</param>
             <param name="code">the code to specify the type of Observation</param>
@@ -5465,6 +5464,7 @@
             <param name="text">the text for the code specifying the type of Observation</param>
             <param name="profileURL">the profile URL to include in the meta of the Observation</param>
             <param name="section">the section of the composition the Observation should be added to</param>
+            <param name="focusId">the reference id of the focus of the Observation</param>
             <param name="extensionURL">if present, specifies that the value should be set on an extension with the provided URL instead</param>
             <param name="propertyName">the name of the C# property, used to determine the subject ID</param>
         </member>
@@ -5482,6 +5482,7 @@
             <param name="profileURL">the profile URL to include in the meta of the Observation</param>
             <param name="section">the section of the composition the Observation should be added to</param>
             <param name="extensionURL">if present, specifies that the value should be set on an extension with the provided URL instead</param>
+            <param name="focusId">the reference id of the focus of the Observation</param>
             <param name="propertyName">the name of the C# property, used to determine the subject ID</param>
         </member>
         <member name="M:VR.VitalRecord.GetObservationValueHelper(System.String)">

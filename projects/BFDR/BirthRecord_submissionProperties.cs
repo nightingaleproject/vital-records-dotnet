@@ -4930,16 +4930,8 @@ namespace BFDR
             }
             set
             {
-                Observation obs = GetObservation("8665-2");
-                if (obs != null)
-                {
-                    obs.Value = ConvertToDate(value);
-                }
-                else
-                {
-                    obs = CreateObservation("8665-2", CodeSystems.LOINC, "Mother Prenatal", BFDR.ProfileURL.ObservationLastMenstrualPeriod, MOTHER_PRENATAL_SECTION);
-                    obs.Value = ConvertToDate(value);
-                }
+                Observation obs = GetOrCreateObservation("8665-2", CodeSystems.LOINC, "Mother Prenatal", BFDR.ProfileURL.ObservationLastMenstrualPeriod, MOTHER_PRENATAL_SECTION);
+                obs.Value = ConvertToDate(value);
             }
         }
 
@@ -4962,7 +4954,7 @@ namespace BFDR
             }
             set
             {
-                Observation obs = GetObservation("8665-2") ?? CreateObservation("8665-2", CodeSystems.LOINC, "Mother Prenatal", BFDR.ProfileURL.ObservationLastMenstrualPeriod, MOTHER_PRENATAL_SECTION);
+                Observation obs = GetOrCreateObservation("8665-2", CodeSystems.LOINC, "Mother Prenatal", BFDR.ProfileURL.ObservationLastMenstrualPeriod, MOTHER_PRENATAL_SECTION);
                 if (obs.Value as Hl7.Fhir.Model.Date == null)
                 {
                     obs.Value = new Date();
@@ -4995,7 +4987,7 @@ namespace BFDR
             }
             set
             {
-                Observation obs = GetObservation("8665-2") ?? CreateObservation("8665-2", CodeSystems.LOINC, "Mother Prenatal", BFDR.ProfileURL.ObservationLastMenstrualPeriod, MOTHER_PRENATAL_SECTION);
+                Observation obs = GetOrCreateObservation("8665-2", CodeSystems.LOINC, "Mother Prenatal", BFDR.ProfileURL.ObservationLastMenstrualPeriod, MOTHER_PRENATAL_SECTION);
                 if (obs.Value as Hl7.Fhir.Model.Date == null)
                 {
                     obs.Value = new Date();
@@ -5028,7 +5020,7 @@ namespace BFDR
             }
             set
             {
-                Observation obs = GetObservation("8665-2") ?? CreateObservation("8665-2", CodeSystems.LOINC, "Mother Prenatal", BFDR.ProfileURL.ObservationLastMenstrualPeriod, MOTHER_PRENATAL_SECTION);
+                Observation obs = GetOrCreateObservation("8665-2", CodeSystems.LOINC, "Mother Prenatal", BFDR.ProfileURL.ObservationLastMenstrualPeriod, MOTHER_PRENATAL_SECTION);
 
                 if (obs.Value as Hl7.Fhir.Model.Date == null)
                 {
@@ -5066,17 +5058,8 @@ namespace BFDR
             }
             set
             {
-                Observation obs = GetObservation("69044-6");
-                if (obs != null)
-                {
-                    obs.Value = ConvertToDate(value);
-                }
-                else
-                {
-                    obs = CreateObservation("69044-6", CodeSystems.LOINC, "Mother Prenatal", BFDR.ProfileURL.ObservationDateOfFirstPrenatalCareVisit, MOTHER_PRENATAL_SECTION, Child.Id);
-                                               
-                    obs.Value = ConvertToDate(value);
-                }
+                Observation obs = GetOrCreateObservation("69044-6", CodeSystems.LOINC, "Mother Prenatal", BFDR.ProfileURL.ObservationDateOfFirstPrenatalCareVisit, MOTHER_PRENATAL_SECTION, Child.Id);
+                obs.Value = ConvertToDate(value);
             }
         }
         
@@ -5143,7 +5126,7 @@ namespace BFDR
             }
             set
             {
-                Observation obs = GetObservation("69044-6") ?? CreateObservation("69044-6", CodeSystems.LOINC, "Mother Prenatal", BFDR.ProfileURL.ObservationDateOfFirstPrenatalCareVisit, MOTHER_PRENATAL_SECTION, Child.Id);
+                Observation obs = GetOrCreateObservation("69044-6", CodeSystems.LOINC, "Mother Prenatal", BFDR.ProfileURL.ObservationDateOfFirstPrenatalCareVisit, MOTHER_PRENATAL_SECTION, Child.Id);
                 if (obs.Value as Hl7.Fhir.Model.Date == null)
                 {
                     obs.Value = new Date();
@@ -5176,7 +5159,7 @@ namespace BFDR
             }
             set
             {
-                Observation obs = GetObservation("69044-6") ?? CreateObservation("69044-6", CodeSystems.LOINC, "Mother Prenatal", BFDR.ProfileURL.ObservationDateOfFirstPrenatalCareVisit, MOTHER_PRENATAL_SECTION, Child.Id);
+                Observation obs = GetOrCreateObservation("69044-6", CodeSystems.LOINC, "Mother Prenatal", BFDR.ProfileURL.ObservationDateOfFirstPrenatalCareVisit, MOTHER_PRENATAL_SECTION, Child.Id);
                 if (obs.Value as Hl7.Fhir.Model.Date == null)
                 {
                     obs.Value = new Date();
@@ -5209,7 +5192,7 @@ namespace BFDR
             }
             set
             {
-                Observation obs = GetObservation("69044-6") ?? CreateObservation("69044-6", CodeSystems.LOINC, "Mother Prenatal", BFDR.IGURL.ObservationDateOfFirstPrenatalCareVisit, MOTHER_PRENATAL_SECTION, Child.Id);
+                Observation obs = GetOrCreateObservation("69044-6", CodeSystems.LOINC, "Mother Prenatal", BFDR.IGURL.ObservationDateOfFirstPrenatalCareVisit, MOTHER_PRENATAL_SECTION, Child.Id);
                 if (obs.Value as Hl7.Fhir.Model.Date == null)
                 {
                     obs.Value = new Date();
@@ -5604,7 +5587,7 @@ namespace BFDR
                 {
                     return;
                 }
-                Observation obs = CreateObservation("73757-7", CodeSystems.LOINC, "Infant living", BFDR.ProfileURL.ObservationInfantLiving, NEWBORN_INFORMATION_SECTION);
+                Observation obs = GetOrCreateObservation("73757-7", CodeSystems.LOINC, "Infant living", BFDR.ProfileURL.ObservationInfantLiving, NEWBORN_INFORMATION_SECTION);
                 obs.Value = new FhirBoolean(value);
             }
         }
@@ -5715,7 +5698,7 @@ namespace BFDR
                 {
                     return;
                 }
-                Observation obs = CreateObservation("73773-4", CodeSystems.LOINC, "Number live born", BFDR.ProfileURL.ObservationNumberLiveBirthsThisDelivery, MOTHER_INFORMATION_SECTION);
+                Observation obs = GetOrCreateObservation("73773-4", CodeSystems.LOINC, "Number live born", BFDR.ProfileURL.ObservationNumberLiveBirthsThisDelivery, MOTHER_INFORMATION_SECTION);
                 obs.Value = new Hl7.Fhir.Model.Integer(value);
             }
         }
@@ -5748,7 +5731,7 @@ namespace BFDR
                 {
                     return;
                 }
-                Observation obs = CreateObservation("87295-2", CodeSystems.LOINC, "SSN requested", BFDR.ProfileURL.ObservationSSNRequestedForChild, NEWBORN_INFORMATION_SECTION);
+                Observation obs = GetOrCreateObservation("87295-2", CodeSystems.LOINC, "SSN requested", BFDR.ProfileURL.ObservationSSNRequestedForChild, NEWBORN_INFORMATION_SECTION);
                 obs.Value = new FhirBoolean(value);
             }
         }

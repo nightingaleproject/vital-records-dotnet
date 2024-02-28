@@ -97,7 +97,6 @@ namespace VR
 
         /// <summary>Helper to support vital record property getter helper methods for values stored in Observations.</summary>
         /// <param name="code">the code to identify the type of Observation</param>
-        /// <param name="extensionURL">if present, specifies that the value should be get from an extension with the provided URL instead</param>
         protected Observation GetObservation(string code)
         {
             var entry = Bundle.Entry.Where(e => e.Resource is Observation obs && CodeableConceptToDict(obs.Code)["code"] == code).FirstOrDefault();
@@ -116,9 +115,10 @@ namespace VR
         /// <param name="text">the text for the code specifying the type of Observation</param>
         /// <param name="profileURL">the profile URL to include in the meta of the Observation</param>
         /// <param name="section">the section of the composition the Observation should be added to</param>
+        /// <param name="focusId">the reference id of the focus of the Observation</param>
         /// <param name="extensionURL">if present, specifies that the value should be set on an extension with the provided URL instead</param>
         /// <param name="propertyName">the name of the C# property, used to determine the subject ID</param>
-        protected Observation CreateObservation(string code, string codeSystem, string text, string profileURL, string section, string focusId = null, [CallerMemberName] string propertyName = null)
+        protected Observation GetOrCreateObservation(string code, string codeSystem, string text, string profileURL, string section, string focusId = null, [CallerMemberName] string propertyName = null)
         {
             var entry = Bundle.Entry.Where(e => e.Resource is Observation obs && CodeableConceptToDict(obs.Code)["code"] == code).FirstOrDefault();
             Observation observation;
@@ -180,10 +180,11 @@ namespace VR
         /// <param name="profileURL">the profile URL to include in the meta of the Observation</param>
         /// <param name="section">the section of the composition the Observation should be added to</param>
         /// <param name="extensionURL">if present, specifies that the value should be set on an extension with the provided URL instead</param>
+        /// <param name="focusId">the reference id of the focus of the Observation</param>
         /// <param name="propertyName">the name of the C# property, used to determine the subject ID</param>
         protected void SetObservationValue(Dictionary<string, string> value, string code, string codeSystem, string text, string profileURL, string section, string extensionURL = null, string focusId = null, [CallerMemberName] string propertyName = null)
         {
-            Observation observation = CreateObservation(code, codeSystem, text, profileURL, section, focusId, propertyName);
+            Observation observation = GetOrCreateObservation(code, codeSystem, text, profileURL, section, focusId, propertyName);
 
             // Set the value or the extension, depending on what's desired
             if (extensionURL != null)
