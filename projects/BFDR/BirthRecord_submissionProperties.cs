@@ -6393,15 +6393,8 @@ namespace BFDR
         /// <summary>Set an emerging issue value, creating an empty EmergingIssues Observation as needed.</summary>
         private void SetEmergingIssue(string identifier, string value)
         {
-            Observation EmergingIssues = GetObservation("emergingissues");
-            if (String.IsNullOrEmpty(value) && EmergingIssues == null)
-            {
-                return;
-            }
-            if (EmergingIssues == null)
-            {
-                EmergingIssues = CreateObservationEntry("emergingissues", Child.Id, EMERGING_ISSUES_SECTION);
-            }
+            Observation EmergingIssues = CreateObservationEntry(identifier, Child.Id, EMERGING_ISSUES_SECTION);
+
             // Remove existing component (if it exists) and add an appropriate component.
             EmergingIssues.Component.RemoveAll(cmp => cmp.Code != null && cmp.Code.Coding != null && cmp.Code.Coding.Count() > 0 && cmp.Code.Coding.First().Code == identifier);
             Observation.ComponentComponent component = new Observation.ComponentComponent();
@@ -6413,7 +6406,7 @@ namespace BFDR
         /// <summary>Get an emerging issue value.</summary>
         private string GetEmergingIssue(string identifier)             
         {
-            Observation EmergingIssues = GetObservation("emergingissues");
+            Observation EmergingIssues = GetObservation(identifier);
             if (EmergingIssues == null)
             {
                 return null;
