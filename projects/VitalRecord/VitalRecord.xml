@@ -924,12 +924,6 @@
         <member name="F:VR.ValueSets.BirthAttendantTitles.Unknown">
             <summary> Unknown </summary>
         </member>
-        <member name="T:VR.ValueSets.BirthplaceCountry">
-            <summary> BirthplaceCountry </summary>
-        </member>
-        <member name="F:VR.ValueSets.BirthplaceCountry.Codes">
-            <summary> Codes </summary>
-        </member>
         <member name="T:VR.ValueSets.CodedRaceAndEthnicityPerson">
             <summary> CodedRaceAndEthnicityPerson </summary>
         </member>
@@ -4998,12 +4992,6 @@
         <member name="F:VR.ValueSets.RaceRecode40.Unknown_And_Other_Race">
             <summary> Unknown_And_Other_Race </summary>
         </member>
-        <member name="T:VR.ValueSets.ResidenceCountry">
-            <summary> ResidenceCountry </summary>
-        </member>
-        <member name="F:VR.ValueSets.ResidenceCountry.Codes">
-            <summary> Codes </summary>
-        </member>
         <member name="T:VR.ValueSets.Role">
             <summary> Role </summary>
         </member>
@@ -5031,12 +5019,6 @@
         <member name="F:VR.ValueSets.SexAssignedAtBirth.Unknown">
             <summary> Unknown </summary>
         </member>
-        <member name="T:VR.ValueSets.StatesTerritoriesProvinces">
-            <summary> StatesTerritoriesProvinces </summary>
-        </member>
-        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Codes">
-            <summary> Codes </summary>
-        </member>
         <member name="T:VR.ValueSets.UnitsOfAge">
             <summary> UnitsOfAge </summary>
         </member>
@@ -5060,12 +5042,6 @@
         </member>
         <member name="F:VR.ValueSets.UnitsOfAge.Unknown">
             <summary> Unknown </summary>
-        </member>
-        <member name="T:VR.ValueSets.UsstatesTerritories">
-            <summary> UsstatesTerritories </summary>
-        </member>
-        <member name="F:VR.ValueSets.UsstatesTerritories.Codes">
-            <summary> Codes </summary>
         </member>
         <member name="T:VR.ValueSets.Usstates">
             <summary> Usstates </summary>
