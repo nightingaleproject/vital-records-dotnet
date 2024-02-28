@@ -109,14 +109,12 @@ namespace VR
         }
 
         /// <summary>Helper to support vital record property setter helper methods for values stored in Observations.</summary>
-        /// <param name="value">the coded value to set as the value of the property</param>
         /// <param name="code">the code to specify the type of Observation</param>
         /// <param name="codeSystem">the code system of the code specifying the type of Observation</param>
         /// <param name="text">the text for the code specifying the type of Observation</param>
         /// <param name="profileURL">the profile URL to include in the meta of the Observation</param>
         /// <param name="section">the section of the composition the Observation should be added to</param>
         /// <param name="focusId">the reference id of the focus of the Observation</param>
-        /// <param name="extensionURL">if present, specifies that the value should be set on an extension with the provided URL instead</param>
         /// <param name="propertyName">the name of the C# property, used to determine the subject ID</param>
         protected Observation GetOrCreateObservation(string code, string codeSystem, string text, string profileURL, string section, string focusId = null, [CallerMemberName] string propertyName = null)
         {
