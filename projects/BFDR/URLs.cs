@@ -125,6 +125,9 @@ namespace BFDR
         /// <summary>URL for ObservationFetalPresentation</summary>
         public const string ObservationFetalPresentation = "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-fetal-presentation";
 
+        /// <summary>URL for ObservationFetalRemainsDispositionMethod</summary>
+        public const string ObservationFetalRemainsDispositionMethod = "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-fetal-remains-disposition-method";
+
         /// <summary>URL for ObservationGestationalAgeAtDelivery</summary>
         public const string ObservationGestationalAgeAtDelivery = "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-gestational-age-at-delivery";
 
@@ -145,9 +148,6 @@ namespace BFDR
 
         /// <summary>URL for ObservationLastMenstrualPeriod</summary>
         public const string ObservationLastMenstrualPeriod = "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-last-menstrual-period";
-
-        /// <summary>URL for ObservationMethodOfDisposition</summary>
-        public const string ObservationMethodOfDisposition = "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-method-of-disposition";
 
         /// <summary>URL for ObservationMotherDeliveryWeight</summary>
         public const string ObservationMotherDeliveryWeight = "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-mother-delivery-weight";
@@ -282,6 +282,18 @@ namespace BFDR
 
         /// <summary>URL for LocationBFDR</summary>
         public const string LocationBFDR = "http://hl7.org/fhir/us/bfdr/StructureDefinition/Location-bfdr";
+
+        /// <summary>URL for PractitionerBirthAttendant</summary>
+        public const string PractitionerBirthAttendant = "http://hl7.org/fhir/us/bfdr/StructureDefinition/Practitioner-birth-attendant";
+
+        /// <summary>URL for PractitionerBirthCertifier</summary>
+        public const string PractitionerBirthCertifier = "http://hl7.org/fhir/us/bfdr/StructureDefinition/Practitioner-birth-certifier";
+
+        /// <summary>URL for PractitionerRoleBirthAttendant</summary>
+        public const string PractitionerRoleBirthAttendant = "http://hl7.org/fhir/us/bfdr/StructureDefinition/practitioner-role-birth-attendant";
+
+        /// <summary>URL for PractitionerRoleBirthCertifier</summary>
+        public const string PractitionerRoleBirthCertifier = "http://hl7.org/fhir/us/bfdr/StructureDefinition/practitioner-role-birth-certifier";
 
         /// <summary>URL for BirthSex</summary>
         public const string BirthSex = "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex";
@@ -422,6 +434,9 @@ namespace BFDR
         /// <summary>URL for ObservationFetalPresentation</summary>
         public const string ObservationFetalPresentation = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-fetal-presentation.html";
 
+        /// <summary>URL for ObservationFetalRemainsDispositionMethod</summary>
+        public const string ObservationFetalRemainsDispositionMethod = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-fetal-remains-disposition-method.html";
+
         /// <summary>URL for ObservationGestationalAgeAtDelivery</summary>
         public const string ObservationGestationalAgeAtDelivery = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-gestational-age-at-delivery.html";
 
@@ -442,9 +457,6 @@ namespace BFDR
 
         /// <summary>URL for ObservationLastMenstrualPeriod</summary>
         public const string ObservationLastMenstrualPeriod = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-last-menstrual-period.html";
-
-        /// <summary>URL for ObservationMethodOfDisposition</summary>
-        public const string ObservationMethodOfDisposition = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-method-of-disposition.html";
 
         /// <summary>URL for ObservationMotherDeliveryWeight</summary>
         public const string ObservationMotherDeliveryWeight = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-mother-delivery-weight.html";
@@ -527,6 +539,12 @@ namespace BFDR
         /// <summary>URL for PatientDecedentFetus</summary>
         public const string PatientDecedentFetus = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Patient-decedent-fetus.html";
 
+        /// <summary>URL for PractitionerBirthAttendant</summary>
+        public const string PractitionerBirthAttendant = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Practitioner-birth-attendant.html";
+
+        /// <summary>URL for PractitionerBirthCertifier</summary>
+        public const string PractitionerBirthCertifier = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Practitioner-birth-certifier.html";
+
         /// <summary>URL for ProcedureAntibioticSuspectedNeonatalSepsis</summary>
         public const string ProcedureAntibioticSuspectedNeonatalSepsis = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Procedure-antibiotic-suspected-neonatal-sepsis.html";
 
@@ -568,6 +586,12 @@ namespace BFDR
 
         /// <summary>URL for ProcedureUnplannedHysterectomy</summary>
         public const string ProcedureUnplannedHysterectomy = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Procedure-unplanned-hysterectomy.html";
+
+        /// <summary>URL for PractitionerRoleBirthAttendant</summary>
+        public const string PractitionerRoleBirthAttendant = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-practitioner-role-birth-attendant.html";
+
+        /// <summary>URL for PractitionerRoleBirthCertifier</summary>
+        public const string PractitionerRoleBirthCertifier = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-practitioner-role-birth-certifier.html";
 
     }
 

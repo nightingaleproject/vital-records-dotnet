@@ -3183,6 +3183,9 @@
         <member name="F:BFDR.ProfileURL.ObservationFetalPresentation">
             <summary>URL for ObservationFetalPresentation</summary>
         </member>
+        <member name="F:BFDR.ProfileURL.ObservationFetalRemainsDispositionMethod">
+            <summary>URL for ObservationFetalRemainsDispositionMethod</summary>
+        </member>
         <member name="F:BFDR.ProfileURL.ObservationGestationalAgeAtDelivery">
             <summary>URL for ObservationGestationalAgeAtDelivery</summary>
         </member>
@@ -3203,9 +3206,6 @@
         </member>
         <member name="F:BFDR.ProfileURL.ObservationLastMenstrualPeriod">
             <summary>URL for ObservationLastMenstrualPeriod</summary>
-        </member>
-        <member name="F:BFDR.ProfileURL.ObservationMethodOfDisposition">
-            <summary>URL for ObservationMethodOfDisposition</summary>
         </member>
         <member name="F:BFDR.ProfileURL.ObservationMotherDeliveryWeight">
             <summary>URL for ObservationMotherDeliveryWeight</summary>
@@ -3338,6 +3338,18 @@
         </member>
         <member name="F:BFDR.ExtensionURL.LocationBFDR">
             <summary>URL for LocationBFDR</summary>
+        </member>
+        <member name="F:BFDR.ExtensionURL.PractitionerBirthAttendant">
+            <summary>URL for PractitionerBirthAttendant</summary>
+        </member>
+        <member name="F:BFDR.ExtensionURL.PractitionerBirthCertifier">
+            <summary>URL for PractitionerBirthCertifier</summary>
+        </member>
+        <member name="F:BFDR.ExtensionURL.PractitionerRoleBirthAttendant">
+            <summary>URL for PractitionerRoleBirthAttendant</summary>
+        </member>
+        <member name="F:BFDR.ExtensionURL.PractitionerRoleBirthCertifier">
+            <summary>URL for PractitionerRoleBirthCertifier</summary>
         </member>
         <member name="F:BFDR.ExtensionURL.BirthSex">
             <summary>URL for BirthSex</summary>
@@ -3477,6 +3489,9 @@
         <member name="F:BFDR.IGURL.ObservationFetalPresentation">
             <summary>URL for ObservationFetalPresentation</summary>
         </member>
+        <member name="F:BFDR.IGURL.ObservationFetalRemainsDispositionMethod">
+            <summary>URL for ObservationFetalRemainsDispositionMethod</summary>
+        </member>
         <member name="F:BFDR.IGURL.ObservationGestationalAgeAtDelivery">
             <summary>URL for ObservationGestationalAgeAtDelivery</summary>
         </member>
@@ -3497,9 +3512,6 @@
         </member>
         <member name="F:BFDR.IGURL.ObservationLastMenstrualPeriod">
             <summary>URL for ObservationLastMenstrualPeriod</summary>
-        </member>
-        <member name="F:BFDR.IGURL.ObservationMethodOfDisposition">
-            <summary>URL for ObservationMethodOfDisposition</summary>
         </member>
         <member name="F:BFDR.IGURL.ObservationMotherDeliveryWeight">
             <summary>URL for ObservationMotherDeliveryWeight</summary>
@@ -3582,6 +3594,12 @@
         <member name="F:BFDR.IGURL.PatientDecedentFetus">
             <summary>URL for PatientDecedentFetus</summary>
         </member>
+        <member name="F:BFDR.IGURL.PractitionerBirthAttendant">
+            <summary>URL for PractitionerBirthAttendant</summary>
+        </member>
+        <member name="F:BFDR.IGURL.PractitionerBirthCertifier">
+            <summary>URL for PractitionerBirthCertifier</summary>
+        </member>
         <member name="F:BFDR.IGURL.ProcedureAntibioticSuspectedNeonatalSepsis">
             <summary>URL for ProcedureAntibioticSuspectedNeonatalSepsis</summary>
         </member>
@@ -3623,6 +3641,12 @@
         </member>
         <member name="F:BFDR.IGURL.ProcedureUnplannedHysterectomy">
             <summary>URL for ProcedureUnplannedHysterectomy</summary>
+        </member>
+        <member name="F:BFDR.IGURL.PractitionerRoleBirthAttendant">
+            <summary>URL for PractitionerRoleBirthAttendant</summary>
+        </member>
+        <member name="F:BFDR.IGURL.PractitionerRoleBirthCertifier">
+            <summary>URL for PractitionerRoleBirthCertifier</summary>
         </member>
         <member name="T:BFDR.CodeSystemURL">
             <summary>BFDR Custom Code System URLs</summary>
