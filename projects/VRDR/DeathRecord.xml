@@ -4910,18 +4910,6 @@
         <member name="F:VRDR.ValueSets.AdministrativeGender.Unknown">
             <summary> Unknown </summary>
         </member>
-        <member name="T:VRDR.ValueSets.BirthplaceCountry">
-            <summary> BirthplaceCountry </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.BirthplaceCountry.Codes">
-            <summary> Codes </summary>
-        </member>
-        <member name="T:VRDR.ValueSets.CanadaProvinces">
-            <summary> CanadaProvinces </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.CanadaProvinces.Codes">
-            <summary> Codes </summary>
-        </member>
         <member name="T:VRDR.ValueSets.CertifierTypes">
             <summary> CertifierTypes </summary>
         </member>
@@ -5312,12 +5300,6 @@
         <member name="F:VRDR.ValueSets.HispanicOrigin.First_Pass_Reject">
             <summary> First_Pass_Reject </summary>
         </member>
-        <member name="T:VRDR.ValueSets.Icd10CausesOfDeath">
-            <summary> Icd10CausesOfDeath </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.Icd10CausesOfDeath.Codes">
-            <summary> Codes </summary>
-        </member>
         <member name="T:VRDR.ValueSets.IntentionalReject">
             <summary> IntentionalReject </summary>
         </member>
@@ -5349,15 +5331,6 @@
             <summary> Codes </summary>
         </member>
         <member name="F:VRDR.ValueSets.Jurisdiction.New_York_City">
-            <summary> New_York_City </summary>
-        </member>
-        <member name="T:VRDR.ValueSets.JurisdictionsProvinces">
-            <summary> JurisdictionsProvinces </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.JurisdictionsProvinces.Codes">
-            <summary> Codes </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.JurisdictionsProvinces.New_York_City">
             <summary> New_York_City </summary>
         </member>
         <member name="T:VRDR.ValueSets.MannerOfDeath">
@@ -5524,6 +5497,9 @@
         </member>
         <member name="F:VRDR.ValueSets.PregnancyStatus.Unknown_If_Pregnant_Within_The_Past_Year">
             <summary> Unknown_If_Pregnant_Within_The_Past_Year </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.PregnancyStatus.Not_Applicable">
+            <summary> Not_Applicable </summary>
         </member>
         <member name="T:VRDR.ValueSets.RaceCode">
             <summary> RaceCode </summary>
@@ -9197,12 +9173,6 @@
         <member name="F:VRDR.ValueSets.ReplaceStatus.Updated_Record_Not_For_Nchs">
             <summary> Updated_Record_Not_For_Nchs </summary>
         </member>
-        <member name="T:VRDR.ValueSets.ResidenceCountry">
-            <summary> ResidenceCountry </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.ResidenceCountry.Codes">
-            <summary> Codes </summary>
-        </member>
         <member name="T:VRDR.ValueSets.SpouseAlive">
             <summary> SpouseAlive </summary>
         </member>
@@ -9220,12 +9190,6 @@
         </member>
         <member name="F:VRDR.ValueSets.SpouseAlive.Not_Applicable">
             <summary> Not_Applicable </summary>
-        </member>
-        <member name="T:VRDR.ValueSets.StatesTerritoriesProvinces">
-            <summary> StatesTerritoriesProvinces </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.StatesTerritoriesProvinces.Codes">
-            <summary> Codes </summary>
         </member>
         <member name="T:VRDR.ValueSets.SystemReject">
             <summary> SystemReject </summary>
@@ -9313,12 +9277,6 @@
         </member>
         <member name="F:VRDR.ValueSets.UnitsOfAge.Unknown">
             <summary> Unknown </summary>
-        </member>
-        <member name="T:VRDR.ValueSets.UsstatesTerritories">
-            <summary> UsstatesTerritories </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.UsstatesTerritories.Codes">
-            <summary> Codes </summary>
         </member>
         <member name="T:VRDR.ValueSets.YesNoUnknownNotApplicable">
             <summary> YesNoUnknownNotApplicable </summary>

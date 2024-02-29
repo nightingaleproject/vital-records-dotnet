@@ -71,6 +71,9 @@
         <member name="F:BFDR.BirthRecord.Coverage">
             <summary>The coverage associated with the birth.</summary>
         </member>
+        <member name="F:BFDR.BirthRecord.EncounterMaternity">
+            <summary>The maternity encounter.</summary>
+        </member>
         <member name="F:BFDR.BirthRecord.RACE_ETHNICITY_PROFILE_MOTHER">
             <summary>Composition Section Constants</summary>
         </member>
@@ -1701,6 +1704,26 @@
             <para>Console.WriteLine($"First prenatal care visit on: {ExampleBirthRecord.FirstPrenatalCareVisit}");</para>
             </example>
         </member>
+        <member name="P:BFDR.BirthRecord.MaritalStatus">
+            <summary>Marital Description</summary>
+            <value>for use of jurisdictions with domestic partnerships, othertypes of relationships</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MaritalStatus = "single";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Marital status: {ExampleBirthRecord.MaritalStatus}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.MotherMarriedDuringPregnancy">
+            <summary>Mother Married During Pregnancy</summary>
+            <value>Mother marrier during pregnancy</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherMarriedDuringPregnancy = yesNoUnknownCC;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother married during pregnancy: {ExampleBirthRecord.MotherMarriedDuringPregnancy}");</para>
+            </example>
+        </member>
         <member name="P:BFDR.BirthRecord.FirstPrenatalCareVisitYear">
             <summary>Year of the First Prenatal Care Visit.</summary>
             <value>the year of the first prenatal care visit</value>
@@ -1797,6 +1820,106 @@
             <para>ExampleBirthRecord.PayorTypeFinancialClassHelper = "Hospital";</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Child's Place Of Birth Type: {ExampleBirthRecord.PayorTypeFinancialClassHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.MotherMarriedDuringPregnancyHelper">
+            <summary>Mother Married During Pregnancy Helper</summary>
+            <value>Mother marrier during pregnancy helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherMarriedDuringPregnancyHelper = "yes";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother married during pregnancy helper: {ExampleBirthRecord.MotherMarriedDuringPregnancyHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.PaternityAcknowledgementSigned">
+            <summary>Paternity Acknowledgement Signed</summary>
+            <value>Paternity acknowledgement signed</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.PaternityAcknowledgementSigned = yesNoUnknownCC;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Paternity acknowledgement signed: {ExampleBirthRecord.PaternityAcknowledgementSigned}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.PaternityAcknowledgementSignedHelper">
+            <summary>Paternity Acknowledgement Signed Helper</summary>
+            <value>Paternity acknowledgement signed helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.PaternityAcknowledgementSignedHelper = "yes";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Paternity acknowledgement signed: {ExampleBirthRecord.PaternityAcknowledgementSignedHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.MotherTransferred">
+            <summary>Mother Transferred</summary>
+            <value>Mother transferred</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherTransferred = "hosp-trans";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother transferred: {ExampleBirthRecord.MotherTransferred}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.MotherTransferredHelper">
+            <summary>Mother Transferred Helper</summary>
+            <value>Mother transferred helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherTransferredHelper = "hosp-trans";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother transferred: {ExampleBirthRecord.MotherTransferredHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.InfantLiving">
+            <summary>Infant Living</summary>
+            <value>Infant Living</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.InfantLiving = true;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother transferred: {ExampleBirthRecord.MotherTransferred}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.InfantTransferred">
+            <summary>Infant Transferred</summary>
+            <value>Infant transferred</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.InfantTransferred = "hosp-trans";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Infant transferred: {ExampleBirthRecord.InfantTransferred}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.InfantTransferredHelper">
+            <summary>Infant Transferred Helper</summary>
+            <value>Infant transferred helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.InfantTransferredHelper = "hosp-trans";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Infant transferred helper: {ExampleBirthRecord.InfantTransferredHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.NumberLiveBorn">
+            <summary>Number Live Born</summary>
+            <value>Number of live born</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.NumberLiveBorn = 1;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Number of live born: {ExampleBirthRecord.NumberLiveBorn}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.SSNRequested">
+            <summary>SSNRequested</summary>
+            <value>SSN requested</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.SSNRequested = true;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"SSN Requested: {ExampleBirthRecord.SSNRequested}");</para>
             </example>
         </member>
         <member name="T:BFDR.FHIRSubject">

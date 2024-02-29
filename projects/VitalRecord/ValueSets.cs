@@ -31,14 +31,6 @@ namespace VR
             public static string Unknown = "UNK";
         };
 
-        /// <summary> BirthplaceCountry </summary>
-        public static class BirthplaceCountry {
-            /// <summary> Codes </summary>
-            public static string[,] Codes = {
-            };
-
-        };
-
         /// <summary> CodedRaceAndEthnicityPerson </summary>
         public static class CodedRaceAndEthnicityPerson {
             /// <summary> Codes </summary>
@@ -4137,14 +4129,6 @@ namespace VR
             public static string Unknown_And_Other_Race = "99";
         };
 
-        /// <summary> ResidenceCountry </summary>
-        public static class ResidenceCountry {
-            /// <summary> Codes </summary>
-            public static string[,] Codes = {
-            };
-
-        };
-
         /// <summary> Role </summary>
         public static class Role {
             /// <summary> Codes </summary>
@@ -4176,15 +4160,6 @@ namespace VR
             public static string Unknown = "UNK";
         };
 
-        /// <summary> StatesTerritoriesProvinces </summary>
-        public static class StatesTerritoriesProvinces {
-            /// <summary> Codes </summary>
-            public static string[,] Codes = {
-                { "UNK", "", VR.CodeSystems.NullFlavor_HL7_V3 },
-            };
-
-        };
-
         /// <summary> UnitsOfAge </summary>
         public static class UnitsOfAge {
             /// <summary> Codes </summary>
@@ -4209,14 +4184,6 @@ namespace VR
             public static string Years = "a";
             /// <summary> Unknown </summary>
             public static string Unknown = "UNK";
-        };
-
-        /// <summary> UsstatesTerritories </summary>
-        public static class UsstatesTerritories {
-            /// <summary> Codes </summary>
-            public static string[,] Codes = {
-            };
-
         };
 
         /// <summary> Usstates </summary>

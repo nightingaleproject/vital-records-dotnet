@@ -1373,58 +1373,58 @@ namespace BFDR.Tests
       Assert.False(FakeBirthRecord.ArtificialInsemination);
     }
 
-        [Fact]
-        public void TestPropertiesWithHelpers()
-        {
-            // Test all properties that have helpers
-            // TODO: Move some existing property tests here
-            TestCodedPropertyWithHelper("MotherEducationLevel", VR.ValueSets.EducationLevel.Codes);
-            TestCodedPropertyWithHelper("MotherEducationLevelEditFlag", VR.ValueSets.EditBypass01234.Codes);
-            TestCodedPropertyWithHelper("FatherEducationLevel", VR.ValueSets.EducationLevel.Codes);
-            TestCodedPropertyWithHelper("FatherEducationLevelEditFlag", VR.ValueSets.EditBypass01234.Codes);
-        }
+    [Fact]
+    public void TestPropertiesWithHelpers()
+    {
+        // Test all properties that have helpers
+        // TODO: Move some existing property tests here
+        TestCodedPropertyWithHelper("MotherEducationLevel", VR.ValueSets.EducationLevel.Codes);
+        TestCodedPropertyWithHelper("MotherEducationLevelEditFlag", VR.ValueSets.EditBypass01234.Codes);
+        TestCodedPropertyWithHelper("FatherEducationLevel", VR.ValueSets.EducationLevel.Codes);
+        TestCodedPropertyWithHelper("FatherEducationLevelEditFlag", VR.ValueSets.EditBypass01234.Codes);
+    }
 
-        // Given a property name that takes a code and has a helper property, and a list of codes to test,
-        // test setting and getting all the valid codes
-        private void TestCodedPropertyWithHelper(string propertyName, string[,] codes)
+    // Given a property name that takes a code and has a helper property, and a list of codes to test,
+    // test setting and getting all the valid codes
+    private void TestCodedPropertyWithHelper(string propertyName, string[,] codes)
+    {
+        // Helper name is just an extension of the property name
+        string helperName = propertyName + "Helper";
+        BirthRecord record = new BirthRecord();
+        // Default should be null
+        Assert.Equal("", ((Dictionary<string, string>)record.GetType().GetProperty(propertyName).GetValue(record))["code"]);
+        Assert.Null(record.GetType().GetProperty(helperName).GetValue(record));
+        for (int i = 0; i < codes.GetLength(0); i++)
         {
-            // Helper name is just an extension of the property name
-            string helperName = propertyName + "Helper";
-            BirthRecord record = new BirthRecord();
-            // Default should be null
-            Assert.Equal("", ((Dictionary<string, string>)record.GetType().GetProperty(propertyName).GetValue(record))["code"]);
+            // Set to the code via the helper and make sure the get returns the same code for both the helper and the base
+            // property along with the appropriate system and display values
+            record.GetType().GetProperty(helperName).SetValue(record, codes[i, 0]);
+            Assert.Equal(codes[i, 0], record.GetType().GetProperty(helperName).GetValue(record));
+            Assert.Equal(codes[i, 0], ((Dictionary<string, string>)record.GetType().GetProperty(propertyName).GetValue(record))["code"]);
+            Assert.Equal(codes[i, 1], ((Dictionary<string, string>)record.GetType().GetProperty(propertyName).GetValue(record))["display"]);
+            Assert.Equal(codes[i, 2], ((Dictionary<string, string>)record.GetType().GetProperty(propertyName).GetValue(record))["system"]);
+            // Reset it and then set the value via the base property coded value and make sure the correct values are present
+            record.GetType().GetProperty(propertyName).SetValue(record, null);
             Assert.Null(record.GetType().GetProperty(helperName).GetValue(record));
-            for (int i = 0; i < codes.GetLength(0); i++)
-            {
-                // Set to the code via the helper and make sure the get returns the same code for both the helper and the base
-                // property along with the appropriate system and display values
-                record.GetType().GetProperty(helperName).SetValue(record, codes[i, 0]);
-                Assert.Equal(codes[i, 0], record.GetType().GetProperty(helperName).GetValue(record));
-                Assert.Equal(codes[i, 0], ((Dictionary<string, string>)record.GetType().GetProperty(propertyName).GetValue(record))["code"]);
-                Assert.Equal(codes[i, 1], ((Dictionary<string, string>)record.GetType().GetProperty(propertyName).GetValue(record))["display"]);
-                Assert.Equal(codes[i, 2], ((Dictionary<string, string>)record.GetType().GetProperty(propertyName).GetValue(record))["system"]);
-                // Reset it and then set the value via the base property coded value and make sure the correct values are present
-                record.GetType().GetProperty(propertyName).SetValue(record, null);
-                Assert.Null(record.GetType().GetProperty(helperName).GetValue(record));
-                Dictionary<string, string> dict = new Dictionary<string, string>();
-                dict.Add("code", codes[i, 0]);
-                record.GetType().GetProperty(propertyName).SetValue(record, dict);
-                Assert.Equal(codes[i, 0], record.GetType().GetProperty(helperName).GetValue(record));
-                Assert.Equal(codes[i, 0], ((Dictionary<string, string>)record.GetType().GetProperty(propertyName).GetValue(record))["code"]);
-            }
+            Dictionary<string, string> dict = new Dictionary<string, string>();
+            dict.Add("code", codes[i, 0]);
+            record.GetType().GetProperty(propertyName).SetValue(record, dict);
+            Assert.Equal(codes[i, 0], record.GetType().GetProperty(helperName).GetValue(record));
+            Assert.Equal(codes[i, 0], ((Dictionary<string, string>)record.GetType().GetProperty(propertyName).GetValue(record))["code"]);
         }
+    }
 
     private string FixturePath(string filePath)
+    {
+        if (Path.IsPathRooted(filePath))
         {
-            if (Path.IsPathRooted(filePath))
-            {
-                return filePath;
-            }
-            else
-            {
-                return Path.GetRelativePath(Directory.GetCurrentDirectory(), filePath);
-            }
+            return filePath;
         }
+        else
+        {
+            return Path.GetRelativePath(Directory.GetCurrentDirectory(), filePath);
+        }
+    }
 
     [Fact]
     public void SetAttendantAfterParse()
@@ -1553,7 +1553,7 @@ namespace BFDR.Tests
       Assert.Null(SetterBirthRecord.FirstPrenatalCareVisitDay);
     }
 
-        [Fact]
+    [Fact]
     public void SetRegistrationDate()
     {
       Assert.Null(SetterBirthRecord.RegistrationDate);
@@ -1654,6 +1654,160 @@ namespace BFDR.Tests
       Assert.Equal(VR.CodeSystems.NAHDO, br.PayorTypeFinancialClass["system"]);
       Assert.Equal("Indian Health Service or Tribe", br.PayorTypeFinancialClass["display"]);
       Assert.Equal(br.PayorTypeFinancialClass["code"], br.PayorTypeFinancialClassHelper);
+    }
+    
+    [Fact]
+    public void SetMaritalStatus()
+    {
+      BirthRecord birthRecord = new BirthRecord();
+      birthRecord.MaritalStatus = "Single";
+      Assert.Equal("Single", birthRecord.MaritalStatus);
+
+      IJENatality ije = new IJENatality();
+      ije.MARITAL_DESCRIP = "Married";
+      BirthRecord birthRecord2 = ije.ToBirthRecord();
+      Assert.Equal("Married", birthRecord2.MaritalStatus);
+
+      BirthRecord birthRecord3 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.Equal("Divorced", birthRecord3.MaritalStatus);
+    }
+
+    [Fact]
+    public void SetMotherMarriedDuringPregnancy()
+    {
+      BirthRecord birthRecord = new BirthRecord();
+      birthRecord.MotherMarriedDuringPregnancyHelper = "Y";
+      Assert.Equal("Y", birthRecord.MotherMarriedDuringPregnancyHelper);
+      Dictionary<string, string> cc = new Dictionary<string, string>();
+      cc.Add("code", VR.ValueSets.YesNoUnknown.Codes[1, 0]);
+      cc.Add("system", VR.ValueSets.YesNoUnknown.Codes[1, 2]);
+      cc.Add("display", VR.ValueSets.YesNoUnknown.Codes[1, 1]);
+      Assert.Equal(cc, birthRecord.MotherMarriedDuringPregnancy);
+
+      IJENatality ije = new IJENatality();
+      ije.MARN = "N";
+      BirthRecord birthRecord2 = ije.ToBirthRecord();
+      Assert.Equal("N", birthRecord2.MotherMarriedDuringPregnancyHelper);
+
+      BirthRecord birthRecord3 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.Equal("Y", birthRecord3.MotherMarriedDuringPregnancyHelper);
+      Assert.Equal(cc, birthRecord3.MotherMarriedDuringPregnancy);
+    }
+
+    [Fact]
+    public void SetPaternityAcknowledgementSigned()
+    {
+      BirthRecord birthRecord = new BirthRecord();
+      birthRecord.PaternityAcknowledgementSignedHelper = "Y";
+      Assert.Equal("Y", birthRecord.PaternityAcknowledgementSignedHelper);
+      Dictionary<string, string> cc = new Dictionary<string, string>();
+      cc.Add("code", VR.ValueSets.YesNoNotApplicable.Codes[1, 0]);
+      cc.Add("system", VR.ValueSets.YesNoNotApplicable.Codes[1, 2]);
+      cc.Add("display", VR.ValueSets.YesNoNotApplicable.Codes[1, 1]);
+      Assert.Equal(cc, birthRecord.PaternityAcknowledgementSigned);
+
+      IJENatality ije = new IJENatality();
+      ije.ACKN = "X";
+      BirthRecord birthRecord2 = ije.ToBirthRecord();
+      Assert.Equal("NA", birthRecord2.PaternityAcknowledgementSignedHelper);
+
+      BirthRecord birthRecord3 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.Equal("Y", birthRecord3.PaternityAcknowledgementSignedHelper);
+      Assert.Equal(cc, birthRecord3.PaternityAcknowledgementSigned);
+    }
+
+    [Fact]
+    public void SetMotherTransferred()
+    {
+      BirthRecord birthRecord = new BirthRecord();
+      birthRecord.MotherTransferredHelper = "Y";
+      Assert.Equal("Y", birthRecord.MotherTransferredHelper);
+      Dictionary<string, string> cc = new Dictionary<string, string>();
+      cc.Add("code", "hosp-trans");
+      cc.Add("system", "http://terminology.hl7.org/CodeSystem/admit-source");
+      cc.Add("display", "Transferred from other hospital");
+      cc.Add("text", "The Patient has been transferred from another hospital for this encounter.");
+      Assert.Equal(cc, birthRecord.MotherTransferred);
+
+      IJENatality ije = new IJENatality();
+      ije.TRAN = "N";
+      BirthRecord birthRecord2 = ije.ToBirthRecord();
+      Assert.Equal("N", birthRecord2.MotherTransferredHelper);
+
+      BirthRecord birthRecord3 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.Equal("Y", birthRecord3.MotherTransferredHelper);
+      Assert.Equal(cc, birthRecord3.MotherTransferred);
+    }
+
+    [Fact]
+    public void SetInfantLiving()
+    {
+      BirthRecord birthRecord = new BirthRecord();
+      birthRecord.InfantLiving = true;
+      Assert.True(birthRecord.InfantLiving);
+
+      IJENatality ije = new IJENatality();
+      ije.ILIV = "N";
+      BirthRecord birthRecord2 = ije.ToBirthRecord();
+      Assert.False(birthRecord2.InfantLiving);
+
+      BirthRecord birthRecord3 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.True(birthRecord3.InfantLiving);
+    }
+
+    [Fact]
+    public void SetInfantTransferred()
+    {
+      BirthRecord birthRecord = new BirthRecord();
+      birthRecord.InfantTransferredHelper = "Y";
+      Assert.Equal("Y", birthRecord.InfantTransferredHelper);
+      Dictionary<string, string> cc = new Dictionary<string, string>();
+      cc.Add("code", "other-hcf");
+      cc.Add("system", "http://terminology.hl7.org/CodeSystem/discharge-disposition");
+      cc.Add("display", "Other healthcare facility");
+      cc.Add("text", "The patient was transferred to another healthcare facility.");
+      Assert.Equal(cc, birthRecord.InfantTransferred);
+
+      IJENatality ije = new IJENatality();
+      ije.ITRAN = "N";
+      BirthRecord birthRecord2 = ije.ToBirthRecord();
+      Assert.Equal("N", birthRecord2.InfantTransferredHelper);
+
+      BirthRecord birthRecord3 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.Equal("Y", birthRecord3.InfantTransferredHelper);
+      Assert.Equal(cc, birthRecord3.InfantTransferred);
+    }
+
+    [Fact]
+    public void SetNumberLiveBorn()
+    {
+      BirthRecord birthRecord = new BirthRecord();
+      birthRecord.NumberLiveBorn = 2;
+      Assert.Equal(2, birthRecord.NumberLiveBorn);
+
+      IJENatality ije = new IJENatality();
+      ije.LIVEB = "1";
+      BirthRecord birthRecord2 = ije.ToBirthRecord();
+      Assert.Equal(1, birthRecord2.NumberLiveBorn);
+
+      BirthRecord birthRecord3 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.Equal(3, birthRecord3.NumberLiveBorn);
+    }
+
+    [Fact]
+    public void SetSSNRequested()
+    {
+      BirthRecord birthRecord = new BirthRecord();
+      birthRecord.SSNRequested = true;
+      Assert.True(birthRecord.SSNRequested);
+
+      IJENatality ije = new IJENatality();
+      ije.SSN_REQ = "N";
+      BirthRecord birthRecord2 = ije.ToBirthRecord();
+      Assert.False(birthRecord2.SSNRequested);
+
+      BirthRecord birthRecord3 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.True(birthRecord3.SSNRequested);
     }
   }
 }

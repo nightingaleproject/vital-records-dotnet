@@ -94,16 +94,66 @@ namespace VR
             }
         }
 
+
+        /// <summary>Helper to support vital record property getter helper methods for values stored in Observations.</summary>
+        /// <param name="code">the code to identify the type of Observation</param>
+        protected Observation GetObservation(string code)
+        {
+            var entry = Bundle.Entry.Where(e => e.Resource is Observation obs && CodeableConceptToDict(obs.Code)["code"] == code).FirstOrDefault();
+            if (entry != null)
+            {
+                Observation observation = (Observation)entry.Resource;
+                return observation;
+            }
+            return null;
+        }
+
+        /// <summary>Helper to support vital record property setter helper methods for values stored in Observations.</summary>
+        /// <param name="code">the code to specify the type of Observation</param>
+        /// <param name="codeSystem">the code system of the code specifying the type of Observation</param>
+        /// <param name="text">the text for the code specifying the type of Observation</param>
+        /// <param name="profileURL">the profile URL to include in the meta of the Observation</param>
+        /// <param name="section">the section of the composition the Observation should be added to</param>
+        /// <param name="focusId">the reference id of the focus of the Observation</param>
+        /// <param name="propertyName">the name of the C# property, used to determine the subject ID</param>
+        protected Observation GetOrCreateObservation(string code, string codeSystem, string text, string profileURL, string section, string focusId = null, [CallerMemberName] string propertyName = null)
+        {
+            var entry = Bundle.Entry.Where(e => e.Resource is Observation obs && CodeableConceptToDict(obs.Code)["code"] == code).FirstOrDefault();
+            Observation observation;
+            // If the observation is there we use it, otherwise create it
+            if (entry != null)
+            {
+                observation = (Observation)entry.Resource;
+            }
+            else
+            {
+                observation = new Observation();
+                observation.Id = Guid.NewGuid().ToString();
+                observation.Meta = new Meta();
+                string[] profile = { profileURL };
+                observation.Meta.Profile = profile;
+                observation.Code = new CodeableConcept(codeSystem, code, text, null);
+                observation.Subject = new ResourceReference($"urn:uuid:{SubjectId(propertyName)}");
+                observation.Status = ObservationStatus.Final; // TODO: is this correct?
+                if (focusId != null)
+                {
+                    observation.Focus.Add(new ResourceReference($"urn:uuid:{focusId}"));
+                }
+                AddReferenceToComposition(observation.Id, section);
+                Bundle.AddResourceEntry(observation, "urn:uuid:" + observation.Id);
+            }
+            return observation;
+        }
+
         // TODO: How can we make this flexible to support more types?
         /// <summary>Helper to support vital record property getter helper methods for values stored in Observations.</summary>
         /// <param name="code">the code to identify the type of Observation</param>
         /// <param name="extensionURL">if present, specifies that the value should be get from an extension with the provided URL instead</param>
         protected Dictionary<string, string> GetObservationValue(string code, string extensionURL = null)
         {
-            var entry = Bundle.Entry.Where(e => e.Resource is Observation obs && CodeableConceptToDict(obs.Code)["code"] == code).FirstOrDefault();
-            if (entry != null)
+            Observation observation = GetObservation(code);
+            if (observation != null)
             {
-                Observation observation = (Observation)entry.Resource;
                 if (extensionURL != null)
                 {
                     Extension extension = observation?.Value?.Extension.FirstOrDefault(ext => ext.Url == extensionURL);
@@ -128,30 +178,11 @@ namespace VR
         /// <param name="profileURL">the profile URL to include in the meta of the Observation</param>
         /// <param name="section">the section of the composition the Observation should be added to</param>
         /// <param name="extensionURL">if present, specifies that the value should be set on an extension with the provided URL instead</param>
+        /// <param name="focusId">the reference id of the focus of the Observation</param>
         /// <param name="propertyName">the name of the C# property, used to determine the subject ID</param>
-        protected void SetObservationValue(Dictionary<string, string> value, string code, string codeSystem, string text, string profileURL, string section, string extensionURL = null, [CallerMemberName] string propertyName = null)
+        protected void SetObservationValue(Dictionary<string, string> value, string code, string codeSystem, string text, string profileURL, string section, string extensionURL = null, string focusId = null, [CallerMemberName] string propertyName = null)
         {
-            var entry = Bundle.Entry.Where(e => e.Resource is Observation obs && CodeableConceptToDict(obs.Code)["code"] == code).FirstOrDefault();
-            Observation observation;
-            // If the observation is there we use it, otherwise create it
-            if (entry != null)
-            {
-                observation = (Observation)entry.Resource;
-            }
-            else
-            {
-                observation = new Observation();
-                observation.Id = Guid.NewGuid().ToString();
-                observation.Meta = new Meta();
-                string[] profile = { profileURL };
-                observation.Meta.Profile = profile;
-                observation.Code = new CodeableConcept(codeSystem, code, text, null);
-                observation.Subject = new ResourceReference($"urn:uuid:{SubjectId(propertyName)}");
-                observation.Status = ObservationStatus.Final; // TODO: is this correct?
-                // TODO: We need to set the focus to something sane
-                AddReferenceToComposition(observation.Id, section);
-                Bundle.AddResourceEntry(observation, "urn:uuid:" + observation.Id);
-            }
+            Observation observation = GetOrCreateObservation(code, codeSystem, text, profileURL, section, focusId, propertyName);
 
             // Set the value or the extension, depending on what's desired
             if (extensionURL != null)
