@@ -1698,6 +1698,26 @@
             <para>Console.WriteLine($"First prenatal care visit on: {ExampleBirthRecord.FirstPrenatalCareVisit}");</para>
             </example>
         </member>
+        <member name="P:BFDR.BirthRecord.MaritalStatus">
+            <summary>Marital Description</summary>
+            <value>for use of jurisdictions with domestic partnerships, othertypes of relationships</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MaritalStatus = "single";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Marital status: {ExampleBirthRecord.MaritalStatus}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.MotherMarriedDuringPregnancy">
+            <summary>Mother Married During Pregnancy</summary>
+            <value>Mother marrier during pregnancy</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherMarriedDuringPregnancy = yesNoUnknownCC;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother married during pregnancy: {ExampleBirthRecord.MotherMarriedDuringPregnancy}");</para>
+            </example>
+        </member>
         <member name="P:BFDR.BirthRecord.FirstPrenatalCareVisitYear">
             <summary>Year of the First Prenatal Care Visit.</summary>
             <value>the year of the first prenatal care visit</value>
@@ -1794,132 +1814,6 @@
             <para>ExampleBirthRecord.PayorTypeFinancialClassHelper = "Hospital";</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Child's Place Of Birth Type: {ExampleBirthRecord.PayorTypeFinancialClassHelper}");</para>
-            </example>
-        </member>
-        <member name="M:BFDR.BirthRecord.SetEmergingIssue(System.String,System.String)">
-            <summary>Set an emerging issue value, creating an empty EmergingIssues Observation as needed.</summary>
-        </member>
-        <member name="M:BFDR.BirthRecord.GetEmergingIssue(System.String)">
-            <summary>Get an emerging issue value.</summary>
-        </member>
-        <member name="P:BFDR.BirthRecord.EmergingIssue1_1">
-            <summary>Emerging Issue Field Length 1 Number 1</summary>
-            <value>the emerging issue value</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.EmergingIssue1_1 = "X";</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue1_1}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.BirthRecord.EmergingIssue1_2">
-            <summary>Emerging Issue Field Length 1 Number 2</summary>
-            <value>the emerging issue value</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.EmergingIssue1_2 = "X";</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue1_2}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.BirthRecord.EmergingIssue1_3">
-            <summary>Emerging Issue Field Length 1 Number 3</summary>
-            <value>the emerging issue value</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.EmergingIssue1_3 = "X";</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue1_3}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.BirthRecord.MaritalStatus">
-            <summary>Marital Description</summary>
-            <value>for use of jurisdictions with domestic partnerships, othertypes of relationships</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.MaritalStatus = "single";</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Marital status: {ExampleBirthRecord.MaritalStatus}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.BirthRecord.MotherMarriedDuringPregnancy">
-            <summary>Mother Married During Pregnancy</summary>
-            <value>Mother marrier during pregnancy</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.MotherMarriedDuringPregnancy = yesNoUnknownCC;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Mother married during pregnancy: {ExampleBirthRecord.MotherMarriedDuringPregnancy}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.BirthRecord.EmergingIssue1_4">
-            <summary>Emerging Issue Field Length 1 Number 4</summary>
-            <value>the emerging issue value</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.EmergingIssue1_4 = "X";</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue1_4}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.BirthRecord.EmergingIssue1_5">
-            <summary>Emerging Issue Field Length 1 Number 5</summary>
-            <value>the emerging issue value</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.EmergingIssue1_5 = "X";</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue1_5}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.BirthRecord.EmergingIssue1_6">
-            <summary>Emerging Issue Field Length 1 Number 6</summary>
-            <value>the emerging issue value</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.EmergingIssue1_6 = "X";</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue1_6}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.BirthRecord.EmergingIssue8_1">
-            <summary>Emerging Issue Field Length 8 Number 1</summary>
-            <value>the emerging issue value</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.EmergingIssue8_1 = "XXXXXXXX";</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue8_1}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.BirthRecord.EmergingIssue8_2">
-            <summary>Emerging Issue Field Length 8 Number 2</summary>
-            <value>the emerging issue value</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.EmergingIssue8_2 = "XXXXXXXX";</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue8_2}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.BirthRecord.EmergingIssue8_3">
-            <summary>Emerging Issue Field Length 8 Number 3</summary>
-            <value>the emerging issue value</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.EmergingIssue8_3 = "XXXXXXXX";</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue8_3}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.BirthRecord.EmergingIssue20">
-            <summary>Emerging Issue Field Length 20</summary>
-            <value>the emerging issue value</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.EmergingIssue20 = "XXXXXXXXXXXXXXXXXXXX";</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue20}");</para>
             </example>
         </member>
         <member name="P:BFDR.BirthRecord.MotherMarriedDuringPregnancyHelper">
@@ -2020,6 +1914,112 @@
             <para>ExampleBirthRecord.SSNRequested = true;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"SSN Requested: {ExampleBirthRecord.SSNRequested}");</para>
+            </example>
+        </member>
+        <member name="M:BFDR.BirthRecord.SetEmergingIssue(System.String,System.String)">
+            <summary>Set an emerging issue value, creating an empty EmergingIssues Observation as needed.</summary>
+        </member>
+        <member name="M:BFDR.BirthRecord.GetEmergingIssue(System.String)">
+            <summary>Get an emerging issue value.</summary>
+        </member>
+        <member name="P:BFDR.BirthRecord.EmergingIssue1_1">
+            <summary>Emerging Issue Field Length 1 Number 1</summary>
+            <value>the emerging issue value</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.EmergingIssue1_1 = "X";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue1_1}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.EmergingIssue1_2">
+            <summary>Emerging Issue Field Length 1 Number 2</summary>
+            <value>the emerging issue value</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.EmergingIssue1_2 = "X";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue1_2}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.EmergingIssue1_3">
+            <summary>Emerging Issue Field Length 1 Number 3</summary>
+            <value>the emerging issue value</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.EmergingIssue1_3 = "X";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue1_3}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.EmergingIssue1_4">
+            <summary>Emerging Issue Field Length 1 Number 4</summary>
+            <value>the emerging issue value</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.EmergingIssue1_4 = "X";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue1_4}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.EmergingIssue1_5">
+            <summary>Emerging Issue Field Length 1 Number 5</summary>
+            <value>the emerging issue value</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.EmergingIssue1_5 = "X";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue1_5}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.EmergingIssue1_6">
+            <summary>Emerging Issue Field Length 1 Number 6</summary>
+            <value>the emerging issue value</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.EmergingIssue1_6 = "X";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue1_6}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.EmergingIssue8_1">
+            <summary>Emerging Issue Field Length 8 Number 1</summary>
+            <value>the emerging issue value</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.EmergingIssue8_1 = "XXXXXXXX";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue8_1}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.EmergingIssue8_2">
+            <summary>Emerging Issue Field Length 8 Number 2</summary>
+            <value>the emerging issue value</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.EmergingIssue8_2 = "XXXXXXXX";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue8_2}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.EmergingIssue8_3">
+            <summary>Emerging Issue Field Length 8 Number 3</summary>
+            <value>the emerging issue value</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.EmergingIssue8_3 = "XXXXXXXX";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue8_3}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.EmergingIssue20">
+            <summary>Emerging Issue Field Length 20</summary>
+            <value>the emerging issue value</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.EmergingIssue20 = "XXXXXXXXXXXXXXXXXXXX";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue20}");</para>
             </example>
         </member>
         <member name="P:BFDR.BirthRecord.ApgarScoreFiveMinutes">

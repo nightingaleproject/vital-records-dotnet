@@ -6393,7 +6393,11 @@ namespace BFDR
         /// <summary>Set an emerging issue value, creating an empty EmergingIssues Observation as needed.</summary>
         private void SetEmergingIssue(string identifier, string value)
         {
-            Observation EmergingIssues = CreateObservationEntry(identifier, Child.Id, EMERGING_ISSUES_SECTION);
+            if (value == null)
+            {
+                return;
+            }
+            Observation EmergingIssues = GetOrCreateObservation(identifier, CodeSystems.ObservationCode, "NCHS-required Parameter Slots for Emerging Issues", VR.IGURL.EmergingIssues, EMERGING_ISSUES_SECTION, null, identifier);
 
             // Remove existing component (if it exists) and add an appropriate component.
             EmergingIssues.Component.RemoveAll(cmp => cmp.Code != null && cmp.Code.Coding != null && cmp.Code.Coding.Count() > 0 && cmp.Code.Coding.First().Code == identifier);

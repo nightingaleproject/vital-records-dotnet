@@ -1846,7 +1846,7 @@ namespace BFDR.Tests
     [Fact]
     public void Test_EmergingIssues()
     {
-        BirthRecord record1 = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+        BirthRecord record1 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
         record1.EmergingIssue1_1 = "A";
         record1.EmergingIssue1_2 = "B";
         record1.EmergingIssue1_3 = "C";
