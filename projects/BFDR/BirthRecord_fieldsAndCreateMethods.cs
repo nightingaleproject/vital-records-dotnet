@@ -142,7 +142,7 @@ namespace BFDR
         }
 
         /// <summary>Create and set Birth Location.</summary>
-        private Location CreateLocationBirth(string code)
+        private Location CreateAndSetLocationBirth(string code)
         {
             Location locationBirth = new Location
             {

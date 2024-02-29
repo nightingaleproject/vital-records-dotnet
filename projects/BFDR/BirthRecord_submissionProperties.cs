@@ -4922,7 +4922,7 @@ namespace BFDR
             get => GetFacilityLocation(ValueSets.LocationTypes.Birth_Location)?.Identifier?.Find(identifier => identifier.System == VR.CodeSystems.US_NPI_HL7)?.Value.ToString();
             set
             {
-                Location LocationBirth = GetFacilityLocation(ValueSets.LocationTypes.Birth_Location) ?? CreateLocationBirth(ValueSets.LocationTypes.Birth_Location);
+                Location LocationBirth = GetFacilityLocation(ValueSets.LocationTypes.Birth_Location) ?? CreateAndSetLocationBirth(ValueSets.LocationTypes.Birth_Location);
                 if (LocationBirth.Identifier == null)
                 {
                     LocationBirth.Identifier = new List<Identifier>();
@@ -4954,7 +4954,7 @@ namespace BFDR
             get => GetFacilityLocation(ValueSets.LocationTypes.Birth_Location)?.Identifier?.Find(identifier => identifier.Extension.Any(ext => ext.Url == VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords))?.GetExtension(VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords).Value.ToString();
             set
             {
-                Location LocationBirth = GetFacilityLocation(ValueSets.LocationTypes.Birth_Location) ?? CreateLocationBirth(ValueSets.LocationTypes.Birth_Location);
+                Location LocationBirth = GetFacilityLocation(ValueSets.LocationTypes.Birth_Location) ?? CreateAndSetLocationBirth(ValueSets.LocationTypes.Birth_Location);
                 if (LocationBirth.Identifier == null)
                 {
                     LocationBirth.Identifier = new List<Identifier>();
@@ -4990,7 +4990,7 @@ namespace BFDR
         public string BirthFacilityName
         {
             get => GetFacilityLocation(ValueSets.LocationTypes.Birth_Location)?.Name;
-            set => (GetFacilityLocation(ValueSets.LocationTypes.Birth_Location) ?? CreateLocationBirth(ValueSets.LocationTypes.Birth_Location)).Name = value;
+            set => (GetFacilityLocation(ValueSets.LocationTypes.Birth_Location) ?? CreateAndSetLocationBirth(ValueSets.LocationTypes.Birth_Location)).Name = value;
         }
 
         /// <summary>Name of Facility mother moved from (if transfered)</summary>
@@ -5006,7 +5006,7 @@ namespace BFDR
         public string FacilityMotherTransferredFrom
         {
             get => GetFacilityLocation(ValueSets.LocationTypes.Transfer_From_Location)?.Name;
-            set => (GetFacilityLocation(ValueSets.LocationTypes.Transfer_From_Location) ?? CreateLocationBirth(ValueSets.LocationTypes.Transfer_From_Location)).Name = value;
+            set => (GetFacilityLocation(ValueSets.LocationTypes.Transfer_From_Location) ?? CreateAndSetLocationBirth(ValueSets.LocationTypes.Transfer_From_Location)).Name = value;
         }
 
         /// <summary>Name of Facility Infant Transferred To (if transfered w/in 24 hours)</summary>
@@ -5022,7 +5022,7 @@ namespace BFDR
         public string FacilityInfantTransferredTo
         {
             get => GetFacilityLocation(ValueSets.LocationTypes.Transfer_To_Location)?.Name;
-            set => (GetFacilityLocation(ValueSets.LocationTypes.Transfer_To_Location) ?? CreateLocationBirth(ValueSets.LocationTypes.Transfer_To_Location)).Name = value;
+            set => (GetFacilityLocation(ValueSets.LocationTypes.Transfer_To_Location) ?? CreateAndSetLocationBirth(ValueSets.LocationTypes.Transfer_To_Location)).Name = value;
         }
 
         private Location GetFacilityLocation(string code) {
