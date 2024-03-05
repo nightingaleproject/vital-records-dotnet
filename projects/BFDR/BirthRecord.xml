@@ -1907,6 +1907,26 @@
             <para>Console.WriteLine($"SSN Requested: {ExampleBirthRecord.SSNRequested}");</para>
             </example>
         </member>
+        <member name="P:BFDR.BirthRecord.ApgarScoreFiveMinutes">
+            <summary>APGAR score at 5 mins.</summary>
+            <value>the APGAR score at 5 minutes, or -1 if explicitly unknown, or null if never specified</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.ApgarScoreFiveMinutes = 20;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"APGAR score at 5 minutes: {ExampleBirthRecord.ApgarScoreFiveMinutes}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.ApgarScoreTenMinutes">
+            <summary>APGAR score at 10 mins.</summary>
+            <value>the APGAR score at 10 minutes, or -1 if explicitly unknown, or null if never specified</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.ApgarScoreTenMinutes = 20;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"APGAR score at 10 minutes: {ExampleBirthRecord.ApgarScoreTenMinutes}");</para>
+            </example>
+        </member>
         <member name="T:BFDR.FHIRSubject">
             <summary>Describes the subject of a birth record field</summary>
         </member>

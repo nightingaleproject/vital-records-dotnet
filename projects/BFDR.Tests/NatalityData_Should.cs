@@ -849,5 +849,20 @@ namespace BFDR.Tests
       Assert.Equal("Other Government (Federal, State, Local not specified)", ijeImported.ToRecord().PayorTypeFinancialClass["display"]);
       Assert.Equal(VR.CodeSystems.NAHDO, ijeImported.ToRecord().PayorTypeFinancialClass["system"]);
     }
+
+    [Fact]
+    public void TestApgarScores()
+    {
+      BirthRecord fhir = new BirthRecord();
+      IJENatality ije = new IJENatality(fhir);
+      Assert.Equal("  ", ije.APGAR5);
+      Assert.Equal("  ", ije.APGAR10);
+      ije.APGAR5 = "99";
+      ije.APGAR10 = "15";
+      Assert.Equal("99", ije.APGAR5);
+      Assert.Equal(-1, fhir.ApgarScoreFiveMinutes);
+      Assert.Equal("15", ije.APGAR10);
+      Assert.Equal(15, fhir.ApgarScoreTenMinutes);
+    }
   }
 }
