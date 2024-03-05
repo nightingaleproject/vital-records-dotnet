@@ -4735,6 +4735,131 @@ namespace BFDR
             set => SetIndustry("FTH", value);
         }
 
+        /// <summary>Mother Height.</summary>
+        /// <value>the height of the mother, given in inches</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotherHeight = 55;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother's Height: {ExampleBirthRecord.MotherHeight}");</para>
+        /// </example>
+        [Property("MotherHeight", Property.Types.Int32, "Mother Prenatal", "Mother's Height.", false, BFDR.IGURL.ObservationMotherHeight, true, 134)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='8302-2')", "")]
+        public int? MotherHeight
+        {
+            get
+            {
+              Observation observation = GetObservation("8302-2");
+              return (int?)(observation?.Value as Hl7.Fhir.Model.Quantity)?.Value;
+            }
+
+            set
+            {
+              Observation obs = GetOrCreateObservation("8302-2", CodeSystems.LOINC, BFDR.ProfileURL.ObservationMotherHeight, MOTHER_PRENATAL_SECTION, Mother.Id);
+              obs.Category.Add(new CodeableConcept(CodeSystems.ObservationCategory, "vital-signs"));
+              string unit = "in_i";
+              // Create an empty quantity if needed
+              if (obs.Value == null || obs.Value as Quantity == null)
+              {
+                obs.Value = new Hl7.Fhir.Model.Quantity();
+              }
+              // Set the properties of the value individually to preserve any existing obs.Value.Extension entries
+              if (value != null)
+              {
+                (obs.Value as Quantity).Value = (int)value;
+                (obs.Value as Quantity).Unit = unit;
+                (obs.Value as Quantity).Code = unit;
+              }
+            }
+        }
+
+        /// <summary>Mother Height Edit Flag.</summary>
+        /// <value>the mother's height level edit flag. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; elevel = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>height.Add("code", "0");</para>
+        /// <para>height.Add("system", CodeSystems.BypassEditFlag);</para>
+        /// <para>height.Add("display", "Edit Passed");</para>
+        /// <para>ExampleBirthRecord.MotherHeightEditFlag = height;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother Height: {ExampleBirthRecord.MotherHeightEditFlag['display']}");</para>
+        /// </example>
+        [Property("Mother Height Edit Flag", Property.Types.Dictionary, "Mother Prenatal", "Mother's Height Edit Flag.", true, IGURL.ObservationMotherHeight, true, 136)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='8302-2')", "")]
+        public Dictionary<string, string> MotherHeightEditFlag
+        {
+            get
+            {
+                Observation observation = GetObservation("8302-2");
+                Extension extension = observation?.Value?.Extension.FirstOrDefault(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
+                if (extension != null && extension.Value != null && extension.Value.GetType() == typeof(CodeableConcept))
+                {
+                    return CodeableConceptToDict((CodeableConcept)extension.Value);
+                }
+                return EmptyCodeableDict();
+            }
+
+            set
+            {
+                Observation obs = GetOrCreateObservation("8302-2", CodeSystems.LOINC, BFDR.ProfileURL.ObservationMotherHeight, MOTHER_PRENATAL_SECTION, Mother.Id);
+                obs.Extension.RemoveAll(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
+                obs.Extension.Add(new Extension(VRExtensionURLs.BypassEditFlag, DictToCodeableConcept(value)));
+            }
+        }
+
+        /// <summary>Mother Height Edit Flag Helper</summary>
+        /// <value>Mother Height Edit Flag.</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotherHeightEditFlagHelper = "0";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother's Height Edit Flag: {ExampleBirthRecord.MotherHeightHelperEditFlag}");</para>
+        /// </example>
+        [Property("Mother's Height Edit Flag Helper", Property.Types.String, "Mother Prenatal", "Mother's Height Edit Flag Helper.", false, IGURL.ObservationMotherHeight, true, 136)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='8302-2')", "")]
+        public string MotherHeightEditFlagHelper
+        {
+
+            get 
+            {
+              Dictionary<string, string> editFlag = GetWeightEditFlag("8302-2");
+              if (editFlag.ContainsKey("code"))
+              {
+                  string flagCode = editFlag["code"];
+                  if (!String.IsNullOrWhiteSpace(flagCode))
+                  {
+                      return flagCode;
+                  }
+              }
+              return null;
+            }
+            set 
+            {
+                Observation obs = GetOrCreateObservation("8302-2", CodeSystems.LOINC, BFDR.ProfileURL.ObservationMotherHeight, MOTHER_PRENATAL_SECTION, Mother.Id);
+                obs.Extension.RemoveAll(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
+
+                if (String.IsNullOrEmpty(value))
+                {
+                    obs.Value.Extension.Add(new Extension(VRExtensionURLs.BypassEditFlag, DictToCodeableConcept(EmptyCodeDict())));
+                    return;
+                }
+                Dictionary<string, string> dictionary = new Dictionary<string, string>
+                {
+                    { "code", value },
+                    { "system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags" }
+                };
+                obs.Value.Extension.Add(new Extension(VRExtensionURLs.BypassEditFlag, DictToCodeableConcept(dictionary)));
+            }
+        }
         /// <summary>Mother's Education Level.</summary>
         /// <value>the mother's education level. A Dictionary representing a code, containing the following key/value pairs:</value>
         /// <example>
