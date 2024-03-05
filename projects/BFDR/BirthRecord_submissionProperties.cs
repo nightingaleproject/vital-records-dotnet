@@ -6435,6 +6435,7 @@ namespace BFDR
         /// </example>
         [Property("Emerging Issue Field Length 1 Number 1", Property.Types.String, "emergingIssues", "One-Byte Field 1", true, VR.IGURL.EmergingIssues, false, 50)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='emergingissues')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public string EmergingIssue1_1
         {
             get
@@ -6460,6 +6461,7 @@ namespace BFDR
         /// </example>
         [Property("Emerging Issue Field Length 1 Number 2", Property.Types.String, "emergingIssues", "1-Byte Field 2", true, VR.IGURL.EmergingIssues, false, 50)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='emergingissues')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public string EmergingIssue1_2
         {
             get
@@ -6485,7 +6487,7 @@ namespace BFDR
         /// </example>
         [Property("Emerging Issue Field Length 1 Number 3", Property.Types.String, "emergingIssues", "1-Byte Field 3", true, VR.IGURL.EmergingIssues, false, 50)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='emergingissues')", "")]
-
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public string EmergingIssue1_3
         {
             get
@@ -6511,7 +6513,7 @@ namespace BFDR
         /// </example>
         [Property("Emerging Issue Field Length 1 Number 4", Property.Types.String, "emergingIssues", "1-Byte Field 4", true, VR.IGURL.EmergingIssues, false, 50)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='emergingissues')", "")]
-
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public string EmergingIssue1_4
         {
             get
@@ -6537,7 +6539,7 @@ namespace BFDR
         /// </example>
         [Property("Emerging Issue Field Length 1 Number 5", Property.Types.String, "emergingIssues", "1-Byte Field 5", true, VR.IGURL.EmergingIssues, false, 50)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='emergingissues')", "")]
-
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public string EmergingIssue1_5
         {
             get
@@ -6563,7 +6565,7 @@ namespace BFDR
         /// </example>
         [Property("Emerging Issue Field Length 1 Number 6", Property.Types.String, "emergingIssues", "1-Byte Field 6", true, VR.IGURL.EmergingIssues, false, 50)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='emergingissues')", "")]
-
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public string EmergingIssue1_6
         {
             get
@@ -6589,7 +6591,7 @@ namespace BFDR
         /// </example>
         [Property("Emerging Issue Field Length 8 Number 1", Property.Types.String, "emergingIssues", "8-Byte Field 1", true, VR.IGURL.EmergingIssues, false, 50)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='emergingissues')", "")]
-
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public string EmergingIssue8_1
         {
             get
@@ -6615,7 +6617,7 @@ namespace BFDR
         /// </example>
         [Property("Emerging Issue Field Length 8 Number 2", Property.Types.String, "emergingIssues", "8-Byte Field 2", true, VR.IGURL.EmergingIssues, false, 50)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='emergingissues')", "")]
-
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public string EmergingIssue8_2
         {
             get
@@ -6641,7 +6643,7 @@ namespace BFDR
         /// </example>
         [Property("Emerging Issue Field Length 8 Number 3", Property.Types.String, "emergingIssues", "8-Byte Field 3", true, VR.IGURL.EmergingIssues, false, 50)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='emergingissues')", "")]
-
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public string EmergingIssue8_3
         {
             get
@@ -6667,7 +6669,7 @@ namespace BFDR
         /// </example>
         [Property("Emerging Issue Field Length 20", Property.Types.String, "emergingIssues", "20-Byte Field", true, VR.IGURL.EmergingIssues, false, 50)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='emergingissues')", "")]
-
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public string EmergingIssue20
         {
             get
