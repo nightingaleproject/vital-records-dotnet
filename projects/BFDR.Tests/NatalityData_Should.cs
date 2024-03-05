@@ -744,6 +744,32 @@ namespace BFDR.Tests
     }
 
     [Fact]
+    public void TestMotherHeightPropertiesSetter()
+    {
+        BirthRecord record = new BirthRecord();
+        IJENatality ije1 = new IJENatality(record);
+        // Height
+        Assert.Equal("  ",ije1.HIN);
+        Assert.Equal(" ",ije1.HFT);
+        ije1.HFT = "5";
+        ije1.HIN = "7";
+        Assert.Equal("7", ije1.HIN);
+        Assert.Equal("5", ije1.HFT);
+        ije1.HFT = "5";
+        ije1.HIN = "3";
+        Assert.Equal("5", ije1.HFT);
+        Assert.Equal("3", ije1.HIN);
+        // Edit Flag
+        Assert.Equal("", ije1.HGT_BYPASS);
+        ije1.HGT_BYPASS = "1";
+        Assert.Equal("1", ije1.HGT_BYPASS);
+        // FHIR translations
+        BirthRecord record1 = new BirthRecord(ije1.ToRecord().ToXML());
+        Assert.Equal(63, record1.MotherHeight);
+        Assert.Equal(VR.ValueSets.EditBypass01234.Edit_Failed_Data_Queried_And_Verified, record1.MotherHeightEditFlag["code"]);
+    }  
+
+    [Fact]
     public void TestFirstPrenatalCare()
     {
       BirthRecord fhir = new BirthRecord();
@@ -787,7 +813,7 @@ namespace BFDR.Tests
       Assert.Equal("24", ije.DOR_DY);
     }
 
-        [Fact]
+    [Fact]
     public void TestSetPayorType()
     {
       // Manually set ije values.

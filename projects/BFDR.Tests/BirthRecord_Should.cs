@@ -14,7 +14,7 @@ namespace BFDR.Tests
     public BirthRecord_Should()
     {
       SetterBirthRecord = new BirthRecord();
-      FakeBirthRecord = new BirthRecord(File.ReadAllText(FixturePath("fixtures/json/BirthRecordFakeNoRace.json")));
+      FakeBirthRecord = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordFakeWithRace.json")));
     }
 
     [Fact]
@@ -1414,18 +1414,6 @@ namespace BFDR.Tests
         }
     }
 
-    private string FixturePath(string filePath)
-    {
-        if (Path.IsPathRooted(filePath))
-        {
-            return filePath;
-        }
-        else
-        {
-            return Path.GetRelativePath(Directory.GetCurrentDirectory(), filePath);
-        }
-    }
-
     [Fact]
     public void SetAttendantAfterParse()
     {
@@ -1480,6 +1468,25 @@ namespace BFDR.Tests
       Assert.Equal(4, SetterBirthRecord.LastMenstrualPeriodMonth);
       Assert.Null(SetterBirthRecord.LastMenstrualPeriodDay);
     }
+
+    [Fact]
+    public void TestMotherHeightPropertiesSetter()
+    {
+        BirthRecord record = new BirthRecord();
+        // Height
+        Assert.Null(record.MotherHeight);
+        record.MotherHeight = 67;
+        Assert.Equal(67, record.MotherHeight);
+        // Edit Flag
+        Assert.Equal("", record.MotherHeightEditFlag["code"]);
+        record.MotherHeightEditFlagHelper = VR.ValueSets.EditBypass01234.Edit_Passed;
+        Assert.Equal(VR.ValueSets.EditBypass01234.Edit_Passed, record.MotherHeightEditFlag["code"]);
+        // IJE translations
+        IJENatality ije1 = new IJENatality(record);
+        Assert.Equal("5", ije1.HFT);
+        Assert.Equal("7", ije1.HIN);  
+        Assert.Equal("0", ije1.HGT_BYPASS);
+    }  
 
     [Fact]
     public void SetFirstPrenatalCareVisit()
