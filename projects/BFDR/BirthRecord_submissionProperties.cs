@@ -5028,38 +5028,6 @@ namespace BFDR
         private Location GetFacilityLocation(string code) {
             return (Location)Bundle.Entry.Where(e => e.Resource is Location loc && loc.Type.Any(type => type.Coding.Any(coding => coding.System == CodeSystems.LocalBFDRCodes && coding.Code == code))).FirstOrDefault()?.Resource;
         }
-        
-        private Observation GetObservation(string code)
-        {
-            var entry = Bundle.Entry.Where(
-                e => e.Resource is Observation obs &&
-                CodeableConceptToDict(obs.Code)["code"] == code
-            ).FirstOrDefault();
-
-            if (entry != null)
-            {
-                Observation obs = entry.Resource as Observation;
-                return obs;
-            }
-            return null;
-        }
-
-        private Observation CreateObservationEntry(string loincCode, string subjectId, string compositionSection, string focusId = null)
-        {
-            Observation obs = new Observation
-            {
-                Id = Guid.NewGuid().ToString(),
-                Subject = new ResourceReference($"urn:uuid:{subjectId}"),
-                Code = new CodeableConcept(VR.CodeSystems.LOINC, loincCode),
-            };
-            if (focusId != null)
-            {
-                obs.Focus.Add(new ResourceReference($"urn:uuid:{focusId}"));
-            }
-            AddReferenceToComposition(obs.Id, compositionSection);
-            Bundle.AddResourceEntry(obs, "urn:uuid:" + obs.Id);
-            return obs;
-        }
 
         /// <summary>Last Menstrual Period.</summary>
         /// <value>the date that the last normal menstrual period began</value>
