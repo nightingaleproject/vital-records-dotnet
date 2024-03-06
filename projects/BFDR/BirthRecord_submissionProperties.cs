@@ -3992,7 +3992,7 @@ namespace BFDR
                 Observation obs = GetObservation("68499-3");
                 if (obs == null)
                 {
-                    obs = CreateObservationEntry("68499-3", CodeSystems.LOINC, DATE_OF_LAST_LIVE_BIRTH);
+                    obs = GetOrCreateObservation("68499-3", CodeSystems.LOINC, BFDR.ProfileURL.ObservationDateOfLastLiveBirth, DATE_OF_LAST_LIVE_BIRTH, Mother.Id);
                     obs.Value = new FhirDateTime();
                 }
                 obs.Value.Extension.Add(NewBlankPartialDateTimeExtension(false));
@@ -4031,7 +4031,7 @@ namespace BFDR
                 Observation obs = GetObservation("68499-3");
                 if (obs == null)
                 {
-                    obs = CreateObservationEntry("68499-3", CodeSystems.LOINC, DATE_OF_LAST_LIVE_BIRTH);
+                    obs = GetOrCreateObservation("68499-3", CodeSystems.LOINC, DATE_OF_LAST_LIVE_BIRTH, BFDR.ProfileURL.ObservationDateOfLastLiveBirth, Mother.Id);
                     obs.Value = new FhirDateTime();
                 }
                 if (obs.Value.Extension == null)
@@ -4075,7 +4075,7 @@ namespace BFDR
                     Observation obs = GetObservation("68499-3");
                     if (obs == null)
                     {
-                        obs = CreateObservationEntry("68499-3", CodeSystems.LOINC, DATE_OF_LAST_LIVE_BIRTH);
+                        obs = GetOrCreateObservation("68499-3", CodeSystems.LOINC, BFDR.ProfileURL.ObservationDateOfLastLiveBirth, DATE_OF_LAST_LIVE_BIRTH, Mother.Id);
                     }
                     FhirDateTime dateTime = new FhirDateTime(parsedDate.Year, parsedDate.Month, parsedDate.Day);
                     obs.Value = dateTime;
@@ -4118,7 +4118,7 @@ namespace BFDR
                 Observation obs = GetObservation("68500-8");
                 if (obs == null)
                 {
-                    obs = CreateObservationEntry("68500-8", CodeSystems.LOINC, DATE_OF_LAST_OTHER_PREGNANCY_OUTCOME);
+                    obs = GetOrCreateObservation("68500-8", CodeSystems.LOINC, BFDR.ProfileURL.ObservationDateOfLastOtherPregnancyOutcome, DATE_OF_LAST_OTHER_PREGNANCY_OUTCOME, Mother.Id);
                     obs.Value = new FhirDateTime();
                 }
                 if (obs.Value.Extension.Find(ext => ext.Url == PartialDateUrl) == null)
@@ -4166,7 +4166,7 @@ namespace BFDR
                 Observation obs = GetObservation("68500-8");
                 if (obs == null)
                 {
-                    obs = CreateObservationEntry("68500-8", CodeSystems.LOINC, DATE_OF_LAST_OTHER_PREGNANCY_OUTCOME);
+                    obs = GetOrCreateObservation("68500-8", CodeSystems.LOINC, BFDR.ProfileURL.ObservationDateOfLastOtherPregnancyOutcome, DATE_OF_LAST_OTHER_PREGNANCY_OUTCOME, Mother.Id);
                     obs.Value = new FhirDateTime();
                 }
                 if (obs.Value.Extension == null)
@@ -4210,7 +4210,7 @@ namespace BFDR
                     Observation obs = GetObservation("68500-8");
                     if (obs == null)
                     {
-                        obs = CreateObservationEntry("68500-8", CodeSystems.LOINC, DATE_OF_LAST_OTHER_PREGNANCY_OUTCOME);
+                        obs = GetOrCreateObservation("68500-8", CodeSystems.LOINC, BFDR.ProfileURL.ObservationDateOfLastOtherPregnancyOutcome, DATE_OF_LAST_OTHER_PREGNANCY_OUTCOME, Mother.Id);
                     }
                     FhirDateTime dateTime = new FhirDateTime(parsedDate.Year, parsedDate.Month, parsedDate.Day);
                     obs.Value = dateTime;
@@ -4253,7 +4253,7 @@ namespace BFDR
                 Observation obs = GetObservation("68493-6");
                 if (obs == null)
                 {
-                    obs = CreateObservationEntry("68493-6", CodeSystems.LOINC, NUMBER_OF_PRENATAL_VISITS);
+                    obs = GetOrCreateObservation("68493-6", CodeSystems.LOINC, BFDR.ProfileURL.ObservationNumberPrenatalVisits, NUMBER_OF_PRENATAL_VISITS, Mother.Id);
                     obs.Value = new Hl7.Fhir.Model.Integer();
                 }
                 obs.Value = new Hl7.Fhir.Model.Integer(value);
@@ -4291,7 +4291,7 @@ namespace BFDR
                 Observation obs = GetObservation("68493-6");
                 if (obs == null)
                 {
-                    obs = CreateObservationEntry("68493-6", CodeSystems.LOINC, NUMBER_OF_PRENATAL_VISITS);
+                    obs = GetOrCreateObservation("68493-6", CodeSystems.LOINC, BFDR.ProfileURL.ObservationNumberPrenatalVisits, NUMBER_OF_PRENATAL_VISITS, Mother.Id);
                     obs.Value = new UnsignedInt();
                 }
                 obs.Value?.Extension.RemoveAll(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
@@ -4366,7 +4366,7 @@ namespace BFDR
                 Observation obs = GetObservation("11884-4");
                 if (obs == null)
                 {
-                    obs = CreateObservationEntry("11884-4", CodeSystems.LOINC, GESTATIONAL_AGE);
+                    obs = GetOrCreateObservation("11884-4", CodeSystems.LOINC, BFDR.ProfileURL.ObservationGestationalAgeAtDelivery, GESTATIONAL_AGE, Mother.Id);
                     obs.Value = new Quantity();
                 }
                 Quantity quantity = (Quantity)obs.Value;
@@ -4421,7 +4421,7 @@ namespace BFDR
                 {
                     return;
                 }
-                Observation obs = CreateObservationEntry("11884-4", CodeSystems.LOINC, GESTATIONAL_AGE);
+                Observation obs = GetOrCreateObservation("11884-4", CodeSystems.LOINC, BFDR.ProfileURL.ObservationGestationalAgeAtDelivery, GESTATIONAL_AGE, Mother.Id);
                 obs.Value?.Extension.RemoveAll(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
                 // TODO replace the placeholder value set with http://hl7.org/fhir/us/bfdr/ValueSet/ValueSet-estimate-of-gestation-edit-flags
                 Extension editFlag = new Extension(VRExtensionURLs.BypassEditFlag, DictToCodeableConcept(value));
@@ -4481,7 +4481,7 @@ namespace BFDR
                 {
                     return;
                 }
-                Observation obs = CreateObservationEntry("68496-9", CodeSystems.LOINC, NUMBER_OF_BIRTHS_NOW_DEAD);
+                Observation obs = GetOrCreateObservation("68496-9", CodeSystems.LOINC, BFDR.ProfileURL.ObservationNumberBirthsNowDead, NUMBER_OF_BIRTHS_NOW_DEAD, Mother.Id);
                 obs.Value = new Hl7.Fhir.Model.Integer(value);
             }   
         }
@@ -4516,7 +4516,7 @@ namespace BFDR
                 {
                     return;
                 }
-                Observation obs = CreateObservationEntry("11638-4", CodeSystems.LOINC, NUMBER_OF_BIRTHS_NOW_LIVING);
+                Observation obs = GetOrCreateObservation("11638-4", CodeSystems.LOINC, BFDR.ProfileURL.ObservationNumberBirthsNowLiving, NUMBER_OF_BIRTHS_NOW_LIVING, Mother.Id);
                 obs.Value = new Hl7.Fhir.Model.Integer(value);
             }
         }
@@ -4551,7 +4551,7 @@ namespace BFDR
                 {
                     return;
                 }
-                Observation obs = CreateObservationEntry("69043-8", CodeSystems.LOINC, NUMBER_OF_OTHER_PREGNANCY_OUTCOMES);
+                Observation obs = GetOrCreateObservation("69043-8", CodeSystems.LOINC, BFDR.ProfileURL.ObservationNumberOtherPregnancyOutcomes, NUMBER_OF_OTHER_PREGNANCY_OUTCOMES, Mother.Id);
                 obs.Value = new Hl7.Fhir.Model.Integer(value);
             }
         }
@@ -4582,7 +4582,7 @@ namespace BFDR
             }
             set
             {
-                Observation obs = CreateObservationEntry("87303-4", CodeSystems.LOINC, MOTHER_RECEIVED_WIC_FOOD);
+                Observation obs = GetOrCreateObservation("87303-4", CodeSystems.LOINC, BFDR.ProfileURL.ObservationMotherReceivedWICFood, MOTHER_RECEIVED_WIC_FOOD, Mother.Id);
                 obs.Value = DictToCodeableConcept(value);
             }
         }
@@ -4647,7 +4647,7 @@ namespace BFDR
                 {
                     return;
                 }
-                Observation obs = CreateObservationEntry("73756-9", CodeSystems.LOINC, INFANT_BREASTFED_AT_DISCHARGE);
+                Observation obs = GetOrCreateObservation("73756-9", CodeSystems.LOINC, BFDR.ProfileURL.ObservationInfantBreastfedAtDischarge, INFANT_BREASTFED_AT_DISCHARGE, Mother.Id);
                 obs.Value = new FhirBoolean(value);
             }
         }

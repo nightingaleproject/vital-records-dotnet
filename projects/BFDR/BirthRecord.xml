@@ -101,33 +101,6 @@
         <member name="M:BFDR.BirthRecord.CreateAttendant">
             <summary>Create Attendant/Practitioner.</summary>
         </member>
-        <member name="M:BFDR.BirthRecord.CreateDateOfLastLiveBirthObs">
-            <summary> Create Last Date of Birth </summary>
-        </member>
-        <member name="M:BFDR.BirthRecord.CreateDateOfLastOtherPregnancyOutcomeObs">
-            <summary> Create Date of Last Other Pregnancy Outcome </summary>
-        </member>
-        <member name="M:BFDR.BirthRecord.CreateNumberOfPrenatalVisitsObs">
-            <summary> Create NumberOfPrenatalVisitsObs </summary>
-        </member>
-        <member name="M:BFDR.BirthRecord.CreateGestationalAgeAtDeliveryObs">
-            <summary> CreateGestationalAgeAtDeliveryObs </summary>
-        </member>
-        <member name="M:BFDR.BirthRecord.CreateNumberOfBirthsNowDeadObs">
-            <summary> Create NumberOfBirthsNowDeadObs </summary>
-        </member>
-        <member name="M:BFDR.BirthRecord.CreateNumberOfBirthsNowLivingObs">
-            <summary> Create NumberOfBirthsNowLivingObs </summary>
-        </member>
-        <member name="M:BFDR.BirthRecord.CreateNumberOfOtherPregnancyOutcomesObs">
-            <summary> CreateNumberOfOtherPregnancyOutcomesObs </summary>
-        </member>
-        <member name="M:BFDR.BirthRecord.CreateMotherReceivedWICFoodObs">
-            <summary> CreateMotherReceivedWICFOODObs </summary>
-        </member>
-        <member name="M:BFDR.BirthRecord.CreateInfantBreastfedAtDischargeObs">
-            <summary> CreateInfantBreastfedAtDischarge </summary>
-        </member>
         <member name="M:BFDR.BirthRecord.CreateCertifier">
             <summary>Create Certifier/Practitioner.</summary>
         </member>
@@ -4363,21 +4336,6 @@
         </member>
         <member name="F:BFDR.ValueSets.BirthDeliveryOccurred.Unknown">
             <summary> Unknown </summary>
-        </member>
-        <member name="T:BFDR.ValueSets.PregnancyReportEditFlags">
-            <summary> PregnancyReportEditFlags </summary>
-        </member>
-        <member name="F:BFDR.ValueSets.PregnancyReportEditFlags.Codes">
-            <summary> Codes </summary>
-        </member>
-        <member name="F:BFDR.ValueSets.PregnancyReportEditFlags.EditBypass0">
-            <summary> EditBypass0 </summary>
-        </member>
-        <member name="F:BFDR.ValueSets.PregnancyReportEditFlags.EditBypass1">
-            <summary> EditBypass1 </summary>
-        </member>
-        <member name="F:BFDR.ValueSets.PregnancyReportEditFlags.EditBypass2">
-            <summary> EditBypass2 </summary>
         </member>
         <member name="T:BFDR.ValueSets.GestationalAgeAtDeliveryEditFlags">
             <summary> GestationalAgeAtDeliveryEditFlags </summary>

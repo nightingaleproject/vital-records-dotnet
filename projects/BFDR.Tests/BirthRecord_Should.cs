@@ -1980,9 +1980,9 @@ namespace BFDR.Tests
       Assert.Equal(02, (int)br2.CertifiedMonth);
       Assert.Equal(19, (int)br2.CertifiedDay);
     }
-  }
-}
-    
+  
+
+    [Fact]  
     public void SetPartialDateOfLastLiveBirthFields()
     {
       BirthRecord birthRecord = new BirthRecord();
@@ -2080,7 +2080,7 @@ namespace BFDR.Tests
       BirthRecord birthRecord = ije.ToBirthRecord();
       Dictionary<string, string> editBypass = new Dictionary<string, string>();
       editBypass.Add("code", "editBypass1");
-      editBypass.Add("system", VR.CodeSystems.BirthAndDeathEditFlags);
+      editBypass.Add("system", VR.CodeSystems.BFDREditFlags);
       editBypass.Add("display", "Edit Failed, Data Queried, and Verified");
       Assert.Equal(editBypass, birthRecord.NumberOfPrenatalVisitsEditFlag);
 
@@ -2113,7 +2113,7 @@ namespace BFDR.Tests
       BirthRecord birthRecord = ije.ToBirthRecord();
       Dictionary<string, string> editBypass = new Dictionary<string, string>();
       editBypass.Add("code", "editBypass1");
-      editBypass.Add("system", VR.CodeSystems.BirthAndDeathEditFlags);
+      editBypass.Add("system", VR.CodeSystems.BFDREditFlags);
       editBypass.Add("display", "Edit Failed, Data Queried, and Verified");
       Assert.Equal(editBypass, birthRecord.GestationalAgeAtDeliveryEditFlag);
     }
