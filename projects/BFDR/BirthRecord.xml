@@ -1936,6 +1936,108 @@
             <para>Console.WriteLine($"APGAR score at 10 minutes: {ExampleBirthRecord.ApgarScoreTenMinutes}");</para>
             </example>
         </member>
+        <member name="P:BFDR.BirthRecord.CertifierName">
+            <summary>Certifier name.</summary>
+            <value>the certifier's name</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.CertifierName = "Janet Seito";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Certifier's Name: {ExampleBirthRecord.CertifierName}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.CertifierNPI">
+            <summary>Certifier NPI</summary>
+            <value>the certifiers npi</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.CertifierNPI = "123456789011";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Certifier NPI: {ExampleBirthRecord.CertifierNPI}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.CertifierTitle">
+            <summary>Certifier Title</summary>
+            <value>the title/qualification of the person who certified the birth. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; title = new Dictionary&lt;string, string&gt;();</para>
+            <para>title.Add("code", "112247003");</para>
+            <para>title.Add("system", CodeSystems.SCT);</para>
+            <para>title.Add("display", "Medical Doctor");</para>
+            <para>ExampleBirthRecord.CertifierTitle = title;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Certifier Title: {ExampleBirthRecord.CertifierTitle['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.CertifierTitleHelper">
+            <summary>Certifier Title Helper.</summary>
+            <value>the title/qualification of the Certifier.
+            <para>"code" - the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.CertifierTitleHelper = ValueSets.BirthAttendantsTitles.MedicalDoctor;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Certifier Title: {ExampleBirthRecord.CertifierTitleHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.CertifierOtherHelper">
+            <summary>Certifier Other Helper.</summary>
+            <value>the "other" title/qualification of the Certifier.
+            <para>"code" - the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.CertifierOtherHelper = "Birth Clerk";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Certifier Other: {ExampleBirthRecord.CertifierOtherHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.CertificationDate">
+            <summary>Date of Certification.</summary>
+            <value>the date of certification</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.CertifiedDate = "2023-02-19";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Date of birth certification: {ExampleBirthRecord.CertificationDate}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.CertifiedYear">
+            <summary>Certified Year</summary>
+            <value>year of certification</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.CertifiedYear = 2023;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Certified Year: {ExampleBirthRecord.CertifiedYear}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.CertifiedMonth">
+            <summary>Certified Month</summary>
+            <value>month of certification</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.CertifiedMonth = 10;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Certified Month: {ExampleBirthRecord.CertifiedMonth}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.CertifiedDay">
+            <summary>Certified Day</summary>
+            <value>day of certification</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.CertifiedDay = 23;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Certified Day: {ExampleBirthRecord.CertifiedDay}");</para>
+            </example>
+        </member>
         <member name="M:BFDR.BirthRecord.SetEmergingIssue(System.String,System.String)">
             <summary>Set an emerging issue value, creating an empty EmergingIssues Observation as needed.</summary>
         </member>
@@ -2040,108 +2142,6 @@
             <para>ExampleBirthRecord.EmergingIssue20 = "XXXXXXXXXXXXXXXXXXXX";</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue20}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.BirthRecord.CertifierName">
-            <summary>Certifier name.</summary>
-            <value>the certifier's name</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.CertifierName = "Janet Seito";</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Certifier's Name: {ExampleBirthRecord.CertifierName}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.BirthRecord.CertifierNPI">
-            <summary>Certifier NPI</summary>
-            <value>the certifiers npi</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.CertifierNPI = "123456789011";</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Certifier NPI: {ExampleBirthRecord.CertifierNPI}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.BirthRecord.CertifierTitle">
-            <summary>Certifier Title</summary>
-            <value>the title/qualification of the person who certified the birth. A Dictionary representing a code, containing the following key/value pairs:
-            <para>"code" - the code</para>
-            <para>"system" - the code system this code belongs to</para>
-            <para>"display" - a human readable meaning of the code</para>
-            </value>
-            <example>
-            <para>// Setter:</para>
-            <para>Dictionary&lt;string, string&gt; title = new Dictionary&lt;string, string&gt;();</para>
-            <para>title.Add("code", "112247003");</para>
-            <para>title.Add("system", CodeSystems.SCT);</para>
-            <para>title.Add("display", "Medical Doctor");</para>
-            <para>ExampleBirthRecord.CertifierTitle = title;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Certifier Title: {ExampleBirthRecord.CertifierTitle['display']}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.BirthRecord.CertifierTitleHelper">
-            <summary>Certifier Title Helper.</summary>
-            <value>the title/qualification of the Certifier.
-            <para>"code" - the code</para>
-            </value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.CertifierTitleHelper = ValueSets.BirthAttendantsTitles.MedicalDoctor;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Certifier Title: {ExampleBirthRecord.CertifierTitleHelper}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.BirthRecord.CertifierOtherHelper">
-            <summary>Certifier Other Helper.</summary>
-            <value>the "other" title/qualification of the Certifier.
-            <para>"code" - the code</para>
-            </value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.CertifierOtherHelper = "Birth Clerk";</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Certifier Other: {ExampleBirthRecord.CertifierOtherHelper}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.BirthRecord.CertificationDate">
-            <summary>Date of Certification.</summary>
-            <value>the date of certification</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.CertifiedDate = "2023-02-19";</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Date of birth certification: {ExampleBirthRecord.CertificationDate}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.BirthRecord.CertifiedYear">
-            <summary>Certified Year</summary>
-            <value>year of certification</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.CertifiedYear = 2023;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Certified Year: {ExampleBirthRecord.CertifiedYear}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.BirthRecord.CertifiedMonth">
-            <summary>Certified Month</summary>
-            <value>month of certification</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.CertifiedMonth = 10;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Certified Month: {ExampleBirthRecord.CertifiedMonth}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.BirthRecord.CertifiedDay">
-            <summary>Certified Day</summary>
-            <value>day of certification</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.CertifiedDay = 23;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Certified Day: {ExampleBirthRecord.CertifiedDay}");</para>
             </example>
         </member>
         <member name="T:BFDR.FHIRSubject">
