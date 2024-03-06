@@ -1494,6 +1494,44 @@
             <para>Console.WriteLine($"Father's Industry: {ExampleBirthRecord.FatherIndustry}");</para>
             </example>
         </member>
+        <member name="P:BFDR.BirthRecord.MotherHeight">
+            <summary>Mother Height.</summary>
+            <value>the height of the mother, given in inches</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherHeight = 55;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's Height: {ExampleBirthRecord.MotherHeight}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.MotherHeightEditFlag">
+            <summary>Mother Height Edit Flag.</summary>
+            <value>the mother's height level edit flag. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; elevel = new Dictionary&lt;string, string&gt;();</para>
+            <para>height.Add("code", "0");</para>
+            <para>height.Add("system", CodeSystems.BypassEditFlag);</para>
+            <para>height.Add("display", "Edit Passed");</para>
+            <para>ExampleBirthRecord.MotherHeightEditFlag = height;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother Height: {ExampleBirthRecord.MotherHeightEditFlag['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.MotherHeightEditFlagHelper">
+            <summary>Mother Height Edit Flag Helper</summary>
+            <value>Mother Height Edit Flag.</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherHeightEditFlagHelper = "0";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's Height Edit Flag: {ExampleBirthRecord.MotherHeightHelperEditFlag}");</para>
+            </example>
+        </member>
         <member name="P:BFDR.BirthRecord.MotherEducationLevel">
             <summary>Mother's Education Level.</summary>
             <value>the mother's education level. A Dictionary representing a code, containing the following key/value pairs:</value>
