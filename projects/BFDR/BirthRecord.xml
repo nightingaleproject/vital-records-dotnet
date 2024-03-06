@@ -104,6 +104,9 @@
         <member name="M:BFDR.BirthRecord.CreateCertifier">
             <summary>Create Certifier/Practitioner.</summary>
         </member>
+        <member name="M:BFDR.BirthRecord.CreateAndSetLocationBirth(System.String)">
+            <summary>Create and set Birth Location.</summary>
+        </member>
         <member name="M:BFDR.BirthRecord.CreateBirthEncounter">
             <summary>Create Birth Encounter.</summary>
         </member>
