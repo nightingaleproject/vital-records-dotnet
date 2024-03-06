@@ -4422,8 +4422,11 @@ namespace BFDR
                     return;
                 }
                 Observation obs = GetOrCreateObservation("11884-4", CodeSystems.LOINC, BFDR.ProfileURL.ObservationGestationalAgeAtDelivery, GESTATIONAL_AGE, Mother.Id);
+                if (obs.Value == null)
+                {
+                    obs.Value = new CodeableConcept();
+                }
                 obs.Value?.Extension.RemoveAll(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
-                // TODO replace the placeholder value set with http://hl7.org/fhir/us/bfdr/ValueSet/ValueSet-estimate-of-gestation-edit-flags
                 Extension editFlag = new Extension(VRExtensionURLs.BypassEditFlag, DictToCodeableConcept(value));
                 obs.Value.Extension.Add(editFlag);
             }

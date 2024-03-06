@@ -1994,9 +1994,9 @@ namespace BFDR.Tests
       Assert.Equal(2023, birthRecord2.DateOfLastLiveBirthYear);
 
       BirthRecord parsedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
-      Assert.Equal(2019, parsedRecord.DateOfLastLiveBirthYear);
-      Assert.Equal(12, parsedRecord.DateOfLastLiveBirthMonth);
-      Assert.Equal("2019-12-02", parsedRecord.DateOfLastLiveBirth);
+      Assert.Equal(2014, parsedRecord.DateOfLastLiveBirthYear);
+      Assert.Equal(11, parsedRecord.DateOfLastLiveBirthMonth);
+      Assert.Equal("2014-11-20", parsedRecord.DateOfLastLiveBirth);
 
     }
 
@@ -2079,8 +2079,8 @@ namespace BFDR.Tests
       ije.NPREV_BYPASS = "1";
       BirthRecord birthRecord = ije.ToBirthRecord();
       Dictionary<string, string> editBypass = new Dictionary<string, string>();
-      editBypass.Add("code", "editBypass1");
-      editBypass.Add("system", VR.CodeSystems.BFDREditFlags);
+      editBypass.Add("code", "1");
+      editBypass.Add("system", VR.CodeSystems.VRCLEditFlags);
       editBypass.Add("display", "Edit Failed, Data Queried, and Verified");
       Assert.Equal(editBypass, birthRecord.NumberOfPrenatalVisitsEditFlag);
 
@@ -2109,12 +2109,12 @@ namespace BFDR.Tests
     public void SetGestationalAgeAtDeliveryEditFlag()
     {
       IJENatality ije = new IJENatality();
-      ije.OWGEST_BYPASS = "30";
+      ije.OWGEST_BYPASS = "0";
       BirthRecord birthRecord = ije.ToBirthRecord();
       Dictionary<string, string> editBypass = new Dictionary<string, string>();
-      editBypass.Add("code", "editBypass1");
+      editBypass.Add("code", "0off");
       editBypass.Add("system", VR.CodeSystems.BFDREditFlags);
-      editBypass.Add("display", "Edit Failed, Data Queried, and Verified");
+      editBypass.Add("display", "Off");
       Assert.Equal(editBypass, birthRecord.GestationalAgeAtDeliveryEditFlag);
     }
 
