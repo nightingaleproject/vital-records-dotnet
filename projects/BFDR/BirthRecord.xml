@@ -59,6 +59,9 @@
         <member name="F:BFDR.BirthRecord.Attendant">
             <summary>The Attendant.</summary>
         </member>
+        <member name="F:BFDR.BirthRecord.Certifier">
+            <summary>The Certifier.</summary>
+        </member>
         <member name="F:BFDR.BirthRecord.InputRaceAndEthnicityObsMother">
             <summary>The Mother's Race and Ethnicity provided by Jurisdiction.</summary>
         </member>
@@ -98,8 +101,11 @@
         <member name="M:BFDR.BirthRecord.CreateAttendant">
             <summary>Create Attendant/Practitioner.</summary>
         </member>
-        <member name="M:BFDR.BirthRecord.CreateAndSetLocationBirth(System.String)">
-            <summary>Create and set Birth Location.</summary>
+        <member name="M:BFDR.BirthRecord.CreateCertifier">
+            <summary>Create Certifier/Practitioner.</summary>
+        </member>
+        <member name="M:BFDR.BirthRecord.CreateBirthEncounter">
+            <summary>Create Birth Encounter.</summary>
         </member>
         <member name="P:BFDR.BirthRecord.CertificateNumber">
             <summary>Birth Certificate Number.</summary>
@@ -1497,6 +1503,44 @@
             <para>Console.WriteLine($"Father's Industry: {ExampleBirthRecord.FatherIndustry}");</para>
             </example>
         </member>
+        <member name="P:BFDR.BirthRecord.MotherHeight">
+            <summary>Mother Height.</summary>
+            <value>the height of the mother, given in inches</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherHeight = 55;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's Height: {ExampleBirthRecord.MotherHeight}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.MotherHeightEditFlag">
+            <summary>Mother Height Edit Flag.</summary>
+            <value>the mother's height level edit flag. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; elevel = new Dictionary&lt;string, string&gt;();</para>
+            <para>height.Add("code", "0");</para>
+            <para>height.Add("system", CodeSystems.BypassEditFlag);</para>
+            <para>height.Add("display", "Edit Passed");</para>
+            <para>ExampleBirthRecord.MotherHeightEditFlag = height;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother Height: {ExampleBirthRecord.MotherHeightEditFlag['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.MotherHeightEditFlagHelper">
+            <summary>Mother Height Edit Flag Helper</summary>
+            <value>Mother Height Edit Flag.</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherHeightEditFlagHelper = "0";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's Height Edit Flag: {ExampleBirthRecord.MotherHeightHelperEditFlag}");</para>
+            </example>
+        </member>
         <member name="P:BFDR.BirthRecord.MotherEducationLevel">
             <summary>Mother's Education Level.</summary>
             <value>the mother's education level. A Dictionary representing a code, containing the following key/value pairs:</value>
@@ -1920,6 +1964,234 @@
             <para>ExampleBirthRecord.SSNRequested = true;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"SSN Requested: {ExampleBirthRecord.SSNRequested}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.ApgarScoreFiveMinutes">
+            <summary>APGAR score at 5 mins.</summary>
+            <value>the APGAR score at 5 minutes, or -1 if explicitly unknown, or null if never specified</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.ApgarScoreFiveMinutes = 20;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"APGAR score at 5 minutes: {ExampleBirthRecord.ApgarScoreFiveMinutes}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.ApgarScoreTenMinutes">
+            <summary>APGAR score at 10 mins.</summary>
+            <value>the APGAR score at 10 minutes, or -1 if explicitly unknown, or null if never specified</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.ApgarScoreTenMinutes = 20;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"APGAR score at 10 minutes: {ExampleBirthRecord.ApgarScoreTenMinutes}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.CertifierName">
+            <summary>Certifier name.</summary>
+            <value>the certifier's name</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.CertifierName = "Janet Seito";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Certifier's Name: {ExampleBirthRecord.CertifierName}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.CertifierNPI">
+            <summary>Certifier NPI</summary>
+            <value>the certifiers npi</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.CertifierNPI = "123456789011";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Certifier NPI: {ExampleBirthRecord.CertifierNPI}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.CertifierTitle">
+            <summary>Certifier Title</summary>
+            <value>the title/qualification of the person who certified the birth. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; title = new Dictionary&lt;string, string&gt;();</para>
+            <para>title.Add("code", "112247003");</para>
+            <para>title.Add("system", CodeSystems.SCT);</para>
+            <para>title.Add("display", "Medical Doctor");</para>
+            <para>ExampleBirthRecord.CertifierTitle = title;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Certifier Title: {ExampleBirthRecord.CertifierTitle['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.CertifierTitleHelper">
+            <summary>Certifier Title Helper.</summary>
+            <value>the title/qualification of the Certifier.
+            <para>"code" - the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.CertifierTitleHelper = ValueSets.BirthAttendantsTitles.MedicalDoctor;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Certifier Title: {ExampleBirthRecord.CertifierTitleHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.CertifierOtherHelper">
+            <summary>Certifier Other Helper.</summary>
+            <value>the "other" title/qualification of the Certifier.
+            <para>"code" - the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.CertifierOtherHelper = "Birth Clerk";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Certifier Other: {ExampleBirthRecord.CertifierOtherHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.CertificationDate">
+            <summary>Date of Certification.</summary>
+            <value>the date of certification</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.CertifiedDate = "2023-02-19";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Date of birth certification: {ExampleBirthRecord.CertificationDate}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.CertifiedYear">
+            <summary>Certified Year</summary>
+            <value>year of certification</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.CertifiedYear = 2023;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Certified Year: {ExampleBirthRecord.CertifiedYear}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.CertifiedMonth">
+            <summary>Certified Month</summary>
+            <value>month of certification</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.CertifiedMonth = 10;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Certified Month: {ExampleBirthRecord.CertifiedMonth}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.CertifiedDay">
+            <summary>Certified Day</summary>
+            <value>day of certification</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.CertifiedDay = 23;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Certified Day: {ExampleBirthRecord.CertifiedDay}");</para>
+            </example>
+        </member>
+        <member name="M:BFDR.BirthRecord.SetEmergingIssue(System.String,System.String)">
+            <summary>Set an emerging issue value, creating an empty EmergingIssues Observation as needed.</summary>
+        </member>
+        <member name="M:BFDR.BirthRecord.GetEmergingIssue(System.String)">
+            <summary>Get an emerging issue value.</summary>
+        </member>
+        <member name="P:BFDR.BirthRecord.EmergingIssue1_1">
+            <summary>Emerging Issue Field Length 1 Number 1</summary>
+            <value>the emerging issue value</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.EmergingIssue1_1 = "X";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue1_1}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.EmergingIssue1_2">
+            <summary>Emerging Issue Field Length 1 Number 2</summary>
+            <value>the emerging issue value</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.EmergingIssue1_2 = "X";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue1_2}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.EmergingIssue1_3">
+            <summary>Emerging Issue Field Length 1 Number 3</summary>
+            <value>the emerging issue value</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.EmergingIssue1_3 = "X";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue1_3}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.EmergingIssue1_4">
+            <summary>Emerging Issue Field Length 1 Number 4</summary>
+            <value>the emerging issue value</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.EmergingIssue1_4 = "X";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue1_4}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.EmergingIssue1_5">
+            <summary>Emerging Issue Field Length 1 Number 5</summary>
+            <value>the emerging issue value</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.EmergingIssue1_5 = "X";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue1_5}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.EmergingIssue1_6">
+            <summary>Emerging Issue Field Length 1 Number 6</summary>
+            <value>the emerging issue value</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.EmergingIssue1_6 = "X";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue1_6}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.EmergingIssue8_1">
+            <summary>Emerging Issue Field Length 8 Number 1</summary>
+            <value>the emerging issue value</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.EmergingIssue8_1 = "XXXXXXXX";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue8_1}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.EmergingIssue8_2">
+            <summary>Emerging Issue Field Length 8 Number 2</summary>
+            <value>the emerging issue value</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.EmergingIssue8_2 = "XXXXXXXX";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue8_2}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.EmergingIssue8_3">
+            <summary>Emerging Issue Field Length 8 Number 3</summary>
+            <value>the emerging issue value</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.EmergingIssue8_3 = "XXXXXXXX";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue8_3}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.EmergingIssue20">
+            <summary>Emerging Issue Field Length 20</summary>
+            <value>the emerging issue value</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.EmergingIssue20 = "XXXXXXXXXXXXXXXXXXXX";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue20}");</para>
             </example>
         </member>
         <member name="T:BFDR.FHIRSubject">

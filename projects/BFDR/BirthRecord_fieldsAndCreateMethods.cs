@@ -40,6 +40,9 @@ namespace BFDR
         /// <summary>The Attendant.</summary>
         private Practitioner Attendant;
 
+        /// <summary>The Certifier.</summary>
+        private Practitioner Certifier;
+
         /// <summary>The Mother's Race and Ethnicity provided by Jurisdiction.</summary>
         private Observation InputRaceAndEthnicityObsMother;
 
@@ -92,7 +95,7 @@ namespace BFDR
         protected override string SubjectId([CallerMemberName] string propertyName = null)
         {
             IEnumerable<FHIRSubject> subjects = this.GetType().GetProperty(propertyName).GetCustomAttributes(false).OfType<FHIRSubject>();
-            if (subjects == null || subjects.Count() == 0)
+            if ((subjects == null) || subjects.Count() == 0)
             {
                 return Mother.Id;
             }
@@ -138,6 +141,21 @@ namespace BFDR
             Attendant.Meta = new Meta();
             string[] attendant_profile = { VR.ProfileURL.Practitioner };
             Attendant.Meta.Profile = attendant_profile;
+            Extension roleExt = new Extension(VRExtensionURLs.Role, new Code("attendant"));
+            Attendant.Extension.Add(roleExt);
+            // Not linked to Composition or inserted in bundle, since this is run before the composition exists.
+        }
+    
+            /// <summary>Create Certifier/Practitioner.</summary>
+        private void CreateCertifier()
+        {
+            Certifier = new Practitioner();
+            Certifier .Id = Guid.NewGuid().ToString();
+            Certifier .Meta = new Meta();
+            string[] certifier_profile = { VR.ProfileURL.Practitioner };
+            Certifier .Meta.Profile = certifier_profile;
+            Extension roleExt = new Extension(VRExtensionURLs.Role, new Code("certifier"));
+            Certifier.Extension.Add(roleExt);
             // Not linked to Composition or inserted in bundle, since this is run before the composition exists.
         }
 
@@ -161,6 +179,18 @@ namespace BFDR
             };
             Bundle.AddResourceEntry(locationBirth, "urn:uuid:" + locationBirth.Id);
             return locationBirth;
+        }
+        
+        /// <summary>Create Birth Encounter.</summary>
+        private void CreateBirthEncounter()
+        {
+            EncounterBirth = new Encounter();
+            EncounterBirth .Id = Guid.NewGuid().ToString();
+            EncounterBirth .Meta = new Meta();
+            string[] encounterBirth_profile = { ProfileURL.EncounterBirth };
+            EncounterBirth .Meta.Profile = encounterBirth_profile;
+            Extension roleExt = new Extension(VRExtensionURLs.Role, new CodeableConcept(CodeSystems.RoleCode_HL7_V3, "CHILD"));
+            EncounterBirth.Extension.Add(roleExt);
         }
     }
 
