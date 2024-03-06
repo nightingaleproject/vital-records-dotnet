@@ -4079,8 +4079,6 @@ namespace BFDR
                     }
                     FhirDateTime dateTime = new FhirDateTime(parsedDate.Year, parsedDate.Month, parsedDate.Day);
                     obs.Value = dateTime;
-                    // Make sure the PatientBirthTime is not present because we have no time data.
-                    //obs.Value.RemoveExtension(PartialDateTimeUrl);
                 }
 
             }
@@ -4316,7 +4314,6 @@ namespace BFDR
             {
                 if(!String.IsNullOrWhiteSpace(value))
                 {
-                    // TODO update ValueSet once they are generated from the IG
                     SetCodeValue("NumberOfPrenatalVisitsEditFlag", value, BFDR.ValueSets.PregnancyReportEditFlags.Codes);
                 }
             }
@@ -4448,7 +4445,6 @@ namespace BFDR
             {
                 if(!String.IsNullOrWhiteSpace(value))
                 {
-                    // TODO update ValueSet once they are generated from the IG
                     SetCodeValue("GestationalAgeAtDeliveryEditFlag", value, BFDR.ValueSets.GestationalAgeAtDeliveryEditFlags.Codes);
                 }
             }
