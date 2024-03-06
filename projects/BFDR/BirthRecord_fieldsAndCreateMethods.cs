@@ -95,7 +95,7 @@ namespace BFDR
         protected override string SubjectId([CallerMemberName] string propertyName = null)
         {
             IEnumerable<FHIRSubject> subjects = this.GetType().GetProperty(propertyName).GetCustomAttributes(false).OfType<FHIRSubject>();
-            if (subjects == null || subjects.Count() == 0)
+            if ((subjects == null) || subjects.Count() == 0)
             {
                 return Mother.Id;
             }

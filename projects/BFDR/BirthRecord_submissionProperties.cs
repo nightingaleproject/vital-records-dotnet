@@ -6389,5 +6389,300 @@ namespace BFDR
                 }
             }
         }
+
+        /// <summary>Set an emerging issue value, creating an empty EmergingIssues Observation as needed.</summary>
+        private void SetEmergingIssue(string identifier, string value)
+        {
+            if (value == null)
+            {
+                return;
+            }
+            Observation EmergingIssues = GetOrCreateObservation(identifier, CodeSystems.ObservationCode, "NCHS-required Parameter Slots for Emerging Issues", VR.IGURL.EmergingIssues, EMERGING_ISSUES_SECTION, null, identifier);
+
+            // Remove existing component (if it exists) and add an appropriate component.
+            EmergingIssues.Component.RemoveAll(cmp => cmp.Code != null && cmp.Code.Coding != null && cmp.Code.Coding.Count() > 0 && cmp.Code.Coding.First().Code == identifier);
+            Observation.ComponentComponent component = new Observation.ComponentComponent();
+            component.Code = new CodeableConcept(CodeSystems.ComponentCode, identifier, null, null);
+            component.Value = new FhirString(value);
+            EmergingIssues.Component.Add(component);
+        }
+
+        /// <summary>Get an emerging issue value.</summary>
+        private string GetEmergingIssue(string identifier)             
+        {
+            Observation EmergingIssues = GetObservation(identifier);
+            if (EmergingIssues == null)
+            {
+                return null;
+            }
+            // Remove existing component (if it exists) and add an appropriate component.
+            Observation.ComponentComponent issue = EmergingIssues.Component.FirstOrDefault(c => c.Code.Coding[0].Code == identifier);
+            if (issue != null && issue.Value != null && issue.Value as FhirString != null)
+            {
+                return issue.Value.ToString();
+            }
+            return null;
+        }
+
+
+        /// <summary>Emerging Issue Field Length 1 Number 1</summary>
+        /// <value>the emerging issue value</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.EmergingIssue1_1 = "X";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue1_1}");</para>
+        /// </example>
+        [Property("Emerging Issue Field Length 1 Number 1", Property.Types.String, "emergingIssues", "One-Byte Field 1", true, VR.IGURL.EmergingIssues, false, 50)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='emergingissues')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public string EmergingIssue1_1
+        {
+            get
+            {
+                return GetEmergingIssue("EmergingIssue1_1");
+            }
+            set
+            {
+                if(!String.IsNullOrWhiteSpace(value))
+                {
+                    SetEmergingIssue("EmergingIssue1_1", value);
+                }
+            }
+        }
+
+        /// <summary>Emerging Issue Field Length 1 Number 2</summary>
+        /// <value>the emerging issue value</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.EmergingIssue1_2 = "X";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue1_2}");</para>
+        /// </example>
+        [Property("Emerging Issue Field Length 1 Number 2", Property.Types.String, "emergingIssues", "1-Byte Field 2", true, VR.IGURL.EmergingIssues, false, 50)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='emergingissues')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public string EmergingIssue1_2
+        {
+            get
+            {
+                return GetEmergingIssue("EmergingIssue1_2");
+            }
+            set
+            {
+                if(!String.IsNullOrWhiteSpace(value))
+                {
+                    SetEmergingIssue("EmergingIssue1_2", value);
+                }
+            }
+        }
+
+        /// <summary>Emerging Issue Field Length 1 Number 3</summary>
+        /// <value>the emerging issue value</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.EmergingIssue1_3 = "X";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue1_3}");</para>
+        /// </example>
+        [Property("Emerging Issue Field Length 1 Number 3", Property.Types.String, "emergingIssues", "1-Byte Field 3", true, VR.IGURL.EmergingIssues, false, 50)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='emergingissues')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public string EmergingIssue1_3
+        {
+            get
+            {
+                return GetEmergingIssue("EmergingIssue1_3");
+            }
+            set
+            {
+                if(!String.IsNullOrWhiteSpace(value))
+                {
+                    SetEmergingIssue("EmergingIssue1_3", value);
+                }
+            }
+        }
+
+        /// <summary>Emerging Issue Field Length 1 Number 4</summary>
+        /// <value>the emerging issue value</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.EmergingIssue1_4 = "X";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue1_4}");</para>
+        /// </example>
+        [Property("Emerging Issue Field Length 1 Number 4", Property.Types.String, "emergingIssues", "1-Byte Field 4", true, VR.IGURL.EmergingIssues, false, 50)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='emergingissues')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public string EmergingIssue1_4
+        {
+            get
+            {
+                return GetEmergingIssue("EmergingIssue1_4");
+            }
+            set
+            {
+                if(!String.IsNullOrWhiteSpace(value))
+                {
+                    SetEmergingIssue("EmergingIssue1_4", value);
+                }
+            }
+        }
+
+        /// <summary>Emerging Issue Field Length 1 Number 5</summary>
+        /// <value>the emerging issue value</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.EmergingIssue1_5 = "X";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue1_5}");</para>
+        /// </example>
+        [Property("Emerging Issue Field Length 1 Number 5", Property.Types.String, "emergingIssues", "1-Byte Field 5", true, VR.IGURL.EmergingIssues, false, 50)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='emergingissues')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public string EmergingIssue1_5
+        {
+            get
+            {
+                return GetEmergingIssue("EmergingIssue1_5");
+            }
+            set
+            {
+                if(!String.IsNullOrWhiteSpace(value))
+                {
+                    SetEmergingIssue("EmergingIssue1_5", value);
+                }
+            }
+        }
+
+        /// <summary>Emerging Issue Field Length 1 Number 6</summary>
+        /// <value>the emerging issue value</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.EmergingIssue1_6 = "X";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue1_6}");</para>
+        /// </example>
+        [Property("Emerging Issue Field Length 1 Number 6", Property.Types.String, "emergingIssues", "1-Byte Field 6", true, VR.IGURL.EmergingIssues, false, 50)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='emergingissues')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public string EmergingIssue1_6
+        {
+            get
+            {
+                return GetEmergingIssue("EmergingIssue1_6");
+            }
+            set
+            {
+                if(!String.IsNullOrWhiteSpace(value))
+                {
+                    SetEmergingIssue("EmergingIssue1_6", value);
+                }
+            }
+        }
+
+        /// <summary>Emerging Issue Field Length 8 Number 1</summary>
+        /// <value>the emerging issue value</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.EmergingIssue8_1 = "XXXXXXXX";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue8_1}");</para>
+        /// </example>
+        [Property("Emerging Issue Field Length 8 Number 1", Property.Types.String, "emergingIssues", "8-Byte Field 1", true, VR.IGURL.EmergingIssues, false, 50)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='emergingissues')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public string EmergingIssue8_1
+        {
+            get
+            {
+                return GetEmergingIssue("EmergingIssue8_1");
+            }
+            set
+            {
+                if(!String.IsNullOrWhiteSpace(value))
+                {
+                    SetEmergingIssue("EmergingIssue8_1", value);
+                }
+            }
+        }
+
+        /// <summary>Emerging Issue Field Length 8 Number 2</summary>
+        /// <value>the emerging issue value</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.EmergingIssue8_2 = "XXXXXXXX";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue8_2}");</para>
+        /// </example>
+        [Property("Emerging Issue Field Length 8 Number 2", Property.Types.String, "emergingIssues", "8-Byte Field 2", true, VR.IGURL.EmergingIssues, false, 50)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='emergingissues')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public string EmergingIssue8_2
+        {
+            get
+            {
+                return GetEmergingIssue("EmergingIssue8_2");
+            }
+            set
+            {
+                if(!String.IsNullOrWhiteSpace(value))
+                {
+                    SetEmergingIssue("EmergingIssue8_2", value);
+                }
+            }
+        }
+
+        /// <summary>Emerging Issue Field Length 8 Number 3</summary>
+        /// <value>the emerging issue value</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.EmergingIssue8_3 = "XXXXXXXX";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue8_3}");</para>
+        /// </example>
+        [Property("Emerging Issue Field Length 8 Number 3", Property.Types.String, "emergingIssues", "8-Byte Field 3", true, VR.IGURL.EmergingIssues, false, 50)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='emergingissues')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public string EmergingIssue8_3
+        {
+            get
+            {
+                return GetEmergingIssue("EmergingIssue8_3");
+            }
+            set
+            {
+                if(!String.IsNullOrWhiteSpace(value))
+                {
+                    SetEmergingIssue("EmergingIssue8_3", value);
+                }
+            }
+        }
+
+        /// <summary>Emerging Issue Field Length 20</summary>
+        /// <value>the emerging issue value</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.EmergingIssue20 = "XXXXXXXXXXXXXXXXXXXX";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue20}");</para>
+        /// </example>
+        [Property("Emerging Issue Field Length 20", Property.Types.String, "emergingIssues", "20-Byte Field", true, VR.IGURL.EmergingIssues, false, 50)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='emergingissues')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public string EmergingIssue20
+        {
+            get
+            {
+                return GetEmergingIssue("EmergingIssue20");
+            }
+            set
+            {
+                if(!String.IsNullOrWhiteSpace(value))
+                {
+                    SetEmergingIssue("EmergingIssue20", value);
+                }
+            }
+        }
     }
 }
