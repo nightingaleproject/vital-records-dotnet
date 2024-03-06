@@ -496,7 +496,7 @@
                 "coding": [
                   {
                     "system": "VR.CodeSystems.BirthAndDeathEditFlags",
-                    "code": "editBypass0",
+                    "code": "0",
                     "display": "Edit Passed"
                   }
                 ]
@@ -544,7 +544,7 @@
                 "coding": [
                   {
                     "system": "VR.CodeSystems.BirthAndDeathEditFlags",
-                    "code": "editBypass2",
+                    "code": "2",
                     "display": "Edit Failed, Data Queried, but not Verified"
                   }
                 ]
