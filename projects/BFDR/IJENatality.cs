@@ -5083,12 +5083,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return LeftJustified_Get("CERTIF_NAME", "CertifierName");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                LeftJustified_Set("CERTIF_NAME", "CertifierName", value);
             }
         }
 
@@ -5098,12 +5097,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return LeftJustified_Get("CERTIF_NPI", "CertifierNPI");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                LeftJustified_Set("CERTIF_NPI", "CertifierNPI", value);
             }
         }
 
@@ -5113,12 +5111,26 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                var ret = record.CertifierTitleHelper;
+                if (ret != null && Mappings.BirthAttendantTitles.FHIRToIJE.ContainsKey(ret))
+                {
+                    return Get_MappingFHIRToIJE(Mappings.BirthAttendantTitles.FHIRToIJE, "CertifierTitle", "CERTIF");
+                }
+                else  // If the return value is not a code, it is just an arbitrary string, so return it.
+                {
+                    return ret;
+                }
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                if (Mappings.BirthAttendantTitles.IJEToFHIR.ContainsKey(value.Split(' ')[0]))
+                {
+                    Set_MappingIJEToFHIR(Mappings.BirthAttendantTitles.IJEToFHIR, "CERTIF", "CertifierTitle", value.Trim());
+                }
+                else  // If the value is not a valid code, it is just an arbitrary string.  The helper will deal with it.
+                {
+                    record.CertifierTitleHelper = value;
+                }
             }
         }
 
@@ -5128,12 +5140,18 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                if (record.CertifierOtherHelper != null)
+                {
+                    return LeftJustified_Get("CERTIF_OTH_TXT", "CertifierOtherHelper");
+                }
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    LeftJustified_Set("CERTIF_OTH_TXT", "CertifierOtherHelper", value);
+                }
             }
         }
 
@@ -5171,14 +5189,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                // return NumericAllowingUnknown_Get("CERTIFIED_YR", "CertifiedYear");
-                return "";
+                 return NumericAllowingUnknown_Get("CERTIFIED_YR", "CertifiedYear");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
-                // NumericAllowingUnknown_Set("CERTIFIED_YR", "CertifiedYear", value);
+                 NumericAllowingUnknown_Set("CERTIFIED_YR", "CertifiedYear", value);
             }
         }
 
@@ -5188,12 +5203,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return NumericAllowingUnknown_Get("CERTIFIED_MO", "CertifiedMonth");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                NumericAllowingUnknown_Set("CERTIFIED_MO", "CertifiedMonth", value);
             }
         }
 
@@ -5203,12 +5217,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return NumericAllowingUnknown_Get("CERTIFIED_DY", "CertifiedDay");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                NumericAllowingUnknown_Set("CERTIFIED_DY", "CertifiedDay", value);
             }
         }
 

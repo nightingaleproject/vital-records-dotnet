@@ -4268,7 +4268,7 @@ namespace BFDR
         /// <para>Console.WriteLine($"Attendants's Name: {ExampleBirthRecord.AttendantName}");</para>
         /// </example>
         [Property("Attendant Name", Property.Types.String, "Birth Certification", "Name of attendant.", true, VR.IGURL.Practitioner, true, 6)]
-        [FHIRPath("Bundle.entry.resource.where($this is Practitioner)", "name")]
+        [FHIRPath("Bundle.entry.resource.where($this is Practitioner).where(extension.value ='attendant')", "name")]
         public string AttendantName
         {
             get
@@ -4309,12 +4309,12 @@ namespace BFDR
         /// <para>Console.WriteLine($"Attendants NPI: {ExampleBirthRecord.AttendantNPI}");</para>
         /// </example>
         [Property("Attendants NPI", Property.Types.String, "Birth Certification", "Attendant's NPI.", true, VR.IGURL.Practitioner, true, 13)]
-        [FHIRPath("Bundle.entry.resource.where($this is Practitioner).identifier.where(system='http://hl7.org/fhir/sid/us-npi')", "value")]
+        [FHIRPath("Bundle.entry.resource.where($this is Practitioner).where(extension.value ='attendant').identifier.where(system='http://hl7.org/fhir/sid/us-npi')", "value")]
         public string AttendantNPI
         {
             get
             {
-                return Attendant?.Identifier?.Find(id => id.System == "http://hl7.org/fhir/sid/us-npi")?.Value;
+                return Attendant?.Identifier?.Find(id => id.System == CodeSystems.US_NPI_HL7)?.Value;
             }
             set
             {
@@ -4359,7 +4359,7 @@ namespace BFDR
         [PropertyParam("code", "The code used to describe this concept.")]
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
-        [FHIRPath("Bundle.entry.resource.where($this is Practitioner)", "qualification")]
+        [FHIRPath("Bundle.entry.resource.where($this is Practitioner).where(extension.value ='attendant')", "qualification")]
         public Dictionary<string, string> AttendantTitle
         {
             get
@@ -4400,7 +4400,7 @@ namespace BFDR
         /// </example>
         [Property("Attendant Title Helper", Property.Types.String, "Birth Certification", "Attendant Title.", false, VR.IGURL.Practitioner, true, 4)]
         [PropertyParam("code", "The code used to describe this concept.")]
-        [FHIRPath("Bundle.entry.resource.where($this is Practitioner)", "qualification")]
+        [FHIRPath("Bundle.entry.resource.where($this is Practitioner).where(extension.value ='attendant')", "qualification")]
         public string AttendantTitleHelper
         {
             get
@@ -4445,7 +4445,7 @@ namespace BFDR
         /// </example>
         [Property("Attendant Other Helper", Property.Types.String, "Birth Certification", "Attendant Other.", false, VR.IGURL.Practitioner, true, 4)]
         [PropertyParam("code", "The code used to describe this concept.")]
-        [FHIRPath("Bundle.entry.resource.where($this is Practitioner).qualification", "other")]
+        [FHIRPath("Bundle.entry.resource.where($this is Practitioner).where(extension.value ='attendant').qualification", "other")]
         public string AttendantOtherHelper
         {
             get
@@ -5926,5 +5926,468 @@ namespace BFDR
             set => SetIntegerObservationValue("9271-8", "10 minute Apgar Score", value, NEWBORN_INFORMATION_SECTION, BFDR.ProfileURL.ObservationApgarScore, Child.Id);
         }
 
+
+        /// <summary>Certifier name.</summary>
+        /// <value>the certifier's name</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.CertifierName = "Janet Seito";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Certifier's Name: {ExampleBirthRecord.CertifierName}");</para>
+        /// </example>
+        [Property("Certifier Name", Property.Types.String, "Birth Certification", "Name of Certifier.", true, VR.IGURL.Practitioner, true, 6)]
+        [FHIRPath("Bundle.entry.resource.where($this is Practitioner).where(extension.value ='certifier')", "name")]
+        public string CertifierName
+        {
+            get
+            {
+                if (Certifier != null && Certifier.Name != null)
+                {
+                    return Certifier.Name.FirstOrDefault()?.Text;
+                }
+                return null;
+            }
+            set
+            {
+                if (Certifier == null)
+                {
+                    CreateCertifier();
+                }
+                HumanName name = Certifier.Name.FirstOrDefault();
+                if (name != null && !String.IsNullOrEmpty(value))
+                {
+                    name.Text = value;
+                }
+                else if (!String.IsNullOrEmpty(value))
+                {
+                    name = new HumanName();
+                    name.Use = HumanName.NameUse.Official;
+                    name.Text = value;
+                    Certifier.Name.Add(name);
+                }
+            }
+        }
+
+        /// <summary>Certifier NPI</summary>
+        /// <value>the certifiers npi</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.CertifierNPI = "123456789011";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Certifier NPI: {ExampleBirthRecord.CertifierNPI}");</para>
+        /// </example>
+        [Property("Certifier NPI", Property.Types.String, "Birth Certification", "Certifier's NPI.", true, VR.IGURL.Practitioner, true, 13)]
+        [FHIRPath("Bundle.entry.resource.where($this is Practitioner).where(extension.value ='certifier').identifier.where(system='http://hl7.org/fhir/sid/us-npi')", "value")]
+        public string CertifierNPI
+        {
+            get
+            {
+                return Certifier?.Identifier?.Find(id => id.System == CodeSystems.US_NPI_HL7)?.Value;
+            }
+            set
+            {
+                if (Certifier == null)
+                {
+                    CreateCertifier();
+                }
+                if (Certifier.Identifier.Count > 0)
+                {
+                    Certifier.Identifier.Clear();
+                }
+                Certifier.Identifier.RemoveAll(iden => iden.System == CodeSystems.US_NPI_HL7);
+                if (String.IsNullOrWhiteSpace(value))
+                {
+                    return;
+                }
+                Identifier npi = new Identifier();
+                npi.Type = new CodeableConcept(CodeSystems.HL7_identifier_type, "NPI", "National Provider Identifier", null);
+                npi.System = CodeSystems.US_NPI_HL7;
+                npi.Value = value;
+                Certifier.Identifier.Add(npi);
+            }
+        }
+
+        /// <summary>Certifier Title</summary>
+        /// <value>the title/qualification of the person who certified the birth. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; title = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>title.Add("code", "112247003");</para>
+        /// <para>title.Add("system", CodeSystems.SCT);</para>
+        /// <para>title.Add("display", "Medical Doctor");</para>
+        /// <para>ExampleBirthRecord.CertifierTitle = title;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Certifier Title: {ExampleBirthRecord.CertifierTitle['display']}");</para>
+        /// </example>
+        [Property("Certifiers Title", Property.Types.Dictionary, "Birth Certification", "Certifier's Title.", true, VR.IGURL.Practitioner, true, 13)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Practitioner).where(extension.value ='certifier')", "qualification")]
+        public Dictionary<string, string> CertifierTitle
+        {
+            get
+            {
+                if (Certifier == null)
+                {
+                    return EmptyCodeableDict();
+                }
+                Practitioner.QualificationComponent qualification = Certifier.Qualification.FirstOrDefault();
+                if (Certifier != null && qualification != null)
+                {
+                    return CodeableConceptToDict(qualification.Code);
+                }
+                return EmptyCodeableDict();
+            }
+            set
+            {
+                if (Certifier == null)
+                {
+                    CreateCertifier();
+                }
+                Practitioner.QualificationComponent qualification = new Practitioner.QualificationComponent();
+                qualification.Code = DictToCodeableConcept(value);
+                Certifier.Qualification.Clear();
+                Certifier.Qualification.Add(qualification);
+            }
+        }
+
+        /// <summary>Certifier Title Helper.</summary>
+        /// <value>the title/qualification of the Certifier.
+        /// <para>"code" - the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.CertifierTitleHelper = ValueSets.BirthAttendantsTitles.MedicalDoctor;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Certifier Title: {ExampleBirthRecord.CertifierTitleHelper}");</para>
+        /// </example>
+        [Property("Certifier Title Helper", Property.Types.String, "Birth Certification", "Certifier Title.", false, VR.IGURL.Practitioner, true, 4)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Practitioner).where(extension.value ='certifier')", "qualification")]
+        public string CertifierTitleHelper
+        {
+            get
+            {
+                if (CertifierTitle.ContainsKey("code"))
+                {
+                    string code = CertifierTitle["code"];
+                    if (!String.IsNullOrWhiteSpace(code))
+                    {
+                        return code;
+                    }
+                }
+                return null;
+            }
+            set
+            {
+                if (String.IsNullOrWhiteSpace(value))
+                {
+                    // do nothing
+                    return;
+                }
+                if (!VR.Mappings.BirthAttendantTitles.FHIRToIJE.ContainsKey(value))
+                { //other
+                    CertifierTitle = CodeableConceptToDict(new CodeableConcept(CodeSystems.NullFlavor_HL7_V3, "OTH", "Other", value));
+                }
+                else
+                { // normal path
+                    SetCodeValue("CertifierTitle", value, VR.ValueSets.BirthAttendantTitles.Codes);
+                }
+            }
+        }
+
+        /// <summary>Certifier Other Helper.</summary>
+        /// <value>the "other" title/qualification of the Certifier.
+        /// <para>"code" - the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.CertifierOtherHelper = "Birth Clerk";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Certifier Other: {ExampleBirthRecord.CertifierOtherHelper}");</para>
+        /// </example>
+        [Property("Certifier Other Helper", Property.Types.String, "Birth Certification", "Certifier Other.", false, VR.IGURL.Practitioner, true, 4)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Practitioner).where(extension.value ='certifier').qualification", "other")]
+        public string CertifierOtherHelper
+        {
+            get
+            {
+                if (CertifierTitle.ContainsKey("code"))
+                {
+                    string code = CertifierTitle["code"];
+                    if (code == "OTH")
+                    {
+                        if (CertifierTitle.ContainsKey("text") && !String.IsNullOrWhiteSpace(CertifierTitle["text"]))
+                        {
+                            return (CertifierTitle["text"]);
+                        }
+                    }
+                }
+                return null;
+            }
+            set
+            {
+                if (String.IsNullOrWhiteSpace(value))
+                {
+                    // do nothing
+                    return;
+                }
+                else
+                {
+                    CertifierTitle = CodeableConceptToDict(new CodeableConcept(CodeSystems.NullFlavor_HL7_V3, "OTH", "Other", value));
+                }
+            }
+        }
+
+        /// <summary>Date of Certification.</summary>
+        /// <value>the date of certification</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.CertifiedDate = "2023-02-19";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Date of birth certification: {ExampleBirthRecord.CertificationDate}");</para>
+        /// </example>
+        [Property("CertificationDate", Property.Types.String, "Birth Certification", "Date of Certification.", true, BFDR.IGURL.CompositionProviderLiveBirthReport, true, 243)]
+        [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(extension.value.coding.code='CHILD')", "")]
+        public string CertificationDate
+        {
+            get
+            {
+                Encounter.ParticipantComponent certifier = EncounterBirth.Participant.FirstOrDefault(entry => ((Encounter.ParticipantComponent)entry).Type.Any(t => t.Coding.Any(c => c.Code == "87287-9")));
+                if (certifier != null && certifier.Period.Start != null)
+                {
+                    return certifier.Period.Start;
+                }
+                return null;
+            }
+            set
+            {
+                Encounter.ParticipantComponent certifier = EncounterBirth.Participant.FirstOrDefault(entry => ((Encounter.ParticipantComponent)entry).Type.Any(t => t.Coding.Any(c => c.Code == "87287-9")));
+                if (certifier != null)
+                {
+                    certifier.Period.StartElement = ConvertToDateTime(value);
+                }
+                else
+                {
+                    Encounter.ParticipantComponent newCertifier = new Encounter.ParticipantComponent();
+                    CodeableConcept t = new CodeableConcept(CodeSystems.LOINC, "87287-9", "Birth certifier", null);
+                    newCertifier.Type.Add(t);
+                    Period p = new Period();
+                    p.StartElement = ConvertToDateTime(value);
+                    newCertifier.Period = p;
+                    EncounterBirth.Participant.Add(newCertifier);
+                }
+            }
+        }
+
+        /// <summary>Certified Year</summary>
+        /// <value>year of certification</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.CertifiedYear = 2023;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Certified Year: {ExampleBirthRecord.CertifiedYear}");</para>
+        /// </example>
+        [Property("Certified Year", Property.Types.Int32, "Birth Certification", "Certified Year", true, IGURL.EncounterBirth, true, 4)]
+        [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(extension.value.coding.code='CHILD')", "")] 
+        public int? CertifiedYear
+        {
+            get
+            {
+                if (EncounterBirth == null)
+                {
+                    return null;
+                }
+                Encounter.ParticipantComponent certifier = EncounterBirth.Participant.FirstOrDefault(entry => ((Encounter.ParticipantComponent)entry).Type.Any(t => t.Coding.Any(c => c.Code == "87287-9")));
+                // First check the value string
+                if (certifier == null || certifier.Period == null || certifier.Period.StartElement == null)
+                {
+                    return null;
+                }
+                if (certifier != null && certifier.Period.StartElement != null && ParseDateElements(certifier.Period.Start, out int? year, out int? month, out int? day))
+                {
+                    return year;
+                }
+                return GetDateFragmentOrPartialDate(certifier.Period.StartElement, VR.ExtensionURL.PartialDateTimeYearVR);
+            }
+            set
+            {
+                if (value == null)
+                {
+                    return;
+                }
+                if (EncounterBirth == null)
+                {
+                    CreateBirthEncounter();
+                }
+                Encounter.ParticipantComponent stateComp = EncounterBirth.Participant.FirstOrDefault(entry => ((Encounter.ParticipantComponent)entry).Type.Any(t => t.Coding.Any(c => c.Code == "87287-9")));
+                if (stateComp == null) // make certifier participant with date
+                {  
+                    Encounter.ParticipantComponent certifier = new Encounter.ParticipantComponent();
+                    CodeableConcept t = new CodeableConcept(CodeSystems.LOINC, "87287-9", "Birth certifier", null);
+                    certifier.Type.Add(t);
+                    Period p = new Period();
+                    p.StartElement = new FhirDateTime();
+                    p.StartElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
+                    certifier.Period = p;
+                    EncounterBirth.Participant.Add(certifier);
+                    stateComp = certifier;
+                }  
+                if (stateComp.Period == null || stateComp.Period.StartElement == null) //certifier participant exists but no period or period.start
+                {
+                    Period p = new Period();
+                    p.StartElement = new FhirDateTime();
+                    p.StartElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
+                    stateComp.Period = p;
+                }
+                FhirDateTime newDate = SetYear(value, stateComp.Period.StartElement, CertifiedMonth, CertifiedDay);
+                if (newDate != null)
+                {
+                    stateComp.Period.StartElement = newDate;
+                }
+            }
+        }
+
+        /// <summary>Certified Month</summary>
+        /// <value>month of certification</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.CertifiedMonth = 10;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Certified Month: {ExampleBirthRecord.CertifiedMonth}");</para>
+        /// </example>
+        [Property("Certified Month", Property.Types.Int32, "Birth Certification", "Certified Month", true, IGURL.EncounterBirth, true, 4)]
+        [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(extension.value.coding.code='CHILD')", "")] 
+        public int? CertifiedMonth
+        {
+            get
+            {
+                if (EncounterBirth == null)
+                {
+                    return null;
+                }
+                Encounter.ParticipantComponent certifier = EncounterBirth.Participant.FirstOrDefault(entry => ((Encounter.ParticipantComponent)entry).Type.Any(t => t.Coding.Any(c => c.Code == "87287-9")));
+                // First check the value string
+                if (certifier == null || certifier.Period == null || certifier.Period.StartElement == null)
+                {
+                    return null;
+                }
+                if (certifier != null && certifier.Period.StartElement != null && ParseDateElements(certifier.Period.Start, out int? year, out int? month, out int? day))
+                {
+                    return month;
+                }
+                return GetDateFragmentOrPartialDate(certifier.Period.StartElement, VR.ExtensionURL.PartialDateTimeMonthVR);
+            }
+            set
+            {
+                if (value == null)
+                {
+                    return;
+                }
+                if (EncounterBirth == null)
+                {
+                    CreateBirthEncounter();
+                }
+                Encounter.ParticipantComponent stateComp = EncounterBirth.Participant.FirstOrDefault(entry => ((Encounter.ParticipantComponent)entry).Type.Any(t => t.Coding.Any(c => c.Code == "87287-9")));
+                if (stateComp == null) // make certifier participant with date
+                {  
+                    Encounter.ParticipantComponent certifier = new Encounter.ParticipantComponent();
+                    CodeableConcept t = new CodeableConcept(CodeSystems.LOINC, "87287-9", "Birth certifier", null);
+                    certifier.Type.Add(t);
+                    Period p = new Period();
+                    p.StartElement = new FhirDateTime();
+                    p.StartElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
+                    certifier.Period = p;
+                    EncounterBirth.Participant.Add(certifier);
+                    stateComp = certifier;
+                }  
+                if (stateComp.Period == null || stateComp.Period.StartElement == null) //certifier participant exists but no period or period.start
+                {
+                    Period p = new Period();
+                    p.StartElement = new FhirDateTime();
+                    p.StartElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
+                    stateComp.Period = p;
+                }
+                FhirDateTime newDate = SetMonth(value, stateComp.Period.StartElement, CertifiedYear, CertifiedDay); 
+                if (newDate != null)
+                {
+                    stateComp.Period.StartElement = newDate; 
+                }
+            }
+        }
+
+        /// <summary>Certified Day</summary>
+        /// <value>day of certification</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.CertifiedDay = 23;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Certified Day: {ExampleBirthRecord.CertifiedDay}");</para>
+        /// </example>
+        [Property("Certified Day", Property.Types.Int32, "Birth Certification", "Certified Day", true, IGURL.EncounterBirth, true, 4)]
+        [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(extension.value.coding.code='CHILD')", "")] 
+        public int? CertifiedDay
+        {
+            get
+            {
+                if (EncounterBirth == null)
+                {
+                    return null;
+                }
+                Encounter.ParticipantComponent certifier = EncounterBirth.Participant.FirstOrDefault(entry => ((Encounter.ParticipantComponent)entry).Type.Any(t => t.Coding.Any(c => c.Code == "87287-9")));
+                // First check the value string
+                if (certifier == null || certifier.Period == null || certifier.Period.StartElement == null)
+                {
+                    return null;
+                }
+                if (certifier != null && certifier.Period.StartElement != null && ParseDateElements(certifier.Period.Start, out int? year, out int? month, out int? day))
+                {
+                    return day;
+                }
+                return GetDateFragmentOrPartialDate(certifier.Period.StartElement, VR.ExtensionURL.PartialDateTimeDayVR);
+            }
+            set
+            {
+                if (value == null)
+                {
+                    return;
+                }
+                if (EncounterBirth == null)
+                {
+                    CreateBirthEncounter();
+                }
+                Encounter.ParticipantComponent stateComp = EncounterBirth.Participant.FirstOrDefault(entry => ((Encounter.ParticipantComponent)entry).Type.Any(t => t.Coding.Any(c => c.Code == "87287-9")));
+                if (stateComp == null) // make certifier participant with date
+                {  
+                    Encounter.ParticipantComponent certifier = new Encounter.ParticipantComponent();
+                    CodeableConcept t = new CodeableConcept(CodeSystems.LOINC, "87287-9", "Birth certifier", null);
+                    certifier.Type.Add(t);
+                    Period p = new Period();
+                    p.StartElement = new FhirDateTime();
+                    p.StartElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
+                    certifier.Period = p;
+                    EncounterBirth.Participant.Add(certifier);
+                    stateComp = certifier;
+                }  
+                if (stateComp.Period == null || stateComp.Period.StartElement == null) //certifier participant exists but no period or period.start
+                {
+                    Period p = new Period();
+                    p.StartElement = new FhirDateTime();
+                    p.StartElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
+                    stateComp.Period = p;
+                }
+                FhirDateTime newDate = SetDay(value, stateComp.Period.StartElement, CertifiedYear, CertifiedDay); 
+                if (newDate != null)
+                {
+                    stateComp.Period.StartElement = newDate; 
+                }
+            }
+        }
     }
 }
