@@ -1164,7 +1164,23 @@
             "reference" : "Practitioner/practitioner-vital-records-janet-seito"
           }
         ],
-        "valueInteger" : 8
+        "valueInteger" : 8,
+        "_valueInteger" : {
+          "extension" : [
+            {
+              "url" : "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
+              "valueCodeableConcept" : {
+                "coding" : [
+                  {
+                    "system" : "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
+                    "code" : "0",
+                    "display" : "Edit Passed"
+                  }
+                ]
+              }
+            }
+          ]
+        }
       }
     },
     {

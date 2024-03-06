@@ -2084,7 +2084,12 @@ namespace BFDR.Tests
       editBypass.Add("display", "Edit Failed, Data Queried, and Verified");
       Assert.Equal(editBypass, birthRecord.NumberOfPrenatalVisitsEditFlag);
 
-      // TODO add test for edit bypass parsing
+      BirthRecord parsedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Dictionary<string, string> editBypass0 = new Dictionary<string, string>();
+      editBypass0.Add("code", "0");
+      editBypass0.Add("system", VR.CodeSystems.VRCLEditFlags);
+      editBypass0.Add("display", "Edit Passed");
+      Assert.Equal(editBypass0, parsedRecord.NumberOfPrenatalVisitsEditFlag);
     }
 
     [Fact]
