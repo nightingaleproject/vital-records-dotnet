@@ -17,7 +17,6 @@
     <ProjectReference Include="..\BFDR.Messaging\BFDRMessaging.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="fixtures/json/BirthRecordFakeWithRace.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures/json/BasicBirthRecord.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures/json/RaceEthnicityCaseRecord.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures/json/RaceEthnicityCaseRecord2.json" CopyToOutputDirectory="PreserveNewest" />
@@ -31,6 +30,7 @@
     <None Update="fixtures/json/BirthRecordDemographicsCodingUpdateMessage.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures/ije/BasicBirthRecord.ije" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures/ije/UnknownParentBirthDates.ije" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="fixtures/json/BirthRecordFakeWithRace.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures/json/BirthRecordFakeNoRace.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures/json/BirthRecordStatusMessage.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
