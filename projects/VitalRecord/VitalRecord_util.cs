@@ -34,7 +34,15 @@ namespace VR
         /// <returns>the first matching resource or element</returns>
         private ITypedElement GetFirstEntryFor(FHIRPath fhirPath)
         {
-            IEnumerable<ITypedElement> matches = Bundle.ToTypedElement().Select(fhirPath.Path);
+            string searchPath;
+            if (fhirPath.Code == NONE_OF_THE_ABOVE)
+            {
+              searchPath = fhirPath.Path + ".where((code as CodeableConcept).coding.code = '"+fhirPath.CategoryCode+"')";
+            } else 
+            {
+              searchPath = fhirPath.Path;
+            }
+            IEnumerable<ITypedElement> matches = Bundle.ToTypedElement().Select(searchPath);
             if (matches.Count() == 0)
             {
                 return null;
