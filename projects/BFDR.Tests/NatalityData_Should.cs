@@ -838,5 +838,17 @@ namespace BFDR.Tests
       Assert.Equal("15", ije.APGAR10);
       Assert.Equal(15, fhir.ApgarScoreTenMinutes);
     }
+
+    [Fact]
+    public void TestIJERoundTrip()
+    {
+      BirthRecord fhir = new BirthRecord(File.ReadAllText("fixtures/json/BirthRecordFakeWithRace.json"));
+      Assert.False(fhir.NoPregnancyRiskFactors); // if present, will cause IJE values to flip to N
+      Assert.False(fhir.GestationalDiabetes); // should map to U
+      Assert.True(fhir.GestationalHypertension); // should map to Y
+      IJENatality ije = new IJENatality(fhir);
+      Assert.Equal("U", ije.GDIAB);
+      Assert.Equal("Y", ije.GHYPE);
+    }
   }
 }
