@@ -2355,6 +2355,221 @@ namespace BFDR
             }
         }
 
+        /// <summary>Method of Delivery - Fetal Presentation.</summary>
+        /// <value>presentation</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; route = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>route.Add("code", "70028003");</para>
+        /// <para>route.Add("system", "http://snomed.info/sct");</para>
+        /// <para>route.Add("display", "Vertex presentation");</para>
+        /// <para>ExampleBirthRecord.FetalPresentation = route;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Fetal Presentation: {ExampleBirthRecord.FetalPresentation}");</para>
+        /// </example>
+        [Property("Fetal Presentation", Property.Types.Dictionary, "Fetal Presentation",
+                  "Final Route and Method of Delivery", true, IGURL.ObservationFetalPresentation, true, 193)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Observation, categoryCode: "73761-9", section: MEDICAL_INFORMATION_SECTION)]
+        public Dictionary<string, string> FetalPresentation
+        {
+            get
+            {
+                // FHIRPath fhirPath = GetFHIRPathAttribute();
+                // bool criteria(Bundle.EntryComponent e) =>
+                //     e.Resource.TypeName == "Procedure" &&
+                //     ((Procedure)e.Resource).Category.Coding[0].Code == fhirPath.CategoryCode;
+                // List<Bundle.EntryComponent> matches = Bundle.Entry.Where(criteria).ToList();
+                // if (matches.Count == 0)
+                // {
+                //     return EmptyCodeableDict();
+                // }
+                // Procedure procedure = (Procedure)matches.First().Resource;
+                // return CodeableConceptToDict(procedure.Code);
+            }
+            set
+            {
+                // FHIRPath fhirPath = GetFHIRPathAttribute();
+                // RemoveAllEntries(fhirPath);
+                // if (IsDictEmptyOrDefault(value))
+                // {
+                //     return;
+                // }
+                // Coding coding = DictToCoding(value);
+                // fhirPath.Code = coding.Code;
+                // fhirPath.CodeSystem = coding.System;
+                // CreateEntry(fhirPath, SubjectId());
+            }
+        }
+
+        /// <summary>Method of Delivery - Fetal Presentation Helper.</summary>
+        /// <value>presentation</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.FetalPresentationHelper = "70028003";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Fetal Presentation Helper: {ExampleBirthRecord.FetalPresentationHelper}");</para>
+        /// </example>
+        [Property("Fetal Presentation Helper", Property.Types.String, "Method of Delivery - Fetal Presentation",
+                  "Fetal Presentation", false, IGURL.ObservationFetalPresentation, true, 193)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Observation, categoryCode: "73761-9", section: MEDICAL_INFORMATION_SECTION)]
+        public string FetalPresentationHelper
+        {
+            get
+            {
+                if (FetalPresentation.ContainsKey("code") && !String.IsNullOrWhiteSpace(FetalPresentation["code"]))
+                {
+                    return FetalPresentation["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("FetalPresentation", value, BFDR.ValueSets.FetalPresentations.Codes);
+                }
+                
+            }
+        }
+
+        /// <summary>Labor Trial Attempted</summary>
+        /// <value>attempted</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.LaborTrialAttempted = true;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother transferred: {ExampleBirthRecord.LaborTrialAttempted}");</para>
+        /// </example>
+        [Property("LaborTrialAttempted", Property.Types.Bool, "LaborTrialAttempted", "LaborTrialAttempted", false, BFDR.IGURL.ObservationLaborTrialAttempted, true, 288)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Observation, categoryCode: "73760-1", section: MEDICAL_INFORMATION_SECTION)]
+        public bool? LaborTrialAttempted
+        {
+            get
+            {
+                Observation obs = GetObservation("73760-1");
+                if (obs != null)
+                {
+                    bool? infantLiving = ((FhirBoolean)obs.Value).Value;
+                    return infantLiving;
+                }
+                return null;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    return;
+                }
+                Observation obs = GetOrCreateObservation("73760-1", CodeSystems.LOINC, "Labor Trial Attempted", BFDR.ProfileURL.ObservationLaborTrialAttempted, MEDICAL_INFORMATION_SECTION);
+                obs.Value = new FhirBoolean(value);
+            }
+        }
+
+        /// <summary>NumberOfPreviousCesareans.</summary>
+        /// <value>NumberOfPreviousCesareans</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.NumberOfPreviousCesareans = 1;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"NumberOfPreviousCesareans: {ExampleBirthRecord.NumberOfPreviousCesareans}");</para>
+        /// </example>
+        [Property("Number Of Previous Cesareans", Property.Types.Int32, "Number Of Previous Cesareans", "Number Of Previous Cesareans.", true, IGURL.ObservationNumberPreviousCesareans, true, 14)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='68497-7')", "")]
+        public int? NumberOfPreviousCesareans
+        {
+            get
+            {
+                Observation obs = GetObservation("68497-7");
+                if (obs != null)
+                {
+                    if (obs != null && obs.Value != null && obs.Value as Hl7.Fhir.Model.Integer != null)
+                    {
+                        return (obs.Value as Hl7.Fhir.Model.Integer).Value;
+                    }
+                }
+                return null;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    return;
+                }
+                Observation obs = GetObservation("68497-7");
+                if (obs == null)
+                {
+                    obs = GetOrCreateObservation("68497-7", CodeSystems.LOINC, BFDR.ProfileURL.ObservationNumberPrenatalVisits, MEDICAL_INFORMATION_SECTION, Mother.Id);
+                    obs.Value = new Hl7.Fhir.Model.Integer();
+                }
+                obs.Value = new Hl7.Fhir.Model.Integer(value);
+            }
+        }
+
+        /// <summary>NumberOfPreviousCesareansEditFlag.</summary>
+        /// <value>NumberOfPreviousCesareansEditFlag</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.NumberOfPreviousCesareansEditFlag = 4;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"NumberOfPreviousCesareansEditFlag: {ExampleBirthRecord.NumberOfPreviousCesareansEditFlag}");</para>
+        /// </example>
+        [Property("Number Of Prenatal Visits Edit Flag", Property.Types.Dictionary, "Number of Prenatal Visits", "Number of Prenatal Visits Edit Flag.", true, IGURL.ObservationNumberPreviousCesareans, true, 14)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='68497-7')", "")]
+        public Dictionary<string, string> NumberOfPreviousCesareansEditFlag
+        {
+            get
+            {
+                Observation obs = GetObservation("68497-7");
+                Extension editFlag = obs?.Value?.Extension.FirstOrDefault(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
+                if (editFlag != null && editFlag.Value != null && editFlag.Value.GetType() == typeof(CodeableConcept))
+                {
+                    return CodeableConceptToDict((CodeableConcept)editFlag.Value);
+                }
+                return EmptyCodeableDict();
+            }
+            set
+            {
+                if (IsDictEmptyOrDefault(value))
+                {
+                    return;
+                }
+                Observation obs = GetObservation("68497-7");
+                if (obs == null)
+                {
+                    obs = GetOrCreateObservation("68497-7", CodeSystems.LOINC, BFDR.ProfileURL.ObservationNumberPreviousCesareans, MEDICAL_INFORMATION_SECTION, Mother.Id);
+                    obs.Value = new UnsignedInt();
+                }
+                obs.Value?.Extension.RemoveAll(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
+                Extension editFlag = new Extension(VRExtensionURLs.BypassEditFlag, DictToCodeableConcept(value));
+                obs.Value.Extension.Add(editFlag);
+            }
+        }
+
+        /// <summary>
+        /// NumberOfPrenatalVisitsEditFlag Helper
+        /// </summary>
+        [Property("NumberOfPreviousCesareansEditFlagHelper", Property.Types.String, "Number of Prenatal Visits", "Number Of Previous Cesareans Edit Flag Helper.", false, IGURL.ObservationNumberPreviousCesareans, true, 2)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='68493-6')", "")]
+        public String NumberOfPreviousCesareansEditFlagHelper
+        {
+            get
+            {
+                return NumberOfPreviousCesareansEditFlag.ContainsKey("code") && !String.IsNullOrWhiteSpace(NumberOfPreviousCesareansEditFlag["code"]) ? NumberOfPreviousCesareansEditFlag["code"] : null;
+            }
+            set
+            {
+                if(!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("NumberOfPreviousCesareansEditFlag", value, BFDR.ValueSets.NumberPreviousCesareansEditFlags.Codes);
+                }
+            }
+        }
+
         //
         // Obstetric Procedures Section
         //
@@ -6488,6 +6703,7 @@ namespace BFDR
                     string code = MotherTransferred["code"];
                     if (code == "hosp-trans")
                     {
+                        // TODO add check for Transferred From name == "UNKNOWN" and return U
                         return "Y";
                     }
                     return "N";
@@ -6498,15 +6714,20 @@ namespace BFDR
             {
                 // IJE values are Y, N, U, only set to "hosp-trans" if value is Y
                 // https://build.fhir.org/ig/HL7/fhir-bfdr/usage.html#mother-or-infant-transferred
-                if (value == "Y")
+                if (value == "Y" || value == "U")
                 {
-                    // TODO update this to point to generated code system
-                    MotherTransferred = CodeableConceptToDict(new CodeableConcept("http://terminology.hl7.org/CodeSystem/admit-source", "hosp-trans", "Transferred from other hospital", "The Patient has been transferred from another hospital for this encounter."));
+                    MotherTransferred = CodeableConceptToDict(new CodeableConcept(CodeSystems.AdmitSource, "hosp-trans", "Transferred from other hospital", "The Patient has been transferred from another hospital for this encounter."));
                 }
                 if (value == "N")
                 {
-                    // TODO update this to point to generated code system
-                    MotherTransferred = CodeableConceptToDict(new CodeableConcept("http://terminology.hl7.org/CodeSystem/admit-source", "other", "Other", "Did not transfer"));
+                    MotherTransferred = CodeableConceptToDict(new CodeableConcept(CodeSystems.AdmitSource, "other", "Other", "Did not transfer"));
+                }
+                if (value == "U")
+                {
+                    // If the value is unknown, the hospitalization.origin.name should be set to “UNKNOWN” 
+                    // https://build.fhir.org/ig/HL7/fhir-bfdr/usage.html#mother-or-infant-transferred
+                    // TODO need to wait for Robi's facility PR to set this properly since its a reference to the Transferred From Location property
+                    //EncounterMaternity.Hospitalization.Origin.Name = "UNKNOWN";
                 }
             }
         }
@@ -6598,6 +6819,7 @@ namespace BFDR
                     }
                     return "N";
                 }
+                // should this also check that the name is unknown?
                 return "U";
             }
             set
@@ -6607,12 +6829,12 @@ namespace BFDR
                 if (value == "Y")
                 {
                     // TODO update this to point to generated code system
-                    InfantTransferred = CodeableConceptToDict(new CodeableConcept("http://terminology.hl7.org/CodeSystem/discharge-disposition", "other-hcf", "Other healthcare facility", "The patient was transferred to another healthcare facility."));
+                    InfantTransferred = CodeableConceptToDict(new CodeableConcept(CodeSystems.DischargeDisposition, "other-hcf", "Other healthcare facility", "The patient was transferred to another healthcare facility."));
                 }
                 else if (value == "N")
                 {
                     // TODO update this to point to generated code system
-                    InfantTransferred = CodeableConceptToDict(new CodeableConcept("http://terminology.hl7.org/CodeSystem/discharge-disposition", "other", "Other", "Did not transfer"));
+                    InfantTransferred = CodeableConceptToDict(new CodeableConcept(CodeSystems.DischargeDisposition, "oth", "Other", "Did not transfer"));
                 }
                 else if (value == "U")
                 {

@@ -2246,11 +2246,12 @@ namespace BFDR
             get
             {
                 // TODO: Implement mapping from FHIR record location:
-                return "";
+                return record.MotherTransferredHelper;
             }
             set
             {
                 // TODO: Implement mapping to FHIR record location:
+                record.MotherTransferredHelper = value.Trim();
             }
         }
 
@@ -2794,12 +2795,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return NumericAllowingUnknown_Get("NPCES", "NumberOfPreviousCesareans");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                NumericAllowingUnknown_Set("NPCES", "NumberOfPreviousCesareans", value);
             }
         }
 
@@ -2809,12 +2809,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return Get_MappingFHIRToIJE(BFDR.Mappings.NumberPreviousCesareansEditFlags.FHIRToIJE, "NumberOfPreviousCesareansEditFlag", "NPCES_BYPASS");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                Set_MappingIJEToFHIR(BFDR.Mappings.NumberPreviousCesareansEditFlags.IJEToFHIR, "NPCES_BYPASS", "NumberOfPreviousCesareansEditFlag", value);
             }
         }
 
@@ -3066,11 +3065,12 @@ namespace BFDR
             get
             {
                 // TODO: Implement mapping from FHIR record location:
-                return "";
+                return Get_MappingFHIRToIJE(Mappings.FetalPresentation.FHIRToIJE, "PRES", "FetalPresentation");
             }
             set
             {
                 // TODO: Implement mapping to FHIR record location:
+                Set_MappingIJEToFHIR(Mappings.FetalPresentation.IJEToFHIR, "PRES", "FetalPresentation", value.Trim());
             }
         }
 
@@ -3109,12 +3109,29 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                // translate fhir boolean to Y, N, or U
+                if (record.LaborTrialAttempted != null)
+                {
+                    if ((bool)record.LaborTrialAttempted)
+                    {
+                        return "Y";
+                    }
+                    return "N";
+                }
+                return "U";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // translate Y, N, U to fhir boolean
+                if (value == "Y")
+                {
+                    record.LaborTrialAttempted = true;
+                }
+                else if (value == "N")
+                {
+                    record.LaborTrialAttempted = false;
+                }
+                return;
             }
         }
 
@@ -3492,12 +3509,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return record.InfantTransferredHelper;
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                record.InfantTransferredHelper = value.Trim();
             }
         }
 
