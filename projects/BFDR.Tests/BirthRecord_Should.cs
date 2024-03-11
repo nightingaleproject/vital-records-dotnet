@@ -1834,9 +1834,14 @@ namespace BFDR.Tests
       BirthRecord birthRecord3 = ije.ToBirthRecord();
       Assert.Equal("Y", birthRecord3.MotherTransferredHelper);
 
-      BirthRecord birthRecord4 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
-      Assert.Equal("Y", birthRecord4.MotherTransferredHelper);
-      Assert.Equal(cc, birthRecord4.MotherTransferred);
+      ije.TRAN = "U";
+      BirthRecord birthRecord4 = ije.ToBirthRecord();
+      Assert.Equal("U", birthRecord3.MotherTransferredHelper);
+      Assert.Equal("UNKNOWN", birthRecord4.FacilityMotherTransferredFrom);
+
+      BirthRecord birthRecord5 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.Equal("Y", birthRecord5.MotherTransferredHelper);
+      Assert.Equal(cc, birthRecord5.MotherTransferred);
     }
 
     [Fact]
@@ -1873,9 +1878,16 @@ namespace BFDR.Tests
       BirthRecord birthRecord2 = ije.ToBirthRecord();
       Assert.Equal("N", birthRecord2.InfantTransferredHelper);
 
-      BirthRecord birthRecord3 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
-      Assert.Equal("Y", birthRecord3.InfantTransferredHelper);
-      Assert.Equal(cc, birthRecord3.InfantTransferred);
+      IJENatality ije2 = new IJENatality();
+      ije2.ITRAN = "U";
+      BirthRecord birthRecord3 = ije2.ToBirthRecord();
+      Assert.Equal("UNKNOWN", birthRecord3.FacilityInfantTransferredTo);
+      Assert.Equal("U", birthRecord3.InfantTransferredHelper);
+
+
+      BirthRecord birthRecord4 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.Equal("Y", birthRecord4.InfantTransferredHelper);
+      Assert.Equal(cc, birthRecord4.InfantTransferred);
     }
 
     [Fact]
@@ -2328,6 +2340,7 @@ namespace BFDR.Tests
       Assert.Equal("0", birthRecord3.NumberOfPreviousCesareansEditFlagHelper);
       Assert.Equal(cc2, birthRecord3.NumberOfPreviousCesareansEditFlag);
     }
+
   }
  
 }

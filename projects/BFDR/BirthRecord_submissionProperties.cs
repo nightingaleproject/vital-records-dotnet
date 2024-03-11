@@ -6691,6 +6691,10 @@ namespace BFDR
                     if (code == "hosp-trans")
                     {
                         // TODO add check for Transferred From name == "UNKNOWN" and return U
+                        if (FacilityMotherTransferredFrom == "UNKNOWN")
+                        {
+                            return "U";
+                        }
                         return "Y";
                     }
                     return "N";
@@ -6713,8 +6717,7 @@ namespace BFDR
                 {
                     // If the value is unknown, the hospitalization.origin.name should be set to “UNKNOWN” 
                     // https://build.fhir.org/ig/HL7/fhir-bfdr/usage.html#mother-or-infant-transferred
-                    // TODO need to wait for Robi's facility PR to set this properly since its a reference to the Transferred From Location property
-                    //EncounterMaternity.Hospitalization.Origin.Name = "UNKNOWN";
+                    FacilityMotherTransferredFrom = "UNKNOWN";
                 }
             }
         }
@@ -6804,10 +6807,14 @@ namespace BFDR
                     {
                         return "Y";
                     }
+                    else if (FacilityInfantTransferredTo == "UNKNOWN")
+                    {
+                        return "U";
+                    }
                     return "N";
                 }
-                // should this also check that the name is unknown?
-                return "U";
+
+                return "";
             }
             set
             {
@@ -6825,9 +6832,8 @@ namespace BFDR
                 }
                 else if (value == "U")
                 {
-                    // TODO when HOSPTO is implemented, set the Location.Name to "Unknown"
-                    // and set destination to a reference of the location
-                    //EncounterBirth.Hospitalization.Destination = transferLocation.Id;
+                    // TODO set destination in this observation to a reference of the location
+                    FacilityInfantTransferredTo = "UNKNOWN";
                 }
             }
         }
