@@ -3,7 +3,7 @@
   "id": "33884324-a8ce-46d0-8978-45dfaae07deb",
   "meta": {
     "profile": [
-      "http://hl7.org/fhir/us/bfdr/StructureDefinition/BundleDocumentBFDR"
+      "http://hl7.org/fhir/us/bfdr/StructureDefinition/Bundle-document-birth-report"
     ]
   },
   "identifier": {

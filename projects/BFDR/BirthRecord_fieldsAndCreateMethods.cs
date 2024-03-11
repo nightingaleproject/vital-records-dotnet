@@ -159,7 +159,29 @@ namespace BFDR
             // Not linked to Composition or inserted in bundle, since this is run before the composition exists.
         }
 
-            /// <summary>Create Birth Encounter.</summary>
+        /// <summary>Create and set Birth Location.</summary>
+        private Location CreateAndSetLocationBirth(string code)
+        {
+            Location locationBirth = new Location
+            {
+                Id = Guid.NewGuid().ToString(),
+                Meta = new Meta()
+                {
+                    Profile = new List<string>()
+                    {
+                        ExtensionURL.LocationBFDR
+                    }
+                },
+                Type = new List<CodeableConcept>()
+                {
+                    new CodeableConcept(CodeSystems.LocalBFDRCodes, code)
+                }
+            };
+            Bundle.AddResourceEntry(locationBirth, "urn:uuid:" + locationBirth.Id);
+            return locationBirth;
+        }
+        
+        /// <summary>Create Birth Encounter.</summary>
         private void CreateBirthEncounter()
         {
             EncounterBirth = new Encounter();

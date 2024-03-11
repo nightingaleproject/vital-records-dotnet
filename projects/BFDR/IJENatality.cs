@@ -360,30 +360,16 @@ namespace BFDR
         [IJEField(12, 39, 12, "Facility ID (NPI) - if available", "FNPI", 1)]
         public string FNPI
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => LeftJustified_Get("FNPI", "FacilityNPI");
+            set => LeftJustified_Set("FNPI", "FacilityNPI", value);
         }
 
         /// <summary>Facility ID (State-Assigned)</summary>
         [IJEField(13, 51, 4, "Facility ID (State-Assigned)", "SFN", 1)]
         public string SFN
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => LeftJustified_Get("SFN", "FacilityJFI");
+            set => LeftJustified_Set("SFN", "FacilityJFI", value);
         }
 
         /// <summary>Date of Birth (Mother)--Year</summary>
@@ -3837,15 +3823,8 @@ namespace BFDR
         [IJEField(253, 1233, 50, "Name of Facility of Birth", "HOSP", 1)]
         public string HOSP
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => LeftJustified_Get("HOSP", "BirthFacilityName");
+            set => LeftJustified_Set("HOSP", "BirthFacilityName", value);
         }
 
         /// <summary>Mother's First Name</summary>
@@ -4649,30 +4628,16 @@ namespace BFDR
         [IJEField(302, 2284, 50, "Facility Mother Moved From (if transferred)", "HOSPFROM", 1)]
         public string HOSPFROM
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => LeftJustified_Get("HOSPFROM", "FacilityMotherTransferredFrom");
+            set => LeftJustified_Set("HOSPFROM", "FacilityMotherTransferredFrom", value);
         }
 
         /// <summary>Facility Infant Transferred To (if transferred w/in 24 hours)</summary>
         [IJEField(303, 2334, 50, "Facility Infant Transferred To (if transferred w/in 24 hours)", "HOSPTO", 1)]
         public string HOSPTO
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => LeftJustified_Get("HOSPTO", "FacilityInfantTransferredTo");
+            set => LeftJustified_Set("HOSPTO", "FacilityInfantTransferredTo", value);
         }
 
         /// <summary>Attendant ("Other" specified text)</summary>
