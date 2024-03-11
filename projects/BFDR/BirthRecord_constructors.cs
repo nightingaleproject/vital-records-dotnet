@@ -24,7 +24,7 @@ namespace BFDR
             Bundle.Id = Guid.NewGuid().ToString();
             Bundle.Type = Bundle.BundleType.Document; // By default, Bundle type is "document".
             Bundle.Meta = new Meta();
-            string[] bundle_profile = { ProfileURL.BundleDocumentBFDR };
+            string[] bundle_profile = { ProfileURL.BundleDocumentBirthReport };
             Bundle.Timestamp = DateTime.Now;
             Bundle.Meta.Profile = bundle_profile;
 
@@ -82,7 +82,7 @@ namespace BFDR
             };
             EncounterMaternity.Meta.Profile = new List<string>()
             {
-                ProfileURL.Encounter_Maternity
+                ProfileURL.EncounterMaternity
             };
 
             // TODO: Start with an empty certifier. - Need reference in Composition
@@ -159,8 +159,7 @@ namespace BFDR
             dccBundle.Id = Guid.NewGuid().ToString();
             dccBundle.Type = Bundle.BundleType.Collection;
             dccBundle.Meta = new Meta();
-            // TODO: URLs.cs has the profile URL with the extensions instead of the profiles, fix this once URLs.cs is fixed
-            string[] profile = { ExtensionURL.DemographicCodedContentBundleBFDR };
+            string[] profile = { ProfileURL.BundleDocumentDemographicCodedContent };
             dccBundle.Meta.Profile = profile;
             dccBundle.Timestamp = DateTime.Now;
             // Make sure to include the base identifiers, including certificate number and auxiliary state IDs
@@ -201,7 +200,7 @@ namespace BFDR
             Father = Bundle.Entry.FindAll(entry => entry.Resource is RelatedPerson).ConvertAll(entry => (RelatedPerson) entry.Resource).Find(resource => resource.Meta.Profile.Any(relatedPersonProfile => relatedPersonProfile == VR.IGURL.RelatedPersonFatherNatural));
             EncounterBirth = Bundle.Entry.FindAll(entry => entry.Resource is Encounter).ConvertAll(entry => (Encounter) entry.Resource).Find(resource => resource.Meta.Profile.Any(relatedPersonProfile => relatedPersonProfile == ProfileURL.EncounterBirth));
             Coverage = Bundle.Entry.FindAll(entry => entry.Resource is Coverage).ConvertAll(entry => (Coverage) entry.Resource).Find(resource => resource.Meta.Profile.Any(coverageProfile => coverageProfile == ProfileURL.CoveragePrincipalPayerDelivery));
-            EncounterMaternity = Bundle.Entry.FindAll(entry => entry.Resource is Encounter).ConvertAll(entry => (Encounter) entry.Resource).Find(resource => resource.Meta.Profile.Any(relatedPersonProfile => relatedPersonProfile == ProfileURL.Encounter_Maternity));
+            EncounterMaternity = Bundle.Entry.FindAll(entry => entry.Resource is Encounter).ConvertAll(entry => (Encounter) entry.Resource).Find(resource => resource.Meta.Profile.Any(relatedPersonProfile => relatedPersonProfile == ProfileURL.EncounterMaternity));
             // Grab attendant and certifier
             List<Practitioner> practitioners = Bundle.Entry.FindAll(entry => entry.Resource is Practitioner).ConvertAll(entry => (Practitioner) entry.Resource);
             Attendant = practitioners.Find(patient => patient.Extension.Any(ext => Convert.ToString(ext.Value) == "attendant"));

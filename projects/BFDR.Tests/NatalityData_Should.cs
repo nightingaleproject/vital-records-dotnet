@@ -722,6 +722,61 @@ namespace BFDR.Tests
     }
 
     [Fact]
+    public void TestImportLocation()
+    {
+      IJENatality ije = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/BasicBirthRecord.ije")));
+      BirthRecord br = ije.ToRecord();
+      Assert.Equal("878787878787", ije.FNPI);
+      Assert.Equal("6678", ije.SFN);
+      Assert.Equal("Bryant Medical".PadRight(50), ije.HOSP);
+      Assert.Equal("Lennon Medical".PadRight(50), ije.HOSPFROM);
+      Assert.Equal("Starr Hospital".PadRight(50), ije.HOSPTO);
+      Assert.Equal("878787878787", br.FacilityNPI);
+      Assert.Equal("6678", br.FacilityJFI);
+      Assert.Equal("Bryant Medical", br.BirthFacilityName);
+      Assert.Equal("Lennon Medical", br.FacilityMotherTransferredFrom);
+      Assert.Equal("Starr Hospital", br.FacilityInfantTransferredTo);
+    }
+
+    [Fact]
+    public void TestSetLocation()
+    {
+      IJENatality ije = new()
+      {
+          FNPI = "25789",
+          SFN = "1111",
+          HOSP = "Griffin Hospital",
+          HOSPFROM = "Taylor Hospital",
+          HOSPTO = "Oswald Medical"
+      };
+      BirthRecord br = ije.ToRecord();
+      Assert.Equal("25789".PadRight(12), ije.FNPI);
+      Assert.Equal("1111", ije.SFN);
+      Assert.Equal("Griffin Hospital".PadRight(50), ije.HOSP);
+      Assert.Equal("Taylor Hospital".PadRight(50), ije.HOSPFROM);
+      Assert.Equal("Oswald Medical".PadRight(50), ije.HOSPTO);
+      Assert.Equal("25789", br.FacilityNPI);
+      Assert.Equal("1111", br.FacilityJFI);
+      Assert.Equal("Griffin Hospital", br.BirthFacilityName);
+      Assert.Equal("Taylor Hospital", br.FacilityMotherTransferredFrom);
+      Assert.Equal("Oswald Medical", br.FacilityInfantTransferredTo);
+      ije.SFN = "55";
+      ije.FNPI = "09870987";
+      ije.HOSP = "Simpson Medical";
+      ije.HOSPFROM = "Swanson Facility";
+      ije.HOSPTO = "Jones Hospital";
+      Assert.Equal("09870987".PadRight(12), ije.FNPI);
+      Assert.Equal("55".PadRight(4), ije.SFN);
+      Assert.Equal("Simpson Medical".PadRight(50), ije.HOSP);
+      Assert.Equal("Swanson Facility".PadRight(50), ije.HOSPFROM);
+      Assert.Equal("Jones Hospital".PadRight(50), ije.HOSPTO);
+      Assert.Equal("09870987", br.FacilityNPI);
+      Assert.Equal("55", br.FacilityJFI);
+      Assert.Equal("Simpson Medical", br.BirthFacilityName);
+      Assert.Equal("Swanson Facility", br.FacilityMotherTransferredFrom);
+      Assert.Equal("Jones Hospital", br.FacilityInfantTransferredTo);
+    }
+    
     public void TestLastMenses()
     {
       BirthRecord fhir = new BirthRecord();
