@@ -34,15 +34,7 @@ namespace VR
         /// <returns>the first matching resource or element</returns>
         private ITypedElement GetFirstEntryFor(FHIRPath fhirPath)
         {
-            string searchPath;
-            if (fhirPath.Code == NONE_OF_THE_ABOVE)
-            {
-              searchPath = fhirPath.Path + ".where((code as CodeableConcept).coding.code = '"+fhirPath.CategoryCode+"')";
-            } else 
-            {
-              searchPath = fhirPath.Path;
-            }
-            IEnumerable<ITypedElement> matches = Bundle.ToTypedElement().Select(searchPath);
+            IEnumerable<ITypedElement> matches = Bundle.ToTypedElement().Select(fhirPath.Path);
             if (matches.Count() == 0)
             {
                 return null;
@@ -2191,10 +2183,18 @@ namespace VR
             if (fhirType == FhirType.Observation)
             {
                 this.Path = $"Bundle.entry.resource.where($this is {fhirType}).where((value as CodeableConcept).coding.code = '{code}')";
+                if (categoryCode != null && categoryCode.Length > 0)
+                {
+                    this.Path += $".where((code as CodeableConcept).coding.code = '{categoryCode}')";
+                }
             }
             else
             {
                 this.Path = $"Bundle.entry.resource.where($this is {fhirType}).where(code.coding.code = '{code}')";
+                if (categoryCode != null && categoryCode.Length > 0)
+                {
+                    this.Path += $".where(category.coding.code = '{categoryCode}')";
+                }
             }
             this.Element = "";
             this.FHIRType = fhirType;

@@ -1407,11 +1407,11 @@ namespace BFDR.Tests
     {
       Assert.Null(FakeBirthRecord.SetOrder);
       Assert.Null(FakeBirthRecord.Plurality);
-      Assert.True(FakeBirthRecord.NoCongenitalAnomaliesOfTheNewborn);
+      Assert.False(FakeBirthRecord.NoCongenitalAnomaliesOfTheNewborn);
       Assert.True(FakeBirthRecord.EpiduralOrSpinalAnesthesia );
       Assert.True(FakeBirthRecord.AugmentationOfLabor);
-      Assert.True(FakeBirthRecord.NoSpecifiedAbnormalConditionsOfNewborn);
-      Assert.True(FakeBirthRecord.NoInfectionsPresentDuringPregnancy);
+      Assert.False(FakeBirthRecord.NoSpecifiedAbnormalConditionsOfNewborn);
+      Assert.False(FakeBirthRecord.NoInfectionsPresentDuringPregnancy);
       Assert.True(FakeBirthRecord.GestationalHypertension);
       Assert.Equal("700000006", FakeBirthRecord.FinalRouteAndMethodOfDelivery["code"]);
       Assert.True(FakeBirthRecord.NoObstetricProcedures);
@@ -1558,9 +1558,9 @@ namespace BFDR.Tests
         // IJE translations
         IJENatality ije1 = new IJENatality(record);
         Assert.Equal("5", ije1.HFT);
-        Assert.Equal("7", ije1.HIN);  
+        Assert.Equal("7", ije1.HIN);
         Assert.Equal("0", ije1.HGT_BYPASS);
-    }  
+    }
 
     [Fact]
     public void SetFirstPrenatalCareVisit()
@@ -1688,7 +1688,7 @@ namespace BFDR.Tests
       Assert.Equal("Indian Health Service or Tribe", br.PayorTypeFinancialClass["display"]);
       Assert.Equal(br.PayorTypeFinancialClass["code"], br.PayorTypeFinancialClassHelper);
     }
-    
+
     [Fact]
     public void SetMaritalStatus()
     {
@@ -1842,7 +1842,7 @@ namespace BFDR.Tests
       BirthRecord birthRecord3 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
       Assert.True(birthRecord3.SSNRequested);
     }
-    
+
     [Fact]
     public void Test_EmergingIssues()
     {
@@ -1879,10 +1879,10 @@ namespace BFDR.Tests
         Assert.Equal("CCCCCCCC", ije.PLACE8_3);
         Assert.Equal("AAAAAAAAAAAAAAAAAAAA", ije.PLACE20);
     }
-    
+
     [Fact]
     public void ParseCertificationDate()
-    { 
+    {
       BirthRecord firstRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
       Assert.Equal("2019-02-12T13:30:00-07:00", firstRecord.CertificationDate);
       Assert.Equal(2019, firstRecord.CertifiedYear);
