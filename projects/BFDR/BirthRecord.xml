@@ -821,6 +821,65 @@
             <para>Console.WriteLine($"Final Route and Method of Delivery: {ExampleBirthRecord.FinalRouteAndMethodOfDeliveryHelper}");</para>
             </example>
         </member>
+        <member name="P:BFDR.BirthRecord.FetalPresentation">
+            <summary>Method of Delivery - Fetal Presentation.</summary>
+            <value>presentation</value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; route = new Dictionary&lt;string, string&gt;();</para>
+            <para>route.Add("code", "70028003");</para>
+            <para>route.Add("system", "http://snomed.info/sct");</para>
+            <para>route.Add("display", "Vertex presentation");</para>
+            <para>ExampleBirthRecord.FetalPresentation = route;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Fetal Presentation: {ExampleBirthRecord.FetalPresentation}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.FetalPresentationHelper">
+            <summary>Method of Delivery - Fetal Presentation Helper.</summary>
+            <value>presentation</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.FetalPresentationHelper = "70028003";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Fetal Presentation Helper: {ExampleBirthRecord.FetalPresentationHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.LaborTrialAttempted">
+            <summary>Labor Trial Attempted</summary>
+            <value>attempted</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.LaborTrialAttempted = true;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother transferred: {ExampleBirthRecord.LaborTrialAttempted}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.NumberOfPreviousCesareans">
+            <summary>NumberOfPreviousCesareans.</summary>
+            <value>NumberOfPreviousCesareans</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.NumberOfPreviousCesareans = 1;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"NumberOfPreviousCesareans: {ExampleBirthRecord.NumberOfPreviousCesareans}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.NumberOfPreviousCesareansEditFlag">
+            <summary>NumberOfPreviousCesareansEditFlag.</summary>
+            <value>NumberOfPreviousCesareansEditFlag</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.NumberOfPreviousCesareansEditFlag = 4;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"NumberOfPreviousCesareansEditFlag: {ExampleBirthRecord.NumberOfPreviousCesareansEditFlag}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.NumberOfPreviousCesareansEditFlagHelper">
+            <summary>
+            NumberOfPrenatalVisitsEditFlag Helper
+            </summary>
+        </member>
         <member name="P:BFDR.BirthRecord.NoObstetricProcedures">
             <summary>No Obstetric Procedures.</summary>
         </member>

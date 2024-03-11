@@ -2377,30 +2377,17 @@ namespace BFDR
         {
             get
             {
-                // FHIRPath fhirPath = GetFHIRPathAttribute();
-                // bool criteria(Bundle.EntryComponent e) =>
-                //     e.Resource.TypeName == "Procedure" &&
-                //     ((Procedure)e.Resource).Category.Coding[0].Code == fhirPath.CategoryCode;
-                // List<Bundle.EntryComponent> matches = Bundle.Entry.Where(criteria).ToList();
-                // if (matches.Count == 0)
-                // {
-                //     return EmptyCodeableDict();
-                // }
-                // Procedure procedure = (Procedure)matches.First().Resource;
-                // return CodeableConceptToDict(procedure.Code);
+                Observation obs = GetObservation("73761-9");
+                if (obs != null && obs.Value != null && (obs.Value as CodeableConcept) != null)
+                {
+                    return CodeableConceptToDict((CodeableConcept)obs.Value);
+                }
+                return EmptyCodeableDict();  
             }
             set
             {
-                // FHIRPath fhirPath = GetFHIRPathAttribute();
-                // RemoveAllEntries(fhirPath);
-                // if (IsDictEmptyOrDefault(value))
-                // {
-                //     return;
-                // }
-                // Coding coding = DictToCoding(value);
-                // fhirPath.Code = coding.Code;
-                // fhirPath.CodeSystem = coding.System;
-                // CreateEntry(fhirPath, SubjectId());
+                Observation obs = GetOrCreateObservation("73761-9", CodeSystems.LOINC, "Fetal Presentation", BFDR.ProfileURL.ObservationFetalPresentation, MEDICAL_INFORMATION_SECTION);
+                obs.Value = DictToCodeableConcept(value);   
             }
         }
 

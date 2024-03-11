@@ -3065,7 +3065,7 @@ namespace BFDR
             get
             {
                 // TODO: Implement mapping from FHIR record location:
-                return Get_MappingFHIRToIJE(Mappings.FetalPresentation.FHIRToIJE, "PRES", "FetalPresentation");
+                return Get_MappingFHIRToIJE(Mappings.FetalPresentation.FHIRToIJE, "FetalPresentation", "PRES");
             }
             set
             {
