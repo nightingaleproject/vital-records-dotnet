@@ -159,7 +159,6 @@ namespace BFDR
             dccBundle.Id = Guid.NewGuid().ToString();
             dccBundle.Type = Bundle.BundleType.Collection;
             dccBundle.Meta = new Meta();
-            // TODO: URLs.cs has the profile URL with the extensions instead of the profiles, fix this once URLs.cs is fixed
             string[] profile = { ProfileURL.BundleDocumentDemographicCodedContent };
             dccBundle.Meta.Profile = profile;
             dccBundle.Timestamp = DateTime.Now;
