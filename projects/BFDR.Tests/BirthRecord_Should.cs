@@ -1518,6 +1518,54 @@ namespace BFDR.Tests
         Assert.Equal("Nurse", FakeBirthRecord.CertifierTitle["text"]);
         Assert.Equal("Nurse", FakeBirthRecord.CertifierOtherHelper);
     }
+    
+    [Fact]
+    public void TestImportLocation()
+    {
+      BirthRecord br = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.Equal("116441967701", br.FacilityNPI);
+      Assert.Equal("UT12", br.FacilityJFI);
+      Assert.Equal("South Hospital", br.BirthFacilityName);
+      Assert.Equal("Transfer From Hospital", br.FacilityMotherTransferredFrom);
+      Assert.Equal("Transfer To Hospital", br.FacilityInfantTransferredTo);
+    }
+
+    [Fact]
+    public void TestSetLocation()
+    {
+      BirthRecord br = new()
+      {
+          FacilityNPI = "4815162342",
+          FacilityJFI = "636",
+          BirthFacilityName = "Lahey Hospital",
+          FacilityMotherTransferredFrom = "Sunnyvale Medical",
+          FacilityInfantTransferredTo = "LD Care"
+      };
+      Assert.Equal("4815162342", br.FacilityNPI);
+      Assert.Equal("636", br.FacilityJFI);
+      Assert.Equal("Lahey Hospital", br.BirthFacilityName);
+      Assert.Equal("Sunnyvale Medical", br.FacilityMotherTransferredFrom);
+      Assert.Equal("LD Care", br.FacilityInfantTransferredTo);
+      br.FacilityNPI = "999";
+      Assert.Equal("999", br.FacilityNPI);
+      Assert.Equal("636", br.FacilityJFI);
+      Assert.Equal("Lahey Hospital", br.BirthFacilityName);
+      br.FacilityJFI = "0909";
+      Assert.Equal("999", br.FacilityNPI);
+      Assert.Equal("0909", br.FacilityJFI);
+      Assert.Equal("Lahey Hospital", br.BirthFacilityName);
+      br.BirthFacilityName = "Bob's Medical Center";
+      Assert.Equal("999", br.FacilityNPI);
+      Assert.Equal("0909", br.FacilityJFI);
+      Assert.Equal("Bob's Medical Center", br.BirthFacilityName);
+      br.FacilityMotherTransferredFrom = "Abignale Hospital";
+      br.FacilityInfantTransferredTo = "Pittsfield Medical Facility";
+      Assert.Equal("999", br.FacilityNPI);
+      Assert.Equal("0909", br.FacilityJFI);
+      Assert.Equal("Bob's Medical Center", br.BirthFacilityName);
+      Assert.Equal("Abignale Hospital", br.FacilityMotherTransferredFrom);
+      Assert.Equal("Pittsfield Medical Facility", br.FacilityInfantTransferredTo);
+    }
 
     [Fact]
     public void SetLastMenstrualPeriod()
