@@ -1254,6 +1254,17 @@
             <para>string boaa = ExampleBirthRecord.RaceBlackOfAfricanAmerican;</para>
             </example>
         </member>
+        <member name="P:BFDR.BirthRecord.DateOfLastLiveBirthDay">
+            <summary>Date of last live birth day</summary>
+            <value>the date of the Mother's last live birth day
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.DateOfLastLiveBirthDay = 4;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Date of Last Live Birth Month: {ExampleBirthRecord.DateOfLastLiveBirthDay}");</para>
+            </example>
+        </member>
         <member name="P:BFDR.BirthRecord.DateOfLastLiveBirthMonth">
             <summary>Date of last live birth month</summary>
             <value>the date of the Mother's last live birth month
@@ -1284,6 +1295,17 @@
             <para>ExampleBirthRecord.DateOfLastLiveBirth = "2020-02-19";</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Date of Last Live Birth: {ExampleBirthRecord.DateOfLastLiveBirth}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.DateOfLastOtherPregnancyOutcomeDay">
+            <summary>Date Of Last Other Pregnancy Outcome Day</summary>
+            <value>the date of the last other pregnancy outcome day
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.DateOfLastOtherPregnancyOutcomeDay = 4;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Date of Last Other Pregnancy Outcome: {ExampleBirthRecord.DateOfLastOtherPregnancyOutcomeDay}");</para>
             </example>
         </member>
         <member name="P:BFDR.BirthRecord.DateOfLastOtherPregnancyOutcomeMonth">
@@ -1351,6 +1373,16 @@
             <para>ExampleBirthRecord.GestationalAgeAtDelivery = 4;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"GestationalAgeAtDelivery: {ExampleBirthRecord.GestationalAgeAtDelivery}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.GestationalAgeAtDeliveryHelper">
+            <summary>GestationalAgeAtDeliveryHelper.</summary>
+            <value>GestationalAgeAtDeliveryHelper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.GestationalAgeAtDeliveryHelper = new Dictionary(){"value": 4, "code": "wk"};</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"GestationalAgeAtDeliveryHelper: {ExampleBirthRecord.GestationalAgeAtDeliveryHelper}");</para>
             </example>
         </member>
         <member name="P:BFDR.BirthRecord.GestationalAgeAtDeliveryEditFlag">

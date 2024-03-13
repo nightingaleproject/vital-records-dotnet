@@ -3201,19 +3201,34 @@ namespace BFDR
         {
             get
             {
-                if ((record.GestationalAgeAtDelivery != null))
+                // Get the value and unit code
+                // https://hl7.github.io/fhir-bfdr/StructureDefinition-Observation-gestational-age-at-delivery.html
+                // values in days will be divided by 7 without remainder, and values in weeks will be rounded down to an integer
+                IJEField info = FieldInfo("OWGEST");
+                if (record.GestationalAgeAtDelivery != null && !String.IsNullOrEmpty(record.GestationalAgeAtDelivery["value"]))
                 {
-                    IJEField info = FieldInfo("OWGEST");
-                    return Truncate(record.GestationalAgeAtDelivery["value"], info.Length).PadLeft(info.Length, '0');
+
+                    if (record.GestationalAgeAtDelivery["code"] == "wk") 
+                    {
+                        int weeks = (int)Convert.ToDecimal(record.GestationalAgeAtDelivery["value"]);
+                        return Truncate(weeks.ToString(), info.Length).PadLeft(info.Length, '0');
+                    }
+                    else if (record.GestationalAgeAtDelivery["code"] == "d")
+                    {
+                        int days = (int)(Convert.ToDecimal(record.GestationalAgeAtDelivery["value"])/7);
+                        return Truncate(days.ToString(), info.Length).PadLeft(info.Length, '0');
+                    }
+                    
                 }
-                else
-                {
-                    return " ";
-                }
+                return "  ";
             }
             set
             {
-                Dictionary_Set("OWGEST", "GestationalAgeAtDelivery", "value", value.TrimStart('0'));
+                // use the helper to set this in FHIR, the unit code in IJE is always weeks, wk
+                Dictionary<string, string> gestationalAge = new Dictionary<string, string>();
+                gestationalAge.Add("value", value.TrimStart('0'));
+                gestationalAge.Add("code", "wk");
+                record.GestationalAgeAtDeliveryHelper = gestationalAge;
             }
         }
 

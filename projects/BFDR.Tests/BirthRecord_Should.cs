@@ -1992,10 +1992,21 @@ namespace BFDR.Tests
       BirthRecord birthRecord2 = ije.ToBirthRecord();
       Assert.Equal(5, birthRecord2.DateOfLastLiveBirthMonth);
       Assert.Equal(2023, birthRecord2.DateOfLastLiveBirthYear);
+      Assert.Equal("2023-05", birthRecord2.DateOfLastLiveBirth);
+
+      // test partial dates
+      birthRecord2.DateOfLastLiveBirthMonth = null;
+      Assert.Equal("2023", birthRecord2.DateOfLastLiveBirth);
+      birthRecord2.DateOfLastLiveBirthDay = 15;
+      Assert.Equal("2023", birthRecord2.DateOfLastLiveBirth);
+      Assert.Equal(30, birthRecord2.DateOfLastLiveBirthDay);
+      birthRecord2.DateOfLastLiveBirthMonth = 2;
+      Assert.Equal("2023-02-15", birthRecord2.DateOfLastLiveBirth);
 
       BirthRecord parsedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
       Assert.Equal(2014, parsedRecord.DateOfLastLiveBirthYear);
       Assert.Equal(11, parsedRecord.DateOfLastLiveBirthMonth);
+      Assert.Equal(20, parsedRecord.DateOfLastLiveBirthDay);
       Assert.Equal("2014-11-20", parsedRecord.DateOfLastLiveBirth);
 
     }
@@ -2032,9 +2043,19 @@ namespace BFDR.Tests
       Assert.Equal(11, birthRecord2.DateOfLastOtherPregnancyOutcomeMonth);
       Assert.Equal(2022, birthRecord2.DateOfLastOtherPregnancyOutcomeYear);
 
+      // test partial dates
+      birthRecord2.DateOfLastOtherPregnancyOutcomeMonth = null;
+      Assert.Equal("2023", birthRecord2.DateOfLastOtherPregnancyOutcome);
+      birthRecord2.DateOfLastOtherPregnancyOutcomeDay = 24;
+      Assert.Equal("2023", birthRecord2.DateOfLastOtherPregnancyOutcome);
+      Assert.Equal(30, birthRecord2.DateOfLastOtherPregnancyOutcomeDay);
+      birthRecord2.DateOfLastOtherPregnancyOutcomeMonth = 4;
+      Assert.Equal("2023-04-24", birthRecord2.DateOfLastOtherPregnancyOutcome);
+
       BirthRecord parsedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
       Assert.Equal(2015, parsedRecord.DateOfLastOtherPregnancyOutcomeYear);
       Assert.Equal(5, parsedRecord.DateOfLastOtherPregnancyOutcomeMonth);
+      Assert.Equal(10, parsedRecord.DateOfLastOtherPregnancyOutcomeDay);
       Assert.Equal("2015-05-10", parsedRecord.DateOfLastOtherPregnancyOutcome);
     }
 
@@ -2098,16 +2119,35 @@ namespace BFDR.Tests
       BirthRecord birthRecord1 = new BirthRecord();
       Dictionary<string, string> dict = new Dictionary<string, string>();
       dict.Add("value", "10");
-      birthRecord1.GestationalAgeAtDelivery = dict;
+      dict.Add("code", "wk");
+      birthRecord1.GestationalAgeAtDeliveryHelper = dict;
       Assert.Equal(dict["value"], birthRecord1.GestationalAgeAtDelivery["value"]);
+      Assert.Equal("wk", birthRecord1.GestationalAgeAtDelivery["code"]);
+      Assert.Equal("http://unitsofmeasure.org", birthRecord1.GestationalAgeAtDelivery["system"]);
 
       IJENatality ije = new IJENatality();
       ije.OWGEST = "38";
       BirthRecord birthRecord2 = ije.ToBirthRecord();
       Assert.Equal("38", birthRecord2.GestationalAgeAtDelivery["value"]);
+      Assert.Equal("wk", birthRecord2.GestationalAgeAtDelivery["code"]);
+      Assert.Equal("http://unitsofmeasure.org", birthRecord2.GestationalAgeAtDelivery["system"]);
+      
+      BirthRecord birthRecord3 = new BirthRecord();
+      Dictionary<string, string> dict2 = new Dictionary<string, string>();
+      dict2.Add("value", "48");
+      dict2.Add("code", "d");
+      birthRecord3.GestationalAgeAtDeliveryHelper = dict2;
+      Assert.Equal(dict2["value"], birthRecord3.GestationalAgeAtDelivery["value"]);
+      Assert.Equal("d", birthRecord3.GestationalAgeAtDelivery["code"]);
+      Assert.Equal("http://unitsofmeasure.org", birthRecord3.GestationalAgeAtDelivery["system"]);
+      // IJE should divide days by 7 and round down
+      IJENatality ije2 = new(birthRecord3);
+      ije2.OWGEST = "06";
 
       BirthRecord parsedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
       Assert.Equal("36", parsedRecord.GestationalAgeAtDelivery["value"]);
+      Assert.Equal("wk", parsedRecord.GestationalAgeAtDelivery["code"]);
+      Assert.Equal("http://unitsofmeasure.org", parsedRecord.GestationalAgeAtDelivery["system"]);
     }
 
     [Fact]

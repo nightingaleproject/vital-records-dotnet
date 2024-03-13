@@ -1287,6 +1287,37 @@ namespace VR
             throw new System.ArgumentException($"Code '{code}' is not an allowed value for field {field}");
         }
 
+        /// <summary>Helper function to set a quantity value based on a value, code and the set of allowed codes.</summary>
+        // <param name="field">the field name to set.</param>
+        // <param name="code">the code to set the field to.</param>
+        // <param name="value">the value of the quantity.</param>
+        // <param name="options">the list of valid options and related display strings and code systems</param>
+        protected void SetQuantityValue(string field, string code, string value, string[,] options)
+        {
+            // If string is empty don't bother to set the value
+            if (code == null || code == "")
+            {
+                return;
+            }
+            // Iterate over the allowed options and see if the code supplies is one of them
+            for (int i = 0; i < options.GetLength(0); i += 1)
+            {
+                if (options[i, 0] == code)
+                {
+                    // Found it, so call the supplied setter with the appropriate dictionary built based on the code
+                    // using the supplied options and return
+                    Dictionary<string, string> dict = new Dictionary<string, string>();
+                    dict.Add("code", code);
+                    dict.Add("system", options[i, 2]);
+                    dict.Add("value", value);
+                    this.GetType().GetProperty(field).SetValue(this, dict);
+                    return;
+                }
+            }
+            // If we got here we didn't find the code, so it's not a valid option
+            throw new System.ArgumentException($"Code '{code}' is not an allowed value for field {field}");
+        }
+
         /// <summary>Convert a "code" dictionary to a FHIR Coding.</summary>
         /// <param name="dict">represents a code.</param>
         /// <returns>the corresponding Coding representation of the code.</returns>

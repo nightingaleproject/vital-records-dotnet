@@ -5627,6 +5627,9 @@
         <member name="M:VR.VitalRecord.SetCodeValue(System.String,System.String,System.String[0:,0:])">
             <summary>Helper function to set a codeable value based on a code and the set of allowed codes.</summary>
         </member>
+        <member name="M:VR.VitalRecord.SetQuantityValue(System.String,System.String,System.String,System.String[0:,0:])">
+            <summary>Helper function to set a quantity value based on a value, code and the set of allowed codes.</summary>
+        </member>
         <member name="M:VR.VitalRecord.DictToCoding(System.Collections.Generic.Dictionary{System.String,System.String})">
             <summary>Convert a "code" dictionary to a FHIR Coding.</summary>
             <param name="dict">represents a code.</param>
