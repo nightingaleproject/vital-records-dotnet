@@ -5817,6 +5817,7 @@ namespace BFDR
         /// </example>
         [Property("InfantLiving", Property.Types.Bool, "InfantLiving", "InfantLiving", false, BFDR.IGURL.ObservationInfantLiving, true, 288)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='73757-7')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public bool? InfantLiving
         {
             get
@@ -5961,6 +5962,7 @@ namespace BFDR
         /// </example>
         [Property("SSNRequested", Property.Types.Bool, "SSNRequested", "SSNRequested", false, BFDR.IGURL.ObservationSSNRequestedForChild, true, 288)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87295-2')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public bool? SSNRequested
         {
             get
