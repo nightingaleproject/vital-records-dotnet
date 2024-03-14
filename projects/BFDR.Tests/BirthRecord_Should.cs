@@ -1475,7 +1475,7 @@ namespace BFDR.Tests
         //title
         Assert.Equal("76231001", FakeBirthRecord.AttendantTitle["code"]);
         Assert.Equal(CodeSystems.SCT, FakeBirthRecord.AttendantTitle["system"]);
-        Assert.Equal("Osteopath (occupation)", FakeBirthRecord.AttendantTitle["display"]);
+        Assert.Equal("Osteopath", FakeBirthRecord.AttendantTitle["display"]);
         Dictionary<string, string> AttendantTitle = new Dictionary<string, string>();
         AttendantTitle.Add("code", "112247003");
         AttendantTitle.Add("system", CodeSystems.SCT);
@@ -1504,7 +1504,7 @@ namespace BFDR.Tests
         //title
         Assert.Equal("76231001", FakeBirthRecord.CertifierTitle["code"]);
         Assert.Equal(CodeSystems.SCT, FakeBirthRecord.CertifierTitle["system"]);
-        Assert.Equal("Osteopath (occupation)", FakeBirthRecord.CertifierTitle["display"]);
+        Assert.Equal("Osteopath", FakeBirthRecord.CertifierTitle["display"]);
         Dictionary<string, string> CertifierTitle = new Dictionary<string, string>();
         CertifierTitle.Add("code", "112247003");
         CertifierTitle.Add("system", CodeSystems.SCT);

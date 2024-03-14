@@ -927,9 +927,20 @@ namespace BFDR.Tests
       Assert.False(fhir.NoPregnancyRiskFactors); // if present, will cause IJE values to flip to N
       Assert.False(fhir.GestationalDiabetes); // should map to U
       Assert.True(fhir.GestationalHypertension); // should map to Y
+      Assert.False(fhir.NoCongenitalAnomaliesOfTheNewborn); // should map to N
+      Assert.False(fhir.Anencephaly); // would normally map to U, but NoCongenitalAnomaliesOfTheNewborn should flip IJE to N
       IJENatality ije = new IJENatality(fhir);
       Assert.Equal("U", ije.GDIAB);
       Assert.Equal("Y", ije.GHYPE);
+      Assert.Equal("N", ije.ANEN);
+      IJENatality ije2 = new IJENatality(ije.ToString());
+      Assert.Equal("U", ije2.GDIAB);
+      Assert.Equal("Y", ije2.GHYPE);
+      Assert.Equal("N", ije.ANEN);
+      IJENatality ije3 = new IJENatality(new BirthRecord(ije2.ToRecord().ToXML()));
+      Assert.Equal("U", ije3.GDIAB);
+      Assert.Equal("Y", ije3.GHYPE);
+      Assert.Equal("N", ije.ANEN);
     }
   }
 }
