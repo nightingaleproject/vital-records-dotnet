@@ -1447,7 +1447,18 @@ namespace BFDR
         {
             if (ids.Any(id => id.Type.Coding.Any(idCoding => idCoding.System == CodeSystems.HL7_identifier_type && idCoding.Code == "SS")))
             {
+                if (String.IsNullOrWhiteSpace(ssn))
+                {
+                    ids.RemoveAll(id => id.Type.Coding.Any(idCoding => idCoding.System == CodeSystems.HL7_identifier_type && idCoding.Code == "SS"));
+                }
+                else 
+                {
                 ids.Find(id => id.Type.Coding.Any(idCoding => idCoding.System == CodeSystems.HL7_identifier_type && idCoding.Code == "SS")).Value = ssn;
+                } 
+            }
+            else if (String.IsNullOrWhiteSpace(ssn))
+            {
+                return;
             }
             else
             {
@@ -4075,6 +4086,17 @@ namespace BFDR
         {
             // TODO add validation of value once ValueSets.cs has been generated.
             var entry = Bundle.Entry.Where(e => e.Resource is Observation o && CodeableConceptToDict(o.Code)["code"] == code).FirstOrDefault();
+            string editFlag = value.ContainsKey("code") ? (value["code"] ?? null) : null;
+            if (String.IsNullOrWhiteSpace(editFlag))
+            {
+                if (!(entry?.Resource is Observation currObs))
+                {
+                    int? weight = GetWeight(code);
+                    currObs = SetWeight(code, weight, "", section, subjectId);
+                } 
+                currObs.Value.Extension.RemoveAll(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
+                return;
+            }
             if (!(entry?.Resource is Observation obs))
             {
                 obs = SetWeight(code, null, "", section, subjectId);
@@ -4646,15 +4668,22 @@ namespace BFDR
                 obs.Focus.Add(new ResourceReference($"urn:uuid:{Child.Id}"));
                 Bundle.AddResourceEntry(obs, "urn:uuid:" + obs.Id);
             }
-            obs.Value = new CodeableConcept
+            if (!String.IsNullOrWhiteSpace(value))
             {
-                Text = value
-            };
+                obs.Value = new CodeableConcept
+                {
+                    Text = value
+                };
+            }
             return obs;
         }
 
         private void SetIndustry(string role, string value)
-        {
+        {   
+            if (String.IsNullOrWhiteSpace(value)) 
+            {
+                return;
+            }
             Observation obs = GetOccupationObservation(role) ?? SetOccupation(role, null);
             var comp = obs.Component.Where(c => CodeableConceptToDict(c.Code)["code"] == "21844-6").FirstOrDefault();
             if (comp == null)
@@ -5172,14 +5201,14 @@ namespace BFDR
                 Observation obs = GetObservation("8665-2");
                 if (obs != null)
                 {
-                    return (obs.Value as Hl7.Fhir.Model.Date)?.Value;
+                    return (obs.Value as Hl7.Fhir.Model.FhirDateTime)?.Value;
                 }
                 return null;
             }
             set
             {
                 Observation obs = GetOrCreateObservation("8665-2", CodeSystems.LOINC, "Mother Prenatal", BFDR.ProfileURL.ObservationLastMenstrualPeriod, MOTHER_PRENATAL_SECTION);
-                obs.Value = ConvertToDate(value);
+                obs.Value = ConvertToDateTime(value);
             }
         }
 
@@ -5198,17 +5227,17 @@ namespace BFDR
             get
             {
                 Observation obs = GetObservation("8665-2");
-                return GetDateElementNoTime(obs?.Value as Hl7.Fhir.Model.Date, VR.ExtensionURL.PartialDateTimeYearVR);
+                return GetDateFragmentOrPartialDate(obs?.Value as Hl7.Fhir.Model.FhirDateTime, VR.ExtensionURL.PartialDateTimeYearVR);
             }
             set
             {
                 Observation obs = GetOrCreateObservation("8665-2", CodeSystems.LOINC, "Mother Prenatal", BFDR.ProfileURL.ObservationLastMenstrualPeriod, MOTHER_PRENATAL_SECTION);
-                if (obs.Value as Hl7.Fhir.Model.Date == null)
+                if (obs.Value as Hl7.Fhir.Model.FhirDateTime == null)
                 {
-                    obs.Value = new Date();
+                    obs.Value = new FhirDateTime();
                     obs.Value.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                Date newDate = SetYear(value, obs.Value as Hl7.Fhir.Model.Date, LastMenstrualPeriodMonth, LastMenstrualPeriodDay);
+                FhirDateTime newDate = SetYear(value, obs.Value as Hl7.Fhir.Model.FhirDateTime, LastMenstrualPeriodMonth, LastMenstrualPeriodDay);
                 if (newDate != null)
                 {
                     obs.Value = newDate;
@@ -5231,17 +5260,17 @@ namespace BFDR
             get
             {
                 Observation obs = GetObservation("8665-2");
-                return GetDateElementNoTime(obs?.Value as Hl7.Fhir.Model.Date, VR.ExtensionURL.PartialDateTimeMonthVR);
+                return GetDateFragmentOrPartialDate(obs?.Value as Hl7.Fhir.Model.FhirDateTime, VR.ExtensionURL.PartialDateTimeMonthVR);
             }
             set
             {
                 Observation obs = GetOrCreateObservation("8665-2", CodeSystems.LOINC, "Mother Prenatal", BFDR.ProfileURL.ObservationLastMenstrualPeriod, MOTHER_PRENATAL_SECTION);
-                if (obs.Value as Hl7.Fhir.Model.Date == null)
+                if (obs.Value as Hl7.Fhir.Model.FhirDateTime == null)
                 {
-                    obs.Value = new Date();
+                    obs.Value = new FhirDateTime();
                     obs.Value.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                Date newDate = SetMonth(value, obs.Value as Hl7.Fhir.Model.Date, LastMenstrualPeriodYear, LastMenstrualPeriodDay);
+                FhirDateTime newDate = SetMonth(value, obs.Value as Hl7.Fhir.Model.FhirDateTime, LastMenstrualPeriodYear, LastMenstrualPeriodDay);
                 if (newDate != null)
                 {
                     obs.Value = newDate;
@@ -5264,18 +5293,18 @@ namespace BFDR
             get
             {
                 Observation obs = GetObservation("8665-2");
-                return GetDateElementNoTime(obs?.Value as Hl7.Fhir.Model.Date, VR.ExtensionURL.PartialDateTimeDayVR);
+                return GetDateFragmentOrPartialDate(obs?.Value as Hl7.Fhir.Model.FhirDateTime, VR.ExtensionURL.PartialDateTimeDayVR);
             }
             set
             {
                 Observation obs = GetOrCreateObservation("8665-2", CodeSystems.LOINC, "Mother Prenatal", BFDR.ProfileURL.ObservationLastMenstrualPeriod, MOTHER_PRENATAL_SECTION);
 
-                if (obs.Value as Hl7.Fhir.Model.Date == null)
+                if (obs.Value as Hl7.Fhir.Model.FhirDateTime == null)
                 {
-                    obs.Value = new Date();
+                    obs.Value = new FhirDateTime();
                     obs.Value.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                Date newDate = SetDay(value, obs.Value as Hl7.Fhir.Model.Date, LastMenstrualPeriodYear, LastMenstrualPeriodMonth);
+                FhirDateTime newDate = SetDay(value, obs.Value as Hl7.Fhir.Model.FhirDateTime, LastMenstrualPeriodYear, LastMenstrualPeriodMonth);
                 if (newDate != null)
                 {
                     obs.Value = newDate;
@@ -5300,14 +5329,14 @@ namespace BFDR
                 Observation obs = GetObservation("69044-6");
                 if (obs != null)
                 {
-                    return (obs.Value as Hl7.Fhir.Model.Date)?.Value;
+                    return (obs.Value as Hl7.Fhir.Model.FhirDateTime)?.Value;
                 }
                     return null;
             }
             set
             {
                 Observation obs = GetOrCreateObservation("69044-6", CodeSystems.LOINC, "Mother Prenatal", BFDR.ProfileURL.ObservationDateOfFirstPrenatalCareVisit, MOTHER_PRENATAL_SECTION, Child.Id);
-                obs.Value = ConvertToDate(value);
+                obs.Value = ConvertToDateTime(value);
             }
         }
 
@@ -5370,17 +5399,17 @@ namespace BFDR
             get
             {
                 Observation obs = GetObservation("69044-6");
-                return GetDateElementNoTime(obs?.Value as Hl7.Fhir.Model.Date, VR.ExtensionURL.PartialDateTimeYearVR);
+                return GetDateFragmentOrPartialDate(obs?.Value as Hl7.Fhir.Model.FhirDateTime, VR.ExtensionURL.PartialDateTimeYearVR);
             }
             set
             {
                 Observation obs = GetOrCreateObservation("69044-6", CodeSystems.LOINC, "Mother Prenatal", BFDR.ProfileURL.ObservationDateOfFirstPrenatalCareVisit, MOTHER_PRENATAL_SECTION, Child.Id);
-                if (obs.Value as Hl7.Fhir.Model.Date == null)
+                if (obs.Value as Hl7.Fhir.Model.FhirDateTime == null)
                 {
-                    obs.Value = new Date();
+                    obs.Value = new FhirDateTime();
                     obs.Value.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                Date newDate = SetYear(value, obs.Value as Hl7.Fhir.Model.Date, FirstPrenatalCareVisitMonth, FirstPrenatalCareVisitDay);
+                FhirDateTime newDate = SetYear(value, obs.Value as Hl7.Fhir.Model.FhirDateTime, FirstPrenatalCareVisitMonth, FirstPrenatalCareVisitDay);
                 if (newDate != null)
                 {
                     obs.Value = newDate;
@@ -5403,17 +5432,17 @@ namespace BFDR
             get
             {
                 Observation obs = GetObservation("69044-6");
-                return GetDateElementNoTime(obs?.Value as Hl7.Fhir.Model.Date, VR.ExtensionURL.PartialDateTimeMonthVR);
+                return GetDateFragmentOrPartialDate(obs?.Value as Hl7.Fhir.Model.FhirDateTime, VR.ExtensionURL.PartialDateTimeMonthVR);
             }
             set
             {
                 Observation obs = GetOrCreateObservation("69044-6", CodeSystems.LOINC, "Mother Prenatal", BFDR.ProfileURL.ObservationDateOfFirstPrenatalCareVisit, MOTHER_PRENATAL_SECTION, Child.Id);
-                if (obs.Value as Hl7.Fhir.Model.Date == null)
+                if (obs.Value as Hl7.Fhir.Model.FhirDateTime == null)
                 {
-                    obs.Value = new Date();
+                    obs.Value = new FhirDateTime();
                     obs.Value.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                Date newDate = SetMonth(value, obs.Value as Hl7.Fhir.Model.Date, FirstPrenatalCareVisitYear, FirstPrenatalCareVisitDay);
+                FhirDateTime newDate = SetMonth(value, obs.Value as Hl7.Fhir.Model.FhirDateTime, FirstPrenatalCareVisitYear, FirstPrenatalCareVisitDay);
                 if (newDate != null)
                 {
                     obs.Value = newDate;
@@ -5436,17 +5465,17 @@ namespace BFDR
             get
             {
                 Observation obs = GetObservation("69044-6");
-                return GetDateElementNoTime(obs?.Value as Hl7.Fhir.Model.Date, VR.ExtensionURL.PartialDateTimeDayVR);
+                return GetDateFragmentOrPartialDate(obs?.Value as Hl7.Fhir.Model.FhirDateTime, VR.ExtensionURL.PartialDateTimeDayVR);
             }
             set
             {
                 Observation obs = GetOrCreateObservation("69044-6", CodeSystems.LOINC, "Mother Prenatal", BFDR.IGURL.ObservationDateOfFirstPrenatalCareVisit, MOTHER_PRENATAL_SECTION, Child.Id);
-                if (obs.Value as Hl7.Fhir.Model.Date == null)
+                if (obs.Value as Hl7.Fhir.Model.FhirDateTime == null)
                 {
-                    obs.Value = new Date();
+                    obs.Value = new FhirDateTime();
                     obs.Value.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                Date newDate = SetDay(value, obs.Value as Hl7.Fhir.Model.Date, FirstPrenatalCareVisitYear, FirstPrenatalCareVisitMonth);
+                FhirDateTime newDate = SetDay(value, obs.Value as Hl7.Fhir.Model.FhirDateTime, FirstPrenatalCareVisitYear, FirstPrenatalCareVisitMonth);
                 if (newDate != null)
                 {
                     obs.Value = newDate;

@@ -632,8 +632,27 @@ namespace VR
             DateTimeOffset? dateTimeOffset = null;
             if (value is FhirDateTime && ((FhirDateTime)value).Value != null)
             {
-                // Note: We can't just call ToDateTimeOffset() on the FhirDateTime because want the datetime in whatever local time zone was provided
-                dateTimeOffset = DateTimeOffset.Parse(((FhirDateTime)value).Value);
+                // DateTimeOffset.Parse will insert fake information where missing, 
+                // so TryParseExact on the partial date info first
+                if (partURL == PartialDateYearUrl)
+                {
+                    ParseDateElements(((FhirDateTime)value).Value, out int? year, out int? month, out int? day);
+                    return year;
+                }
+                else if (partURL == PartialDateMonthUrl)
+                {
+                    ParseDateElements(((FhirDateTime)value).Value, out int? year, out int? month, out int? day);
+                    return month;
+                }
+                else if (partURL == PartialDateDayUrl)
+                {
+                    ParseDateElements(((FhirDateTime)value).Value, out int? year, out int? month, out int? day);
+                    return day;
+                }
+                else
+                {
+                    throw new ArgumentException("GetDateFragment called with unsupported PartialDateTime segment");
+                }
             }
             else if (value is Date && ((Date)value).Value != null)
             {
@@ -655,25 +674,6 @@ namespace VR
                 else
                 {
                     throw new ArgumentException("GetDateFragment called with unsupported PartialDateTime segment when trying to parse individual date elements");
-                }
-            }
-            if (dateTimeOffset != null)
-            {
-                if (partURL == PartialDateYearUrl)
-                {
-                    return ((DateTimeOffset)dateTimeOffset).Year;
-                }
-                else if (partURL == PartialDateMonthUrl)
-                {
-                    return ((DateTimeOffset)dateTimeOffset).Month;
-                }
-                else if (partURL == PartialDateDayUrl)
-                {
-                    return ((DateTimeOffset)dateTimeOffset).Day;
-                }
-                else
-                {
-                    throw new ArgumentException("GetDateFragment called with unsupported PartialDateTime segment");
                 }
             }
             return null;
@@ -704,6 +704,15 @@ namespace VR
                     year = parsedDateYear.Year;
                     month = null;
                     day = null;
+                    return true;
+                }
+                else 
+                {
+                    // Note: We can't just call ToDateTimeOffset() on the FhirDateTime because want the datetime in whatever local time zone was provided
+                    DateTimeOffset dateTimeOffset = DateTimeOffset.Parse(date);
+                    year = ((DateTimeOffset)dateTimeOffset).Year;
+                    month = ((DateTimeOffset)dateTimeOffset).Month;
+                    day = ((DateTimeOffset)dateTimeOffset).Day;
                     return true;
                 }
             }
