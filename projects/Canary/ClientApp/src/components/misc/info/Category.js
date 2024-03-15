@@ -21,12 +21,15 @@ export class Category extends Component {
   }
 
   render() {
+    console.log("Props:") + JSON.stringify(this.props);
     return (
       <React.Fragment>
         <Divider horizontal>
           <Header size="huge">{this.props.name}</Header>
         </Divider>
         {Object.keys(this.props.category).map(name => {
+          console.log("Prop Category Name: " + name)
+          console.log("Prop Name" + this.props.name)
           return (
             <Property
               key={name}

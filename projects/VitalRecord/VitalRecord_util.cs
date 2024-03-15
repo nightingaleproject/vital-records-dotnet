@@ -1819,6 +1819,9 @@ namespace VR
                 // Add snippets
                 FHIRPath path = property.GetCustomAttribute<FHIRPath>();
                 category[property.Name]["CheckboxType"] = path.Section != null;
+                category[property.Name]["Section"] = path.Section;
+                category[property.Name]["Code"] = path.Code;
+                category[property.Name]["CategoryCode"] = path.CategoryCode;
                 var matches = Navigator.Select(path.Path);
                 if (matches.Count() > 0)
                 {
