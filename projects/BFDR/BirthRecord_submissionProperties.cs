@@ -4366,8 +4366,28 @@ namespace BFDR
             set
             {
                 string extractedValue = GetValue(value, "value");
-                string extractedCode = GetValue(value, "code"); ;
+                string extractedCode = GetValue(value, "code");
                 string extractedSystem = GetValue(value, "system");
+                // If string is empty don't bother to set the value
+                if (String.IsNullOrEmpty(extractedCode))
+                {
+                    return;
+                }
+                if (String.IsNullOrEmpty(extractedSystem))
+                {
+                    string[,] options = BFDR.ValueSets.UnitsOfGestationalAge.Codes;
+                    // Iterate over the allowed options and see if the code supplied is one of them
+                    for (int i = 0; i < options.GetLength(0); i += 1)
+                    {
+                        if (options[i, 0] == extractedCode)
+                        {
+                            // Found it, so call the supplied setter with the appropriate dictionary built based on the code
+                            // using the supplied options and return
+                            extractedSystem = options[i, 2];
+                        }
+                    }
+                }
+
                 if (extractedValue == null && extractedCode == null && extractedSystem == null) // if there is nothing to do, do nothing.
                 {
                     return;
@@ -4393,39 +4413,6 @@ namespace BFDR
                     quantity.System = extractedSystem;
                 }
                 obs.Value = (Quantity)quantity;
-            }
-        }
-
-        /// <summary>GestationalAgeAtDeliveryHelper.</summary>
-        /// <value>GestationalAgeAtDeliveryHelper</value>
-        /// <example>
-        /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.GestationalAgeAtDeliveryHelper = new Dictionary(){"value": 4, "code": "wk"};</para>
-        /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"GestationalAgeAtDeliveryHelper: {ExampleBirthRecord.GestationalAgeAtDeliveryHelper}");</para>
-        /// </example>
-        [Property("GestationalAgeAtDeliveryHelper", Property.Types.Dictionary, "Gestational Age at Delivery", "Gestational Age at Delivery", true, IGURL.ObservationGestationalAgeAtDelivery, true, 14)]
-        [PropertyParam("value", "The quantity value.")]
-        [PropertyParam("code", "The unit type, from UnitsOfAge ValueSet.")]
-        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='11884-4')", "")]
-        public Dictionary<string, string> GestationalAgeAtDeliveryHelper
-        {
-            get
-            {
-                // nothing we need to do in the get for this helper
-                return GestationalAgeAtDelivery;
-            }
-            set
-            {
-                string extractedValue = GetValue(value, "value");
-                string extractedCode = GetValue(value, "code"); ;
-                // If string is empty don't bother to set the value
-                if (extractedCode == null || extractedCode == "")
-                {
-                    return;
-                }
-                // create a dictionary to populate the Quantity using the provided value set 
-                SetQuantityValue("GestationalAgeAtDelivery", extractedCode, extractedValue, BFDR.ValueSets.UnitsOfGestationalAge.Codes);
             }
         }
 

@@ -3228,7 +3228,7 @@ namespace BFDR
                 Dictionary<string, string> gestationalAge = new Dictionary<string, string>();
                 gestationalAge.Add("value", value.TrimStart('0'));
                 gestationalAge.Add("code", "wk");
-                record.GestationalAgeAtDeliveryHelper = gestationalAge;
+                record.GestationalAgeAtDelivery = gestationalAge;
             }
         }
 

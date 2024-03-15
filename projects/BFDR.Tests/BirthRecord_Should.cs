@@ -471,6 +471,17 @@ namespace BFDR.Tests
       record1.BirthTime = "13:00:00";
       Assert.Equal("13:00:00", record1.BirthTime);
 
+      // Test setting unknown date components
+      record1.BirthMonth = -1;
+      Assert.Equal("2021", record1.DateOfBirth);
+      record1.BirthMonth = 7;
+      Assert.Equal("2021-07-09", record1.DateOfBirth);
+      record1.BirthYear = -1;
+      Assert.Null(record1.DateOfBirth);
+      record1.BirthYear = 2020;
+      Assert.Equal("2020-07-09", record1.DateOfBirth);
+
+
       // Test in a different order.
       BirthRecord record2 = new BirthRecord();
       // Time of Birth
@@ -1475,7 +1486,7 @@ namespace BFDR.Tests
         //title
         Assert.Equal("76231001", FakeBirthRecord.AttendantTitle["code"]);
         Assert.Equal(CodeSystems.SCT, FakeBirthRecord.AttendantTitle["system"]);
-        Assert.Equal("Osteopath (occupation)", FakeBirthRecord.AttendantTitle["display"]);
+        Assert.Equal("Osteopath", FakeBirthRecord.AttendantTitle["display"]);
         Dictionary<string, string> AttendantTitle = new Dictionary<string, string>();
         AttendantTitle.Add("code", "112247003");
         AttendantTitle.Add("system", CodeSystems.SCT);
@@ -1504,7 +1515,7 @@ namespace BFDR.Tests
         //title
         Assert.Equal("76231001", FakeBirthRecord.CertifierTitle["code"]);
         Assert.Equal(CodeSystems.SCT, FakeBirthRecord.CertifierTitle["system"]);
-        Assert.Equal("Osteopath (occupation)", FakeBirthRecord.CertifierTitle["display"]);
+        Assert.Equal("Osteopath", FakeBirthRecord.CertifierTitle["display"]);
         Dictionary<string, string> CertifierTitle = new Dictionary<string, string>();
         CertifierTitle.Add("code", "112247003");
         CertifierTitle.Add("system", CodeSystems.SCT);
@@ -2126,7 +2137,7 @@ namespace BFDR.Tests
       Dictionary<string, string> dict = new Dictionary<string, string>();
       dict.Add("value", "10");
       dict.Add("code", "wk");
-      birthRecord1.GestationalAgeAtDeliveryHelper = dict;
+      birthRecord1.GestationalAgeAtDelivery = dict;
       Assert.Equal(dict["value"], birthRecord1.GestationalAgeAtDelivery["value"]);
       Assert.Equal("wk", birthRecord1.GestationalAgeAtDelivery["code"]);
       Assert.Equal("http://unitsofmeasure.org", birthRecord1.GestationalAgeAtDelivery["system"]);
@@ -2142,7 +2153,7 @@ namespace BFDR.Tests
       Dictionary<string, string> dict2 = new Dictionary<string, string>();
       dict2.Add("value", "48");
       dict2.Add("code", "d");
-      birthRecord3.GestationalAgeAtDeliveryHelper = dict2;
+      birthRecord3.GestationalAgeAtDelivery = dict2;
       Assert.Equal(dict2["value"], birthRecord3.GestationalAgeAtDelivery["value"]);
       Assert.Equal("d", birthRecord3.GestationalAgeAtDelivery["code"]);
       Assert.Equal("http://unitsofmeasure.org", birthRecord3.GestationalAgeAtDelivery["system"]);

@@ -1375,16 +1375,6 @@
             <para>Console.WriteLine($"GestationalAgeAtDelivery: {ExampleBirthRecord.GestationalAgeAtDelivery}");</para>
             </example>
         </member>
-        <member name="P:BFDR.BirthRecord.GestationalAgeAtDeliveryHelper">
-            <summary>GestationalAgeAtDeliveryHelper.</summary>
-            <value>GestationalAgeAtDeliveryHelper</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.GestationalAgeAtDeliveryHelper = new Dictionary(){"value": 4, "code": "wk"};</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"GestationalAgeAtDeliveryHelper: {ExampleBirthRecord.GestationalAgeAtDeliveryHelper}");</para>
-            </example>
-        </member>
         <member name="P:BFDR.BirthRecord.GestationalAgeAtDeliveryEditFlag">
             <summary>GestationalAgeAtDeliveryEditFlag.</summary>
             <value>GestationalAgeAtDeliveryEditFlag</value>
