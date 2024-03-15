@@ -59,7 +59,6 @@ namespace BFDR
 
         /// <summary>Composition Section Constants</summary>
         private const string RACE_ETHNICITY_PROFILE_MOTHER = "inputraceandethnicityMother";
-
         private const string RACE_ETHNICITY_PROFILE_FATHER = "inputraceandethnicityFather";
         private const string MOTHER_PRENATAL_SECTION = "57073-9";
         private const string MEDICAL_INFORMATION_SECTION = "55752-0";
@@ -68,10 +67,17 @@ namespace BFDR
         private const string FATHER_INFORMATION_SECTION = "92013-2";
         private const string PATIENT_QUESTIONAIRRE_RESPONSE_SECTION = "74465-6";
         private const string EMERGING_ISSUES_SECTION = "emergingIssues";
-
         private const string SUCCESSFUL_OUTCOME = "385669000";
         private const string UNSUCCESSFUL_OUTCOME = "385671000";
-        
+        private const string DATE_OF_LAST_LIVE_BIRTH = "68499-3";
+        private const string DATE_OF_LAST_OTHER_PREGNANCY_OUTCOME = "68500-8";
+        private const string NUMBER_OF_PRENATAL_VISITS = "68493-6";
+        private const string GESTATIONAL_AGE = "11884-4";
+        private const string NUMBER_OF_BIRTHS_NOW_DEAD = "68496-9"; 
+        private const string NUMBER_OF_BIRTHS_NOW_LIVING = "11638-4";
+        private const string NUMBER_OF_OTHER_PREGNANCY_OUTCOMES = "69043-8";
+        private const string MOTHER_RECEIVED_WIC_FOOD = "87303-4";
+        private const string INFANT_BREASTFED_AT_DISCHARGE = "73756-9";
 
         /// <summary>CompositionSections that define the codes that represent the different sections in the composition</summary>
         protected override string[] CompositionSections
@@ -80,7 +86,10 @@ namespace BFDR
             {
                 return new string[] {
                     MOTHER_PRENATAL_SECTION, MEDICAL_INFORMATION_SECTION, NEWBORN_INFORMATION_SECTION, MOTHER_INFORMATION_SECTION,
-                    FATHER_INFORMATION_SECTION, PATIENT_QUESTIONAIRRE_RESPONSE_SECTION, EMERGING_ISSUES_SECTION, RACE_ETHNICITY_PROFILE_MOTHER, RACE_ETHNICITY_PROFILE_FATHER
+                    FATHER_INFORMATION_SECTION, PATIENT_QUESTIONAIRRE_RESPONSE_SECTION, EMERGING_ISSUES_SECTION, RACE_ETHNICITY_PROFILE_MOTHER, 
+                    RACE_ETHNICITY_PROFILE_FATHER, DATE_OF_LAST_LIVE_BIRTH, DATE_OF_LAST_OTHER_PREGNANCY_OUTCOME, NUMBER_OF_PRENATAL_VISITS,
+                    GESTATIONAL_AGE, NUMBER_OF_BIRTHS_NOW_DEAD, NUMBER_OF_BIRTHS_NOW_LIVING, NUMBER_OF_OTHER_PREGNANCY_OUTCOMES, MOTHER_RECEIVED_WIC_FOOD, 
+                    INFANT_BREASTFED_AT_DISCHARGE
                 };
             } 
         }

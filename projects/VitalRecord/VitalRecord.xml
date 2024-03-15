@@ -243,6 +243,12 @@
         <member name="M:VR.IJE.LeftJustified_Set(System.String,System.String,System.String)">
             <summary>Set a value on the VitalRecord whose IJE type is a left justified string.</summary>
         </member>
+        <member name="M:VR.IJE.Boolean_Get(System.String,System.String)">
+            <summary>Get a bool value on the DeathRecord whose IJE type is Y, N, U.</summary>
+        </member>
+        <member name="M:VR.IJE.Boolean_Set(System.String,System.String,System.String)">
+            <summary>Set a bool value on the DeathRecord whose IJE type is Y, N, U.</summary>
+        </member>
         <member name="M:VR.IJE.TimeAllowingUnknown_Get(System.String,System.String)">
             <summary>Get a value on the DeathRecord that is a time with the option of being set to all 9s on the IJE side and null on the FHIR side to represent null</summary>
         </member>
@@ -5620,6 +5626,9 @@
         </member>
         <member name="M:VR.VitalRecord.SetCodeValue(System.String,System.String,System.String[0:,0:])">
             <summary>Helper function to set a codeable value based on a code and the set of allowed codes.</summary>
+        </member>
+        <member name="M:VR.VitalRecord.SetQuantityValue(System.String,System.String,System.String,System.String[0:,0:])">
+            <summary>Helper function to set a quantity value based on a value, code and the set of allowed codes.</summary>
         </member>
         <member name="M:VR.VitalRecord.DictToCoding(System.Collections.Generic.Dictionary{System.String,System.String})">
             <summary>Convert a "code" dictionary to a FHIR Coding.</summary>

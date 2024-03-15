@@ -163,6 +163,47 @@ namespace VR
             }
         }
 
+        /// <summary>Get a bool value on the DeathRecord whose IJE type is Y, N, U.</summary>
+        protected string Boolean_Get(string ijeFieldName, string fhirFieldName)
+        {
+            IJEField info = FieldInfo(ijeFieldName);
+            bool? current = Convert.ToBoolean(Record.GetType().GetProperty(fhirFieldName).GetValue(Record));
+            if (current != null)
+            {
+                if ((bool)current)
+                {
+                    return "Y";
+                }
+                else
+                {
+                    return "N";
+                }
+            }
+            else
+            {
+                // if there was no data in the field, return U
+                return "U";
+            }
+        }
+
+        /// <summary>Set a bool value on the DeathRecord whose IJE type is Y, N, U.</summary>
+        protected void Boolean_Set(string ijeFieldName, string fhirFieldName, string value)
+        {
+            if (!String.IsNullOrWhiteSpace(value))
+            {
+                IJEField info = FieldInfo(ijeFieldName);
+                if (value.Trim() == "Y")
+                {
+                    Record.GetType().GetProperty(fhirFieldName).SetValue(Record, true);
+                }
+                else if (value.Trim() == "N")
+                {
+                    Record.GetType().GetProperty(fhirFieldName).SetValue(Record, false);
+                }
+                // U or blank results in no data in FHIR
+            }
+        }
+
         /// <summary>Get a value on the DeathRecord that is a time with the option of being set to all 9s on the IJE side and null on the FHIR side to represent null</summary>
         protected string TimeAllowingUnknown_Get(string ijeFieldName, string fhirFieldName)
         {

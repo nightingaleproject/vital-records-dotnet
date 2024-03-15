@@ -471,6 +471,17 @@ namespace BFDR.Tests
       record1.BirthTime = "13:00:00";
       Assert.Equal("13:00:00", record1.BirthTime);
 
+      // Test setting unknown date components
+      record1.BirthMonth = -1;
+      Assert.Equal("2021", record1.DateOfBirth);
+      record1.BirthMonth = 7;
+      Assert.Equal("2021-07-09", record1.DateOfBirth);
+      record1.BirthYear = -1;
+      Assert.Null(record1.DateOfBirth);
+      record1.BirthYear = 2020;
+      Assert.Equal("2020-07-09", record1.DateOfBirth);
+
+
       // Test in a different order.
       BirthRecord record2 = new BirthRecord();
       // Time of Birth
@@ -1589,6 +1600,10 @@ namespace BFDR.Tests
       Assert.Null(SetterBirthRecord.LastMenstrualPeriodYear);
       Assert.Equal(4, SetterBirthRecord.LastMenstrualPeriodMonth);
       Assert.Null(SetterBirthRecord.LastMenstrualPeriodDay);
+      SetterBirthRecord.LastMenstrualPeriodYear = 2024;
+      Assert.Equal(2024, SetterBirthRecord.LastMenstrualPeriodYear);
+      Assert.Equal("2024-04", SetterBirthRecord.LastMenstrualPeriod);
+
     }
 
     [Fact]
@@ -1606,9 +1621,9 @@ namespace BFDR.Tests
         // IJE translations
         IJENatality ije1 = new IJENatality(record);
         Assert.Equal("5", ije1.HFT);
-        Assert.Equal("7", ije1.HIN);
+        Assert.Equal("7", ije1.HIN);  
         Assert.Equal("0", ije1.HGT_BYPASS);
-    }
+    }  
 
     [Fact]
     public void SetFirstPrenatalCareVisit()
@@ -1736,7 +1751,7 @@ namespace BFDR.Tests
       Assert.Equal("Indian Health Service or Tribe", br.PayorTypeFinancialClass["display"]);
       Assert.Equal(br.PayorTypeFinancialClass["code"], br.PayorTypeFinancialClassHelper);
     }
-
+    
     [Fact]
     public void SetMaritalStatus()
     {
@@ -1890,7 +1905,7 @@ namespace BFDR.Tests
       BirthRecord birthRecord3 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
       Assert.True(birthRecord3.SSNRequested);
     }
-
+    
     [Fact]
     public void Test_EmergingIssues()
     {
@@ -1927,10 +1942,10 @@ namespace BFDR.Tests
         Assert.Equal("CCCCCCCC", ije.PLACE8_3);
         Assert.Equal("AAAAAAAAAAAAAAAAAAAA", ije.PLACE20);
     }
-
+    
     [Fact]
     public void ParseCertificationDate()
-    {
+    { 
       BirthRecord firstRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
       Assert.Equal("2019-02-12T13:30:00-07:00", firstRecord.CertificationDate);
       Assert.Equal(2019, firstRecord.CertifiedYear);
@@ -1980,5 +1995,253 @@ namespace BFDR.Tests
       Assert.Equal(02, (int)br2.CertifiedMonth);
       Assert.Equal(19, (int)br2.CertifiedDay);
     }
+  
+
+    [Fact]  
+    public void SetPartialDateOfLastLiveBirthFields()
+    {
+      BirthRecord birthRecord = new BirthRecord();
+      birthRecord.DateOfLastLiveBirthMonth = 5;
+      birthRecord.DateOfLastLiveBirthYear = 2023;
+      IJENatality ije = new(birthRecord);
+      BirthRecord birthRecord2 = ije.ToBirthRecord();
+      Assert.Equal(5, birthRecord2.DateOfLastLiveBirthMonth);
+      Assert.Equal(2023, birthRecord2.DateOfLastLiveBirthYear);
+      Assert.Equal("2023-05", birthRecord2.DateOfLastLiveBirth);
+
+      //birthRecord2.DateOfLastLiveBirthMonth = null;
+      birthRecord2.DateOfLastLiveBirthMonth = -1;
+      Assert.Equal("2023", birthRecord2.DateOfLastLiveBirth);
+      birthRecord2.DateOfLastLiveBirthDay = 15;
+      Assert.Equal("2023", birthRecord2.DateOfLastLiveBirth);
+      Assert.Equal(15, birthRecord2.DateOfLastLiveBirthDay);
+      birthRecord2.DateOfLastLiveBirthMonth = 2;
+      Assert.Equal("2023-02-15", birthRecord2.DateOfLastLiveBirth);
+
+      BirthRecord parsedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.Equal(2014, parsedRecord.DateOfLastLiveBirthYear);
+      Assert.Equal(11, parsedRecord.DateOfLastLiveBirthMonth);
+      Assert.Equal(20, parsedRecord.DateOfLastLiveBirthDay);
+      Assert.Equal("2014-11-20", parsedRecord.DateOfLastLiveBirth);
+
+    }
+
+    [Fact]
+    public void SetUnknownDateOfLastLiveBirthFields()
+    {
+      IJENatality ije = new IJENatality();
+      ije.MLLB = "99";
+      ije.YLLB = "9999";
+      BirthRecord birthRecord = ije.ToBirthRecord();
+      Assert.Equal(-1, birthRecord.DateOfLastLiveBirthMonth);
+      Assert.Equal(-1, birthRecord.DateOfLastLiveBirthYear);
+    }
+
+    [Fact]
+    public void SetFullDateOfLastLiveBirthFields()
+    {
+      BirthRecord birthRecord = new BirthRecord();
+      birthRecord.DateOfLastLiveBirth = "2020-01-01";
+      IJENatality ije = new(birthRecord);
+      BirthRecord birthRecord2 = ije.ToBirthRecord();
+      Assert.Equal("2020-01-01", birthRecord2.DateOfLastLiveBirth);
+    }
+
+    [Fact]
+    public void SetPartialDateOfLastOtherPregnancyOutcome()
+    {
+      BirthRecord birthRecord = new BirthRecord();
+      birthRecord.DateOfLastOtherPregnancyOutcomeMonth = 11;
+      birthRecord.DateOfLastOtherPregnancyOutcomeYear = 2022;
+      IJENatality ije = new(birthRecord);
+      BirthRecord birthRecord2 = ije.ToBirthRecord();
+      Assert.Equal(11, birthRecord.DateOfLastOtherPregnancyOutcomeMonth);
+      Assert.Equal(2022, birthRecord.DateOfLastOtherPregnancyOutcomeYear);
+      // // TODO check roundtrip from IJE
+      Assert.Equal(11, birthRecord2.DateOfLastOtherPregnancyOutcomeMonth);
+      Assert.Equal(2022, birthRecord2.DateOfLastOtherPregnancyOutcomeYear);
+      Assert.Equal("2022-11", birthRecord2.DateOfLastOtherPregnancyOutcome);
+      birthRecord2.DateOfLastOtherPregnancyOutcomeMonth = -1;
+      Assert.Equal("2022", birthRecord2.DateOfLastOtherPregnancyOutcome);
+      birthRecord2.DateOfLastOtherPregnancyOutcomeDay = 24;
+      Assert.Equal("2022", birthRecord2.DateOfLastOtherPregnancyOutcome);
+      Assert.Equal(24, birthRecord2.DateOfLastOtherPregnancyOutcomeDay);
+      birthRecord2.DateOfLastOtherPregnancyOutcomeMonth = 4;
+      Assert.Equal("2022-04-24", birthRecord2.DateOfLastOtherPregnancyOutcome);
+
+      BirthRecord parsedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.Equal(2015, parsedRecord.DateOfLastOtherPregnancyOutcomeYear);
+      Assert.Equal(5, parsedRecord.DateOfLastOtherPregnancyOutcomeMonth);
+      Assert.Equal(10, parsedRecord.DateOfLastOtherPregnancyOutcomeDay);
+      Assert.Equal("2015-05-10", parsedRecord.DateOfLastOtherPregnancyOutcome);
+    }
+
+    [Fact]
+    public void SetUnknownDateOfLastOtherPregnancyOutcome()
+    {
+      IJENatality ije = new IJENatality();
+      ije.MOPO = "99";
+      ije.YOPO = "9999";
+      BirthRecord birthRecord = ije.ToBirthRecord();
+      Assert.Equal(-1, birthRecord.DateOfLastOtherPregnancyOutcomeMonth);
+      Assert.Equal(-1, birthRecord.DateOfLastOtherPregnancyOutcomeYear);
+    }
+
+    [Fact]
+    public void SetFullDateOfLastOtherPregnancyOutcome()
+    {
+      BirthRecord birthRecord = new BirthRecord();
+      birthRecord.DateOfLastOtherPregnancyOutcome = "2022-10-09";
+      IJENatality ije = new(birthRecord);
+      BirthRecord birthRecord2 = ije.ToBirthRecord();
+      Assert.Equal("2022-10-09", birthRecord2.DateOfLastOtherPregnancyOutcome);
+    }
+
+    [Fact]
+    public void SetNumberOfPrenatalVisits()
+    {
+      BirthRecord birthRecord = new BirthRecord();
+      birthRecord.NumberOfPrenatalVisits = 5;
+      IJENatality ije = new(birthRecord);
+      BirthRecord birthRecord2 = ije.ToBirthRecord();
+      Assert.Equal(5, birthRecord2.NumberOfPrenatalVisits);
+
+      BirthRecord parsedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.Equal(8, parsedRecord.NumberOfPrenatalVisits);
+    }
+
+    [Fact]
+    public void SetNumberOfPrenatalVisitsEditBypass()
+    {
+      IJENatality ije = new IJENatality();
+      ije.NPREV_BYPASS = "1";
+      BirthRecord birthRecord = ije.ToBirthRecord();
+      Dictionary<string, string> editBypass = new Dictionary<string, string>();
+      editBypass.Add("code", "1");
+      editBypass.Add("system", VR.CodeSystems.VRCLEditFlags);
+      editBypass.Add("display", "Edit Failed, Data Queried, and Verified");
+      Assert.Equal(editBypass, birthRecord.NumberOfPrenatalVisitsEditFlag);
+
+      BirthRecord parsedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Dictionary<string, string> editBypass0 = new Dictionary<string, string>();
+      editBypass0.Add("code", "0");
+      editBypass0.Add("system", VR.CodeSystems.VRCLEditFlags);
+      editBypass0.Add("display", "Edit Passed");
+      Assert.Equal(editBypass0, parsedRecord.NumberOfPrenatalVisitsEditFlag);
+    }
+
+    [Fact]
+    public void SetObstetricEstimateOfGestation()
+    {
+      BirthRecord birthRecord1 = new BirthRecord();
+      Dictionary<string, string> dict = new Dictionary<string, string>();
+      dict.Add("value", "10");
+      dict.Add("code", "wk");
+      birthRecord1.GestationalAgeAtDelivery = dict;
+      Assert.Equal(dict["value"], birthRecord1.GestationalAgeAtDelivery["value"]);
+      Assert.Equal("wk", birthRecord1.GestationalAgeAtDelivery["code"]);
+      Assert.Equal("http://unitsofmeasure.org", birthRecord1.GestationalAgeAtDelivery["system"]);
+
+      IJENatality ije = new IJENatality();
+      ije.OWGEST = "38";
+      BirthRecord birthRecord2 = ije.ToBirthRecord();
+      Assert.Equal("38", birthRecord2.GestationalAgeAtDelivery["value"]);
+      Assert.Equal("wk", birthRecord2.GestationalAgeAtDelivery["code"]);
+      Assert.Equal("http://unitsofmeasure.org", birthRecord2.GestationalAgeAtDelivery["system"]);
+      
+      BirthRecord birthRecord3 = new BirthRecord();
+      Dictionary<string, string> dict2 = new Dictionary<string, string>();
+      dict2.Add("value", "48");
+      dict2.Add("code", "d");
+      birthRecord3.GestationalAgeAtDelivery = dict2;
+      Assert.Equal(dict2["value"], birthRecord3.GestationalAgeAtDelivery["value"]);
+      Assert.Equal("d", birthRecord3.GestationalAgeAtDelivery["code"]);
+      Assert.Equal("http://unitsofmeasure.org", birthRecord3.GestationalAgeAtDelivery["system"]);
+      // IJE should divide days by 7 and round down
+      IJENatality ije2 = new(birthRecord3);
+      ije2.OWGEST = "06";
+
+      BirthRecord parsedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.Equal("36", parsedRecord.GestationalAgeAtDelivery["value"]);
+      Assert.Equal("wk", parsedRecord.GestationalAgeAtDelivery["code"]);
+      Assert.Equal("http://unitsofmeasure.org", parsedRecord.GestationalAgeAtDelivery["system"]);
+    }
+
+    [Fact]
+    public void SetGestationalAgeAtDeliveryEditFlag()
+    {
+      IJENatality ije = new IJENatality();
+      ije.OWGEST_BYPASS = "0";
+      BirthRecord birthRecord = ije.ToBirthRecord();
+      Dictionary<string, string> editBypass = new Dictionary<string, string>();
+      editBypass.Add("code", "0off");
+      editBypass.Add("system", VR.CodeSystems.BFDREditFlags);
+      editBypass.Add("display", "Off");
+      Assert.Equal(editBypass, birthRecord.GestationalAgeAtDeliveryEditFlag);
+    }
+
+    [Fact]
+    public void SetNumberOfBirthsNowDead()
+    {
+      BirthRecord birthRecord = new BirthRecord();
+      birthRecord.NumberOfBirthsNowDead = 2;
+      IJENatality ije = new(birthRecord);
+      BirthRecord birthRecord2 = ije.ToBirthRecord();
+      Assert.Equal(2, birthRecord2.NumberOfBirthsNowDead);
+
+      BirthRecord parsedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.Equal(1, parsedRecord.NumberOfBirthsNowDead);
+    }
+
+    [Fact]
+    public void SetNumberOfBirthsNowLiving()
+    {
+      BirthRecord birthRecord = new BirthRecord();
+      birthRecord.NumberOfBirthsNowLiving = 3;
+      IJENatality ije = new(birthRecord);
+      BirthRecord birthRecord2 = ije.ToBirthRecord();
+      Assert.Equal(3, birthRecord2.NumberOfBirthsNowLiving);
+
+      BirthRecord parsedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.Equal(2, parsedRecord.NumberOfBirthsNowLiving);
+    }
+
+    [Fact]
+    public void SetNumberOfOtherPregnancyOutcomes()
+    {
+      BirthRecord birthRecord = new BirthRecord();
+      birthRecord.NumberOfOtherPregnancyOutcomes = 1;
+      IJENatality ije = new(birthRecord);
+      BirthRecord birthRecord2 = ije.ToBirthRecord();
+      Assert.Equal(1, birthRecord2.NumberOfOtherPregnancyOutcomes);
+
+      BirthRecord parsedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.Equal(3, parsedRecord.NumberOfOtherPregnancyOutcomes);
+    }
+
+    [Fact]
+    public void SetMotherReceivedWICFood()
+    {
+      IJENatality ije = new IJENatality();
+      ije.WIC = "Y";
+      BirthRecord birthRecord = ije.ToBirthRecord();
+      Assert.Equal("Y", birthRecord.MotherReceivedWICFoodHelper);
+
+      BirthRecord parsedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.Equal("N", parsedRecord.MotherReceivedWICFoodHelper);
+    }
+
+    [Fact]
+    public void SetInfantBreastfedAtDischarge()
+    {
+      IJENatality ije = new IJENatality();
+      ije.BFED = "Y";
+      BirthRecord birthRecord = ije.ToBirthRecord();
+      Assert.True(birthRecord.InfantBreastfedAtDischarge);
+
+      BirthRecord parsedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.True(parsedRecord.InfantBreastfedAtDischarge);
+    }
   }
+ 
 }

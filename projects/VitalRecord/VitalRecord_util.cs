@@ -962,13 +962,13 @@ namespace VR
             }
             if (value != -1)
             {
-                if (ParseDateElements(dateElement.Value, out int? year, out int? _, out int? day) && (year != null || currentYear != null))
+                if (ParseDateElements(dateElement.Value, out int? year, out int? _, out int? day) && (year != null || (currentYear != null && currentYear != -1)))
                 {
                     year = year ?? currentYear;
                     day = day ?? currentDay;
                     return day != null ? new Date((int)year, (int)value, (int)day) : new Date((int)year, (int)value);
                 }
-                if (currentYear != null)
+                if (currentYear != null && currentYear != -1)
                 {
                     return currentDay != null ? new Date((int)currentYear, (int)value, (int)currentDay) : new Date((int)currentYear, (int)value);
                 }
@@ -1011,13 +1011,13 @@ namespace VR
             }
             if (value != -1)
             {
-                if (ParseDateElements(dateElement.Value, out int? year, out int? _, out int? day) && (year != null || currentYear != null))
+                if (ParseDateElements(dateElement.Value, out int? year, out int? _, out int? day) && (year != null || (currentYear != null && currentYear != -1)))
                 {
                     year = year ?? currentYear;
                     day = day ?? currentDay;
                     return day != null ? new FhirDateTime((int)year, (int)value, (int)day) : new FhirDateTime((int)year, (int)value);
                 }
-                if (currentYear != null)
+                if (currentYear != null && currentYear != -1)
                 {
                     return currentDay != null ? new FhirDateTime((int)currentYear, (int)value, (int)currentDay) : new FhirDateTime((int)currentYear, (int)value);
                 }
@@ -1060,13 +1060,13 @@ namespace VR
             }
             if (value != -1)
             {
-                if (ParseDateElements(dateElement.Value, out int? year, out int? month, out int? _) && (year != null || currentYear != null) && (month != null || currentMonth != null))
+                if (ParseDateElements(dateElement.Value, out int? year, out int? month, out int? _) && (year != null || (currentYear != null && currentYear != -1)) && (month != null || (currentMonth != null && currentMonth != -1)))
                 {
                     year = year ?? currentYear;
                     month = month ?? currentMonth;
                     return new Date((int)year, (int)month, (int)value);
                 }
-                if (currentYear != null && currentMonth != null)
+                if ((currentYear != null && currentYear != -1) && (currentMonth != null && currentMonth != -1))
                 {
                     return new Date((int)currentYear, (int)currentMonth, (int) value);
                 }
@@ -1116,13 +1116,13 @@ namespace VR
             }
             if (value != -1)
             {
-                if (ParseDateElements(dateElement.Value, out int? year, out int? month, out int? _) && (year != null || currentYear != null) && (month != null || currentMonth != null))
+                if (ParseDateElements(dateElement.Value, out int? year, out int? month, out int? _) && (year != null || (currentYear != null && currentYear != -1)) && (month != null || (currentMonth != null && currentMonth != -1)))
                 {
                     year = year ?? currentYear;
                     month = month ?? currentMonth;
                     return new FhirDateTime((int)year, (int)month, (int)value);
                 }
-                if (currentYear != null && currentMonth != null)
+                if ((currentYear != null && currentYear != -1) && (currentMonth != null && currentMonth != -1))
                 {
                     return new FhirDateTime((int)currentYear, (int)currentMonth, (int) value);
                 }
@@ -1279,6 +1279,37 @@ namespace VR
                     dict.Add("code", code);
                     dict.Add("display", options[i, 1]);
                     dict.Add("system", options[i, 2]);
+                    this.GetType().GetProperty(field).SetValue(this, dict);
+                    return;
+                }
+            }
+            // If we got here we didn't find the code, so it's not a valid option
+            throw new System.ArgumentException($"Code '{code}' is not an allowed value for field {field}");
+        }
+
+        /// <summary>Helper function to set a quantity value based on a value, code and the set of allowed codes.</summary>
+        // <param name="field">the field name to set.</param>
+        // <param name="code">the code to set the field to.</param>
+        // <param name="value">the value of the quantity.</param>
+        // <param name="options">the list of valid options and related display strings and code systems</param>
+        protected void SetQuantityValue(string field, string code, string value, string[,] options)
+        {
+            // If string is empty don't bother to set the value
+            if (code == null || code == "")
+            {
+                return;
+            }
+            // Iterate over the allowed options and see if the code supplies is one of them
+            for (int i = 0; i < options.GetLength(0); i += 1)
+            {
+                if (options[i, 0] == code)
+                {
+                    // Found it, so call the supplied setter with the appropriate dictionary built based on the code
+                    // using the supplied options and return
+                    Dictionary<string, string> dict = new Dictionary<string, string>();
+                    dict.Add("code", code);
+                    dict.Add("system", options[i, 2]);
+                    dict.Add("value", value);
                     this.GetType().GetProperty(field).SetValue(this, dict);
                     return;
                 }

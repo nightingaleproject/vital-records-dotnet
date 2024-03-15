@@ -2347,12 +2347,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return NumericAllowingUnknown_Get("NPREV", "NumberOfPrenatalVisits");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                NumericAllowingUnknown_Set("NPREV", "NumberOfPrenatalVisits", value);
             }
         }
 
@@ -2362,12 +2361,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return Get_MappingFHIRToIJE(BFDR.Mappings.PregnancyReportEditFlags.FHIRToIJE, "NumberOfPrenatalVisitsEditFlag", "NPREV_BYPASS");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                Set_MappingIJEToFHIR(BFDR.Mappings.PregnancyReportEditFlags.IJEToFHIR, "NPREV_BYPASS", "NumberOfPrenatalVisitsEditFlag", value);
             }
         }
 
@@ -2503,12 +2501,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return Get_MappingFHIRToIJE(VR.Mappings.YesNoUnknown.FHIRToIJE, "MotherReceivedWICFood", "WIC");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Set_MappingIJEToFHIR(VR.Mappings.YesNoUnknown.IJEToFHIR, "WIC", "MotherReceivedWICFood", value);
+                }
             }
         }
 
@@ -2518,12 +2518,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return NumericAllowingUnknown_Get("PLBL", "NumberOfBirthsNowLiving");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                NumericAllowingUnknown_Set("PLBL", "NumberOfBirthsNowLiving", value);
             }
         }
 
@@ -2533,12 +2532,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return NumericAllowingUnknown_Get("PLBD", "NumberOfBirthsNowDead");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                NumericAllowingUnknown_Set("PLBD", "NumberOfBirthsNowDead", value);
             }
         }
 
@@ -2548,12 +2546,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return NumericAllowingUnknown_Get("POPO", "NumberOfOtherPregnancyOutcomes");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                NumericAllowingUnknown_Set("POPO", "NumberOfOtherPregnancyOutcomes", value);
             }
         }
 
@@ -2563,12 +2560,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return NumericAllowingUnknown_Get("MLLB", "DateOfLastLiveBirthMonth");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                NumericAllowingUnknown_Set("MLLB", "DateOfLastLiveBirthMonth", value);
             }
         }
 
@@ -2578,12 +2574,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return NumericAllowingUnknown_Get("YLLB", "DateOfLastLiveBirthYear");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                NumericAllowingUnknown_Set("YLLB", "DateOfLastLiveBirthYear", value);
             }
         }
 
@@ -2593,12 +2588,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return NumericAllowingUnknown_Get("MOPO", "DateOfLastOtherPregnancyOutcomeMonth");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                NumericAllowingUnknown_Set("MOPO", "DateOfLastOtherPregnancyOutcomeMonth", value);
             }
         }
 
@@ -2608,12 +2602,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return NumericAllowingUnknown_Get("YOPO", "DateOfLastOtherPregnancyOutcomeYear");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                NumericAllowingUnknown_Set("YOPO", "DateOfLastOtherPregnancyOutcomeYear", value);
             }
         }
 
@@ -3208,12 +3201,34 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                // Get the value and unit code
+                // https://hl7.github.io/fhir-bfdr/StructureDefinition-Observation-gestational-age-at-delivery.html
+                // values in days will be divided by 7 without remainder, and values in weeks will be rounded down to an integer
+                IJEField info = FieldInfo("OWGEST");
+                if (record.GestationalAgeAtDelivery != null && !String.IsNullOrEmpty(record.GestationalAgeAtDelivery["value"]))
+                {
+
+                    if (record.GestationalAgeAtDelivery["code"] == "wk") 
+                    {
+                        int weeks = (int)Convert.ToDecimal(record.GestationalAgeAtDelivery["value"]);
+                        return Truncate(weeks.ToString(), info.Length).PadLeft(info.Length, '0');
+                    }
+                    else if (record.GestationalAgeAtDelivery["code"] == "d")
+                    {
+                        int days = (int)(Convert.ToDecimal(record.GestationalAgeAtDelivery["value"])/7);
+                        return Truncate(days.ToString(), info.Length).PadLeft(info.Length, '0');
+                    }
+                    
+                }
+                return "  ";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // use the helper to set this in FHIR, the unit code in IJE is always weeks, wk
+                Dictionary<string, string> gestationalAge = new Dictionary<string, string>();
+                gestationalAge.Add("value", value.TrimStart('0'));
+                gestationalAge.Add("code", "wk");
+                record.GestationalAgeAtDelivery = gestationalAge;
             }
         }
 
@@ -3223,12 +3238,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                // TODO: The Mappings  is the same as the BirthWeightEditFlags but didn't get generated by the IG
+                return Get_MappingFHIRToIJE(BFDR.Mappings.EstimateOfGestationEditFlags.FHIRToIJE, "GestationalAgeAtDeliveryEditFlag", "OWGEST_BYPASS");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                Set_MappingIJEToFHIR(BFDR.Mappings.EstimateOfGestationEditFlags.IJEToFHIR, "OWGEST_BYPASS", "GestationalAgeAtDeliveryEditFlag", value);
             }
         }
 
@@ -3524,12 +3539,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
+                return Boolean_Get("BFED", "InfantBreastfedAtDischarge");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                Boolean_Set("BFED", "InfantBreastfedAtDischarge", value);
             }
         }
 
