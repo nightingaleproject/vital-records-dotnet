@@ -1,9 +1,9 @@
 {
   "resourceType": "Bundle",
-  "id": "5a8a5ca2-ea6e-4bc2-b5a8-3332fb647f76",
+  "id": "655e7f29-3555-4c0b-b4d1-3bf3aaa33051",
   "meta": {
     "profile": [
-      "http://hl7.org/fhir/us/bfdr/StructureDefinition/BundleDocumentBFDR"
+      "http://hl7.org/fhir/us/bfdr/StructureDefinition/Bundle-document-birth-report"
     ]
   },
   "identifier": {
@@ -21,16 +21,16 @@
     "value": "2023XX000100"
   },
   "type": "document",
-  "timestamp": "2024-02-16T15:48:50.371348-05:00",
+  "timestamp": "2024-03-14T21:01:25.393706-04:00",
   "entry": [
     {
-      "fullUrl": "urn:uuid:2c5fdf44-1444-4605-97f7-e48e29c467a4",
+      "fullUrl": "urn:uuid:0ddabfb4-b3ee-4537-aec5-aa3c51e3a562",
       "resource": {
         "resourceType": "Composition",
-        "id": "2c5fdf44-1444-4605-97f7-e48e29c467a4",
+        "id": "0ddabfb4-b3ee-4537-aec5-aa3c51e3a562",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/bfdr/StructureDefinition/CompositionJurisdictionLiveBirthReport"
+            "http://hl7.org/fhir/us/bfdr/StructureDefinition/Composition-jurisdiction-live-birth-report"
           ]
         },
         "status": "final",
@@ -44,7 +44,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:613d9dbc-2036-49b1-8076-9cfdf9c9933c"
+          "reference": "urn:uuid:932cd76c-b090-4ccd-8c8f-4c2ee0e0b1bf"
         },
         "title": "Birth Certificate",
         "attester": [
@@ -78,14 +78,14 @@
               ]
             },
             "focus": {
-              "reference": "urn:uuid:613d9dbc-2036-49b1-8076-9cfdf9c9933c"
+              "reference": "urn:uuid:932cd76c-b090-4ccd-8c8f-4c2ee0e0b1bf"
             },
             "entry": [
               {
-                "reference": "urn:uuid:bc252d7d-6c65-4369-ad00-90e7ef92e045"
+                "reference": "urn:uuid:820851f3-ac3b-4df0-9085-64528792ea7a"
               },
               {
-                "reference": "urn:uuid:610d5e73-9332-46ef-a3b3-b67089dc3efc"
+                "reference": "urn:uuid:4cb8c0ae-5d85-49f1-88ee-699029c476e4"
               }
             ]
           },
@@ -99,23 +99,26 @@
               ]
             },
             "focus": {
-              "reference": "urn:uuid:61081374-7984-43f6-8e81-5fd9fa9c03a9"
+              "reference": "urn:uuid:c98d96c1-1f05-451c-b0e1-addb506eb170"
             },
             "entry": [
               {
-                "reference": "urn:uuid:6bb0c8e3-ba65-47ad-8813-a9e962e60a22"
+                "reference": "urn:uuid:67d4dcb8-9690-4b4e-9bab-6853f4668a42"
               },
               {
-                "reference": "urn:uuid:b5b3d909-7796-4c0d-921a-a6aea1abb4fd"
+                "reference": "urn:uuid:92dc42d1-a458-46a8-9f07-386416184e92"
               },
               {
-                "reference": "urn:uuid:355ebfbe-7f8b-4fb2-82bb-1f7c4c5e8ed9"
+                "reference": "urn:uuid:3434bfeb-92ab-4e08-8626-7bcf9d91d555"
               },
               {
-                "reference": "urn:uuid:57505b24-a520-40b6-82b9-468d180ddfab"
+                "reference": "urn:uuid:651acf8f-8997-494c-b0ca-c33b42795d8a"
               },
               {
-                "reference": "urn:uuid:7c05f29c-f299-4f68-b5c7-776e3f1a36f2"
+                "reference": "urn:uuid:0a3e203d-13f9-46a7-b845-4e02d7592588"
+              },
+              {
+                "reference": "urn:uuid:980801e9-1000-484a-8a99-f64a1f3ec51b"
               }
             ]
           },
@@ -130,7 +133,7 @@
             },
             "entry": [
               {
-                "reference": "urn:uuid:54004b42-a726-4df7-a351-843cb65f8ee9"
+                "reference": "urn:uuid:d6039101-0ed9-4f12-8c32-ef42b3d473a4"
               }
             ]
           },
@@ -145,7 +148,7 @@
             },
             "entry": [
               {
-                "reference": "urn:uuid:f536e2db-e3a5-478b-a10f-9d85605eb2a5"
+                "reference": "urn:uuid:4cbdc136-b8d5-4c1c-b54d-f50e634e2fcd"
               }
             ]
           },
@@ -160,7 +163,7 @@
             },
             "entry": [
               {
-                "reference": "urn:uuid:b6a0699e-0ac8-4164-89a4-12d428ae9671"
+                "reference": "urn:uuid:f3b57a5a-3c4a-4e9b-aeac-306813140598"
               }
             ]
           },
@@ -175,7 +178,7 @@
             },
             "entry": [
               {
-                "reference": "urn:uuid:2d0a9ef3-a331-4316-a7f0-e43cc87d8dc9"
+                "reference": "urn:uuid:0030772d-fd99-4ec5-b3ad-1bdd00090314"
               }
             ]
           }
@@ -183,10 +186,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:613d9dbc-2036-49b1-8076-9cfdf9c9933c",
+      "fullUrl": "urn:uuid:932cd76c-b090-4ccd-8c8f-4c2ee0e0b1bf",
       "resource": {
         "resourceType": "Patient",
-        "id": "613d9dbc-2036-49b1-8076-9cfdf9c9933c",
+        "id": "932cd76c-b090-4ccd-8c8f-4c2ee0e0b1bf",
         "meta": {
           "profile": [
             "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Patient-child-vr.html"
@@ -198,7 +201,7 @@
             "valueCodeableConcept": {
               "coding": [
                 {
-                  "system": "http://hl7.org/fhir/administrative-gender",
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-AdministrativeGender",
                   "code": "M",
                   "display": "Male"
                 }
@@ -263,10 +266,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:61081374-7984-43f6-8e81-5fd9fa9c03a9",
+      "fullUrl": "urn:uuid:c98d96c1-1f05-451c-b0e1-addb506eb170",
       "resource": {
         "resourceType": "Patient",
-        "id": "61081374-7984-43f6-8e81-5fd9fa9c03a9",
+        "id": "c98d96c1-1f05-451c-b0e1-addb506eb170",
         "meta": {
           "profile": [
             "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Patient-mother-vr.html"
@@ -311,10 +314,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:5721f723-3482-4e54-b22a-acd19f1ee4f8",
+      "fullUrl": "urn:uuid:db93146f-b2ef-4261-b582-ce1cbbb886ef",
       "resource": {
         "resourceType": "RelatedPerson",
-        "id": "5721f723-3482-4e54-b22a-acd19f1ee4f8",
+        "id": "db93146f-b2ef-4261-b582-ce1cbbb886ef",
         "meta": {
           "profile": [
             "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-RelatedPerson-father-natural-vr.html"
@@ -334,10 +337,140 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:6bb0c8e3-ba65-47ad-8813-a9e962e60a22",
+      "fullUrl": "urn:uuid:0a9fbbe7-471d-4e3e-9784-c9ce9fe2fcc3",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "0a9fbbe7-471d-4e3e-9784-c9ce9fe2fcc3",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Practitioner-vr"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-role-vr",
+            "valueCode": "certifier"
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI",
+                  "display": "National Provider Identifier"
+                }
+              ]
+            },
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "223347044"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "text": "Janet Seito"
+          }
+        ],
+        "qualification": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "76231001",
+                  "display": "Osteopath"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:ef82392f-6e10-4fb6-ac08-6f11fcd2e9e1",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "ef82392f-6e10-4fb6-ac08-6f11fcd2e9e1",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Practitioner-vr"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-role-vr",
+            "valueCode": "attendant"
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI",
+                  "display": "National Provider Identifier"
+                }
+              ]
+            },
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "762310012345"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "text": "Avery Jones"
+          }
+        ],
+        "qualification": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "76231001",
+                  "display": "Osteopath"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:820851f3-ac3b-4df0-9085-64528792ea7a",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "820851f3-ac3b-4df0-9085-64528792ea7a",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "73780-9"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:932cd76c-b090-4ccd-8c8f-4c2ee0e0b1bf"
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "260413007"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:67d4dcb8-9690-4b4e-9bab-6853f4668a42",
       "resource": {
         "resourceType": "Procedure",
-        "id": "6bb0c8e3-ba65-47ad-8813-a9e962e60a22",
+        "id": "67d4dcb8-9690-4b4e-9bab-6853f4668a42",
         "category": {
           "coding": [
             {
@@ -355,15 +488,15 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:61081374-7984-43f6-8e81-5fd9fa9c03a9"
+          "reference": "urn:uuid:c98d96c1-1f05-451c-b0e1-addb506eb170"
         }
       }
     },
     {
-      "fullUrl": "urn:uuid:b5b3d909-7796-4c0d-921a-a6aea1abb4fd",
+      "fullUrl": "urn:uuid:92dc42d1-a458-46a8-9f07-386416184e92",
       "resource": {
         "resourceType": "Procedure",
-        "id": "b5b3d909-7796-4c0d-921a-a6aea1abb4fd",
+        "id": "92dc42d1-a458-46a8-9f07-386416184e92",
         "category": {
           "coding": [
             {
@@ -381,15 +514,67 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:61081374-7984-43f6-8e81-5fd9fa9c03a9"
+          "reference": "urn:uuid:c98d96c1-1f05-451c-b0e1-addb506eb170"
         }
       }
     },
     {
-      "fullUrl": "urn:uuid:355ebfbe-7f8b-4fb2-82bb-1f7c4c5e8ed9",
+      "fullUrl": "urn:uuid:4cb8c0ae-5d85-49f1-88ee-699029c476e4",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "4cb8c0ae-5d85-49f1-88ee-699029c476e4",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "73812-0"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:932cd76c-b090-4ccd-8c8f-4c2ee0e0b1bf"
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "260413007"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:3434bfeb-92ab-4e08-8626-7bcf9d91d555",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "3434bfeb-92ab-4e08-8626-7bcf9d91d555",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "72519-2"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:c98d96c1-1f05-451c-b0e1-addb506eb170"
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "260413007"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:651acf8f-8997-494c-b0ca-c33b42795d8a",
       "resource": {
         "resourceType": "Condition",
-        "id": "355ebfbe-7f8b-4fb2-82bb-1f7c4c5e8ed9",
+        "id": "651acf8f-8997-494c-b0ca-c33b42795d8a",
         "category": [
           {
             "coding": [
@@ -409,15 +594,15 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:61081374-7984-43f6-8e81-5fd9fa9c03a9"
+          "reference": "urn:uuid:c98d96c1-1f05-451c-b0e1-addb506eb170"
         }
       }
     },
     {
-      "fullUrl": "urn:uuid:57505b24-a520-40b6-82b9-468d180ddfab",
+      "fullUrl": "urn:uuid:0a3e203d-13f9-46a7-b845-4e02d7592588",
       "resource": {
         "resourceType": "Procedure",
-        "id": "57505b24-a520-40b6-82b9-468d180ddfab",
+        "id": "0a3e203d-13f9-46a7-b845-4e02d7592588",
         "category": {
           "coding": [
             {
@@ -435,15 +620,15 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:61081374-7984-43f6-8e81-5fd9fa9c03a9"
+          "reference": "urn:uuid:c98d96c1-1f05-451c-b0e1-addb506eb170"
         }
       }
     },
     {
-      "fullUrl": "urn:uuid:7c05f29c-f299-4f68-b5c7-776e3f1a36f2",
+      "fullUrl": "urn:uuid:980801e9-1000-484a-8a99-f64a1f3ec51b",
       "resource": {
         "resourceType": "Observation",
-        "id": "7c05f29c-f299-4f68-b5c7-776e3f1a36f2",
+        "id": "980801e9-1000-484a-8a99-f64a1f3ec51b",
         "code": {
           "coding": [
             {
@@ -453,7 +638,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:61081374-7984-43f6-8e81-5fd9fa9c03a9"
+          "reference": "urn:uuid:c98d96c1-1f05-451c-b0e1-addb506eb170"
         },
         "valueCodeableConcept": {
           "coding": [
@@ -466,10 +651,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:54004b42-a726-4df7-a351-843cb65f8ee9",
+      "fullUrl": "urn:uuid:d6039101-0ed9-4f12-8c32-ef42b3d473a4",
       "resource": {
         "resourceType": "Observation",
-        "id": "54004b42-a726-4df7-a351-843cb65f8ee9",
+        "id": "d6039101-0ed9-4f12-8c32-ef42b3d473a4",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Observation-education-level-vr"
@@ -486,7 +671,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:613d9dbc-2036-49b1-8076-9cfdf9c9933c"
+          "reference": "urn:uuid:932cd76c-b090-4ccd-8c8f-4c2ee0e0b1bf"
         },
         "valueCodeableConcept": {
           "extension": [
@@ -495,8 +680,8 @@
               "valueCodeableConcept": {
                 "coding": [
                   {
-                    "system": "VR.CodeSystems.BirthAndDeathEditFlags",
-                    "code": "editBypass0",
+                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
+                    "code": "0",
                     "display": "Edit Passed"
                   }
                 ]
@@ -514,10 +699,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:f536e2db-e3a5-478b-a10f-9d85605eb2a5",
+      "fullUrl": "urn:uuid:4cbdc136-b8d5-4c1c-b54d-f50e634e2fcd",
       "resource": {
         "resourceType": "Observation",
-        "id": "f536e2db-e3a5-478b-a10f-9d85605eb2a5",
+        "id": "4cbdc136-b8d5-4c1c-b54d-f50e634e2fcd",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Observation-education-level-vr"
@@ -534,7 +719,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:61081374-7984-43f6-8e81-5fd9fa9c03a9"
+          "reference": "urn:uuid:c98d96c1-1f05-451c-b0e1-addb506eb170"
         },
         "valueCodeableConcept": {
           "extension": [
@@ -543,8 +728,8 @@
               "valueCodeableConcept": {
                 "coding": [
                   {
-                    "system": "VR.CodeSystems.BirthAndDeathEditFlags",
-                    "code": "editBypass2",
+                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
+                    "code": "2",
                     "display": "Edit Failed, Data Queried, but not Verified"
                   }
                 ]
@@ -562,10 +747,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:b6a0699e-0ac8-4164-89a4-12d428ae9671",
+      "fullUrl": "urn:uuid:f3b57a5a-3c4a-4e9b-aeac-306813140598",
       "resource": {
         "resourceType": "Observation",
-        "id": "b6a0699e-0ac8-4164-89a4-12d428ae9671",
+        "id": "f3b57a5a-3c4a-4e9b-aeac-306813140598",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/input-race-and-ethnicity-vr"
@@ -582,11 +767,11 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:613d9dbc-2036-49b1-8076-9cfdf9c9933c"
+          "reference": "urn:uuid:932cd76c-b090-4ccd-8c8f-4c2ee0e0b1bf"
         },
         "focus": [
           {
-            "reference": "urn:uuid:61081374-7984-43f6-8e81-5fd9fa9c03a9"
+            "reference": "urn:uuid:c98d96c1-1f05-451c-b0e1-addb506eb170"
           }
         ],
         "component": [
@@ -594,7 +779,7 @@
             "code": {
               "coding": [
                 {
-                  "system": "http://hl7.org/fhir/us/vr-common-library/2024Jan/CodeSystem-codesystem-vr-component",
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
                   "code": "HispanicCuban",
                   "display": "Hispanic Cuban"
                 }
@@ -614,7 +799,7 @@
             "code": {
               "coding": [
                 {
-                  "system": "http://hl7.org/fhir/us/vr-common-library/2024Jan/CodeSystem-codesystem-vr-component",
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
                   "code": "BlackOrAfricanAmerican",
                   "display": "Black Or African American"
                 }
@@ -626,10 +811,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:2d0a9ef3-a331-4316-a7f0-e43cc87d8dc9",
+      "fullUrl": "urn:uuid:0030772d-fd99-4ec5-b3ad-1bdd00090314",
       "resource": {
         "resourceType": "Observation",
-        "id": "2d0a9ef3-a331-4316-a7f0-e43cc87d8dc9",
+        "id": "0030772d-fd99-4ec5-b3ad-1bdd00090314",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/input-race-and-ethnicity-vr"
@@ -646,14 +831,14 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:613d9dbc-2036-49b1-8076-9cfdf9c9933c"
+          "reference": "urn:uuid:932cd76c-b090-4ccd-8c8f-4c2ee0e0b1bf"
         },
         "component": [
           {
             "code": {
               "coding": [
                 {
-                  "system": "http://hl7.org/fhir/us/vr-common-library/2024Jan/CodeSystem-codesystem-vr-component",
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
                   "code": "White",
                   "display": "White"
                 }
@@ -662,80 +847,6 @@
             "valueBoolean": true
           }
         ]
-      }
-    },
-    {
-      "fullUrl" : "http://www.example.org/fhir/Practitioner/practitioner-vital-records-avery-jones",
-      "resource" : {
-        "resourceType" : "Practitioner",
-        "id" : "practitioner-vital-records-avery-jones",
-        "meta" : {
-          "profile" : ["http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Practitioner-vr"] 
-        },
-        "text" : {
-          "status" : "extensions",
-          "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Practitioner</b><a name=\"practitioner-vital-records-avery-jones\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Practitioner &quot;practitioner-vital-records-avery-jones&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"https://build.fhir.org/ig/HL7/vr-common-library//StructureDefinition-Practitioner-vr.html\">Practitioner - Vital Records</a></p></div><p><b>Practitioner Role - Birth Attendant</b>: attendant</p><p><b>Practitioner Role - Certifier</b>: certifier</p><p><b>identifier</b>: <a href=\"http://terminology.hl7.org/5.0.0/NamingSystem-npi.html\" title=\"National Provider Identifier\">NPI</a>/76231001</p><p><b>name</b>: Avery Jones </p><h3>Qualifications</h3><table class=\"grid\"><tr><td style=\"display: none\">-</td><td><b>Code</b></td></tr><tr><td style=\"display: none\">*</td><td>Osteopath (occupation) <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://browser.ihtsdotools.org/\">SNOMED CT</a>#76231001)</span></td></tr></table></div>"
-        },
-        "extension" : [{
-          "url" : "http://hl7.org/fhir/us/bfdr/StructureDefinition/practitioner-role-birth-attendant",
-          "valueCode" : "attendant"
-        }],
-        "identifier" : [{
-          "system" : "http://hl7.org/fhir/sid/us-npi",
-          "value" : "762310012345"
-        }],
-        "name" : [{
-          "family" : "Jones",
-          "given" : ["Avery"],
-          "suffix" : ["D.O."],
-          "text" : "Avery Jones"
-        }],
-        "qualification" : [{
-          "code" : {
-            "coding" : [{
-              "system" : "http://snomed.info/sct",
-              "code" : "76231001",
-              "display" : "Osteopath (occupation)"
-            }]
-          }
-        }]
-      }
-    },
-    {
-      "fullUrl" : "http://www.example.org/fhir/Practitioner/practitioner-vital-records-janet-seito",
-      "resource" : {
-        "resourceType" : "Practitioner",
-        "id" : "practitioner-vital-records-janet-seito",
-        "meta" : {
-          "profile" : ["http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Practitioner-vr"]
-        },
-        "text" : {
-          "status" : "extensions",
-          "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Practitioner</b><a name=\"practitioner-vital-records-janet-seito\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Practitioner &quot;practitioner-vital-records-janet-seito&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"https://build.fhir.org/ig/HL7/vr-common-library//StructureDefinition-Practitioner-vr.html\">Practitioner - Vital Records</a></p></div><p><b>Practitioner Role - Birth Attendant</b>: attendant</p><p><b>Practitioner Role - Certifier</b>: certifier</p><p><b>identifier</b>: <a href=\"http://terminology.hl7.org/5.0.0/NamingSystem-npi.html\" title=\"National Provider Identifier\">NPI</a>/223347044</p><p><b>name</b>: Seito Janet </p><h3>Qualifications</h3><table class=\"grid\"><tr><td style=\"display: none\">-</td><td><b>Code</b></td></tr><tr><td style=\"display: none\">*</td><td>Osteopath (occupation) <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://browser.ihtsdotools.org/\">SNOMED CT</a>#76231001)</span></td></tr></table></div>"
-        },
-        "extension" : [{
-          "url" : "http://hl7.org/fhir/us/bfdr/StructureDefinition/practitioner-role-birth-certifier",
-          "valueCode" : "certifier"
-        }],
-        "identifier" : [{
-          "system" : "http://hl7.org/fhir/sid/us-npi",
-          "value" : "223347044"
-        }],
-        "name" : [{
-          "family" : "Janet",
-          "given" : ["Seito"],
-          "suffix" : ["D.O."],
-          "text" : "Janet Seito"
-        }],
-        "qualification" : [{
-          "code" : {
-            "coding" : [{
-              "system" : "http://snomed.info/sct",
-              "code" : "76231001",
-              "display" : "Osteopath (occupation)"
-            }]
-          }
-        }]
       }
     }
   ]
