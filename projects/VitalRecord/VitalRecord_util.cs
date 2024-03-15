@@ -298,7 +298,9 @@ namespace VR
                     func = e => e.Resource.TypeName == fhirPath.FHIRType.ToString() && ((Condition)e.Resource).Code.Coding[0].Code == fhirPath.Code;
                     break;
                 case FHIRPath.FhirType.Observation:
-                    func = e => e.Resource.TypeName == fhirPath.FHIRType.ToString() && (((Observation)e.Resource).Value as CodeableConcept != null) && (((Observation)e.Resource).Value as CodeableConcept).Coding[0].Code == fhirPath.Code;
+                    func = e => e.Resource.TypeName == fhirPath.FHIRType.ToString() && (((Observation)e.Resource).Value as CodeableConcept != null) 
+                                                                                    && (((Observation)e.Resource).Value as CodeableConcept).Coding[0].Code == fhirPath.Code 
+                                                                                    && (((Observation)e.Resource).Code as CodeableConcept).Coding[0].Code == fhirPath.CategoryCode;
                     break;
                 case FHIRPath.FhirType.Procedure:
                     func = e => e.Resource.TypeName == fhirPath.FHIRType.ToString() && ((Procedure)e.Resource).Code.Coding[0].Code == fhirPath.Code;
@@ -629,7 +631,6 @@ namespace VR
                 return null;
             }
             // If we have a basic value as a valueDateTime use that, otherwise pull from the PartialDateTime extension
-            DateTimeOffset? dateTimeOffset = null;
             if (value is FhirDateTime && ((FhirDateTime)value).Value != null)
             {
                 // DateTimeOffset.Parse will insert fake information where missing, 
