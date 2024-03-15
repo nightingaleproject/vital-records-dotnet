@@ -776,7 +776,8 @@ namespace BFDR.Tests
       Assert.Equal("Swanson Facility", br.FacilityMotherTransferredFrom);
       Assert.Equal("Jones Hospital", br.FacilityInfantTransferredTo);
     }
-    
+
+    [Fact]
     public void TestLastMenses()
     {
       BirthRecord fhir = new BirthRecord();
@@ -804,8 +805,8 @@ namespace BFDR.Tests
         BirthRecord record = new BirthRecord();
         IJENatality ije1 = new IJENatality(record);
         // Height
-        Assert.Equal("  ",ije1.HIN);
-        Assert.Equal(" ",ije1.HFT);
+        Assert.Equal("99",ije1.HIN);
+        Assert.Equal("9",ije1.HFT);
         ije1.HFT = "5";
         ije1.HIN = "7";
         Assert.Equal("7", ije1.HIN);
@@ -822,7 +823,7 @@ namespace BFDR.Tests
         BirthRecord record1 = new BirthRecord(ije1.ToRecord().ToXML());
         Assert.Equal(63, record1.MotherHeight);
         Assert.Equal(VR.ValueSets.EditBypass01234.Edit_Failed_Data_Queried_And_Verified, record1.MotherHeightEditFlag["code"]);
-    }  
+    }
 
     [Fact]
     public void TestFirstPrenatalCare()
@@ -918,6 +919,47 @@ namespace BFDR.Tests
       Assert.Equal(-1, fhir.ApgarScoreFiveMinutes);
       Assert.Equal("15", ije.APGAR10);
       Assert.Equal(15, fhir.ApgarScoreTenMinutes);
+    }
+
+    [Fact]
+    public void TestIJERoundTrip()
+    {
+      BirthRecord fhir = new BirthRecord(File.ReadAllText("fixtures/json/BirthRecordFakeWithRace.json"));
+      Assert.False(fhir.NoPregnancyRiskFactors); // if present, will cause IJE values to flip to N
+      Assert.False(fhir.GestationalDiabetes); // should map to U
+      Assert.True(fhir.GestationalHypertension); // should map to Y
+      Assert.True(fhir.NoCongenitalAnomaliesOfTheNewborn); // should map to N
+      Assert.False(fhir.Anencephaly); // would normally map to U, but NoCongenitalAnomaliesOfTheNewborn should flip IJE to N
+      IJENatality ije = new IJENatality(fhir);
+      Assert.Equal("U", ije.GDIAB);
+      Assert.Equal("Y", ije.GHYPE);
+      Assert.Equal("9", ije.HFT);
+      Assert.Equal("99", ije.HIN);
+      Assert.Equal("N", ije.ECVS);
+      Assert.Equal("N", ije.ECVF);
+      Assert.Equal("N", ije.ANEN);
+      Assert.Equal("7134703", ije.INF_MED_REC_NUM);
+      Assert.Equal("2286144", ije.MOM_MED_REC_NUM);
+      IJENatality ije2 = new IJENatality(ije.ToString());
+      Assert.Equal("U", ije2.GDIAB);
+      Assert.Equal("Y", ije2.GHYPE);
+      Assert.Equal("9", ije2.HFT);
+      Assert.Equal("99", ije2.HIN);
+      Assert.Equal("N", ije2.ECVS);
+      Assert.Equal("N", ije2.ECVF);
+      Assert.Equal("N", ije2.ANEN);
+      Assert.Equal("7134703", ije2.INF_MED_REC_NUM);
+      Assert.Equal("2286144", ije2.MOM_MED_REC_NUM);
+      IJENatality ije3 = new IJENatality(new BirthRecord(ije2.ToRecord().ToXML()));
+      Assert.Equal("U", ije3.GDIAB);
+      Assert.Equal("Y", ije3.GHYPE);
+      Assert.Equal("9", ije3.HFT);
+      Assert.Equal("99", ije3.HIN);
+      Assert.Equal("N", ije3.ECVS);
+      Assert.Equal("N", ije3.ECVF);
+      Assert.Equal("N", ije3.ANEN);
+      Assert.Equal("7134703", ije3.INF_MED_REC_NUM);
+      Assert.Equal("2286144", ije3.MOM_MED_REC_NUM);
     }
   }
 }

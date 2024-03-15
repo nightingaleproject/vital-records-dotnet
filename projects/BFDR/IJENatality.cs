@@ -2381,8 +2381,7 @@ namespace BFDR
                 // string height_ft = NumericAllowingUnknown_Get("HFT", "MotherHeight");
                 IJEField info = FieldInfo("HFT");
                 int? value = (int?)Record.GetType().GetProperty("MotherHeight").GetValue(record);
-                if (value == null) return new String(' ', info.Length); // No value specified
-                if (value == -1) return new String('9', info.Length); // Explicitly set to unknown
+                if (value == -1 || value == null) return new String('9', info.Length); // Explicitly set to unknown
                 return (value / 12).ToString();
             }
             set
@@ -2410,8 +2409,7 @@ namespace BFDR
                 // string height_in = NumericAllowingUnknown_Get("HIN", "MotherHeight");
                 IJEField info = FieldInfo("HIN");
                 int? value = (int?)Record.GetType().GetProperty("MotherHeight").GetValue(record);
-                if (value == null) return new String(' ', info.Length); // No value specified
-                if (value == -1) return new String('9', info.Length); // Explicitly set to unknown
+                if (value == -1 || value == null) return new String('9', info.Length); // Explicitly set to unknown
                 return (value % 12).ToString();
             }
             set
@@ -5130,7 +5128,7 @@ namespace BFDR
             }
             set
             {
-                record.InfantMedicalRecordNumber = value;
+                record.InfantMedicalRecordNumber = value.Trim();
             }
         }
 
@@ -5144,7 +5142,7 @@ namespace BFDR
             }
             set
             {
-                record.MotherMedicalRecordNumber = value;
+                record.MotherMedicalRecordNumber = value.Trim();
             }
         }
 

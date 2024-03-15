@@ -79,6 +79,14 @@ namespace BFDR.CLI
                 birthRecord.ChildFamilyName = lastName;
                 birthRecord.MotherFamilyName = lastName;
 
+                birthRecord.CertifierName = "Janet Seito";
+                birthRecord.CertifierNPI = "223347044";
+                birthRecord.CertifierTitleHelper = "76231001";
+                birthRecord.AttendantName ="Avery Jones";
+                birthRecord.AttendantNPI = "762310012345";
+                birthRecord.AttendantTitleHelper = "76231001";
+               
+
                 birthRecord.BirthLocationJurisdiction = "MA";
                 Dictionary<string, string> birthAddress = new Dictionary<string, string>();
                 birthAddress.Add("addressLine1", "123 Fake Street");
