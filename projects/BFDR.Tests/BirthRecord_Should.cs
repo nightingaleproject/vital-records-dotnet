@@ -2256,6 +2256,7 @@ namespace BFDR.Tests
 
       BirthRecord parsedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
       Assert.True(parsedRecord.InfantBreastfedAtDischarge);
+    }
 
     [Fact]
     public void SetFetalPresentation()
