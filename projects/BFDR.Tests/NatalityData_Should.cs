@@ -776,7 +776,8 @@ namespace BFDR.Tests
       Assert.Equal("Swanson Facility", br.FacilityMotherTransferredFrom);
       Assert.Equal("Jones Hospital", br.FacilityInfantTransferredTo);
     }
-    
+
+    [Fact]
     public void TestLastMenses()
     {
       BirthRecord fhir = new BirthRecord();
@@ -822,7 +823,7 @@ namespace BFDR.Tests
         BirthRecord record1 = new BirthRecord(ije1.ToRecord().ToXML());
         Assert.Equal(63, record1.MotherHeight);
         Assert.Equal(VR.ValueSets.EditBypass01234.Edit_Failed_Data_Queried_And_Verified, record1.MotherHeightEditFlag["code"]);
-    }  
+    }
 
     [Fact]
     public void TestFirstPrenatalCare()
