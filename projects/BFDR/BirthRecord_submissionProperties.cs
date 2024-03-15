@@ -3980,23 +3980,27 @@ namespace BFDR
         {
             get
             {
-                Observation dateOfLastLiveBirthObs = GetObservation("68499-3");
-                if (dateOfLastLiveBirthObs != null)
+
+                Observation obs = GetObservation("68499-3");
+                if (obs != null)
                 {
-                    return GetDateFragmentOrPartialDate(dateOfLastLiveBirthObs.Value, PartialDateDayUrl);
+                    return GetDateFragmentOrPartialDate(obs.Value, VR.ExtensionURL.PartialDateTimeDayVR);
                 }
                 return null;
             }
             set
             {
-                Observation obs = GetObservation("68499-3");
-                if (obs == null)
-                {
-                    obs = GetOrCreateObservation("68499-3", CodeSystems.LOINC, BFDR.ProfileURL.ObservationDateOfLastLiveBirth, DATE_OF_LAST_LIVE_BIRTH, Mother.Id);
+                Observation obs = GetOrCreateObservation("68499-3", CodeSystems.LOINC, BFDR.ProfileURL.ObservationDateOfLastLiveBirth, DATE_OF_LAST_LIVE_BIRTH, Mother.Id);
+                if (obs.Value as Hl7.Fhir.Model.FhirDateTime == null)
+                {   
                     obs.Value = new FhirDateTime();
+                    obs.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                obs.Value.Extension.Add(NewBlankPartialDateTimeExtension(false));
-                SetPartialDate(obs.Value.Extension.Find(ext => ext.Url == PartialDateUrl), PartialDateDayUrl, value);
+                FhirDateTime newDate = SetDay(value, obs.Value as FhirDateTime, DateOfLastLiveBirthYear, DateOfLastLiveBirthMonth);
+                if (newDate != null)
+                {
+                    obs.Value = newDate;
+                }
             }
         }
 
@@ -4016,22 +4020,26 @@ namespace BFDR
         {
             get
             {
-                Observation dateOfLastLiveBirthObs = GetObservation("68499-3");
-                if (dateOfLastLiveBirthObs != null)
+                Observation obs = GetObservation("68499-3");
+                if (obs != null)
                 {
-                    return GetDateFragmentOrPartialDate(dateOfLastLiveBirthObs.Value, PartialDateMonthUrl);
+                    return GetDateFragmentOrPartialDate(obs.Value, PartialDateMonthUrl);
                 }
                 return null;
             }
             set
             {
                 Observation obs = GetOrCreateObservation("68499-3", CodeSystems.LOINC, BFDR.ProfileURL.ObservationDateOfLastLiveBirth, DATE_OF_LAST_LIVE_BIRTH, Mother.Id);
-                if (obs.Value == null)
+                if (obs.Value as Hl7.Fhir.Model.FhirDateTime == null)
                 {   
                     obs.Value = new FhirDateTime();
+                    obs.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                obs.Value.Extension.Add(NewBlankPartialDateTimeExtension(false));
-                SetPartialDate(obs.Value.Extension.Find(ext => ext.Url == PartialDateUrl), PartialDateMonthUrl, value);
+                FhirDateTime newDate = SetMonth(value, obs.Value as FhirDateTime, DateOfLastLiveBirthYear, DateOfLastLiveBirthDay);
+                if (newDate != null)
+                {
+                    obs.Value = newDate;
+                }
             }
         }
 
@@ -4054,26 +4062,23 @@ namespace BFDR
                 Observation obs = GetObservation("68499-3");
                 if (obs != null)
                 {
-                    if (obs.Value != null)
-                    {
-                        return GetDateFragmentOrPartialDate(obs.Value, PartialDateYearUrl);
-                    }
+                    return GetDateFragmentOrPartialDate(obs.Value, PartialDateYearUrl);
                 }
                 return null;
             }
             set
             {
                 Observation obs = GetOrCreateObservation("68499-3", CodeSystems.LOINC, DATE_OF_LAST_LIVE_BIRTH, BFDR.ProfileURL.ObservationDateOfLastLiveBirth, Mother.Id);
-                if (obs.Value == null)
-                {
+                if (obs.Value as Hl7.Fhir.Model.FhirDateTime == null)
+                {   
                     obs.Value = new FhirDateTime();
+                    obs.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                if (obs.Value.Extension == null)
+                FhirDateTime newDate = SetYear(value, obs.Value as FhirDateTime, DateOfLastLiveBirthMonth, DateOfLastLiveBirthDay);
+                if (newDate != null)
                 {
-                    // must be created here to use the override Extension URL
-                    obs.Value.Extension.Add(NewBlankPartialDateTimeExtension(false));
+                    obs.Value = newDate;
                 }
-                SetPartialDate(obs.Value.Extension.Find(ext => ext.Url == PartialDateUrl), PartialDateYearUrl, value);
             }
         }
 
@@ -4089,28 +4094,20 @@ namespace BFDR
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='68499-3')", "")]
         public string DateOfLastLiveBirth
         {
+
             get
             {
                 Observation obs = GetObservation("68499-3");
                 if (obs != null)
                 {
-                    if (obs != null && obs.Value != null && obs.Value as FhirDateTime != null)
-                    {
-                        return obs.Value.ToString();
-                    }
+                    return (obs.Value as Hl7.Fhir.Model.FhirDateTime)?.Value;
                 }
                 return null;
             }
             set
             {
-                DateTimeOffset parsedDate;
-                if (DateTimeOffset.TryParse(value, out parsedDate))
-                {
-                    Observation obs = GetOrCreateObservation("68499-3", CodeSystems.LOINC, BFDR.ProfileURL.ObservationDateOfLastLiveBirth, DATE_OF_LAST_LIVE_BIRTH, Mother.Id);
-                    Date date = new Date(parsedDate.Year, parsedDate.Month, parsedDate.Day);
-                    obs.Value = date;
-                }
-
+                Observation obs = GetOrCreateObservation("68499-3", CodeSystems.LOINC, BFDR.ProfileURL.ObservationDateOfLastLiveBirth, DATE_OF_LAST_LIVE_BIRTH, Mother.Id);
+                obs.Value = ConvertToDateTime(value);
             }
         }
         
@@ -4132,7 +4129,11 @@ namespace BFDR
             {
 
                 Observation obs = GetObservation("68500-8");
-                return GetDateFragmentOrPartialDate(obs.Value, VR.ExtensionURL.PartialDateTimeDayVR);
+                if (obs != null)
+                {
+                    return GetDateFragmentOrPartialDate(obs.Value, VR.ExtensionURL.PartialDateTimeDayVR);
+                }
+                return null;
             }
             set
             {
@@ -4167,7 +4168,11 @@ namespace BFDR
             get
             {
                 Observation obs = GetObservation("68500-8");
-                return GetDateFragmentOrPartialDate(obs.Value, VR.ExtensionURL.PartialDateTimeMonthVR);
+                if (obs != null)
+                {
+                    return GetDateFragmentOrPartialDate(obs.Value, VR.ExtensionURL.PartialDateTimeMonthVR);
+                }
+                return null;
             }
             set
             {
@@ -4202,7 +4207,11 @@ namespace BFDR
             get
             {
                 Observation obs = GetObservation("68500-8");
-                return GetDateFragmentOrPartialDate(obs.Value, VR.ExtensionURL.PartialDateTimeYearVR);
+                if (obs != null)
+                {
+                    return GetDateFragmentOrPartialDate(obs.Value, VR.ExtensionURL.PartialDateTimeYearVR);
+                }
+                return null;
             }
             set
             {

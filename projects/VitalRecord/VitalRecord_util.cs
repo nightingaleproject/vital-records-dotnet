@@ -1011,13 +1011,13 @@ namespace VR
             }
             if (value != -1)
             {
-                if (ParseDateElements(dateElement.Value, out int? year, out int? _, out int? day) && (year != null || currentYear != null))
+                if (ParseDateElements(dateElement.Value, out int? year, out int? _, out int? day) && (year != null || (currentYear != null && currentYear != -1)))
                 {
                     year = year ?? currentYear;
                     day = day ?? currentDay;
                     return day != null ? new FhirDateTime((int)year, (int)value, (int)day) : new FhirDateTime((int)year, (int)value);
                 }
-                if (currentYear != null)
+                if (currentYear != null && currentYear != -1)
                 {
                     return currentDay != null ? new FhirDateTime((int)currentYear, (int)value, (int)currentDay) : new FhirDateTime((int)currentYear, (int)value);
                 }
@@ -1116,13 +1116,13 @@ namespace VR
             }
             if (value != -1)
             {
-                if (ParseDateElements(dateElement.Value, out int? year, out int? month, out int? _) && (year != null || currentYear != null) && (month != null || currentMonth != null))
+                if (ParseDateElements(dateElement.Value, out int? year, out int? month, out int? _) && (year != null || (currentYear != null && currentYear != -1)) && (month != null || (currentMonth != null && currentMonth != -1)))
                 {
                     year = year ?? currentYear;
                     month = month ?? currentMonth;
                     return new FhirDateTime((int)year, (int)month, (int)value);
                 }
-                if (currentYear != null && currentMonth != null)
+                if ((currentYear != null && currentYear != -1) && (currentMonth != null && currentMonth != -1))
                 {
                     return new FhirDateTime((int)currentYear, (int)currentMonth, (int) value);
                 }
