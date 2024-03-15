@@ -1589,6 +1589,10 @@ namespace BFDR.Tests
       Assert.Null(SetterBirthRecord.LastMenstrualPeriodYear);
       Assert.Equal(4, SetterBirthRecord.LastMenstrualPeriodMonth);
       Assert.Null(SetterBirthRecord.LastMenstrualPeriodDay);
+      SetterBirthRecord.LastMenstrualPeriodYear = 2024;
+      Assert.Equal(2024, SetterBirthRecord.LastMenstrualPeriodYear);
+      Assert.Equal("2024-04", SetterBirthRecord.LastMenstrualPeriod);
+
     }
 
     [Fact]
@@ -1994,7 +1998,6 @@ namespace BFDR.Tests
       Assert.Equal(2023, birthRecord2.DateOfLastLiveBirthYear);
       Assert.Equal("2023-05", birthRecord2.DateOfLastLiveBirth);
 
-      // test partial dates
       birthRecord2.DateOfLastLiveBirthMonth = null;
       Assert.Equal("2023", birthRecord2.DateOfLastLiveBirth);
       birthRecord2.DateOfLastLiveBirthDay = 15;
@@ -2040,17 +2043,19 @@ namespace BFDR.Tests
       birthRecord.DateOfLastOtherPregnancyOutcomeYear = 2022;
       IJENatality ije = new(birthRecord);
       BirthRecord birthRecord2 = ije.ToBirthRecord();
+      // Assert.Equal(11, birthRecord.DateOfLastOtherPregnancyOutcomeMonth);
+      // Assert.Equal(2022, birthRecord.DateOfLastOtherPregnancyOutcomeYear);
+      // // TODO check roundtrip from IJE
       Assert.Equal(11, birthRecord2.DateOfLastOtherPregnancyOutcomeMonth);
       Assert.Equal(2022, birthRecord2.DateOfLastOtherPregnancyOutcomeYear);
-
-      // test partial dates
-      birthRecord2.DateOfLastOtherPregnancyOutcomeMonth = null;
-      Assert.Equal("2023", birthRecord2.DateOfLastOtherPregnancyOutcome);
+      Assert.Equal("2022-11", birthRecord2.DateOfLastOtherPregnancyOutcome);
+      birthRecord2.DateOfLastOtherPregnancyOutcomeMonth = -1;
+      Assert.Equal("2022", birthRecord2.DateOfLastOtherPregnancyOutcome);
       birthRecord2.DateOfLastOtherPregnancyOutcomeDay = 24;
-      Assert.Equal("2023", birthRecord2.DateOfLastOtherPregnancyOutcome);
-      Assert.Equal(30, birthRecord2.DateOfLastOtherPregnancyOutcomeDay);
+      Assert.Equal("2022", birthRecord2.DateOfLastOtherPregnancyOutcome);
+      Assert.Equal(24, birthRecord2.DateOfLastOtherPregnancyOutcomeDay);
       birthRecord2.DateOfLastOtherPregnancyOutcomeMonth = 4;
-      Assert.Equal("2023-04-24", birthRecord2.DateOfLastOtherPregnancyOutcome);
+      Assert.Equal("2022-04-24", birthRecord2.DateOfLastOtherPregnancyOutcome);
 
       BirthRecord parsedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
       Assert.Equal(2015, parsedRecord.DateOfLastOtherPregnancyOutcomeYear);
