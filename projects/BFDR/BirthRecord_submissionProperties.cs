@@ -232,6 +232,9 @@ namespace BFDR
         /// <summary>Overriden method that dictates which Extension URL to use for PartialDateTime</summary>
         protected override string PartialDateTimeUrl => VRExtensionURLs.PartialDateTime;
 
+        /// <summary>Overrideable method that dictates which Extension URL to use for PartialDate</summary>
+        protected override string PartialDateUrl => VRExtensionURLs.PartialDate;
+
         /// <summary>Child's Month of Birth.</summary>
         /// <value>the child's month of birth, or -1 if explicitly unknown, or null if never specified</value>
         /// <example>
@@ -3958,6 +3961,678 @@ namespace BFDR
                     }
                     InputRaceAndEthnicityObsFather.Component.Add(component);
                 }
+            }
+        }
+
+        /// <summary>Date of last live birth day</summary>
+        /// <value>the date of the Mother's last live birth day
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.DateOfLastLiveBirthDay = 4;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Date of Last Live Birth Month: {ExampleBirthRecord.DateOfLastLiveBirthDay}");</para>
+        /// </example>
+        [Property("DateOfLastLiveBirthDay", Property.Types.Int32, "Date of Last Live Birth", "Date of Mother's last live birth day.", false, IGURL.ObservationDateOfLastLiveBirth, false, 34)]
+        [PropertyParam("DateOfLastLiveBirthDay", "The day of the last live birth.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='68499-3')", "")]
+        public int? DateOfLastLiveBirthDay
+        {
+            get
+            {
+
+                Observation obs = GetObservation("68499-3");
+                if (obs != null)
+                {
+                    return GetDateFragmentOrPartialDate(obs.Value, VR.ExtensionURL.PartialDateTimeDayVR);
+                }
+                return null;
+            }
+            set
+            {
+                Observation obs = GetOrCreateObservation("68499-3", CodeSystems.LOINC, BFDR.ProfileURL.ObservationDateOfLastLiveBirth, DATE_OF_LAST_LIVE_BIRTH, Mother.Id);
+                if (obs.Value as Hl7.Fhir.Model.FhirDateTime == null)
+                {   
+                    obs.Value = new FhirDateTime();
+                    obs.Extension.Add(NewBlankPartialDateTimeExtension(false));
+                }
+                FhirDateTime newDate = SetDay(value, obs.Value as FhirDateTime, DateOfLastLiveBirthYear, DateOfLastLiveBirthMonth);
+                if (newDate != null)
+                {
+                    obs.Value = newDate;
+                }
+            }
+        }
+
+        /// <summary>Date of last live birth month</summary>
+        /// <value>the date of the Mother's last live birth month
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.DateOfLastLiveBirthMonth = 4;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Date of Last Live Birth Month: {ExampleBirthRecord.DateOfLastLiveBirthMonth}");</para>
+        /// </example>
+        [Property("DateOfLastLiveBirthMonth", Property.Types.Int32, "Date of Last Live Birth", "Date of Mother's last live birth month.", false, IGURL.ObservationDateOfLastLiveBirth, false, 34)]
+        [PropertyParam("dateOfLastBirthMonth", "The month of the last live birth.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='68499-3')", "")]
+        public int? DateOfLastLiveBirthMonth
+        {
+            get
+            {
+                Observation obs = GetObservation("68499-3");
+                if (obs != null)
+                {
+                    return GetDateFragmentOrPartialDate(obs.Value, PartialDateMonthUrl);
+                }
+                return null;
+            }
+            set
+            {
+                Observation obs = GetOrCreateObservation("68499-3", CodeSystems.LOINC, BFDR.ProfileURL.ObservationDateOfLastLiveBirth, DATE_OF_LAST_LIVE_BIRTH, Mother.Id);
+                if (obs.Value as Hl7.Fhir.Model.FhirDateTime == null)
+                {   
+                    obs.Value = new FhirDateTime();
+                    obs.Extension.Add(NewBlankPartialDateTimeExtension(false));
+                }
+                FhirDateTime newDate = SetMonth(value, obs.Value as FhirDateTime, DateOfLastLiveBirthYear, DateOfLastLiveBirthDay);
+                if (newDate != null)
+                {
+                    obs.Value = newDate;
+                }
+            }
+        }
+
+        /// <summary>Date of last live birth year</summary>
+        /// <value>the date of the Mother's last live birth year
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.DateOfLastLiveBirthYear = 2022;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Date of Last Live Birth Year: {ExampleBirthRecord.DateOfLastLiveBirthYear}");</para>
+        /// </example>
+        [Property("DateOfLastLiveBirthYear", Property.Types.Int32, "Date of Last Live Birth", "Date of Mother's last live birth year.", false, IGURL.ObservationDateOfLastLiveBirth, false, 34)]
+        [PropertyParam("dateOfLastBirthYear", "The month of the last live birth.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='68499-3')", "")]
+        public int? DateOfLastLiveBirthYear
+        {
+            get
+            {
+                Observation obs = GetObservation("68499-3");
+                if (obs != null)
+                {
+                    return GetDateFragmentOrPartialDate(obs.Value, PartialDateYearUrl);
+                }
+                return null;
+            }
+            set
+            {
+                Observation obs = GetOrCreateObservation("68499-3", CodeSystems.LOINC, DATE_OF_LAST_LIVE_BIRTH, BFDR.ProfileURL.ObservationDateOfLastLiveBirth, Mother.Id);
+                if (obs.Value as Hl7.Fhir.Model.FhirDateTime == null)
+                {   
+                    obs.Value = new FhirDateTime();
+                    obs.Extension.Add(NewBlankPartialDateTimeExtension(false));
+                }
+                FhirDateTime newDate = SetYear(value, obs.Value as FhirDateTime, DateOfLastLiveBirthMonth, DateOfLastLiveBirthDay);
+                if (newDate != null)
+                {
+                    obs.Value = newDate;
+                }
+            }
+        }
+
+        /// <summary>Date of last live birth.</summary>
+        /// <value>Date of last live birth</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.DateOfLastLiveBirth = "2020-02-19";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Date of Last Live Birth: {ExampleBirthRecord.DateOfLastLiveBirth}");</para>
+        /// </example>
+        [Property("Date Of Last Live Birth", Property.Types.String, "Date of Last Live Birth", "Date of mother's last live birth.", true, IGURL.ObservationDateOfLastLiveBirth, true, 14)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='68499-3')", "")]
+        public string DateOfLastLiveBirth
+        {
+
+            get
+            {
+                Observation obs = GetObservation("68499-3");
+                if (obs != null)
+                {
+                    return (obs.Value as Hl7.Fhir.Model.FhirDateTime)?.Value;
+                }
+                return null;
+            }
+            set
+            {
+                Observation obs = GetOrCreateObservation("68499-3", CodeSystems.LOINC, BFDR.ProfileURL.ObservationDateOfLastLiveBirth, DATE_OF_LAST_LIVE_BIRTH, Mother.Id);
+                obs.Value = ConvertToDateTime(value);
+            }
+        }
+        
+        /// <summary>Date Of Last Other Pregnancy Outcome Day</summary>
+        /// <value>the date of the last other pregnancy outcome day
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.DateOfLastOtherPregnancyOutcomeDay = 4;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Date of Last Other Pregnancy Outcome: {ExampleBirthRecord.DateOfLastOtherPregnancyOutcomeDay}");</para>
+        /// </example>
+        [Property("DateOfLastOtherPregnancyOutcomeDay", Property.Types.Int32, "Date of Last Other Pregnancy Outcome", "Date of last other pregnancy outcome.", false, IGURL.ObservationDateOfLastOtherPregnancyOutcome, false, 34)]
+        [PropertyParam("DateOfLastOtherPregnancyOutcomeDay", "The month of the last other pregnancy outcome.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='68500-8')", "")]
+        public int? DateOfLastOtherPregnancyOutcomeDay
+        {
+            get
+            {
+
+                Observation obs = GetObservation("68500-8");
+                if (obs != null)
+                {
+                    return GetDateFragmentOrPartialDate(obs.Value, VR.ExtensionURL.PartialDateTimeDayVR);
+                }
+                return null;
+            }
+            set
+            {
+                Observation obs = GetOrCreateObservation("68500-8", CodeSystems.LOINC, BFDR.ProfileURL.ObservationDateOfLastOtherPregnancyOutcome, DATE_OF_LAST_OTHER_PREGNANCY_OUTCOME, Mother.Id);
+                if (obs.Value as Hl7.Fhir.Model.FhirDateTime == null)
+                {   
+                    obs.Value = new FhirDateTime();
+                    obs.Extension.Add(NewBlankPartialDateTimeExtension(false));
+                }
+                FhirDateTime newDate = SetDay(value, obs.Value as FhirDateTime, DateOfLastOtherPregnancyOutcomeYear, DateOfLastOtherPregnancyOutcomeMonth);
+                if (newDate != null)
+                {
+                    obs.Value = newDate;
+                }
+            }
+        }
+
+        /// <summary>Date Of Last Other Pregnancy Outcome Month</summary>
+        /// <value>the date of the last other pregnancy outcome month
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.DateOfLastOtherPregnancyOutcomeMonth = 4;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Date of Last Other Pregnancy Outcome: {ExampleBirthRecord.DateOfLastOtherPregnancyOutcomeMonth}");</para>
+        /// </example>
+        [Property("DateOfLastOtherPregnancyOutcomeMonth", Property.Types.Int32, "Date of Last Other Pregnancy Outcome", "Date of last other pregnancy outcome.", false, IGURL.ObservationDateOfLastOtherPregnancyOutcome, false, 34)]
+        [PropertyParam("dateOfLastOtherPregnancyOutcomeMonth", "The month of the last other pregnancy outcome.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='68500-8')", "")]
+        public int? DateOfLastOtherPregnancyOutcomeMonth
+        {
+            get
+            {
+                Observation obs = GetObservation("68500-8");
+                if (obs != null)
+                {
+                    return GetDateFragmentOrPartialDate(obs.Value, VR.ExtensionURL.PartialDateTimeMonthVR);
+                }
+                return null;
+            }
+            set
+            {
+                Observation obs = GetOrCreateObservation("68500-8", CodeSystems.LOINC, "Last Other Pregnancy Outcome", BFDR.ProfileURL.ObservationDateOfLastOtherPregnancyOutcome, DATE_OF_LAST_OTHER_PREGNANCY_OUTCOME, Mother.Id);
+                if (obs.Value as Hl7.Fhir.Model.FhirDateTime == null)
+                {
+                    obs.Value = new FhirDateTime();
+                    obs.Value.Extension.Add(NewBlankPartialDateTimeExtension(false));
+                }
+                FhirDateTime newDate = SetMonth(value, obs.Value as Hl7.Fhir.Model.FhirDateTime, DateOfLastOtherPregnancyOutcomeYear, DateOfLastOtherPregnancyOutcomeDay);
+                if (newDate != null)
+                {
+                    obs.Value = newDate;
+                }
+            }
+        }
+
+        /// <summary>Date Of Last Other Pregnancy Outcome year</summary>
+        /// <value>the date of the Mother's last other pregnancy outcome
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.DateOfLastOtherPregnancyOutcomeYear = 2022;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Date of Last Other Pregnancy Outcome:: {ExampleBirthRecord.DateOfLastOtherPregnancyOutcomeYear}");</para>
+        /// </example>
+        [Property("DateOfLastOtherPregnancyOutcomeYear", Property.Types.Int32, "Date of Last Other Pregnancy Outcome", "Date of last other pregnancy outcome.", false, IGURL.ObservationDateOfLastOtherPregnancyOutcome, false, 34)]
+        [PropertyParam("dateOfLastOtherPregnancyOutcomeYear", "The year of the last other pregnancy outcome.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='68500-8')", "")]
+        public int? DateOfLastOtherPregnancyOutcomeYear
+        {
+            get
+            {
+                Observation obs = GetObservation("68500-8");
+                if (obs != null)
+                {
+                    return GetDateFragmentOrPartialDate(obs.Value, VR.ExtensionURL.PartialDateTimeYearVR);
+                }
+                return null;
+            }
+            set
+            {
+                Observation obs = GetOrCreateObservation("68500-8", CodeSystems.LOINC, BFDR.ProfileURL.ObservationDateOfLastOtherPregnancyOutcome, DATE_OF_LAST_OTHER_PREGNANCY_OUTCOME, Mother.Id);
+                if (obs.Value as Hl7.Fhir.Model.FhirDateTime == null)
+                {
+                    obs.Value = new FhirDateTime();
+                    obs.Value.Extension.Add(NewBlankPartialDateTimeExtension(false));
+                }
+                FhirDateTime newDate = SetYear(value, obs.Value as Hl7.Fhir.Model.FhirDateTime, DateOfLastOtherPregnancyOutcomeMonth, DateOfLastOtherPregnancyOutcomeDay);
+                if (newDate != null)
+                {
+                    obs.Value = newDate;
+                }
+            }
+        }
+
+        /// <summary>Date Of Last Other Pregnancy Outcome.</summary>
+        /// <value>Date of Last Other Pregnancy Outcome</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.DateOfLastOtherPregnancyOutcome = "2020-02-19";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Date of Last Other Pregnancy Outcome: {ExampleBirthRecord.DateOfLastOtherPregnancyOutcome}");</para>
+        /// </example>
+        [Property("Date Of Last Other Pregnancy Outcome", Property.Types.String, "Date of Last Other Pregnancy Outcome", "Date of mother's last live birth.", true, IGURL.ObservationDateOfLastOtherPregnancyOutcome, true, 14)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='68500-8')", "")]
+        public string DateOfLastOtherPregnancyOutcome
+        {
+            get
+            {
+                Observation obs = GetObservation("68500-8");
+                if (obs != null)
+                {
+                    return (obs.Value as Hl7.Fhir.Model.FhirDateTime)?.Value;
+                }
+                return null;
+            }
+            set
+            {
+                Observation obs = GetOrCreateObservation("68500-8", CodeSystems.LOINC, BFDR.ProfileURL.ObservationDateOfLastOtherPregnancyOutcome, DATE_OF_LAST_OTHER_PREGNANCY_OUTCOME, Mother.Id);
+                obs.Value = ConvertToDateTime(value);
+            }
+        }
+
+        /// <summary>NumberOfPrenatalVisits.</summary>
+        /// <value>NumberOfPrenatalVisits</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.NumberOfPrenatalVisits = 4;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"NumberOfPrenatalVisits: {ExampleBirthRecord.NumberOfPrenatalVisits}");</para>
+        /// </example>
+        [Property("Number Of Prenatal Visits", Property.Types.Int32, "Number of Prenatal Visits", "Number of Prenatal Visits.", true, IGURL.ObservationNumberPrenatalVisits, true, 14)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='68493-6')", "")]
+        public int? NumberOfPrenatalVisits
+        {
+            get => GetIntegerObservationValue("68493-6");
+            set => SetIntegerObservationValue("68493-6", CodeSystems.LOINC, value, BFDR.ProfileURL.ObservationNumberPrenatalVisits, NUMBER_OF_PRENATAL_VISITS, Mother.Id);
+        }
+
+        /// <summary>NumberOfPrenatalVisitsEditFlag.</summary>
+        /// <value>NumberOfPrenatalVisitsEditFlag</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.NumberOfPrenatalVisitsEditFlag = 4;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"NumberOfPrenatalVisitsEditFlag: {ExampleBirthRecord.NumberOfPrenatalVisitsEditFlag}");</para>
+        /// </example>
+        [Property("Number Of Prenatal Visits Edit Flag", Property.Types.Dictionary, "Number of Prenatal Visits", "Number of Prenatal Visits Edit Flag.", true, IGURL.ObservationNumberPrenatalVisits, true, 14)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='68493-6')", "")]
+        public Dictionary<string, string> NumberOfPrenatalVisitsEditFlag
+        {
+            get
+            {
+                Observation obs = GetObservation("68493-6");
+                Extension editFlag = obs?.Value?.Extension.FirstOrDefault(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
+                if (editFlag != null && editFlag.Value != null && editFlag.Value.GetType() == typeof(CodeableConcept))
+                {
+                    return CodeableConceptToDict((CodeableConcept)editFlag.Value);
+                }
+                return EmptyCodeableDict();
+            }
+            set
+            {
+                if (IsDictEmptyOrDefault(value))
+                {
+                    return;
+                }
+                Observation obs = GetObservation("68493-6");
+                if (obs == null)
+                {
+                    obs = GetOrCreateObservation("68493-6", CodeSystems.LOINC, BFDR.ProfileURL.ObservationNumberPrenatalVisits, NUMBER_OF_PRENATAL_VISITS, Mother.Id);
+                    obs.Value = new UnsignedInt();
+                }
+                obs.Value?.Extension.RemoveAll(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
+                Extension editFlag = new Extension(VRExtensionURLs.BypassEditFlag, DictToCodeableConcept(value));
+                obs.Value.Extension.Add(editFlag);
+            }
+        }
+
+        /// <summary>
+        /// NumberOfPrenatalVisitsEditFlag Helper
+        /// </summary>
+        [Property("NumberOfPrenatalVisitsEditFlagHelper", Property.Types.String, "Number of Prenatal Visits", "NumberOfPrenatalVisitsEditFlag.", false, IGURL.ObservationNumberPrenatalVisits, true, 2)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='68493-6')", "")]
+        public String NumberOfPrenatalVisitsEditFlagHelper
+        {
+            get
+            {
+                return NumberOfPrenatalVisitsEditFlag.ContainsKey("code") && !String.IsNullOrWhiteSpace(NumberOfPrenatalVisitsEditFlag["code"]) ? NumberOfPrenatalVisitsEditFlag["code"] : null;
+            }
+            set
+            {
+                if(!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("NumberOfPrenatalVisitsEditFlag", value, BFDR.ValueSets.PregnancyReportEditFlags.Codes);
+                }
+            }
+        }
+
+        /// <summary>GestationalAgeAtDelivery.</summary>
+        /// <value>GestationalAgeAtDelivery</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.GestationalAgeAtDelivery = 4;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"GestationalAgeAtDelivery: {ExampleBirthRecord.GestationalAgeAtDelivery}");</para>
+        /// </example>
+        [Property("GestationalAgeAtDelivery", Property.Types.Dictionary, "Gestational Age at Delivery", "Gestational Age at Delivery", true, IGURL.ObservationGestationalAgeAtDelivery, true, 14)]
+        [PropertyParam("value", "The quantity value.")]
+        [PropertyParam("code", "The unit type, from UnitsOfAge ValueSet.")]
+        [PropertyParam("system", "OPTIONAL: The coding system.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='11884-4')", "")]
+        public Dictionary<string, string> GestationalAgeAtDelivery
+        {
+            get
+            {
+                Observation obs = GetObservation("11884-4");
+                if (obs?.Value != null)
+                {
+                    Dictionary<string, string> age = new Dictionary<string, string>();
+                    Quantity quantity = (Quantity)obs.Value;
+                    age.Add("value", quantity.Value == null ? "" : Convert.ToString(quantity.Value));
+                    age.Add("code", quantity.Code == null ? "" : quantity.Code);
+                    age.Add("system", quantity.System == null ? "" : quantity.System);
+                    return age;
+                }
+                return new Dictionary<string, string>() { { "value", "" }, { "code", "" }, { "system", null } };
+            }
+            set
+            {
+                string extractedValue = GetValue(value, "value");
+                string extractedCode = GetValue(value, "code");
+                string extractedSystem = GetValue(value, "system");
+                // If string is empty don't bother to set the value
+                if (String.IsNullOrEmpty(extractedCode))
+                {
+                    return;
+                }
+                if (String.IsNullOrEmpty(extractedSystem))
+                {
+                    string[,] options = BFDR.ValueSets.UnitsOfGestationalAge.Codes;
+                    // Iterate over the allowed options and see if the code supplied is one of them
+                    for (int i = 0; i < options.GetLength(0); i += 1)
+                    {
+                        if (options[i, 0] == extractedCode)
+                        {
+                            // Found it, so call the supplied setter with the appropriate dictionary built based on the code
+                            // using the supplied options and return
+                            extractedSystem = options[i, 2];
+                        }
+                    }
+                }
+
+                if (extractedValue == null && extractedCode == null && extractedSystem == null) // if there is nothing to do, do nothing.
+                {
+                    return;
+                }
+                Observation obs = GetObservation("11884-4");
+                if (obs == null)
+                {
+                    obs = GetOrCreateObservation("11884-4", CodeSystems.LOINC, BFDR.ProfileURL.ObservationGestationalAgeAtDelivery, GESTATIONAL_AGE, Mother.Id);
+                    obs.Value = new Quantity();
+                }
+                Quantity quantity = (Quantity)obs.Value;
+
+                if (extractedValue != null)
+                {
+                    quantity.Value = Convert.ToDecimal(extractedValue);
+                }
+                if (extractedCode != null)
+                {
+                    quantity.Code = extractedCode;
+                }
+                if (extractedSystem != null)
+                {
+                    quantity.System = extractedSystem;
+                }
+                obs.Value = (Quantity)quantity;
+            }
+        }
+
+        /// <summary>GestationalAgeAtDeliveryEditFlag.</summary>
+        /// <value>GestationalAgeAtDeliveryEditFlag</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.GestationalAgeAtDeliveryEditFlag = 4;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"GestationalAgeAtDeliveryEditFlag: {ExampleBirthRecord.GestationalAgeAtDeliveryEditFlag}");</para>
+        /// </example>
+        [Property("GestationalAgeAtDelivery Edit Flag", Property.Types.Dictionary, "Gestational age at delivery", "GestationalAgeAtDeliveryEditFlag.", true, IGURL.ObservationGestationalAgeAtDelivery, true, 14)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='11884-4')", "")]
+        public Dictionary<string, string> GestationalAgeAtDeliveryEditFlag
+        {
+            get
+            {
+                Observation obs = GetObservation("11884-4");
+                Extension editFlag = obs?.Value?.Extension.FirstOrDefault(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
+                if (editFlag != null && editFlag.Value != null && editFlag.Value.GetType() == typeof(CodeableConcept))
+                {
+                    return CodeableConceptToDict((CodeableConcept)editFlag.Value);
+                }
+                return EmptyCodeableDict();
+            }
+            set
+            {
+                if (IsDictEmptyOrDefault(value))
+                {
+                    return;
+                }
+                Observation obs = GetOrCreateObservation("11884-4", CodeSystems.LOINC, BFDR.ProfileURL.ObservationGestationalAgeAtDelivery, GESTATIONAL_AGE, Mother.Id);
+                if (obs.Value == null)
+                {
+                    obs.Value = new CodeableConcept();
+                }
+                obs.Value?.Extension.RemoveAll(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
+                Extension editFlag = new Extension(VRExtensionURLs.BypassEditFlag, DictToCodeableConcept(value));
+                obs.Value.Extension.Add(editFlag);
+            }
+        }
+
+        /// <summary>
+        /// GestationalAgeAtDeliveryEditFlag Helper
+        /// </summary>
+        [Property("GestationalAgeAtDeliveryEditFlagHelper", Property.Types.String, "Number of Prenatal Visits", "GestationalAgeAtDeliveryEditFlagHelper.", false, IGURL.ObservationGestationalAgeAtDelivery, true, 2)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='11884-4')", "")]
+        public String GestationalAgeAtDeliveryEditFlagHelper
+        {
+            get
+            {
+                return GestationalAgeAtDeliveryEditFlag.ContainsKey("code") && !String.IsNullOrWhiteSpace(GestationalAgeAtDeliveryEditFlag["code"]) ? GestationalAgeAtDeliveryEditFlag["code"] : null;
+            }
+            set
+            {
+                if(!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("GestationalAgeAtDeliveryEditFlag", value, BFDR.ValueSets.GestationalAgeAtDeliveryEditFlags.Codes);
+                }
+            }
+        }
+
+        /// <summary>NumberOfBirthsNowDead.</summary>
+        /// <value>NumberOfBirthsNowDead</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.NumberOfBirthsNowDead = 1;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"NumberOfBirthsNowDead: {ExampleBirthRecord.NumberOfBirthsNowDead}");</para>
+        /// </example>
+        [Property("NumberOfBirthsNowDead", Property.Types.Int32, "NumberOfBirthsNowDead", "NumberOfBirthsNowDead", true, IGURL.ObservationNumberBirthsNowDead, true, 14)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='68496-9')", "")]
+        public int? NumberOfBirthsNowDead
+        {
+            get => GetIntegerObservationValue("68496-9");
+            set => SetIntegerObservationValue("68496-9", CodeSystems.LOINC, value, BFDR.ProfileURL.ObservationNumberBirthsNowDead, NUMBER_OF_BIRTHS_NOW_DEAD, Mother.Id); 
+        }
+
+        /// <summary>NumberOfBirthsNowLiving.</summary>
+        /// <value>NumberOfBirthsNowLiving</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.NumberOfBirthsNowLiving = 1;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"NumberOfBirthsNowLiving: {ExampleBirthRecord.NumberOfBirthsNowLiving}");</para>
+        /// </example>
+        [Property("NumberOfBirthsNowLiving", Property.Types.Int32, "NumberOfBirthsNowLiving", "NumberOfBirthsNowLiving", true, IGURL.ObservationNumberBirthsNowLiving, true, 14)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='11638-4')", "")]
+        public int? NumberOfBirthsNowLiving
+        {
+            get
+            {
+                Observation obs = GetObservation("11638-4");
+                if (obs != null && obs.Value != null)
+                {
+                    return (obs.Value as Hl7.Fhir.Model.Integer).Value;
+                }
+                return null;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    return;
+                }
+                Observation obs = GetOrCreateObservation("11638-4", CodeSystems.LOINC, BFDR.ProfileURL.ObservationNumberBirthsNowLiving, NUMBER_OF_BIRTHS_NOW_LIVING, Mother.Id);
+                obs.Value = new Hl7.Fhir.Model.Integer(value);
+            }
+        }
+
+        /// <summary>NumberOfOtherPregnancyOutcomes.</summary>
+        /// <value>NumberOfOtherPregnancyOutcomes</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.NumberOfOtherPregnancyOutcomes = 1;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"NumberOfOtherPregnancyOutcomes: {ExampleBirthRecord.NumberOfOtherPregnancyOutcomes}");</para>
+        /// </example>
+        [Property("NumberOfOtherPregnancyOutcomes", Property.Types.Int32, "NumberOfOtherPregnancyOutcomes", "NumberOfOtherPregnancyOutcomes", true, IGURL.ObservationNumberOtherPregnancyOutcomes, true, 14)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='69043-8')", "")]
+        public int? NumberOfOtherPregnancyOutcomes
+        {
+            get => GetIntegerObservationValue("69043-8");
+            set => SetIntegerObservationValue("69043-8", CodeSystems.LOINC, value, BFDR.ProfileURL.ObservationNumberOtherPregnancyOutcomes, NUMBER_OF_OTHER_PREGNANCY_OUTCOMES, Mother.Id);
+        }
+
+        /// <summary>MotherReceivedWICFood.</summary>
+        /// <value>MotherReceivedWICFood</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotherReceivedWICFood = 1;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"MotherReceivedWICFood: {ExampleBirthRecord.MotherReceivedWICFood}");</para>
+        /// </example>
+        [Property("MotherReceivedWICFood", Property.Types.Dictionary, "MotherReceivedWICFood", "MotherReceivedWICFood", true, IGURL.ObservationMotherReceivedWICFood, true, 14)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87303-4')", "")]
+        public Dictionary<string, string> MotherReceivedWICFood
+        {
+            get
+            {
+                Observation obs = GetObservation("87303-4");
+                if (obs != null)
+                {
+                    if (obs != null && obs.Value != null && obs.Value as CodeableConcept != null)
+                    {
+                        return CodeableConceptToDict((CodeableConcept)obs.Value);
+                    }
+                }
+                return EmptyCodeableDict();
+            }
+            set
+            {
+                Observation obs = GetOrCreateObservation("87303-4", CodeSystems.LOINC, BFDR.ProfileURL.ObservationMotherReceivedWICFood, MOTHER_RECEIVED_WIC_FOOD, Mother.Id);
+                obs.Value = DictToCodeableConcept(value);
+            }
+        }
+
+        /// <summary>MotherReceivedWICFoodHelper.</summary>
+        /// <value>MotherReceivedWICFoodHelper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotherReceivedWICFoodHelper = 1;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"MotherReceivedWICFoodHelper: {ExampleBirthRecord.MotherReceivedWICFoodHelper}");</para>
+        /// </example>
+        [Property("MotherReceivedWICFoodHelper", Property.Types.String, "MotherReceivedWICFoodHelper", "MotherReceivedWICFoodHelper", true, IGURL.ObservationMotherReceivedWICFood, true, 14)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87303-4')", "")]
+        public string MotherReceivedWICFoodHelper
+        {
+            get
+            {
+                if (MotherReceivedWICFood.ContainsKey("code") && !String.IsNullOrWhiteSpace(MotherReceivedWICFood["code"]))
+                {
+                    return MotherReceivedWICFood["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if(!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("MotherReceivedWICFood", value, VR.ValueSets.YesNoUnknown.Codes);
+                }
+            }
+        }
+
+        /// <summary>InfantBreastfedAtDischarge.</summary>
+        /// <value>InfantBreastfedAtDischarge</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.InfantBreastfedAtDischarge = true;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"InfantBreastfedAtDischarge: {ExampleBirthRecord.InfantBreastfedAtDischarge}");</para>
+        /// </example>
+        [Property("InfantBreastfedAtDischarge", Property.Types.Bool, "InfantBreastfedAtDischarge", "InfantBreastfedAtDischarge", true, IGURL.ObservationInfantBreastfedAtDischarge, true, 14)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='73756-9')", "")]
+        public bool? InfantBreastfedAtDischarge
+        {
+            get
+            {
+                Observation obs = GetObservation("73756-9");
+                if (obs != null)
+                {
+                    if (obs != null && obs.Value != null && obs.Value as FhirBoolean != null)
+                    {
+                        return Convert.ToBoolean((obs.Value).ToString());
+                    }
+                }
+                // blank or absent data 
+                 return null;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    return;
+                }
+                Observation obs = GetOrCreateObservation("73756-9", CodeSystems.LOINC, BFDR.ProfileURL.ObservationInfantBreastfedAtDischarge, INFANT_BREASTFED_AT_DISCHARGE, Mother.Id);
+                obs.Value = new FhirBoolean(value);
             }
         }
 
