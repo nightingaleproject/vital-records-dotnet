@@ -1407,11 +1407,11 @@ namespace BFDR.Tests
     {
       Assert.Null(FakeBirthRecord.SetOrder);
       Assert.Null(FakeBirthRecord.Plurality);
-      Assert.False(FakeBirthRecord.NoCongenitalAnomaliesOfTheNewborn);
+      Assert.True(FakeBirthRecord.NoCongenitalAnomaliesOfTheNewborn);
       Assert.True(FakeBirthRecord.EpiduralOrSpinalAnesthesia );
       Assert.True(FakeBirthRecord.AugmentationOfLabor);
-      Assert.False(FakeBirthRecord.NoSpecifiedAbnormalConditionsOfNewborn);
-      Assert.False(FakeBirthRecord.NoInfectionsPresentDuringPregnancy);
+      Assert.True(FakeBirthRecord.NoSpecifiedAbnormalConditionsOfNewborn);
+      Assert.True(FakeBirthRecord.NoInfectionsPresentDuringPregnancy);
       Assert.True(FakeBirthRecord.GestationalHypertension);
       Assert.Equal("700000006", FakeBirthRecord.FinalRouteAndMethodOfDelivery["code"]);
       Assert.True(FakeBirthRecord.NoObstetricProcedures);
