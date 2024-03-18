@@ -384,6 +384,10 @@ namespace BFDR
         {
             get
             {
+                if (this.Child == null || this.Child.BirthDateElement == null)
+                {
+                    return null;
+                }
                 return this.Child.BirthDate;
             }
             set
@@ -2291,7 +2295,7 @@ namespace BFDR
                 FHIRPath fhirPath = GetFHIRPathAttribute();
                 bool criteria(Bundle.EntryComponent e) =>
                     e.Resource.TypeName == "Procedure" &&
-                    ((Procedure)e.Resource).Category.Coding[0].Code == fhirPath.CategoryCode;
+                    ((Procedure)e.Resource).Category?.Coding[0].Code == fhirPath.CategoryCode;
                 List<Bundle.EntryComponent> matches = Bundle.Entry.Where(criteria).ToList();
                 if (matches.Count == 0)
                 {
@@ -2576,7 +2580,7 @@ namespace BFDR
                 FHIRPath fhirPath = GetFHIRPathAttribute();
                 bool criteria(Bundle.EntryComponent e) =>
                     e.Resource.TypeName == "Procedure" &&
-                    ((Procedure)e.Resource).Category.Coding[0].Code == fhirPath.CategoryCode &&
+                    ((Procedure)e.Resource).Category?.Coding[0].Code == fhirPath.CategoryCode &&
                     ((Procedure)e.Resource).Outcome.Coding[0].Code == SUCCESSFUL_OUTCOME;
                 List<Bundle.EntryComponent> matches = Bundle.Entry.Where(criteria).ToList();
                 return matches.Count > 0;
@@ -2631,7 +2635,7 @@ namespace BFDR
                 FHIRPath fhirPath = GetFHIRPathAttribute();
                 bool criteria(Bundle.EntryComponent e) =>
                     e.Resource.TypeName == "Procedure" &&
-                    ((Procedure)e.Resource).Category.Coding[0].Code == fhirPath.CategoryCode &&
+                    ((Procedure)e.Resource).Category?.Coding[0].Code == fhirPath.CategoryCode &&
                     ((Procedure)e.Resource).Outcome.Coding[0].Code == UNSUCCESSFUL_OUTCOME;
                 List<Bundle.EntryComponent> matches = Bundle.Entry.Where(criteria).ToList();
                 return matches.Count > 0;
@@ -2779,6 +2783,10 @@ namespace BFDR
         {
             get
             {
+                if (this.Mother == null || this.Mother.BirthDateElement == null)
+                {
+                    return null;
+                }
                 return this.Mother.BirthDate;
             }
             set
@@ -3084,6 +3092,10 @@ namespace BFDR
         {
             get
             {
+                if (this.Father == null || this.Father.BirthDateElement == null)
+                {
+                    return null;
+                }
                 return this.Father.BirthDate;
             }
             set
@@ -5945,7 +5957,7 @@ namespace BFDR
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87300-0')", "")]
         public string FacilityNPI
         {
-            get => GetFacilityLocation(ValueSets.LocationTypes.Birth_Location)?.Identifier?.Find(identifier => identifier.System == VR.CodeSystems.US_NPI_HL7)?.Value.ToString();
+            get => GetFacilityLocation(ValueSets.LocationTypes.Birth_Location)?.Identifier?.Find(identifier => identifier.System == VR.CodeSystems.US_NPI_HL7)?.Value?.ToString();
             set
             {
                 Location LocationBirth = GetFacilityLocation(ValueSets.LocationTypes.Birth_Location) ?? CreateAndSetLocationBirth(ValueSets.LocationTypes.Birth_Location);
@@ -7198,7 +7210,7 @@ namespace BFDR
         {
             get
             {
-                Encounter.ParticipantComponent certifier = EncounterBirth.Participant.FirstOrDefault(entry => ((Encounter.ParticipantComponent)entry).Type.Any(t => t.Coding.Any(c => c.Code == "87287-9")));
+                Encounter.ParticipantComponent certifier = EncounterBirth?.Participant?.FirstOrDefault(entry => ((Encounter.ParticipantComponent)entry).Type.Any(t => t.Coding.Any(c => c.Code == "87287-9")));
                 if (certifier != null && certifier.Period.Start != null)
                 {
                     return certifier.Period.Start;
