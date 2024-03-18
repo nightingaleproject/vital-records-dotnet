@@ -2471,13 +2471,12 @@ namespace BFDR
             get
             {
                 Observation obs = GetObservation("68497-7");
-                if (obs != null)
+
+                if (obs != null && obs.Value != null && obs.Value as Hl7.Fhir.Model.Integer != null)
                 {
-                    if (obs != null && obs.Value != null && obs.Value as Hl7.Fhir.Model.Integer != null)
-                    {
-                        return (obs.Value as Hl7.Fhir.Model.Integer).Value;
-                    }
+                    return (obs.Value as Hl7.Fhir.Model.Integer).Value;
                 }
+                
                 return null;
             }
             set
@@ -2486,12 +2485,7 @@ namespace BFDR
                 {
                     return;
                 }
-                Observation obs = GetObservation("68497-7");
-                if (obs == null)
-                {
-                    obs = GetOrCreateObservation("68497-7", CodeSystems.LOINC, BFDR.ProfileURL.ObservationNumberPrenatalVisits, MEDICAL_INFORMATION_SECTION, Mother.Id);
-                    obs.Value = new Hl7.Fhir.Model.Integer();
-                }
+                Observation obs = GetOrCreateObservation("68497-7", CodeSystems.LOINC, BFDR.ProfileURL.ObservationNumberPrenatalVisits, MEDICAL_INFORMATION_SECTION, Mother.Id);
                 obs.Value = new Hl7.Fhir.Model.Integer(value);
             }
         }
@@ -6703,21 +6697,23 @@ namespace BFDR
             }
             set
             {
-                // IJE values are Y, N, U, only set to "hosp-trans" if value is Y
+                // IJE values are Y, N, U, set to "hosp-trans" if value is Y
                 // https://build.fhir.org/ig/HL7/fhir-bfdr/usage.html#mother-or-infant-transferred
-                if (value == "Y" || value == "U")
+                if (value == "Y")
                 {
                     MotherTransferred = CodeableConceptToDict(new CodeableConcept(CodeSystems.AdmitSource, "hosp-trans", "Transferred from other hospital", "The Patient has been transferred from another hospital for this encounter."));
                 }
-                if (value == "N")
+                else if (value == "U")
                 {
-                    MotherTransferred = CodeableConceptToDict(new CodeableConcept(CodeSystems.AdmitSource, "other", "Other", "Did not transfer"));
-                }
-                if (value == "U")
-                {
-                    // If the value is unknown, the hospitalization.origin.name should be set to “UNKNOWN” 
+                    // If the value is unknown, set the code to hosp-trans, and the hospitalization.origin.name should be set to “UNKNOWN” 
                     // https://build.fhir.org/ig/HL7/fhir-bfdr/usage.html#mother-or-infant-transferred
+                    MotherTransferred = CodeableConceptToDict(new CodeableConcept(CodeSystems.AdmitSource, "hosp-trans", "Transferred from other hospital", "The Patient has been transferred from another hospital for this encounter."));
                     FacilityMotherTransferredFrom = "UNKNOWN";
+                }
+                else
+                {
+                    // all other codes should be interpretted as N with "other" as the code to express mother did not transfer
+                    MotherTransferred = CodeableConceptToDict(new CodeableConcept(CodeSystems.AdmitSource, "other", "Other", "Did not transfer"));
                 }
             }
         }
