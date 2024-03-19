@@ -336,8 +336,8 @@ namespace BFDR.Tests
       Assert.Equal("48858", firstRecord.CertificateNumber);
       Assert.Equal(firstRecord.CertificateNumber, secondRecord.CertificateNumber);
       // Record Birth Record Identifier
-      Assert.Equal("2019UT48858", firstRecord.BirthRecordIdentifier);
-      Assert.Equal(firstRecord.BirthRecordIdentifier, secondRecord.BirthRecordIdentifier);
+      Assert.Equal("2019UT48858", firstRecord.RecordIdentifier);
+      Assert.Equal(firstRecord.RecordIdentifier, secondRecord.RecordIdentifier);
       // Record State Local Identifier 1
       Assert.Equal("000000000042", firstRecord.StateLocalIdentifier1);
       Assert.Equal(firstRecord.StateLocalIdentifier1, secondRecord.StateLocalIdentifier1);
@@ -787,16 +787,16 @@ namespace BFDR.Tests
       // Record Identifiers
       record.CertificateNumber = "87366";
       Assert.Equal("87366", record.CertificateNumber);
-      Assert.Equal("0000XX087366", record.BirthRecordIdentifier);
+      Assert.Equal("0000XX087366", record.RecordIdentifier);
       Assert.Null(record.StateLocalIdentifier1);
       record.StateLocalIdentifier1 = "0000033";
       Assert.Equal("0000033", record.StateLocalIdentifier1);
       record.BirthYear = 2020;
       record.CertificateNumber = "767676";
-      Assert.Equal("2020XX767676", record.BirthRecordIdentifier);
+      Assert.Equal("2020XX767676", record.RecordIdentifier);
       record.BirthLocationJurisdiction = "WY";
       record.CertificateNumber = "898989";
-      Assert.Equal("2020WY898989", record.BirthRecordIdentifier);
+      Assert.Equal("2020WY898989", record.RecordIdentifier);
       // Infant Medical Record Number
       record.InfantMedicalRecordNumber = "9932734";
       Assert.Equal("9932734", record.InfantMedicalRecordNumber);

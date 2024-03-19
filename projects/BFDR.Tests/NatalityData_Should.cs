@@ -562,8 +562,8 @@ namespace BFDR.Tests
       Assert.Equal("87".PadLeft(12, '0'), ijeImported.AUXNO);
       Assert.Equal(ijeImported.AUXNO, ijeConverted.AUXNO);
       Assert.Equal(ijeImported.AUXNO, br.StateLocalIdentifier1.PadLeft(12, '0'));
-      Assert.Equal(ijeImported.IDOB_YR + ijeImported.BSTATE + ijeImported.FILENO, br.BirthRecordIdentifier);
-      Assert.Equal("2023MA048858", br.BirthRecordIdentifier);
+      Assert.Equal(ijeImported.IDOB_YR + ijeImported.BSTATE + ijeImported.FILENO, br.RecordIdentifier);
+      Assert.Equal("2023MA048858", br.RecordIdentifier);
     }
 
     [Fact]
@@ -581,8 +581,8 @@ namespace BFDR.Tests
       BirthRecord br = ije.ToRecord();
       Assert.Equal(ije.FILENO, br.CertificateNumber.PadLeft(6, '0'));
       Assert.Equal(ije.AUXNO, br.StateLocalIdentifier1.PadLeft(12, '0'));
-      Assert.Equal(ije.IDOB_YR + ije.BSTATE + ije.FILENO, br.BirthRecordIdentifier);
-      Assert.Equal("2010HI897897", br.BirthRecordIdentifier);
+      Assert.Equal(ije.IDOB_YR + ije.BSTATE + ije.FILENO, br.RecordIdentifier);
+      Assert.Equal("2010HI897897", br.RecordIdentifier);
     }
 
     [Fact]

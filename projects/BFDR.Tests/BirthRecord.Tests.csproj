@@ -13,7 +13,7 @@
     <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BFDR\BirthRecord.csproj" />
+    <ProjectReference Include="..\BFDR\BirthOrFetalDeathRecord.csproj" />
     <ProjectReference Include="..\BFDR.Messaging\BFDRMessaging.csproj" />
   </ItemGroup>
   <ItemGroup>

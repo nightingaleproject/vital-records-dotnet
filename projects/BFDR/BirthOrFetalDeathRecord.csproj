@@ -3,12 +3,12 @@
     <Version>1.0.0</Version>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>BFDR</RootNamespace>
-    <DocumentationFile>BirthRecord.xml</DocumentationFile>
-    <!-- <DocumentationFile>BirthRecord.md</DocumentationFile> -->
+    <DocumentationFile>BirthOrFetalDeathRecord.xml</DocumentationFile>
+    <!-- <DocumentationFile>BirthOrFetalDeathRecord.md</DocumentationFile> -->
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageId>BFDR</PackageId>
     <Title>FHIR BFDR Birth Record</Title>
-    <PackageDescription>A library for producing and consuming BFDR FHIR birth records.</PackageDescription>
+    <PackageDescription>A library for producing and consuming BFDR FHIR birth and fetal death records.</PackageDescription>
     <Authors>smacadam@mitre.org,rscalfani@mitre.org,pete@mitre.org</Authors>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>

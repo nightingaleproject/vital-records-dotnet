@@ -26,33 +26,33 @@ namespace BFDR
     /// HL7 FHIR Vital Records Birth Reporting Implementation Guide, as described at:
     /// http://hl7.org/fhir/us/bfdr and https://github.com/hl7/bfdr.
     /// </summary>
-    public partial class BirthRecord
+    public partial class BirthOrFetalDeathRecord
     {
         /// <summary>The Child.</summary>
-        private Patient Child;
+        protected Patient Child;
 
         /// <summary>The Mother.</summary>
-        private Patient Mother;
+        protected Patient Mother;
 
         /// <summary>The Father.</summary>
-        private RelatedPerson Father;
+        protected RelatedPerson Father;
 
         /// <summary>The Attendant.</summary>
-        private Practitioner Attendant;
+        protected Practitioner Attendant;
 
         /// <summary>The Mother's Race and Ethnicity provided by Jurisdiction.</summary>
-        private Observation InputRaceAndEthnicityObsMother;
+        protected Observation InputRaceAndEthnicityObsMother;
 
         /// <summary>The Father's Race and Ethnicity provided by Jurisdiction.</summary>
-        private Observation InputRaceAndEthnicityObsFather;
+        protected Observation InputRaceAndEthnicityObsFather;
 
         /// <summary>The encounter of the birth.</summary>
-        private Encounter EncounterBirth;
+        protected Encounter EncounterBirth;
 
         /// <summary>The coverage associated with the birth.</summary>
-        private Coverage Coverage;
+        protected Coverage Coverage;
         /// <summary>The maternity encounter.</summary>
-        private Encounter EncounterMaternity;
+        protected Encounter EncounterMaternity;
 
         /// <summary>Composition Section Constants</summary>
         private const string RACE_ETHNICITY_PROFILE_MOTHER = "inputraceandethnicityMother";

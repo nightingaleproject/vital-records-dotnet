@@ -18,7 +18,7 @@
     </PackageReference> -->
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="../BFDR/BirthRecord.csproj" />
+    <ProjectReference Include="../BFDR/BirthOrFetalDeathRecord.csproj" />
     <ProjectReference Include="../VitalRecord.Messaging/VRMessaging.csproj" />
   </ItemGroup>
 </Project>
