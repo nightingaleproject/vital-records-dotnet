@@ -1830,9 +1830,18 @@ namespace BFDR.Tests
       BirthRecord birthRecord2 = ije.ToBirthRecord();
       Assert.Equal("N", birthRecord2.MotherTransferredHelper);
 
-      BirthRecord birthRecord3 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      ije.TRAN = "Y";
+      BirthRecord birthRecord3 = ije.ToBirthRecord();
       Assert.Equal("Y", birthRecord3.MotherTransferredHelper);
-      Assert.Equal(cc, birthRecord3.MotherTransferred);
+
+      ije.TRAN = "U";
+      BirthRecord birthRecord4 = ije.ToBirthRecord();
+      Assert.Equal("U", birthRecord3.MotherTransferredHelper);
+      Assert.Equal("UNKNOWN", birthRecord4.FacilityMotherTransferredFrom);
+
+      BirthRecord birthRecord5 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.Equal("Y", birthRecord5.MotherTransferredHelper);
+      Assert.Equal(cc, birthRecord5.MotherTransferred);
     }
 
     [Fact]
@@ -1869,9 +1878,16 @@ namespace BFDR.Tests
       BirthRecord birthRecord2 = ije.ToBirthRecord();
       Assert.Equal("N", birthRecord2.InfantTransferredHelper);
 
-      BirthRecord birthRecord3 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
-      Assert.Equal("Y", birthRecord3.InfantTransferredHelper);
-      Assert.Equal(cc, birthRecord3.InfantTransferred);
+      IJENatality ije2 = new IJENatality();
+      ije2.ITRAN = "U";
+      BirthRecord birthRecord3 = ije2.ToBirthRecord();
+      Assert.Equal("UNKNOWN", birthRecord3.FacilityInfantTransferredTo);
+      Assert.Equal("U", birthRecord3.InfantTransferredHelper);
+
+
+      BirthRecord birthRecord4 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.Equal("Y", birthRecord4.InfantTransferredHelper);
+      Assert.Equal(cc, birthRecord4.InfantTransferred);
     }
 
     [Fact]
@@ -1995,7 +2011,6 @@ namespace BFDR.Tests
       Assert.Equal(02, (int)br2.CertifiedMonth);
       Assert.Equal(19, (int)br2.CertifiedDay);
     }
-  
 
     [Fact]  
     public void SetPartialDateOfLastLiveBirthFields()
@@ -2242,6 +2257,91 @@ namespace BFDR.Tests
       BirthRecord parsedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
       Assert.True(parsedRecord.InfantBreastfedAtDischarge);
     }
+
+    [Fact]
+    public void SetFetalPresentation()
+    {
+      BirthRecord birthRecord = new BirthRecord();
+      birthRecord.FetalPresentationHelper = "6096002";
+      Dictionary<string, string> cc = new Dictionary<string, string>();
+      cc.Add("code", "6096002");
+      cc.Add("system", "http://snomed.info/sct");
+      cc.Add("display", "Breech presentation (finding)");
+      Assert.Equal(cc, birthRecord.FetalPresentation);
+
+      IJENatality ije = new IJENatality();
+      ije.PRES = "1";
+      Dictionary<string, string> cc2 = new Dictionary<string, string>();
+      cc2.Add("code", "70028003");
+      cc2.Add("system", "http://snomed.info/sct");
+      cc2.Add("display", "Vertex presentation (finding)");
+      BirthRecord birthRecord2 = ije.ToBirthRecord();
+      Assert.Equal(cc2, birthRecord2.FetalPresentation);
+      Assert.Equal("70028003", birthRecord2.FetalPresentationHelper);
+
+      BirthRecord birthRecord3 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.Equal(cc, birthRecord3.FetalPresentation);
+      Assert.Equal("6096002", birthRecord3.FetalPresentationHelper);
+    }
+
+    [Fact]
+    public void SetLaborTrialAttempted()
+    {
+      BirthRecord birthRecord = new BirthRecord();
+      birthRecord.LaborTrialAttempted = true;
+      Assert.True(birthRecord.LaborTrialAttempted);
+
+      IJENatality ije = new IJENatality();
+      ije.TLAB = "Y";
+      BirthRecord birthRecord2 = ije.ToBirthRecord();
+      Assert.True(birthRecord2.LaborTrialAttempted);
+
+      BirthRecord birthRecord3 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.True(birthRecord3.LaborTrialAttempted);
+    }
+
+    [Fact]
+    public void SetNumberOfPreviousCesareans()
+    {
+      BirthRecord birthRecord = new BirthRecord();
+      birthRecord.NumberOfPreviousCesareans = 2;
+      Assert.Equal(2, birthRecord.NumberOfPreviousCesareans);
+
+      IJENatality ije = new IJENatality();
+      ije.NPCES = "1";
+      BirthRecord birthRecord2 = ije.ToBirthRecord();
+      Assert.Equal(1, birthRecord2.NumberOfPreviousCesareans);
+
+      BirthRecord birthRecord3 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.Equal(1, birthRecord3.NumberOfPreviousCesareans);
+    }
+    
+    [Fact]
+    public void SetNumberOfPreviousCesareansEditFlag()
+    {
+      BirthRecord birthRecord = new BirthRecord();
+      birthRecord.NumberOfPreviousCesareansEditFlagHelper = "1failedVerified";
+      Assert.Equal("1failedVerified", birthRecord.NumberOfPreviousCesareansEditFlagHelper);
+      Dictionary<string, string> cc = new Dictionary<string, string>();
+      cc.Add("code", "1failedVerified");
+      cc.Add("system", "http://hl7.org/fhir/us/bfdr/CodeSystem/CodeSystem-edit-flags");
+      cc.Add("display", "Edit Failed, Verified");
+      Assert.Equal(cc, birthRecord.NumberOfPreviousCesareansEditFlag);
+
+      IJENatality ije = new IJENatality();
+      ije.NPCES_BYPASS = "0";
+      BirthRecord birthRecord2 = ije.ToBirthRecord();
+      Assert.Equal("0", birthRecord2.NumberOfPreviousCesareansEditFlagHelper);
+
+      BirthRecord birthRecord3 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Dictionary<string, string> cc2 = new Dictionary<string, string>();
+      cc2.Add("code", "0");
+      cc2.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");
+      cc2.Add("display", "Edit Passed");
+      Assert.Equal("0", birthRecord3.NumberOfPreviousCesareansEditFlagHelper);
+      Assert.Equal(cc2, birthRecord3.NumberOfPreviousCesareansEditFlag);
+    }
+
   }
  
 }

@@ -178,6 +178,12 @@
         <member name="F:VR.CodeSystems.LocalBFDRCodes">
             <summary> Local BFDR Codes </summary>
         </member>
+        <member name="F:VR.CodeSystems.AdmitSource">
+            <summary> Admit Source </summary>
+        </member>
+        <member name="F:VR.CodeSystems.DischargeDisposition">
+            <summary> Discharge Disposition </summary>
+        </member>
         <member name="T:VR.IJEField">
             <summary>Property attribute used to describe a field in the IJE format.</summary>
         </member>
