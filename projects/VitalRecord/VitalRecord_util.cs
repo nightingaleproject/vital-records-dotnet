@@ -711,9 +711,9 @@ namespace VR
                 {
                     // Note: We can't just call ToDateTimeOffset() on the FhirDateTime because want the datetime in whatever local time zone was provided
                     DateTimeOffset dateTimeOffset = DateTimeOffset.Parse(date);
-                    year = ((DateTimeOffset)dateTimeOffset).Year;
-                    month = ((DateTimeOffset)dateTimeOffset).Month;
-                    day = ((DateTimeOffset)dateTimeOffset).Day;
+                    year = dateTimeOffset.Year;
+                    month = dateTimeOffset.Month;
+                    day = dateTimeOffset.Day;
                     return true;
                 }
             }
@@ -764,6 +764,22 @@ namespace VR
             }
             return null;
         }
+
+        private static FhirDateTime ConvertDateToFhirDateTime(Date date)
+        {
+            FhirDateTime dt = ConvertToDateTime(date.Value) ?? new FhirDateTime();
+            dt.Extension = date.Extension;
+            return dt;
+        }
+
+        private static Date ConvertFhirDateTimeToDate(FhirDateTime dateTime)
+        {
+            Date newDate = ConvertToDate(dateTime.Value) ?? new Date();
+            newDate.Extension = dateTime.Extension;
+            return newDate;
+        }
+
+
 
         /// <summary>Gets the specified date element based on the partialDateUrl from the given
         /// FhirDate, checking in the value and PartialDate extension, and assuming there
@@ -840,59 +856,12 @@ namespace VR
         /// <summary>Uses the given date information to create a new Fhir Date with the updated year. This includes reformatting and updating partial date extensions and using Fhir incomplete valid dates.</summary>
         protected Date SetYear(int? value, Date dateElement, int? currentMonth, int? currentDay)
         {
-            if (value == null)
-            {
+            FhirDateTime dateTime = ConvertDateToFhirDateTime(dateElement);
+            FhirDateTime newDateTime = SetYear(value, dateTime, currentMonth, currentDay);
+            if (newDateTime == null) {
                 return null;
             }
-            // Since having only a year is a valid FHIR date, it should only be in the PartialDateTime If it's an unknown.
-            if (value == -1)
-            {
-                // Set the unknown year.
-                CreateAndSetPartialDate(dateElement, VR.ExtensionURL.PartialDateTimeYearVR, value);
-                // When a year is lacking, this means any month and day elements should be moved to the partialDate extension.
-                if (currentDay != null)
-                {
-                    CreateAndSetPartialDate(dateElement, VR.ExtensionURL.PartialDateTimeDayVR, currentDay);
-                }
-                if (currentMonth != null)
-                {
-                    CreateAndSetPartialDate(dateElement, VR.ExtensionURL.PartialDateTimeMonthVR, currentMonth);
-                }
-                List<Extension> partialDateValues = dateElement.Extension;
-                return new Date
-                {
-                    Extension = partialDateValues
-                };
-            }
-            if (ParseDateElements(dateElement.Value, out int? _, out int? month, out int? day))
-            {
-                month = month ?? currentMonth;
-                day = day ?? currentDay;
-                if (month != null && day != null)
-                {
-                    return new Date((int)value, (int)month, (int)day);
-                }
-                else if (month != null)
-                {
-                    return new Date((int)value, (int)month);
-                }
-                else
-                {
-                    return new Date((int)value);
-                }
-            }
-            else if (currentMonth != null && currentDay != null)
-            {
-                return new Date((int)value, (int)currentMonth, (int)currentDay);
-            }
-            else if (currentMonth != null)
-            {
-                return new Date((int)value, (int)currentMonth);
-            }
-            else
-            {
-                return new Date((int)value);
-            }
+            return ConvertFhirDateTimeToDate(newDateTime);
         }
 
         /// <summary>Uses the given date information to create a new FhirDateTime with the updated year. This includes reformatting and updating partial date extensions and using Fhir incomplete valid dates.</summary>
@@ -956,50 +925,12 @@ namespace VR
         /// <summary>Uses the given date information to create a new Fhir Date with the updated month. This includes reformatting and updating partial date extensions and using Fhir incomplete valid dates.</summary>
         protected Date SetMonth(int? value, Date dateElement, int? currentYear, int? currentDay)
         {
-            if (value == null)
-            {
+            FhirDateTime dateTime = ConvertDateToFhirDateTime(dateElement);
+            FhirDateTime newDateTime = SetMonth(value, dateTime, currentYear, currentDay);
+            if (newDateTime == null) {
                 return null;
             }
-            if (value != -1)
-            {
-                if (ParseDateElements(dateElement.Value, out int? year, out int? _, out int? day) && (year != null || (currentYear != null && currentYear != -1)))
-                {
-                    year = year ?? currentYear;
-                    day = day ?? currentDay;
-                    return day != null ? new Date((int)year, (int)value, (int)day) : new Date((int)year, (int)value);
-                }
-                if (currentYear != null && currentYear != -1)
-                {
-                    return currentDay != null ? new Date((int)currentYear, (int)value, (int)currentDay) : new Date((int)currentYear, (int)value);
-                }
-            }
-            // If there is no birthdate date data and the date will still be incomplete, store the month in a PartialDateTime and deal with the other date values.
-            CreateAndSetPartialDate(dateElement, VR.ExtensionURL.PartialDateTimeMonthVR, value);
-            // When a month is lacking, this means any day element should be moved to the partialDate extension.
-            if (currentYear == -1)
-            {
-                CreateAndSetPartialDate(dateElement, VR.ExtensionURL.PartialDateTimeYearVR, currentYear);
-            }
-            if (currentDay != null)
-            {
-                CreateAndSetPartialDate(dateElement, VR.ExtensionURL.PartialDateTimeDayVR, currentDay);
-            }
-            List<Extension> partialDateValues = dateElement.Extension;
-            // Any valid known year element should remain in the BirthDate value as a FHIR Date.
-            if (currentYear != -1 && currentYear != null)
-            {
-                return new Date((int)currentYear)
-                {
-                    Extension = partialDateValues
-                };
-            }
-            else
-            {
-                return new Date
-                {
-                    Extension = partialDateValues
-                };
-            }
+            return ConvertFhirDateTimeToDate(newDateTime);
         }
 
         /// <summary>Uses the given date information to create a new FhirDateTime with the updated month. This includes reformatting and updating partial date extensions and using Fhir incomplete valid dates.</summary>
@@ -1054,57 +985,12 @@ namespace VR
         /// <summary>Uses the given date information to create a new Fhir Date with the updated day. This includes reformatting and updating partial date extensions and using Fhir incomplete valid dates.</summary>
         protected Date SetDay(int? value, Date dateElement, int? currentYear, int? currentMonth)
         {
-            if (value == null)
-            {
+            FhirDateTime dateTime = ConvertDateToFhirDateTime(dateElement);
+            FhirDateTime newDateTime = SetDay(value, dateTime, currentYear, currentMonth);
+            if (newDateTime == null) {
                 return null;
             }
-            if (value != -1)
-            {
-                if (ParseDateElements(dateElement.Value, out int? year, out int? month, out int? _) && (year != null || (currentYear != null && currentYear != -1)) && (month != null || (currentMonth != null && currentMonth != -1)))
-                {
-                    year = year ?? currentYear;
-                    month = month ?? currentMonth;
-                    return new Date((int)year, (int)month, (int)value);
-                }
-                if ((currentYear != null && currentYear != -1) && (currentMonth != null && currentMonth != -1))
-                {
-                    return new Date((int)currentYear, (int)currentMonth, (int) value);
-                }
-            }
-            // If there is no birthdate date data and the date will still be incomplete, store the day in a PartialDateTime and deal with the other date values.
-            CreateAndSetPartialDate(dateElement, VR.ExtensionURL.PartialDateTimeDayVR, value);
-            // When a month is lacking, this means any day element should be moved to the partialDate extension.
-            if (currentYear == -1)
-            {
-                CreateAndSetPartialDate(dateElement, VR.ExtensionURL.PartialDateTimeYearVR, currentYear);
-            }
-            if (currentMonth == -1)
-            {
-                CreateAndSetPartialDate(dateElement, VR.ExtensionURL.PartialDateTimeMonthVR, currentMonth);
-            }
-            List<Extension> partialDateValues = dateElement.Extension;
-            // Any valid known year element should remain in the BirthDate value as a FHIR Date.
-            if (currentYear != -1 && currentYear != null && currentMonth != -1 && currentMonth != null)
-            {
-                return new Date((int)currentYear, (int)currentMonth)
-                {
-                    Extension = partialDateValues
-                };
-            }
-            else if (currentYear != -1 && currentYear != null)
-            {
-                return new Date((int)currentYear)
-                {
-                    Extension = partialDateValues
-                };
-            }
-            else
-            {
-                return new Date
-                {
-                    Extension = partialDateValues
-                };
-            }
+            return ConvertFhirDateTimeToDate(newDateTime);
         }
 
         /// <summary>Uses the given date information to create a new FhirDateTime with the updated day. This includes reformatting and updating partial date extensions and using Fhir incomplete valid dates.</summary>
@@ -1122,7 +1008,7 @@ namespace VR
                     month = month ?? currentMonth;
                     return new FhirDateTime((int)year, (int)month, (int)value);
                 }
-                if ((currentYear != null && currentYear != -1) && (currentMonth != null && currentMonth != -1))
+                if (currentYear != null && currentYear != -1 && currentMonth != null && currentMonth != -1)
                 {
                     return new FhirDateTime((int)currentYear, (int)currentMonth, (int) value);
                 }
