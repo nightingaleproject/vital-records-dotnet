@@ -182,5 +182,11 @@ namespace VR
 
         /// <summary> Local BFDR Codes </summary>
         public static string LocalBFDRCodes = "http://hl7.org/fhir/us/bfdr/CodeSystem/CodeSystem-local-bfdr-codes";
+
+        /// <summary> Admit Source </summary>
+        public static string AdmitSource = "http://terminology.hl7.org/CodeSystem/admit-source";
+
+        /// <summary> Discharge Disposition </summary>
+        public static string DischargeDisposition = "http://terminology.hl7.org/CodeSystem/discharge-disposition";
     }
 }
