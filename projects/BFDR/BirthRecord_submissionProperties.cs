@@ -185,7 +185,7 @@ namespace BFDR
                     AddBirthDateToPatient(Child, false);
                 }
                 string time = this.BirthTime;
-                Date newDate = SetYear(value, Child.BirthDateElement, BirthMonth, BirthDay);
+                Date newDate = SetYear(value, Child.BirthDateElement);
                 if (newDate != null)
                 {
                     Child.BirthDateElement = newDate;
@@ -258,7 +258,7 @@ namespace BFDR
                 {
                     AddBirthDateToPatient(Child, false);
                 }
-                Date newDate = SetMonth(value, Child.BirthDateElement, BirthYear, BirthDay);
+                Date newDate = SetMonth(value, Child.BirthDateElement);
                 if (newDate != null)
                 {
                     Child.BirthDateElement = newDate;
@@ -290,7 +290,7 @@ namespace BFDR
                 {
                     AddBirthDateToPatient(Child, false);
                 }
-                Date newDate = SetDay(value, Child.BirthDateElement, BirthYear, BirthMonth);
+                Date newDate = SetDay(value, Child.BirthDateElement);
                 if (newDate != null)
                 {
                     Child.BirthDateElement = newDate;
@@ -2697,7 +2697,7 @@ namespace BFDR
                 {
                     AddBirthDateToPatient(Mother, false);
                 }
-                Date newDate = SetDay(value, Mother.BirthDateElement, MotherBirthYear, MotherBirthMonth);
+                Date newDate = SetDay(value, Mother.BirthDateElement);
                 if (newDate != null)
                 {
                     Mother.BirthDateElement = newDate;
@@ -2727,7 +2727,7 @@ namespace BFDR
                 {
                     AddBirthDateToPatient(Mother, false);
                 }
-                Date newDate = SetMonth(value, Mother.BirthDateElement, MotherBirthYear, MotherBirthDay);
+                Date newDate = SetMonth(value, Mother.BirthDateElement);
                 if (newDate != null)
                 {
                     Mother.BirthDateElement = newDate;
@@ -2757,7 +2757,7 @@ namespace BFDR
                 {
                     AddBirthDateToPatient(Mother, false);
                 }
-                Date newDate = SetYear(value, Mother.BirthDateElement, MotherBirthMonth, MotherBirthDay);
+                Date newDate = SetYear(value, Mother.BirthDateElement);
                 if (newDate != null)
                 {
                     Mother.BirthDateElement = newDate;
@@ -3000,7 +3000,7 @@ namespace BFDR
                     Father.BirthDateElement = new Date();
                     Father.BirthDateElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                Date newDate = SetDay(value, Father.BirthDateElement, FatherBirthYear, FatherBirthMonth);
+                Date newDate = SetDay(value, Father.BirthDateElement);
                 if (newDate != null)
                 {
                     Father.BirthDateElement = newDate;
@@ -3031,7 +3031,7 @@ namespace BFDR
                     Father.BirthDateElement = new Date();
                     Father.BirthDateElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                Date newDate = SetMonth(value, Father.BirthDateElement, FatherBirthYear, FatherBirthDay);
+                Date newDate = SetMonth(value, Father.BirthDateElement);
                 if (newDate != null)
                 {
                     Father.BirthDateElement = newDate;
@@ -3062,7 +3062,7 @@ namespace BFDR
                     Father.BirthDateElement = new Date();
                     Father.BirthDateElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                Date newDate = SetYear(value, Father.BirthDateElement, FatherBirthMonth, FatherBirthDay);
+                Date newDate = SetYear(value, Father.BirthDateElement);
                 if (newDate != null)
                 {
                     Father.BirthDateElement = newDate;
@@ -4192,7 +4192,7 @@ namespace BFDR
                     obs.Value = new FhirDateTime();
                     obs.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                FhirDateTime newDate = SetDay(value, obs.Value as FhirDateTime, DateOfLastLiveBirthYear, DateOfLastLiveBirthMonth);
+                FhirDateTime newDate = SetDay(value, obs.Value as FhirDateTime);
                 if (newDate != null)
                 {
                     obs.Value = newDate;
@@ -4231,7 +4231,7 @@ namespace BFDR
                     obs.Value = new FhirDateTime();
                     obs.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                FhirDateTime newDate = SetMonth(value, obs.Value as FhirDateTime, DateOfLastLiveBirthYear, DateOfLastLiveBirthDay);
+                FhirDateTime newDate = SetMonth(value, obs.Value as FhirDateTime);
                 if (newDate != null)
                 {
                     obs.Value = newDate;
@@ -4270,7 +4270,7 @@ namespace BFDR
                     obs.Value = new FhirDateTime();
                     obs.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                FhirDateTime newDate = SetYear(value, obs.Value as FhirDateTime, DateOfLastLiveBirthMonth, DateOfLastLiveBirthDay);
+                FhirDateTime newDate = SetYear(value, obs.Value as FhirDateTime);
                 if (newDate != null)
                 {
                     obs.Value = newDate;
@@ -4339,7 +4339,7 @@ namespace BFDR
                     obs.Value = new FhirDateTime();
                     obs.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                FhirDateTime newDate = SetDay(value, obs.Value as FhirDateTime, DateOfLastOtherPregnancyOutcomeYear, DateOfLastOtherPregnancyOutcomeMonth);
+                FhirDateTime newDate = SetDay(value, obs.Value as FhirDateTime);
                 if (newDate != null)
                 {
                     obs.Value = newDate;
@@ -4378,7 +4378,7 @@ namespace BFDR
                     obs.Value = new FhirDateTime();
                     obs.Value.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                FhirDateTime newDate = SetMonth(value, obs.Value as Hl7.Fhir.Model.FhirDateTime, DateOfLastOtherPregnancyOutcomeYear, DateOfLastOtherPregnancyOutcomeDay);
+                FhirDateTime newDate = SetMonth(value, obs.Value as Hl7.Fhir.Model.FhirDateTime);
                 if (newDate != null)
                 {
                     obs.Value = newDate;
@@ -4417,7 +4417,7 @@ namespace BFDR
                     obs.Value = new FhirDateTime();
                     obs.Value.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                FhirDateTime newDate = SetYear(value, obs.Value as Hl7.Fhir.Model.FhirDateTime, DateOfLastOtherPregnancyOutcomeMonth, DateOfLastOtherPregnancyOutcomeDay);
+                FhirDateTime newDate = SetYear(value, obs.Value as Hl7.Fhir.Model.FhirDateTime);
                 if (newDate != null)
                 {
                     obs.Value = newDate;
@@ -6108,7 +6108,7 @@ namespace BFDR
                     obs.Value = new FhirDateTime();
                     obs.Value.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                FhirDateTime newDate = SetYear(value, obs.Value as Hl7.Fhir.Model.FhirDateTime, LastMenstrualPeriodMonth, LastMenstrualPeriodDay);
+                FhirDateTime newDate = SetYear(value, obs.Value as Hl7.Fhir.Model.FhirDateTime);
                 if (newDate != null)
                 {
                     obs.Value = newDate;
@@ -6141,7 +6141,7 @@ namespace BFDR
                     obs.Value = new FhirDateTime();
                     obs.Value.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                FhirDateTime newDate = SetMonth(value, obs.Value as Hl7.Fhir.Model.FhirDateTime, LastMenstrualPeriodYear, LastMenstrualPeriodDay);
+                FhirDateTime newDate = SetMonth(value, obs.Value as Hl7.Fhir.Model.FhirDateTime);
                 if (newDate != null)
                 {
                     obs.Value = newDate;
@@ -6175,7 +6175,7 @@ namespace BFDR
                     obs.Value = new FhirDateTime();
                     obs.Value.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                FhirDateTime newDate = SetDay(value, obs.Value as Hl7.Fhir.Model.FhirDateTime, LastMenstrualPeriodYear, LastMenstrualPeriodMonth);
+                FhirDateTime newDate = SetDay(value, obs.Value as Hl7.Fhir.Model.FhirDateTime);
                 if (newDate != null)
                 {
                     obs.Value = newDate;
@@ -6280,7 +6280,7 @@ namespace BFDR
                     obs.Value = new FhirDateTime();
                     obs.Value.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                FhirDateTime newDate = SetYear(value, obs.Value as Hl7.Fhir.Model.FhirDateTime, FirstPrenatalCareVisitMonth, FirstPrenatalCareVisitDay);
+                FhirDateTime newDate = SetYear(value, obs.Value as Hl7.Fhir.Model.FhirDateTime);
                 if (newDate != null)
                 {
                     obs.Value = newDate;
@@ -6313,7 +6313,7 @@ namespace BFDR
                     obs.Value = new FhirDateTime();
                     obs.Value.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                FhirDateTime newDate = SetMonth(value, obs.Value as Hl7.Fhir.Model.FhirDateTime, FirstPrenatalCareVisitYear, FirstPrenatalCareVisitDay);
+                FhirDateTime newDate = SetMonth(value, obs.Value as Hl7.Fhir.Model.FhirDateTime);
                 if (newDate != null)
                 {
                     obs.Value = newDate;
@@ -6346,7 +6346,7 @@ namespace BFDR
                     obs.Value = new FhirDateTime();
                     obs.Value.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                FhirDateTime newDate = SetDay(value, obs.Value as Hl7.Fhir.Model.FhirDateTime, FirstPrenatalCareVisitYear, FirstPrenatalCareVisitMonth);
+                FhirDateTime newDate = SetDay(value, obs.Value as Hl7.Fhir.Model.FhirDateTime);
                 if (newDate != null)
                 {
                     obs.Value = newDate;
@@ -6404,7 +6404,7 @@ namespace BFDR
                     this.Composition.DateElement = new FhirDateTime();
                     this.Composition.DateElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                FhirDateTime newDate = SetYear(value, this.Composition.DateElement, RegistrationDateMonth, RegistrationDateDay);
+                FhirDateTime newDate = SetYear(value, this.Composition.DateElement);
                 if (newDate != null)
                 {
                     this.Composition.DateElement = newDate;
@@ -6440,7 +6440,7 @@ namespace BFDR
                     this.Composition.DateElement = new FhirDateTime();
                     this.Composition.DateElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                FhirDateTime newDate = SetMonth(value, this.Composition.DateElement, RegistrationDateYear, RegistrationDateDay);
+                FhirDateTime newDate = SetMonth(value, this.Composition.DateElement);
                 if (newDate != null)
                 {
                     this.Composition.DateElement = newDate;
@@ -6476,7 +6476,7 @@ namespace BFDR
                     this.Composition.DateElement = new FhirDateTime();
                     this.Composition.DateElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                FhirDateTime newDate = SetDay(value, this.Composition.DateElement, RegistrationDateYear, RegistrationDateMonth);
+                FhirDateTime newDate = SetDay(value, this.Composition.DateElement);
                 if (newDate != null)
                 {
                     this.Composition.DateElement = newDate;
@@ -7285,7 +7285,7 @@ namespace BFDR
                     p.StartElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
                     stateComp.Period = p;
                 }
-                FhirDateTime newDate = SetYear(value, stateComp.Period.StartElement, CertifiedMonth, CertifiedDay);
+                FhirDateTime newDate = SetYear(value, stateComp.Period.StartElement);
                 if (newDate != null)
                 {
                     stateComp.Period.StartElement = newDate;
@@ -7353,7 +7353,7 @@ namespace BFDR
                     p.StartElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
                     stateComp.Period = p;
                 }
-                FhirDateTime newDate = SetMonth(value, stateComp.Period.StartElement, CertifiedYear, CertifiedDay); 
+                FhirDateTime newDate = SetMonth(value, stateComp.Period.StartElement); 
                 if (newDate != null)
                 {
                     stateComp.Period.StartElement = newDate; 
@@ -7421,7 +7421,7 @@ namespace BFDR
                     p.StartElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
                     stateComp.Period = p;
                 }
-                FhirDateTime newDate = SetDay(value, stateComp.Period.StartElement, CertifiedYear, CertifiedDay); 
+                FhirDateTime newDate = SetDay(value, stateComp.Period.StartElement); 
                 if (newDate != null)
                 {
                     stateComp.Period.StartElement = newDate; 

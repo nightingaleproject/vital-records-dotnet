@@ -5568,22 +5568,22 @@
         <member name="M:VR.VitalRecord.CreateAndSetPartialDate(Hl7.Fhir.Model.FhirDateTime,System.String,System.Nullable{System.Int32})">
             <summary>Sets the given value to the given partial date extension and creates any necessary missing extensions.</summary>
         </member>
-        <member name="M:VR.VitalRecord.SetYear(System.Nullable{System.Int32},Hl7.Fhir.Model.Date,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:VR.VitalRecord.SetYear(System.Nullable{System.Int32},Hl7.Fhir.Model.Date)">
             <summary>Uses the given date information to create a new Fhir Date with the updated year. This includes reformatting and updating partial date extensions and using Fhir incomplete valid dates.</summary>
         </member>
-        <member name="M:VR.VitalRecord.SetYear(System.Nullable{System.Int32},Hl7.Fhir.Model.FhirDateTime,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:VR.VitalRecord.SetYear(System.Nullable{System.Int32},Hl7.Fhir.Model.FhirDateTime)">
             <summary>Uses the given date information to create a new FhirDateTime with the updated year. This includes reformatting and updating partial date extensions and using Fhir incomplete valid dates.</summary>
         </member>
-        <member name="M:VR.VitalRecord.SetMonth(System.Nullable{System.Int32},Hl7.Fhir.Model.Date,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:VR.VitalRecord.SetMonth(System.Nullable{System.Int32},Hl7.Fhir.Model.Date)">
             <summary>Uses the given date information to create a new Fhir Date with the updated month. This includes reformatting and updating partial date extensions and using Fhir incomplete valid dates.</summary>
         </member>
-        <member name="M:VR.VitalRecord.SetMonth(System.Nullable{System.Int32},Hl7.Fhir.Model.FhirDateTime,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:VR.VitalRecord.SetMonth(System.Nullable{System.Int32},Hl7.Fhir.Model.FhirDateTime)">
             <summary>Uses the given date information to create a new FhirDateTime with the updated month. This includes reformatting and updating partial date extensions and using Fhir incomplete valid dates.</summary>
         </member>
-        <member name="M:VR.VitalRecord.SetDay(System.Nullable{System.Int32},Hl7.Fhir.Model.Date,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:VR.VitalRecord.SetDay(System.Nullable{System.Int32},Hl7.Fhir.Model.Date)">
             <summary>Uses the given date information to create a new Fhir Date with the updated day. This includes reformatting and updating partial date extensions and using Fhir incomplete valid dates.</summary>
         </member>
-        <member name="M:VR.VitalRecord.SetDay(System.Nullable{System.Int32},Hl7.Fhir.Model.FhirDateTime,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:VR.VitalRecord.SetDay(System.Nullable{System.Int32},Hl7.Fhir.Model.FhirDateTime)">
             <summary>Uses the given date information to create a new FhirDateTime with the updated day. This includes reformatting and updating partial date extensions and using Fhir incomplete valid dates.</summary>
         </member>
         <member name="P:VR.VitalRecord.PartialDateYearUrl">
