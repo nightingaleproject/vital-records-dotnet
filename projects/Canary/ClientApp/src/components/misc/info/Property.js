@@ -17,7 +17,6 @@ export class Property extends Component {
 
   constructor(props) {
     super(props);
-    console.log("All Props from .ToDescription(): " + JSON.stringify(this.props.property))
     this.state = { ...this.props, jsonVisible: false, xmlVisible: false };
     this.updateProperty = this.updateProperty.bind(this);
     this.renderType = this.renderType.bind(this);
@@ -219,7 +218,7 @@ export class Property extends Component {
         <fieldset>
           <legend>
             <h3>
-              {this.props.property['Section'] === null ? `${this.props.name}` : `${this.props.name} - Code ${this.props.property['Code']}, Category Code ${this.props.property['CategoryCode']}, Section ${this.props.property['Section']}`}
+            {this.props.name}
               {!!this.props.testMode &&
                 (this.props.property.Match === 'false' ? (
                   <Icon name="times" className="red-icon p-l-5" />

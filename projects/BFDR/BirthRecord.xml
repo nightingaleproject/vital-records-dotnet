@@ -749,11 +749,8 @@
         <member name="P:BFDR.BirthRecord.UnplannedHysterectomy">
             <summary>Unplanned Hysterectomy.</summary>
         </member>
-        <member name="P:BFDR.BirthRecord.NoPregnancyRiskFactors">
-            <summary>No Pregnancy Risk Factors.</summary>
-        </member>
-        <member name="P:BFDR.BirthRecord.EclampsiaHypertension">
-            <summary>Eclampsia Hypertension.</summary>
+        <member name="P:BFDR.BirthRecord.PrepregnancyDiabetes">
+            <summary>Prepregnancy Diabetes.</summary>
         </member>
         <member name="P:BFDR.BirthRecord.GestationalDiabetes">
             <summary>Gestational Diabetes.</summary>
@@ -761,17 +758,17 @@
         <member name="P:BFDR.BirthRecord.GestationalHypertension">
             <summary>Gestational Hypertension.</summary>
         </member>
-        <member name="P:BFDR.BirthRecord.PrepregnancyDiabetes">
-            <summary>Prepregnancy Diabetes.</summary>
-        </member>
         <member name="P:BFDR.BirthRecord.PrepregnancyHypertension">
             <summary>Prepregnancy Hypertension.</summary>
         </member>
-        <member name="P:BFDR.BirthRecord.PreviousCesarean">
-            <summary>Previous Cesarean.</summary>
+        <member name="P:BFDR.BirthRecord.EclampsiaHypertension">
+            <summary>Eclampsia Hypertension.</summary>
         </member>
         <member name="P:BFDR.BirthRecord.PreviousPretermBirth">
             <summary>Previous Preterm Birth.</summary>
+        </member>
+        <member name="P:BFDR.BirthRecord.InfertilityTreatment">
+            <summary>Infertility Treatment.</summary>
         </member>
         <member name="P:BFDR.BirthRecord.ArtificialInsemination">
             <summary>Artificial Insemination.</summary>
@@ -779,8 +776,11 @@
         <member name="P:BFDR.BirthRecord.AssistedFertilization">
             <summary>Assisted Fertilization.</summary>
         </member>
-        <member name="P:BFDR.BirthRecord.InfertilityTreatment">
-            <summary>Infertility Treatment.</summary>
+        <member name="P:BFDR.BirthRecord.PreviousCesarean">
+            <summary>Previous Cesarean.</summary>
+        </member>
+        <member name="P:BFDR.BirthRecord.NoPregnancyRiskFactors">
+            <summary>No Pregnancy Risk Factors.</summary>
         </member>
         <member name="P:BFDR.BirthRecord.UnknownFinalRouteAndMethodOfDelivery">
             <summary>Unknown Final Route and Method of Delivery.</summary>
