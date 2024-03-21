@@ -1142,6 +1142,32 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:0a3e203d-13f9-46a7-b845-4e02d7592588",
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "0a3e203d-13f9-46a7-b845-4e02d7592588",
+        "category": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "73762-7"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "700000006"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:c98d96c1-1f05-451c-b0e1-addb506eb170"
+        }
+      }
+    },
+    {
       "fullUrl": "urn:uuid:9b0abc88-167d-460e-9a02-af8624198936",
       "resource":
       {

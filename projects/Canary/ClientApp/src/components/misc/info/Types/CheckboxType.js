@@ -12,7 +12,7 @@ export class CheckboxType extends Component {
 
   updateValue(event, data) {
     if (!!this.props.editable) {
-      const value = data.children === 'True';
+      const value = !this.state.value;
       this.setState({ value: value }, () => {
         if (value) {
           this.props.updateProperty('Value', this.state.value);
@@ -22,16 +22,13 @@ export class CheckboxType extends Component {
   }
 
   render() {
-    const value = true;
     return (
       <React.Fragment>
         <FormField>
           <Checkbox
             label={this.props.description}
-            name='checkboxRadioGroup'
-            value='this'
-            checked={value === 'this'}
-            onChange={(e, data) => setValue(data.value)}
+            checked={this.state.value}
+            onChange={(e, data) => this.updateValue(e, data)}
           />
         </FormField>
       </React.Fragment>
