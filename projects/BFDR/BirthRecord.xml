@@ -4418,18 +4418,6 @@
         <member name="F:BFDR.ValueSets.BirthDeliveryOccurred.Unknown">
             <summary> Unknown </summary>
         </member>
-        <member name="T:BFDR.ValueSets.GestationalAgeAtDeliveryEditFlags">
-            <summary> GestationalAgeAtDeliveryEditFlags </summary>
-        </member>
-        <member name="F:BFDR.ValueSets.GestationalAgeAtDeliveryEditFlags.Codes">
-            <summary> Codes </summary>
-        </member>
-        <member name="F:BFDR.ValueSets.GestationalAgeAtDeliveryEditFlags.Off">
-            <summary> Off </summary>
-        </member>
-        <member name="F:BFDR.ValueSets.GestationalAgeAtDeliveryEditFlags.CorrectOutOfRange">
-            <summary> CorrectOutOfRange </summary>
-        </member>
         <member name="T:BFDR.ValueSets.BirthWeightEditFlags">
             <summary> BirthWeightEditFlags </summary>
         </member>

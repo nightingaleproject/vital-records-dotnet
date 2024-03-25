@@ -4679,7 +4679,7 @@ namespace BFDR
             {
                 if(!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("GestationalAgeAtDeliveryEditFlag", value, BFDR.ValueSets.GestationalAgeAtDeliveryEditFlags.Codes);
+                    SetCodeValue("GestationalAgeAtDeliveryEditFlag", value, BFDR.ValueSets.EstimateOfGestationEditFlags.Codes);
                 }
             }
         }
@@ -5006,12 +5006,22 @@ namespace BFDR
                 SetWeightEditFlag(code, EmptyCodeDict(), section, subjectId);
                 return;
             }
-            Dictionary<string, string> dictionary = new Dictionary<string, string>
+            // Iterate over the allowed options and see if the code supplies is one of them
+            string[,] options = BFDR.ValueSets.PregnancyReportEditFlags.Codes;
+            for (int i = 0; i < options.GetLength(0); i += 1)
             {
-                { "code", editFlag },
-                { "system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags" }
-            };
-            SetWeightEditFlag(code, dictionary, section, subjectId);
+                if (options[i, 0] == editFlag)
+                {
+                    // Found it, so call the supplied setter with the appropriate dictionary built based on the code
+                    // using the supplied options and return
+                    Dictionary<string, string> dict = new Dictionary<string, string>();
+                    dict.Add("code", editFlag);
+                    dict.Add("display", options[i, 1]);
+                    dict.Add("system", options[i, 2]);
+                    SetWeightEditFlag(code, dict, section, subjectId);
+                    return;
+                }
+            }
         }
 
         /// <summary>Mother's Prepregnancy Weight Edit Flag.</summary>
@@ -5765,12 +5775,22 @@ namespace BFDR
                     obs.Value.Extension.Add(new Extension(VRExtensionURLs.BypassEditFlag, DictToCodeableConcept(EmptyCodeDict())));
                     return;
                 }
-                Dictionary<string, string> dictionary = new Dictionary<string, string>
+
+                // Iterate over the allowed options and see if the code supplies is one of them
+                string[,] options = BFDR.ValueSets.PregnancyReportEditFlags.Codes;
+                for (int i = 0; i < options.GetLength(0); i += 1)
                 {
-                    { "code", value },
-                    { "system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags" }
-                };
-                obs.Value.Extension.Add(new Extension(VRExtensionURLs.BypassEditFlag, DictToCodeableConcept(dictionary)));
+                    if (options[i, 0] == value)
+                    {
+                        // Found it, so call the supplied setter with the appropriate dictionary built based on the code
+                        // using the supplied options and return
+                        Dictionary<string, string> dict = new Dictionary<string, string>();
+                        dict.Add("code", value);
+                        dict.Add("display", options[i, 1]);
+                        dict.Add("system", options[i, 2]);
+                        obs.Value.Extension.Add(new Extension(VRExtensionURLs.BypassEditFlag, DictToCodeableConcept(dict)));
+                    }
+                }
             }
         }
         /// <summary>Mother's Education Level.</summary>
@@ -6703,12 +6723,19 @@ namespace BFDR
                         }
                         return "Y";
                     }
-                    return "N";
+                    if (code == "other")
+                    {
+                        return "N";
+                    }
                 }
                 return "";
             }
             set
             {
+                if (String.IsNullOrEmpty(value))
+                {
+                    return;
+                }
                 // IJE values are Y, N, U, set to "hosp-trans" if value is Y
                 // https://build.fhir.org/ig/HL7/fhir-bfdr/usage.html#mother-or-infant-transferred
                 if (value == "Y")
@@ -6722,7 +6749,7 @@ namespace BFDR
                     MotherTransferred = CodeableConceptToDict(new CodeableConcept(CodeSystems.AdmitSource, "hosp-trans", "Transferred from other hospital", "The Patient has been transferred from another hospital for this encounter."));
                     FacilityMotherTransferredFrom = "UNKNOWN";
                 }
-                else
+                else 
                 {
                     // all other codes should be interpretted as N with "other" as the code to express mother did not transfer
                     MotherTransferred = CodeableConceptToDict(new CodeableConcept(CodeSystems.AdmitSource, "other", "Other", "Did not transfer"));
@@ -6819,13 +6846,20 @@ namespace BFDR
                     {
                         return "U";
                     }
-                    return "N";
+                    else if (code == "oth")
+                    {
+                        return "N";
+                    }
                 }
 
                 return "";
             }
             set
             {
+                if (String.IsNullOrEmpty(value))
+                {
+                    return;
+                }
                 // IJE values are Y, N, U, only set to "hosp-trans" if value is Y
                 // IG guidance https://build.fhir.org/ig/HL7/fhir-bfdr/usage.html#mother-or-infant-transferred
                 if (value == "Y")
