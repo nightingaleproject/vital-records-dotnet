@@ -34,10 +34,12 @@ dotnet run --project BFDR.CLI description BFDR.Tests/fixtures/json/BasicBirthRec
 # dotnet run --project BFDR.CLI roundtrip-ije BFDR.CLI/1_wJurisdiction.xml
 
 # Convert JSON files to IJE and back and check every field individually
-# echo "* dotnet run --project BFDR.CLI roundtrip-all BFDR.Tests/fixtures/json/BasicBirthRecord.json"
-# dotnet run --project BFDR.CLI roundtrip-all BFDR.Tests/fixtures/json/BasicBirthRecord.json
-# echo "* dotnet run --project BFDR.CLI roundtrip-all BFDR.CLI/1_wJurisdiction.json"
-# dotnet run --project BFDR.CLI roundtrip-all BFDR.CLI/1_wJurisdiction.json
+echo "* dotnet run --project BFDR.CLI roundtrip-all BFDR.Tests/fixtures/json/BirthRecordBabyGQuinn.json"
+dotnet run --project BFDR.CLI roundtrip-all BFDR.Tests/fixtures/json/BirthRecordBabyGQuinn.json 
+echo "* dotnet run --project BFDR.CLI roundtrip-all BFDR.Tests/fixtures/json/BirthRecordBabyGQuinnJurisdiction.json"
+dotnet run --project BFDR.CLI roundtrip-all BFDR.Tests/fixtures/json/BirthRecordBabyGQuinnJurisdiction.json 
+echo "* dotnet run --project BFDR.CLI roundtrip-all BFDR.Tests/fixtures/json/BirthRecordFakeWithRace.json"
+dotnet run --project BFDR.CLI roundtrip-all BFDR.Tests/fixtures/json/BirthRecordFakeWithRace.json
 
 # Convert an XML file to IJE and back and check every field individually
 # echo "* dotnet run --project BFDR.CLI roundtrip-all BFDR.Tests/fixtures/json/BasicBirthRecord.json"

@@ -508,8 +508,16 @@ namespace BFDR.CLI
                 BirthRecord b2 = new BirthRecord(b1.ToJSON());
                 BirthRecord b3 = new BirthRecord();
                 List<PropertyInfo> properties = typeof(BirthRecord).GetProperties().ToList();
+                // Fields the cannot roundtrip
+                // CertificationDate: cannot roundtrip time data, IJE does not have a field for time of certification
+                // Most fields with a 0..1 text property will not roundtrip
+                HashSet<string> skipPropertyNames = new HashSet<string>() { };
                 foreach (PropertyInfo property in properties)
                 {
+                    if (skipPropertyNames.Contains(property.Name))
+                    {
+                        continue;
+                    }
                     if (property.GetCustomAttribute<Property>() != null)
                     {
                         property.SetValue(b3, property.GetValue(b2));
@@ -521,6 +529,10 @@ namespace BFDR.CLI
 
                 foreach (PropertyInfo property in properties)
                 {
+                    if (skipPropertyNames.Contains(property.Name))
+                    {
+                        continue;
+                    }
                     // Console.WriteLine($"Property: Name: {property.Name.ToString()} Type: {property.PropertyType.ToString()}");
                     string one;
                     string two;
