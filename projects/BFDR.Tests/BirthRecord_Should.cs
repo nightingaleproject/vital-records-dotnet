@@ -2190,7 +2190,7 @@ namespace BFDR.Tests
       BirthRecord birthRecord = ije.ToBirthRecord();
       Dictionary<string, string> editBypass = new Dictionary<string, string>();
       editBypass.Add("code", "0off");
-      editBypass.Add("system", VR.CodeSystems.BFDREditFlags);
+      editBypass.Add("system", VR.CodeSystems.VRCLEditFlags);
       editBypass.Add("display", "Off");
       Assert.Equal(editBypass, birthRecord.GestationalAgeAtDeliveryEditFlag);
     }
