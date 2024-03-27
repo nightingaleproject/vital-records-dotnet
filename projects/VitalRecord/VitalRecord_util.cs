@@ -327,7 +327,7 @@ namespace VR
             if (fhirPath.Code != null && fhirPath.Code.Length > 0)
             {
                 string codeSystem = fhirPath.CodeSystem ?? CodeSystems.SCT;
-                code = new CodeableConcept(codeSystem, fhirPath.Code);
+                code = new CodeableConcept(codeSystem, fhirPath.Code, fhirPath.Display, null);
             }
             CodeableConcept category = null;
             if (fhirPath.CategoryCode != null && fhirPath.CategoryCode.Length > 0)
@@ -2032,6 +2032,9 @@ namespace VR
         /// <summary>The code system when the targeted FHIR resource has a code element, e.g. Condition.code. Defaults to SNOMED if not specified.</summary>
         public string CodeSystem;
 
+        /// <summary>The display when the targeted FHIR resource has a code element</summary>
+        public string Display;
+
         /// <summary>The composition section code. Required if the resource needs to be referenced from the composition.</summary>
         public string Section;
 
@@ -2058,7 +2061,7 @@ namespace VR
                 this.Path = $"Bundle.entry.resource.where($this is {fhirType}).where(code.coding.code = '{code}')";
                 if (categoryCode != null && categoryCode.Length > 0)
                 {
-                    this.Path += $".where(category.coding.code = '{categoryCode}')";
+                    this.Path += $".where(category.coding.any(code = '{categoryCode}'))";
                 }
             }
             this.Element = "";

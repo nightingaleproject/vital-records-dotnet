@@ -147,7 +147,7 @@
               "id": "patient-child-babyg-quinn",
               "meta": {
                 "profile": [
-                  "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Patient-child-vr.html"
+                  "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Patient-child-vr"
                 ]
               },
               "text": {
@@ -251,7 +251,7 @@
               "id": "patient-mother-vr-jada-ann-quinn-common",
               "meta": {
                 "profile": [
-                  "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Patient-mother-vr.html"
+                  "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Patient-mother-vr"
                 ]
               },
               "text": {
@@ -407,7 +407,7 @@
               "id": "relatedperson-father-natural-vr-james-brandon-quinn-common",
               "meta": {
                 "profile": [
-                  "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-RelatedPerson-father-natural-vr.html"
+                  "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-RelatedPerson-father-natural-vr"
                 ]
               },
               "text": {
