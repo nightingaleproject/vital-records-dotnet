@@ -203,7 +203,8 @@ namespace BFDR
                 Composition.Section.Add(fatherSection);
             } else 
             {
-                throw new System.ArgumentException("Failed to find a Mother or Father for Demographic Information.");
+                //TODO: demographic content composition should have a relevant mother and/or father - this should be an exception
+                Console.WriteLine("Failed to find a Mother or Father for Demographic Information.");
             }            
             // NOTE: If we want to put observations in the coded content bundle that don't have references we'll
             // need to move them over by grabbing them by the observation code

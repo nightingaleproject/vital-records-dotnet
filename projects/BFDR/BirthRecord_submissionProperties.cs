@@ -3215,6 +3215,7 @@ namespace BFDR
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='inputraceandethnicityMother')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public Dictionary<string, string> MotherEthnicity1
         {
             get
@@ -3293,6 +3294,7 @@ namespace BFDR
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='inputraceandethnicityMother')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public Dictionary<string, string> MotherEthnicity2
         {
             get
@@ -3371,6 +3373,7 @@ namespace BFDR
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='inputraceandethnicityMother')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public Dictionary<string, string> MotherEthnicity3
         {
             get
@@ -3450,6 +3453,7 @@ namespace BFDR
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='inputraceandethnicityMother')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public Dictionary<string, string> MotherEthnicity4
         {
             get
@@ -3521,6 +3525,7 @@ namespace BFDR
         [Property("MotherEthnicityLiteral", Property.Types.String, "Race and Ethnicity Profiles", "Mother's Ethnicity Literal.", true, VR.IGURL.InputRaceAndEthnicity, false, 34)]
         [PropertyParam("ethnicity", "The literal string to describe ethnicity.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='inputraceandethnicityMother')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public string MotherEthnicityLiteral
         {
             get
@@ -3559,6 +3564,7 @@ namespace BFDR
         /// </example>
         [Property("MotherRace", Property.Types.TupleArr, "Race and Ethnicity Profiles", "Mother's Race", true, VR.IGURL.InputRaceAndEthnicity, true, 38)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='inputraceandethnicityMother')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public Tuple<string, string>[] MotherRace
         {
             get
@@ -3679,6 +3685,7 @@ namespace BFDR
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='inputraceandethnicityFather')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public Dictionary<string, string> FatherEthnicity1
         {
             get
@@ -3757,6 +3764,7 @@ namespace BFDR
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='inputraceandethnicityFather')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public Dictionary<string, string> FatherEthnicity2
         {
             get
@@ -3835,6 +3843,7 @@ namespace BFDR
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='inputraceandethnicityFather')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public Dictionary<string, string> FatherEthnicity3
         {
             get
@@ -3914,6 +3923,7 @@ namespace BFDR
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='inputraceandethnicityFather')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public Dictionary<string, string> FatherEthnicity4
         {
             get
@@ -3986,6 +3996,7 @@ namespace BFDR
         [Property("FatherEthnicityLiteral", Property.Types.String, "Race and Ethnicity Profiles", "Father's Ethnicity Literal.", true, VR.IGURL.InputRaceAndEthnicity, false, 34)]
         [PropertyParam("ethnicity", "The literal string to describe ethnicity.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='inputraceandethnicityFather')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public string FatherEthnicityLiteral
         {
             get
@@ -4025,6 +4036,7 @@ namespace BFDR
         /// </example>
         [Property("FatherRace", Property.Types.TupleArr, "Race and Ethnicity Profiles", "Father's Race", true, VR.IGURL.InputRaceAndEthnicity, true, 38)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='inputraceandethnicityFather')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public Tuple<string, string>[] FatherRace
         {
             get
