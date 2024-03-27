@@ -366,15 +366,14 @@ namespace BFDR.Tests
       Assert.Equal("F", firstRecord.BirthSexHelper);
       Assert.Equal(firstRecord.BirthSex["code"], secondRecord.BirthSexHelper);
       // Plurality
-      Assert.Equal(1, firstRecord.Plurality); //TODO testing: returning null
+      Assert.Equal(1, firstRecord.Plurality); //TODO: check IG examples are correct
       // Set Order
-      // TODO ---
       Assert.Equal(1, firstRecord.SetOrder);
       Assert.Equal(firstRecord.SetOrder, secondRecord.SetOrder);
       // Mother's Age
-       Assert.Equal(34, firstRecord.MotherReportedAgeAtDelivery); //TODO testing: returning null
+       Assert.Equal(34, firstRecord.MotherReportedAgeAtDelivery); 
       // Father's Age
-       Assert.Equal(35, firstRecord.FatherReportedAgeAtDelivery); //TODO testing: returning null
+       Assert.Equal(35, firstRecord.FatherReportedAgeAtDelivery);
       // Child's First Name
       Assert.Equal("Baby", firstRecord.ChildGivenNames[0]);
       Assert.Equal(firstRecord.ChildGivenNames[0], secondRecord.ChildGivenNames[0]);
@@ -1490,7 +1489,7 @@ namespace BFDR.Tests
       Assert.Equal(1, FakeBirthRecord.MotherBirthMonth);
       Assert.Equal(12, FakeBirthRecord.MotherBirthDay);
       Assert.Equal("1992-01-12", FakeBirthRecord.MotherDateOfBirth);
-      Assert.Equal(1990, FakeBirthRecord.FatherBirthYear );
+      Assert.Equal(1990, FakeBirthRecord.FatherBirthYear);
       Assert.Equal(9, FakeBirthRecord.FatherBirthMonth);
       Assert.Equal(21, FakeBirthRecord.FatherBirthDay);
       Assert.Equal("1990-09-21", FakeBirthRecord.FatherDateOfBirth);
@@ -1708,7 +1707,6 @@ namespace BFDR.Tests
       cc.Add("code", "POSTG");
       cc.Add("system", "http://terminology.hl7.org/CodeSystem/v3-EducationLevel");
       cc.Add("display", "Doctoral or post graduate education");
-      cc.Add("text", "Doctoral or post graduate education");
       Assert.Equal(cc, record.MotherEducationLevel);
       Assert.Equal(cc, record.FatherEducationLevel);
       // set after parse
@@ -1988,7 +1986,7 @@ namespace BFDR.Tests
       Assert.Equal(7, record.FirstPrenatalCareVisitMonth);
       Assert.Equal(20, record.FirstPrenatalCareVisitDay);
       //set after parse
-      record.FirstPrenatalCareVisit = "2023-02"; //TODO testing: null reference exception error
+      record.FirstPrenatalCareVisit = "2023-02";
       Assert.Equal("2023-02", record.FirstPrenatalCareVisit);
       Assert.Equal(2023, record.FirstPrenatalCareVisitYear);
       Assert.Equal(2, record.FirstPrenatalCareVisitMonth);
@@ -2613,8 +2611,8 @@ namespace BFDR.Tests
       Assert.Equal("", record.PluralityEditFlag["code"]);
       Assert.Null(record.MotherDateOfBirthEditFlagHelper);
       Assert.Equal("", record.MotherDateOfBirthEditFlag["code"]);
-      Assert.Null(record.FatherDateOfBirthEditFlagHelper);
-      Assert.Equal("", record.FatherDateOfBirthEditFlag["code"]);
+      Assert.Equal("1dataQueried", record.FatherDateOfBirthEditFlagHelper);
+      Assert.Equal("1dataQueried", record.FatherDateOfBirthEditFlag["code"]);
       Assert.Equal("0", record.MotherPrepregnancyWeightEditFlagHelper);
       Assert.Equal("0", record.MotherPrepregnancyWeightEditFlag["code"]);
       Assert.Equal("0", record.MotherWeightAtDeliveryEditFlagHelper);

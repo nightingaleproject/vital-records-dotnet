@@ -32,14 +32,14 @@ namespace BFDR
             Child = new Patient();
             Child.Id = Guid.NewGuid().ToString();
             Child.Meta = new Meta();
-            string[] child_profile = { VR.IGURL.Child };
+            string[] child_profile = { VR.ProfileURL.Child };
             Child.Meta.Profile = child_profile;
 
             // Start with an empty mother. Need reference in Composition.
             Mother = new Patient();
             Mother.Id = Guid.NewGuid().ToString();
             Mother.Meta = new Meta();
-            string[] mother_profile = { VR.IGURL.Mother };
+            string[] mother_profile = { VR.ProfileURL.Mother };
             Mother.Meta.Profile = mother_profile;
 
             // Start with an empty father.
@@ -48,7 +48,7 @@ namespace BFDR
                 Id = Guid.NewGuid().ToString(),
                 Meta = new Meta()
             };
-            string[] father_profile = { VR.IGURL.RelatedPersonFatherNatural };
+            string[] father_profile = { VR.ProfileURL.RelatedPersonFatherNatural };
             Father.Meta.Profile = father_profile;
             Father.Relationship.Add(new CodeableConcept(CodeSystems.RoleCode_HL7_V3, "NFTH"));
 
@@ -194,10 +194,10 @@ namespace BFDR
                 throw new System.ArgumentException("The Composition is missing a subject (a reference to the Child resource).");
             }
             List<Patient> patients = Bundle.Entry.FindAll(entry => entry.Resource is Patient).ConvertAll(entry => (Patient) entry.Resource);
-            Child = patients.Find(patient => patient.Meta.Profile.Any(patientProfile => patientProfile == VR.IGURL.Child));
-            Mother = patients.Find(patient => patient.Meta.Profile.Any(patientProfile => patientProfile == VR.IGURL.Mother));
+            Child = patients.Find(patient => patient.Meta.Profile.Any(patientProfile => patientProfile == VR.ProfileURL.Child));
+            Mother = patients.Find(patient => patient.Meta.Profile.Any(patientProfile => patientProfile == VR.ProfileURL.Mother));
             // Grab Father
-            Father = Bundle.Entry.FindAll(entry => entry.Resource is RelatedPerson).ConvertAll(entry => (RelatedPerson) entry.Resource).Find(resource => resource.Meta.Profile.Any(relatedPersonProfile => relatedPersonProfile == VR.IGURL.RelatedPersonFatherNatural));
+            Father = Bundle.Entry.FindAll(entry => entry.Resource is RelatedPerson).ConvertAll(entry => (RelatedPerson) entry.Resource).Find(resource => resource.Meta.Profile.Any(relatedPersonProfile => relatedPersonProfile == VR.ProfileURL.RelatedPersonFatherNatural));
             EncounterBirth = Bundle.Entry.FindAll(entry => entry.Resource is Encounter).ConvertAll(entry => (Encounter) entry.Resource).Find(resource => resource.Meta.Profile.Any(relatedPersonProfile => relatedPersonProfile == ProfileURL.EncounterBirth));
             Coverage = Bundle.Entry.FindAll(entry => entry.Resource is Coverage).ConvertAll(entry => (Coverage) entry.Resource).Find(resource => resource.Meta.Profile.Any(coverageProfile => coverageProfile == ProfileURL.CoveragePrincipalPayerDelivery));
             EncounterMaternity = Bundle.Entry.FindAll(entry => entry.Resource is Encounter).ConvertAll(entry => (Encounter) entry.Resource).Find(resource => resource.Meta.Profile.Any(relatedPersonProfile => relatedPersonProfile == ProfileURL.EncounterMaternity));

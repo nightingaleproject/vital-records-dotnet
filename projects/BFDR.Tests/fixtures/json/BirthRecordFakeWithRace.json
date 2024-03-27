@@ -192,7 +192,7 @@
         "id": "932cd76c-b090-4ccd-8c8f-4c2ee0e0b1bf",
         "meta": {
           "profile": [
-            "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Patient-child-vr.html"
+            "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Patient-child-vr"
           ]
         },
         "extension": [
@@ -272,7 +272,7 @@
         "id": "c98d96c1-1f05-451c-b0e1-addb506eb170",
         "meta": {
           "profile": [
-            "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Patient-mother-vr.html"
+            "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Patient-mother-vr"
           ]
         },
         "identifier": [
@@ -320,7 +320,7 @@
         "id": "db93146f-b2ef-4261-b582-ce1cbbb886ef",
         "meta": {
           "profile": [
-            "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-RelatedPerson-father-natural-vr.html"
+            "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/RelatedPerson-father-natural-vr"
           ]
         },
         "relationship": [
@@ -760,7 +760,7 @@
         "code": {
           "coding": [
             {
-              "system": "https://build.fhir.org/ig/HL7/vr-common-library/CodeSystem-CodeSystem-local-observation-codes-vr.html",
+              "system": "https://build.fhir.org/ig/HL7/vr-common-library/CodeSystem-CodeSystem-local-observation-codes-vr",
               "code": "inputraceandethnicityMother",
               "display": "Input Race and Ethnicity Person"
             }

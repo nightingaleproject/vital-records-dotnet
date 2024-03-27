@@ -162,7 +162,7 @@
         "id": "f702923c-0ea2-42f8-a619-5787f33e0c5d",
         "meta": {
           "profile": [
-            "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Patient-child-vr.html"
+            "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Patient-child-vr"
           ]
         },
         "extension": [
@@ -242,7 +242,7 @@
         "id": "a7ce2988-374e-4b59-8f59-71740e166215",
         "meta": {
           "profile": [
-            "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Patient-mother-vr.html"
+            "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Patient-mother-vr"
           ]
         },
         "identifier": [
@@ -290,7 +290,7 @@
         "id": "51be1cc2-1665-4f02-9e42-f6fcd0e44bfc",
         "meta": {
           "profile": [
-            "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-RelatedPerson-father-natural-vr.html"
+            "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-RelatedPerson-father-natural-vr"
           ]
         },
         "relationship": [
