@@ -93,7 +93,7 @@
         "id": "patient-child-babyg-quinn",
         "meta": {
           "profile": [
-            "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Patient-child-vr.html"
+            "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Patient-child-vr"
           ]
         },
         "text": {
@@ -117,6 +117,56 @@
               }
             ],
             "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race"
+          },
+          {
+            "extension" : [
+              {
+                "url" : "reportedAge",
+                "valueQuantity" : {
+                  "value" : 34,
+                  "system" : "http://unitsofmeasure.org",
+                  "code" : "a"
+                }
+              },
+              {
+                "url" : "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-role-vr",
+                "valueCodeableConcept" : {
+                  "coding" : [
+                    {
+                      "system" : "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+                      "code" : "MTH",
+                      "display" : "mother"
+                    }
+                  ]
+                }
+              }
+            ],
+            "url" : "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-reported-parent-age-at-delivery-vr"
+          },
+          {
+            "extension" : [
+              {
+                "url" : "reportedAge",
+                "valueQuantity" : {
+                  "value" : 35,
+                  "system" : "http://unitsofmeasure.org",
+                  "code" : "a"
+                }
+              },
+              {
+                "url" : "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-role-vr",
+                "valueCodeableConcept" : {
+                  "coding" : [
+                    {
+                      "system" : "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+                      "code" : "FTH",
+                      "display" : "father"
+                    }
+                  ]
+                }
+              }
+            ],
+            "url" : "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-reported-parent-age-at-delivery-vr"
           },
           {
             "extension": [
@@ -203,7 +253,15 @@
             }
           ]
         },
-        "multipleBirthInteger": 1
+        "multipleBirthInteger": 1,
+        "_multipleBirthInteger": {
+          "extension" : [
+          {
+            "url" : "http://hl7.org/fhir/StructureDefinition/patient-multipleBirthTotal",
+            "valuePositiveInt": 1
+          }
+          ]
+        }
       }
     },
     {
@@ -213,7 +271,7 @@
         "id": "patient-mother-vr-jada-ann-quinn-common",
         "meta": {
           "profile": [
-            "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Patient-mother-vr.html"
+            "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Patient-mother-vr"
           ]
         },
         "text": {
@@ -373,8 +431,8 @@
         "id": "relatedperson-father-natural-vr-james-brandon-quinn-common",
         "meta": {
           "profile": [
-            "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-RelatedPerson-father-natural-vr.html"
-          ]
+            "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/RelatedPerson-father-natural-vr"
+            ]
         },
         "text": {
           "status": "extensions",

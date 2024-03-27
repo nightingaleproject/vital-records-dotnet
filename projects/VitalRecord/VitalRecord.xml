@@ -5804,6 +5804,9 @@
         <member name="F:VR.FHIRPath.CodeSystem">
             <summary>The code system when the targeted FHIR resource has a code element, e.g. Condition.code. Defaults to SNOMED if not specified.</summary>
         </member>
+        <member name="F:VR.FHIRPath.Display">
+            <summary>The display when the targeted FHIR resource has a code element</summary>
+        </member>
         <member name="F:VR.FHIRPath.Section">
             <summary>The composition section code. Required if the resource needs to be referenced from the composition.</summary>
         </member>

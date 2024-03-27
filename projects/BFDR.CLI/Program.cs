@@ -110,6 +110,8 @@ namespace BFDR.CLI
                 birthRecord.NoInfectionsPresentDuringPregnancy = true;
                 birthRecord.GestationalHypertension = true;
 
+                birthRecord.CyanoticCongenitalHeartDisease = true;
+
                 Dictionary<string, string> route = new Dictionary<string, string>();
                 route.Add("code", "700000006");
                 route.Add("system", "http://snomed.info/sct");
