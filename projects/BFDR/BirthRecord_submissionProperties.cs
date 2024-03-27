@@ -6367,7 +6367,7 @@ namespace BFDR
         {
             get
             {
-                return this.Composition.Date;
+                return this.Composition?.Date;
             }
             set
             {
@@ -6390,11 +6390,11 @@ namespace BFDR
             get
             {
                 // First check the value string
-                if (this.Composition.Date != null && ParseDateElements(this.Composition.Date, out int? year, out int? month, out int? day))
+                if (this.Composition?.Date != null && ParseDateElements(this.Composition?.Date, out int? year, out int? month, out int? day))
                 {
                     return year;
                 }
-                return GetDateFragmentOrPartialDate(this.Composition.DateElement, VR.ExtensionURL.PartialDateTimeYearVR);
+                return GetDateFragmentOrPartialDate(this.Composition?.DateElement, VR.ExtensionURL.PartialDateTimeYearVR);
             }
             set
             {
@@ -6426,11 +6426,11 @@ namespace BFDR
             get
             {
                 // First check the value string
-                if (this.Composition.Date != null && ParseDateElements(this.Composition.Date, out int? year, out int? month, out int? day))
+                if (this.Composition?.Date != null && ParseDateElements(this.Composition?.Date, out int? year, out int? month, out int? day))
                 {
                     return month;
                 }
-                return GetDateFragmentOrPartialDate(this.Composition.DateElement, VR.ExtensionURL.PartialDateTimeMonthVR);
+                return GetDateFragmentOrPartialDate(this.Composition?.DateElement, VR.ExtensionURL.PartialDateTimeMonthVR);
             }
             set
             {
@@ -6462,11 +6462,11 @@ namespace BFDR
             get
             {
                 // First check the value string
-                if (this.Composition.Date != null && ParseDateElements(this.Composition.Date, out int? year, out int? month, out int? day))
+                if (this.Composition?.Date != null && ParseDateElements(this.Composition?.Date, out int? year, out int? month, out int? day))
                 {
                     return day;
                 }
-                return GetDateFragmentOrPartialDate(this.Composition.DateElement, VR.ExtensionURL.PartialDateTimeDayVR);
+                return GetDateFragmentOrPartialDate(this.Composition?.DateElement, VR.ExtensionURL.PartialDateTimeDayVR);
             }
             set
             {
