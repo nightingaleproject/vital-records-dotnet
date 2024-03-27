@@ -43,12 +43,6 @@ namespace BFDR
         /// <summary>The Certifier.</summary>
         private Practitioner Certifier;
 
-        /// <summary>The Mother's Race and Ethnicity provided by Jurisdiction.</summary>
-        private Observation InputRaceAndEthnicityObsMother;
-
-        /// <summary>The Father's Race and Ethnicity provided by Jurisdiction.</summary>
-        private Observation InputRaceAndEthnicityObsFather;
-
         /// <summary>The encounter of the birth.</summary>
         private Encounter EncounterBirth;
 
@@ -109,37 +103,6 @@ namespace BFDR
                 return Mother.Id;
             }
             return subjects.First().subject == FHIRSubject.Subject.Newborn ? Child.Id : Mother.Id;
-        }
-
-        /// <summary> Create Mother Input Race and Ethnicity </summary>
-        private void CreateInputRaceEthnicityObsMother()
-        {
-            InputRaceAndEthnicityObsMother = new Observation();
-            InputRaceAndEthnicityObsMother.Id = Guid.NewGuid().ToString();
-            InputRaceAndEthnicityObsMother.Meta = new Meta();
-            string[] raceethnicity_profile = { VR.ProfileURL.InputRaceAndEthnicity };
-            InputRaceAndEthnicityObsMother.Meta.Profile = raceethnicity_profile;
-            InputRaceAndEthnicityObsMother.Status = ObservationStatus.Final;
-            InputRaceAndEthnicityObsMother.Code = new CodeableConcept(CodeSystems.InputRaceAndEthnicityPerson, "inputraceandethnicityMother", "Input Race and Ethnicity Person", null);
-            InputRaceAndEthnicityObsMother.Subject = new ResourceReference("urn:uuid:" + Child.Id);
-            InputRaceAndEthnicityObsMother.Focus.Add(new ResourceReference("urn:uuid:" + Mother.Id));
-            AddReferenceToComposition(InputRaceAndEthnicityObsMother.Id, RACE_ETHNICITY_PROFILE_MOTHER);
-            Bundle.AddResourceEntry(InputRaceAndEthnicityObsMother, "urn:uuid:" + InputRaceAndEthnicityObsMother.Id);
-        }
-
-        /// <summary> Create Father Input Race and Ethnicity </summary>
-        private void CreateInputRaceEthnicityObsFather()
-        {
-            InputRaceAndEthnicityObsFather = new Observation();
-            InputRaceAndEthnicityObsFather.Id = Guid.NewGuid().ToString();
-            InputRaceAndEthnicityObsFather.Meta = new Meta();
-            string[] raceethnicity_profile = { VR.ProfileURL.InputRaceAndEthnicity };
-            InputRaceAndEthnicityObsFather.Meta.Profile = raceethnicity_profile;
-            InputRaceAndEthnicityObsFather.Status = ObservationStatus.Final;
-            InputRaceAndEthnicityObsFather.Code = new CodeableConcept(CodeSystems.InputRaceAndEthnicityPerson, "inputraceandethnicityFather", "Input Race and Ethnicity Person", null);
-            InputRaceAndEthnicityObsFather.Subject = new ResourceReference("urn:uuid:" + Child.Id);
-            AddReferenceToComposition(InputRaceAndEthnicityObsFather.Id, RACE_ETHNICITY_PROFILE_FATHER);
-            Bundle.AddResourceEntry(InputRaceAndEthnicityObsFather, "urn:uuid:" + InputRaceAndEthnicityObsFather.Id);
         }
 
         /// <summary>Create Attendant/Practitioner.</summary>

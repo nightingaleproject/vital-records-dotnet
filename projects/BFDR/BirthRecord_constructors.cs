@@ -267,18 +267,6 @@ namespace BFDR
                 {
                     throw new System.ArgumentException("Found an Observation resource that did not contain a code. All Observations must include a code to specify what the Observation is referring to.");
                 }
-                switch (obs.Code.Coding.First().Code)
-                {
-                    case "inputraceandethnicityMother":
-                        InputRaceAndEthnicityObsMother = (Observation)obs;
-                        break;
-                    case "inputraceandethnicityFather":
-                        InputRaceAndEthnicityObsFather = (Observation)obs;
-                        break;
-                    default:
-                        // skip
-                        break;
-                }
             }
 
         }
