@@ -204,7 +204,7 @@ namespace BFDR
             } else 
             {
                 //TODO: demographic content composition should have a relevant mother and/or father - this should be an exception
-                Console.WriteLine("Failed to find a Mother or Father for Demographic Information.");
+                Console.WriteLine("Warning: Failed to find a Mother or Father for Demographic Information.");
             }            
             // NOTE: If we want to put observations in the coded content bundle that don't have references we'll
             // need to move them over by grabbing them by the observation code
