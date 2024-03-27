@@ -1496,7 +1496,7 @@ namespace BFDR.Tests
     }
 
     [Fact]
-    public void ParentReportedAgePresent() //TODO testing: Not working, returning null
+    public void ParentReportedAgePresent()
     {
       BirthRecord record2 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json")));
       Assert.Equal(34, record2.MotherReportedAgeAtDelivery); 
@@ -1596,7 +1596,7 @@ namespace BFDR.Tests
       Assert.False(record.CleftLipWithOrWithoutCleftPalate);   
       Assert.False(record.CleftPalateAlone);   
       Assert.False(record.CongenitalDiaphragmaticHernia);  
-      Assert.True(record.CyanoticCongenitalHeartDisease); //TODO testing: returning False
+      Assert.True(record.CyanoticCongenitalHeartDisease);
       Assert.True(record.DownSyndrome);   
       Assert.False(record.Gastroschisis);
       Assert.False(record.Hypospadias);
@@ -1649,11 +1649,11 @@ namespace BFDR.Tests
       Assert.True(record.InfertilityTreatment);
       //final route and method of delivery
       Assert.False(record.UnknownFinalRouteAndMethodOfDelivery); 
-      Assert.Equal("11466000", record.FinalRouteAndMethodOfDelivery["code"]); // TODO testing: returning ""
+      Assert.Equal("11466000", record.FinalRouteAndMethodOfDelivery["code"]); 
       //obstetric procedures
       Assert.False(record.NoObstetricProcedures);
       Assert.False(record.SuccessfulExternalCephalicVersion);
-      Assert.True(record.UnsuccessfulExternalCephalicVersion); // TODO testing: returnin False
+      Assert.True(record.UnsuccessfulExternalCephalicVersion); 
     }
 
     [Fact]
@@ -1895,7 +1895,7 @@ namespace BFDR.Tests
         BirthRecord record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json")));
         Assert.Equal(67, record.MotherHeight);
 
-        //set after parse - TODO testing: Null Reference Error 
+        //set after parse 
         record.MotherHeight = 68; 
         Assert.Equal(68, record.MotherHeight);
     } 
@@ -1944,7 +1944,7 @@ namespace BFDR.Tests
         // Birth Weight
         Assert.Equal(2500, record.BirthWeight);
 
-        // set after parse - TODO testing: null reference exception error
+        // set after parse
         record.MotherPrepregnancyWeight = 146;
         record.MotherWeightAtDelivery = 176;
         record.BirthWeight = 2502;
@@ -2012,7 +2012,7 @@ namespace BFDR.Tests
       Assert.Equal(2, firstRecord.RegistrationDateMonth);
       Assert.Equal(12, firstRecord.RegistrationDateDay);
 
-      //set after parse - TODO testing: null reference exception
+      //set after parse
       firstRecord.FirstPrenatalCareVisit = "2023-01"; 
       Assert.Equal("2023-01", firstRecord.FirstPrenatalCareVisit);
       Assert.Equal(2023, firstRecord.FirstPrenatalCareVisitYear);
@@ -2151,7 +2151,7 @@ namespace BFDR.Tests
       BirthRecord record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json"))); 
       Assert.Null(record.MaritalStatus);
 
-      //set after parse - TODO testing: null reference exception
+      //set after parse 
       record.MaritalStatus = "Married"; 
       Assert.Equal("Married", record.MaritalStatus);
     }
@@ -2598,7 +2598,7 @@ namespace BFDR.Tests
       BirthRecord record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json")));
       Assert.Equal(7, record.ApgarScoreFiveMinutes);
       Assert.Null(record.ApgarScoreTenMinutes);
-      //set after parse - TODO testing: null reference exception
+      //set after parse
       record.ApgarScoreTenMinutes = 4; 
       Assert.Equal(4, record.ApgarScoreTenMinutes);
     }
@@ -2634,27 +2634,27 @@ namespace BFDR.Tests
       var codingBirthWeight = new Dictionary<string, string>();
       codingBirthWeight.Add("code", "1correctOutOfRange");
       codingBirthWeight.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");
-      // record.PluralityEditFlag = coding;
-      // Assert.Null(record.PluralityEditFlagHelper);
-      // Assert.Equal("", record.PluralityEditFlag["code"]);
-      // record.MotherDateOfBirthEditFlag = coding;
-      // Assert.Null(record.MotherDateOfBirthEditFlagHelper);
-      // Assert.Equal("", record.MotherDateOfBirthEditFlag["code"]);
-      // record.FatherDateOfBirthEditFlag = coding;
-      // Assert.Null(record.FatherDateOfBirthEditFlagHelper);
-      // Assert.Equal("", record.FatherDateOfBirthEditFlag["code"]);
-      // record.MotherPrepregnancyWeightEditFlag = coding;
-      // Assert.Equal("1", record.MotherPrepregnancyWeightEditFlagHelper);
-      // Assert.Equal("1", record.MotherPrepregnancyWeightEditFlag["code"]);
-      // record.MotherWeightAtDeliveryEditFlag = coding;
-      // Assert.Equal("1", record.MotherWeightAtDeliveryEditFlagHelper);
-      // Assert.Equal("1", record.MotherWeightAtDeliveryEditFlag["code"]);
-      // record.BirthWeightEditFlag = codingBirthWeight;
-      // Assert.Equal("1correctOutOfRange", record.BirthWeightEditFlagHelper);
-      // Assert.Equal("1correctOutOfRange", record.BirthWeightEditFlag["code"]);
-      // record.MotherHeightEditFlag = coding;
-      // Assert.Equal("1", record.MotherHeightEditFlagHelper);
-      // Assert.Equal("1", record.MotherHeightEditFlag["code"]);
+      record.PluralityEditFlag = coding;
+      Assert.Equal( "1", record.PluralityEditFlagHelper);
+      Assert.Equal("1", record.PluralityEditFlag["code"]);
+      record.MotherDateOfBirthEditFlag = coding;
+      Assert.Equal("1", record.MotherDateOfBirthEditFlagHelper);
+      Assert.Equal("1", record.MotherDateOfBirthEditFlag["code"]);
+      record.FatherDateOfBirthEditFlag = coding;
+      Assert.Equal("1",record.FatherDateOfBirthEditFlagHelper);
+      Assert.Equal("1", record.FatherDateOfBirthEditFlag["code"]);
+      record.MotherPrepregnancyWeightEditFlag = coding;
+      Assert.Equal("1", record.MotherPrepregnancyWeightEditFlagHelper);
+      Assert.Equal("1", record.MotherPrepregnancyWeightEditFlag["code"]);
+      record.MotherWeightAtDeliveryEditFlag = coding;
+      Assert.Equal("1", record.MotherWeightAtDeliveryEditFlagHelper);
+      Assert.Equal("1", record.MotherWeightAtDeliveryEditFlag["code"]);
+      record.BirthWeightEditFlag = codingBirthWeight;
+      Assert.Equal("1correctOutOfRange", record.BirthWeightEditFlagHelper);
+      Assert.Equal("1correctOutOfRange", record.BirthWeightEditFlag["code"]);
+      record.MotherHeightEditFlag = coding;
+      Assert.Equal("1", record.MotherHeightEditFlagHelper);
+      Assert.Equal("1", record.MotherHeightEditFlag["code"]);
       record.MotherEducationLevelEditFlag = coding;
       Assert.Equal("1", record.MotherEducationLevelEditFlagHelper);
       Assert.Equal("1", record.MotherEducationLevelEditFlag["code"]);

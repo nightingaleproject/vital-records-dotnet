@@ -2058,7 +2058,7 @@ namespace VR
                 this.Path = $"Bundle.entry.resource.where($this is {fhirType}).where(code.coding.code = '{code}')";
                 if (categoryCode != null && categoryCode.Length > 0)
                 {
-                    this.Path += $".where(category.coding.code = '{categoryCode}')";
+                    this.Path += $".where(category.coding.any(code = '{categoryCode}'))";
                 }
             }
             this.Element = "";
