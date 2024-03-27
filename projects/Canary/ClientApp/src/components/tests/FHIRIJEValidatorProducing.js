@@ -97,7 +97,6 @@ export class FHIRIJEValidatorProducing extends Component {
 
   render() {
     const recordType = this.props.recordType;
-    console.log(recordType);
     return (
       <React.Fragment>
         <Grid>
