@@ -6,6 +6,7 @@ using Hl7.Fhir.Model;
 using VR;
 using Hl7.Fhir.Support;
 using static Hl7.Fhir.Model.Encounter;
+using Hl7.Fhir.Utility;
 
 // BirthRecord_submissionProperties.cs
 // These fields are used primarily for submitting birth records to NCHS.
@@ -2315,7 +2316,8 @@ namespace BFDR
                 Coding coding = DictToCoding(value);
                 fhirPath.Code = coding.Code;
                 fhirPath.CodeSystem = coding.System;
-                CreateEntry(fhirPath, SubjectId());
+                fhirPath.Display = coding.Display;
+               CreateEntry(fhirPath, SubjectId());
             }
         }
 
@@ -2347,15 +2349,11 @@ namespace BFDR
             }
             set
             {
-                // TODO: use SetCodeValue once ValueSets.cs has been generated
                 if (String.IsNullOrEmpty(value))
                 {
                     FinalRouteAndMethodOfDelivery = EmptyCodeDict();
                 }
-                Dictionary<string, string> dictionary = new Dictionary<string, string>();
-                dictionary.Add("code", value);
-                dictionary.Add("system", CodeSystems.SCT);
-                FinalRouteAndMethodOfDelivery = dictionary;
+                SetCodeValue("FinalRouteAndMethodOfDelivery", value, BFDR.ValueSets.DeliveryRoutes.Codes);
             }
         }
 
@@ -3192,10 +3190,7 @@ namespace BFDR
                     FatherDateOfBirthEditFlag = EmptyCodeDict();
                     return;
                 }
-                Dictionary<string, string> dictionary = new Dictionary<string, string>();
-                dictionary.Add("code", value);
-                dictionary.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");
-                FatherDateOfBirthEditFlag = dictionary;
+                SetCodeValue("FatherDateOfBirthEditFlag", value, VR.ValueSets.DateOfBirthEditFlags.Codes);
             }
         }
 

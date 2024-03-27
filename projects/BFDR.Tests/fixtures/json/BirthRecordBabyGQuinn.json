@@ -1771,9 +1771,8 @@
         "coding" : [{
           "system" : "http://snomed.info/sct",
           "code" : "11466000",
-          "display" : "Cesarean section"
-        }],
-        "text" : "Cesarean section"
+          "display" : "Cesarean section (procedure)"
+        }]
       },
       "subject" : {
         "reference" : "Patient/patient-mother-jada-ann-quinn",

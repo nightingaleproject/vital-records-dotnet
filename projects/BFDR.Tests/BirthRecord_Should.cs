@@ -149,6 +149,7 @@ namespace BFDR.Tests
       String json = SetterBirthRecord.ToJSON();
       Assert.Contains("302383004", json); // code
       Assert.Contains("73762-7", json); // category
+      Assert.Equal(coding, SetterBirthRecord.FinalRouteAndMethodOfDelivery);
       coding = SetterBirthRecord.FinalRouteAndMethodOfDelivery;
       Assert.Equal("302383004", coding["code"]);
       // Test that setting unknown removes the previously set route

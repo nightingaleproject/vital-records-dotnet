@@ -615,7 +615,8 @@
           "coding": [
             {
               "system": "http://snomed.info/sct",
-              "code": "700000006"
+              "code": "700000006",
+              "display": "Vaginal delivery of fetus (procedure)"
             }
           ]
         },
