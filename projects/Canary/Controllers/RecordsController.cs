@@ -268,6 +268,13 @@ namespace canary.Controllers
                 category[property.Name]["Type"] = info.Type.ToString();
                 category[property.Name]["Description"] = info.Description;
 
+                // Add snippets
+                FHIRPath path = property.GetCustomAttribute<FHIRPath>();
+                category[property.Name]["CheckboxType"] = path.Section != null;
+                category[property.Name]["Section"] = path.Section;
+                category[property.Name]["Code"] = path.Code;
+                category[property.Name]["CategoryCode"] = path.CategoryCode;
+
                 // Add the current value of the property
                 if (info.Type == Property.Types.Dictionary)
                 {
