@@ -16,40 +16,40 @@ using Newtonsoft.Json;
 using VR;
 
 
-// BirthRecord_fieldsAndCreateMethods.cs
+// NatalityRecord_fieldsAndCreateMethods.cs
 //     Contains field definitions and associated createXXXX methods used to construct a field
 
 namespace BFDR
 {
-    /// <summary>Class <c>BirthRecord</c> models a FHIR Vital Records Birth Reporting (BFDR) Birth
-    /// Record. This class was designed to help consume and produce birth records that follow the
-    /// HL7 FHIR Vital Records Birth Reporting Implementation Guide, as described at:
-    /// http://hl7.org/fhir/us/bfdr and https://github.com/hl7/bfdr.
+    /// <summary>Class <c>NatalityRecord</c> is an abstract base class models FHIR Vital Records
+    /// Birth Reporting (BFDR) Birth and Fetal Death Records. This class was designed to help consume
+    /// and produce natality records that follow the HL7 FHIR Vital Records Birth Reporting Implementation
+    /// Guide, as described at: http://hl7.org/fhir/us/bfdr and https://github.com/hl7/bfdr.
     /// </summary>
-    public partial class BirthRecord
+    public partial class NatalityRecord
     {
         /// <summary>The Child.</summary>
-        private Patient Child;
+        protected Patient Child;
 
         /// <summary>The Mother.</summary>
-        private Patient Mother;
+        protected Patient Mother;
 
         /// <summary>The Father.</summary>
-        private RelatedPerson Father;
+        protected RelatedPerson Father;
 
         /// <summary>The Attendant.</summary>
-        private Practitioner Attendant;
+        protected Practitioner Attendant;
 
         /// <summary>The Certifier.</summary>
-        private Practitioner Certifier;
+        protected Practitioner Certifier;
 
         /// <summary>The encounter of the birth.</summary>
-        private Encounter EncounterBirth;
+        protected Encounter EncounterBirth;
 
         /// <summary>The coverage associated with the birth.</summary>
-        private Coverage Coverage;
+        protected Coverage Coverage;
         /// <summary>The maternity encounter.</summary>
-        private Encounter EncounterMaternity;
+        protected Encounter EncounterMaternity;
 
         /// <summary>Composition Section Constants</summary>
         private const string RACE_ETHNICITY_PROFILE_MOTHER = "inputraceandethnicityMother";
@@ -93,7 +93,7 @@ namespace BFDR
         
         /// <summary>Use annotation on the property to determine whether the subject is
         /// the mother or newborn, then extract the corresponding resource id.</summary>
-        /// <param name="propertyName">name of the BirthRecord property</param>
+        /// <param name="propertyName">name of the NatalityRecord property</param>
         /// <returns>the subject's resource id</returns>
         protected override string SubjectId([CallerMemberName] string propertyName = null)
         {
@@ -106,7 +106,7 @@ namespace BFDR
         }
 
         /// <summary>Create Attendant/Practitioner.</summary>
-        private void CreateAttendant()
+        protected void CreateAttendant()
         {
             Attendant = new Practitioner();
             Attendant.Id = Guid.NewGuid().ToString();
@@ -119,7 +119,7 @@ namespace BFDR
         }
     
             /// <summary>Create Certifier/Practitioner.</summary>
-        private void CreateCertifier()
+        protected void CreateCertifier()
         {
             Certifier = new Practitioner();
             Certifier .Id = Guid.NewGuid().ToString();
@@ -132,7 +132,7 @@ namespace BFDR
         }
 
         /// <summary>Create and set Birth Location.</summary>
-        private Location CreateAndSetLocationBirth(string code)
+        protected Location CreateAndSetLocationBirth(string code)
         {
             Location locationBirth = new Location
             {
@@ -154,7 +154,7 @@ namespace BFDR
         }
         
         /// <summary>Create Birth Encounter.</summary>
-        private void CreateBirthEncounter()
+        protected void CreateBirthEncounter()
         {
             EncounterBirth = new Encounter();
             EncounterBirth .Id = Guid.NewGuid().ToString();

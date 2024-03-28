@@ -5,19 +5,19 @@ using Hl7.Fhir.ElementModel;
 using Hl7.Fhir.Model;
 using VR;
 
-// BirthRecord_constructors.cs
-//     Contains constructors and associated methods for the BirthRecords class
+// NatalityRecord_constructors.cs
+//     Contains constructors and associated methods for the NatalityRecords class
 namespace BFDR
 {
-    /// <summary>Class <c>BirthRecord</c> models a FHIR Vital Records Birth Reporting (BFDR) Birth
-    /// Record. This class was designed to help consume and produce birth records that follow the
-    /// HL7 FHIR Vital Records Birth Reporting Implementation Guide, as described at:
-    /// http://hl7.org/fhir/us/bfdr and https://github.com/hl7/bfdr.
+    /// <summary>Class <c>NatalityRecord</c> is an abstract base class models FHIR Vital Records
+    /// Birth Reporting (BFDR) Birth and Fetal Death Records. This class was designed to help consume
+    /// and produce natality records that follow the HL7 FHIR Vital Records Birth Reporting Implementation
+    /// Guide, as described at: http://hl7.org/fhir/us/bfdr and https://github.com/hl7/bfdr.
     /// </summary>
-    public partial class BirthRecord : VitalRecord
+    public abstract partial class NatalityRecord : VitalRecord
     {
-        /// <summary>Default constructor that creates a new, empty BirthRecord.</summary>
-        public BirthRecord() : base()
+        /// <summary>Default constructor that creates a new, empty NatalityRecord.</summary>
+        public NatalityRecord() : base()
         {
             // Start with an empty Bundle.
             Bundle = new Bundle();
@@ -141,23 +141,52 @@ namespace BFDR
             // Create a Navigator for this new birth record.
             Navigator = Bundle.ToTypedElement();
 
-            UpdateBirthRecordIdentifier();
+            UpdateRecordIdentifier();
         }
 
-        /// <summary>Constructor that takes a string that represents a FHIR Birth Record in either XML or JSON format.</summary>
-        /// <param name="record">represents a FHIR Birth Record in either XML or JSON format.</param>
+        /// <summary>Constructor that takes a string that represents a FHIR Natality Record in either XML or JSON format.</summary>
+        /// <param name="record">represents a FHIR Natality Record in either XML or JSON format.</param>
         /// <param name="permissive">if the parser should be permissive when parsing the given string</param>
         /// <exception cref="ArgumentException">Record is neither valid XML nor JSON.</exception>
-        public BirthRecord(string record, bool permissive = false) : base(record, permissive){}
+        public NatalityRecord(string record, bool permissive = false) : base(record, permissive){}
 
-        /// <summary>Constructor that takes a FHIR Bundle that represents a FHIR Birth Record.</summary>
+        /// <summary>Constructor that takes a FHIR Bundle that represents a FHIR Natality Record.</summary>
         /// <param name="bundle">represents a FHIR Bundle.</param>
         /// <exception cref="ArgumentException">Record is invalid.</exception>
-        public BirthRecord(Bundle bundle)
+        public NatalityRecord(Bundle bundle)
         {
             Bundle = bundle;
             Navigator = Bundle.ToTypedElement();
             RestoreReferences();
+        }
+
+        /// <summary>Abstract GetYear method to be implemented differently by the BirthRecord and FetalDeathRecord subclasses</summary>
+        protected abstract uint? GetYear();
+
+        /// <summary>Update the bundle identifier from the component fields.</summary>
+        private void UpdateRecordIdentifier()
+        {
+            uint certificateNumber = 0;
+            if (CertificateNumber != null)
+            {
+                UInt32.TryParse(CertificateNumber, out certificateNumber);
+            }
+            uint year = 0;
+            if (this.GetYear() != null)
+            {
+                year = (uint)this.GetYear();
+            }
+            String jurisdictionId = this.BirthLocationJurisdiction;
+            if (jurisdictionId == null || jurisdictionId.Trim().Length < 2)
+            {
+                jurisdictionId = "XX";
+            }
+            else
+            {
+                jurisdictionId = jurisdictionId.Trim().Substring(0, 2).ToUpper();
+            }
+            this.RecordIdentifier = $"{year:D4}{jurisdictionId}{certificateNumber:D6}";
+
         }
 
         /// <summary>Helper method to return the subset of this record that makes up a DemographicCodedContent bundle.</summary>
@@ -257,7 +286,7 @@ namespace BFDR
             // TODO: when supporting fetal death, will have to impl. fetalDeathIdentifier
             if (fullRecord)
             {
-              UpdateBirthRecordIdentifier();
+              UpdateRecordIdentifier();
             }
 
             // Scan through all Observations to make sure they all have codes!

@@ -5,18 +5,18 @@ using VR;
 
 namespace BFDR
 {
-        /// <summary>A "wrapper" class to convert between a FHIR based <c>BirthRecord</c> and
+    /// <summary>A "wrapper" class to convert between a FHIR based <c>BirthRecord</c> and
     /// a record in IJE Natality format. Each property of this class corresponds exactly
     /// with a field in the IJE Natality format. The getters convert from the embedded
     /// FHIR based <c>BirthRecord</c> to the IJE format for a specific field, and
     /// the setters convert from IJE format for a specific field and set that value
     /// on the embedded FHIR based <c>BirthRecord</c>.</summary>
-    public class IJENatality : IJE
+    public class IJEBirth : IJE
     {
         private readonly BirthRecord record;
 
         /// <summary>Constructor that takes a <c>BirthRecord</c>.</summary>
-        public IJENatality(BirthRecord record, bool validate = true)
+        public IJEBirth(BirthRecord record, bool validate = true)
         {
             this.record = record;
             if (validate)
@@ -28,7 +28,7 @@ namespace BFDR
         }
 
         /// <summary>Constructor that takes an IJE string and builds a corresponding internal <c>BirthRecord</c>.</summary>
-        public IJENatality(string ije, bool validate = true) : this()
+        public IJEBirth(string ije, bool validate = true) : this()
         {
             ProcessIJE(ije, validate);
         }
@@ -44,7 +44,7 @@ namespace BFDR
 
 
         /// <summary>Constructor that creates an empty record for constructing records using the IJE properties.</summary>
-        public IJENatality()
+        public IJEBirth()
         {
             this.record = new BirthRecord();
         }
