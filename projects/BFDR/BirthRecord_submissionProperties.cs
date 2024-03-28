@@ -3806,7 +3806,7 @@ namespace BFDR
         public string FatherEthnicity2Helper
         {
             get
-            {
+        {
                 if (FatherEthnicity2.ContainsKey("code") && !String.IsNullOrWhiteSpace(FatherEthnicity2["code"]))
                 {
                     return FatherEthnicity2["code"];
@@ -4025,6 +4025,50 @@ namespace BFDR
             }
         }
 
+        // /// <summary>Father's Ethnicity Hispanic Literal .</summary>
+        // /// <value>the father's ethnicity. A Dictionary representing a code, containing the following key/value pairs:
+        // /// <para>"code" - the code</para>
+        // /// <para>"system" - the code system this code belongs to</para>
+        // /// <para>"display" - a human readable meaning of the code</para>
+        // /// </value>
+        // /// <example>
+        // /// <para>// Setter:</para>
+        // /// <para>ExampleBirthRecord.EthnicityLiteral = ethnicity;</para>
+        // /// <para>// Getter:</para>
+        // /// <para>Console.WriteLine($"Ethnicity: {ExampleBirthRecord.EthnicityLiteral["display"]}");</para>
+        // /// </example>
+        // [Property("FatherEthnicityLiteralCode", Property.Types.Dictionary, "Race and Ethnicity Profiles", "Father's Ethnicity Literal COde.", true, VR.IGURL.CodedRaceAndEthnicity, false, 34)]
+        // [PropertyParam("ethnicity", "The literal string to describe ethnicity.")]
+        // [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicityFather')", "")]
+        // [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        // public string FatherEthnicityLiteralCode
+        // {
+        //     get
+        //     {
+        //         Observation obs = GetOrCreateObservation("codedraceandethnicityFather", CodeSystems.LocalObservationCodes, "", VR.ProfileURL.CodedRaceAndEthnicity, RACE_ETHNICITY_PROFILE_FATHER);
+        //         Observation.ComponentComponent ethnicity = obs.Component.FirstOrDefault(c => c.Code.Coding[0].Code == "HispanicCodeForLiteral");
+        //         if (ethnicity != null && ethnicity.Value != null && ethnicity.Value as FhirString != null)
+        //         {
+        //             return ethnicity.Value.ToString();
+        //         }
+        //         return null;
+        //     }
+        //     set
+        //     {
+        //         if (String.IsNullOrWhiteSpace(value))
+        //         {
+        //             return;
+        //         }
+        //         Observation obs = GetOrCreateObservation("inputraceandethnicityFather", CodeSystems.InputRaceAndEthnicityPerson, "Input Race and Ethnicity Person", VR.ProfileURL.InputRaceAndEthnicity, RACE_ETHNICITY_PROFILE_FATHER);
+        //         obs.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.Literal);
+        //         Observation.ComponentComponent component = new Observation.ComponentComponent();
+        //         component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, NvssEthnicity.Literal, NvssEthnicity.LiteralDisplay, null);
+        //         component.Value = new FhirString(value);
+        //         obs.Component.Add(component);
+        //         obs.Subject = new ResourceReference("urn:uuid:" + Child.Id);
+        //     }
+        // }
+
         /// <summary>Father's Race values.</summary>
         /// <value>the father's race. A tuple, where the first value of the tuple is the display value, and the second is
         /// the IJE code Y or N.</value>
@@ -4149,25 +4193,28 @@ namespace BFDR
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='68499-3')", "")]
         public int? DateOfLastLiveBirthDay
         {
-            get
-            {
-
-                Observation obs = GetObservation("68499-3");
-                if (obs != null)
-                {
-                    return GetDateFragmentOrPartialDate(obs.Value, VR.ExtensionURL.PartialDateTimeDayVR);
-                }
-                return null;
-            }
+            get => GetDateFragmentOrPartialDate(GetObservation("68499-3")?.Value, PartialDateDayUrl);
             set
             {
                 Observation obs = GetOrCreateObservation("68499-3", CodeSystems.LOINC, BFDR.ProfileURL.ObservationDateOfLastLiveBirth, DATE_OF_LAST_LIVE_BIRTH, Mother.Id);
-                if (obs.Value as Hl7.Fhir.Model.FhirDateTime == null)
-                {   
-                    obs.Value = new FhirDateTime();
-                    obs.Extension.Add(NewBlankPartialDateTimeExtension(false));
-                }
-                FhirDateTime newDate = SetDay(value, obs.Value as FhirDateTime);
+                SetObservationDateElement(obs, value, PartialDateDayUrl);
+            }
+        }
+
+        private void SetObservationDateElement(Observation obs, int? value, string partialDateUrl) {
+            Dictionary<string, Func<int?, FhirDateTime, FhirDateTime>> dateFunctions = new Dictionary<string, Func<int?, FhirDateTime, FhirDateTime>>
+            {
+                { PartialDateDayUrl, SetDay },
+                { PartialDateMonthUrl, SetMonth },
+                { PartialDateYearUrl, SetYear }
+            };
+            if (obs.Value as Hl7.Fhir.Model.FhirDateTime == null)
+            {   
+                obs.Value = new FhirDateTime();
+                obs.Extension.Add(NewBlankPartialDateTimeExtension(false));
+            }
+            if (dateFunctions.ContainsKey(partialDateUrl)) {
+                FhirDateTime newDate = dateFunctions[partialDateUrl].Invoke(value, obs.Value as FhirDateTime);
                 if (newDate != null)
                 {
                     obs.Value = newDate;
@@ -4189,15 +4236,7 @@ namespace BFDR
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='68499-3')", "")]
         public int? DateOfLastLiveBirthMonth
         {
-            get
-            {
-                Observation obs = GetObservation("68499-3");
-                if (obs != null)
-                {
-                    return GetDateFragmentOrPartialDate(obs.Value, PartialDateMonthUrl);
-                }
-                return null;
-            }
+            get => GetDateFragmentOrPartialDate(GetObservation("68499-3")?.Value, PartialDateMonthUrl);
             set
             {
                 Observation obs = GetOrCreateObservation("68499-3", CodeSystems.LOINC, BFDR.ProfileURL.ObservationDateOfLastLiveBirth, DATE_OF_LAST_LIVE_BIRTH, Mother.Id);
@@ -4228,15 +4267,7 @@ namespace BFDR
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='68499-3')", "")]
         public int? DateOfLastLiveBirthYear
         {
-            get
-            {
-                Observation obs = GetObservation("68499-3");
-                if (obs != null)
-                {
-                    return GetDateFragmentOrPartialDate(obs.Value, PartialDateYearUrl);
-                }
-                return null;
-            }
+            get => GetDateFragmentOrPartialDate(GetObservation("68499-3")?.Value, PartialDateYearUrl);
             set
             {
                 Observation obs = GetOrCreateObservation("68499-3", CodeSystems.LOINC, DATE_OF_LAST_LIVE_BIRTH, BFDR.ProfileURL.ObservationDateOfLastLiveBirth, Mother.Id);
@@ -4265,16 +4296,7 @@ namespace BFDR
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='68499-3')", "")]
         public string DateOfLastLiveBirth
         {
-
-            get
-            {
-                Observation obs = GetObservation("68499-3");
-                if (obs != null)
-                {
-                    return (obs.Value as Hl7.Fhir.Model.FhirDateTime)?.Value;
-                }
-                return null;
-            }
+            get => (GetObservation("68499-3")?.Value as Hl7.Fhir.Model.FhirDateTime)?.Value;
             set
             {
                 Observation obs = GetOrCreateObservation("68499-3", CodeSystems.LOINC, BFDR.ProfileURL.ObservationDateOfLastLiveBirth, DATE_OF_LAST_LIVE_BIRTH, Mother.Id);
@@ -4296,16 +4318,7 @@ namespace BFDR
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='68500-8')", "")]
         public int? DateOfLastOtherPregnancyOutcomeDay
         {
-            get
-            {
-
-                Observation obs = GetObservation("68500-8");
-                if (obs != null)
-                {
-                    return GetDateFragmentOrPartialDate(obs.Value, VR.ExtensionURL.PartialDateTimeDayVR);
-                }
-                return null;
-            }
+            get => GetDateFragmentOrPartialDate(GetObservation("68500-8")?.Value, PartialDateDayUrl);
             set
             {
                 Observation obs = GetOrCreateObservation("68500-8", CodeSystems.LOINC, BFDR.ProfileURL.ObservationDateOfLastOtherPregnancyOutcome, DATE_OF_LAST_OTHER_PREGNANCY_OUTCOME, Mother.Id);
@@ -4336,15 +4349,7 @@ namespace BFDR
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='68500-8')", "")]
         public int? DateOfLastOtherPregnancyOutcomeMonth
         {
-            get
-            {
-                Observation obs = GetObservation("68500-8");
-                if (obs != null)
-                {
-                    return GetDateFragmentOrPartialDate(obs.Value, VR.ExtensionURL.PartialDateTimeMonthVR);
-                }
-                return null;
-            }
+            get => GetDateFragmentOrPartialDate(GetObservation("68500-8")?.Value, PartialDateMonthUrl);
             set
             {
                 Observation obs = GetOrCreateObservation("68500-8", CodeSystems.LOINC, "Last Other Pregnancy Outcome", BFDR.ProfileURL.ObservationDateOfLastOtherPregnancyOutcome, DATE_OF_LAST_OTHER_PREGNANCY_OUTCOME, Mother.Id);
@@ -4375,15 +4380,7 @@ namespace BFDR
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='68500-8')", "")]
         public int? DateOfLastOtherPregnancyOutcomeYear
         {
-            get
-            {
-                Observation obs = GetObservation("68500-8");
-                if (obs != null)
-                {
-                    return GetDateFragmentOrPartialDate(obs.Value, VR.ExtensionURL.PartialDateTimeYearVR);
-                }
-                return null;
-            }
+            get => GetDateFragmentOrPartialDate(GetObservation("68500-8")?.Value, PartialDateYearUrl);
             set
             {
                 Observation obs = GetOrCreateObservation("68500-8", CodeSystems.LOINC, BFDR.ProfileURL.ObservationDateOfLastOtherPregnancyOutcome, DATE_OF_LAST_OTHER_PREGNANCY_OUTCOME, Mother.Id);
@@ -4412,15 +4409,7 @@ namespace BFDR
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='68500-8')", "")]
         public string DateOfLastOtherPregnancyOutcome
         {
-            get
-            {
-                Observation obs = GetObservation("68500-8");
-                if (obs != null)
-                {
-                    return (obs.Value as Hl7.Fhir.Model.FhirDateTime)?.Value;
-                }
-                return null;
-            }
+            get => (GetObservation("68500-8")?.Value as Hl7.Fhir.Model.FhirDateTime)?.Value;
             set
             {
                 Observation obs = GetOrCreateObservation("68500-8", CodeSystems.LOINC, BFDR.ProfileURL.ObservationDateOfLastOtherPregnancyOutcome, DATE_OF_LAST_OTHER_PREGNANCY_OUTCOME, Mother.Id);
