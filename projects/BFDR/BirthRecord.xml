@@ -62,12 +62,6 @@
         <member name="F:BFDR.BirthRecord.Certifier">
             <summary>The Certifier.</summary>
         </member>
-        <member name="F:BFDR.BirthRecord.InputRaceAndEthnicityObsMother">
-            <summary>The Mother's Race and Ethnicity provided by Jurisdiction.</summary>
-        </member>
-        <member name="F:BFDR.BirthRecord.InputRaceAndEthnicityObsFather">
-            <summary>The Father's Race and Ethnicity provided by Jurisdiction.</summary>
-        </member>
         <member name="F:BFDR.BirthRecord.EncounterBirth">
             <summary>The encounter of the birth.</summary>
         </member>
@@ -91,12 +85,6 @@
             the mother or newborn, then extract the corresponding resource id.</summary>
             <param name="propertyName">name of the BirthRecord property</param>
             <returns>the subject's resource id</returns>
-        </member>
-        <member name="M:BFDR.BirthRecord.CreateInputRaceEthnicityObsMother">
-            <summary> Create Mother Input Race and Ethnicity </summary>
-        </member>
-        <member name="M:BFDR.BirthRecord.CreateInputRaceEthnicityObsFather">
-            <summary> Create Father Input Race and Ethnicity </summary>
         </member>
         <member name="M:BFDR.BirthRecord.CreateAttendant">
             <summary>Create Attendant/Practitioner.</summary>

@@ -89,7 +89,7 @@
         "id": "patient-child-babyg-quinn",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/vrsandbox/StructureDefinition/Patient-child-vr"
+            "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Patient-child-vr"
           ]
         },
         "text": {
