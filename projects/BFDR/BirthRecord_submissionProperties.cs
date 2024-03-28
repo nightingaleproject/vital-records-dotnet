@@ -3215,17 +3215,16 @@ namespace BFDR
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='inputraceandethnicityMother')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public Dictionary<string, string> MotherEthnicity1
         {
             get
             {
-                if (InputRaceAndEthnicityObsMother != null)
+                Observation obs = GetOrCreateObservation("inputraceandethnicityMother", CodeSystems.InputRaceAndEthnicityPerson, "Input Race and Ethnicity Person", VR.ProfileURL.InputRaceAndEthnicity, RACE_ETHNICITY_PROFILE_MOTHER);
+                Observation.ComponentComponent ethnicity = obs.Component.FirstOrDefault(c => c.Code.Coding[0].Code == NvssEthnicity.Mexican);
+                if (ethnicity != null && ethnicity.Value != null && ethnicity.Value as CodeableConcept != null)
                 {
-                    Observation.ComponentComponent ethnicity = InputRaceAndEthnicityObsMother.Component.FirstOrDefault(c => c.Code.Coding[0].Code == NvssEthnicity.Mexican);
-                    if (ethnicity != null && ethnicity.Value != null && ethnicity.Value as CodeableConcept != null)
-                    {
-                        return CodeableConceptToDict((CodeableConcept)ethnicity.Value);
-                    }
+                    return CodeableConceptToDict((CodeableConcept)ethnicity.Value);
                 }
                 return EmptyCodeableDict();
             }
@@ -3234,15 +3233,13 @@ namespace BFDR
                 if (value["code"] == "") {
                     return;
                 }
-                if (InputRaceAndEthnicityObsMother == null)
-                {
-                    CreateInputRaceEthnicityObsMother();
-                }
-                InputRaceAndEthnicityObsMother.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.Mexican);
+                Observation obs = GetOrCreateObservation("inputraceandethnicityMother", CodeSystems.InputRaceAndEthnicityPerson, "Input Race and Ethnicity Person", VR.ProfileURL.InputRaceAndEthnicity, RACE_ETHNICITY_PROFILE_MOTHER);
+                obs.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.Mexican);
                 Observation.ComponentComponent component = new Observation.ComponentComponent();
                 component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, NvssEthnicity.Mexican, NvssEthnicity.MexicanDisplay, null);
                 component.Value = DictToCodeableConcept(value);
-                InputRaceAndEthnicityObsMother.Component.Add(component);
+                obs.Component.Add(component);
+                obs.Subject = new ResourceReference("urn:uuid:" + Child.Id);
             }
         }
 
@@ -3297,17 +3294,16 @@ namespace BFDR
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='inputraceandethnicityMother')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public Dictionary<string, string> MotherEthnicity2
         {
             get
             {
-                if (InputRaceAndEthnicityObsMother != null)
+                Observation obs = GetOrCreateObservation("inputraceandethnicityMother", CodeSystems.InputRaceAndEthnicityPerson, "Input Race and Ethnicity Person", VR.ProfileURL.InputRaceAndEthnicity, RACE_ETHNICITY_PROFILE_MOTHER);
+                Observation.ComponentComponent ethnicity = obs.Component.FirstOrDefault(c => c.Code.Coding[0].Code == NvssEthnicity.PuertoRican);
+                if (ethnicity != null && ethnicity.Value != null && ethnicity.Value as CodeableConcept != null)
                 {
-                    Observation.ComponentComponent ethnicity = InputRaceAndEthnicityObsMother.Component.FirstOrDefault(c => c.Code.Coding[0].Code == NvssEthnicity.PuertoRican);
-                    if (ethnicity != null && ethnicity.Value != null && ethnicity.Value as CodeableConcept != null)
-                    {
-                        return CodeableConceptToDict((CodeableConcept)ethnicity.Value);
-                    }
+                    return CodeableConceptToDict((CodeableConcept)ethnicity.Value);
                 }
                 return EmptyCodeableDict();
             }
@@ -3316,15 +3312,13 @@ namespace BFDR
                 if (value["code"] == "") {
                     return;
                 }
-                if (InputRaceAndEthnicityObsMother == null)
-                {
-                    CreateInputRaceEthnicityObsMother();
-                }
-                InputRaceAndEthnicityObsMother.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.PuertoRican);
+                Observation obs = GetOrCreateObservation("inputraceandethnicityMother", CodeSystems.InputRaceAndEthnicityPerson, "Input Race and Ethnicity Person", VR.ProfileURL.InputRaceAndEthnicity, RACE_ETHNICITY_PROFILE_MOTHER);
+                obs.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.PuertoRican);
                 Observation.ComponentComponent component = new Observation.ComponentComponent();
                 component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, NvssEthnicity.PuertoRican, NvssEthnicity.PuertoRicanDisplay, null);
                 component.Value = DictToCodeableConcept(value);
-                InputRaceAndEthnicityObsMother.Component.Add(component);
+                obs.Component.Add(component);
+                obs.Subject = new ResourceReference("urn:uuid:" + Child.Id);
             }
         }
 
@@ -3379,17 +3373,16 @@ namespace BFDR
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='inputraceandethnicityMother')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public Dictionary<string, string> MotherEthnicity3
         {
             get
             {
-                if (InputRaceAndEthnicityObsMother != null)
+                Observation obs = GetOrCreateObservation("inputraceandethnicityMother", CodeSystems.InputRaceAndEthnicityPerson, "Input Race and Ethnicity Person", VR.ProfileURL.InputRaceAndEthnicity, RACE_ETHNICITY_PROFILE_MOTHER);
+                Observation.ComponentComponent ethnicity = obs.Component.FirstOrDefault(c => c.Code.Coding[0].Code == NvssEthnicity.Cuban);
+                if (ethnicity != null && ethnicity.Value != null && ethnicity.Value as CodeableConcept != null)
                 {
-                    Observation.ComponentComponent ethnicity = InputRaceAndEthnicityObsMother.Component.FirstOrDefault(c => c.Code.Coding[0].Code == NvssEthnicity.Cuban);
-                    if (ethnicity != null && ethnicity.Value != null && ethnicity.Value as CodeableConcept != null)
-                    {
-                        return CodeableConceptToDict((CodeableConcept)ethnicity.Value);
-                    }
+                    return CodeableConceptToDict((CodeableConcept)ethnicity.Value);
                 }
                 return EmptyCodeableDict();
             }
@@ -3398,15 +3391,13 @@ namespace BFDR
                 if (value["code"] == "") {
                     return;
                 }
-                if (InputRaceAndEthnicityObsMother == null)
-                {
-                    CreateInputRaceEthnicityObsMother();
-                }
-                InputRaceAndEthnicityObsMother.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.Cuban);
+                Observation obs = GetOrCreateObservation("inputraceandethnicityMother", CodeSystems.InputRaceAndEthnicityPerson, "Input Race and Ethnicity Person", VR.ProfileURL.InputRaceAndEthnicity, RACE_ETHNICITY_PROFILE_MOTHER);
+                obs.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.Cuban);
                 Observation.ComponentComponent component = new Observation.ComponentComponent();
                 component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, NvssEthnicity.Cuban, NvssEthnicity.CubanDisplay, null);
                 component.Value = DictToCodeableConcept(value);
-                InputRaceAndEthnicityObsMother.Component.Add(component);
+                obs.Component.Add(component);
+                obs.Subject = new ResourceReference("urn:uuid:" + Child.Id);
             }
         }
 
@@ -3462,17 +3453,16 @@ namespace BFDR
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='inputraceandethnicityMother')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public Dictionary<string, string> MotherEthnicity4
         {
             get
             {
-                if (InputRaceAndEthnicityObsMother != null)
+                Observation obs = GetOrCreateObservation("inputraceandethnicityMother", CodeSystems.InputRaceAndEthnicityPerson, "Input Race and Ethnicity Person", VR.ProfileURL.InputRaceAndEthnicity, RACE_ETHNICITY_PROFILE_MOTHER);
+                Observation.ComponentComponent ethnicity = obs.Component.FirstOrDefault(c => c.Code.Coding[0].Code == NvssEthnicity.Other);
+                if (ethnicity != null && ethnicity.Value != null && ethnicity.Value as CodeableConcept != null)
                 {
-                    Observation.ComponentComponent ethnicity = InputRaceAndEthnicityObsMother.Component.FirstOrDefault(c => c.Code.Coding[0].Code == NvssEthnicity.Other);
-                    if (ethnicity != null && ethnicity.Value != null && ethnicity.Value as CodeableConcept != null)
-                    {
-                        return CodeableConceptToDict((CodeableConcept)ethnicity.Value);
-                    }
+                    return CodeableConceptToDict((CodeableConcept)ethnicity.Value);
                 }
                 return EmptyCodeableDict();
             }
@@ -3481,15 +3471,12 @@ namespace BFDR
                 if (value["code"] == "") {
                     return;
                 }
-                if (InputRaceAndEthnicityObsMother == null)
-                {
-                    CreateInputRaceEthnicityObsMother();
-                }
-                InputRaceAndEthnicityObsMother.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.Other);
+                Observation obs = GetOrCreateObservation("inputraceandethnicityMother", CodeSystems.InputRaceAndEthnicityPerson, "Input Race and Ethnicity Person", VR.ProfileURL.InputRaceAndEthnicity, RACE_ETHNICITY_PROFILE_MOTHER);
+                obs.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.Other);
                 Observation.ComponentComponent component = new Observation.ComponentComponent();
                 component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, NvssEthnicity.Other, NvssEthnicity.OtherDisplay, null);
                 component.Value = DictToCodeableConcept(value);
-                InputRaceAndEthnicityObsMother.Component.Add(component);
+                obs.Component.Add(component);
             }
         }
 
@@ -3538,17 +3525,16 @@ namespace BFDR
         [Property("MotherEthnicityLiteral", Property.Types.String, "Race and Ethnicity Profiles", "Mother's Ethnicity Literal.", true, VR.IGURL.InputRaceAndEthnicity, false, 34)]
         [PropertyParam("ethnicity", "The literal string to describe ethnicity.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='inputraceandethnicityMother')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public string MotherEthnicityLiteral
         {
             get
             {
-                if (InputRaceAndEthnicityObsMother != null)
+                Observation obs = GetOrCreateObservation("inputraceandethnicityMother", CodeSystems.InputRaceAndEthnicityPerson, "Input Race and Ethnicity Person", VR.ProfileURL.InputRaceAndEthnicity, RACE_ETHNICITY_PROFILE_MOTHER);
+                Observation.ComponentComponent ethnicity = obs.Component.FirstOrDefault(c => c.Code.Coding[0].Code == NvssEthnicity.Literal);
+                if (ethnicity != null && ethnicity.Value != null && ethnicity.Value as FhirString != null)
                 {
-                    Observation.ComponentComponent ethnicity = InputRaceAndEthnicityObsMother.Component.FirstOrDefault(c => c.Code.Coding[0].Code == NvssEthnicity.Literal);
-                    if (ethnicity != null && ethnicity.Value != null && ethnicity.Value as FhirString != null)
-                    {
-                        return ethnicity.Value.ToString();
-                    }
+                    return ethnicity.Value.ToString();
                 }
                 return null;
             }
@@ -3558,15 +3544,12 @@ namespace BFDR
                 {
                     return;
                 }
-                if (InputRaceAndEthnicityObsMother == null)
-                {
-                    CreateInputRaceEthnicityObsMother();
-                }
-                InputRaceAndEthnicityObsMother.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.Literal);
+                Observation obs = GetOrCreateObservation("inputraceandethnicityMother", CodeSystems.InputRaceAndEthnicityPerson, "Input Race and Ethnicity Person", VR.ProfileURL.InputRaceAndEthnicity, RACE_ETHNICITY_PROFILE_MOTHER);
+                obs.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.Literal);
                 Observation.ComponentComponent component = new Observation.ComponentComponent();
                 component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, NvssEthnicity.Literal, NvssEthnicity.LiteralDisplay, null);
                 component.Value = new FhirString(value);
-                InputRaceAndEthnicityObsMother.Component.Add(component);
+                obs.Component.Add(component);
             }
         }
 
@@ -3581,6 +3564,7 @@ namespace BFDR
         /// </example>
         [Property("MotherRace", Property.Types.TupleArr, "Race and Ethnicity Profiles", "Mother's Race", true, VR.IGURL.InputRaceAndEthnicity, true, 38)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='inputraceandethnicityMother')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public Tuple<string, string>[] MotherRace
         {
             get
@@ -3591,13 +3575,15 @@ namespace BFDR
 
                 var races = new List<Tuple<string, string>>() { };
 
-                if (InputRaceAndEthnicityObsMother == null)
+                Observation obs = GetOrCreateObservation("inputraceandethnicityMother", CodeSystems.InputRaceAndEthnicityPerson, "Input Race and Ethnicity Person", VR.ProfileURL.InputRaceAndEthnicity, RACE_ETHNICITY_PROFILE_MOTHER);
+
+                if (!obs.Component.Any())
                 {
                     return races.ToArray();
                 }
                 foreach (string raceCode in raceCodes)
                 {
-                    Observation.ComponentComponent component = InputRaceAndEthnicityObsMother.Component.Where(c => c.Code.Coding[0].Code == raceCode).FirstOrDefault();
+                    Observation.ComponentComponent component = obs.Component.Where(c => c.Code.Coding[0].Code == raceCode).FirstOrDefault();
                     if (component != null)
                     {
                         // convert boolean race codes to strings
@@ -3644,15 +3630,12 @@ namespace BFDR
                 if (value.FirstOrDefault() == null) {
                     return;
                 }
-                if (InputRaceAndEthnicityObsMother == null)
-                {
-                    CreateInputRaceEthnicityObsMother();
-                }
+                Observation obs = GetOrCreateObservation("inputraceandethnicityMother", CodeSystems.InputRaceAndEthnicityPerson, "Input Race and Ethnicity Person", VR.ProfileURL.InputRaceAndEthnicity, RACE_ETHNICITY_PROFILE_MOTHER);
                 var booleanRaceCodes = NvssRace.GetBooleanRaceCodes();
                 var literalRaceCodes = NvssRace.GetLiteralRaceCodes();
                 foreach (Tuple<string, string> element in value)
                 {
-                    InputRaceAndEthnicityObsMother.Component.RemoveAll(c => c.Code.Coding[0].Code == element.Item1);
+                    obs.Component.RemoveAll(c => c.Code.Coding[0].Code == element.Item1);
                     Observation.ComponentComponent component = new Observation.ComponentComponent();
                     String displayValue = NvssRace.GetDisplayValueForCode(element.Item1);
                     component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, element.Item1, displayValue, null);
@@ -3675,7 +3658,7 @@ namespace BFDR
                     {
                         throw new ArgumentException("Invalid race literal code found: " + element.Item1 + " with value: " + element.Item2);
                     }
-                    InputRaceAndEthnicityObsMother.Component.Add(component);
+                    obs.Component.Add(component);
                 }
 
             }
@@ -3702,17 +3685,16 @@ namespace BFDR
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='inputraceandethnicityFather')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public Dictionary<string, string> FatherEthnicity1
         {
             get
             {
-                if (InputRaceAndEthnicityObsFather != null)
+                Observation obs = GetOrCreateObservation("inputraceandethnicityFather", CodeSystems.InputRaceAndEthnicityPerson, "Input Race and Ethnicity Person", VR.ProfileURL.InputRaceAndEthnicity, RACE_ETHNICITY_PROFILE_FATHER);
+                Observation.ComponentComponent ethnicity = obs.Component.FirstOrDefault(c => c.Code.Coding[0].Code == NvssEthnicity.Mexican);
+                if (ethnicity != null && ethnicity.Value != null && ethnicity.Value as CodeableConcept != null)
                 {
-                    Observation.ComponentComponent ethnicity = InputRaceAndEthnicityObsFather.Component.FirstOrDefault(c => c.Code.Coding[0].Code == NvssEthnicity.Mexican);
-                    if (ethnicity != null && ethnicity.Value != null && ethnicity.Value as CodeableConcept != null)
-                    {
-                        return CodeableConceptToDict((CodeableConcept)ethnicity.Value);
-                    }
+                    return CodeableConceptToDict((CodeableConcept)ethnicity.Value);
                 }
                 return EmptyCodeableDict();
             }
@@ -3721,15 +3703,13 @@ namespace BFDR
                 if (value["code"] == "") {
                     return;
                 }
-                if (InputRaceAndEthnicityObsFather == null)
-                {
-                    CreateInputRaceEthnicityObsFather();
-                }
-                InputRaceAndEthnicityObsFather.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.Mexican);
+                Observation obs = GetOrCreateObservation("inputraceandethnicityFather", CodeSystems.InputRaceAndEthnicityPerson, "Input Race and Ethnicity Person", VR.ProfileURL.InputRaceAndEthnicity, RACE_ETHNICITY_PROFILE_FATHER);
+                obs.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.Mexican);
                 Observation.ComponentComponent component = new Observation.ComponentComponent();
                 component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, NvssEthnicity.Mexican, NvssEthnicity.MexicanDisplay, null);
                 component.Value = DictToCodeableConcept(value);
-                InputRaceAndEthnicityObsFather.Component.Add(component);
+                obs.Component.Add(component);
+                obs.Subject = new ResourceReference("urn:uuid:" + Child.Id);
             }
         }
 
@@ -3784,17 +3764,16 @@ namespace BFDR
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='inputraceandethnicityFather')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public Dictionary<string, string> FatherEthnicity2
         {
             get
             {
-                if (InputRaceAndEthnicityObsFather != null)
+                Observation obs = GetOrCreateObservation("inputraceandethnicityFather", CodeSystems.InputRaceAndEthnicityPerson, "Input Race and Ethnicity Person", VR.ProfileURL.InputRaceAndEthnicity, RACE_ETHNICITY_PROFILE_FATHER);
+                Observation.ComponentComponent ethnicity = obs.Component.FirstOrDefault(c => c.Code.Coding[0].Code == NvssEthnicity.PuertoRican);
+                if (ethnicity != null && ethnicity.Value != null && ethnicity.Value as CodeableConcept != null)
                 {
-                    Observation.ComponentComponent ethnicity = InputRaceAndEthnicityObsFather.Component.FirstOrDefault(c => c.Code.Coding[0].Code == NvssEthnicity.PuertoRican);
-                    if (ethnicity != null && ethnicity.Value != null && ethnicity.Value as CodeableConcept != null)
-                    {
-                        return CodeableConceptToDict((CodeableConcept)ethnicity.Value);
-                    }
+                    return CodeableConceptToDict((CodeableConcept)ethnicity.Value);
                 }
                 return EmptyCodeableDict();
             }
@@ -3803,15 +3782,13 @@ namespace BFDR
                 if (value["code"] == "") {
                     return;
                 }
-                if (InputRaceAndEthnicityObsFather == null)
-                {
-                    CreateInputRaceEthnicityObsFather();
-                }
-                InputRaceAndEthnicityObsFather.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.PuertoRican);
+                Observation obs = GetOrCreateObservation("inputraceandethnicityFather", CodeSystems.InputRaceAndEthnicityPerson, "Input Race and Ethnicity Person", VR.ProfileURL.InputRaceAndEthnicity, RACE_ETHNICITY_PROFILE_FATHER);
+                obs.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.PuertoRican);
                 Observation.ComponentComponent component = new Observation.ComponentComponent();
                 component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, NvssEthnicity.PuertoRican, NvssEthnicity.PuertoRicanDisplay, null);
                 component.Value = DictToCodeableConcept(value);
-                InputRaceAndEthnicityObsFather.Component.Add(component);
+                obs.Component.Add(component);
+                obs.Subject = new ResourceReference("urn:uuid:" + Child.Id);
             }
         }
 
@@ -3866,17 +3843,16 @@ namespace BFDR
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='inputraceandethnicityFather')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public Dictionary<string, string> FatherEthnicity3
         {
             get
             {
-                if (InputRaceAndEthnicityObsFather != null)
+                Observation obs = GetOrCreateObservation("inputraceandethnicityFather", CodeSystems.InputRaceAndEthnicityPerson, "Input Race and Ethnicity Person", VR.ProfileURL.InputRaceAndEthnicity, RACE_ETHNICITY_PROFILE_FATHER);
+                Observation.ComponentComponent ethnicity = obs.Component.FirstOrDefault(c => c.Code.Coding[0].Code == NvssEthnicity.Cuban);
+                if (ethnicity != null && ethnicity.Value != null && ethnicity.Value as CodeableConcept != null)
                 {
-                    Observation.ComponentComponent ethnicity = InputRaceAndEthnicityObsFather.Component.FirstOrDefault(c => c.Code.Coding[0].Code == NvssEthnicity.Cuban);
-                    if (ethnicity != null && ethnicity.Value != null && ethnicity.Value as CodeableConcept != null)
-                    {
-                        return CodeableConceptToDict((CodeableConcept)ethnicity.Value);
-                    }
+                    return CodeableConceptToDict((CodeableConcept)ethnicity.Value);
                 }
                 return EmptyCodeableDict();
             }
@@ -3885,15 +3861,13 @@ namespace BFDR
                 if (value["code"] == "") {
                     return;
                 }
-                if (InputRaceAndEthnicityObsFather == null)
-                {
-                    CreateInputRaceEthnicityObsFather();
-                }
-                InputRaceAndEthnicityObsFather.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.Cuban);
+                Observation obs = GetOrCreateObservation("inputraceandethnicityFather", CodeSystems.InputRaceAndEthnicityPerson, "Input Race and Ethnicity Person", VR.ProfileURL.InputRaceAndEthnicity, RACE_ETHNICITY_PROFILE_FATHER);
+                obs.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.Cuban);
                 Observation.ComponentComponent component = new Observation.ComponentComponent();
                 component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, NvssEthnicity.Cuban, NvssEthnicity.CubanDisplay, null);
                 component.Value = DictToCodeableConcept(value);
-                InputRaceAndEthnicityObsFather.Component.Add(component);
+                obs.Component.Add(component);
+                obs.Subject = new ResourceReference("urn:uuid:" + Child.Id);
             }
         }
 
@@ -3949,17 +3923,16 @@ namespace BFDR
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='inputraceandethnicityFather')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public Dictionary<string, string> FatherEthnicity4
         {
             get
             {
-                if (InputRaceAndEthnicityObsFather != null)
+                Observation obs = GetOrCreateObservation("inputraceandethnicityFather", CodeSystems.InputRaceAndEthnicityPerson, "Input Race and Ethnicity Person", VR.ProfileURL.InputRaceAndEthnicity, RACE_ETHNICITY_PROFILE_FATHER);
+                Observation.ComponentComponent ethnicity = obs.Component.FirstOrDefault(c => c.Code.Coding[0].Code == NvssEthnicity.Other);
+                if (ethnicity != null && ethnicity.Value != null && ethnicity.Value as CodeableConcept != null)
                 {
-                    Observation.ComponentComponent ethnicity = InputRaceAndEthnicityObsFather.Component.FirstOrDefault(c => c.Code.Coding[0].Code == NvssEthnicity.Other);
-                    if (ethnicity != null && ethnicity.Value != null && ethnicity.Value as CodeableConcept != null)
-                    {
-                        return CodeableConceptToDict((CodeableConcept)ethnicity.Value);
-                    }
+                    return CodeableConceptToDict((CodeableConcept)ethnicity.Value);
                 }
                 return EmptyCodeableDict();
             }
@@ -3968,15 +3941,13 @@ namespace BFDR
                 if (value["code"] == "") {
                     return;
                 }
-                if (InputRaceAndEthnicityObsFather == null)
-                {
-                    CreateInputRaceEthnicityObsFather();
-                }
-                InputRaceAndEthnicityObsFather.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.Other);
+                Observation obs = GetOrCreateObservation("inputraceandethnicityFather", CodeSystems.InputRaceAndEthnicityPerson, "Input Race and Ethnicity Person", VR.ProfileURL.InputRaceAndEthnicity, RACE_ETHNICITY_PROFILE_FATHER);
+                obs.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.Other);
                 Observation.ComponentComponent component = new Observation.ComponentComponent();
                 component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, NvssEthnicity.Other, NvssEthnicity.OtherDisplay, null);
                 component.Value = DictToCodeableConcept(value);
-                InputRaceAndEthnicityObsFather.Component.Add(component);
+                obs.Component.Add(component);
+                obs.Subject = new ResourceReference("urn:uuid:" + Child.Id);
             }
         }
 
@@ -4025,17 +3996,16 @@ namespace BFDR
         [Property("FatherEthnicityLiteral", Property.Types.String, "Race and Ethnicity Profiles", "Father's Ethnicity Literal.", true, VR.IGURL.InputRaceAndEthnicity, false, 34)]
         [PropertyParam("ethnicity", "The literal string to describe ethnicity.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='inputraceandethnicityFather')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public string FatherEthnicityLiteral
         {
             get
             {
-                if (InputRaceAndEthnicityObsFather != null)
+                Observation obs = GetOrCreateObservation("inputraceandethnicityFather", CodeSystems.InputRaceAndEthnicityPerson, "Input Race and Ethnicity Person", VR.ProfileURL.InputRaceAndEthnicity, RACE_ETHNICITY_PROFILE_FATHER);
+                Observation.ComponentComponent ethnicity = obs.Component.FirstOrDefault(c => c.Code.Coding[0].Code == NvssEthnicity.Literal);
+                if (ethnicity != null && ethnicity.Value != null && ethnicity.Value as FhirString != null)
                 {
-                    Observation.ComponentComponent ethnicity = InputRaceAndEthnicityObsFather.Component.FirstOrDefault(c => c.Code.Coding[0].Code == NvssEthnicity.Literal);
-                    if (ethnicity != null && ethnicity.Value != null && ethnicity.Value as FhirString != null)
-                    {
-                        return ethnicity.Value.ToString();
-                    }
+                    return ethnicity.Value.ToString();
                 }
                 return null;
             }
@@ -4045,15 +4015,13 @@ namespace BFDR
                 {
                     return;
                 }
-                if (InputRaceAndEthnicityObsFather == null)
-                {
-                    CreateInputRaceEthnicityObsFather();
-                }
-                InputRaceAndEthnicityObsFather.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.Literal);
+                Observation obs = GetOrCreateObservation("inputraceandethnicityFather", CodeSystems.InputRaceAndEthnicityPerson, "Input Race and Ethnicity Person", VR.ProfileURL.InputRaceAndEthnicity, RACE_ETHNICITY_PROFILE_FATHER);
+                obs.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.Literal);
                 Observation.ComponentComponent component = new Observation.ComponentComponent();
                 component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, NvssEthnicity.Literal, NvssEthnicity.LiteralDisplay, null);
                 component.Value = new FhirString(value);
-                InputRaceAndEthnicityObsFather.Component.Add(component);
+                obs.Component.Add(component);
+                obs.Subject = new ResourceReference("urn:uuid:" + Child.Id);
             }
         }
 
@@ -4068,6 +4036,7 @@ namespace BFDR
         /// </example>
         [Property("FatherRace", Property.Types.TupleArr, "Race and Ethnicity Profiles", "Father's Race", true, VR.IGURL.InputRaceAndEthnicity, true, 38)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='inputraceandethnicityFather')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public Tuple<string, string>[] FatherRace
         {
             get
@@ -4078,13 +4047,15 @@ namespace BFDR
 
                 var races = new List<Tuple<string, string>>() { };
 
-                if (InputRaceAndEthnicityObsFather == null)
+                Observation obs = GetOrCreateObservation("inputraceandethnicityFather", CodeSystems.InputRaceAndEthnicityPerson, "Input Race and Ethnicity Person", VR.ProfileURL.InputRaceAndEthnicity, RACE_ETHNICITY_PROFILE_FATHER);
+
+                if (!obs.Component.Any())
                 {
                     return races.ToArray();
                 }
                 foreach (string raceCode in raceCodes)
                 {
-                    Observation.ComponentComponent component = InputRaceAndEthnicityObsFather.Component.Where(c => c.Code.Coding[0].Code == raceCode).FirstOrDefault();
+                    Observation.ComponentComponent component = obs.Component.Where(c => c.Code.Coding[0].Code == raceCode).FirstOrDefault();
                     if (component != null)
                     {
                         // convert boolean race codes to strings
@@ -4131,15 +4102,12 @@ namespace BFDR
                 if (value.FirstOrDefault() == null) {
                     return;
                 }
-                if (InputRaceAndEthnicityObsFather == null)
-                {
-                    CreateInputRaceEthnicityObsFather();
-                }
+                Observation obs = GetOrCreateObservation("inputraceandethnicityFather", CodeSystems.InputRaceAndEthnicityPerson, "Input Race and Ethnicity Person", VR.ProfileURL.InputRaceAndEthnicity, RACE_ETHNICITY_PROFILE_FATHER);
                 var booleanRaceCodes = NvssRace.GetBooleanRaceCodes();
                 var literalRaceCodes = NvssRace.GetLiteralRaceCodes();
                 foreach (Tuple<string, string> element in value)
                 {
-                    InputRaceAndEthnicityObsFather.Component.RemoveAll(c => c.Code.Coding[0].Code == element.Item1);
+                    obs.Component.RemoveAll(c => c.Code.Coding[0].Code == element.Item1);
                     Observation.ComponentComponent component = new Observation.ComponentComponent();
                     String displayValue = NvssRace.GetDisplayValueForCode(element.Item1);
                     component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, element.Item1, displayValue, null);
@@ -4162,7 +4130,7 @@ namespace BFDR
                     {
                         throw new ArgumentException("Invalid race literal code found: " + element.Item1 + " with value: " + element.Item2);
                     }
-                    InputRaceAndEthnicityObsFather.Component.Add(component);
+                    obs.Component.Add(component);
                 }
             }
         }
