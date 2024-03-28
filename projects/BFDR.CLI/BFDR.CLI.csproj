@@ -5,7 +5,7 @@
     <TargetFrameworks>netcoreapp6.0</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BFDR\BirthRecord.csproj" />
+    <ProjectReference Include="..\BFDR\BFDR.csproj" />
     <ProjectReference Include="..\BFDR.Messaging\BFDRMessaging.csproj" />
     <ProjectReference Include="..\VitalRecord\VitalRecord.csproj" />
   </ItemGroup>

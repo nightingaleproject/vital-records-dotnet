@@ -8,22 +8,22 @@ using Hl7.Fhir.Support;
 using static Hl7.Fhir.Model.Encounter;
 using Hl7.Fhir.Utility;
 
-// BirthRecord_submissionProperties.cs
+// NatalityRecord_submissionProperties.cs
 // These fields are used primarily for submitting birth records to NCHS.
 
 namespace BFDR
 {
-    /// <summary>Class <c>BirthRecord</c> models a FHIR Birth and Fetal Death Reporting (BFDR) Birth
-    /// Record. This class was designed to help consume and produce birth records that follow the
-    /// HL7 FHIR Birth and Fetal Death Reporting Implementation Guide, as described at:
-    /// TODO add link to BFDR IG
+    /// <summary>Class <c>NatalityRecord</c> is an abstract base class models FHIR Vital Records
+    /// Birth Reporting (BFDR) Birth and Fetal Death Records. This class was designed to help consume
+    /// and produce natality records that follow the HL7 FHIR Vital Records Birth Reporting Implementation
+    /// Guide, as described at: http://hl7.org/fhir/us/bfdr and https://github.com/hl7/bfdr.
     /// TODO BFDR STU2 has broken up its birth record bundles, the birth bundle has birthCertificateNumber + required birth compositions,
     /// the fetal death bundle has fetalDeathReportNumber + required fetal death compositions,
     /// the demographic bundle has a fileNumber + requiredCompositionCodedRaceAndEthnicity,
     /// and the cause of death bundle has a fetalDeathReportNumber + required CompositionCodedCauseOfFetalDeath
     /// TODO BFDR STU2 supports usual work and role extension
     /// </summary>
-    public partial class BirthRecord
+    public partial class NatalityRecord
     {
         /////////////////////////////////////////////////////////////////////////////////
         //
@@ -62,35 +62,9 @@ namespace BFDR
                 {
                     Extension ext = new Extension(VR.ProfileURL.CertificateNumber, new FhirString(value));
                     Bundle.Identifier.Extension.Add(ext);
-                    UpdateBirthRecordIdentifier();
+                    UpdateRecordIdentifier();
                 }
             }
-        }
-
-        /// <summary>Update the bundle identifier from the component fields.</summary>
-        private void UpdateBirthRecordIdentifier()
-        {
-            uint certificateNumber = 0;
-            if (CertificateNumber != null)
-            {
-                UInt32.TryParse(CertificateNumber, out certificateNumber);
-            }
-            uint birthYear = 0;
-            if (this.BirthYear != null)
-            {
-                birthYear = (uint)this.BirthYear;
-            }
-            String jurisdictionId = this.BirthLocationJurisdiction;
-            if (jurisdictionId == null || jurisdictionId.Trim().Length < 2)
-            {
-                jurisdictionId = "XX";
-            }
-            else
-            {
-                jurisdictionId = jurisdictionId.Trim().Substring(0, 2).ToUpper();
-            }
-            this.BirthRecordIdentifier = $"{birthYear:D4}{jurisdictionId}{certificateNumber:D6}";
-
         }
 
         /// <summary>Birth Record Bundle Identifier, NCHS identifier.</summary>
@@ -101,7 +75,7 @@ namespace BFDR
         /// </example>
         [Property("Birth Record Identifier", Property.Types.String, "Birth Certification", "Birth Record identifier.", true, VR.IGURL.CertificateNumber, false, 4)]
         [FHIRPath("Bundle", "identifier")]
-        public string BirthRecordIdentifier
+        public string RecordIdentifier
         {
             get
             {
@@ -111,8 +85,8 @@ namespace BFDR
                 }
                 return null;
             }
-            // The setter is private because the value is derived so should never be set directly
-            private set
+            // The setter is protected because the value is derived so should never be set directly
+            protected set
             {
                 if (String.IsNullOrWhiteSpace(value))
                 {
