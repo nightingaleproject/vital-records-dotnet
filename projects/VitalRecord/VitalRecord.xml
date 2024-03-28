@@ -5817,7 +5817,7 @@
             <summary>Constructor.</summary>
         </member>
         <member name="T:VR.Property">
-            <summary>Property attribute used to describe a BirthRecord property.</summary>
+            <summary>Property attribute used to describe a VitalRecord property.</summary>
         </member>
         <member name="T:VR.Property.Types">
             <summary>Enum for describing the property type.</summary>

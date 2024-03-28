@@ -2077,7 +2077,7 @@ namespace VR
         }
     }
 
-    /// <summary>Property attribute used to describe a BirthRecord property.</summary>
+    /// <summary>Property attribute used to describe a VitalRecord property.</summary>
     [System.AttributeUsage(System.AttributeTargets.Property)]
     public class Property : System.Attribute
     {

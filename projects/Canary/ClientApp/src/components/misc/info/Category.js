@@ -27,6 +27,7 @@ export class Category extends Component {
           <Header size="huge">{this.props.name}</Header>
         </Divider>
         {Object.keys(this.props.category).map(name => {
+          this.props.category[name].RenderEmpty = true;
           return (
             <Property
               key={name}
