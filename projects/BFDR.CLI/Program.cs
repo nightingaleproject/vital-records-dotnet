@@ -156,16 +156,16 @@ namespace BFDR.CLI
             else if (args.Length == 2 && args[0] == "2ije")
             {
                 BirthRecord b = new BirthRecord(File.ReadAllText(args[1]));
-                IJENatality ije1 = new IJENatality(b, false);
+                IJEBirth ije1 = new IJEBirth(b, false);
                 Console.WriteLine(ije1.ToString());
                 return 0;
             }
             else if (args.Length == 2 && args[0] == "2ijecontent")
             { // dumps content of a birth record in key/value IJE format
                 BirthRecord b = new BirthRecord(File.ReadAllText(args[1]));
-                IJENatality ije1 = new IJENatality(b, false);
+                IJEBirth ije1 = new IJEBirth(b, false);
                 // Loop over every property (these are the fields); Order by priority
-                List<PropertyInfo> properties = typeof(IJENatality).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Location).ToList();
+                List<PropertyInfo> properties = typeof(IJEBirth).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Location).ToList();
                 foreach (PropertyInfo property in properties)
                 {
                     // Grab the field attributes
@@ -179,7 +179,7 @@ namespace BFDR.CLI
             }
             else if (args.Length == 2 && args[0] == "ije2json")
             {
-                IJENatality ije1 = new IJENatality(File.ReadAllText(args[1]));
+                IJEBirth ije1 = new IJEBirth(File.ReadAllText(args[1]));
                 BirthRecord b = ije1.ToRecord();
                 Console.WriteLine(b.ToJSON());
                 return 0;
@@ -191,7 +191,7 @@ namespace BFDR.CLI
               {
                   string ijeFile = args[i];
                   string ijeRawRecord = File.ReadAllText(ijeFile);
-                  IJENatality ije = new IJENatality(ijeRawRecord);
+                  IJEBirth ije = new IJEBirth(ijeRawRecord);
                   BirthRecord b = ije.ToRecord();
                   string outputFilename = ijeFile.Replace(".ije", ".json");
                   StreamWriter sw = new StreamWriter(outputFilename);
@@ -202,7 +202,7 @@ namespace BFDR.CLI
             }
             else if (args.Length == 2 && args[0] == "ije2xml")
             {
-                IJENatality ije1 = new IJENatality(File.ReadAllText(args[1]));
+                IJEBirth ije1 = new IJEBirth(File.ReadAllText(args[1]));
                 BirthRecord b = ije1.ToRecord();
                 Console.WriteLine(XDocument.Parse(b.ToXML()).ToString());
                 return 0;
@@ -214,9 +214,9 @@ namespace BFDR.CLI
                 {
                     case BirthRecordSubmissionMessage submission:
                         var b = submission.BirthRecord;
-                        IJENatality ije1 = new IJENatality(b, false);
+                        IJEBirth ije1 = new IJEBirth(b, false);
                         // Loop over every property (these are the fields); Order by priority
-                        List<PropertyInfo> properties = typeof(IJENatality).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Location).ToList();
+                        List<PropertyInfo> properties = typeof(IJEBirth).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Location).ToList();
                         foreach (PropertyInfo property in properties)
                         {
                             // Grab the field attributes
@@ -343,7 +343,7 @@ namespace BFDR.CLI
             else if (args.Length == 2 && args[0] == "ije")
             {
                 string ijeString = File.ReadAllText(args[1]);
-                List<PropertyInfo> properties = typeof(IJENatality).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Field).ToList();
+                List<PropertyInfo> properties = typeof(IJEBirth).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Field).ToList();
 
                 foreach (PropertyInfo property in properties)
                 {
@@ -354,13 +354,13 @@ namespace BFDR.CLI
             }
             else if (args[0] == "ijebuilder")
             {
-                IJENatality ije = new IJENatality();
+                IJEBirth ije = new IJEBirth();
                 foreach (string arg in args)
                 {
                     string[] keyAndValue = arg.Split('=');
                     if (keyAndValue.Length == 2)
                     {
-                        typeof(IJENatality).GetProperty(keyAndValue[0]).SetValue(ije, keyAndValue[1]);
+                        typeof(IJEBirth).GetProperty(keyAndValue[0]).SetValue(ije, keyAndValue[1]);
                     }
                 }
                 BirthRecord b = ije.ToRecord();
@@ -371,10 +371,10 @@ namespace BFDR.CLI
                 string ijeString1 = File.ReadAllText(args[1]);
 
                 BirthRecord record2 = new BirthRecord(File.ReadAllText(args[2]));
-                IJENatality ije2 = new IJENatality(record2);
+                IJEBirth ije2 = new IJEBirth(record2);
                 string ijeString2 = ije2.ToString();
 
-                List<PropertyInfo> properties = typeof(IJENatality).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Field).ToList();
+                List<PropertyInfo> properties = typeof(IJEBirth).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Field).ToList();
 
                 int differences = 0;
 
@@ -471,12 +471,12 @@ namespace BFDR.CLI
             {
                 // Console.WriteLine("Converting FHIR to IJE...\n");
                 BirthRecord b = new BirthRecord(File.ReadAllText(args[1]));
-                IJENatality ije1, ije2, ije3;
+                IJEBirth ije1, ije2, ije3;
                 try
                 {
-                    ije1 = new IJENatality(b);
-                    ije2 = new IJENatality(ije1.ToString());
-                    ije3 = new IJENatality(new BirthRecord(ije2.ToRecord().ToXML()));
+                    ije1 = new IJEBirth(b);
+                    ije2 = new IJEBirth(ije1.ToString());
+                    ije3 = new IJEBirth(new BirthRecord(ije2.ToRecord().ToXML()));
                 }
                 catch (Exception e)
                 {
@@ -486,7 +486,7 @@ namespace BFDR.CLI
 
                 int issues = 0;
                 int total = 0;
-                foreach (PropertyInfo property in typeof(IJENatality).GetProperties())
+                foreach (PropertyInfo property in typeof(IJEBirth).GetProperties())
                 {
                     string val1 = Convert.ToString(property.GetValue(ije1, null));
                     string val2 = Convert.ToString(property.GetValue(ije2, null));
@@ -586,7 +586,7 @@ namespace BFDR.CLI
             else if (args.Length == 2 && args[0] == "ije")
             {
                 string ijeString = File.ReadAllText(args[1]);
-                List<PropertyInfo> properties = typeof(IJENatality).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Field).ToList();
+                List<PropertyInfo> properties = typeof(IJEBirth).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Field).ToList();
 
                 foreach (PropertyInfo property in properties)
                 {
@@ -597,13 +597,13 @@ namespace BFDR.CLI
             }
             else if (args[0] == "ijebuilder")
             {
-                IJENatality ije = new IJENatality();
+                IJEBirth ije = new IJEBirth();
                 foreach (string arg in args)
                 {
                     string[] keyAndValue = arg.Split('=');
                     if (keyAndValue.Length == 2)
                     {
-                        typeof(IJENatality).GetProperty(keyAndValue[0]).SetValue(ije, keyAndValue[1]);
+                        typeof(IJEBirth).GetProperty(keyAndValue[0]).SetValue(ije, keyAndValue[1]);
                     }
                 }
                 BirthRecord b = ije.ToRecord();
@@ -614,10 +614,10 @@ namespace BFDR.CLI
                 string ijeString1 = File.ReadAllText(args[1]);
 
                 BirthRecord record2 = new BirthRecord(File.ReadAllText(args[2]));
-                IJENatality ije2 = new IJENatality(record2);
+                IJEBirth ije2 = new IJEBirth(record2);
                 string ijeString2 = ije2.ToString();
 
-                List<PropertyInfo> properties = typeof(IJENatality).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Field).ToList();
+                List<PropertyInfo> properties = typeof(IJEBirth).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Field).ToList();
 
                 int differences = 0;
 

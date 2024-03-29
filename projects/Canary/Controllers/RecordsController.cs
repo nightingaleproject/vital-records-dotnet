@@ -165,7 +165,7 @@ namespace canary.Controllers
                         }
                         else
                         {
-                            IJENatality ije = new IJENatality(input);
+                            IJEBirth ije = new IJEBirth(input);
                             BirthRecord br = ije.ToRecord();
                             return (new CanaryBirthRecord(br), new List<Dictionary<string, string>> {} );
                         }

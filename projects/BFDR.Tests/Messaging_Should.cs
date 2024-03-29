@@ -335,7 +335,7 @@ namespace BFDR.Tests
         public void CreateDemographicCodingResponse()
         {
             // This test creates a response using the approach NCHS will use via IJE setters
-            IJENatality ije = new IJENatality();
+            IJEBirth ije = new IJEBirth();
             ije.IDOB_YR = "2022";
             ije.BSTATE = "YC";
             ije.FILENO = "123";
@@ -356,7 +356,7 @@ namespace BFDR.Tests
         public void CreateDemographicCodingUpdate()
         {
             // This test creates a response using the approach NCHS will use via IJE setters
-            IJENatality ije = new IJENatality();
+            IJEBirth ije = new IJEBirth();
             ije.IDOB_YR = "2022";
             ije.BSTATE = "YC";
             ije.FILENO = "123";
