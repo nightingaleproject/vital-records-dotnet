@@ -337,8 +337,8 @@ namespace BFDR.Tests
       Assert.Equal("48858", firstRecord.CertificateNumber);
       Assert.Equal(firstRecord.CertificateNumber, secondRecord.CertificateNumber);
       // Record Birth Record Identifier
-      Assert.Equal("2019UT48858", firstRecord.BirthRecordIdentifier);
-      Assert.Equal(firstRecord.BirthRecordIdentifier, secondRecord.BirthRecordIdentifier);
+      Assert.Equal("2019UT48858", firstRecord.RecordIdentifier);
+      Assert.Equal(firstRecord.RecordIdentifier, secondRecord.RecordIdentifier);
       // Record State Local Identifier 1
       Assert.Equal("000000000042", firstRecord.StateLocalIdentifier1);
       Assert.Equal(firstRecord.StateLocalIdentifier1, secondRecord.StateLocalIdentifier1);
@@ -654,7 +654,7 @@ namespace BFDR.Tests
         ["addressCity"] = "Nashua"
       };
 
-      IJENatality ije = new(record);
+      IJEBirth ije = new(record);
 
       Assert.Equal("UT", record.PlaceOfBirth["addressState"]);
       Assert.Equal("UT", record.BirthLocationJurisdiction); // TODO - Birth Location Jurisdiction still needs to be finalized.
@@ -709,7 +709,7 @@ namespace BFDR.Tests
       // Test conversion via FromDescription.
       BirthRecord secondRecord = VitalRecord.FromDescription<BirthRecord>(firstDescription);
       // Test IJE Conversion.
-      IJENatality ije = new(secondRecord);
+      IJEBirth ije = new(secondRecord);
 
       Assert.Equal(firstRecord.MotherResidence, secondRecord.MotherResidence);
       Assert.Equal(firstRecord.MotherBilling, secondRecord.MotherBilling);
@@ -854,16 +854,16 @@ namespace BFDR.Tests
       // Record Identifiers
       record.CertificateNumber = "87366";
       Assert.Equal("87366", record.CertificateNumber);
-      Assert.Equal("0000XX087366", record.BirthRecordIdentifier);
+      Assert.Equal("0000XX087366", record.RecordIdentifier);
       Assert.Null(record.StateLocalIdentifier1);
       record.StateLocalIdentifier1 = "0000033";
       Assert.Equal("0000033", record.StateLocalIdentifier1);
       record.BirthYear = 2020;
       record.CertificateNumber = "767676";
-      Assert.Equal("2020XX767676", record.BirthRecordIdentifier);
+      Assert.Equal("2020XX767676", record.RecordIdentifier);
       record.BirthLocationJurisdiction = "WY";
       record.CertificateNumber = "898989";
-      Assert.Equal("2020WY898989", record.BirthRecordIdentifier);
+      Assert.Equal("2020WY898989", record.RecordIdentifier);
       // Infant Medical Record Number
       record.InfantMedicalRecordNumber = "9932734";
       Assert.Equal("9932734", record.InfantMedicalRecordNumber);
@@ -902,7 +902,7 @@ namespace BFDR.Tests
     public void EmptyRecordToIJE()
     {
       BirthRecord birthRecord = new();
-      string ije = new IJENatality(birthRecord, false).ToString(); // Don't validate since empty record
+      string ije = new IJEBirth(birthRecord, false).ToString(); // Don't validate since empty record
       Assert.NotNull(ije);
     }
 
@@ -1129,7 +1129,7 @@ namespace BFDR.Tests
     {
         // Hispanic or Latino
         BirthRecord b = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/RaceEthnicityCaseRecord.json")));
-        IJENatality ije1 = new IJENatality(b);
+        IJEBirth ije1 = new IJEBirth(b);
         Assert.Equal("H", ije1.METHNIC1);
         Assert.Equal("H", ije1.METHNIC2);
         Assert.Equal("H", ije1.METHNIC3);
@@ -1152,7 +1152,7 @@ namespace BFDR.Tests
 
         // Non Hispanic or Latino
         BirthRecord b2 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/RaceEthnicityCaseRecord2.json")));
-        IJENatality ije2 = new IJENatality(b2);
+        IJEBirth ije2 = new IJEBirth(b2);
         Assert.Equal("N", ije2.METHNIC1);
         Assert.Equal("N", ije2.METHNIC2);
         Assert.Equal("N", ije2.METHNIC3);
@@ -1162,7 +1162,7 @@ namespace BFDR.Tests
         Assert.Equal("Y", ije2.MRACE3);
 
         BirthRecord b3 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
-        IJENatality ije3 = new IJENatality(b3);
+        IJEBirth ije3 = new IJEBirth(b3);
         Assert.Equal("H", ije3.METHNIC1);
         Assert.Equal("U", ije3.METHNIC2);
         Assert.Equal("U", ije3.METHNIC3);
@@ -1189,8 +1189,8 @@ namespace BFDR.Tests
     public void ParseMotherRaceEthnicityIJEtoJson()
     {
         BirthRecord b = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
-        IJENatality ije1 = new IJENatality(b);
-        IJENatality ije2 = new IJENatality(ije1.ToString(), true);
+        IJEBirth ije1 = new IJEBirth(b);
+        IJEBirth ije2 = new IJEBirth(ije1.ToString(), true);
         BirthRecord b2 = ije2.ToRecord();
 
         // Ethnicity tuple
@@ -1223,8 +1223,8 @@ namespace BFDR.Tests
     public void ParseFatherRaceEthnicityIJEtoJson()
     {
         BirthRecord b = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
-        IJENatality ije1 = new IJENatality(b);
-        IJENatality ije2 = new IJENatality(ije1.ToString(), true);
+        IJEBirth ije1 = new IJEBirth(b);
+        IJEBirth ije2 = new IJEBirth(ije1.ToString(), true);
         BirthRecord b2 = ije2.ToRecord();
 
         // Ethnicity tuple
@@ -1271,7 +1271,7 @@ namespace BFDR.Tests
       // Test conversion via FromDescription.
       BirthRecord secondRecord = VitalRecord.FromDescription<BirthRecord>(firstDescription);
       // Test IJE Conversion.
-      IJENatality ije = new(secondRecord);
+      IJEBirth ije = new(secondRecord);
 
       Assert.Equal(firstRecord.MotherPlaceOfBirth, secondRecord.MotherPlaceOfBirth);
       // Country
@@ -1303,7 +1303,7 @@ namespace BFDR.Tests
       // Test conversion via FromDescription.
       BirthRecord secondRecord = VitalRecord.FromDescription<BirthRecord>(firstDescription);
       // Test IJE Conversion.
-      IJENatality ije = new(secondRecord);
+      IJEBirth ije = new(secondRecord);
 
       Assert.Equal(firstRecord.FatherPlaceOfBirth, secondRecord.FatherPlaceOfBirth);
       // State
@@ -1320,7 +1320,7 @@ namespace BFDR.Tests
           BirthPhysicalLocationHelper = "22232009",
       };
       // Test IJE conversion from BirthRecord.
-      IJENatality ije = new(br1);
+      IJEBirth ije = new(br1);
 
       Assert.Equal("22232009", br1.BirthPhysicalLocation["code"]);
       Assert.Equal("http://snomed.info/sct", br1.BirthPhysicalLocation["system"]);
@@ -1410,11 +1410,11 @@ namespace BFDR.Tests
         Assert.Equal("Birth Clerk", record2.AttendantTitle["text"]);
         Assert.Equal("Birth Clerk", record2.AttendantOtherHelper);
         // test IJE translations
-        IJENatality ije1 = new IJENatality(SetterBirthRecord);
+        IJEBirth ije1 = new IJEBirth(SetterBirthRecord);
         Assert.Equal("Janet Seito", ije1.ATTEND_NAME.Trim());
         Assert.Equal("123456789011", ije1.ATTEND_NPI);
         Assert.Equal("1", ije1.ATTEND);
-        IJENatality ije2 = new IJENatality(record2);
+        IJEBirth ije2 = new IJEBirth(record2);
         Assert.Equal("Jessica Leung", ije2.ATTEND_NAME.Trim());
         Assert.Equal("            ", ije2.ATTEND_NPI);
         Assert.Equal("5", ije2.ATTEND);
@@ -1457,11 +1457,11 @@ namespace BFDR.Tests
         Assert.Equal("Birth Clerk", record2.CertifierTitle["text"]);
         Assert.Equal("Birth Clerk", record2.CertifierOtherHelper);
         // test IJE translations
-        IJENatality ije1 = new IJENatality(SetterBirthRecord);
+        IJEBirth ije1 = new IJEBirth(SetterBirthRecord);
         Assert.Equal("Avery Jones", ije1.CERTIF_NAME.Trim());
         Assert.Equal("123456789011", ije1.CERTIF_NPI);
         Assert.Equal("2", ije1.CERTIF);
-        IJENatality ije2 = new IJENatality(record2);
+        IJEBirth ije2 = new IJEBirth(record2);
         Assert.Equal("Jessica Leung", ije2.CERTIF_NAME.Trim());
         Assert.Equal("            ", ije2.CERTIF_NPI);
         Assert.Equal("5", ije2.CERTIF);
@@ -1884,7 +1884,7 @@ namespace BFDR.Tests
         record.MotherHeightEditFlagHelper = VR.ValueSets.EditBypass01234.Edit_Passed;
         Assert.Equal(VR.ValueSets.EditBypass01234.Edit_Passed, record.MotherHeightEditFlag["code"]);
         // IJE translations
-        IJENatality ije1 = new IJENatality(record);
+        IJEBirth ije1 = new IJEBirth(record);
         Assert.Equal("5", ije1.HFT);
         Assert.Equal("7", ije1.HIN);  
         Assert.Equal("0", ije1.HGT_BYPASS);
@@ -1928,7 +1928,7 @@ namespace BFDR.Tests
         record.BirthWeightEditFlagHelper = VR.ValueSets.EditBypass01234.Edit_Passed;
         Assert.Equal(VR.ValueSets.EditBypass01234.Edit_Passed, record.BirthWeightEditFlag["code"]);
         // IJE translations
-        IJENatality ije1 = new IJENatality(record);
+        IJEBirth ije1 = new IJEBirth(record);
         Assert.Equal("145", ije1.PWGT);
         Assert.Equal("175", ije1.DWGT);  
         Assert.Equal("2500", ije1.BWG);
@@ -2137,7 +2137,7 @@ namespace BFDR.Tests
       birthRecord.MaritalStatus = "Single";
       Assert.Equal("Single", birthRecord.MaritalStatus);
 
-      IJENatality ije = new IJENatality();
+      IJEBirth ije = new IJEBirth();
       ije.MARITAL_DESCRIP = "Married";
       BirthRecord birthRecord2 = ije.ToBirthRecord();
       Assert.Equal("Married", birthRecord2.MaritalStatus);
@@ -2169,7 +2169,7 @@ namespace BFDR.Tests
       cc.Add("display", VR.ValueSets.YesNoUnknown.Codes[1, 1]);
       Assert.Equal(cc, birthRecord.MotherMarriedDuringPregnancy);
 
-      IJENatality ije = new IJENatality();
+      IJEBirth ije = new IJEBirth();
       ije.MARN = "N";
       BirthRecord birthRecord2 = ije.ToBirthRecord();
       Assert.Equal("N", birthRecord2.MotherMarriedDuringPregnancyHelper);
@@ -2205,7 +2205,7 @@ namespace BFDR.Tests
       cc.Add("display", VR.ValueSets.YesNoNotApplicable.Codes[1, 1]);
       Assert.Equal(cc, birthRecord.PaternityAcknowledgementSigned);
 
-      IJENatality ije = new IJENatality();
+      IJEBirth ije = new IJEBirth();
       ije.ACKN = "X";
       BirthRecord birthRecord2 = ije.ToBirthRecord();
       Assert.Equal("NA", birthRecord2.PaternityAcknowledgementSignedHelper);
@@ -2242,7 +2242,7 @@ namespace BFDR.Tests
       cc.Add("text", "The Patient has been transferred from another hospital for this encounter.");
       Assert.Equal(cc, birthRecord.MotherTransferred);
 
-      IJENatality ije = new IJENatality();
+      IJEBirth ije = new IJEBirth();
       ije.TRAN = "N";
       BirthRecord birthRecord2 = ije.ToBirthRecord();
       Assert.Equal("N", birthRecord2.MotherTransferredHelper);
@@ -2282,7 +2282,7 @@ namespace BFDR.Tests
       birthRecord.InfantLiving = true;
       Assert.True(birthRecord.InfantLiving);
 
-      IJENatality ije = new IJENatality();
+      IJEBirth ije = new IJEBirth();
       ije.ILIV = "N";
       BirthRecord birthRecord2 = ije.ToBirthRecord();
       Assert.False(birthRecord2.InfantLiving);
@@ -2314,12 +2314,12 @@ namespace BFDR.Tests
       cc.Add("text", "The patient was transferred to another healthcare facility.");
       Assert.Equal(cc, birthRecord.InfantTransferred);
 
-      IJENatality ije = new IJENatality();
+      IJEBirth ije = new IJEBirth();
       ije.ITRAN = "N";
       BirthRecord birthRecord2 = ije.ToBirthRecord();
       Assert.Equal("N", birthRecord2.InfantTransferredHelper);
 
-      IJENatality ije2 = new IJENatality();
+      IJEBirth ije2 = new IJEBirth();
       ije2.ITRAN = "U";
       BirthRecord birthRecord3 = ije2.ToBirthRecord();
       Assert.Equal("UNKNOWN", birthRecord3.FacilityInfantTransferredTo);
@@ -2351,7 +2351,7 @@ namespace BFDR.Tests
       birthRecord.NumberLiveBorn = 2;
       Assert.Equal(2, birthRecord.NumberLiveBorn);
 
-      IJENatality ije = new IJENatality();
+      IJEBirth ije = new IJEBirth();
       ije.LIVEB = "1";
       BirthRecord birthRecord2 = ije.ToBirthRecord();
       Assert.Equal(1, birthRecord2.NumberLiveBorn);
@@ -2377,7 +2377,7 @@ namespace BFDR.Tests
       birthRecord.SSNRequested = true;
       Assert.True(birthRecord.SSNRequested);
 
-      IJENatality ije = new IJENatality();
+      IJEBirth ije = new IJEBirth();
       ije.SSN_REQ = "N";
       BirthRecord birthRecord2 = ije.ToBirthRecord();
       Assert.False(birthRecord2.SSNRequested);
@@ -2431,7 +2431,7 @@ namespace BFDR.Tests
         Assert.Equal("BBBBBBBB", record1.EmergingIssue8_2);
         Assert.Equal("CCCCCCCC", record1.EmergingIssue8_3);
         Assert.Equal("AAAAAAAAAAAAAAAAAAAA", record1.EmergingIssue20);
-        IJENatality ije = new IJENatality(record1, false); // Don't validate since we don't care about most fields
+        IJEBirth ije = new IJEBirth(record1, false); // Don't validate since we don't care about most fields
         Assert.Equal("A", ije.PLACE1_1);
         Assert.Equal("B", ije.PLACE1_2);
         Assert.Equal("C", ije.PLACE1_3);
@@ -2491,7 +2491,7 @@ namespace BFDR.Tests
       Assert.Null(SetterBirthRecord.CertifiedDay);
       // test IJE translations
       SetterBirthRecord.CertificationDate = "2023-02-19";
-      IJENatality ije1 = new IJENatality(SetterBirthRecord);
+      IJEBirth ije1 = new IJEBirth(SetterBirthRecord);
       Assert.Equal("2023", ije1.CERTIFIED_YR);
       Assert.Equal("02", ije1.CERTIFIED_MO);
       Assert.Equal("19", ije1.CERTIFIED_DY);
@@ -2516,7 +2516,7 @@ namespace BFDR.Tests
       Assert.Equal(1, birthRecord.CigarettesPerDayInLastTrimester);
 
       //ije translations
-      IJENatality ije = new IJENatality(birthRecord);
+      IJEBirth ije = new IJEBirth(birthRecord);
       Assert.Equal("22", ije.CIGPN);
       Assert.Equal("04", ije.CIGFN);
       Assert.Equal("02", ije.CIGSN);
@@ -2554,7 +2554,7 @@ namespace BFDR.Tests
       Assert.Equal("Legal Services", birthRecord.FatherIndustry);
 
       //ije translations
-      IJENatality ije = new IJENatality(birthRecord);
+      IJEBirth ije = new IJEBirth(birthRecord);
       Assert.Equal("Carpenter", ije.MOM_OC_T);
       Assert.Equal("Construction", ije.MOM_IN_T);
       Assert.Equal("Lawyer", ije.DAD_OC_T);
@@ -2588,7 +2588,7 @@ namespace BFDR.Tests
       Assert.Equal(4, birthRecord.ApgarScoreTenMinutes);
 
       //ije translations
-      IJENatality ije = new IJENatality(birthRecord);
+      IJEBirth ije = new IJEBirth(birthRecord);
       Assert.Equal("07", ije.APGAR5);
       Assert.Equal("04", ije.APGAR10);
       BirthRecord birthRecord2 = ije.ToBirthRecord();
@@ -2671,7 +2671,7 @@ namespace BFDR.Tests
       BirthRecord birthRecord = new BirthRecord();
       birthRecord.DateOfLastLiveBirthMonth = 5;
       birthRecord.DateOfLastLiveBirthYear = 2023;
-      IJENatality ije = new(birthRecord);
+      IJEBirth ije = new(birthRecord);
       BirthRecord birthRecord2 = ije.ToBirthRecord();
       Assert.Equal(5, birthRecord2.DateOfLastLiveBirthMonth);
       Assert.Equal(2023, birthRecord2.DateOfLastLiveBirthYear);
@@ -2697,7 +2697,7 @@ namespace BFDR.Tests
     [Fact]
     public void SetUnknownDateOfLastLiveBirthFields()
     {
-      IJENatality ije = new IJENatality();
+      IJEBirth ije = new IJEBirth();
       ije.MLLB = "99";
       ije.YLLB = "9999";
       BirthRecord birthRecord = ije.ToBirthRecord();
@@ -2710,7 +2710,7 @@ namespace BFDR.Tests
     {
       BirthRecord birthRecord = new BirthRecord();
       birthRecord.DateOfLastLiveBirth = "2020-01-01";
-      IJENatality ije = new(birthRecord);
+      IJEBirth ije = new(birthRecord);
       BirthRecord birthRecord2 = ije.ToBirthRecord();
       Assert.Equal("2020-01-01", birthRecord2.DateOfLastLiveBirth);
     }
@@ -2721,7 +2721,7 @@ namespace BFDR.Tests
       BirthRecord birthRecord = new BirthRecord();
       birthRecord.DateOfLastOtherPregnancyOutcomeMonth = 11;
       birthRecord.DateOfLastOtherPregnancyOutcomeYear = 2022;
-      IJENatality ije = new(birthRecord);
+      IJEBirth ije = new(birthRecord);
       BirthRecord birthRecord2 = ije.ToBirthRecord();
       Assert.Equal(11, birthRecord.DateOfLastOtherPregnancyOutcomeMonth);
       Assert.Equal(2022, birthRecord.DateOfLastOtherPregnancyOutcomeYear);
@@ -2747,7 +2747,7 @@ namespace BFDR.Tests
     [Fact]
     public void SetUnknownDateOfLastOtherPregnancyOutcome()
     {
-      IJENatality ije = new IJENatality();
+      IJEBirth ije = new IJEBirth();
       ije.MOPO = "99";
       ije.YOPO = "9999";
       BirthRecord birthRecord = ije.ToBirthRecord();
@@ -2760,7 +2760,7 @@ namespace BFDR.Tests
     {
       BirthRecord birthRecord = new BirthRecord();
       birthRecord.DateOfLastOtherPregnancyOutcome = "2022-10-09";
-      IJENatality ije = new(birthRecord);
+      IJEBirth ije = new(birthRecord);
       BirthRecord birthRecord2 = ije.ToBirthRecord();
       Assert.Equal("2022-10-09", birthRecord2.DateOfLastOtherPregnancyOutcome);
     }
@@ -2770,7 +2770,7 @@ namespace BFDR.Tests
     {
       BirthRecord birthRecord = new BirthRecord();
       birthRecord.NumberOfPrenatalVisits = 5;
-      IJENatality ije = new(birthRecord);
+      IJEBirth ije = new(birthRecord);
       BirthRecord birthRecord2 = ije.ToBirthRecord();
       Assert.Equal(5, birthRecord2.NumberOfPrenatalVisits);
 
@@ -2781,7 +2781,7 @@ namespace BFDR.Tests
     [Fact]
     public void SetNumberOfPrenatalVisitsEditBypass()
     {
-      IJENatality ije = new IJENatality();
+      IJEBirth ije = new IJEBirth();
       ije.NPREV_BYPASS = "1";
       BirthRecord birthRecord = ije.ToBirthRecord();
       Dictionary<string, string> editBypass = new Dictionary<string, string>();
@@ -2810,7 +2810,7 @@ namespace BFDR.Tests
       Assert.Equal("wk", birthRecord1.GestationalAgeAtDelivery["code"]);
       Assert.Equal("http://unitsofmeasure.org", birthRecord1.GestationalAgeAtDelivery["system"]);
 
-      IJENatality ije = new IJENatality();
+      IJEBirth ije = new IJEBirth();
       ije.OWGEST = "38";
       BirthRecord birthRecord2 = ije.ToBirthRecord();
       Assert.Equal("38", birthRecord2.GestationalAgeAtDelivery["value"]);
@@ -2826,7 +2826,7 @@ namespace BFDR.Tests
       Assert.Equal("d", birthRecord3.GestationalAgeAtDelivery["code"]);
       Assert.Equal("http://unitsofmeasure.org", birthRecord3.GestationalAgeAtDelivery["system"]);
       // IJE should divide days by 7 and round down
-      IJENatality ije2 = new(birthRecord3);
+      IJEBirth ije2 = new(birthRecord3);
       ije2.OWGEST = "06";
 
       BirthRecord parsedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
@@ -2838,7 +2838,7 @@ namespace BFDR.Tests
     [Fact]
     public void SetGestationalAgeAtDeliveryEditFlag()
     {
-      IJENatality ije = new IJENatality();
+      IJEBirth ije = new IJEBirth();
       ije.OWGEST_BYPASS = "0";
       BirthRecord birthRecord = ije.ToBirthRecord();
       Dictionary<string, string> editBypass = new Dictionary<string, string>();
@@ -2853,7 +2853,7 @@ namespace BFDR.Tests
     {
       BirthRecord birthRecord = new BirthRecord();
       birthRecord.NumberOfBirthsNowDead = 2;
-      IJENatality ije = new(birthRecord);
+      IJEBirth ije = new(birthRecord);
       BirthRecord birthRecord2 = ije.ToBirthRecord();
       Assert.Equal(2, birthRecord2.NumberOfBirthsNowDead);
 
@@ -2866,7 +2866,7 @@ namespace BFDR.Tests
     {
       BirthRecord birthRecord = new BirthRecord();
       birthRecord.NumberOfBirthsNowLiving = 3;
-      IJENatality ije = new(birthRecord);
+      IJEBirth ije = new(birthRecord);
       BirthRecord birthRecord2 = ije.ToBirthRecord();
       Assert.Equal(3, birthRecord2.NumberOfBirthsNowLiving);
 
@@ -2879,7 +2879,7 @@ namespace BFDR.Tests
     {
       BirthRecord birthRecord = new BirthRecord();
       birthRecord.NumberOfOtherPregnancyOutcomes = 1;
-      IJENatality ije = new(birthRecord);
+      IJEBirth ije = new(birthRecord);
       BirthRecord birthRecord2 = ije.ToBirthRecord();
       Assert.Equal(1, birthRecord2.NumberOfOtherPregnancyOutcomes);
 
@@ -2890,7 +2890,7 @@ namespace BFDR.Tests
     [Fact]
     public void SetMotherReceivedWICFood()
     {
-      IJENatality ije = new IJENatality();
+      IJEBirth ije = new IJEBirth();
       ije.WIC = "Y";
       BirthRecord birthRecord = ije.ToBirthRecord();
       Assert.Equal("Y", birthRecord.MotherReceivedWICFoodHelper);
@@ -2902,7 +2902,7 @@ namespace BFDR.Tests
     [Fact]
     public void SetInfantBreastfedAtDischarge()
     {
-      IJENatality ije = new IJENatality();
+      IJEBirth ije = new IJEBirth();
       ije.BFED = "Y";
       BirthRecord birthRecord = ije.ToBirthRecord();
       Assert.True(birthRecord.InfantBreastfedAtDischarge);
@@ -2922,7 +2922,7 @@ namespace BFDR.Tests
       cc.Add("display", "Breech presentation (finding)");
       Assert.Equal(cc, birthRecord.FetalPresentation);
 
-      IJENatality ije = new IJENatality();
+      IJEBirth ije = new IJEBirth();
       ije.PRES = "1";
       Dictionary<string, string> cc2 = new Dictionary<string, string>();
       cc2.Add("code", "70028003");
@@ -2944,7 +2944,7 @@ namespace BFDR.Tests
       birthRecord.LaborTrialAttempted = true;
       Assert.True(birthRecord.LaborTrialAttempted);
 
-      IJENatality ije = new IJENatality();
+      IJEBirth ije = new IJEBirth();
       ije.TLAB = "Y";
       BirthRecord birthRecord2 = ije.ToBirthRecord();
       Assert.True(birthRecord2.LaborTrialAttempted);
@@ -2960,7 +2960,7 @@ namespace BFDR.Tests
       birthRecord.NumberOfPreviousCesareans = 2;
       Assert.Equal(2, birthRecord.NumberOfPreviousCesareans);
 
-      IJENatality ije = new IJENatality();
+      IJEBirth ije = new IJEBirth();
       ije.NPCES = "1";
       BirthRecord birthRecord2 = ije.ToBirthRecord();
       Assert.Equal(1, birthRecord2.NumberOfPreviousCesareans);
@@ -2981,7 +2981,7 @@ namespace BFDR.Tests
       cc.Add("display", "Edit Failed, Verified");
       Assert.Equal(cc, birthRecord.NumberOfPreviousCesareansEditFlag);
 
-      IJENatality ije = new IJENatality();
+      IJEBirth ije = new IJEBirth();
       ije.NPCES_BYPASS = "0";
       BirthRecord birthRecord2 = ije.ToBirthRecord();
       Assert.Equal("0", birthRecord2.NumberOfPreviousCesareansEditFlagHelper);

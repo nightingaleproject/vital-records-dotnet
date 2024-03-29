@@ -30,12 +30,12 @@ namespace canary.Models
 
         protected override VR.IJE CreateIJEFromRecord(VitalRecord record, bool permissive = true)
         {
-            return new IJENatality((BirthRecord) record, permissive);
+            return new IJEBirth((BirthRecord) record, permissive);
         }
 
         protected override VR.IJE CreateIJEFromString(string ije, bool permissive = true)
         {
-            return new IJENatality(ije, permissive);
+            return new IJEBirth(ije, permissive);
         }
 
         protected override VitalRecord CreateRecordFromDescription(string value) {
@@ -53,7 +53,7 @@ namespace canary.Models
 
         protected override List<PropertyInfo> GetIJEProperties()
         {
-            return typeof(IJENatality).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Field).ToList();
+            return typeof(IJEBirth).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Field).ToList();
         }
     }
 }

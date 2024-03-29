@@ -12,11 +12,11 @@ namespace BFDR.Tests
     public void TestImportPatientChildVitalRecordProperties()
     {
       // Test IJE import.
-      IJENatality ijeImported = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/BasicBirthRecord.ije")), true);
+      IJEBirth ijeImported = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/BasicBirthRecord.ije")), true);
       // Test IJE conversion to BirthRecord.
       BirthRecord br = ijeImported.ToRecord();
       // Test IJE conversion from BirthRecord.
-      IJENatality ijeConverted = new(br);
+      IJEBirth ijeConverted = new(br);
 
       // Certificate Number
       Assert.Equal("048858", ijeImported.FILENO);
@@ -96,7 +96,7 @@ namespace BFDR.Tests
     [Fact]
     public void TestSetPatientChildVitalRecordProperties()
     {
-      IJENatality ije = new()
+      IJEBirth ije = new()
       {
           CNTYO = "635"
       };
@@ -106,7 +106,7 @@ namespace BFDR.Tests
     [Fact]
     public void TestBirthSexSetters()
     {
-      IJENatality ije = new IJENatality();
+      IJEBirth ije = new IJEBirth();
       ije.ISEX = "M";
       Assert.Equal("M", ije.ISEX);
       Assert.Equal("M", ije.ToRecord().BirthSex["code"]);
@@ -126,11 +126,11 @@ namespace BFDR.Tests
     public void TestPatientMotherVitalRecordProperties()
     {
       // Test IJE import.
-      IJENatality ijeImported = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/BasicBirthRecord.ije")), true);
+      IJEBirth ijeImported = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/BasicBirthRecord.ije")), true);
       // Test IJE conversion to BirthRecord.
       BirthRecord br = ijeImported.ToRecord();
       // Test IJE conversion from BirthRecord.
-      IJENatality ijeConverted = new(br);
+      IJEBirth ijeConverted = new(br);
 
       // Date of Birth (Mother)--Year
       Assert.Equal("1994", ijeImported.MDOB_YR);
@@ -153,11 +153,11 @@ namespace BFDR.Tests
     public void TestRelatedPersonFatherProperties()
     {
       // Test IJE import.
-      IJENatality ijeImported = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/BasicBirthRecord.ije")), true);
+      IJEBirth ijeImported = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/BasicBirthRecord.ije")), true);
       // Test IJE conversion to BirthRecord.
       BirthRecord br = ijeImported.ToRecord();
       // Test IJE conversion from BirthRecord.
-      IJENatality ijeConverted = new(br);
+      IJEBirth ijeConverted = new(br);
 
       // Date of Birth (Father)--Year
       Assert.Equal("1992", ijeImported.FDOB_YR);
@@ -180,7 +180,7 @@ namespace BFDR.Tests
     public void TestParentBirthDateUnknowns()
     {
       // Patient Mother.
-      IJENatality ije = new();
+      IJEBirth ije = new();
       ije.MDOB_YR = "2000";
       ije.MDOB_MO = "09";
       ije.MDOB_DY = "27";
@@ -257,11 +257,11 @@ namespace BFDR.Tests
     public void TestUnknownParentBirthdateImports()
     {
       // Test IJE import.
-      IJENatality ijeImported = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/UnknownParentBirthDates.ije")), true);
+      IJEBirth ijeImported = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/UnknownParentBirthDates.ije")), true);
       // Test IJE conversion to BirthRecord.
       BirthRecord br = ijeImported.ToRecord();
       // Test IJE conversion from BirthRecord.
-      IJENatality ijeConverted = new(br);
+      IJEBirth ijeConverted = new(br);
 
       // Date of Birth (Mother)--Year
       Assert.Equal("9999", ijeImported.MDOB_YR);
@@ -295,7 +295,7 @@ namespace BFDR.Tests
     public void TestPlurality()
     {
       BirthRecord fhir = new BirthRecord();
-      IJENatality ije = new IJENatality(fhir);
+      IJEBirth ije = new IJEBirth(fhir);
       Assert.Equal("  ", ije.SORD);
       Assert.Equal("  ", ije.PLUR);
       Assert.Equal(" ", ije.PLUR_BYPASS);
@@ -315,7 +315,7 @@ namespace BFDR.Tests
     public void TestCongenitalAnomaliesOfTheNewborn()
     {
       BirthRecord fhir = new BirthRecord();
-      IJENatality ije = new IJENatality(fhir);
+      IJEBirth ije = new IJEBirth(fhir);
       Assert.False(fhir.Anencephaly);
       Assert.False(fhir.NoCongenitalAnomaliesOfTheNewborn);
       Assert.Equal("U", ije.ANEN);
@@ -359,7 +359,7 @@ namespace BFDR.Tests
     public void TestMotherFatherPlaceOfBirth()
     {
       BirthRecord fhir = new BirthRecord();
-      IJENatality ije = new IJENatality(fhir);
+      IJEBirth ije = new IJEBirth(fhir);
 
       ije.FBPLACD_ST_TER_C = "NH";
       ije.FBPLACE_CNT_C = "US";
@@ -382,7 +382,7 @@ namespace BFDR.Tests
     public void TestMotherResidenceAndBilling()
     {
       BirthRecord fhir = new BirthRecord();
-      IJENatality ije = new IJENatality(fhir);
+      IJEBirth ije = new IJEBirth(fhir);
 
       ije.STATEC = "NH";
       ije.COUNTRYC = "US";
@@ -408,7 +408,7 @@ namespace BFDR.Tests
     public void TestMethodOfDelivery()
     {
       BirthRecord fhir = new BirthRecord();
-      IJENatality ije = new IJENatality(fhir);
+      IJEBirth ije = new IJEBirth(fhir);
       Assert.Equal("", ije.ROUT);
       ije.ROUT = "9";
       Assert.Equal("9", ije.ROUT);
@@ -433,7 +433,7 @@ namespace BFDR.Tests
     public void TestSetMotherEthnicity1()
     {
       BirthRecord fhir = new BirthRecord();
-      IJENatality ije = new IJENatality(fhir);
+      IJEBirth ije = new IJEBirth(fhir);
       Assert.Equal("U", ije.METHNIC1);
       ije.METHNIC1 = "H";
       Assert.Equal("Y", fhir.MotherEthnicity1Helper);
@@ -450,7 +450,7 @@ namespace BFDR.Tests
     public void TestSetFatherEthnicity1()
     {
       BirthRecord fhir = new BirthRecord();
-      IJENatality ije = new IJENatality(fhir);
+      IJEBirth ije = new IJEBirth(fhir);
       Assert.Equal("U", ije.FETHNIC1);
       ije.FETHNIC1 = "H";
       Assert.Equal("Y", fhir.FatherEthnicity1Helper);
@@ -467,11 +467,11 @@ namespace BFDR.Tests
     public void TestImportMotherBirthplace()
     {
       // Test IJE import.
-      IJENatality ijeImported = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/BasicBirthRecord.ije")), true);
+      IJEBirth ijeImported = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/BasicBirthRecord.ije")), true);
       // Test IJE conversion to BirthRecord.
       BirthRecord br = ijeImported.ToRecord();
       // Test IJE conversion from BirthRecord.
-      IJENatality ijeConverted = new(br);
+      IJEBirth ijeConverted = new(br);
 
       // Country
       Assert.Equal("US", ijeImported.BPLACEC_CNT);
@@ -487,7 +487,7 @@ namespace BFDR.Tests
     public void TestSetMotherBirthplace()
     {
       // Manually set ije values.
-      IJENatality ije = new()
+      IJEBirth ije = new()
       {
           BPLACEC_CNT = "US",
           BPLACEC_ST_TER = "FL"
@@ -495,7 +495,7 @@ namespace BFDR.Tests
       // Test IJE conversion to BirthRecord.
       BirthRecord br = ije.ToRecord();
       // Test IJE conversion from BirthRecord.
-      IJENatality ijeConverted = new(br);
+      IJEBirth ijeConverted = new(br);
 
       // Country
       Assert.Equal("US", ije.BPLACEC_CNT);
@@ -515,7 +515,7 @@ namespace BFDR.Tests
     public void TestSetBirthPlaceType()
     {
       // Manually set ije values.
-      IJENatality ije = new()
+      IJEBirth ije = new()
       {
           BPLACE = "1"
       };
@@ -535,11 +535,11 @@ namespace BFDR.Tests
     public void TestImportBirthPlaceType()
     {
       // Test IJE import.
-      IJENatality ijeImported = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/BasicBirthRecord.ije")), true);
+      IJEBirth ijeImported = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/BasicBirthRecord.ije")), true);
       // Test IJE conversion to BirthRecord.
       BirthRecord br = ijeImported.ToRecord();
       // Test IJE conversion from BirthRecord.
-      IJENatality ijeConverted = new(br);
+      IJEBirth ijeConverted = new(br);
 
       Assert.Equal("2", ijeImported.BPLACE);
       Assert.Equal(ijeImported.BPLACE, ijeConverted.BPLACE);
@@ -551,9 +551,9 @@ namespace BFDR.Tests
     [Fact]
     public void TestImportIdentifiers()
     {
-      IJENatality ijeImported = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/BasicBirthRecord.ije")), true);
+      IJEBirth ijeImported = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/BasicBirthRecord.ije")), true);
       BirthRecord br = ijeImported.ToRecord();
-      IJENatality ijeConverted = new(br);
+      IJEBirth ijeConverted = new(br);
       // Certificate Number - FILENO
       Assert.Equal("48858".PadLeft(6, '0'), ijeImported.FILENO);
       Assert.Equal(ijeImported.FILENO, ijeConverted.FILENO);
@@ -563,14 +563,14 @@ namespace BFDR.Tests
       Assert.Equal(ijeImported.AUXNO, ijeConverted.AUXNO);
       Assert.Equal(ijeImported.AUXNO, br.StateLocalIdentifier1.PadLeft(12, '0'));
       Assert.Equal(2023, br.BirthYear);
-      Assert.Equal(ijeImported.IDOB_YR + ijeImported.BSTATE + ijeImported.FILENO, br.BirthRecordIdentifier);
-      Assert.Equal("2023MA048858", br.BirthRecordIdentifier);
+      Assert.Equal(ijeImported.IDOB_YR + ijeImported.BSTATE + ijeImported.FILENO, br.RecordIdentifier);
+      Assert.Equal("2023MA048858", br.RecordIdentifier);
     }
 
     [Fact]
     public void TestSetIdentifiers()
     {
-      IJENatality ije = new IJENatality();
+      IJEBirth ije = new IJEBirth();
       ije.FILENO = "765765";
       Assert.Equal("765765".PadLeft(6, '0'), ije.FILENO);
       ije.AUXNO = "32";
@@ -582,15 +582,15 @@ namespace BFDR.Tests
       BirthRecord br = ije.ToRecord();
       Assert.Equal(ije.FILENO, br.CertificateNumber.PadLeft(6, '0'));
       Assert.Equal(ije.AUXNO, br.StateLocalIdentifier1.PadLeft(12, '0'));
-      Assert.Equal(ije.IDOB_YR + ije.BSTATE + ije.FILENO, br.BirthRecordIdentifier);
-      Assert.Equal("2010HI897897", br.BirthRecordIdentifier);
+      Assert.Equal(ije.IDOB_YR + ije.BSTATE + ije.FILENO, br.RecordIdentifier);
+      Assert.Equal("2010HI897897", br.RecordIdentifier);
     }
 
     [Fact]
     public void TestSetSmoking()
     {
       BirthRecord fhir = new BirthRecord();
-      IJENatality ije = new IJENatality(fhir);
+      IJEBirth ije = new IJEBirth(fhir);
       Assert.Equal("  ", ije.CIGPN);
       Assert.Null(fhir.CigarettesPerDayInThreeMonthsPriorToPregancy);
       ije.CIGPN = "99";
@@ -644,7 +644,7 @@ namespace BFDR.Tests
     public void TestSetWeight()
     {
       BirthRecord fhir = new BirthRecord();
-      IJENatality ije = new IJENatality(fhir);
+      IJEBirth ije = new IJEBirth(fhir);
       Assert.Equal("   ", ije.PWGT);
       Assert.Null(fhir.MotherPrepregnancyWeight);
       Assert.Null(fhir.MotherPrepregnancyWeightEditFlagHelper);
@@ -675,7 +675,7 @@ namespace BFDR.Tests
     public void TestSetOccupationAndIndustry()
     {
       BirthRecord fhir = new BirthRecord();
-      IJENatality ije = new IJENatality(fhir);
+      IJEBirth ije = new IJEBirth(fhir);
       Assert.Null(fhir.MotherOccupation);
       Assert.Null(ije.MOM_OC_T);
       Assert.Null(fhir.FatherOccupation);
@@ -725,7 +725,7 @@ namespace BFDR.Tests
     [Fact]
     public void TestImportLocation()
     {
-      IJENatality ije = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/BasicBirthRecord.ije")));
+      IJEBirth ije = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/BasicBirthRecord.ije")));
       BirthRecord br = ije.ToRecord();
       Assert.Equal("878787878787", ije.FNPI);
       Assert.Equal("6678", ije.SFN);
@@ -742,7 +742,7 @@ namespace BFDR.Tests
     [Fact]
     public void TestSetLocation()
     {
-      IJENatality ije = new()
+      IJEBirth ije = new()
       {
           FNPI = "25789",
           SFN = "1111",
@@ -782,7 +782,7 @@ namespace BFDR.Tests
     public void TestLastMenses()
     {
       BirthRecord fhir = new BirthRecord();
-      IJENatality ije = new IJENatality(fhir);
+      IJEBirth ije = new IJEBirth(fhir);
       Assert.Equal("    ", ije.DLMP_YR);
       Assert.Equal("  ", ije.DLMP_MO);
       Assert.Equal("  ", ije.DLMP_DY);
@@ -804,7 +804,7 @@ namespace BFDR.Tests
     public void TestMotherHeightPropertiesSetter()
     {
         BirthRecord record = new BirthRecord();
-        IJENatality ije1 = new IJENatality(record);
+        IJEBirth ije1 = new IJEBirth(record);
         // Height
         Assert.Equal("99",ije1.HIN);
         Assert.Equal("9",ije1.HFT);
@@ -830,7 +830,7 @@ namespace BFDR.Tests
     public void TestFirstPrenatalCare()
     {
       BirthRecord fhir = new BirthRecord();
-      IJENatality ije = new IJENatality(fhir);
+      IJEBirth ije = new IJEBirth(fhir);
       Assert.Equal("    ", ije.DOFP_YR);
       Assert.Equal("  ", ije.DOFP_MO);
       Assert.Equal("  ", ije.DOFP_DY);
@@ -852,7 +852,7 @@ namespace BFDR.Tests
     public void TestRegistrationDate()
     {
       BirthRecord fhir = new BirthRecord();
-      IJENatality ije = new IJENatality(fhir);
+      IJEBirth ije = new IJEBirth(fhir);
       Assert.Equal("    ", ije.DOR_YR);
       Assert.Equal("  ", ije.DOR_MO);
       Assert.Equal("  ", ije.DOR_DY);
@@ -874,7 +874,7 @@ namespace BFDR.Tests
     public void TestSetPayorType()
     {
       // Manually set ije values.
-      IJENatality ije = new()
+      IJEBirth ije = new()
       {
           PAY = "1"
       };
@@ -894,11 +894,11 @@ namespace BFDR.Tests
     public void TestImportPayorType()
     {
       // Test IJE import.
-      IJENatality ijeImported = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/BasicBirthRecord.ije")), true);
+      IJEBirth ijeImported = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/BasicBirthRecord.ije")), true);
       // Test IJE conversion to BirthRecord.
       BirthRecord br = ijeImported.ToRecord();
       // Test IJE conversion from BirthRecord.
-      IJENatality ijeConverted = new(br);
+      IJEBirth ijeConverted = new(br);
 
       Assert.Equal("6", ijeImported.PAY);
       Assert.Equal(ijeImported.PAY, ijeConverted.PAY);
@@ -911,7 +911,7 @@ namespace BFDR.Tests
     public void TestApgarScores()
     {
       BirthRecord fhir = new BirthRecord();
-      IJENatality ije = new IJENatality(fhir);
+      IJEBirth ije = new IJEBirth(fhir);
       Assert.Equal("  ", ije.APGAR5);
       Assert.Equal("  ", ije.APGAR10);
       ije.APGAR5 = "99";
@@ -931,7 +931,7 @@ namespace BFDR.Tests
       Assert.True(fhir.GestationalHypertension); // should map to Y
       Assert.True(fhir.NoCongenitalAnomaliesOfTheNewborn); // should map to N
       Assert.False(fhir.Anencephaly); // would normally map to U, but NoCongenitalAnomaliesOfTheNewborn should flip IJE to N
-      IJENatality ije = new IJENatality(fhir);
+      IJEBirth ije = new IJEBirth(fhir);
       Assert.Equal("U", ije.GDIAB);
       Assert.Equal("Y", ije.GHYPE);
       Assert.Equal("9", ije.HFT);
@@ -941,7 +941,7 @@ namespace BFDR.Tests
       Assert.Equal("N", ije.ANEN);
       Assert.Equal("7134703", ije.INF_MED_REC_NUM);
       Assert.Equal("2286144", ije.MOM_MED_REC_NUM);
-      IJENatality ije2 = new IJENatality(ije.ToString());
+      IJEBirth ije2 = new IJEBirth(ije.ToString());
       Assert.Equal("U", ije2.GDIAB);
       Assert.Equal("Y", ije2.GHYPE);
       Assert.Equal("9", ije2.HFT);
@@ -951,7 +951,7 @@ namespace BFDR.Tests
       Assert.Equal("N", ije2.ANEN);
       Assert.Equal("7134703", ije2.INF_MED_REC_NUM);
       Assert.Equal("2286144", ije2.MOM_MED_REC_NUM);
-      IJENatality ije3 = new IJENatality(new BirthRecord(ije2.ToRecord().ToXML()));
+      IJEBirth ije3 = new IJEBirth(new BirthRecord(ije2.ToRecord().ToXML()));
       Assert.Equal("U", ije3.GDIAB);
       Assert.Equal("Y", ije3.GHYPE);
       Assert.Equal("9", ije3.HFT);
