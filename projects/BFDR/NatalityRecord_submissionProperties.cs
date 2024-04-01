@@ -1984,7 +1984,7 @@ namespace BFDR
         //
 
         /// <summary>No Infections Present During Pregnancy.</summary>
-        [Property("No Infections Present During Pregnancy", Property.Types.Bool, "No Infections Present During Pregnancy",
+        [Property("No Infections Present During Pregnancy", Property.Types.Bool, "Infections Present During Pregnancy",
                   "No Infections Present During Pregnancy", true, IGURL.ObservationNoneOfSpecifiedInfectionsPresentDuringPregnancy, false, 168)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Observation, categoryCode: "72519-2", code: VitalRecord.NONE_OF_THE_ABOVE, section: MEDICAL_INFORMATION_SECTION)]
         public bool NoInfectionsPresentDuringPregnancy
@@ -2123,7 +2123,7 @@ namespace BFDR
 
         /// <summary>No Pregnancy Risk Factors.</summary>
         [Property("No Pregnancy Risk Factors", Property.Types.Bool, "Pregnancy Risk Factors",
-                  "Pregnancy Risk Factors, None", true, IGURL.ObservationNoneOfSpecifiedPregnancyRiskFactors, false, 157)]
+                  "Pregnancy Risk Factors, None", true, IGURL.ObservationNoneOfSpecifiedPregnancyRiskFactors, false, 250)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Observation, categoryCode: "73775-9", code: VitalRecord.NONE_OF_THE_ABOVE, section: MEDICAL_INFORMATION_SECTION)]
         public bool NoPregnancyRiskFactors
         {
@@ -2133,7 +2133,7 @@ namespace BFDR
 
         /// <summary>Eclampsia Hypertension.</summary>
         [Property("Eclampsia Hypertension", Property.Types.Bool, "Pregnancy Risk Factors",
-                  "Pregnancy Risk Factors, Eclampsia Hypertension", true, IGURL.ConditionEclampsiaHypertension, true, 239)]
+                  "Pregnancy Risk Factors, Eclampsia Hypertension", true, IGURL.ConditionEclampsiaHypertension, true, 244)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "73775-9", code: "15938005", section: MEDICAL_INFORMATION_SECTION)]
         public bool EclampsiaHypertension
         {
@@ -2143,7 +2143,7 @@ namespace BFDR
 
         /// <summary>Gestational Diabetes.</summary>
         [Property("Gestational Diabetes", Property.Types.Bool, "Pregnancy Risk Factors",
-                  "Pregnancy Risk Factors, Gestational Diabetes", true, IGURL.ConditionGestationalDiabetes, true, 158)]
+                  "Pregnancy Risk Factors, Gestational Diabetes", true, IGURL.ConditionGestationalDiabetes, true, 241)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "73775-9", code: "11687002", section: MEDICAL_INFORMATION_SECTION)]
         public bool GestationalDiabetes
         {
@@ -2153,7 +2153,7 @@ namespace BFDR
 
         /// <summary>Gestational Hypertension.</summary>
         [Property("Gestational Hypertension", Property.Types.Bool, "Pregnancy Risk Factors",
-                  "Pregnancy Risk Factors, Gestational Hypertension", true, IGURL.ConditionGestationalHypertension, true, 160)]
+                  "Pregnancy Risk Factors, Gestational Hypertension", true, IGURL.ConditionGestationalHypertension, true, 242)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "73775-9", code: "48194001", section: MEDICAL_INFORMATION_SECTION)]
         public bool GestationalHypertension
         {
@@ -2163,7 +2163,7 @@ namespace BFDR
 
         /// <summary>Prepregnancy Diabetes.</summary>
         [Property("Prepregnancy Diabetes", Property.Types.Bool, "Pregnancy Risk Factors",
-                  "Pregnancy Risk Factors, Prepregnancy Diabetes", true, IGURL.ConditionPrepregnancyDiabetes, true, 157)]
+                  "Pregnancy Risk Factors, Prepregnancy Diabetes", true, IGURL.ConditionPrepregnancyDiabetes, true, 240)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "73775-9", code: "73211009", section: MEDICAL_INFORMATION_SECTION)]
         public bool PrepregnancyDiabetes
         {
@@ -2173,7 +2173,7 @@ namespace BFDR
 
         /// <summary>Prepregnancy Hypertension.</summary>
         [Property("Prepregnancy Hypertension", Property.Types.Bool, "Pregnancy Risk Factors",
-                  "Pregnancy Risk Factors, Prepregnancy Hypertension", true, IGURL.ConditionPrepregnancyHypertension, true, 159)]
+                  "Pregnancy Risk Factors, Prepregnancy Hypertension", true, IGURL.ConditionPrepregnancyHypertension, true, 243)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "73775-9", code: "38341003", section: MEDICAL_INFORMATION_SECTION)]
         public bool PrepregnancyHypertension
         {
@@ -2183,7 +2183,7 @@ namespace BFDR
 
         /// <summary>Previous Cesarean.</summary>
         [Property("Previous Cesarean", Property.Types.Bool, "Pregnancy Risk Factors",
-                  "Pregnancy Risk Factors, Previous Cesarean", true, IGURL.ObservationPreviousCesarean, true, 165)]
+                  "Pregnancy Risk Factors, Previous Cesarean", true, IGURL.ObservationPreviousCesarean, true, 249)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Observation, categoryCode: "73775-9", code: "200144004", section: MEDICAL_INFORMATION_SECTION)]
         public bool PreviousCesarean
         {
@@ -2193,7 +2193,7 @@ namespace BFDR
 
         /// <summary>Previous Preterm Birth.</summary>
         [Property("Previous Preterm Birth", Property.Types.Bool, "Pregnancy Risk Factors",
-                  "Pregnancy Risk Factors, Previous Preterm Birth", true, IGURL.ObservationPreviousPretermBirth, true, 161)]
+                  "Pregnancy Risk Factors, Previous Preterm Birth", true, IGURL.ObservationPreviousPretermBirth, true, 245)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Observation, categoryCode: "73775-9", code: "161765003", section: MEDICAL_INFORMATION_SECTION)]
         public bool PreviousPretermBirth
         {
@@ -2203,7 +2203,7 @@ namespace BFDR
 
         /// <summary>Artificial Insemination.</summary>
         [Property("Artificial Insemination", Property.Types.Bool, "Pregnancy Risk Factors",
-                  "Pregnancy Risk Factors, Artificial Insemination", true, IGURL.ProcedureArtificialInsemination, true, 240)]
+                  "Pregnancy Risk Factors, Artificial Insemination", true, IGURL.ProcedureArtificialInsemination, true, 247)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Procedure, categoryCode: "73775-9", code: "58533008", section: MEDICAL_INFORMATION_SECTION)]
         public bool ArtificialInsemination
         {
@@ -2213,7 +2213,7 @@ namespace BFDR
 
         /// <summary>Assisted Fertilization.</summary>
         [Property("Assisted Fertilization", Property.Types.Bool, "Pregnancy Risk Factors",
-                  "Pregnancy Risk Factors, Assisted Fertilization", true, IGURL.ProcedureAssistedFertilization, true, 241)]
+                  "Pregnancy Risk Factors, Assisted Fertilization", true, IGURL.ProcedureAssistedFertilization, true, 248)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Procedure, categoryCode: "73775-9", code: "63487001", section: MEDICAL_INFORMATION_SECTION)]
         public bool AssistedFertilization
         {
@@ -2223,7 +2223,7 @@ namespace BFDR
 
         /// <summary>Infertility Treatment.</summary>
         [Property("Infertility Treatment", Property.Types.Bool, "Pregnancy Risk Factors",
-                  "Pregnancy Risk Factors, Infertility Treatment", true, IGURL.ProcedureInfertilityTreatment, true, 164)]
+                  "Pregnancy Risk Factors, Infertility Treatment", true, IGURL.ProcedureInfertilityTreatment, true, 246)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Procedure, categoryCode: "73775-9", code: "445151000124101", section: MEDICAL_INFORMATION_SECTION)]
         public bool InfertilityTreatment
         {
@@ -6341,7 +6341,7 @@ namespace BFDR
         {
             get
             {
-                return this.Composition.Date;
+                return this.Composition?.Date;
             }
             set
             {
@@ -6364,11 +6364,11 @@ namespace BFDR
             get
             {
                 // First check the value string
-                if (this.Composition.Date != null && ParseDateElements(this.Composition.Date, out int? year, out int? month, out int? day))
+                if (this.Composition.Date != null && ParseDateElements(this.Composition?.Date, out int? year, out int? month, out int? day))
                 {
                     return year;
                 }
-                return GetDateFragmentOrPartialDate(this.Composition.DateElement, VR.ExtensionURL.PartialDateTimeYearVR);
+                return GetDateFragmentOrPartialDate(this.Composition?.DateElement, VR.ExtensionURL.PartialDateTimeYearVR);
             }
             set
             {
@@ -6400,11 +6400,11 @@ namespace BFDR
             get
             {
                 // First check the value string
-                if (this.Composition.Date != null && ParseDateElements(this.Composition.Date, out int? year, out int? month, out int? day))
+                if (this.Composition.Date != null && ParseDateElements(this.Composition?.Date, out int? year, out int? month, out int? day))
                 {
                     return month;
                 }
-                return GetDateFragmentOrPartialDate(this.Composition.DateElement, VR.ExtensionURL.PartialDateTimeMonthVR);
+                return GetDateFragmentOrPartialDate(this.Composition?.DateElement, VR.ExtensionURL.PartialDateTimeMonthVR);
             }
             set
             {
@@ -6436,11 +6436,11 @@ namespace BFDR
             get
             {
                 // First check the value string
-                if (this.Composition.Date != null && ParseDateElements(this.Composition.Date, out int? year, out int? month, out int? day))
+                if (this.Composition.Date != null && ParseDateElements(this.Composition?.Date, out int? year, out int? month, out int? day))
                 {
                     return day;
                 }
-                return GetDateFragmentOrPartialDate(this.Composition.DateElement, VR.ExtensionURL.PartialDateTimeDayVR);
+                return GetDateFragmentOrPartialDate(this.Composition?.DateElement, VR.ExtensionURL.PartialDateTimeDayVR);
             }
             set
             {
