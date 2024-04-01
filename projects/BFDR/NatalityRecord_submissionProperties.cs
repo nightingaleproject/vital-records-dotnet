@@ -7355,7 +7355,7 @@ namespace BFDR
         /// <para>ExampleBirthRecord.CertifiedDay = 23;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Certified Day: {ExampleBirthRecord.CertifiedDay}");</para>
-        /// </example>
+        /// </example> 
         [Property("Certified Day", Property.Types.Int32, "Birth Certification", "Certified Day", true, IGURL.EncounterBirth, true, 4)]
         [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(extension.value.coding.code='CHILD')", "")] 
         public int? CertifiedDay
