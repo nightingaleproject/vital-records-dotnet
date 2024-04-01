@@ -203,8 +203,8 @@ export class Property extends Component {
   }
 
   render() {
-    if (!!!this.props.editable) {
-      if (this.props.property.Type !== "Bool" && this.props.property.Type !== "DeathRecord") {
+    if (!!!this.props.editable && !!!this.props.renderEmptyFields) {
+      if (this.props.property.Type !== "Bool" && this.props.property.Type !== "DeathRecord" && this.props.property.Type !== "BirthRecord") {
         if ((!!!this.props.property.Value && this.props.property.Match !== "false") ||
             (Array.isArray(this.props.property.Value) && this.props.property.Value !== null && this.props.property.Value.length === 0) ||
             (typeof this.props.property.Value === 'object' && !Array.isArray(this.props.property.Value) && this.props.property.Value !== null && _.compact(_.values(_.mapValues(this.props.property.Value, 'Value'))).length === 0 ))
