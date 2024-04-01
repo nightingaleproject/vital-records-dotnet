@@ -873,7 +873,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Birth Location Jurisdiction: {ExampleBirthRecord.BirthLocationJurisdiction}");</para>
         /// </example>
-        [Property("Birth Location Jurisdiction", Property.Types.String, "TODO", "Vital Records Jurisdiction of Birth Location (two character jurisdiction code, e.g. CA).", true, VR.IGURL.Child, false, 16)]
+        [Property("Birth Location Jurisdiction", Property.Types.String, "Birth Location", "Vital Records Jurisdiction of Birth Location (two character jurisdiction code, e.g. CA).", true, VR.IGURL.Child, false, 16)]
         // TODO - Currently not sure where the birth location would be in the record via FHIRPath, it seems different in BFDR vs VRDR. Some of the property fields above also need updating. Is this not in PatientChildVitalRecords at all and I just can't find it? There seems to be no reference to a jurisdiction location in the IG table of contents.
         [FHIRPath("Bundle.entry.resource.where($this is Location).where(type.coding.code='birth')", "")]
         public string BirthLocationJurisdiction
@@ -979,7 +979,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"The place type the child was born: {ExampleBirthRecord.BirthPhysicalLocation["code"]}");</para>
         /// </example>
-        [Property("BirthPhysicalLocation", Property.Types.Dictionary, "BirthPhysicalLocation", "Birth Physical Location.", true, IGURL.EncounterBirth, true, 16)]
+        [Property("BirthPhysicalLocation", Property.Types.Dictionary, "Birth Physical Location", "Birth Physical Location.", true, IGURL.EncounterBirth, true, 16)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
@@ -1025,7 +1025,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Child's Place Of Birth Type: {ExampleBirthRecord.BirthPhysicalLocationHelper}");</para>
         /// </example>
-        [Property("BirthPhysicalLocationHelper", Property.Types.String, "BirthPhysicalLocationHelper", "Birth Physical Location Helper.", false, IGURL.EncounterBirth, true, 4)]
+        [Property("BirthPhysicalLocationHelper", Property.Types.String, "Birth Physical Location", "Birth Physical Location Helper.", false, IGURL.EncounterBirth, true, 4)]
         [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(meta.profile == " + IGURL.EncounterBirth + ")", "")]
         public string BirthPhysicalLocationHelper
         {
@@ -4629,7 +4629,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"NumberOfBirthsNowDead: {ExampleBirthRecord.NumberOfBirthsNowDead}");</para>
         /// </example>
-        [Property("NumberOfBirthsNowDead", Property.Types.Int32, "NumberOfBirthsNowDead", "NumberOfBirthsNowDead", true, IGURL.ObservationNumberBirthsNowDead, true, 14)]
+        [Property("NumberOfBirthsNowDead", Property.Types.Int32, "Number Of Births Now Dead", "Number Of Births Now Dead", true, IGURL.ObservationNumberBirthsNowDead, true, 14)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='68496-9')", "")]
         public int? NumberOfBirthsNowDead
         {
@@ -4645,7 +4645,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"NumberOfBirthsNowLiving: {ExampleBirthRecord.NumberOfBirthsNowLiving}");</para>
         /// </example>
-        [Property("NumberOfBirthsNowLiving", Property.Types.Int32, "NumberOfBirthsNowLiving", "NumberOfBirthsNowLiving", true, IGURL.ObservationNumberBirthsNowLiving, true, 14)]
+        [Property("NumberOfBirthsNowLiving", Property.Types.Int32, "Number Of Births Now Living", "Number Of Births Now Living", true, IGURL.ObservationNumberBirthsNowLiving, true, 14)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='11638-4')", "")]
         public int? NumberOfBirthsNowLiving
         {
@@ -4677,7 +4677,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"NumberOfOtherPregnancyOutcomes: {ExampleBirthRecord.NumberOfOtherPregnancyOutcomes}");</para>
         /// </example>
-        [Property("NumberOfOtherPregnancyOutcomes", Property.Types.Int32, "NumberOfOtherPregnancyOutcomes", "NumberOfOtherPregnancyOutcomes", true, IGURL.ObservationNumberOtherPregnancyOutcomes, true, 14)]
+        [Property("NumberOfOtherPregnancyOutcomes", Property.Types.Int32, "Number Of Other Pregnancy Outcomes", "Number Of Other Pregnancy Outcomes", true, IGURL.ObservationNumberOtherPregnancyOutcomes, true, 14)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='69043-8')", "")]
         public int? NumberOfOtherPregnancyOutcomes
         {
@@ -4693,7 +4693,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"MotherReceivedWICFood: {ExampleBirthRecord.MotherReceivedWICFood}");</para>
         /// </example>
-        [Property("MotherReceivedWICFood", Property.Types.Dictionary, "MotherReceivedWICFood", "MotherReceivedWICFood", true, IGURL.ObservationMotherReceivedWICFood, true, 14)]
+        [Property("MotherReceivedWICFood", Property.Types.Dictionary, "Mother Received WIC Food", "Mother Received WIC Food", true, IGURL.ObservationMotherReceivedWICFood, true, 14)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87303-4')", "")]
         public Dictionary<string, string> MotherReceivedWICFood
         {
@@ -4724,7 +4724,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"MotherReceivedWICFoodHelper: {ExampleBirthRecord.MotherReceivedWICFoodHelper}");</para>
         /// </example>
-        [Property("MotherReceivedWICFoodHelper", Property.Types.String, "MotherReceivedWICFoodHelper", "MotherReceivedWICFoodHelper", true, IGURL.ObservationMotherReceivedWICFood, true, 14)]
+        [Property("MotherReceivedWICFoodHelper", Property.Types.String, "Mother Received WIC Food", "Mother Received WIC Food", true, IGURL.ObservationMotherReceivedWICFood, true, 14)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87303-4')", "")]
         public string MotherReceivedWICFoodHelper
         {
@@ -4753,7 +4753,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"InfantBreastfedAtDischarge: {ExampleBirthRecord.InfantBreastfedAtDischarge}");</para>
         /// </example>
-        [Property("InfantBreastfedAtDischarge", Property.Types.Bool, "InfantBreastfedAtDischarge", "InfantBreastfedAtDischarge", true, IGURL.ObservationInfantBreastfedAtDischarge, true, 14)]
+        [Property("InfantBreastfedAtDischarge", Property.Types.Bool, "Infant Breastfed At Discharge", "Infant Breastfed At Discharge", true, IGURL.ObservationInfantBreastfedAtDischarge, true, 14)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='73756-9')", "")]
         public bool? InfantBreastfedAtDischarge
         {
@@ -6474,7 +6474,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Principal source of Payment for this delivery: {ExampleBirthRecord.PayorTypeFinancialClass["code"]}");</para>
         /// </example>
-        [Property("PayorTypeFinancialClass", Property.Types.Dictionary, "PayorTypeFinancialClass", "Source of Payment.", true, IGURL.CoveragePrincipalPayerDelivery, true, 16)]
+        [Property("PayorTypeFinancialClass", Property.Types.Dictionary, "Payor Type Financial Class", "Source of Payment.", true, IGURL.CoveragePrincipalPayerDelivery, true, 16)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
@@ -7459,7 +7459,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue1_1}");</para>
         /// </example>
-        [Property("Emerging Issue Field Length 1 Number 1", Property.Types.String, "emergingIssues", "One-Byte Field 1", true, VR.IGURL.EmergingIssues, false, 50)]
+        [Property("Emerging Issue Field Length 1 Number 1", Property.Types.String, "Emerging Issues", "One-Byte Field 1", true, VR.IGURL.EmergingIssues, false, 50)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='emergingissues')", "")]
         [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public string EmergingIssue1_1
@@ -7485,7 +7485,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue1_2}");</para>
         /// </example>
-        [Property("Emerging Issue Field Length 1 Number 2", Property.Types.String, "emergingIssues", "1-Byte Field 2", true, VR.IGURL.EmergingIssues, false, 50)]
+        [Property("Emerging Issue Field Length 1 Number 2", Property.Types.String, "Emerging Issues", "1-Byte Field 2", true, VR.IGURL.EmergingIssues, false, 50)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='emergingissues')", "")]
         [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public string EmergingIssue1_2
@@ -7511,7 +7511,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue1_3}");</para>
         /// </example>
-        [Property("Emerging Issue Field Length 1 Number 3", Property.Types.String, "emergingIssues", "1-Byte Field 3", true, VR.IGURL.EmergingIssues, false, 50)]
+        [Property("Emerging Issue Field Length 1 Number 3", Property.Types.String, "Emerging Issues", "1-Byte Field 3", true, VR.IGURL.EmergingIssues, false, 50)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='emergingissues')", "")]
         [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public string EmergingIssue1_3
@@ -7537,7 +7537,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue1_4}");</para>
         /// </example>
-        [Property("Emerging Issue Field Length 1 Number 4", Property.Types.String, "emergingIssues", "1-Byte Field 4", true, VR.IGURL.EmergingIssues, false, 50)]
+        [Property("Emerging Issue Field Length 1 Number 4", Property.Types.String, "Emerging Issues", "1-Byte Field 4", true, VR.IGURL.EmergingIssues, false, 50)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='emergingissues')", "")]
         [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public string EmergingIssue1_4
@@ -7563,7 +7563,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue1_5}");</para>
         /// </example>
-        [Property("Emerging Issue Field Length 1 Number 5", Property.Types.String, "emergingIssues", "1-Byte Field 5", true, VR.IGURL.EmergingIssues, false, 50)]
+        [Property("Emerging Issue Field Length 1 Number 5", Property.Types.String, "Emerging Issues", "1-Byte Field 5", true, VR.IGURL.EmergingIssues, false, 50)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='emergingissues')", "")]
         [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public string EmergingIssue1_5
@@ -7589,7 +7589,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue1_6}");</para>
         /// </example>
-        [Property("Emerging Issue Field Length 1 Number 6", Property.Types.String, "emergingIssues", "1-Byte Field 6", true, VR.IGURL.EmergingIssues, false, 50)]
+        [Property("Emerging Issue Field Length 1 Number 6", Property.Types.String, "Emerging Issues", "1-Byte Field 6", true, VR.IGURL.EmergingIssues, false, 50)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='emergingissues')", "")]
         [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public string EmergingIssue1_6
@@ -7615,7 +7615,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue8_1}");</para>
         /// </example>
-        [Property("Emerging Issue Field Length 8 Number 1", Property.Types.String, "emergingIssues", "8-Byte Field 1", true, VR.IGURL.EmergingIssues, false, 50)]
+        [Property("Emerging Issue Field Length 8 Number 1", Property.Types.String, "Emerging Issues", "8-Byte Field 1", true, VR.IGURL.EmergingIssues, false, 50)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='emergingissues')", "")]
         [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public string EmergingIssue8_1
@@ -7641,7 +7641,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue8_2}");</para>
         /// </example>
-        [Property("Emerging Issue Field Length 8 Number 2", Property.Types.String, "emergingIssues", "8-Byte Field 2", true, VR.IGURL.EmergingIssues, false, 50)]
+        [Property("Emerging Issue Field Length 8 Number 2", Property.Types.String, "Emerging Issues", "8-Byte Field 2", true, VR.IGURL.EmergingIssues, false, 50)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='emergingissues')", "")]
         [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public string EmergingIssue8_2
@@ -7667,7 +7667,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue8_3}");</para>
         /// </example>
-        [Property("Emerging Issue Field Length 8 Number 3", Property.Types.String, "emergingIssues", "8-Byte Field 3", true, VR.IGURL.EmergingIssues, false, 50)]
+        [Property("Emerging Issue Field Length 8 Number 3", Property.Types.String, "Emerging Issues", "8-Byte Field 3", true, VR.IGURL.EmergingIssues, false, 50)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='emergingissues')", "")]
         [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public string EmergingIssue8_3
@@ -7693,7 +7693,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue20}");</para>
         /// </example>
-        [Property("Emerging Issue Field Length 20", Property.Types.String, "emergingIssues", "20-Byte Field", true, VR.IGURL.EmergingIssues, false, 50)]
+        [Property("Emerging Issue Field Length 20", Property.Types.String, "Emerging Issues", "20-Byte Field", true, VR.IGURL.EmergingIssues, false, 50)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='emergingissues')", "")]
         [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public string EmergingIssue20
