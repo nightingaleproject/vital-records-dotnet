@@ -24,7 +24,7 @@ Interactions with NCHS are governed by the CI build version of the BFDR and Birt
 </tr>
 <tr>
 <td style="text-align: center;"><a href="https://build.fhir.org/ig/HL7/fhir-bfdr/branches/master/index.html">STU2.0 CI build version</a></td>
-<td style="text-align: center;"><a href="">v0.9.1</a></td>
+<td style="text-align: center;"><a href="https://build.fhir.org/ig/nightingaleproject/vital_records_fhir_messaging_ig/">v1.1.0-ci-build</a></td>
 <td style="text-align: center;">R4</td>
 <td style="text-align: center;">V4.0.3</td>
 <td style="text-align: center;"><a href="">nuget</a> <a href=""> github</a></td>
@@ -80,15 +80,19 @@ using BFDR;
 
 BirthRecord birthRecord = new BirthRecord();
 
-// Set Birth Record ID
-birthRecord.Identifier = "42";
+// Set birth date in parts
+BirthRecord birthRecord = new BirthRecord();
+birthRecord.BirthYear = 2023;
+birthRecord.BirthMonth = 1;
+birthRecord.BirthDay = 1;
+// Set birth date with one date
+birthRecord.DateOfBirth = "2023-01-01";
 
-// Add Child Given Names
-string[] givenNames = { "First", "Middle" };
-birthRecord.GivenNames = givenNames;
+// Set certificate number
+birthRecord.CertificateNumber = "100";
 
-// Add Child Last Name
-birthRecord.FamilyName = "Last";
+// Set state identifier
+birthRecord.StateLocalIdentifier1 = "123";
 
 // Print record as a JSON string
 Console.WriteLine(birthRecord.ToJSON());
@@ -106,7 +110,7 @@ string xml = File.ReadAllText("./example_bfdr_fhir_record.xml");
 BirthRecord birthRecord = new BirthRecord(xml);
 
 // Print out some details from the record
-Console.WriteLine($"Child's Last Name: {birthRecord.FamilyName}");
+Console.WriteLine($"Child's Last Name: {birthRecord.ChildFamilyName}");
 ```
 
 #### Specifying that a date or time is explicitly unknown
@@ -141,10 +145,10 @@ class
 3. Resetting the middle name if the first name is set again when using the IJENatality class;
 setting the first name and then the middle name ensures no issues will occur.
 
-For the child's last name, if the family name, denoted as FamilyName in FHIR, is missing or unknown,
-its corresponding LNAME in IJE has value of "UNKNOWN". Vice versa, if its LNAME in IJE is "UNKNOWN",
-its corresponding FamilyName in FHIR has value of NULL. All other values have 1-to-1 mappings between
-FHIR's FamilyName and IJE's LNAME.
+For the child's last name, if the family name, denoted as ChildFamilyName in FHIR, is missing or unknown,
+its corresponding KIDLNAME in IJE has value of "UNKNOWN". Vice versa, if its KIDLNAME in IJE is "UNKNOWN",
+its corresponding ChildFamilyName in FHIR has value of NULL. All other values have 1-to-1 mappings between
+FHIR's ChildFamilyName and IJE's KIDLNAME.
 
 #### FHIR BFDR record to/from IJE Natality format
 
@@ -208,8 +212,6 @@ You can also include a locally downloaded copy of the library instead of the NuG
   </ItemGroup>
 </Project>
 ```
-
-Use of the BFDR.Messaging library to support various message exchange scenarios is described in [`doc/Messaging.md`](doc/Messaging.md).
 
 #### Return Coding Example
 
