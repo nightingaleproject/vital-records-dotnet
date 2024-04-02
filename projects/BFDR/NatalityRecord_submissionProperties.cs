@@ -1559,6 +1559,9 @@ namespace BFDR
         /// <para>Console.WriteLine($"Multiple birth set order edit flag: {ExampleBirthRecord.PluralityEditFlag}");</para>
         /// </example>
         [Property("PluralityEditFlag", Property.Types.Dictionary, "Child Demographics", "Child Demographics, Plurality Edit Flag", true, VR.IGURL.Child, true, 211)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
         [FHIRPath("Bundle.entry.resource.where($this is Patient).multipleBirth.extension.where(url = 'http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag')", "")]
         public Dictionary<string, string> PluralityEditFlag
         {
@@ -2475,6 +2478,9 @@ namespace BFDR
         /// <para>Console.WriteLine($"NumberOfPreviousCesareansEditFlag: {ExampleBirthRecord.NumberOfPreviousCesareansEditFlag}");</para>
         /// </example>
         [Property("Number Of Prenatal Visits Edit Flag", Property.Types.Dictionary, "Number of Prenatal Visits", "Number of Prenatal Visits Edit Flag.", true, IGURL.ObservationNumberPreviousCesareans, true, 14)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='68497-7')", "")]
         public Dictionary<string, string> NumberOfPreviousCesareansEditFlag
         {
@@ -2893,6 +2899,9 @@ namespace BFDR
         /// <para>Console.WriteLine($"Mother's date of birth edit flag: {ExampleBirthRecord.MotherDateOfBirthEditFlag}");</para>
         /// </example>
         [Property("MotherDateOfBirthEditFlag", Property.Types.Dictionary, "Mother Demographics", "Mother Demographics, Date of Birth Edit Flag", true, VR.IGURL.Mother, true, 17)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
         [FHIRPath("Bundle.entry.resource.where($this is Patient).birthDate.extension.where(url = 'http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag')", "")]
         public Dictionary<string, string> MotherDateOfBirthEditFlag
         {
@@ -3107,6 +3116,9 @@ namespace BFDR
         /// <para>Console.WriteLine($"Father's date of birth edit flag: {ExampleBirthRecord.FatherDateOfBirthEditFlag}");</para>
         /// </example>
         [Property("FatherDateOfBirthEditFlag", Property.Types.Dictionary, "Father Demographics", "Father Demographics, Date of Birth Edit Flag", true, VR.IGURL.RelatedPersonFatherNatural, true, 28)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
         [FHIRPath("Bundle.entry.resource.where($this is RelatedPerson).birthDate.extension.where(url = 'http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag')", "")]
         public Dictionary<string, string> FatherDateOfBirthEditFlag
         {
@@ -4427,6 +4439,9 @@ namespace BFDR
         /// <para>Console.WriteLine($"NumberOfPrenatalVisitsEditFlag: {ExampleBirthRecord.NumberOfPrenatalVisitsEditFlag}");</para>
         /// </example>
         [Property("Number Of Prenatal Visits Edit Flag", Property.Types.Dictionary, "Number of Prenatal Visits", "Number of Prenatal Visits Edit Flag.", true, IGURL.ObservationNumberPrenatalVisits, true, 14)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='68493-6')", "")]
         public Dictionary<string, string> NumberOfPrenatalVisitsEditFlag
         {
@@ -4570,6 +4585,9 @@ namespace BFDR
         /// <para>Console.WriteLine($"GestationalAgeAtDeliveryEditFlag: {ExampleBirthRecord.GestationalAgeAtDeliveryEditFlag}");</para>
         /// </example>
         [Property("GestationalAgeAtDelivery Edit Flag", Property.Types.Dictionary, "Gestational age at delivery", "GestationalAgeAtDeliveryEditFlag.", true, IGURL.ObservationGestationalAgeAtDelivery, true, 14)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='11884-4')", "")]
         public Dictionary<string, string> GestationalAgeAtDeliveryEditFlag
         {
@@ -4694,6 +4712,9 @@ namespace BFDR
         /// <para>Console.WriteLine($"MotherReceivedWICFood: {ExampleBirthRecord.MotherReceivedWICFood}");</para>
         /// </example>
         [Property("MotherReceivedWICFood", Property.Types.Dictionary, "Mother Received WIC Food", "Mother Received WIC Food", true, IGURL.ObservationMotherReceivedWICFood, true, 14)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87303-4')", "")]
         public Dictionary<string, string> MotherReceivedWICFood
         {
@@ -4974,6 +4995,9 @@ namespace BFDR
         /// <para>Console.WriteLine($"Mother's prepregnancy weight edit flag: {ExampleBirthRecord.MotherPrepregnancyWeightEditFlag}");</para>
         /// </example>
         [Property("MotherPrepregnancyWeightEditFlag", Property.Types.Dictionary, "Mother Prenatal", "Mother Prenatal, Weight at Delivery Edit Flag", true, IGURL.ObservationMotherPrepregnancyWeight, true, 138)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='56077-1')", "")]
         public Dictionary<string, string> MotherPrepregnancyWeightEditFlag
         {
@@ -5010,6 +5034,9 @@ namespace BFDR
         /// <para>Console.WriteLine($"Mother's weight at delivery edit flag: {ExampleBirthRecord.MotherWeightAtDeliveryEditFlag}");</para>
         /// </example>
         [Property("MotherWeightAtDeliveryEditFlag", Property.Types.Dictionary, "Mother Prenatal", "Mother Prenatal, Weight at Delivery Edit Flag", true, IGURL.ObservationMotherDeliveryWeight, true, 140)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='69461-2')", "")]
         public Dictionary<string, string> MotherWeightAtDeliveryEditFlag
         {
@@ -5046,6 +5073,9 @@ namespace BFDR
         /// <para>Console.WriteLine($"Birth weight edit flag: {ExampleBirthRecord.BirthWeightEditFlag}");</para>
         /// </example>
         [Property("BirthWeightEditFlag", Property.Types.Dictionary, "Child Demographics", "Child Demographics, Birth Weight Edit Flag", true, IGURL.ObservationBirthWeight, true, 202)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='8339-4')", "")]
         public Dictionary<string, string> BirthWeightEditFlag
         {
@@ -6221,6 +6251,9 @@ namespace BFDR
         /// <para>Console.WriteLine($"Mother married during pregnancy: {ExampleBirthRecord.MotherMarriedDuringPregnancy}");</para>
         /// </example>
         [Property("MotherMarriedDuringPregnancy", Property.Types.Dictionary, "MotherMarriedDuringPregnancy", "MotherMarriedDuringPregnancy", false, BFDR.IGURL.ObservationMotherMarriedDuringPregnancy, true, 288)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87301-8')", "")]
         public Dictionary<string, string> MotherMarriedDuringPregnancy
         {
@@ -6583,6 +6616,9 @@ namespace BFDR
         /// <para>Console.WriteLine($"Paternity acknowledgement signed: {ExampleBirthRecord.PaternityAcknowledgementSigned}");</para>
         /// </example>
         [Property("PaternityAcknowledgementSigned", Property.Types.Dictionary, "PaternityAcknowledgementSigned", "PaternityAcknowledgementSigned", false, BFDR.IGURL.ObservationPaternityAcknowledgementSigned, true, 288)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87302-6')", "")]
         public Dictionary<string, string> PaternityAcknowledgementSigned
         {
@@ -6615,6 +6651,9 @@ namespace BFDR
         /// <para>Console.WriteLine($"Mother transferred: {ExampleBirthRecord.MotherTransferred}");</para>
         /// </example>
         [Property("MotherTransferred", Property.Types.Dictionary, "MotherTransferred", "MotherTransferred", false, VR.IGURL.Mother, true, 288)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
         [FHIRPath("Bundle.entry.resource.where($this is Patient)", "hospitalization")]
         public Dictionary<string, string> MotherTransferred
         {
@@ -6741,6 +6780,9 @@ namespace BFDR
         /// <para>Console.WriteLine($"Infant transferred: {ExampleBirthRecord.InfantTransferred}");</para>
         /// </example>
         [Property("InfantTransferred", Property.Types.Dictionary, "InfantTransferred", "InfantTransferred", false, BFDR.IGURL.EncounterBirth, true, 288)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
         [FHIRPath("Bundle.entry.resource.where($this is Patient)", "hospitalization")]
         public Dictionary<string, string> InfantTransferred
         {
