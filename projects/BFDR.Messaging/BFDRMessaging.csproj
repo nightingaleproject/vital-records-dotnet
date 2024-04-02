@@ -19,6 +19,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="../BFDR/BFDR.csproj" />
-    <ProjectReference Include="../VitalRecord.Messaging/VRMessaging.csproj" />
+    <ProjectReference Include="../VitalRecord.Messaging/VitalRecord.Messaging.csproj" />
   </ItemGroup>
 </Project>
