@@ -31,7 +31,7 @@ export class Property extends Component {
   }
 
   renderType(type, isCheckbox, value, description, igurl, error) {
-    if (type === 'String' || type === 'UInt32') {
+    if (type === 'String' || type === 'UInt32' || type == 'Int32') {
       return (
         <StringType
           key={`${this.props.name}${value}`} // Key ensures re-render if value changes
