@@ -3604,7 +3604,7 @@
             <para>ExampleBirthRecord.CertifiedDay = 23;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Certified Day: {ExampleBirthRecord.CertifiedDay}");</para>
-            </example>
+            </example> 
         </member>
         <member name="M:BFDR.NatalityRecord.SetEmergingIssue(System.String,System.String)">
             <summary>Set an emerging issue value, creating an empty EmergingIssues Observation as needed.</summary>
