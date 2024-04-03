@@ -21,9 +21,17 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.14" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.14" />
     <PackageReference Include="Bogus" Version="35.3.0" />
+    <ProjectReference Include="..\VitalRecord.Messaging\VitalRecord.Messaging.csproj" />
 
     <ProjectReference Include="..\VitalRecord\VitalRecord.csproj" />
+
+    <ProjectReference Include="..\VRDR.Client\VRDR.Client.csproj" />
+
+    <ProjectReference Include="..\VRDR.CLI\VRDR.CLI.csproj" />
+
+    <ProjectReference Include="..\VRDR.Filter\VRDR.Filter.csproj" />
     <ProjectReference Include="..\VRDR.Messaging\VRDR.Messaging.csproj" />
+    <ProjectReference Include="..\VRDR\VRDR.csproj" />
   </ItemGroup>
 
   <ItemGroup>
