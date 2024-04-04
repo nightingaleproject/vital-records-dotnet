@@ -73,6 +73,9 @@
         <member name="F:VR.CodeSystems.ActReason">
             <summary> ActReason </summary>
         </member>
+        <member name="F:VR.CodeSystems.ProvinceCodes">
+            <summary> ProvinceCodes </summary>
+        </member>
         <member name="F:VR.CodeSystems.VRCLMissingValueReason">
             <summary> VRCL Missing Value Reason </summary>
         </member>
@@ -96,6 +99,9 @@
         </member>
         <member name="F:VR.CodeSystems.VRCLJurisdictions">
             <summary> VRCL Jurisdictions </summary>
+        </member>
+        <member name="F:VR.CodeSystems.VRCLUSStatesTerritories">
+            <summary> VRCL States Territories </summary>
         </member>
         <member name="F:VR.CodeSystems.ComponentCodeVR">
             <summary> Component </summary>
@@ -1280,6 +1286,174 @@
         </member>
         <member name="F:VR.ValueSets.Jurisdiction.Codes">
             <summary> Codes </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Alabama">
+            <summary> Alabama </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Alaska">
+            <summary> Alaska </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Arizona">
+            <summary> Arizona </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Arkansas">
+            <summary> Arkansas </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.California">
+            <summary> California </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Colorado">
+            <summary> Colorado </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Connecticut">
+            <summary> Connecticut </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Delaware">
+            <summary> Delaware </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.District_Of_Columbia">
+            <summary> District_Of_Columbia </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Florida">
+            <summary> Florida </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Georgia">
+            <summary> Georgia </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Hawaii">
+            <summary> Hawaii </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Idaho">
+            <summary> Idaho </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Illinois">
+            <summary> Illinois </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Indiana">
+            <summary> Indiana </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Iowa">
+            <summary> Iowa </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Kansas">
+            <summary> Kansas </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Kentucky">
+            <summary> Kentucky </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Louisiana">
+            <summary> Louisiana </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Maine">
+            <summary> Maine </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Maryland">
+            <summary> Maryland </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Massachusetts">
+            <summary> Massachusetts </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Michigan">
+            <summary> Michigan </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Minnesota">
+            <summary> Minnesota </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Mississippi">
+            <summary> Mississippi </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Missouri">
+            <summary> Missouri </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Montana">
+            <summary> Montana </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Nebraska">
+            <summary> Nebraska </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Nevada">
+            <summary> Nevada </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.New_Hampshire">
+            <summary> New_Hampshire </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.New_Jersey">
+            <summary> New_Jersey </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.New_Mexico">
+            <summary> New_Mexico </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.New_York">
+            <summary> New_York </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.North_Carolina">
+            <summary> North_Carolina </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.North_Dakota">
+            <summary> North_Dakota </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Ohio">
+            <summary> Ohio </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Oklahoma">
+            <summary> Oklahoma </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Oregon">
+            <summary> Oregon </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Pennsylvania">
+            <summary> Pennsylvania </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Rhode_Island">
+            <summary> Rhode_Island </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.South_Carolina">
+            <summary> South_Carolina </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.South_Dakota">
+            <summary> South_Dakota </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Tennessee">
+            <summary> Tennessee </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Texas">
+            <summary> Texas </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Utah">
+            <summary> Utah </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Vermont">
+            <summary> Vermont </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Virginia">
+            <summary> Virginia </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Washington">
+            <summary> Washington </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.West_Virginia">
+            <summary> West_Virginia </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Wisconsin">
+            <summary> Wisconsin </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Wyoming">
+            <summary> Wyoming </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.American_Samoa">
+            <summary> American_Samoa </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Guam">
+            <summary> Guam </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Northern_Mariana_Islands">
+            <summary> Northern_Mariana_Islands </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Puerto_Rico">
+            <summary> Puerto_Rico </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Virgin_Islands">
+            <summary> Virgin_Islands </summary>
         </member>
         <member name="F:VR.ValueSets.Jurisdiction.New_York_City">
             <summary> New_York_City </summary>
@@ -5031,6 +5205,222 @@
         <member name="F:VR.ValueSets.SexAssignedAtBirth.Unknown">
             <summary> Unknown </summary>
         </member>
+        <member name="T:VR.ValueSets.StatesTerritoriesProvinces">
+            <summary> StatesTerritoriesProvinces </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Alabama">
+            <summary> Alabama </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Alaska">
+            <summary> Alaska </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Arizona">
+            <summary> Arizona </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Arkansas">
+            <summary> Arkansas </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.California">
+            <summary> California </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Colorado">
+            <summary> Colorado </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Connecticut">
+            <summary> Connecticut </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Delaware">
+            <summary> Delaware </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.District_Of_Columbia">
+            <summary> District_Of_Columbia </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Florida">
+            <summary> Florida </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Georgia">
+            <summary> Georgia </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Hawaii">
+            <summary> Hawaii </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Idaho">
+            <summary> Idaho </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Illinois">
+            <summary> Illinois </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Indiana">
+            <summary> Indiana </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Iowa">
+            <summary> Iowa </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Kansas">
+            <summary> Kansas </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Kentucky">
+            <summary> Kentucky </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Louisiana">
+            <summary> Louisiana </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Maine">
+            <summary> Maine </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Maryland">
+            <summary> Maryland </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Massachusetts">
+            <summary> Massachusetts </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Michigan">
+            <summary> Michigan </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Minnesota">
+            <summary> Minnesota </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Mississippi">
+            <summary> Mississippi </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Missouri">
+            <summary> Missouri </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Montana">
+            <summary> Montana </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Nebraska">
+            <summary> Nebraska </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Nevada">
+            <summary> Nevada </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.New_Hampshire">
+            <summary> New_Hampshire </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.New_Jersey">
+            <summary> New_Jersey </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.New_Mexico">
+            <summary> New_Mexico </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.New_York">
+            <summary> New_York </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.North_Carolina">
+            <summary> North_Carolina </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.North_Dakota">
+            <summary> North_Dakota </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Ohio">
+            <summary> Ohio </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Oklahoma">
+            <summary> Oklahoma </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Oregon">
+            <summary> Oregon </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Pennsylvania">
+            <summary> Pennsylvania </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Rhode_Island">
+            <summary> Rhode_Island </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.South_Carolina">
+            <summary> South_Carolina </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.South_Dakota">
+            <summary> South_Dakota </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Tennessee">
+            <summary> Tennessee </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Texas">
+            <summary> Texas </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Utah">
+            <summary> Utah </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Vermont">
+            <summary> Vermont </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Virginia">
+            <summary> Virginia </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Washington">
+            <summary> Washington </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.West_Virginia">
+            <summary> West_Virginia </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Wisconsin">
+            <summary> Wisconsin </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Wyoming">
+            <summary> Wyoming </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.American_Samoa">
+            <summary> American_Samoa </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Guam">
+            <summary> Guam </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Northern_Mariana_Islands">
+            <summary> Northern_Mariana_Islands </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Puerto_Rico">
+            <summary> Puerto_Rico </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Virgin_Islands">
+            <summary> Virgin_Islands </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Alberta">
+            <summary> Alberta </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.British_Columbia">
+            <summary> British_Columbia </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Manitoba">
+            <summary> Manitoba </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.New_Brunswick">
+            <summary> New_Brunswick </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Newfoundland_And_Labrador">
+            <summary> Newfoundland_And_Labrador </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Nova_Scotia">
+            <summary> Nova_Scotia </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Northwest_Territories">
+            <summary> Northwest_Territories </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Nunavut">
+            <summary> Nunavut </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Ontario">
+            <summary> Ontario </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Prince_Edward_Island">
+            <summary> Prince_Edward_Island </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Quebec">
+            <summary> Quebec </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Saskatchewan">
+            <summary> Saskatchewan </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Yukon">
+            <summary> Yukon </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Unknown">
+            <summary> Unknown </summary>
+        </member>
         <member name="T:VR.ValueSets.UnitsOfAge">
             <summary> UnitsOfAge </summary>
         </member>
@@ -5055,6 +5445,180 @@
         <member name="F:VR.ValueSets.UnitsOfAge.Unknown">
             <summary> Unknown </summary>
         </member>
+        <member name="T:VR.ValueSets.UsstatesTerritories">
+            <summary> UsstatesTerritories </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Alabama">
+            <summary> Alabama </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Alaska">
+            <summary> Alaska </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Arizona">
+            <summary> Arizona </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Arkansas">
+            <summary> Arkansas </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.California">
+            <summary> California </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Colorado">
+            <summary> Colorado </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Connecticut">
+            <summary> Connecticut </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Delaware">
+            <summary> Delaware </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.District_Of_Columbia">
+            <summary> District_Of_Columbia </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Florida">
+            <summary> Florida </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Georgia">
+            <summary> Georgia </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Hawaii">
+            <summary> Hawaii </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Idaho">
+            <summary> Idaho </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Illinois">
+            <summary> Illinois </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Indiana">
+            <summary> Indiana </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Iowa">
+            <summary> Iowa </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Kansas">
+            <summary> Kansas </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Kentucky">
+            <summary> Kentucky </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Louisiana">
+            <summary> Louisiana </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Maine">
+            <summary> Maine </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Maryland">
+            <summary> Maryland </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Massachusetts">
+            <summary> Massachusetts </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Michigan">
+            <summary> Michigan </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Minnesota">
+            <summary> Minnesota </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Mississippi">
+            <summary> Mississippi </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Missouri">
+            <summary> Missouri </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Montana">
+            <summary> Montana </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Nebraska">
+            <summary> Nebraska </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Nevada">
+            <summary> Nevada </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.New_Hampshire">
+            <summary> New_Hampshire </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.New_Jersey">
+            <summary> New_Jersey </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.New_Mexico">
+            <summary> New_Mexico </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.New_York">
+            <summary> New_York </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.North_Carolina">
+            <summary> North_Carolina </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.North_Dakota">
+            <summary> North_Dakota </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Ohio">
+            <summary> Ohio </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Oklahoma">
+            <summary> Oklahoma </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Oregon">
+            <summary> Oregon </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Pennsylvania">
+            <summary> Pennsylvania </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Rhode_Island">
+            <summary> Rhode_Island </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.South_Carolina">
+            <summary> South_Carolina </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.South_Dakota">
+            <summary> South_Dakota </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Tennessee">
+            <summary> Tennessee </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Texas">
+            <summary> Texas </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Utah">
+            <summary> Utah </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Vermont">
+            <summary> Vermont </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Virginia">
+            <summary> Virginia </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Washington">
+            <summary> Washington </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.West_Virginia">
+            <summary> West_Virginia </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Wisconsin">
+            <summary> Wisconsin </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Wyoming">
+            <summary> Wyoming </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.American_Samoa">
+            <summary> American_Samoa </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Guam">
+            <summary> Guam </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Northern_Mariana_Islands">
+            <summary> Northern_Mariana_Islands </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Puerto_Rico">
+            <summary> Puerto_Rico </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Virgin_Islands">
+            <summary> Virgin_Islands </summary>
+        </member>
         <member name="T:VR.ValueSets.Usstates">
             <summary> Usstates </summary>
         </member>
@@ -5066,9 +5630,6 @@
         </member>
         <member name="F:VR.ValueSets.Usstates.Alaska">
             <summary> Alaska </summary>
-        </member>
-        <member name="F:VR.ValueSets.Usstates.American_Samoa">
-            <summary> American_Samoa </summary>
         </member>
         <member name="F:VR.ValueSets.Usstates.Arizona">
             <summary> Arizona </summary>
@@ -5096,9 +5657,6 @@
         </member>
         <member name="F:VR.ValueSets.Usstates.Georgia">
             <summary> Georgia </summary>
-        </member>
-        <member name="F:VR.ValueSets.Usstates.Guam">
-            <summary> Guam </summary>
         </member>
         <member name="F:VR.ValueSets.Usstates.Hawaii">
             <summary> Hawaii </summary>
@@ -5172,9 +5730,6 @@
         <member name="F:VR.ValueSets.Usstates.North_Dakota">
             <summary> North_Dakota </summary>
         </member>
-        <member name="F:VR.ValueSets.Usstates.Northern_Mariana_Islands">
-            <summary> Northern_Mariana_Islands </summary>
-        </member>
         <member name="F:VR.ValueSets.Usstates.Ohio">
             <summary> Ohio </summary>
         </member>
@@ -5186,9 +5741,6 @@
         </member>
         <member name="F:VR.ValueSets.Usstates.Pennsylvania">
             <summary> Pennsylvania </summary>
-        </member>
-        <member name="F:VR.ValueSets.Usstates.Puerto_Rico">
-            <summary> Puerto_Rico </summary>
         </member>
         <member name="F:VR.ValueSets.Usstates.Rhode_Island">
             <summary> Rhode_Island </summary>
@@ -5210,9 +5762,6 @@
         </member>
         <member name="F:VR.ValueSets.Usstates.Vermont">
             <summary> Vermont </summary>
-        </member>
-        <member name="F:VR.ValueSets.Usstates.Virgin_Islands">
-            <summary> Virgin_Islands </summary>
         </member>
         <member name="F:VR.ValueSets.Usstates.Virginia">
             <summary> Virginia </summary>
