@@ -3,11 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
-using VR;
 using VRDR;
 using Newtonsoft.Json;
 using System.IO;
 using System.Text.Json.Nodes;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging.Abstractions;
+using System.Net.Http.Headers;
+using RestSharp;
+using RestSharp.Authenticators;
+using System.Text;
+using System.Net.Http.Json;
+using System.Text.RegularExpressions;
+using VR;
 
 namespace canary.Models
 {
@@ -50,6 +60,8 @@ namespace canary.Models
         private DeathRecord record { get; set; }
 
         private string ije { get; set; }
+
+        private string fsh { get; set; }
 
         public int RecordId { get; set; }
 
@@ -104,6 +116,21 @@ namespace canary.Models
             }
         }
 
+        public string Fsh
+        {
+            get
+            {
+                if (record == null)
+                {
+                    return null;
+                }
+                return fsh;
+            }
+
+            set { fsh = value; }
+
+        }
+
         public DeathRecord GetRecord()
         {
             return record;
@@ -116,7 +143,7 @@ namespace canary.Models
                 string ijeString = ije;
                 List<PropertyInfo> properties = typeof(IJEMortality).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Field).ToList();
                 List<Dictionary<string, string>> propList = new List<Dictionary<string, string>>();
-                foreach(PropertyInfo property in properties)
+                foreach (PropertyInfo property in properties)
                 {
                     IJEField info = property.GetCustomAttribute<IJEField>();
                     string field = ijeString.Substring(info.Location - 1, info.Length);
@@ -180,7 +207,7 @@ namespace canary.Models
 
         /// <summary>Check the given FHIR record string and return a list of issues. Also returned
         /// the parsed record if parsing was successful.</summary>
-        public static (Record record, List<Dictionary<string, string>> issues) CheckGet(string record, bool permissive)
+        public static (Record record, List<Dictionary<string, string>> issues) CheckGet(string record, bool permissive, string originalFhirData = "", bool useFsh = false)
         {
             Record newRecord = null;
             List<Dictionary<string, string>> entries = new List<Dictionary<string, string>>();
@@ -192,6 +219,13 @@ namespace canary.Models
                 // here and if it passes then the record is considered "safe" to return.
                 JsonConvert.SerializeObject(recordToSerialize);
                 newRecord = recordToSerialize;
+                if (!String.IsNullOrWhiteSpace(originalFhirData) && useFsh)
+                {
+                    System.Threading.Tasks.Task<string> task =
+                        System.Threading.Tasks.Task.Run<string>(async () => await getFshData(record));
+                    newRecord.Fsh = task.Result;
+                }
+
                 validateRecordType(newRecord);
                 return (record: newRecord, issues: entries);
             }
@@ -200,6 +234,37 @@ namespace canary.Models
                 entries = DecorateErrors(e);
             }
             return (record: newRecord, issues: entries);
+        }
+
+        private async static Task<string> getFshData(string fhirMessage)
+        {
+            string ret = string.Empty;
+
+            try
+            {
+
+                byte[] bytes = Encoding.ASCII.GetBytes(fhirMessage);
+
+                var fhrContent = Regex.Replace(fhirMessage, @"(""[^""\\]*(?:\\.[^""\\]*)*"")|\s+", "$1");
+
+                var options = new RestClientOptions("https://cte-nvss-canary-a213fdc38384.azurewebsites.net")
+                {
+                    MaxTimeout = -1,
+                };
+                var client = new RestClient(options);
+                var request = new RestRequest("/api/FhirToFsh", Method.Post);
+                request.AddHeader("Cache-Control", "no-cache");
+                request.AddHeader("Host", "cte-nvss-canary-a213fdc38384.azurewebsites.net");
+                request.AddJsonBody(fhirMessage);
+                RestResponse response = await client.ExecuteAsync(request);
+                ret = response.Content;
+
+            }
+            catch (Exception ex)
+            {
+                ret = ex.Message;
+            }
+            return ret;
         }
 
         /// <summary>Recursively call InnerException and add all errors to the list until we reach the BaseException.</summary>
@@ -220,7 +285,7 @@ namespace canary.Models
             }
 
             var jsonData = JsonObject.Parse(record.Json);
-            if(jsonData["type"] == null)
+            if (jsonData["type"] == null)
             {
                 throw new Exception("No type key in JSON data");
             }
