@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - Natality-feature
+      - fetal-death-feature
     paths:
       - 'projects/VRDR/**'
       - 'projects/VRDR.CLI/**'
@@ -16,6 +17,7 @@ on:
     branches:
       - main
       - Natality-feature
+      - fetal-death-feature
     paths:
       - 'projects/VRDR/**'
       - 'projects/VRDR.CLI/**'
