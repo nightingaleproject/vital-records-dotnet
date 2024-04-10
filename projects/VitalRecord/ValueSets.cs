@@ -390,9 +390,177 @@ namespace VR
         public static class Jurisdiction {
             /// <summary> Codes </summary>
             public static string[,] Codes = {
+                { "AL", "Alabama", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "AK", "Alaska", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "AZ", "Arizona", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "AR", "Arkansas", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "CA", "California", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "CO", "Colorado", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "CT", "Connecticut", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "DE", "Delaware", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "DC", "District of Columbia", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "FL", "Florida", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "GA", "Georgia", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "HI", "Hawaii", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "ID", "Idaho", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "IL", "Illinois", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "IN", "Indiana", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "IA", "Iowa", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "KS", "Kansas", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "KY", "Kentucky", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "LA", "Louisiana", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "ME", "Maine", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "MD", "Maryland", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "MA", "Massachusetts", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "MI", "Michigan", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "MN", "Minnesota", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "MS", "Mississippi", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "MO", "Missouri", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "MT", "Montana", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "NE", "Nebraska", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "NV", "Nevada", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "NH", "New Hampshire", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "NJ", "New Jersey", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "NM", "New Mexico", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "NY", "New York", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "NC", "North Carolina", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "ND", "North Dakota", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "OH", "Ohio", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "OK", "Oklahoma", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "OR", "Oregon", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "PA", "Pennsylvania", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "RI", "Rhode Island", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "SC", "South Carolina", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "SD", "South Dakota", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "TN", "Tennessee", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "TX", "Texas", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "UT", "Utah", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "VT", "Vermont", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "VA", "Virginia", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "WA", "Washington", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "WV", "West Virginia", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "WI", "Wisconsin", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "WY", "Wyoming", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "AS", "American Samoa", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "GU", "Guam", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "MP", "Northern Mariana Islands", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "PR", "Puerto Rico", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "VI", "Virgin Islands", VR.CodeSystems.VRCLUSStatesTerritories },
                 { "YC", "New York City", VR.CodeSystems.VRCLJurisdictions },
             };
 
+            /// <summary> Alabama </summary>
+            public static string Alabama = "AL";
+            /// <summary> Alaska </summary>
+            public static string Alaska = "AK";
+            /// <summary> Arizona </summary>
+            public static string Arizona = "AZ";
+            /// <summary> Arkansas </summary>
+            public static string Arkansas = "AR";
+            /// <summary> California </summary>
+            public static string California = "CA";
+            /// <summary> Colorado </summary>
+            public static string Colorado = "CO";
+            /// <summary> Connecticut </summary>
+            public static string Connecticut = "CT";
+            /// <summary> Delaware </summary>
+            public static string Delaware = "DE";
+            /// <summary> District_Of_Columbia </summary>
+            public static string District_Of_Columbia = "DC";
+            /// <summary> Florida </summary>
+            public static string Florida = "FL";
+            /// <summary> Georgia </summary>
+            public static string Georgia = "GA";
+            /// <summary> Hawaii </summary>
+            public static string Hawaii = "HI";
+            /// <summary> Idaho </summary>
+            public static string Idaho = "ID";
+            /// <summary> Illinois </summary>
+            public static string Illinois = "IL";
+            /// <summary> Indiana </summary>
+            public static string Indiana = "IN";
+            /// <summary> Iowa </summary>
+            public static string Iowa = "IA";
+            /// <summary> Kansas </summary>
+            public static string Kansas = "KS";
+            /// <summary> Kentucky </summary>
+            public static string Kentucky = "KY";
+            /// <summary> Louisiana </summary>
+            public static string Louisiana = "LA";
+            /// <summary> Maine </summary>
+            public static string Maine = "ME";
+            /// <summary> Maryland </summary>
+            public static string Maryland = "MD";
+            /// <summary> Massachusetts </summary>
+            public static string Massachusetts = "MA";
+            /// <summary> Michigan </summary>
+            public static string Michigan = "MI";
+            /// <summary> Minnesota </summary>
+            public static string Minnesota = "MN";
+            /// <summary> Mississippi </summary>
+            public static string Mississippi = "MS";
+            /// <summary> Missouri </summary>
+            public static string Missouri = "MO";
+            /// <summary> Montana </summary>
+            public static string Montana = "MT";
+            /// <summary> Nebraska </summary>
+            public static string Nebraska = "NE";
+            /// <summary> Nevada </summary>
+            public static string Nevada = "NV";
+            /// <summary> New_Hampshire </summary>
+            public static string New_Hampshire = "NH";
+            /// <summary> New_Jersey </summary>
+            public static string New_Jersey = "NJ";
+            /// <summary> New_Mexico </summary>
+            public static string New_Mexico = "NM";
+            /// <summary> New_York </summary>
+            public static string New_York = "NY";
+            /// <summary> North_Carolina </summary>
+            public static string North_Carolina = "NC";
+            /// <summary> North_Dakota </summary>
+            public static string North_Dakota = "ND";
+            /// <summary> Ohio </summary>
+            public static string Ohio = "OH";
+            /// <summary> Oklahoma </summary>
+            public static string Oklahoma = "OK";
+            /// <summary> Oregon </summary>
+            public static string Oregon = "OR";
+            /// <summary> Pennsylvania </summary>
+            public static string Pennsylvania = "PA";
+            /// <summary> Rhode_Island </summary>
+            public static string Rhode_Island = "RI";
+            /// <summary> South_Carolina </summary>
+            public static string South_Carolina = "SC";
+            /// <summary> South_Dakota </summary>
+            public static string South_Dakota = "SD";
+            /// <summary> Tennessee </summary>
+            public static string Tennessee = "TN";
+            /// <summary> Texas </summary>
+            public static string Texas = "TX";
+            /// <summary> Utah </summary>
+            public static string Utah = "UT";
+            /// <summary> Vermont </summary>
+            public static string Vermont = "VT";
+            /// <summary> Virginia </summary>
+            public static string Virginia = "VA";
+            /// <summary> Washington </summary>
+            public static string Washington = "WA";
+            /// <summary> West_Virginia </summary>
+            public static string West_Virginia = "WV";
+            /// <summary> Wisconsin </summary>
+            public static string Wisconsin = "WI";
+            /// <summary> Wyoming </summary>
+            public static string Wyoming = "WY";
+            /// <summary> American_Samoa </summary>
+            public static string American_Samoa = "AS";
+            /// <summary> Guam </summary>
+            public static string Guam = "GU";
+            /// <summary> Northern_Mariana_Islands </summary>
+            public static string Northern_Mariana_Islands = "MP";
+            /// <summary> Puerto_Rico </summary>
+            public static string Puerto_Rico = "PR";
+            /// <summary> Virgin_Islands </summary>
+            public static string Virgin_Islands = "VI";
             /// <summary> New_York_City </summary>
             public static string New_York_City = "YC";
         };
@@ -4149,7 +4317,7 @@ namespace VR
             public static string[,] Codes = {
                 { "F", "Female", VR.CodeSystems.VRCLAdministrativeGender },
                 { "M", "Male", VR.CodeSystems.VRCLAdministrativeGender },
-                { "UNK", "unknown", VR.CodeSystems.NullFlavor_HL7_V3 },
+                { "UNK", "Unknown", VR.CodeSystems.NullFlavor_HL7_V3 },
             };
 
             /// <summary> Female </summary>
@@ -4160,100 +4328,86 @@ namespace VR
             public static string Unknown = "UNK";
         };
 
-        /// <summary> UnitsOfAge </summary>
-        public static class UnitsOfAge {
+        /// <summary> StatesTerritoriesProvinces </summary>
+        public static class StatesTerritoriesProvinces {
             /// <summary> Codes </summary>
             public static string[,] Codes = {
-                { "min", "Minutes", VR.CodeSystems.UnitsOfMeasure },
-                { "d", "Days", VR.CodeSystems.UnitsOfMeasure },
-                { "h", "Hours", VR.CodeSystems.UnitsOfMeasure },
-                { "mo", "Months", VR.CodeSystems.UnitsOfMeasure },
-                { "a", "Years", VR.CodeSystems.UnitsOfMeasure },
-                { "UNK", "unknown", VR.CodeSystems.NullFlavor_HL7_V3 },
-            };
-
-            /// <summary> Minutes </summary>
-            public static string Minutes = "min";
-            /// <summary> Days </summary>
-            public static string Days = "d";
-            /// <summary> Hours </summary>
-            public static string Hours = "h";
-            /// <summary> Months </summary>
-            public static string Months = "mo";
-            /// <summary> Years </summary>
-            public static string Years = "a";
-            /// <summary> Unknown </summary>
-            public static string Unknown = "UNK";
-        };
-
-        /// <summary> Usstates </summary>
-        public static class Usstates {
-            /// <summary> Codes </summary>
-            public static string[,] Codes = {
-                { "AL", "Alabama", VR.CodeSystems.USPS },
-                { "AK", "Alaska", VR.CodeSystems.USPS },
-                { "AS", "American Samoa", VR.CodeSystems.USPS },
-                { "AZ", "Arizona", VR.CodeSystems.USPS },
-                { "AR", "Arkansas", VR.CodeSystems.USPS },
-                { "CA", "California", VR.CodeSystems.USPS },
-                { "CO", "Colorado", VR.CodeSystems.USPS },
-                { "CT", "Connecticut", VR.CodeSystems.USPS },
-                { "DE", "Delaware", VR.CodeSystems.USPS },
-                { "DC", "District of Columbia", VR.CodeSystems.USPS },
-                { "FL", "Florida", VR.CodeSystems.USPS },
-                { "GA", "Georgia", VR.CodeSystems.USPS },
-                { "GU", "Guam", VR.CodeSystems.USPS },
-                { "HI", "Hawaii", VR.CodeSystems.USPS },
-                { "ID", "Idaho", VR.CodeSystems.USPS },
-                { "IL", "Illinois", VR.CodeSystems.USPS },
-                { "IN", "Indiana", VR.CodeSystems.USPS },
-                { "IA", "Iowa", VR.CodeSystems.USPS },
-                { "KS", "Kansas", VR.CodeSystems.USPS },
-                { "KY", "Kentucky", VR.CodeSystems.USPS },
-                { "LA", "Louisiana", VR.CodeSystems.USPS },
-                { "ME", "Maine", VR.CodeSystems.USPS },
-                { "MD", "Maryland", VR.CodeSystems.USPS },
-                { "MA", "Massachusetts", VR.CodeSystems.USPS },
-                { "MI", "Michigan", VR.CodeSystems.USPS },
-                { "MN", "Minnesota", VR.CodeSystems.USPS },
-                { "MS", "Mississippi", VR.CodeSystems.USPS },
-                { "MO", "Missouri", VR.CodeSystems.USPS },
-                { "MT", "Montana", VR.CodeSystems.USPS },
-                { "NE", "Nebraska", VR.CodeSystems.USPS },
-                { "NV", "Nevada", VR.CodeSystems.USPS },
-                { "NH", "New Hampshire", VR.CodeSystems.USPS },
-                { "NJ", "New Jersey", VR.CodeSystems.USPS },
-                { "NM", "New Mexico", VR.CodeSystems.USPS },
-                { "NY", "New York", VR.CodeSystems.USPS },
-                { "NC", "North Carolina", VR.CodeSystems.USPS },
-                { "ND", "North Dakota", VR.CodeSystems.USPS },
-                { "MP", "Northern Mariana Islands", VR.CodeSystems.USPS },
-                { "OH", "Ohio", VR.CodeSystems.USPS },
-                { "OK", "Oklahoma", VR.CodeSystems.USPS },
-                { "OR", "Oregon", VR.CodeSystems.USPS },
-                { "PA", "Pennsylvania", VR.CodeSystems.USPS },
-                { "PR", "Puerto Rico", VR.CodeSystems.USPS },
-                { "RI", "Rhode Island", VR.CodeSystems.USPS },
-                { "SC", "South Carolina", VR.CodeSystems.USPS },
-                { "SD", "South Dakota", VR.CodeSystems.USPS },
-                { "TN", "Tennessee", VR.CodeSystems.USPS },
-                { "TX", "Texas", VR.CodeSystems.USPS },
-                { "UT", "Utah", VR.CodeSystems.USPS },
-                { "VT", "Vermont", VR.CodeSystems.USPS },
-                { "VI", "Virgin Islands", VR.CodeSystems.USPS },
-                { "VA", "Virginia", VR.CodeSystems.USPS },
-                { "WA", "Washington", VR.CodeSystems.USPS },
-                { "WV", "West Virginia", VR.CodeSystems.USPS },
-                { "WI", "Wisconsin", VR.CodeSystems.USPS },
-                { "WY", "Wyoming", VR.CodeSystems.USPS },
+                { "AL", "Alabama", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "AK", "Alaska", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "AZ", "Arizona", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "AR", "Arkansas", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "CA", "California", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "CO", "Colorado", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "CT", "Connecticut", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "DE", "Delaware", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "DC", "District of Columbia", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "FL", "Florida", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "GA", "Georgia", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "HI", "Hawaii", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "ID", "Idaho", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "IL", "Illinois", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "IN", "Indiana", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "IA", "Iowa", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "KS", "Kansas", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "KY", "Kentucky", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "LA", "Louisiana", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "ME", "Maine", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "MD", "Maryland", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "MA", "Massachusetts", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "MI", "Michigan", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "MN", "Minnesota", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "MS", "Mississippi", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "MO", "Missouri", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "MT", "Montana", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "NE", "Nebraska", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "NV", "Nevada", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "NH", "New Hampshire", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "NJ", "New Jersey", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "NM", "New Mexico", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "NY", "New York", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "NC", "North Carolina", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "ND", "North Dakota", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "OH", "Ohio", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "OK", "Oklahoma", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "OR", "Oregon", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "PA", "Pennsylvania", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "RI", "Rhode Island", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "SC", "South Carolina", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "SD", "South Dakota", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "TN", "Tennessee", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "TX", "Texas", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "UT", "Utah", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "VT", "Vermont", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "VA", "Virginia", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "WA", "Washington", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "WV", "West Virginia", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "WI", "Wisconsin", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "WY", "Wyoming", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "AS", "American Samoa", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "GU", "Guam", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "MP", "Northern Mariana Islands", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "PR", "Puerto Rico", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "VI", "Virgin Islands", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "AB", "Alberta", VR.CodeSystems.ProvinceCodes },
+                { "BC", "British Columbia", VR.CodeSystems.ProvinceCodes },
+                { "MB", "Manitoba", VR.CodeSystems.ProvinceCodes },
+                { "NB", "New Brunswick", VR.CodeSystems.ProvinceCodes },
+                { "NL", "Newfoundland and Labrador", VR.CodeSystems.ProvinceCodes },
+                { "NS", "Nova Scotia", VR.CodeSystems.ProvinceCodes },
+                { "NT", "Northwest Territories", VR.CodeSystems.ProvinceCodes },
+                { "NU", "Nunavut", VR.CodeSystems.ProvinceCodes },
+                { "ON", "Ontario", VR.CodeSystems.ProvinceCodes },
+                { "PE", "Prince Edward Island", VR.CodeSystems.ProvinceCodes },
+                { "QC", "Quebec", VR.CodeSystems.ProvinceCodes },
+                { "SK", "Saskatchewan", VR.CodeSystems.ProvinceCodes },
+                { "YT", "Yukon", VR.CodeSystems.ProvinceCodes },
+                { "UNK", "Unknown", VR.CodeSystems.NullFlavor_HL7_V3 },
             };
 
             /// <summary> Alabama </summary>
             public static string Alabama = "AL";
             /// <summary> Alaska </summary>
             public static string Alaska = "AK";
-            /// <summary> American_Samoa </summary>
-            public static string American_Samoa = "AS";
             /// <summary> Arizona </summary>
             public static string Arizona = "AZ";
             /// <summary> Arkansas </summary>
@@ -4272,8 +4426,6 @@ namespace VR
             public static string Florida = "FL";
             /// <summary> Georgia </summary>
             public static string Georgia = "GA";
-            /// <summary> Guam </summary>
-            public static string Guam = "GU";
             /// <summary> Hawaii </summary>
             public static string Hawaii = "HI";
             /// <summary> Idaho </summary>
@@ -4322,8 +4474,6 @@ namespace VR
             public static string North_Carolina = "NC";
             /// <summary> North_Dakota </summary>
             public static string North_Dakota = "ND";
-            /// <summary> Northern_Mariana_Islands </summary>
-            public static string Northern_Mariana_Islands = "MP";
             /// <summary> Ohio </summary>
             public static string Ohio = "OH";
             /// <summary> Oklahoma </summary>
@@ -4332,8 +4482,6 @@ namespace VR
             public static string Oregon = "OR";
             /// <summary> Pennsylvania </summary>
             public static string Pennsylvania = "PA";
-            /// <summary> Puerto_Rico </summary>
-            public static string Puerto_Rico = "PR";
             /// <summary> Rhode_Island </summary>
             public static string Rhode_Island = "RI";
             /// <summary> South_Carolina </summary>
@@ -4348,8 +4496,407 @@ namespace VR
             public static string Utah = "UT";
             /// <summary> Vermont </summary>
             public static string Vermont = "VT";
+            /// <summary> Virginia </summary>
+            public static string Virginia = "VA";
+            /// <summary> Washington </summary>
+            public static string Washington = "WA";
+            /// <summary> West_Virginia </summary>
+            public static string West_Virginia = "WV";
+            /// <summary> Wisconsin </summary>
+            public static string Wisconsin = "WI";
+            /// <summary> Wyoming </summary>
+            public static string Wyoming = "WY";
+            /// <summary> American_Samoa </summary>
+            public static string American_Samoa = "AS";
+            /// <summary> Guam </summary>
+            public static string Guam = "GU";
+            /// <summary> Northern_Mariana_Islands </summary>
+            public static string Northern_Mariana_Islands = "MP";
+            /// <summary> Puerto_Rico </summary>
+            public static string Puerto_Rico = "PR";
             /// <summary> Virgin_Islands </summary>
             public static string Virgin_Islands = "VI";
+            /// <summary> Alberta </summary>
+            public static string Alberta = "AB";
+            /// <summary> British_Columbia </summary>
+            public static string British_Columbia = "BC";
+            /// <summary> Manitoba </summary>
+            public static string Manitoba = "MB";
+            /// <summary> New_Brunswick </summary>
+            public static string New_Brunswick = "NB";
+            /// <summary> Newfoundland_And_Labrador </summary>
+            public static string Newfoundland_And_Labrador = "NL";
+            /// <summary> Nova_Scotia </summary>
+            public static string Nova_Scotia = "NS";
+            /// <summary> Northwest_Territories </summary>
+            public static string Northwest_Territories = "NT";
+            /// <summary> Nunavut </summary>
+            public static string Nunavut = "NU";
+            /// <summary> Ontario </summary>
+            public static string Ontario = "ON";
+            /// <summary> Prince_Edward_Island </summary>
+            public static string Prince_Edward_Island = "PE";
+            /// <summary> Quebec </summary>
+            public static string Quebec = "QC";
+            /// <summary> Saskatchewan </summary>
+            public static string Saskatchewan = "SK";
+            /// <summary> Yukon </summary>
+            public static string Yukon = "YT";
+            /// <summary> Unknown </summary>
+            public static string Unknown = "UNK";
+        };
+
+        /// <summary> UnitsOfAge </summary>
+        public static class UnitsOfAge {
+            /// <summary> Codes </summary>
+            public static string[,] Codes = {
+                { "min", "Minutes", VR.CodeSystems.UnitsOfMeasure },
+                { "d", "Days", VR.CodeSystems.UnitsOfMeasure },
+                { "h", "Hours", VR.CodeSystems.UnitsOfMeasure },
+                { "mo", "Months", VR.CodeSystems.UnitsOfMeasure },
+                { "a", "Years", VR.CodeSystems.UnitsOfMeasure },
+                { "UNK", "unknown", VR.CodeSystems.NullFlavor_HL7_V3 },
+            };
+
+            /// <summary> Minutes </summary>
+            public static string Minutes = "min";
+            /// <summary> Days </summary>
+            public static string Days = "d";
+            /// <summary> Hours </summary>
+            public static string Hours = "h";
+            /// <summary> Months </summary>
+            public static string Months = "mo";
+            /// <summary> Years </summary>
+            public static string Years = "a";
+            /// <summary> Unknown </summary>
+            public static string Unknown = "UNK";
+        };
+
+        /// <summary> UsstatesTerritories </summary>
+        public static class UsstatesTerritories {
+            /// <summary> Codes </summary>
+            public static string[,] Codes = {
+                { "AL", "Alabama", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "AK", "Alaska", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "AZ", "Arizona", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "AR", "Arkansas", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "CA", "California", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "CO", "Colorado", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "CT", "Connecticut", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "DE", "Delaware", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "DC", "District of Columbia", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "FL", "Florida", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "GA", "Georgia", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "HI", "Hawaii", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "ID", "Idaho", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "IL", "Illinois", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "IN", "Indiana", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "IA", "Iowa", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "KS", "Kansas", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "KY", "Kentucky", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "LA", "Louisiana", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "ME", "Maine", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "MD", "Maryland", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "MA", "Massachusetts", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "MI", "Michigan", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "MN", "Minnesota", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "MS", "Mississippi", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "MO", "Missouri", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "MT", "Montana", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "NE", "Nebraska", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "NV", "Nevada", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "NH", "New Hampshire", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "NJ", "New Jersey", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "NM", "New Mexico", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "NY", "New York", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "NC", "North Carolina", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "ND", "North Dakota", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "OH", "Ohio", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "OK", "Oklahoma", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "OR", "Oregon", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "PA", "Pennsylvania", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "RI", "Rhode Island", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "SC", "South Carolina", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "SD", "South Dakota", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "TN", "Tennessee", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "TX", "Texas", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "UT", "Utah", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "VT", "Vermont", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "VA", "Virginia", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "WA", "Washington", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "WV", "West Virginia", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "WI", "Wisconsin", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "WY", "Wyoming", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "AS", "American Samoa", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "GU", "Guam", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "MP", "Northern Mariana Islands", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "PR", "Puerto Rico", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "VI", "Virgin Islands", VR.CodeSystems.VRCLUSStatesTerritories },
+            };
+
+            /// <summary> Alabama </summary>
+            public static string Alabama = "AL";
+            /// <summary> Alaska </summary>
+            public static string Alaska = "AK";
+            /// <summary> Arizona </summary>
+            public static string Arizona = "AZ";
+            /// <summary> Arkansas </summary>
+            public static string Arkansas = "AR";
+            /// <summary> California </summary>
+            public static string California = "CA";
+            /// <summary> Colorado </summary>
+            public static string Colorado = "CO";
+            /// <summary> Connecticut </summary>
+            public static string Connecticut = "CT";
+            /// <summary> Delaware </summary>
+            public static string Delaware = "DE";
+            /// <summary> District_Of_Columbia </summary>
+            public static string District_Of_Columbia = "DC";
+            /// <summary> Florida </summary>
+            public static string Florida = "FL";
+            /// <summary> Georgia </summary>
+            public static string Georgia = "GA";
+            /// <summary> Hawaii </summary>
+            public static string Hawaii = "HI";
+            /// <summary> Idaho </summary>
+            public static string Idaho = "ID";
+            /// <summary> Illinois </summary>
+            public static string Illinois = "IL";
+            /// <summary> Indiana </summary>
+            public static string Indiana = "IN";
+            /// <summary> Iowa </summary>
+            public static string Iowa = "IA";
+            /// <summary> Kansas </summary>
+            public static string Kansas = "KS";
+            /// <summary> Kentucky </summary>
+            public static string Kentucky = "KY";
+            /// <summary> Louisiana </summary>
+            public static string Louisiana = "LA";
+            /// <summary> Maine </summary>
+            public static string Maine = "ME";
+            /// <summary> Maryland </summary>
+            public static string Maryland = "MD";
+            /// <summary> Massachusetts </summary>
+            public static string Massachusetts = "MA";
+            /// <summary> Michigan </summary>
+            public static string Michigan = "MI";
+            /// <summary> Minnesota </summary>
+            public static string Minnesota = "MN";
+            /// <summary> Mississippi </summary>
+            public static string Mississippi = "MS";
+            /// <summary> Missouri </summary>
+            public static string Missouri = "MO";
+            /// <summary> Montana </summary>
+            public static string Montana = "MT";
+            /// <summary> Nebraska </summary>
+            public static string Nebraska = "NE";
+            /// <summary> Nevada </summary>
+            public static string Nevada = "NV";
+            /// <summary> New_Hampshire </summary>
+            public static string New_Hampshire = "NH";
+            /// <summary> New_Jersey </summary>
+            public static string New_Jersey = "NJ";
+            /// <summary> New_Mexico </summary>
+            public static string New_Mexico = "NM";
+            /// <summary> New_York </summary>
+            public static string New_York = "NY";
+            /// <summary> North_Carolina </summary>
+            public static string North_Carolina = "NC";
+            /// <summary> North_Dakota </summary>
+            public static string North_Dakota = "ND";
+            /// <summary> Ohio </summary>
+            public static string Ohio = "OH";
+            /// <summary> Oklahoma </summary>
+            public static string Oklahoma = "OK";
+            /// <summary> Oregon </summary>
+            public static string Oregon = "OR";
+            /// <summary> Pennsylvania </summary>
+            public static string Pennsylvania = "PA";
+            /// <summary> Rhode_Island </summary>
+            public static string Rhode_Island = "RI";
+            /// <summary> South_Carolina </summary>
+            public static string South_Carolina = "SC";
+            /// <summary> South_Dakota </summary>
+            public static string South_Dakota = "SD";
+            /// <summary> Tennessee </summary>
+            public static string Tennessee = "TN";
+            /// <summary> Texas </summary>
+            public static string Texas = "TX";
+            /// <summary> Utah </summary>
+            public static string Utah = "UT";
+            /// <summary> Vermont </summary>
+            public static string Vermont = "VT";
+            /// <summary> Virginia </summary>
+            public static string Virginia = "VA";
+            /// <summary> Washington </summary>
+            public static string Washington = "WA";
+            /// <summary> West_Virginia </summary>
+            public static string West_Virginia = "WV";
+            /// <summary> Wisconsin </summary>
+            public static string Wisconsin = "WI";
+            /// <summary> Wyoming </summary>
+            public static string Wyoming = "WY";
+            /// <summary> American_Samoa </summary>
+            public static string American_Samoa = "AS";
+            /// <summary> Guam </summary>
+            public static string Guam = "GU";
+            /// <summary> Northern_Mariana_Islands </summary>
+            public static string Northern_Mariana_Islands = "MP";
+            /// <summary> Puerto_Rico </summary>
+            public static string Puerto_Rico = "PR";
+            /// <summary> Virgin_Islands </summary>
+            public static string Virgin_Islands = "VI";
+        };
+
+        /// <summary> Usstates </summary>
+        public static class Usstates {
+            /// <summary> Codes </summary>
+            public static string[,] Codes = {
+                { "AL", "Alabama", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "AK", "Alaska", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "AZ", "Arizona", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "AR", "Arkansas", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "CA", "California", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "CO", "Colorado", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "CT", "Connecticut", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "DE", "Delaware", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "DC", "District of Columbia", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "FL", "Florida", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "GA", "Georgia", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "HI", "Hawaii", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "ID", "Idaho", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "IL", "Illinois", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "IN", "Indiana", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "IA", "Iowa", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "KS", "Kansas", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "KY", "Kentucky", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "LA", "Louisiana", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "ME", "Maine", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "MD", "Maryland", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "MA", "Massachusetts", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "MI", "Michigan", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "MN", "Minnesota", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "MS", "Mississippi", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "MO", "Missouri", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "MT", "Montana", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "NE", "Nebraska", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "NV", "Nevada", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "NH", "New Hampshire", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "NJ", "New Jersey", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "NM", "New Mexico", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "NY", "New York", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "NC", "North Carolina", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "ND", "North Dakota", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "OH", "Ohio", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "OK", "Oklahoma", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "OR", "Oregon", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "PA", "Pennsylvania", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "RI", "Rhode Island", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "SC", "South Carolina", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "SD", "South Dakota", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "TN", "Tennessee", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "TX", "Texas", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "UT", "Utah", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "VT", "Vermont", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "VA", "Virginia", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "WA", "Washington", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "WV", "West Virginia", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "WI", "Wisconsin", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "WY", "Wyoming", VR.CodeSystems.VRCLUSStatesTerritories },
+            };
+
+            /// <summary> Alabama </summary>
+            public static string Alabama = "AL";
+            /// <summary> Alaska </summary>
+            public static string Alaska = "AK";
+            /// <summary> Arizona </summary>
+            public static string Arizona = "AZ";
+            /// <summary> Arkansas </summary>
+            public static string Arkansas = "AR";
+            /// <summary> California </summary>
+            public static string California = "CA";
+            /// <summary> Colorado </summary>
+            public static string Colorado = "CO";
+            /// <summary> Connecticut </summary>
+            public static string Connecticut = "CT";
+            /// <summary> Delaware </summary>
+            public static string Delaware = "DE";
+            /// <summary> District_Of_Columbia </summary>
+            public static string District_Of_Columbia = "DC";
+            /// <summary> Florida </summary>
+            public static string Florida = "FL";
+            /// <summary> Georgia </summary>
+            public static string Georgia = "GA";
+            /// <summary> Hawaii </summary>
+            public static string Hawaii = "HI";
+            /// <summary> Idaho </summary>
+            public static string Idaho = "ID";
+            /// <summary> Illinois </summary>
+            public static string Illinois = "IL";
+            /// <summary> Indiana </summary>
+            public static string Indiana = "IN";
+            /// <summary> Iowa </summary>
+            public static string Iowa = "IA";
+            /// <summary> Kansas </summary>
+            public static string Kansas = "KS";
+            /// <summary> Kentucky </summary>
+            public static string Kentucky = "KY";
+            /// <summary> Louisiana </summary>
+            public static string Louisiana = "LA";
+            /// <summary> Maine </summary>
+            public static string Maine = "ME";
+            /// <summary> Maryland </summary>
+            public static string Maryland = "MD";
+            /// <summary> Massachusetts </summary>
+            public static string Massachusetts = "MA";
+            /// <summary> Michigan </summary>
+            public static string Michigan = "MI";
+            /// <summary> Minnesota </summary>
+            public static string Minnesota = "MN";
+            /// <summary> Mississippi </summary>
+            public static string Mississippi = "MS";
+            /// <summary> Missouri </summary>
+            public static string Missouri = "MO";
+            /// <summary> Montana </summary>
+            public static string Montana = "MT";
+            /// <summary> Nebraska </summary>
+            public static string Nebraska = "NE";
+            /// <summary> Nevada </summary>
+            public static string Nevada = "NV";
+            /// <summary> New_Hampshire </summary>
+            public static string New_Hampshire = "NH";
+            /// <summary> New_Jersey </summary>
+            public static string New_Jersey = "NJ";
+            /// <summary> New_Mexico </summary>
+            public static string New_Mexico = "NM";
+            /// <summary> New_York </summary>
+            public static string New_York = "NY";
+            /// <summary> North_Carolina </summary>
+            public static string North_Carolina = "NC";
+            /// <summary> North_Dakota </summary>
+            public static string North_Dakota = "ND";
+            /// <summary> Ohio </summary>
+            public static string Ohio = "OH";
+            /// <summary> Oklahoma </summary>
+            public static string Oklahoma = "OK";
+            /// <summary> Oregon </summary>
+            public static string Oregon = "OR";
+            /// <summary> Pennsylvania </summary>
+            public static string Pennsylvania = "PA";
+            /// <summary> Rhode_Island </summary>
+            public static string Rhode_Island = "RI";
+            /// <summary> South_Carolina </summary>
+            public static string South_Carolina = "SC";
+            /// <summary> South_Dakota </summary>
+            public static string South_Dakota = "SD";
+            /// <summary> Tennessee </summary>
+            public static string Tennessee = "TN";
+            /// <summary> Texas </summary>
+            public static string Texas = "TX";
+            /// <summary> Utah </summary>
+            public static string Utah = "UT";
+            /// <summary> Vermont </summary>
+            public static string Vermont = "VT";
             /// <summary> Virginia </summary>
             public static string Virginia = "VA";
             /// <summary> Washington </summary>
@@ -4366,11 +4913,11 @@ namespace VR
         public static class Usterritories {
             /// <summary> Codes </summary>
             public static string[,] Codes = {
-                { "AS", "American Samoa", VR.CodeSystems.USPS },
-                { "GU", "Guam", VR.CodeSystems.USPS },
-                { "MP", "Northern Mariana Islands", VR.CodeSystems.USPS },
-                { "PR", "Puerto Rico", VR.CodeSystems.USPS },
-                { "VI", "Virgin Islands", VR.CodeSystems.USPS },
+                { "AS", "American Samoa", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "GU", "Guam", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "MP", "Northern Mariana Islands", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "PR", "Puerto Rico", VR.CodeSystems.VRCLUSStatesTerritories },
+                { "VI", "Virgin Islands", VR.CodeSystems.VRCLUSStatesTerritories },
             };
 
             /// <summary> American_Samoa </summary>
