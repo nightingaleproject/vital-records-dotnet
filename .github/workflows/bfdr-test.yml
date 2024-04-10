@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - Natality-feature
+      - fetal-death-feature
     paths:
       - 'projects/BFDR/**'
       - 'projects/BFDR.CLI/**'
@@ -14,6 +15,7 @@ on:
     branches:
       - main
       - Natality-feature
+      - fetal-death-feature
     paths:
       - 'projects/BFDR/**'
       - 'projects/BFDR.CLI/**'
