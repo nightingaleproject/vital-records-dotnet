@@ -108,19 +108,19 @@ end
 # There is a special case where the SexAssignedAtBirth value set refers to VSAC, which we can't easily
 # process, so we populate it here
 # TODO: Reconsider this workaround if the SexAssignedAtBirth value set is updated
-if valuesets['SexAssignedAtBirth']
-  if valuesets['SexAssignedAtBirth']['compose']['include'].any? { |include| include&.[]('concept')&.any? { |concept| concept['code'] == 'F' } }
-    raise "Workaround for SexAssignedAtBirth value set no longer needed"
-  end
-  valuesets['SexAssignedAtBirth']['compose']['include'] << {
-    'system' => 'http://terminology.hl7.org/CodeSystem/v3-AdministrativeGender',
-    'concept' => [ { 'code' => 'F', 'display' => 'Female' }, { 'code' => 'M', 'display' => 'Male' } ]
-  }     
-  valuesets['SexAssignedAtBirth']['compose']['include'] << {
-    'system' => "http://terminology.hl7.org/CodeSystem/v3-NullFlavor",
-    'concept' => [ { 'code' => 'UNK', 'display' => 'unknown' } ]
-  }
-end
+# if valuesets['SexAssignedAtBirth']
+#   if valuesets['SexAssignedAtBirth']['compose']['include'].any? { |include| include&.[]('concept')&.any? { |concept| concept['code'] == 'F' } }
+#     raise "Workaround for SexAssignedAtBirth value set no longer needed"
+#   end
+#   valuesets['SexAssignedAtBirth']['compose']['include'] << {
+#     'system' => 'http://terminology.hl7.org/CodeSystem/v3-AdministrativeGender',
+#     'concept' => [ { 'code' => 'F', 'display' => 'Female' }, { 'code' => 'M', 'display' => 'Male' } ]
+#   }     
+#   valuesets['SexAssignedAtBirth']['compose']['include'] << {
+#     'system' => "http://terminology.hl7.org/CodeSystem/v3-NullFlavor",
+#     'concept' => [ { 'code' => 'UNK', 'display' => 'unknown' } ]
+#   }
+# end
 
 # The PregnancyStatus value set doesn't have a display value for N/A, so we add it here
 # TODO: Remove this workaround if PregnancyStatus is updated
