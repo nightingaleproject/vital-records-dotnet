@@ -27,6 +27,29 @@
         <member name="M:BFDR.BirthRecord.GetYear">
             <summary>Return the birth year for this record to be used in the identifier</summary>
         </member>
+        <member name="T:BFDR.FetalDeathRecord">
+            <summary>Class <c>FetalDeathRecord</c> is a class designed to help consume and produce fetal death records
+            that follow the HL7 FHIR Vital Records Birth Reporting Implementation Guide, as described at:
+            http://hl7.org/fhir/us/bfdr and https://github.com/hl7/bfdr.
+            </summary>
+        </member>
+        <member name="M:BFDR.FetalDeathRecord.#ctor">
+            <summary>Default constructor that creates a new, empty FetalDeathRecord.</summary>
+        </member>
+        <member name="M:BFDR.FetalDeathRecord.#ctor(System.String,System.Boolean)">
+            <summary>Constructor that takes a string that represents a FHIR Fetal Death Record in either XML or JSON format.</summary>
+            <param name="record">represents a FHIR Fetal Death Record in either XML or JSON format.</param>
+            <param name="permissive">if the parser should be permissive when parsing the given string</param>
+            <exception cref="T:System.ArgumentException">Record is neither valid XML nor JSON.</exception>
+        </member>
+        <member name="M:BFDR.FetalDeathRecord.#ctor(Hl7.Fhir.Model.Bundle)">
+            <summary>Constructor that takes a FHIR Bundle that represents a FHIR Fetal Death Record.</summary>
+            <param name="bundle">represents a FHIR Bundle.</param>
+            <exception cref="T:System.ArgumentException">Record is invalid.</exception>
+        </member>
+        <member name="M:BFDR.FetalDeathRecord.GetYear">
+            <summary>Return the birth year for this record to be used in the identifier</summary>
+        </member>
         <member name="T:BFDR.IJEBirth">
             <summary>A "wrapper" class to convert between a FHIR based <c>BirthRecord</c> and
             a record in IJE Natality format. Each property of this class corresponds exactly
