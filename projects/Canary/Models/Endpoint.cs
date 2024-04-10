@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using VR;
+using VRDR;
 
 namespace canary.Models
 {

@@ -29,7 +29,7 @@ export class Connectathon extends Component {
     if (!!this.props.params.id && !!this.state.certificateNumber && !!this.state.jurisdiction) {
       this.setState({ loading: true }, () => {
         axios
-          .get(window.API_URL + '/tests/connectathon/' + this.props.params.id + '/' + this.state.certificateNumber + '/' + this.state.jurisdiction)
+          .get(`${window.API_URL}/tests/${this.props.params.recordType}/connectathon/${this.props.params.id}/${this.state.certificateNumber}/${this.state.jurisdiction}`)
           .then(function (response) {
             var test = response.data;
             test.results = JSON.parse(test.results);
@@ -79,7 +79,7 @@ export class Connectathon extends Component {
     var self = this;
     this.setState({ running: true }, () => {
       axios
-        .post(window.API_URL + '/tests/produce/run/' + this.state.test.testId, this.setEmptyToNull(this.state.record.fhirInfo))
+        .post(`${window.API_URL}/tests/${this.props.params.recordType}/produce/run/${this.state.test.testId}`, this.setEmptyToNull(this.state.record.fhirInfo))
         .then(function (response) {
           var test = response.data;
           test.results = JSON.parse(test.results);
@@ -119,11 +119,11 @@ export class Connectathon extends Component {
       <React.Fragment>
         <Grid.Row id="scroll-to">
           <Breadcrumb>
-            <Breadcrumb.Section as={Link} to="/">
+            <Breadcrumb.Section as={Link} to={`/${this.props.params.recordType}`}>
               Dashboard
             </Breadcrumb.Section>
             <Breadcrumb.Divider icon="right chevron" />
-            <Breadcrumb.Section>Connectathon FHIR VRDR Records</Breadcrumb.Section>
+            <Breadcrumb.Section>Connectathon FHIR {this.props.params.recordType.toUpperCase()} Records</Breadcrumb.Section>
           </Breadcrumb>
         </Grid.Row>
         {!!this.state.test && this.state.test.completedBool && (
@@ -226,7 +226,7 @@ export class Connectathon extends Component {
                         <Record issues={this.state.issues} showIssues />
                       </Grid.Row>
                     )}
-                    <Getter updateRecord={this.updateRecord} allowIje={false} />
+                    <Getter updateRecord={this.updateRecord} allowIje={false} recordType={this.props.params.recordType} />
                   </Container>
                 </Grid.Row>
                 <Grid.Row>

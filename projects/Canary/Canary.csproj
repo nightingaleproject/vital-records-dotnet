@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Version>4.0.9</Version>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <IsPackable>false</IsPackable>
@@ -16,22 +15,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.25" />
-    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="6.0.25" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.14" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.14" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="6.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.10" />
     <PackageReference Include="Bogus" Version="35.3.0" />
-    <ProjectReference Include="..\VitalRecord.Messaging\VitalRecord.Messaging.csproj" />
-
-    <ProjectReference Include="..\VitalRecord\VitalRecord.csproj" />
-
-    <ProjectReference Include="..\VRDR.Client\VRDR.Client.csproj" />
-
-    <ProjectReference Include="..\VRDR.CLI\VRDR.CLI.csproj" />
-
-    <ProjectReference Include="..\VRDR.Filter\VRDR.Filter.csproj" />
-    <ProjectReference Include="..\VRDR.Messaging\VRDR.Messaging.csproj" />
-    <ProjectReference Include="..\VRDR\VRDR.csproj" />
+    <!-- <PackageReference Include="VRDR.Messaging" Version="4.1.4" /> -->
+    <ProjectReference Include="../VitalRecord/VitalRecord.csproj" />
+    <ProjectReference Include="../BFDR/BirthRecord.csproj" /> 
+    <ProjectReference Include="../VRDR/VRDR.csproj" /> 
+    <ProjectReference Include="../VRDR.Messaging/VRDR.Messaging.csproj" />
+    <ProjectReference Include="../BFDR.Messaging/BFDRMessaging.csproj" /> 
   </ItemGroup>
 
   <ItemGroup>

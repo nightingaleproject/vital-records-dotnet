@@ -25,15 +25,15 @@ export class RecordConverter extends Component {
         <Grid>
           <Grid.Row>
             <Breadcrumb>
-              <Breadcrumb.Section as={Link} to="/">
+              <Breadcrumb.Section as={Link} to={`/${this.props.recordType}`}>
                 Dashboard
               </Breadcrumb.Section>
               <Breadcrumb.Divider icon="right chevron" />
-              <Breadcrumb.Section>VRDR Record Format Converter</Breadcrumb.Section>
+              <Breadcrumb.Section>{this.props.recordType.toUpperCase()} Record Format Converter</Breadcrumb.Section>
             </Breadcrumb>
           </Grid.Row>
           <Grid.Row>
-            <Getter updateRecord={this.updateRecord} allowIje />
+            <Getter updateRecord={this.updateRecord} allowIje recordType={this.props.recordType}/>
           </Grid.Row>
           <div className="p-b-15" />
           {(!!this.state.record || (!!this.state.issues && this.state.issues.length > 0)) && (
