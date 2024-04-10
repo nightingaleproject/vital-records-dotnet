@@ -28,22 +28,22 @@
             <summary>Return the birth year for this record to be used in the identifier</summary>
         </member>
         <member name="T:BFDR.FetalDeathRecord">
-            <summary>Class <c>FetalDeathRecord</c> is a class designed to help consume and produce fetal death records
-            that follow the HL7 FHIR Vital Records Birth Reporting Implementation Guide, as described at:
-            http://hl7.org/fhir/us/bfdr and https://github.com/hl7/bfdr.
+            <summary>Class <c>FetalDeathRecord</c> is a class designed to help consume and produce fetal death
+            records that follow the HL7 FHIR Vital Records FetalDeath Reporting Implementation Guide, as described
+            at: http://hl7.org/fhir/us/bfdr and https://github.com/hl7/bfdr.
             </summary>
         </member>
         <member name="M:BFDR.FetalDeathRecord.#ctor">
             <summary>Default constructor that creates a new, empty FetalDeathRecord.</summary>
         </member>
         <member name="M:BFDR.FetalDeathRecord.#ctor(System.String,System.Boolean)">
-            <summary>Constructor that takes a string that represents a FHIR Fetal Death Record in either XML or JSON format.</summary>
-            <param name="record">represents a FHIR Fetal Death Record in either XML or JSON format.</param>
+            <summary>Constructor that takes a string that represents a FHIR FetalDeath Record in either XML or JSON format.</summary>
+            <param name="record">represents a FHIR FetalDeath Record in either XML or JSON format.</param>
             <param name="permissive">if the parser should be permissive when parsing the given string</param>
             <exception cref="T:System.ArgumentException">Record is neither valid XML nor JSON.</exception>
         </member>
         <member name="M:BFDR.FetalDeathRecord.#ctor(Hl7.Fhir.Model.Bundle)">
-            <summary>Constructor that takes a FHIR Bundle that represents a FHIR Fetal Death Record.</summary>
+            <summary>Constructor that takes a FHIR Bundle that represents a FHIR FetalDeath Record.</summary>
             <param name="bundle">represents a FHIR Bundle.</param>
             <exception cref="T:System.ArgumentException">Record is invalid.</exception>
         </member>
@@ -79,7 +79,7 @@
         </member>
         <member name="M:BFDR.IJEBirth.ToRecord">
             <summary>FHIR based vital record.</summary>
-            Hides the IJE ToRecord method that returns a VitalRecord instead of a DeathRecord
+            Hides the IJE ToRecord method that returns a VitalRecord instead of a BirthRecord
         </member>
         <member name="M:BFDR.IJEBirth.PresenceToIJE(System.Boolean,System.Boolean)">
             <summary>Converts the FHIR representation of presence-only fields to the IJE equivalent.</summary>
@@ -1162,6 +1162,1126 @@
             <summary>Blank for Future Expansion</summary>
         </member>
         <member name="P:BFDR.IJEBirth.BLANK2">
+            <summary>Blank for Jurisdictional Use Only</summary>
+        </member>
+        <member name="T:BFDR.IJEFetalDeath">
+            <summary>A "wrapper" class to convert between a FHIR based <c>FetalDeathRecord</c> and
+            a record in IJE FetalDeath format. Each property of this class corresponds exactly
+            with a field in the IJE FetalDeath format. The getters convert from the embedded
+            FHIR based <c>FetalDeathRecord</c> to the IJE format for a specific field, and
+            the setters convert from IJE format for a specific field and set that value
+            on the embedded FHIR based <c>FetalDeathRecord</c>.</summary>
+        </member>
+        <member name="M:BFDR.IJEFetalDeath.#ctor(BFDR.FetalDeathRecord,System.Boolean)">
+            <summary>Constructor that takes a <c>FetalDeathRecord</c>.</summary>
+        </member>
+        <member name="M:BFDR.IJEFetalDeath.#ctor(System.String,System.Boolean)">
+            <summary>Constructor that takes an IJE string and builds a corresponding internal <c>FetalDeathRecord</c>.</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.IJELength">
+            <summary>Get the length of the IJE string.</summary>
+        </member>
+        <member name="M:BFDR.IJEFetalDeath.#ctor">
+            <summary>Constructor that creates an empty record for constructing records using the IJE properties.</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.Record">
+            <summary>FHIR based vital record.</summary>
+        </member>
+        <member name="M:BFDR.IJEFetalDeath.ToFetalDeathRecord">
+            <summary>FHIR based vital record.</summary>
+            Redundant due to ToRecord(), but kept for compatibility with IJEMortality which has this method for backwards compatibility.
+        </member>
+        <member name="M:BFDR.IJEFetalDeath.ToRecord">
+            <summary>FHIR based vital record.</summary>
+            Hides the IJE ToRecord method that returns a VitalRecord instead of a DeathRecord
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FDOD_YR">
+            <summary>Date of Delivery (Fetus)--Year</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DSTATE">
+            <summary>State, U.S. Territory or Canadian Province of Place of Delivery - code</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FILENO">
+            <summary>Certificate Number</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.VOID">
+            <summary>Void flag</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.AUXNO">
+            <summary>Auxiliary State file number</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.TD">
+            <summary>Time of Delivery</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FSEX">
+            <summary>Sex</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FDOD_MO">
+            <summary>Date of Delivery (Fetus)--Month</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FDOD_DY">
+            <summary>Date of Delivery (Fetus)--Day</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.CNTYO">
+            <summary>County of Delivery</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DPLACE">
+            <summary>Place Where Delivery Occurred</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FNPI">
+            <summary>Facility ID (NPI) - If available</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.SFN">
+            <summary>Facility ID (State-Assigned)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MDOB_YR">
+            <summary>Date of Birth (Mother)--Year</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MDOB_MO">
+            <summary>Date of Birth (Mother)--Month</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MDOB_DY">
+            <summary>Date of Birth (Mother)--Day</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MAGE_BYPASS">
+            <summary>Date of Birth (Mother)--Edit Flag</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.BPLACEC_ST_TER">
+            <summary>State, U.S. Territory or Canadian Province of Birth (Mother) - code</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.BPLACEC_CNT">
+            <summary>Mother's Birthplace--Country</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.CITYC">
+            <summary>Residence of Mother--City/Town</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COUNTYC">
+            <summary>Residence of Mother--County</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.STATEC">
+            <summary>State, U.S. Territory or Canadian Province of Residence (Mother) - code</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COUNTRYC">
+            <summary>Residence of Mother--Country</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.LIMITS">
+            <summary>Residence of Mother--Inside City/Town Limits</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FDOB_YR">
+            <summary>Date of Birth (Father)--Year</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FDOB_MO">
+            <summary>Date of Birth (Father)--Month</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FDOB_DY">
+            <summary>Date of Birth (Father)--Day</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FAGE_BYPASS">
+            <summary>Date of Birth (Father)--Edit Flag</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MARE">
+            <summary>Mother Married?--Ever(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MARN">
+            <summary>Mother Married?-- At Conception, at Delivery or any Time in Between(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MEDUC">
+            <summary>Mother's Education</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MEDUC_BYPASS">
+            <summary>Mother's Education--Edit Flag</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.METHNIC1">
+            <summary>Mother of Hispanic Origin?--Mexican</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.METHNIC2">
+            <summary>Mother of Hispanic Origin?--Puerto Rican</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.METHNIC3">
+            <summary>Mother of Hispanic Origin?--Cuban</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.METHNIC4">
+            <summary>Mother of Hispanic Origin?--Other</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.METHNIC5">
+            <summary>Mother of Hispanic Origin?--Other Literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE1">
+            <summary>Mother's Race--White</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE2">
+            <summary>Mother's Race--Black or African American</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE3">
+            <summary>Mother's Race--American Indian or Alaska Native</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE4">
+            <summary>Mother's Race--Asian Indian</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE5">
+            <summary>Mother's Race--Chinese</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE6">
+            <summary>Mother's Race--Filipino</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE7">
+            <summary>Mother's Race--Japanese</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE8">
+            <summary>Mother's Race--Korean</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE9">
+            <summary>Mother's Race--Vietnamese</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE10">
+            <summary>Mother's Race--Other Asian</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE11">
+            <summary>Mother's Race--Native Hawaiian</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE12">
+            <summary>Mother's Race--Guamanian or Chamorro</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE13">
+            <summary>Mother's Race--Samoan</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE14">
+            <summary>Mother's Race--Other Pacific Islander</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE15">
+            <summary>Mother's Race--Other</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE16">
+            <summary>Mother's Race--First American Indian or Alaska Native Literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE17">
+            <summary>Mother's Race--Second American Indian or Alaska Native Literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE18">
+            <summary>Mother's Race--First Other Asian Literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE19">
+            <summary>Mother's Race--Second Other Asian Literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE20">
+            <summary>Mother's Race--First Other Pacific Islander Literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE21">
+            <summary>Mother's Race--Second Other Pacific Islander Literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE22">
+            <summary>Mother's Race--First Other Literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE23">
+            <summary>Mother's Race--Second Other Literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE1E">
+            <summary>Mother's Race Tabulation Variable 1E</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE2E">
+            <summary>Mother's Race Tabulation Variable 2E</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE3E">
+            <summary>Mother's Race Tabulation Variable 3E</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE4E">
+            <summary>Mother's Race Tabulation Variable 4E</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE5E">
+            <summary>Mother's Race Tabulation Variable 5E</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE6E">
+            <summary>Mother's Race Tabulation Variable 6E</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE7E">
+            <summary>Mother's Race Tabulation Variable 7E</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE8E">
+            <summary>Mother's Race Tabulation Variable 8E</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE16C">
+            <summary>Mother's Race Tabulation Variable 16C</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE17C">
+            <summary>Mother's Race Tabulation Variable 17C</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE18C">
+            <summary>Mother's Race Tabulation Variable 18C</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE19C">
+            <summary>Mother's Race Tabulation Variable 19C</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE20C">
+            <summary>Mother's Race Tabulation Variable 20C</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE21C">
+            <summary>Mother's Race Tabulation Variable 21C</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE22C">
+            <summary>Mother's Race Tabulation Variable 22C</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE23C">
+            <summary>Mother's Race Tabulation Variable 23C</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.ATTEND">
+            <summary>Attendant</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.TRAN">
+            <summary>Mother Transferred?(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DOFP_MO">
+            <summary>Date of First Prenatal Care Visit--Month</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DOFP_DY">
+            <summary>Date of First Prenatal Care Visit--Day</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DOFP_YR">
+            <summary>Date of First Prenatal Care Visit--Year</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DOLP_MO">
+            <summary>Date of Last Prenatal Care Visit--Month(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DOLP_DY">
+            <summary>Date of Last Prenatal Care Visit--Day(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DOLP_YR">
+            <summary>Date of Last Prenatal Care Visit--Year(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.NPREV">
+            <summary>Total Number of Prenatal Care Visits(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.NPREV_BYPASS">
+            <summary>Total Number of Prenatal Care Visits--Edit Flag(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.HFT">
+            <summary>Mother's Height--Feet</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.HIN">
+            <summary>Mother's Height--Inches</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.HGT_BYPASS">
+            <summary>Mother's Height--Edit Flag</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PWGT">
+            <summary>Mother's Prepregnancy Weight</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PWGT_BYPASS">
+            <summary>Mother's Prepregnancy Weight--Edit Flag</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DWGT">
+            <summary>Mother's Weight at Delivery(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DWGT_BYPASS">
+            <summary>Mother's Weight at Delivery--Edit Flag(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.WIC">
+            <summary>Did Mother get WIC Food for Herself?</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PLBL">
+            <summary>Previous Live Births Now Living</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PLBD">
+            <summary>Previous Live Births Now Dead</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.POPO">
+            <summary>Previous Other Pregnancy Outcomes(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MLLB">
+            <summary>Date of Last Live Birth--Month</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.YLLB">
+            <summary>Date of Last Live Birth--Year</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MOPO">
+            <summary>Date of Last Other Pregnancy Outcome--Month(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.YOPO">
+            <summary>Date of Last Other Pregnancy Outcome--Year(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.CIGPN">
+            <summary>Number of Cigarettes Smoked in 3 months prior to Pregnancy</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.CIGFN">
+            <summary>Number of Cigarettes Smoked in 1st 3 months</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.CIGSN">
+            <summary>Number of Cigarettes Smoked in 2nd 3 months</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.CIGLN">
+            <summary>Number of Cigarettes Smoked in third trimester</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DLMP_YR">
+            <summary>Date Last Normal Menses Began--Year</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DLMP_MO">
+            <summary>Date Last Normal Menses Began--Month</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DLMP_DY">
+            <summary>Date Last Normal Menses Began--Day</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PDIAB">
+            <summary>Risk Factors--Prepregnancy Diabetes  (NOTE: SEE INSERTED NOTES FOR RISK FACTOR LOCATIONS 490-501 AND 573-575 TO REFLECT 2004 CHANGES)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.GDIAB">
+            <summary>Risk Factors--Gestational Diabetes</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PHYPE">
+            <summary>Risk Factors--Hypertension Prepregnancy</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.GHYPE">
+            <summary><html>Risk Factors--Hypertension Gestational <b> (SEE ADDITIONAL HYPERTENSION CATEGORY IN LOCATION 573)</b></html></summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PPB">
+            <summary>Risk Factors--Previous Preterm Births(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PPO">
+            <summary>Risk Factors--Poor Pregnancy Outcomes(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.VB">
+            <summary><html>Risk Factors--Vaginal Bleeding <b><i> (NCHS DELETED THIS ITEM EFFECTIVE 2011)</i></b></html></summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.INFT">
+            <summary><html>Risk Factors--Infertility Treatment  <b>(SEE ADDITIONAL SUBCATEGORIES IN LOCATIONS 574-575)</b></html></summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PCES">
+            <summary>Risk Factors--Previous Cesarean</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.NPCES">
+            <summary>Risk Factors--Number Previous Cesareans</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.NPCES_BYPASS">
+            <summary>Risk Factors--Number Previous Cesareans--Edit Flag</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.GON">
+            <summary>Infections Present--Gonorrhea(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.SYPH">
+            <summary>Infections Present--Syphilis(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.HSV">
+            <summary><html>Infections Present--Herpes Simplex (HSV) <b><i>(NCHS DELETED THIS ITEM EFFECTIVE 2011)</i></b></html></summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.CHAM">
+            <summary>Infections Present--Chlamydia(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.LM">
+            <summary>Infections Present--Listeria(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.GBS">
+            <summary>Infections Present--Group B streptococcus(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.CMV">
+            <summary>Infections Present--Cytomeglovirus(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.B19">
+            <summary>Infections Present--Parvo virus(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.TOXO">
+            <summary>Infections Present--Toxoplasmosis(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.OTHERI">
+            <summary>Infections Present--Other(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.ATTF">
+            <summary><html>Method of Delivery--Attempted Forceps<b><i> (NCHS DELETED THIS ITEM EFFECTIVE 2011)</i></b></html></summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.ATTV">
+            <summary><html>Method of Delivery--Attempted Vacuum <b><i>(NCHS DELETED THIS ITEM EFFECTIVE 2011)</i></b></html></summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PRES">
+            <summary>Method of Delivery--Fetal Presentation</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.ROUT">
+            <summary>Method of Delivery--Route and Method of Delivery</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.TLAB">
+            <summary>Method of Delivery--Trial of Labor Attempted</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.HYST">
+            <summary>Method of Delivery--Hysterotomy/Hysterectomy(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MTR">
+            <summary>Maternal Morbidity--Maternal Transfusion(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PLAC">
+            <summary>Maternal Morbidity--Perineal Laceration(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.RUT">
+            <summary>Maternal Morbidity--Ruptured Uterus</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.UHYS">
+            <summary>Maternal Morbidity--Unplanned Hysterectomy(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.AINT">
+            <summary>Maternal Morbidity--Admit to Intensive Care</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.UOPR">
+            <summary>Maternal Morbidity--Unplanned Operation(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FWG">
+            <summary>Weight of Fetus</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FW_BYPASS">
+            <summary>Weight of Fetus--Edit Flag</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.OWGEST">
+            <summary>Obstetric Estimation of Gestation</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.OWGEST_BYPASS">
+            <summary>Obstetric Estimation of Gestation--Edit Flag</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.ETIME">
+            <summary>Estimated time of fetal death</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.AUTOP">
+            <summary>Was an Autopsy Performed?</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.HISTOP">
+            <summary>Was a Histological Placental Examination Performed?</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.AUTOPF">
+            <summary>Were Autopsy or Histological Placental Examination Results Used in Determining the Cause of Fetal Death?</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PLUR">
+            <summary>Plurality</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.SORD">
+            <summary>Set Order</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FDTH">
+            <summary>Number of Fetal Deaths</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MATCH">
+            <summary>Matching Number</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PLUR_BYPASS">
+            <summary>Plurality--Edit Flag</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.ANEN">
+            <summary>Congenital Anomalies of the Fetus--Anencephaly(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MNSB">
+            <summary>Congenital Anomalies of the Fetus--Meningomyelocele/Spina Bifida(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.CCHD">
+            <summary>Congenital Anomalies of the Fetus--Cyanotic congenital heart disease(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.CDH">
+            <summary>Congenital Anomalies of the Fetus--Congenital diaphragmatic hernia(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.OMPH">
+            <summary>Congenital Anomalies of the Fetus--Omphalocele(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.GAST">
+            <summary>Congenital Anomalies of the Fetus--Gastroschisis(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.LIMB">
+            <summary>Congenital Anomalies of the Fetus--Limb Reduction Defect(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.CL">
+            <summary>Congenital Anomalies of the Fetus--Cleft Lip with or without Cleft Palate(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.CP">
+            <summary>Congenital Anomalies of the Fetus--Cleft Palate Alone(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DOWT">
+            <summary>Congenital Anomalies of the Fetus--Down Syndrome(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.CDIT">
+            <summary>Congenital Anomalies of the Fetus--Suspected Chromosomal disorder(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.HYPO">
+            <summary>Congenital Anomalies of the Fetus--Hypospadias(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.R_YR">
+            <summary>NCHS USE ONLY: Receipt date -- Year</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.R_MO">
+            <summary>NCHS USE ONLY: Receipt date -- Month</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.R_DY">
+            <summary>NCHS USE ONLY: Receipt date -- Day</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MAGER">
+            <summary>Mother's Reported Age</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FAGER">
+            <summary>Father's Reported Age</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.EHYPE">
+            <summary>Risk Factors--Hypertension Eclampsia (added after 2004)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.INFT_DRG">
+            <summary>Risk Factors--Infertility: Fertility Enhancing Drugs (added after 2004)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.INFT_ART">
+            <summary>Risk Factors--Infertility: Asst. Rep. Technology (added after 2004)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DOR_YR">
+            <summary>Date of Registration--Year</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DOR_MO">
+            <summary>Date of Registration--Month</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DOR_DY">
+            <summary>Date of Registration--Day</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18a1">
+            <summary>Initiating cause/condition - Rupture of membranes prior to onset of labor</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18a2">
+            <summary>Initiating cause/condition - Abruptio placenta</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18a3">
+            <summary>Initiating cause/condition - Placental insufficiency</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18a4">
+            <summary>Initiating cause/condition - Prolapsed cord</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18a5">
+            <summary>Initiating cause/condition - Chorioamnionitis</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18a6">
+            <summary>Initiating cause/condition - Other complications of placenta, cord, or membranes</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18a7">
+            <summary>Initiating cause/condition - Unknown</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18a8">
+            <summary>Initiating cause/condition - Maternal conditions/diseases literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18a9">
+            <summary>Initiating cause/condition - Other complications of placenta, cord, or membranes literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18a10">
+            <summary>Initiating cause/condition - Other obstetrical or pregnancy complications literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18a11">
+            <summary>Initiating cause/condition - Fetal anomaly literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18a12">
+            <summary>Initiating cause/condition - Fetal injury literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18a13">
+            <summary>Initiating cause/condition - Fetal infection literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18a14">
+            <summary>Initiating cause/condition - Other fetal conditions/disorders literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18b1">
+            <summary>Other significant causes or conditions - Rupture of membranes prior to onset of labor</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18b2">
+            <summary>Other significant causes or conditions - Abruptio placenta</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18b3">
+            <summary>Other significant causes or conditions  - Placental insufficiency</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18b4">
+            <summary>Other significant causes or conditions - Prolapsed cord</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18b5">
+            <summary>Other significant causes or conditions - Chorioamnionitis</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18b6">
+            <summary>Other significant causes or conditions - Other complications of placenta, cord, or membranes</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18b7">
+            <summary>Other significant causes or conditions - Unknown</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18b8">
+            <summary>Other significant causes or conditions - Maternal conditions/diseases literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18b9">
+            <summary>Other significant causes or conditions - Other complications of placenta, cord, or membranes literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18b10">
+            <summary>Other significant causes or conditions - Other obstetrical or pregnancy complications literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18b11">
+            <summary>Other significant causes or conditions - Fetal anomaly literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18b12">
+            <summary>Other significant causes or conditions - Fetal injury literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18b13">
+            <summary>Other significant causes or conditions - Fetal infection literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18b14">
+            <summary>Other significant causes or conditions - Other fetal conditions/disorders literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.ICOD">
+            <summary>Coded initiating cause/condition</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.OCOD1">
+            <summary>Coded other significant causes or conditions- first mentioned</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.OCOD2">
+            <summary>Coded other significant causes or conditions- second mentioned</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.OCOD3">
+            <summary>Coded other significant causes or conditions- third mentioned</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.OCOD4">
+            <summary>Coded other significant causes or conditions- fourth mentioned</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.OCOD5">
+            <summary>Coded other significant causes or conditions- fifth mentioned</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.OCOD6">
+            <summary>Coded other significant causes or conditions- sixth mentioned</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.OCOD7">
+            <summary>Coded other significant causes or conditions- seventh mentioned</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.HSV1">
+            <summary><html>Infections Present--Genital Herpes <b><i>(Subcategory in position 504)</i></b></html></summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.HIV">
+            <summary>Infections Present--HIV</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.ALCOHOL">
+            <summary>Alcohol Used?</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FETFNAME">
+            <summary>Fetus First Name</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FETMNAME">
+            <summary>Fetus Middle Name</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FETLNAME">
+            <summary>Fetus Last Name</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.SUFFIX">
+            <summary>Fetus Surname Suffix</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.ALIAS">
+            <summary>Fetus Legal Name--Alias</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.HOSP_D">
+            <summary>Name of Delivery Facility</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.STNUM_D">
+            <summary>Place of Delivery Street number</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PREDIR_D">
+            <summary>Place of Delivery Pre Directional</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.STNAME_D">
+            <summary>Place of Delivery Street name</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.STDESIG_D">
+            <summary>Place of Delivery Street designator</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.POSTDIR_D">
+            <summary>Place of Delivery Post Directional</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.APTNUMB_D">
+            <summary>Place of Delivery Unit or Apartment Number</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.ADDRESS_D">
+            <summary>Place of Delivery Street Address</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.ZIPCODE_D">
+            <summary>Place of Delivery Zip code and Zip+4</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.CNTY_D">
+            <summary>Place of Delivery County (literal)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.CITY_D">
+            <summary>Place of Delivery City/Town/Place (literal)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.STATE_D">
+            <summary>State, U.S. Territory or Canadian Province of Place of Delivery - literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COUNTRY_D">
+            <summary>Place of Delivery Country (literal)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.LONG_D">
+            <summary>Place of Delivery Longitude</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.LAT_D">
+            <summary>Place of Delivery Latitude</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MOMFNAME">
+            <summary>Mother's Legal First Name</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MOMMNAME">
+            <summary>Mother's Legal Middle Name</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MOMLNAME">
+            <summary>Mother's Legal Last Name</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MOMSUFFIX">
+            <summary>Mother's Legal Surname Suffix</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MOMFMNME">
+            <summary>Mother's First Maiden Name</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MOMMMID">
+            <summary>Mother's Middle Maiden Name</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MOMMAIDN">
+            <summary>Mother's Last Maiden Name</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MOMMSUFFIX">
+            <summary>Mother's Maiden Surname Suffix</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.STNUM">
+            <summary>Mother's Residence Street number</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PREDIR">
+            <summary>Mother's Residence Pre Directional</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.STNAME">
+            <summary>Mother's Residence Street name</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.STDESIG">
+            <summary>Mother's Residence Street designator</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.POSTDIR">
+            <summary>Mother's Residence Post Directional</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.APTNUMB">
+            <summary>Mother's Residence Unit or Apartment Number</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.ADDRESS">
+            <summary>Mother's Residence Street Address</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.ZIPCODE">
+            <summary>Mother's Residence Zip code and Zip+4</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COUNTYTXT">
+            <summary>Mother's Residence County (literal)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.CITYTXT">
+            <summary>Mother's Residence City/Town/Place (literal)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.STATETXT">
+            <summary>State, U.S. Territory or Canadian Province of Residence (Mother) - literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.CNTRYTXT">
+            <summary>Mother's Residence Country (literal)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.LONG">
+            <summary>Mother's Residence Longitude</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.LAT">
+            <summary>Mother's Residence Latitude</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DADFNAME">
+            <summary>Father's Legal First Name</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DADMNAME">
+            <summary>Father's Legal Middle Name</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DADLNAME">
+            <summary>Father's Legal Last Name</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DADSUFFIX">
+            <summary>Father's Legal Surname Suffix</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MOM_SSN">
+            <summary>Mother's Social Security Number</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DAD_SSN">
+            <summary>Father's Social Security Number</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MAGE_CALC">
+            <summary>Mother's Age (Calculated)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FAGE_CALC">
+            <summary>Father's Age (Calculated)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MOM_OC_T">
+            <summary>Occupation of Mother</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MOM_OC_C">
+            <summary>Occupation of Mother (coded)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DAD_OC_T">
+            <summary>Occupation of Father</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DAD_OC_C">
+            <summary>Occupation of Father (coded)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MOM_IN_T">
+            <summary>Industry of Mother</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MOM_IN_C">
+            <summary>Industry of Mother (coded)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DAD_IN_T">
+            <summary>Industry of Father</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DAD_IN_C">
+            <summary>Industry of Father (coded)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FBPLACD_ST_TER_C">
+            <summary>State, U.S. Territory or Canadian Province of Birth (Father) - code</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FBPLACE_CNT_C">
+            <summary>Father's Country of Birth (Code)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MBPLACE_ST_TER_TXT">
+            <summary>State, U.S. Territory or Canadian Province of Birth (Mother) - literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MBPLACE_CNTRY_TXT">
+            <summary>Mother's Country of Birth (Literal)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FBPLACE_ST_TER_TXT">
+            <summary>State, U.S. Territory or Canadian Province of Birth (Father) - literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FBPLACE_CNTRY_TXT">
+            <summary>Father's Country of Birth (Literal)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FEDUC">
+            <summary>Father's Education</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FEDUC_BYPASS">
+            <summary>Father's Education--Edit Flag</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FETHNIC1">
+            <summary>Father of Hispanic Origin?--Mexican</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FETHNIC2">
+            <summary>Father of Hispanic Origin?--Puerto Rican</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FETHNIC3">
+            <summary>Father of Hispanic Origin?--Cuban</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FETHNIC4">
+            <summary>Father of Hispanic Origin?--Other</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FETHNIC5">
+            <summary>Father of Hispanic Origin?--Other Literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE1">
+            <summary>Father's Race--White</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE2">
+            <summary>Father's Race--Black or African American</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE3">
+            <summary>Father's Race--American Indian or Alaska Native</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE4">
+            <summary>Father's Race--Asian Indian</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE5">
+            <summary>Father's Race--Chinese</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE6">
+            <summary>Father's Race--Filipino</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE7">
+            <summary>Father's Race--Japanese</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE8">
+            <summary>Father's Race--Korean</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE9">
+            <summary>Father's Race--Vietnamese</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE10">
+            <summary>Father's Race--Other Asian</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE11">
+            <summary>Father's Race--Native Hawaiian</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE12">
+            <summary>Father's Race--Guamanian or Chamorro</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE13">
+            <summary>Father's Race--Samoan</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE14">
+            <summary>Father's Race--Other Pacific Islander</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE15">
+            <summary>Father's Race--Other</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE16">
+            <summary>Father's Race--First American Indian or Alaska Native Literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE17">
+            <summary>Father's Race--Second American Indian or Alaska Native Literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE18">
+            <summary>Father's Race--First Other Asian Literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE19">
+            <summary>Father's Race--Second Other Asian Literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE20">
+            <summary>Father's Race--First Other Pacific Islander Literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE21">
+            <summary>Father's Race--Second Other Pacific Islander Literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE22">
+            <summary>Father's Race--First Other Literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE23">
+            <summary>Father's Race--Second Other Literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE1E">
+            <summary>Father's Race Tabulation Variable 1E</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE2E">
+            <summary>Father's Race Tabulation Variable 2E</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE3E">
+            <summary>Father's Race Tabulation Variable 3E</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE4E">
+            <summary>Father's Race Tabulation Variable 4E</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE5E">
+            <summary>Father's Race Tabulation Variable 5E</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE6E">
+            <summary>Father's Race Tabulation Variable 6E</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE7E">
+            <summary>Father's Race Tabulation Variable 7E</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE8E">
+            <summary>Father's Race Tabulation Variable 8E</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE16C">
+            <summary>Father's Race Tabulation Variable 16C</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE17C">
+            <summary>Father's Race Tabulation Variable 17C</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE18C">
+            <summary>Father's Race Tabulation Variable 18C</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE19C">
+            <summary>Father's Race Tabulation Variable 19C</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE20C">
+            <summary>Father's Race Tabulation Variable 20C</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE21C">
+            <summary>Father's Race Tabulation Variable 21C</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE22C">
+            <summary>Father's Race Tabulation Variable 22C</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE23C">
+            <summary>Father's Race Tabulation Variable 23C</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.METHNIC5C">
+            <summary>Mother's Hispanic Code for Literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.METHNICE">
+            <summary>Mother's Edited Hispanic Origin Code</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACEBG_C">
+            <summary>Mother's Bridged Race - NCHS Code</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FETHNIC5C">
+            <summary>Father's Hispanic Code for Literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FETHNICE">
+            <summary>Father's Edited Hispanic Origin Code</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACEBG_C">
+            <summary>Father's Bridged Race - NCHS Code</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.METHNIC_T">
+            <summary>Mother's Hispanic Origin - Specify</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE_T">
+            <summary>Mother's Race - Specify</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FETHNIC_T">
+            <summary>Father's Hispanic Origin - Specify</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE_T">
+            <summary>Father's Race - Specify</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.HOSPFROM">
+            <summary>Facility Mother Moved From (if transferred)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.ATTEND_NAME">
+            <summary>Attendant's Name</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.ATTEND_NPI">
+            <summary>Attendant's NPI</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.ATTEND_OTH_TXT">
+            <summary>Attendant ("Other" specified text)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.INFORMFST">
+            <summary>Informant's First Name</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.INFORMMID">
+            <summary>Informant's Middle Name</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.INFORMLST">
+            <summary>Informant's Last Name</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.INFORMRELATE">
+            <summary>Informant's Relationship to Fetus</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.CERTIFIED_YR">
+            <summary>Date Signed by Certifier--Year</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.CERTIFIED_MO">
+            <summary>Date Signed by Certifier--Month</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.CERTIFIED_DY">
+            <summary>Date Signed by Certifier--Day</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.REGISTER_YR">
+            <summary>Date Filed by Registrar--Year</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.REGISTER_MO">
+            <summary>Date Filed by Registrar--Month</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.REGISTER_DY">
+            <summary>Date Filed by Registrar--Day</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.REPLACE">
+            <summary>Replacement (amended) Record</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PLACE1_1">
+            <summary>Blank for One-Byte Field 1</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PLACE1_2">
+            <summary>Blank for One-Byte Field 2</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PLACE1_3">
+            <summary>Blank for One-Byte Field 3</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PLACE1_4">
+            <summary>Blank for One-Byte Field 4</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PLACE1_5">
+            <summary>Blank for One-Byte Field 5</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PLACE1_6">
+            <summary>Blank for One-Byte Field 6</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PLACE8_1">
+            <summary>Blank for Eight-Byte Field 1</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PLACE8_2">
+            <summary>Blank for Eight-Byte Field 2</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PLACE8_3">
+            <summary>Blank for Eight-Byte Field 3</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PLACE20">
+            <summary>Blank for Twenty-Byte Field</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.BLANK">
+            <summary>Blank for future expansion</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.BLANK2">
             <summary>Blank for Jurisdictional Use Only</summary>
         </member>
         <member name="T:BFDR.Mappings">
