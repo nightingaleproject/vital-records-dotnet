@@ -2,12 +2,12 @@ name: Canary Testing
 
 on:
   push:
-    branches: [ main, Natality-feature ]
+    branches: [ main, Natality-feature, fetal-death-feature ]
     paths:
       - 'projects/Canary/**'
       - 'projects/Canary.Tests/**'
   pull_request:
-    branches: [ main, Natality-feature ]
+    branches: [ main, Natality-feature, fetal-death-feature ]
     paths:
       - 'projects/Canary/**'
       - 'projects/Canary.Tests/**'
