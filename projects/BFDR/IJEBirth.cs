@@ -66,7 +66,7 @@ namespace BFDR
         }
 
         /// <summary>FHIR based vital record.</summary>
-        /// Hides the IJE ToRecord method that returns a VitalRecord instead of a DeathRecord
+        /// Hides the IJE ToRecord method that returns a VitalRecord instead of a BirthRecord
         public new BirthRecord ToRecord()
         {
             return this.record;
@@ -163,8 +163,8 @@ namespace BFDR
         // Class Properties that provide getters and setters for each of the IJE
         // Natality fields.
         //
-        // Getters look at the embedded DeathRecord and convert values to IJE style.
-        // Setters convert and store IJE style values to the embedded DeathRecord.
+        // Getters look at the embedded BirthRecord and convert values to IJE style.
+        // Setters convert and store IJE style values to the embedded BirthRecord.
         //
         /////////////////////////////////////////////////////////////////////////////////
 
