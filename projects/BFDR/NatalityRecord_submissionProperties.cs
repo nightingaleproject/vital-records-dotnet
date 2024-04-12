@@ -151,19 +151,19 @@ namespace BFDR
         {
             get
             {
-                return GetDateElementNoTime(Child?.BirthDateElement, VR.ExtensionURL.PartialDateTimeYearVR);
+                return GetDateElementNoTime(Subject?.BirthDateElement, VR.ExtensionURL.PartialDateTimeYearVR);
             }
             set
             {
-                if (Child.BirthDateElement == null)
+                if (Subject.BirthDateElement == null)
                 {
-                    AddBirthDateToPatient(Child, false);
+                    AddBirthDateToPatient(Subject, false);
                 }
                 string time = this.BirthTime;
-                Date newDate = SetYear(value, Child.BirthDateElement);
+                Date newDate = SetYear(value, Subject.BirthDateElement);
                 if (newDate != null)
                 {
-                    Child.BirthDateElement = newDate;
+                    Subject.BirthDateElement = newDate;
                 }
                 this.BirthTime = time;
             }
@@ -175,20 +175,20 @@ namespace BFDR
             if (BirthTime != null && BirthTime != "temp-unknown")
             {
                 Time time = new Time(BirthTime);
-                Child.BirthDateElement = new Date(completeDate.Year, completeDate.Month, completeDate.Day);
+                Subject.BirthDateElement = new Date(completeDate.Year, completeDate.Month, completeDate.Day);
                 // Is the TimeSpan.Zero safe for time offset? Got this line from VR.ConvertFhirTimeToFhirDateTime().
                 FhirDateTime dateTime = new FhirDateTime(completeDate.Year, completeDate.Month, completeDate.Day, FhirTimeHour(time), FhirTimeMin(time), FhirTimeSec(time), TimeSpan.Zero);
-                Child.BirthDateElement.SetExtension(VR.ExtensionURL.PatientBirthTime, dateTime);
+                Subject.BirthDateElement.SetExtension(VR.ExtensionURL.PatientBirthTime, dateTime);
             }
             else
             {
                 FhirDateTime dateTime = new FhirDateTime(completeDate.Year, completeDate.Month, completeDate.Day);
-                Child.BirthDate = dateTime.ToString();
+                Subject.BirthDate = dateTime.ToString();
                 // Make sure the PatientBirthTime is not present because we have no time data.
-                Child.BirthDateElement.RemoveExtension(VR.ExtensionURL.PatientBirthTime);
+                Subject.BirthDateElement.RemoveExtension(VR.ExtensionURL.PatientBirthTime);
             }
             // Remove the now extraneous PartialDateTime.
-            Child.BirthDateElement.RemoveExtension(VRExtensionURLs.PartialDateTime);
+            Subject.BirthDateElement.RemoveExtension(VRExtensionURLs.PartialDateTime);
             return;
         }
 
@@ -224,19 +224,19 @@ namespace BFDR
         {
             get
             {
-                return GetDateElementNoTime(Child?.BirthDateElement, VR.ExtensionURL.PartialDateTimeMonthVR);
+                return GetDateElementNoTime(Subject?.BirthDateElement, VR.ExtensionURL.PartialDateTimeMonthVR);
             }
             set
             {
                 string time = this.BirthTime;
-                if (Child.BirthDateElement == null)
+                if (Subject.BirthDateElement == null)
                 {
-                    AddBirthDateToPatient(Child, false);
+                    AddBirthDateToPatient(Subject, false);
                 }
-                Date newDate = SetMonth(value, Child.BirthDateElement);
+                Date newDate = SetMonth(value, Subject.BirthDateElement);
                 if (newDate != null)
                 {
-                    Child.BirthDateElement = newDate;
+                    Subject.BirthDateElement = newDate;
                 }
                 this.BirthTime = time;
             }
@@ -256,19 +256,19 @@ namespace BFDR
         {
             get
             {
-                return GetDateElementNoTime(Child?.BirthDateElement, VR.ExtensionURL.PartialDateTimeDayVR);
+                return GetDateElementNoTime(Subject?.BirthDateElement, VR.ExtensionURL.PartialDateTimeDayVR);
             }
             set
             {
                 string time = this.BirthTime;
-                if (Child.BirthDateElement == null)
+                if (Subject.BirthDateElement == null)
                 {
-                    AddBirthDateToPatient(Child, false);
+                    AddBirthDateToPatient(Subject, false);
                 }
-                Date newDate = SetDay(value, Child.BirthDateElement);
+                Date newDate = SetDay(value, Subject.BirthDateElement);
                 if (newDate != null)
                 {
-                    Child.BirthDateElement = newDate;
+                    Subject.BirthDateElement = newDate;
                 }
                 this.BirthTime = time;
             }
@@ -289,48 +289,48 @@ namespace BFDR
         {
             get
             {
-                if (Child == null || Child.BirthDateElement == null)
+                if (Subject == null || Subject.BirthDateElement == null)
                 {
                     return null;
                 }
                 // First check for a time in the patient.birthDate PatientBirthTime extension.
-                if (Child.BirthDateElement.Extension.Any(ext => ext.Url == VR.ExtensionURL.PatientBirthTime))
+                if (Subject.BirthDateElement.Extension.Any(ext => ext.Url == VR.ExtensionURL.PatientBirthTime))
                 {
-                    FhirDateTime dateTime = (FhirDateTime)Child.BirthDateElement.Extension.Find(ext => ext.Url == VR.ExtensionURL.PatientBirthTime).Value;
+                    FhirDateTime dateTime = (FhirDateTime)Subject.BirthDateElement.Extension.Find(ext => ext.Url == VR.ExtensionURL.PatientBirthTime).Value;
                     return GetTimeFragment(dateTime);
                 }
                 // If it's not there, check for a PartialDateTime.
-                return this.GetPartialTime(this.Child.BirthDateElement.GetExtension(PartialDateTimeUrl));
+                return this.GetPartialTime(this.Subject.BirthDateElement.GetExtension(PartialDateTimeUrl));
             }
             set
             {
-                if (Child == null)
+                if (Subject == null)
                 {
                     return;
                 }
-                if (Child.BirthDateElement == null)
+                if (Subject.BirthDateElement == null)
                 {
-                    AddBirthDateToPatient(Child, true);
+                    AddBirthDateToPatient(Subject, true);
                 }
                 // If the date is complete, then the birth time should be included in the patientBirthTime extension.
                 if (value != "-1" && DateIsComplete(this.DateOfBirth))
                 {
                     FhirDateTime dateTime = new FhirDateTime(this.DateOfBirth + "T" + value);
-                    Child.BirthDateElement.SetExtension(VR.ExtensionURL.PatientBirthTime, dateTime);
+                    Subject.BirthDateElement.SetExtension(VR.ExtensionURL.PatientBirthTime, dateTime);
                     return;
                 }
                 // If the date is incomplete, then the birth time should be included in the partialDateTime Time extension.
-                Child.BirthDateElement.RemoveExtension(VR.ExtensionURL.PatientBirthTime);
-                if (!Child.BirthDateElement.Extension.Any(ext => ext.Url == VRExtensionURLs.PartialDateTime))
+                Subject.BirthDateElement.RemoveExtension(VR.ExtensionURL.PatientBirthTime);
+                if (!Subject.BirthDateElement.Extension.Any(ext => ext.Url == VRExtensionURLs.PartialDateTime))
                 {
-                    Child.BirthDateElement.SetExtension(VRExtensionURLs.PartialDateTime, new Extension());
+                    Subject.BirthDateElement.SetExtension(VRExtensionURLs.PartialDateTime, new Extension());
                 }
-                if (!Child.BirthDateElement.Extension.Find(ext => ext.Url == VRExtensionURLs.PartialDateTime).Extension.Any(ext => ext.Url == PartialDateTimeTimeUrl))
+                if (!Subject.BirthDateElement.Extension.Find(ext => ext.Url == VRExtensionURLs.PartialDateTime).Extension.Any(ext => ext.Url == PartialDateTimeTimeUrl))
                 {
-                    Child.BirthDateElement.GetExtension(VRExtensionURLs.PartialDateTime).SetExtension(PartialDateTimeTimeUrl, new Extension());
+                    Subject.BirthDateElement.GetExtension(VRExtensionURLs.PartialDateTime).SetExtension(PartialDateTimeTimeUrl, new Extension());
                 }
                 // Child.BirthDateElement.GetExtension(VRExtensionURLs.PartialDateTimeVR).SetExtension(PartialDateTimeTimeUrl, new Time(value));
-                SetPartialTime(Child.BirthDateElement.GetExtension(VRExtensionURLs.PartialDateTime), value);
+                SetPartialTime(Subject.BirthDateElement.GetExtension(VRExtensionURLs.PartialDateTime), value);
             }
         }
 
@@ -359,16 +359,16 @@ namespace BFDR
         {
             get
             {
-                if (this.Child == null || this.Child.BirthDateElement == null)
+                if (this.Subject == null || this.Subject.BirthDateElement == null)
                 {
                     return null;
                 }
-                return this.Child.BirthDate;
+                return this.Subject.BirthDate;
             }
             set
             {
                 string time = this.BirthTime;
-                this.Child.BirthDateElement = ConvertToDate(value);
+                this.Subject.BirthDateElement = ConvertToDate(value);
                 this.BirthTime = time;
             }
         }
@@ -423,9 +423,9 @@ namespace BFDR
         {
             get
             {
-                if (Child != null)
+                if (Subject != null)
                 {
-                    Extension sex = Child.GetExtension(VR.OtherExtensionURL.BirthSex);
+                    Extension sex = Subject.GetExtension(VR.OtherExtensionURL.BirthSex);
                     if (sex != null && sex.Value != null && sex.Value as CodeableConcept != null)
                     {
                         return CodeableConceptToDict((CodeableConcept)sex.Value);
@@ -435,12 +435,12 @@ namespace BFDR
             }
             set
             {
-                Child.Extension.RemoveAll(ext => ext.Url == VR.OtherExtensionURL.BirthSex);
-                if (IsDictEmptyOrDefault(value) && Child.Extension == null)
+                Subject.Extension.RemoveAll(ext => ext.Url == VR.OtherExtensionURL.BirthSex);
+                if (IsDictEmptyOrDefault(value) && Subject.Extension == null)
                 {
                     return;
                 }
-                Child.SetExtension(VR.OtherExtensionURL.BirthSex, DictToCodeableConcept(value));
+                Subject.SetExtension(VR.OtherExtensionURL.BirthSex, DictToCodeableConcept(value));
             }
         }
 
@@ -488,11 +488,11 @@ namespace BFDR
         {
             get
             {
-                return Child?.Name?.Find(name => name.Use == HumanName.NameUse.Official)?.Given?.ToArray() ?? new string[0];
+                return Subject?.Name?.Find(name => name.Use == HumanName.NameUse.Official)?.Given?.ToArray() ?? new string[0];
             }
             set
             {
-                updateGivenHumanName(value, Child.Name);
+                updateGivenHumanName(value, Subject.Name);
             }
         }
 
@@ -580,11 +580,11 @@ namespace BFDR
         {
             get
             {
-                return Child?.Name?.Find(name => name.Use == HumanName.NameUse.Official)?.Family;
+                return Subject?.Name?.Find(name => name.Use == HumanName.NameUse.Official)?.Family;
             }
             set
             {
-                HumanName name = Child.Name.SingleOrDefault(n => n.Use == HumanName.NameUse.Official);
+                HumanName name = Subject.Name.SingleOrDefault(n => n.Use == HumanName.NameUse.Official);
                 if (name != null && !String.IsNullOrEmpty(value))
                 {
                     name.Family = value;
@@ -596,7 +596,7 @@ namespace BFDR
                         Use = HumanName.NameUse.Official,
                         Family = value
                     };
-                    Child.Name.Add(name);
+                    Subject.Name.Add(name);
                 }
             }
         }
@@ -723,7 +723,7 @@ namespace BFDR
         {
             get
             {
-                return Child?.Name?.Find(name => name.Use == HumanName.NameUse.Official)?.Suffix.FirstOrDefault();
+                return Subject?.Name?.Find(name => name.Use == HumanName.NameUse.Official)?.Suffix.FirstOrDefault();
             }
             set
             {
@@ -731,7 +731,7 @@ namespace BFDR
                 {
                     return;
                 }
-                HumanName name = Child.Name.SingleOrDefault(n => n.Use == HumanName.NameUse.Official);
+                HumanName name = Subject.Name.SingleOrDefault(n => n.Use == HumanName.NameUse.Official);
                 if (name != null)
                 {
                     string[] suffix = { value };
@@ -743,7 +743,7 @@ namespace BFDR
                     name.Use = HumanName.NameUse.Official;
                     string[] suffix = { value };
                     name.Suffix = suffix;
-                    Child.Name.Add(name);
+                    Subject.Name.Add(name);
                 }
             }
         }
@@ -955,11 +955,11 @@ namespace BFDR
         {
             get
             {
-                return GetPlaceOfBirth(Child);
+                return GetPlaceOfBirth(Subject);
             }
             set
             {
-                SetPlaceOfBirth(Child, value);
+                SetPlaceOfBirth(Subject, value);
             }
         }
 
@@ -1350,13 +1350,13 @@ namespace BFDR
         {
             get
             {
-                return Child?.Identifier?.Find(id => id.Type.Coding.Any(idCoding => idCoding.System == CodeSystems.HL7_identifier_type && idCoding.Code == "MR"))?.Value;
+                return Subject?.Identifier?.Find(id => id.Type.Coding.Any(idCoding => idCoding.System == CodeSystems.HL7_identifier_type && idCoding.Code == "MR"))?.Value;
             }
             set
             {
-                if (Child.Identifier.Any(id => id.Type.Coding.Any(idCoding => idCoding.System == CodeSystems.HL7_identifier_type && idCoding.Code == "MR")))
+                if (Subject.Identifier.Any(id => id.Type.Coding.Any(idCoding => idCoding.System == CodeSystems.HL7_identifier_type && idCoding.Code == "MR")))
                 {
-                    Child.Identifier.Find(id => id.Type.Coding.Any(idCoding => idCoding.System == CodeSystems.HL7_identifier_type && idCoding.Code == "MR")).Value = value;
+                    Subject.Identifier.Find(id => id.Type.Coding.Any(idCoding => idCoding.System == CodeSystems.HL7_identifier_type && idCoding.Code == "MR")).Value = value;
                 }
                 else
                 {
@@ -1373,7 +1373,7 @@ namespace BFDR
                         Type = medicalRecordNumber,
                         Value = value
                     };
-                    Child.Identifier.Add(identifier);
+                    Subject.Identifier.Add(identifier);
                 }
             }
         }
@@ -1506,17 +1506,17 @@ namespace BFDR
         {
             get
             {
-                if (Child != null && Child.MultipleBirth != null)
+                if (Subject != null && Subject.MultipleBirth != null)
                 {
-                    if (Child.MultipleBirth as FhirBoolean != null)
+                    if (Subject.MultipleBirth as FhirBoolean != null)
                     {
                         return null;
                     }
-                    else if (Child.MultipleBirth as Hl7.Fhir.Model.Integer != null && (Child.MultipleBirth as Hl7.Fhir.Model.Integer).Value != null)
+                    else if (Subject.MultipleBirth as Hl7.Fhir.Model.Integer != null && (Subject.MultipleBirth as Hl7.Fhir.Model.Integer).Value != null)
                     {
-                        return (Child.MultipleBirth as Hl7.Fhir.Model.Integer).Value;
+                        return (Subject.MultipleBirth as Hl7.Fhir.Model.Integer).Value;
                     }
-                    else if (Child.MultipleBirth.Extension.Find(ext => ext.Url == ExtensionURL.DataAbsentReason) != null)
+                    else if (Subject.MultipleBirth.Extension.Find(ext => ext.Url == ExtensionURL.DataAbsentReason) != null)
                     {
                         return -1;
                     }
@@ -1529,17 +1529,17 @@ namespace BFDR
                 int? plurality = Plurality;
                 if (value == null)
                 {
-                    Child.MultipleBirth = new FhirBoolean(false);
+                    Subject.MultipleBirth = new FhirBoolean(false);
                 }
                 else if (value == -1)
                 {
-                    Child.MultipleBirth = new Hl7.Fhir.Model.Integer();
+                    Subject.MultipleBirth = new Hl7.Fhir.Model.Integer();
                     Extension missingValueReason = new Extension(ExtensionURL.DataAbsentReason, new Code("unknown"));
-                    Child.MultipleBirth.Extension.Add(missingValueReason);
+                    Subject.MultipleBirth.Extension.Add(missingValueReason);
                 }
                 else
                 {
-                    Child.MultipleBirth = new Hl7.Fhir.Model.Integer(value);
+                    Subject.MultipleBirth = new Hl7.Fhir.Model.Integer(value);
                 }
                 Plurality = plurality;
                 PluralityEditFlag = pluralityEditFlag;
@@ -1567,9 +1567,9 @@ namespace BFDR
         {
             get
             {
-                if (Child != null && Child.MultipleBirth != null)
+                if (Subject != null && Subject.MultipleBirth != null)
                 {
-                    Extension pluralityEditFlag = Child.MultipleBirth.Extension.Find(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
+                    Extension pluralityEditFlag = Subject.MultipleBirth.Extension.Find(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
                     if (pluralityEditFlag != null && pluralityEditFlag.Value != null && pluralityEditFlag.Value as CodeableConcept != null)
                     {
                         return CodeableConceptToDict((CodeableConcept)pluralityEditFlag.Value);
@@ -1579,12 +1579,12 @@ namespace BFDR
             }
             set
             {
-                if (Child.MultipleBirth == null)
+                if (Subject.MultipleBirth == null)
                 {
-                    Child.MultipleBirth = new FhirBoolean(false);
+                    Subject.MultipleBirth = new FhirBoolean(false);
                 }
-                Child.MultipleBirth.Extension.RemoveAll(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
-                Child.MultipleBirth.Extension.Add(new Extension(VRExtensionURLs.BypassEditFlag, DictToCodeableConcept(value)));
+                Subject.MultipleBirth.Extension.RemoveAll(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
+                Subject.MultipleBirth.Extension.Add(new Extension(VRExtensionURLs.BypassEditFlag, DictToCodeableConcept(value)));
             }
         }
 
@@ -1635,9 +1635,9 @@ namespace BFDR
         {
             get
             {
-                if (Child != null && Child.MultipleBirth != null)
+                if (Subject != null && Subject.MultipleBirth != null)
                 {
-                    Extension plurality = Child.MultipleBirth.Extension.Find(ext => ext.Url == ExtensionURL.Plurality);
+                    Extension plurality = Subject.MultipleBirth.Extension.Find(ext => ext.Url == ExtensionURL.Plurality);
                     if (plurality != null)
                     {
                         if (plurality.Value as PositiveInt != null && (plurality.Value as PositiveInt).Value != null)
@@ -1654,11 +1654,11 @@ namespace BFDR
             }
             set
             {
-                if (Child.MultipleBirth == null)
+                if (Subject.MultipleBirth == null)
                 {
-                    Child.MultipleBirth = new FhirBoolean(false);
+                    Subject.MultipleBirth = new FhirBoolean(false);
                 }
-                Child.MultipleBirth.Extension.RemoveAll(ext => ext.Url == ExtensionURL.Plurality);
+                Subject.MultipleBirth.Extension.RemoveAll(ext => ext.Url == ExtensionURL.Plurality);
                 if (value == null)
                 {
                     return;
@@ -1668,12 +1668,12 @@ namespace BFDR
                     Extension plurality = new Extension(ExtensionURL.Plurality, new PositiveInt());
                     Extension missingValueReason = new Extension(ExtensionURL.DataAbsentReason, new Code("unknown"));
                     plurality.Extension.Add(missingValueReason);
-                    Child.MultipleBirth.Extension.Add(plurality);
+                    Subject.MultipleBirth.Extension.Add(plurality);
                 }
                 else
                 {
                     Extension plurality = new Extension(ExtensionURL.Plurality, new PositiveInt(value));
-                    Child.MultipleBirth.Extension.Add(plurality);
+                    Subject.MultipleBirth.Extension.Add(plurality);
                 }
             }
         }
@@ -2807,7 +2807,7 @@ namespace BFDR
             }
             int? age = null;
 
-            Extension parentAge = Child?.Extension.Find(ext => IsParentAgeAtBirthExt(ext, role));
+            Extension parentAge = Subject?.Extension.Find(ext => IsParentAgeAtBirthExt(ext, role));
             if (parentAge != null)
             {
                 Extension ageExt = parentAge.Extension.Find(ext => ext.Url.Equals("reportedAge"));
@@ -2858,7 +2858,7 @@ namespace BFDR
                 throw new System.ArgumentException($"Role '{role}' is not a member of the VR Role value set");
             }
 
-            Child.Extension.RemoveAll(ext => IsParentAgeAtBirthExt(ext, role));
+            Subject.Extension.RemoveAll(ext => IsParentAgeAtBirthExt(ext, role));
             Extension parentAgeAtBirth = new Extension(VRExtensionURLs.ReportedParentAgeAtDelivery, null);
             CodeableConcept parentRole = new CodeableConcept(roleCode["system"], roleCode["code"], roleCode["display"]);
             parentAgeAtBirth.Extension.Add(new Extension(VR.OtherExtensionURL.ParentRole, parentRole));
@@ -2867,7 +2867,7 @@ namespace BFDR
                 Quantity ageInYears = new Quantity((decimal)value, "a");
                 parentAgeAtBirth.Extension.Add(new Extension("reportedAge", ageInYears));
             }
-            Child.Extension.Add(parentAgeAtBirth);
+            Subject.Extension.Add(parentAgeAtBirth);
         }
 
         /// <summary>Mother's Age at Delivery</summary>
@@ -3225,7 +3225,7 @@ namespace BFDR
                 component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, NvssEthnicity.Mexican, NvssEthnicity.MexicanDisplay, null);
                 component.Value = DictToCodeableConcept(value);
                 obs.Component.Add(component);
-                obs.Subject = new ResourceReference("urn:uuid:" + Child.Id);
+                obs.Subject = new ResourceReference("urn:uuid:" + Subject.Id);
             }
         }
 
@@ -3304,7 +3304,7 @@ namespace BFDR
                 component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, NvssEthnicity.PuertoRican, NvssEthnicity.PuertoRicanDisplay, null);
                 component.Value = DictToCodeableConcept(value);
                 obs.Component.Add(component);
-                obs.Subject = new ResourceReference("urn:uuid:" + Child.Id);
+                obs.Subject = new ResourceReference("urn:uuid:" + Subject.Id);
             }
         }
 
@@ -3383,7 +3383,7 @@ namespace BFDR
                 component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, NvssEthnicity.Cuban, NvssEthnicity.CubanDisplay, null);
                 component.Value = DictToCodeableConcept(value);
                 obs.Component.Add(component);
-                obs.Subject = new ResourceReference("urn:uuid:" + Child.Id);
+                obs.Subject = new ResourceReference("urn:uuid:" + Subject.Id);
             }
         }
 
@@ -3695,7 +3695,7 @@ namespace BFDR
                 component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, NvssEthnicity.Mexican, NvssEthnicity.MexicanDisplay, null);
                 component.Value = DictToCodeableConcept(value);
                 obs.Component.Add(component);
-                obs.Subject = new ResourceReference("urn:uuid:" + Child.Id);
+                obs.Subject = new ResourceReference("urn:uuid:" + Subject.Id);
             }
         }
 
@@ -3774,7 +3774,7 @@ namespace BFDR
                 component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, NvssEthnicity.PuertoRican, NvssEthnicity.PuertoRicanDisplay, null);
                 component.Value = DictToCodeableConcept(value);
                 obs.Component.Add(component);
-                obs.Subject = new ResourceReference("urn:uuid:" + Child.Id);
+                obs.Subject = new ResourceReference("urn:uuid:" + Subject.Id);
             }
         }
 
@@ -3853,7 +3853,7 @@ namespace BFDR
                 component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, NvssEthnicity.Cuban, NvssEthnicity.CubanDisplay, null);
                 component.Value = DictToCodeableConcept(value);
                 obs.Component.Add(component);
-                obs.Subject = new ResourceReference("urn:uuid:" + Child.Id);
+                obs.Subject = new ResourceReference("urn:uuid:" + Subject.Id);
             }
         }
 
@@ -3933,7 +3933,7 @@ namespace BFDR
                 component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, NvssEthnicity.Other, NvssEthnicity.OtherDisplay, null);
                 component.Value = DictToCodeableConcept(value);
                 obs.Component.Add(component);
-                obs.Subject = new ResourceReference("urn:uuid:" + Child.Id);
+                obs.Subject = new ResourceReference("urn:uuid:" + Subject.Id);
             }
         }
 
@@ -4007,7 +4007,7 @@ namespace BFDR
                 component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, NvssEthnicity.Literal, NvssEthnicity.LiteralDisplay, null);
                 component.Value = new FhirString(value);
                 obs.Component.Add(component);
-                obs.Subject = new ResourceReference("urn:uuid:" + Child.Id);
+                obs.Subject = new ResourceReference("urn:uuid:" + Subject.Id);
             }
         }
 
@@ -4891,7 +4891,7 @@ namespace BFDR
         {
             // TODO replace codes with constants once BFDR value sets are autogenerated
             get => GetWeight("8339-4");
-            set => SetWeight("8339-4", value, "g", NEWBORN_INFORMATION_SECTION, Child.Id);
+            set => SetWeight("8339-4", value, "g", NEWBORN_INFORMATION_SECTION, Subject.Id);
         }
 
         private Dictionary<string, string> GetWeightEditFlag(string code)
@@ -5080,7 +5080,7 @@ namespace BFDR
         public Dictionary<string, string> BirthWeightEditFlag
         {
             get => GetWeightEditFlag("8339-4");
-            set => SetWeightEditFlag("8339-4", value, NEWBORN_INFORMATION_SECTION, Child.Id);
+            set => SetWeightEditFlag("8339-4", value, NEWBORN_INFORMATION_SECTION, Subject.Id);
         }
 
         /// <summary>Birth Weight at Delivery Edit Flag Helper.</summary>
@@ -5096,7 +5096,7 @@ namespace BFDR
         public string BirthWeightEditFlagHelper
         {
             get => GetWeightEditFlagHelper("8339-4");
-            set => SetWeightEditFlagHelper("8339-4", value, NEWBORN_INFORMATION_SECTION, Child.Id);
+            set => SetWeightEditFlagHelper("8339-4", value, NEWBORN_INFORMATION_SECTION, Subject.Id);
         }
 
         /// TODO: Required field in FHIR, needs BLANK placeholder
@@ -5380,7 +5380,7 @@ namespace BFDR
                 obs.Code = new CodeableConcept(VR.CodeSystems.LOINC, code);
                 obs.Value = new Hl7.Fhir.Model.Integer(value);
                 obs.Subject = new ResourceReference($"urn:uuid:{Mother.Id}");
-                obs.Focus.Add(new ResourceReference($"urn:uuid:{Child.Id}"));
+                obs.Focus.Add(new ResourceReference($"urn:uuid:{Subject.Id}"));
                 AddReferenceToComposition(obs.Id, MOTHER_PRENATAL_SECTION);
                 Bundle.AddResourceEntry(obs, "urn:uuid:" + obs.Id);
             }
@@ -5525,7 +5525,7 @@ namespace BFDR
                     obs.Subject = new ResourceReference($"urn:uuid:{Father.Id}");
                     AddReferenceToComposition(obs.Id, FATHER_INFORMATION_SECTION);
                 }
-                obs.Focus.Add(new ResourceReference($"urn:uuid:{Child.Id}"));
+                obs.Focus.Add(new ResourceReference($"urn:uuid:{Subject.Id}"));
                 Bundle.AddResourceEntry(obs, "urn:uuid:" + obs.Id);
             }
             if (!String.IsNullOrWhiteSpace(value))
@@ -6209,7 +6209,7 @@ namespace BFDR
             }
             set
             {
-                Observation obs = GetOrCreateObservation("69044-6", CodeSystems.LOINC, "Mother Prenatal", BFDR.ProfileURL.ObservationDateOfFirstPrenatalCareVisit, MOTHER_PRENATAL_SECTION, Child.Id);
+                Observation obs = GetOrCreateObservation("69044-6", CodeSystems.LOINC, "Mother Prenatal", BFDR.ProfileURL.ObservationDateOfFirstPrenatalCareVisit, MOTHER_PRENATAL_SECTION, Subject.Id);
                 obs.Value = ConvertToDateTime(value);
             }
         }
@@ -6280,7 +6280,7 @@ namespace BFDR
             }
             set
             {
-                Observation obs = GetOrCreateObservation("69044-6", CodeSystems.LOINC, "Mother Prenatal", BFDR.ProfileURL.ObservationDateOfFirstPrenatalCareVisit, MOTHER_PRENATAL_SECTION, Child.Id);
+                Observation obs = GetOrCreateObservation("69044-6", CodeSystems.LOINC, "Mother Prenatal", BFDR.ProfileURL.ObservationDateOfFirstPrenatalCareVisit, MOTHER_PRENATAL_SECTION, Subject.Id);
                 if (obs.Value as Hl7.Fhir.Model.FhirDateTime == null)
                 {
                     obs.Value = new FhirDateTime();
@@ -6313,7 +6313,7 @@ namespace BFDR
             }
             set
             {
-                Observation obs = GetOrCreateObservation("69044-6", CodeSystems.LOINC, "Mother Prenatal", BFDR.ProfileURL.ObservationDateOfFirstPrenatalCareVisit, MOTHER_PRENATAL_SECTION, Child.Id);
+                Observation obs = GetOrCreateObservation("69044-6", CodeSystems.LOINC, "Mother Prenatal", BFDR.ProfileURL.ObservationDateOfFirstPrenatalCareVisit, MOTHER_PRENATAL_SECTION, Subject.Id);
                 if (obs.Value as Hl7.Fhir.Model.FhirDateTime == null)
                 {
                     obs.Value = new FhirDateTime();
@@ -6346,7 +6346,7 @@ namespace BFDR
             }
             set
             {
-                Observation obs = GetOrCreateObservation("69044-6", CodeSystems.LOINC, "Mother Prenatal", BFDR.IGURL.ObservationDateOfFirstPrenatalCareVisit, MOTHER_PRENATAL_SECTION, Child.Id);
+                Observation obs = GetOrCreateObservation("69044-6", CodeSystems.LOINC, "Mother Prenatal", BFDR.IGURL.ObservationDateOfFirstPrenatalCareVisit, MOTHER_PRENATAL_SECTION, Subject.Id);
                 if (obs.Value as Hl7.Fhir.Model.FhirDateTime == null)
                 {
                     obs.Value = new FhirDateTime();
@@ -6974,7 +6974,7 @@ namespace BFDR
         public int? ApgarScoreFiveMinutes
         {
             get => GetIntegerObservationValue("9274-2");
-            set => SetIntegerObservationValue("9274-2", "5 minute Apgar Score", value, NEWBORN_INFORMATION_SECTION, BFDR.ProfileURL.ObservationApgarScore, Child.Id);
+            set => SetIntegerObservationValue("9274-2", "5 minute Apgar Score", value, NEWBORN_INFORMATION_SECTION, BFDR.ProfileURL.ObservationApgarScore, Subject.Id);
         }
 
         /// <summary>APGAR score at 10 mins.</summary>
@@ -6991,7 +6991,7 @@ namespace BFDR
         public int? ApgarScoreTenMinutes
         {
             get => GetIntegerObservationValue("9271-8");
-            set => SetIntegerObservationValue("9271-8", "10 minute Apgar Score", value, NEWBORN_INFORMATION_SECTION, BFDR.ProfileURL.ObservationApgarScore, Child.Id);
+            set => SetIntegerObservationValue("9271-8", "10 minute Apgar Score", value, NEWBORN_INFORMATION_SECTION, BFDR.ProfileURL.ObservationApgarScore, Subject.Id);
         }
 
 

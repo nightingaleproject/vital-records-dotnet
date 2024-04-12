@@ -13,8 +13,14 @@ namespace BFDR
     /// </summary>
     public partial class BirthRecord : NatalityRecord
     {
+
         /// <summary>Default constructor that creates a new, empty BirthRecord.</summary>
-        public BirthRecord() : base() {}
+        public BirthRecord() : base()
+        {
+
+            // Start with an empty child. Need reference in Composition.
+
+        }
 
         /// <summary>Constructor that takes a string that represents a FHIR Birth Record in either XML or JSON format.</summary>
         /// <param name="record">represents a FHIR Birth Record in either XML or JSON format.</param>
@@ -31,6 +37,35 @@ namespace BFDR
         protected override uint? GetYear()
         {
             return (uint?)this.BirthYear;
+        }
+        
+        /// <inheritdoc/>
+        protected override void RestoreReferences()
+        {
+            // Restore BirthRecord specific references.
+            List<Patient> patients = Bundle.Entry.FindAll(entry => entry.Resource is Patient).ConvertAll(entry => (Patient) entry.Resource);
+            Subject = patients.Find(patient => patient.Meta.Profile.Any(patientProfile => patientProfile == VR.ProfileURL.Child));
+            // Restore the common references between Birth Records and Fetal Death Records.
+            base.RestoreReferences();
+        }
+
+        /// <inheritdoc/>
+        protected override void InitializeCompositionAndSubject()
+        {
+            // Initialize empty BirthRecord specific Subject and Composition.
+            Subject = new Patient
+            {
+                Id = Guid.NewGuid().ToString(),
+                Meta = new Meta() {
+                    Profile = new[] { VR.ProfileURL.Child }
+                }
+            };
+            Composition.Meta = new Meta
+            {
+                Profile = new[] { ProfileURL.CompositionJurisdictionLiveBirthReport }
+            };
+            Composition.Type = new CodeableConcept(CodeSystems.LOINC, "71230-7", "Birth certificate", null);
+            Composition.Title = "Birth Certificate";
         }
     }
 }
