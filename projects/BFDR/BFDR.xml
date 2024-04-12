@@ -30,6 +30,9 @@
         <member name="M:BFDR.BirthRecord.RestoreReferences">
             <inheritdoc/>
         </member>
+        <member name="M:BFDR.BirthRecord.InitializeCompositionAndSubject">
+            <inheritdoc/>
+        </member>
         <member name="T:BFDR.FetalDeathRecord">
             <summary>Class <c>FetalDeathRecord</c> is a class designed to help consume and produce fetal death
             records that follow the HL7 FHIR Vital Records FetalDeath Reporting Implementation Guide, as described
@@ -54,6 +57,9 @@
             <summary>Return the birth year for this record to be used in the identifier</summary>
         </member>
         <member name="M:BFDR.FetalDeathRecord.RestoreReferences">
+            <inheritdoc/>
+        </member>
+        <member name="M:BFDR.FetalDeathRecord.InitializeCompositionAndSubject">
             <inheritdoc/>
         </member>
         <member name="T:BFDR.IJEBirth">
