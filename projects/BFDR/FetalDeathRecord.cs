@@ -34,5 +34,35 @@ namespace BFDR
             // return (uint?)this.DeliveryYear;
             return null;
         }
+
+        /// <inheritdoc/>
+        protected override void RestoreReferences()
+        {
+            // Restore FetalDeath specific references.
+            List<Patient> patients = Bundle.Entry.FindAll(entry => entry.Resource is Patient).ConvertAll(entry => (Patient) entry.Resource);
+            Subject = patients.Find(patient => patient.Meta.Profile.Any(patientProfile => patientProfile == BFDR.ProfileURL.PatientDecedentFetus));
+            // Restore the common references between Birth Records and Fetal Death Records.
+            base.RestoreReferences();
+        }
+
+        /// <inheritdoc/>
+        protected override void InitializeCompositionAndSubject()
+        {
+            // Initialize empty FetalDeathRecord specific objects.
+            // Start with an empty decedent fetus. Need reference in Composition.
+            Subject = new Patient
+            {
+                Id = Guid.NewGuid().ToString(),
+                Meta = new Meta() {
+                    Profile = new[] { BFDR.ProfileURL.PatientDecedentFetus }
+                }
+            };
+            Composition.Meta = new Meta
+            {
+                Profile = new[] { ProfileURL.CompositionJurisdictionFetalDeathReport }
+            };
+            Composition.Type = new CodeableConcept(CodeSystems.LOINC, "71230-7", "Fetal Death Report", null);
+            Composition.Title = "Fetal Death Report";
+        }
     }
 }

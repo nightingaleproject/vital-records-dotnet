@@ -19,6 +19,8 @@ namespace BFDR
         /// <summary>Default constructor that creates a new, empty NatalityRecord.</summary>
         public NatalityRecord() : base()
         {
+            InitializeCompositionAndSubject();
+
             // Start with an empty Bundle.
             Bundle = new Bundle();
             Bundle.Id = Guid.NewGuid().ToString();
@@ -27,13 +29,6 @@ namespace BFDR
             string[] bundle_profile = { ProfileURL.BundleDocumentBirthReport };
             Bundle.Timestamp = DateTime.Now;
             Bundle.Meta.Profile = bundle_profile;
-
-            // Start with an empty child. Need reference in Composition.
-            Child = new Patient();
-            Child.Id = Guid.NewGuid().ToString();
-            Child.Meta = new Meta();
-            string[] child_profile = { VR.ProfileURL.Child };
-            Child.Meta.Profile = child_profile;
 
             // Start with an empty mother. Need reference in Composition.
             Mother = new Patient();
@@ -109,14 +104,9 @@ namespace BFDR
             // Sections will be added to the composition as needed by the VitalRecord.AddReferenceToComposition method
             Composition.Id = Guid.NewGuid().ToString();
             Composition.Status = CompositionStatus.Final;
-            Composition.Meta = new Meta();
-            string[] composition_profile = { ProfileURL.CompositionJurisdictionLiveBirthReport };
-            Composition.Meta.Profile = composition_profile;
-            Composition.Type = new CodeableConcept(CodeSystems.LOINC, "71230-7", "Birth certificate", null);
-            Composition.Subject = new ResourceReference("urn:uuid:" + Child.Id);
+            Composition.Subject = new ResourceReference("urn:uuid:" + Subject.Id);
             // Author for jurisdictions is an organization (VRO)
             // Composition.Author.Add(new ResourceReference("urn:uuid:" + Author.Id));
-            Composition.Title = "Birth Certificate";
             Composition.Attester.Add(new Composition.AttesterComponent());
             //Composition.Attester.First().Party = new ResourceReference("urn:uuid:" + Certifier.Id);
             Composition.Attester.First().ModeElement = new Code<Hl7.Fhir.Model.Composition.CompositionAttestationMode>(Hl7.Fhir.Model.Composition.CompositionAttestationMode.Legal);
@@ -129,7 +119,7 @@ namespace BFDR
 
 
             // Add entries for the child, mother, and father.
-            Bundle.AddResourceEntry(Child, "urn:uuid:" + Child.Id);
+            Bundle.AddResourceEntry(Subject, "urn:uuid:" + Subject.Id);
             Bundle.AddResourceEntry(Mother, "urn:uuid:" + Mother.Id);
             Bundle.AddResourceEntry(Father, "urn:uuid:" + Father.Id);
 
@@ -143,6 +133,8 @@ namespace BFDR
 
             UpdateRecordIdentifier();
         }
+
+        protected abstract void InitializeCompositionAndSubject();
 
         /// <summary>Constructor that takes a string that represents a FHIR Natality Record in either XML or JSON format.</summary>
         /// <param name="record">represents a FHIR Natality Record in either XML or JSON format.</param>
@@ -268,7 +260,6 @@ namespace BFDR
                 throw new System.ArgumentException("The Composition is missing a subject (a reference to the Child resource).");
             }
             List<Patient> patients = Bundle.Entry.FindAll(entry => entry.Resource is Patient).ConvertAll(entry => (Patient) entry.Resource);
-            Child = patients.Find(patient => patient.Meta.Profile.Any(patientProfile => patientProfile == VR.ProfileURL.Child));
             Mother = patients.Find(patient => patient.Meta.Profile.Any(patientProfile => patientProfile == VR.ProfileURL.Mother));
             // Grab Father
             Father = Bundle.Entry.FindAll(entry => entry.Resource is RelatedPerson).ConvertAll(entry => (RelatedPerson) entry.Resource).Find(resource => resource.Meta.Profile.Any(relatedPersonProfile => relatedPersonProfile == VR.ProfileURL.RelatedPersonFatherNatural));
@@ -280,7 +271,7 @@ namespace BFDR
             Attendant = practitioners.Find(patient => patient.Extension.Any(ext => Convert.ToString(ext.Value) == "attendant"));
             Certifier = practitioners.Find(patient => patient.Extension.Any(ext => Convert.ToString(ext.Value) == "certifier"));
 
-            if (fullRecord && Child == null)
+            if (fullRecord && Subject == null)
             {
                 throw new System.ArgumentException("Failed to find a Child (Patient).");
             }
