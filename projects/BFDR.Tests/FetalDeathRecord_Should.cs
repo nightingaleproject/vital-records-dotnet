@@ -51,10 +51,9 @@ namespace BFDR.Tests
       FetalDeathRecord fetalDeathRecord2 = ije.ToFetalDeathRecord();
       Assert.Equal("N", fetalDeathRecord2.AutopsyorHistologicalExamResultsUsedHelper);
 
-      //TODO create/update fetal death record
-      // FetalDeathRecord fetalDeathRecord3 = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicFetalDeathRecord.json")));
-      // Assert.Equal("Y", fetalDeathRecord3.AutopsyorHistologicalExamResultsUsedHelper);
-      // Assert.Equal(cc, fetalDeathRecord3.AutopsyorHistologicalExamResultsUsed);
+      FetalDeathRecord fetalDeathRecord3 = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicFetalDeathRecord.json")));
+      Assert.Equal("Y", fetalDeathRecord3.AutopsyorHistologicalExamResultsUsedHelper);
+      Assert.Equal(cc, fetalDeathRecord3.AutopsyorHistologicalExamResultsUsed);
     }
 
     [Fact]
