@@ -33,5 +33,28 @@ namespace BFDR.Tests
       SetterFetalDeathRecord.CertificateNumber = "898989";
       Assert.Equal("0000WY898989", SetterFetalDeathRecord.RecordIdentifier);
     }
+
+    [Fact]
+    public void SetAutopsyorHistologicalExamResultsUsed()
+    {
+      FetalDeathRecord fetalDeathRecord = new FetalDeathRecord();
+      fetalDeathRecord.AutopsyorHistologicalExamResultsUsedHelper = "Y";
+      Assert.Equal("Y", fetalDeathRecord.AutopsyorHistologicalExamResultsUsedHelper);
+      Dictionary<string, string> cc = new Dictionary<string, string>();
+      cc.Add("code", VR.ValueSets.YesNoNotApplicable.Codes[1, 0]);
+      cc.Add("system", VR.ValueSets.YesNoNotApplicable.Codes[1, 2]);
+      cc.Add("display", VR.ValueSets.YesNoNotApplicable.Codes[1, 1]);
+      Assert.Equal(cc, fetalDeathRecord.AutopsyorHistologicalExamResultsUsed);
+
+      IJEFetalDeath ije = new IJEFetalDeath();
+      ije.AUTOPF = "N";
+      FetalDeathRecord fetalDeathRecord2 = ije.ToFetalDeathRecord();
+      Assert.Equal("N", fetalDeathRecord2.AutopsyorHistologicalExamResultsUsedHelper);
+
+      //TODO create/update fetal death record
+      // FetalDeathRecord fetalDeathRecord3 = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicFetalDeathRecord.json")));
+      // Assert.Equal("Y", fetalDeathRecord3.AutopsyorHistologicalExamResultsUsedHelper);
+      // Assert.Equal(cc, fetalDeathRecord3.AutopsyorHistologicalExamResultsUsed);
+    }
   }
 }
