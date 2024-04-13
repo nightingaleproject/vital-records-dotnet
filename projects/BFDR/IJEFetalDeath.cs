@@ -2287,12 +2287,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Get_MappingFHIRToIJE(VR.Mappings.YesNoNotApplicable.FHIRToIJE, "AutopsyorHistologicalExamResultsUsed", "AUTOPF");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Set_MappingIJEToFHIR(VR.Mappings.YesNoNotApplicable.IJEToFHIR, "AUTOPF", "AutopsyorHistologicalExamResultsUsed", value);
+                }
             }
         }
 

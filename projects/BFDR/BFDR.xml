@@ -66,6 +66,16 @@
             records that follow the HL7 FHIR Vital Records FetalDeath Reporting Implementation Guide, as described
             at: http://hl7.org/fhir/us/bfdr and https://github.com/hl7/bfdr.
             </summary>
+            <summary>Class <c>FetalDeathRecord</c> is an abstract base class models FHIR Vital Records
+            Birth Reporting (BFDR) Birth and Fetal Death Records. This class was designed to help consume
+            and produce FetalDeath records that follow the HL7 FHIR Vital Records Birth Reporting Implementation
+            Guide, as described at: http://hl7.org/fhir/us/bfdr and https://github.com/hl7/bfdr.
+            TODO BFDR STU2 has broken up its birth record bundles, the birth bundle has birthCertificateNumber + required birth compositions,
+            the fetal death bundle has fetalDeathReportNumber + required fetal death compositions,
+            the demographic bundle has a fileNumber + requiredCompositionCodedRaceAndEthnicity,
+            and the cause of death bundle has a fetalDeathReportNumber + required CompositionCodedCauseOfFetalDeath
+            TODO BFDR STU2 supports usual work and role extension
+            </summary>
         </member>
         <member name="M:BFDR.FetalDeathRecord.#ctor">
             <summary>Default constructor that creates a new, empty FetalDeathRecord.</summary>
@@ -83,6 +93,33 @@
         </member>
         <member name="M:BFDR.FetalDeathRecord.GetYear">
             <summary>Return the birth year for this record to be used in the identifier</summary>
+        </member>
+        <member name="F:BFDR.FetalDeathRecord.FETUS_SECTION">
+            <summary>Composition Section Constants</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.AutopsyorHistologicalExamResultsUsed">
+            <summary>Were Autopsy or Histological Placental Examination Results Used in Determining the Cause of Fetal Death?</summary>
+            <value>Were Autopsy or Histological Placental Examination Results Used in Determining the Cause of Fetal Death?</value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; autopf = new Dictionary&lt;string, string&gt;();</para>
+            <para>autopf.Add("code", "Y");</para>
+            <para>autopf.Add("system", VR.ValueSets.YesNoNotApplicable.Codes);</para>
+            <para>autopf.Add("display", "Yes");</para>
+            <para>ExampleFetalDeathRecord.AutopsyorHistologicalExamResultsUsed = autopf;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Were autopsy results used: {ExampleFetalDeathRecord.AutopsyorHistologicalExamResultsUsed}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.AutopsyorHistologicalExamResultsUsedHelper">
+            <summary>Autopsy or Histological Placental Results Used Helper</summary>
+            <value>PAutopsy or Histological Placental Results Used Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.AutopsyorHistologicalExamResultsUsedHelper = "yes";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Were autopsy results used: {ExampleFetalDeathRecord.AutopsyorHistologicalExamResultsUsedHelper}");</para>
+            </example>
         </member>
         <member name="M:BFDR.FetalDeathRecord.RestoreReferences">
             <inheritdoc/>
