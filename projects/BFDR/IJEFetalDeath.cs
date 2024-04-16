@@ -1261,12 +1261,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return NumericAllowingUnknown_Get("DOFP_MO", "FirstPrenatalCareVisitMonth");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                NumericAllowingUnknown_Set("DOFP_MO", "FirstPrenatalCareVisitMonth", value);
             }
         }
 
@@ -1276,12 +1275,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return NumericAllowingUnknown_Get("DOFP_DY", "FirstPrenatalCareVisitDay");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                NumericAllowingUnknown_Set("DOFP_DY", "FirstPrenatalCareVisitDay", value);
             }
         }
 
@@ -1291,12 +1289,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return NumericAllowingUnknown_Get("DOFP_YR", "FirstPrenatalCareVisitYear");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                NumericAllowingUnknown_Set("DOFP_YR", "FirstPrenatalCareVisitYear", value);
             }
         }
 
