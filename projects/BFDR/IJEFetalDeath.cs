@@ -1543,12 +1543,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return NumericAllowingUnknown_Get("MLLB", "DateOfLastLiveBirthMonth");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                NumericAllowingUnknown_Set("MLLB", "DateOfLastLiveBirthMonth", value);
             }
         }
 
@@ -1558,12 +1557,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return NumericAllowingUnknown_Get("YLLB", "DateOfLastLiveBirthYear");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                NumericAllowingUnknown_Set("YLLB", "DateOfLastLiveBirthYear", value);
             }
         }
 

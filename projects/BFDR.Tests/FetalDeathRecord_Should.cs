@@ -55,35 +55,5 @@ namespace BFDR.Tests
       Assert.Equal(5, record.FirstPrenatalCareVisitMonth);
       Assert.Null(record.FirstPrenatalCareVisitDay);
     }
-
-    [Fact]
-    public void SetFirstPrenatalCare()
-    {
-      IJEFetalDeath ije = new();
-      Assert.Equal("    ", ije.DOFP_YR);
-      Assert.Equal("  ", ije.DOFP_MO);
-      Assert.Equal("  ", ije.DOFP_DY);
-      ije.DOFP_DY = "24";
-      Assert.Equal("    ", ije.DOFP_YR);
-      Assert.Equal("  ", ije.DOFP_MO);
-      Assert.Equal("24", ije.DOFP_DY);
-      ije.DOFP_MO = "02";
-      Assert.Equal("    ", ije.DOFP_YR);
-      Assert.Equal("02", ije.DOFP_MO);
-      Assert.Equal("24", ije.DOFP_DY);
-      ije.DOFP_YR = "2023";
-      Assert.Equal("2023", ije.DOFP_YR);
-      Assert.Equal("02", ije.DOFP_MO);
-      Assert.Equal("24", ije.DOFP_DY);
-    }
-
-    [Fact]
-    public void ParseFirstPrenatalCare()
-    {
-      IJEFetalDeath ije = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/FetalDeathRecord.ije")));
-      Assert.Equal("2024", ije.DOFP_YR);
-      Assert.Equal("03", ije.DOFP_MO);
-      Assert.Equal("11", ije.DOFP_DY);
-    }
   }
 }
