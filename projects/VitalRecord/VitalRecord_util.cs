@@ -299,7 +299,9 @@ namespace VR
                     break;
                 case FHIRPath.FhirType.Observation:
                     func = e => e.Resource.TypeName == fhirPath.FHIRType.ToString() && (((Observation)e.Resource).Value as CodeableConcept != null) 
+                                                                                    && (((Observation)e.Resource).Value as CodeableConcept).Coding.Count > 0
                                                                                     && (((Observation)e.Resource).Value as CodeableConcept).Coding[0].Code == fhirPath.Code 
+                                                                                    && (((Observation)e.Resource).Code as CodeableConcept).Coding.Count > 0
                                                                                     && (((Observation)e.Resource).Code as CodeableConcept).Coding[0].Code == fhirPath.CategoryCode;
                     break;
                 case FHIRPath.FhirType.Procedure:

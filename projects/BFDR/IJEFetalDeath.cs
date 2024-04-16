@@ -71,6 +71,46 @@ namespace BFDR
             return this.record;
         }
 
+        /// <summary>Converts the FHIR representation of presence-only fields to the IJE equivalent.</summary>
+        /// <param name="fieldValue">the value of the field</param>
+        /// <param name="noneOfTheAboveValue">the value of the corresponding none-of-the-above field</param>
+        /// <returns>Y (yes), N (no), or U (unknown)</returns>
+        private string PresenceToIJE(bool fieldValue, bool noneOfTheAboveValue)
+        {
+            if (fieldValue)
+            {
+                return "Y";
+            }
+            else if (noneOfTheAboveValue)
+            {
+                return "N";
+            }
+            else
+            {
+                return "U";
+            }
+        }
+
+        /// <summary>Converts the IJE representation of presence-only fields to the FHIR equivalent.</summary>
+        /// <param name="value">Y (yes), N (no), or U (unknown)</param>
+        /// <param name="field">a function that will set a field in the FHIR record</param>
+        /// <param name="noneOfTheAboveField">a function that will set the corresponding none-of-the-above field in the FHIR record</param>
+        private void IJEToPresence(string value, Func<bool, bool> field, Func<bool, bool> noneOfTheAboveField)
+        {
+            if (value.Equals("Y"))
+            {
+                field(true);
+            }
+            else if (value.Equals("N"))
+            {
+                noneOfTheAboveField(true);
+            }
+            else
+            {
+                field(false);
+            }
+        }
+
         /////////////////////////////////////////////////////////////////////////////////
         //
         // Class Properties that provide getters and setters for each of the IJE
@@ -1709,60 +1749,32 @@ namespace BFDR
         [IJEField(110, 490, 1, "Risk Factors--Prepregnancy Diabetes  (NOTE: SEE INSERTED NOTES FOR RISK FACTOR LOCATIONS 490-501 AND 573-575 TO REFLECT 2004 CHANGES)", "PDIAB", 1)]
         public string PDIAB
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => PresenceToIJE(record.PrepregnancyDiabetes, record.NoPregnancyRiskFactors);
+            set => IJEToPresence(value, (v) => record.PrepregnancyDiabetes = v, (v) => record.NoPregnancyRiskFactors = v);
         }
 
         /// <summary>Risk Factors--Gestational Diabetes</summary>
         [IJEField(111, 491, 1, "Risk Factors--Gestational Diabetes", "GDIAB", 1)]
         public string GDIAB
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => PresenceToIJE(record.GestationalDiabetes, record.NoPregnancyRiskFactors);
+            set => IJEToPresence(value, (v) => record.GestationalDiabetes = v, (v) => record.NoPregnancyRiskFactors = v);
         }
 
         /// <summary>Risk Factors--Hypertension Prepregnancy</summary>
         [IJEField(112, 492, 1, "Risk Factors--Hypertension Prepregnancy", "PHYPE", 1)]
         public string PHYPE
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => PresenceToIJE(record.PrepregnancyHypertension, record.NoPregnancyRiskFactors);
+            set => IJEToPresence(value, (v) => record.PrepregnancyHypertension = v, (v) => record.NoPregnancyRiskFactors = v);
         }
 
         /// <summary><html>Risk Factors--Hypertension Gestational <b> (SEE ADDITIONAL HYPERTENSION CATEGORY IN LOCATION 573)</b></html></summary>
         [IJEField(113, 493, 1, "<html>Risk Factors--Hypertension Gestational <b> (SEE ADDITIONAL HYPERTENSION CATEGORY IN LOCATION 573)</b></html>", "GHYPE", 1)]
         public string GHYPE
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => PresenceToIJE(record.GestationalHypertension, record.NoPregnancyRiskFactors);
+            set => IJEToPresence(value, (v) => record.GestationalHypertension = v, (v) => record.NoPregnancyRiskFactors = v);
         }
 
         /// <summary>Risk Factors--Previous Preterm Births(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
@@ -1814,30 +1826,16 @@ namespace BFDR
         [IJEField(117, 497, 1, "<html>Risk Factors--Infertility Treatment  <b>(SEE ADDITIONAL SUBCATEGORIES IN LOCATIONS 574-575)</b></html>", "INFT", 1)]
         public string INFT
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => PresenceToIJE(record.InfertilityTreatment, record.NoPregnancyRiskFactors);
+            set => IJEToPresence(value, (v) => record.InfertilityTreatment = v, (v) => record.NoPregnancyRiskFactors = v);
         }
 
         /// <summary>Risk Factors--Previous Cesarean</summary>
         [IJEField(118, 498, 1, "Risk Factors--Previous Cesarean", "PCES", 1)]
         public string PCES
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => PresenceToIJE(record.PreviousCesarean, record.NoPregnancyRiskFactors);
+            set => IJEToPresence(value, (v) => record.PreviousCesarean = v, (v) => record.NoPregnancyRiskFactors = v);
         }
 
         /// <summary>Risk Factors--Number Previous Cesareans</summary>
@@ -1846,12 +1844,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return NumericAllowingUnknown_Get("NPCES", "NumberOfPreviousCesareans");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                NumericAllowingUnknown_Set("NPCES", "NumberOfPreviousCesareans", value);
             }
         }
 
@@ -1861,12 +1858,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Get_MappingFHIRToIJE(BFDR.Mappings.NumberPreviousCesareansEditFlags.FHIRToIJE, "NumberOfPreviousCesareansEditFlag", "NPCES_BYPASS");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                Set_MappingIJEToFHIR(BFDR.Mappings.NumberPreviousCesareansEditFlags.IJEToFHIR, "NPCES_BYPASS", "NumberOfPreviousCesareansEditFlag", value);
             }
         }
 
@@ -2144,15 +2140,8 @@ namespace BFDR
         [IJEField(139, 520, 1, "Maternal Morbidity--Ruptured Uterus", "RUT", 1)]
         public string RUT
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => PresenceToIJE(record.RupturedUterus, record.NoMaternalMorbidities);
+            set => IJEToPresence(value, (v) => record.RupturedUterus = v, (v) => record.NoMaternalMorbidities = v);
         }
 
         /// <summary>Maternal Morbidity--Unplanned Hysterectomy(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
@@ -2654,45 +2643,24 @@ namespace BFDR
         [IJEField(173, 573, 1, "Risk Factors--Hypertension Eclampsia (added after 2004)", "EHYPE", 1)]
         public string EHYPE
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => PresenceToIJE(record.EclampsiaHypertension, record.NoPregnancyRiskFactors);
+            set => IJEToPresence(value, (v) => record.EclampsiaHypertension = v, (v) => record.NoPregnancyRiskFactors = v);
         }
 
         /// <summary>Risk Factors--Infertility: Fertility Enhancing Drugs (added after 2004)</summary>
         [IJEField(174, 574, 1, "Risk Factors--Infertility: Fertility Enhancing Drugs (added after 2004)", "INFT_DRG", 1)]
         public string INFT_DRG
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => PresenceToIJE(record.ArtificialInsemination, record.NoPregnancyRiskFactors);
+            set => IJEToPresence(value, (v) => record.ArtificialInsemination = v, (v) => record.NoPregnancyRiskFactors = v);
         }
 
         /// <summary>Risk Factors--Infertility: Asst. Rep. Technology (added after 2004)</summary>
         [IJEField(175, 575, 1, "Risk Factors--Infertility: Asst. Rep. Technology (added after 2004)", "INFT_ART", 1)]
         public string INFT_ART
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => PresenceToIJE(record.AssistedFertilization, record.NoPregnancyRiskFactors);
+            set => IJEToPresence(value, (v) => record.AssistedFertilization = v, (v) => record.NoPregnancyRiskFactors = v);
         }
 
         /// <summary>Date of Registration--Year</summary>
