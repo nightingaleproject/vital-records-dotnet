@@ -2261,12 +2261,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Get_MappingFHIRToIJE(BFDR.Mappings.FetalDeathTimePoints.FHIRToIJE, "TimeOfFetalDeath", "ETIME");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                Set_MappingIJEToFHIR(BFDR.Mappings.FetalDeathTimePoints.IJEToFHIR, "ETIME", "TimeOfFetalDeath", value);
             }
         }
 

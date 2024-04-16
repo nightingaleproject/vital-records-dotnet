@@ -79,5 +79,34 @@ namespace BFDR.Tests
       Assert.Equal("05", ije.MLLB);
       Assert.Equal("2014", ije.YLLB);
     }
+
+    [Fact]
+    public void SetEstimatedTimeOfFetalDeath()
+    {
+      IJEFetalDeath ije = new();
+      Assert.Equal("", ije.ETIME);
+      ije.ETIME = "L";
+      FetalDeathRecord record = ije.ToRecord();
+      Assert.Equal("434671000124102", record.TimeOfFetalDeath["code"]);
+      Assert.Equal("http://snomed.info/sct", record.TimeOfFetalDeath["system"]);
+      Assert.Equal("L", new IJEFetalDeath(record).ETIME);
+      ije.ETIME = "U";
+      record = ije.ToRecord();
+      Assert.Equal("UNK", record.TimeOfFetalDeathHelper);
+      Assert.Equal("UNK", record.TimeOfFetalDeath["code"]);
+      Assert.Equal("http://terminology.hl7.org/CodeSystem/v3-NullFlavor", record.TimeOfFetalDeath["system"]);
+      Assert.Equal("U", new IJEFetalDeath(record).ETIME);
+    }
+
+    [Fact]
+    public void ParseEstimatedTimeOfFetalDeath()
+    {
+      IJEFetalDeath ije = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/FetalDeathRecord.ije")));
+      FetalDeathRecord record = ije.ToRecord();
+      Assert.Equal("434631000124100", record.TimeOfFetalDeathHelper);
+      Assert.Equal("434631000124100", record.TimeOfFetalDeath["code"]);
+      Assert.Equal("http://snomed.info/sct", record.TimeOfFetalDeath["system"]);
+      Assert.Equal("A", new IJEFetalDeath(record).ETIME);
+    }
   }
 }

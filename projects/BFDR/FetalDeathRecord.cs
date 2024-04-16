@@ -13,6 +13,9 @@ namespace BFDR
     /// </summary>
     public partial class FetalDeathRecord : NatalityRecord
     {
+
+        private const string FETUS_SECTION = "76400-1";
+
         /// <summary>Default constructor that creates a new, empty FetalDeathRecord.</summary>
         public FetalDeathRecord() : base() {}
 
@@ -63,6 +66,66 @@ namespace BFDR
             };
             Composition.Type = new CodeableConcept(CodeSystems.LOINC, "71230-7", "Fetal Death Report", null);
             Composition.Title = "Fetal Death Report";
+        }
+
+        /// <summary>Estimated time of fetal death.</summary>
+        /// <value>Estimated time of fetal death</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.TimeOfFetalDeath = ;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Sex at Time of Birth: {ExampleBirthRecord.TimeOfFetalDeath}");</para>
+        /// </example>
+        [Property("Estimated time of fetal death", Property.Types.Dictionary, "Fetal Death", "Estimated time of fetal death.", true, VR.IGURL.PatientFetalDeath, true, 12)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient).extension.where(url='" + OtherExtensionURL.BirthSex + "')", "")]
+        public Dictionary<string, string> TimeOfFetalDeath
+        {
+            get
+            {
+                Observation obs = GetObservation("73811-2");
+                if (obs != null && obs.Value != null && (obs.Value as CodeableConcept) != null)
+                {
+                    return CodeableConceptToDict((CodeableConcept)obs.Value);
+                }
+                return EmptyCodeableDict();  
+            }
+            set
+            {
+                Observation obs = GetOrCreateObservation("73811-2", CodeSystems.SCT, "Estimated Time Fetal Death", BFDR.ProfileURL.ObservationFetalDeathTimePoint, FETUS_SECTION);
+                obs.Value = DictToCodeableConcept(value);
+            }
+        }
+
+        /// <summary>Child's Sex at Birth Helper.</summary>
+        /// <value>The child's sex at time of birth</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.TimeOfFetalDeathHelper = "female";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Time of Fetal Death: {ExampleBirthRecord.TimeOfFetalDeathHelper}");</para>
+        /// </example>
+        [Property("Estimated Time of Fetal Death Helper", Property.Types.String, "Fetal Death", "Estimated time of fetal death.", false, VR.IGURL.Child, true, 12)]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient).extension.where(url='" + OtherExtensionURL.BirthSex + "')", "")]
+        public string TimeOfFetalDeathHelper
+        {
+            get
+            {
+                if (TimeOfFetalDeath.ContainsKey("code") && !String.IsNullOrWhiteSpace(TimeOfFetalDeath["code"]))
+                {
+                    return TimeOfFetalDeath["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("TimeOfFetalDeath", value, BFDR.ValueSets.FetalDeathTimePoints.Codes);
+                }
+            }
         }
     }
 }

@@ -55,5 +55,40 @@ namespace BFDR.Tests
       Assert.Equal(5, record.FirstPrenatalCareVisitMonth);
       Assert.Null(record.FirstPrenatalCareVisitDay);
     }
+
+    [Fact]
+    public void SetEstimatedTimeOfFetalDeath()
+    {
+      SetterFetalDeathRecord.TimeOfFetalDeathHelper = "434671000124102";
+      Assert.Equal("434671000124102", SetterFetalDeathRecord.TimeOfFetalDeathHelper);
+      Assert.Equal("434671000124102", SetterFetalDeathRecord.TimeOfFetalDeath["code"]);
+      Assert.Equal("http://snomed.info/sct", SetterFetalDeathRecord.TimeOfFetalDeath["system"]);
+      Assert.Equal("L", new IJEFetalDeath(SetterFetalDeathRecord).ETIME);
+      Dictionary<string, string> timeOfFetalDeath = new()
+      {
+          { "code", "434681000124104" },
+          { "system", "http://snomed.info/sct" }
+      };
+      SetterFetalDeathRecord.TimeOfFetalDeath = timeOfFetalDeath;
+      Assert.Equal("434681000124104", SetterFetalDeathRecord.TimeOfFetalDeathHelper);
+      Assert.Equal("434681000124104", SetterFetalDeathRecord.TimeOfFetalDeath["code"]);
+      Assert.Equal("http://snomed.info/sct", SetterFetalDeathRecord.TimeOfFetalDeath["system"]);
+      Assert.Equal("N", new IJEFetalDeath(SetterFetalDeathRecord).ETIME);
+      SetterFetalDeathRecord.TimeOfFetalDeathHelper = "UNK";
+      Assert.Equal("UNK", SetterFetalDeathRecord.TimeOfFetalDeathHelper);
+      Assert.Equal("UNK", SetterFetalDeathRecord.TimeOfFetalDeath["code"]);
+      Assert.Equal("http://terminology.hl7.org/CodeSystem/v3-NullFlavor", SetterFetalDeathRecord.TimeOfFetalDeath["system"]);
+      Assert.Equal("U", new IJEFetalDeath(SetterFetalDeathRecord).ETIME);
+    }
+
+    [Fact]
+    public void ParseEstimatedTimeOfFetalDeath()
+    {
+      FetalDeathRecord record = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
+      Assert.Equal("434631000124100", record.TimeOfFetalDeathHelper);
+      Assert.Equal("434631000124100", record.TimeOfFetalDeath["code"]);
+      Assert.Equal("http://snomed.info/sct", record.TimeOfFetalDeath["system"]);
+      Assert.Equal("A", new IJEFetalDeath(record).ETIME);
+    }
   }
 }
