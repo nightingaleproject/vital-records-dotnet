@@ -25,12 +25,11 @@ namespace BFDR
     /// </summary>
     public partial class FetalDeathRecord : NatalityRecord
     {
-      
-      
-        //TODO this should be in fields and create methods, temporary fix
+        
+        //TODO this should move if a fieldsAndCreateMethods is created for fetal death
         /// <summary>Composition Section Constants</summary>
         private const string FETUS_SECTION = "76400-1";
-        
+
         /// <summary>Were Autopsy or Histological Placental Examination Results Used in Determining the Cause of Fetal Death?</summary>
         /// <value>Were Autopsy or Histological Placental Examination Results Used in Determining the Cause of Fetal Death?</value>
         /// <example>
@@ -68,6 +67,50 @@ namespace BFDR
         {
             get => GetObservationValueHelper();
             set => SetObservationValueHelper(value, VR.ValueSets.YesNoNotApplicable.Codes);
+        }
+        
+
+        /// <summary>Autopsy Performed Indicator.</summary>
+        /// <value>autopsy performed indicator. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; code = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>code.Add("code", "Y");</para>
+        /// <para>code.Add("system", CodeSystems.PH_YesNo_HL7_2x);</para>
+        /// <para>code.Add("display", "Yes");</para>
+        /// <para>ExampleFetalDeathRecord.AutopsyPerformedIndicator = code;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Autopsy Performed Indicator: {ExampleFetalDeathRecord.AutopsyPerformedIndicator['display']}");</para>
+        /// </example>
+        [Property("Autopsy Performed Indicator", Property.Types.Dictionary, "Death Investigation", "Autopsy Performed Indicator.", true, VR.IGURL.AutopsyPerformedIndicator, true, 28)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='85699-7')", "")]
+        public Dictionary<string, string> AutopsyPerformedIndicator
+        {
+            get => GetObservationValue("85699-7");
+            set => SetObservationValue(value, "85699-7", CodeSystems.LOINC, "Autopsy Performed Indicator", VR.ProfileURL.AutopsyPerformedIndicator, FETUS_SECTION);
+        }
+
+        /// <summary>Autopsy Performed Indicator Helper. This is a helper method, to access the code use the AutopsyPerformedIndicator property.</summary>
+        /// <value>autopsy performed indicator. A null value indicates "not applicable".</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleFetalDeathRecord.AutopsyPerformedIndicatorHelper = "Y"";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Autopsy Performed Indicator: {ExampleDFetaleathRecord.AutopsyPerformedIndicatorBoolean}");</para>
+        /// </example>
+        [Property("Autopsy Performed Indicator Helper", Property.Types.String, "Death Investigation", "Autopsy Performed Indicator.", false, VR.IGURL.AutopsyPerformedIndicator, true, 29)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='85699-7')", "")]
+        public string AutopsyPerformedIndicatorHelper
+        {
+            get => GetObservationValueHelper();
+            set => SetObservationValueHelper(value, VR.ValueSets.YesNoUnknown.Codes);
         }
     }
 }
