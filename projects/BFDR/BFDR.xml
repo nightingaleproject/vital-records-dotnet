@@ -121,6 +121,34 @@
             <para>Console.WriteLine($"Were autopsy results used: {ExampleFetalDeathRecord.AutopsyorHistologicalExamResultsUsedHelper}");</para>
             </example>
         </member>
+        <member name="P:BFDR.FetalDeathRecord.AutopsyPerformedIndicator">
+            <summary>Autopsy Performed Indicator.</summary>
+            <value>autopsy performed indicator. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; code = new Dictionary&lt;string, string&gt;();</para>
+            <para>code.Add("code", "Y");</para>
+            <para>code.Add("system", CodeSystems.PH_YesNo_HL7_2x);</para>
+            <para>code.Add("display", "Yes");</para>
+            <para>ExampleFetalDeathRecord.AutopsyPerformedIndicator = code;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Autopsy Performed Indicator: {ExampleFetalDeathRecord.AutopsyPerformedIndicator['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.AutopsyPerformedIndicatorHelper">
+            <summary>Autopsy Performed Indicator Helper. This is a helper method, to access the code use the AutopsyPerformedIndicator property.</summary>
+            <value>autopsy performed indicator. A null value indicates "not applicable".</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.AutopsyPerformedIndicatorHelper = "Y"";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Autopsy Performed Indicator: {ExampleDFetaleathRecord.AutopsyPerformedIndicatorBoolean}");</para>
+            </example>
+        </member>
         <member name="M:BFDR.FetalDeathRecord.RestoreReferences">
             <inheritdoc/>
         </member>
