@@ -16,6 +16,7 @@ using System.Reflection;
 using Hl7.Fhir.Serialization;
 using System.Xml.Linq;
 using System.Globalization;
+using static Hl7.Fhir.Model.Encounter;
 
 namespace VR
 {
@@ -1111,6 +1112,37 @@ namespace VR
             throw new System.ArgumentException($"Code '{code}' is not an allowed value for field {field}");
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="code"></param>
+        /// <param name="options"></param>
+        /// <exception cref="System.ArgumentException"></exception>
+        protected Dictionary<string, string> CreateCode(string code, string[,] options)
+        {
+            // If string is empty don't bother to set the value
+            if (code == null || code == "")
+            {
+                return null;
+            }
+            // Iterate over the allowed options and see if the code supplies is one of them
+            for (int i = 0; i < options.GetLength(0); i += 1)
+            {
+                if (options[i, 0] == code)
+                {
+                    // Found it, so call the supplied setter with the appropriate dictionary built based on the code
+                    // using the supplied options and return
+                    Dictionary<string, string> dict = new Dictionary<string, string>();
+                    dict.Add("code", code);
+                    dict.Add("display", options[i, 1]);
+                    dict.Add("system", options[i, 2]);
+                    return dict;
+                }
+            }
+            // If we got here we didn't find the code, so it's not a valid option
+            throw new System.ArgumentException($"Code '{code}' is not an allowed value for options {options}");
+        }
+
         /// <summary>Helper function to set a quantity value based on a value, code and the set of allowed codes.</summary>
         // <param name="field">the field name to set.</param>
         // <param name="code">the code to set the field to.</param>
@@ -1980,6 +2012,107 @@ namespace VR
                     Value = DictToAddress(value)
                 };
                 person.Extension.Add(placeOfBirthExt);
+            }
+        }
+
+        /// <summary>
+        /// Creates an encounter with the given profile url.
+        /// </summary>
+        /// <param name="profileURL"></param>
+        /// <returns></returns>
+        protected Encounter CreateEncouner(string profileURL)
+        {
+            Encounter encounter = new Encounter()
+            {
+                Id = Guid.NewGuid().ToString(),
+                Meta = new Meta()
+            };
+            encounter.Meta.Profile = new List<string>()
+            {
+                profileURL
+            };
+            return encounter;
+        }
+
+        /// <summary>
+        /// Gets the physical location from the given encounter.
+        /// </summary>
+        /// <param name="encounter"></param>
+        /// <returns>A dictionary in the form of a codeable concept.</returns>
+        protected Dictionary<string, string> GetPhysicalLocation(Encounter encounter)
+        {
+            if (encounter == null)
+            {
+                return EmptyCodeableDict();
+            }
+            return CodeableConceptToDict(encounter.Location.Select(loc => loc.PhysicalType).FirstOrDefault());
+        }
+
+        /// <summary>
+        /// Sets the physical location of the given encounter to the given dictionary, which should be in codeablconcept format.
+        /// </summary>
+        /// <param name="encounter"></param>
+        /// <param name="value"></param>
+        protected void SetPhysicalLocation(Encounter encounter, Dictionary<string, string> value)
+        {
+            encounter.Location = new List<Hl7.Fhir.Model.Encounter.LocationComponent>();
+            LocationComponent location = new LocationComponent
+            {
+                PhysicalType = DictToCodeableConcept(value)
+            };
+            encounter.Location.Add(location);
+        }
+
+        /// <summary>
+        /// Gets the physical location from the given encounter.
+        /// </summary>
+        /// <param name="encounter"></param>
+        /// <returns></returns>
+        protected string GetPhysicalLocationHelper(Encounter encounter)
+        {
+            Dictionary<string, string> locationDict = GetPhysicalLocation(encounter);
+            if (locationDict.ContainsKey("code"))
+            {
+                string code = locationDict["code"];
+                if (code == "OTH")
+                {
+                    if (locationDict.ContainsKey("text") && !String.IsNullOrWhiteSpace(locationDict["text"]))
+                    {
+                        return locationDict["text"];
+                    }
+                    return "Other";
+                }
+                else if (!String.IsNullOrWhiteSpace(code))
+                {
+                    return code;
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Sets the given physical location string in the given encounter, mapping the string based on the given mapping and value set.
+        /// </summary>
+        /// <param name="encounter"></param>
+        /// <param name="value"></param>
+        /// <param name="fHIRToIJEMapping"></param>
+        /// <param name="valueSetCodes"></param>
+        protected void SetPhysicalLocationHelper(Encounter encounter, string value, Dictionary<string, string> fHIRToIJEMapping, string[,] valueSetCodes)
+        {
+            if (String.IsNullOrWhiteSpace(value))
+            {
+                // do nothing
+                return;
+            }
+            if (!fHIRToIJEMapping.ContainsKey(value))
+            {
+                // other
+                SetPhysicalLocation(encounter, CodeableConceptToDict(new CodeableConcept(CodeSystems.NullFlavor_HL7_V3, "OTH", "Other", value)));
+            }
+            else
+            {
+                // normal path
+                SetPhysicalLocation(encounter, CreateCode(value, valueSetCodes));
             }
         }
     }
