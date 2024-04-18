@@ -131,5 +131,27 @@ namespace BFDR.Tests
         Assert.Equal(VR.CodeSystems.VRCLEditFlags, BasicFetalDeathRecord.BirthWeightEditFlag["system"]);
         Assert.Equal("Off", BasicFetalDeathRecord.BirthWeightEditFlag["display"]); 
     }  
+    
+    [Fact]
+    public void ParseRegistrationDate()
+    { 
+      FetalDeathRecord record = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
+      Assert.Equal("2019-01-09", record.RegistrationDate);
+      Assert.Equal(2019, record.RegistrationDateYear);
+      Assert.Equal(1, record.RegistrationDateMonth);
+      Assert.Equal(9, record.RegistrationDateDay);
+
+      IJEFetalDeath ije = new(record);
+      Assert.Equal("2019", ije.DOR_YR);
+      Assert.Equal("01", ije.DOR_MO);
+      Assert.Equal("09", ije.DOR_DY);
+
+      //set after parse
+      record.FirstPrenatalCareVisit = "2024-05"; 
+      Assert.Equal("2024-05", record.FirstPrenatalCareVisit);
+      Assert.Equal(2024, record.FirstPrenatalCareVisitYear);
+      Assert.Equal(5, record.FirstPrenatalCareVisitMonth);
+      Assert.Null(record.FirstPrenatalCareVisitDay);
+    }
   }
 }

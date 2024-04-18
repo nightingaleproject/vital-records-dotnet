@@ -28,8 +28,8 @@ namespace BFDR
     /// </summary>
     public partial class NatalityRecord
     {
-        /// <summary>The Child.</summary>
-        protected Patient Child;
+        /// <summary>The Natality Subject - eithr a Child or a DecedentFetus.</summary>
+        protected Patient Subject;
 
         /// <summary>The Mother.</summary>
         protected Patient Mother;
@@ -102,7 +102,7 @@ namespace BFDR
             {
                 return Mother.Id;
             }
-            return subjects.First().subject == FHIRSubject.Subject.Newborn ? Child.Id : Mother.Id;
+            return subjects.First().subject == FHIRSubject.Subject.Newborn ? Subject.Id : Mother.Id;
         }
 
         /// <summary>Create Attendant/Practitioner.</summary>
