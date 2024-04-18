@@ -221,6 +221,53 @@
           ]
         }
       }
+    },
+    {
+      "fullUrl": "urn:uuid:4a879b2a-dab7-4bc9-bf22-f88b8f3a0d03",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "4a879b2a-dab7-4bc9-bf22-f88b8f3a0d03",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8339-4"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:6cebc841-d629-44b8-99f3-e6e6e1de0045"
+        },
+        "valueQuantity": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
+                    "code": "0off",
+                    "display": "Off"
+                  }
+                ]
+              }
+            }
+          ],
+          "value": 3333,
+          "unit": "g",
+          "code": "g"
+        }
+      }
     }
   ]
 }

@@ -4802,7 +4802,7 @@ namespace BFDR
             }
         }
 
-        private int? GetWeight(string code)
+        protected int? GetWeight(string code)
         {
             var entry = Bundle.Entry.Where(e => e.Resource is Observation obs && CodeableConceptToDict(obs.Code)["code"] == code).FirstOrDefault();
             if (entry != null)
@@ -4813,7 +4813,7 @@ namespace BFDR
             return null;
         }
 
-        private Observation SetWeight(string code, int? value, string unit, string section, string subjectId)
+        protected Observation SetWeight(string code, int? value, string unit, string section, string subjectId)
         {
             var entry = Bundle.Entry.Where(e => e.Resource is Observation o && CodeableConceptToDict(o.Code)["code"] == code).FirstOrDefault();
             if (!(entry?.Resource is Observation obs))
@@ -5664,14 +5664,14 @@ namespace BFDR
         }
 
         /// <summary>Mother Height Edit Flag.</summary>
-        /// <value>the mother's height level edit flag. A Dictionary representing a code, containing the following key/value pairs:
+        /// <value>the mother's height edit flag. A Dictionary representing a code, containing the following key/value pairs:
         /// <para>"code" - the code</para>
         /// <para>"system" - the code system this code belongs to</para>
         /// <para>"display" - a human readable meaning of the code</para>
         /// </value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>Dictionary&lt;string, string&gt; elevel = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>Dictionary&lt;string, string&gt; height = new Dictionary&lt;string, string&gt;();</para>
         /// <para>height.Add("code", "0");</para>
         /// <para>height.Add("system", CodeSystems.BypassEditFlag);</para>
         /// <para>height.Add("display", "Edit Passed");</para>
