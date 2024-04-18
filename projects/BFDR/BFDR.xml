@@ -33,6 +33,34 @@
         <member name="M:BFDR.BirthRecord.InitializeCompositionAndSubject">
             <inheritdoc/>
         </member>
+        <member name="P:BFDR.BirthRecord.BirthPhysicalLocation">
+            <summary>Child's Place Of Birth Type.</summary>
+            <value>Place Where Birth Occurred, type of place or institution. A Dictionary representing a codeable concept of the physical location type:
+            <para>"code" - The code used to describe this concept.</para>
+            <para>"system" - The relevant code system.</para>
+            <para>"display" - The human readable version of this code.</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; locationType = new Dictionary&lt;string, string&gt;();</para>
+            <para>locationType.Add("code", "22232009");</para>
+            <para>locationType.Add("system", "http://snomed.info/sct");</para>
+            <para>locationType.Add("display", "Hospital");</para>
+            <para>ExampleBirthRecord.BirthPhysicalLocation = locationType;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"The place type the child was born: {ExampleBirthRecord.BirthPhysicalLocation["code"]}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.BirthPhysicalLocationHelper">
+            <summary>Child's Place Of Birth Type Helper</summary>
+            <value>Child's Place Of Birth Type Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.BirthPhysicalLocationHelper = "Hospital";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Child's Place Of Birth Type: {ExampleBirthRecord.BirthPhysicalLocationHelper}");</para>
+            </example>
+        </member>
         <member name="T:BFDR.FetalDeathRecord">
             <summary>Class <c>FetalDeathRecord</c> is a class designed to help consume and produce fetal death
             records that follow the HL7 FHIR Vital Records FetalDeath Reporting Implementation Guide, as described
@@ -61,6 +89,34 @@
         </member>
         <member name="M:BFDR.FetalDeathRecord.InitializeCompositionAndSubject">
             <inheritdoc/>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.DeliveryPhysicalLocation">
+            <summary>The place of delivery Type.</summary>
+            <value>Place Where delivery Occurred, type of place or institution. A Dictionary representing a codeable concept of the physical location type:
+            <para>"code" - The code used to describe this concept.</para>
+            <para>"system" - The relevant code system.</para>
+            <para>"display" - The human readable version of this code.</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; locationType = new Dictionary&lt;string, string&gt;();</para>
+            <para>locationType.Add("code", "22232009");</para>
+            <para>locationType.Add("system", "http://snomed.info/sct");</para>
+            <para>locationType.Add("display", "Hospital");</para>
+            <para>ExampleBirthRecord.BirthPhysicalLocation = locationType;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"The place type the child was born: {ExampleBirthRecord.BirthPhysicalLocation["code"]}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.DeliveryPhysicalLocationHelper">
+            <summary>Child's Place Of Birth Type Helper</summary>
+            <value>Child's Place Of Birth Type Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.BirthPhysicalLocationHelper = "Hospital";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Child's Place Of Birth Type: {ExampleBirthRecord.BirthPhysicalLocationHelper}");</para>
+            </example>
         </member>
         <member name="T:BFDR.IJEBirth">
             <summary>A "wrapper" class to convert between a FHIR based <c>BirthRecord</c> and
@@ -2810,34 +2866,6 @@
             <para>ExampleBirthRecord.PlaceOfBirth = address;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"State where child was born: {ExampleBirthRecord.PlaceOfBirth["placeOfBirthState"]}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.NatalityRecord.BirthPhysicalLocation">
-            <summary>Child's Place Of Birth Type.</summary>
-            <value>Place Where Birth Occurred, type of place or institution. A Dictionary representing a codeable concept of the physical location type:
-            <para>"code" - The code used to describe this concept.</para>
-            <para>"system" - The relevant code system.</para>
-            <para>"display" - The human readable version of this code.</para>
-            </value>
-            <example>
-            <para>// Setter:</para>
-            <para>Dictionary&lt;string, string&gt; locationType = new Dictionary&lt;string, string&gt;();</para>
-            <para>locationType.Add("code", "22232009");</para>
-            <para>locationType.Add("system", "http://snomed.info/sct");</para>
-            <para>locationType.Add("display", "Hospital");</para>
-            <para>ExampleBirthRecord.BirthPhysicalLocation = locationType;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"The place type the child was born: {ExampleBirthRecord.BirthPhysicalLocation["code"]}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.NatalityRecord.BirthPhysicalLocationHelper">
-            <summary>Child's Place Of Birth Type Helper</summary>
-            <value>Child's Place Of Birth Type Helper</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.BirthPhysicalLocationHelper = "Hospital";</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Child's Place Of Birth Type: {ExampleBirthRecord.BirthPhysicalLocationHelper}");</para>
             </example>
         </member>
         <member name="P:BFDR.NatalityRecord.MotherPlaceOfBirth">

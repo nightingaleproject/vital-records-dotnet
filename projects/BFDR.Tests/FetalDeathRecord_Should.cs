@@ -36,7 +36,7 @@ namespace BFDR.Tests
 
     [Fact]
     public void ParseRegistrationDate()
-    { 
+    {
       FetalDeathRecord record = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
       Assert.Equal("2019-01-09", record.RegistrationDate);
       Assert.Equal(2019, record.RegistrationDateYear);
@@ -54,6 +54,64 @@ namespace BFDR.Tests
       Assert.Equal(2024, record.FirstPrenatalCareVisitYear);
       Assert.Equal(5, record.FirstPrenatalCareVisitMonth);
       Assert.Null(record.FirstPrenatalCareVisitDay);
+    }
+
+    [Fact]
+    public void SetPhysicalDeliveryPlace()
+    {
+      SetterFetalDeathRecord.DeliveryPhysicalLocationHelper =  "22232009";
+
+      IJEFetalDeath ije = new(SetterFetalDeathRecord);
+      Assert.Equal("22232009", SetterFetalDeathRecord.DeliveryPhysicalLocation["code"]);
+      Assert.Equal("http://snomed.info/sct", SetterFetalDeathRecord.DeliveryPhysicalLocation["system"]);
+      Assert.Equal("Hospital", SetterFetalDeathRecord.DeliveryPhysicalLocation["display"]);
+      Assert.Equal(SetterFetalDeathRecord.DeliveryPhysicalLocationHelper, SetterFetalDeathRecord.DeliveryPhysicalLocation["code"]);
+      Assert.Equal("1", ije.DPLACE);
+
+      Dictionary<string, string> deliveryPlaceCode = new()
+      {
+          ["code"] = "22232009",
+          ["system"] = "http://snomed.info/sct",
+          ["display"] = "Hospital"
+      };
+      SetterFetalDeathRecord.DeliveryPhysicalLocation = deliveryPlaceCode;
+      ije = new(SetterFetalDeathRecord);
+      Assert.Equal("22232009", SetterFetalDeathRecord.DeliveryPhysicalLocation["code"]);
+      Assert.Equal("http://snomed.info/sct", SetterFetalDeathRecord.DeliveryPhysicalLocation["system"]);
+      Assert.Equal("Hospital", SetterFetalDeathRecord.DeliveryPhysicalLocation["display"]);
+      Assert.Equal(SetterFetalDeathRecord.DeliveryPhysicalLocationHelper, SetterFetalDeathRecord.DeliveryPhysicalLocation["code"]);
+      Assert.Equal("1", ije.DPLACE);
+
+      SetterFetalDeathRecord.DeliveryPhysicalLocationHelper = "67190003";
+      ije = new(SetterFetalDeathRecord);
+      Assert.Equal("67190003", SetterFetalDeathRecord.DeliveryPhysicalLocation["code"]);
+      Assert.Equal("http://snomed.info/sct", SetterFetalDeathRecord.DeliveryPhysicalLocation["system"]);
+      Assert.Equal("Free-standing clinic", SetterFetalDeathRecord.DeliveryPhysicalLocation["display"]);
+      Assert.Equal(SetterFetalDeathRecord.DeliveryPhysicalLocationHelper, SetterFetalDeathRecord.DeliveryPhysicalLocation["code"]);
+      Assert.Equal("6", ije.DPLACE);
+    }
+
+    [Fact]
+    public void ParsePhysicalDeliveryPlace()
+    {
+      // Test FHIR record import.
+      FetalDeathRecord firstRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
+      // Test conversion via FromDescription.
+      FetalDeathRecord secondRecord = VitalRecord.FromDescription<FetalDeathRecord>(firstRecord.ToDescription());
+
+      Assert.Equal("22232009", firstRecord.DeliveryPhysicalLocation["code"]);
+      Assert.Equal("http://snomed.info/sct", firstRecord.DeliveryPhysicalLocation["system"]);
+      Assert.Equal("Hospital", firstRecord.DeliveryPhysicalLocation["display"]);
+      Assert.Equal(firstRecord.DeliveryPhysicalLocationHelper, firstRecord.DeliveryPhysicalLocation["code"]);
+      Assert.Equal("22232009", secondRecord.DeliveryPhysicalLocation["code"]);
+      Assert.Equal("http://snomed.info/sct", secondRecord.DeliveryPhysicalLocation["system"]);
+      Assert.Equal("Hospital", secondRecord.DeliveryPhysicalLocation["display"]);
+      Assert.Equal(secondRecord.DeliveryPhysicalLocationHelper, secondRecord.DeliveryPhysicalLocation["code"]);
+      //set after parse
+      firstRecord.DeliveryPhysicalLocationHelper = "91154008";
+      Assert.Equal("91154008", firstRecord.DeliveryPhysicalLocation["code"]);
+      Assert.Equal("http://snomed.info/sct", firstRecord.DeliveryPhysicalLocation["system"]);
+      Assert.Equal("Free-standing birthing center", firstRecord.DeliveryPhysicalLocation["display"]);
     }
   }
 }
