@@ -5251,12 +5251,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                 return NumericAllowingUnknown_Get("CERTIFIED_YR", "CertifiedYear");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                 NumericAllowingUnknown_Set("CERTIFIED_YR", "CertifiedYear", value);
             }
         }
 
@@ -5266,12 +5265,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                 return NumericAllowingUnknown_Get("CERTIFIED_MO", "CertifiedMonth");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                 NumericAllowingUnknown_Set("CERTIFIED_MO", "CertifiedMonth", value);
             }
         }
 
@@ -5281,12 +5279,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return NumericAllowingUnknown_Get("CERTIFIED_DY", "CertifiedDay");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                NumericAllowingUnknown_Set("CERTIFIED_DY", "CertifiedDay", value);
             }
         }
 

@@ -113,5 +113,48 @@ namespace BFDR.Tests
       Assert.Equal("http://snomed.info/sct", firstRecord.DeliveryPhysicalLocation["system"]);
       Assert.Equal("Free-standing birthing center", firstRecord.DeliveryPhysicalLocation["display"]);
     }
+
+    [Fact]
+    public void SetCertificationDate()
+    {
+      Assert.Null(SetterFetalDeathRecord.CertificationDate);
+      Assert.Null(SetterFetalDeathRecord.CertifiedYear);
+      Assert.Null(SetterFetalDeathRecord.CertifiedMonth);
+      Assert.Null(SetterFetalDeathRecord.CertifiedDay);
+      SetterFetalDeathRecord.CertificationDate = "2023-02";
+      Assert.Equal("2023-02", SetterFetalDeathRecord.CertificationDate);
+      Assert.Equal(2023, SetterFetalDeathRecord.CertifiedYear);
+      Assert.Equal(2, SetterFetalDeathRecord.CertifiedMonth);
+      SetterFetalDeathRecord.CertifiedYear = 2022;
+      Assert.Equal("2022-02", SetterFetalDeathRecord.CertificationDate);
+      Assert.Equal(2022, SetterFetalDeathRecord.CertifiedYear);
+      Assert.Equal(2, SetterFetalDeathRecord.CertifiedMonth);
+      SetterFetalDeathRecord.CertifiedDay = 3;
+      Assert.Equal("2022-02-03", SetterFetalDeathRecord.CertificationDate);
+      Assert.Equal(2022, SetterFetalDeathRecord.CertifiedYear);
+      Assert.Equal(2, SetterFetalDeathRecord.CertifiedMonth);
+      Assert.Equal(3, SetterFetalDeathRecord.CertifiedDay);
+      SetterFetalDeathRecord.CertificationDate = null;
+      Assert.Null(SetterFetalDeathRecord.CertificationDate);
+      Assert.Null(SetterFetalDeathRecord.CertifiedYear);
+      Assert.Null(SetterFetalDeathRecord.CertifiedMonth);
+      Assert.Null(SetterFetalDeathRecord.CertifiedDay);
+      SetterFetalDeathRecord.CertifiedMonth = 4;
+      Assert.Null(SetterFetalDeathRecord.CertificationDate);
+      Assert.Null(SetterFetalDeathRecord.CertifiedYear);
+      Assert.Equal(4, SetterFetalDeathRecord.CertifiedMonth);
+      Assert.Null(SetterFetalDeathRecord.CertifiedDay);
+      // test IJE translations
+      SetterFetalDeathRecord.CertificationDate = "2023-02-19";
+      IJEFetalDeath ije1 = new(SetterFetalDeathRecord);
+      Assert.Equal("2023", ije1.CERTIFIED_YR);
+      Assert.Equal("02", ije1.CERTIFIED_MO);
+      Assert.Equal("19", ije1.CERTIFIED_DY);
+      FetalDeathRecord br2 = ije1.ToRecord();
+      Assert.Equal("2023-02-19", br2.CertificationDate);
+      Assert.Equal(2023, (int)br2.CertifiedYear);
+      Assert.Equal(02, (int)br2.CertifiedMonth);
+      Assert.Equal(19, (int)br2.CertifiedDay);
+    }
   }
 }
