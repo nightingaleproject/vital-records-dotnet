@@ -149,6 +149,44 @@
             <para>Console.WriteLine($"Autopsy Performed Indicator: {ExampleDFetaleathRecord.AutopsyPerformedIndicatorBoolean}");</para>
             </example>
         </member>
+        <member name="P:BFDR.FetalDeathRecord.BirthWeight">
+            <summary>Birth Weight.</summary>
+            <value>The weight of the infant/fetus at birth/delivery.</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.BirthWeight = 3000.0;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Birth Weight: {xampleFetalDeathRecord.BirthWeight}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.BirthWeightEditFlag">
+            <summary>Birth Weight Edit Flag.</summary>
+            <value>the fetus's birth weight edit flag. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; weight = new Dictionary&lt;string, string&gt;();</para>
+            <para>weight.Add("code", "0");</para>
+            <para>weight.Add("system", CodeSystems.BypassEditFlag);</para>
+            <para>weight.Add("display", "Edit Passed");</para>
+            <para>ExampleFetalDeathRecord.BirthWeightEditFlag = height;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Birth Weight: {ExampleFetalDeathRecord.BirthWeightEditFlag['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.BirthWeightEditFlagHelper">
+            <summary>Birth Weight Edit Flag Helper</summary>
+            <value>Birth Weight Edit Flag.</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.BirthWeightEditFlagHelper = "0";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Birth Weight Edit Flag: {ExampleFetalDeathRecord.BirthWeightHelperEditFlag}");</para>
+            </example>
+        </member>
         <member name="M:BFDR.FetalDeathRecord.RestoreReferences">
             <inheritdoc/>
         </member>
@@ -4341,14 +4379,14 @@
         </member>
         <member name="P:BFDR.NatalityRecord.MotherHeightEditFlag">
             <summary>Mother Height Edit Flag.</summary>
-            <value>the mother's height level edit flag. A Dictionary representing a code, containing the following key/value pairs:
+            <value>the mother's height edit flag. A Dictionary representing a code, containing the following key/value pairs:
             <para>"code" - the code</para>
             <para>"system" - the code system this code belongs to</para>
             <para>"display" - a human readable meaning of the code</para>
             </value>
             <example>
             <para>// Setter:</para>
-            <para>Dictionary&lt;string, string&gt; elevel = new Dictionary&lt;string, string&gt;();</para>
+            <para>Dictionary&lt;string, string&gt; height = new Dictionary&lt;string, string&gt;();</para>
             <para>height.Add("code", "0");</para>
             <para>height.Add("system", CodeSystems.BypassEditFlag);</para>
             <para>height.Add("display", "Edit Passed");</para>

@@ -105,6 +105,34 @@ namespace BFDR.Tests
     }
 
     [Fact]
+    public void Set_BirthWeight()
+    {
+        // Height
+        Assert.Null(SetterFetalDeathRecord.BirthWeight);
+        SetterFetalDeathRecord.BirthWeight = 3333;
+        Assert.Equal(3333, SetterFetalDeathRecord.BirthWeight);
+        // Edit Flag
+        Assert.Null(SetterFetalDeathRecord.MotherDateOfBirthEditFlagHelper);
+        Assert.Equal("", SetterFetalDeathRecord.BirthWeightEditFlag["code"]);
+        SetterFetalDeathRecord.BirthWeightEditFlagHelper = BFDR.ValueSets.BirthWeightEditFlags.Off;
+        Assert.Equal(BFDR.ValueSets.BirthWeightEditFlags.Off, SetterFetalDeathRecord.BirthWeightEditFlag["code"]);
+        // IJE translations
+        IJEFetalDeath ije = new IJEFetalDeath(SetterFetalDeathRecord);
+        Assert.Equal("3333", ije.FWG);
+        Assert.Equal(BFDR.ValueSets.BirthWeightEditFlags.Off, ije.FW_BYPASS); 
+    }  
+
+    [Fact]
+    public void Get_BirthWeight()
+    {
+        Assert.Equal(3333, BasicFetalDeathRecord.BirthWeight);
+        Assert.Equal(BFDR.ValueSets.BirthWeightEditFlags.Off, BasicFetalDeathRecord.BirthWeightEditFlagHelper);
+        Assert.Equal(BFDR.ValueSets.BirthWeightEditFlags.Off, BasicFetalDeathRecord.BirthWeightEditFlag["code"]);
+        Assert.Equal(VR.CodeSystems.VRCLEditFlags, BasicFetalDeathRecord.BirthWeightEditFlag["system"]);
+        Assert.Equal("Off", BasicFetalDeathRecord.BirthWeightEditFlag["display"]); 
+    }  
+
+    [Fact]
     public void ParseRegistrationDate()
     {
       FetalDeathRecord record = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
