@@ -107,7 +107,7 @@ namespace BFDR.Tests
     [Fact]
     public void Set_BirthWeight()
     {
-        // Height
+        // Birth Weight
         Assert.Null(SetterFetalDeathRecord.BirthWeight);
         SetterFetalDeathRecord.BirthWeight = 3333;
         Assert.Equal(3333, SetterFetalDeathRecord.BirthWeight);
@@ -119,7 +119,9 @@ namespace BFDR.Tests
         // IJE translations
         IJEFetalDeath ije = new IJEFetalDeath(SetterFetalDeathRecord);
         Assert.Equal("3333", ije.FWG);
-        Assert.Equal(BFDR.ValueSets.BirthWeightEditFlags.Off, ije.FW_BYPASS); 
+        Assert.Equal(BFDR.ValueSets.BirthWeightEditFlags.Off, ije.FW_BYPASS);
+        ije.FW_BYPASS = "2failedBirthWeightGestationEdit";
+        Assert.Equal("2failedBirthWeightGestationEdit", ije.FW_BYPASS); 
     }  
 
     [Fact]

@@ -127,10 +127,10 @@ namespace BFDR
         /// </example>
         [Property("BirthWeight", Property.Types.Int32, "Fetus", "Birth Weight.", false, BFDR.IGURL.ObservationBirthWeight, true, 143)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='8339-4')", "")]
-        public int? BirthWeight
+        public override int? BirthWeight
         {
           get => GetWeight("8339-4");
-          set => SetWeight("8339-4", value, "g", FETUS_SECTION, Child.Id);
+          set => SetWeight("8339-4", value, "g", FETUS_SECTION, Subject.Id);
         }
 
         /// <summary>Birth Weight Edit Flag.</summary>
@@ -154,30 +154,11 @@ namespace BFDR
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='8302-2')", "")]
-        public Dictionary<string, string> BirthWeightEditFlag
+        public override Dictionary<string, string> BirthWeightEditFlag
         {
-            get
-            {
-                Observation observation = GetObservation("8339-4");
-                Extension extension = observation?.Value?.Extension.FirstOrDefault(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
-                if (extension != null && extension.Value != null && extension.Value.GetType() == typeof(CodeableConcept))
-                {
-                    return CodeableConceptToDict((CodeableConcept)extension.Value);
-                }
-                return EmptyCodeableDict();
-            }
+            get => GetWeightEditFlag("8339-4");
+            set => SetWeightEditFlag("8339-4", value, FETUS_SECTION, Subject.Id);
 
-            set
-            {
-                Observation obs = GetOrCreateObservation("8339-4", CodeSystems.LOINC, BFDR.ProfileURL.ObservationBirthWeight, FETUS_SECTION, Child.Id);
-                // Create an empty quantity if needed
-                if (obs.Value == null || obs.Value as Quantity == null)
-                {
-                    obs.Value = new Hl7.Fhir.Model.Quantity();
-                }
-                obs.Value.Extension.RemoveAll(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
-                obs.Value.Extension.Add(new Extension(VRExtensionURLs.BypassEditFlag, DictToCodeableConcept(value)));
-            }
         }
 
         /// <summary>Birth Weight Edit Flag Helper</summary>
@@ -191,48 +172,10 @@ namespace BFDR
         [Property("Birth Weight Edit Flag Helper", Property.Types.String, "Fetus", "Birth Weight Edit Flag Helper.", false, IGURL.ObservationBirthWeight, true, 144)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='8339-4')", "")]
-        public string BirthWeightEditFlagHelper
+        public override string BirthWeightEditFlagHelper
         {
-            get 
-            {
-              Dictionary<string, string> editFlag = this.BirthWeightEditFlag;
-              if (editFlag.ContainsKey("code"))
-              {
-                  string flagCode = editFlag["code"];
-                  if (!String.IsNullOrWhiteSpace(flagCode))
-                  {
-                      return flagCode;
-                  }
-              }
-              return null;
-            }
-            set 
-            {
-                Observation obs = GetOrCreateObservation("8339-4", CodeSystems.LOINC, BFDR.ProfileURL.ObservationBirthWeight, FETUS_SECTION, Child.Id);
-                obs.Value.Extension.RemoveAll(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
-
-                if (String.IsNullOrEmpty(value))
-                {
-                    obs.Value.Extension.Add(new Extension(VRExtensionURLs.BypassEditFlag, DictToCodeableConcept(EmptyCodeDict())));
-                    return;
-                }
-
-                // Iterate over the allowed options and see if the code supplies is one of them
-                string[,] options = BFDR.ValueSets.BirthWeightEditFlags.Codes;
-                for (int i = 0; i < options.GetLength(0); i += 1)
-                {
-                    if (options[i, 0] == value)
-                    {
-                        // Found it, so call the supplied setter with the appropriate dictionary built based on the code
-                        // using the supplied options and return
-                        Dictionary<string, string> dict = new Dictionary<string, string>();
-                        dict.Add("code", value);
-                        dict.Add("display", options[i, 1]);
-                        dict.Add("system", options[i, 2]);
-                        obs.Value.Extension.Add(new Extension(VRExtensionURLs.BypassEditFlag, DictToCodeableConcept(dict)));
-                    }
-                }
-            }
+            get => GetWeightEditFlagHelper("8339-4");
+            set => SetWeightEditFlagHelper("8339-4", value, FETUS_SECTION, Subject.Id);
         }
     }
 }

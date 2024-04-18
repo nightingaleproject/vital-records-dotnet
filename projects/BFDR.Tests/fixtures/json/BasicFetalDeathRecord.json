@@ -1,6 +1,6 @@
 {
   "resourceType": "Bundle",
-  "id": "f07496ef-63c1-420d-a11c-ae68032968cd",
+  "id": "43ec7dfc-a767-4990-8b28-fef56f90f856",
   "meta": {
     "profile": [
       "http://hl7.org/fhir/us/bfdr/StructureDefinition/Bundle-document-birth-report"
@@ -10,27 +10,23 @@
     "extension": [
       {
         "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/CertificateNumber",
-        "valueString": "849238"
-      },
-      {
-        "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/AuxiliaryStateIdentifier1",
-        "valueString": "239857193678"
+        "valueString": "87366"
       }
     ],
     "system": "http://nchs.cdc.gov/bfdr_id",
-    "value": "0000XX849238"
+    "value": "0000XX087366"
   },
   "type": "document",
-  "timestamp": "2024-04-13T10:34:18.484126-04:00",
+  "timestamp": "2024-04-18T12:34:03.591881-04:00",
   "entry": [
     {
-      "fullUrl": "urn:uuid:b41ff281-2a4e-4846-ad01-46d56cd13b83",
+      "fullUrl": "urn:uuid:de56d24e-6c85-44a2-8519-f8dbc989a82b",
       "resource": {
         "resourceType": "Composition",
-        "id": "b41ff281-2a4e-4846-ad01-46d56cd13b83",
+        "id": "de56d24e-6c85-44a2-8519-f8dbc989a82b",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/bfdr/StructureDefinition/Composition-jurisdiction-live-birth-report"
+            "http://hl7.org/fhir/us/bfdr/StructureDefinition/Composition-jurisdiction-fetal-death-report"
           ]
         },
         "status": "final",
@@ -39,17 +35,17 @@
             {
               "system": "http://loinc.org",
               "code": "71230-7",
-              "display": "Birth certificate"
+              "display": "Fetal Death Report"
             }
           ]
         },
         "subject": {
-          "reference": "urn:uuid:6cebc841-d629-44b8-99f3-e6e6e1de0045"
+          "reference": "urn:uuid:fbdfe5ae-f40f-4119-b435-c23a5d8bb4ed"
         },
         "encounter": {
-          "reference": "urn:uuid:5ed83198-1f04-4aa3-bd59-785587d4d77c"
+          "reference": "urn:uuid:d0801c32-d417-41b7-a461-70f9cf163055"
         },
-        "title": "Birth Certificate",
+        "title": "Fetal Death Report",
         "attester": [
           {
             "mode": "legal"
@@ -73,22 +69,22 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:6cebc841-d629-44b8-99f3-e6e6e1de0045",
+      "fullUrl": "urn:uuid:fbdfe5ae-f40f-4119-b435-c23a5d8bb4ed",
       "resource": {
         "resourceType": "Patient",
-        "id": "6cebc841-d629-44b8-99f3-e6e6e1de0045",
+        "id": "fbdfe5ae-f40f-4119-b435-c23a5d8bb4ed",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Patient-child-vr"
+            "http://hl7.org/fhir/us/bfdr/StructureDefinition/Patient-decedent-fetus"
           ]
         }
       }
     },
     {
-      "fullUrl": "urn:uuid:8124a4f4-62d9-413b-a30c-a375324c43ec",
+      "fullUrl": "urn:uuid:18ef120e-0b0b-49d5-85f7-acb8f3a583b7",
       "resource": {
         "resourceType": "Patient",
-        "id": "8124a4f4-62d9-413b-a30c-a375324c43ec",
+        "id": "18ef120e-0b0b-49d5-85f7-acb8f3a583b7",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Patient-mother-vr"
@@ -97,10 +93,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:9d7bd91f-41a0-40b3-852f-0ac56f6ea937",
+      "fullUrl": "urn:uuid:ab2f7329-95a9-41fe-9356-931619dad692",
       "resource": {
         "resourceType": "RelatedPerson",
-        "id": "9d7bd91f-41a0-40b3-852f-0ac56f6ea937",
+        "id": "ab2f7329-95a9-41fe-9356-931619dad692",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/RelatedPerson-father-natural-vr"
@@ -119,10 +115,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:727bcd4a-efb6-46bc-a1b6-2f5944c0d723",
+      "fullUrl": "urn:uuid:139fd854-780b-4427-b3cf-6c85f41e6f35",
       "resource": {
         "resourceType": "Practitioner",
-        "id": "727bcd4a-efb6-46bc-a1b6-2f5944c0d723",
+        "id": "139fd854-780b-4427-b3cf-6c85f41e6f35",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Practitioner-vr"
@@ -137,10 +133,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:57c48595-0024-474b-a094-090db9c9fca9",
+      "fullUrl": "urn:uuid:348f658f-b005-4136-9831-08c7b197d474",
       "resource": {
         "resourceType": "Practitioner",
-        "id": "57c48595-0024-474b-a094-090db9c9fca9",
+        "id": "348f658f-b005-4136-9831-08c7b197d474",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Practitioner-vr"
@@ -155,78 +151,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:c10a367f-2461-4a2b-b605-2e569dcb4e08",
+      "fullUrl": "urn:uuid:a31bf759-1f3a-4bf0-aa3a-aa3f1ec94140",
       "resource": {
         "resourceType": "Observation",
-        "id": "c10a367f-2461-4a2b-b605-2e569dcb4e08",
-        "meta": {
-          "profile": [
-            "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-autopsy-histological-exam-results-used"
-          ]
-        },
-        "status": "final",
-        "code": {
-          "coding": [
-            {
-              "system": "http://loinc.org",
-              "code": "74498-7",
-              "display": "Were autopsy or histological placental examinations results used in determining the cause of fetal death?"
-            }
-          ]
-        },
-        "subject": {
-          "reference": "urn:uuid:8124a4f4-62d9-413b-a30c-a375324c43ec"
-        },
-        "valueCodeableConcept": {
-          "coding": [
-            {
-              "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
-              "code": "Y",
-              "display": "Yes"
-            }
-          ]
-        }
-      }
-    },
-    {
-      "fullUrl": "urn:uuid:7499b47f-082c-4259-905f-ade8ca236d2e",
-      "resource": {
-        "resourceType": "Observation",
-        "id": "7499b47f-082c-4259-905f-ade8ca236d2e",
-        "meta": {
-          "profile": [
-            "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Observation-autopsy-performed-indicator-vr"
-          ]
-        },
-        "status": "final",
-        "code": {
-          "coding": [
-            {
-              "system": "http://loinc.org",
-              "code": "85699-7",
-              "display": "Autopsy Performed Indicator"
-            }
-          ]
-        },
-        "subject": {
-          "reference": "urn:uuid:8124a4f4-62d9-413b-a30c-a375324c43ec"
-        },
-        "valueCodeableConcept": {
-          "coding": [
-            {
-              "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
-              "code": "Y",
-              "display": "Yes"
-            }
-          ]
-        }
-      }
-    },
-    {
-      "fullUrl": "urn:uuid:4a879b2a-dab7-4bc9-bf22-f88b8f3a0d03",
-      "resource": {
-        "resourceType": "Observation",
-        "id": "4a879b2a-dab7-4bc9-bf22-f88b8f3a0d03",
+        "id": "a31bf759-1f3a-4bf0-aa3a-aa3f1ec94140",
         "category": [
           {
             "coding": [
@@ -246,7 +174,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:6cebc841-d629-44b8-99f3-e6e6e1de0045"
+          "reference": "urn:uuid:fbdfe5ae-f40f-4119-b435-c23a5d8bb4ed"
         },
         "valueQuantity": {
           "extension": [
@@ -266,6 +194,74 @@
           "value": 3333,
           "unit": "g",
           "code": "g"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:8ebfaaa0-aa3e-49fd-aed4-45c93f8e292a",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "8ebfaaa0-aa3e-49fd-aed4-45c93f8e292a",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-autopsy-histological-exam-results-used"
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "74498-7",
+              "display": "Were autopsy or histological placental examinations results used in determining the cause of fetal death?"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:18ef120e-0b0b-49d5-85f7-acb8f3a583b7"
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+              "code": "Y",
+              "display": "Yes"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:32ca4848-9803-4f64-817d-88459703b772",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "32ca4848-9803-4f64-817d-88459703b772",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Observation-autopsy-performed-indicator-vr"
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "85699-7",
+              "display": "Autopsy Performed Indicator"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:18ef120e-0b0b-49d5-85f7-acb8f3a583b7"
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+              "code": "Y",
+              "display": "Yes"
+            }
+          ]
         }
       }
     }

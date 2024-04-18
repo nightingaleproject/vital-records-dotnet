@@ -659,13 +659,13 @@ namespace BFDR.Tests
       ije.DWGT_BYPASS = "0";
       ije.DWGT = "120";
       ije.BWG = "3200";
-      ije.BW_BYPASS = "2";
+      ije.BW_BYPASS = "2failedBirthWeightGestationEdit";
       Assert.Equal("1", ije.PWGT_BYPASS);
       Assert.Equal("095", ije.PWGT);
       Assert.Equal("0", ije.DWGT_BYPASS);
       Assert.Equal("120", ije.DWGT);
       Assert.Equal("3200", ije.BWG);
-      Assert.Equal("2", ije.BW_BYPASS);
+      Assert.Equal("2failedBirthWeightGestationEdit", ije.BW_BYPASS);
       ije.PWGT = "999";
       Assert.Equal("999", ije.PWGT);
       Assert.Equal(-1, fhir.MotherPrepregnancyWeight);

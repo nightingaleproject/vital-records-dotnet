@@ -94,6 +94,12 @@
         <member name="M:BFDR.FetalDeathRecord.GetYear">
             <summary>Return the birth year for this record to be used in the identifier</summary>
         </member>
+        <member name="M:BFDR.FetalDeathRecord.RestoreReferences">
+            <inheritdoc/>
+        </member>
+        <member name="M:BFDR.FetalDeathRecord.InitializeCompositionAndSubject">
+            <inheritdoc/>
+        </member>
         <member name="F:BFDR.FetalDeathRecord.FETUS_SECTION">
             <summary>Composition Section Constants</summary>
         </member>
