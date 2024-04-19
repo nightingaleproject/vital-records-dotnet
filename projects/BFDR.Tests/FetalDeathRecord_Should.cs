@@ -158,6 +158,44 @@ namespace BFDR.Tests
     }
       
     [Fact]
+    public void TestCigarettesSmoked()
+    {
+      FetalDeathRecord fetalDeathRecord = new FetalDeathRecord();
+      fetalDeathRecord.CigarettesPerDayInThreeMonthsPriorToPregancy = 22;
+      Assert.Equal(22, fetalDeathRecord.CigarettesPerDayInThreeMonthsPriorToPregancy);
+      fetalDeathRecord.CigarettesPerDayInFirstTrimester = 4;
+      Assert.Equal(4, fetalDeathRecord.CigarettesPerDayInFirstTrimester);
+      fetalDeathRecord.CigarettesPerDayInSecondTrimester = 2;
+      Assert.Equal(2, fetalDeathRecord.CigarettesPerDayInSecondTrimester);
+      fetalDeathRecord.CigarettesPerDayInLastTrimester = 1;
+      Assert.Equal(1, fetalDeathRecord.CigarettesPerDayInLastTrimester);
+
+      //ije translations
+      IJEFetalDeath ije = new IJEFetalDeath(fetalDeathRecord);
+      Assert.Equal("22", ije.CIGPN);
+      Assert.Equal("04", ije.CIGFN);
+      Assert.Equal("02", ije.CIGSN);
+      Assert.Equal("01", ije.CIGLN);
+      FetalDeathRecord fetalDeathRecord2 = ije.ToFetalDeathRecord();
+      Assert.Equal(22, fetalDeathRecord2.CigarettesPerDayInThreeMonthsPriorToPregancy);
+      Assert.Equal(4, fetalDeathRecord2.CigarettesPerDayInFirstTrimester);
+      Assert.Equal(2, fetalDeathRecord2.CigarettesPerDayInSecondTrimester);
+      Assert.Equal(1, fetalDeathRecord2.CigarettesPerDayInLastTrimester);
+
+      //parse
+      FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
+      Assert.Equal(0, record.CigarettesPerDayInThreeMonthsPriorToPregancy);
+      Assert.Equal(0, record.CigarettesPerDayInFirstTrimester);
+      Assert.Equal(1, record.CigarettesPerDayInSecondTrimester);
+      Assert.Equal(0, record.CigarettesPerDayInLastTrimester);
+      //set after parse
+      record.CigarettesPerDayInThreeMonthsPriorToPregancy = 21;
+      record.CigarettesPerDayInFirstTrimester = 4;
+      Assert.Equal(21, record.CigarettesPerDayInThreeMonthsPriorToPregancy);
+      Assert.Equal(4, record.CigarettesPerDayInFirstTrimester);
+    }
+
+    [Fact]
     public void SetEstimatedTimeOfFetalDeath()
     {
       SetterFetalDeathRecord.TimeOfFetalDeathHelper = "434671000124102";
