@@ -73,6 +73,40 @@ namespace BFDR
 
         /////////////////////////////////////////////////////////////////////////////////
         //
+        // Class helper methods for getting and settings IJE fields.
+        //
+        /////////////////////////////////////////////////////////////////////////////////
+        /// <summary>Converts the FHIR representation of presence-only fields to the IJE equivalent.</summary>
+        /// <param name="fieldValue">the value of the field</param>
+        /// <returns>Y (yes), N (no)</returns>
+        private string YesNo_PresenceToIJE(bool fieldValue)
+        {
+            if (fieldValue)
+            {
+                return "Y";
+            }
+            else 
+            {
+                return "N";
+            }
+        }
+        /// <summary>Converts the IJE representation of presence-only fields to the FHIR equivalent.</summary>
+        /// <param name="value">Y (yes), N (no)</param>
+        /// <param name="field">a function that will set a field in the FHIR record</param>
+        private void YesNo_IJEToPresence(string value, Func<bool, bool> field)
+        {
+            if (value.Equals("Y"))
+            {
+                field(true);
+            }
+            else 
+            {
+                field(false);
+            }
+        }
+
+        /////////////////////////////////////////////////////////////////////////////////
+        //
         // Class Properties that provide getters and setters for each of the IJE
         // FetalDeath fields.
         //
@@ -2673,120 +2707,64 @@ namespace BFDR
         [IJEField(180, 587, 1, "Initiating cause/condition - Rupture of membranes prior to onset of labor", "COD18a1", 1)]
         public string COD18a1
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => YesNo_PresenceToIJE(record.PrematureRuptureOfMembranes);
+            set => YesNo_IJEToPresence(value, (v) => record.PrematureRuptureOfMembranes = v);
         }
 
         /// <summary>Initiating cause/condition - Abruptio placenta</summary>
         [IJEField(181, 588, 1, "Initiating cause/condition - Abruptio placenta", "COD18a2", 1)]
         public string COD18a2
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => YesNo_PresenceToIJE(record.AbruptioPlacenta);
+            set => YesNo_IJEToPresence(value, (v) => record.AbruptioPlacenta = v);
         }
 
         /// <summary>Initiating cause/condition - Placental insufficiency</summary>
         [IJEField(182, 589, 1, "Initiating cause/condition - Placental insufficiency", "COD18a3", 1)]
         public string COD18a3
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => YesNo_PresenceToIJE(record.PlacentalInsufficiency);
+            set => YesNo_IJEToPresence(value, (v) => record.PlacentalInsufficiency = v);
         }
 
         /// <summary>Initiating cause/condition - Prolapsed cord</summary>
         [IJEField(183, 590, 1, "Initiating cause/condition - Prolapsed cord", "COD18a4", 1)]
         public string COD18a4
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => YesNo_PresenceToIJE(record.ProlapsedCord);
+            set => YesNo_IJEToPresence(value, (v) => record.ProlapsedCord = v);
         }
 
         /// <summary>Initiating cause/condition - Chorioamnionitis</summary>
         [IJEField(184, 591, 1, "Initiating cause/condition - Chorioamnionitis", "COD18a5", 1)]
         public string COD18a5
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => YesNo_PresenceToIJE(record.ChorioamnionitisCOD);
+            set => YesNo_IJEToPresence(value, (v) => record.ChorioamnionitisCOD = v);
         }
 
         /// <summary>Initiating cause/condition - Other complications of placenta, cord, or membranes</summary>
         [IJEField(185, 592, 1, "Initiating cause/condition - Other complications of placenta, cord, or membranes", "COD18a6", 1)]
         public string COD18a6
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => YesNo_PresenceToIJE(record.OtherComplicationsOfPlacentaCordOrMembranes);
+            set => YesNo_IJEToPresence(value, (v) => record.OtherComplicationsOfPlacentaCordOrMembranes = v);
         }
 
         /// <summary>Initiating cause/condition - Unknown</summary>
         [IJEField(186, 593, 1, "Initiating cause/condition - Unknown", "COD18a7", 1)]
         public string COD18a7
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => YesNo_PresenceToIJE(record.InitiatingCauseOrConditionUnknown);
+            set => YesNo_IJEToPresence(value, (v) => record.InitiatingCauseOrConditionUnknown = v);
         }
 
         /// <summary>Initiating cause/condition - Maternal conditions/diseases literal</summary>
         [IJEField(187, 594, 60, "Initiating cause/condition - Maternal conditions/diseases literal", "COD18a8", 1)]
         public string COD18a8
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("COD18a8", "MaternalConditionsDiseasesLiteral");
+            set => LeftJustified_Set("COD18a8", "MaternalConditionsDiseasesLiteral", value);
         }
 
         /// <summary>Initiating cause/condition - Other complications of placenta, cord, or membranes literal</summary>

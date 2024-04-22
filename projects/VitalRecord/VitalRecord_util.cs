@@ -94,7 +94,6 @@ namespace VR
             }
         }
 
-
         /// <summary>Helper to support vital record property getter helper methods for values stored in Observations.</summary>
         /// <param name="code">the code to identify the type of Observation</param>
         protected Observation GetObservation(string code)
@@ -113,6 +112,19 @@ namespace VR
         protected void RemoveObservation(string code)
         {
             Bundle.Entry.RemoveAll(e => e.Resource is Observation obs && CodeableConceptToDict(obs.Code)["code"] == code);
+        }
+        
+        /// <summary>Helper to support vital record property getter helper methods for values stored in Conditions.</summary>
+        /// <param name="code">the code to identify the type of Condition</param>
+        protected Condition GetCondition(string code)
+        {
+            var entry = Bundle.Entry.Where(e => e.Resource is Condition obs && CodeableConceptToDict(obs.Code)["code"] == code).FirstOrDefault();
+            if (entry != null)
+            {
+                Condition cond = (Condition)entry.Resource;
+                return cond;
+            }
+            return null;
         }
 
         /// <summary>Helper to support vital record property setter helper methods for values stored in Observations.</summary>
