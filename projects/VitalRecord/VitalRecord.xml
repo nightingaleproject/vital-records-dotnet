@@ -308,6 +308,18 @@
         <member name="M:VR.IJE.Dictionary_Geo_Set(System.String,System.String,System.String,System.String,System.Boolean,System.String)">
             <summary>Set a value on the VitalRecord whose property is a geographic type (and is contained in a dictionary).</summary>
         </member>
+        <member name="M:VR.IJE.PresenceToIJE(System.Boolean,System.Boolean)">
+            <summary>Converts the FHIR representation of presence-only fields to the IJE equivalent.</summary>
+            <param name="fieldValue">the value of the field</param>
+            <param name="noneOfTheAboveValue">the value of the corresponding none-of-the-above field</param>
+            <returns>Y (yes), N (no), or U (unknown)</returns>
+        </member>
+        <member name="M:VR.IJE.IJEToPresence(System.String,System.Func{System.Boolean,System.Boolean},System.Func{System.Boolean,System.Boolean})">
+            <summary>Converts the IJE representation of presence-only fields to the FHIR equivalent.</summary>
+            <param name="value">Y (yes), N (no), or U (unknown)</param>
+            <param name="field">a function that will set a field in the FHIR record</param>
+            <param name="noneOfTheAboveField">a function that will set the corresponding none-of-the-above field in the FHIR record</param>
+        </member>
         <member name="T:VR.IJEData">
             <summary>Data helper class for dealing with IJE mortality data. Follows Singleton-esque pattern!</summary>
         </member>
