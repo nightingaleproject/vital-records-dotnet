@@ -93,18 +93,6 @@
             <summary>FHIR based vital record.</summary>
             Hides the IJE ToRecord method that returns a VitalRecord instead of a BirthRecord
         </member>
-        <member name="M:BFDR.IJEBirth.PresenceToIJE(System.Boolean,System.Boolean)">
-            <summary>Converts the FHIR representation of presence-only fields to the IJE equivalent.</summary>
-            <param name="fieldValue">the value of the field</param>
-            <param name="noneOfTheAboveValue">the value of the corresponding none-of-the-above field</param>
-            <returns>Y (yes), N (no), or U (unknown)</returns>
-        </member>
-        <member name="M:BFDR.IJEBirth.IJEToPresence(System.String,System.Func{System.Boolean,System.Boolean},System.Func{System.Boolean,System.Boolean})">
-            <summary>Converts the IJE representation of presence-only fields to the FHIR equivalent.</summary>
-            <param name="value">Y (yes), N (no), or U (unknown)</param>
-            <param name="field">a function that will set a field in the FHIR record</param>
-            <param name="noneOfTheAboveField">a function that will set the corresponding none-of-the-above field in the FHIR record</param>
-        </member>
         <member name="M:BFDR.IJEBirth.Get_MotherRace(System.String)">
             <summary>Checks if the given race exists in the record for Mother.</summary>
         </member>
