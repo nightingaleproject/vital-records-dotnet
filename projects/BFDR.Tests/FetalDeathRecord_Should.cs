@@ -125,5 +125,65 @@ namespace BFDR.Tests
       Assert.Equal("0", deathRecord3.NumberOfPreviousCesareansEditFlagHelper);
       Assert.Equal(cc2, deathRecord3.NumberOfPreviousCesareansEditFlag);
     }
+
+    [Fact]
+    public void ParseFetalDeathCauseOrCondition()
+    { 
+      FetalDeathRecord record = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
+      Assert.True(record.PrematureRuptureOfMembranes);
+      Assert.False(record.AbruptioPlacenta);
+      Assert.False(record.PlacentalInsufficiency);
+      Assert.False(record.ProlapsedCord);
+      Assert.False(record.ChorioamnionitisCOD);
+      Assert.False(record.OtherComplicationsOfPlacentaCordOrMembranes);
+      Assert.False(record.InitiatingCauseOrConditionUnknown);
+      Assert.Null(record.MaternalConditionsDiseasesLiteral);
+
+      //set after parse
+      record.PrematureRuptureOfMembranes = false; 
+      Assert.False(record.PrematureRuptureOfMembranes);
+      record.ProlapsedCord = true; 
+      Assert.True(record.ProlapsedCord);
+      record.MaternalConditionsDiseasesLiteral = "Complication of Placenta Cord";
+      Assert.Equal("Complication of Placenta Cord", record.MaternalConditionsDiseasesLiteral);
+
+      IJEFetalDeath ije = new(record);
+      Assert.Equal("N", ije.COD18a1);
+      Assert.Equal("Y", ije.COD18a4);
+      Assert.Equal("Complication of Placenta Cord", ije.COD18a8.Trim());
+    }
+
+    [Fact]
+    public void Set_FetalDeathCauseOrCondition()
+    {
+      Assert.False(SetterFetalDeathRecord.PrematureRuptureOfMembranes);
+      SetterFetalDeathRecord.PrematureRuptureOfMembranes = true;
+      Assert.True(SetterFetalDeathRecord.PrematureRuptureOfMembranes);
+
+      SetterFetalDeathRecord.AbruptioPlacenta = false;
+      Assert.False(SetterFetalDeathRecord.AbruptioPlacenta);
+
+      Assert.False(SetterFetalDeathRecord.PlacentalInsufficiency);
+      SetterFetalDeathRecord.PlacentalInsufficiency = true;
+      Assert.True(SetterFetalDeathRecord.PlacentalInsufficiency);
+
+      SetterFetalDeathRecord.ProlapsedCord = true;
+      Assert.True(SetterFetalDeathRecord.ProlapsedCord);
+
+      SetterFetalDeathRecord.ChorioamnionitisCOD = true;
+      Assert.True(SetterFetalDeathRecord.ChorioamnionitisCOD);
+
+      Assert.False(SetterFetalDeathRecord.OtherComplicationsOfPlacentaCordOrMembranes);
+      SetterFetalDeathRecord.OtherComplicationsOfPlacentaCordOrMembranes = true;
+      Assert.True(SetterFetalDeathRecord.OtherComplicationsOfPlacentaCordOrMembranes);
+
+      Assert.False(SetterFetalDeathRecord.InitiatingCauseOrConditionUnknown);
+      SetterFetalDeathRecord.InitiatingCauseOrConditionUnknown = true;
+      Assert.True(SetterFetalDeathRecord.InitiatingCauseOrConditionUnknown);
+
+      Assert.Null(SetterFetalDeathRecord.MaternalConditionsDiseasesLiteral);
+      SetterFetalDeathRecord.MaternalConditionsDiseasesLiteral = "Complication of Placenta Cord";
+      Assert.Equal("Complication of Placenta Cord", SetterFetalDeathRecord.MaternalConditionsDiseasesLiteral);
+    }
   }
 }
