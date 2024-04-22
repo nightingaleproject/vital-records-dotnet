@@ -51,6 +51,30 @@
         <member name="M:BFDR.FetalDeathRecord.InitializeCompositionAndSubject">
             <inheritdoc/>
         </member>
+        <member name="P:BFDR.FetalDeathRecord.PrematureRuptureOfMembranes">
+            <summary>Initiating cause/condition, Rupture of membranes prior to onset of labor.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.AbruptioPlacenta">
+            <summary>Initiating cause/condition, Abruptio placenta.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.PlacentalInsufficiency">
+            <summary>Initiating cause/condition, Placental insufficiency.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.ProlapsedCord">
+            <summary>Initiating cause/condition, Prolapsed cord.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.ChorioamnionitisCOD">
+            <summary>Initiating cause/condition, Chorioamnionitis.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OtherComplicationsOfPlacentaCordOrMembranes">
+            <summary>Initiating cause/condition, Other complications of placenta, cord, or membranes.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.InitiatingCauseOrConditionUnknown">
+            <summary>Initiating cause/condition, Unknown.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.MaternalConditionsDiseasesLiteral">
+            <summary>Initiating cause/condition, Maternal conditions/diseases literal.</summary>
+        </member>
         <member name="T:BFDR.IJEBirth">
             <summary>A "wrapper" class to convert between a FHIR based <c>BirthRecord</c> and
             a record in IJE Natality format. Each property of this class corresponds exactly
@@ -1183,6 +1207,16 @@
         <member name="M:BFDR.IJEFetalDeath.ToRecord">
             <summary>FHIR based vital record.</summary>
             Hides the IJE ToRecord method that returns a VitalRecord instead of a DeathRecord
+        </member>
+        <member name="M:BFDR.IJEFetalDeath.YesNo_PresenceToIJE(System.Boolean)">
+            <summary>Converts the FHIR representation of presence-only fields to the IJE equivalent.</summary>
+            <param name="fieldValue">the value of the field</param>
+            <returns>Y (yes), N (no)</returns>
+        </member>
+        <member name="M:BFDR.IJEFetalDeath.YesNo_IJEToPresence(System.String,System.Func{System.Boolean,System.Boolean})">
+            <summary>Converts the IJE representation of presence-only fields to the FHIR equivalent.</summary>
+            <param name="value">Y (yes), N (no)</param>
+            <param name="field">a function that will set a field in the FHIR record</param>
         </member>
         <member name="P:BFDR.IJEFetalDeath.FDOD_YR">
             <summary>Date of Delivery (Fetus)--Year</summary>
@@ -4854,6 +4888,9 @@
         </member>
         <member name="F:BFDR.FHIRSubject.Subject.Newborn">
             <summary>The newborn</summary>
+        </member>
+        <member name="F:BFDR.FHIRSubject.Subject.DecedentFetus">
+            <summary>The decedent fetus</summary>
         </member>
         <member name="F:BFDR.FHIRSubject.subject">
             <summary>The subject of the field</summary>

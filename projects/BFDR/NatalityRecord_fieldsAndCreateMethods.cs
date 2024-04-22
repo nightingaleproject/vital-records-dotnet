@@ -175,7 +175,9 @@ namespace BFDR
             /// <summary>The mother</summary>
             Mother,
             /// <summary>The newborn</summary>
-            Newborn
+            Newborn,
+            /// <summary>The decedent fetus</summary>
+            DecedentFetus
         }
         /// <summary>The subject of the field</summary>
         public Subject subject;
