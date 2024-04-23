@@ -45,5 +45,6 @@
     <None Update="fixtures/json/BirthRecordZ.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures/json/BirthRecordR.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures/json/FetalDeathReport.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="fixtures/ije/FetalDeathRecord.ije" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>
