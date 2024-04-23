@@ -22,10 +22,10 @@
     <PackageReference Include="Bogus" Version="35.3.0" />
     <!-- <PackageReference Include="VRDR.Messaging" Version="4.1.4" /> -->
     <ProjectReference Include="../VitalRecord/VitalRecord.csproj" />
-    <ProjectReference Include="../BFDR/BirthRecord.csproj" /> 
+    <ProjectReference Include="../BFDR/BFDR.csproj" /> 
     <ProjectReference Include="../VRDR/VRDR.csproj" /> 
     <ProjectReference Include="../VRDR.Messaging/VRDR.Messaging.csproj" />
-    <ProjectReference Include="../BFDR.Messaging/BFDRMessaging.csproj" /> 
+    <ProjectReference Include="../BFDR.Messaging/BFDR.Messaging.csproj" /> 
   </ItemGroup>
 
   <ItemGroup>
