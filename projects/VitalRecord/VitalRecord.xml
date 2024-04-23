@@ -6315,7 +6315,7 @@
         <member name="M:VR.VitalRecord.SetPlaceOfBirth(Hl7.Fhir.Model.RelatedPerson,System.Collections.Generic.Dictionary{System.String,System.String})">
             <summary>Sets the given place of birth dictionary on the given patient.</summary>
         </member>
-        <member name="M:VR.VitalRecord.CreateEncouner(System.String)">
+        <member name="M:VR.VitalRecord.CreateEncounter(System.String)">
             <summary>
             Creates an encounter with the given profile url.
             </summary>

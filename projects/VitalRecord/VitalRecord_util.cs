@@ -1088,28 +1088,10 @@ namespace VR
         // <param name="options">the list of valid options and related display strings and code systems</param>
         protected void SetCodeValue(string field, string code, string[,] options)
         {
-            // If string is empty don't bother to set the value
-            if (code == null || code == "")
-            {
-                return;
+            Dictionary<string, string> dict = CreateCode(code, options);
+            if(dict != null) {
+                this.GetType().GetProperty(field).SetValue(this, dict);
             }
-            // Iterate over the allowed options and see if the code supplies is one of them
-            for (int i = 0; i < options.GetLength(0); i += 1)
-            {
-                if (options[i, 0] == code)
-                {
-                    // Found it, so call the supplied setter with the appropriate dictionary built based on the code
-                    // using the supplied options and return
-                    Dictionary<string, string> dict = new Dictionary<string, string>();
-                    dict.Add("code", code);
-                    dict.Add("display", options[i, 1]);
-                    dict.Add("system", options[i, 2]);
-                    this.GetType().GetProperty(field).SetValue(this, dict);
-                    return;
-                }
-            }
-            // If we got here we didn't find the code, so it's not a valid option
-            throw new System.ArgumentException($"Code '{code}' is not an allowed value for field {field}");
         }
 
         /// <summary>
@@ -2020,7 +2002,7 @@ namespace VR
         /// </summary>
         /// <param name="profileURL"></param>
         /// <returns></returns>
-        protected Encounter CreateEncouner(string profileURL)
+        protected Encounter CreateEncounter(string profileURL)
         {
             Encounter encounter = new Encounter()
             {

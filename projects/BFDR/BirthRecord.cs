@@ -93,7 +93,7 @@ namespace BFDR
         public Dictionary<string, string> BirthPhysicalLocation
         {
             get => GetPhysicalLocation(EncounterBirth);
-            set => SetPhysicalLocation(EncounterBirth ?? CreateEncouner(ProfileURL.EncounterBirth), value);
+            set => SetPhysicalLocation(EncounterBirth ?? CreateEncounter(ProfileURL.EncounterBirth), value);
         }
 
         /// <summary>Child's Place Of Birth Type Helper</summary>
@@ -109,7 +109,7 @@ namespace BFDR
         public string BirthPhysicalLocationHelper
         {
             get => GetPhysicalLocationHelper(EncounterBirth);
-            set => SetPhysicalLocationHelper(EncounterBirth ?? CreateEncouner(ProfileURL.EncounterBirth), value, BFDR.Mappings.BirthDeliveryOccurred.FHIRToIJE, BFDR.ValueSets.BirthDeliveryOccurred.Codes);
+            set => SetPhysicalLocationHelper(EncounterBirth ?? CreateEncounter(ProfileURL.EncounterBirth), value, BFDR.Mappings.BirthDeliveryOccurred.FHIRToIJE, BFDR.ValueSets.BirthDeliveryOccurred.Codes);
         }
     }
 }
