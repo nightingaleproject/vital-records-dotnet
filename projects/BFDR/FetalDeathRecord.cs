@@ -81,6 +81,7 @@ namespace BFDR
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
         [FHIRPath("Bundle.entry.resource.where($this is Patient).extension.where(url='" + OtherExtensionURL.BirthSex + "')", "")]
+        [FHIRSubject(FHIRSubject.Subject.DecedentFetus)]
         public Dictionary<string, string> TimeOfFetalDeath
         {
             get

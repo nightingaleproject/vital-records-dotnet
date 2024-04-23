@@ -4899,6 +4899,9 @@
         <member name="F:BFDR.FHIRSubject.Subject.Newborn">
             <summary>The newborn</summary>
         </member>
+        <member name="F:BFDR.FHIRSubject.Subject.DecedentFetus">
+            <summary>The decedent fetus</summary>
+        </member>
         <member name="F:BFDR.FHIRSubject.subject">
             <summary>The subject of the field</summary>
         </member>
