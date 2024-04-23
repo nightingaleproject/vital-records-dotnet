@@ -62,6 +62,26 @@
         <member name="M:BFDR.FetalDeathRecord.InitializeCompositionAndSubject">
             <inheritdoc/>
         </member>
+        <member name="P:BFDR.FetalDeathRecord.TimeOfFetalDeath">
+            <summary>Estimated time of fetal death.</summary>
+            <value>Estimated time of fetal death</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.TimeOfFetalDeath = ;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Sex at Time of Birth: {ExampleBirthRecord.TimeOfFetalDeath}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.TimeOfFetalDeathHelper">
+            <summary>Child's Sex at Birth Helper.</summary>
+            <value>The child's sex at time of birth</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.TimeOfFetalDeathHelper = "female";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Time of Fetal Death: {ExampleBirthRecord.TimeOfFetalDeathHelper}");</para>
+            </example>
+        </member>
         <member name="P:BFDR.FetalDeathRecord.PrematureRuptureOfMembranes">
             <summary>Initiating cause/condition, Rupture of membranes prior to onset of labor.</summary>
         </member>
