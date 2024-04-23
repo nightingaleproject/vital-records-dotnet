@@ -81,6 +81,7 @@
             <para>// Getter:</para>
             <para>Console.WriteLine($"Time of Fetal Death: {ExampleBirthRecord.TimeOfFetalDeathHelper}");</para>
             </example>
+        </member>
         <member name="P:BFDR.FetalDeathRecord.PrematureRuptureOfMembranes">
             <summary>Initiating cause/condition, Rupture of membranes prior to onset of labor.</summary>
         </member>
