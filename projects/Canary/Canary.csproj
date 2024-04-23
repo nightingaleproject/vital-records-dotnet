@@ -25,7 +25,7 @@
     <ProjectReference Include="../BFDR/BirthRecord.csproj" /> 
     <ProjectReference Include="../VRDR/VRDR.csproj" /> 
     <ProjectReference Include="../VRDR.Messaging/VRDR.Messaging.csproj" />
-    <ProjectReference Include="../BFDR.Messaging/BFDRMessaging.csproj" /> 
+    <ProjectReference Include="../BFDR.Messaging/BFDR.Messaging.csproj" /> 
   </ItemGroup>
 
   <ItemGroup>
