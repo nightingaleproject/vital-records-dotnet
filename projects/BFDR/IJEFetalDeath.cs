@@ -271,7 +271,7 @@ namespace BFDR
         {
             get
             {
-                return Get_MappingFHIRToIJE(BFDR.Mappings.BirthDeliveryOccurred.FHIRToIJE, "DeliveryPhysicalLocation", "DPLACE p");
+                return Get_MappingFHIRToIJE(BFDR.Mappings.BirthDeliveryOccurred.FHIRToIJE, "DeliveryPhysicalLocation", "DPLACE");
             }
             set
             {
