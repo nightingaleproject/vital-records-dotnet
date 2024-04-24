@@ -283,6 +283,150 @@ namespace BFDR
             }
         }
 
+        /// <summary>Were Autopsy or Histological Placental Examination Results Used in Determining the Cause of Fetal Death?</summary>
+        /// <value>Were Autopsy or Histological Placental Examination Results Used in Determining the Cause of Fetal Death?</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; autopf = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>autopf.Add("code", "Y");</para>
+        /// <para>autopf.Add("system", VR.ValueSets.YesNoNotApplicable.Codes);</para>
+        /// <para>autopf.Add("display", "Yes");</para>
+        /// <para>ExampleFetalDeathRecord.AutopsyorHistologicalExamResultsUsed = autopf;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Were autopsy results used: {ExampleFetalDeathRecord.AutopsyorHistologicalExamResultsUsed}");</para>
+        /// </example>
+        [Property("AutopsyorHistologicalExamResultsUsed", Property.Types.Dictionary, "Fetus", "AutopsyorHistologicalExamResultsUsed", false, BFDR.IGURL.ObservationAutopsyHistologicalExamResultsUsed, true, 150)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='74498-7')", "")]
+        public Dictionary<string, string> AutopsyorHistologicalExamResultsUsed
+        {
+            get => GetObservationValue("74498-7");
+            set => SetObservationValue(value, "74498-7", CodeSystems.LOINC, "Were autopsy or histological placental examinations results used in determining the cause of fetal death?", BFDR.ProfileURL.ObservationAutopsyHistologicalExamResultsUsed, FETUS_SECTION);
+        }
+
+        /// <summary>Autopsy or Histological Placental Results Used Helper</summary>
+        /// <value>PAutopsy or Histological Placental Results Used Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleFetalDeathRecord.AutopsyorHistologicalExamResultsUsedHelper = "yes";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Were autopsy results used: {ExampleFetalDeathRecord.AutopsyorHistologicalExamResultsUsedHelper}");</para>
+        /// </example>
+        [Property("PAutopsyorHistologicalExamResultsUsedHelper", Property.Types.String, "Fetus", "AutopsyorHistologicalExamResultsUsedHelper", false, BFDR.IGURL.ObservationAutopsyHistologicalExamResultsUsed, true, 150)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='74498-7')", "")]
+        public string AutopsyorHistologicalExamResultsUsedHelper
+        {
+            get => GetObservationValueHelper();
+            set => SetObservationValueHelper(value, VR.ValueSets.YesNoNotApplicable.Codes);
+        }
+        
+
+        /// <summary>Autopsy Performed Indicator.</summary>
+        /// <value>autopsy performed indicator. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; code = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>code.Add("code", "Y");</para>
+        /// <para>code.Add("system", CodeSystems.PH_YesNo_HL7_2x);</para>
+        /// <para>code.Add("display", "Yes");</para>
+        /// <para>ExampleFetalDeathRecord.AutopsyPerformedIndicator = code;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Autopsy Performed Indicator: {ExampleFetalDeathRecord.AutopsyPerformedIndicator['display']}");</para>
+        /// </example>
+        [Property("Autopsy Performed Indicator", Property.Types.Dictionary, "Fetus", "Autopsy Performed Indicator.", true, VR.IGURL.AutopsyPerformedIndicator, true, 148)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='85699-7')", "")]
+        public Dictionary<string, string> AutopsyPerformedIndicator
+        {
+            get => GetObservationValue("85699-7");
+            set => SetObservationValue(value, "85699-7", CodeSystems.LOINC, "Autopsy Performed Indicator", VR.ProfileURL.AutopsyPerformedIndicator, FETUS_SECTION);
+        }
+
+        /// <summary>Autopsy Performed Indicator Helper. This is a helper method, to access the code use the AutopsyPerformedIndicator property.</summary>
+        /// <value>autopsy performed indicator. A null value indicates "not applicable".</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleFetalDeathRecord.AutopsyPerformedIndicatorHelper = "Y"";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Autopsy Performed Indicator: {ExampleDFetaleathRecord.AutopsyPerformedIndicatorBoolean}");</para>
+        /// </example>
+        [Property("Autopsy Performed Indicator Helper", Property.Types.String, "Fetus", "Autopsy Performed Indicator.", false, VR.IGURL.AutopsyPerformedIndicator, true, 148)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='85699-7')", "")]
+        public string AutopsyPerformedIndicatorHelper
+        {
+            get => GetObservationValueHelper();
+            set => SetObservationValueHelper(value, VR.ValueSets.YesNoUnknown.Codes);
+        }
+
+        /// <summary>Birth Weight.</summary>
+        /// <value>The weight of the infant/fetus at birth/delivery.</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleFetalDeathRecord.BirthWeight = 3000.0;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Birth Weight: {xampleFetalDeathRecord.BirthWeight}");</para>
+        /// </example>
+        [Property("BirthWeight", Property.Types.Int32, "Fetus", "Birth Weight.", false, BFDR.IGURL.ObservationBirthWeight, true, 143)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='8339-4')", "")]
+        public override int? BirthWeight
+        {
+          get => GetWeight("8339-4");
+          set => SetWeight("8339-4", value, "g", FETUS_SECTION, Subject.Id);
+        }
+
+        /// <summary>Birth Weight Edit Flag.</summary>
+        /// <value>the fetus's birth weight edit flag. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; weight = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>weight.Add("code", "0");</para>
+        /// <para>weight.Add("system", CodeSystems.BypassEditFlag);</para>
+        /// <para>weight.Add("display", "Edit Passed");</para>
+        /// <para>ExampleFetalDeathRecord.BirthWeightEditFlag = height;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Birth Weight: {ExampleFetalDeathRecord.BirthWeightEditFlag['display']}");</para>
+        /// </example>
+        [Property("Birth Weight Edit Flag", Property.Types.Dictionary, "Fetus", "Birth Weight Edit Flag.", true, IGURL.ObservationBirthWeight, true, 144)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='8302-2')", "")]
+        public override Dictionary<string, string> BirthWeightEditFlag
+        {
+            get => GetWeightEditFlag("8339-4");
+            set => SetWeightEditFlag("8339-4", value, FETUS_SECTION, Subject.Id);
+
+        }
+
+        /// <summary>Birth Weight Edit Flag Helper</summary>
+        /// <value>Birth Weight Edit Flag.</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleFetalDeathRecord.BirthWeightEditFlagHelper = "0";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Birth Weight Edit Flag: {ExampleFetalDeathRecord.BirthWeightHelperEditFlag}");</para>
+        /// </example>
+        [Property("Birth Weight Edit Flag Helper", Property.Types.String, "Fetus", "Birth Weight Edit Flag Helper.", false, IGURL.ObservationBirthWeight, true, 144)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='8339-4')", "")]
+        public override string BirthWeightEditFlagHelper
+        {
+            get => GetWeightEditFlagHelper("8339-4");
+            set => SetWeightEditFlagHelper("8339-4", value, FETUS_SECTION, Subject.Id);
+        }
+
         /// <summary>Initiating cause/condition, Other complications of placenta, cord, or membranes literal.</summary>
         [Property("Other Complications of Placenta Cord Membranes Literal", Property.Types.String, "Initiating Cause/Condition",
                   "Initiating Cause/Condition, Other Complications of Placenta Cord Membranes Literal", true, IGURL.ConditionFetalDeathCauseOrCondition, true, 100)]

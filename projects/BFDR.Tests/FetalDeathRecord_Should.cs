@@ -257,7 +257,7 @@ namespace BFDR.Tests
       Assert.Equal(19, (int)br2.CertifiedDay);
     }
       
-    [Fact]
+    [Fact]  
     public void SetEstimatedTimeOfFetalDeath()
     {
       SetterFetalDeathRecord.TimeOfFetalDeathHelper = "434671000124102";

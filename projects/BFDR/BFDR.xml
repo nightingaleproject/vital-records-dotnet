@@ -66,16 +66,6 @@
             records that follow the HL7 FHIR Vital Records FetalDeath Reporting Implementation Guide, as described
             at: http://hl7.org/fhir/us/bfdr and https://github.com/hl7/bfdr.
             </summary>
-            <summary>Class <c>FetalDeathRecord</c> is an abstract base class models FHIR Vital Records
-            Birth Reporting (BFDR) Birth and Fetal Death Records. This class was designed to help consume
-            and produce FetalDeath records that follow the HL7 FHIR Vital Records Birth Reporting Implementation
-            Guide, as described at: http://hl7.org/fhir/us/bfdr and https://github.com/hl7/bfdr.
-            TODO BFDR STU2 has broken up its birth record bundles, the birth bundle has birthCertificateNumber + required birth compositions,
-            the fetal death bundle has fetalDeathReportNumber + required fetal death compositions,
-            the demographic bundle has a fileNumber + requiredCompositionCodedRaceAndEthnicity,
-            and the cause of death bundle has a fetalDeathReportNumber + required CompositionCodedCauseOfFetalDeath
-            TODO BFDR STU2 supports usual work and role extension
-            </summary>
         </member>
         <member name="M:BFDR.FetalDeathRecord.#ctor">
             <summary>Default constructor that creates a new, empty FetalDeathRecord.</summary>
@@ -100,8 +90,49 @@
         <member name="M:BFDR.FetalDeathRecord.InitializeCompositionAndSubject">
             <inheritdoc/>
         </member>
-        <member name="F:BFDR.FetalDeathRecord.FETUS_SECTION">
-            <summary>Composition Section Constants</summary>
+        <member name="P:BFDR.FetalDeathRecord.TimeOfFetalDeath">
+            <summary>Estimated time of fetal death.</summary>
+            <value>Estimated time of fetal death</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.TimeOfFetalDeath = ;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Sex at Time of Birth: {ExampleBirthRecord.TimeOfFetalDeath}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.TimeOfFetalDeathHelper">
+            <summary>Child's Sex at Birth Helper.</summary>
+            <value>The child's sex at time of birth</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.TimeOfFetalDeathHelper = "female";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Time of Fetal Death: {ExampleBirthRecord.TimeOfFetalDeathHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.PrematureRuptureOfMembranes">
+            <summary>Initiating cause/condition, Rupture of membranes prior to onset of labor.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.AbruptioPlacenta">
+            <summary>Initiating cause/condition, Abruptio placenta.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.PlacentalInsufficiency">
+            <summary>Initiating cause/condition, Placental insufficiency.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.ProlapsedCord">
+            <summary>Initiating cause/condition, Prolapsed cord.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.ChorioamnionitisCOD">
+            <summary>Initiating cause/condition, Chorioamnionitis.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OtherComplicationsOfPlacentaCordOrMembranes">
+            <summary>Initiating cause/condition, Other complications of placenta, cord, or membranes.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.InitiatingCauseOrConditionUnknown">
+            <summary>Initiating cause/condition, Unknown.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.MaternalConditionsDiseasesLiteral">
+            <summary>Initiating cause/condition, Maternal conditions/diseases literal.</summary>
         </member>
         <member name="P:BFDR.FetalDeathRecord.AutopsyorHistologicalExamResultsUsed">
             <summary>Were Autopsy or Histological Placental Examination Results Used in Determining the Cause of Fetal Death?</summary>
