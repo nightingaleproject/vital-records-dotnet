@@ -108,5 +108,19 @@ namespace BFDR.Tests
       Assert.Equal("http://snomed.info/sct", record.TimeOfFetalDeath["system"]);
       Assert.Equal("A", new IJEFetalDeath(record).ETIME);
     }
+
+    [Fact]
+    public void SetAndParseDeliveryPlace()
+    {
+      IJEFetalDeath ije = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/FetalDeathRecord.ije")));
+      FetalDeathRecord record = ije.ToRecord();
+      Assert.Equal("6", ije.DPLACE);
+      Assert.Equal("67190003", record.DeliveryPhysicalLocationHelper);
+      Assert.Equal("67190003", record.DeliveryPhysicalLocation["code"]);
+      Assert.Equal("http://snomed.info/sct", record.DeliveryPhysicalLocation["system"]);
+      ije.DPLACE = "4";
+      Assert.Equal("408838003", ije.ToRecord().DeliveryPhysicalLocationHelper);
+      Assert.Equal("4", ije.DPLACE);
+    }
   }
 }
