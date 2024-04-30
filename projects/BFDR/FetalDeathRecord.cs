@@ -68,6 +68,49 @@ namespace BFDR
             Composition.Title = "Fetal Death Report";
         }
 
+        /// <summary>The place of delivery Type.</summary>
+        /// <value>Place Where delivery Occurred, type of place or institution. A Dictionary representing a codeable concept of the physical location type:
+        /// <para>"code" - The code used to describe this concept.</para>
+        /// <para>"system" - The relevant code system.</para>
+        /// <para>"display" - The human readable version of this code.</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; locationType = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>locationType.Add("code", "22232009");</para>
+        /// <para>locationType.Add("system", "http://snomed.info/sct");</para>
+        /// <para>locationType.Add("display", "Hospital");</para>
+        /// <para>ExampleBirthRecord.BirthPhysicalLocation = locationType;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"The place type the child was born: {ExampleBirthRecord.BirthPhysicalLocation["code"]}");</para>
+        /// </example>
+        [Property("DeliveryPhysicalLocation", Property.Types.Dictionary, "Delivery Physical Location", "Delivery Physical Location.", true, IGURL.EncounterMaternity, true, 16)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Encounter)", "")]
+        public Dictionary<string, string> DeliveryPhysicalLocation
+        {
+            get => GetPhysicalLocation(EncounterMaternity);
+            set => SetPhysicalLocation(EncounterMaternity ?? CreateEncounter(ProfileURL.EncounterMaternity), value);
+        }
+
+        /// <summary>Child's Place Of Birth Type Helper</summary>
+        /// <value>Child's Place Of Birth Type Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.BirthPhysicalLocationHelper = "Hospital";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Child's Place Of Birth Type: {ExampleBirthRecord.BirthPhysicalLocationHelper}");</para>
+        /// </example>
+        [Property("DeliveryPhysicalLocationHelper", Property.Types.String, "Delivery Physical Location", "Delivery Physical Location Helper.", false, IGURL.EncounterMaternity, true, 4)]
+        [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(meta.profile == " + IGURL.EncounterMaternity + ")", "")]
+        public string DeliveryPhysicalLocationHelper
+        {
+            get => GetPhysicalLocationHelper(EncounterMaternity);
+            set => SetPhysicalLocationHelper(EncounterMaternity ?? CreateEncounter(ProfileURL.EncounterMaternity), value, BFDR.Mappings.BirthDeliveryOccurred.FHIRToIJE, BFDR.ValueSets.BirthDeliveryOccurred.Codes);
+        }
+        
         /// <summary>Estimated time of fetal death.</summary>
         /// <value>Estimated time of fetal death</value>
         /// <example>
