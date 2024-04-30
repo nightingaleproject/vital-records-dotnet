@@ -6203,6 +6203,14 @@
         <member name="M:VR.VitalRecord.SetCodeValue(System.String,System.String,System.String[0:,0:])">
             <summary>Helper function to set a codeable value based on a code and the set of allowed codes.</summary>
         </member>
+        <member name="M:VR.VitalRecord.CreateCode(System.String,System.String[0:,0:])">
+             <summary>
+            
+             </summary>
+             <param name="code"></param>
+             <param name="options"></param>
+             <exception cref="T:System.ArgumentException"></exception>
+        </member>
         <member name="M:VR.VitalRecord.SetQuantityValue(System.String,System.String,System.String,System.String[0:,0:])">
             <summary>Helper function to set a quantity value based on a value, code and the set of allowed codes.</summary>
         </member>
@@ -6327,6 +6335,43 @@
         </member>
         <member name="M:VR.VitalRecord.SetPlaceOfBirth(Hl7.Fhir.Model.RelatedPerson,System.Collections.Generic.Dictionary{System.String,System.String})">
             <summary>Sets the given place of birth dictionary on the given patient.</summary>
+        </member>
+        <member name="M:VR.VitalRecord.CreateEncounter(System.String)">
+            <summary>
+            Creates an encounter with the given profile url.
+            </summary>
+            <param name="profileURL"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VR.VitalRecord.GetPhysicalLocation(Hl7.Fhir.Model.Encounter)">
+            <summary>
+            Gets the physical location from the given encounter.
+            </summary>
+            <param name="encounter"></param>
+            <returns>A dictionary in the form of a codeable concept.</returns>
+        </member>
+        <member name="M:VR.VitalRecord.SetPhysicalLocation(Hl7.Fhir.Model.Encounter,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Sets the physical location of the given encounter to the given dictionary, which should be in codeablconcept format.
+            </summary>
+            <param name="encounter"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:VR.VitalRecord.GetPhysicalLocationHelper(Hl7.Fhir.Model.Encounter)">
+            <summary>
+            Gets the physical location from the given encounter.
+            </summary>
+            <param name="encounter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VR.VitalRecord.SetPhysicalLocationHelper(Hl7.Fhir.Model.Encounter,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String[0:,0:])">
+            <summary>
+            Sets the given physical location string in the given encounter, mapping the string based on the given mapping and value set.
+            </summary>
+            <param name="encounter"></param>
+            <param name="value"></param>
+            <param name="fHIRToIJEMapping"></param>
+            <param name="valueSetCodes"></param>
         </member>
         <member name="T:VR.PropertyParam">
             <summary>Property attribute used to describe a VitalRecord property parameter,
