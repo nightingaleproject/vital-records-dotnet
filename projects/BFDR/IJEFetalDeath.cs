@@ -2764,90 +2764,48 @@ namespace BFDR
         [IJEField(188, 654, 60, "Initiating cause/condition - Other complications of placenta, cord, or membranes literal", "COD18a9", 1)]
         public string COD18a9
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("COD18a9", "OtherComplicationsOfPlacentaCordMembranesLiteral");
+            set => LeftJustified_Set("COD18a9", "OtherComplicationsOfPlacentaCordMembranesLiteral", value);
         }
 
         /// <summary>Initiating cause/condition - Other obstetrical or pregnancy complications literal</summary>
         [IJEField(189, 714, 60, "Initiating cause/condition - Other obstetrical or pregnancy complications literal", "COD18a10", 1)]
         public string COD18a10
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("COD18a10", "OtherObstetricalOrPregnancyComplicationsLiteral");
+            set => LeftJustified_Set("COD18a10", "OtherObstetricalOrPregnancyComplicationsLiteral", value);
         }
 
         /// <summary>Initiating cause/condition - Fetal anomaly literal</summary>
         [IJEField(190, 774, 60, "Initiating cause/condition - Fetal anomaly literal", "COD18a11", 1)]
         public string COD18a11
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("COD18a11", "FetalAnomalyLiteral");
+            set => LeftJustified_Set("COD18a11", "FetalAnomalyLiteral", value);
         }
 
         /// <summary>Initiating cause/condition - Fetal injury literal</summary>
         [IJEField(191, 834, 60, "Initiating cause/condition - Fetal injury literal", "COD18a12", 1)]
         public string COD18a12
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("COD18a12", "FetalInjuryLiteral");
+            set => LeftJustified_Set("COD18a12", "FetalInjuryLiteral", value);
         }
 
         /// <summary>Initiating cause/condition - Fetal infection literal</summary>
         [IJEField(192, 894, 60, "Initiating cause/condition - Fetal infection literal", "COD18a13", 1)]
         public string COD18a13
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("COD18a13", "FetalInfectionLiteral");
+            set => LeftJustified_Set("COD18a13", "FetalInfectionLiteral", value);
         }
 
         /// <summary>Initiating cause/condition - Other fetal conditions/disorders literal</summary>
         [IJEField(193, 954, 60, "Initiating cause/condition - Other fetal conditions/disorders literal", "COD18a14", 1)]
         public string COD18a14
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("COD18a14", "OtherFetalConditionsDisordersLiteral");
+            set => LeftJustified_Set("COD18a14", "OtherFetalConditionsDisordersLiteral", value);
         }
 
         /// <summary>Other significant causes or conditions - Rupture of membranes prior to onset of labor</summary>
