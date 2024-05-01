@@ -462,5 +462,86 @@ namespace BFDR
                 cond.Code.Text = value;
             }
         }
+
+        //
+        // Other Fetal Death Cause or Condition Section
+        //
+
+        /// <summary>Other significant causes or conditions, Rupture of membranes prior to onset of labor.</summary>
+        [Property("Rupture of Membranes Prior to Onset of Labor", Property.Types.Bool, "Other Significant Cause/Condition",
+                  "Other Significant Cause/Condition, Rupture of Membranes Prior to Onset of Labor", true, IGURL.ConditionFetalDeathOtherCauseOrCondition, true, 100)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "76061-1", code: "44223004", section: FETUS_SECTION)]
+        [FHIRSubject(FHIRSubject.Subject.DecedentFetus)]
+        public bool OtherCOD_PrematureRuptureOfMembranes
+        {
+            get => EntryExists();
+            set => UpdateEntry(value);
+        }
+
+        /// <summary>Other significant causes or conditions, Abruptio placenta.</summary>
+        [Property("Abruptio Placenta", Property.Types.Bool, "Other Significant Cause/Condition",
+                  "Other Significant Cause/Condition, Abruptio Placenta", true, IGURL.ConditionFetalDeathOtherCauseOrCondition, true, 100)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "76061-1", code: "415105001", section: FETUS_SECTION)]
+        [FHIRSubject(FHIRSubject.Subject.DecedentFetus)]
+        public bool OtherCOD_AbruptioPlacenta
+        {
+            get => EntryExists();
+            set => UpdateEntry(value);
+        }
+
+        /// <summary>Other significant causes or conditions, Placental insufficiency.</summary>
+        [Property("Placental Insufficiency", Property.Types.Bool, "Other Significant Cause/Condition",
+                  "Other Significant Cause/Condition, Placental Insufficiency", true, IGURL.ConditionFetalDeathOtherCauseOrCondition, true, 100)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "76061-1", code: "237292005", section: FETUS_SECTION)]
+        [FHIRSubject(FHIRSubject.Subject.DecedentFetus)]
+        public bool OtherCOD_PlacentalInsufficiency
+        {
+            get => EntryExists();
+            set => UpdateEntry(value);
+        }
+
+        /// <summary>Other significant causes or conditions, Prolapsed cord.</summary>
+        [Property("Prolapsed Cord", Property.Types.Bool, "Other Significant Cause/Condition",
+                  "Other Significant Cause/Condition, Prolapsed Cord", true, IGURL.ConditionFetalDeathOtherCauseOrCondition, true, 100)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "76061-1", code: "270500004", section: FETUS_SECTION)]
+        [FHIRSubject(FHIRSubject.Subject.DecedentFetus)]
+        public bool OtherCOD_ProlapsedCord
+        {
+            get => EntryExists();
+            set => UpdateEntry(value);
+        }
+
+        /// <summary>Other significant causes or conditions, Chorioamnionitis.</summary>
+        [Property("Chorioamnionitis", Property.Types.Bool, "Other Significant Cause/Condition",
+                  "Other Significant Cause/Condition, Chorioamnionitis", true, IGURL.ConditionFetalDeathOtherCauseOrCondition, true, 100)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "76061-1", code: "11612004", section: FETUS_SECTION)]
+        [FHIRSubject(FHIRSubject.Subject.DecedentFetus)]
+        public bool OtherCOD_ChorioamnionitisCOD
+        {
+            get => EntryExists();
+            set => UpdateEntry(value);
+        }
+
+        /// <summary>Other significant causes or conditions, Other complications of placenta, cord, or membranes.</summary>
+        [Property("Other Complications of Placenta, Cord, or Membranes", Property.Types.Bool, "Other Significant Cause/Condition",
+                  "Other Significant Cause/Condition, Other Complications of Placenta, Cord, or Membranes", true, IGURL.ConditionFetalDeathOtherCauseOrCondition, true, 100)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "76061-1", code: "membranes", section: FETUS_SECTION)]
+        [FHIRSubject(FHIRSubject.Subject.DecedentFetus)]
+        public bool OtherCOD_OtherComplicationsOfPlacentaCordOrMembranes
+        {
+            get => EntryExists();
+            set => UpdateEntry(value);
+        }
+
+        /// <summary>Other significant causes or conditions, Unknown.</summary>
+        [Property("Unknown Other Cause or Condition", Property.Types.Bool, "Other Significant Cause/Condition",
+                  "Other Significant Cause/Condition, Unknown", true, IGURL.ConditionFetalDeathOtherCauseOrCondition, true, 100)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "76061-1", code: "UNK", section: FETUS_SECTION)]
+        [FHIRSubject(FHIRSubject.Subject.DecedentFetus)]
+        public bool OtherCOD_OtherCauseOrConditionUnknown
+        {
+            get => EntryExists();
+            set => UpdateEntry(value);
+        }
     }
 }

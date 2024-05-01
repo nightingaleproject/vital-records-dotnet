@@ -2812,105 +2812,56 @@ namespace BFDR
         [IJEField(194, 1014, 1, "Other significant causes or conditions - Rupture of membranes prior to onset of labor", "COD18b1", 1)]
         public string COD18b1
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => YesNo_PresenceToIJE(record.OtherCOD_PrematureRuptureOfMembranes);
+            set => YesNo_IJEToPresence(value, (v) => record.OtherCOD_PrematureRuptureOfMembranes = v);
         }
 
         /// <summary>Other significant causes or conditions - Abruptio placenta</summary>
         [IJEField(195, 1015, 1, "Other significant causes or conditions - Abruptio placenta", "COD18b2", 1)]
         public string COD18b2
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => YesNo_PresenceToIJE(record.OtherCOD_AbruptioPlacenta);
+            set => YesNo_IJEToPresence(value, (v) => record.OtherCOD_AbruptioPlacenta = v);
         }
 
         /// <summary>Other significant causes or conditions  - Placental insufficiency</summary>
         [IJEField(196, 1016, 1, "Other significant causes or conditions  - Placental insufficiency", "COD18b3", 1)]
         public string COD18b3
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => YesNo_PresenceToIJE(record.OtherCOD_PlacentalInsufficiency);
+            set => YesNo_IJEToPresence(value, (v) => record.OtherCOD_PlacentalInsufficiency = v);
         }
 
         /// <summary>Other significant causes or conditions - Prolapsed cord</summary>
         [IJEField(197, 1017, 1, "Other significant causes or conditions - Prolapsed cord", "COD18b4", 1)]
         public string COD18b4
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => YesNo_PresenceToIJE(record.OtherCOD_ProlapsedCord);
+            set => YesNo_IJEToPresence(value, (v) => record.OtherCOD_ProlapsedCord = v);
         }
 
         /// <summary>Other significant causes or conditions - Chorioamnionitis</summary>
         [IJEField(198, 1018, 1, "Other significant causes or conditions - Chorioamnionitis", "COD18b5", 1)]
         public string COD18b5
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => YesNo_PresenceToIJE(record.OtherCOD_ChorioamnionitisCOD);
+            set => YesNo_IJEToPresence(value, (v) => record.OtherCOD_ChorioamnionitisCOD = v);
         }
 
         /// <summary>Other significant causes or conditions - Other complications of placenta, cord, or membranes</summary>
         [IJEField(199, 1019, 1, "Other significant causes or conditions - Other complications of placenta, cord, or membranes", "COD18b6", 1)]
         public string COD18b6
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => YesNo_PresenceToIJE(record.OtherCOD_OtherComplicationsOfPlacentaCordOrMembranes);
+            set => YesNo_IJEToPresence(value, (v) => record.OtherCOD_OtherComplicationsOfPlacentaCordOrMembranes = v);
         }
 
         /// <summary>Other significant causes or conditions - Unknown</summary>
         [IJEField(200, 1020, 1, "Other significant causes or conditions - Unknown", "COD18b7", 1)]
         public string COD18b7
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => YesNo_PresenceToIJE(record.OtherCOD_OtherCauseOrConditionUnknown);
+            set => YesNo_IJEToPresence(value, (v) => record.OtherCOD_OtherCauseOrConditionUnknown = v);
         }
 
         /// <summary>Other significant causes or conditions - Maternal conditions/diseases literal</summary>
