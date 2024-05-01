@@ -201,6 +201,27 @@
         <member name="P:BFDR.FetalDeathRecord.OtherCOD_OtherCauseOrConditionUnknown">
             <summary>Other significant causes or conditions, Unknown.</summary>
         </member>
+        <member name="P:BFDR.FetalDeathRecord.OtherCOD_MaternalConditionsDiseasesLiteral">
+            <summary>Other significant causes or conditions, Maternal conditions/diseases literal.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OtherCOD_OtherComplicationsOfPlacentaCordMembranesLiteral">
+            <summary>Other significant causes or conditions, Other complications of placenta, cord, or membranes literal.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OtherCOD_OtherObstetricalOrPregnancyComplicationsLiteral">
+            <summary>Other significant causes or conditions, Other obstetrical or pregnancy complications literal.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OtherCOD_FetalAnomalyLiteral">
+            <summary>Other significant causes or conditions, Fetal anomaly literal.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OtherCOD_FetalInjuryLiteral">
+            <summary>Other significant causes or conditions, Fetal injury literal.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OtherCOD_FetalInfectionLiteral">
+            <summary>Other significant causes or conditions, Fetal infection literal.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OtherCOD_OtherFetalConditionsDisordersLiteral">
+            <summary>Other significant causes or conditions, Other fetal conditions/disorders literal.</summary>
+        </member>
         <member name="T:BFDR.IJEBirth">
             <summary>A "wrapper" class to convert between a FHIR based <c>BirthRecord</c> and
             a record in IJE Natality format. Each property of this class corresponds exactly

@@ -543,5 +543,215 @@ namespace BFDR
             get => EntryExists();
             set => UpdateEntry(value);
         }
+
+        /// <summary>Other significant causes or conditions, Maternal conditions/diseases literal.</summary>
+        [Property("Maternal Conditions Diseases Literal", Property.Types.String, "Other Significant Cause/Condition",
+                  "Other Significant Cause/Condition, Maternal Conditions Diseases Literal", true, IGURL.ConditionFetalDeathOtherCauseOrCondition, true, 100)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "76061-1", code: "maternalconditions", section: FETUS_SECTION)]
+        [FHIRSubject(FHIRSubject.Subject.DecedentFetus)]
+        public string OtherCOD_MaternalConditionsDiseasesLiteral
+        {
+            get
+            {
+                Condition cond = GetCondition("maternalconditions");
+                if (cond != null && cond.Code != null && cond.Code.Text != null)
+                {
+                    return cond.Code.Text.ToString();
+                }
+                return null;
+            }
+            set
+            {
+                if (String.IsNullOrWhiteSpace(value))
+                {
+                    return;
+                }
+                Condition cond = GetCondition("maternalconditions");
+                if (cond == null){
+                    cond = (Condition)CreateEntry(GetFHIRPathAttribute(), SubjectId());
+                }
+                cond.Code.Text = value;
+            }
+        }
+
+        /// <summary>Other significant causes or conditions, Other complications of placenta, cord, or membranes literal.</summary>
+        [Property("Other Complications of Placenta Cord Membranes Literal", Property.Types.String, "Other Significant Cause/Condition",
+                  "Other Significant Cause/Condition, Other Complications of Placenta Cord Membranes Literal", true, IGURL.ConditionFetalDeathOtherCauseOrCondition, true, 100)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "76061-1", code: "membranes", section: FETUS_SECTION)]
+        [FHIRSubject(FHIRSubject.Subject.DecedentFetus)]
+        public string OtherCOD_OtherComplicationsOfPlacentaCordMembranesLiteral
+        {
+            get
+            {
+                Condition cond = GetCondition("membranes");
+                if (cond != null && cond.Code != null && cond.Code.Text != null)
+                {
+                    return cond.Code.Text.ToString();
+                }
+                return null;
+            }
+            set
+            {
+                if (String.IsNullOrWhiteSpace(value))
+                {
+                    return;
+                }
+                Condition cond = GetCondition("membranes");
+                if (cond == null){
+                    cond = (Condition)CreateEntry(GetFHIRPathAttribute(), SubjectId());
+                }
+                cond.Code.Text = value;
+            }
+        }
+
+        /// <summary>Other significant causes or conditions, Other obstetrical or pregnancy complications literal.</summary>
+        [Property("Other Obstetrical or Pregnancy Complications Literal", Property.Types.String, "Other Significant Cause/Condition",
+                  "Other Significant Cause/Condition, Other Obstetrical or Pregnancy Complications Literal", true, IGURL.ConditionFetalDeathOtherCauseOrCondition, true, 100)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "76061-1", code: "obstetricalcomplications", section: FETUS_SECTION)]
+        [FHIRSubject(FHIRSubject.Subject.DecedentFetus)]
+        public string OtherCOD_OtherObstetricalOrPregnancyComplicationsLiteral
+        {
+            get
+            {
+                Condition cond = GetCondition("obstetricalcomplications");
+                if (cond != null && cond.Code != null && cond.Code.Text != null)
+                {
+                    return cond.Code.Text.ToString();
+                }
+                return null;
+            }
+            set
+            {
+                if (String.IsNullOrWhiteSpace(value))
+                {
+                    return;
+                }
+                Condition cond = GetCondition("obstetricalcomplications");
+                if (cond == null){
+                    cond = (Condition)CreateEntry(GetFHIRPathAttribute(), SubjectId());
+                }
+                cond.Code.Text = value;
+            }
+        }
+
+        /// <summary>Other significant causes or conditions, Fetal anomaly literal.</summary>
+        [Property("Fetal Anomaly Literal", Property.Types.String, "Other Significant Cause/Condition",
+                  "Other Significant Cause/Condition, Fetal Anomaly Literal", true, IGURL.ConditionFetalDeathOtherCauseOrCondition, true, 100)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "76061-1", code: "702709008", section: FETUS_SECTION)]
+        [FHIRSubject(FHIRSubject.Subject.DecedentFetus)]
+        public string OtherCOD_FetalAnomalyLiteral
+        {
+            get
+            {
+                Condition cond = GetCondition("702709008");
+                if (cond != null && cond.Code != null && cond.Code.Text != null)
+                {
+                    return cond.Code.Text.ToString();
+                }
+                return null;
+            }
+            set
+            {
+                if (String.IsNullOrWhiteSpace(value))
+                {
+                    return;
+                }
+                Condition cond = GetCondition("702709008");
+                if (cond == null){
+                    cond = (Condition)CreateEntry(GetFHIRPathAttribute(), SubjectId());
+                }
+                cond.Code.Text = value;
+            }
+        }
+
+        /// <summary>Other significant causes or conditions, Fetal injury literal.</summary>
+        [Property("Fetal Injury Literal", Property.Types.String, "Other Significant Cause/Condition",
+                  "Other Significant Cause/Condition, Fetal Injury Literal", true, IGURL.ConditionFetalDeathOtherCauseOrCondition, true, 100)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "76061-1", code: "277489001", section: FETUS_SECTION)]
+        [FHIRSubject(FHIRSubject.Subject.DecedentFetus)]
+        public string OtherCOD_FetalInjuryLiteral
+        {
+            get
+            {
+                Condition cond = GetCondition("277489001");
+                if (cond != null && cond.Code != null && cond.Code.Text != null)
+                {
+                    return cond.Code.Text.ToString();
+                }
+                return null;
+            }
+            set
+            {
+                if (String.IsNullOrWhiteSpace(value))
+                {
+                    return;
+                }
+                Condition cond = GetCondition("277489001");
+                if (cond == null){
+                    cond = (Condition)CreateEntry(GetFHIRPathAttribute(), SubjectId());
+                }
+                cond.Code.Text = value;
+            }
+        }
+
+        /// <summary>Other significant causes or conditions, Fetal infection literal.</summary>
+        [Property("Fetal Infection Literal", Property.Types.String, "Other Significant Cause/Condition",
+                  "Other Significant Cause/Condition, Fetal Infection Literal", true, IGURL.ConditionFetalDeathOtherCauseOrCondition, true, 100)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "76061-1", code: "128270001", section: FETUS_SECTION)]
+        [FHIRSubject(FHIRSubject.Subject.DecedentFetus)]
+        public string OtherCOD_FetalInfectionLiteral
+        {
+            get
+            {
+                Condition cond = GetCondition("128270001");
+                if (cond != null && cond.Code != null && cond.Code.Text != null)
+                {
+                    return cond.Code.Text.ToString();
+                }
+                return null;
+            }
+            set
+            {
+                if (String.IsNullOrWhiteSpace(value))
+                {
+                    return;
+                }
+                Condition cond = GetCondition("128270001");
+                if (cond == null){
+                    cond = (Condition)CreateEntry(GetFHIRPathAttribute(), SubjectId());
+                }
+                cond.Code.Text = value;
+            }
+        }
+
+        /// <summary>Other significant causes or conditions, Other fetal conditions/disorders literal.</summary>
+        [Property("Other Fetal Conditions/Disorders Literal", Property.Types.String, "Other Significant Cause/Condition",
+                  "Other Significant Cause/Condition, Other Fetal Conditions/Disorders Literal", true, IGURL.ConditionFetalDeathOtherCauseOrCondition, true, 100)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "76061-1", code: "fetalconditions", section: FETUS_SECTION)]
+        [FHIRSubject(FHIRSubject.Subject.DecedentFetus)]
+        public string OtherCOD_OtherFetalConditionsDisordersLiteral
+        {
+            get
+            {
+                Condition cond = GetCondition("fetalconditions");
+                if (cond != null && cond.Code != null && cond.Code.Text != null)
+                {
+                    return cond.Code.Text.ToString();
+                }
+                return null;
+            }
+            set
+            {
+                if (String.IsNullOrWhiteSpace(value))
+                {
+                    return;
+                }
+                Condition cond = GetCondition("fetalconditions");
+                if (cond == null){
+                    cond = (Condition)CreateEntry(GetFHIRPathAttribute(), SubjectId());
+                }
+                cond.Code.Text = value;
+            }
+        }
     }
 }

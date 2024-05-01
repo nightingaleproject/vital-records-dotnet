@@ -2868,105 +2868,56 @@ namespace BFDR
         [IJEField(201, 1021, 240, "Other significant causes or conditions - Maternal conditions/diseases literal", "COD18b8", 1)]
         public string COD18b8
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("COD18b8", "OtherCOD_MaternalConditionsDiseasesLiteral");
+            set => LeftJustified_Set("COD18b8", "OtherCOD_MaternalConditionsDiseasesLiteral", value);
         }
 
         /// <summary>Other significant causes or conditions - Other complications of placenta, cord, or membranes literal</summary>
         [IJEField(202, 1261, 240, "Other significant causes or conditions - Other complications of placenta, cord, or membranes literal", "COD18b9", 1)]
         public string COD18b9
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("COD18b9", "OtherCOD_OtherComplicationsOfPlacentaCordMembranesLiteral");
+            set => LeftJustified_Set("COD18b9", "OtherCOD_OtherComplicationsOfPlacentaCordMembranesLiteral", value);
         }
 
         /// <summary>Other significant causes or conditions - Other obstetrical or pregnancy complications literal</summary>
         [IJEField(203, 1501, 240, "Other significant causes or conditions - Other obstetrical or pregnancy complications literal", "COD18b10", 1)]
         public string COD18b10
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("COD18b10", "OtherCOD_OtherObstetricalOrPregnancyComplicationsLiteral");
+            set => LeftJustified_Set("COD18b10", "OtherCOD_OtherObstetricalOrPregnancyComplicationsLiteral", value);
         }
 
         /// <summary>Other significant causes or conditions - Fetal anomaly literal</summary>
         [IJEField(204, 1741, 240, "Other significant causes or conditions - Fetal anomaly literal", "COD18b11", 1)]
         public string COD18b11
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("COD18b11", "OtherCOD_FetalAnomalyLiteral");
+            set => LeftJustified_Set("COD18b11", "OtherCOD_FetalAnomalyLiteral", value);
         }
 
         /// <summary>Other significant causes or conditions - Fetal injury literal</summary>
         [IJEField(205, 1981, 240, "Other significant causes or conditions - Fetal injury literal", "COD18b12", 1)]
         public string COD18b12
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("COD18b12", "OtherCOD_FetalInjuryLiteral");
+            set => LeftJustified_Set("COD18b12", "OtherCOD_FetalInjuryLiteral", value);
         }
 
         /// <summary>Other significant causes or conditions - Fetal infection literal</summary>
         [IJEField(206, 2221, 240, "Other significant causes or conditions - Fetal infection literal", "COD18b13", 1)]
         public string COD18b13
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("COD18b13", "OtherCOD_FetalInfectionLiteral");
+            set => LeftJustified_Set("COD18b13", "OtherCOD_FetalInfectionLiteral", value);
         }
 
         /// <summary>Other significant causes or conditions - Other fetal conditions/disorders literal</summary>
         [IJEField(207, 2461, 240, "Other significant causes or conditions - Other fetal conditions/disorders literal", "COD18b14", 1)]
         public string COD18b14
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("COD18b14", "OtherCOD_OtherFetalConditionsDisordersLiteral");
+            set => LeftJustified_Set("COD18b14", "OtherCOD_OtherFetalConditionsDisordersLiteral", value);
         }
 
         /// <summary>Coded initiating cause/condition</summary>
