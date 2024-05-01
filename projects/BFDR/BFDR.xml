@@ -123,6 +123,24 @@
         <member name="P:BFDR.FetalDeathRecord.MaternalConditionsDiseasesLiteral">
             <summary>Initiating cause/condition, Maternal conditions/diseases literal.</summary>
         </member>
+        <member name="P:BFDR.FetalDeathRecord.OtherComplicationsOfPlacentaCordMembranesLiteral">
+            <summary>Initiating cause/condition, Other complications of placenta, cord, or membranes literal.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OtherObstetricalOrPregnancyComplicationsLiteral">
+            <summary>Initiating cause/condition, Other obstetrical or pregnancy complications literal.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.FetalAnomalyLiteral">
+            <summary>Initiating cause/condition, Fetal anomaly literal.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.FetalInjuryLiteral">
+            <summary>Initiating cause/condition, Fetal injury literal.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.FetalInfectionLiteral">
+            <summary>Initiating cause/condition, Fetal infection literal.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OtherFetalConditionsDisordersLiteral">
+            <summary>Initiating cause/condition, Other fetal conditions/disorders literal.</summary>
+        </member>
         <member name="T:BFDR.IJEBirth">
             <summary>A "wrapper" class to convert between a FHIR based <c>BirthRecord</c> and
             a record in IJE Natality format. Each property of this class corresponds exactly
