@@ -962,5 +962,15 @@ namespace BFDR.Tests
       Assert.Equal("7134703", ije3.INF_MED_REC_NUM);
       Assert.Equal("2286144", ije3.MOM_MED_REC_NUM);
     }
+
+    [Fact]
+    public void BlankEights() {
+      IJEBirth ije = new()
+      {
+          YOPO = "8888"
+      };
+      Assert.Equal("    ", ije.YOPO);
+      Assert.Null(ije.ToRecord().DateOfLastOtherPregnancyOutcomeYear);
+    }
   }
 }

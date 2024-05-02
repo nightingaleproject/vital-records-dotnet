@@ -120,7 +120,7 @@ namespace VR
         protected void NumericAllowingUnknown_Set(string ijeFieldName, string fhirFieldName, string value)
         {
             IJEField info = FieldInfo(ijeFieldName);
-            if (value == new string(' ', info.Length))
+            if (value == new string(' ', info.Length) || value == new string('8', info.Length))
             {
                 Record.GetType().GetProperty(fhirFieldName).SetValue(Record, null);
             }
@@ -200,7 +200,7 @@ namespace VR
                 {
                     Record.GetType().GetProperty(fhirFieldName).SetValue(Record, false);
                 }
-                // U or blank results in no data in FHIR
+                // U, 8, or blank results in no data in FHIR
             }
         }
 
@@ -226,7 +226,7 @@ namespace VR
         protected void TimeAllowingUnknown_Set(string ijeFieldName, string fhirFieldName, string value)
         {
             IJEField info = FieldInfo(ijeFieldName);
-            if (value == new string(' ', info.Length))
+            if (value == new string(' ', info.Length) || value == new string('8', info.Length))
             {
                 this.Record.GetType().GetProperty(fhirFieldName).SetValue(this.Record, null);
             }
