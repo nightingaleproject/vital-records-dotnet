@@ -314,7 +314,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Were autopsy results used: {ExampleFetalDeathRecord.AutopsyorHistologicalExamResultsUsedHelper}");</para>
         /// </example>
-        [Property("PAutopsyorHistologicalExamResultsUsedHelper", Property.Types.String, "Fetus", "AutopsyorHistologicalExamResultsUsedHelper", false, BFDR.IGURL.ObservationAutopsyHistologicalExamResultsUsed, true, 150)]
+        [Property("AutopsyorHistologicalExamResultsUsedHelper", Property.Types.String, "Fetus", "AutopsyorHistologicalExamResultsUsedHelper", false, BFDR.IGURL.ObservationAutopsyHistologicalExamResultsUsed, true, 150)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='74498-7')", "")]
         public string AutopsyorHistologicalExamResultsUsedHelper
         {

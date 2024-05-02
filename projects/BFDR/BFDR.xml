@@ -90,6 +90,34 @@
         <member name="M:BFDR.FetalDeathRecord.InitializeCompositionAndSubject">
             <inheritdoc/>
         </member>
+        <member name="P:BFDR.FetalDeathRecord.DeliveryPhysicalLocation">
+            <summary>The place of delivery Type.</summary>
+            <value>Place Where delivery Occurred, type of place or institution. A Dictionary representing a codeable concept of the physical location type:
+            <para>"code" - The code used to describe this concept.</para>
+            <para>"system" - The relevant code system.</para>
+            <para>"display" - The human readable version of this code.</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; locationType = new Dictionary&lt;string, string&gt;();</para>
+            <para>locationType.Add("code", "22232009");</para>
+            <para>locationType.Add("system", "http://snomed.info/sct");</para>
+            <para>locationType.Add("display", "Hospital");</para>
+            <para>ExampleBirthRecord.BirthPhysicalLocation = locationType;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"The place type the child was born: {ExampleBirthRecord.BirthPhysicalLocation["code"]}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.DeliveryPhysicalLocationHelper">
+            <summary>Child's Place Of Birth Type Helper</summary>
+            <value>Child's Place Of Birth Type Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.BirthPhysicalLocationHelper = "Hospital";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Child's Place Of Birth Type: {ExampleBirthRecord.BirthPhysicalLocationHelper}");</para>
+            </example>
+        </member>
         <member name="P:BFDR.FetalDeathRecord.TimeOfFetalDeath">
             <summary>Estimated time of fetal death.</summary>
             <value>Estimated time of fetal death</value>
@@ -223,84 +251,6 @@
             <para>// Getter:</para>
             <para>Console.WriteLine($"Birth Weight Edit Flag: {ExampleFetalDeathRecord.BirthWeightHelperEditFlag}");</para>
             </example>
-        </member>
-        <member name="M:BFDR.FetalDeathRecord.RestoreReferences">
-            <inheritdoc/>
-        </member>
-        <member name="M:BFDR.FetalDeathRecord.InitializeCompositionAndSubject">
-            <inheritdoc/>
-        </member>
-        <member name="P:BFDR.FetalDeathRecord.DeliveryPhysicalLocation">
-            <summary>The place of delivery Type.</summary>
-            <value>Place Where delivery Occurred, type of place or institution. A Dictionary representing a codeable concept of the physical location type:
-            <para>"code" - The code used to describe this concept.</para>
-            <para>"system" - The relevant code system.</para>
-            <para>"display" - The human readable version of this code.</para>
-            </value>
-            <example>
-            <para>// Setter:</para>
-            <para>Dictionary&lt;string, string&gt; locationType = new Dictionary&lt;string, string&gt;();</para>
-            <para>locationType.Add("code", "22232009");</para>
-            <para>locationType.Add("system", "http://snomed.info/sct");</para>
-            <para>locationType.Add("display", "Hospital");</para>
-            <para>ExampleBirthRecord.BirthPhysicalLocation = locationType;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"The place type the child was born: {ExampleBirthRecord.BirthPhysicalLocation["code"]}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.FetalDeathRecord.DeliveryPhysicalLocationHelper">
-            <summary>Child's Place Of Birth Type Helper</summary>
-            <value>Child's Place Of Birth Type Helper</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.BirthPhysicalLocationHelper = "Hospital";</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Child's Place Of Birth Type: {ExampleBirthRecord.BirthPhysicalLocationHelper}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.FetalDeathRecord.TimeOfFetalDeath">
-            <summary>Estimated time of fetal death.</summary>
-            <value>Estimated time of fetal death</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.TimeOfFetalDeath = ;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Sex at Time of Birth: {ExampleBirthRecord.TimeOfFetalDeath}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.FetalDeathRecord.TimeOfFetalDeathHelper">
-            <summary>Child's Sex at Birth Helper.</summary>
-            <value>The child's sex at time of birth</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.TimeOfFetalDeathHelper = "female";</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Time of Fetal Death: {ExampleBirthRecord.TimeOfFetalDeathHelper}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.FetalDeathRecord.PrematureRuptureOfMembranes">
-            <summary>Initiating cause/condition, Rupture of membranes prior to onset of labor.</summary>
-        </member>
-        <member name="P:BFDR.FetalDeathRecord.AbruptioPlacenta">
-            <summary>Initiating cause/condition, Abruptio placenta.</summary>
-        </member>
-        <member name="P:BFDR.FetalDeathRecord.PlacentalInsufficiency">
-            <summary>Initiating cause/condition, Placental insufficiency.</summary>
-        </member>
-        <member name="P:BFDR.FetalDeathRecord.ProlapsedCord">
-            <summary>Initiating cause/condition, Prolapsed cord.</summary>
-        </member>
-        <member name="P:BFDR.FetalDeathRecord.ChorioamnionitisCOD">
-            <summary>Initiating cause/condition, Chorioamnionitis.</summary>
-        </member>
-        <member name="P:BFDR.FetalDeathRecord.OtherComplicationsOfPlacentaCordOrMembranes">
-            <summary>Initiating cause/condition, Other complications of placenta, cord, or membranes.</summary>
-        </member>
-        <member name="P:BFDR.FetalDeathRecord.InitiatingCauseOrConditionUnknown">
-            <summary>Initiating cause/condition, Unknown.</summary>
-        </member>
-        <member name="P:BFDR.FetalDeathRecord.MaternalConditionsDiseasesLiteral">
-            <summary>Initiating cause/condition, Maternal conditions/diseases literal.</summary>
         </member>
         <member name="P:BFDR.FetalDeathRecord.OtherComplicationsOfPlacentaCordMembranesLiteral">
             <summary>Initiating cause/condition, Other complications of placenta, cord, or membranes literal.</summary>
