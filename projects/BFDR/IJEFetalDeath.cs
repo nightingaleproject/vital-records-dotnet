@@ -2812,210 +2812,112 @@ namespace BFDR
         [IJEField(194, 1014, 1, "Other significant causes or conditions - Rupture of membranes prior to onset of labor", "COD18b1", 1)]
         public string COD18b1
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => YesNo_PresenceToIJE(record.OtherCOD_PrematureRuptureOfMembranes);
+            set => YesNo_IJEToPresence(value, (v) => record.OtherCOD_PrematureRuptureOfMembranes = v);
         }
 
         /// <summary>Other significant causes or conditions - Abruptio placenta</summary>
         [IJEField(195, 1015, 1, "Other significant causes or conditions - Abruptio placenta", "COD18b2", 1)]
         public string COD18b2
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => YesNo_PresenceToIJE(record.OtherCOD_AbruptioPlacenta);
+            set => YesNo_IJEToPresence(value, (v) => record.OtherCOD_AbruptioPlacenta = v);
         }
 
         /// <summary>Other significant causes or conditions  - Placental insufficiency</summary>
         [IJEField(196, 1016, 1, "Other significant causes or conditions  - Placental insufficiency", "COD18b3", 1)]
         public string COD18b3
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => YesNo_PresenceToIJE(record.OtherCOD_PlacentalInsufficiency);
+            set => YesNo_IJEToPresence(value, (v) => record.OtherCOD_PlacentalInsufficiency = v);
         }
 
         /// <summary>Other significant causes or conditions - Prolapsed cord</summary>
         [IJEField(197, 1017, 1, "Other significant causes or conditions - Prolapsed cord", "COD18b4", 1)]
         public string COD18b4
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => YesNo_PresenceToIJE(record.OtherCOD_ProlapsedCord);
+            set => YesNo_IJEToPresence(value, (v) => record.OtherCOD_ProlapsedCord = v);
         }
 
         /// <summary>Other significant causes or conditions - Chorioamnionitis</summary>
         [IJEField(198, 1018, 1, "Other significant causes or conditions - Chorioamnionitis", "COD18b5", 1)]
         public string COD18b5
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => YesNo_PresenceToIJE(record.OtherCOD_ChorioamnionitisCOD);
+            set => YesNo_IJEToPresence(value, (v) => record.OtherCOD_ChorioamnionitisCOD = v);
         }
 
         /// <summary>Other significant causes or conditions - Other complications of placenta, cord, or membranes</summary>
         [IJEField(199, 1019, 1, "Other significant causes or conditions - Other complications of placenta, cord, or membranes", "COD18b6", 1)]
         public string COD18b6
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => YesNo_PresenceToIJE(record.OtherCOD_OtherComplicationsOfPlacentaCordOrMembranes);
+            set => YesNo_IJEToPresence(value, (v) => record.OtherCOD_OtherComplicationsOfPlacentaCordOrMembranes = v);
         }
 
         /// <summary>Other significant causes or conditions - Unknown</summary>
         [IJEField(200, 1020, 1, "Other significant causes or conditions - Unknown", "COD18b7", 1)]
         public string COD18b7
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => YesNo_PresenceToIJE(record.OtherCOD_OtherCauseOrConditionUnknown);
+            set => YesNo_IJEToPresence(value, (v) => record.OtherCOD_OtherCauseOrConditionUnknown = v);
         }
 
         /// <summary>Other significant causes or conditions - Maternal conditions/diseases literal</summary>
         [IJEField(201, 1021, 240, "Other significant causes or conditions - Maternal conditions/diseases literal", "COD18b8", 1)]
         public string COD18b8
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("COD18b8", "OtherCOD_MaternalConditionsDiseasesLiteral");
+            set => LeftJustified_Set("COD18b8", "OtherCOD_MaternalConditionsDiseasesLiteral", value);
         }
 
         /// <summary>Other significant causes or conditions - Other complications of placenta, cord, or membranes literal</summary>
         [IJEField(202, 1261, 240, "Other significant causes or conditions - Other complications of placenta, cord, or membranes literal", "COD18b9", 1)]
         public string COD18b9
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("COD18b9", "OtherCOD_OtherComplicationsOfPlacentaCordMembranesLiteral");
+            set => LeftJustified_Set("COD18b9", "OtherCOD_OtherComplicationsOfPlacentaCordMembranesLiteral", value);
         }
 
         /// <summary>Other significant causes or conditions - Other obstetrical or pregnancy complications literal</summary>
         [IJEField(203, 1501, 240, "Other significant causes or conditions - Other obstetrical or pregnancy complications literal", "COD18b10", 1)]
         public string COD18b10
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("COD18b10", "OtherCOD_OtherObstetricalOrPregnancyComplicationsLiteral");
+            set => LeftJustified_Set("COD18b10", "OtherCOD_OtherObstetricalOrPregnancyComplicationsLiteral", value);
         }
 
         /// <summary>Other significant causes or conditions - Fetal anomaly literal</summary>
         [IJEField(204, 1741, 240, "Other significant causes or conditions - Fetal anomaly literal", "COD18b11", 1)]
         public string COD18b11
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("COD18b11", "OtherCOD_FetalAnomalyLiteral");
+            set => LeftJustified_Set("COD18b11", "OtherCOD_FetalAnomalyLiteral", value);
         }
 
         /// <summary>Other significant causes or conditions - Fetal injury literal</summary>
         [IJEField(205, 1981, 240, "Other significant causes or conditions - Fetal injury literal", "COD18b12", 1)]
         public string COD18b12
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("COD18b12", "OtherCOD_FetalInjuryLiteral");
+            set => LeftJustified_Set("COD18b12", "OtherCOD_FetalInjuryLiteral", value);
         }
 
         /// <summary>Other significant causes or conditions - Fetal infection literal</summary>
         [IJEField(206, 2221, 240, "Other significant causes or conditions - Fetal infection literal", "COD18b13", 1)]
         public string COD18b13
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("COD18b13", "OtherCOD_FetalInfectionLiteral");
+            set => LeftJustified_Set("COD18b13", "OtherCOD_FetalInfectionLiteral", value);
         }
 
         /// <summary>Other significant causes or conditions - Other fetal conditions/disorders literal</summary>
         [IJEField(207, 2461, 240, "Other significant causes or conditions - Other fetal conditions/disorders literal", "COD18b14", 1)]
         public string COD18b14
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("COD18b14", "OtherCOD_OtherFetalConditionsDisordersLiteral");
+            set => LeftJustified_Set("COD18b14", "OtherCOD_OtherFetalConditionsDisordersLiteral", value);
         }
 
         /// <summary>Coded initiating cause/condition</summary>
