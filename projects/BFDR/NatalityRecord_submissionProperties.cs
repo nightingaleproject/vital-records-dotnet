@@ -6639,7 +6639,7 @@ namespace BFDR
         public string PaternityAcknowledgementSignedHelper
         {
             get => GetObservationValueHelper();
-            set => SetObservationValueHelper(value, VR.ValueSets.YesNoNotApplicable.Codes);
+            set => SetObservationValueHelper(value, VR.ValueSets.YesNoUnknownNotApplicable.Codes);
         }
 
         /// <summary>Mother Transferred</summary>
