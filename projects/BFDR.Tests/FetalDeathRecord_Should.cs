@@ -334,28 +334,124 @@ namespace BFDR.Tests
       Assert.Equal("Complication of Placenta Cord", SetterFetalDeathRecord.MaternalConditionsDiseasesLiteral);
 
       Assert.Null(SetterFetalDeathRecord.OtherComplicationsOfPlacentaCordMembranesLiteral);
-      SetterFetalDeathRecord.MaternalConditionsDiseasesLiteral = "Other Complication of Placenta Cord";
-      Assert.Equal("Other Complication of Placenta Cord", SetterFetalDeathRecord.MaternalConditionsDiseasesLiteral);
+      SetterFetalDeathRecord.OtherComplicationsOfPlacentaCordMembranesLiteral = "Other Complication of Placenta Cord";
+      Assert.Equal("Other Complication of Placenta Cord", SetterFetalDeathRecord.OtherComplicationsOfPlacentaCordMembranesLiteral);
 
       Assert.Null(SetterFetalDeathRecord.OtherObstetricalOrPregnancyComplicationsLiteral);
-      SetterFetalDeathRecord.MaternalConditionsDiseasesLiteral = "Some Obstetrical Complication";
-      Assert.Equal("Some Obstetrical Complication", SetterFetalDeathRecord.MaternalConditionsDiseasesLiteral);
+      SetterFetalDeathRecord.OtherObstetricalOrPregnancyComplicationsLiteral = "Some Obstetrical Complication";
+      Assert.Equal("Some Obstetrical Complication", SetterFetalDeathRecord.OtherObstetricalOrPregnancyComplicationsLiteral);
 
       Assert.Null(SetterFetalDeathRecord.FetalAnomalyLiteral);
-      SetterFetalDeathRecord.MaternalConditionsDiseasesLiteral = "Some Fetal Anomaly";
-      Assert.Equal("Some Fetal Anomaly", SetterFetalDeathRecord.MaternalConditionsDiseasesLiteral);
+      SetterFetalDeathRecord.FetalAnomalyLiteral = "Some Fetal Anomaly";
+      Assert.Equal("Some Fetal Anomaly", SetterFetalDeathRecord.FetalAnomalyLiteral);
 
       Assert.Null(SetterFetalDeathRecord.FetalInjuryLiteral);
-      SetterFetalDeathRecord.MaternalConditionsDiseasesLiteral = "Some Fetal Injury";
-      Assert.Equal("Some Fetal Injury", SetterFetalDeathRecord.MaternalConditionsDiseasesLiteral);
+      SetterFetalDeathRecord.FetalInjuryLiteral = "Some Fetal Injury";
+      Assert.Equal("Some Fetal Injury", SetterFetalDeathRecord.FetalInjuryLiteral);
 
       Assert.Null(SetterFetalDeathRecord.FetalInfectionLiteral);
-      SetterFetalDeathRecord.MaternalConditionsDiseasesLiteral = "Some Fetal Infection";
-      Assert.Equal("Some Fetal Infection", SetterFetalDeathRecord.MaternalConditionsDiseasesLiteral); 
+      SetterFetalDeathRecord.FetalInfectionLiteral = "Some Fetal Infection";
+      Assert.Equal("Some Fetal Infection", SetterFetalDeathRecord.FetalInfectionLiteral); 
 
       Assert.Null(SetterFetalDeathRecord.OtherFetalConditionsDisordersLiteral);
-      SetterFetalDeathRecord.MaternalConditionsDiseasesLiteral = "Other Fetal Condition or Disorder";
-      Assert.Equal("Other Fetal Condition or Disorder", SetterFetalDeathRecord.MaternalConditionsDiseasesLiteral);
+      SetterFetalDeathRecord.OtherFetalConditionsDisordersLiteral = "Other Fetal Condition or Disorder";
+      Assert.Equal("Other Fetal Condition or Disorder", SetterFetalDeathRecord.OtherFetalConditionsDisordersLiteral);
+    }
+
+    [Fact]
+    public void ParseOtherFetalDeathCauseOrCondition()
+    { 
+      FetalDeathRecord record = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
+      Assert.False(record.OtherCOD_PrematureRuptureOfMembranes);
+      Assert.False(record.OtherCOD_AbruptioPlacenta);
+      Assert.True(record.OtherCOD_PlacentalInsufficiency);
+      Assert.False(record.OtherCOD_ProlapsedCord);
+      Assert.False(record.OtherCOD_ChorioamnionitisCOD);
+      Assert.False(record.OtherCOD_OtherComplicationsOfPlacentaCordOrMembranes);
+      Assert.False(record.OtherCOD_OtherCauseOrConditionUnknown);
+      Assert.Null(record.OtherCOD_MaternalConditionsDiseasesLiteral);
+      Assert.Null(record.OtherCOD_OtherComplicationsOfPlacentaCordMembranesLiteral);
+      Assert.Null(record.OtherCOD_OtherObstetricalOrPregnancyComplicationsLiteral);
+      Assert.Null(record.OtherCOD_FetalAnomalyLiteral);
+      Assert.Null(record.OtherCOD_FetalInjuryLiteral);
+      Assert.Null(record.OtherCOD_FetalInfectionLiteral);
+      Assert.Null(record.OtherCOD_OtherFetalConditionsDisordersLiteral);
+
+      //set after parse
+      record.OtherCOD_PlacentalInsufficiency = false; 
+      Assert.False(record.OtherCOD_PlacentalInsufficiency);
+      record.OtherCOD_ProlapsedCord = true; 
+      Assert.True(record.OtherCOD_ProlapsedCord);
+      record.OtherCOD_OtherFetalConditionsDisordersLiteral = "Some other fetal condition disorder";
+      Assert.Equal("Some other fetal condition disorder", record.OtherCOD_OtherFetalConditionsDisordersLiteral);
+      record.OtherCOD_OtherComplicationsOfPlacentaCordMembranesLiteral = "Other Placenta Cord Membranes Complication";
+      Assert.Equal("Other Placenta Cord Membranes Complication", record.OtherCOD_OtherComplicationsOfPlacentaCordMembranesLiteral);
+      record.OtherCOD_FetalInjuryLiteral = "Some Fetal Injury";
+      Assert.Equal("Some Fetal Injury", record.OtherCOD_FetalInjuryLiteral);
+
+      IJEFetalDeath ije = new(record);
+      Assert.Equal("N", ije.COD18b3);
+      Assert.Equal("Y", ije.COD18b4);
+      Assert.Equal("Some other fetal condition disorder", ije.COD18b14.Trim());
+      Assert.Equal("Other Placenta Cord Membranes Complication", ije.COD18b9.Trim());
+      Assert.Equal("Some Fetal Injury", ije.COD18b12.Trim());
+    }
+
+    [Fact]
+    public void Set_OtherFetalDeathCauseOrCondition()
+    {
+      Assert.False(SetterFetalDeathRecord.OtherCOD_PrematureRuptureOfMembranes);
+      SetterFetalDeathRecord.OtherCOD_PrematureRuptureOfMembranes = true;
+      Assert.True(SetterFetalDeathRecord.OtherCOD_PrematureRuptureOfMembranes);
+
+      SetterFetalDeathRecord.OtherCOD_AbruptioPlacenta = false;
+      Assert.False(SetterFetalDeathRecord.OtherCOD_AbruptioPlacenta);
+
+      Assert.False(SetterFetalDeathRecord.OtherCOD_PlacentalInsufficiency);
+      SetterFetalDeathRecord.OtherCOD_PlacentalInsufficiency = true;
+      Assert.True(SetterFetalDeathRecord.OtherCOD_PlacentalInsufficiency);
+
+      SetterFetalDeathRecord.OtherCOD_ProlapsedCord = true;
+      Assert.True(SetterFetalDeathRecord.OtherCOD_ProlapsedCord);
+
+      SetterFetalDeathRecord.OtherCOD_ChorioamnionitisCOD = true;
+      Assert.True(SetterFetalDeathRecord.OtherCOD_ChorioamnionitisCOD);
+
+      Assert.False(SetterFetalDeathRecord.OtherCOD_OtherComplicationsOfPlacentaCordOrMembranes);
+      SetterFetalDeathRecord.OtherCOD_OtherComplicationsOfPlacentaCordOrMembranes = true;
+      Assert.True(SetterFetalDeathRecord.OtherCOD_OtherComplicationsOfPlacentaCordOrMembranes);
+
+      Assert.False(SetterFetalDeathRecord.OtherCOD_OtherCauseOrConditionUnknown);
+      SetterFetalDeathRecord.OtherCOD_OtherCauseOrConditionUnknown = true;
+      Assert.True(SetterFetalDeathRecord.OtherCOD_OtherCauseOrConditionUnknown);
+
+      Assert.Null(SetterFetalDeathRecord.OtherCOD_MaternalConditionsDiseasesLiteral);
+      SetterFetalDeathRecord.OtherCOD_MaternalConditionsDiseasesLiteral = "Complication of Placenta Cord";
+      Assert.Equal("Complication of Placenta Cord", SetterFetalDeathRecord.OtherCOD_MaternalConditionsDiseasesLiteral);
+
+      Assert.Null(SetterFetalDeathRecord.OtherCOD_OtherComplicationsOfPlacentaCordMembranesLiteral);
+      SetterFetalDeathRecord.OtherCOD_OtherComplicationsOfPlacentaCordMembranesLiteral = "Other Complication of Placenta Cord";
+      Assert.Equal("Other Complication of Placenta Cord", SetterFetalDeathRecord.OtherCOD_OtherComplicationsOfPlacentaCordMembranesLiteral);
+
+      Assert.Null(SetterFetalDeathRecord.OtherCOD_OtherObstetricalOrPregnancyComplicationsLiteral);
+      SetterFetalDeathRecord.OtherCOD_OtherObstetricalOrPregnancyComplicationsLiteral = "Some Obstetrical Complication";
+      Assert.Equal("Some Obstetrical Complication", SetterFetalDeathRecord.OtherCOD_OtherObstetricalOrPregnancyComplicationsLiteral);
+
+      Assert.Null(SetterFetalDeathRecord.OtherCOD_FetalAnomalyLiteral);
+      SetterFetalDeathRecord.OtherCOD_FetalAnomalyLiteral = "Some Fetal Anomaly";
+      Assert.Equal("Some Fetal Anomaly", SetterFetalDeathRecord.OtherCOD_FetalAnomalyLiteral);
+
+      Assert.Null(SetterFetalDeathRecord.OtherCOD_FetalInjuryLiteral);
+      SetterFetalDeathRecord.OtherCOD_FetalInjuryLiteral = "Some Fetal Injury";
+      Assert.Equal("Some Fetal Injury", SetterFetalDeathRecord.OtherCOD_FetalInjuryLiteral);
+
+      Assert.Null(SetterFetalDeathRecord.OtherCOD_FetalInfectionLiteral);
+      SetterFetalDeathRecord.OtherCOD_FetalInfectionLiteral = "Some Fetal Infection";
+      Assert.Equal("Some Fetal Infection", SetterFetalDeathRecord.OtherCOD_FetalInfectionLiteral); 
+
+      Assert.Null(SetterFetalDeathRecord.OtherCOD_OtherFetalConditionsDisordersLiteral);
+      SetterFetalDeathRecord.OtherCOD_OtherFetalConditionsDisordersLiteral = "Other Fetal Condition or Disorder";
+      Assert.Equal("Other Fetal Condition or Disorder", SetterFetalDeathRecord.OtherCOD_OtherFetalConditionsDisordersLiteral);
     }
   }
 }
