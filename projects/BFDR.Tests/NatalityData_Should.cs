@@ -861,7 +861,7 @@ namespace BFDR.Tests
       Assert.Equal("0", ije.DWGT_BYPASS);
       Assert.Equal("120", ije.DWGT);
       Assert.Equal("3200", ije.BWG);
-            Assert.Equal("2failedBirthWeightGestationEdit", ije.BW_BYPASS);
+      Assert.Equal("2failedBirthWeightGestationEdit", ije.BW_BYPASS);
       ije.PWGT = "999";
       Assert.Equal("999", ije.PWGT);
       Assert.Equal(-1, fhir.MotherPrepregnancyWeight);
