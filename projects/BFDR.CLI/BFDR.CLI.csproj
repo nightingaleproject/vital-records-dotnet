@@ -6,7 +6,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\BFDR\BFDR.csproj" />
-    <ProjectReference Include="..\BFDR.Messaging\BFDRMessaging.csproj" />
+    <ProjectReference Include="..\BFDR.Messaging\BFDR.Messaging.csproj" />
     <ProjectReference Include="..\VitalRecord\VitalRecord.csproj" />
   </ItemGroup>
 </Project>
