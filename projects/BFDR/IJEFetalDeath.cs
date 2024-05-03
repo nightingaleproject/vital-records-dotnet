@@ -2179,12 +2179,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return NumericAllowingUnknown_Get("FWG", "BirthWeight");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                NumericAllowingUnknown_Set("FWG", "BirthWeight", value);
             }
         }
 
@@ -2194,12 +2193,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return record.BirthWeightEditFlagHelper;
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                record.BirthWeightEditFlagHelper = value;
             }
         }
 
@@ -2253,12 +2251,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Get_MappingFHIRToIJE(VR.Mappings.YesNoUnknown.FHIRToIJE, "AutopsyPerformedIndicator", "AUTOP");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Set_MappingIJEToFHIR(VR.Mappings.YesNoUnknown.IJEToFHIR, "AUTOP", "AutopsyPerformedIndicator", value);
+                }
             }
         }
 
@@ -2283,12 +2283,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Get_MappingFHIRToIJE(VR.Mappings.YesNoNotApplicable.FHIRToIJE, "AutopsyorHistologicalExamResultsUsed", "AUTOPF");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Set_MappingIJEToFHIR(VR.Mappings.YesNoNotApplicable.IJEToFHIR, "AUTOPF", "AutopsyorHistologicalExamResultsUsed", value);
+                }
             }
         }
 
