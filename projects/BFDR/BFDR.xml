@@ -126,6 +126,96 @@
         <member name="P:BFDR.FetalDeathRecord.MaternalConditionsDiseasesLiteral">
             <summary>Initiating cause/condition, Maternal conditions/diseases literal.</summary>
         </member>
+        <member name="P:BFDR.FetalDeathRecord.AutopsyorHistologicalExamResultsUsed">
+            <summary>Were Autopsy or Histological Placental Examination Results Used in Determining the Cause of Fetal Death?</summary>
+            <value>Were Autopsy or Histological Placental Examination Results Used in Determining the Cause of Fetal Death?</value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; autopf = new Dictionary&lt;string, string&gt;();</para>
+            <para>autopf.Add("code", "Y");</para>
+            <para>autopf.Add("system", VR.ValueSets.YesNoNotApplicable.Codes);</para>
+            <para>autopf.Add("display", "Yes");</para>
+            <para>ExampleFetalDeathRecord.AutopsyorHistologicalExamResultsUsed = autopf;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Were autopsy results used: {ExampleFetalDeathRecord.AutopsyorHistologicalExamResultsUsed}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.AutopsyorHistologicalExamResultsUsedHelper">
+            <summary>Autopsy or Histological Placental Results Used Helper</summary>
+            <value>PAutopsy or Histological Placental Results Used Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.AutopsyorHistologicalExamResultsUsedHelper = "yes";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Were autopsy results used: {ExampleFetalDeathRecord.AutopsyorHistologicalExamResultsUsedHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.AutopsyPerformedIndicator">
+            <summary>Autopsy Performed Indicator.</summary>
+            <value>autopsy performed indicator. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; code = new Dictionary&lt;string, string&gt;();</para>
+            <para>code.Add("code", "Y");</para>
+            <para>code.Add("system", CodeSystems.PH_YesNo_HL7_2x);</para>
+            <para>code.Add("display", "Yes");</para>
+            <para>ExampleFetalDeathRecord.AutopsyPerformedIndicator = code;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Autopsy Performed Indicator: {ExampleFetalDeathRecord.AutopsyPerformedIndicator['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.AutopsyPerformedIndicatorHelper">
+            <summary>Autopsy Performed Indicator Helper. This is a helper method, to access the code use the AutopsyPerformedIndicator property.</summary>
+            <value>autopsy performed indicator. A null value indicates "not applicable".</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.AutopsyPerformedIndicatorHelper = "Y"";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Autopsy Performed Indicator: {ExampleDFetaleathRecord.AutopsyPerformedIndicatorBoolean}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.BirthWeight">
+            <summary>Birth Weight.</summary>
+            <value>The weight of the infant/fetus at birth/delivery.</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.BirthWeight = 3000.0;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Birth Weight: {xampleFetalDeathRecord.BirthWeight}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.BirthWeightEditFlag">
+            <summary>Birth Weight Edit Flag.</summary>
+            <value>the fetus's birth weight edit flag. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; weight = new Dictionary&lt;string, string&gt;();</para>
+            <para>weight.Add("code", "0");</para>
+            <para>weight.Add("system", CodeSystems.BypassEditFlag);</para>
+            <para>weight.Add("display", "Edit Passed");</para>
+            <para>ExampleFetalDeathRecord.BirthWeightEditFlag = height;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Birth Weight: {ExampleFetalDeathRecord.BirthWeightEditFlag['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.BirthWeightEditFlagHelper">
+            <summary>Birth Weight Edit Flag Helper</summary>
+            <value>Birth Weight Edit Flag.</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.BirthWeightEditFlagHelper = "0";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Birth Weight Edit Flag: {ExampleFetalDeathRecord.BirthWeightHelperEditFlag}");</para>
+            </example>
+        </member>
         <member name="P:BFDR.FetalDeathRecord.OtherComplicationsOfPlacentaCordMembranesLiteral">
             <summary>Initiating cause/condition, Other complications of placenta, cord, or membranes literal.</summary>
         </member>
