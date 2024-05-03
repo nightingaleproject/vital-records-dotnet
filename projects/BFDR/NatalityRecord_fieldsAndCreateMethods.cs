@@ -54,7 +54,7 @@ namespace BFDR
         /// <summary>Composition Section Constants</summary>
         private const string RACE_ETHNICITY_PROFILE_MOTHER = "inputraceandethnicityMother";
         private const string RACE_ETHNICITY_PROFILE_FATHER = "inputraceandethnicityFather";
-        private const string MOTHER_PRENATAL_SECTION = "57073-9";
+        protected const string MOTHER_PRENATAL_SECTION = "57073-9";
         private const string MEDICAL_INFORMATION_SECTION = "55752-0";
         private const string NEWBORN_INFORMATION_SECTION = "57075-4";
         private const string MOTHER_INFORMATION_SECTION = "92014-0";

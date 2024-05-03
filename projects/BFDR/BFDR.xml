@@ -61,6 +61,16 @@
             <para>Console.WriteLine($"Child's Place Of Birth Type: {ExampleBirthRecord.BirthPhysicalLocationHelper}");</para>
             </example>
         </member>
+        <member name="P:BFDR.BirthRecord.MotherWeightAtDelivery">
+            <summary>Mother's Weight at Delivery.</summary>
+            <value>the mother's weight at delivery in whole pounds, or -1 if explicitly unknown, or null if never specified</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherWeightAtDelivery = 120;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's Weight at Delivery: {ExampleBirthRecord.MotherWeightAtDelivery}");</para>
+            </example>
+        </member>
         <member name="T:BFDR.FetalDeathRecord">
             <summary>Class <c>FetalDeathRecord</c> is a class designed to help consume and produce fetal death
             records that follow the HL7 FHIR Vital Records FetalDeath Reporting Implementation Guide, as described
@@ -1753,12 +1763,6 @@
         </member>
         <member name="P:BFDR.IJEFetalDeath.PWGT_BYPASS">
             <summary>Mother's Prepregnancy Weight--Edit Flag</summary>
-        </member>
-        <member name="P:BFDR.IJEFetalDeath.DWGT">
-            <summary>Mother's Weight at Delivery(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
-        </member>
-        <member name="P:BFDR.IJEFetalDeath.DWGT_BYPASS">
-            <summary>Mother's Weight at Delivery--Edit Flag(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
         </member>
         <member name="P:BFDR.IJEFetalDeath.WIC">
             <summary>Did Mother get WIC Food for Herself?</summary>
@@ -4175,16 +4179,6 @@
             <para>ExampleBirthRecord.MotherPrepregnancyWeight = 120;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Mother's Prepregancy Weight: {ExampleBirthRecord.MotherPrepregnancyWeight}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.NatalityRecord.MotherWeightAtDelivery">
-            <summary>Mother's Weight at Delivery.</summary>
-            <value>the mother's weight at delivery in whole pounds, or -1 if explicitly unknown, or null if never specified</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.MotherWeightAtDelivery = 120;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Mother's Weight at Delivery: {ExampleBirthRecord.MotherWeightAtDelivery}");</para>
             </example>
         </member>
         <member name="P:BFDR.NatalityRecord.BirthWeight">
