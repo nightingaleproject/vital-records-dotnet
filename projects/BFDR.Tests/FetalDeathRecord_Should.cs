@@ -593,76 +593,95 @@ namespace BFDR.Tests
     }
 
     [Fact]
-    public void TestImportDeliveryLocation()
+    public void TestImportLastMenstrualPeriod() 
     {
-      FetalDeathRecord record = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
-      Assert.Equal("116441967701", record.FacilityNPI);
-      Assert.Equal("UT12", record.FacilityJFI);
-      Assert.Equal("South Hospital", record.BirthFacilityName);
-      Assert.Null(record.FacilityMotherTransferredFrom);
-      Assert.Equal("", record.PlaceOfDelivery["addressStnum"]);
-      Assert.Equal("", record.PlaceOfDelivery["addressPredir"]);
-      Assert.Equal("", record.PlaceOfDelivery["addressStname"]);
-      Assert.Equal("", record.PlaceOfDelivery["addressStdesig"]);
-      Assert.Equal("", record.PlaceOfDelivery["addressPostdir"]);
-      Assert.Equal("", record.PlaceOfDelivery["addressUnitnum"]);
-      Assert.Equal("2100 North Ave", record.PlaceOfDelivery["addressLine1"]);
-      Assert.Equal("84116", record.PlaceOfDelivery["addressZip"]);
-      Assert.Equal("Made Up", record.PlaceOfDelivery["addressCounty"]);
-      Assert.Equal("Salt Lake City", record.PlaceOfDelivery["addressCity"]);
-      Assert.Equal("UT", record.PlaceOfDelivery["addressState"]);
-      Assert.Equal("US", record.PlaceOfDelivery["addressCountry"]);
+      BirthRecord record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json")));
+      Assert.Equal("2018-06-05", record.LastMenstrualPeriod);
+      Assert.Equal(2018, record.LastMenstrualPeriodYear);
+      Assert.Equal(6, record.LastMenstrualPeriodMonth);
+      Assert.Equal(5, record.LastMenstrualPeriodDay);
 
-      IJEFetalDeath ije = new(record);
-      Assert.Equal("2100 North Ave", ije.ADDRESS_D.Trim());
-      Assert.Equal("84116", ije.ZIPCODE_D.Trim());
-      Assert.Equal("Made Up", ije.CNTY_D.Trim());
-      Assert.Equal("Salt Lake City", ije.CITY_D.Trim());
-      Assert.Equal("Utah", ije.STATE_D);
-      Assert.Equal("United States", ije.COUNTRY_D);
-
-      //set after parse
-      Dictionary<string, string> addr = new Dictionary<string, string>();
-      addr["addressState"] = "MA";
-      addr["addressCounty"] = "Middlesex";
-      addr["addressCity"] = "Bedford";
-      record.PlaceOfDelivery = addr;
-      Assert.Equal("MA", record.PlaceOfDelivery["addressState"]);
-      Assert.Equal("Middlesex", record.PlaceOfDelivery["addressCounty"]);
-      Assert.Equal("Bedford", record.PlaceOfDelivery["addressCity"]);
+      // set after parse
+      record.LastMenstrualPeriod = "2023-02";
+      Assert.Equal("2023-02", record.LastMenstrualPeriod);
+      Assert.Equal(2023, record.LastMenstrualPeriodYear);
+      Assert.Equal(2, record.LastMenstrualPeriodMonth);
+      Assert.Null(record.LastMenstrualPeriodDay);
     }
 
     [Fact]
-    public void TestSetDeliveryLocation()
+    public void TestMotherHeightPropertiesSetter()
     {
-      BirthRecord br = new()
-      {
-          FacilityNPI = "4815162342",
-          FacilityJFI = "636",
-          BirthFacilityName = "Lahey Hospital",
-          FacilityMotherTransferredFrom = "Sunnyvale Medical",
-      };
-      Assert.Equal("4815162342", br.FacilityNPI);
-      Assert.Equal("636", br.FacilityJFI);
-      Assert.Equal("Lahey Hospital", br.BirthFacilityName);
-      Assert.Equal("Sunnyvale Medical", br.FacilityMotherTransferredFrom);
-      br.FacilityNPI = "999";
-      Assert.Equal("999", br.FacilityNPI);
-      Assert.Equal("636", br.FacilityJFI);
-      Assert.Equal("Lahey Hospital", br.BirthFacilityName);
-      br.FacilityJFI = "0909";
-      Assert.Equal("999", br.FacilityNPI);
-      Assert.Equal("0909", br.FacilityJFI);
-      Assert.Equal("Lahey Hospital", br.BirthFacilityName);
-      br.BirthFacilityName = "Bob's Medical Center";
-      Assert.Equal("999", br.FacilityNPI);
-      Assert.Equal("0909", br.FacilityJFI);
-      Assert.Equal("Bob's Medical Center", br.BirthFacilityName);
-      br.FacilityMotherTransferredFrom = "Abignale Hospital";
-      Assert.Equal("999", br.FacilityNPI);
-      Assert.Equal("0909", br.FacilityJFI);
-      Assert.Equal("Bob's Medical Center", br.BirthFacilityName);
-      Assert.Equal("Abignale Hospital", br.FacilityMotherTransferredFrom);
+        FetalDeathRecord record = new FetalDeathRecord();
+        // Height
+        Assert.Null(record.MotherHeight);
+        record.MotherHeight = 67;
+        Assert.Equal(67, record.MotherHeight);
+        // Edit Flag
+        Assert.Equal("", record.MotherHeightEditFlag["code"]);
+        record.MotherHeightEditFlagHelper = VR.ValueSets.EditBypass01234.Edit_Passed;
+        Assert.Equal(VR.ValueSets.EditBypass01234.Edit_Passed, record.MotherHeightEditFlag["code"]);
+        // IJE translations
+        IJEFetalDeath ije1 = new IJEFetalDeath(record);
+        Assert.Equal("5", ije1.HFT);
+        Assert.Equal("7", ije1.HIN);  
+        Assert.Equal("0", ije1.HGT_BYPASS);
+    }  
+
+    [Fact]
+    public void TestImportMotherHeightProperties()
+    {
+        FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
+        Assert.Equal(56, record.MotherHeight);
+
+        //set after parse 
+        record.MotherHeight = 68; 
+        Assert.Equal(68, record.MotherHeight);
+    } 
+
+    [Fact]
+    public void TestWeightPropertiesSetter()
+    {
+        FetalDeathRecord record = new FetalDeathRecord();
+        // Prepregnancy Weight
+        Assert.Null(record.MotherPrepregnancyWeight);
+        record.MotherPrepregnancyWeight = 145;
+        Assert.Equal(145, record.MotherPrepregnancyWeight);
+        // Birth Weight
+        Assert.Null(record.BirthWeight);
+        record.BirthWeight = 2500;
+        Assert.Equal(2500, record.BirthWeight);
+        // Edit Flags
+        Assert.Equal("", record.MotherPrepregnancyWeightEditFlag["code"]);
+        record.MotherPrepregnancyWeightEditFlagHelper = VR.ValueSets.EditBypass01234.Edit_Passed;
+        Assert.Equal(VR.ValueSets.EditBypass01234.Edit_Passed, record.MotherPrepregnancyWeightEditFlag["code"]);
+        Assert.Equal("", record.BirthWeightEditFlag["code"]);
+        record.BirthWeightEditFlagHelper = VR.ValueSets.EditBypass01234.Edit_Passed;
+        Assert.Equal(VR.ValueSets.EditBypass01234.Edit_Passed, record.BirthWeightEditFlag["code"]);
+        // IJE translations
+        IJEFetalDeath ije1 = new IJEFetalDeath(record);
+        Assert.Equal("145", ije1.PWGT);
+        Assert.Equal("0", ije1.PWGT_BYPASS); 
+        // TODO: add these when fetal weight is added
+        // Assert.Equal("2500", ije1.FWG);
+        // Assert.Equal("0", ije1.FW_BYPASS); 
+    }  
+  
+    [Fact]
+    public void TestImportWeightProperties()
+    {
+        FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
+        // Prepregnancy Weight
+        Assert.Equal(180, record.MotherPrepregnancyWeight);
+        // TODO: add these when fetal weight is added
+        // Birth Weight
+        // Assert.Equal(1530, record.BirthWeight);
+
+        // set after parse
+        record.MotherPrepregnancyWeight = 146;
+        // record.BirthWeight = 2502;
+        Assert.Equal(146, record.MotherPrepregnancyWeight);
+        // Assert.Equal(2502, record.BirthWeight);
     }
   }
 }
