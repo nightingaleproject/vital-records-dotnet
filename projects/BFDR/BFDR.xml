@@ -343,12 +343,6 @@
             <summary>FHIR based vital record.</summary>
             Hides the IJE ToRecord method that returns a VitalRecord instead of a BirthRecord
         </member>
-        <member name="M:BFDR.IJEBirth.Get_MotherRace(System.String)">
-            <summary>Checks if the given race exists in the record for Mother.</summary>
-        </member>
-        <member name="M:BFDR.IJEBirth.Set_MotherRace(System.String,System.String)">
-            <summary>Adds the given race to the record for Mother.</summary>
-        </member>
         <member name="M:BFDR.IJEBirth.Get_FatherRace(System.String)">
             <summary>Checks if the given race exists in the record for Father.</summary>
         </member>
@@ -3795,17 +3789,6 @@
             <para>ExampleBirthRecord.MotherEthnicityLiteral = ethnicity;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Ethnicity: {ExampleBirthRecord.MotherEthnicityLiteral["display"]}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.NatalityRecord.MotherRace">
-            <summary>Mother's Race values.</summary>
-            <value>the mother's race. A tuple, where the first value of the tuple is the display value, and the second is
-            the IJE code Y or N.</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.MotherRace = {NvssRace.BlackOrAfricanAmerican, "Y"};</para>
-            <para>// Getter:</para>
-            <para>string boaa = ExampleBirthRecord.RaceBlackOfAfricanAmerican;</para>
             </example>
         </member>
         <member name="P:BFDR.NatalityRecord.FatherEthnicity1">
