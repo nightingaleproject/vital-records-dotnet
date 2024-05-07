@@ -897,5 +897,55 @@ namespace BFDR
                 cond.Code.Text = value;
             }
         }
+
+        /// <summary>Place of Delivery.</summary>
+        /// <value>Place of Delivery. A Dictionary representing place of delivery address, containing the following key/value pairs:
+        /// <para>"addressLine1" - address, line one</para>
+        /// <para>"addressLine2" - address, line two</para>
+        /// <para>"addressCity" - address, city</para>
+        /// <para>"addressCounty" - address, county</para>
+        /// <para>"addressState" - address, state</para>
+        /// <para>"addressZip" - address, zip</para>
+        /// <para>"addressCountry" - address, country</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; address = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>address.Add("addressLine1", "123 Test Street");</para>
+        /// <para>address.Add("addressLine2", "Unit 3");</para>
+        /// <para>address.Add("addressCity", "Boston");</para>
+        /// <para>address.Add("addressCounty", "Suffolk");</para>
+        /// <para>address.Add("addressState", "MA");</para>
+        /// <para>address.Add("addressZip", "12345");</para>
+        /// <para>address.Add("addressCountry", "US");</para>
+        /// <para>ExampleBirthRecord.PlaceOfDelivery = address;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"State where baby was delivered: {ExampleBirthRecord.PlaceOfDelivery["addressState"]}");</para>
+        /// </example>
+        [Property("Place of Delivery", Property.Types.Dictionary, "Place of Delivery", "Place of Delivery.", true, IGURL.LocationBFDR, true, 20)]
+        [PropertyParam("addressLine1", "address, line one")]
+        [PropertyParam("addressLine2", "address, line two")]
+        [PropertyParam("addressCity", "address, city")]
+        [PropertyParam("addressCounty", "address, county")]
+        [PropertyParam("addressState", "address, state")]
+        [PropertyParam("addressZip", "address, zip")]
+        [PropertyParam("addressCountry", "address, country")]
+        [FHIRPath("Bundle.entry.resource.where($this is Location)", "address")]
+        public Dictionary<string, string> PlaceOfDelivery
+        {
+            get
+            {
+                Location LocationDelivery = GetFacilityLocation(ValueSets.LocationTypes.Birth_Location);
+                return AddressToDict(LocationDelivery?.Address);
+            }
+            set
+            {
+                Address d = DictToAddress(value);
+                (GetFacilityLocation(ValueSets.LocationTypes.Birth_Location) ?? CreateAndSetLocationBirth(ValueSets.LocationTypes.Birth_Location)).Address = d;
+            }
+        }
+        private Location GetFacilityLocation(string code) {
+            return (Location)Bundle.Entry.Where(e => e.Resource is Location loc && loc.Type.Any(type => type.Coding.Any(coding => coding.System == CodeSystems.LocalBFDRCodes && coding.Code == code))).FirstOrDefault()?.Resource;
+        }
     }
 }

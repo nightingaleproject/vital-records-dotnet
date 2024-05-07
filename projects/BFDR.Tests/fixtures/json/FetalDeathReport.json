@@ -2280,7 +2280,7 @@
                       "extension": [
                           {
                               "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/AuxiliaryStateIdentifier1",
-                              "valueString": "UT1234567"
+                              "valueString": "UT12"
                           }
                       ],
                       "system": "http://hl7.org/fhir/sid/us-npi",
