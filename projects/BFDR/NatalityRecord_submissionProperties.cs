@@ -4333,6 +4333,12 @@ namespace BFDR
             }
             set
             {
+                // According to the IJE spreadsheet, if one element in the Date of First Prenatal Care Visit date is set to 88, then this means there was explicitly "no care" provided. This means the other Date of First Prenatal Care Visit date elements should also be considered as "no care" since they combine to make one field. In this case, there should be no date data at all since it explicitly never happened, it should not exist in FHIR and should return null. However, the IG doesn't yet have a complete explicit protocol for this case.
+                if (value == 88)
+                {
+                    RemoveObservation("68500-8");
+                    return;
+                }
                 Observation obs = GetOrCreateObservation("68500-8", CodeSystems.LOINC, "Last Other Pregnancy Outcome", BFDR.ProfileURL.ObservationDateOfLastOtherPregnancyOutcome, DATE_OF_LAST_OTHER_PREGNANCY_OUTCOME, Mother.Id);
                 if (obs.Value as Hl7.Fhir.Model.FhirDateTime == null)
                 {
@@ -4372,6 +4378,12 @@ namespace BFDR
             }
             set
             {
+                // According to the IJE spreadsheet, if one element in the Date of First Prenatal Care Visit date is set to 88, then this means there was explicitly "no care" provided. This means the other Date of First Prenatal Care Visit date elements should also be considered as "no care" since they combine to make one field. In this case, there should be no date data at all since it explicitly never happened, it should not exist in FHIR and should return null. However, the IG doesn't yet have a complete explicit protocol for this case.
+                if (value == 8888)
+                {
+                    RemoveObservation("68500-8");
+                    return;
+                }
                 Observation obs = GetOrCreateObservation("68500-8", CodeSystems.LOINC, BFDR.ProfileURL.ObservationDateOfLastOtherPregnancyOutcome, DATE_OF_LAST_OTHER_PREGNANCY_OUTCOME, Mother.Id);
                 if (obs.Value as Hl7.Fhir.Model.FhirDateTime == null)
                 {
@@ -6280,6 +6292,12 @@ namespace BFDR
             }
             set
             {
+                // According to the IJE spreadsheet, if one element in the Date of First Prenatal Care Visit date is set to 88, then this means there was explicitly "no care" provided. This means the other Date of First Prenatal Care Visit date elements should also be considered as "no care" since they combine to make one field. In this case, there should be no date data at all since it explicitly never happened, it should not exist in FHIR and should return null. However, the IG doesn't yet have a complete explicit protocol for this case.
+                if (value == 8888)
+                {
+                    RemoveObservation("69044-6");
+                    return;
+                }
                 Observation obs = GetOrCreateObservation("69044-6", CodeSystems.LOINC, "Mother Prenatal", BFDR.ProfileURL.ObservationDateOfFirstPrenatalCareVisit, MOTHER_PRENATAL_SECTION, Child.Id);
                 if (obs.Value as Hl7.Fhir.Model.FhirDateTime == null)
                 {
@@ -6313,6 +6331,12 @@ namespace BFDR
             }
             set
             {
+                // According to the IJE spreadsheet, if one element in the Date of First Prenatal Care Visit date is set to 88, then this means there was explicitly "no care" provided. This means the other Date of First Prenatal Care Visit date elements should also be considered as "no care" since they combine to make one field. In this case, there should be no date data at all since it explicitly never happened, it should not exist in FHIR and should return null. However, the IG doesn't yet have a complete explicit protocol for this case.
+                if (value == 88)
+                {
+                    RemoveObservation("69044-6");
+                    return;
+                }
                 Observation obs = GetOrCreateObservation("69044-6", CodeSystems.LOINC, "Mother Prenatal", BFDR.ProfileURL.ObservationDateOfFirstPrenatalCareVisit, MOTHER_PRENATAL_SECTION, Child.Id);
                 if (obs.Value as Hl7.Fhir.Model.FhirDateTime == null)
                 {
@@ -6346,6 +6370,12 @@ namespace BFDR
             }
             set
             {
+                // According to the IJE spreadsheet, if one element in the Date of First Prenatal Care Visit date is set to 88, then this means there was explicitly "no care" provided. This means the other Date of First Prenatal Care Visit date elements should also be considered as "no care" since they combine to make one field. In this case, there should be no date data at all since it explicitly never happened, it should not exist in FHIR and should return null. However, the IG doesn't yet have a complete explicit protocol for this case.
+                if (value == 88)
+                {
+                    RemoveObservation("69044-6");
+                    return;
+                }
                 Observation obs = GetOrCreateObservation("69044-6", CodeSystems.LOINC, "Mother Prenatal", BFDR.IGURL.ObservationDateOfFirstPrenatalCareVisit, MOTHER_PRENATAL_SECTION, Child.Id);
                 if (obs.Value as Hl7.Fhir.Model.FhirDateTime == null)
                 {
@@ -6991,7 +7021,16 @@ namespace BFDR
         public int? ApgarScoreTenMinutes
         {
             get => GetIntegerObservationValue("9271-8");
-            set => SetIntegerObservationValue("9271-8", "10 minute Apgar Score", value, NEWBORN_INFORMATION_SECTION, BFDR.ProfileURL.ObservationApgarScore, Child.Id);
+            set
+            {
+                if (value == 88)
+                {
+                    // For APGAR10, an IJE value of 88 corresponds to an explicit absence of an Apgar Score 10 Minutes in FHIR.
+                    RemoveObservation("9271-8");
+                    return;
+                }
+                SetIntegerObservationValue("9271-8", "10 minute Apgar Score", value, NEWBORN_INFORMATION_SECTION, BFDR.ProfileURL.ObservationApgarScore, Child.Id);
+            }
         }
 
 

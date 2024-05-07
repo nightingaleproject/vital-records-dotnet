@@ -967,10 +967,36 @@ namespace BFDR.Tests
     public void BlankEights() {
       IJEBirth ije = new()
       {
-          YOPO = "8888"
+          YOPO = "2020",
+          MOPO = "04",
+          DOFP_DY = "05",
+          DOFP_MO = "07",
+          DOFP_YR = "2021",
+          APGAR10 = "09"
       };
+
+      Assert.Equal("2020", ije.YOPO);
+      Assert.Equal("04", ije.MOPO);
+      Assert.Equal("09", ije.APGAR10);
+      Assert.Equal("05", ije.DOFP_DY);
+      Assert.Equal("07", ije.DOFP_MO);
+      Assert.Equal("2021", ije.DOFP_YR);
+
+      ije.YOPO = "8888";
+      ije.DOFP_DY = "88";
+      ije.APGAR10 = "88";
       Assert.Equal("    ", ije.YOPO);
       Assert.Null(ije.ToRecord().DateOfLastOtherPregnancyOutcomeYear);
+      Assert.Equal("  ", ije.MOPO);
+      Assert.Null(ije.ToRecord().DateOfLastOtherPregnancyOutcomeMonth);
+      Assert.Equal("  ", ije.APGAR10);
+      Assert.Null(ije.ToRecord().ApgarScoreTenMinutes);
+      Assert.Equal("  ", ije.DOFP_DY);
+      Assert.Null(ije.ToRecord().FirstPrenatalCareVisitDay);
+      Assert.Equal("  ", ije.DOFP_MO);
+      Assert.Null(ije.ToRecord().FirstPrenatalCareVisitMonth);
+      Assert.Equal("    ", ije.DOFP_YR);
+      Assert.Null(ije.ToRecord().FirstPrenatalCareVisitYear);
     }
   }
 }
