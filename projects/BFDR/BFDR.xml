@@ -4617,6 +4617,9 @@
             <para>Console.WriteLine($"Facility Mother Transferred From: {ExampleBirthRecord.FacilityInfantTransferredTo}");</para>
             </example>
         </member>
+        <member name="M:BFDR.NatalityRecord.GetFacilityLocation(System.String)">
+            <summary>Helper method to return birth/delivery or transfer facility location.</summary>
+        </member>
         <member name="P:BFDR.NatalityRecord.LastMenstrualPeriod">
             <summary>Last Menstrual Period.</summary>
             <value>the date that the last normal menstrual period began</value>
