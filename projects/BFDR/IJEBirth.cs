@@ -77,26 +77,7 @@ namespace BFDR
         // Class helper methods for getting and settings IJE fields.
         //
         /////////////////////////////////////////////////////////////////////////////////
-        /// <summary>Checks if the given race exists in the record for Mother.</summary>
-        private string Get_MotherRace(string name)
-        {
-            Tuple<string, string>[] raceStatus = record.MotherRace.ToArray();
-
-            Tuple<string, string> raceTuple = Array.Find(raceStatus, element => element.Item1 == name);
-            if (raceTuple != null)
-            {
-                return (raceTuple.Item2).Trim();
-            }
-            return "";
-        }
-
-        /// <summary>Adds the given race to the record for Mother.</summary>
-        private void Set_MotherRace(string name, string value)
-        {
-            List<Tuple<string, string>> raceStatus = record.MotherRace.ToList();
-            raceStatus.Add(Tuple.Create(name, value));
-            record.MotherRace = raceStatus.Distinct().ToArray();
-        }
+    
         /// <summary>Checks if the given race exists in the record for Father.</summary>
         private string Get_FatherRace(string name)
         {

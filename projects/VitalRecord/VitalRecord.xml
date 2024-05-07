@@ -320,6 +320,12 @@
             <param name="field">a function that will set a field in the FHIR record</param>
             <param name="noneOfTheAboveField">a function that will set the corresponding none-of-the-above field in the FHIR record</param>
         </member>
+        <member name="M:VR.IJE.Get_MotherRace(System.String)">
+            <summary>Checks if the given race exists in the record for Mother.</summary>
+        </member>
+        <member name="M:VR.IJE.Set_MotherRace(System.String,System.String)">
+            <summary>Adds the given race to the record for Mother.</summary>
+        </member>
         <member name="T:VR.IJEData">
             <summary>Data helper class for dealing with IJE mortality data. Follows Singleton-esque pattern!</summary>
         </member>
@@ -6301,6 +6307,17 @@
         </member>
         <member name="M:VR.VitalRecord.GetValue(System.Collections.Generic.Dictionary{System.String,System.String},System.String)">
             <summary>Get a value from a Dictionary, but return null if the key doesn't exist or the value is an empty string.</summary>
+        </member>
+        <member name="P:VR.VitalRecord.MotherRace">
+            <summary>Mother's Race values.</summary>
+            <value>the mother's race. A tuple, where the first value of the tuple is the display value, and the second is
+            the IJE code Y or N.</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherRace = {NvssRace.BlackOrAfricanAmerican, "Y"};</para>
+            <para>// Getter:</para>
+            <para>string boaa = ExampleBirthRecord.RaceBlackOfAfricanAmerican;</para>
+            </example>
         </member>
         <member name="M:VR.VitalRecord.UpdateDictionary(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String})">
             <summary>Combine the given dictionaries and return the combined result.</summary>

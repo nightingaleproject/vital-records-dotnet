@@ -664,5 +664,99 @@ namespace BFDR.Tests
       Assert.Equal("Bob's Medical Center", br.BirthFacilityName);
       Assert.Equal("Abignale Hospital", br.FacilityMotherTransferredFrom);
     }
+
+    [Fact]
+    public void ParseMotherRaceEthnicityJsonToIJE()
+    {
+        // Hispanic or Latino
+        FetalDeathRecord b = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/RaceEthnicityCaseRecord.json")));
+        IJEFetalDeath ije1 = new IJEFetalDeath(b);
+        Assert.Equal("H", ije1.METHNIC1);
+        Assert.Equal("H", ije1.METHNIC2);
+        Assert.Equal("H", ije1.METHNIC3);
+        Assert.Equal("H", ije1.METHNIC4);
+        Assert.Equal("Y", ije1.MRACE1);
+        Assert.Equal("Y", ije1.MRACE2);
+        Assert.Equal("Y", ije1.MRACE3);
+        Assert.Equal("N", ije1.MRACE4);
+        Assert.Equal("N", ije1.MRACE5);
+        Assert.Equal("N", ije1.MRACE6);
+        Assert.Equal("N", ije1.MRACE7);
+        Assert.Equal("N", ije1.MRACE8);
+        Assert.Equal("N", ije1.MRACE9);
+        Assert.Equal("N", ije1.MRACE10);
+        Assert.Equal("N", ije1.MRACE11);
+        Assert.Equal("N", ije1.MRACE12);
+        Assert.Equal("N", ije1.MRACE13);
+        Assert.Equal("N", ije1.MRACE14);
+        Assert.Equal("N", ije1.MRACE15);
+
+        // Non Hispanic or Latino
+        FetalDeathRecord b2 = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/RaceEthnicityCaseRecord2.json")));
+        IJEFetalDeath ije2 = new IJEFetalDeath(b2);
+        Assert.Equal("N", ije2.METHNIC1);
+        Assert.Equal("N", ije2.METHNIC2);
+        Assert.Equal("N", ije2.METHNIC3);
+        Assert.Equal("N", ije2.METHNIC4);
+        Assert.Equal("Y", ije2.MRACE10);
+        Assert.Equal("Malaysian", ije2.MRACE18);
+        Assert.Equal("Y", ije2.MRACE3);
+
+        FetalDeathRecord b3 = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
+        IJEFetalDeath ije3 = new IJEFetalDeath(b3);
+        Assert.Equal("H", ije3.METHNIC1);
+        Assert.Equal("H", ije3.METHNIC2);
+        Assert.Equal("H", ije3.METHNIC3);
+        Assert.Equal("N", ije3.METHNIC4);
+        Assert.Equal("Malaysian", ije3.MRACE18);
+        Assert.Equal("Y", ije3.MRACE1);
+        Assert.Equal("Y", ije3.MRACE2);
+        Assert.Equal("Y", ije3.MRACE3);
+        Assert.Equal("N", ije3.MRACE4);
+        Assert.Equal("N", ije3.MRACE5);
+        Assert.Equal("N", ije3.MRACE6);
+        Assert.Equal("N", ije3.MRACE7);
+        Assert.Equal("N", ije3.MRACE8);
+        Assert.Equal("N", ije3.MRACE9);
+        Assert.Equal("N", ije3.MRACE10);
+        Assert.Equal("N", ije3.MRACE11);
+        Assert.Equal("N", ije3.MRACE12);
+        Assert.Equal("N", ije3.MRACE13);
+        Assert.Equal("N", ije3.MRACE14);
+        Assert.Equal("N", ije3.MRACE15);
+    }
+
+    [Fact]
+    public void ParseMotherRaceEthnicityIJEtoJson()
+    {
+        FetalDeathRecord b = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
+        IJEFetalDeath ije1 = new IJEFetalDeath(b);
+        IJEFetalDeath ije2 = new IJEFetalDeath(ije1.ToString(), true);
+        FetalDeathRecord b2 = ije2.ToRecord();
+
+        // Ethnicity tuple
+        Assert.Equal("Y", b2.MotherEthnicity1Helper);
+        Assert.Equal("Y", b2.MotherEthnicity2Helper);
+        Assert.Equal("Y", b2.MotherEthnicity3Helper);
+        Assert.Equal("N", b2.MotherEthnicity4Helper);
+        Assert.Null(b2.MotherEthnicityLiteral);
+
+        // Race tuple
+        foreach (var pair in b2.MotherRace)
+        {
+            switch (pair.Item1)
+            {
+                case NvssRace.White:
+                    Assert.Equal("Y", pair.Item2);
+                    break;
+                case NvssRace.AmericanIndianOrAlaskanNative:
+                    Assert.Equal("Y", pair.Item2);
+                    break;
+                default:
+                    break;
+            }
+        }
+        Assert.Equal(17, b2.MotherRace.Length);
+    }
   }
 }
