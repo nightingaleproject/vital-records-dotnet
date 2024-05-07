@@ -4333,7 +4333,7 @@ namespace BFDR
             }
             set
             {
-                // According to the IJE spreadsheet, if one element in the Date of First Prenatal Care Visit date is set to 88, then this means there was explicitly "no care" provided. This means the other Date of First Prenatal Care Visit date elements should also be considered as "no care" since they combine to make one field. In this case, there should be no date data at all since it explicitly never happened, it should not exist in FHIR and should return null. However, the IG doesn't yet have a complete explicit protocol for this case.
+                // According to the IJE spreadsheet, if one element in the DateOfLastOtherPregnancyOutcomeYear date is set to 88, then this means there was explicitly "no care" provided. This means the other DateOfLastOtherPregnancyOutcomeYear date elements should also be considered as "no care" since they combine to make one field. In this case, there should be no date data at all since it explicitly never happened, it should not exist in FHIR and should return null. However, the IG doesn't yet have a complete explicit protocol for this case.
                 if (value == 88)
                 {
                     RemoveObservation("68500-8");
@@ -4378,7 +4378,7 @@ namespace BFDR
             }
             set
             {
-                // According to the IJE spreadsheet, if one element in the Date of First Prenatal Care Visit date is set to 88, then this means there was explicitly "no care" provided. This means the other Date of First Prenatal Care Visit date elements should also be considered as "no care" since they combine to make one field. In this case, there should be no date data at all since it explicitly never happened, it should not exist in FHIR and should return null. However, the IG doesn't yet have a complete explicit protocol for this case.
+                // According to the IJE spreadsheet, if one element in the DateOfLastOtherPregnancyOutcomeYear date is set to 8888, then this means there was explicitly "no care" provided. This means the other DateOfLastOtherPregnancyOutcome date elements should also be considered as explicitly absent since they combine to make one field. In this case, there should be no date data at all since it explicitly never happened, it should not exist in FHIR and should return null. However, the IG doesn't yet have a complete explicit protocol for this case.
                 if (value == 8888)
                 {
                     RemoveObservation("68500-8");
@@ -7025,7 +7025,7 @@ namespace BFDR
             {
                 if (value == 88)
                 {
-                    // For APGAR10, an IJE value of 88 corresponds to an explicit absence of an Apgar Score 10 Minutes in FHIR.
+                    // For APGAR10, an IJE value of "88" corresponds to an explicit absence of an Apgar Score 10 Minutes in FHIR since this measurement explicitly never occurred.
                     RemoveObservation("9271-8");
                     return;
                 }
