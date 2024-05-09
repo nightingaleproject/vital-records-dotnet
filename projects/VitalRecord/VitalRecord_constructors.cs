@@ -72,7 +72,8 @@ namespace VR
                     }
 
                     // Validate the partial dates.
-                    ValidatePartialDates(Bundle);
+                    // In the new version of VitalRecords, a partial-date-time does not need to be fully populated since parts of its missing date could be present in the fhir date value.
+                    // ValidatePartialDates(Bundle);
 
                     Navigator = Bundle.ToTypedElement();
                 }
