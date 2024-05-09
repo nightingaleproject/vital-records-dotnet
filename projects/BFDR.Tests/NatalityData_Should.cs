@@ -831,9 +831,9 @@ namespace BFDR.Tests
     {
       BirthRecord fhir = new BirthRecord();
       IJEBirth ije = new IJEBirth(fhir);
-      Assert.Equal("    ", ije.DOFP_YR);
-      Assert.Equal("  ", ije.DOFP_MO);
-      Assert.Equal("  ", ije.DOFP_DY);
+      Assert.Equal("8888", ije.DOFP_YR);
+      Assert.Equal("88", ije.DOFP_MO);
+      Assert.Equal("88", ije.DOFP_DY);
       ije.DOFP_DY = "24";
       Assert.Equal("    ", ije.DOFP_YR);
       Assert.Equal("  ", ije.DOFP_MO);
@@ -913,7 +913,7 @@ namespace BFDR.Tests
       BirthRecord fhir = new BirthRecord();
       IJEBirth ije = new IJEBirth(fhir);
       Assert.Equal("  ", ije.APGAR5);
-      Assert.Equal("  ", ije.APGAR10);
+      Assert.Equal("88", ije.APGAR10);
       ije.APGAR5 = "99";
       ije.APGAR10 = "15";
       Assert.Equal("99", ije.APGAR5);
