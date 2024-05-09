@@ -972,7 +972,9 @@ namespace BFDR.Tests
           DOFP_DY = "05",
           DOFP_MO = "07",
           DOFP_YR = "2021",
-          APGAR10 = "09"
+          APGAR10 = "09",
+          MLLB = "08",
+          YLLB = "2017"
       };
 
       Assert.Equal("2020", ije.YOPO);
@@ -981,22 +983,29 @@ namespace BFDR.Tests
       Assert.Equal("05", ije.DOFP_DY);
       Assert.Equal("07", ije.DOFP_MO);
       Assert.Equal("2021", ije.DOFP_YR);
+      Assert.Equal("08", ije.MLLB);
+      Assert.Equal("2017", ije.YLLB);
 
       ije.YOPO = "8888";
       ije.DOFP_DY = "88";
       ije.APGAR10 = "88";
-      Assert.Equal("    ", ije.YOPO);
+      ije.MLLB = "88";
+      Assert.Equal("8888", ije.YOPO);
       Assert.Null(ije.ToRecord().DateOfLastOtherPregnancyOutcomeYear);
-      Assert.Equal("  ", ije.MOPO);
+      Assert.Equal("88", ije.MOPO);
       Assert.Null(ije.ToRecord().DateOfLastOtherPregnancyOutcomeMonth);
-      Assert.Equal("  ", ije.APGAR10);
+      Assert.Equal("88", ije.APGAR10);
       Assert.Null(ije.ToRecord().ApgarScoreTenMinutes);
-      Assert.Equal("  ", ije.DOFP_DY);
+      Assert.Equal("88", ije.DOFP_DY);
       Assert.Null(ije.ToRecord().FirstPrenatalCareVisitDay);
-      Assert.Equal("  ", ije.DOFP_MO);
+      Assert.Equal("88", ije.DOFP_MO);
       Assert.Null(ije.ToRecord().FirstPrenatalCareVisitMonth);
-      Assert.Equal("    ", ije.DOFP_YR);
+      Assert.Equal("8888", ije.DOFP_YR);
       Assert.Null(ije.ToRecord().FirstPrenatalCareVisitYear);
+      Assert.Equal("88", ije.MLLB);
+      Assert.Null(ije.ToRecord().DateOfLastLiveBirthMonth);
+      Assert.Equal("8888", ije.YLLB);
+      Assert.Null(ije.ToRecord().DateOfLastLiveBirthYear);
     }
   }
 }
