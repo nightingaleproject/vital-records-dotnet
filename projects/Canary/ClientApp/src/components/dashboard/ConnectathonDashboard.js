@@ -10,20 +10,20 @@ export class ConnectathonDashboard extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { ...this.props, deathRecords: null, loading: false };    
+    this.state = { ...this.props, records: null, loading: false };    
   }
 
   componentDidMount() {
-    this.fetchDeathRecords()
+    this.fetchRecords()
   }
 
-  fetchDeathRecords() {
+  fetchRecords() {
     var self = this;
     axios
-      .get(`${window.API_URL}/connectathon`)
+      .get(`${window.API_URL}/connectathon/${this.props.params.recordType}`)
       .then(function (response) {
         var records = response.data;
-        self.setState({ deathRecords: records, loading: false });
+        self.setState({ records: records, loading: false });
       })
       .catch(function (error) {
         self.setState({ loading: false }, () => {
@@ -42,13 +42,11 @@ export class ConnectathonDashboard extends Component {
   }
 
   render() {
-    if (this.props.params.recordType.toLowerCase() != 'vrdr') {
-      return (
-        <Header>
-          {`There are no Connectathon records for record type ${this.props.params.recordType.toUpperCase()}.`}
-        </Header>
-      );
-    }
+    const isVRDR = this.props.params.recordType.toLowerCase() == 'vrdr';
+    const sexKey = isVRDR ? 'sexAtDeath' : 'birthSex';
+    const familyNameKey = isVRDR ? 'familyName' : 'childFamilyName';
+    const givenNamesKey = isVRDR ? 'givenNames' : 'childGivenNames';
+    const descriptionKey = isVRDR ? 'coD1A' : 'dateOfBirth';
     return (
       <React.Fragment>
         <Grid centered columns={1}>
@@ -62,12 +60,12 @@ export class ConnectathonDashboard extends Component {
               </Divider>
               <Item.Group className="m-h-30">
                 {
-                  !!this.state.deathRecords && this.state.deathRecords.map((x, i) =>
+                  !!this.state.records && this.state.records.map((x, i) =>
                     <DashboardItem
                       key={i}
-                      icon={!!x['sexAtDeath'] && x['sexAtDeath']['code'] || 'male'}
-                      title={`#${i + 1}: ${x['familyName']}, ${x['givenNames'].join(' ')}`}
-                      description={`${x['coD1A']}`}
+                      icon={!!x[sexKey] && x[sexKey]['code'] || 'male'}
+                      title={`#${i + 1}: ${x[familyNameKey]}, ${x[givenNamesKey].join(' ')}`}
+                      description={`${x[descriptionKey]}`}
                       route={this.getUrl(i + 1)}
                     />
                   )

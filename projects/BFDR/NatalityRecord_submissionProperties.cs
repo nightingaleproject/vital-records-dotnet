@@ -2464,7 +2464,7 @@ namespace BFDR
                 {
                     return;
                 }
-                Observation obs = GetOrCreateObservation("68497-7", CodeSystems.LOINC, BFDR.ProfileURL.ObservationNumberPrenatalVisits, MEDICAL_INFORMATION_SECTION, Mother.Id);
+                Observation obs = GetOrCreateObservation("68497-7", CodeSystems.LOINC, "Number Of Previous Cesareans", BFDR.ProfileURL.ObservationNumberPrenatalVisits, MEDICAL_INFORMATION_SECTION, Mother.Id);
                 obs.Value = new Hl7.Fhir.Model.Integer(value);
             }
         }

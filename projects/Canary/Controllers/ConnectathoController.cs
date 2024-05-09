@@ -1,14 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.IO;
-using System.Text;
-using System.Reflection;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using VRDR;
-using canary.Models;
+using BFDR;
 
 namespace canary.Controllers
 {
@@ -17,14 +9,25 @@ namespace canary.Controllers
     {
 
         /// <summary>
-        /// Returns all Connectathon test messages.
-        /// GET /connectathon
+        /// Returns all Connectathon Death Record test messages.
+        /// GET /connectathon/vrdr
         /// </summary>
-        [HttpGet("Connectathon")]
-        [HttpGet("Connectathon/Index")]
-        public DeathRecord[] Index()
+        [HttpGet("Connectathon/vrdr")]
+        [HttpGet("Connectathon/vrdr/Index")]
+        public DeathRecord[] IndexVRDR()
         {
-            return Connectathon.Records;
+            return VRDR.Connectathon.Records;
+        }
+
+        /// <summary>
+        /// Returns all Connectathon Birth Record test messages.
+        /// GET /connectathon/bfdr
+        /// </summary>
+        [HttpGet("Connectathon/bfdr")]
+        [HttpGet("Connectathon/bfdr/Index")]
+        public BirthRecord[] IndexBFDR()
+        {
+            return BFDR.Connectathon.Records;
         }
     }
 }
