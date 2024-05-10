@@ -2,8 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
-<a name="1.0.0-preview.1"></a>
-## [1.0.0-preview.1](https://github.com/nightingaleproject/vital-records-dotnet/commit/725088c0632eff716e0e865b07014af595b99ca3) (2024-05-03)
+<a name="1.0.0-preview.2"></a>
+## [1.0.0-preview.2](https://github.com/nightingaleproject/vital-records-dotnet/commit/725088c0632eff716e0e865b07014af595b99ca3) (2024-05-03)
 
 
 ### Bug Fixes
