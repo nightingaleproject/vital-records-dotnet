@@ -1919,14 +1919,14 @@ namespace BFDR.Tests
         Assert.Equal(2500, record.BirthWeight);
         // Edit Flags
         Assert.Equal("", record.MotherPrepregnancyWeightEditFlag["code"]);
-        record.MotherPrepregnancyWeightEditFlagHelper = VR.ValueSets.EditBypass01234.Edit_Passed;
-        Assert.Equal(VR.ValueSets.EditBypass01234.Edit_Passed, record.MotherPrepregnancyWeightEditFlag["code"]);
+        record.MotherPrepregnancyWeightEditFlagHelper = BFDR.ValueSets.PregnancyReportEditFlags.Edit_Passed;
+        Assert.Equal(BFDR.ValueSets.PregnancyReportEditFlags.Edit_Passed, record.MotherPrepregnancyWeightEditFlag["code"]);
         Assert.Equal("", record.MotherWeightAtDeliveryEditFlag["code"]);
-        record.MotherWeightAtDeliveryEditFlagHelper = VR.ValueSets.EditBypass01234.Edit_Passed;
-        Assert.Equal(VR.ValueSets.EditBypass01234.Edit_Passed, record.MotherWeightAtDeliveryEditFlag["code"]);
+        record.MotherWeightAtDeliveryEditFlagHelper = BFDR.ValueSets.PregnancyReportEditFlags.Edit_Passed;
+        Assert.Equal(BFDR.ValueSets.PregnancyReportEditFlags.Edit_Passed, record.MotherWeightAtDeliveryEditFlag["code"]);
         Assert.Equal("", record.BirthWeightEditFlag["code"]);
-        record.BirthWeightEditFlagHelper = VR.ValueSets.EditBypass01234.Edit_Passed;
-        Assert.Equal(VR.ValueSets.EditBypass01234.Edit_Passed, record.BirthWeightEditFlag["code"]);
+        record.BirthWeightEditFlagHelper = BFDR.ValueSets.BirthWeightEditFlags.Off;
+        Assert.Equal(BFDR.ValueSets.BirthWeightEditFlags.Off, record.BirthWeightEditFlag["code"]);
         // IJE translations
         IJEBirth ije1 = new IJEBirth(record);
         Assert.Equal("145", ije1.PWGT);
