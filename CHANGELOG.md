@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.0.0-preview.3](https://github.com/nightingaleproject/vital-record-dotnet-demo/compare/e3fb04b330e97b909cc034d9f42e11c48d489fd1...23.4.0) (2024-05-10)
+
+
+### Features
+* BFDR Test Connectathon records are now present and supported for record and message testing in Canary.
+* Adds support for Explicit Absence "8" inputs for IJE fields YOPO, MOPO, MLLB, YLLB, APGAR10, DOFP_XX
+
+### Fixes
+* Removes extraneous elements from PartialDateTimes.
+* Adds support for 'temp-unknown' elements in PartialDateTimes when building a date extension.
+* Fixes mixed-up Profile URLs and Section Codes for certain fields in BFDR.
+
+
 ## [23.4.0](https://github.com/nightingaleproject/vital-record-dotnet-demo/compare/e3fb04b330e97b909cc034d9f42e11c48d489fd1...23.4.0) (2023-11-06)
 
 
@@ -15,7 +28,7 @@ All notable changes to this project will be documented in this file. See [commit
 
 ### Bug Fixes
 
-* add versin file ([58b8c1a](https://github.com/nightingaleproject/vital-record-dotnet-demo/commit/58b8c1ab7ea4fd1260ccf1d608a336d7c43a1ee3))
+* add version file ([58b8c1a](https://github.com/nightingaleproject/vital-record-dotnet-demo/commit/58b8c1ab7ea4fd1260ccf1d608a336d7c43a1ee3))
 * adding missing place of injury and description ([#524](https://github.com/nightingaleproject/vital-record-dotnet-demo/issues/524)) ([6c90377](https://github.com/nightingaleproject/vital-record-dotnet-demo/commit/6c90377cc7a942211dda20079e53321c51e29c97))
 * alias flag on fhir message to 0 (or 1) from blank or null ([#513](https://github.com/nightingaleproject/vital-record-dotnet-demo/issues/513)) ([0407051](https://github.com/nightingaleproject/vital-record-dotnet-demo/commit/040705121b126b945c1e5659928e9c4174a135b5))
 * another letter ([e0420eb](https://github.com/nightingaleproject/vital-record-dotnet-demo/commit/e0420eb81f7e61f9bd247696e10fb9b49496993a))
