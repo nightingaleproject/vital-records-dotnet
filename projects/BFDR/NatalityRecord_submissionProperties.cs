@@ -2464,7 +2464,7 @@ namespace BFDR
                 {
                     return;
                 }
-                Observation obs = GetOrCreateObservation("68497-7", CodeSystems.LOINC, BFDR.ProfileURL.ObservationNumberPrenatalVisits, MEDICAL_INFORMATION_SECTION, Mother.Id);
+                Observation obs = GetOrCreateObservation("68497-7", CodeSystems.LOINC, BFDR.ProfileURL.ObservationNumberPreviousCesareans, MEDICAL_INFORMATION_SECTION, Mother.Id);
                 obs.Value = new Hl7.Fhir.Model.Integer(value);
             }
         }
@@ -6991,10 +6991,7 @@ namespace BFDR
         public int? ApgarScoreTenMinutes
         {
             get => GetIntegerObservationValue("9271-8");
-            set
-            {
-                SetIntegerObservationValue("9271-8", "10 minute Apgar Score", value, NEWBORN_INFORMATION_SECTION, BFDR.ProfileURL.ObservationApgarScore, Child.Id);
-            }
+            set => SetIntegerObservationValue("9271-8", "10 minute Apgar Score", value, NEWBORN_INFORMATION_SECTION, BFDR.ProfileURL.ObservationApgarScore, Child.Id);
         }
 
 
