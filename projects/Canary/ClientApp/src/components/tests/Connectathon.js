@@ -59,10 +59,16 @@ export class Connectathon extends Component {
   setEmptyToNull(obj) {
     const o = JSON.parse(JSON.stringify(obj));
     Object.keys(o).forEach(key => {
-      if (o[key] && typeof o[key] === 'object') o[key] = this.setEmptyToNull(o[key]);
-      else if (o[key] === undefined || o[key] === null || (!!!o[key] && o['Type'] !== 'Bool')) o[key] = null;
+      if (o[key] && typeof o[key] === 'object') {
+        o[key] = this.setEmptyToNull(o[key]);
+      }
+      else if (o[key] === undefined || o[key] === null || (!!!o[key] && o[key] != 0 && o['Type'] !== 'Bool')) {
+        o[key] = null;
+      }
       // eslint-disable-next-line
-      else o[key] = o[key];
+      else {
+        o[key] = o[key];
+      }
     });
     return o;
   }

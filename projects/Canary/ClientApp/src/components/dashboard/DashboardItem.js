@@ -7,11 +7,18 @@ export class DashboardItem extends Component {
   displayName = DashboardItem.name;
 
   render() {
+    var iconKey = this.props.icon;
+    if (iconKey === 'F') {
+      iconKey = 'female';
+    }
+    if (iconKey === 'M') {
+      iconKey = 'male';
+    }
     return (
       <React.Fragment>
         <Item as={Link} to={this.props.route} className="p-t-10">
           <Item.Image className="align-center">
-            {!!this.props.icon && <Icon name={this.props.icon} size="huge" circular color="black" className="float-center" />}
+            {!!iconKey && <Icon name={iconKey} size="huge" circular color="black" className="float-center" />}
             {!!this.props.faIcon && <Icon circular size="huge">
               <FontAwesomeIcon icon={this.props.faIcon} color="black" className="float-center" />
             </Icon>}
