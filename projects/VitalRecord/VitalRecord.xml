@@ -5521,10 +5521,6 @@
             <param name="names">The current list of HumanName attributes for the person.</param>
             <param name="use"> The type of name, defaults to official.</param>
         </member>
-        <member name="M:VR.VitalRecord.ValidatePartialDates(Hl7.Fhir.Model.Bundle)">
-            <summary>Helper method to validate that all PartialDate and PartialDateTime exensions are valid and have the valid required sub-extensions.</summary>
-            <param name="bundle">The bundle in which to validate the PartialDate/Time extensions.</param>
-        </member>
         <member name="M:VR.VitalRecord.GetPartialDate(Hl7.Fhir.Model.Extension,System.String)">
             <summary>Getter helper for anything that uses PartialDateTime, allowing a particular date field (year, month, or day) to be read
             from the extension. Returns either a numeric date part, or -1 meaning explicitly unknown, or null meaning not specified.</summary>

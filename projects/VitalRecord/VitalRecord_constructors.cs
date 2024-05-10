@@ -70,11 +70,7 @@ namespace VR
                         FhirJsonParser parser = new FhirJsonParser(parserSettings);
                         Bundle = parser.Parse<Bundle>(record);
                     }
-
-                    // Validate the partial dates.
-                    // In the new version of VitalRecords, a partial-date-time does not need to be fully populated since parts of its missing date could be present in the fhir date value.
-                    // ValidatePartialDates(Bundle);
-
+                    
                     Navigator = Bundle.ToTypedElement();
                 }
                 catch (Exception e)
