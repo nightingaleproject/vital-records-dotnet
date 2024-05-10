@@ -1,3 +1,4 @@
+using System;
 using BFDR;
 using VR;
 
@@ -31,6 +32,8 @@ namespace canary.Models
 
         protected override Record CreateRecordFromFHIR(string description)
         {
+            Console.WriteLine("JJJJJ" + ((BirthRecord)VitalRecord.FromDescription<BirthRecord>(description)).NumberOfPreviousCesareans + "lll");
+            // Console.WriteLine("JJJJJ" + description);
             return new CanaryBirthRecord(VitalRecord.FromDescription<BirthRecord>(description));
         }
 

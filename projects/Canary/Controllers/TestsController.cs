@@ -78,7 +78,7 @@ namespace canary.Controllers
         {
             using (var db = new RecordContext())
             {
-                DeathTest test = new DeathTest(Connectathon.FromId(id, certificateNumber, state));
+                DeathTest test = new DeathTest(VRDR.Connectathon.FromId(id, certificateNumber, state));
                 db.DeathTests.Add(test);
                 db.SaveChanges();
                 return test;
@@ -96,7 +96,7 @@ namespace canary.Controllers
         {
             using (var db = new RecordContext())
             {
-                BirthTest test = new BirthTest(Connectathon.FromId(id, certificateNumber, state));
+                BirthTest test = new BirthTest(BFDR.Connectathon.FromId(id, certificateNumber, state));
                 db.BirthTests.Add(test);
                 db.SaveChanges();
                 return test;
@@ -203,6 +203,7 @@ namespace canary.Controllers
             using (var db = new RecordContext())
             {
                 BirthTest test = db.BirthTests.Where(t => t.TestId == id).FirstOrDefault();
+                Console.WriteLine(Request.Body);
                 string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
                 if (!String.IsNullOrEmpty(input))
                 {
