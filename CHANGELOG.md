@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file. See [commit
 ### Fixes
 * Removes extraneous elements from PartialDateTimes.
 * Adds support for 'temp-unknown' elements in PartialDateTimes when building a date extension.
+* Removes validation of PartialDateTimes since, in VR, elements now have a [0..1] cardinality instead of [1..1].
 * Fixes mixed-up Profile URLs and Section Codes for certain fields in BFDR.
 
 
