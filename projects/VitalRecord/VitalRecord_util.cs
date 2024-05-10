@@ -960,6 +960,12 @@ namespace VR
                     fdtYearMonth.SetExtension(PartialDateTimeUrl, new Extension());
                 }
                 fdtYearMonth.GetExtension(PartialDateTimeUrl).SetExtension(VR.ExtensionURL.PartialDateTimeDayVR, new Integer(dayValue));
+                // fdtYearMonth.GetExtension(PartialDateTimeUrl).RemoveExtension(VR.ExtensionURL.PartialDateTimeMonthVR);
+                // fdtYearMonth.GetExtension(PartialDateTimeUrl).RemoveExtension(VR.ExtensionURL.PartialDateTimeYearVR);
+                // if (dayValue == null)
+                // {
+                //     fdtYearMonth.GetExtension(PartialDateTimeUrl).GetExtension(VR.ExtensionURL.PartialDateTimeDayVR).SetExtension(OtherExtensionURL.DataAbsentReason, new Code("temp-unkown"));
+                // }
                 return fdtYearMonth;
             }
 
@@ -976,6 +982,15 @@ namespace VR
                 }
                 fdtYear.GetExtension(PartialDateTimeUrl).SetExtension(VR.ExtensionURL.PartialDateTimeMonthVR, new Integer(monthValue));
                 fdtYear.GetExtension(PartialDateTimeUrl).SetExtension(VR.ExtensionURL.PartialDateTimeDayVR, new Integer(dayValue));
+                // fdtYear.GetExtension(PartialDateTimeUrl).RemoveExtension(VR.ExtensionURL.PartialDateTimeYearVR);
+                // if (dayValue == null)
+                // {
+                //     fdtYear.GetExtension(PartialDateTimeUrl).GetExtension(VR.ExtensionURL.PartialDateTimeDayVR).SetExtension(OtherExtensionURL.DataAbsentReason, new Code("temp-unkown"));
+                // }
+                // if (monthValue == null)
+                // {
+                //     fdtYear.GetExtension(PartialDateTimeUrl).GetExtension(VR.ExtensionURL.PartialDateTimeMonthVR).SetExtension(OtherExtensionURL.DataAbsentReason, new Code("temp-unkown"));
+                // }
                 return fdtYear;
             }
 
@@ -991,6 +1006,18 @@ namespace VR
             fdtEmpty.GetExtension(PartialDateTimeUrl).SetExtension(VR.ExtensionURL.PartialDateTimeYearVR, new Integer(yearValue));
             fdtEmpty.GetExtension(PartialDateTimeUrl).SetExtension(VR.ExtensionURL.PartialDateTimeMonthVR, new Integer(monthValue));
             fdtEmpty.GetExtension(PartialDateTimeUrl).SetExtension(VR.ExtensionURL.PartialDateTimeDayVR, new Integer(dayValue));
+            // if (dayValue == null)
+            // {
+            //     fdtEmpty.GetExtension(PartialDateTimeUrl).GetExtension(VR.ExtensionURL.PartialDateTimeDayVR).SetExtension(OtherExtensionURL.DataAbsentReason, new Code("temp-unkown"));
+            // }
+            // if (monthValue == null)
+            // {
+            //     fdtEmpty.GetExtension(PartialDateTimeUrl).GetExtension(VR.ExtensionURL.PartialDateTimeMonthVR).SetExtension(OtherExtensionURL.DataAbsentReason, new Code("temp-unkown"));
+            // }
+            // if (yearValue == null)
+            // {
+            //     fdtEmpty.GetExtension(PartialDateTimeUrl).GetExtension(VR.ExtensionURL.PartialDateTimeYearVR).SetExtension(OtherExtensionURL.DataAbsentReason, new Code("temp-unkown"));
+            // }
             return fdtEmpty;
         }
 
@@ -1732,10 +1759,12 @@ namespace VR
                 // Loop over each property
                 foreach (KeyValuePair<string, dynamic> property in category.Value)
                 {
+                    // Console.WriteLine("LLLFSD" + property.Key);
                     if (!property.Value.ContainsKey("Value") || property.Value["Value"] == null)
                     {
                         continue;
                     }
+                    // Console.WriteLine("LLLFSD" + property.Key + "present");
                     // Set the property on the new VitalRecord based on its type
                     string propertyName = property.Key;
                     Object value = null;

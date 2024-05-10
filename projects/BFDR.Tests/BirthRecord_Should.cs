@@ -2967,6 +2967,9 @@ namespace BFDR.Tests
 
       BirthRecord birthRecord3 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
       Assert.Equal(1, birthRecord3.NumberOfPreviousCesareans);
+
+      BirthRecord birthRecord4 = VitalRecord.FromDescription<BirthRecord>(birthRecord3.ToDescription());
+      Assert.Equal(1, birthRecord4.NumberOfPreviousCesareans);
     }
     
     [Fact]

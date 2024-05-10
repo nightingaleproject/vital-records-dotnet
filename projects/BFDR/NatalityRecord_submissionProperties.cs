@@ -2464,7 +2464,7 @@ namespace BFDR
                 {
                     return;
                 }
-                Observation obs = GetOrCreateObservation("68497-7", CodeSystems.LOINC, BFDR.ProfileURL.ObservationNumberPreviousCesareans, MEDICAL_INFORMATION_SECTION, Mother.Id);
+                Observation obs = GetOrCreateObservation("68497-7", CodeSystems.LOINC, "Number of Previous Cesareans", BFDR.ProfileURL.ObservationNumberPreviousCesareans, MEDICAL_INFORMATION_SECTION, Mother.Id);
                 obs.Value = new Hl7.Fhir.Model.Integer(value);
             }
         }
@@ -2477,7 +2477,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"NumberOfPreviousCesareansEditFlag: {ExampleBirthRecord.NumberOfPreviousCesareansEditFlag}");</para>
         /// </example>
-        [Property("Number Of Prenatal Visits Edit Flag", Property.Types.Dictionary, "Number of Prenatal Visits", "Number of Prenatal Visits Edit Flag.", true, IGURL.ObservationNumberPreviousCesareans, true, 14)]
+        [Property("Number Of Prenatal Visits Edit Flag", Property.Types.Dictionary, "Number of Previous Cesareans", "Number of Previous Cesareans Edit Flag.", true, IGURL.ObservationNumberPreviousCesareans, true, 14)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
@@ -4427,7 +4427,7 @@ namespace BFDR
         public int? NumberOfPrenatalVisits
         {
             get => GetIntegerObservationValue("68493-6");
-            set => SetIntegerObservationValue("68493-6", CodeSystems.LOINC, value, BFDR.ProfileURL.ObservationNumberPrenatalVisits, NUMBER_OF_PRENATAL_VISITS, Mother.Id);
+            set => SetIntegerObservationValue("68493-6", CodeSystems.LOINC, value, NUMBER_OF_PRENATAL_VISITS, BFDR.ProfileURL.ObservationNumberPrenatalVisits, Mother.Id);
         }
 
         /// <summary>NumberOfPrenatalVisitsEditFlag.</summary>
