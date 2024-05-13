@@ -3033,14 +3033,13 @@
         </member>
         <member name="P:BFDR.NatalityRecord.MotherHeightEditFlag">
             <summary>Mother Height Edit Flag.</summary>
-            <value>the mother's height level edit flag. A Dictionary representing a code, containing the following key/value pairs:
-            <para>"code" - the code</para>
+            <value>the mother's height edit flag. A Dictionary representing a code, containing the following key/value pairs:        /// <para>"code" - the code</para>
             <para>"system" - the code system this code belongs to</para>
             <para>"display" - a human readable meaning of the code</para>
             </value>
             <example>
             <para>// Setter:</para>
-            <para>Dictionary&lt;string, string&gt; elevel = new Dictionary&lt;string, string&gt;();</para>
+            <para>Dictionary&lt;string, string&gt; height = new Dictionary&lt;string, string&gt;();</para>
             <para>height.Add("code", "0");</para>
             <para>height.Add("system", CodeSystems.BypassEditFlag);</para>
             <para>height.Add("display", "Edit Passed");</para>

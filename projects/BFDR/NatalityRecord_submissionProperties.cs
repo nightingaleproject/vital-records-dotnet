@@ -4965,8 +4965,23 @@ namespace BFDR
                 SetWeightEditFlag(code, EmptyCodeDict(), section, subjectId);
                 return;
             }
+            // Determine the subject
+            string[,] options = null;
+            if (code == "8339-4")
+            {
+                // child / decedent fetus
+                options = BFDR.ValueSets.BirthWeightEditFlags.Codes;
+            }
+            else if (code == "56077-1" || code == "69461-2")
+            {
+                // mother
+                options = BFDR.ValueSets.PregnancyReportEditFlags.Codes;
+            } 
+            else 
+            {
+                Console.WriteLine("Warning: provided LOINC code for 'weight' does not correspond to mother or child.");
+            }
             // Iterate over the allowed options and see if the code supplies is one of them
-            string[,] options = BFDR.ValueSets.PregnancyReportEditFlags.Codes;
             for (int i = 0; i < options.GetLength(0); i += 1)
             {
                 if (options[i, 0] == editFlag)
@@ -5666,14 +5681,13 @@ namespace BFDR
         }
 
         /// <summary>Mother Height Edit Flag.</summary>
-        /// <value>the mother's height level edit flag. A Dictionary representing a code, containing the following key/value pairs:
-        /// <para>"code" - the code</para>
+        /// <value>the mother's height edit flag. A Dictionary representing a code, containing the following key/value pairs:        /// <para>"code" - the code</para>
         /// <para>"system" - the code system this code belongs to</para>
         /// <para>"display" - a human readable meaning of the code</para>
         /// </value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>Dictionary&lt;string, string&gt; elevel = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>Dictionary&lt;string, string&gt; height = new Dictionary&lt;string, string&gt;();</para>
         /// <para>height.Add("code", "0");</para>
         /// <para>height.Add("system", CodeSystems.BypassEditFlag);</para>
         /// <para>height.Add("display", "Edit Passed");</para>
