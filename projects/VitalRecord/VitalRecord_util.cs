@@ -424,6 +424,58 @@ namespace VR
             }
         }
 
+        /// <summary>Function that validates all partial date extensions in a bundle. Currently unused due
+        /// to reevaluation of partial date handling due to changes in the VitalRecords IG.</summary>
+        /// <param name="bundle">The bundle in which to validate the PartialDate/Time extensions.</param>
+        private void ValidatePartialDates(Bundle bundle)
+        {
+            System.Text.StringBuilder errors = new System.Text.StringBuilder();
+            List<Resource> resources = bundle.Entry.Select(entry => entry.Resource).ToList();
+
+            foreach (Hl7.Fhir.Model.Resource resource in resources)
+            {
+                foreach (DataType child in resource.Children.Where(child => child.GetType().IsSubclassOf(typeof(DataType))))
+                {
+                    // Extract PartialDates and PartialDateTimes.
+                    //List<Extension> partialDateExtensions = child.Extension.Where(ext => ext.Url.Equals(VRExtensionURLs.PartialDate) || ext.Url.Equals(PartialDateTimeUrl)).ToList();
+                    List<Extension> partialDateExtensions = child.Extension.Where(ext => ext.Url.Equals(PartialDateUrl) || ext.Url.Equals(PartialDateTimeUrl)).ToList();
+                    foreach (Extension partialDateExtension in partialDateExtensions)
+                    {
+                        // Validate that the required sub-extensions are in the PartialDate/Time component.
+                        List<String> partialDateSubExtensions = partialDateExtension.Extension.Select(ext => ext.Url).ToList();
+                        if (!partialDateSubExtensions.Contains(PartialDateDayUrl))
+                        {
+                            errors.Append("Missing 'Date-Day' of [" + partialDateExtension.Url + "] for resource [" + resource.Id + "].").AppendLine();
+                        }
+                        if (!partialDateSubExtensions.Contains(PartialDateMonthUrl))
+                        {
+                            errors.Append("Missing 'Date-Month' of [" + partialDateExtension.Url + "] for resource [" + resource.Id + "].").AppendLine();
+                        }
+                        if (!partialDateSubExtensions.Contains(PartialDateYearUrl))
+                        {
+                            errors.Append("Missing 'Date-Year' of [" + partialDateExtension.Url + "] for resource [" + resource.Id + "].").AppendLine();
+                        }
+                        if (partialDateExtension.Url.Equals(PartialDateTimeUrl) && !partialDateSubExtensions.Contains(PartialDateTimeTimeUrl))
+                        {
+                            errors.Append("Missing 'Date-Time' of [" + partialDateExtension.Url + "] for resource [" + resource.Id + "].").AppendLine();
+                        }
+                        // Validate that there are no extraneous invalid sub-extensions of the PartialDate/Time component.
+                        partialDateSubExtensions.Remove(PartialDateDayUrl);
+                        partialDateSubExtensions.Remove(PartialDateMonthUrl);
+                        partialDateSubExtensions.Remove(PartialDateYearUrl);
+                        partialDateSubExtensions.Remove(PartialDateTimeTimeUrl);
+                        if (partialDateSubExtensions.Count() > 0) {
+                            errors.Append("[" + partialDateExtension.Url + "] component contains extra invalid fields [" + string.Join(", ", partialDateSubExtensions) + "] for resource [" + resource.Id + "].").AppendLine();
+                        }
+                    }
+                }
+            }
+            if (errors.Length > 0)
+            {
+                throw new ArgumentException(errors.ToString());
+            }
+        }
+
         /// <summary>Getter helper for anything that uses PartialDateTime, allowing a particular date field (year, month, or day) to be read
         /// from the extension. Returns either a numeric date part, or -1 meaning explicitly unknown, or null meaning not specified.</summary>
         protected int? GetPartialDate(Extension partialDateTime, string partURL)
@@ -1709,12 +1761,10 @@ namespace VR
                 // Loop over each property
                 foreach (KeyValuePair<string, dynamic> property in category.Value)
                 {
-                    // Console.WriteLine("LLLFSD" + property.Key);
                     if (!property.Value.ContainsKey("Value") || property.Value["Value"] == null)
                     {
                         continue;
                     }
-                    // Console.WriteLine("LLLFSD" + property.Key + "present");
                     // Set the property on the new VitalRecord based on its type
                     string propertyName = property.Key;
                     Object value = null;
