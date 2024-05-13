@@ -14,8 +14,8 @@ All notable changes to this project will be documented in this file. See [commit
 * Removes validation of PartialDateTimes since, in VR, elements now have a [0..1] cardinality instead of [1..1].
 * Fixes mixed-up Profile URLs and Section Codes for certain fields in BFDR.
 
-<a name="1.0.1-preview"></a>
-## [1.0.1-preview](https://github.com/nightingaleproject/vital-records-dotnet/commit/725088c0632eff716e0e865b07014af595b99ca3) (2024-05-03)
+<a name="1.0.0-preview.2"></a>
+## [1.0.0-preview.2](https://github.com/nightingaleproject/vital-records-dotnet/commit/725088c0632eff716e0e865b07014af595b99ca3) (2024-05-03)
 
 
 ### Bug Fixes
