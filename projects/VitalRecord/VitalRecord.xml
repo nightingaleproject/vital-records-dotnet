@@ -326,6 +326,12 @@
         <member name="M:VR.IJE.Set_MotherRace(System.String,System.String)">
             <summary>Adds the given race to the record for Mother.</summary>
         </member>
+        <member name="M:VR.IJE.Get_FatherRace(System.String)">
+            <summary>Checks if the given race exists in the record for Father.</summary>
+        </member>
+        <member name="M:VR.IJE.Set_FatherRace(System.String,System.String)">
+            <summary>Adds the given race to the record for Father.</summary>
+        </member>
         <member name="T:VR.IJEData">
             <summary>Data helper class for dealing with IJE mortality data. Follows Singleton-esque pattern!</summary>
         </member>
@@ -6315,6 +6321,17 @@
             <example>
             <para>// Setter:</para>
             <para>ExampleBirthRecord.MotherRace = {NvssRace.BlackOrAfricanAmerican, "Y"};</para>
+            <para>// Getter:</para>
+            <para>string boaa = ExampleBirthRecord.RaceBlackOfAfricanAmerican;</para>
+            </example>
+        </member>
+        <member name="P:VR.VitalRecord.FatherRace">
+            <summary>Father's Race values.</summary>
+            <value>the father's race. A tuple, where the first value of the tuple is the display value, and the second is
+            the IJE code Y or N.</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.FatherRace = {NvssRace.BlackOrAfricanAmerican, "Y"};</para>
             <para>// Getter:</para>
             <para>string boaa = ExampleBirthRecord.RaceBlackOfAfricanAmerican;</para>
             </example>

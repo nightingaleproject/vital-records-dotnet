@@ -78,26 +78,7 @@ namespace BFDR
         //
         /////////////////////////////////////////////////////////////////////////////////
     
-        /// <summary>Checks if the given race exists in the record for Father.</summary>
-        private string Get_FatherRace(string name)
-        {
-            Tuple<string, string>[] raceStatus = record.FatherRace.ToArray();
 
-            Tuple<string, string> raceTuple = Array.Find(raceStatus, element => element.Item1 == name);
-            if (raceTuple != null)
-            {
-                return (raceTuple.Item2).Trim();
-            }
-            return "";
-        }
-
-        /// <summary>Adds the given race to the record for Father.</summary>
-        private void Set_FatherRace(string name, string value)
-        {
-            List<Tuple<string, string>> raceStatus = record.FatherRace.ToList();
-            raceStatus.Add(Tuple.Create(name, value));
-            record.FatherRace = raceStatus.Distinct().ToArray();
-        }
         /////////////////////////////////////////////////////////////////////////////////
         //
         // Class Properties that provide getters and setters for each of the IJE

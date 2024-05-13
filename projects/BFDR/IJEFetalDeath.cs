@@ -4171,12 +4171,19 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                string code = Get_MappingFHIRToIJE(VR.Mappings.HispanicNoUnknown.FHIRToIJE, "FatherEthnicity1", "FETHNIC1");
+                if (String.IsNullOrWhiteSpace(code))
+                {
+                    code = "U";
+                }
+                return code;
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Set_MappingIJEToFHIR(VR.Mappings.HispanicNoUnknown.IJEToFHIR, "FETHNIC1", "FatherEthnicity1", value);
+                }
             }
         }
 
@@ -4186,12 +4193,19 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                string code = Get_MappingFHIRToIJE(VR.Mappings.HispanicNoUnknown.FHIRToIJE, "FatherEthnicity2", "FETHNIC2");
+                if (String.IsNullOrWhiteSpace(code))
+                {
+                    code = "U";
+                }
+                return code;
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Set_MappingIJEToFHIR(VR.Mappings.HispanicNoUnknown.IJEToFHIR, "FETHNIC2", "FatherEthnicity2", value);
+                }
             }
         }
 
@@ -4201,12 +4215,19 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                string code = Get_MappingFHIRToIJE(VR.Mappings.HispanicNoUnknown.FHIRToIJE, "FatherEthnicity3", "FETHNIC3");
+                if (String.IsNullOrWhiteSpace(code))
+                {
+                    code = "U";
+                }
+                return code;
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Set_MappingIJEToFHIR(VR.Mappings.HispanicNoUnknown.IJEToFHIR, "FETHNIC3", "FatherEthnicity3", value);
+                }
             }
         }
 
@@ -4216,12 +4237,19 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                string code = Get_MappingFHIRToIJE(VR.Mappings.HispanicNoUnknown.FHIRToIJE, "FatherEthnicity4", "FETHNIC4");
+                if (String.IsNullOrWhiteSpace(code))
+                {
+                    code = "U";
+                }
+                return code;
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Set_MappingIJEToFHIR(VR.Mappings.HispanicNoUnknown.IJEToFHIR, "FETHNIC4", "FatherEthnicity4", value);
+                }
             }
         }
 
@@ -4231,12 +4259,22 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                var ethnicityLiteral = record.FatherEthnicityLiteral;
+                if (!String.IsNullOrWhiteSpace(ethnicityLiteral))
+                {
+                    return Truncate(ethnicityLiteral, 20).Trim();
+                }
+                else
+                {
+                    return "";
+                }
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    record.FatherEthnicityLiteral = value;
+                }
             }
         }
 
@@ -4246,12 +4284,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Get_FatherRace(NvssRace.White);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Set_FatherRace(NvssRace.White, value);
+                }
             }
         }
 
@@ -4261,12 +4301,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Get_FatherRace(NvssRace.BlackOrAfricanAmerican);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Set_FatherRace(NvssRace.BlackOrAfricanAmerican, value);
+                }
             }
         }
 
@@ -4276,12 +4318,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Get_FatherRace(NvssRace.AmericanIndianOrAlaskanNative);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Set_FatherRace(NvssRace.AmericanIndianOrAlaskanNative, value);
+                }
             }
         }
 
@@ -4291,12 +4335,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Get_FatherRace(NvssRace.AsianIndian);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Set_FatherRace(NvssRace.AsianIndian, value);
+                }
             }
         }
 
@@ -4306,12 +4352,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Get_FatherRace(NvssRace.Chinese);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Set_FatherRace(NvssRace.Chinese, value);
+                }
             }
         }
 
@@ -4321,12 +4369,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Get_FatherRace(NvssRace.Filipino);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Set_FatherRace(NvssRace.Filipino, value);
+                }
             }
         }
 
@@ -4336,12 +4386,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Get_FatherRace(NvssRace.Japanese);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Set_FatherRace(NvssRace.Japanese, value);
+                }
             }
         }
 
@@ -4351,12 +4403,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Get_FatherRace(NvssRace.Korean);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Set_FatherRace(NvssRace.Korean, value);
+                }
             }
         }
 
@@ -4366,12 +4420,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Get_FatherRace(NvssRace.Vietnamese);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Set_FatherRace(NvssRace.Vietnamese, value);
+                }
             }
         }
 
@@ -4381,12 +4437,15 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Get_FatherRace(NvssRace.OtherAsian);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Set_FatherRace(NvssRace.OtherAsian, value);
+                }
+
             }
         }
 
@@ -4396,12 +4455,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Get_FatherRace(NvssRace.NativeHawaiian);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Set_FatherRace(NvssRace.NativeHawaiian, value);
+                }
             }
         }
 
@@ -4411,12 +4472,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Get_FatherRace(NvssRace.GuamanianOrChamorro);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Set_FatherRace(NvssRace.GuamanianOrChamorro, value);
+                }
             }
         }
 
@@ -4426,12 +4489,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Get_FatherRace(NvssRace.Samoan);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Set_FatherRace(NvssRace.Samoan, value);
+                }
             }
         }
 
@@ -4439,14 +4504,16 @@ namespace BFDR
         [IJEField(303, 4328, 1, "Father's Race--Other Pacific Islander", "FRACE14", 1)]
         public string FRACE14
         {
-            get
+             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Get_FatherRace(NvssRace.OtherPacificIslander);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Set_FatherRace(NvssRace.OtherPacificIslander, value);
+                }
             }
         }
 
@@ -4456,12 +4523,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Get_FatherRace(NvssRace.OtherRace);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Set_FatherRace(NvssRace.OtherRace, value);
+                }
             }
         }
 
@@ -4471,12 +4540,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Get_FatherRace(NvssRace.FirstAmericanIndianOrAlaskanNativeLiteral);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Set_FatherRace(NvssRace.FirstAmericanIndianOrAlaskanNativeLiteral, value);
+                }
             }
         }
 
@@ -4486,12 +4557,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Get_FatherRace(NvssRace.SecondAmericanIndianOrAlaskanNativeLiteral);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Set_FatherRace(NvssRace.SecondAmericanIndianOrAlaskanNativeLiteral, value);
+                }
             }
         }
 
@@ -4501,12 +4574,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Get_FatherRace(NvssRace.FirstOtherAsianLiteral);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Set_FatherRace(NvssRace.FirstOtherAsianLiteral, value);
+                }
             }
         }
 
@@ -4516,12 +4591,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Get_FatherRace(NvssRace.SecondOtherAsianLiteral);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Set_FatherRace(NvssRace.SecondOtherAsianLiteral, value);
+                }
             }
         }
 
@@ -4531,12 +4608,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Get_FatherRace(NvssRace.FirstOtherPacificIslanderLiteral);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Set_FatherRace(NvssRace.FirstOtherPacificIslanderLiteral, value);
+                }
             }
         }
 
@@ -4546,12 +4625,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Get_FatherRace(NvssRace.SecondOtherPacificIslanderLiteral);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Set_FatherRace(NvssRace.SecondOtherPacificIslanderLiteral, value);
+                }
             }
         }
 
@@ -4561,12 +4642,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Get_FatherRace(NvssRace.FirstOtherRaceLiteral);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Set_FatherRace(NvssRace.FirstOtherRaceLiteral, value);
+                }
             }
         }
 
@@ -4576,12 +4659,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Get_FatherRace(NvssRace.SecondOtherRaceLiteral);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Set_FatherRace(NvssRace.SecondOtherRaceLiteral, value);
+                }
             }
         }
 
