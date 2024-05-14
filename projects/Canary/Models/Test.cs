@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
@@ -9,11 +10,13 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using VR;
 using VRDR;
+using BFDR;
 
 namespace canary.Models
 {
-    public class Test
+    public abstract class Test
     {
+        [Key]
         public int TestId { get; set; }
 
         public DateTime Created { get; set; }
@@ -45,41 +48,47 @@ namespace canary.Models
             Correct = 0;
             Incorrect = 0;
             CompletedBool = false;
-            ReferenceRecord = new Record();
+            ReferenceRecord = this.CreateEmptyRecord();
             ReferenceRecord.Populate();
         }
 
-        public Test(DeathRecord record)
+        protected abstract Record CreateEmptyRecord();
+
+        public Test(VitalRecord record)
         {
             Created = DateTime.Now;
             Total = 0;
             Correct = 0;
             Incorrect = 0;
             CompletedBool = false;
-            ReferenceRecord = new Record(record);
+            ReferenceRecord = this.CreateRecordFromVitalRecord(record);
         }
 
-        public Test Run(string description)
+        protected abstract Record CreateRecordFromVitalRecord(VitalRecord record);
+
+        public Test Run<T>(string description) where T : VitalRecord
         {
             if (Type.Contains("Message"))
             {
-                TestMessage = new Message(description);
+                TestMessage = this.CreateMessage(description);
                 Results = JsonConvert.SerializeObject(MessageCompare());
             }
             else
             {
-                TestRecord = new Record(DeathRecord.FromDescription(description));
-                Results = JsonConvert.SerializeObject(RecordCompare());
+                TestRecord = this.CreateRecordFromFHIR(description);
+                Results = JsonConvert.SerializeObject(RecordCompare<T>());
             }
             CompletedDateTime = DateTime.Now;
             CompletedBool = true;
             return this;
         }
 
-        public Test Run(DeathRecord record)
+        protected abstract Record CreateRecordFromFHIR(string description);
+
+        public Test Run<T>(VitalRecord record) where T : VitalRecord
         {
-            TestRecord = new Record(record);
-            Results = JsonConvert.SerializeObject(RecordCompare());
+            TestRecord = this.CreateRecordFromVitalRecord(record);
+            Results = JsonConvert.SerializeObject(RecordCompare<T>());
             CompletedDateTime = DateTime.Now;
             CompletedBool = true;
             return this;
@@ -88,9 +97,10 @@ namespace canary.Models
         public Dictionary<string, Dictionary<string, dynamic>> MessageCompare()
         {
             Dictionary<string, Dictionary<string, dynamic>> description = new Dictionary<string, Dictionary<string, dynamic>>();
-            BaseMessage bundle = TestMessage.GetMessage();
-            DeathRecord record = ReferenceRecord.GetRecord();
-            BaseMessage referenceBundle = new Message(ReferenceRecord, bundle.MessageType).GetMessage();
+            CommonMessage bundle = TestMessage.GetMessage();
+            VitalRecord record = ReferenceRecord.GetRecord();
+            CommonMessage referenceBundle = this.CreateMessage(ReferenceRecord, bundle.MessageType).GetMessage();
+            // CommonMessage referenceBundle = new Message(ReferenceRecord, bundle.MessageType).GetMessage();
             // 
             // On the frontend this shares the same view as the RecordCompare below. This heading
             // is shown above the results in the app.
@@ -103,19 +113,19 @@ namespace canary.Models
                 category[property.Name] = new Dictionary<string, dynamic>();
                 category[property.Name]["Name"] = property.Name;
                 category[property.Name]["Type"] = (Nullable.GetUnderlyingType(property.PropertyType) ?? property.PropertyType).Name;
-                category[property.Name]["Description"] = Message.GetDescriptionFor(property.Name);
+                category[property.Name]["Description"] = this.GetMessageDescriptionFor(property.Name);
                 category[property.Name]["Value"] = property.GetValue(referenceBundle);
                 category[property.Name]["FoundValue"] = property.GetValue(bundle);
                 // The record should be valid since we check its validity elsewhere.
                 // Here we just check to make sure the record is properly embedded
                 // into the message bundle.
-                if (property.PropertyType == typeof(DeathRecord))
+                if (property.PropertyType == typeof(DeathRecord) || property.PropertyType == typeof(BirthRecord))
                 {
-                    DeathRecord extracted = (DeathRecord)property.GetValue(bundle);
-                    TestRecord = new Record(extracted);
+                    VitalRecord extracted = (VitalRecord) property.GetValue(bundle);
+                    TestRecord = this.CreateRecordFromVitalRecord(extracted);
                     int previousIncorrect = Incorrect;
                     // Add the record comparison results to the message comparison results
-                    Dictionary<string, Dictionary<string, dynamic>> recordCompare = RecordCompare();
+                    Dictionary<string, Dictionary<string, dynamic>> recordCompare = property.PropertyType == typeof(DeathRecord) ? RecordCompare<DeathRecord>() : RecordCompare<BirthRecord>();
                     foreach (KeyValuePair<string, Dictionary<string, dynamic>> entry in recordCompare)
                     {
                         description.Add(entry.Key, entry.Value);
@@ -174,10 +184,14 @@ namespace canary.Models
             return description;
         }
 
-        public Dictionary<string, Dictionary<string, dynamic>> RecordCompare()
+        protected abstract Message CreateMessage(Record referenceRecord, string messageType);
+        protected abstract Message CreateMessage(string description);
+        protected abstract string GetMessageDescriptionFor(string propertyName);
+
+        public Dictionary<string, Dictionary<string, dynamic>> RecordCompare<RecordType>() where RecordType : VitalRecord
         {
             Dictionary<string, Dictionary<string, dynamic>> description = new Dictionary<string, Dictionary<string, dynamic>>();
-            foreach (PropertyInfo property in typeof(DeathRecord).GetProperties().OrderBy(p => p.GetCustomAttribute<Property>()?.Priority))
+            foreach (PropertyInfo property in typeof(RecordType).GetProperties().OrderBy(p => p.GetCustomAttribute<Property>()?.Priority))
             {
                 // Grab property annotation for this property
                 Property info = property.GetCustomAttribute<Property>();

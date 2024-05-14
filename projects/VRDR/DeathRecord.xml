@@ -1551,6 +1551,27 @@
             <para>Console.WriteLine($"Decedent Year of Birth: {ExampleDeathRecord.BirthYear}");</para>
             </example>
         </member>
+        <member name="P:VRDR.DeathRecord.PartialDateYearUrl">
+            <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Year</summary>
+        </member>
+        <member name="P:VRDR.DeathRecord.PartialDateMonthUrl">
+            <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Month</summary>
+        </member>
+        <member name="P:VRDR.DeathRecord.PartialDateDayUrl">
+            <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Day</summary>
+        </member>
+        <member name="P:VRDR.DeathRecord.PartialDateTimeTimeUrl">
+            <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Time</summary>
+        </member>
+        <member name="P:VRDR.DeathRecord.PartialDateUrl">
+            <summary>Overriden method that dictates which Extension URL to use for PartialDate</summary>
+        </member>
+        <member name="P:VRDR.DeathRecord.PartialDateTimeUrl">
+            <summary>Overriden method that dictates which Extension URL to use for PartialDateTime</summary>
+        </member>
+        <member name="P:VRDR.DeathRecord.LocationJurisdictionIdUrl">
+            <summary>Overriden method that dictates which Extension URL to use for LocationJurisdictionId</summary>
+        </member>
         <member name="P:VRDR.DeathRecord.BirthMonth">
             <summary>Decedent's Month of Birth.</summary>
             <value>the decedent's month of birth, or -1 if explicitly unknown, or null if never specified</value>
@@ -4874,42 +4895,6 @@
         <member name="F:VRDR.ValueSets.ActivityAtTimeOfDeath.Unknown">
             <summary> Unknown </summary>
         </member>
-        <member name="T:VRDR.ValueSets.PlaceOfInjury">
-            <summary> PlaceOfInjury </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.PlaceOfInjury.Codes">
-            <summary> Codes </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.PlaceOfInjury.Home">
-            <summary> Home </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.PlaceOfInjury.Residential_Institution">
-            <summary> Residential_Institution </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.PlaceOfInjury.School">
-            <summary> School </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.PlaceOfInjury.Sports_Or_Recreational_Area">
-            <summary> Sports_Or_Recreational_Area </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.PlaceOfInjury.Street_Or_Highway">
-            <summary> Street_Or_Highway </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.PlaceOfInjury.Trade_Or_Service_Area">
-            <summary> Trade_Or_Service_Area </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.PlaceOfInjury.Industrial_Or_Construction_Area">
-            <summary> Industrial_Or_Construction_Area </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.PlaceOfInjury.Farm">
-            <summary> Farm </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.PlaceOfInjury.Unspecified">
-            <summary> Unspecified </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.PlaceOfInjury.Other">
-            <summary> Other </summary>
-        </member>
         <member name="T:VRDR.ValueSets.AdministrativeGender">
             <summary> AdministrativeGender </summary>
         </member>
@@ -4963,6 +4948,21 @@
         </member>
         <member name="F:VRDR.ValueSets.ContributoryTobaccoUse.No_Information">
             <summary> No_Information </summary>
+        </member>
+        <member name="T:VRDR.ValueSets.DateOfDeathDeterminationMethods">
+            <summary> DateOfDeathDeterminationMethods </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.DateOfDeathDeterminationMethods.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.DateOfDeathDeterminationMethods.Exact">
+            <summary> Exact </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.DateOfDeathDeterminationMethods.Approximate">
+            <summary> Approximate </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.DateOfDeathDeterminationMethods.Court_Appointed">
+            <summary> Court_Appointed </summary>
         </member>
         <member name="T:VRDR.ValueSets.EditBypass01">
             <summary> EditBypass01 </summary>
@@ -5078,6 +5078,261 @@
         <member name="F:VRDR.ValueSets.FilingFormat.Mixed">
             <summary> Mixed </summary>
         </member>
+        <member name="T:VRDR.ValueSets.HispanicNoUnknown">
+            <summary> HispanicNoUnknown </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicNoUnknown.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicNoUnknown.No">
+            <summary> No </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicNoUnknown.Yes">
+            <summary> Yes </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicNoUnknown.Unknown">
+            <summary> Unknown </summary>
+        </member>
+        <member name="T:VRDR.ValueSets.HispanicOrigin">
+            <summary> HispanicOrigin </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Non_Hispanic">
+            <summary> Non_Hispanic </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Spaniard">
+            <summary> Spaniard </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Andalusian">
+            <summary> Andalusian </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Asturian">
+            <summary> Asturian </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Castillian">
+            <summary> Castillian </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Catalonian">
+            <summary> Catalonian </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Balearic_Islander">
+            <summary> Balearic_Islander </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Gallego">
+            <summary> Gallego </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Valencian">
+            <summary> Valencian </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Canarian">
+            <summary> Canarian </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Spanish_Basque">
+            <summary> Spanish_Basque </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Mexican_Checkbox">
+            <summary> Mexican_Checkbox </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Mexican">
+            <summary> Mexican </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Mexican_American">
+            <summary> Mexican_American </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Mexicano">
+            <summary> Mexicano </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Chicano">
+            <summary> Chicano </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.La_Raza">
+            <summary> La_Raza </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Mexican_American_Indian">
+            <summary> Mexican_American_Indian </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Caribbean_Reassigned_To_290">
+            <summary> Caribbean_Reassigned_To_290 </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Mexico">
+            <summary> Mexico </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Central_And_South_America">
+            <summary> Central_And_South_America </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Costa_Rican">
+            <summary> Costa_Rican </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Guatemalan">
+            <summary> Guatemalan </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Honduran">
+            <summary> Honduran </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Nicaraguan">
+            <summary> Nicaraguan </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Panamanian">
+            <summary> Panamanian </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Salvadoran">
+            <summary> Salvadoran </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Central_American">
+            <summary> Central_American </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Central_American_Indian">
+            <summary> Central_American_Indian </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Canal_Zone">
+            <summary> Canal_Zone </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Argentinean">
+            <summary> Argentinean </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Bolivian">
+            <summary> Bolivian </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Chilean">
+            <summary> Chilean </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Colombian">
+            <summary> Colombian </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Ecuadorian">
+            <summary> Ecuadorian </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Paraguayan">
+            <summary> Paraguayan </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Peruvian">
+            <summary> Peruvian </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Uruguayan">
+            <summary> Uruguayan </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Venezuelan">
+            <summary> Venezuelan </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.South_American_Indian">
+            <summary> South_American_Indian </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Criollo">
+            <summary> Criollo </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.South_American">
+            <summary> South_American </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Latin_American">
+            <summary> Latin_American </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Latin">
+            <summary> Latin </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Latino">
+            <summary> Latino </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Puerto_Rican_Checkbox">
+            <summary> Puerto_Rican_Checkbox </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Puerto_Rican">
+            <summary> Puerto_Rican </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Cuban_Checkbox">
+            <summary> Cuban_Checkbox </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Cuban">
+            <summary> Cuban </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Dominican">
+            <summary> Dominican </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Other_Spanish_Checkbox">
+            <summary> Other_Spanish_Checkbox </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Hispanic">
+            <summary> Hispanic </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Spanish">
+            <summary> Spanish </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Californio">
+            <summary> Californio </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Tejano">
+            <summary> Tejano </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Nuevo_Mexicano">
+            <summary> Nuevo_Mexicano </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Spanish_American">
+            <summary> Spanish_American </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Spanish_American_Indian">
+            <summary> Spanish_American_Indian </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Meso_American_Indian">
+            <summary> Meso_American_Indian </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Mestizo">
+            <summary> Mestizo </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Caribbean">
+            <summary> Caribbean </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Multiple_Hispanic_Responses">
+            <summary> Multiple_Hispanic_Responses </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Other_Spanish">
+            <summary> Other_Spanish </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Uncodable">
+            <summary> Uncodable </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Deferred">
+            <summary> Deferred </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.Unknown">
+            <summary> Unknown </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.HispanicOrigin.First_Pass_Reject">
+            <summary> First_Pass_Reject </summary>
+        </member>
+        <member name="T:VRDR.ValueSets.IntentionalReject">
+            <summary> IntentionalReject </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.IntentionalReject.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.IntentionalReject.Reject1">
+            <summary> Reject1 </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.IntentionalReject.Reject2">
+            <summary> Reject2 </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.IntentionalReject.Reject3">
+            <summary> Reject3 </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.IntentionalReject.Reject4">
+            <summary> Reject4 </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.IntentionalReject.Reject5">
+            <summary> Reject5 </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.IntentionalReject.Reject9">
+            <summary> Reject9 </summary>
+        </member>
+        <member name="T:VRDR.ValueSets.Jurisdiction">
+            <summary> Jurisdiction </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.Jurisdiction.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.Jurisdiction.New_York_City">
+            <summary> New_York_City </summary>
+        </member>
         <member name="T:VRDR.ValueSets.MannerOfDeath">
             <summary> MannerOfDeath </summary>
         </member>
@@ -5183,6 +5438,42 @@
         <member name="F:VRDR.ValueSets.PlaceOfDeath.Unk">
             <summary> Unk </summary>
         </member>
+        <member name="T:VRDR.ValueSets.PlaceOfInjury">
+            <summary> PlaceOfInjury </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.PlaceOfInjury.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.PlaceOfInjury.Home">
+            <summary> Home </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.PlaceOfInjury.Residential_Institution">
+            <summary> Residential_Institution </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.PlaceOfInjury.School">
+            <summary> School </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.PlaceOfInjury.Sports_Or_Recreational_Area">
+            <summary> Sports_Or_Recreational_Area </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.PlaceOfInjury.Street_Or_Highway">
+            <summary> Street_Or_Highway </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.PlaceOfInjury.Trade_Or_Service_Area">
+            <summary> Trade_Or_Service_Area </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.PlaceOfInjury.Industrial_Or_Construction_Area">
+            <summary> Industrial_Or_Construction_Area </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.PlaceOfInjury.Farm">
+            <summary> Farm </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.PlaceOfInjury.Unspecified">
+            <summary> Unspecified </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.PlaceOfInjury.Other">
+            <summary> Other </summary>
+        </member>
         <member name="T:VRDR.ValueSets.PregnancyStatus">
             <summary> PregnancyStatus </summary>
         </member>
@@ -5209,117 +5500,6 @@
         </member>
         <member name="F:VRDR.ValueSets.PregnancyStatus.Not_Applicable">
             <summary> Not_Applicable </summary>
-        </member>
-        <member name="T:VRDR.ValueSets.RaceMissingValueReason">
-            <summary> RaceMissingValueReason </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.RaceMissingValueReason.Codes">
-            <summary> Codes </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.RaceMissingValueReason.Refused">
-            <summary> Refused </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.RaceMissingValueReason.Sought_But_Unknown">
-            <summary> Sought_But_Unknown </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.RaceMissingValueReason.Not_Obtainable">
-            <summary> Not_Obtainable </summary>
-        </member>
-        <member name="T:VRDR.ValueSets.ReplaceStatus">
-            <summary> ReplaceStatus </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.ReplaceStatus.Codes">
-            <summary> Codes </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.ReplaceStatus.Original_Record">
-            <summary> Original_Record </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.ReplaceStatus.Updated_Record">
-            <summary> Updated_Record </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.ReplaceStatus.Updated_Record_Not_For_Nchs">
-            <summary> Updated_Record_Not_For_Nchs </summary>
-        </member>
-        <member name="T:VRDR.ValueSets.TransportationIncidentRole">
-            <summary> TransportationIncidentRole </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.TransportationIncidentRole.Codes">
-            <summary> Codes </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.TransportationIncidentRole.Vehicle_Driver">
-            <summary> Vehicle_Driver </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.TransportationIncidentRole.Passenger">
-            <summary> Passenger </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.TransportationIncidentRole.Pedestrian">
-            <summary> Pedestrian </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.TransportationIncidentRole.Other">
-            <summary> Other </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.TransportationIncidentRole.Unknown">
-            <summary> Unknown </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.TransportationIncidentRole.Not_Applicable">
-            <summary> Not_Applicable </summary>
-        </member>
-        <member name="T:VRDR.ValueSets.UnitsOfAge">
-            <summary> UnitsOfAge </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.UnitsOfAge.Codes">
-            <summary> Codes </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.UnitsOfAge.Minutes">
-            <summary> Minutes </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.UnitsOfAge.Days">
-            <summary> Days </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.UnitsOfAge.Hours">
-            <summary> Hours </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.UnitsOfAge.Months">
-            <summary> Months </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.UnitsOfAge.Years">
-            <summary> Years </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.UnitsOfAge.Unknown">
-            <summary> Unknown </summary>
-        </member>
-        <member name="T:VRDR.ValueSets.YesNoUnknownNotApplicable">
-            <summary> YesNoUnknownNotApplicable </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.YesNoUnknownNotApplicable.Codes">
-            <summary> Codes </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.YesNoUnknownNotApplicable.Yes">
-            <summary> Yes </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.YesNoUnknownNotApplicable.No">
-            <summary> No </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.YesNoUnknownNotApplicable.Unknown">
-            <summary> Unknown </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.YesNoUnknownNotApplicable.Not_Applicable">
-            <summary> Not_Applicable </summary>
-        </member>
-        <member name="T:VRDR.ValueSets.YesNoUnknown">
-            <summary> YesNoUnknown </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.YesNoUnknown.Codes">
-            <summary> Codes </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.YesNoUnknown.No">
-            <summary> No </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.YesNoUnknown.Yes">
-            <summary> Yes </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.YesNoUnknown.Unknown">
-            <summary> Unknown </summary>
         </member>
         <member name="T:VRDR.ValueSets.RaceCode">
             <summary> RaceCode </summary>
@@ -8834,6 +9014,21 @@
         <member name="F:VRDR.ValueSets.RaceCode.Kaguyak_Village">
             <summary> Kaguyak_Village </summary>
         </member>
+        <member name="T:VRDR.ValueSets.RaceMissingValueReason">
+            <summary> RaceMissingValueReason </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.RaceMissingValueReason.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.RaceMissingValueReason.Refused">
+            <summary> Refused </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.RaceMissingValueReason.Sought_But_Unknown">
+            <summary> Sought_But_Unknown </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.RaceMissingValueReason.Not_Obtainable">
+            <summary> Not_Obtainable </summary>
+        </member>
         <member name="T:VRDR.ValueSets.RaceRecode40">
             <summary> RaceRecode40 </summary>
         </member>
@@ -8963,275 +9158,20 @@
         <member name="F:VRDR.ValueSets.RaceRecode40.Unknown_And_Other_Race">
             <summary> Unknown_And_Other_Race </summary>
         </member>
-        <member name="T:VRDR.ValueSets.HispanicOrigin">
-            <summary> HispanicOrigin </summary>
+        <member name="T:VRDR.ValueSets.ReplaceStatus">
+            <summary> ReplaceStatus </summary>
         </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Codes">
+        <member name="F:VRDR.ValueSets.ReplaceStatus.Codes">
             <summary> Codes </summary>
         </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Non_Hispanic">
-            <summary> Non_Hispanic </summary>
+        <member name="F:VRDR.ValueSets.ReplaceStatus.Original_Record">
+            <summary> Original_Record </summary>
         </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Spaniard">
-            <summary> Spaniard </summary>
+        <member name="F:VRDR.ValueSets.ReplaceStatus.Updated_Record">
+            <summary> Updated_Record </summary>
         </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Andalusian">
-            <summary> Andalusian </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Asturian">
-            <summary> Asturian </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Castillian">
-            <summary> Castillian </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Catalonian">
-            <summary> Catalonian </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Balearic_Islander">
-            <summary> Balearic_Islander </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Gallego">
-            <summary> Gallego </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Valencian">
-            <summary> Valencian </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Canarian">
-            <summary> Canarian </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Spanish_Basque">
-            <summary> Spanish_Basque </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Mexican_Checkbox">
-            <summary> Mexican_Checkbox </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Mexican">
-            <summary> Mexican </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Mexican_American">
-            <summary> Mexican_American </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Mexicano">
-            <summary> Mexicano </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Chicano">
-            <summary> Chicano </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.La_Raza">
-            <summary> La_Raza </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Mexican_American_Indian">
-            <summary> Mexican_American_Indian </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Caribbean_Reassigned_To_290">
-            <summary> Caribbean_Reassigned_To_290 </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Mexico">
-            <summary> Mexico </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Central_And_South_America">
-            <summary> Central_And_South_America </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Costa_Rican">
-            <summary> Costa_Rican </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Guatemalan">
-            <summary> Guatemalan </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Honduran">
-            <summary> Honduran </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Nicaraguan">
-            <summary> Nicaraguan </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Panamanian">
-            <summary> Panamanian </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Salvadoran">
-            <summary> Salvadoran </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Central_American">
-            <summary> Central_American </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Central_American_Indian">
-            <summary> Central_American_Indian </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Canal_Zone">
-            <summary> Canal_Zone </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Argentinean">
-            <summary> Argentinean </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Bolivian">
-            <summary> Bolivian </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Chilean">
-            <summary> Chilean </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Colombian">
-            <summary> Colombian </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Ecuadorian">
-            <summary> Ecuadorian </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Paraguayan">
-            <summary> Paraguayan </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Peruvian">
-            <summary> Peruvian </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Uruguayan">
-            <summary> Uruguayan </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Venezuelan">
-            <summary> Venezuelan </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.South_American_Indian">
-            <summary> South_American_Indian </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Criollo">
-            <summary> Criollo </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.South_American">
-            <summary> South_American </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Latin_American">
-            <summary> Latin_American </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Latin">
-            <summary> Latin </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Latino">
-            <summary> Latino </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Puerto_Rican_Checkbox">
-            <summary> Puerto_Rican_Checkbox </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Puerto_Rican">
-            <summary> Puerto_Rican </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Cuban_Checkbox">
-            <summary> Cuban_Checkbox </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Cuban">
-            <summary> Cuban </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Dominican">
-            <summary> Dominican </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Other_Spanish_Checkbox">
-            <summary> Other_Spanish_Checkbox </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Hispanic">
-            <summary> Hispanic </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Spanish">
-            <summary> Spanish </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Californio">
-            <summary> Californio </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Tejano">
-            <summary> Tejano </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Nuevo_Mexicano">
-            <summary> Nuevo_Mexicano </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Spanish_American">
-            <summary> Spanish_American </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Spanish_American_Indian">
-            <summary> Spanish_American_Indian </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Meso_American_Indian">
-            <summary> Meso_American_Indian </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Mestizo">
-            <summary> Mestizo </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Caribbean">
-            <summary> Caribbean </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Multiple_Hispanic_Responses">
-            <summary> Multiple_Hispanic_Responses </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Other_Spanish">
-            <summary> Other_Spanish </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Uncodable">
-            <summary> Uncodable </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Deferred">
-            <summary> Deferred </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.Unknown">
-            <summary> Unknown </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.HispanicOrigin.First_Pass_Reject">
-            <summary> First_Pass_Reject </summary>
-        </member>
-        <member name="T:VRDR.ValueSets.TransaxConversion">
-            <summary> TransaxConversion </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.TransaxConversion.Codes">
-            <summary> Codes </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.TransaxConversion.Conversion_Using_Non_Ambivalent_Table_Entries">
-            <summary> Conversion_Using_Non_Ambivalent_Table_Entries </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.TransaxConversion.Conversion_Using_Ambivalent_Table_Entries">
-            <summary> Conversion_Using_Ambivalent_Table_Entries </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.TransaxConversion.Duplicate_Entity_Axis_Codes_Deleted_No_Other_Action_Involved">
-            <summary> Duplicate_Entity_Axis_Codes_Deleted_No_Other_Action_Involved </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.TransaxConversion.Artificial_Code_Conversion_No_Other_Action">
-            <summary> Artificial_Code_Conversion_No_Other_Action </summary>
-        </member>
-        <member name="T:VRDR.ValueSets.AcmeSystemReject">
-            <summary> AcmeSystemReject </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.AcmeSystemReject.Codes">
-            <summary> Codes </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.AcmeSystemReject.Not_Rejected">
-            <summary> Not_Rejected </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.AcmeSystemReject.Micar_Reject_Dictionary_Match">
-            <summary> Micar_Reject_Dictionary_Match </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.AcmeSystemReject.Acme_Reject">
-            <summary> Acme_Reject </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.AcmeSystemReject.Micar_Reject_Rule_Application">
-            <summary> Micar_Reject_Rule_Application </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.AcmeSystemReject.Record_Reviewed">
-            <summary> Record_Reviewed </summary>
-        </member>
-        <member name="T:VRDR.ValueSets.IntentionalReject">
-            <summary> IntentionalReject </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.IntentionalReject.Codes">
-            <summary> Codes </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.IntentionalReject.Reject1">
-            <summary> Reject1 </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.IntentionalReject.Reject2">
-            <summary> Reject2 </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.IntentionalReject.Reject3">
-            <summary> Reject3 </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.IntentionalReject.Reject4">
-            <summary> Reject4 </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.IntentionalReject.Reject5">
-            <summary> Reject5 </summary>
-        </member>
-        <member name="F:VRDR.ValueSets.IntentionalReject.Reject9">
-            <summary> Reject9 </summary>
+        <member name="F:VRDR.ValueSets.ReplaceStatus.Updated_Record_Not_For_Nchs">
+            <summary> Updated_Record_Not_For_Nchs </summary>
         </member>
         <member name="T:VRDR.ValueSets.SpouseAlive">
             <summary> SpouseAlive </summary>
@@ -9251,19 +9191,124 @@
         <member name="F:VRDR.ValueSets.SpouseAlive.Not_Applicable">
             <summary> Not_Applicable </summary>
         </member>
-        <member name="T:VRDR.ValueSets.HispanicNoUnknown">
-            <summary> HispanicNoUnknown </summary>
+        <member name="T:VRDR.ValueSets.SystemReject">
+            <summary> SystemReject </summary>
         </member>
-        <member name="F:VRDR.ValueSets.HispanicNoUnknown.Codes">
+        <member name="F:VRDR.ValueSets.SystemReject.Codes">
             <summary> Codes </summary>
         </member>
-        <member name="F:VRDR.ValueSets.HispanicNoUnknown.No">
-            <summary> No </summary>
+        <member name="F:VRDR.ValueSets.SystemReject.Not_Rejected">
+            <summary> Not_Rejected </summary>
         </member>
-        <member name="F:VRDR.ValueSets.HispanicNoUnknown.Yes">
+        <member name="F:VRDR.ValueSets.SystemReject.Micar_Reject_Dictionary_Match">
+            <summary> Micar_Reject_Dictionary_Match </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.SystemReject.Acme_Reject">
+            <summary> Acme_Reject </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.SystemReject.Micar_Reject_Rule_Application">
+            <summary> Micar_Reject_Rule_Application </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.SystemReject.Record_Reviewed">
+            <summary> Record_Reviewed </summary>
+        </member>
+        <member name="T:VRDR.ValueSets.TransaxConversion">
+            <summary> TransaxConversion </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.TransaxConversion.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.TransaxConversion.Conversion_Using_Non_Ambivalent_Table_Entries">
+            <summary> Conversion_Using_Non_Ambivalent_Table_Entries </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.TransaxConversion.Conversion_Using_Ambivalent_Table_Entries">
+            <summary> Conversion_Using_Ambivalent_Table_Entries </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.TransaxConversion.Duplicate_Entity_Axis_Codes_Deleted_No_Other_Action_Involved">
+            <summary> Duplicate_Entity_Axis_Codes_Deleted_No_Other_Action_Involved </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.TransaxConversion.Artificial_Code_Conversion_No_Other_Action">
+            <summary> Artificial_Code_Conversion_No_Other_Action </summary>
+        </member>
+        <member name="T:VRDR.ValueSets.TransportationIncidentRole">
+            <summary> TransportationIncidentRole </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.TransportationIncidentRole.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.TransportationIncidentRole.Vehicle_Driver">
+            <summary> Vehicle_Driver </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.TransportationIncidentRole.Passenger">
+            <summary> Passenger </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.TransportationIncidentRole.Pedestrian">
+            <summary> Pedestrian </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.TransportationIncidentRole.Other">
+            <summary> Other </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.TransportationIncidentRole.Unknown">
+            <summary> Unknown </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.TransportationIncidentRole.Not_Applicable">
+            <summary> Not_Applicable </summary>
+        </member>
+        <member name="T:VRDR.ValueSets.UnitsOfAge">
+            <summary> UnitsOfAge </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.UnitsOfAge.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.UnitsOfAge.Minutes">
+            <summary> Minutes </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.UnitsOfAge.Days">
+            <summary> Days </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.UnitsOfAge.Hours">
+            <summary> Hours </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.UnitsOfAge.Months">
+            <summary> Months </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.UnitsOfAge.Years">
+            <summary> Years </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.UnitsOfAge.Unknown">
+            <summary> Unknown </summary>
+        </member>
+        <member name="T:VRDR.ValueSets.YesNoUnknownNotApplicable">
+            <summary> YesNoUnknownNotApplicable </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.YesNoUnknownNotApplicable.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.YesNoUnknownNotApplicable.Yes">
             <summary> Yes </summary>
         </member>
-        <member name="F:VRDR.ValueSets.HispanicNoUnknown.Unknown">
+        <member name="F:VRDR.ValueSets.YesNoUnknownNotApplicable.No">
+            <summary> No </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.YesNoUnknownNotApplicable.Unknown">
+            <summary> Unknown </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.YesNoUnknownNotApplicable.Not_Applicable">
+            <summary> Not_Applicable </summary>
+        </member>
+        <member name="T:VRDR.ValueSets.YesNoUnknown">
+            <summary> YesNoUnknown </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.YesNoUnknown.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.YesNoUnknown.No">
+            <summary> No </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.YesNoUnknown.Yes">
+            <summary> Yes </summary>
+        </member>
+        <member name="F:VRDR.ValueSets.YesNoUnknown.Unknown">
             <summary> Unknown </summary>
         </member>
     </members>

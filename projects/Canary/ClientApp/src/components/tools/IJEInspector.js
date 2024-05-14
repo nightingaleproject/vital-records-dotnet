@@ -43,20 +43,21 @@ export class IJEInspector extends Component {
   };
 
   render() {
+    const ijeDataType = this.props.recordType.toLowerCase() === 'vrdr' ? 'Mortality' : 'Natality';
     return (
       <React.Fragment>
         <Grid>
           <Grid.Row>
             <Breadcrumb>
-              <Breadcrumb.Section as={Link} to="/">
+              <Breadcrumb.Section as={Link} to={`/${this.props.recordType}`}>
                 Dashboard
               </Breadcrumb.Section>
               <Breadcrumb.Divider icon="right chevron" />
-              <Breadcrumb.Section>IJE Mortality Record Inspector</Breadcrumb.Section>
+              <Breadcrumb.Section>IJE {ijeDataType} Record Inspector</Breadcrumb.Section>
             </Breadcrumb>
           </Grid.Row>
           <Grid.Row>
-            <Getter updateRecord={this.updateRecord} ijeOnly noFormat />
+            <Getter updateRecord={this.updateRecord} recordType={this.props.recordType} ijeOnly noFormat />
           </Grid.Row>
           <div className="p-b-15" />
           {!!this.state.issues && this.state.issues.length > 0 && (
@@ -70,7 +71,7 @@ export class IJEInspector extends Component {
                 <Divider horizontal>
                   <Header as="h2">
                     <Icon name="search" />
-                    IJE Mortality Record Details
+                    IJE {ijeDataType} Record Details
                   </Header>
                 </Divider>
               </Container>

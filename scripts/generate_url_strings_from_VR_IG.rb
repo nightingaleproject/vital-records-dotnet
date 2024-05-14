@@ -128,10 +128,7 @@ namespace VR
         public string DateTime => $"{_prefix}/StructureDefinition/Date-Time";
 
         /// <summary>URL for PatientBirthTime as defined in the VitalRecords IG</summary>
-        public const string PatientBirthTime = "http://hl7.org/fhir/StructureDefinition/patient-birthTime";
-
-        /// <summary>URL for PartialDateTime as defined in the VitalRecords IG</summary>
-        public string PartialDateTimeVR => $"{_prefix}/StructureDefinition/ExtensionPartialDateTimeVitalRecords";        
+        public const string PatientBirthTime = "http://hl7.org/fhir/StructureDefinition/patient-birthTime";  
 
         /// <summary>URL for PartialDateTime Day as defined in the VitalRecords IG</summary>
         public const string PartialDateTimeDayVR = "day";     
@@ -145,8 +142,6 @@ namespace VR
         /// <summary>URL for PartialDateTime Time as defined in the VitalRecords IG</summary>
         public const string PartialDateTimeTimeVR = "time";
 
-        /// <summary>URL for LocationJurisdictionId</summary>
-        public string LocationJurisdictionId => $"{_prefix}/StructureDefinition/Location-Jurisdiction-Id";
     }
 
     /// <summary>IG URLs</summary>

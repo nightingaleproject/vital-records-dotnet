@@ -2288,7 +2288,7 @@ namespace VRDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("AcmeSystemReject", value, VRDR.ValueSets.AcmeSystemReject.Codes);
+                    SetCodeValue("AcmeSystemReject", value, VRDR.ValueSets.SystemReject.Codes);
                 }
             }
         }

@@ -30,10 +30,11 @@ namespace canary.tests
         [Fact]
         public void TestDocumentTypePayload()
         {
-            var resultData = canary.Models.Record.CheckGet(documentTypePayload, true);
+            List<Dictionary<string, string>> issues;
+            var resultData = canary.Models.CanaryDeathRecord.CheckGet(documentTypePayload, true, out issues);
 
             StringBuilder issueList = new StringBuilder();
-            foreach(var issue in resultData.issues)
+            foreach(var issue in issues)
             {
                 issueList.Append(string.Join("\n", issue.Select(p => "K=" + p.Key + ",L=" + p.Value)));
             }
@@ -44,10 +45,11 @@ namespace canary.tests
         [Fact]
         public void TestNonDocumentTypePayload()
         {
-            var resultData = canary.Models.Record.CheckGet(messageTypePayload, true);
+            List<Dictionary<string, string>> issues;
+            var resultData = canary.Models.CanaryDeathRecord.CheckGet(messageTypePayload, true, out issues);
 
             StringBuilder issueList = new StringBuilder();
-            foreach (var issue in resultData.issues)
+            foreach (var issue in issues)
             {
                 issueList.Append(string.Join("\n", issue.Select(p => "K=" + p.Key + ",L=" + p.Value)));
             }
@@ -59,10 +61,11 @@ namespace canary.tests
         [Fact]
         public void TestMissingTypePayload()
         {
-            var resultData = canary.Models.Record.CheckGet(emptyTypePayload, true);
+            List<Dictionary<string, string>> issues;
+            var resultData = canary.Models.CanaryDeathRecord.CheckGet(emptyTypePayload, true, out issues);
 
             StringBuilder issueList = new StringBuilder();
-            foreach (var issue in resultData.issues)
+            foreach (var issue in issues)
             {
                 issueList.Append(string.Join("\n", issue.Select(p => "K=" + p.Key + ",L=" + p.Value)));
             }

@@ -46,8 +46,11 @@
         <member name="F:VR.CodeSystems.RoleCode_HL7_V3">
             <summary>HL7 RoleCode.</summary>
         </member>
-        <member name="F:VR.CodeSystems.AdministrativeGender">
-            <summary> Administrative Gender </summary>
+        <member name="F:VR.CodeSystems.VRDRAdministrativeGender">
+            <summary> VRDR Administrative Gender </summary>
+        </member>
+        <member name="F:VR.CodeSystems.VRCLAdministrativeGender">
+            <summary> VRCL Administrative Gender </summary>
         </member>
         <member name="F:VR.CodeSystems.EducationLevel">
             <summary> Education Level </summary>
@@ -61,14 +64,62 @@
         <member name="F:VR.CodeSystems.YesNo">
             <summary> HL7 Yes No </summary>
         </member>
+        <member name="F:VR.CodeSystems.USPS">
+            <summary> USPS </summary>
+        </member>
+        <member name="F:VR.CodeSystems.NAHDO">
+            <summary> NAHDO </summary>
+        </member>
+        <member name="F:VR.CodeSystems.ActReason">
+            <summary> ActReason </summary>
+        </member>
+        <member name="F:VR.CodeSystems.VRCLMissingValueReason">
+            <summary> VRCL Missing Value Reason </summary>
+        </member>
+        <member name="F:VR.CodeSystems.VRCLRaceCode">
+            <summary> VRCL Race Code </summary>
+        </member>
+        <member name="F:VR.CodeSystems.VRCLRaceRecode40">
+            <summary> VRCL Race Recode 40 </summary>
+        </member>
+        <member name="F:VR.CodeSystems.VRCLHispanicOrigin">
+            <summary> VRCL Hispanic Origin </summary>
+        </member>
+        <member name="F:VR.CodeSystems.InputRaceAndEthnicityPerson">
+            <summary> Input Race and Ethnicity Person </summary>
+        </member>
+        <member name="F:VR.CodeSystems.VRCLEditFlags">
+            <summary> VRCL Edit Flags </summary>
+        </member>
+        <member name="F:VR.CodeSystems.LocalObservationCodes">
+            <summary> Local Observation Codes </summary>
+        </member>
+        <member name="F:VR.CodeSystems.VRCLJurisdictions">
+            <summary> VRCL Jurisdictions </summary>
+        </member>
+        <member name="F:VR.CodeSystems.ComponentCodeVR">
+            <summary> Component </summary>
+        </member>
+        <member name="F:VR.CodeSystems.HispanicOrigin">
+            <summary> Hispanic Origin </summary>
+        </member>
+        <member name="F:VR.CodeSystems.Jurisdictions">
+            <summary> Jurisdictions </summary>
+        </member>
+        <member name="F:VR.CodeSystems.RaceCode">
+            <summary> Race Code </summary>
+        </member>
+        <member name="F:VR.CodeSystems.MissingValueReason">
+            <summary> Missing Value Reason </summary>
+        </member>
+        <member name="F:VR.CodeSystems.RaceRecode40">
+            <summary> Race Recode 40 </summary>
+        </member>
         <member name="F:VR.CodeSystems.BypassEditFlag">
             <summary> Bypass Edit Flag </summary>
         </member>
         <member name="F:VR.CodeSystems.PregnancyStatus">
             <summary> Pregnancy Status </summary>
-        </member>
-        <member name="F:VR.CodeSystems.MissingValueReason">
-            <summary> Missing Value Reason </summary>
         </member>
         <member name="F:VR.CodeSystems.FilingFormat">
             <summary> Filing Format </summary>
@@ -87,15 +138,6 @@
         </member>
         <member name="F:VR.CodeSystems.ActivityAtTimeOfDeath">
             <summary> Activity at Time of Death </summary>
-        </member>
-        <member name="F:VR.CodeSystems.RaceCode">
-            <summary> Race Code </summary>
-        </member>
-        <member name="F:VR.CodeSystems.RaceRecode40">
-            <summary> Race Recode40 </summary>
-        </member>
-        <member name="F:VR.CodeSystems.HispanicOrigin">
-            <summary> Hispanic Origin </summary>
         </member>
         <member name="F:VR.CodeSystems.IntentionalReject">
             <summary> Intentional Reject </summary>
@@ -118,11 +160,29 @@
         <member name="F:VR.CodeSystems.DateOfDeathDeterminationMethods">
             <summary> Date of Death Determination Methods </summary>
         </member>
-        <member name="F:VR.CodeSystems.InputRaceAndEthnicityPerson">
-            <summary>
-            Input Race and Ethnicity Person
-            TODO update once VRCL is published ot hl7
-            </summary>
+        <member name="F:VR.CodeSystems.DeathPregnancyStatus">
+            <summary> Death Pregnancy Status </summary>
+        </member>
+        <member name="F:VR.CodeSystems.BirthDeliveryOccurred">
+            <summary> Birth Delivery Occurred </summary>
+        </member>
+        <member name="F:VR.CodeSystems.BFDREditFlags">
+            <summary> BFDR Edit Flags </summary>
+        </member>
+        <member name="F:VR.CodeSystems.FetalDeathCauseOrCondition">
+            <summary> Fetal Death Cause Or Condition </summary>
+        </member>
+        <member name="F:VR.CodeSystems.InformantRelationshipToMother">
+            <summary> Informant Relationship To Mother </summary>
+        </member>
+        <member name="F:VR.CodeSystems.LocalBFDRCodes">
+            <summary> Local BFDR Codes </summary>
+        </member>
+        <member name="F:VR.CodeSystems.AdmitSource">
+            <summary> Admit Source </summary>
+        </member>
+        <member name="F:VR.CodeSystems.DischargeDisposition">
+            <summary> Discharge Disposition </summary>
         </member>
         <member name="T:VR.IJEField">
             <summary>Property attribute used to describe a field in the IJE format.</summary>
@@ -188,6 +248,12 @@
         </member>
         <member name="M:VR.IJE.LeftJustified_Set(System.String,System.String,System.String)">
             <summary>Set a value on the VitalRecord whose IJE type is a left justified string.</summary>
+        </member>
+        <member name="M:VR.IJE.Boolean_Get(System.String,System.String)">
+            <summary>Get a bool value on the DeathRecord whose IJE type is Y, N, U.</summary>
+        </member>
+        <member name="M:VR.IJE.Boolean_Set(System.String,System.String,System.String)">
+            <summary>Set a bool value on the DeathRecord whose IJE type is Y, N, U.</summary>
         </member>
         <member name="M:VR.IJE.TimeAllowingUnknown_Get(System.String,System.String)">
             <summary>Get a value on the DeathRecord that is a time with the option of being set to all 9s on the IJE side and null on the FHIR side to represent null</summary>
@@ -284,149 +350,158 @@
         <member name="T:VR.Mappings">
             <summary>Mappings between IJE and FHIR value sets</summary>
         </member>
-        <member name="T:VR.Mappings.ConceptMapBirthAttendantTitlesVitalRecords">
-            <summary>Mappings for ConceptMapBirthAttendantTitlesVitalRecords</summary>
+        <member name="T:VR.Mappings.BirthAttendantTitles">
+            <summary>Mappings for BirthAttendantTitles</summary>
         </member>
-        <member name="F:VR.Mappings.ConceptMapBirthAttendantTitlesVitalRecords.IJEToFHIR">
-            <summary>IJE -> FHIR Mapping for ConceptMapBirthAttendantTitlesVitalRecords</summary>
+        <member name="F:VR.Mappings.BirthAttendantTitles.IJEToFHIR">
+            <summary>IJE -> FHIR Mapping for BirthAttendantTitles</summary>
         </member>
-        <member name="F:VR.Mappings.ConceptMapBirthAttendantTitlesVitalRecords.FHIRToIJE">
-            <summary>FHIR -> IJE Mapping for ConceptMapBirthAttendantTitlesVitalRecords</summary>
+        <member name="F:VR.Mappings.BirthAttendantTitles.FHIRToIJE">
+            <summary>FHIR -> IJE Mapping for BirthAttendantTitles</summary>
         </member>
-        <member name="T:VR.Mappings.ConceptMapBirthSexChildVitalRecords">
-            <summary>Mappings for ConceptMapBirthSexChildVitalRecords</summary>
+        <member name="T:VR.Mappings.BirthSexChild">
+            <summary>Mappings for BirthSexChild</summary>
         </member>
-        <member name="F:VR.Mappings.ConceptMapBirthSexChildVitalRecords.IJEToFHIR">
-            <summary>IJE -> FHIR Mapping for ConceptMapBirthSexChildVitalRecords</summary>
+        <member name="F:VR.Mappings.BirthSexChild.IJEToFHIR">
+            <summary>IJE -> FHIR Mapping for BirthSexChild</summary>
         </member>
-        <member name="F:VR.Mappings.ConceptMapBirthSexChildVitalRecords.FHIRToIJE">
-            <summary>FHIR -> IJE Mapping for ConceptMapBirthSexChildVitalRecords</summary>
+        <member name="F:VR.Mappings.BirthSexChild.FHIRToIJE">
+            <summary>FHIR -> IJE Mapping for BirthSexChild</summary>
         </member>
-        <member name="T:VR.Mappings.ConceptMapBirthSexFetusVitalRecords">
-            <summary>Mappings for ConceptMapBirthSexFetusVitalRecords</summary>
+        <member name="T:VR.Mappings.BirthSexFetus">
+            <summary>Mappings for BirthSexFetus</summary>
         </member>
-        <member name="F:VR.Mappings.ConceptMapBirthSexFetusVitalRecords.IJEToFHIR">
-            <summary>IJE -> FHIR Mapping for ConceptMapBirthSexFetusVitalRecords</summary>
+        <member name="F:VR.Mappings.BirthSexFetus.IJEToFHIR">
+            <summary>IJE -> FHIR Mapping for BirthSexFetus</summary>
         </member>
-        <member name="F:VR.Mappings.ConceptMapBirthSexFetusVitalRecords.FHIRToIJE">
-            <summary>FHIR -> IJE Mapping for ConceptMapBirthSexFetusVitalRecords</summary>
+        <member name="F:VR.Mappings.BirthSexFetus.FHIRToIJE">
+            <summary>FHIR -> IJE Mapping for BirthSexFetus</summary>
         </member>
-        <member name="T:VR.Mappings.ConceptMapEditBypass01234VitalRecords">
-            <summary>Mappings for ConceptMapEditBypass01234VitalRecords</summary>
+        <member name="T:VR.Mappings.DateOfBirthEditFlags">
+            <summary>Mappings for DateOfBirthEditFlags</summary>
         </member>
-        <member name="F:VR.Mappings.ConceptMapEditBypass01234VitalRecords.IJEToFHIR">
-            <summary>IJE -> FHIR Mapping for ConceptMapEditBypass01234VitalRecords</summary>
+        <member name="F:VR.Mappings.DateOfBirthEditFlags.IJEToFHIR">
+            <summary>IJE -> FHIR Mapping for DateOfBirthEditFlags</summary>
         </member>
-        <member name="F:VR.Mappings.ConceptMapEditBypass01234VitalRecords.FHIRToIJE">
-            <summary>FHIR -> IJE Mapping for ConceptMapEditBypass01234VitalRecords</summary>
+        <member name="F:VR.Mappings.DateOfBirthEditFlags.FHIRToIJE">
+            <summary>FHIR -> IJE Mapping for DateOfBirthEditFlags</summary>
         </member>
-        <member name="T:VR.Mappings.ConceptMapEducationLevelVitalRecords">
-            <summary>Mappings for ConceptMapEducationLevelVitalRecords</summary>
+        <member name="T:VR.Mappings.EditBypass01234">
+            <summary>Mappings for EditBypass01234</summary>
         </member>
-        <member name="F:VR.Mappings.ConceptMapEducationLevelVitalRecords.IJEToFHIR">
-            <summary>IJE -> FHIR Mapping for ConceptMapEducationLevelVitalRecords</summary>
+        <member name="F:VR.Mappings.EditBypass01234.IJEToFHIR">
+            <summary>IJE -> FHIR Mapping for EditBypass01234</summary>
         </member>
-        <member name="F:VR.Mappings.ConceptMapEducationLevelVitalRecords.FHIRToIJE">
-            <summary>FHIR -> IJE Mapping for ConceptMapEducationLevelVitalRecords</summary>
+        <member name="F:VR.Mappings.EditBypass01234.FHIRToIJE">
+            <summary>FHIR -> IJE Mapping for EditBypass01234</summary>
         </member>
-        <member name="T:VR.Mappings.ConceptMapHispanicNoUnknownVitalRecords">
-            <summary>Mappings for ConceptMapHispanicNoUnknownVitalRecords</summary>
+        <member name="T:VR.Mappings.EducationLevel">
+            <summary>Mappings for EducationLevel</summary>
         </member>
-        <member name="F:VR.Mappings.ConceptMapHispanicNoUnknownVitalRecords.IJEToFHIR">
-            <summary>IJE -> FHIR Mapping for ConceptMapHispanicNoUnknownVitalRecords</summary>
+        <member name="F:VR.Mappings.EducationLevel.IJEToFHIR">
+            <summary>IJE -> FHIR Mapping for EducationLevel</summary>
         </member>
-        <member name="F:VR.Mappings.ConceptMapHispanicNoUnknownVitalRecords.FHIRToIJE">
-            <summary>FHIR -> IJE Mapping for ConceptMapHispanicNoUnknownVitalRecords</summary>
+        <member name="F:VR.Mappings.EducationLevel.FHIRToIJE">
+            <summary>FHIR -> IJE Mapping for EducationLevel</summary>
         </member>
-        <member name="T:VR.Mappings.ConceptMapHispanicOriginVitalRecords">
-            <summary>Mappings for ConceptMapHispanicOriginVitalRecords</summary>
+        <member name="T:VR.Mappings.HispanicNoUnknown">
+            <summary>Mappings for HispanicNoUnknown</summary>
         </member>
-        <member name="F:VR.Mappings.ConceptMapHispanicOriginVitalRecords.IJEToFHIR">
-            <summary>IJE -> FHIR Mapping for ConceptMapHispanicOriginVitalRecords</summary>
+        <member name="F:VR.Mappings.HispanicNoUnknown.IJEToFHIR">
+            <summary>IJE -> FHIR Mapping for HispanicNoUnknown</summary>
         </member>
-        <member name="F:VR.Mappings.ConceptMapHispanicOriginVitalRecords.FHIRToIJE">
-            <summary>FHIR -> IJE Mapping for ConceptMapHispanicOriginVitalRecords</summary>
+        <member name="F:VR.Mappings.HispanicNoUnknown.FHIRToIJE">
+            <summary>FHIR -> IJE Mapping for HispanicNoUnknown</summary>
         </member>
-        <member name="T:VR.Mappings.ConceptMapMothersDateOfBirthEditFlagsVitalRecords">
-            <summary>Mappings for ConceptMapMothersDateOfBirthEditFlagsVitalRecords</summary>
+        <member name="T:VR.Mappings.HispanicOrigin">
+            <summary>Mappings for HispanicOrigin</summary>
         </member>
-        <member name="F:VR.Mappings.ConceptMapMothersDateOfBirthEditFlagsVitalRecords.IJEToFHIR">
-            <summary>IJE -> FHIR Mapping for ConceptMapMothersDateOfBirthEditFlagsVitalRecords</summary>
+        <member name="F:VR.Mappings.HispanicOrigin.IJEToFHIR">
+            <summary>IJE -> FHIR Mapping for HispanicOrigin</summary>
         </member>
-        <member name="F:VR.Mappings.ConceptMapMothersDateOfBirthEditFlagsVitalRecords.FHIRToIJE">
-            <summary>FHIR -> IJE Mapping for ConceptMapMothersDateOfBirthEditFlagsVitalRecords</summary>
+        <member name="F:VR.Mappings.HispanicOrigin.FHIRToIJE">
+            <summary>FHIR -> IJE Mapping for HispanicOrigin</summary>
         </member>
-        <member name="T:VR.Mappings.ConceptMapPluralityEditFlagsVitalRecords">
-            <summary>Mappings for ConceptMapPluralityEditFlagsVitalRecords</summary>
+        <member name="T:VR.Mappings.MaritalStatus">
+            <summary>Mappings for MaritalStatus</summary>
         </member>
-        <member name="F:VR.Mappings.ConceptMapPluralityEditFlagsVitalRecords.IJEToFHIR">
-            <summary>IJE -> FHIR Mapping for ConceptMapPluralityEditFlagsVitalRecords</summary>
+        <member name="F:VR.Mappings.MaritalStatus.IJEToFHIR">
+            <summary>IJE -> FHIR Mapping for MaritalStatus</summary>
         </member>
-        <member name="F:VR.Mappings.ConceptMapPluralityEditFlagsVitalRecords.FHIRToIJE">
-            <summary>FHIR -> IJE Mapping for ConceptMapPluralityEditFlagsVitalRecords</summary>
+        <member name="F:VR.Mappings.MaritalStatus.FHIRToIJE">
+            <summary>FHIR -> IJE Mapping for MaritalStatus</summary>
         </member>
-        <member name="T:VR.Mappings.ConceptMapRaceCodeVitalRecords">
-            <summary>Mappings for ConceptMapRaceCodeVitalRecords</summary>
+        <member name="T:VR.Mappings.PluralityEditFlags">
+            <summary>Mappings for PluralityEditFlags</summary>
         </member>
-        <member name="F:VR.Mappings.ConceptMapRaceCodeVitalRecords.IJEToFHIR">
-            <summary>IJE -> FHIR Mapping for ConceptMapRaceCodeVitalRecords</summary>
+        <member name="F:VR.Mappings.PluralityEditFlags.IJEToFHIR">
+            <summary>IJE -> FHIR Mapping for PluralityEditFlags</summary>
         </member>
-        <member name="F:VR.Mappings.ConceptMapRaceCodeVitalRecords.FHIRToIJE">
-            <summary>FHIR -> IJE Mapping for ConceptMapRaceCodeVitalRecords</summary>
+        <member name="F:VR.Mappings.PluralityEditFlags.FHIRToIJE">
+            <summary>FHIR -> IJE Mapping for PluralityEditFlags</summary>
         </member>
-        <member name="T:VR.Mappings.ConceptMapRaceMissingValueReasonVitalRecords">
-            <summary>Mappings for ConceptMapRaceMissingValueReasonVitalRecords</summary>
+        <member name="T:VR.Mappings.RaceCode">
+            <summary>Mappings for RaceCode</summary>
         </member>
-        <member name="F:VR.Mappings.ConceptMapRaceMissingValueReasonVitalRecords.IJEToFHIR">
-            <summary>IJE -> FHIR Mapping for ConceptMapRaceMissingValueReasonVitalRecords</summary>
+        <member name="F:VR.Mappings.RaceCode.IJEToFHIR">
+            <summary>IJE -> FHIR Mapping for RaceCode</summary>
         </member>
-        <member name="F:VR.Mappings.ConceptMapRaceMissingValueReasonVitalRecords.FHIRToIJE">
-            <summary>FHIR -> IJE Mapping for ConceptMapRaceMissingValueReasonVitalRecords</summary>
+        <member name="F:VR.Mappings.RaceCode.FHIRToIJE">
+            <summary>FHIR -> IJE Mapping for RaceCode</summary>
         </member>
-        <member name="T:VR.Mappings.ConceptMapRaceRecode40VitalRecords">
-            <summary>Mappings for ConceptMapRaceRecode40VitalRecords</summary>
+        <member name="T:VR.Mappings.RaceMissingValueReason">
+            <summary>Mappings for RaceMissingValueReason</summary>
         </member>
-        <member name="F:VR.Mappings.ConceptMapRaceRecode40VitalRecords.IJEToFHIR">
-            <summary>IJE -> FHIR Mapping for ConceptMapRaceRecode40VitalRecords</summary>
+        <member name="F:VR.Mappings.RaceMissingValueReason.IJEToFHIR">
+            <summary>IJE -> FHIR Mapping for RaceMissingValueReason</summary>
         </member>
-        <member name="F:VR.Mappings.ConceptMapRaceRecode40VitalRecords.FHIRToIJE">
-            <summary>FHIR -> IJE Mapping for ConceptMapRaceRecode40VitalRecords</summary>
+        <member name="F:VR.Mappings.RaceMissingValueReason.FHIRToIJE">
+            <summary>FHIR -> IJE Mapping for RaceMissingValueReason</summary>
         </member>
-        <member name="T:VR.Mappings.ConceptMapUnitsOfAgeVitalRecords">
-            <summary>Mappings for ConceptMapUnitsOfAgeVitalRecords</summary>
+        <member name="T:VR.Mappings.RaceRecode40">
+            <summary>Mappings for RaceRecode40</summary>
         </member>
-        <member name="F:VR.Mappings.ConceptMapUnitsOfAgeVitalRecords.IJEToFHIR">
-            <summary>IJE -> FHIR Mapping for ConceptMapUnitsOfAgeVitalRecords</summary>
+        <member name="F:VR.Mappings.RaceRecode40.IJEToFHIR">
+            <summary>IJE -> FHIR Mapping for RaceRecode40</summary>
         </member>
-        <member name="F:VR.Mappings.ConceptMapUnitsOfAgeVitalRecords.FHIRToIJE">
-            <summary>FHIR -> IJE Mapping for ConceptMapUnitsOfAgeVitalRecords</summary>
+        <member name="F:VR.Mappings.RaceRecode40.FHIRToIJE">
+            <summary>FHIR -> IJE Mapping for RaceRecode40</summary>
         </member>
-        <member name="T:VR.Mappings.ConceptMapYesNoNotApplicableVitalRecords">
-            <summary>Mappings for ConceptMapYesNoNotApplicableVitalRecords</summary>
+        <member name="T:VR.Mappings.UnitsOfAge">
+            <summary>Mappings for UnitsOfAge</summary>
         </member>
-        <member name="F:VR.Mappings.ConceptMapYesNoNotApplicableVitalRecords.IJEToFHIR">
-            <summary>IJE -> FHIR Mapping for ConceptMapYesNoNotApplicableVitalRecords</summary>
+        <member name="F:VR.Mappings.UnitsOfAge.IJEToFHIR">
+            <summary>IJE -> FHIR Mapping for UnitsOfAge</summary>
         </member>
-        <member name="F:VR.Mappings.ConceptMapYesNoNotApplicableVitalRecords.FHIRToIJE">
-            <summary>FHIR -> IJE Mapping for ConceptMapYesNoNotApplicableVitalRecords</summary>
+        <member name="F:VR.Mappings.UnitsOfAge.FHIRToIJE">
+            <summary>FHIR -> IJE Mapping for UnitsOfAge</summary>
         </member>
-        <member name="T:VR.Mappings.ConceptMapYesNoUnknownNotApplicableVitalRecords">
-            <summary>Mappings for ConceptMapYesNoUnknownNotApplicableVitalRecords</summary>
+        <member name="T:VR.Mappings.YesNoNotApplicable">
+            <summary>Mappings for YesNoNotApplicable</summary>
         </member>
-        <member name="F:VR.Mappings.ConceptMapYesNoUnknownNotApplicableVitalRecords.IJEToFHIR">
-            <summary>IJE -> FHIR Mapping for ConceptMapYesNoUnknownNotApplicableVitalRecords</summary>
+        <member name="F:VR.Mappings.YesNoNotApplicable.IJEToFHIR">
+            <summary>IJE -> FHIR Mapping for YesNoNotApplicable</summary>
         </member>
-        <member name="F:VR.Mappings.ConceptMapYesNoUnknownNotApplicableVitalRecords.FHIRToIJE">
-            <summary>FHIR -> IJE Mapping for ConceptMapYesNoUnknownNotApplicableVitalRecords</summary>
+        <member name="F:VR.Mappings.YesNoNotApplicable.FHIRToIJE">
+            <summary>FHIR -> IJE Mapping for YesNoNotApplicable</summary>
         </member>
-        <member name="T:VR.Mappings.ConceptMapYesNoUnknownVitalRecords">
-            <summary>Mappings for ConceptMapYesNoUnknownVitalRecords</summary>
+        <member name="T:VR.Mappings.YesNoUnknownNotApplicable">
+            <summary>Mappings for YesNoUnknownNotApplicable</summary>
         </member>
-        <member name="F:VR.Mappings.ConceptMapYesNoUnknownVitalRecords.IJEToFHIR">
-            <summary>IJE -> FHIR Mapping for ConceptMapYesNoUnknownVitalRecords</summary>
+        <member name="F:VR.Mappings.YesNoUnknownNotApplicable.IJEToFHIR">
+            <summary>IJE -> FHIR Mapping for YesNoUnknownNotApplicable</summary>
         </member>
-        <member name="F:VR.Mappings.ConceptMapYesNoUnknownVitalRecords.FHIRToIJE">
-            <summary>FHIR -> IJE Mapping for ConceptMapYesNoUnknownVitalRecords</summary>
+        <member name="F:VR.Mappings.YesNoUnknownNotApplicable.FHIRToIJE">
+            <summary>FHIR -> IJE Mapping for YesNoUnknownNotApplicable</summary>
+        </member>
+        <member name="T:VR.Mappings.YesNoUnknown">
+            <summary>Mappings for YesNoUnknown</summary>
+        </member>
+        <member name="F:VR.Mappings.YesNoUnknown.IJEToFHIR">
+            <summary>IJE -> FHIR Mapping for YesNoUnknown</summary>
+        </member>
+        <member name="F:VR.Mappings.YesNoUnknown.FHIRToIJE">
+            <summary>FHIR -> IJE Mapping for YesNoUnknown</summary>
         </member>
         <member name="T:VR.OtherProfileURL">
             <summary>Profile URLs for non-VRDR Profiles</summary>
@@ -443,14 +518,23 @@
         <member name="F:VR.OtherExtensionURL.PatientBirthPlace">
             <summary>URL for PatientBirthPlace</summary>
         </member>
+        <member name="F:VR.OtherExtensionURL.RelatedPersonBirthPlace">
+            <summary>URL for RelatedPersonBirthPlace</summary>
+        </member>
         <member name="F:VR.OtherExtensionURL.BirthSex">
             <summary>URL for US Core Birthsex </summary>
+        </member>
+        <member name="F:VR.OtherExtensionURL.ParentRole">
+            <summary>URL for parent role </summary>
         </member>
         <member name="T:VR.OtherIGURL">
             <summary>IG URLs for non-VRDR Profiles</summary>
         </member>
         <member name="F:VR.OtherIGURL.USCorePractitioner">
             <summary>URL for USCorePractitioner</summary>
+        </member>
+        <member name="F:VR.OtherIGURL.UsualWork">
+            <summary>URL for UsualWork - TODO figure out why this one isn't generated from the IG</summary>
         </member>
         <member name="T:VR.NvssRace">
             <summary> String representations of IJE Race fields </summary>
@@ -572,6 +656,18 @@
         <member name="T:VR.ProfileURL">
             <summary>Profile URLs</summary>
         </member>
+        <member name="F:VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords">
+            <summary>URL for AuxiliaryStateIdentifier1VitalRecords</summary>
+        </member>
+        <member name="F:VR.ProfileURL.AuxiliaryStateIdentifier2VitalRecords">
+            <summary>URL for AuxiliaryStateIdentifier2VitalRecords</summary>
+        </member>
+        <member name="F:VR.ProfileURL.CertificateNumber">
+            <summary>URL for CertificateNumber</summary>
+        </member>
+        <member name="F:VR.ProfileURL.Location">
+            <summary>URL for Location</summary>
+        </member>
         <member name="F:VR.ProfileURL.AutopsyPerformedIndicator">
             <summary>URL for AutopsyPerformedIndicator</summary>
         </member>
@@ -580,6 +676,9 @@
         </member>
         <member name="F:VR.ProfileURL.EmergingIssues">
             <summary>URL for EmergingIssues</summary>
+        </member>
+        <member name="F:VR.ProfileURL.UsualWork">
+            <summary>URL for UsualWork</summary>
         </member>
         <member name="F:VR.ProfileURL.Child">
             <summary>URL for Child</summary>
@@ -627,6 +726,15 @@
         <member name="P:VR.ExtensionURL.DistrictCode">
             <summary>URL for DistrictCode</summary>
         </member>
+        <member name="P:VR.ExtensionURL.LocationJurisdictionId">
+            <summary>URL for LocationJurisdictionId</summary>
+        </member>
+        <member name="P:VR.ExtensionURL.PartialDateTime">
+            <summary>URL for PartialDateTime</summary>
+        </member>
+        <member name="P:VR.ExtensionURL.PartialDate">
+            <summary>URL for PartialDate</summary>
+        </member>
         <member name="P:VR.ExtensionURL.PatientFetalDeath">
             <summary>URL for PatientFetalDeath</summary>
         </member>
@@ -639,17 +747,11 @@
         <member name="P:VR.ExtensionURL.ReportedParentAgeAtDelivery">
             <summary>URL for ReportedParentAgeAtDelivery</summary>
         </member>
+        <member name="P:VR.ExtensionURL.Role">
+            <summary>URL for Role</summary>
+        </member>
         <member name="P:VR.ExtensionURL.WithinCityLimitsIndicator">
             <summary>URL for WithinCityLimitsIndicator</summary>
-        </member>
-        <member name="P:VR.ExtensionURL.DatePartAbsentReason">
-            <summary>URL for DatePartAbsentReason</summary>
-        </member>
-        <member name="P:VR.ExtensionURL.PartialDateTime">
-            <summary>URL for PartialDateTime</summary>
-        </member>
-        <member name="P:VR.ExtensionURL.PartialDate">
-            <summary>URL for PartialDate</summary>
         </member>
         <member name="P:VR.ExtensionURL.PostDirectional">
             <summary>URL for PostDirectional</summary>
@@ -684,9 +786,6 @@
         <member name="F:VR.ExtensionURL.PatientBirthTime">
             <summary>URL for PatientBirthTime as defined in the VitalRecords IG</summary>
         </member>
-        <member name="P:VR.ExtensionURL.PartialDateTimeVR">
-            <summary>URL for PartialDateTime as defined in the VitalRecords IG</summary>
-        </member>
         <member name="F:VR.ExtensionURL.PartialDateTimeDayVR">
             <summary>URL for PartialDateTime Day as defined in the VitalRecords IG</summary>
         </member>
@@ -699,20 +798,35 @@
         <member name="F:VR.ExtensionURL.PartialDateTimeTimeVR">
             <summary>URL for PartialDateTime Time as defined in the VitalRecords IG</summary>
         </member>
-        <member name="P:VR.ExtensionURL.LocationJurisdictionId">
-            <summary>URL for LocationJurisdictionId</summary>
-        </member>
         <member name="T:VR.IGURL">
             <summary>IG URLs</summary>
         </member>
+        <member name="F:VR.IGURL.AuxiliaryStateIdentifier1VitalRecords">
+            <summary>URL for AuxiliaryStateIdentifier1VitalRecords</summary>
+        </member>
+        <member name="F:VR.IGURL.AuxiliaryStateIdentifier2VitalRecords">
+            <summary>URL for AuxiliaryStateIdentifier2VitalRecords</summary>
+        </member>
         <member name="F:VR.IGURL.BypassEditFlag">
             <summary>URL for BypassEditFlag</summary>
+        </member>
+        <member name="F:VR.IGURL.CertificateNumber">
+            <summary>URL for CertificateNumber</summary>
         </member>
         <member name="F:VR.IGURL.CityCode">
             <summary>URL for CityCode</summary>
         </member>
         <member name="F:VR.IGURL.DistrictCode">
             <summary>URL for DistrictCode</summary>
+        </member>
+        <member name="F:VR.IGURL.LocationJurisdictionId">
+            <summary>URL for LocationJurisdictionId</summary>
+        </member>
+        <member name="F:VR.IGURL.PartialDateTime">
+            <summary>URL for PartialDateTime</summary>
+        </member>
+        <member name="F:VR.IGURL.PartialDate">
+            <summary>URL for PartialDate</summary>
         </member>
         <member name="F:VR.IGURL.PatientFetalDeath">
             <summary>URL for PatientFetalDeath</summary>
@@ -726,17 +840,14 @@
         <member name="F:VR.IGURL.ReportedParentAgeAtDelivery">
             <summary>URL for ReportedParentAgeAtDelivery</summary>
         </member>
+        <member name="F:VR.IGURL.Role">
+            <summary>URL for Role</summary>
+        </member>
         <member name="F:VR.IGURL.WithinCityLimitsIndicator">
             <summary>URL for WithinCityLimitsIndicator</summary>
         </member>
-        <member name="F:VR.IGURL.DatePartAbsentReason">
-            <summary>URL for DatePartAbsentReason</summary>
-        </member>
-        <member name="F:VR.IGURL.PartialDateTime">
-            <summary>URL for PartialDateTime</summary>
-        </member>
-        <member name="F:VR.IGURL.PartialDate">
-            <summary>URL for PartialDate</summary>
+        <member name="F:VR.IGURL.Location">
+            <summary>URL for Location</summary>
         </member>
         <member name="F:VR.IGURL.AutopsyPerformedIndicator">
             <summary>URL for AutopsyPerformedIndicator</summary>
@@ -746,6 +857,9 @@
         </member>
         <member name="F:VR.IGURL.EmergingIssues">
             <summary>URL for EmergingIssues</summary>
+        </member>
+        <member name="F:VR.IGURL.UsualWork">
+            <summary>URL for UsualWork</summary>
         </member>
         <member name="F:VR.IGURL.Child">
             <summary>URL for Child</summary>
@@ -798,23 +912,128 @@
         <member name="T:VR.ValueSets">
             <summary> ValueSet Helpers </summary>
         </member>
+        <member name="T:VR.ValueSets.BirthAttendantTitles">
+            <summary> BirthAttendantTitles </summary>
+        </member>
+        <member name="F:VR.ValueSets.BirthAttendantTitles.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:VR.ValueSets.BirthAttendantTitles.Medical_Doctor">
+            <summary> Medical_Doctor </summary>
+        </member>
+        <member name="F:VR.ValueSets.BirthAttendantTitles.Osteopath">
+            <summary> Osteopath </summary>
+        </member>
+        <member name="F:VR.ValueSets.BirthAttendantTitles.Advanced_Practice_Midwife">
+            <summary> Advanced_Practice_Midwife </summary>
+        </member>
+        <member name="F:VR.ValueSets.BirthAttendantTitles.Lay_Midwife">
+            <summary> Lay_Midwife </summary>
+        </member>
+        <member name="F:VR.ValueSets.BirthAttendantTitles.Other">
+            <summary> Other </summary>
+        </member>
+        <member name="F:VR.ValueSets.BirthAttendantTitles.Unknown">
+            <summary> Unknown </summary>
+        </member>
         <member name="T:VR.ValueSets.CodedRaceAndEthnicityPerson">
             <summary> CodedRaceAndEthnicityPerson </summary>
         </member>
         <member name="F:VR.ValueSets.CodedRaceAndEthnicityPerson.Codes">
             <summary> Codes </summary>
         </member>
-        <member name="F:VR.ValueSets.CodedRaceAndEthnicityPerson.CodedRaceAndEthnicityPersoncodedraceandethnicityFather">
-            <summary> CodedRaceAndEthnicityPerson </summary>
+        <member name="F:VR.ValueSets.CodedRaceAndEthnicityPerson.Father_Coded_Race_And_Ethnicity_Data_Produced_By_Nchs_From_Submitted_Death_Record">
+            <summary> Father_Coded_Race_And_Ethnicity_Data_Produced_By_Nchs_From_Submitted_Death_Record </summary>
         </member>
-        <member name="F:VR.ValueSets.CodedRaceAndEthnicityPerson.CodedRaceAndEthnicityPersoncodedraceandethnicityMother">
-            <summary> CodedRaceAndEthnicityPerson </summary>
+        <member name="F:VR.ValueSets.CodedRaceAndEthnicityPerson.Mother_Coded_Race_And_Ethnicity_Data_Produced_By_Nchs_From_Submitted_Death_Record">
+            <summary> Mother_Coded_Race_And_Ethnicity_Data_Produced_By_Nchs_From_Submitted_Death_Record </summary>
         </member>
-        <member name="F:VR.ValueSets.CodedRaceAndEthnicityPerson.CodedRaceAndEthnicityPersoncodedraceandethnicityDecedent">
-            <summary> CodedRaceAndEthnicityPerson </summary>
+        <member name="F:VR.ValueSets.CodedRaceAndEthnicityPerson.Decedent_Coded_Race_And_Ethnicity_Data_Produced_By_Nchs_From_Submitted_Death_Record">
+            <summary> Decedent_Coded_Race_And_Ethnicity_Data_Produced_By_Nchs_From_Submitted_Death_Record </summary>
         </member>
-        <member name="F:VR.ValueSets.CodedRaceAndEthnicityPerson.CodedRaceAndEthnicityPersoncodedraceandethnicity">
-            <summary> CodedRaceAndEthnicityPerson </summary>
+        <member name="F:VR.ValueSets.CodedRaceAndEthnicityPerson.Coded_Race_And_Ethnicity_Data_Produced_By_Nchs_From_Submitted_Death_Record">
+            <summary> Coded_Race_And_Ethnicity_Data_Produced_By_Nchs_From_Submitted_Death_Record </summary>
+        </member>
+        <member name="T:VR.ValueSets.DateOfBirthEditFlags">
+            <summary> DateOfBirthEditFlags </summary>
+        </member>
+        <member name="F:VR.ValueSets.DateOfBirthEditFlags.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:VR.ValueSets.DateOfBirthEditFlags.Edit_Passed">
+            <summary> Edit_Passed </summary>
+        </member>
+        <member name="F:VR.ValueSets.DateOfBirthEditFlags.Data_Queried">
+            <summary> Data_Queried </summary>
+        </member>
+        <member name="T:VR.ValueSets.EducationLevelPerson">
+            <summary> EducationLevelPerson </summary>
+        </member>
+        <member name="F:VR.ValueSets.EducationLevelPerson.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:VR.ValueSets.EducationLevelPerson.Highest_Level_Of_Education_Father">
+            <summary> Highest_Level_Of_Education_Father </summary>
+        </member>
+        <member name="F:VR.ValueSets.EducationLevelPerson.Highest_Level_Of_Education_Mother">
+            <summary> Highest_Level_Of_Education_Mother </summary>
+        </member>
+        <member name="F:VR.ValueSets.EducationLevelPerson.Highest_Level_Of_Education_Us_Standard_Certificate_Of_Death">
+            <summary> Highest_Level_Of_Education_Us_Standard_Certificate_Of_Death </summary>
+        </member>
+        <member name="T:VR.ValueSets.EducationLevel">
+            <summary> EducationLevel </summary>
+        </member>
+        <member name="F:VR.ValueSets.EducationLevel.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:VR.ValueSets.EducationLevel.Elementary_School">
+            <summary> Elementary_School </summary>
+        </member>
+        <member name="F:VR.ValueSets.EducationLevel.Some_Secondary_Or_High_School_Education">
+            <summary> Some_Secondary_Or_High_School_Education </summary>
+        </member>
+        <member name="F:VR.ValueSets.EducationLevel.High_School_Or_Secondary_School_Degree_Complete">
+            <summary> High_School_Or_Secondary_School_Degree_Complete </summary>
+        </member>
+        <member name="F:VR.ValueSets.EducationLevel.Some_College_Education">
+            <summary> Some_College_Education </summary>
+        </member>
+        <member name="F:VR.ValueSets.EducationLevel.Doctoral_Or_Post_Graduate_Education">
+            <summary> Doctoral_Or_Post_Graduate_Education </summary>
+        </member>
+        <member name="F:VR.ValueSets.EducationLevel.Associates_Or_Technical_Degree_Complete">
+            <summary> Associates_Or_Technical_Degree_Complete </summary>
+        </member>
+        <member name="F:VR.ValueSets.EducationLevel.Bachelors_Degree">
+            <summary> Bachelors_Degree </summary>
+        </member>
+        <member name="F:VR.ValueSets.EducationLevel.Masters_Degree">
+            <summary> Masters_Degree </summary>
+        </member>
+        <member name="F:VR.ValueSets.EducationLevel.Unknown">
+            <summary> Unknown </summary>
+        </member>
+        <member name="T:VR.ValueSets.FatherRelationship">
+            <summary> FatherRelationship </summary>
+        </member>
+        <member name="F:VR.ValueSets.FatherRelationship.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:VR.ValueSets.FatherRelationship.Adoptive_Father">
+            <summary> Adoptive_Father </summary>
+        </member>
+        <member name="F:VR.ValueSets.FatherRelationship.Father">
+            <summary> Father </summary>
+        </member>
+        <member name="F:VR.ValueSets.FatherRelationship.Foster_Father">
+            <summary> Foster_Father </summary>
+        </member>
+        <member name="F:VR.ValueSets.FatherRelationship.Natural_Father">
+            <summary> Natural_Father </summary>
+        </member>
+        <member name="F:VR.ValueSets.FatherRelationship.Stepfather">
+            <summary> Stepfather </summary>
         </member>
         <member name="T:VR.ValueSets.HispanicNoUnknown">
             <summary> HispanicNoUnknown </summary>
@@ -1044,17 +1263,89 @@
         <member name="F:VR.ValueSets.InputRaceAndEthnicityPerson.Codes">
             <summary> Codes </summary>
         </member>
-        <member name="F:VR.ValueSets.InputRaceAndEthnicityPerson.InputRaceAndEthnicityPersoninputraceandethnicityFather">
-            <summary> InputRaceAndEthnicityPerson </summary>
+        <member name="F:VR.ValueSets.InputRaceAndEthnicityPerson.Father_Race_And_Ethnicity_Data_Submitted_By_Jurisdictions_To_Nchs">
+            <summary> Father_Race_And_Ethnicity_Data_Submitted_By_Jurisdictions_To_Nchs </summary>
         </member>
-        <member name="F:VR.ValueSets.InputRaceAndEthnicityPerson.InputRaceAndEthnicityPersoninputraceandethnicityMother">
-            <summary> InputRaceAndEthnicityPerson </summary>
+        <member name="F:VR.ValueSets.InputRaceAndEthnicityPerson.Mother_Race_And_Ethnicity_Data_Submitted_By_Jurisdictions_To_Nchs">
+            <summary> Mother_Race_And_Ethnicity_Data_Submitted_By_Jurisdictions_To_Nchs </summary>
         </member>
-        <member name="F:VR.ValueSets.InputRaceAndEthnicityPerson.InputRaceAndEthnicityPersoninputraceandethnicityDecedent">
-            <summary> InputRaceAndEthnicityPerson </summary>
+        <member name="F:VR.ValueSets.InputRaceAndEthnicityPerson.Decedent_Race_And_Ethnicity_Data_Submitted_By_Jurisdictions_To_Nchs">
+            <summary> Decedent_Race_And_Ethnicity_Data_Submitted_By_Jurisdictions_To_Nchs </summary>
         </member>
-        <member name="F:VR.ValueSets.InputRaceAndEthnicityPerson.InputRaceAndEthnicityPersoninputraceandethnicity">
-            <summary> InputRaceAndEthnicityPerson </summary>
+        <member name="F:VR.ValueSets.InputRaceAndEthnicityPerson.Race_And_Ethnicity_Data_Submitted_By_Jurisdictions_To_Nchs">
+            <summary> Race_And_Ethnicity_Data_Submitted_By_Jurisdictions_To_Nchs </summary>
+        </member>
+        <member name="T:VR.ValueSets.Jurisdiction">
+            <summary> Jurisdiction </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.New_York_City">
+            <summary> New_York_City </summary>
+        </member>
+        <member name="T:VR.ValueSets.MaritalStatus">
+            <summary> MaritalStatus </summary>
+        </member>
+        <member name="F:VR.ValueSets.MaritalStatus.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:VR.ValueSets.MaritalStatus.Divorced">
+            <summary> Divorced </summary>
+        </member>
+        <member name="F:VR.ValueSets.MaritalStatus.Legally_Separated">
+            <summary> Legally_Separated </summary>
+        </member>
+        <member name="F:VR.ValueSets.MaritalStatus.Married">
+            <summary> Married </summary>
+        </member>
+        <member name="F:VR.ValueSets.MaritalStatus.Never_Married">
+            <summary> Never_Married </summary>
+        </member>
+        <member name="F:VR.ValueSets.MaritalStatus.Widowed">
+            <summary> Widowed </summary>
+        </member>
+        <member name="F:VR.ValueSets.MaritalStatus.Unknown">
+            <summary> Unknown </summary>
+        </member>
+        <member name="T:VR.ValueSets.MotherRelationship">
+            <summary> MotherRelationship </summary>
+        </member>
+        <member name="F:VR.ValueSets.MotherRelationship.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:VR.ValueSets.MotherRelationship.Adoptive_Mother">
+            <summary> Adoptive_Mother </summary>
+        </member>
+        <member name="F:VR.ValueSets.MotherRelationship.Mother">
+            <summary> Mother </summary>
+        </member>
+        <member name="F:VR.ValueSets.MotherRelationship.Gestational_Mother">
+            <summary> Gestational_Mother </summary>
+        </member>
+        <member name="F:VR.ValueSets.MotherRelationship.Foster_Mother">
+            <summary> Foster_Mother </summary>
+        </member>
+        <member name="F:VR.ValueSets.MotherRelationship.Natural_Mother">
+            <summary> Natural_Mother </summary>
+        </member>
+        <member name="F:VR.ValueSets.MotherRelationship.Natural_Mother_Of_Fetus">
+            <summary> Natural_Mother_Of_Fetus </summary>
+        </member>
+        <member name="T:VR.ValueSets.PluralityEditFlags">
+            <summary> PluralityEditFlags </summary>
+        </member>
+        <member name="F:VR.ValueSets.PluralityEditFlags.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:VR.ValueSets.PluralityEditFlags.Off">
+            <summary> Off </summary>
+        </member>
+        <member name="F:VR.ValueSets.PluralityEditFlags.Queried_And_Correct">
+            <summary> Queried_And_Correct </summary>
+        </member>
+        <member name="F:VR.ValueSets.PluralityEditFlags.Plurality_Set_Order_Queried_Inconsistent">
+            <summary> Plurality_Set_Order_Queried_Inconsistent </summary>
         </member>
         <member name="T:VR.ValueSets.RaceCode">
             <summary> RaceCode </summary>
@@ -4569,317 +4860,20 @@
         <member name="F:VR.ValueSets.RaceCode.Kaguyak_Village">
             <summary> Kaguyak_Village </summary>
         </member>
-        <member name="T:VR.ValueSets.BirthplaceCounty">
-            <summary> BirthplaceCounty </summary>
-        </member>
-        <member name="F:VR.ValueSets.BirthplaceCounty.Codes">
-            <summary> Codes </summary>
-        </member>
-        <member name="T:VR.ValueSets.Jurisdictions">
-            <summary> Jurisdictions </summary>
-        </member>
-        <member name="F:VR.ValueSets.Jurisdictions.Codes">
-            <summary> Codes </summary>
-        </member>
-        <member name="F:VR.ValueSets.Jurisdictions.New_York_City">
-            <summary> New_York_City </summary>
-        </member>
-        <member name="T:VR.ValueSets.ResidenceCountry">
-            <summary> ResidenceCountry </summary>
-        </member>
-        <member name="F:VR.ValueSets.ResidenceCountry.Codes">
-            <summary> Codes </summary>
-        </member>
-        <member name="T:VR.ValueSets.StatesTerritoriesAndProvinces">
-            <summary> StatesTerritoriesAndProvinces </summary>
-        </member>
-        <member name="F:VR.ValueSets.StatesTerritoriesAndProvinces.Codes">
-            <summary> Codes </summary>
-        </member>
-        <member name="F:VR.ValueSets.StatesTerritoriesAndProvinces.StatesTerritoriesAndProvincesUNK">
-            <summary> StatesTerritoriesAndProvinces </summary>
-        </member>
-        <member name="T:VR.ValueSets.USStatesTerritories">
-            <summary> USStatesTerritories </summary>
-        </member>
-        <member name="F:VR.ValueSets.USStatesTerritories.Codes">
-            <summary> Codes </summary>
-        </member>
-        <member name="T:VR.ValueSets.BirthAttendantsTitles">
-            <summary> BirthAttendantsTitles </summary>
-        </member>
-        <member name="F:VR.ValueSets.BirthAttendantsTitles.Codes">
-            <summary> Codes </summary>
-        </member>
-        <member name="F:VR.ValueSets.BirthAttendantsTitles.Medical_Doctor">
-            <summary> Medical_Doctor </summary>
-        </member>
-        <member name="F:VR.ValueSets.BirthAttendantsTitles.Osteopath">
-            <summary> Osteopath </summary>
-        </member>
-        <member name="F:VR.ValueSets.BirthAttendantsTitles.Advanced_Practice_Midwife">
-            <summary> Advanced_Practice_Midwife </summary>
-        </member>
-        <member name="F:VR.ValueSets.BirthAttendantsTitles.Lay_Midwife">
-            <summary> Lay_Midwife </summary>
-        </member>
-        <member name="F:VR.ValueSets.BirthAttendantsTitles.Other">
-            <summary> Other </summary>
-        </member>
-        <member name="F:VR.ValueSets.BirthAttendantsTitles.Unknown">
-            <summary> Unknown </summary>
-        </member>
-        <member name="T:VR.ValueSets.BirthSexChild">
-            <summary> BirthSexChild </summary>
-        </member>
-        <member name="F:VR.ValueSets.BirthSexChild.Codes">
-            <summary> Codes </summary>
-        </member>
-        <member name="T:VR.ValueSets.BirthSexFetus">
-            <summary> BirthSexFetus </summary>
-        </member>
-        <member name="F:VR.ValueSets.BirthSexFetus.Codes">
-            <summary> Codes </summary>
-        </member>
-        <member name="T:VR.ValueSets.EducationLevelPerson">
-            <summary> EducationLevelPerson </summary>
-        </member>
-        <member name="F:VR.ValueSets.EducationLevelPerson.Codes">
-            <summary> Codes </summary>
-        </member>
-        <member name="F:VR.ValueSets.EducationLevelPerson.Highest_Level_Of_Education_Father">
-            <summary> Highest_Level_Of_Education_Father </summary>
-        </member>
-        <member name="F:VR.ValueSets.EducationLevelPerson.Highest_Level_Of_Education_Mother">
-            <summary> Highest_Level_Of_Education_Mother </summary>
-        </member>
-        <member name="F:VR.ValueSets.EducationLevelPerson.Highest_Level_Of_Education_Us_Standard_Certificate_Of_Death">
-            <summary> Highest_Level_Of_Education_Us_Standard_Certificate_Of_Death </summary>
-        </member>
-        <member name="T:VR.ValueSets.EducationLevel">
-            <summary> EducationLevel </summary>
-        </member>
-        <member name="F:VR.ValueSets.EducationLevel.Codes">
-            <summary> Codes </summary>
-        </member>
-        <member name="F:VR.ValueSets.EducationLevel.Elementary_School">
-            <summary> Elementary_School </summary>
-        </member>
-        <member name="F:VR.ValueSets.EducationLevel.Some_Secondary_Or_High_School_Education">
-            <summary> Some_Secondary_Or_High_School_Education </summary>
-        </member>
-        <member name="F:VR.ValueSets.EducationLevel.High_School_Or_Secondary_School_Degree_Complete">
-            <summary> High_School_Or_Secondary_School_Degree_Complete </summary>
-        </member>
-        <member name="F:VR.ValueSets.EducationLevel.Some_College_Education">
-            <summary> Some_College_Education </summary>
-        </member>
-        <member name="F:VR.ValueSets.EducationLevel.Doctoral_Or_Post_Graduate_Education">
-            <summary> Doctoral_Or_Post_Graduate_Education </summary>
-        </member>
-        <member name="F:VR.ValueSets.EducationLevel.Associates_Or_Technical_Degree_Complete">
-            <summary> Associates_Or_Technical_Degree_Complete </summary>
-        </member>
-        <member name="F:VR.ValueSets.EducationLevel.Bachelors_Degree">
-            <summary> Bachelors_Degree </summary>
-        </member>
-        <member name="F:VR.ValueSets.EducationLevel.Masters_Degree">
-            <summary> Masters_Degree </summary>
-        </member>
-        <member name="F:VR.ValueSets.EducationLevel.Unknown">
-            <summary> Unknown </summary>
-        </member>
-        <member name="T:VR.ValueSets.FatherRelationship">
-            <summary> FatherRelationship </summary>
-        </member>
-        <member name="F:VR.ValueSets.FatherRelationship.Codes">
-            <summary> Codes </summary>
-        </member>
-        <member name="F:VR.ValueSets.FatherRelationship.Adoptive_Father">
-            <summary> Adoptive_Father </summary>
-        </member>
-        <member name="F:VR.ValueSets.FatherRelationship.Father">
-            <summary> Father </summary>
-        </member>
-        <member name="F:VR.ValueSets.FatherRelationship.Foster_Father">
-            <summary> Foster_Father </summary>
-        </member>
-        <member name="F:VR.ValueSets.FatherRelationship.Natural_Father">
-            <summary> Natural_Father </summary>
-        </member>
-        <member name="F:VR.ValueSets.FatherRelationship.Stepfather">
-            <summary> Stepfather </summary>
-        </member>
-        <member name="T:VR.ValueSets.MotherRelationship">
-            <summary> MotherRelationship </summary>
-        </member>
-        <member name="F:VR.ValueSets.MotherRelationship.Codes">
-            <summary> Codes </summary>
-        </member>
-        <member name="F:VR.ValueSets.MotherRelationship.Adoptive_Mother">
-            <summary> Adoptive_Mother </summary>
-        </member>
-        <member name="F:VR.ValueSets.MotherRelationship.Mother">
-            <summary> Mother </summary>
-        </member>
-        <member name="F:VR.ValueSets.MotherRelationship.Gestational_Mother">
-            <summary> Gestational_Mother </summary>
-        </member>
-        <member name="F:VR.ValueSets.MotherRelationship.Foster_Mother">
-            <summary> Foster_Mother </summary>
-        </member>
-        <member name="F:VR.ValueSets.MotherRelationship.Natural_Mother">
-            <summary> Natural_Mother </summary>
-        </member>
-        <member name="F:VR.ValueSets.MotherRelationship.Natural_Mother_Of_Fetus">
-            <summary> Natural_Mother_Of_Fetus </summary>
-        </member>
-        <member name="T:VR.ValueSets.Role">
-            <summary> Role </summary>
-        </member>
-        <member name="F:VR.ValueSets.Role.Codes">
-            <summary> Codes </summary>
-        </member>
-        <member name="F:VR.ValueSets.Role.Father">
-            <summary> Father </summary>
-        </member>
-        <member name="F:VR.ValueSets.Role.Mother">
-            <summary> Mother </summary>
-        </member>
-        <member name="T:VR.ValueSets.UnitsOfAge">
-            <summary> UnitsOfAge </summary>
-        </member>
-        <member name="F:VR.ValueSets.UnitsOfAge.Codes">
-            <summary> Codes </summary>
-        </member>
-        <member name="F:VR.ValueSets.UnitsOfAge.Minutes">
-            <summary> Minutes </summary>
-        </member>
-        <member name="F:VR.ValueSets.UnitsOfAge.Days">
-            <summary> Days </summary>
-        </member>
-        <member name="F:VR.ValueSets.UnitsOfAge.Hours">
-            <summary> Hours </summary>
-        </member>
-        <member name="F:VR.ValueSets.UnitsOfAge.Months">
-            <summary> Months </summary>
-        </member>
-        <member name="F:VR.ValueSets.UnitsOfAge.Years">
-            <summary> Years </summary>
-        </member>
-        <member name="F:VR.ValueSets.UnitsOfAge.Unknown">
-            <summary> Unknown </summary>
-        </member>
-        <member name="T:VR.ValueSets.YesNoNotApplicable">
-            <summary> YesNoNotApplicable </summary>
-        </member>
-        <member name="F:VR.ValueSets.YesNoNotApplicable.Codes">
-            <summary> Codes </summary>
-        </member>
-        <member name="F:VR.ValueSets.YesNoNotApplicable.No">
-            <summary> No </summary>
-        </member>
-        <member name="F:VR.ValueSets.YesNoNotApplicable.Yes">
-            <summary> Yes </summary>
-        </member>
-        <member name="F:VR.ValueSets.YesNoNotApplicable.Not_Applicable">
-            <summary> Not_Applicable </summary>
-        </member>
-        <member name="T:VR.ValueSets.YesNoUnknownNotApplicable">
-            <summary> YesNoUnknownNotApplicable </summary>
-        </member>
-        <member name="F:VR.ValueSets.YesNoUnknownNotApplicable.Codes">
-            <summary> Codes </summary>
-        </member>
-        <member name="F:VR.ValueSets.YesNoUnknownNotApplicable.Yes">
-            <summary> Yes </summary>
-        </member>
-        <member name="F:VR.ValueSets.YesNoUnknownNotApplicable.No">
-            <summary> No </summary>
-        </member>
-        <member name="F:VR.ValueSets.YesNoUnknownNotApplicable.Unknown">
-            <summary> Unknown </summary>
-        </member>
-        <member name="F:VR.ValueSets.YesNoUnknownNotApplicable.Not_Applicable">
-            <summary> Not_Applicable </summary>
-        </member>
-        <member name="T:VR.ValueSets.YesNoUnknown">
-            <summary> YesNoUnknown </summary>
-        </member>
-        <member name="F:VR.ValueSets.YesNoUnknown.Codes">
-            <summary> Codes </summary>
-        </member>
-        <member name="F:VR.ValueSets.YesNoUnknown.No">
-            <summary> No </summary>
-        </member>
-        <member name="F:VR.ValueSets.YesNoUnknown.Yes">
-            <summary> Yes </summary>
-        </member>
-        <member name="F:VR.ValueSets.YesNoUnknown.Unknown">
-            <summary> Unknown </summary>
-        </member>
-        <member name="T:VR.ValueSets.EditBypass01234">
-            <summary> EditBypass01234 </summary>
-        </member>
-        <member name="F:VR.ValueSets.EditBypass01234.Codes">
-            <summary> Codes </summary>
-        </member>
-        <member name="F:VR.ValueSets.EditBypass01234.Edit_Passed">
-            <summary> Edit_Passed </summary>
-        </member>
-        <member name="F:VR.ValueSets.EditBypass01234.Edit_Failed_Data_Queried_And_Verified">
-            <summary> Edit_Failed_Data_Queried_And_Verified </summary>
-        </member>
-        <member name="F:VR.ValueSets.EditBypass01234.Edit_Failed_Data_Queried_But_Not_Verified">
-            <summary> Edit_Failed_Data_Queried_But_Not_Verified </summary>
-        </member>
-        <member name="F:VR.ValueSets.EditBypass01234.Edit_Failed_Review_Needed">
-            <summary> Edit_Failed_Review_Needed </summary>
-        </member>
-        <member name="F:VR.ValueSets.EditBypass01234.Edit_Failed_Query_Needed">
-            <summary> Edit_Failed_Query_Needed </summary>
-        </member>
-        <member name="T:VR.ValueSets.MothersDateofBirthEditFlagsNCHS">
-            <summary> MothersDateofBirthEditFlagsNCHS </summary>
-        </member>
-        <member name="F:VR.ValueSets.MothersDateofBirthEditFlagsNCHS.Codes">
-            <summary> Codes </summary>
-        </member>
-        <member name="F:VR.ValueSets.MothersDateofBirthEditFlagsNCHS.Edit_Passed">
-            <summary> Edit_Passed </summary>
-        </member>
-        <member name="F:VR.ValueSets.MothersDateofBirthEditFlagsNCHS.Data_Queried">
-            <summary> Data_Queried </summary>
-        </member>
-        <member name="T:VR.ValueSets.PluralityEditFlags">
-            <summary> PluralityEditFlags </summary>
-        </member>
-        <member name="F:VR.ValueSets.PluralityEditFlags.Codes">
-            <summary> Codes </summary>
-        </member>
-        <member name="F:VR.ValueSets.PluralityEditFlags.Off">
-            <summary> Off </summary>
-        </member>
-        <member name="F:VR.ValueSets.PluralityEditFlags.Plurality_Set_Order_Queried_Inconsistent">
-            <summary> Plurality_Set_Order_Queried_Inconsistent </summary>
-        </member>
-        <member name="F:VR.ValueSets.PluralityEditFlags.Queried_And_Correct">
-            <summary> Queried_And_Correct </summary>
-        </member>
         <member name="T:VR.ValueSets.RaceMissingValueReason">
             <summary> RaceMissingValueReason </summary>
         </member>
         <member name="F:VR.ValueSets.RaceMissingValueReason.Codes">
             <summary> Codes </summary>
         </member>
-        <member name="F:VR.ValueSets.RaceMissingValueReason.Refused">
-            <summary> Refused </summary>
+        <member name="F:VR.ValueSets.RaceMissingValueReason.Patient_Refuse">
+            <summary> Patient_Refuse </summary>
         </member>
-        <member name="F:VR.ValueSets.RaceMissingValueReason.Sought_But_Unknown">
-            <summary> Sought_But_Unknown </summary>
+        <member name="F:VR.ValueSets.RaceMissingValueReason.Asked_But_Unknown">
+            <summary> Asked_But_Unknown </summary>
         </member>
-        <member name="F:VR.ValueSets.RaceMissingValueReason.Not_Obtainable">
-            <summary> Not_Obtainable </summary>
+        <member name="F:VR.ValueSets.RaceMissingValueReason.Unknown">
+            <summary> Unknown </summary>
         </member>
         <member name="T:VR.ValueSets.RaceRecode40">
             <summary> RaceRecode40 </summary>
@@ -5010,6 +5004,321 @@
         <member name="F:VR.ValueSets.RaceRecode40.Unknown_And_Other_Race">
             <summary> Unknown_And_Other_Race </summary>
         </member>
+        <member name="T:VR.ValueSets.Role">
+            <summary> Role </summary>
+        </member>
+        <member name="F:VR.ValueSets.Role.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:VR.ValueSets.Role.Father">
+            <summary> Father </summary>
+        </member>
+        <member name="F:VR.ValueSets.Role.Mother">
+            <summary> Mother </summary>
+        </member>
+        <member name="T:VR.ValueSets.SexAssignedAtBirth">
+            <summary> SexAssignedAtBirth </summary>
+        </member>
+        <member name="F:VR.ValueSets.SexAssignedAtBirth.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:VR.ValueSets.SexAssignedAtBirth.Female">
+            <summary> Female </summary>
+        </member>
+        <member name="F:VR.ValueSets.SexAssignedAtBirth.Male">
+            <summary> Male </summary>
+        </member>
+        <member name="F:VR.ValueSets.SexAssignedAtBirth.Unknown">
+            <summary> Unknown </summary>
+        </member>
+        <member name="T:VR.ValueSets.UnitsOfAge">
+            <summary> UnitsOfAge </summary>
+        </member>
+        <member name="F:VR.ValueSets.UnitsOfAge.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:VR.ValueSets.UnitsOfAge.Minutes">
+            <summary> Minutes </summary>
+        </member>
+        <member name="F:VR.ValueSets.UnitsOfAge.Days">
+            <summary> Days </summary>
+        </member>
+        <member name="F:VR.ValueSets.UnitsOfAge.Hours">
+            <summary> Hours </summary>
+        </member>
+        <member name="F:VR.ValueSets.UnitsOfAge.Months">
+            <summary> Months </summary>
+        </member>
+        <member name="F:VR.ValueSets.UnitsOfAge.Years">
+            <summary> Years </summary>
+        </member>
+        <member name="F:VR.ValueSets.UnitsOfAge.Unknown">
+            <summary> Unknown </summary>
+        </member>
+        <member name="T:VR.ValueSets.Usstates">
+            <summary> Usstates </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Alabama">
+            <summary> Alabama </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Alaska">
+            <summary> Alaska </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.American_Samoa">
+            <summary> American_Samoa </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Arizona">
+            <summary> Arizona </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Arkansas">
+            <summary> Arkansas </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.California">
+            <summary> California </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Colorado">
+            <summary> Colorado </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Connecticut">
+            <summary> Connecticut </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Delaware">
+            <summary> Delaware </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.District_Of_Columbia">
+            <summary> District_Of_Columbia </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Florida">
+            <summary> Florida </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Georgia">
+            <summary> Georgia </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Guam">
+            <summary> Guam </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Hawaii">
+            <summary> Hawaii </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Idaho">
+            <summary> Idaho </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Illinois">
+            <summary> Illinois </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Indiana">
+            <summary> Indiana </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Iowa">
+            <summary> Iowa </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Kansas">
+            <summary> Kansas </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Kentucky">
+            <summary> Kentucky </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Louisiana">
+            <summary> Louisiana </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Maine">
+            <summary> Maine </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Maryland">
+            <summary> Maryland </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Massachusetts">
+            <summary> Massachusetts </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Michigan">
+            <summary> Michigan </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Minnesota">
+            <summary> Minnesota </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Mississippi">
+            <summary> Mississippi </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Missouri">
+            <summary> Missouri </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Montana">
+            <summary> Montana </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Nebraska">
+            <summary> Nebraska </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Nevada">
+            <summary> Nevada </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.New_Hampshire">
+            <summary> New_Hampshire </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.New_Jersey">
+            <summary> New_Jersey </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.New_Mexico">
+            <summary> New_Mexico </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.New_York">
+            <summary> New_York </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.North_Carolina">
+            <summary> North_Carolina </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.North_Dakota">
+            <summary> North_Dakota </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Northern_Mariana_Islands">
+            <summary> Northern_Mariana_Islands </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Ohio">
+            <summary> Ohio </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Oklahoma">
+            <summary> Oklahoma </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Oregon">
+            <summary> Oregon </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Pennsylvania">
+            <summary> Pennsylvania </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Puerto_Rico">
+            <summary> Puerto_Rico </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Rhode_Island">
+            <summary> Rhode_Island </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.South_Carolina">
+            <summary> South_Carolina </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.South_Dakota">
+            <summary> South_Dakota </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Tennessee">
+            <summary> Tennessee </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Texas">
+            <summary> Texas </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Utah">
+            <summary> Utah </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Vermont">
+            <summary> Vermont </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Virgin_Islands">
+            <summary> Virgin_Islands </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Virginia">
+            <summary> Virginia </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Washington">
+            <summary> Washington </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.West_Virginia">
+            <summary> West_Virginia </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Wisconsin">
+            <summary> Wisconsin </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usstates.Wyoming">
+            <summary> Wyoming </summary>
+        </member>
+        <member name="T:VR.ValueSets.Usterritories">
+            <summary> Usterritories </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usterritories.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usterritories.American_Samoa">
+            <summary> American_Samoa </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usterritories.Guam">
+            <summary> Guam </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usterritories.Northern_Mariana_Islands">
+            <summary> Northern_Mariana_Islands </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usterritories.Puerto_Rico">
+            <summary> Puerto_Rico </summary>
+        </member>
+        <member name="F:VR.ValueSets.Usterritories.Virgin_Islands">
+            <summary> Virgin_Islands </summary>
+        </member>
+        <member name="T:VR.ValueSets.YesNoNotApplicable">
+            <summary> YesNoNotApplicable </summary>
+        </member>
+        <member name="F:VR.ValueSets.YesNoNotApplicable.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:VR.ValueSets.YesNoNotApplicable.No">
+            <summary> No </summary>
+        </member>
+        <member name="F:VR.ValueSets.YesNoNotApplicable.Yes">
+            <summary> Yes </summary>
+        </member>
+        <member name="F:VR.ValueSets.YesNoNotApplicable.Not_Applicable">
+            <summary> Not_Applicable </summary>
+        </member>
+        <member name="T:VR.ValueSets.YesNoUnknownNotApplicable">
+            <summary> YesNoUnknownNotApplicable </summary>
+        </member>
+        <member name="F:VR.ValueSets.YesNoUnknownNotApplicable.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:VR.ValueSets.YesNoUnknownNotApplicable.Yes">
+            <summary> Yes </summary>
+        </member>
+        <member name="F:VR.ValueSets.YesNoUnknownNotApplicable.No">
+            <summary> No </summary>
+        </member>
+        <member name="F:VR.ValueSets.YesNoUnknownNotApplicable.Unknown">
+            <summary> Unknown </summary>
+        </member>
+        <member name="F:VR.ValueSets.YesNoUnknownNotApplicable.Not_Applicable">
+            <summary> Not_Applicable </summary>
+        </member>
+        <member name="T:VR.ValueSets.YesNoUnknown">
+            <summary> YesNoUnknown </summary>
+        </member>
+        <member name="F:VR.ValueSets.YesNoUnknown.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:VR.ValueSets.YesNoUnknown.No">
+            <summary> No </summary>
+        </member>
+        <member name="F:VR.ValueSets.YesNoUnknown.Yes">
+            <summary> Yes </summary>
+        </member>
+        <member name="F:VR.ValueSets.YesNoUnknown.Unknown">
+            <summary> Unknown </summary>
+        </member>
+        <member name="T:VR.ValueSets.EditBypass01234">
+            <summary> EditBypass01234 </summary>
+        </member>
+        <member name="F:VR.ValueSets.EditBypass01234.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:VR.ValueSets.EditBypass01234.Edit_Passed">
+            <summary> Edit_Passed </summary>
+        </member>
+        <member name="F:VR.ValueSets.EditBypass01234.Edit_Failed_Data_Queried_And_Verified">
+            <summary> Edit_Failed_Data_Queried_And_Verified </summary>
+        </member>
+        <member name="F:VR.ValueSets.EditBypass01234.Edit_Failed_Data_Queried_But_Not_Verified">
+            <summary> Edit_Failed_Data_Queried_But_Not_Verified </summary>
+        </member>
+        <member name="F:VR.ValueSets.EditBypass01234.Edit_Failed_Review_Needed">
+            <summary> Edit_Failed_Review_Needed </summary>
+        </member>
+        <member name="F:VR.ValueSets.EditBypass01234.Edit_Failed_Query_Needed">
+            <summary> Edit_Failed_Query_Needed </summary>
+        </member>
         <member name="T:VR.VitalRecord">
             <summary>Class <c>VitalRecord</c> is a base class for FHIR Vital Records 
             including Death Reporting (VRDR) and Birth and Fetal Death Reporting (BFDR)
@@ -5019,7 +5328,7 @@
             HL7 FHIR Vital Records Implementation Guide, as described at:
             TODO include VR IG link
             </summary>
-            <summary>Class <c>VitalRecord</c> is a base class for FHIR Vital Records 
+            <summary>Class <c>VitalRecord</c> is a base class for FHIR Vital Records
             including Death Reporting (VRDR) and Birth and Fetal Death Reporting (BFDR)
             and is designed to help produce and consume records.</summary>
         </member>
@@ -5131,6 +5440,61 @@
             <param name="shouldExist">if true the entry will be created unless it already exists, if false the entry will be removed if it exists</param>
             <param name="propertyName">the name of the C# property, must have a FHIRPath annotation, will default to the name of the calling property</param>
         </member>
+        <member name="M:VR.VitalRecord.GetObservation(System.String)">
+            <summary>Helper to support vital record property getter helper methods for values stored in Observations.</summary>
+            <param name="code">the code to identify the type of Observation</param>
+        </member>
+        <member name="M:VR.VitalRecord.GetOrCreateObservation(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>Helper to support vital record property setter helper methods for values stored in Observations.</summary>
+            <param name="code">the code to specify the type of Observation</param>
+            <param name="codeSystem">the code system of the code specifying the type of Observation</param>
+            <param name="text">the text for the code specifying the type of Observation</param>
+            <param name="profileURL">the profile URL to include in the meta of the Observation</param>
+            <param name="section">the section of the composition the Observation should be added to</param>
+            <param name="focusId">the reference id of the focus of the Observation</param>
+            <param name="propertyName">the name of the C# property, used to determine the subject ID</param>
+        </member>
+        <member name="M:VR.VitalRecord.GetObservationValue(System.String,System.String)">
+            <summary>Helper to support vital record property getter helper methods for values stored in Observations.</summary>
+            <param name="code">the code to identify the type of Observation</param>
+            <param name="extensionURL">if present, specifies that the value should be get from an extension with the provided URL instead</param>
+        </member>
+        <member name="M:VR.VitalRecord.SetObservationValue(System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>Helper to support vital record property setter helper methods for values stored in Observations.</summary>
+            <param name="value">the coded value to set as the value of the property</param>
+            <param name="code">the code to specify the type of Observation</param>
+            <param name="codeSystem">the code system of the code specifying the type of Observation</param>
+            <param name="text">the text for the code specifying the type of Observation</param>
+            <param name="profileURL">the profile URL to include in the meta of the Observation</param>
+            <param name="section">the section of the composition the Observation should be added to</param>
+            <param name="extensionURL">if present, specifies that the value should be set on an extension with the provided URL instead</param>
+            <param name="focusId">the reference id of the focus of the Observation</param>
+            <param name="propertyName">the name of the C# property, used to determine the subject ID</param>
+        </member>
+        <member name="M:VR.VitalRecord.GetObservationValueHelper(System.String)">
+            <summary>Helper to support vital record property getter helper methods for getting and setting coded values.</summary>
+            <param name="propertyName">the name of the C# helper property, used to determine which underlying property to call</param>
+            <example>
+            <para>// Given a property named MotherEducationLevel, the getter for MotherEducationLevelHelper can be defined using:</para>
+            <para>public string MotherEducationLevelHelper</para>
+            <para>{</para>
+            <para>    get => GetObservationValueHelper();</para>
+            <para>}</para>
+            </example>
+        </member>
+        <member name="M:VR.VitalRecord.SetObservationValueHelper(System.String,System.String[0:,0:],System.String)">
+            <summary>Helper to support vital record property setter helper methods for getting and setting coded values.</summary>
+            <param name="value">the coded value to set as the code in the underlying property value</param>
+            <param name="codes">the list of allowed codes</param>
+            <param name="propertyName">the name of the C# helper property, used to determine which underlying property to call</param>
+            <example>
+            <para>// Given a property named MotherEducationLevel, the setter for MotherEducationLevelHelper can be defined using:</para>
+            <para>public string MotherEducationLevelHelper</para>
+            <para>{</para>
+            <para>    set => SetObservationValueHelper(value, VR.ValueSets.EducationLevel.Codes);</para>
+            <para>}</para>
+            </example>
+        </member>
         <member name="M:VR.VitalRecord.RemoveAllEntries(VR.FHIRPath)">
             <summary>Remove all of the entries for the supplied category</summary>
             <param name="fhirPath">the FHIRPath of a none-of-the-above entry</param>
@@ -5190,6 +5554,9 @@
         <member name="M:VR.VitalRecord.ConvertToDate(System.String)">
             <summary>Returns a Fhir Date object parsed from the given string.</summary>
         </member>
+        <member name="M:VR.VitalRecord.ConvertToDateTime(System.String)">
+            <summary>Returns a Fhir DateTime object parsed from the given string.</summary>
+        </member>
         <member name="M:VR.VitalRecord.GetDateElementNoTime(Hl7.Fhir.Model.Date,System.String)">
             <summary>Gets the specified date element based on the partialDateUrl from the given
             FhirDate, checking in the value and PartialDate extension, and assuming there
@@ -5198,14 +5565,26 @@
         <member name="M:VR.VitalRecord.CreateAndSetPartialDate(Hl7.Fhir.Model.Date,System.String,System.Nullable{System.Int32})">
             <summary>Sets the given value to the given partial date extension and creates any necessary missing extensions.</summary>
         </member>
-        <member name="M:VR.VitalRecord.SetYear(System.Nullable{System.Int32},Hl7.Fhir.Model.Date,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:VR.VitalRecord.CreateAndSetPartialDate(Hl7.Fhir.Model.FhirDateTime,System.String,System.Nullable{System.Int32})">
+            <summary>Sets the given value to the given partial date extension and creates any necessary missing extensions.</summary>
+        </member>
+        <member name="M:VR.VitalRecord.SetYear(System.Nullable{System.Int32},Hl7.Fhir.Model.Date)">
             <summary>Uses the given date information to create a new Fhir Date with the updated year. This includes reformatting and updating partial date extensions and using Fhir incomplete valid dates.</summary>
         </member>
-        <member name="M:VR.VitalRecord.SetMonth(System.Nullable{System.Int32},Hl7.Fhir.Model.Date,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:VR.VitalRecord.SetYear(System.Nullable{System.Int32},Hl7.Fhir.Model.FhirDateTime)">
+            <summary>Uses the given date information to create a new FhirDateTime with the updated year. This includes reformatting and updating partial date extensions and using Fhir incomplete valid dates.</summary>
+        </member>
+        <member name="M:VR.VitalRecord.SetMonth(System.Nullable{System.Int32},Hl7.Fhir.Model.Date)">
             <summary>Uses the given date information to create a new Fhir Date with the updated month. This includes reformatting and updating partial date extensions and using Fhir incomplete valid dates.</summary>
         </member>
-        <member name="M:VR.VitalRecord.SetDay(System.Nullable{System.Int32},Hl7.Fhir.Model.Date,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:VR.VitalRecord.SetMonth(System.Nullable{System.Int32},Hl7.Fhir.Model.FhirDateTime)">
+            <summary>Uses the given date information to create a new FhirDateTime with the updated month. This includes reformatting and updating partial date extensions and using Fhir incomplete valid dates.</summary>
+        </member>
+        <member name="M:VR.VitalRecord.SetDay(System.Nullable{System.Int32},Hl7.Fhir.Model.Date)">
             <summary>Uses the given date information to create a new Fhir Date with the updated day. This includes reformatting and updating partial date extensions and using Fhir incomplete valid dates.</summary>
+        </member>
+        <member name="M:VR.VitalRecord.SetDay(System.Nullable{System.Int32},Hl7.Fhir.Model.FhirDateTime)">
+            <summary>Uses the given date information to create a new FhirDateTime with the updated day. This includes reformatting and updating partial date extensions and using Fhir incomplete valid dates.</summary>
         </member>
         <member name="P:VR.VitalRecord.PartialDateYearUrl">
             <summary>Overrideable method that dictates which Extension URL to use for PartialDateTime Year</summary>
@@ -5221,6 +5600,12 @@
         </member>
         <member name="P:VR.VitalRecord.PartialDateTimeUrl">
             <summary>Overrideable method that dictates which Extension URL to use for PartialDateTime</summary>
+        </member>
+        <member name="P:VR.VitalRecord.PartialDateUrl">
+            <summary>Overrideable method that dictates which Extension URL to use for PartialDate</summary>
+        </member>
+        <member name="P:VR.VitalRecord.LocationJurisdictionIdUrl">
+            <summary>Overrideable method that dictates which Extension URL to use for LocationJurisdictionId</summary>
         </member>
         <member name="M:VR.VitalRecord.GetDateFragmentOrPartialDate(Hl7.Fhir.Model.Element,System.String)">
             <summary>Getter helper for anything that can have a regular FHIR date/time or a PartialDateTime extension, allowing a particular date
@@ -5247,6 +5632,9 @@
         </member>
         <member name="M:VR.VitalRecord.SetCodeValue(System.String,System.String,System.String[0:,0:])">
             <summary>Helper function to set a codeable value based on a code and the set of allowed codes.</summary>
+        </member>
+        <member name="M:VR.VitalRecord.SetQuantityValue(System.String,System.String,System.String,System.String[0:,0:])">
+            <summary>Helper function to set a quantity value based on a value, code and the set of allowed codes.</summary>
         </member>
         <member name="M:VR.VitalRecord.DictToCoding(System.Collections.Generic.Dictionary{System.String,System.String})">
             <summary>Convert a "code" dictionary to a FHIR Coding.</summary>
@@ -5358,11 +5746,17 @@
         <member name="M:VR.VitalRecord.GetPlaceOfBirth(Hl7.Fhir.Model.Patient)">
             <summary>Gets the given place of birth dictionary address from the given patient.</summary>
         </member>
+        <member name="M:VR.VitalRecord.GetPlaceOfBirth(Hl7.Fhir.Model.RelatedPerson)">
+            <summary>Gets the given place of birth dictionary address from the given related person.</summary>
+        </member>
         <member name="M:VR.VitalRecord.SetPlaceOfBirth(Hl7.Fhir.Model.Patient,System.Collections.Generic.Dictionary{System.String,System.String})">
             <summary>Sets the given place of birth dictionary on the given patient.</summary>
         </member>
         <member name="M:VR.VitalRecord.AddBirthDateToPatient(Hl7.Fhir.Model.Patient,System.Boolean)">
             <summary>Add a BirthDateElement to the given Patient resource.</summary>
+        </member>
+        <member name="M:VR.VitalRecord.SetPlaceOfBirth(Hl7.Fhir.Model.RelatedPerson,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>Sets the given place of birth dictionary on the given patient.</summary>
         </member>
         <member name="T:VR.PropertyParam">
             <summary>Property attribute used to describe a VitalRecord property parameter,
@@ -5409,6 +5803,9 @@
         </member>
         <member name="F:VR.FHIRPath.CodeSystem">
             <summary>The code system when the targeted FHIR resource has a code element, e.g. Condition.code. Defaults to SNOMED if not specified.</summary>
+        </member>
+        <member name="F:VR.FHIRPath.Display">
+            <summary>The display when the targeted FHIR resource has a code element</summary>
         </member>
         <member name="F:VR.FHIRPath.Section">
             <summary>The composition section code. Required if the resource needs to be referenced from the composition.</summary>

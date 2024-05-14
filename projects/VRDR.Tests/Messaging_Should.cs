@@ -579,7 +579,7 @@ namespace VRDR.Tests
             Assert.Equal(8, (int)message.DeathRecord.CoderStatus);
             Assert.Equal("876", message.DeathRecord.ShipmentNumber);
             Assert.Equal(ValueSets.IntentionalReject.Reject4, message.DeathRecord.IntentionalRejectHelper);
-            Assert.Equal(ValueSets.AcmeSystemReject.Micar_Reject_Rule_Application, message.DeathRecord.AcmeSystemRejectHelper);
+            Assert.Equal(ValueSets.SystemReject.Micar_Reject_Rule_Application, message.DeathRecord.AcmeSystemRejectHelper);
             Assert.Equal(ValueSets.TransaxConversion.Duplicate_Entity_Axis_Codes_Deleted_No_Other_Action_Involved, message.DeathRecord.TransaxConversionHelper);
             Assert.Equal(ValueSets.MannerOfDeath.Accidental_Death, message.DeathRecord.MannerOfDeathTypeHelper);
             Assert.Equal(ValueSets.PlaceOfInjury.Farm, message.DeathRecord.PlaceOfInjuryHelper);
@@ -652,7 +652,7 @@ namespace VRDR.Tests
             Assert.Equal(8, (int)message.DeathRecord.CoderStatus);
             Assert.Equal("876", message.DeathRecord.ShipmentNumber);
             Assert.Equal(ValueSets.IntentionalReject.Reject4, message.DeathRecord.IntentionalRejectHelper);
-            Assert.Equal(ValueSets.AcmeSystemReject.Micar_Reject_Rule_Application, message.DeathRecord.AcmeSystemRejectHelper);
+            Assert.Equal(ValueSets.SystemReject.Micar_Reject_Rule_Application, message.DeathRecord.AcmeSystemRejectHelper);
             Assert.Equal(ValueSets.TransaxConversion.Duplicate_Entity_Axis_Codes_Deleted_No_Other_Action_Involved, message.DeathRecord.TransaxConversionHelper);
             Assert.Equal(ValueSets.MannerOfDeath.Accidental_Death, message.DeathRecord.MannerOfDeathTypeHelper);
             Assert.Equal(ValueSets.PlaceOfInjury.Farm, message.DeathRecord.PlaceOfInjuryHelper);

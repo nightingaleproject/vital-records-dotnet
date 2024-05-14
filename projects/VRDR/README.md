@@ -1,12 +1,11 @@
-[![Build Status](https://travis-ci.org/nightingaleproject/vrdr-dotnet.svg?branch=master)](https://travis-ci.org/nightingaleproject/vrdr-dotnet)
-[![Nuget](https://img.shields.io/nuget/v/VRDR?label=VRDR%20%28nuget%29)](https://www.nuget.org/packages/VRDR)
-[![Nuget](https://img.shields.io/nuget/v/VRDR.Messaging?label=VRDR.Messaging%20%28nuget%29)](https://www.nuget.org/packages/VRDR.Messaging)
+[![Nuget](https://img.shields.io/nuget/v/VRDR?label=VRDR)](https://www.nuget.org/packages/VRDR)
+[![Nuget](https://img.shields.io/nuget/v/VRDR.Messaging?label=VRDR.Messaging)](https://www.nuget.org/packages/VRDR.Messaging)
 
 # vrdr-dotnet
 
 This repository includes .NET (C#) code for
 
-- Producing and consuming the Vital Records Death Reporting (VRDR) Health Level 7 (HL7) Fast Healthcare Interoperability Resources (FHIR) standard. [Click here to view the FHIR Implementation Guide STU2.1](http://hl7.org/fhir/us/vrdr/STU2.1).
+- Producing and consuming the Vital Records Death Reporting (VRDR) Health Level 7 (HL7) Fast Healthcare Interoperability Resources (FHIR) standard. [Click here to view the FHIR Implementation Guide STU2.2](http://hl7.org/fhir/us/vrdr/STU2.2).
 - Producing and consuming FHIR messages for the exchange of VRDR documents.
 - Support for converting VRDR FHIR records to and from the Inter-Jurisdictional Exchange (IJE) Mortality format, as well as companion microservice for performing conversions.
 - This codebase covers the subset of the IJE fields listed in this [spreadsheet](VRDRdotNETLibraryCoverage.csv).
@@ -28,6 +27,14 @@ Interactions with NCHS are governed by the CI build version of the VRDR and Vita
 <td style="text-align: center;"><strong>VRDR</strong></td>
 <td style="text-align: center;"><strong>VRDR.Messaging</strong></td>
 </tr>
+</tr>
+<tr>
+<td style="text-align: center;"><a href="http://hl7.org/fhir/us/vrdr/STU2.2/">STU2.2</a></td>
+<td style="text-align: center;"><a href="https://nightingaleproject.github.io/vital_records_fhir_messaging_ig/v1.0.1/index.html">v1.0.1</a></td>
+<td style="text-align: center;">R4</td>
+<td style="text-align: center;">V4.1.8</td>
+<td style="text-align: center;"><a href="https://www.nuget.org/packages/VRDR/4.1.8">nuget</a></td>
+<td style="text-align: center;"><a href="https://www.nuget.org/packages/VRDR.Messaging/4.1.8">nuget</a></td>
 </tr>
 <tr>
 <td style="text-align: center;"><a href="http://build.fhir.org/ig/HL7/vrdr/">STU2.1 CI build version</a></td>
@@ -457,20 +464,20 @@ These tests will run with the above commands.
 
 ##### Filtering tests description
 
-**ADDRESS_DShouldEqual**: Tests that the `DeathLocationAddress` field isn't filtered out.  
-**LIMITSShouldEqual_1**: Tests that the `ResidenceWithinCityLimits` field isn't filtered out. [Related to ticket: https://ruvos.atlassian.net/browse/STEVESD-2582]  
-**LIMITSShouldEqual_2**: Tests that the `ResidenceWithinCityLimits` field isn't filtered out. [Related to ticket: https://ruvos.atlassian.net/browse/STEVESD-2582]  
-**PreFilteredFileEqualsFilteredFile**: Tests that filtering through all fields in a file results in all fields being the same before and after filtering.  
-**FilteringNoFields**: Tests filtering no fields results in a valid Death Record.  
-**FilteringPlusParsingTest_1**: Tests filtering results in a valid Death Record.  
-**FilteringPlusParsingTest_2**: Tests filtering results in a valid Death Record.  
-**FilteringPlusParsingTest_3**: Tests filtering results in a valid Death Record.  
-**FilteringPlusParsingTest_4**: Tests filtering results in a valid Death Record.  
-**FilteringPlusParsingTest_5**: Tests filtering results in a valid Death Record.  
-**FilterAllFields_1**: Tests filtering all fields results in a valid Death Record.  
-**FilterAllFields_2**: Tests filtering all fields results in a valid Death Record.  
-**FilterAllFields_3**: Tests filtering all fields results in a valid Death Record.  
-**FilterFilePerJurisdictionFilters**: Tests that each jurisdictions filter results in a valid Death Record.  
+**ADDRESS_DShouldEqual**: Tests that the `DeathLocationAddress` field isn't filtered out.
+**LIMITSShouldEqual_1**: Tests that the `ResidenceWithinCityLimits` field isn't filtered out. [Related to ticket: https://ruvos.atlassian.net/browse/STEVESD-2582]
+**LIMITSShouldEqual_2**: Tests that the `ResidenceWithinCityLimits` field isn't filtered out. [Related to ticket: https://ruvos.atlassian.net/browse/STEVESD-2582]
+**PreFilteredFileEqualsFilteredFile**: Tests that filtering through all fields in a file results in all fields being the same before and after filtering.
+**FilteringNoFields**: Tests filtering no fields results in a valid Death Record.
+**FilteringPlusParsingTest_1**: Tests filtering results in a valid Death Record.
+**FilteringPlusParsingTest_2**: Tests filtering results in a valid Death Record.
+**FilteringPlusParsingTest_3**: Tests filtering results in a valid Death Record.
+**FilteringPlusParsingTest_4**: Tests filtering results in a valid Death Record.
+**FilteringPlusParsingTest_5**: Tests filtering results in a valid Death Record.
+**FilterAllFields_1**: Tests filtering all fields results in a valid Death Record.
+**FilterAllFields_2**: Tests filtering all fields results in a valid Death Record.
+**FilterAllFields_3**: Tests filtering all fields results in a valid Death Record.
+**FilterFilePerJurisdictionFilters**: Tests that each jurisdictions filter results in a valid Death Record.
 
 ### VRDR.CLI
 This directory contains a sample command line interface app that uses the VRDR library to do a few different things.
@@ -523,8 +530,8 @@ dotnet run --project VRDR.CLI connectathon 1 100 MA
 #    - number of records to generate (each with cert_no one greater than its predecessor)
 #	 - Submitting jurisdiction
 #    - output directory (must exist)
-#    
-dotnet run --project VRDR.CLI generaterecords 23 100 CT ./generatedrecords 
+#
+dotnet run --project VRDR.CLI generaterecords 23 100 CT ./generatedrecords
 
 # Generate a verbose JSON description of the record (in the format used to drive Canary)
 dotnet run --project VRDR.CLI description VRDR.CLI/1.json
@@ -616,7 +623,7 @@ Using MessageBundle of BaseMessage. Use case: as a FHIR Bundle, it is for initia
   or
   BaseMessage message = new DeathRecordUpdateMessage();
   Bundle messageBundle = message.MessageBundle;
-  
+
 Authenticate to the NVSS API Server
 ```
   // Example SAMS credentials
@@ -737,7 +744,7 @@ foreach (PropertyInfo property in properties)
     IJEField info = property.GetCustomAttribute<IJEField>();
     // Grab the field value
     string field = Convert.ToString(property.GetValue(ije1, null));
-}   
+}
 ```
 Custom attributes are also used extensively in IJEField's properties, one of which is shown below as an example.
 ```
@@ -817,7 +824,7 @@ Once the working branch is pushed to the respository, follow these steps:
   - **feat:** introduces a new feature to the codebase (correlates with MINOR in Semantic Versioning).
   - **fix:** patches a bug in the codebase (correlates with PATCH in Semantic Versioning).
   - Other types such as `build`, `chore`, `ci`, `docs`, `style`, `refactor`, `perf`, `test`, and others are allowed as well (correlates with PATCH in Semantic Versioning).
-  
+
   (The PR title needs to be concise and conform to the style guide for change tracking purposes. The PR description can include additional details about the changes associated with this PR.)
 1. Assign one or more reviewers to review your changes. At least one approved review is required before the PR can be merged.
 1. If the PR addresses an existing Issue, link the PR with the Issue to resolve it through the PR.

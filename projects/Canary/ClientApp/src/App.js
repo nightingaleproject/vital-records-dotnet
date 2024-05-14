@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Routes, Route, useParams } from 'react-router-dom';
+import React from 'react';
+import { Routes, Route, useParams, matchPath, useLocation } from 'react-router-dom';
 import { ConnectathonDashboard } from './components/dashboard/ConnectathonDashboard';
 import { Dashboard } from './components/dashboard/Dashboard';
 import { Layout } from './components/Layout';
@@ -21,41 +21,81 @@ import { IJEInspector } from './components/tools/IJEInspector';
 import { MessageConnectathonProducing } from './components/tests/MessageConnectathonProducing';
 import { RecordConverter } from './components/tools/RecordConverter';
 import { RecordGenerator } from './components/tools/RecordGenerator';
+import { HomeScreen } from './components/HomeScreen';
+import { Button } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
-export default class App extends Component {
-  displayName = App.name;
+export default function App() {
 
-  render() {
-    const FHIRProducingParams = addParams(FHIRProducing)
-    const FHIRConsumingParams = addParams(FHIRConsuming)
-    const FHIRMessageProducingParams = addParams(FHIRMessageProducing)
-    const FHIRMessageCreatorParams = addParams(FHIRMessageCreator)
-    const EDRSRoundtripConsumingParams = addParams(EDRSRoundtripConsuming)
-    const EDRSRoundtripProducingParams = addParams(EDRSRoundtripProducing)
-    const ConnectathonDashboardParams = addParams(ConnectathonDashboard)
-    const ConnectathonParams = addParams(Connectathon)
-    const MessageConnectathonProducingParams = addParams(MessageConnectathonProducing)
-
+  // Get record type param.
+  const { pathname } = useLocation()
+  const match = matchPath(
+    {
+      path: "/:recordType/*",
+    },
+    pathname
+  );
+  const recordType = match ? match.params.recordType : '';
+  if (recordType !== 'vrdr' && recordType !== 'bfdr' && recordType !== '') {
+    console.error(`Invalid route '${recordType}' due to invalid record type.`)
     return (
-      <Layout>
-        <Routes>
-          <Route exact path="/" element={<Dashboard />} />
+      <div>
+        <div>
+          Invalid record type '{recordType}'. Must be either 'VRDR' or 'BFDR'.
+        </div>
+        <Button as={Link} to={"/"}>
+          Return to Canary Home.
+        </Button>
+      </div>
+    );
+  }
+
+  /**
+   * Adds parameters to the given component class type.
+   * @param {*} WrappedComponent The component type to add prarams to.
+   * @returns A new version of the component type with parameters.
+   */
+    const addParams = WrappedComponent => () => {
+      const params = useParams();
+      params['recordType'] = recordType;
+      return (
+        <WrappedComponent
+          params={params}
+        />
+      );
+    };
+
+  // TODO - change these from React classes to functional components to prevent the need for param wrapping.
+  const ConnectathonDashboardParams = addParams(ConnectathonDashboard)
+  const ConnectathonParams = addParams(Connectathon)
+  const MessageConnectathonProducingParams = addParams(MessageConnectathonProducing)
+  const EDRSRoundtripConsumingParams = addParams(EDRSRoundtripConsuming)
+  const EDRSRoundtripProducingParams = addParams(EDRSRoundtripProducing)
+
+  // conditional routes based on record type (if vfdr, then do the connnectathon specific routes, etc.)
+
+  return (
+    <Layout recordType={recordType}>
+      <Routes>
+        <Route path="/" element={<HomeScreen />} />
+        <Route path=":recordType/*">
+          <Route index element={<Dashboard recordType={recordType} />} />
           <Route path="recent-tests" element={<RecentTests />} />
           <Route path="test-fhir-consuming">
-            <Route index element={<FHIRConsumingParams />} />
-            <Route path=":id" element={<FHIRConsumingParams />} />
+            <Route index element={<FHIRConsuming recordType={recordType} />} />
+            <Route path=":id" element={<FHIRConsuming recordType={recordType} />} />
           </Route>
           <Route path="test-fhir-producing">
-            <Route index element={<FHIRProducingParams />} />
-            <Route path=":id" element={<FHIRProducingParams />} />
+            <Route index element={<FHIRProducing recordType={recordType} />} />
+            <Route path=":id" element={<FHIRProducing recordType={recordType} />} />
           </Route>
           <Route path="test-fhir-message-producing">
-            <Route index element={<FHIRMessageProducingParams />} />
-            <Route path=":id" element={<FHIRMessageProducingParams />} />
+            <Route index element={<FHIRMessageProducing recordType={recordType}  />} />
+            <Route path=":id" element={<FHIRMessageProducing recordType={recordType} />} />
           </Route>
           <Route path="test-fhir-message-creation">
-            <Route index element={<FHIRMessageCreatorParams />} />
-            <Route path=":id" element={<FHIRMessageCreatorParams />} />
+            <Route index element={<FHIRMessageCreator recordType={recordType} />} />
+            <Route path=":id" element={<FHIRMessageCreator recordType={recordType} />} />
           </Route>
           <Route path="test-edrs-roundtrip-consuming">
             <Route index element={<EDRSRoundtripConsumingParams />} />
@@ -65,34 +105,20 @@ export default class App extends Component {
             <Route index element={<EDRSRoundtripProducingParams />} />
             <Route path=":id" element={<EDRSRoundtripProducingParams />} />
           </Route>
-          <Route path="test-fhir-ije-validator-producing" element={<FHIRIJEValidatorProducing />} />
+          <Route path="test-fhir-ije-validator-producing" element={<FHIRIJEValidatorProducing recordType={recordType} />} />
           <Route path="test-connectathon-dash/:type" element={<ConnectathonDashboardParams />} />
           <Route path="test-connectathon/:id" element={<ConnectathonParams />} />
           <Route path="test-connectathon-messaging/:id" element={<MessageConnectathonProducingParams />} />
-          <Route path="tool-fhir-inspector" element={<FHIRInspector />} />
-          <Route path="tool-message-inspector" element={<MessageInspector />} />
-          <Route path="tool-fhir-creator" element={<FHIRCreator />} />
-          <Route path="tool-fhir-syntax-checker" element={<FHIRSyntaxChecker />} />
-          <Route path="tool-fhir-message-syntax-checker" element={<FHIRMessageSyntaxChecker />} />
-          <Route path="tool-ije-inspector" element={<IJEInspector />} />
-          <Route path="tool-record-converter" element={<RecordConverter />} />
-          <Route path="tool-record-generator" element={<RecordGenerator />} />
-        </Routes>
-      </Layout>
-    );
-  }
-}
-
-/**
- * Adds parameters to the given component class type.
- * @param {*} WrappedComponent The component type to add prarams to.
- * @returns A new version of the component type with parameters.
- */
-const addParams = WrappedComponent => () => {
-  const params = useParams();
-  return (
-    <WrappedComponent
-      params={params}
-    />
+          <Route path="tool-fhir-inspector" element={<FHIRInspector recordType={recordType} />} />
+          <Route path="tool-fhir-creator" element={<FHIRCreator recordType={recordType} />} />
+          <Route path="tool-fhir-syntax-checker" element={<FHIRSyntaxChecker recordType={recordType} />} />
+          <Route path="tool-fhir-message-syntax-checker" element={<FHIRMessageSyntaxChecker recordType={recordType} />} />
+          <Route path="tool-ije-inspector" element={<IJEInspector recordType={recordType} />} />
+          <Route path="tool-record-converter" element={<RecordConverter recordType={recordType} />} />
+          <Route path="tool-record-generator" element={<RecordGenerator recordType={recordType} />} />
+          <Route path="tool-message-inspector" element={<MessageInspector recordType={recordType} />} />
+        </Route>
+      </Routes>
+    </Layout>
   );
-};
+}
