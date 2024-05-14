@@ -19,7 +19,7 @@ using System.Globalization;
 
 namespace VR
 {
-    /// <summary>Class <c>VitalRecord</c> is a base class for FHIR Vital Records 
+    /// <summary>Class <c>VitalRecord</c> is a base class for FHIR Vital Records
     /// including Death Reporting (VRDR) and Birth and Fetal Death Reporting (BFDR)
     /// and is designed to help produce and consume records.</summary>
     public abstract partial class VitalRecord
@@ -27,7 +27,7 @@ namespace VR
 
         /// <summary>Useful for navigating around the FHIR Bundle using FHIRPaths.</summary>
         protected ITypedElement Navigator;
-        
+
 
         /// <summary>Get the first thing in the bundle that matches the supplied FHIR path.</summary>
         /// <param name="fhirPath">an instance of the FHIRPath attribute containing the FHIR path</param>
@@ -94,21 +94,189 @@ namespace VR
             }
         }
 
+
+        /// <summary>Helper to support vital record property getter helper methods for values stored in Observations.</summary>
+        /// <param name="code">the code to identify the type of Observation</param>
+        protected Observation GetObservation(string code)
+        {
+            var entry = Bundle.Entry.Where(e => e.Resource is Observation obs && CodeableConceptToDict(obs.Code)["code"] == code).FirstOrDefault();
+            if (entry != null)
+            {
+                Observation observation = (Observation)entry.Resource;
+                return observation;
+            }
+            return null;
+        }
+
+        /// <summary>Helper to support vital record property setter helper methods for values stored in Observations.</summary>
+        /// <param name="code">the code to specify the type of Observation</param>
+        /// <param name="codeSystem">the code system of the code specifying the type of Observation</param>
+        /// <param name="text">the text for the code specifying the type of Observation</param>
+        /// <param name="profileURL">the profile URL to include in the meta of the Observation</param>
+        /// <param name="section">the section of the composition the Observation should be added to</param>
+        /// <param name="focusId">the reference id of the focus of the Observation</param>
+        /// <param name="propertyName">the name of the C# property, used to determine the subject ID</param>
+        protected Observation GetOrCreateObservation(string code, string codeSystem, string text, string profileURL, string section, string focusId = null, [CallerMemberName] string propertyName = null)
+        {
+            var entry = Bundle.Entry.Where(e => e.Resource is Observation obs && CodeableConceptToDict(obs.Code)["code"] == code).FirstOrDefault();
+            Observation observation;
+            // If the observation is there we use it, otherwise create it
+            if (entry != null)
+            {
+                observation = (Observation)entry.Resource;
+            }
+            else
+            {
+                observation = new Observation();
+                observation.Id = Guid.NewGuid().ToString();
+                observation.Meta = new Meta();
+                string[] profile = { profileURL };
+                observation.Meta.Profile = profile;
+                observation.Code = new CodeableConcept(codeSystem, code, text, null);
+                observation.Subject = new ResourceReference($"urn:uuid:{SubjectId(propertyName)}");
+                observation.Status = ObservationStatus.Final; // TODO: is this correct?
+                if (focusId != null)
+                {
+                    observation.Focus.Add(new ResourceReference($"urn:uuid:{focusId}"));
+                }
+                AddReferenceToComposition(observation.Id, section);
+                Bundle.AddResourceEntry(observation, "urn:uuid:" + observation.Id);
+            }
+            return observation;
+        }
+
+        // TODO: How can we make this flexible to support more types?
+        /// <summary>Helper to support vital record property getter helper methods for values stored in Observations.</summary>
+        /// <param name="code">the code to identify the type of Observation</param>
+        /// <param name="extensionURL">if present, specifies that the value should be get from an extension with the provided URL instead</param>
+        protected Dictionary<string, string> GetObservationValue(string code, string extensionURL = null)
+        {
+            Observation observation = GetObservation(code);
+            if (observation != null)
+            {
+                if (extensionURL != null)
+                {
+                    Extension extension = observation?.Value?.Extension.FirstOrDefault(ext => ext.Url == extensionURL);
+                    if (extension != null && extension.Value != null && extension.Value.GetType() == typeof(CodeableConcept))
+                    {
+                        return CodeableConceptToDict((CodeableConcept)extension.Value);
+                    }
+                }
+                else
+                {
+                    return CodeableConceptToDict((CodeableConcept)observation.Value);
+                }
+            }
+            return EmptyCodeableDict();
+        }
+
+        /// <summary>Helper to support vital record property setter helper methods for values stored in Observations.</summary>
+        /// <param name="value">the coded value to set as the value of the property</param>
+        /// <param name="code">the code to specify the type of Observation</param>
+        /// <param name="codeSystem">the code system of the code specifying the type of Observation</param>
+        /// <param name="text">the text for the code specifying the type of Observation</param>
+        /// <param name="profileURL">the profile URL to include in the meta of the Observation</param>
+        /// <param name="section">the section of the composition the Observation should be added to</param>
+        /// <param name="extensionURL">if present, specifies that the value should be set on an extension with the provided URL instead</param>
+        /// <param name="focusId">the reference id of the focus of the Observation</param>
+        /// <param name="propertyName">the name of the C# property, used to determine the subject ID</param>
+        protected void SetObservationValue(Dictionary<string, string> value, string code, string codeSystem, string text, string profileURL, string section, string extensionURL = null, string focusId = null, [CallerMemberName] string propertyName = null)
+        {
+            Observation observation = GetOrCreateObservation(code, codeSystem, text, profileURL, section, focusId, propertyName);
+
+            // Set the value or the extension, depending on what's desired
+            if (extensionURL != null)
+            {
+                // If there's a value clear this extension in case it's previously set, otherwise set an empty value
+                if (observation.Value == null)
+                {
+                    observation.Value = new CodeableConcept();
+                }
+                else
+                {
+                    observation.Value.Extension.RemoveAll(ext => ext.Url == extensionURL);
+                }
+                Extension extension = new Extension(extensionURL, DictToCodeableConcept(value));
+                observation.Value.Extension.Add(extension);
+            }
+            else
+            {
+                // Need to keep any existing extension that could be there
+                List<Extension> extensions = observation.Value?.Extension?.FindAll(e => true);
+                observation.Value = DictToCodeableConcept(value);
+                if (extensions != null)
+                {
+                    observation.Value.Extension.AddRange(extensions);
+                }
+            }
+        }
+
+        /// <summary>Helper to support vital record property getter helper methods for getting and setting coded values.</summary>
+        /// <param name="propertyName">the name of the C# helper property, used to determine which underlying property to call</param>
+        /// <example>
+        /// <para>// Given a property named MotherEducationLevel, the getter for MotherEducationLevelHelper can be defined using:</para>
+        /// <para>public string MotherEducationLevelHelper</para>
+        /// <para>{</para>
+        /// <para>    get => GetObservationValueHelper();</para>
+        /// <para>}</para>
+        /// </example>
+        protected string GetObservationValueHelper([CallerMemberName] string propertyName = null)
+        {
+            // Find the base property name by stripping off the "Helper" from the calling property
+            if (!propertyName.EndsWith("Helper"))
+            {
+                throw new ArgumentException("GetObservationValueHelper called with a non-helper property");
+            }
+            string basePropertyName = propertyName.Replace("Helper", "");
+            Dictionary<string, string> value = (Dictionary<string, string>)this.GetType().GetProperty(basePropertyName).GetValue(this);
+            if (value.ContainsKey("code") && !string.IsNullOrWhiteSpace(value["code"]))
+            {
+                return value["code"];
+            }
+            return null;
+        }
+
+        /// <summary>Helper to support vital record property setter helper methods for getting and setting coded values.</summary>
+        /// <param name="value">the coded value to set as the code in the underlying property value</param>
+        /// <param name="codes">the list of allowed codes</param>
+        /// <param name="propertyName">the name of the C# helper property, used to determine which underlying property to call</param>
+        /// <example>
+        /// <para>// Given a property named MotherEducationLevel, the setter for MotherEducationLevelHelper can be defined using:</para>
+        /// <para>public string MotherEducationLevelHelper</para>
+        /// <para>{</para>
+        /// <para>    set => SetObservationValueHelper(value, VR.ValueSets.EducationLevel.Codes);</para>
+        /// <para>}</para>
+        /// </example>
+        protected void SetObservationValueHelper(string value, string[,] codes, [CallerMemberName] string propertyName = null)
+        {
+            // Find the base property name by stripping off the "Helper" from the calling property
+            // Find the base property name by stripping off the "Helper" from the calling property
+            if (!propertyName.EndsWith("Helper"))
+            {
+                throw new ArgumentException("GetObservationValueHelper called with a non-helper property");
+            }
+            if (!string.IsNullOrWhiteSpace(value))
+            {
+                string basePropertyName = propertyName.Replace("Helper", "");
+                SetCodeValue(basePropertyName, value, codes);
+            }
+        }
+
         /// <summary>Remove all of the entries for the supplied category</summary>
         /// <param name="fhirPath">the FHIRPath of a none-of-the-above entry</param>
         protected void RemoveAllEntries(FHIRPath fhirPath)
         {
-            Func<Bundle.EntryComponent, bool> conditionCriteria = e => 
-                e.Resource.TypeName == "Condition" && 
+            Func<Bundle.EntryComponent, bool> conditionCriteria = e =>
+                e.Resource.TypeName == "Condition" &&
                 ((Condition)e.Resource).Category.Any(c => c.Coding[0].Code == fhirPath.CategoryCode);
-            Func<Bundle.EntryComponent, bool> observationCriteria = e => 
+            Func<Bundle.EntryComponent, bool> observationCriteria = e =>
                 e.Resource.TypeName == "Observation" &&
                 ((Observation)e.Resource).Code.Coding[0].Code == fhirPath.CategoryCode &&
                 ((Observation)e.Resource).Value as CodeableConcept != null &&
                 (((Observation)e.Resource).Value as CodeableConcept).Coding[0].Code != NONE_OF_THE_ABOVE &&
                 (((Observation)e.Resource).Value as CodeableConcept).Coding[0].Code != UNKNOWN;
-            Func<Bundle.EntryComponent, bool> procedureCriteria = e => 
-                e.Resource.TypeName == "Procedure" && 
+            Func<Bundle.EntryComponent, bool> procedureCriteria = e =>
+                e.Resource.TypeName == "Procedure" &&
                 ((Procedure)e.Resource).Category.Coding[0].Code == fhirPath.CategoryCode;
             Func<Bundle.EntryComponent, bool>[] all = {conditionCriteria, observationCriteria, procedureCriteria};
             foreach(var criteria in all)
@@ -130,7 +298,9 @@ namespace VR
                     func = e => e.Resource.TypeName == fhirPath.FHIRType.ToString() && ((Condition)e.Resource).Code.Coding[0].Code == fhirPath.Code;
                     break;
                 case FHIRPath.FhirType.Observation:
-                    func = e => e.Resource.TypeName == fhirPath.FHIRType.ToString() && (((Observation)e.Resource).Value as CodeableConcept != null) && (((Observation)e.Resource).Value as CodeableConcept).Coding[0].Code == fhirPath.Code;
+                    func = e => e.Resource.TypeName == fhirPath.FHIRType.ToString() && (((Observation)e.Resource).Value as CodeableConcept != null) 
+                                                                                    && (((Observation)e.Resource).Value as CodeableConcept).Coding[0].Code == fhirPath.Code 
+                                                                                    && (((Observation)e.Resource).Code as CodeableConcept).Coding[0].Code == fhirPath.CategoryCode;
                     break;
                 case FHIRPath.FhirType.Procedure:
                     func = e => e.Resource.TypeName == fhirPath.FHIRType.ToString() && ((Procedure)e.Resource).Code.Coding[0].Code == fhirPath.Code;
@@ -157,7 +327,7 @@ namespace VR
             if (fhirPath.Code != null && fhirPath.Code.Length > 0)
             {
                 string codeSystem = fhirPath.CodeSystem ?? CodeSystems.SCT;
-                code = new CodeableConcept(codeSystem, fhirPath.Code);
+                code = new CodeableConcept(codeSystem, fhirPath.Code, fhirPath.Display, null);
             }
             CodeableConcept category = null;
             if (fhirPath.CategoryCode != null && fhirPath.CategoryCode.Length > 0)
@@ -194,7 +364,7 @@ namespace VR
             resource.Id = Guid.NewGuid().ToString();
             AddReferenceToComposition(resource.Id, fhirPath.Section, subjectId);
             Bundle.AddResourceEntry(resource, "urn:uuid:" + resource.Id);
-            
+
             if (fhirPath.Code == NONE_OF_THE_ABOVE || fhirPath.Code == UNKNOWN)
             {
                 // remove all of the entries related to this none-of-the-above entry
@@ -259,32 +429,33 @@ namespace VR
                 foreach (DataType child in resource.Children.Where(child => child.GetType().IsSubclassOf(typeof(DataType))))
                 {
                     // Extract PartialDates and PartialDateTimes.
-                    List<Extension> partialDateExtensions = child.Extension.Where(ext => ext.Url.Equals(VRExtensionURLs.PartialDate) || ext.Url.Equals(VRExtensionURLs.PartialDateTime)).ToList();
+                    //List<Extension> partialDateExtensions = child.Extension.Where(ext => ext.Url.Equals(VRExtensionURLs.PartialDate) || ext.Url.Equals(PartialDateTimeUrl)).ToList();
+                    List<Extension> partialDateExtensions = child.Extension.Where(ext => ext.Url.Equals(PartialDateUrl) || ext.Url.Equals(PartialDateTimeUrl)).ToList();
                     foreach (Extension partialDateExtension in partialDateExtensions)
                     {
                         // Validate that the required sub-extensions are in the PartialDate/Time component.
                         List<String> partialDateSubExtensions = partialDateExtension.Extension.Select(ext => ext.Url).ToList();
-                        if (!partialDateSubExtensions.Contains(VRExtensionURLs.DateDay))
+                        if (!partialDateSubExtensions.Contains(PartialDateDayUrl))
                         {
                             errors.Append("Missing 'Date-Day' of [" + partialDateExtension.Url + "] for resource [" + resource.Id + "].").AppendLine();
                         }
-                        if (!partialDateSubExtensions.Contains(VRExtensionURLs.DateMonth))
+                        if (!partialDateSubExtensions.Contains(PartialDateMonthUrl))
                         {
                             errors.Append("Missing 'Date-Month' of [" + partialDateExtension.Url + "] for resource [" + resource.Id + "].").AppendLine();
                         }
-                        if (!partialDateSubExtensions.Contains(VRExtensionURLs.DateYear))
+                        if (!partialDateSubExtensions.Contains(PartialDateYearUrl))
                         {
                             errors.Append("Missing 'Date-Year' of [" + partialDateExtension.Url + "] for resource [" + resource.Id + "].").AppendLine();
                         }
-                        if (partialDateExtension.Url.Equals(VRExtensionURLs.PartialDateTime) && !partialDateSubExtensions.Contains(VRExtensionURLs.DateTime))
+                        if (partialDateExtension.Url.Equals(PartialDateTimeUrl) && !partialDateSubExtensions.Contains(PartialDateTimeTimeUrl))
                         {
                             errors.Append("Missing 'Date-Time' of [" + partialDateExtension.Url + "] for resource [" + resource.Id + "].").AppendLine();
                         }
                         // Validate that there are no extraneous invalid sub-extensions of the PartialDate/Time component.
-                        partialDateSubExtensions.Remove(VRExtensionURLs.DateDay);
-                        partialDateSubExtensions.Remove(VRExtensionURLs.DateMonth);
-                        partialDateSubExtensions.Remove(VRExtensionURLs.DateYear);
-                        partialDateSubExtensions.Remove(VRExtensionURLs.DateTime);
+                        partialDateSubExtensions.Remove(PartialDateDayUrl);
+                        partialDateSubExtensions.Remove(PartialDateMonthUrl);
+                        partialDateSubExtensions.Remove(PartialDateYearUrl);
+                        partialDateSubExtensions.Remove(PartialDateTimeTimeUrl);
                         if (partialDateSubExtensions.Count() > 0) {
                             errors.Append("[" + partialDateExtension.Url + "] component contains extra invalid fields [" + string.Join(", ", partialDateSubExtensions) + "] for resource [" + resource.Id + "].").AppendLine();
                         }
@@ -335,6 +506,10 @@ namespace VR
             // If we have a value, return it
             if (part?.Value != null)
             {
+                if (part.Value is Integer)
+                {
+                    return (int?)((Integer)part.Value).Value;
+                }
                 return (int?)((UnsignedInt)part.Value).Value; // Untangle a FHIR UnsignedInt in an extension into an int
             }
             // No data present at all, return null
@@ -346,7 +521,7 @@ namespace VR
         /// should include the time field, which is not always needed</summary>
         protected Extension NewBlankPartialDateTimeExtension(bool includeTime = true)
         {
-            Extension partialDateTime = new Extension(includeTime ? VRExtensionURLs.PartialDateTime : VRExtensionURLs.PartialDate, null);
+            Extension partialDateTime = new Extension(includeTime ? PartialDateTimeUrl : PartialDateUrl, null);
             Extension year = new Extension(PartialDateYearUrl, null);
             year.Extension.Add(new Extension(OtherExtensionURL.DataAbsentReason, new Code("temp-unknown")));
             partialDateTime.Extension.Add(year);
@@ -387,7 +562,7 @@ namespace VR
         /// <summary>Getter helper for anything that uses PartialDateTime, allowing the time to be read from the extension</summary>
         protected string GetPartialTime(Extension partialDateTime)
         {
-            Extension part = partialDateTime?.Extension?.Find(ext => ext.Url == VRExtensionURLs.DateTime);
+            Extension part = partialDateTime?.Extension?.Find(ext => ext.Url == PartialDateTimeTimeUrl);
             Extension dataAbsent = part?.Extension?.Find(ext => ext.Url == OtherExtensionURL.DataAbsentReason);
             // extension for absent date can be directly on the part as with year, month, day
             if (dataAbsent != null)
@@ -460,11 +635,29 @@ namespace VR
                 return null;
             }
             // If we have a basic value as a valueDateTime use that, otherwise pull from the PartialDateTime extension
-            DateTimeOffset? dateTimeOffset = null;
             if (value is FhirDateTime && ((FhirDateTime)value).Value != null)
             {
-                // Note: We can't just call ToDateTimeOffset() on the FhirDateTime because want the datetime in whatever local time zone was provided
-                dateTimeOffset = DateTimeOffset.Parse(((FhirDateTime)value).Value);
+                // DateTimeOffset.Parse will insert fake information where missing, 
+                // so TryParseExact on the partial date info first
+                if (partURL == PartialDateYearUrl)
+                {
+                    ParseDateElements(((FhirDateTime)value).Value, out int? year, out int? month, out int? day);
+                    return year;
+                }
+                else if (partURL == PartialDateMonthUrl)
+                {
+                    ParseDateElements(((FhirDateTime)value).Value, out int? year, out int? month, out int? day);
+                    return month;
+                }
+                else if (partURL == PartialDateDayUrl)
+                {
+                    ParseDateElements(((FhirDateTime)value).Value, out int? year, out int? month, out int? day);
+                    return day;
+                }
+                else
+                {
+                    throw new ArgumentException("GetDateFragment called with unsupported PartialDateTime segment");
+                }
             }
             else if (value is Date && ((Date)value).Value != null)
             {
@@ -486,25 +679,6 @@ namespace VR
                 else
                 {
                     throw new ArgumentException("GetDateFragment called with unsupported PartialDateTime segment when trying to parse individual date elements");
-                }
-            }
-            if (dateTimeOffset != null)
-            {
-                if (partURL == PartialDateYearUrl)
-                {
-                    return ((DateTimeOffset)dateTimeOffset).Year;
-                }
-                else if (partURL == PartialDateMonthUrl)
-                {
-                    return ((DateTimeOffset)dateTimeOffset).Month;
-                }
-                else if (partURL == PartialDateDayUrl)
-                {
-                    return ((DateTimeOffset)dateTimeOffset).Day;
-                }
-                else
-                {
-                    throw new ArgumentException("GetDateFragment called with unsupported PartialDateTime segment");
                 }
             }
             return null;
@@ -537,6 +711,15 @@ namespace VR
                     day = null;
                     return true;
                 }
+                else 
+                {
+                    // Note: We can't just call ToDateTimeOffset() on the FhirDateTime because want the datetime in whatever local time zone was provided
+                    DateTimeOffset dateTimeOffset = DateTimeOffset.Parse(date);
+                    year = dateTimeOffset.Year;
+                    month = dateTimeOffset.Month;
+                    day = dateTimeOffset.Day;
+                    return true;
+                }
             }
             year = null;
             month = null;
@@ -564,6 +747,43 @@ namespace VR
             }
             return null;
         }
+
+        /// <summary>Returns a Fhir DateTime object parsed from the given string.</summary>
+        protected static FhirDateTime ConvertToDateTime(string date)
+        {
+            if (ParseDateElements(date, out int? year, out int? month, out int? day))
+            {
+                if (year != null && month != null && day != null)
+                {
+                    return new FhirDateTime((int)year, (int)month, (int)day);
+                }
+                else if (year != null && month != null)
+                {
+                    return new FhirDateTime((int)year, (int)month);
+                }
+                else if (year != null)
+                {
+                    return new FhirDateTime((int)year);
+                }
+            }
+            return null;
+        }
+
+        private static FhirDateTime ConvertDateToFhirDateTime(Date date)
+        {
+            FhirDateTime dt = ConvertToDateTime(date.Value) ?? new FhirDateTime();
+            dt.Extension = date.Extension;
+            return dt;
+        }
+
+        private static Date ConvertFhirDateTimeToDate(FhirDateTime dateTime)
+        {
+            Date newDate = ConvertToDate(dateTime.Value) ?? new Date();
+            newDate.Extension = dateTime.Extension;
+            return newDate;
+        }
+
+
 
         /// <summary>Gets the specified date element based on the partialDateUrl from the given
         /// FhirDate, checking in the value and PartialDate extension, and assuming there
@@ -612,178 +832,159 @@ namespace VR
         /// <summary>Sets the given value to the given partial date extension and creates any necessary missing extensions.</summary>
         protected void CreateAndSetPartialDate(Date dateElement, string partUrl, int? value)
         {
-            if (!dateElement.Extension.Any(ext => ext.Url == VRExtensionURLs.PartialDateTimeVR))
+            if (!dateElement.Extension.Any(ext => ext.Url == PartialDateTimeUrl))
             {
-                dateElement.AddExtension(VRExtensionURLs.PartialDateTimeVR, new Extension());
+                dateElement.AddExtension(PartialDateTimeUrl, new Extension());
             }
-            if (!dateElement.Extension.Find(ext => ext.Url == VRExtensionURLs.PartialDateTimeVR).Extension.Any(ext => ext.Url == partUrl))
+            if (!dateElement.Extension.Find(ext => ext.Url == PartialDateTimeUrl).Extension.Any(ext => ext.Url == partUrl))
             {
-                dateElement.Extension.Find(ext => ext.Url == VRExtensionURLs.PartialDateTimeVR).AddExtension(partUrl, new Extension());
+                dateElement.Extension.Find(ext => ext.Url == PartialDateTimeUrl).AddExtension(partUrl, new Extension());
             }
-            SetPartialDate(dateElement.Extension.Find(ext => ext.Url == VRExtensionURLs.PartialDateTimeVR), partUrl, value);
+            SetPartialDate(dateElement.Extension.Find(ext => ext.Url == PartialDateTimeUrl), partUrl, value);
+        }
+
+        /// <summary>Sets the given value to the given partial date extension and creates any necessary missing extensions.</summary>
+        protected void CreateAndSetPartialDate(FhirDateTime dateElement, string partUrl, int? value)
+        {
+            if (!dateElement.Extension.Any(ext => ext.Url == PartialDateTimeUrl))
+            {
+                dateElement.AddExtension(PartialDateTimeUrl, new Extension());
+            }
+            if (!dateElement.Extension.Find(ext => ext.Url == PartialDateTimeUrl).Extension.Any(ext => ext.Url == partUrl))
+            {
+                dateElement.Extension.Find(ext => ext.Url == PartialDateTimeUrl).AddExtension(partUrl, new Extension());
+            }
+            SetPartialDate(dateElement.Extension.Find(ext => ext.Url == PartialDateTimeUrl), partUrl, value);
         }
 
         /// <summary>Uses the given date information to create a new Fhir Date with the updated year. This includes reformatting and updating partial date extensions and using Fhir incomplete valid dates.</summary>
-        protected Date SetYear(int? value, Date dateElement, int? currentMonth, int? currentDay)
+        protected Date SetYear(int? value, Date dateElement)
         {
-            if (value == null)
-            {
+            FhirDateTime dateTime = ConvertDateToFhirDateTime(dateElement);
+            FhirDateTime newDateTime = SetYear(value, dateTime);
+            if (newDateTime == null) {
                 return null;
             }
-            // Since having only a year is a valid FHIR date, it should only be in the PartialDateTime If it's an unknown.
-            if (value == -1)
-            {
-                // Set the unknown year.
-                CreateAndSetPartialDate(dateElement, VR.ExtensionURL.PartialDateTimeYearVR, value);
-                // When a year is lacking, this means any month and day elements should be moved to the partialDate extension.
-                if (currentDay != null)
-                {
-                    CreateAndSetPartialDate(dateElement, VR.ExtensionURL.PartialDateTimeDayVR, currentDay);
-                }
-                if (currentMonth != null)
-                {
-                    CreateAndSetPartialDate(dateElement, VR.ExtensionURL.PartialDateTimeMonthVR, currentMonth);
-                }
-                List<Extension> partialDateValues = dateElement.Extension;
-                return new Date
-                {
-                    Extension = partialDateValues
-                };
-            }
-            if (ParseDateElements(dateElement.Value, out int? _, out int? month, out int? day))
-            {
-                month = month ?? currentMonth;
-                day = day ?? currentDay;
-                if (month != null && day != null)
-                {
-                    return new Date((int)value, (int)month, (int)day);
-                }
-                else if (month != null)
-                {
-                    return new Date((int)value, (int)month);
-                }
-                else
-                {
-                    return new Date((int)value);
-                }
-            }
-            else if (currentMonth != null && currentDay != null)
-            {
-                return new Date((int)value, (int)currentMonth, (int)currentDay);
-            }
-            else if (currentMonth != null)
-            {
-                return new Date((int)value, (int)currentMonth);
-            }
-            else
-            {
-                return new Date((int)value);
-            }
+            return ConvertFhirDateTimeToDate(newDateTime);
+        }
+
+        /// <summary>Uses the given date information to create a new FhirDateTime with the updated year. This includes reformatting and updating partial date extensions and using Fhir incomplete valid dates.</summary>
+        protected FhirDateTime SetYear(int? value, FhirDateTime dateElement)
+        {
+            return BuildFhirDateTime(dateElement, value, VR.ExtensionURL.PartialDateTimeYearVR);
         }
 
         /// <summary>Uses the given date information to create a new Fhir Date with the updated month. This includes reformatting and updating partial date extensions and using Fhir incomplete valid dates.</summary>
-        protected Date SetMonth(int? value, Date dateElement, int? currentYear, int? currentDay)
+        protected Date SetMonth(int? value, Date dateElement)
         {
-            if (value == null)
-            {
+            FhirDateTime dateTime = ConvertDateToFhirDateTime(dateElement);
+            FhirDateTime newDateTime = SetMonth(value, dateTime);
+            if (newDateTime == null) {
                 return null;
             }
-            if (value != -1)
-            {
-                if (ParseDateElements(dateElement.Value, out int? year, out int? _, out int? day) && (year != null || currentYear != null))
-                {
-                    year = year ?? currentYear;
-                    day = day ?? currentDay;
-                    return day != null ? new Date((int)year, (int)value, (int)day) : new Date((int)year, (int)value);
-                }
-                if (currentYear != null)
-                {
-                    return currentDay != null ? new Date((int)currentYear, (int)value, (int)currentDay) : new Date((int)currentYear, (int)value);
-                }
-            }
-            // If there is no birthdate date data and the date will still be incomplete, store the month in a PartialDateTime and deal with the other date values.
-            CreateAndSetPartialDate(dateElement, VR.ExtensionURL.PartialDateTimeMonthVR, value);
-            // When a month is lacking, this means any day element should be moved to the partialDate extension.
-            if (currentYear == -1)
-            {
-                CreateAndSetPartialDate(dateElement, VR.ExtensionURL.PartialDateTimeYearVR, currentYear);
-            }
-            if (currentDay != null)
-            {
-                CreateAndSetPartialDate(dateElement, VR.ExtensionURL.PartialDateTimeDayVR, currentDay);
-            }
-            List<Extension> partialDateValues = dateElement.Extension;
-            // Any valid known year element should remain in the BirthDate value as a FHIR Date.
-            if (currentYear != -1 && currentYear != null)
-            {
-                return new Date((int)currentYear)
-                {
-                    Extension = partialDateValues
-                };
-            }
-            else
-            {
-                return new Date
-                {
-                    Extension = partialDateValues
-                };
-            }
+            return ConvertFhirDateTimeToDate(newDateTime);
+        }
+
+        /// <summary>Uses the given date information to create a new FhirDateTime with the updated month. This includes reformatting and updating partial date extensions and using Fhir incomplete valid dates.</summary>
+        protected FhirDateTime SetMonth(int? value, FhirDateTime dateElement)
+        {
+            return BuildFhirDateTime(dateElement, value, VR.ExtensionURL.PartialDateTimeMonthVR);
         }
 
         /// <summary>Uses the given date information to create a new Fhir Date with the updated day. This includes reformatting and updating partial date extensions and using Fhir incomplete valid dates.</summary>
-        protected Date SetDay(int? value, Date dateElement, int? currentYear, int? currentMonth)
+        protected Date SetDay(int? value, Date dateElement)
+        {
+            FhirDateTime dateTime = ConvertDateToFhirDateTime(dateElement);
+            FhirDateTime newDateTime = SetDay(value, dateTime);
+            if (newDateTime == null) {
+                return null;
+            }
+            return ConvertFhirDateTimeToDate(newDateTime);
+        }
+
+        /// <summary>Uses the given date information to create a new FhirDateTime with the updated day. This includes reformatting and updating partial date extensions and using Fhir incomplete valid dates.</summary>
+        protected FhirDateTime SetDay(int? value, FhirDateTime dateElement)
+        {
+            return BuildFhirDateTime(dateElement, value, VR.ExtensionURL.PartialDateTimeDayVR);
+        }
+
+        private FhirDateTime BuildFhirDateTime(FhirDateTime dateElement, int? value, string partialDateUrl)
         {
             if (value == null)
             {
                 return null;
             }
-            if (value != -1)
+            ParseDateElements(dateElement.Value, out int? parsedYear, out int? parsedMonth, out int? parsedDay);
+            // Get the most valid date elements, giving priority to the parsed date elements. If the partial date is used, it will include any -1 values. If there is no valid date elemnts in either, it will be null.
+            int? yearValue = parsedYear ?? GetPartialDate(dateElement.GetExtension(PartialDateTimeUrl), VR.ExtensionURL.PartialDateTimeYearVR);
+            int? monthValue = parsedMonth ?? GetPartialDate(dateElement.GetExtension(PartialDateTimeUrl), VR.ExtensionURL.PartialDateTimeMonthVR);
+            int? dayValue = parsedDay ?? GetPartialDate(dateElement.GetExtension(PartialDateTimeUrl), VR.ExtensionURL.PartialDateTimeDayVR);
+
+            // Set whichever date element we're updating to the given value.
+            switch(partialDateUrl) {
+                case VR.ExtensionURL.PartialDateTimeYearVR:
+                    yearValue = value;
+                    break;
+                case VR.ExtensionURL.PartialDateTimeMonthVR:
+                    monthValue = value;
+                    break;
+                case VR.ExtensionURL.PartialDateTimeDayVR:
+                    dayValue = value;
+                    break;
+                default:
+                    throw new Exception("Invalid partial date time URL");
+            }
+            
+            // If all the date elements are valid and known, build a complete FhirDateTime in the format yyyy-mm-dd.
+            if (yearValue != -1 && yearValue != null && monthValue != -1 && monthValue != null && dayValue != -1 && dayValue != null)
             {
-                if (ParseDateElements(dateElement.Value, out int? year, out int? month, out int? _) && (year != null || currentYear != null) && (month != null || currentMonth != null))
+                return new FhirDateTime((int)yearValue, (int)monthValue, (int)dayValue);
+            }
+
+            // If just the year and month date elements are valid and known, build a FhirDateTime in the format yyyy-mm. Store the day in a PartialDateTimeDay.
+            if (yearValue != -1 && yearValue != null && monthValue != -1 && monthValue != null)
+            {
+                FhirDateTime fdtYearMonth = new FhirDateTime((int)yearValue, (int)monthValue)
                 {
-                    year = year ?? currentYear;
-                    month = month ?? currentMonth;
-                    return new Date((int)year, (int)month, (int)value);
+                    Extension = dateElement.Extension
+                };
+                if (!fdtYearMonth.Extension.Any(ext => ext.Url == PartialDateTimeUrl))
+                {
+                    fdtYearMonth.SetExtension(PartialDateTimeUrl, new Extension());
                 }
-                if (currentYear != null && currentMonth != null)
+                fdtYearMonth.GetExtension(PartialDateTimeUrl).SetExtension(VR.ExtensionURL.PartialDateTimeDayVR, new Integer(dayValue));
+                return fdtYearMonth;
+            }
+
+            // If just the year date element is valid and known, build a FhirDateTime in the format yyyy. Store the day in a PartialDateTimeDay and the month in a PartialDateTimeMonth.
+            if (yearValue != -1 && yearValue != null)
+            {
+                FhirDateTime fdtYear = new FhirDateTime((int)yearValue)
                 {
-                    return new Date((int)currentYear, (int)currentMonth, (int) value);
+                    Extension = dateElement.Extension
+                };
+                if (!fdtYear.Extension.Any(ext => ext.Url == PartialDateTimeUrl))
+                {
+                    fdtYear.SetExtension(PartialDateTimeUrl, new Extension());
                 }
+                fdtYear.GetExtension(PartialDateTimeUrl).SetExtension(VR.ExtensionURL.PartialDateTimeMonthVR, new Integer(monthValue));
+                fdtYear.GetExtension(PartialDateTimeUrl).SetExtension(VR.ExtensionURL.PartialDateTimeDayVR, new Integer(dayValue));
+                return fdtYear;
             }
-            // If there is no birthdate date data and the date will still be incomplete, store the day in a PartialDateTime and deal with the other date values.
-            CreateAndSetPartialDate(dateElement, VR.ExtensionURL.PartialDateTimeDayVR, value);
-            // When a month is lacking, this means any day element should be moved to the partialDate extension.
-            if (currentYear == -1)
+
+            // If the year is not valid or is unknown, build an empty FhirDateTime and store all date data in the partial date time extensions.
+            FhirDateTime fdtEmpty = new FhirDateTime
             {
-                CreateAndSetPartialDate(dateElement, VR.ExtensionURL.PartialDateTimeYearVR, currentYear);
-            }
-            if (currentMonth == -1)
+                Extension = dateElement.Extension
+            };
+            if (!fdtEmpty.Extension.Any(ext => ext.Url == PartialDateTimeUrl))
             {
-                CreateAndSetPartialDate(dateElement, VR.ExtensionURL.PartialDateTimeMonthVR, currentMonth);
+                fdtEmpty.SetExtension(PartialDateTimeUrl, new Extension());
             }
-            List<Extension> partialDateValues = dateElement.Extension;
-            // Any valid known year element should remain in the BirthDate value as a FHIR Date.
-            if (currentYear != -1 && currentYear != null && currentMonth != -1 && currentMonth != null)
-            {
-                return new Date((int)currentYear, (int)currentMonth)
-                {
-                    Extension = partialDateValues
-                };
-            }
-            else if (currentYear != -1 && currentYear != null)
-            {
-                return new Date((int)currentYear)
-                {
-                    Extension = partialDateValues
-                };
-            }
-            else
-            {
-                return new Date
-                {
-                    Extension = partialDateValues
-                };
-            }
+            fdtEmpty.GetExtension(PartialDateTimeUrl).SetExtension(VR.ExtensionURL.PartialDateTimeYearVR, new Integer(yearValue));
+            fdtEmpty.GetExtension(PartialDateTimeUrl).SetExtension(VR.ExtensionURL.PartialDateTimeMonthVR, new Integer(monthValue));
+            fdtEmpty.GetExtension(PartialDateTimeUrl).SetExtension(VR.ExtensionURL.PartialDateTimeDayVR, new Integer(dayValue));
+            return fdtEmpty;
         }
 
         /// <summary>Overrideable method that dictates which Extension URL to use for PartialDateTime Year</summary>
@@ -799,7 +1000,13 @@ namespace VR
         protected virtual string PartialDateTimeTimeUrl => VRExtensionURLs.DateTime;
 
         /// <summary>Overrideable method that dictates which Extension URL to use for PartialDateTime</summary>
-        protected virtual string PartialDateTimeUrl => VRExtensionURLs.PartialDateTimeVR;
+        protected virtual string PartialDateTimeUrl => VRExtensionURLs.PartialDateTime;
+
+        /// <summary>Overrideable method that dictates which Extension URL to use for PartialDate</summary>
+        protected virtual string PartialDateUrl => VRExtensionURLs.PartialDate;
+
+        /// <summary>Overrideable method that dictates which Extension URL to use for LocationJurisdictionId</summary>
+        protected virtual string LocationJurisdictionIdUrl => VRExtensionURLs.LocationJurisdictionId;
 
         /// <summary>Getter helper for anything that can have a regular FHIR date/time or a PartialDateTime extension, allowing a particular date
         /// field (year, month, or day) to be read from either the value or the extension</summary>
@@ -815,10 +1022,10 @@ namespace VR
                 return dateFragment;
             }
             // Look for either PartialDate or PartialDateTime
-            Extension extension = value.Extension.Find(ext => ext.Url == VRExtensionURLs.PartialDateTime);
+            Extension extension = value.Extension.Find(ext => ext.Url == PartialDateTimeUrl);
             if (extension == null)
             {
-                extension = value.Extension.Find(ext => ext.Url == VRExtensionURLs.PartialDate);
+                extension = value.Extension.Find(ext => ext.Url == PartialDateUrl);
             }
             return GetPartialDate(extension, partURL);
         }
@@ -871,7 +1078,7 @@ namespace VR
             if (time != null) {
                 return time;
             }
-            return GetPartialTime(value.Extension.Find(ext => ext.Url == VRExtensionURLs.PartialDateTime));
+            return GetPartialTime(value.Extension.Find(ext => ext.Url == PartialDateTimeUrl));
         }
 
         /// <summary>Helper function to set a codeable value based on a code and the set of allowed codes.</summary>
@@ -896,6 +1103,37 @@ namespace VR
                     dict.Add("code", code);
                     dict.Add("display", options[i, 1]);
                     dict.Add("system", options[i, 2]);
+                    this.GetType().GetProperty(field).SetValue(this, dict);
+                    return;
+                }
+            }
+            // If we got here we didn't find the code, so it's not a valid option
+            throw new System.ArgumentException($"Code '{code}' is not an allowed value for field {field}");
+        }
+
+        /// <summary>Helper function to set a quantity value based on a value, code and the set of allowed codes.</summary>
+        // <param name="field">the field name to set.</param>
+        // <param name="code">the code to set the field to.</param>
+        // <param name="value">the value of the quantity.</param>
+        // <param name="options">the list of valid options and related display strings and code systems</param>
+        protected void SetQuantityValue(string field, string code, string value, string[,] options)
+        {
+            // If string is empty don't bother to set the value
+            if (code == null || code == "")
+            {
+                return;
+            }
+            // Iterate over the allowed options and see if the code supplies is one of them
+            for (int i = 0; i < options.GetLength(0); i += 1)
+            {
+                if (options[i, 0] == code)
+                {
+                    // Found it, so call the supplied setter with the appropriate dictionary built based on the code
+                    // using the supplied options and return
+                    Dictionary<string, string> dict = new Dictionary<string, string>();
+                    dict.Add("code", code);
+                    dict.Add("system", options[i, 2]);
+                    dict.Add("value", value);
                     this.GetType().GetProperty(field).SetValue(this, dict);
                     return;
                 }
@@ -1070,8 +1308,8 @@ namespace VR
                     {
                         address.StateElement = new FhirString();
                     }
-                    address.StateElement.Extension.RemoveAll(ext => ext.Url == VRExtensionURLs.LocationJurisdictionId);
-                    Extension extension = new Extension(VRExtensionURLs.LocationJurisdictionId, new FhirString(dict["addressJurisdiction"]));
+                    address.StateElement.Extension.RemoveAll(ext => ext.Url == LocationJurisdictionIdUrl);
+                    Extension extension = new Extension(LocationJurisdictionIdUrl, new FhirString(dict["addressJurisdiction"]));
                     address.StateElement.Extension.Add(extension);
                 }
                 if (dict.ContainsKey("addressZip") && !String.IsNullOrEmpty(dict["addressZip"]))
@@ -1269,7 +1507,7 @@ namespace VR
                 if (addr.StateElement != null)
                 {
                     dictionary["addressJurisdiction"] = addr.State; // by default.  If extension present, override
-                    Extension stateExt = addr.StateElement.Extension.Where(ext => ext.Url == VRExtensionURLs.LocationJurisdictionId).FirstOrDefault();
+                    Extension stateExt = addr.StateElement.Extension.Where(ext => ext.Url == LocationJurisdictionIdUrl).FirstOrDefault();
                     if (stateExt != null)
                     {
                         dictionary["addressJurisdiction"] = stateExt.Value.ToString();
@@ -1580,6 +1818,10 @@ namespace VR
 
                 // Add snippets
                 FHIRPath path = property.GetCustomAttribute<FHIRPath>();
+                category[property.Name]["CheckboxType"] = path.Section != null;
+                category[property.Name]["Section"] = path.Section;
+                category[property.Name]["Code"] = path.Code;
+                category[property.Name]["CategoryCode"] = path.CategoryCode;
                 var matches = Navigator.Select(path.Path);
                 if (matches.Count() > 0)
                 {
@@ -1687,6 +1929,24 @@ namespace VR
             return EmptyAddrDict();
         }
 
+        /// <summary>Gets the given place of birth dictionary address from the given related person.</summary>
+        protected Dictionary<string, string> GetPlaceOfBirth(RelatedPerson person) {
+            if (person != null)
+            {
+                Extension addressExt = person.Extension.FirstOrDefault(extension => extension.Url == VRExtensionURLs.RelatedpersonBirthplace);
+                if (addressExt != null)
+                {
+                    Address address = (Address)addressExt.Value;
+                    if (address != null)
+                    {
+                        return AddressToDict((Address)address);
+                    }
+                    return EmptyAddrDict();
+                }
+            }
+            return EmptyAddrDict();
+        }
+
         /// <summary>Sets the given place of birth dictionary on the given patient.</summary>
         protected void SetPlaceOfBirth(Patient patient, Dictionary<string, string> value) {
             patient.Extension.RemoveAll(ext => ext.Url == OtherExtensionURL.PatientBirthPlace);
@@ -1707,8 +1967,21 @@ namespace VR
             patient.BirthDateElement = new Date();
             patient.BirthDateElement.Extension.Add(NewBlankPartialDateTimeExtension(includeTime));
         }
-    
 
+
+        /// <summary>Sets the given place of birth dictionary on the given patient.</summary>
+        protected void SetPlaceOfBirth(RelatedPerson person, Dictionary<string, string> value) {
+            person.Extension.RemoveAll(ext => ext.Url == VRExtensionURLs.RelatedpersonBirthplace);
+            if (!IsDictEmptyOrDefault(value))
+            {
+                Extension placeOfBirthExt = new Extension
+                {
+                    Url = VRExtensionURLs.RelatedpersonBirthplace,
+                    Value = DictToAddress(value)
+                };
+                person.Extension.Add(placeOfBirthExt);
+            }
+        }
     }
 
     /// <summary>Property attribute used to describe a VitalRecord property parameter,
@@ -1763,6 +2036,9 @@ namespace VR
         /// <summary>The code system when the targeted FHIR resource has a code element, e.g. Condition.code. Defaults to SNOMED if not specified.</summary>
         public string CodeSystem;
 
+        /// <summary>The display when the targeted FHIR resource has a code element</summary>
+        public string Display;
+
         /// <summary>The composition section code. Required if the resource needs to be referenced from the composition.</summary>
         public string Section;
 
@@ -1774,15 +2050,23 @@ namespace VR
         }
 
         /// <summary>Constructor.</summary>
-        public FHIRPath(FhirType fhirType, string categoryCode = "", string code = "", string section = "", string codeSystem = null)
+        public FHIRPath(FhirType fhirType, string categoryCode = "", string code = null, string section = null, string codeSystem = null)
         {
             if (fhirType == FhirType.Observation)
             {
                 this.Path = $"Bundle.entry.resource.where($this is {fhirType}).where((value as CodeableConcept).coding.code = '{code}')";
+                if (categoryCode != null && categoryCode.Length > 0)
+                {
+                    this.Path += $".where((code as CodeableConcept).coding.code = '{categoryCode}')";
+                }
             }
             else
             {
                 this.Path = $"Bundle.entry.resource.where($this is {fhirType}).where(code.coding.code = '{code}')";
+                if (categoryCode != null && categoryCode.Length > 0)
+                {
+                    this.Path += $".where(category.coding.any(code = '{categoryCode}'))";
+                }
             }
             this.Element = "";
             this.FHIRType = fhirType;

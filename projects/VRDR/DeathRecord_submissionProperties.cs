@@ -1925,9 +1925,30 @@ namespace VRDR
                 {
                     AddBirthDateToDecedent();
                 }
-                SetPartialDate(Decedent.BirthDateElement.Extension.Find(ext => ext.Url == ExtensionURL.PartialDate), ExtensionURL.DateYear, value);
+                SetPartialDate(Decedent.BirthDateElement.Extension.Find(ext => ext.Url == PartialDateUrl), ExtensionURL.DateYear, value);
             }
         }
+
+        /// <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Year</summary>
+        protected override string PartialDateYearUrl => ExtensionURL.DateYear;
+
+        /// <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Month</summary>
+        protected override string PartialDateMonthUrl => ExtensionURL.DateMonth;
+
+        /// <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Day</summary>
+        protected override string PartialDateDayUrl => ExtensionURL.DateDay;
+
+        /// <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Time</summary>
+        protected override string PartialDateTimeTimeUrl => ExtensionURL.DateTime;
+
+        /// <summary>Overriden method that dictates which Extension URL to use for PartialDate</summary>
+        protected override string PartialDateUrl => ExtensionURL.PartialDate;
+
+        /// <summary>Overriden method that dictates which Extension URL to use for PartialDateTime</summary>
+        protected override string PartialDateTimeUrl => ExtensionURL.PartialDateTime;
+
+        /// <summary>Overriden method that dictates which Extension URL to use for LocationJurisdictionId</summary>
+        protected override string LocationJurisdictionIdUrl => ExtensionURL.LocationJurisdictionId;
 
         /// <summary>Decedent's Month of Birth.</summary>
         /// <value>the decedent's month of birth, or -1 if explicitly unknown, or null if never specified</value>
@@ -1955,7 +1976,7 @@ namespace VRDR
                 {
                     AddBirthDateToDecedent();
                 }
-                SetPartialDate(Decedent.BirthDateElement.Extension.Find(ext => ext.Url == ExtensionURL.PartialDate), ExtensionURL.DateMonth, value);
+                SetPartialDate(Decedent.BirthDateElement.Extension.Find(ext => ext.Url == PartialDateUrl), ExtensionURL.DateMonth, value);
             }
         }
 
@@ -1985,7 +2006,7 @@ namespace VRDR
                 {
                     AddBirthDateToDecedent();
                 }
-                SetPartialDate(Decedent.BirthDateElement.Extension.Find(ext => ext.Url == ExtensionURL.PartialDate), ExtensionURL.DateDay, value);
+                SetPartialDate(Decedent.BirthDateElement.Extension.Find(ext => ext.Url == PartialDateUrl), ExtensionURL.DateDay, value);
             }
         }
 
@@ -5121,7 +5142,7 @@ namespace VRDR
                 {
                     CreateSurgeryDateObs();
                 }
-                SetPartialDate(SurgeryDateObs.Value.Extension.Find(ext => ext.Url == ExtensionURL.PartialDate), ExtensionURL.DateYear, value);
+                SetPartialDate(SurgeryDateObs.Value.Extension.Find(ext => ext.Url == PartialDateUrl), ExtensionURL.DateYear, value);
             }
         }
 
@@ -5151,7 +5172,7 @@ namespace VRDR
                 {
                     CreateSurgeryDateObs();
                 }
-                SetPartialDate(SurgeryDateObs.Value.Extension.Find(ext => ext.Url == ExtensionURL.PartialDate), ExtensionURL.DateMonth, value);
+                SetPartialDate(SurgeryDateObs.Value.Extension.Find(ext => ext.Url == PartialDateUrl), ExtensionURL.DateMonth, value);
             }
         }
 
@@ -5181,7 +5202,7 @@ namespace VRDR
                 {
                     CreateSurgeryDateObs();
                 }
-                SetPartialDate(SurgeryDateObs.Value.Extension.Find(ext => ext.Url == ExtensionURL.PartialDate), ExtensionURL.DateDay, value);
+                SetPartialDate(SurgeryDateObs.Value.Extension.Find(ext => ext.Url == PartialDateUrl), ExtensionURL.DateDay, value);
             }
         }
 

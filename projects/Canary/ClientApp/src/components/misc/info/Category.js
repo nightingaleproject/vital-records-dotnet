@@ -35,6 +35,7 @@ export class Category extends Component {
               property={this.props.category[name]}
               updateCategory={this.updateCategory}
               editable={this.props.editable}
+              renderEmptyFields={true}
               hideSnippets={this.props.hideSnippets}
               testMode={this.props.testMode}
               hideBlanks={this.props.hideBlanks}

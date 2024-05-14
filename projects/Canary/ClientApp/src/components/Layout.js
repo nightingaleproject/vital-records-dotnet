@@ -1,20 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { SemanticToastContainer } from 'react-semantic-toasts';
 import { Container, Grid } from 'semantic-ui-react';
 import { Navigation } from './Navigation';
 
-export class Layout extends Component {
-  displayName = Layout.name;
+export function Layout(props) {
 
-  render() {
-    return (
-      <React.Fragment>
-        <SemanticToastContainer />
-        <Navigation />
-        <Container>
-          <Grid>{this.props.children}</Grid>
-        </Container>
-      </React.Fragment>
-    );
-  }
+  return (
+    <React.Fragment>
+      <SemanticToastContainer />
+      <Navigation recordType={props.recordType}/>
+      <Container>
+        <Grid>{props.children}</Grid>
+      </Container>
+    </React.Fragment>
+  );
 }

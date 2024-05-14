@@ -29,7 +29,7 @@ namespace VRDR
     {
         private static VR.ExtensionURL extensions = new VR.ExtensionURL("http://hl7.org/fhir/us/vrdr");
         /// <summary>Overide the extension URL prefix used by the VR library</summary>
-        public override VR.ExtensionURL VRExtensionURLs => extensions;
+        protected override VR.ExtensionURL VRExtensionURLs => extensions;
 
         /// <summary>String to represent a blank value when an empty string is not allowed</summary>
         public static string BlankPlaceholder = "BLANK";
@@ -49,7 +49,7 @@ namespace VRDR
             get
             {
                 return new string[]{ "DecedentDemographics", "DeathInvestigation", "DeathCertification", "DecedentDisposition", "CodedContent"};
-            } 
+            }
         }
 
         /// <summary> Create Input Race and Ethnicity </summary>
@@ -538,7 +538,7 @@ namespace VRDR
             ManualUnderlyingCauseOfDeathObs = new Observation();
             ManualUnderlyingCauseOfDeathObs.Id = Guid.NewGuid().ToString();
             ManualUnderlyingCauseOfDeathObs.Meta = new Meta();
-            string[] profile = { ProfileURL.AutomatedUnderlyingCauseOfDeath };
+            string[] profile = { ProfileURL.ManualUnderlyingCauseOfDeath };
             ManualUnderlyingCauseOfDeathObs.Meta.Profile = profile;
             ManualUnderlyingCauseOfDeathObs.Status = ObservationStatus.Final;
             ManualUnderlyingCauseOfDeathObs.Code = new CodeableConcept(CodeSystems.LOINC, "80359-3", "Cause of death.underlying [Manual]", null);
@@ -555,7 +555,7 @@ namespace VRDR
             PlaceOfInjuryObs = new Observation();
             PlaceOfInjuryObs.Id = Guid.NewGuid().ToString();
             PlaceOfInjuryObs.Meta = new Meta();
-            string[] profile = { ProfileURL.AutomatedUnderlyingCauseOfDeath };
+            string[] profile = { ProfileURL.PlaceOfInjury };
             PlaceOfInjuryObs.Meta.Profile = profile;
             PlaceOfInjuryObs.Status = ObservationStatus.Final;
             PlaceOfInjuryObs.Code = new CodeableConcept(CodeSystems.LOINC, "11376-1", "Injury location", null);

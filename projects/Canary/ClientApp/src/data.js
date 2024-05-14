@@ -58,7 +58,7 @@ export const stateOptions = [
   { key: 'WY', text: 'Wyoming', value: 'WY' },
 ];
 
-export const messageTypes = {
+export const messageTypesVRDR = {
   "http://nchs.cdc.gov/vrdr_submission": "Submission",
   "http://nchs.cdc.gov/vrdr_submission_update": "Update",
   "http://nchs.cdc.gov/vrdr_acknowledgement": "Acknowledgement",
@@ -69,7 +69,18 @@ export const messageTypes = {
   "http://nchs.cdc.gov/vrdr_extraction_error": "Extraction Error"
 }
 
-export const messageTypeIcons = [
+export const messageTypesBFDR = {
+  "http://nchs.cdc.gov/bfdr_acknowledgement": "Acknowledgement",
+  "http://nchs.cdc.gov/bfdr_demographics_coding": "Demographics Coding",
+  "http://nchs.cdc.gov/http://nchs.cdc.gov/bfdr_extraction_error": "Error",
+  "http://nchs.cdc.gov/bfdr_status": "Status",
+  "http://nchs.cdc.gov/bfdr_submission": "Submission",
+  "http://nchs.cdc.gov/bfdr_submission_void": "Void",
+  "http://nchs.cdc.gov/bfdr_submission_update": "Update"
+}
+
+
+export const messageTypeIconsVRDR = [
   { key: 'submission', name: 'Submission', icon: 'paper plane' },
   // { key: 'acknowledgement', name: 'Acknowledgement', icon: 'thumbs up' },
   { key: 'update', name: 'Update', icon: 'redo' },
@@ -77,9 +88,21 @@ export const messageTypeIcons = [
   { key: 'void', name: 'Void', icon: 'ban' },
 ];
 
-export const responseMessageTypeIcons = [
+export const messageTypeIconsBFDR = [
+  { key: 'submission', name: 'Submission', icon: 'paper plane' },
+  // { key: 'acknowledgement', name: 'Acknowledgement', icon: 'thumbs up' },
+  { key: 'update', name: 'Update', icon: 'redo' },
+  { key: 'void', name: 'Void', icon: 'ban' },
+];
+
+export const responseMessageTypeIconsVRDR = [
   { key: 'ack', name: 'ACK', icon: 'thumbs up' },
   { key: 'trx', name: 'TRX', icon: 'exchange' },
   { key: 'mre', name: 'MRE', icon: 'exchange' },
+  { key: 'error', name: 'Error', icon: 'ban' },
+];
+
+export const responseMessageTypeIconsBFDR = [
+  { key: 'ack', name: 'ACK', icon: 'thumbs up' },
   { key: 'error', name: 'Error', icon: 'ban' },
 ];

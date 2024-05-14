@@ -6,7 +6,7 @@
     <DocumentationFile>VitalRecord.xml</DocumentationFile>
     <!-- <DocumentationFile>VitalRecord.md</DocumentationFile> -->
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <PackageId>VR</PackageId>
+    <PackageId>VitalRecord</PackageId>
     <Title>FHIR Vital Record</Title>
     <PackageDescription>A shared library for producing and consuming Vital Record FHIR records.</PackageDescription>
     <Authors>smacadam@mitre.org,rscalfani@mitre.org,pete@mitre.org</Authors>

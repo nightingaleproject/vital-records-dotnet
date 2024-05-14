@@ -3,8 +3,18 @@
 ## Projects
 
 - [VitalRecord](projects/VitalRecord): A shared library for producing and consuming Vital Record FHIR records.
+
 - [VRDR](projects/VRDR): FHIR Death Record library for consuming and producing VRDR FHIR.
 - [Canary](projects/Canary): Canary is an open source testing framework that supports development of systems that perform standards based exchange of mortality data. Canary provides tests and tools to aid developers in implementing the Vital Records Death Reporting (VRDR) FHIR death record format.
+
+
+| Package         | Latest Version |
+|----------------|-----|
+| VitalRecord           | [![VitalRecord on NuGet](https://img.shields.io/nuget/v/VitalRecord?label=)](https://www.nuget.org/packages/VitalRecord/) |
+| VitalRecord.Messaging | [![VitalRecord.Messaging on NuGet](https://img.shields.io/nuget/v/VitalRecord.Messaging?label=)](https://www.nuget.org/packages/VitalRecord.Messaging/) |
+| VRDR                  | [![VRDR on NuGet](https://img.shields.io/nuget/v/VRDR?label=)](https://www.nuget.org/packages/VRDR/)    |
+| VRDR.Messaging        | [![VRDR.Messaging on NuGet](https://img.shields.io/nuget/v/VRDR.Messaging?label=)](https://www.nuget.org/packages/VRDR.Messaging/)    |
+| VRDR.Client           | [![VRDR.Client on NuGet](https://img.shields.io/nuget/v/VRDR.Client?label=)](https://www.nuget.org/packages/VRDR.Client/)    |
 
 ## <a name="commit"></a> Commit Message Format
 

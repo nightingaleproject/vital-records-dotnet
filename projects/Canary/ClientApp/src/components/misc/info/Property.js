@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Accordion, Icon } from 'semantic-ui-react';
 import { Snippet } from './Snippet';
 import { BoolType } from './Types/BoolType';
+import { CheckboxType } from './Types/CheckboxType';
 import { DeathRecordType } from './Types/DeathRecordType';
 import { DictionaryType } from './Types/DictionaryType';
 import { StringArrType } from './Types/StringArrType';
@@ -29,8 +30,8 @@ export class Property extends Component {
     });
   }
 
-  renderType(type, value, description, igurl, error) {
-    if (type === 'String' || type === 'UInt32') {
+  renderType(type, isCheckbox, value, description, igurl, error) {
+    if (type === 'String' || type === 'UInt32' || type == 'Int32') {
       return (
         <StringType
           key={`${this.props.name}${value}`} // Key ensures re-render if value changes
@@ -59,19 +60,35 @@ export class Property extends Component {
         />
       );
     } else if (type === 'Bool') {
-      return (
-        <BoolType
-          key={`${this.props.name}${value}`} // Key ensures re-render if value changes
-          name={this.props.name}
-          value={value}
-          description={description}
-          igurl={igurl}
-          updateProperty={this.updateProperty}
-          editable={this.props.editable}
-          testMode={this.props.testMode}
-          error={error}
-        />
-      );
+      if (isCheckbox) {
+        return (
+          <CheckboxType
+            key={`${this.props.name}${value}`} // Key ensures re-render if value changes
+            name={this.props.name}
+            value={value}
+            description={description}
+            igurl={igurl}
+            updateProperty={this.updateProperty}
+            editable={this.props.editable}
+            testMode={this.props.testMode}
+            error={error}
+          />
+        );
+      } else {
+        return (
+          <BoolType
+            key={`${this.props.name}${value}`} // Key ensures re-render if value changes
+            name={this.props.name}
+            value={value}
+            description={description}
+            igurl={igurl}
+            updateProperty={this.updateProperty}
+            editable={this.props.editable}
+            testMode={this.props.testMode}
+            error={error}
+          />
+        );
+      }
     } else if (type === 'Dictionary') {
       return (
         <DictionaryType
@@ -186,8 +203,8 @@ export class Property extends Component {
   }
 
   render() {
-    if (!!!this.props.editable) {
-      if (this.props.property.Type !== "Bool" && this.props.property.Type !== "DeathRecord") {
+    if (!!!this.props.editable && !!!this.props.renderEmptyFields) {
+      if (this.props.property.Type !== "Bool" && this.props.property.Type !== "DeathRecord" && this.props.property.Type !== "BirthRecord") {
         if ((!!!this.props.property.Value && this.props.property.Match !== "false") ||
             (Array.isArray(this.props.property.Value) && this.props.property.Value !== null && this.props.property.Value.length === 0) ||
             (typeof this.props.property.Value === 'object' && !Array.isArray(this.props.property.Value) && this.props.property.Value !== null && _.compact(_.values(_.mapValues(this.props.property.Value, 'Value'))).length === 0 ))
@@ -213,6 +230,7 @@ export class Property extends Component {
           <div className="p-l-4">
             {this.renderType(
               this.props.property.Type,
+              this.props.property.CheckboxType,
               this.props.property.Value,
               this.props.property.Description,
               this.props.property.IGUrl,
@@ -220,7 +238,7 @@ export class Property extends Component {
             )}
             {!!this.props.testMode &&
               this.props.property.Match === 'false' && this.props.property.Type !== 'DeathRecord' &&
-              this.renderType(this.props.property.Type, this.props.property.FoundValue, this.props.property.Type === 'Dictionary' ? '' : 'Found value:', true)}
+              this.renderType(this.props.property.Type, this.props.property.CheckboxType, this.props.property.FoundValue, this.props.property.Type === 'Dictionary' ? '' : 'Found value:', true)}
             {!!!this.props.hideSnippets && (
               <Accordion styled fluid exclusive={false}>
                 <Snippet

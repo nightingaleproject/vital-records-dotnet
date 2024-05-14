@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Bogus.Extensions.UnitedStates;
-using System.Linq;
 using VRDR;
 using VR;
 
@@ -10,36 +9,25 @@ namespace canary.Models
     /// <summary>Class <c>Faker</c> can be used to generate synthetic <c>DeathRecord</c>s. Various
     /// options are available to tailoring the records generated to specific use case by the class.
     /// </summary>
-    public class DeathRecordFaker
+    public class DeathRecordFaker : RecordFaker<DeathRecord> 
     {
-        /// <summary>Mortality data for code translations.</summary>
-        private IJEData MortalityData = IJEData.Instance;
-
-        /// <summary>State to use when generating records.</summary>
-        private string state;
 
         /// <summary>Type of Cause of Death; Natural or Injury.</summary>
         private string type;
 
-        /// <summary>Decedent Sex to use.</summary>
-        private string sex;
-
         /// <summary>Constructor with optional arguments to customize the records generated.</summary>
-        public DeathRecordFaker(string state = "MA", string type = "Natural", string sex = "Male")
+        public DeathRecordFaker(string state = "MA", string type = "Natural", string sex = "Male") : base(state, sex)
         {
-            this.state = state;
             this.type = type;
-            this.sex = sex;
         }
 
         /// <summary>Return a new record populated with fake data.</summary>
-        public DeathRecord Generate(bool simple = false)
+        public override DeathRecord Generate(bool simple = false)
         {
             DeathRecord record = new DeathRecord();
 
             Random random = new Random();
             Bogus.Faker faker = new Bogus.Faker("en");
-            IJEData dataHelper = MortalityData;
 
             // Grab Gender enum value
             Bogus.DataSets.Name.Gender gender = sex == "Male" ? Bogus.DataSets.Name.Gender.Male : Bogus.DataSets.Name.Gender.Female;
