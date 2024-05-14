@@ -14,7 +14,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BFDR\BFDR.csproj" />
-    <ProjectReference Include="..\BFDR.Messaging\BFDRMessaging.csproj" />
+    <ProjectReference Include="..\BFDR.Messaging\BFDR.Messaging.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="fixtures/json/BasicBirthRecord.json" CopyToOutputDirectory="PreserveNewest" />
