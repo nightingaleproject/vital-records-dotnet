@@ -1,0 +1,79 @@
+{
+  "resourceType": "Bundle",
+  "id": "fcff7733-54dd-40a4-83df-8ed1924dfdbf",
+  "type": "message",
+  "timestamp": "2023-12-21T17:30:04.864065-05:00",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:ef3c64a6-eb49-4cb7-9e4b-7d4b246a8934",
+      "resource": {
+        "resourceType": "MessageHeader",
+        "id": "ef3c64a6-eb49-4cb7-9e4b-7d4b246a8934",
+        "eventUri": "http://nchs.cdc.gov/bfdr_demographics_coding_update",
+        "destination": [
+          {
+            "endpoint": "http://nchs.cdc.gov/bfdr_submission"
+          }
+        ],
+        "focus": [
+          {
+            "reference": "urn:uuid:a9ee690e-2f09-4549-9c1f-414a25d37128"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:68fc19b3-7ac5-4ed0-a5f3-c3a1be96bda1",
+      "resource": {
+        "resourceType": "Parameters",
+        "id": "68fc19b3-7ac5-4ed0-a5f3-c3a1be96bda1",
+        "parameter": [
+          {
+            "name": "cert_no",
+            "valueUnsignedInt": 100
+          },
+          {
+            "name": "state_auxiliary_id",
+            "valueString": "123"
+          },
+          {
+            "name": "birth_year",
+            "valueUnsignedInt": 2023
+          },
+          {
+            "name": "jurisdiction_id",
+            "valueString": "YC"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:a9ee690e-2f09-4549-9c1f-414a25d37128",
+      "resource": {
+        "resourceType": "Bundle",
+        "id": "a9ee690e-2f09-4549-9c1f-414a25d37128",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/bfdr/StructureDefinition/bfdr-demographic-coded-bundle"
+          ]
+        },
+        "identifier": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/CertificateNumber",
+              "valueString": "100"
+            },
+            {
+              "url": "http://hl7.org/fhir/us/bfdr/StructureDefinition/AuxiliaryStateIdentifier1",
+              "valueString": "123"
+            }
+          ],
+          "system": "http://nchs.cdc.gov/bfdr_id",
+          "value": "2023YC000100"
+        },
+        "type": "collection",
+        "timestamp": "2023-12-21T17:30:04.866126-05:00"
+      }
+    }
+  ]
+}

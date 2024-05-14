@@ -3376,14 +3376,14 @@ namespace VRDR.Tests
         [Fact]
         public void Set_AcmeSystemReject()
         {
-            SetterDeathRecord.AcmeSystemRejectHelper = ValueSets.AcmeSystemReject.Not_Rejected;
-            Assert.Equal(ValueSets.AcmeSystemReject.Not_Rejected, SetterDeathRecord.AcmeSystemRejectHelper);
+            SetterDeathRecord.AcmeSystemRejectHelper = ValueSets.SystemReject.Not_Rejected;
+            Assert.Equal(ValueSets.SystemReject.Not_Rejected, SetterDeathRecord.AcmeSystemRejectHelper);
         }
 
         [Fact]
         public void Get_AcmeSystemReject()
         {
-            Assert.Equal(VRDR.ValueSets.AcmeSystemReject.Not_Rejected, DeathCertificateDocument2_JSON.AcmeSystemRejectHelper);
+            Assert.Equal(VRDR.ValueSets.SystemReject.Not_Rejected, DeathCertificateDocument2_JSON.AcmeSystemRejectHelper);
         }
 
         [Fact]
@@ -4054,7 +4054,10 @@ namespace VRDR.Tests
             List<PropertyInfo> properties = typeof(DeathRecord).GetProperties().ToList();
             foreach (PropertyInfo property in properties)
             {
-                property.SetValue(copy, property.GetValue(blank));
+                if (property.GetCustomAttribute<Property>() != null)
+                {
+                    property.SetValue(copy, property.GetValue(blank));
+                }
             }
             Assert.DoesNotContain("\"\"", blank.ToJson());
             Assert.DoesNotContain("\"\"", copy.ToJson());

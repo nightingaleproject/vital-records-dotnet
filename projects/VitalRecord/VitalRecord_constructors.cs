@@ -72,7 +72,7 @@ namespace VR
                     }
 
                     // Validate the partial dates.
-                    VitalRecord.ValidatePartialDates(Bundle);
+                    ValidatePartialDates(Bundle);
 
                     Navigator = Bundle.ToTypedElement();
                 }
@@ -179,8 +179,9 @@ namespace VR
         /// <summary>Add a reference to the Vital Record Composition.</summary>
         /// <param name="reference">a reference.</param>
         /// <param name="code">the code for the section to add to.</param>
+        /// <param name="focusId">the identifier of the resource that is the focus of the section, ignored if null</param>
         /// The sections are defined by the child class
-        protected void AddReferenceToComposition(string reference, string code)
+        protected void AddReferenceToComposition(string reference, string code, string focusId = null)
         {
             // In many of the createXXXXXX methods this gets called as a last step to add a reference to the new instance to the composition.
             // The Composition is present only in the DeathCertificateDocument, and is absent in all of the other bundles.
@@ -205,9 +206,14 @@ namespace VR
                 if (section.Code == null)
                 {
                     Dictionary<string, string> coding = new Dictionary<string, string>();
-                    coding["system"] = VR.CodeSystems.DocumentSections;
+                    // Default to VR.CodeSystems.DocumentSections but overriden by BFDR since it uses a different code system for sections
+                    coding["system"] = CompositionSectionCodeSystem;
                     coding["code"] = code;
                     section.Code = DictToCodeableConcept(coding);
+                    if (focusId != null)
+                    {
+                        section.Focus = new ResourceReference($"urn:uuid:{focusId}");
+                    }
                     Composition.Section.Add(section);
                 }
                 section.Entry.Add(new ResourceReference("urn:uuid:" + reference));

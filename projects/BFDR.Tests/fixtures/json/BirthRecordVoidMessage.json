@@ -1,0 +1,54 @@
+{
+  "resourceType": "Bundle",
+  "id": "8549fd98-7edd-4137-a176-7d11ea6d094c",
+  "type": "message",
+  "timestamp": "2023-12-13T13:01:30.368827-05:00",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:fcf931ba-4434-43c0-8ea8-04c31a9fd850",
+      "resource": {
+        "resourceType": "MessageHeader",
+        "id": "fcf931ba-4434-43c0-8ea8-04c31a9fd850",
+        "eventUri": "http://nchs.cdc.gov/bfdr_submission_void",
+        "destination": [
+          {
+            "endpoint": "http://nchs.cdc.gov/bfdr_submission"
+          }
+        ],
+        "source": {
+          "endpoint": "http://mitre.org/bfdr"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:7e4f847d-0233-4dd8-95fd-b6f22043cf7c",
+      "resource": {
+        "resourceType": "Parameters",
+        "id": "7e4f847d-0233-4dd8-95fd-b6f22043cf7c",
+        "parameter": [
+          {
+            "name": "cert_no",
+            "valueUnsignedInt": 48858
+          },
+          {
+            "name": "state_auxiliary_id",
+            "valueString": "000000000042"
+          },
+          {
+            "name": "birth_year",
+            "valueUnsignedInt": 2019
+          },
+          {
+            "name": "jurisdiction_id",
+            "valueString": "UT"
+          },
+          {
+            "name": "block_count",
+            "valueUnsignedInt": 10
+          }
+        ]
+      }
+    }
+  ]
+}
+

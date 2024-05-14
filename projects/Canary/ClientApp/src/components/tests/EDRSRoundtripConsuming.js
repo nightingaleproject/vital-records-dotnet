@@ -24,7 +24,7 @@ export class EDRSRoundtripConsuming extends Component {
     var self = this;
     if (!!this.props.params.id) {
       axios
-        .get(window.API_URL + '/tests/' + this.props.params.id)
+        .get(`${window.API_URL}/tests/${this.props.params.recordType}/${this.props.params.id}`)
         .then(function(response) {
           var test = response.data;
           test.results = JSON.parse(test.results);
@@ -37,7 +37,7 @@ export class EDRSRoundtripConsuming extends Component {
         });
     } else {
       axios
-        .get(window.API_URL + '/tests/new')
+        .get(`${window.API_URL}/tests/${this.props.params.recordType}/new`)
         .then(function(response) {
           self.setState({ test: response.data, fhirRecord: response.data.referenceRecord, loading: false });
         })
@@ -68,7 +68,7 @@ export class EDRSRoundtripConsuming extends Component {
     var self = this;
     this.setState({ running: true }, () => {
       axios
-        .post(window.API_URL + '/tests/RoundtripConsuming/run/' + this.state.test.testId, this.setEmptyToNull(this.state.ijeRecord.fhirInfo))
+        .post(`${window.API_URL}/tests/${this.props.params.recordType}/RoundtripConsuming/run/${this.state.test.testId}`, this.setEmptyToNull(this.state.ijeRecord.fhirInfo))
         .then(function(response) {
           var test = response.data;
           test.results = JSON.parse(test.results);
@@ -95,11 +95,11 @@ export class EDRSRoundtripConsuming extends Component {
         <Grid id="scroll-to">
           <Grid.Row>
             <Breadcrumb>
-              <Breadcrumb.Section as={Link} to="/">
+              <Breadcrumb.Section as={Link} to={`/${this.props.params.recordType}`}>
                 Dashboard
               </Breadcrumb.Section>
               <Breadcrumb.Divider icon="right chevron" />
-              <Breadcrumb.Section>VRDR Record Roundtrip (Consuming)</Breadcrumb.Section>
+              <Breadcrumb.Section>{this.props.params.recordType.toUpperCase()} Record Roundtrip (Consuming)</Breadcrumb.Section>
             </Breadcrumb>
           </Grid.Row>
           {!!this.state.test && this.state.test.completedBool && (
@@ -178,7 +178,7 @@ export class EDRSRoundtripConsuming extends Component {
                     </Header.Content>
                   </Header>
                   <div className="p-b-10" />
-                  <Getter updateRecord={this.updateRecord} allowIje={true} ijeOnly={true} noFormat />
+                  <Getter updateRecord={this.updateRecord} allowIje={true} ijeOnly={true} noFormat recordType={this.props.params.recordType} />
                   <Issues issues={this.state.issues} />
                 </Container>
               </Grid.Row>

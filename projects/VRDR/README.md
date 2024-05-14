@@ -1,12 +1,11 @@
-[![Build Status](https://travis-ci.org/nightingaleproject/vrdr-dotnet.svg?branch=master)](https://travis-ci.org/nightingaleproject/vrdr-dotnet)
-[![Nuget](https://img.shields.io/nuget/v/VRDR?label=VRDR%20%28nuget%29)](https://www.nuget.org/packages/VRDR)
-[![Nuget](https://img.shields.io/nuget/v/VRDR.Messaging?label=VRDR.Messaging%20%28nuget%29)](https://www.nuget.org/packages/VRDR.Messaging)
+[![Nuget](https://img.shields.io/nuget/v/VRDR?label=VRDR)](https://www.nuget.org/packages/VRDR)
+[![Nuget](https://img.shields.io/nuget/v/VRDR.Messaging?label=VRDR.Messaging)](https://www.nuget.org/packages/VRDR.Messaging)
 
 # vrdr-dotnet
 
 This repository includes .NET (C#) code for
 
-- Producing and consuming the Vital Records Death Reporting (VRDR) Health Level 7 (HL7) Fast Healthcare Interoperability Resources (FHIR) standard. [Click here to view the FHIR Implementation Guide STU2.1](http://hl7.org/fhir/us/vrdr/STU2.1).
+- Producing and consuming the Vital Records Death Reporting (VRDR) Health Level 7 (HL7) Fast Healthcare Interoperability Resources (FHIR) standard. [Click here to view the FHIR Implementation Guide STU2.2](http://hl7.org/fhir/us/vrdr/STU2.2).
 - Producing and consuming FHIR messages for the exchange of VRDR documents.
 - Support for converting VRDR FHIR records to and from the Inter-Jurisdictional Exchange (IJE) Mortality format, as well as companion microservice for performing conversions.
 - This codebase covers the subset of the IJE fields listed in this [spreadsheet](VRDRdotNETLibraryCoverage.csv).
@@ -28,6 +27,14 @@ Interactions with NCHS are governed by the CI build version of the VRDR and Vita
 <td style="text-align: center;"><strong>VRDR</strong></td>
 <td style="text-align: center;"><strong>VRDR.Messaging</strong></td>
 </tr>
+</tr>
+<tr>
+<td style="text-align: center;"><a href="http://hl7.org/fhir/us/vrdr/STU2.2/">STU2.2</a></td>
+<td style="text-align: center;"><a href="https://nightingaleproject.github.io/vital_records_fhir_messaging_ig/v1.0.1/index.html">v1.0.1</a></td>
+<td style="text-align: center;">R4</td>
+<td style="text-align: center;">V4.1.8</td>
+<td style="text-align: center;"><a href="https://www.nuget.org/packages/VRDR/4.1.8">nuget</a></td>
+<td style="text-align: center;"><a href="https://www.nuget.org/packages/VRDR.Messaging/4.1.8">nuget</a></td>
 </tr>
 <tr>
 <td style="text-align: center;"><a href="http://build.fhir.org/ig/HL7/vrdr/">STU2.1 CI build version</a></td>
@@ -344,7 +351,7 @@ using VRDR;
 IJEMortality ije = new IJEMortality("..."); // This will convert the IJE string to a DeathRecord
 
 // Grab the corresponding FHIR DeathRecord
-DeathRecord deathRecord = ije.ToDeathRecord();
+DeathRecord deathRecord = ije.ToRecord();
 
 // Print out the converted FHIR DeathRecord as a JSON string
 Console.WriteLine(deathRecord.ToJSON());
@@ -419,7 +426,7 @@ ije.trx.CS = "8";
 ije.trx.SHIP = "876";
 
 // Create the message
-CauseOfDeathCodingMessage message = new CauseOfDeathCodingMessage(ije.ToDeathRecord());
+CauseOfDeathCodingMessage message = new CauseOfDeathCodingMessage(ije.ToRecord());
 
 // Set the source and destination
 message.MessageSource = "http://nchs.cdc.gov/vrdr_submission";

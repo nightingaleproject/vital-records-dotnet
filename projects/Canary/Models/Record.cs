@@ -1,23 +1,26 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
-using VR;
 using VRDR;
+using VR;
 using Newtonsoft.Json;
 using System.IO;
 using System.Text.Json.Nodes;
+using BFDR;
 
 namespace canary.Models
 {
     public class RecordContext : DbContext
     {
-        public DbSet<Record> Records { get; set; }
+
+        public DbSet<CanaryDeathRecord> DeathRecords { get; set; }
+        public DbSet<CanaryBirthRecord> BirthRecords { get; set; }
 
         public DbSet<Endpoint> Endpoints { get; set; }
 
-        public DbSet<Test> Tests { get; set; }
+        public DbSet<DeathTest> DeathTests { get; set; }
+        public DbSet<BirthTest> BirthTests { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -28,26 +31,40 @@ namespace canary.Models
         {
             base.OnModelCreating(modelBuilder);
 
+            // Endpoints
             modelBuilder.Entity<Endpoint>().Property(b => b.Issues).HasConversion(v => JsonConvert.SerializeObject(v),
                 v => JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(v));
 
             modelBuilder.Entity<Endpoint>().Property(b => b.Record).HasConversion(v => JsonConvert.SerializeObject(v),
                 v => JsonConvert.DeserializeObject<Record>(v));
 
+            // Common Record Serializer
             modelBuilder.Entity<Record>().Property(b => b.IjeInfo).HasConversion(v => JsonConvert.SerializeObject(v),
                 v => JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(v));
 
-            modelBuilder.Entity<Test>().Property(t => t.ReferenceRecord).HasConversion(t => t.GetRecord().ToXML(),
-                t => new Record(t));
+            // VRDR
+            modelBuilder.Entity<DeathTest>().Property(t => t.ReferenceRecord).HasConversion(t => t.GetRecord().ToXML(),
+                t => new CanaryDeathRecord(t));
 
-            modelBuilder.Entity<Test>().Property(t => t.TestRecord).HasConversion(t => t.GetRecord().ToXML(),
-                t => new Record(t));
+            modelBuilder.Entity<DeathTest>().Property(t => t.TestRecord).HasConversion(t => t.GetRecord().ToXML(),
+                t => new CanaryDeathRecord(t));
+
+            modelBuilder.Entity<CanaryDeathMessage>();
+
+            // BFDR
+            modelBuilder.Entity<BirthTest>().Property(t => t.ReferenceRecord).HasConversion(t => t.GetRecord().ToXML(),
+                t => new CanaryBirthRecord(t));
+
+            modelBuilder.Entity<BirthTest>().Property(t => t.TestRecord).HasConversion(t => t.GetRecord().ToXML(),
+                t => new CanaryBirthRecord(t));
+
+            modelBuilder.Entity<CanaryBirthMessage>();
         }
     }
 
-    public class Record
+    public abstract class Record
     {
-        private DeathRecord record { get; set; }
+        protected VitalRecord record { get; set; }
 
         private string ije { get; set; }
 
@@ -65,8 +82,8 @@ namespace canary.Models
             }
             set
             {
-                record = new DeathRecord(value);
-                ije = new IJEMortality(record).ToString();
+                record = this.CreateRecordFromFHIR(value);
+                ije = this.CreateIJEFromRecord(this.record).ToString();
             }
         }
 
@@ -82,8 +99,8 @@ namespace canary.Models
             }
             set
             {
-                record = new DeathRecord(value);
-                ije = new IJEMortality(record).ToString();
+                record = this.CreateRecordFromFHIR(value);
+                ije = this.CreateIJEFromRecord(this.record).ToString();
             }
         }
 
@@ -99,12 +116,12 @@ namespace canary.Models
             }
             set
             {
-                record = new IJEMortality(value).ToDeathRecord();
+                this.record = this.CreateIJEFromString(value).ToRecord();
                 ije = value;
             }
         }
 
-        public DeathRecord GetRecord()
+        public VitalRecord GetRecord()
         {
             return record;
         }
@@ -114,9 +131,9 @@ namespace canary.Models
             get
             {
                 string ijeString = ije;
-                List<PropertyInfo> properties = typeof(IJEMortality).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Field).ToList();
+                List<PropertyInfo> properties = this.GetIJEProperties();
                 List<Dictionary<string, string>> propList = new List<Dictionary<string, string>>();
-                foreach(PropertyInfo property in properties)
+                foreach (PropertyInfo property in properties)
                 {
                     IJEField info = property.GetCustomAttribute<IJEField>();
                     string field = ijeString.Substring(info.Location - 1, info.Length);
@@ -149,57 +166,70 @@ namespace canary.Models
             }
             set
             {
-                record = DeathRecord.FromDescription(value);
-                ije = new IJEMortality(record).ToString();
+                this.record = this.CreateRecordFromDescription(value);
+                this.ije = this.CreateIJEFromRecord(this.record).ToString();
             }
         }
 
         public Record()
         {
-            record = new DeathRecord();
-            ije = new IJEMortality(record, false).ToString();
+            record = this.CreateEmptyRecord();
+            this.ije = this.CreateIJEFromRecord(this.record, false).ToString();
         }
 
-        public Record(DeathRecord record)
+        public Record(VitalRecord record)
         {
             this.record = record;
-            ije = new IJEMortality(this.record, false).ToString();
+            this.ije = this.CreateIJEFromRecord(record, false).ToString();
         }
 
         public Record(string record)
         {
-            this.record = new DeathRecord(record);
-            ije = new IJEMortality(this.record, false).ToString();
+            this.record = this.CreateRecordFromFHIR(record);
+            this.ije = this.CreateIJEFromRecord(this.record, false).ToString();
         }
 
         public Record(string record, bool permissive)
         {
-            this.record = new DeathRecord(record, permissive);
-            ije = new IJEMortality(this.record).ToString();
+            this.record = this.CreateRecordFromFHIR(record, permissive);
+            this.ije = this.CreateIJEFromRecord(this.record).ToString();
         }
+
+        protected abstract VitalRecord CreateEmptyRecord();
+
+        protected abstract VitalRecord CreateRecordFromDescription(string value);
+
+        protected abstract VitalRecord CreateRecordFromFHIR(string fhir, bool permissive = true);
+
+        protected abstract VitalRecord GenerateFakeRecord(string state, string type, string sex);
+
+        protected abstract IJE CreateIJEFromRecord(VitalRecord record, bool permissive = true);
+
+        protected abstract IJE CreateIJEFromString(string value, bool permissive = true);
+
+        protected abstract List<PropertyInfo> GetIJEProperties();
 
         /// <summary>Check the given FHIR record string and return a list of issues. Also returned
         /// the parsed record if parsing was successful.</summary>
-        public static (Record record, List<Dictionary<string, string>> issues) CheckGet(string record, bool permissive)
+        protected static Record CheckGet(Record recordToSerialize, out List<Dictionary<string, string>> issues)
         {
             Record newRecord = null;
             List<Dictionary<string, string>> entries = new List<Dictionary<string, string>>();
             try
             {
-                Record recordToSerialize = new Record(new DeathRecord(record, permissive));
                 // If the object fails to serialize then it will not be possible for canary to return it to the user
                 // (since canary has to serialize it to JSON in order to do so). This is why serialization is tested
                 // here and if it passes then the record is considered "safe" to return.
                 JsonConvert.SerializeObject(recordToSerialize);
                 newRecord = recordToSerialize;
                 validateRecordType(newRecord);
-                return (record: newRecord, issues: entries);
             }
             catch (Exception e)
             {
                 entries = DecorateErrors(e);
             }
-            return (record: newRecord, issues: entries);
+            issues = entries;
+            return newRecord;
         }
 
         /// <summary>Recursively call InnerException and add all errors to the list until we reach the BaseException.</summary>
@@ -260,10 +290,10 @@ namespace canary.Models
         /// <summary>Populate this record with synthetic data.</summary>
         public void Populate(string state = "MA", string type = "Natural", string sex = "Male")
         {
-            DeathRecordFaker faker = new DeathRecordFaker(state, type, sex);
-            record = faker.Generate(true);
-            ije = new IJEMortality(record).ToString();
+            this.record = this.GenerateFakeRecord(state, type, sex);
+            this.Ije = this.CreateIJEFromRecord(this.record, true).ToString();
         }
+
     }
 
 }

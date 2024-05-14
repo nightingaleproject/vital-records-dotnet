@@ -13,7 +13,7 @@ jobs:
         working-directory: ./projects
     strategy:
       matrix:
-        proj: [VRDR, VRDR.Messaging, VRDR.Client, VitalRecord]
+        proj: [VRDR, VRDR.Messaging, VRDR.Client, VitalRecord, VitalRecord.Messaging, BFDR, BFDR.Messaging]
     steps:
       - uses: actions/checkout@v3
       - name: Publish to NuGet

@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using Xunit;
 using Hl7.Fhir.Model;
+using VR;
 
 namespace VRDR.Tests
 {
@@ -578,7 +579,7 @@ namespace VRDR.Tests
             Assert.Equal(8, (int)message.DeathRecord.CoderStatus);
             Assert.Equal("876", message.DeathRecord.ShipmentNumber);
             Assert.Equal(ValueSets.IntentionalReject.Reject4, message.DeathRecord.IntentionalRejectHelper);
-            Assert.Equal(ValueSets.AcmeSystemReject.Micar_Reject_Rule_Application, message.DeathRecord.AcmeSystemRejectHelper);
+            Assert.Equal(ValueSets.SystemReject.Micar_Reject_Rule_Application, message.DeathRecord.AcmeSystemRejectHelper);
             Assert.Equal(ValueSets.TransaxConversion.Duplicate_Entity_Axis_Codes_Deleted_No_Other_Action_Involved, message.DeathRecord.TransaxConversionHelper);
             Assert.Equal(ValueSets.MannerOfDeath.Accidental_Death, message.DeathRecord.MannerOfDeathTypeHelper);
             Assert.Equal(ValueSets.PlaceOfInjury.Farm, message.DeathRecord.PlaceOfInjuryHelper);
@@ -651,7 +652,7 @@ namespace VRDR.Tests
             Assert.Equal(8, (int)message.DeathRecord.CoderStatus);
             Assert.Equal("876", message.DeathRecord.ShipmentNumber);
             Assert.Equal(ValueSets.IntentionalReject.Reject4, message.DeathRecord.IntentionalRejectHelper);
-            Assert.Equal(ValueSets.AcmeSystemReject.Micar_Reject_Rule_Application, message.DeathRecord.AcmeSystemRejectHelper);
+            Assert.Equal(ValueSets.SystemReject.Micar_Reject_Rule_Application, message.DeathRecord.AcmeSystemRejectHelper);
             Assert.Equal(ValueSets.TransaxConversion.Duplicate_Entity_Axis_Codes_Deleted_No_Other_Action_Involved, message.DeathRecord.TransaxConversionHelper);
             Assert.Equal(ValueSets.MannerOfDeath.Accidental_Death, message.DeathRecord.MannerOfDeathTypeHelper);
             Assert.Equal(ValueSets.PlaceOfInjury.Farm, message.DeathRecord.PlaceOfInjuryHelper);
@@ -1084,7 +1085,8 @@ namespace VRDR.Tests
         {
             // verifies the Generic Message Parser allows for messages based on the old IG 1.2
             string trxMsg = FixtureStream("fixtures/json/old-trx-pre-IGv13.json").ReadToEnd();
-            BaseMessage msg = BaseMessage.ParseGenericMessage(trxMsg, true);
+            // Note: generic message parsing was moved from BaseMessage to CommonMessage since it's only used by the API
+            CommonMessage msg = CommonMessage.ParseGenericMessage(trxMsg, true);
             Assert.Equal("http://nchs.cdc.gov/vrdr_coding", msg.MessageType);
         }
 

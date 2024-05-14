@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using Hl7.Fhir.Model;
 
 // DeathRecord_fieldsAndCreateMethods.cs
@@ -12,6 +13,10 @@ namespace VR
     /// </summary>
     public partial class VitalRecord
     {
+        private static ExtensionURL extensions = new ExtensionURL();
+        /// <summary>Overridable instance of ExtensionURL that allow changing the URL prefix by subclasses</summary>
+        protected virtual ExtensionURL VRExtensionURLs => extensions;
+        
         /// <summary>Bundle that contains the vital record.</summary>
         protected Bundle Bundle;
 
@@ -20,5 +25,10 @@ namespace VR
 
         /// <summary>CompositionSections that define the codes that represent the different sections in the composition, to be overwritten in the child class</summary>
         protected abstract string[] CompositionSections { get; }
+
+        /// <summary>CompositionSectionCodeSystem defines the code system that is used to represent the different sections in the composition, may be overwritten in the child class
+        /// 
+        /// </summary>
+        protected virtual string CompositionSectionCodeSystem { get => VR.CodeSystems.DocumentSections; }
     }
 }
