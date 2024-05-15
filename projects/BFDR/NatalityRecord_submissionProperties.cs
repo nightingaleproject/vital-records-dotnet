@@ -5967,7 +5967,8 @@ namespace BFDR
             set => (GetFacilityLocation(ValueSets.LocationTypes.Transfer_To_Location) ?? CreateAndSetLocationBirth(ValueSets.LocationTypes.Transfer_To_Location)).Name = value;
         }
 
-        private Location GetFacilityLocation(string code) {
+        /// <summary>Helper method to return birth/delivery or transfer facility location.</summary>
+        public Location GetFacilityLocation(string code) {
             return (Location)Bundle.Entry.Where(e => e.Resource is Location loc && loc.Type.Any(type => type.Coding.Any(coding => coding.System == CodeSystems.LocalBFDRCodes && coding.Code == code))).FirstOrDefault()?.Resource;
         }
 
