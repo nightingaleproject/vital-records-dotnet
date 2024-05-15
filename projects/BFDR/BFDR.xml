@@ -3210,7 +3210,7 @@
             <para>// Setter:</para>
             <para>ExampleBirthRecord.BirthFacilityName = "South Hospital";</para>
             <para>// Getter:</para>
-            <para>Console.WriteLine($"Jurisdictional Facility Identifier: {ExampleBirthRecord.BirthFacilityName}");</para>
+            <para>Console.WriteLine($"Birth Facility Name: {ExampleBirthRecord.BirthFacilityName}");</para>
             </example>
         </member>
         <member name="P:BFDR.NatalityRecord.FacilityMotherTransferredFrom">

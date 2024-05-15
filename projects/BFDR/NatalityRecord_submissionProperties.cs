@@ -5753,6 +5753,10 @@ namespace BFDR
             set 
             {
                 Observation obs = GetOrCreateObservation("8302-2", CodeSystems.LOINC, BFDR.ProfileURL.ObservationMotherHeight, MOTHER_PRENATAL_SECTION, Mother.Id);
+                if (obs.Value == null)
+                {
+                    obs.Value = new FhirString();
+                }
                 obs.Value.Extension.RemoveAll(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
 
                 if (String.IsNullOrEmpty(value))
@@ -6026,9 +6030,9 @@ namespace BFDR
         /// <para>// Setter:</para>
         /// <para>ExampleBirthRecord.BirthFacilityName = "South Hospital";</para>
         /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Jurisdictional Facility Identifier: {ExampleBirthRecord.BirthFacilityName}");</para>
+        /// <para>Console.WriteLine($"Birth Facility Name: {ExampleBirthRecord.BirthFacilityName}");</para>
         /// </example>
-        [Property("Facility ID (JFI)", Property.Types.String, "Birth Location", "Facility ID (JFI), Jurisdictional Facility Identifier", true, IGURL.LocationBFDR, true, 34)]
+        [Property("Birth Facility Name", Property.Types.String, "Birth Location", "Birth Facility Name", true, IGURL.LocationBFDR, true, 34)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87300-0')", "")]
         public string BirthFacilityName
         {
@@ -6060,7 +6064,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Facility Mother Transferred From: {ExampleBirthRecord.FacilityInfantTransferredTo}");</para>
         /// </example>
-        [Property("cility Infant Transferred To", Property.Types.String, "Birth Location", "Facility Infant Transferred To (if transferred w/in 24 hours)", true, IGURL.LocationBFDR, true, 34)]
+        [Property("Facility Infant Transferred To", Property.Types.String, "Birth Location", "Facility Infant Transferred To (if transferred w/in 24 hours)", true, IGURL.LocationBFDR, true, 34)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87300-0')", "")]
         public string FacilityInfantTransferredTo
         {
