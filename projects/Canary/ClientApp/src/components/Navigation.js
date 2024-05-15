@@ -92,7 +92,7 @@ export function Navigation(props) {
               VRDR {window.VRDR_VERSION};
             </small>
             <small>
-              BFDR pre-2.0
+              BFDR {window.BFDR_VERSION};
             </small>
           </span>
         </Menu.Item>
