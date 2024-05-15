@@ -312,6 +312,32 @@
         <member name="P:BFDR.FetalDeathRecord.OtherCOD_OtherFetalConditionsDisordersLiteral">
             <summary>Other significant causes or conditions, Other fetal conditions/disorders literal.</summary>
         </member>
+        <member name="P:BFDR.FetalDeathRecord.PlaceOfDelivery">
+            <summary>Place of Delivery.</summary>
+            <value>Place of Delivery. A Dictionary representing place of delivery address, containing the following key/value pairs:
+            <para>"addressLine1" - address, line one</para>
+            <para>"addressLine2" - address, line two</para>
+            <para>"addressCity" - address, city</para>
+            <para>"addressCounty" - address, county</para>
+            <para>"addressState" - address, state</para>
+            <para>"addressZip" - address, zip</para>
+            <para>"addressCountry" - address, country</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; address = new Dictionary&lt;string, string&gt;();</para>
+            <para>address.Add("addressLine1", "123 Test Street");</para>
+            <para>address.Add("addressLine2", "Unit 3");</para>
+            <para>address.Add("addressCity", "Boston");</para>
+            <para>address.Add("addressCounty", "Suffolk");</para>
+            <para>address.Add("addressState", "MA");</para>
+            <para>address.Add("addressZip", "12345");</para>
+            <para>address.Add("addressCountry", "US");</para>
+            <para>ExampleBirthRecord.PlaceOfDelivery = address;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"State where baby was delivered: {ExampleBirthRecord.PlaceOfDelivery["addressState"]}");</para>
+            </example>
+        </member>
         <member name="T:BFDR.IJEBirth">
             <summary>A "wrapper" class to convert between a FHIR based <c>BirthRecord</c> and
             a record in IJE Natality format. Each property of this class corresponds exactly
@@ -4590,6 +4616,9 @@
             <para>// Getter:</para>
             <para>Console.WriteLine($"Facility Mother Transferred From: {ExampleBirthRecord.FacilityInfantTransferredTo}");</para>
             </example>
+        </member>
+        <member name="M:BFDR.NatalityRecord.GetFacilityLocation(System.String)">
+            <summary>Helper method to return birth/delivery or transfer facility location.</summary>
         </member>
         <member name="P:BFDR.NatalityRecord.LastMenstrualPeriod">
             <summary>Last Menstrual Period.</summary>
