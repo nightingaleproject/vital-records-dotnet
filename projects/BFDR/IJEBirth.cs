@@ -11,12 +11,12 @@ namespace BFDR
     /// FHIR based <c>BirthRecord</c> to the IJE format for a specific field, and
     /// the setters convert from IJE format for a specific field and set that value
     /// on the embedded FHIR based <c>BirthRecord</c>.</summary>
-    public class IJEBirth : IJE
+    public class IJEBirth : IJENatality
     {
         private readonly BirthRecord record;
 
         /// <summary>Constructor that takes a <c>BirthRecord</c>.</summary>
-        public IJEBirth(BirthRecord record, bool validate = true)
+        public IJEBirth(BirthRecord record, bool validate = true) : base(record, validate)
         {
             this.record = record;
             if (validate)
@@ -51,6 +51,15 @@ namespace BFDR
 
         /// <summary>FHIR based vital record.</summary>
         protected override VitalRecord Record
+        {
+            get
+            {
+                return this.record;
+            }
+        }
+
+        /// <summary>FHIR based natality record.</summary>
+        protected override NatalityRecord NatalityRecord
         {
             get
             {

@@ -550,47 +550,5 @@ namespace VR
                 field(false);
             }
         }
-
-        /// <summary>Checks if the given race exists in the record for Mother.</summary>
-        protected string Get_MotherRace(string name)
-        {
-            Tuple<string, string>[] raceStatus = Record.MotherRace.ToArray();
-
-            Tuple<string, string> raceTuple = Array.Find(raceStatus, element => element.Item1 == name);
-            if (raceTuple != null)
-            {
-                return (raceTuple.Item2).Trim();
-            }
-            return "";
-        }
-
-        /// <summary>Adds the given race to the record for Mother.</summary>
-        protected void Set_MotherRace(string name, string value)
-        {
-            List<Tuple<string, string>> raceStatus = Record.MotherRace.ToList();
-            raceStatus.Add(Tuple.Create(name, value));
-            Record.MotherRace = raceStatus.Distinct().ToArray();
-        }
-
-        /// <summary>Checks if the given race exists in the record for Father.</summary>
-        protected string Get_FatherRace(string name)
-        {
-            Tuple<string, string>[] raceStatus = Record.FatherRace.ToArray();
-
-            Tuple<string, string> raceTuple = Array.Find(raceStatus, element => element.Item1 == name);
-            if (raceTuple != null)
-            {
-                return (raceTuple.Item2).Trim();
-            }
-            return "";
-        }
-
-        /// <summary>Adds the given race to the record for Father.</summary>
-        protected void Set_FatherRace(string name, string value)
-        {
-            List<Tuple<string, string>> raceStatus = Record.FatherRace.ToList();
-            raceStatus.Add(Tuple.Create(name, value));
-            Record.FatherRace = raceStatus.Distinct().ToArray();
-        }
     }
 }
