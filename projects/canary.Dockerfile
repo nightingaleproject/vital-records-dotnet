@@ -16,4 +16,5 @@ FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine AS runtime
 WORKDIR /app
 COPY --from=build-env /app/out .
 COPY --from=build-env /app/Canary/canary.db .
-ENTRYPOINT ["dotnet", "canary.dll"]
+RUN apk add --no-cache --upgrade bash
+ENTRYPOINT ["dotnet", "Canary.dll"]
