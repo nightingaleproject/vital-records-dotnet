@@ -283,30 +283,16 @@ namespace BFDR
         [IJEField(12, 39, 12, "Facility ID (NPI) - If available", "FNPI", 1)]
         public string FNPI
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("FNPI", "FacilityNPI");
+            set => LeftJustified_Set("FNPI", "FacilityNPI", value);
         }
 
         /// <summary>Facility ID (State-Assigned)</summary>
         [IJEField(13, 51, 4, "Facility ID (State-Assigned)", "SFN", 1)]
         public string SFN
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("SFN", "FacilityJFI");
+            set => LeftJustified_Set("SFN", "FacilityJFI", value);
         }
 
         /// <summary>Date of Birth (Mother)--Year</summary>
@@ -3211,15 +3197,8 @@ namespace BFDR
         [IJEField(224, 2905, 50, "Name of Delivery Facility", "HOSP_D", 1)]
         public string HOSP_D
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("HOSP_D", "BirthFacilityName");
+            set => LeftJustified_Set("HOSP_D", "BirthFacilityName", value);
         }
 
         /// <summary>Place of Delivery Street number</summary>
@@ -3228,12 +3207,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Dictionary_Geo_Get("STNUM_D", "PlaceOfDelivery", "address", "stnum", false);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Dictionary_Geo_Set("STNUM_D", "PlaceOfDelivery", "address", "stnum", false, value);
+                }
             }
         }
 
@@ -3243,12 +3224,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Dictionary_Geo_Get("PREDIR_D", "PlaceOfDelivery", "address", "predir", false);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Dictionary_Geo_Set("PREDIR_D", "PlaceOfDelivery", "address", "predir", false, value);
+                }
             }
         }
 
@@ -3258,12 +3241,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Dictionary_Geo_Get("STNAME_D", "PlaceOfDelivery", "address", "stname", false);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Dictionary_Geo_Set("STNAME_D", "PlaceOfDelivery", "address", "stname", false, value);
+                }
             }
         }
 
@@ -3273,12 +3258,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Dictionary_Geo_Get("STDESIG_D", "PlaceOfDelivery", "address", "stdesig", false);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Dictionary_Geo_Set("STDESIG_D", "PlaceOfDelivery", "address", "stdesig", false, value);
+                }
             }
         }
 
@@ -3288,12 +3275,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Dictionary_Geo_Get("POSTDIR_D", "PlaceOfDelivery", "address", "postdir", false);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Dictionary_Geo_Set("POSTDIR_D", "PlaceOfDelivery", "address", "postdir", false, value);
+                }
             }
         }
 
@@ -3303,12 +3292,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Dictionary_Geo_Get("APTNUMB_D", "PlaceOfDelivery", "address", "unitnum", false);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Dictionary_Geo_Set("APTNUMB_D", "PlaceOfDelivery", "address", "unitnum", false, value);
+                }
             }
         }
 
@@ -3318,12 +3309,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Dictionary_Geo_Get("ADDRESS_D", "PlaceOfDelivery", "address", "line1", false);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Dictionary_Geo_Set("ADDRESS_D", "PlaceOfDelivery", "address", "line1", false, value);
+                }
             }
         }
 
@@ -3333,12 +3326,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Dictionary_Geo_Get("ZIPCODE_D", "PlaceOfDelivery", "address", "zip", false);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Dictionary_Geo_Set("ZIPCODE_D", "PlaceOfDelivery", "address", "zip", false, value);
+                }
             }
         }
 
@@ -3348,12 +3343,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Dictionary_Geo_Get("CNTY_D", "PlaceOfDelivery", "address", "county", false);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Dictionary_Geo_Set("CNTY_D", "PlaceOfDelivery", "address", "county", false, value);
+                }
             }
         }
 
@@ -3363,12 +3360,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Dictionary_Geo_Get("CITY_D", "PlaceOfDelivery", "address", "city", false);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Dictionary_Geo_Set("CITY_D", "PlaceOfDelivery", "address", "city", false, value);
+                }
             }
         }
 
@@ -3378,12 +3377,16 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                string stateCode = Dictionary_Geo_Get("STATE_D", "PlaceOfDelivery", "address", "state", false);
+                return IJEData.Instance.StateCodeToStateName(stateCode);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                string stateCode = IJEData.Instance.StateNameToStateCode(value);
+                if (!String.IsNullOrWhiteSpace(stateCode))
+                {
+                    Dictionary_Geo_Set("STATE_D", "PlaceOfDelivery", "address", "state", false, stateCode);
+                }
             }
         }
 
@@ -3393,12 +3396,16 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                string countryCode = Dictionary_Geo_Get("COUNTRY_D", "PlaceOfDelivery", "address", "country", false);
+                return IJEData.Instance.CountryCodeToCountryName(countryCode);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                string countryCode = IJEData.Instance.CountryNameToCountryCode(value);
+                if (!String.IsNullOrWhiteSpace(countryCode))
+                {
+                    Dictionary_Geo_Set("COUNTRY_D", "PlaceOfDelivery", "address", "country", false, countryCode);
+                }
             }
         }
 
@@ -4936,15 +4943,8 @@ namespace BFDR
         [IJEField(339, 4764, 50, "Facility Mother Moved From (if transferred)", "HOSPFROM", 1)]
         public string HOSPFROM
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("HOSPFROM", "FacilityMotherTransferredFrom");
+            set => LeftJustified_Set("HOSPFROM", "FacilityMotherTransferredFrom", value);
         }
 
         /// <summary>Attendant's Name</summary>
