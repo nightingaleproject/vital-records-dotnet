@@ -784,5 +784,45 @@ namespace BFDR.Tests
         }
         Assert.Equal(17, b2.FatherRace.Length);
     }
+
+    [Fact]
+    public void TestImportEducation()
+    {
+      FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
+      Assert.Equal("SEC", record.MotherEducationLevelHelper);
+      Assert.Null(record.FatherEducationLevelHelper);
+      Dictionary<string, string> cc = new Dictionary<string, string>();
+      cc.Add("code", "SEC");
+      cc.Add("system", "http://terminology.hl7.org/CodeSystem/v3-EducationLevel");
+      cc.Add("display", "Some secondary or high school education");
+      cc.Add("text", "9th through 12th grade; no diploma");
+      Assert.Equal(cc, record.MotherEducationLevel);
+      // set after parse
+      record.FatherEducationLevel = cc;
+      Assert.Equal(cc, record.FatherEducationLevel);
+      record.MotherEducationLevelHelper = "SCOL";
+      Assert.Equal("SCOL", record.MotherEducationLevelHelper);
+      Dictionary<string, string> cc2 = new Dictionary<string, string>();
+      cc2.Add("code", "SCOL");
+      cc2.Add("system", "http://terminology.hl7.org/CodeSystem/v3-EducationLevel");
+      cc2.Add("display", "Some College education");
+      Assert.Equal(cc2, record.MotherEducationLevel);
+
+      var coding = new Dictionary<string, string>();
+      coding.Add("code", "1");
+      coding.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");
+      record.MotherEducationLevelEditFlag = coding;
+      Assert.Equal("1", record.MotherEducationLevelEditFlagHelper);
+      Assert.Equal("1", record.MotherEducationLevelEditFlag["code"]);
+      record.FatherEducationLevelEditFlag = coding;
+      Assert.Equal("1", record.FatherEducationLevelEditFlagHelper);
+      Assert.Equal("1", record.FatherEducationLevelEditFlag["code"]);
+
+      IJEFetalDeath ije = new(record);
+      Assert.Equal("2", ije.FEDUC);
+      Assert.Equal("4", ije.MEDUC);
+      Assert.Equal("1", ije.FEDUC_BYPASS);
+      Assert.Equal("1", ije.MEDUC_BYPASS);
+    }
   }
 }
