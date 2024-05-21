@@ -54,7 +54,7 @@ namespace BFDR.Tests
     }
 
     [Fact]
-    public void Get_AutopsyorHistologicalExamResultsUsed()
+    public void GetAutopsyorHistologicalExamResultsUsed()
     {
         Dictionary<string, string> cc = new Dictionary<string, string>();
         cc.Add("code", VR.ValueSets.YesNoNotApplicable.Codes[1, 0]);
@@ -67,7 +67,7 @@ namespace BFDR.Tests
     }
 
     [Fact]
-    public void Set_AutopsyPerformedIndicator()
+    public void SetAutopsyPerformedIndicator()
     {
         Dictionary<string, string> cc = new Dictionary<string, string>();
         cc.Add("code", VR.ValueSets.YesNoUnknown.Codes[1, 0]);
@@ -96,7 +96,7 @@ namespace BFDR.Tests
     }
 
     [Fact]
-    public void Get_AutopsyPerformedIndicator()
+    public void GetAutopsyPerformedIndicator()
     {
         Assert.Equal(VR.ValueSets.YesNoUnknown.Yes, BasicFetalDeathRecord.AutopsyPerformedIndicatorHelper);
         Assert.Equal("Y", BasicFetalDeathRecord.AutopsyPerformedIndicator["code"]);
@@ -165,7 +165,7 @@ namespace BFDR.Tests
     }
 
     [Fact]
-    public void Set_BirthWeight()
+    public void SetBirthWeight()
     {
         // Birth Weight
         Assert.Null(SetterFetalDeathRecord.BirthWeight);
@@ -185,7 +185,7 @@ namespace BFDR.Tests
     }  
 
     [Fact]
-    public void Get_BirthWeight()
+    public void GetBirthWeight()
     {
         Assert.Equal(3333, BasicFetalDeathRecord.BirthWeight);
         Assert.Equal(BFDR.ValueSets.BirthWeightEditFlags.Off, BasicFetalDeathRecord.BirthWeightEditFlagHelper);
@@ -500,7 +500,7 @@ namespace BFDR.Tests
     }
 
     [Fact]
-    public void Set_FetalDeathCauseOrCondition()
+    public void SetFetalDeathCauseOrCondition()
     {
       Assert.False(SetterFetalDeathRecord.PrematureRuptureOfMembranes);
       SetterFetalDeathRecord.PrematureRuptureOfMembranes = true;
@@ -596,7 +596,7 @@ namespace BFDR.Tests
     }
 
     [Fact]
-    public void Set_OtherFetalDeathCauseOrCondition()
+    public void SetOtherFetalDeathCauseOrCondition()
     {
       Assert.False(SetterFetalDeathRecord.OtherCOD_PrematureRuptureOfMembranes);
       SetterFetalDeathRecord.OtherCOD_PrematureRuptureOfMembranes = true;
@@ -895,6 +895,48 @@ namespace BFDR.Tests
       Assert.Equal("0909", br.FacilityJFI);
       Assert.Equal("Bob's Medical Center", br.BirthFacilityName);
       Assert.Equal("Abignale Hospital", br.FacilityMotherTransferredFrom);
+    }
+
+    [Fact]
+    public void SetOccupationIndustry()
+    {
+      FetalDeathRecord fetalDeathRecord = new FetalDeathRecord();
+      fetalDeathRecord.MotherOccupation = "Carpenter";
+      Assert.Equal("Carpenter", fetalDeathRecord.MotherOccupation);
+      fetalDeathRecord.MotherIndustry = "Construction";
+      Assert.Equal("Construction", fetalDeathRecord.MotherIndustry);
+      fetalDeathRecord.FatherOccupation = "Lawyer";
+      Assert.Equal("Lawyer", fetalDeathRecord.FatherOccupation);
+      fetalDeathRecord.FatherIndustry = "Legal Services";
+      Assert.Equal("Legal Services", fetalDeathRecord.FatherIndustry);
+
+      //ije translations
+      IJEFetalDeath ije = new IJEFetalDeath(fetalDeathRecord);
+      Assert.Equal("Carpenter", ije.MOM_OC_T);
+      Assert.Equal("Construction", ije.MOM_IN_T);
+      Assert.Equal("Lawyer", ije.DAD_OC_T);
+      Assert.Equal("Legal Services", ije.DAD_IN_T);
+      FetalDeathRecord fetalDeathRecord2 = ije.ToFetalDeathRecord();
+      Assert.Equal("Carpenter", fetalDeathRecord2.MotherOccupation);
+      Assert.Equal("Construction", fetalDeathRecord2.MotherIndustry);
+      Assert.Equal("Lawyer", fetalDeathRecord2.FatherOccupation);
+      Assert.Equal("Legal Services", fetalDeathRecord2.FatherIndustry);
+    }
+
+    [Fact]
+    public void GetOccupationIndustry()
+    {
+       //parse
+      FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
+      Assert.Equal("Secretary", record.MotherOccupation);
+      Assert.Equal("State Agency", record.MotherIndustry);
+      Assert.Equal("Teaching Assistant", record.FatherOccupation);
+      Assert.Equal("Elementary and Secondary Schools", record.FatherIndustry);
+      //set after parse
+      record.MotherOccupation = "Lawyer";
+      record.MotherIndustry = "Legal Services";
+      Assert.Equal("Lawyer", record.MotherOccupation);
+      Assert.Equal("Legal Services", record.MotherIndustry);
     }
 
     [Fact]
