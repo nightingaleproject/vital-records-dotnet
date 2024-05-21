@@ -4012,12 +4012,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return record.MotherOccupation;
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                record.MotherOccupation = value;
             }
         }
 
@@ -4042,12 +4041,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return record.FatherOccupation;
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                record.FatherOccupation = value;
             }
         }
 
@@ -4072,12 +4070,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return record.MotherIndustry;
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                record.MotherIndustry = value;
             }
         }
 
@@ -4102,12 +4099,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return record.FatherIndustry;
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                record.FatherIndustry = value;
             }
         }
 
