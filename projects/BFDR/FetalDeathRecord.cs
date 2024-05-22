@@ -354,7 +354,7 @@ namespace BFDR
         /// <value>autopsy performed indicator. A null value indicates "not applicable".</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleFetalDeathRecord.AutopsyPerformedIndicatorHelper = "Y"";</para>
+        /// <para>ExampleFetalDeathRecord.AutopsyPerformedIndicatorHelper = "Y";</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Autopsy Performed Indicator: {ExampleDFetaleathRecord.AutopsyPerformedIndicatorBoolean}");</para>
         /// </example>
@@ -364,6 +364,92 @@ namespace BFDR
         {
             get => GetObservationValueHelper();
             set => SetObservationValueHelper(value, VR.ValueSets.YesNoUnknown.Codes);
+        }
+
+        /// <summary>Histological Placental Exam Performed.</summary>
+        /// <value>Histological Placental Exam Performed. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; code = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>code.Add("code", "398166005");</para>
+        /// <para>code.Add("system", CodeSystems.SCT);</para>
+        /// <para>code.Add("display", "Performed");</para>
+        /// <para>ExampleFetalDeathRecord.HistologicalPlacentalExamPerformed = code;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Histological Placental Exam Performed: {ExampleFetalDeathRecord.HistologicalPlacentalExamPerformed['display']}");</para>
+        /// </example>
+        [Property("Histological Placental Exam Performed", Property.Types.Dictionary, "Fetus", "Histological Placental Exam Performed.", true, BFDR.IGURL.ObservationHistologicalPlacentalExamPerformed, true, 149)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='73767-6')", "")]
+        public Dictionary<string, string> HistologicalPlacentalExaminationPerformed
+        {
+            get => GetObservationValue("73767-6");
+            set => SetObservationValue(value, "73767-6", CodeSystems.LOINC, "Histological Placental Exam Performed", BFDR.ProfileURL.ObservationHistologicalPlacentalExamPerformed, FETUS_SECTION);
+        }
+
+        /// <summary>Histological Placental Exam Performed Helper. This is a helper method, to access the code use the HistologicalPlacentalExamPerformed property.</summary>
+        /// <value>Histological Placental Exam Performed.</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleFetalDeathRecord.HistologicalPlacentalExamPerformedHelper = "398166005";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Histological Placental Exam Performed: {ExampleFetalDeathRecord.HistologicalPlacentalExamPerformed}");</para>
+        /// </example>
+        [Property("Histological Placental Exam Performed Helper", Property.Types.String, "Fetus", "Histological Placental Exam Performed.", false, BFDR.IGURL.ObservationHistologicalPlacentalExamPerformed, true, 149)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='73767-6')", "")]
+        public string HistologicalPlacentalExaminationPerformedHelper
+        {
+            get => GetObservationValueHelper();
+            set => SetObservationValueHelper(value, BFDR.ValueSets.HistologicalPlacentalExamination.Codes);
+        }
+
+        /// <summary>Fetal Remains Disposition Method.</summary>
+        /// <value>Fetal Remains Disposition Method. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; code = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>code.Add("code", "449971000124106");</para>
+        /// <para>code.Add("system", CodeSystems.SCT);</para>
+        /// <para>code.Add("display", "Burial");</para>
+        /// <para>ExampleFetalDeathRecord.FetalRemainsDispositionMethod = code;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Fetal Remains Disposition Method: {ExampleFetalDeathRecord.FetalRemainsDispositionMethod['display']}");</para>
+        /// </example>
+        [Property("Fetal Remains Disposition Method", Property.Types.Dictionary, "Fetus", "Fetal Remains Disposition Method.", true, BFDR.IGURL.ObservationFetalRemainsDispositionMethod, true, 4)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='88241-5')", "")]
+        public Dictionary<string, string> FetalRemainsDispositionMethod
+        {
+            get => GetObservationValue("88241-5");
+            set => SetObservationValue(value, "88241-5", CodeSystems.LOINC, "Fetal Remains Disposition Method", BFDR.ProfileURL.ObservationFetalRemainsDispositionMethod, FETUS_SECTION);
+        }
+
+        /// <summary>Fetal Remains Disposition Method Helper. This is a helper method, to access the code use the FetalRemainsDispositionMethod property.</summary>
+        /// <value>Fetal Remains Disposition Method.</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleFetalDeathRecord.FetalRemainsDispositionMethodHelper = "449971000124106";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Fetal Remains Disposition Method: {ExampleFetalDeathRecord.FetalRemainsDispositionMethodHelper}");</para>
+        /// </example>
+        [Property("Fetal Remains Disposition Method Helper", Property.Types.String, "Fetus", "Fetal Remains Disposition Method.", false, BFDR.IGURL.ObservationFetalRemainsDispositionMethod, true, 4)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='88241-5')", "")]
+        public string FetalRemainsDispositionMethodHelper
+        {
+            get => GetObservationValueHelper();
+            set => SetObservationValueHelper(value, BFDR.ValueSets.FetalRemainsDispositionMethod.Codes);
         }
 
         /// <summary>Birth Weight.</summary>
