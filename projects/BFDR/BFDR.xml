@@ -1768,12 +1768,6 @@
         <member name="P:BFDR.IJEFetalDeath.PWGT_BYPASS">
             <summary>Mother's Prepregnancy Weight--Edit Flag</summary>
         </member>
-        <member name="P:BFDR.IJEFetalDeath.DWGT">
-            <summary>Mother's Weight at Delivery(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
-        </member>
-        <member name="P:BFDR.IJEFetalDeath.DWGT_BYPASS">
-            <summary>Mother's Weight at Delivery--Edit Flag(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
-        </member>
         <member name="P:BFDR.IJEFetalDeath.WIC">
             <summary>Did Mother get WIC Food for Herself?</summary>
         </member>
