@@ -825,7 +825,7 @@ namespace BFDR.Tests
     }
 
     [Fact]
-    public void TestImportDeliveryLocation()
+    public void TestImportDeliveryLocation() 
     {
       FetalDeathRecord record = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
       Assert.Equal("116441967701", record.FacilityNPI);
@@ -895,6 +895,98 @@ namespace BFDR.Tests
       Assert.Equal("0909", br.FacilityJFI);
       Assert.Equal("Bob's Medical Center", br.BirthFacilityName);
       Assert.Equal("Abignale Hospital", br.FacilityMotherTransferredFrom);
+    }
+
+    [Fact]
+    public void TestImportLastMenstrualPeriod() 
+    {
+      BirthRecord record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json")));
+      Assert.Equal("2018-06-05", record.LastMenstrualPeriod);
+      Assert.Equal(2018, record.LastMenstrualPeriodYear);
+      Assert.Equal(6, record.LastMenstrualPeriodMonth);
+      Assert.Equal(5, record.LastMenstrualPeriodDay);
+
+      // set after parse
+      record.LastMenstrualPeriod = "2023-02";
+      Assert.Equal("2023-02", record.LastMenstrualPeriod);
+      Assert.Equal(2023, record.LastMenstrualPeriodYear);
+      Assert.Equal(2, record.LastMenstrualPeriodMonth);
+      Assert.Null(record.LastMenstrualPeriodDay);
+    }
+
+    [Fact]
+    public void TestMotherHeightPropertiesSetter()
+    {
+        FetalDeathRecord record = new FetalDeathRecord();
+        // Height
+        Assert.Null(record.MotherHeight);
+        record.MotherHeight = 67;
+        Assert.Equal(67, record.MotherHeight);
+        // Edit Flag
+        Assert.Equal("", record.MotherHeightEditFlag["code"]);
+        record.MotherHeightEditFlagHelper = VR.ValueSets.EditBypass01234.Edit_Passed;
+        Assert.Equal(VR.ValueSets.EditBypass01234.Edit_Passed, record.MotherHeightEditFlag["code"]);
+        // IJE translations
+        IJEFetalDeath ije1 = new IJEFetalDeath(record);
+        Assert.Equal("5", ije1.HFT);
+        Assert.Equal("7", ije1.HIN);  
+        Assert.Equal("0", ije1.HGT_BYPASS);
+    }  
+
+    [Fact]
+    public void TestImportMotherHeightProperties()
+    {
+        FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
+        Assert.Equal(56, record.MotherHeight);
+
+        //set after parse 
+        record.MotherHeight = 68; 
+        Assert.Equal(68, record.MotherHeight);
+    } 
+
+    [Fact]
+    public void TestWeightPropertiesSetter()
+    {
+        FetalDeathRecord record = new FetalDeathRecord();
+        // Prepregnancy Weight
+        Assert.Null(record.MotherPrepregnancyWeight);
+        record.MotherPrepregnancyWeight = 145;
+        Assert.Equal(145, record.MotherPrepregnancyWeight);
+        // Birth Weight
+        Assert.Null(record.BirthWeight);
+        record.BirthWeight = 2500;
+        Assert.Equal(2500, record.BirthWeight);
+        // Edit Flags
+        Assert.Equal("", record.MotherPrepregnancyWeightEditFlag["code"]);
+        record.MotherPrepregnancyWeightEditFlagHelper = BFDR.ValueSets.PregnancyReportEditFlags.Edit_Passed;
+        Assert.Equal(BFDR.ValueSets.PregnancyReportEditFlags.Edit_Passed, record.MotherPrepregnancyWeightEditFlag["code"]);
+        Assert.Equal("", record.BirthWeightEditFlag["code"]);
+        record.BirthWeightEditFlagHelper = BFDR.ValueSets.BirthWeightEditFlags.Off;
+        Assert.Equal(BFDR.ValueSets.BirthWeightEditFlags.Off, record.BirthWeightEditFlag["code"]);
+        // IJE translations
+        IJEFetalDeath ije1 = new IJEFetalDeath(record);
+        Assert.Equal("145", ije1.PWGT);
+        Assert.Equal("0", ije1.PWGT_BYPASS); 
+        // TODO: add these when fetal weight is added
+        // Assert.Equal("2500", ije1.FWG);
+        // Assert.Equal("0", ije1.FW_BYPASS); 
+    }  
+  
+    [Fact]
+    public void TestImportWeightProperties()
+    {
+        FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
+        // Prepregnancy Weight
+        Assert.Equal(180, record.MotherPrepregnancyWeight);
+        // TODO: add these when fetal weight is added
+        // Birth Weight
+        // Assert.Equal(1530, record.BirthWeight);
+
+        // set after parse
+        record.MotherPrepregnancyWeight = 146;
+        // record.BirthWeight = 2502;
+        Assert.Equal(146, record.MotherPrepregnancyWeight);
+        // Assert.Equal(2502, record.BirthWeight);
     }
 
     [Fact]

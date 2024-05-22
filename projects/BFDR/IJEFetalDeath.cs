@@ -1495,12 +1495,25 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                // not using NumericAllowingUnknown_Get due to the length of the ije field (ft) being then imposed on FHIR field (in)
+                // string height_ft = NumericAllowingUnknown_Get("HFT", "MotherHeight");
+                IJEField info = FieldInfo("HFT");
+                int? value = (int?)Record.GetType().GetProperty("MotherHeight").GetValue(record);
+                if (value == -1 || value == null) return new String('9', info.Length); // Explicitly set to unknown
+                return (value / 12).ToString();
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+              if (value != "9" && !string.IsNullOrWhiteSpace(value)){
+                if (!string.IsNullOrWhiteSpace(HIN) && HIN != "-1"){
+                    record.MotherHeight = int.Parse(value)*12+int.Parse(HIN);
+                } else {
+                  record.MotherHeight = int.Parse(value);
+                }
+                record.MotherHeight = int.Parse(value)*12;
+              } else {
+                record.MotherHeight = -1;
+              }
             }
         }
 
@@ -1510,12 +1523,24 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                // not using NumericAllowingUnknown_Get due to the length of the ije field (%12 in) being then imposed on FHIR field (total in)
+                // string height_in = NumericAllowingUnknown_Get("HIN", "MotherHeight");
+                IJEField info = FieldInfo("HIN");
+                int? value = (int?)Record.GetType().GetProperty("MotherHeight").GetValue(record);
+                if (value == -1 || value == null) return new String('9', info.Length); // Explicitly set to unknown
+                return (value % 12).ToString();
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+              if (value != "99" && !string.IsNullOrWhiteSpace(value)){
+                if (!string.IsNullOrWhiteSpace(HFT) && HFT != "-1"){
+                    record.MotherHeight = int.Parse(value)+(int.Parse(HFT)*12);
+                  } else {
+                    record.MotherHeight = int.Parse(value);
+                  }
+              } else {
+                record.MotherHeight = -1;
+              }
             }
         }
 
@@ -1525,12 +1550,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Get_MappingFHIRToIJE(VR.Mappings.EditBypass01234.FHIRToIJE, "MotherHeightEditFlag", "HGT_BYPASS");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                Set_MappingIJEToFHIR(VR.Mappings.EditBypass01234.IJEToFHIR, "HGT_BYPASS", "MotherHeightEditFlag",  value);
             }
         }
 
@@ -1540,12 +1564,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return NumericAllowingUnknown_Get("PWGT", "MotherPrepregnancyWeight");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                NumericAllowingUnknown_Set("PWGT", "MotherPrepregnancyWeight", value);
             }
         }
 
@@ -1555,42 +1578,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return record.MotherPrepregnancyWeightEditFlagHelper;
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
-            }
-        }
-
-        /// <summary>Mother's Weight at Delivery(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
-        [IJEField(93, 451, 3, "Mother's Weight at Delivery(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)", "DWGT", 1)]
-        public string DWGT
-        {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
-        }
-
-        /// <summary>Mother's Weight at Delivery--Edit Flag(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
-        [IJEField(94, 454, 1, "Mother's Weight at Delivery--Edit Flag(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)", "DWGT_BYPASS", 1)]
-        public string DWGT_BYPASS
-        {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
+                record.MotherPrepregnancyWeightEditFlagHelper = value;
             }
         }
 
