@@ -593,6 +593,79 @@ namespace BFDR.Tests
     }
 
     [Fact]
+    public void TestImportDeliveryLocation() 
+    {
+      FetalDeathRecord record = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
+      Assert.Equal("116441967701", record.FacilityNPI);
+      Assert.Equal("UT12", record.FacilityJFI);
+      Assert.Equal("South Hospital", record.BirthFacilityName);
+      Assert.Null(record.FacilityMotherTransferredFrom);
+      Assert.Equal("", record.PlaceOfDelivery["addressStnum"]);
+      Assert.Equal("", record.PlaceOfDelivery["addressPredir"]);
+      Assert.Equal("", record.PlaceOfDelivery["addressStname"]);
+      Assert.Equal("", record.PlaceOfDelivery["addressStdesig"]);
+      Assert.Equal("", record.PlaceOfDelivery["addressPostdir"]);
+      Assert.Equal("", record.PlaceOfDelivery["addressUnitnum"]);
+      Assert.Equal("2100 North Ave", record.PlaceOfDelivery["addressLine1"]);
+      Assert.Equal("84116", record.PlaceOfDelivery["addressZip"]);
+      Assert.Equal("Made Up", record.PlaceOfDelivery["addressCounty"]);
+      Assert.Equal("Salt Lake City", record.PlaceOfDelivery["addressCity"]);
+      Assert.Equal("UT", record.PlaceOfDelivery["addressState"]);
+      Assert.Equal("US", record.PlaceOfDelivery["addressCountry"]);
+
+      IJEFetalDeath ije = new(record);
+      Assert.Equal("2100 North Ave", ije.ADDRESS_D.Trim());
+      Assert.Equal("84116", ije.ZIPCODE_D.Trim());
+      Assert.Equal("Made Up", ije.CNTY_D.Trim());
+      Assert.Equal("Salt Lake City", ije.CITY_D.Trim());
+      Assert.Equal("Utah", ije.STATE_D);
+      Assert.Equal("United States", ije.COUNTRY_D);
+
+      //set after parse
+      Dictionary<string, string> addr = new Dictionary<string, string>();
+      addr["addressState"] = "MA";
+      addr["addressCounty"] = "Middlesex";
+      addr["addressCity"] = "Bedford";
+      record.PlaceOfDelivery = addr;
+      Assert.Equal("MA", record.PlaceOfDelivery["addressState"]);
+      Assert.Equal("Middlesex", record.PlaceOfDelivery["addressCounty"]);
+      Assert.Equal("Bedford", record.PlaceOfDelivery["addressCity"]);
+    }
+
+    [Fact]
+    public void TestSetDeliveryLocation()
+    {
+      BirthRecord br = new()
+      {
+          FacilityNPI = "4815162342",
+          FacilityJFI = "636",
+          BirthFacilityName = "Lahey Hospital",
+          FacilityMotherTransferredFrom = "Sunnyvale Medical",
+      };
+      Assert.Equal("4815162342", br.FacilityNPI);
+      Assert.Equal("636", br.FacilityJFI);
+      Assert.Equal("Lahey Hospital", br.BirthFacilityName);
+      Assert.Equal("Sunnyvale Medical", br.FacilityMotherTransferredFrom);
+      br.FacilityNPI = "999";
+      Assert.Equal("999", br.FacilityNPI);
+      Assert.Equal("636", br.FacilityJFI);
+      Assert.Equal("Lahey Hospital", br.BirthFacilityName);
+      br.FacilityJFI = "0909";
+      Assert.Equal("999", br.FacilityNPI);
+      Assert.Equal("0909", br.FacilityJFI);
+      Assert.Equal("Lahey Hospital", br.BirthFacilityName);
+      br.BirthFacilityName = "Bob's Medical Center";
+      Assert.Equal("999", br.FacilityNPI);
+      Assert.Equal("0909", br.FacilityJFI);
+      Assert.Equal("Bob's Medical Center", br.BirthFacilityName);
+      br.FacilityMotherTransferredFrom = "Abignale Hospital";
+      Assert.Equal("999", br.FacilityNPI);
+      Assert.Equal("0909", br.FacilityJFI);
+      Assert.Equal("Bob's Medical Center", br.BirthFacilityName);
+      Assert.Equal("Abignale Hospital", br.FacilityMotherTransferredFrom);
+    }
+
+    [Fact]
     public void TestImportLastMenstrualPeriod() 
     {
       BirthRecord record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json")));
