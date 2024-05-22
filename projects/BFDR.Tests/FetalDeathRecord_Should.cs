@@ -822,7 +822,7 @@ namespace BFDR.Tests
       fetalDeathRecord.FinalRouteAndMethodOfDelivery = coding;
       Assert.Equal(coding, fetalDeathRecord.FinalRouteAndMethodOfDelivery);
       // IJE record
-
+    }
 
     [Fact]
     public void TestImportDeliveryLocation()
