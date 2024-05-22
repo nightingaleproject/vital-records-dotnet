@@ -15,6 +15,7 @@ window.VERSION_DATE = 'August 15, 2023';
 window.VRDR_VERSION = '5.0.0';
 window.BFDR_VERSION = '1.0.0-preview.3';
 window.VRDR_VERSION_DATE = 'August 15, 2023'; 
+window.BFDR_VERSION = 'v1.0.0-preview';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
