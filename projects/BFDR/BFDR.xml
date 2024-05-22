@@ -325,6 +325,9 @@
         <member name="P:BFDR.IJEBirth.Record">
             <summary>FHIR based vital record.</summary>
         </member>
+        <member name="P:BFDR.IJEBirth.NatalityRecord">
+            <summary>FHIR based natality record.</summary>
+        </member>
         <member name="M:BFDR.IJEBirth.ToBirthRecord">
             <summary>FHIR based vital record.</summary>
             Redundant due to ToRecord(), but kept for compatibility with IJEMortality which has this method for backwards compatibility.
@@ -332,18 +335,6 @@
         <member name="M:BFDR.IJEBirth.ToRecord">
             <summary>FHIR based vital record.</summary>
             Hides the IJE ToRecord method that returns a VitalRecord instead of a BirthRecord
-        </member>
-        <member name="M:BFDR.IJEBirth.Get_MotherRace(System.String)">
-            <summary>Checks if the given race exists in the record for Mother.</summary>
-        </member>
-        <member name="M:BFDR.IJEBirth.Set_MotherRace(System.String,System.String)">
-            <summary>Adds the given race to the record for Mother.</summary>
-        </member>
-        <member name="M:BFDR.IJEBirth.Get_FatherRace(System.String)">
-            <summary>Checks if the given race exists in the record for Father.</summary>
-        </member>
-        <member name="M:BFDR.IJEBirth.Set_FatherRace(System.String,System.String)">
-            <summary>Adds the given race to the record for Father.</summary>
         </member>
         <member name="P:BFDR.IJEBirth.IDOB_YR">
             <summary>Date of Birth (Infant)--Year</summary>
@@ -1426,6 +1417,9 @@
         </member>
         <member name="P:BFDR.IJEFetalDeath.Record">
             <summary>FHIR based vital record.</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.NatalityRecord">
+            <summary>FHIR based natality record.</summary>
         </member>
         <member name="M:BFDR.IJEFetalDeath.ToFetalDeathRecord">
             <summary>FHIR based vital record.</summary>
@@ -2533,6 +2527,34 @@
         </member>
         <member name="P:BFDR.IJEFetalDeath.BLANK2">
             <summary>Blank for Jurisdictional Use Only</summary>
+        </member>
+        <member name="T:BFDR.IJENatality">
+            <summary>Base class for all natality IJE converter classes</summary>
+        </member>
+        <member name="M:BFDR.IJENatality.#ctor">
+            <summary>Default constructor that creates a new, empty NatalityRecord.</summary>
+        </member>
+        <member name="M:BFDR.IJENatality.#ctor(BFDR.NatalityRecord,System.Boolean)">
+            <summary>Constructor that takes a <c>NatalityRecord</c>.</summary>
+        </member>
+        <member name="M:BFDR.IJENatality.#ctor(System.String,System.Boolean)">
+            <summary>Constructor that takes an IJE string and builds a corresponding internal <c>NatalityRecord</c>.</summary>
+        </member>
+        <member name="P:BFDR.IJENatality.NatalityRecord">
+            <summary>FHIR based natality record.</summary>
+        </member>
+        <member name="M:BFDR.IJENatality.Get_MotherRace(System.String)">
+            
+             <summary>Checks if the given race exists in the record for Mother.</summary>
+        </member>
+        <member name="M:BFDR.IJENatality.Set_MotherRace(System.String,System.String)">
+            <summary>Adds the given race to the record for Mother.</summary>
+        </member>
+        <member name="M:BFDR.IJENatality.Get_FatherRace(System.String)">
+            <summary>Checks if the given race exists in the record for Father.</summary>
+        </member>
+        <member name="M:BFDR.IJENatality.Set_FatherRace(System.String,System.String)">
+            <summary>Adds the given race to the record for Father.</summary>
         </member>
         <member name="T:BFDR.Mappings">
             <summary>Mappings between IJE and FHIR value sets</summary>

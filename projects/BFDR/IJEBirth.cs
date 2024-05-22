@@ -11,12 +11,12 @@ namespace BFDR
     /// FHIR based <c>BirthRecord</c> to the IJE format for a specific field, and
     /// the setters convert from IJE format for a specific field and set that value
     /// on the embedded FHIR based <c>BirthRecord</c>.</summary>
-    public class IJEBirth : IJE
+    public class IJEBirth : IJENatality
     {
         private readonly BirthRecord record;
 
         /// <summary>Constructor that takes a <c>BirthRecord</c>.</summary>
-        public IJEBirth(BirthRecord record, bool validate = true)
+        public IJEBirth(BirthRecord record, bool validate = true) : base(record, validate)
         {
             this.record = record;
             if (validate)
@@ -58,6 +58,15 @@ namespace BFDR
             }
         }
 
+        /// <summary>FHIR based natality record.</summary>
+        protected override NatalityRecord NatalityRecord
+        {
+            get
+            {
+                return this.record;
+            }
+        }
+
         /// <summary>FHIR based vital record.</summary>
         /// Redundant due to ToRecord(), but kept for compatibility with IJEMortality which has this method for backwards compatibility.
         public BirthRecord ToBirthRecord()
@@ -77,46 +86,8 @@ namespace BFDR
         // Class helper methods for getting and settings IJE fields.
         //
         /////////////////////////////////////////////////////////////////////////////////
-        /// <summary>Checks if the given race exists in the record for Mother.</summary>
-        private string Get_MotherRace(string name)
-        {
-            Tuple<string, string>[] raceStatus = record.MotherRace.ToArray();
+    
 
-            Tuple<string, string> raceTuple = Array.Find(raceStatus, element => element.Item1 == name);
-            if (raceTuple != null)
-            {
-                return (raceTuple.Item2).Trim();
-            }
-            return "";
-        }
-
-        /// <summary>Adds the given race to the record for Mother.</summary>
-        private void Set_MotherRace(string name, string value)
-        {
-            List<Tuple<string, string>> raceStatus = record.MotherRace.ToList();
-            raceStatus.Add(Tuple.Create(name, value));
-            record.MotherRace = raceStatus.Distinct().ToArray();
-        }
-        /// <summary>Checks if the given race exists in the record for Father.</summary>
-        private string Get_FatherRace(string name)
-        {
-            Tuple<string, string>[] raceStatus = record.FatherRace.ToArray();
-
-            Tuple<string, string> raceTuple = Array.Find(raceStatus, element => element.Item1 == name);
-            if (raceTuple != null)
-            {
-                return (raceTuple.Item2).Trim();
-            }
-            return "";
-        }
-
-        /// <summary>Adds the given race to the record for Father.</summary>
-        private void Set_FatherRace(string name, string value)
-        {
-            List<Tuple<string, string>> raceStatus = record.FatherRace.ToList();
-            raceStatus.Add(Tuple.Create(name, value));
-            record.FatherRace = raceStatus.Distinct().ToArray();
-        }
         /////////////////////////////////////////////////////////////////////////////////
         //
         // Class Properties that provide getters and setters for each of the IJE
