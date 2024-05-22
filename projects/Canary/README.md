@@ -58,7 +58,8 @@ docker run --rm -p 8080:80 mitre/canary:v4.0.3
 If you want to build a Dockerized Canary from scratch (from source), you can do so by running (inside the project root directory):
 
 ```
-docker build -t canary .
+cd projects
+docker build -t canary -f canary.Dockerfile .
 docker run -d -p 8080:80 --name mycanary canary
 ```
 
