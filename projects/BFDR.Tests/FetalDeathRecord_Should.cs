@@ -105,6 +105,66 @@ namespace BFDR.Tests
     }
 
     [Fact]
+    public void Set_HistologicalPlacentalExamination()
+    {
+        SetterFetalDeathRecord.HistologicalPlacentalExaminationPerformedHelper = "398166005";
+        Assert.Equal("Performed", SetterFetalDeathRecord.HistologicalPlacentalExaminationPerformed["display"]);
+        Dictionary<string, string> cc = new Dictionary<string, string>();
+        cc.Add("code", BFDR.ValueSets.HistologicalPlacentalExamination.Codes[0, 0]);
+        cc.Add("system", BFDR.ValueSets.HistologicalPlacentalExamination.Codes[0, 2]);
+        cc.Add("display", BFDR.ValueSets.HistologicalPlacentalExamination.Codes[0, 1]);
+        Assert.Equal(cc, SetterFetalDeathRecord.HistologicalPlacentalExaminationPerformed);
+
+        IJEFetalDeath ije = new IJEFetalDeath();
+        ije.HISTOP = "N";
+        Assert.Equal("N", ije.HISTOP);
+        FetalDeathRecord fetalDeathRecord2 = ije.ToFetalDeathRecord();
+        Assert.Equal("262008008", fetalDeathRecord2.HistologicalPlacentalExaminationPerformedHelper);
+        Assert.Equal("Not Performed", fetalDeathRecord2.HistologicalPlacentalExaminationPerformed["display"]);
+    }
+
+    [Fact]
+    public void Get_HistologicalPlacentalExamination()
+    {
+        FetalDeathRecord record = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
+        Dictionary<string, string> cc = new Dictionary<string, string>();
+        cc.Add("code", BFDR.ValueSets.HistologicalPlacentalExamination.Codes[0, 0]);
+        cc.Add("system", BFDR.ValueSets.HistologicalPlacentalExamination.Codes[0, 2]);
+        cc.Add("display", BFDR.ValueSets.HistologicalPlacentalExamination.Codes[0, 1]);
+        Assert.Equal("398166005", record.HistologicalPlacentalExaminationPerformedHelper);
+        Assert.Equal(cc, record.HistologicalPlacentalExaminationPerformed);
+        Assert.Equal(VR.CodeSystems.SCT, record.HistologicalPlacentalExaminationPerformed["system"]);
+        Assert.Equal("Performed", record.HistologicalPlacentalExaminationPerformed["display"]);
+    }
+
+    [Fact]
+    public void Set_FetalRemainsDispositionMethod()
+    {
+        SetterFetalDeathRecord.FetalRemainsDispositionMethodHelper = "449971000124106";
+        Assert.Equal("Burial", SetterFetalDeathRecord.FetalRemainsDispositionMethod["display"]);
+        Dictionary<string, string> cc = new Dictionary<string, string>();
+        cc.Add("code", BFDR.ValueSets.FetalRemainsDispositionMethod.Codes[0, 0]);
+        cc.Add("system", BFDR.ValueSets.FetalRemainsDispositionMethod.Codes[0, 2]);
+        cc.Add("display", BFDR.ValueSets.FetalRemainsDispositionMethod.Codes[0, 1]);
+        Assert.Equal(cc, SetterFetalDeathRecord.FetalRemainsDispositionMethod);
+    }
+
+    [Fact]
+    public void Get_FetalRemainsDispositionMethod()
+    {
+        FetalDeathRecord record = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
+        Dictionary<string, string> cc = new Dictionary<string, string>();
+        cc.Add("code", BFDR.ValueSets.FetalRemainsDispositionMethod.Codes[2, 0]);
+        cc.Add("system", BFDR.ValueSets.FetalRemainsDispositionMethod.Codes[2, 2]);
+        cc.Add("display", BFDR.ValueSets.FetalRemainsDispositionMethod.Codes[2, 1]);
+        Assert.Null(record.FetalRemainsDispositionMethodHelper);
+        record.FetalRemainsDispositionMethodHelper = "449951000124101";
+        Assert.Equal(cc, record.FetalRemainsDispositionMethod);
+        Assert.Equal(VR.CodeSystems.SCT, record.FetalRemainsDispositionMethod["system"]);
+        Assert.Equal("Donation", record.FetalRemainsDispositionMethod["display"]);
+    }
+
+    [Fact]
     public void Set_BirthWeight()
     {
         // Birth Weight
@@ -591,6 +651,178 @@ namespace BFDR.Tests
       SetterFetalDeathRecord.OtherCOD_OtherFetalConditionsDisordersLiteral = "Other Fetal Condition or Disorder";
       Assert.Equal("Other Fetal Condition or Disorder", SetterFetalDeathRecord.OtherCOD_OtherFetalConditionsDisordersLiteral);
     }
+  
+    [Fact]
+    public void SetFetalPresentation()
+    {
+      FetalDeathRecord fetalDeathRecord = new FetalDeathRecord();
+      fetalDeathRecord.FetalPresentationHelper = "6096002";
+      Dictionary<string, string> cc = new Dictionary<string, string>();
+      cc.Add("code", "6096002");
+      cc.Add("system", "http://snomed.info/sct");
+      cc.Add("display", "Breech presentation (finding)");
+      Assert.Equal(cc, fetalDeathRecord.FetalPresentation);
+
+      IJEFetalDeath ije = new IJEFetalDeath();
+      ije.PRES = "1";
+      Dictionary<string, string> cc2 = new Dictionary<string, string>();
+      cc2.Add("code", "70028003");
+      cc2.Add("system", "http://snomed.info/sct");
+      cc2.Add("display", "Vertex presentation (finding)");
+      FetalDeathRecord fetalDeathRecord2 = ije.ToFetalDeathRecord();
+      Assert.Equal(cc2, fetalDeathRecord2.FetalPresentation);
+      Assert.Equal("70028003", fetalDeathRecord2.FetalPresentationHelper);
+
+      FetalDeathRecord fetalDeathRecord3 = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
+      Assert.Equal(cc, fetalDeathRecord3.FetalPresentation);
+      Assert.Equal("6096002", fetalDeathRecord3.FetalPresentationHelper);
+      fetalDeathRecord3.FetalPresentationHelper = "70028003";
+      Assert.Equal(cc2, fetalDeathRecord3.FetalPresentation);
+    }
+
+    [Fact]
+    public void SetObstetricEstimateOfGestation()
+    {
+      FetalDeathRecord fetalDeathRecord1 = new FetalDeathRecord();
+      Dictionary<string, string> dict = new Dictionary<string, string>();
+      dict.Add("value", "10");
+      dict.Add("code", "wk");
+      fetalDeathRecord1.GestationalAgeAtDelivery = dict;
+      Assert.Equal(dict["value"], fetalDeathRecord1.GestationalAgeAtDelivery["value"]);
+      Assert.Equal("wk", fetalDeathRecord1.GestationalAgeAtDelivery["code"]);
+      Assert.Equal("http://unitsofmeasure.org", fetalDeathRecord1.GestationalAgeAtDelivery["system"]);
+
+      IJEFetalDeath ije = new IJEFetalDeath();
+      ije.OWGEST = "38";
+      FetalDeathRecord fetalDeathRecord2 = ije.ToFetalDeathRecord();
+      Assert.Equal("38", fetalDeathRecord2.GestationalAgeAtDelivery["value"]);
+      Assert.Equal("wk", fetalDeathRecord2.GestationalAgeAtDelivery["code"]);
+      Assert.Equal("http://unitsofmeasure.org", fetalDeathRecord2.GestationalAgeAtDelivery["system"]);
+      
+      FetalDeathRecord fetalDeathRecord3 = new FetalDeathRecord();
+      Dictionary<string, string> dict2 = new Dictionary<string, string>();
+      dict2.Add("value", "48");
+      dict2.Add("code", "d");
+      fetalDeathRecord3.GestationalAgeAtDelivery = dict2;
+      Assert.Equal(dict2["value"], fetalDeathRecord3.GestationalAgeAtDelivery["value"]);
+      Assert.Equal("d", fetalDeathRecord3.GestationalAgeAtDelivery["code"]);
+      Assert.Equal("http://unitsofmeasure.org", fetalDeathRecord3.GestationalAgeAtDelivery["system"]);
+      // IJE should divide days by 7 and round down
+      IJEFetalDeath ije2 = new(fetalDeathRecord3);
+      ije2.OWGEST = "06";
+      Assert.Equal("06", ije2.OWGEST);
+
+      FetalDeathRecord parsedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
+      Assert.Equal("20", parsedRecord.GestationalAgeAtDelivery["value"]);
+      Assert.Equal("wk", parsedRecord.GestationalAgeAtDelivery["code"]);
+      Assert.Equal("http://unitsofmeasure.org", parsedRecord.GestationalAgeAtDelivery["system"]);
+      parsedRecord.GestationalAgeAtDelivery = dict2;
+      Assert.Equal("48", parsedRecord.GestationalAgeAtDelivery["value"]);
+      Assert.Equal("d", parsedRecord.GestationalAgeAtDelivery["code"]);
+    }
+
+    [Fact]
+    public void SetGestationalAgeAtDeliveryEditFlag()
+    {
+      IJEFetalDeath ije = new IJEFetalDeath();
+      ije.OWGEST_BYPASS = "0";
+      FetalDeathRecord fetalDeathRecord = ije.ToFetalDeathRecord();
+      Dictionary<string, string> editBypass = new Dictionary<string, string>();
+      editBypass.Add("code", "0off");
+      editBypass.Add("system", VR.CodeSystems.VRCLEditFlags);
+      editBypass.Add("display", "Off");
+      Assert.Equal(editBypass, fetalDeathRecord.GestationalAgeAtDeliveryEditFlag);
+    }
+
+    [Fact]
+    public void MaternalMorbidities()
+    {
+      FetalDeathRecord fetalDeathRecord = new FetalDeathRecord();
+      fetalDeathRecord.NoMaternalMorbidities = true;
+      Assert.True(fetalDeathRecord.NoMaternalMorbidities);
+      Assert.False(fetalDeathRecord.ICUAdmission);
+      Assert.False(fetalDeathRecord.MaternalTransfusion);
+      Assert.False(fetalDeathRecord.PerinealLaceration);
+      Assert.False(fetalDeathRecord.RupturedUterus);
+      Assert.False(fetalDeathRecord.UnplannedHysterectomy);
+
+      IJEFetalDeath ije = new IJEFetalDeath();
+      Assert.Equal("U", ije.AINT);
+      ije.AINT = "Y";
+      Assert.Equal("Y", ije.AINT);
+
+      FetalDeathRecord parsedRecord = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
+      Assert.False(parsedRecord.ICUAdmission);
+      parsedRecord.ICUAdmission = true;
+      Assert.True(parsedRecord.ICUAdmission);
+
+      IJEFetalDeath ije2 = new(parsedRecord);
+      Assert.Equal("Y", ije2.AINT);
+    }
+
+    [Fact]
+    public void SetLaborTrialAttempted()
+    {
+      FetalDeathRecord fetalDeathRecord = new FetalDeathRecord();
+      fetalDeathRecord.LaborTrialAttempted = true;
+      Assert.True(fetalDeathRecord.LaborTrialAttempted);
+
+      IJEFetalDeath ije = new IJEFetalDeath();
+      ije.TLAB = "Y";
+      FetalDeathRecord fetalDeathRecord2 = ije.ToFetalDeathRecord();
+      Assert.True(fetalDeathRecord2.LaborTrialAttempted);
+
+      FetalDeathRecord fetalDeathRecord3 = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
+      Assert.Null(fetalDeathRecord3.LaborTrialAttempted);
+      fetalDeathRecord3.LaborTrialAttempted = true;
+      Assert.True(fetalDeathRecord3.LaborTrialAttempted);
+
+    }
+
+    [Fact]
+    public void FinalRouteAndMethodOfDelivery()
+    {
+      // Check nothing present in fresh record
+      Assert.False(SetterFetalDeathRecord.UnknownFinalRouteAndMethodOfDelivery);
+      var coding = SetterFetalDeathRecord.FinalRouteAndMethodOfDelivery;
+      Assert.Equal("", coding["code"]);
+      // Test setting the final route
+      coding.Clear();
+      coding.Add("code", "302383004");
+      coding.Add("system", "http://snomed.info/sct");
+      coding.Add("display", "Forceps delivery (procedure)");
+      SetterFetalDeathRecord.FinalRouteAndMethodOfDelivery = coding;
+      String json = SetterFetalDeathRecord.ToJSON();
+      Assert.Contains("302383004", json); // code
+      Assert.Contains("73762-7", json); // category
+      Assert.Equal(coding, SetterFetalDeathRecord.FinalRouteAndMethodOfDelivery);
+      coding = SetterFetalDeathRecord.FinalRouteAndMethodOfDelivery;
+      Assert.Equal("302383004", coding["code"]);
+      // Test that setting unknown removes the previously set route
+      SetterFetalDeathRecord.UnknownFinalRouteAndMethodOfDelivery = true;
+      Assert.True(SetterFetalDeathRecord.UnknownFinalRouteAndMethodOfDelivery);
+      coding = SetterFetalDeathRecord.FinalRouteAndMethodOfDelivery;
+      Assert.Equal("", coding["code"]);
+      // Test that setting a route removes the unknown observation
+      coding.Clear();
+      coding.Add("code", "302383004");
+      coding.Add("system", "http://snomed.info/sct");
+      coding.Add("display", "Forceps delivery (procedure)");
+      SetterFetalDeathRecord.FinalRouteAndMethodOfDelivery = coding;
+      Assert.False(SetterFetalDeathRecord.UnknownFinalRouteAndMethodOfDelivery);
+      // Parse record
+      FetalDeathRecord fetalDeathRecord = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
+      var altCoding = SetterFetalDeathRecord.FinalRouteAndMethodOfDelivery;
+      altCoding.Clear();
+      altCoding.Add("code", "700000006");
+      altCoding.Add("system", "http://snomed.info/sct");
+      altCoding.Add("display", "Vaginal delivery of fetus (procedure)");
+      altCoding.Add("text", "Spontaneous vaginal delivery");
+      Assert.Equal(altCoding, fetalDeathRecord.FinalRouteAndMethodOfDelivery);
+      fetalDeathRecord.FinalRouteAndMethodOfDelivery = coding;
+      Assert.Equal(coding, fetalDeathRecord.FinalRouteAndMethodOfDelivery);
+      // IJE record
+    }
 
     [Fact]
     public void TestImportDeliveryLocation() 
@@ -755,6 +987,166 @@ namespace BFDR.Tests
         // record.BirthWeight = 2502;
         Assert.Equal(146, record.MotherPrepregnancyWeight);
         // Assert.Equal(2502, record.BirthWeight);
+    }
+
+    [Fact]
+    public void ParseMotherRaceEthnicityJsonToIJE()
+    {
+        FetalDeathRecord b3 = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
+        IJEFetalDeath ije3 = new IJEFetalDeath(b3);
+        Assert.Equal("H", ije3.METHNIC1);
+        Assert.Equal("H", ije3.METHNIC2);
+        Assert.Equal("H", ije3.METHNIC3);
+        Assert.Equal("N", ije3.METHNIC4);
+        Assert.Equal("Malaysian", ije3.MRACE18);
+        Assert.Equal("Y", ije3.MRACE1);
+        Assert.Equal("Y", ije3.MRACE2);
+        Assert.Equal("Y", ije3.MRACE3);
+        Assert.Equal("N", ije3.MRACE4);
+        Assert.Equal("N", ije3.MRACE5);
+        Assert.Equal("N", ije3.MRACE6);
+        Assert.Equal("N", ije3.MRACE7);
+        Assert.Equal("N", ije3.MRACE8);
+        Assert.Equal("N", ije3.MRACE9);
+        Assert.Equal("N", ije3.MRACE10);
+        Assert.Equal("N", ije3.MRACE11);
+        Assert.Equal("N", ije3.MRACE12);
+        Assert.Equal("N", ije3.MRACE13);
+        Assert.Equal("N", ije3.MRACE14);
+        Assert.Equal("N", ije3.MRACE15);
+    }
+
+    [Fact]
+    public void ParseMotherRaceEthnicityIJEtoJson()
+    {
+        FetalDeathRecord b = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
+        IJEFetalDeath ije1 = new IJEFetalDeath(b);
+        IJEFetalDeath ije2 = new IJEFetalDeath(ije1.ToString(), true);
+        FetalDeathRecord b2 = ije2.ToRecord();
+
+        // Ethnicity tuple
+        Assert.Equal("Y", b2.MotherEthnicity1Helper);
+        Assert.Equal("Y", b2.MotherEthnicity2Helper);
+        Assert.Equal("Y", b2.MotherEthnicity3Helper);
+        Assert.Equal("N", b2.MotherEthnicity4Helper);
+        Assert.Null(b2.MotherEthnicityLiteral);
+
+        // Race tuple
+        foreach (var pair in b2.MotherRace)
+        {
+            switch (pair.Item1)
+            {
+                case NvssRace.White:
+                    Assert.Equal("Y", pair.Item2);
+                    break;
+                case NvssRace.AmericanIndianOrAlaskanNative:
+                    Assert.Equal("Y", pair.Item2);
+                    break;
+                default:
+                    break;
+            }
+        }
+        Assert.Equal(17, b2.MotherRace.Length);
+    }
+
+    [Fact]
+    public void ParseFatherRaceEthnicityJsonToIJE()
+    {
+        FetalDeathRecord b3 = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
+        IJEFetalDeath ije3 = new IJEFetalDeath(b3);
+        Assert.Equal("H", ije3.FETHNIC1);
+        Assert.Equal("H", ije3.FETHNIC2);
+        Assert.Equal("H", ije3.FETHNIC3);
+        Assert.Equal("N", ije3.FETHNIC4);
+        Assert.Equal("Malaysian", ije3.FRACE18);
+        Assert.Equal("Y", ije3.FRACE1);
+        Assert.Equal("N", ije3.FRACE2);
+        Assert.Equal("Y", ije3.FRACE3);
+        Assert.Equal("N", ije3.FRACE4);
+        Assert.Equal("N", ije3.FRACE5);
+        Assert.Equal("N", ije3.FRACE6);
+        Assert.Equal("N", ije3.FRACE7);
+        Assert.Equal("N", ije3.FRACE8);
+        Assert.Equal("N", ije3.FRACE9);
+        Assert.Equal("Y", ije3.FRACE10);
+        Assert.Equal("N", ije3.FRACE11);
+        Assert.Equal("N", ije3.FRACE12);
+        Assert.Equal("N", ije3.FRACE13);
+        Assert.Equal("N", ije3.FRACE14);
+        Assert.Equal("N", ije3.FRACE15);
+    }
+
+    [Fact]
+    public void ParseFatherRaceEthnicityIJEtoJson()
+    {
+        FetalDeathRecord b = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
+        IJEFetalDeath ije1 = new IJEFetalDeath(b);
+        IJEFetalDeath ije2 = new IJEFetalDeath(ije1.ToString(), true);
+        FetalDeathRecord b2 = ije2.ToRecord();
+
+        // Ethnicity tuple
+        Assert.Equal("Y", b2.FatherEthnicity1Helper);
+        Assert.Equal("Y", b2.FatherEthnicity2Helper);
+        Assert.Equal("Y", b2.FatherEthnicity3Helper);
+        Assert.Equal("N", b2.FatherEthnicity4Helper);
+        Assert.Null(b2.FatherEthnicityLiteral);
+
+        // Race tuple
+        foreach (var pair in b2.FatherRace)
+        {
+            switch (pair.Item1)
+            {
+                case NvssRace.White:
+                    Assert.Equal("Y", pair.Item2);
+                    break;
+                case NvssRace.AmericanIndianOrAlaskanNative:
+                    Assert.Equal("Y", pair.Item2);
+                    break;
+                default:
+                    break;
+            }
+        }
+        Assert.Equal(17, b2.FatherRace.Length);
+    }
+
+    [Fact]
+    public void TestImportEducation()
+    {
+      FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
+      Assert.Equal("SEC", record.MotherEducationLevelHelper);
+      Assert.Null(record.FatherEducationLevelHelper);
+      Dictionary<string, string> cc = new Dictionary<string, string>();
+      cc.Add("code", "SEC");
+      cc.Add("system", "http://terminology.hl7.org/CodeSystem/v3-EducationLevel");
+      cc.Add("display", "Some secondary or high school education");
+      cc.Add("text", "9th through 12th grade; no diploma");
+      Assert.Equal(cc, record.MotherEducationLevel);
+      // set after parse
+      record.FatherEducationLevel = cc;
+      Assert.Equal(cc, record.FatherEducationLevel);
+      record.MotherEducationLevelHelper = "SCOL";
+      Assert.Equal("SCOL", record.MotherEducationLevelHelper);
+      Dictionary<string, string> cc2 = new Dictionary<string, string>();
+      cc2.Add("code", "SCOL");
+      cc2.Add("system", "http://terminology.hl7.org/CodeSystem/v3-EducationLevel");
+      cc2.Add("display", "Some College education");
+      Assert.Equal(cc2, record.MotherEducationLevel);
+
+      var coding = new Dictionary<string, string>();
+      coding.Add("code", "1");
+      coding.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");
+      record.MotherEducationLevelEditFlag = coding;
+      Assert.Equal("1", record.MotherEducationLevelEditFlagHelper);
+      Assert.Equal("1", record.MotherEducationLevelEditFlag["code"]);
+      record.FatherEducationLevelEditFlag = coding;
+      Assert.Equal("1", record.FatherEducationLevelEditFlagHelper);
+      Assert.Equal("1", record.FatherEducationLevelEditFlag["code"]);
+
+      IJEFetalDeath ije = new(record);
+      Assert.Equal("2", ije.FEDUC);
+      Assert.Equal("4", ije.MEDUC);
+      Assert.Equal("1", ije.FEDUC_BYPASS);
+      Assert.Equal("1", ije.MEDUC_BYPASS);
     }
   }
 }
