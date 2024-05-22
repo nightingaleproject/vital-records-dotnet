@@ -58,8 +58,7 @@ namespace canary.Models
 
         public static string GetDescriptionFor(string entry)
         {
-            Type temp = typeof(BirthRecord);
-            PropertyInfo myPropInfo = temp.GetProperty(entry);
+            PropertyInfo myPropInfo = typeof(BirthRecord).GetProperty(entry);
             return myPropInfo != null ? myPropInfo.Name : messageDescription.GetValueOrDefault(entry, "Unknown Property");
         }
 

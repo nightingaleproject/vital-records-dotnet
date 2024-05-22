@@ -203,7 +203,6 @@ namespace canary.Controllers
             using (var db = new RecordContext())
             {
                 BirthTest test = db.BirthTests.Where(t => t.TestId == id).FirstOrDefault();
-                Console.WriteLine(Request.Body);
                 string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
                 if (!String.IsNullOrEmpty(input))
                 {
