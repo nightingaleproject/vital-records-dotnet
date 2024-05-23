@@ -1147,6 +1147,7 @@ namespace BFDR.Tests
       Assert.Equal("4", ije.MEDUC);
       Assert.Equal("1", ije.FEDUC_BYPASS);
       Assert.Equal("1", ije.MEDUC_BYPASS);
+    }
   
     [Fact]
     public void TestPatientDecedentFetusVitalRecordProperties()
@@ -1232,6 +1233,5 @@ namespace BFDR.Tests
       // Assert.Equal("132225987", firstRecord.FatherSocialSecurityNumber);
       // Assert.Equal(firstRecord.FatherSocialSecurityNumber, secondRecord.FatherSocialSecurityNumber);
     }
-  }
   }
 }
