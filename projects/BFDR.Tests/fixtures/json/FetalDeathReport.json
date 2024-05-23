@@ -2611,6 +2611,14 @@
                   ],
                   "city": "Salt Lake City",
                   "district": "Made Up",
+                  "_district": {
+                    "extension": [
+                      {
+                        "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/DistrictCode",
+                        "valueString": "000"
+                      }
+                    ]
+                },
                   "state": "UT",
                   "postalCode": "84116",
                   "country": "US"
