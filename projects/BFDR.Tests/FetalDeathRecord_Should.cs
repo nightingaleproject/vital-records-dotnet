@@ -1251,6 +1251,90 @@ namespace BFDR.Tests
       Assert.Equal("4", ije.MEDUC);
       Assert.Equal("1", ije.FEDUC_BYPASS);
       Assert.Equal("1", ije.MEDUC_BYPASS);
+  
+    [Fact]
+    public void TestPatientDecedentFetusVitalRecordProperties()
+    {
+      // Test FHIR record import.
+      FetalDeathRecord firstRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
+      string firstDescription = firstRecord.ToDescription();
+      // Test conversion via FromDescription.
+      FetalDeathRecord secondRecord = VitalRecord.FromDescription<FetalDeathRecord>(firstDescription);
+
+      // Record Certificate Number
+      Assert.Equal("9876", firstRecord.CertificateNumber);
+      Assert.Equal(firstRecord.CertificateNumber, secondRecord.CertificateNumber);
+      // Record Birth Record Identifier
+      Assert.Equal("2019NJ009876", firstRecord.RecordIdentifier);
+      Assert.Equal(firstRecord.RecordIdentifier, secondRecord.RecordIdentifier);
+      // Record State Local Identifier 1
+      Assert.Equal("11111-11111", firstRecord.StateLocalIdentifier1);
+      Assert.Equal(firstRecord.StateLocalIdentifier1, secondRecord.StateLocalIdentifier1);
+      // Date of Delivery - Year
+      Assert.Equal(2019, firstRecord.DeliveryYear);
+      Assert.Equal(firstRecord.DeliveryYear, secondRecord.DeliveryYear);
+      // Date of Delivery - Month
+      Assert.Equal(1, firstRecord.DeliveryMonth);
+      Assert.Equal(firstRecord.DeliveryMonth, secondRecord.DeliveryMonth);
+      // Date of Delivery - Day
+      Assert.Equal(9, firstRecord.DeliveryDay);
+      Assert.Equal(firstRecord.DeliveryDay, secondRecord.DeliveryDay);
+      // Complete Date of Delivery.
+      Assert.Equal("2019-01-09", firstRecord.DateOfDelivery);
+      Assert.Equal(firstRecord.DateOfDelivery, secondRecord.DateOfDelivery);
+      // State of Delivery
+      Assert.Equal("UT", firstRecord.PlaceOfDelivery["addressState"]);
+      Assert.Equal(firstRecord.PlaceOfDelivery["addressState"], secondRecord.PlaceOfDelivery["addressState"]);
+      // Time of Delivery
+      Assert.Equal("18:23:00", firstRecord.DeliveryTime);
+      Assert.Equal(firstRecord.DeliveryTime, secondRecord.DeliveryTime);
+      // // Sex
+      // Assert.Equal("F", firstRecord.BirthSex["code"]);
+      // Assert.Equal(firstRecord.BirthSex, secondRecord.BirthSex);
+      // Assert.Equal("F", firstRecord.BirthSexHelper);
+      // Assert.Equal(firstRecord.BirthSex["code"], secondRecord.BirthSexHelper);
+      // // Plurality
+      // Assert.Equal(1, firstRecord.Plurality); //TODO: check IG examples are correct
+      // // Set Order
+      // Assert.Equal(1, firstRecord.SetOrder);
+      // Assert.Equal(firstRecord.SetOrder, secondRecord.SetOrder);
+      // // Mother's Age
+      //  Assert.Equal(34, firstRecord.MotherReportedAgeAtDelivery); 
+      // // Father's Age
+      //  Assert.Equal(35, firstRecord.FatherReportedAgeAtDelivery);
+      // // Child's First Name
+      // Assert.Equal("Baby", firstRecord.ChildGivenNames[0]);
+      // Assert.Equal(firstRecord.ChildGivenNames[0], secondRecord.ChildGivenNames[0]);
+      // // Child's Middle Name
+      // Assert.Equal("G", firstRecord.ChildGivenNames[1]);
+      // Assert.Equal(firstRecord.ChildGivenNames[1], secondRecord.ChildGivenNames[1]);
+      // // Child's Last Name
+      // Assert.Equal("Quinn", firstRecord.ChildFamilyName);
+      // Assert.Equal(firstRecord.ChildFamilyName, secondRecord.ChildFamilyName);
+      // // Child's Surname Suffix
+      // Assert.Equal("III", firstRecord.ChildSuffix);
+      // Assert.Equal(firstRecord.ChildSuffix, secondRecord.ChildSuffix);
+      // County of Delivery (Literal)
+      Assert.Equal("Made Up", firstRecord.PlaceOfDelivery["addressCounty"]);
+      Assert.Equal(firstRecord.PlaceOfDelivery["addressCounty"], secondRecord.PlaceOfDelivery["addressCounty"]);
+      // County of Delivery (Code)
+      Assert.Equal("000", firstRecord.PlaceOfDelivery["addressCountyC"]);
+      Assert.Equal(firstRecord.PlaceOfDelivery["addressCountyC"], secondRecord.PlaceOfDelivery["addressCountyC"].PadLeft(3, '0'));
+      // City/town/place of Delivery (Literal)
+      Assert.Equal("Salt Lake City", firstRecord.PlaceOfDelivery["addressCity"]);
+      Assert.Equal(firstRecord.PlaceOfDelivery["addressCity"], secondRecord.PlaceOfDelivery["addressCity"]);
+      // // Infant Medical Record Number
+      // Assert.Equal("9932702", firstRecord.InfantMedicalRecordNumber);
+      // Assert.Equal(firstRecord.InfantMedicalRecordNumber, secondRecord.InfantMedicalRecordNumber);
+      // // Mother Medical Record Number
+      // Assert.Equal("1032702", firstRecord.MotherMedicalRecordNumber);
+      // Assert.Equal(firstRecord.MotherMedicalRecordNumber, secondRecord.MotherMedicalRecordNumber);
+      // // Mother Social Security Number
+      // Assert.Equal("132225986", firstRecord.MotherSocialSecurityNumber);
+      // Assert.Equal(firstRecord.MotherSocialSecurityNumber, secondRecord.MotherSocialSecurityNumber);
+      // // Father Social Security Number
+      // Assert.Equal("132225987", firstRecord.FatherSocialSecurityNumber);
+      // Assert.Equal(firstRecord.FatherSocialSecurityNumber, secondRecord.FatherSocialSecurityNumber);
     }
 
     [Fact]
@@ -1499,5 +1583,6 @@ namespace BFDR.Tests
       Assert.Equal(" ",ije.MAGE_BYPASS);
       Assert.Equal("1", ije.FAGE_BYPASS);
     }
+  }
   }
 }

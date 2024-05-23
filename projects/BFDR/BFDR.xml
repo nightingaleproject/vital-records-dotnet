@@ -414,6 +414,56 @@
             <para>Console.WriteLine($"State where baby was delivered: {ExampleBirthRecord.PlaceOfDelivery["addressState"]}");</para>
             </example>
         </member>
+        <member name="P:BFDR.FetalDeathRecord.DateOfDelivery">
+            <summary>Decedent Fetus's Date of Delivery.</summary>
+            <value>the decedent fetus's date of delivery</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.DateOfDelivery = "1940-02-19";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Decedent Fetus Date of Delivery: {ExampleFetalDeathRecord.DateOfBirth}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.DeliveryYear">
+            <summary>Decedent Fetus's Year of Delivery.</summary>
+            <value>the decedent fetus's year of delivery, or -1 if explicitly unknown, or null if never specified</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.DeliveryYear = 1928;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Decedent Fetus' Year of Delivery: {ExampleFetalDeathRecord.DeliveryYear}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.DeliveryMonth">
+            <summary>Decedent Fetus's Month of Delivery.</summary>
+            <value>the decedent fetus's month of delivery, or -1 if explicitly unknown, or null if never specified</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.DeliveryMonth = 11;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Child Month of Birth: {ExampleFetalDeathRecord.DeliveryMonth}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.DeliveryDay">
+            <summary>Decedent Fetus's Day of Delivery.</summary>
+            <value>the decedent fetus's day of delivery, or -1 if explicitly unknown, or null if never specified</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.DeliveryDay = 11;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Decedent Fetus' Day of Birth: {ExampleFetalDeathRecord.DeliveryDay}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.DeliveryTime">
+            <summary>Decedent Fetus's Time of Delivery.</summary>
+            <value>the decedent fetus's time of delivery.</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.DeliveryTime = 11;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Decedent Fetus Time of Birth: {ExampleFetalDeathRecord.DeliveryTime}");</para>
+            </example>
+        </member>
         <member name="T:BFDR.IJEBirth">
             <summary>A "wrapper" class to convert between a FHIR based <c>BirthRecord</c> and
             a record in IJE Natality format. Each property of this class corresponds exactly
