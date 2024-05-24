@@ -321,6 +321,38 @@ namespace BFDR
             get => GetObservationValueHelper();
             set => SetObservationValueHelper(value, VR.ValueSets.YesNoNotApplicable.Codes);
         }
+
+        /// <summary>NumberOfFetalDeathsThisDelivery.</summary>
+        /// <value>NumberOfFetalDeathsThisDelivery</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleFetalDeathRecord.NumberOfFetalDeathsThisDelivery = 1;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"NumberOfFetalDeathsThisDelivery: {ExampleFetalDeathRecord.NumberOfFetalDeathsThisDelivery}");</para>
+        /// </example>
+        [Property("NumberOfFetalDeathsThisDelivery", Property.Types.Int32, "Number Of Fetal Deaths This Delivery", "Number Of Fetal Deaths This Delivery", true, IGURL.ObservationNumberFetalDeathsThisDelivery, true, 153)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='73772-6')", "")]
+        public int? NumberOfFetalDeathsThisDelivery
+        {
+            get
+            {
+                Observation obs = GetObservation("73772-6");
+                if (obs != null && obs.Value != null)
+                {
+                    return (obs.Value as Hl7.Fhir.Model.Integer).Value;
+                }
+                return null;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    return;
+                }
+                Observation obs = GetOrCreateObservation("73772-6", CodeSystems.LOINC, BFDR.ProfileURL.ObservationNumberFetalDeathsThisDelivery, FETUS_SECTION, Mother.Id);
+                obs.Value = new Hl7.Fhir.Model.Integer(value);
+            }
+        }
         
 
         /// <summary>Autopsy Performed Indicator.</summary>
