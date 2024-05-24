@@ -2579,13 +2579,13 @@
             <summary>Base class for all natality IJE converter classes</summary>
         </member>
         <member name="M:BFDR.IJENatality.#ctor">
-            <summary>Default constructor that creates a new, empty NatalityRecord.</summary>
+            <summary>Default constructor</summary>
         </member>
         <member name="M:BFDR.IJENatality.#ctor(BFDR.NatalityRecord,System.Boolean)">
             <summary>Constructor that takes a <c>NatalityRecord</c>.</summary>
         </member>
         <member name="M:BFDR.IJENatality.#ctor(System.String,System.Boolean)">
-            <summary>Constructor that takes an IJE string and builds a corresponding internal <c>NatalityRecord</c>.</summary>
+            <summary>Constructor that takes an IJE string</summary>
         </member>
         <member name="P:BFDR.IJENatality.NatalityRecord">
             <summary>FHIR based natality record.</summary>
