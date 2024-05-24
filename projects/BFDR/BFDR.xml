@@ -150,6 +150,16 @@
             <para>Console.WriteLine($"Were autopsy results used: {ExampleFetalDeathRecord.AutopsyorHistologicalExamResultsUsedHelper}");</para>
             </example>
         </member>
+        <member name="P:BFDR.FetalDeathRecord.NumberOfFetalDeathsThisDelivery">
+            <summary>NumberOfFetalDeathsThisDelivery.</summary>
+            <value>NumberOfFetalDeathsThisDelivery</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.NumberOfFetalDeathsThisDelivery = 1;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"NumberOfFetalDeathsThisDelivery: {ExampleFetalDeathRecord.NumberOfFetalDeathsThisDelivery}");</para>
+            </example>
+        </member>
         <member name="P:BFDR.FetalDeathRecord.AutopsyPerformedIndicator">
             <summary>Autopsy Performed Indicator.</summary>
             <value>autopsy performed indicator. A Dictionary representing a code, containing the following key/value pairs:

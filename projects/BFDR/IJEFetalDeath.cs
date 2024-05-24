@@ -1590,14 +1590,16 @@ namespace BFDR
         [IJEField(95, 455, 1, "Did Mother get WIC Food for Herself?", "WIC", 1)]
         public string WIC
         {
-            get
+             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Get_MappingFHIRToIJE(VR.Mappings.YesNoUnknown.FHIRToIJE, "MotherReceivedWICFood", "WIC");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Set_MappingIJEToFHIR(VR.Mappings.YesNoUnknown.IJEToFHIR, "WIC", "MotherReceivedWICFood", value);
+                }
             }
         }
 
@@ -1607,12 +1609,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return NumericAllowingUnknown_Get("PLBL", "NumberOfBirthsNowLiving");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                NumericAllowingUnknown_Set("PLBL", "NumberOfBirthsNowLiving", value);
             }
         }
 
@@ -1622,12 +1623,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return NumericAllowingUnknown_Get("PLBD", "NumberOfBirthsNowDead");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                NumericAllowingUnknown_Set("PLBD", "NumberOfBirthsNowDead", value);
             }
         }
 
@@ -2452,12 +2452,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return NumericAllowingUnknown_Get("FDTH", "NumberOfFetalDeathsThisDelivery");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                NumericAllowingUnknown_Set("FDTH", "NumberOfFetalDeathsThisDelivery", value);
             }
         }
 
