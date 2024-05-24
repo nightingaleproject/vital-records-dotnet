@@ -12,7 +12,7 @@ namespace VR
     public class CommonMessage
     {
         /// <summary>Bundle that contains the message.</summary>
-        public Bundle MessageBundle { get; protected set; }
+        protected Bundle MessageBundle { get; set; }
 
         /// <summary>
         /// A Parameters entry that contains business identifiers for all messages plus additional information for Coding messages.

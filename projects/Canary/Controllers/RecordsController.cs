@@ -64,22 +64,42 @@ namespace canary.Controllers
 
         /// <summary>
         /// Given an id, returns the corresponding (death) record as JSON.
-        /// GET /api/records/json/{id}
+        /// GET /api/records/vrdr/json/{id}
         /// </summary>
-        [HttpGet("Records/JSON/{id:int}")]
-        public string GetJson(int id)
+        [HttpGet("Records/vrdr/JSON/{id:int}")]
+        public string GetVRDRJson(int id)
         {
-            return Connectathon.FromId(id).ToJSON();
+            return VRDR.Connectathon.FromId(id).ToJSON();
         }
 
         /// <summary>
         /// Given an id, returns the corresponding (death) record as XML.
-        /// GET /api/records/xml/{id}
+        /// GET /api/records/vrdr/xml/{id}
         /// </summary>
-        [HttpGet("Records/XML/{id:int}")]
-        public string Getxml(int id)
+        [HttpGet("Records/vrdr/XML/{id:int}")]
+        public string GetVRDRxml(int id)
         {
-            return Connectathon.FromId(id).ToXML();
+            return VRDR.Connectathon.FromId(id).ToXML();
+        }
+
+        /// <summary>
+        /// Given an id, returns the corresponding (birth) record as JSON.
+        /// GET /api/records/bfdr/json/{id}
+        /// </summary>
+        [HttpGet("Records/bfdr/JSON/{id:int}")]
+        public string GetBFDRJson(int id)
+        {
+            return BFDR.Connectathon.FromId(id).ToJSON();
+        }
+
+        /// <summary>
+        /// Given an id, returns the corresponding (birth) record as XML.
+        /// GET /api/records/bfdr/xml/{id}
+        /// </summary>
+        [HttpGet("Records/bfdr/XML/{id:int}")]
+        public string GetBFDRxml(int id)
+        {
+            return BFDR.Connectathon.FromId(id).ToXML();
         }
 
         /// <summary>

@@ -831,9 +831,9 @@ namespace BFDR.Tests
     {
       BirthRecord fhir = new BirthRecord();
       IJEBirth ije = new IJEBirth(fhir);
-      Assert.Equal("    ", ije.DOFP_YR);
-      Assert.Equal("  ", ije.DOFP_MO);
-      Assert.Equal("  ", ije.DOFP_DY);
+      Assert.Equal("8888", ije.DOFP_YR);
+      Assert.Equal("88", ije.DOFP_MO);
+      Assert.Equal("88", ije.DOFP_DY);
       ije.DOFP_DY = "24";
       Assert.Equal("    ", ije.DOFP_YR);
       Assert.Equal("  ", ije.DOFP_MO);
@@ -913,7 +913,7 @@ namespace BFDR.Tests
       BirthRecord fhir = new BirthRecord();
       IJEBirth ije = new IJEBirth(fhir);
       Assert.Equal("  ", ije.APGAR5);
-      Assert.Equal("  ", ije.APGAR10);
+      Assert.Equal("88", ije.APGAR10);
       ije.APGAR5 = "99";
       ije.APGAR10 = "15";
       Assert.Equal("99", ije.APGAR5);
@@ -961,6 +961,51 @@ namespace BFDR.Tests
       Assert.Equal("N", ije3.ANEN);
       Assert.Equal("7134703", ije3.INF_MED_REC_NUM);
       Assert.Equal("2286144", ije3.MOM_MED_REC_NUM);
+    }
+
+    [Fact]
+    public void BlankEights() {
+      IJEBirth ije = new()
+      {
+          YOPO = "2020",
+          MOPO = "04",
+          DOFP_DY = "05",
+          DOFP_MO = "07",
+          DOFP_YR = "2021",
+          APGAR10 = "09",
+          MLLB = "08",
+          YLLB = "2017"
+      };
+
+      Assert.Equal("2020", ije.YOPO);
+      Assert.Equal("04", ije.MOPO);
+      Assert.Equal("09", ije.APGAR10);
+      Assert.Equal("05", ije.DOFP_DY);
+      Assert.Equal("07", ije.DOFP_MO);
+      Assert.Equal("2021", ije.DOFP_YR);
+      Assert.Equal("08", ije.MLLB);
+      Assert.Equal("2017", ije.YLLB);
+
+      ije.YOPO = "8888";
+      ije.DOFP_DY = "88";
+      ije.APGAR10 = "88";
+      ije.MLLB = "88";
+      Assert.Equal("8888", ije.YOPO);
+      Assert.Null(ije.ToRecord().DateOfLastOtherPregnancyOutcomeYear);
+      Assert.Equal("88", ije.MOPO);
+      Assert.Null(ije.ToRecord().DateOfLastOtherPregnancyOutcomeMonth);
+      Assert.Equal("88", ije.APGAR10);
+      Assert.Null(ije.ToRecord().ApgarScoreTenMinutes);
+      Assert.Equal("88", ije.DOFP_DY);
+      Assert.Null(ije.ToRecord().FirstPrenatalCareVisitDay);
+      Assert.Equal("88", ije.DOFP_MO);
+      Assert.Null(ije.ToRecord().FirstPrenatalCareVisitMonth);
+      Assert.Equal("8888", ije.DOFP_YR);
+      Assert.Null(ije.ToRecord().FirstPrenatalCareVisitYear);
+      Assert.Equal("88", ije.MLLB);
+      Assert.Null(ije.ToRecord().DateOfLastLiveBirthMonth);
+      Assert.Equal("8888", ije.YLLB);
+      Assert.Null(ije.ToRecord().DateOfLastLiveBirthYear);
     }
   }
 }
