@@ -898,6 +898,78 @@ namespace BFDR.Tests
     }
 
     [Fact]
+    public void Set_MotherReceivedWICFood()
+    {
+      IJEFetalDeath ije = new IJEFetalDeath();
+      ije.WIC = "Y";
+      Assert.Equal("Y", ije.WIC);
+      FetalDeathRecord fetalDeathRecord = ije.ToFetalDeathRecord();
+      Assert.Equal("Y", fetalDeathRecord.MotherReceivedWICFoodHelper);
+      fetalDeathRecord.MotherReceivedWICFoodHelper = "N";
+      Assert.Equal("N", fetalDeathRecord.MotherReceivedWICFood["code"]);
+      Assert.Equal("http://terminology.hl7.org/CodeSystem/v2-0136", fetalDeathRecord.MotherReceivedWICFood["system"]);
+      IJEFetalDeath ije2 = new(fetalDeathRecord);
+      Assert.Equal("N", ije.WIC);
+
+
+    }
+
+    [Fact]
+    public void Get_MotherReceivedWICFood()
+    {
+      FetalDeathRecord parsedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
+      Assert.Equal("N", parsedRecord.MotherReceivedWICFoodHelper);
+      parsedRecord.MotherReceivedWICFoodHelper = "Y";
+      Assert.Equal("Y", parsedRecord.MotherReceivedWICFoodHelper);
+    }
+
+    [Fact]
+    public void Set_PreviousBirths()
+    {
+      FetalDeathRecord fetalDeathRecord = new FetalDeathRecord();
+      fetalDeathRecord.NumberOfBirthsNowDead = 2;
+      fetalDeathRecord.NumberOfBirthsNowLiving = 3;
+      Assert.Equal(2, fetalDeathRecord.NumberOfBirthsNowDead);
+      Assert.Equal(3, fetalDeathRecord.NumberOfBirthsNowLiving);
+      IJEFetalDeath ije = new(fetalDeathRecord);
+      FetalDeathRecord fetalDeathRecord2 = ije.ToFetalDeathRecord();
+      Assert.Equal(2, fetalDeathRecord2.NumberOfBirthsNowDead);
+      Assert.Equal(3, fetalDeathRecord2.NumberOfBirthsNowLiving);
+    }
+
+    [Fact]
+    public void Get_PreviousBirths()
+    {
+      FetalDeathRecord parsedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
+      Assert.Equal(1, parsedRecord.NumberOfBirthsNowLiving);
+      Assert.Equal(0, parsedRecord.NumberOfBirthsNowDead);
+      parsedRecord.NumberOfBirthsNowLiving = 3;
+      parsedRecord.NumberOfBirthsNowDead = 2;
+      Assert.Equal(3, parsedRecord.NumberOfBirthsNowLiving);
+      Assert.Equal(2, parsedRecord.NumberOfBirthsNowDead);
+    }
+
+    [Fact]
+    public void Set_FetalDeathsThisDelivery()
+    {
+      FetalDeathRecord fetalDeathRecord = new FetalDeathRecord();
+      fetalDeathRecord.NumberOfFetalDeathsThisDelivery = 2;
+      Assert.Equal(2, fetalDeathRecord.NumberOfFetalDeathsThisDelivery);
+      IJEFetalDeath ije = new(fetalDeathRecord);
+      FetalDeathRecord fetalDeathRecord2 = ije.ToFetalDeathRecord();
+      Assert.Equal(2, fetalDeathRecord2.NumberOfFetalDeathsThisDelivery);
+    }
+
+    [Fact]
+    public void Get_FetalDeathsThisDelivery()
+    {
+      FetalDeathRecord parsedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
+      Assert.Equal(1, parsedRecord.NumberOfFetalDeathsThisDelivery);
+      parsedRecord.NumberOfFetalDeathsThisDelivery = 3;
+      Assert.Equal(3, parsedRecord.NumberOfFetalDeathsThisDelivery);
+    }
+
+    [Fact]
     public void TestImportLastMenstrualPeriod() 
     {
       FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
