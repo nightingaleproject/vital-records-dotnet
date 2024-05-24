@@ -1254,6 +1254,72 @@ namespace BFDR.Tests
     }
 
     [Fact]
+    public void TestParentReportedAge()
+    {
+
+      // set 
+      SetterFetalDeathRecord.MotherReportedAgeAtDelivery = 26;
+      SetterFetalDeathRecord.FatherReportedAgeAtDelivery = 27;
+      Assert.Equal(26, SetterFetalDeathRecord.MotherReportedAgeAtDelivery); 
+      Assert.Equal(27, SetterFetalDeathRecord.FatherReportedAgeAtDelivery);
+
+      // parsed record
+      FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicFetalDeathRecord.json")));
+      Assert.Equal(33, record.MotherReportedAgeAtDelivery); 
+      Assert.Equal(31, record.FatherReportedAgeAtDelivery); 
+
+      // to IJE
+      IJEFetalDeath ije = new(record);
+      Assert.Equal("33", ije.MAGER.Trim(' '));
+      Assert.Equal("31", ije.FAGER.Trim(' '));
+    }
+
+
+    [Fact]
+    public void TestChildName()
+    {
+      // set
+      FetalDeathRecord record = new FetalDeathRecord();
+      Assert.Empty(record.FetusGivenNames);
+      Assert.Null(record.FetusFamilyName);
+      Assert.Null(record.FetusSuffix);
+      // Child's First Name
+      string[] names = {"Baby", "G"};
+      record.FetusGivenNames = names;
+      Assert.Equal("Baby", record.FetusGivenNames[0]);
+      // Child's Middle Name
+      Assert.Equal("G", record.FetusGivenNames[1]);
+      // Child's Last Name
+      record.FetusFamilyName = "Quinn";
+      Assert.Equal("Quinn", record.FetusFamilyName);
+      // Child's Surname Suffix
+      record.FetusSuffix = "III";
+      Assert.Equal("III", record.FetusSuffix);
+
+      // parsed record
+      FetalDeathRecord parsedRecord = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicFetalDeathRecord.json")));
+      Assert.Equal("Baby", parsedRecord.FetusGivenNames[0]);
+      Assert.Equal("G", parsedRecord.FetusGivenNames[1]);
+      Assert.Equal("Quinn", parsedRecord.FetusFamilyName);
+      // update
+      string[] parsedNames = {"Jim", "Jam"};
+      parsedRecord.FetusGivenNames = parsedNames;
+      parsedRecord.FetusFamilyName = "Jones";
+      parsedRecord.FetusSuffix = "Junior";
+      Assert.Equal("Jim", parsedRecord.FetusGivenNames[0]);
+      Assert.Equal("Jam", parsedRecord.FetusGivenNames[1]);
+      Assert.Equal("Jones", parsedRecord.ChildFamilyName);
+      Assert.Equal("Junior", parsedRecord.FetusSuffix);
+
+      // to IJE
+      IJEFetalDeath ije = new(parsedRecord);
+      Assert.Equal("Jim", ije.FETFNAME.Trim(' '));
+      Assert.Equal("Jam", ije.FETMNAME.Trim(' '));
+      Assert.Equal("Jones", ije.FETLNAME.Trim(' '));
+      Assert.Equal("Junior", ije.SUFFIX.Trim(' '));
+    }
+
+    [Fact]
     public void TestPatientDecedentFetusVitalRecordProperties()
     {
       // Test FHIR record import.
