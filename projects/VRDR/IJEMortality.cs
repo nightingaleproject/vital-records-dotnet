@@ -38,7 +38,7 @@ namespace VRDR
 
         /// <summary>Field _alias.</summary>
         private string _alias;
-        
+
 
         /// <summary>Helper class to contain properties for setting TRX-only fields that have no mapping in IJE when creating coding response records</summary>
         public class TRXHelper
@@ -306,7 +306,7 @@ namespace VRDR
             }
             else
             {
-                date = new DateTimeOffset(1, 1, 1, 0, 0, 0, 0, TimeSpan.Zero);
+                date = new DateTimeOffset(4, 1, 1, 0, 0, 0, 0, TimeSpan.Zero);
                 typeof(DeathRecord).GetProperty(fhirFieldName).SetValue(this.record, DateTimeStringHelper(info, value, dateTimeType, date, dateOnly, withTimezoneOffset));
             }
         }
@@ -550,7 +550,7 @@ namespace VRDR
 
         /// <summary>Void flag</summary>
         [IJEField(4, 13, 1, "Void flag", "VOID", 1)]
-        public string VOID  
+        public string VOID
         {
             get
             {
