@@ -2716,12 +2716,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return NumericAllowingUnknown_Get("MAGER", "MotherReportedAgeAtDelivery");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                NumericAllowingUnknown_Set("MAGER", "MotherReportedAgeAtDelivery", value);
             }
         }
 
@@ -2731,12 +2730,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return NumericAllowingUnknown_Get("FAGER", "FatherReportedAgeAtDelivery");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                NumericAllowingUnknown_Set("FAGER", "FatherReportedAgeAtDelivery", value);
             }
         }
 
@@ -3205,12 +3203,19 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                string[] names = record.FetusGivenNames;
+                if (names.Length > 0)
+                {
+                    return Truncate(names[0], 50).PadRight(50, ' ');
+                }
+                return new string(' ', 50);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    record.FetusGivenNames = new string[] { value.Trim() };
+                }
             }
         }
 
@@ -3220,12 +3225,28 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                string[] names = record.FetusGivenNames;
+                if (names.Length > 1)
+                {
+                    return Truncate(names[1], 50).PadRight(50, ' ');
+                }
+                return " ";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    if (String.IsNullOrWhiteSpace(FETFNAME)) throw new ArgumentException("Middle name cannot be set before first name");
+                    if (!String.IsNullOrWhiteSpace(value))
+                    {
+                        if (record.FetusGivenNames != null)
+                        {
+                            List<string> names = record.FetusGivenNames.ToList();
+                            if (names.Count() > 1) names[1] = value.Trim(); else names.Add(value.Trim());
+                            record.FetusGivenNames = names.ToArray();
+                        }
+                    }
+                }
             }
         }
 
@@ -3233,30 +3254,16 @@ namespace BFDR
         [IJEField(221, 2844, 50, "Fetus Last Name", "FETLNAME", 1)]
         public string FETLNAME
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("FETLNAME", "FetusFamilyName");
+            set => LeftJustified_Set("FETLNAME", "FetusFamilyName", value);
         }
 
         /// <summary>Fetus Surname Suffix</summary>
         [IJEField(222, 2894, 10, "Fetus Surname Suffix", "SUFFIX", 1)]
         public string SUFFIX
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("SUFFIX", "FetusSuffix");
+            set => LeftJustified_Set("SUFFIX", "FetusSuffix", value);
         }
 
         /// <summary>Fetus Legal Name--Alias</summary>

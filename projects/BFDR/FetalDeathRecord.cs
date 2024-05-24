@@ -68,6 +68,104 @@ namespace BFDR
             Composition.Title = "Fetal Death Report";
         }
 
+        /// <summary>Fetus Legal Name - Given. Middle name should be the last entry.</summary>
+        /// <value>the fetus' name (first, etc., middle)</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>string[] names = { "Example", "Something", "Middle" };</para>
+        /// <para>ExampleFetalDeathRecord.FetusGivenNames = names;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Fetus Given Name(s): {string.Join(", ", ExampleFetalDeath.FetusGivenNames)}");</para>
+        /// </example>
+        [Property("FetusGivenNames", Property.Types.StringArr, "Fetus Name", "Fetus' First Name.", true, BFDR.IGURL.PatientDecedentFetus, true, 0)]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient)", "name")]
+        public string[] FetusGivenNames
+        {
+            get
+            {
+                return Subject?.Name?.Find(name => name.Use == HumanName.NameUse.Official)?.Given?.ToArray() ?? new string[0];
+            }
+            set
+            {
+                updateGivenHumanName(value, Subject.Name);
+            }
+        }
+
+        /// <summary>Fetus' Legal Name - Last.</summary>
+        /// <value>the fetus' last name</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>string lastName = "Quinn";</para>
+        /// <para>ExampleFetalDeathRecord.FetusFamilyName = lastName;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Fetus Family Name(s): {string.Join(", ", ExampleFetalDeathRecord.FetusFamilyName)}");</para>
+        /// </example>
+        [Property("FetusFamilyName", Property.Types.String, "Fetus Name", "Fetus' Last Name.", true, BFDR.IGURL.PatientDecedentFetus, true, 0)]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient)", "name")]
+        public string FetusFamilyName
+        {
+            get
+            {
+                return Subject?.Name?.Find(name => name.Use == HumanName.NameUse.Official)?.Family;
+            }
+            set
+            {
+                HumanName name = Subject.Name.SingleOrDefault(n => n.Use == HumanName.NameUse.Official);
+                if (name != null && !String.IsNullOrEmpty(value))
+                {
+                    name.Family = value;
+                }
+                else if (!String.IsNullOrEmpty(value))
+                {
+                    name = new HumanName
+                    {
+                        Use = HumanName.NameUse.Official,
+                        Family = value
+                    };
+                    Subject.Name.Add(name);
+                }
+            }
+        }
+
+        /// <summary>Fetus' Suffix.</summary>
+        /// <value>the fetus' suffix</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleFetalDeathRecord.FetusSuffix = "Jr.";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Fetus Suffix: {ExampleFetusDeathRecord.FetusSuffix}");</para>
+        /// </example>
+        [Property("FetusSuffix", Property.Types.String, "Fetus Name", "Fetus' Suffix.", true, BFDR.IGURL.PatientDecedentFetus, true, 6)]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient)", "name")]
+        public string FetusSuffix
+        {
+            get
+            {
+                return Subject?.Name?.Find(name => name.Use == HumanName.NameUse.Official)?.Suffix.FirstOrDefault();
+            }
+            set
+            {
+                if (String.IsNullOrEmpty(value))
+                {
+                    return;
+                }
+                HumanName name = Subject.Name.SingleOrDefault(n => n.Use == HumanName.NameUse.Official);
+                if (name != null)
+                {
+                    string[] suffix = { value };
+                    name.Suffix = suffix;
+                }
+                else
+                {
+                    name = new HumanName();
+                    name.Use = HumanName.NameUse.Official;
+                    string[] suffix = { value };
+                    name.Suffix = suffix;
+                    Subject.Name.Add(name);
+                }
+            }
+        }
+
         /// <summary>The place of delivery Type.</summary>
         /// <value>Place Where delivery Occurred, type of place or institution. A Dictionary representing a codeable concept of the physical location type:
         /// <para>"code" - The code used to describe this concept.</para>
