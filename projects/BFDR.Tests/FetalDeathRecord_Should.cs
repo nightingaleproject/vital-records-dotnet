@@ -867,7 +867,7 @@ namespace BFDR.Tests
     [Fact]
     public void TestSetDeliveryLocation()
     {
-      BirthRecord br = new()
+      FetalDeathRecord br = new()
       {
           FacilityNPI = "4815162342",
           FacilityJFI = "636",
@@ -900,11 +900,16 @@ namespace BFDR.Tests
     [Fact]
     public void TestImportLastMenstrualPeriod() 
     {
-      BirthRecord record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json")));
-      Assert.Equal("2018-06-05", record.LastMenstrualPeriod);
+      FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
+      Assert.Equal("2018-04-18", record.LastMenstrualPeriod);
       Assert.Equal(2018, record.LastMenstrualPeriodYear);
-      Assert.Equal(6, record.LastMenstrualPeriodMonth);
-      Assert.Equal(5, record.LastMenstrualPeriodDay);
+      Assert.Equal(4, record.LastMenstrualPeriodMonth);
+      Assert.Equal(18, record.LastMenstrualPeriodDay);
+
+      IJEFetalDeath ije = new(record);
+      Assert.Equal("2018", ije.DLMP_YR);
+      Assert.Equal("04", ije.DLMP_MO);
+      Assert.Equal("18", ije.DLMP_DY);
 
       // set after parse
       record.LastMenstrualPeriod = "2023-02";
@@ -912,6 +917,33 @@ namespace BFDR.Tests
       Assert.Equal(2023, record.LastMenstrualPeriodYear);
       Assert.Equal(2, record.LastMenstrualPeriodMonth);
       Assert.Null(record.LastMenstrualPeriodDay);
+    }
+
+    [Fact]
+    public void SetLastMenstrualPeriod()
+    {
+      Assert.Null(SetterFetalDeathRecord.LastMenstrualPeriod);
+      Assert.Null(SetterFetalDeathRecord.LastMenstrualPeriodYear);
+      Assert.Null(SetterFetalDeathRecord.LastMenstrualPeriodMonth);
+      Assert.Null(SetterFetalDeathRecord.LastMenstrualPeriodDay);
+      SetterFetalDeathRecord.LastMenstrualPeriod = "2023-02";
+      Assert.Equal("2023-02", SetterFetalDeathRecord.LastMenstrualPeriod);
+      Assert.Equal(2023, SetterFetalDeathRecord.LastMenstrualPeriodYear);
+      Assert.Equal(2, SetterFetalDeathRecord.LastMenstrualPeriodMonth);
+      Assert.Null(SetterFetalDeathRecord.LastMenstrualPeriodDay);
+      SetterFetalDeathRecord.LastMenstrualPeriod = null;
+      Assert.Null(SetterFetalDeathRecord.LastMenstrualPeriod);
+      Assert.Null(SetterFetalDeathRecord.LastMenstrualPeriodYear);
+      Assert.Null(SetterFetalDeathRecord.LastMenstrualPeriodMonth);
+      Assert.Null(SetterFetalDeathRecord.LastMenstrualPeriodDay);
+      SetterFetalDeathRecord.LastMenstrualPeriodMonth = 4;
+      Assert.Null(SetterFetalDeathRecord.LastMenstrualPeriod);
+      Assert.Null(SetterFetalDeathRecord.LastMenstrualPeriodYear);
+      Assert.Equal(4, SetterFetalDeathRecord.LastMenstrualPeriodMonth);
+      Assert.Null(SetterFetalDeathRecord.LastMenstrualPeriodDay);
+      SetterFetalDeathRecord.LastMenstrualPeriodYear = 2024;
+      Assert.Equal(2024, SetterFetalDeathRecord.LastMenstrualPeriodYear);
+      Assert.Equal("2024-04", SetterFetalDeathRecord.LastMenstrualPeriod);
     }
 
     [Fact]

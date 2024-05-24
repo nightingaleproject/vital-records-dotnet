@@ -1766,12 +1766,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return NumericAllowingUnknown_Get("DLMP_YR", "LastMenstrualPeriodYear");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                NumericAllowingUnknown_Set("DLMP_YR", "LastMenstrualPeriodYear", value);
             }
         }
 
@@ -1781,12 +1780,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return NumericAllowingUnknown_Get("DLMP_MO", "LastMenstrualPeriodMonth");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                NumericAllowingUnknown_Set("DLMP_MO", "LastMenstrualPeriodMonth", value);
             }
         }
 
@@ -1796,12 +1794,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return NumericAllowingUnknown_Get("DLMP_DY", "LastMenstrualPeriodDay");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                NumericAllowingUnknown_Set("DLMP_DY", "LastMenstrualPeriodDay", value);
             }
         }
 
