@@ -71,9 +71,9 @@ namespace VR
                         Bundle = parser.Parse<Bundle>(record);
                     }
 
-                    // Validate the partial dates.
-                    ValidatePartialDates(Bundle);
-
+                    // Validate the partial dates. This code is commented out since we are reevaluating partial date handling based on updates to the VitalRecords IG.
+                    // ValidatePartialDates(Bundle);
+                    
                     Navigator = Bundle.ToTypedElement();
                 }
                 catch (Exception e)

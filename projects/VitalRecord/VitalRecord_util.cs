@@ -108,6 +108,13 @@ namespace VR
             return null;
         }
 
+        /// <summary>Helper to support vital record property getter helper methods for removing Observations.</summary>
+        /// <param name="code">the code to identify the type of Observation</param>
+        protected void RemoveObservation(string code)
+        {
+            Bundle.Entry.RemoveAll(e => e.Resource is Observation obs && CodeableConceptToDict(obs.Code)["code"] == code);
+        }
+
         /// <summary>Helper to support vital record property setter helper methods for values stored in Observations.</summary>
         /// <param name="code">the code to specify the type of Observation</param>
         /// <param name="codeSystem">the code system of the code specifying the type of Observation</param>
@@ -421,7 +428,8 @@ namespace VR
             }
         }
 
-        /// <summary>Helper method to validate that all PartialDate and PartialDateTime exensions are valid and have the valid required sub-extensions.</summary>
+        /// <summary>Function that validates all partial date extensions in a bundle. Currently unused due
+        /// to reevaluation of partial date handling due to changes in the VitalRecords IG.</summary>
         /// <param name="bundle">The bundle in which to validate the PartialDate/Time extensions.</param>
         private void ValidatePartialDates(Bundle bundle)
         {
@@ -948,47 +956,75 @@ namespace VR
             // If just the year and month date elements are valid and known, build a FhirDateTime in the format yyyy-mm. Store the day in a PartialDateTimeDay.
             if (yearValue != -1 && yearValue != null && monthValue != -1 && monthValue != null)
             {
-                FhirDateTime fdtYearMonth = new FhirDateTime((int)yearValue, (int)monthValue)
-                {
-                    Extension = dateElement.Extension
-                };
+                FhirDateTime fdtYearMonth = new FhirDateTime((int)yearValue, (int)monthValue);
                 if (!fdtYearMonth.Extension.Any(ext => ext.Url == PartialDateTimeUrl))
                 {
                     fdtYearMonth.SetExtension(PartialDateTimeUrl, new Extension());
                 }
                 fdtYearMonth.GetExtension(PartialDateTimeUrl).SetExtension(VR.ExtensionURL.PartialDateTimeDayVR, new Integer(dayValue));
+                fdtYearMonth.GetExtension(PartialDateTimeUrl).RemoveExtension(VR.ExtensionURL.PartialDateTimeMonthVR);
+                fdtYearMonth.GetExtension(PartialDateTimeUrl).RemoveExtension(VR.ExtensionURL.PartialDateTimeYearVR);
+                if (dayValue == null)
+                {
+                    fdtYearMonth.GetExtension(PartialDateTimeUrl).Extension.Add(BuildTempUnknownPartialDateTime(VR.ExtensionURL.PartialDateTimeDayVR));
+                }
                 return fdtYearMonth;
             }
 
             // If just the year date element is valid and known, build a FhirDateTime in the format yyyy. Store the day in a PartialDateTimeDay and the month in a PartialDateTimeMonth.
             if (yearValue != -1 && yearValue != null)
             {
-                FhirDateTime fdtYear = new FhirDateTime((int)yearValue)
-                {
-                    Extension = dateElement.Extension
-                };
+                FhirDateTime fdtYear = new FhirDateTime((int)yearValue);
                 if (!fdtYear.Extension.Any(ext => ext.Url == PartialDateTimeUrl))
                 {
                     fdtYear.SetExtension(PartialDateTimeUrl, new Extension());
                 }
                 fdtYear.GetExtension(PartialDateTimeUrl).SetExtension(VR.ExtensionURL.PartialDateTimeMonthVR, new Integer(monthValue));
                 fdtYear.GetExtension(PartialDateTimeUrl).SetExtension(VR.ExtensionURL.PartialDateTimeDayVR, new Integer(dayValue));
+                fdtYear.GetExtension(PartialDateTimeUrl).RemoveExtension(VR.ExtensionURL.PartialDateTimeYearVR);
+                if (dayValue == null)
+                {
+                    fdtYear.GetExtension(PartialDateTimeUrl).Extension.Add(BuildTempUnknownPartialDateTime(VR.ExtensionURL.PartialDateTimeDayVR));
+                }
+                if (monthValue == null)
+                {
+                    fdtYear.GetExtension(PartialDateTimeUrl).Extension.Add(BuildTempUnknownPartialDateTime(VR.ExtensionURL.PartialDateTimeMonthVR));
+                }
                 return fdtYear;
             }
 
             // If the year is not valid or is unknown, build an empty FhirDateTime and store all date data in the partial date time extensions.
-            FhirDateTime fdtEmpty = new FhirDateTime
-            {
-                Extension = dateElement.Extension
-            };
+            FhirDateTime fdtEmpty = new FhirDateTime();
             if (!fdtEmpty.Extension.Any(ext => ext.Url == PartialDateTimeUrl))
             {
                 fdtEmpty.SetExtension(PartialDateTimeUrl, new Extension());
             }
+
             fdtEmpty.GetExtension(PartialDateTimeUrl).SetExtension(VR.ExtensionURL.PartialDateTimeYearVR, new Integer(yearValue));
+            if (yearValue == null)
+            {
+                fdtEmpty.GetExtension(PartialDateTimeUrl).Extension.Add(BuildTempUnknownPartialDateTime(VR.ExtensionURL.PartialDateTimeYearVR));
+            }
+
             fdtEmpty.GetExtension(PartialDateTimeUrl).SetExtension(VR.ExtensionURL.PartialDateTimeMonthVR, new Integer(monthValue));
+            if (monthValue == null)
+            {
+                fdtEmpty.GetExtension(PartialDateTimeUrl).Extension.Add(BuildTempUnknownPartialDateTime(VR.ExtensionURL.PartialDateTimeMonthVR));
+            }
+            
             fdtEmpty.GetExtension(PartialDateTimeUrl).SetExtension(VR.ExtensionURL.PartialDateTimeDayVR, new Integer(dayValue));
+            if (dayValue == null)
+            {
+                fdtEmpty.GetExtension(PartialDateTimeUrl).Extension.Add(BuildTempUnknownPartialDateTime(VR.ExtensionURL.PartialDateTimeDayVR));
+            }
             return fdtEmpty;
+        }
+
+        private static Extension BuildTempUnknownPartialDateTime(string partialDateUrl)
+        {
+            Extension ext = new Extension(partialDateUrl, null);
+            ext.Extension.Add(new Extension(OtherExtensionURL.DataAbsentReason, new Code("temp-unknown")));
+            return ext;
         }
 
         /// <summary>Overrideable method that dictates which Extension URL to use for PartialDateTime Year</summary>

@@ -170,7 +170,7 @@ namespace VRDR.Tests
             ije.VOID = " 0 ";
             Assert.Equal("0", ije.VOID);
             ije.VOID = "0";
-            Assert.Equal("0", ije.VOID);           
+            Assert.Equal("0", ije.VOID);
             ije.VOID = " 1 ";
             Assert.Equal("1", ije.VOID);
 	    ije.VOID = "1";
@@ -193,7 +193,7 @@ namespace VRDR.Tests
             ije.ALIAS = " 0 ";
             Assert.Equal("0", ije.ALIAS);
             ije.ALIAS = "0";
-            Assert.Equal("0", ije.ALIAS);           
+            Assert.Equal("0", ije.ALIAS);
             ije.ALIAS = " 1 ";
             Assert.Equal("1", ije.ALIAS);
 	    ije.ALIAS = "1";
@@ -202,7 +202,7 @@ namespace VRDR.Tests
             Assert.Equal("0", ije.ALIAS);
         }
 
-            
+
         // [Fact]
         // public void SetCOUNTRY_C()
         // {
@@ -490,6 +490,14 @@ namespace VRDR.Tests
             ije.RAC = "T273 T2701";
             Assert.Equal("T273 T2701", ije.RAC.Trim());
             ArgumentException e4 = Assert.Throws<ArgumentException>(() => ije.EAC = "11T27.321T27.0&");
+        }
+
+        [Fact]
+        public void LeapYearDate()
+        {
+            IJEMortality ije = new IJEMortality();
+            ije.CERTDATE = "02292024";
+            Assert.Equal("02292024", ije.CERTDATE.Trim());
         }
 
         [Fact]
