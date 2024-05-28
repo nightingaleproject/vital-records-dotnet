@@ -1062,5 +1062,98 @@ namespace BFDR
                 (GetFacilityLocation(ValueSets.LocationTypes.Birth_Location) ?? CreateAndSetLocationBirth(ValueSets.LocationTypes.Birth_Location)).Address = d;
             }
         }
+    
+        /// <summary>Decedent Fetus's Date of Delivery.</summary>
+        /// <value>the decedent fetus's date of delivery</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleFetalDeathRecord.DateOfDelivery = "1940-02-19";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Decedent Fetus Date of Delivery: {ExampleFetalDeathRecord.DateOfBirth}");</para>
+        /// </example>
+        [Property("Date Of Delivery", Property.Types.String, "Fetus Demographics", "Decedent Fetus's Date of Delivery.", true, BFDR.IGURL.PatientDecedentFetus, true, 14)]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient).birthDate", "")]
+        public string DateOfDelivery
+        {
+            get
+            {
+                if (this.Subject == null || this.Subject.BirthDateElement == null)
+                {
+                    return null;
+                }
+                return this.Subject.BirthDate;
+            }
+            set
+            {
+                string time = this.GetBirthTime();
+                this.Subject.BirthDateElement = ConvertToDate(value);
+                this.SetBirthTime(time);
+            }
+        }
+
+        /// <summary>Decedent Fetus's Year of Delivery.</summary>
+        /// <value>the decedent fetus's year of delivery, or -1 if explicitly unknown, or null if never specified</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleFetalDeathRecord.DeliveryYear = 1928;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Decedent Fetus' Year of Delivery: {ExampleFetalDeathRecord.DeliveryYear}");</para>
+        /// </example>
+        [Property("DeliveryYear", Property.Types.Int32, "Fetus Demographics", "Decedent Fetus's Year of Delivery.", false, BFDR.IGURL.PatientDecedentFetus, true, 14)]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient).birthDate", "")]
+        public int? DeliveryYear
+        {
+            get => GetBirthYear();
+            set => SetBirthYear(value);
+        }
+
+        /// <summary>Decedent Fetus's Month of Delivery.</summary>
+        /// <value>the decedent fetus's month of delivery, or -1 if explicitly unknown, or null if never specified</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleFetalDeathRecord.DeliveryMonth = 11;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Child Month of Birth: {ExampleFetalDeathRecord.DeliveryMonth}");</para>
+        /// </example>
+        [Property("DeliveryMonth", Property.Types.Int32, "Fetus Demographics", "Decedent Fetus's Month of Delivery.", false, BFDR.IGURL.PatientDecedentFetus, true, 14)]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient).birthDate", "")]
+        public int? DeliveryMonth
+        {
+            get => GetBirthMonth();
+            set => SetBirthMonth(value);
+        }
+
+        /// <summary>Decedent Fetus's Day of Delivery.</summary>
+        /// <value>the decedent fetus's day of delivery, or -1 if explicitly unknown, or null if never specified</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleFetalDeathRecord.DeliveryDay = 11;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Decedent Fetus' Day of Birth: {ExampleFetalDeathRecord.DeliveryDay}");</para>
+        /// </example>
+        [Property("DeliveryDay", Property.Types.Int32, "Fetus Demographics", "Decedent Fetus's Day of Delivery.", false, BFDR.IGURL.PatientDecedentFetus, true, 14)]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient).extension.birthDate", "")]
+        public int? DeliveryDay
+        {
+            get => GetBirthDay();
+            set => SetBirthDay(value);
+        }
+
+        /// <summary>Decedent Fetus's Time of Delivery.</summary>
+        /// <value>the decedent fetus's time of delivery.</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleFetalDeathRecord.DeliveryTime = 11;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Decedent Fetus Time of Birth: {ExampleFetalDeathRecord.DeliveryTime}");</para>
+        /// </example>
+        [Property("BirthTime", Property.Types.String, "Fetus Demographics", "Decedent Fetus's Time of Birth.", true, BFDR.IGURL.PatientDecedentFetus, true, 14)]
+        // How should FHIRPath work when the time could be in 1 of 2 different places (value in PatientBirthTime | PartialDateTime extension)
+        [FHIRPath("Bundle.entry.resource.where($this is Patient).birthDate.extension.where(url='" + VR.ExtensionURL.PatientBirthTime + "')", "")]
+        public string DeliveryTime
+        {
+            get => GetBirthTime();
+            set => SetBirthTime(value);
+        }
     }
 }
