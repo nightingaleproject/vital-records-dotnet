@@ -1499,5 +1499,37 @@ namespace BFDR.Tests
       Assert.Equal(" ",ije.MAGE_BYPASS);
       Assert.Equal("1", ije.FAGE_BYPASS);
     }
+
+    [Fact]
+    public void TestImportFatherBirthplace()
+    {
+      // Test FHIR record import.
+      FetalDeathRecord firstRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
+      string firstDescription = firstRecord.ToDescription();
+      // Test conversion via FromDescription.
+      FetalDeathRecord secondRecord = VitalRecord.FromDescription<FetalDeathRecord>(firstDescription);
+      // Test IJE Conversion.
+      IJEFetalDeath ije = new(secondRecord);
+
+      Assert.Equal(firstRecord.FatherPlaceOfBirth, secondRecord.FatherPlaceOfBirth);
+      // Country
+      Assert.Equal("US", firstRecord.FatherPlaceOfBirth["addressCountry"]);
+      Assert.Equal(firstRecord.FatherPlaceOfBirth["addressCountry"], ije.FBPLACE_CNT_C);
+      // State
+      Assert.Equal("MA", firstRecord.FatherPlaceOfBirth["addressState"]);
+      Assert.Equal(firstRecord.FatherPlaceOfBirth["addressState"], ije.FBPLACD_ST_TER_C);
+      // set after parse
+      firstRecord.FatherPlaceOfBirth = new Dictionary<string, string>
+      {
+        ["addressState"] = "NY",
+        ["addressCounty"] = "Queens",
+        ["addressCity"] = "New York",
+        ["addressCountry"] = "US"
+      };
+      Assert.Equal("NY", firstRecord.FatherPlaceOfBirth["addressState"]);
+      Assert.Equal("Queens", firstRecord.FatherPlaceOfBirth["addressCounty"]);
+      Assert.Equal("New York", firstRecord.FatherPlaceOfBirth["addressCity"]);
+      Assert.Equal("US", firstRecord.FatherPlaceOfBirth["addressCountry"]);
+    }
   }
 }
