@@ -223,12 +223,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Get_MappingFHIRToIJE(VR.Mappings.BirthSexChild.FHIRToIJE, "FetalDeathSex", "FSEX");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                Set_MappingIJEToFHIR(VR.Mappings.BirthSexChild.IJEToFHIR, "FSEX", "FetalDeathSex", value);
             }
         }
 
@@ -2430,12 +2429,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return NumericAllowingUnknown_Get("PLUR", "FetalDeathPlurality");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                NumericAllowingUnknown_Set("PLUR", "FetalDeathPlurality", value);
             }
         }
 
@@ -2445,12 +2443,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return NumericAllowingUnknown_Get("SORD", "FetalDeathSetOrder");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                NumericAllowingUnknown_Set("SORD", "FetalDeathSetOrder", value);
             }
         }
 
@@ -2489,12 +2486,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Get_MappingFHIRToIJE(VR.Mappings.PluralityEditFlags.FHIRToIJE, "FetalDeathPluralityEditFlag", "PLUR_BYPASS").PadLeft(1, ' ');
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                Set_MappingIJEToFHIR(VR.Mappings.PluralityEditFlags.IJEToFHIR, "PLUR_BYPASS", "FetalDeathPluralityEditFlag", value);
             }
         }
 

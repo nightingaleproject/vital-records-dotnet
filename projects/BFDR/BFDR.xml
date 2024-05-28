@@ -536,6 +536,68 @@
             <para>Console.WriteLine($"Decedent Fetus Time of Birth: {ExampleFetalDeathRecord.DeliveryTime}");</para>
             </example>
         </member>
+        <member name="P:BFDR.FetalDeathRecord.FetalDeathSex">
+            <summary>Decedent Fetus's BirthSex at fetal death.</summary>
+            <value>The decedent fetus's BirthSex at time of fetal death</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.FetalDeathSex = "female;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Sex at Time of Fetal Death: {ExampleFetalDeathRecord.FetalDeathSex}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.FetalDeathSexHelper">
+            <summary>Decedent Fetus's Sex at Fetal Death Helper.</summary>
+            <value>The decedent fetus's sex at time of fetal death</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.FetalDeathSexHelper = "female;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Sex at Time of Fetal Death: {ExampleFetalDeathRecord.FetalDeathSexHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.FetalDeathSetOrder">
+            <summary>Multiple birth set order</summary>
+            <value>The order that the decedent fetus was born if a multiple birth or null if it was a single birth</value>
+            <example>
+            <para>ExampleFetalDeathRecord.FetalDeathSetOrder = null; // single birth</para>
+            <para>ExampleFetalDeathRecord.FetalDeathSetOrder = -1; // unknow whether single or multiple birth</para>
+            <para>ExampleFetalDeathRecord.FetalDeathSetOrder = 1; // multiple birth, born first</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.FetalDeathPluralityEditFlag">
+            <summary>Multiple birth set order edit flag</summary>
+            <value>the multiple birth set order edit flag</value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; route = new Dictionary&lt;string, string&gt;();</para>
+            <para>route.Add("code", "queriedCorrect");</para>
+            <para>route.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");</para>
+            <para>route.Add("display", "Queried, and Correct");</para>
+            <para>ExampleFetalDeathRecord.FetalDeathPluralityEditFlag = route;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Multiple birth set order edit flag: {ExampleFetalDeathRecord.FetalDeathPluralityEditFlag}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.FetalDeathPluralityEditFlagHelper">
+            <summary>Multiple birth set order edit flag helper</summary>
+            <value>the multiple birth set order edit flag</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.FetalDeathPluralityEditFlagHelper = "queriedCorrect";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Multiple birth set order edit flag: {ExampleFetalDeathRecord.FetalDeathPluralityEditFlagHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.FetalDeathPlurality">
+            <summary>Multiple birth plurality</summary>
+            <value>Where a patient is a part of a multiple birth, this is the total number of births that occurred in this pregnancy.</value>
+            <example>
+            <para>ExampleFetalDeathRecord.FetalDeathPlurality = null; // single birth</para>
+            <para>ExampleFetalDeathRecord.FetalDeathPlurality = -1; // unknown number of births birth</para>
+            <para>ExampleFetalDeathRecord.FetalDeathPlurality = 2; // two births for this pregnancy</para>
+            </example>
+        </member>
         <member name="T:BFDR.IJEBirth">
             <summary>A "wrapper" class to convert between a FHIR based <c>BirthRecord</c> and
             a record in IJE Natality format. Each property of this class corresponds exactly
