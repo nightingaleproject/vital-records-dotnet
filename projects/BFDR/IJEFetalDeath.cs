@@ -310,12 +310,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return NumericAllowingUnknown_Get("MDOB_YR", "MotherBirthYear");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                NumericAllowingUnknown_Set("MDOB_YR", "MotherBirthYear", value);
             }
         }
 
@@ -325,12 +324,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return NumericAllowingUnknown_Get("MDOB_MO", "MotherBirthMonth");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                NumericAllowingUnknown_Set("MDOB_MO", "MotherBirthMonth", value);
             }
         }
 
@@ -340,12 +338,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return NumericAllowingUnknown_Get("MDOB_DY", "MotherBirthDay");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                NumericAllowingUnknown_Set("MDOB_DY", "MotherBirthDay", value);
             }
         }
 
@@ -355,12 +352,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Get_MappingFHIRToIJE(VR.Mappings.DateOfBirthEditFlags.FHIRToIJE, "MotherDateOfBirthEditFlag", "MAGE_BYPASS").PadLeft(1, ' ');
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                Set_MappingIJEToFHIR(VR.Mappings.DateOfBirthEditFlags.IJEToFHIR, "MAGE_BYPASS", "MotherDateOfBirthEditFlag", value);
             }
         }
 
@@ -475,12 +471,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return NumericAllowingUnknown_Get("FDOB_YR", "FatherBirthYear");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                NumericAllowingUnknown_Set("FDOB_YR", "FatherBirthYear", value);
             }
         }
 
@@ -490,12 +485,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return NumericAllowingUnknown_Get("FDOB_MO", "FatherBirthMonth");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                NumericAllowingUnknown_Set("FDOB_MO", "FatherBirthMonth", value);
             }
         }
 
@@ -505,12 +499,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return NumericAllowingUnknown_Get("FDOB_DY", "FatherBirthDay");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                NumericAllowingUnknown_Set("FDOB_DY", "FatherBirthDay", value);
             }
         }
 
@@ -520,12 +513,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Get_MappingFHIRToIJE(VR.Mappings.DateOfBirthEditFlags.FHIRToIJE, "FatherDateOfBirthEditFlag", "FAGE_BYPASS").PadLeft(1, ' ');
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                Set_MappingIJEToFHIR(VR.Mappings.DateOfBirthEditFlags.IJEToFHIR, "FAGE_BYPASS", "FatherDateOfBirthEditFlag", value);
             }
         }
 

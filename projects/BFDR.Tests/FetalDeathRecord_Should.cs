@@ -1252,5 +1252,252 @@ namespace BFDR.Tests
       Assert.Equal("1", ije.FEDUC_BYPASS);
       Assert.Equal("1", ije.MEDUC_BYPASS);
     }
+
+    [Fact]
+    public void TestMotherBirthDateSetters()
+    {
+      FetalDeathRecord record1 = new FetalDeathRecord();
+      // Date of Birth - Year
+      record1.MotherBirthYear = 1990;
+      Assert.Equal(1990, record1.MotherBirthYear);
+      // Date of Birth - Month
+      record1.MotherBirthMonth = 8;
+      Assert.Equal(8, record1.MotherBirthMonth);
+      // Date of Birth - Day
+      record1.MotherBirthDay = 29;
+      Assert.Equal(29, record1.MotherBirthDay);
+      // Complete Date of Birth.
+      Assert.Equal("1990-08-29", record1.MotherDateOfBirth);
+      Assert.Null(record1.MotherReportedAgeAtDelivery);
+      record1.MotherReportedAgeAtDelivery = 27;
+      Assert.Equal(27, record1.MotherReportedAgeAtDelivery);
+
+      // Test in a different order.
+      FetalDeathRecord record2 = new FetalDeathRecord();
+      // Date of Birth - Day
+      record2.MotherBirthDay = 1;
+      Assert.Equal(1, record2.MotherBirthDay);
+      // Date of Birth - Month
+      record2.MotherBirthMonth = 5;
+      Assert.Equal(5, record2.MotherBirthMonth);
+      // Date of Birth - Year
+      record2.MotherBirthYear = 1992;
+      Assert.Equal(1992, record2.MotherBirthYear);
+      // Complete Date of Birth.
+      Assert.Equal("1992-05-01", record2.MotherDateOfBirth);
+      record2.MotherDateOfBirth = "1993-06-02";
+      Assert.Equal("1993-06-02", record2.MotherDateOfBirth);
+      Assert.Equal(2, record2.MotherBirthDay);
+      Assert.Equal(6, record2.MotherBirthMonth);
+      Assert.Equal(1993, record2.MotherBirthYear);
+
+      // Test updating a completed date.
+      FetalDeathRecord record3 = new FetalDeathRecord();
+      record3.MotherDateOfBirth = "1990-10-08";
+      record3.MotherBirthMonth = 8;
+      Assert.Equal("1990-08-08", record3.MotherDateOfBirth);
+
+      // Test partial dates.
+      FetalDeathRecord record4 = new FetalDeathRecord();
+      // Date of Birth - Year
+      record4.MotherBirthYear = 1992;
+      Assert.Equal(1992, record4.MotherBirthYear);
+      Assert.Equal("1992", record4.MotherDateOfBirth);
+      // Date of Birth - Month
+      record4.MotherBirthMonth = 7;
+      Assert.Equal(7, record4.MotherBirthMonth);
+      Assert.Equal("1992-07", record4.MotherDateOfBirth);
+      // Date of Birth - Day
+      record4.MotherBirthDay = 3;
+      Assert.Equal(3, record4.MotherBirthDay);
+      // Complete Date of Birth.
+      Assert.Equal("1992-07-03", record4.MotherDateOfBirth);
+      record4.MotherDateOfBirth = "1993-06";
+      Assert.Equal("1993-06", record4.MotherDateOfBirth);
+      Assert.Null(record4.MotherBirthDay);
+      Assert.Equal(6, record4.MotherBirthMonth);
+      Assert.Equal(1993, record4.MotherBirthYear);
+      record4.MotherDateOfBirth = "1994";
+      Assert.Equal("1994", record4.MotherDateOfBirth);
+      Assert.Null(record4.MotherBirthDay);
+      Assert.Null(record4.MotherBirthMonth);
+      Assert.Equal(1994, record4.MotherBirthYear);
+
+      // Test partial dates in weird orders.
+      FetalDeathRecord record5 = new FetalDeathRecord();
+      // Date of Birth - Day
+      record5.MotherBirthDay = 5;
+      Assert.Equal(5, record5.MotherBirthDay);
+      Assert.Null(record5.MotherDateOfBirth);
+      // Date of Birth - Month
+      record5.MotherBirthMonth = 9;
+      Assert.Equal(9, record5.MotherBirthMonth);
+      Assert.Null(record5.MotherDateOfBirth);
+      // Date of Birth - Year
+      record5.MotherBirthYear = 1988;
+      Assert.Equal(1988, record5.MotherBirthYear);
+      Assert.Equal("1988-09-05", record5.MotherDateOfBirth);
+    }
+
+    [Fact]
+    public void TestMotherBirthDateUnknowns()
+    {
+      FetalDeathRecord record1 = new FetalDeathRecord();
+      record1.MotherDateOfBirth = "1990-08-29";
+      Assert.Equal("1990-08-29", record1.MotherDateOfBirth);
+      record1.MotherBirthYear = -1;
+      Assert.Equal(-1, record1.MotherBirthYear);
+      Assert.Equal(8, record1.MotherBirthMonth);
+      Assert.Equal(29, record1.MotherBirthDay);
+      Assert.Null(record1.MotherDateOfBirth);
+      record1.MotherBirthYear = 2000;
+      Assert.Equal(2000, record1.MotherBirthYear);
+      Assert.Equal(8, record1.MotherBirthMonth);
+      Assert.Equal(29, record1.MotherBirthDay);
+      record1.MotherBirthMonth = -1;
+      Assert.Equal("2000", record1.MotherDateOfBirth);
+      Assert.Equal(-1, record1.MotherBirthMonth);
+      Assert.Equal(29, record1.MotherBirthDay);
+      record1.MotherBirthMonth = 3;
+      Assert.Equal("2000-03-29", record1.MotherDateOfBirth);
+      record1.MotherBirthDay = -1;
+      Assert.Equal(-1, record1.MotherBirthDay);
+      Assert.Equal("2000-03", record1.MotherDateOfBirth);
+    }
+
+    [Fact]
+    public void TestFatherBirthDateUnknowns()
+    {
+      FetalDeathRecord record1 = new FetalDeathRecord();
+      record1.FatherDateOfBirth = "1990-08-29";
+      Assert.Equal("1990-08-29", record1.FatherDateOfBirth);
+      record1.FatherBirthYear = -1;
+      Assert.Equal(-1, record1.FatherBirthYear);
+      Assert.Equal(8, record1.FatherBirthMonth);
+      Assert.Equal(29, record1.FatherBirthDay);
+      Assert.Null(record1.FatherDateOfBirth);
+      record1.FatherBirthYear = 2000;
+      Assert.Equal(2000, record1.FatherBirthYear);
+      Assert.Equal(8, record1.FatherBirthMonth);
+      Assert.Equal(29, record1.FatherBirthDay);
+      record1.FatherBirthMonth = -1;
+      Assert.Equal("2000", record1.FatherDateOfBirth);
+      Assert.Equal(-1, record1.FatherBirthMonth);
+      Assert.Equal(29, record1.FatherBirthDay);
+      record1.FatherBirthMonth = 3;
+      Assert.Equal("2000-03-29", record1.FatherDateOfBirth);
+      record1.FatherBirthDay = -1;
+      Assert.Equal(-1, record1.FatherBirthDay);
+      Assert.Equal("2000-03", record1.FatherDateOfBirth);
+    }
+
+    [Fact]
+    public void TestFatherBirthDateSetters()
+    {
+      FetalDeathRecord record1 = new FetalDeathRecord();
+      // Date of Birth - Year
+      record1.FatherBirthYear = 1990;
+      Assert.Equal(1990, record1.FatherBirthYear);
+      // Date of Birth - Month
+      record1.FatherBirthMonth = 8;
+      Assert.Equal(8, record1.FatherBirthMonth);
+      // Date of Birth - Day
+      record1.FatherBirthDay = 29;
+      Assert.Equal(29, record1.FatherBirthDay);
+      // Complete Date of Birth.
+      Assert.Equal("1990-08-29", record1.FatherDateOfBirth);
+      Assert.Null(record1.FatherReportedAgeAtDelivery);
+      record1.FatherReportedAgeAtDelivery = 28;
+      Assert.Equal(28, record1.FatherReportedAgeAtDelivery);
+
+      // Test in a different order.
+      FetalDeathRecord record2 = new FetalDeathRecord();
+      // Date of Birth - Day
+      record2.FatherBirthDay = 1;
+      Assert.Equal(1, record2.FatherBirthDay);
+      // Date of Birth - Month
+      record2.FatherBirthMonth = 5;
+      Assert.Equal(5, record2.FatherBirthMonth);
+      // Date of Birth - Year
+      record2.FatherBirthYear = 1992;
+      Assert.Equal(1992, record2.FatherBirthYear);
+      // Complete Date of Birth.
+      Assert.Equal("1992-05-01", record2.FatherDateOfBirth);
+      record2.FatherDateOfBirth = "1993-06-02";
+      Assert.Equal("1993-06-02", record2.FatherDateOfBirth);
+      Assert.Equal(2, record2.FatherBirthDay);
+      Assert.Equal(6, record2.FatherBirthMonth);
+      Assert.Equal(1993, record2.FatherBirthYear);
+
+      // Test partial dates.
+      FetalDeathRecord record3 = new FetalDeathRecord();
+      // Date of Birth - Year
+      record3.FatherBirthYear = 1992;
+      Assert.Equal(1992, record3.FatherBirthYear);
+      Assert.Equal("1992", record3.FatherDateOfBirth);
+      // Date of Birth - Month
+      record3.FatherBirthMonth = 7;
+      Assert.Equal(7, record3.FatherBirthMonth);
+      Assert.Equal("1992-07", record3.FatherDateOfBirth);
+      // Date of Birth - Day
+      record3.FatherBirthDay = 3;
+      Assert.Equal(3, record3.FatherBirthDay);
+      // Complete Date of Birth.
+      Assert.Equal("1992-07-03", record3.FatherDateOfBirth);
+      record3.FatherDateOfBirth = "1993-06";
+      Assert.Equal("1993-06", record3.FatherDateOfBirth);
+      Assert.Null(record3.FatherBirthDay);
+      Assert.Equal(6, record3.FatherBirthMonth);
+      Assert.Equal(1993, record3.FatherBirthYear);
+      record3.FatherDateOfBirth = "1994";
+      Assert.Equal("1994", record3.FatherDateOfBirth);
+      Assert.Null(record3.FatherBirthDay);
+      Assert.Null(record3.FatherBirthMonth);
+      Assert.Equal(1994, record3.FatherBirthYear);
+
+      // Test partial dates in weird orders.
+      FetalDeathRecord record4 = new FetalDeathRecord();
+      // Date of Birth - Day
+      record4.FatherBirthDay = 5;
+      Assert.Equal(5, record4.FatherBirthDay);
+      Assert.Null(record4.FatherDateOfBirth);
+      // Date of Birth - Month
+      record4.FatherBirthMonth = 9;
+      Assert.Equal(9, record4.FatherBirthMonth);
+      Assert.Null(record4.FatherDateOfBirth);
+      // Date of Birth - Year
+      record4.FatherBirthYear = 1988;
+      Assert.Equal(1988, record4.FatherBirthYear);
+      Assert.Equal("1988-09-05", record4.FatherDateOfBirth);
+    }
+
+    [Fact]
+    public void ParentBirthDatesPresent()
+    {
+      FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
+      Assert.Equal(1990, record.MotherBirthYear);
+      Assert.Equal(3, record.MotherBirthMonth);
+      Assert.Equal(11, record.MotherBirthDay);
+      Assert.Equal("1990-03-11", record.MotherDateOfBirth);
+      Assert.Equal(1991, record.FatherBirthYear);
+      Assert.Equal(6, record.FatherBirthMonth);
+      Assert.Equal(5, record.FatherBirthDay);
+      Assert.Equal("1991-06-05", record.FatherDateOfBirth);
+      // edit flags
+      Assert.Null(record.MotherDateOfBirthEditFlagHelper);
+      Assert.Equal("", record.MotherDateOfBirthEditFlag["code"]);
+      Assert.Equal("1dataQueried", record.FatherDateOfBirthEditFlagHelper);
+      Assert.Equal("1dataQueried", record.FatherDateOfBirthEditFlag["code"]);
+      // convert parsed record to IJE
+      IJEFetalDeath ije = new IJEFetalDeath(record);
+      Assert.Equal("1990", ije.MDOB_YR);
+      Assert.Equal("03", ije.MDOB_MO);
+      Assert.Equal("11", ije.MDOB_DY);
+      Assert.Equal("1991", ije.FDOB_YR);
+      Assert.Equal("06", ije.FDOB_MO);
+      Assert.Equal("05", ije.FDOB_DY);
+      Assert.Equal(" ",ije.MAGE_BYPASS);
+      Assert.Equal("1", ije.FAGE_BYPASS);
+    }
   }
 }
