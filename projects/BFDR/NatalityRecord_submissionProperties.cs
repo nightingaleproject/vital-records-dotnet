@@ -4427,7 +4427,7 @@ namespace BFDR
         public int? NumberOfPrenatalVisits
         {
             get => GetIntegerObservationValue("68493-6");
-            set => SetIntegerObservationValue("68493-6", CodeSystems.LOINC, value, NUMBER_OF_PRENATAL_VISITS, BFDR.ProfileURL.ObservationNumberPrenatalVisits, Mother.Id);
+            set => SetIntegerObservationValue("68493-6", CodeSystems.LOINC, value, BFDR.ProfileURL.ObservationNumberPrenatalVisits, NUMBER_OF_PRENATAL_VISITS, Mother.Id);
         }
 
         /// <summary>NumberOfPrenatalVisitsEditFlag.</summary>
