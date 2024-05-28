@@ -4096,12 +4096,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Dictionary_Geo_Get("FBPLACD_ST_TER_C", "FatherPlaceOfBirth", "address", "state", true);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Dictionary_Set("FBPLACD_ST_TER_C", "FatherPlaceOfBirth", "addressState", value);
+                }
             }
         }
 
@@ -4111,12 +4113,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Dictionary_Geo_Get("FBPLACE_CNT_C", "FatherPlaceOfBirth", "address", "country", true);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Dictionary_Set("FBPLACE_CNT_C", "FatherPlaceOfBirth", "addressCountry", value);
+                }
             }
         }
 
@@ -4156,12 +4160,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return IJEData.Instance.StateCodeToStateName(FBPLACD_ST_TER_C);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                FBPLACD_ST_TER_C = IJEData.Instance.StateNameToStateCode(value);
             }
         }
 
@@ -4171,12 +4174,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return IJEData.Instance.CountryCodeToCountryName(FBPLACE_CNT_C);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                FBPLACE_CNT_C = IJEData.Instance.CountryNameToCountryCode(value);
             }
         }
 
