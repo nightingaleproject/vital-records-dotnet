@@ -128,5 +128,70 @@ namespace BFDR
             get => GetWeight("69461-2");
             set => SetWeight("69461-2", value, "lb_av", MOTHER_PRENATAL_SECTION, Mother.Id);
         }
+
+        /// <summary>Child's Year of Birth.</summary>
+        /// <value>the child's year of birth, or -1 if explicitly unknown, or null if never specified</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.BirthYear = 1928;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Child Year of Birth: {ExampleBirthRecord.BirthYear}");</para>
+        /// </example>
+        [Property("BirthYear", Property.Types.Int32, "Child Demographics", "Child's Year of Birth.", false, VR.IGURL.Child, true, 14)]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient).birthDate", "")]
+        public int? BirthYear
+        {
+            get => GetBirthYear();
+            set => SetBirthYear(value);
+        }
+
+        /// <summary>Child's Month of Birth.</summary>
+        /// <value>the child's month of birth, or -1 if explicitly unknown, or null if never specified</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.BirthMonth = 11;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Child Month of Birth: {ExampleBirthRecord.BirthMonth}");</para>
+        /// </example>
+        [Property("BirthMonth", Property.Types.Int32, "Child Demographics", "Child's Month of Birth.", false, VR.IGURL.Child, true, 14)]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient).birthDate", "")]
+        public int? BirthMonth
+        {
+            get => GetBirthMonth();
+            set => SetBirthMonth(value);
+        }
+
+        /// <summary>Child's Day of Birth.</summary>
+        /// <value>the child's day of birth, or -1 if explicitly unknown, or null if never specified</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.BirthDay = 11;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Child Day of Birth: {ExampleBirthRecord.BirthDay}");</para>
+        /// </example>
+        [Property("BirthDay", Property.Types.Int32, "Child Demographics", "Child's Day of Birth.", false, VR.IGURL.Child, true, 14)]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient).extension.birthDate", "")]
+        public int? BirthDay
+        {
+            get => GetBirthDay();
+            set => SetBirthDay(value);
+        }
+
+        /// <summary>Child's Time of Birth.</summary>
+        /// <value>the child's time of birth.</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.BirthTime = 11;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Child Time of Birth: {ExampleBirthRecord.BirthTime}");</para>
+        /// </example>
+        [Property("BirthTime", Property.Types.String, "Child Demographics", "Child's Time of Birth.", true, VR.IGURL.Child, true, 14)]
+        // How should FHIRPath work when the time could be in 1 of 2 different places (value in PatientBirthTime | PartialDateTime extension)
+        [FHIRPath("Bundle.entry.resource.where($this is Patient).birthDate.extension.where(url='" + VR.ExtensionURL.PatientBirthTime + "')", "")]
+        public string BirthTime
+        {
+            get => GetBirthTime();
+            set => SetBirthTime(value);
+        }
     }
 }

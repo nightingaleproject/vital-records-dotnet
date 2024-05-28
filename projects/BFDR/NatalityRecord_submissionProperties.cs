@@ -136,24 +136,28 @@ namespace BFDR
                 }
             }
         }
-
-        /// <summary>Child's Year of Birth.</summary>
-        /// <value>the child's year of birth, or -1 if explicitly unknown, or null if never specified</value>
-        /// <example>
-        /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.BirthYear = 1928;</para>
-        /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Child Year of Birth: {ExampleBirthRecord.BirthYear}");</para>
-        /// </example>
-        [Property("BirthYear", Property.Types.Int32, "Child Demographics", "Child's Year of Birth.", false, VR.IGURL.Child, true, 14)]
-        [FHIRPath("Bundle.entry.resource.where($this is Patient).birthDate", "")]
-        public int? BirthYear
+        
+        /// <summary>
+        ///  Getter method for child or decedent fetus birth/delivery year.
+        /// </summary>
+        protected int? GetBirthYear()
         {
-            get
+            return GetDateElementNoTime(Subject?.BirthDateElement, VR.ExtensionURL.PartialDateTimeYearVR);
+        }
+
+        /// <summary>
+        ///  Setter method for child or decedent fetus birth/delivery year.
+        /// </summary>
+        /// <param name="value">The birth year.</param>
+        protected void SetBirthYear(int? value)
+        {
+            if (Subject.BirthDateElement == null)
             {
                 return GetDateElement(Subject?.BirthDateElement, VR.ExtensionURL.PartialDateTimeYearVR);
             }
-            set
+            string time = this.GetBirthTime();
+            Date newDate = SetYear(value, Subject.BirthDateElement);
+            if (newDate != null)
             {
                 if (Subject.BirthDateElement == null)
                 {
@@ -165,6 +169,7 @@ namespace BFDR
                     Subject.BirthDateElement = newDate;
                 }
             }
+            this.SetBirthTime(time);
         }
 
         /// <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Year</summary>x
@@ -185,23 +190,27 @@ namespace BFDR
         /// <summary>Overrideable method that dictates which Extension URL to use for PartialDate</summary>
         protected override string PartialDateUrl => VRExtensionURLs.PartialDate;
 
-        /// <summary>Child's Month of Birth.</summary>
-        /// <value>the child's month of birth, or -1 if explicitly unknown, or null if never specified</value>
-        /// <example>
-        /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.BirthMonth = 11;</para>
-        /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Child Month of Birth: {ExampleBirthRecord.BirthMonth}");</para>
-        /// </example>
-        [Property("BirthMonth", Property.Types.Int32, "Child Demographics", "Child's Month of Birth.", false, VR.IGURL.Child, true, 14)]
-        [FHIRPath("Bundle.entry.resource.where($this is Patient).birthDate", "")]
-        public int? BirthMonth
+        /// <summary>
+        ///  Getter method for child or decedent fetus birth/delivery month.
+        /// </summary>
+        protected int? GetBirthMonth()
         {
-            get
+            return GetDateElementNoTime(Subject?.BirthDateElement, VR.ExtensionURL.PartialDateTimeMonthVR);
+        }
+
+        /// <summary>
+        ///  Setter method for child or decedent fetus birth/delivery month.
+        /// </summary>
+        /// <param name="value">The birth month.</param>
+        protected void SetBirthMonth(int? value)
+        {
+            string time = this.GetBirthTime();
+            if (Subject.BirthDateElement == null)
             {
                 return GetDateElement(Subject?.BirthDateElement, VR.ExtensionURL.PartialDateTimeMonthVR);
             }
-            set
+            Date newDate = SetMonth(value, Subject.BirthDateElement);
+            if (newDate != null)
             {
                 if (Subject.BirthDateElement == null)
                 {
@@ -213,25 +222,30 @@ namespace BFDR
                     Subject.BirthDateElement = newDate;
                 }
             }
+            this.SetBirthTime(time);
+        }        
+        
+        /// <summary>
+        ///  Getter method for child or decedent fetus birth/delivery day.
+        /// </summary>
+        protected int? GetBirthDay()
+        {
+            return GetDateElementNoTime(Subject?.BirthDateElement, VR.ExtensionURL.PartialDateTimeDayVR);
         }
 
-        /// <summary>Child's Day of Birth.</summary>
-        /// <value>the child's day of birth, or -1 if explicitly unknown, or null if never specified</value>
-        /// <example>
-        /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.BirthDay = 11;</para>
-        /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Child Day of Birth: {ExampleBirthRecord.BirthDay}");</para>
-        /// </example>
-        [Property("BirthDay", Property.Types.Int32, "Child Demographics", "Child's Day of Birth.", false, VR.IGURL.Child, true, 14)]
-        [FHIRPath("Bundle.entry.resource.where($this is Patient).extension.birthDate", "")]
-        public int? BirthDay
+        /// <summary>
+        ///  Setter method for child or decedent fetus birth/delivery day.
+        /// </summary>
+        /// <param name="value">The birth day.</param>
+        protected void SetBirthDay(int? value)
         {
-            get
+            string time = this.GetBirthTime();
+            if (Subject.BirthDateElement == null)
             {
                 return GetDateElement(Subject?.BirthDateElement, VR.ExtensionURL.PartialDateTimeDayVR);
             }
-            set
+            Date newDate = SetDay(value, Subject.BirthDateElement);
+            if (newDate != null)
             {
                 if (Subject.BirthDateElement == null)
                 {
@@ -243,22 +257,15 @@ namespace BFDR
                     Subject.BirthDateElement = newDate;
                 }
             }
+            this.SetBirthTime(time);
         }
 
-        /// <summary>Child's Time of Birth.</summary>
-        /// <value>the child's time of birth.</value>
-        /// <example>
-        /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.BirthTime = 11;</para>
-        /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Child Time of Birth: {ExampleBirthRecord.BirthTime}");</para>
-        /// </example>
-        [Property("BirthTime", Property.Types.String, "Child Demographics", "Child's Time of Birth.", true, VR.IGURL.Child, true, 14)]
-        // How should FHIRPath work when the time could be in 1 of 2 different places (value in PatientBirthTime | PartialDateTime extension)
-        [FHIRPath("Bundle.entry.resource.where($this is Patient).birthDate.extension.where(url='" + VR.ExtensionURL.PatientBirthTime + "')", "")]
-        public string BirthTime
+        /// <summary>
+        ///  Getter method for child or decedent fetus birth/delivery time.
+        /// </summary>
+        protected string GetBirthTime()
         {
-            get
+            if (Subject == null || Subject.BirthDateElement == null)
             {
                 if (Subject == null || Subject.BirthDateElement == null)
                 {
@@ -273,7 +280,8 @@ namespace BFDR
                 // If it's not there, check for a PartialDateTime.
                 return this.GetPartialTime(this.Subject.BirthDateElement.GetExtension(PartialDateTimeUrl));
             }
-            set
+            // First check for a time in the patient.birthDate PatientBirthTime extension.
+            if (Subject.BirthDateElement.Extension.Any(ext => ext.Url == VR.ExtensionURL.PatientBirthTime))
             {
                 if (Subject == null)
                 {
@@ -285,6 +293,8 @@ namespace BFDR
                 }
                 AddTimeToDate(Subject.BirthDateElement, BirthYear, BirthMonth, BirthDay, value, true);
             }
+            // Child.BirthDateElement.GetExtension(VRExtensionURLs.PartialDateTimeVR).SetExtension(PartialDateTimeTimeUrl, new Time(value));
+            SetPartialTime(Subject.BirthDateElement.GetExtension(VRExtensionURLs.PartialDateTime), value);
         }
 
         /// <summary>
@@ -320,9 +330,9 @@ namespace BFDR
             }
             set
             {
-                string time = this.BirthTime;
+                string time = this.GetBirthTime();
                 this.Subject.BirthDateElement = ConvertToDate(value);
-                this.BirthTime = time;
+                this.SetBirthTime(time);
             }
         }
 

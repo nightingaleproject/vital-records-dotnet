@@ -130,12 +130,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return NumericAllowingUnknown_Get("FDOD_YR", "DeliveryYear");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                NumericAllowingUnknown_Set("FDOD_YR", "DeliveryYear", value);
             }
         }
 
@@ -145,12 +144,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Dictionary_Geo_Get("DSTATE", "PlaceOfDelivery", "address", "state", true);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Dictionary_Set("DSTATE", "PlaceOfDelivery", "addressState", value);
+                }
             }
         }
 
@@ -205,12 +206,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return TimeAllowingUnknown_Get("TD", "DeliveryTime");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                   TimeAllowingUnknown_Set("TD", "DeliveryTime", value);
+                }
             }
         }
 
@@ -235,12 +238,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return NumericAllowingUnknown_Get("FDOD_MO", "DeliveryMonth");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                NumericAllowingUnknown_Set("FDOD_MO", "DeliveryMonth", value);
             }
         }
 
@@ -250,12 +252,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return NumericAllowingUnknown_Get("FDOD_DY", "DeliveryDay");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                NumericAllowingUnknown_Set("FDOD_DY", "DeliveryDay", value);
             }
         }
 
@@ -265,12 +266,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Dictionary_Geo_Get("CNTYO", "PlaceOfDelivery", "address", "countyC", true);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Dictionary_Geo_Set("CNTYO", "PlaceOfDelivery", "address", "countyC", true, value);
+                }
             }
         }
 
