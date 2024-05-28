@@ -2,23 +2,23 @@
   "resourceType": "Bundle",
   "id": "bundle-jurisdiction-fetal-death-not-named",
   "meta": {
-    "profile": [
-      "http://hl7.org/fhir/us/bfdr/StructureDefinition/Bundle-document-fetal-death-report"
-    ]
+      "profile": [
+          "http://hl7.org/fhir/us/bfdr/StructureDefinition/Bundle-document-fetal-death-report"
+      ]
   },
   "identifier": {
-    "extension": [
-      {
-        "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/CertificateNumber",
-        "valueString": "9876"
-      },
-      {
-        "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/AuxiliaryStateIdentifier1",
-        "valueString": "11111-11111"
-      }
-    ],
-    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-ije-vr",
-    "value": "2019NJ009876"
+      "extension": [
+          {
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/CertificateNumber",
+              "valueString": "9876"
+          },
+          {
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/AuxiliaryStateIdentifier1",
+              "valueString": "11111-11111"
+          }
+      ],
+      "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-ije-vr",
+      "value": "2019NJ009876"
   },
   "type": "document",
   "timestamp": "2019-10-15T08:51:14.637+00:00",
@@ -2747,7 +2747,10 @@
           {
             "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-relatedperson-birthplace-vr",
             "valueAddress": {
-              "state": "NY"
+              "city": "Bedford",
+              "district": "Middlesex",
+              "state": "MA",
+              "country": "US"
             }
           }
         ],
