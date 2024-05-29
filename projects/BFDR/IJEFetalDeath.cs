@@ -223,11 +223,11 @@ namespace BFDR
         {
             get
             {
-                return Get_MappingFHIRToIJE(VR.Mappings.BirthSexChild.FHIRToIJE, "FetalDeathSex", "FSEX");
+                return Get_MappingFHIRToIJE(VR.Mappings.BirthSexFetus.FHIRToIJE, "FetalDeathSex", "FSEX");
             }
             set
             {
-                Set_MappingIJEToFHIR(VR.Mappings.BirthSexChild.IJEToFHIR, "FSEX", "FetalDeathSex", value);
+                Set_MappingIJEToFHIR(VR.Mappings.BirthSexFetus.IJEToFHIR, "FSEX", "FetalDeathSex", value);
             }
         }
 
