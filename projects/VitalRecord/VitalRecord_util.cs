@@ -125,6 +125,10 @@ namespace VR
         /// <param name="propertyName">the name of the C# property, used to determine the subject ID</param>
         protected Observation GetOrCreateObservation(string code, string codeSystem, string text, string profileURL, string section, string focusId = null, [CallerMemberName] string propertyName = null)
         {
+            if (!profileURL.Contains("http"))
+            {
+                throw new ArgumentException("Given profile url " + profileURL + " that does not match a url format.");
+            }
             var entry = Bundle.Entry.Where(e => e.Resource is Observation obs && CodeableConceptToDict(obs.Code)["code"] == code).FirstOrDefault();
             Observation observation;
             // If the observation is there we use it, otherwise create it

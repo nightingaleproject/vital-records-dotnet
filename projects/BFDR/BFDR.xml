@@ -2152,7 +2152,7 @@
         </member>
         <member name="P:BFDR.NatalityRecord.NumberOfPreviousCesareansEditFlagHelper">
             <summary>
-            NumberOfPrenatalVisitsEditFlag Helper
+            NumberOfPreviousCesareansEditFlag Helper
             </summary>
         </member>
         <member name="P:BFDR.NatalityRecord.NoObstetricProcedures">
