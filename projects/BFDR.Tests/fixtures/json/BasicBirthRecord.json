@@ -27,59 +27,270 @@
       "fullUrl": "urn:uuid:2b03f731-a589-4190-b907-6fe6eddcec60",
       "resource": {
         "resourceType": "Composition",
-        "id": "2b03f731-a589-4190-b907-6fe6eddcec60",
+        "id": "composition-jurisdiction-live-birth-babyg-quinn",
         "meta": {
           "profile": [
-            "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-bfdr-birth-certificate.html"
+            "http://hl7.org/fhir/us/bfdr/StructureDefinition/Composition-jurisdiction-live-birth-report"
           ]
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Composition </b><a name=\"composition-jurisdiction-live-birth-babyg-quinn\"> </a><a name=\"hccomposition-jurisdiction-live-birth-babyg-quinn\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">ResourceComposition &quot;composition-jurisdiction-live-birth-babyg-quinn&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Composition-jurisdiction-live-birth-report.html\">Composition - Jurisdiction Live Birth Report</a></p></div><p><b>identifier</b>: c03eab8c-11e8-4d0c-ad2a-b385395e27df</p><p><b>status</b>: final</p><p><b>type</b>: Jurisdiction live birth report Document <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#92011-6)</span></p><p><b>encounter</b>: <a href=\"Encounter-encounter-birth-babyg-quinn.html\">Encounter/encounter-birth-babyg-quinn</a></p><p><b>date</b>: 2019-02-12</p><p><b>author</b>: <a href=\"Organization-organization-jurisdictional-vital-records-office.html\">Organization/organization-jurisdictional-vital-records-office</a> &quot;Jurisdictional Vital Records Office&quot;</p><p><b>title</b>: Jurisdiction live birth report Document</p></div>"
+        },
+        "identifier": {
+          "value": "c03eab8c-11e8-4d0c-ad2a-b385395e27df"
         },
         "status": "final",
         "type": {
           "coding": [
             {
               "system": "http://loinc.org",
-              "code": "71230-7",
-              "display": "Birth certificate"
+              "code": "92011-6",
+              "display": "Jurisdiction live birth report Document"
             }
           ]
         },
         "subject": {
-          "reference": "urn:uuid:9b0abc88-167d-460e-9a02-af7524198930"
+          "reference": "Patient/patient-child-babyg-quinn"
         },
-        "title": "Birth Certificate",
-        "attester": [
-          {
-            "mode": "legal"
-          }
-        ],
-        "event": [
-          {
-            "code": [
-              {
-                "coding": [
-                  {
-                    "system": "http://snomed.info/sct",
-                    "code": "103693007",
-                    "display": "Diagnostic procedure (procedure)"
-                  }
-                ]
+        "encounter": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/us/bfdr/StructureDefinition/Extension-encounter-maternity-reference",
+              "valueReference": {
+                "reference": "Encounter/encounter-maternity-jada-ann-quinn"
               }
-            ]
+            }
+          ],
+          "reference": "Encounter/encounter-birth-babyg-quinn"
+        },
+        "date": "2019-02-12",
+        "author": [
+          {
+            "reference": "Organization/organization-jurisdictional-vital-records-office"
           }
         ],
+        "title": "Jurisdiction live birth report Document",
         "section": [
           {
             "code": {
               "coding": [
                 {
-                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-document-section-cs",
-                  "code": "ChildDemographics"
+                  "system": "http://loinc.org",
+                  "code": "57073-9"
+                }
+              ]
+            },
+            "focus": {
+              "reference": "Patient/patient-mother-jada-ann-quinn"
+            },
+            "entry": [
+              {
+                "reference": "Observation/observation-date-of-first-prenatal-care-visit-jada-ann-quinn"
+              },
+              {
+                "reference": "Observation/observation-number-prenatal-visits-jada-ann-quinn"
+              },
+              {
+                "reference": "Observation/observation-last-menstrual-period-jada-ann-quinn"
+              },
+              {
+                "reference": "Observation/observation-number-births-now-living-jada-ann-quinn"
+              },
+              {
+                "reference": "Observation/observation-number-births-now-dead-jada-ann-quinn"
+              },
+              {
+                "reference": "Observation/observation-date-of-last-live-birth-jada-ann-quinn"
+              },
+              {
+                "reference": "Observation/observation-number-other-pregnancy-outcomes-jada-ann-quinn"
+              },
+              {
+                "reference": "Observation/observation-date-of-last-other-pregnancy-outcome-jada-ann-quinn"
+              },
+              {
+                "reference": "Coverage/coverage-principal-payer-for-delivery-jada-ann-quinn"
+              },
+              {
+                "reference": "Observation/observation-mother-delivery-weight-jada-ann-quinn-w-edit"
+              },
+              {
+                "reference": "Observation/observation-mother-height-jada-ann-quinn-w-edit"
+              },
+              {
+                "reference": "Observation/observation-mother-prepregnancy-weight-jada-ann-quinn-w-edit"
+              },
+              {
+                "reference": "Observation/observation-mother-received-wic-food-jada-ann-quinn"
+              },
+              {
+                "reference": "Observation/observation-cig-smoking-pregnancy-1-jada-ann-quinn"
+              },
+              {
+                "reference": "Observation/observation-cig-smoking-pregnancy-2-jada-ann-quinn"
+              },
+              {
+                "reference": "Observation/observation-cig-smoking-pregnancy-3-jada-ann-quinn"
+              },
+              {
+                "reference": "Observation/observation-cig-smoking-pregnancy-4-jada-ann-quinn"
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "55752-0"
+                }
+              ]
+            },
+            "focus": {
+              "reference": "Patient/patient-mother-jada-ann-quinn"
+            },
+            "entry": [
+              {
+                "reference": "Procedure/procedure-obstetric-procedure-jada-ann-quinn"
+              },
+              {
+                "reference": "Observation/observation-number-previous-cesareans-jada-ann-quinn-w-edit"
+              },
+              {
+                "reference": "Condition/condition-infection-present-during-pregnancy-jada-ann-quinn"
+              },
+              {
+                "reference": "Condition/condition-gestational-hypertension-jada-ann-quinn"
+              },
+              {
+                "reference": "Condition/condition-prepregnancy-diabetes-jada-ann-quinn"
+              },
+              {
+                "reference": "Procedure/procedure-infertility-treatment-jada-ann-quinn"
+              },
+              {
+                "reference": "Procedure/procedure-artificial-insemination-jada-ann-quinn"
+              },
+              {
+                "reference": "Condition/condition-chorioamnionitis-jada-ann-quinn"
+              },
+              {
+                "reference": "Procedure/procedure-induction-of-labor-jada-ann-quinn"
+              },
+              {
+                "reference": "Observation/observation-antibiotics-during-labor-jada-ann-quinn"
+              },
+              {
+                "reference": "Procedure/procedure-epidural-or-spinal-anesthesia-jada-ann-quinn"
+              },
+              {
+                "reference": "Observation/observation-fetal-presentation-babyg-quinn"
+              },
+              {
+                "reference": "Procedure/procedure-final-route-method-delivery-babyg-quinn"
+              },
+              {
+                "reference": "Condition/condition-ruptured-uterus-jada-ann-quinn"
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "57075-4"
                 }
               ]
             },
             "entry": [
               {
-                "reference": "urn:uuid:9b0abc88-167d-460e-9a02-af7524198930"
+                "reference": "Observation/observation-birth-weight-babyg-quinn-w-edit"
+              },
+              {
+                "reference": "Observation/observation-gestational-age-at-delivery-babyg-quinn-w-edit"
+              },
+              {
+                "reference": "Observation/observation-apgar-score-babyg-quinn-1-min"
+              },
+              {
+                "reference": "Observation/observation-apgar-score-babyg-quinn-5-min"
+              },
+              {
+                "reference": "Observation/observation-number-live-births-this-delivery-jada-ann-quinn"
+              },
+              {
+                "reference": "Procedure/procedure-antibiotic-sepsis-babyg-quinn"
+              },
+              {
+                "reference": "Condition/condition-congenital-anomaly-of-newborn-babyg-quinn"
+              },
+              {
+                "reference": "Condition/condition-congenital-anomaly-of-newborn-babyg-quinn-2"
+              },
+              {
+                "reference": "Observation/observation-infant-living-babyg-quinn"
+              },
+              {
+                "reference": "Observation/observation-infant-breastfed-at-discharge-babyg-quinn"
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "92014-0"
+                }
+              ]
+            },
+            "focus": {
+              "reference": "Patient/patient-mother-jada-ann-quinn"
+            },
+            "entry": [
+              {
+                "reference": "Observation/observation-mother-married-during-pregnancy-jada-ann-quinn"
+              },
+              {
+                "reference": "Observation/observation-parent-education-level-jada-ann-quinn-w-edit"
+              },
+              {
+                "reference": "Observation/observation-usual-work-jada-ann-quinn"
+              },
+              {
+                "reference": "Observation/observation-input-race-and-ethnicity-jada-ann-quinn"
+              },
+              {
+                "reference": "Observation/observation-ssn-requested-for-child-babyg-quinn"
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "92013-2"
+                }
+              ]
+            },
+            "focus": {
+              "reference": "RelatedPerson/relatedperson-father-natural-james-brandon-quinn-w-edit"
+            },
+            "entry": [
+              {
+                "reference": "Observation/observation-paternity-acknowledgement-signed-james-quinn-w-edit"
+              },
+              {
+                "reference": "Observation/observation-parent-education-level-james-quinn-w-edit"
+              },
+              {
+                "reference": "Observation/observation-usual-work-james-brandon-quinn"
+              },
+              {
+                "reference": "Observation/observation-input-race-and-ethnicity-james-quinn-w-edit"
               }
             ]
           }
@@ -119,54 +330,54 @@
             "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race"
           },
           {
-            "extension" : [
+            "extension": [
               {
-                "url" : "reportedAge",
-                "valueQuantity" : {
-                  "value" : 34,
-                  "system" : "http://unitsofmeasure.org",
-                  "code" : "a"
+                "url": "reportedAge",
+                "valueQuantity": {
+                  "value": 34,
+                  "system": "http://unitsofmeasure.org",
+                  "code": "a"
                 }
               },
               {
-                "url" : "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-role-vr",
-                "valueCodeableConcept" : {
-                  "coding" : [
+                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-role-vr",
+                "valueCodeableConcept": {
+                  "coding": [
                     {
-                      "system" : "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
-                      "code" : "MTH",
-                      "display" : "mother"
+                      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+                      "code": "MTH",
+                      "display": "mother"
                     }
                   ]
                 }
               }
             ],
-            "url" : "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-reported-parent-age-at-delivery-vr"
+            "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-reported-parent-age-at-delivery-vr"
           },
           {
-            "extension" : [
+            "extension": [
               {
-                "url" : "reportedAge",
-                "valueQuantity" : {
-                  "value" : 35,
-                  "system" : "http://unitsofmeasure.org",
-                  "code" : "a"
+                "url": "reportedAge",
+                "valueQuantity": {
+                  "value": 35,
+                  "system": "http://unitsofmeasure.org",
+                  "code": "a"
                 }
               },
               {
-                "url" : "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-role-vr",
-                "valueCodeableConcept" : {
-                  "coding" : [
+                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-role-vr",
+                "valueCodeableConcept": {
+                  "coding": [
                     {
-                      "system" : "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
-                      "code" : "FTH",
-                      "display" : "father"
+                      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+                      "code": "FTH",
+                      "display": "father"
                     }
                   ]
                 }
               }
             ],
-            "url" : "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-reported-parent-age-at-delivery-vr"
+            "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-reported-parent-age-at-delivery-vr"
           },
           {
             "extension": [
@@ -255,11 +466,11 @@
         },
         "multipleBirthInteger": 1,
         "_multipleBirthInteger": {
-          "extension" : [
-          {
-            "url" : "http://hl7.org/fhir/StructureDefinition/patient-multipleBirthTotal",
-            "valuePositiveInt": 1
-          }
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/patient-multipleBirthTotal",
+              "valuePositiveInt": 1
+            }
           ]
         }
       }
@@ -420,7 +631,7 @@
           }
         ],
         "maritalStatus": {
-          "text":"Divorced"
+          "text": "Divorced"
         }
       }
     },
@@ -432,7 +643,7 @@
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/RelatedPerson-father-natural-vr"
-            ]
+          ]
         },
         "text": {
           "status": "extensions",
@@ -1067,172 +1278,169 @@
     {
       "fullUrl": "urn:uuid:9b0abc88-167d-460e-9a02-af7504198936",
       "resource": {
-        "resourceType" : "Observation",
-        "id" : "observation-number-other-pregnancy-outcomes-jada-ann-quinn",
-        "meta" : {
-          "profile" : [
+        "resourceType": "Observation",
+        "id": "observation-number-other-pregnancy-outcomes-jada-ann-quinn",
+        "meta": {
+          "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-number-other-pregnancy-outcomes"
           ]
         },
-        "text" : {
-          "status" : "generated",
-          "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"observation-number-other-pregnancy-outcomes-jada-ann-quinn\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-number-other-pregnancy-outcomes-jada-ann-quinn&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-number-other-pregnancy-outcomes.html\">Observation - Number of Other Pregnancy Outcomes</a></p></div><p><b>status</b>: final</p><p><b>code</b>: Other pregnancy outcomes # <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#69043-8)</span></p><p><b>subject</b>: <a href=\"Patient-patient-mother-jada-ann-quinn.html\">Patient/patient-mother-jada-ann-quinn: Patient - Mother (Jada Ann Quinn)</a> &quot; QUINN&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>performer</b>: <a href=\"Practitioner-practitioner-vital-records-janet-seito.html\">Practitioner/practitioner-vital-records-janet-seito</a> &quot; JANET&quot;</p><p><b>value</b>: 0</p></div>"
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"observation-number-other-pregnancy-outcomes-jada-ann-quinn\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-number-other-pregnancy-outcomes-jada-ann-quinn&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-number-other-pregnancy-outcomes.html\">Observation - Number of Other Pregnancy Outcomes</a></p></div><p><b>status</b>: final</p><p><b>code</b>: Other pregnancy outcomes # <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#69043-8)</span></p><p><b>subject</b>: <a href=\"Patient-patient-mother-jada-ann-quinn.html\">Patient/patient-mother-jada-ann-quinn: Patient - Mother (Jada Ann Quinn)</a> &quot; QUINN&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>performer</b>: <a href=\"Practitioner-practitioner-vital-records-janet-seito.html\">Practitioner/practitioner-vital-records-janet-seito</a> &quot; JANET&quot;</p><p><b>value</b>: 0</p></div>"
         },
-        "status" : "final",
-        "code" : {
-          "coding" : [
+        "status": "final",
+        "code": {
+          "coding": [
             {
-              "system" : "http://loinc.org",
-              "code" : "69043-8",
-              "display" : "Other pregnancy outcomes #"
+              "system": "http://loinc.org",
+              "code": "69043-8",
+              "display": "Other pregnancy outcomes #"
             }
           ],
-          "text" : "Other pregnancy outcomes #"
+          "text": "Other pregnancy outcomes #"
         },
-        "subject" : {
-          "reference" : "Patient/patient-mother-jada-ann-quinn",
-          "display" : "Patient - Mother (Jada Ann Quinn)"
+        "subject": {
+          "reference": "Patient/patient-mother-jada-ann-quinn",
+          "display": "Patient - Mother (Jada Ann Quinn)"
         },
-        "effectiveDateTime" : "2019-12-02",
-        "performer" : [
+        "effectiveDateTime": "2019-12-02",
+        "performer": [
           {
-            "reference" : "Practitioner/practitioner-vital-records-janet-seito"
+            "reference": "Practitioner/practitioner-vital-records-janet-seito"
           }
         ],
-        "valueInteger" : 3
+        "valueInteger": 3
       }
     },
     {
       "fullUrl": "urn:uuid:9b0abc88-167d-460e-9a02-af7524198936",
-      "resource":
-      {
-        "resourceType" : "Observation",
-        "id" : "observation-date-of-last-live-birth-jada-ann-quinn",
-        "meta" : {
-          "profile" : [
+      "resource": {
+        "resourceType": "Observation",
+        "id": "observation-date-of-last-live-birth-jada-ann-quinn",
+        "meta": {
+          "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-date-of-last-live-birth"
           ]
         },
-        "text" : {
-          "status" : "generated",
-          "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"observation-date-of-last-live-birth-jada-ann-quinn\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-date-of-last-live-birth-jada-ann-quinn&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-date-of-last-live-birth.html\">Observation - Date of Last Live Birth</a></p></div><p><b>status</b>: final</p><p><b>code</b>: Date of last live birth <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#68499-3 &quot;Date last live birth&quot;)</span></p><p><b>subject</b>: <a href=\"Patient-patient-mother-jada-ann-quinn.html\">Patient/patient-mother-jada-ann-quinn: Patient - Mother (Jada Ann Quinn)</a> &quot; QUINN&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>performer</b>: <a href=\"Practitioner-practitioner-vital-records-janet-seito.html\">Practitioner/practitioner-vital-records-janet-seito</a> &quot; JANET&quot;</p><p><b>value</b>: 2014-11-20</p></div>"
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"observation-date-of-last-live-birth-jada-ann-quinn\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-date-of-last-live-birth-jada-ann-quinn&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-date-of-last-live-birth.html\">Observation - Date of Last Live Birth</a></p></div><p><b>status</b>: final</p><p><b>code</b>: Date of last live birth <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#68499-3 &quot;Date last live birth&quot;)</span></p><p><b>subject</b>: <a href=\"Patient-patient-mother-jada-ann-quinn.html\">Patient/patient-mother-jada-ann-quinn: Patient - Mother (Jada Ann Quinn)</a> &quot; QUINN&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>performer</b>: <a href=\"Practitioner-practitioner-vital-records-janet-seito.html\">Practitioner/practitioner-vital-records-janet-seito</a> &quot; JANET&quot;</p><p><b>value</b>: 2014-11-20</p></div>"
         },
-        "status" : "final",
-        "code" : {
-          "coding" : [
+        "status": "final",
+        "code": {
+          "coding": [
             {
-              "system" : "http://loinc.org",
-              "code" : "68499-3",
-              "display" : "Date last live birth"
+              "system": "http://loinc.org",
+              "code": "68499-3",
+              "display": "Date last live birth"
             }
           ],
-          "text" : "Date of last live birth"
+          "text": "Date of last live birth"
         },
-        "subject" : {
-          "reference" : "Patient/patient-mother-jada-ann-quinn",
-          "display" : "Patient - Mother (Jada Ann Quinn)"
+        "subject": {
+          "reference": "Patient/patient-mother-jada-ann-quinn",
+          "display": "Patient - Mother (Jada Ann Quinn)"
         },
-        "effectiveDateTime" : "2019-12-02",
-        "performer" : [
+        "effectiveDateTime": "2019-12-02",
+        "performer": [
           {
-            "reference" : "Practitioner/practitioner-vital-records-janet-seito"
+            "reference": "Practitioner/practitioner-vital-records-janet-seito"
           }
         ],
-        "valueDateTime" : "2014-11-20"
+        "valueDateTime": "2014-11-20"
       }
     },
     {
       "fullUrl": "urn:uuid:9b0abc88-167d-460e-9a02-af8624198936",
-      "resource":
-      {
-        "resourceType" : "Observation",
-        "id" : "observation-date-of-last-other-pregnancy-outcome-jada-ann-quinn",
-        "meta" : {
-          "profile" : [
+      "resource": {
+        "resourceType": "Observation",
+        "id": "observation-date-of-last-other-pregnancy-outcome-jada-ann-quinn",
+        "meta": {
+          "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-date-of-last-other-pregnancy-outcome"
           ]
         },
-        "text" : {
-          "status" : "generated",
-          "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"observation-date-of-last-other-pregnancy-outcome-jada-ann-quinn\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-date-of-last-other-pregnancy-outcome-jada-ann-quinn&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-date-of-last-other-pregnancy-outcome.html\">Observation - Date of Last Other Pregnancy Outcome</a></p></div><p><b>status</b>: final</p><p><b>code</b>: Date of last other pregnancy outcome <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#68500-8 &quot;Date last other pregnancy outcome&quot;)</span></p><p><b>subject</b>: <a href=\"Patient-patient-mother-jada-ann-quinn.html\">Patient/patient-mother-jada-ann-quinn: Patient - Mother (Jada Ann Quinn)</a> &quot; QUINN&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>performer</b>: <a href=\"Practitioner-practitioner-vital-records-janet-seito.html\">Practitioner/practitioner-vital-records-janet-seito</a> &quot; JANET&quot;</p><p><b>value</b>: 2015-05</p></div>"
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"observation-date-of-last-other-pregnancy-outcome-jada-ann-quinn\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-date-of-last-other-pregnancy-outcome-jada-ann-quinn&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-date-of-last-other-pregnancy-outcome.html\">Observation - Date of Last Other Pregnancy Outcome</a></p></div><p><b>status</b>: final</p><p><b>code</b>: Date of last other pregnancy outcome <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#68500-8 &quot;Date last other pregnancy outcome&quot;)</span></p><p><b>subject</b>: <a href=\"Patient-patient-mother-jada-ann-quinn.html\">Patient/patient-mother-jada-ann-quinn: Patient - Mother (Jada Ann Quinn)</a> &quot; QUINN&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>performer</b>: <a href=\"Practitioner-practitioner-vital-records-janet-seito.html\">Practitioner/practitioner-vital-records-janet-seito</a> &quot; JANET&quot;</p><p><b>value</b>: 2015-05</p></div>"
         },
-        "status" : "final",
-        "code" : {
-          "coding" : [
+        "status": "final",
+        "code": {
+          "coding": [
             {
-              "system" : "http://loinc.org",
-              "code" : "68500-8",
-              "display" : "Date last other pregnancy outcome"
+              "system": "http://loinc.org",
+              "code": "68500-8",
+              "display": "Date last other pregnancy outcome"
             }
           ],
-          "text" : "Date of last other pregnancy outcome"
+          "text": "Date of last other pregnancy outcome"
         },
-        "subject" : {
-          "reference" : "Patient/patient-mother-jada-ann-quinn",
-          "display" : "Patient - Mother (Jada Ann Quinn)"
+        "subject": {
+          "reference": "Patient/patient-mother-jada-ann-quinn",
+          "display": "Patient - Mother (Jada Ann Quinn)"
         },
-        "effectiveDateTime" : "2020-11-02",
-        "performer" : [
+        "effectiveDateTime": "2020-11-02",
+        "performer": [
           {
-            "reference" : "Practitioner/practitioner-vital-records-janet-seito"
+            "reference": "Practitioner/practitioner-vital-records-janet-seito"
           }
         ],
-        "valueDateTime" : "2015-05-10"
+        "valueDateTime": "2015-05-10"
       }
     },
     {
       "fullUrl": "urn:uuid:9b0abc88-167d-460e-9a02-af8582218936",
-      "resource":
-      {
-        "resourceType" : "Observation",
-        "id" : "observation-number-prenatal-visits-jada-ann-quinn-w-edit",
-        "meta" : {
-          "profile" : [
+      "resource": {
+        "resourceType": "Observation",
+        "id": "observation-number-prenatal-visits-jada-ann-quinn-w-edit",
+        "meta": {
+          "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-number-prenatal-visits"
           ]
         },
-        "text" : {
-          "status" : "generated",
-          "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"observation-number-prenatal-visits-jada-ann-quinn-w-edit\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-number-prenatal-visits-jada-ann-quinn-w-edit&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-number-prenatal-visits.html\">Observation - Number of Prenatal Visits</a></p></div><p><b>status</b>: final</p><p><b>code</b>: Prenatal visits for this pregnancy # <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#68493-6)</span></p><p><b>subject</b>: <a href=\"Patient-patient-mother-jada-ann-quinn.html\">Patient/patient-mother-jada-ann-quinn: Patient - Mother (Jada Ann Quinn)</a> &quot; QUINN&quot;</p><p><b>focus</b>: <a href=\"Patient-patient-child-babyg-quinn.html\">Patient/patient-child-babyg-quinn: BabyG Quinn</a> &quot; QUINN&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>performer</b>: <a href=\"Practitioner-practitioner-vital-records-janet-seito.html\">Practitioner/practitioner-vital-records-janet-seito</a> &quot; JANET&quot;</p><p><b>value</b>: 8</p></div>"
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"observation-number-prenatal-visits-jada-ann-quinn-w-edit\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-number-prenatal-visits-jada-ann-quinn-w-edit&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-number-prenatal-visits.html\">Observation - Number of Prenatal Visits</a></p></div><p><b>status</b>: final</p><p><b>code</b>: Prenatal visits for this pregnancy # <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#68493-6)</span></p><p><b>subject</b>: <a href=\"Patient-patient-mother-jada-ann-quinn.html\">Patient/patient-mother-jada-ann-quinn: Patient - Mother (Jada Ann Quinn)</a> &quot; QUINN&quot;</p><p><b>focus</b>: <a href=\"Patient-patient-child-babyg-quinn.html\">Patient/patient-child-babyg-quinn: BabyG Quinn</a> &quot; QUINN&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>performer</b>: <a href=\"Practitioner-practitioner-vital-records-janet-seito.html\">Practitioner/practitioner-vital-records-janet-seito</a> &quot; JANET&quot;</p><p><b>value</b>: 8</p></div>"
         },
-        "status" : "final",
-        "code" : {
-          "coding" : [
+        "status": "final",
+        "code": {
+          "coding": [
             {
-              "system" : "http://loinc.org",
-              "code" : "68493-6",
-              "display" : "Prenatal visits for this pregnancy #"
+              "system": "http://loinc.org",
+              "code": "68493-6",
+              "display": "Prenatal visits for this pregnancy #"
             }
           ],
-          "text" : "Prenatal visits for this pregnancy #"
+          "text": "Prenatal visits for this pregnancy #"
         },
-        "subject" : {
-          "reference" : "Patient/patient-mother-jada-ann-quinn",
-          "display" : "Patient - Mother (Jada Ann Quinn)"
+        "subject": {
+          "reference": "Patient/patient-mother-jada-ann-quinn",
+          "display": "Patient - Mother (Jada Ann Quinn)"
         },
-        "focus" : [
+        "focus": [
           {
-            "reference" : "Patient/patient-child-babyg-quinn",
-            "display" : "BabyG Quinn"
+            "reference": "Patient/patient-child-babyg-quinn",
+            "display": "BabyG Quinn"
           }
         ],
-        "effectiveDateTime" : "2019-12-02",
-        "performer" : [
+        "effectiveDateTime": "2019-12-02",
+        "performer": [
           {
-            "reference" : "Practitioner/practitioner-vital-records-janet-seito"
+            "reference": "Practitioner/practitioner-vital-records-janet-seito"
           }
         ],
-        "valueInteger" : 8,
-        "_valueInteger" : {
-          "extension" : [
+        "valueInteger": 8,
+        "_valueInteger": {
+          "extension": [
             {
-              "url" : "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
-              "valueCodeableConcept" : {
-                "coding" : [
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
+              "valueCodeableConcept": {
+                "coding": [
                   {
-                    "system" : "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
-                    "code" : "0",
-                    "display" : "Edit Passed"
+                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
+                    "code": "0",
+                    "display": "Edit Passed"
                   }
                 ]
               }
@@ -1243,221 +1451,216 @@
     },
     {
       "fullUrl": "urn:uuid:9b0abc88-167d-460e-9a02-af8582214436",
-      "resource":
-      {
-        "resourceType" : "Observation",
-        "id" : "observation-gestational-age-at-delivery-babyg-quinn-w-edit",
-        "meta" : {
-          "profile" : [
+      "resource": {
+        "resourceType": "Observation",
+        "id": "observation-gestational-age-at-delivery-babyg-quinn-w-edit",
+        "meta": {
+          "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-gestational-age-at-delivery"
           ]
         },
-        "text" : {
-          "status" : "generated",
-          "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"observation-gestational-age-at-delivery-babyg-quinn-w-edit\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-gestational-age-at-delivery-babyg-quinn-w-edit&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-gestational-age-at-delivery.html\">Observation - Gestational Age at Delivery</a></p></div><p><b>status</b>: final</p><p><b>code</b>: Gestational age Estimated <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#11884-4)</span></p><p><b>subject</b>: <a href=\"Patient-patient-child-babyg-quinn.html\">Patient/patient-child-babyg-quinn: BabyG Quinn</a> &quot; QUINN&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>performer</b>: <a href=\"Practitioner-practitioner-vital-records-janet-seito.html\">Practitioner/practitioner-vital-records-janet-seito</a> &quot; JANET&quot;</p><p><b>value</b>: 36 wk<span style=\"background: LightGoldenRodYellow\"> (Details: UCUM code wk = 'wk')</span></p></div>"
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"observation-gestational-age-at-delivery-babyg-quinn-w-edit\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-gestational-age-at-delivery-babyg-quinn-w-edit&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-gestational-age-at-delivery.html\">Observation - Gestational Age at Delivery</a></p></div><p><b>status</b>: final</p><p><b>code</b>: Gestational age Estimated <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#11884-4)</span></p><p><b>subject</b>: <a href=\"Patient-patient-child-babyg-quinn.html\">Patient/patient-child-babyg-quinn: BabyG Quinn</a> &quot; QUINN&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>performer</b>: <a href=\"Practitioner-practitioner-vital-records-janet-seito.html\">Practitioner/practitioner-vital-records-janet-seito</a> &quot; JANET&quot;</p><p><b>value</b>: 36 wk<span style=\"background: LightGoldenRodYellow\"> (Details: UCUM code wk = 'wk')</span></p></div>"
         },
-        "status" : "final",
-        "code" : {
-          "coding" : [
+        "status": "final",
+        "code": {
+          "coding": [
             {
-              "system" : "http://loinc.org",
-              "code" : "11884-4",
-              "display" : "Gestational age Estimated"
+              "system": "http://loinc.org",
+              "code": "11884-4",
+              "display": "Gestational age Estimated"
             }
           ]
         },
-        "subject" : {
-          "reference" : "Patient/patient-child-babyg-quinn",
-          "display" : "BabyG Quinn"
+        "subject": {
+          "reference": "Patient/patient-child-babyg-quinn",
+          "display": "BabyG Quinn"
         },
-        "effectiveDateTime" : "2019-12-02",
-        "performer" : [
+        "effectiveDateTime": "2019-12-02",
+        "performer": [
           {
-            "reference" : "Practitioner/practitioner-vital-records-janet-seito"
+            "reference": "Practitioner/practitioner-vital-records-janet-seito"
           }
         ],
-        "valueQuantity" : {
-          "extension" : [
+        "valueQuantity": {
+          "extension": [
             {
-              "url" : "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
-              "valueCodeableConcept" : {
-                "coding" : [
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
+              "valueCodeableConcept": {
+                "coding": [
                   {
-                    "system" : "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
-                    "code" : "0off",
-                    "display" : "Off"
+                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
+                    "code": "0off",
+                    "display": "Off"
                   }
                 ]
               }
             }
           ],
-          "value" : 36,
-          "system" : "http://unitsofmeasure.org",
-          "code" : "wk"
+          "value": 36,
+          "system": "http://unitsofmeasure.org",
+          "code": "wk"
         }
       }
     },
     {
       "fullUrl": "urn:uuid:9b0abc88-167d-460e-9a02-af7524198936",
-      "resource":
-      {
-        "resourceType" : "Observation",
-        "id" : "observation-number-births-now-dead-carmen-teresa-lee",
-        "meta" : {
-          "profile" : [
+      "resource": {
+        "resourceType": "Observation",
+        "id": "observation-number-births-now-dead-carmen-teresa-lee",
+        "meta": {
+          "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-number-births-now-dead"
           ]
         },
-        "text" : {
-          "status" : "generated",
-          "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"observation-number-births-now-dead-carmen-teresa-lee\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-number-births-now-dead-carmen-teresa-lee&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-number-births-now-dead.html\">Observation - Number of Births Now Dead</a></p></div><p><b>status</b>: final</p><p><b>code</b>: Previous live births now dead # <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#68496-9)</span></p><p><b>subject</b>: <a href=\"Patient-patient-mother-carmen-teresa-lee.html\">Patient/patient-mother-carmen-teresa-lee: Patient - Mother (Carmen Teresa Lee)</a> &quot; LEE&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>performer</b>: <a href=\"Practitioner-practitioner-vital-records-janet-seito.html\">Practitioner/practitioner-vital-records-janet-seito</a> &quot; JANET&quot;</p><p><b>value</b>: 0</p></div>"
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"observation-number-births-now-dead-carmen-teresa-lee\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-number-births-now-dead-carmen-teresa-lee&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-number-births-now-dead.html\">Observation - Number of Births Now Dead</a></p></div><p><b>status</b>: final</p><p><b>code</b>: Previous live births now dead # <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#68496-9)</span></p><p><b>subject</b>: <a href=\"Patient-patient-mother-carmen-teresa-lee.html\">Patient/patient-mother-carmen-teresa-lee: Patient - Mother (Carmen Teresa Lee)</a> &quot; LEE&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>performer</b>: <a href=\"Practitioner-practitioner-vital-records-janet-seito.html\">Practitioner/practitioner-vital-records-janet-seito</a> &quot; JANET&quot;</p><p><b>value</b>: 0</p></div>"
         },
-        "status" : "final",
-        "code" : {
-          "coding" : [
+        "status": "final",
+        "code": {
+          "coding": [
             {
-              "system" : "http://loinc.org",
-              "code" : "68496-9",
-              "display" : "Previous live births now dead #"
+              "system": "http://loinc.org",
+              "code": "68496-9",
+              "display": "Previous live births now dead #"
             }
           ],
-          "text" : "Previous live births now dead #"
+          "text": "Previous live births now dead #"
         },
-        "subject" : {
-          "reference" : "Patient/patient-mother-carmen-teresa-lee",
-          "display" : "Patient - Mother (Carmen Teresa Lee)"
+        "subject": {
+          "reference": "Patient/patient-mother-carmen-teresa-lee",
+          "display": "Patient - Mother (Carmen Teresa Lee)"
         },
-        "effectiveDateTime" : "2019-12-02",
-        "performer" : [
+        "effectiveDateTime": "2019-12-02",
+        "performer": [
           {
-            "reference" : "Practitioner/practitioner-vital-records-janet-seito"
+            "reference": "Practitioner/practitioner-vital-records-janet-seito"
           }
         ],
-        "valueInteger" : 1
+        "valueInteger": 1
       }
     },
     {
       "fullUrl": "urn:uuid:9b0abc88-167d-460e-9a02-af7524198936",
-      "resource":
-      {
-        "resourceType" : "Observation",
-        "id" : "observation-number-births-now-living-carmen-teresa-lee",
-        "meta" : {
-          "profile" : [
+      "resource": {
+        "resourceType": "Observation",
+        "id": "observation-number-births-now-living-carmen-teresa-lee",
+        "meta": {
+          "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-number-births-now-living"
           ]
         },
-        "text" : {
-          "status" : "generated",
-          "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"observation-number-births-now-living-carmen-teresa-lee\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-number-births-now-living-carmen-teresa-lee&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-number-births-now-living.html\">Observation - Number of Births Now Living</a></p></div><p><b>status</b>: final</p><p><b>code</b>: [#] Births.still living <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#11638-4)</span></p><p><b>subject</b>: <a href=\"Patient-patient-mother-carmen-teresa-lee.html\">Patient/patient-mother-carmen-teresa-lee: Patient - Mother (Carmen Teresa Lee)</a> &quot; LEE&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>performer</b>: <a href=\"Practitioner-practitioner-vital-records-janet-seito.html\">Practitioner/practitioner-vital-records-janet-seito</a> &quot; JANET&quot;</p><p><b>value</b>: 1</p></div>"
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"observation-number-births-now-living-carmen-teresa-lee\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-number-births-now-living-carmen-teresa-lee&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-number-births-now-living.html\">Observation - Number of Births Now Living</a></p></div><p><b>status</b>: final</p><p><b>code</b>: [#] Births.still living <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#11638-4)</span></p><p><b>subject</b>: <a href=\"Patient-patient-mother-carmen-teresa-lee.html\">Patient/patient-mother-carmen-teresa-lee: Patient - Mother (Carmen Teresa Lee)</a> &quot; LEE&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>performer</b>: <a href=\"Practitioner-practitioner-vital-records-janet-seito.html\">Practitioner/practitioner-vital-records-janet-seito</a> &quot; JANET&quot;</p><p><b>value</b>: 1</p></div>"
         },
-        "status" : "final",
-        "code" : {
-          "coding" : [
+        "status": "final",
+        "code": {
+          "coding": [
             {
-              "system" : "http://loinc.org",
-              "code" : "11638-4",
-              "display" : "[#] Births.still living"
+              "system": "http://loinc.org",
+              "code": "11638-4",
+              "display": "[#] Births.still living"
             }
           ],
-          "text" : "[#] Births.still living"
+          "text": "[#] Births.still living"
         },
-        "subject" : {
-          "reference" : "Patient/patient-mother-carmen-teresa-lee",
-          "display" : "Patient - Mother (Carmen Teresa Lee)"
+        "subject": {
+          "reference": "Patient/patient-mother-carmen-teresa-lee",
+          "display": "Patient - Mother (Carmen Teresa Lee)"
         },
-        "effectiveDateTime" : "2019-12-02",
-        "performer" : [
+        "effectiveDateTime": "2019-12-02",
+        "performer": [
           {
-            "reference" : "Practitioner/practitioner-vital-records-janet-seito"
+            "reference": "Practitioner/practitioner-vital-records-janet-seito"
           }
         ],
-        "valueInteger" : 2
+        "valueInteger": 2
       }
     },
     {
       "fullUrl": "urn:uuid:9b0abc88-167d-460e-9a02-af7524198936",
-      "resource":
-      {
-        "resourceType" : "Observation",
-        "id" : "observation-infant-breastfed-at-discharge-babyg-quinn",
-        "meta" : {
-          "profile" : [
+      "resource": {
+        "resourceType": "Observation",
+        "id": "observation-infant-breastfed-at-discharge-babyg-quinn",
+        "meta": {
+          "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-infant-breastfed-at-discharge"
           ]
         },
-        "text" : {
-          "status" : "generated",
-          "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"observation-infant-breastfed-at-discharge-babyg-quinn\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-infant-breastfed-at-discharge-babyg-quinn&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-infant-breastfed-at-discharge.html\">Observation - Infant Breastfed at Discharge</a></p></div><p><b>status</b>: final</p><p><b>code</b>: Is the infant being breastfed at discharge? <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#73756-9)</span></p><p><b>subject</b>: <a href=\"Patient-patient-child-babyg-quinn.html\">Patient/patient-child-babyg-quinn: BabyG Quinn</a> &quot; QUINN&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>performer</b>: <a href=\"Practitioner-practitioner-vital-records-janet-seito.html\">Practitioner/practitioner-vital-records-janet-seito</a> &quot; JANET&quot;</p><p><b>value</b>: true</p></div>"
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"observation-infant-breastfed-at-discharge-babyg-quinn\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-infant-breastfed-at-discharge-babyg-quinn&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-infant-breastfed-at-discharge.html\">Observation - Infant Breastfed at Discharge</a></p></div><p><b>status</b>: final</p><p><b>code</b>: Is the infant being breastfed at discharge? <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#73756-9)</span></p><p><b>subject</b>: <a href=\"Patient-patient-child-babyg-quinn.html\">Patient/patient-child-babyg-quinn: BabyG Quinn</a> &quot; QUINN&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>performer</b>: <a href=\"Practitioner-practitioner-vital-records-janet-seito.html\">Practitioner/practitioner-vital-records-janet-seito</a> &quot; JANET&quot;</p><p><b>value</b>: true</p></div>"
         },
-        "status" : "final",
-        "code" : {
-          "coding" : [
+        "status": "final",
+        "code": {
+          "coding": [
             {
-              "system" : "http://loinc.org",
-              "code" : "73756-9"
+              "system": "http://loinc.org",
+              "code": "73756-9"
             }
           ]
         },
-        "subject" : {
-          "reference" : "Patient/patient-child-babyg-quinn",
-          "display" : "BabyG Quinn"
+        "subject": {
+          "reference": "Patient/patient-child-babyg-quinn",
+          "display": "BabyG Quinn"
         },
-        "effectiveDateTime" : "2019-12-02",
-        "performer" : [
+        "effectiveDateTime": "2019-12-02",
+        "performer": [
           {
-            "reference" : "Practitioner/practitioner-vital-records-janet-seito"
+            "reference": "Practitioner/practitioner-vital-records-janet-seito"
           }
         ],
-        "valueBoolean" : true
+        "valueBoolean": true
       }
     },
     {
       "fullUrl": "urn:uuid:9b0abc88-167d-460e-9a02-af7524198936",
-      "resource":
-      {
-        "resourceType" : "Observation",
-        "id" : "observation-mother-received-wic-food-carmen-teresa-lee",
-        "meta" : {
-          "profile" : [
+      "resource": {
+        "resourceType": "Observation",
+        "id": "observation-mother-received-wic-food-carmen-teresa-lee",
+        "meta": {
+          "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-mother-received-wic-food"
           ]
         },
-        "text" : {
-          "status" : "generated",
-          "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"observation-mother-received-wic-food-carmen-teresa-lee\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-mother-received-wic-food-carmen-teresa-lee&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-mother-received-wic-food.html\">Observation - Mother Recieved WIC Food</a></p></div><p><b>status</b>: final</p><p><b>code</b>: Mother WIC food recipient <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#87303-4)</span></p><p><b>subject</b>: <a href=\"Patient-patient-mother-carmen-teresa-lee.html\">Patient/patient-mother-carmen-teresa-lee: Patient - Mother (Carmen Teresa Lee)</a> &quot; LEE&quot;</p><p><b>focus</b>: <a href=\"Patient-patient-decedent-fetus-not-named.html\">Patient/patient-decedent-fetus-not-named: Patient - Decedent Fetus (Fetus Not Named)</a> &quot;&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>performer</b>: <a href=\"Patient-patient-mother-carmen-teresa-lee.html\">Patient/patient-mother-carmen-teresa-lee</a> &quot; LEE&quot;</p><p><b>value</b>: No <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://hl7.org/fhir/R4/v2/0136/index.html\">v2 Y/N Indicator</a>#N)</span></p></div>"
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"observation-mother-received-wic-food-carmen-teresa-lee\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-mother-received-wic-food-carmen-teresa-lee&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-mother-received-wic-food.html\">Observation - Mother Recieved WIC Food</a></p></div><p><b>status</b>: final</p><p><b>code</b>: Mother WIC food recipient <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#87303-4)</span></p><p><b>subject</b>: <a href=\"Patient-patient-mother-carmen-teresa-lee.html\">Patient/patient-mother-carmen-teresa-lee: Patient - Mother (Carmen Teresa Lee)</a> &quot; LEE&quot;</p><p><b>focus</b>: <a href=\"Patient-patient-decedent-fetus-not-named.html\">Patient/patient-decedent-fetus-not-named: Patient - Decedent Fetus (Fetus Not Named)</a> &quot;&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>performer</b>: <a href=\"Patient-patient-mother-carmen-teresa-lee.html\">Patient/patient-mother-carmen-teresa-lee</a> &quot; LEE&quot;</p><p><b>value</b>: No <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://hl7.org/fhir/R4/v2/0136/index.html\">v2 Y/N Indicator</a>#N)</span></p></div>"
         },
-        "status" : "final",
-        "code" : {
-          "coding" : [
+        "status": "final",
+        "code": {
+          "coding": [
             {
-              "system" : "http://loinc.org",
-              "code" : "87303-4"
+              "system": "http://loinc.org",
+              "code": "87303-4"
             }
           ]
         },
-        "subject" : {
-          "reference" : "Patient/patient-mother-carmen-teresa-lee",
-          "display" : "Patient - Mother (Carmen Teresa Lee)"
+        "subject": {
+          "reference": "Patient/patient-mother-carmen-teresa-lee",
+          "display": "Patient - Mother (Carmen Teresa Lee)"
         },
-        "focus" : [
+        "focus": [
           {
-            "reference" : "Patient/patient-decedent-fetus-not-named",
-            "display" : "Patient - Decedent Fetus (Fetus Not Named)"
+            "reference": "Patient/patient-decedent-fetus-not-named",
+            "display": "Patient - Decedent Fetus (Fetus Not Named)"
           }
         ],
-        "effectiveDateTime" : "2019-12-02",
-        "performer" : [
+        "effectiveDateTime": "2019-12-02",
+        "performer": [
           {
-            "reference" : "Patient/patient-mother-carmen-teresa-lee"
+            "reference": "Patient/patient-mother-carmen-teresa-lee"
           }
         ],
-        "valueCodeableConcept" : {
-          "coding" : [
+        "valueCodeableConcept": {
+          "coding": [
             {
-              "system" : "http://terminology.hl7.org/CodeSystem/v2-0136",
-              "code" : "N",
-              "display" : "No"
+              "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+              "code": "N",
+              "display": "No"
             }
           ]
         }
@@ -1466,43 +1669,43 @@
     {
       "fullUrl": "urn:uuid:9b0abc88-167d-460e-9a02-af7524198936",
       "resource": {
-        "resourceType" : "Observation",
-        "id" : "observation-mother-married-during-pregnancy-jada-ann-quinn",
-        "meta" : {
-          "profile" : [
+        "resourceType": "Observation",
+        "id": "observation-mother-married-during-pregnancy-jada-ann-quinn",
+        "meta": {
+          "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-mother-married-during-pregnancy"
           ]
         },
-        "text" : {
-          "status" : "generated",
-          "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"observation-mother-married-during-pregnancy-jada-ann-quinn\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-mother-married-during-pregnancy-jada-ann-quinn&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-mother-married-during-pregnancy.html\">Observation - Mother Married During Pregnancy</a></p></div><p><b>status</b>: final</p><p><b>code</b>: Mother was married at any time during pregnancy <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#87301-8)</span></p><p><b>subject</b>: <a href=\"Patient-patient-mother-jada-ann-quinn.html\">Patient/patient-mother-jada-ann-quinn: Patient - Mother (Jada Ann Quinn)</a> &quot; QUINN&quot;</p><p><b>focus</b>: <a href=\"Patient-patient-child-babyg-quinn.html\">Patient/patient-child-babyg-quinn: BabyG Quinn</a> &quot; QUINN&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>value</b>: Yes <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://hl7.org/fhir/R4/v2/0136/index.html\">v2 Y/N Indicator</a>#Y)</span></p></div>"
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"observation-mother-married-during-pregnancy-jada-ann-quinn\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-mother-married-during-pregnancy-jada-ann-quinn&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-mother-married-during-pregnancy.html\">Observation - Mother Married During Pregnancy</a></p></div><p><b>status</b>: final</p><p><b>code</b>: Mother was married at any time during pregnancy <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#87301-8)</span></p><p><b>subject</b>: <a href=\"Patient-patient-mother-jada-ann-quinn.html\">Patient/patient-mother-jada-ann-quinn: Patient - Mother (Jada Ann Quinn)</a> &quot; QUINN&quot;</p><p><b>focus</b>: <a href=\"Patient-patient-child-babyg-quinn.html\">Patient/patient-child-babyg-quinn: BabyG Quinn</a> &quot; QUINN&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>value</b>: Yes <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://hl7.org/fhir/R4/v2/0136/index.html\">v2 Y/N Indicator</a>#Y)</span></p></div>"
         },
-        "status" : "final",
-        "code" : {
-          "coding" : [
+        "status": "final",
+        "code": {
+          "coding": [
             {
-              "system" : "http://loinc.org",
-              "code" : "87301-8"
+              "system": "http://loinc.org",
+              "code": "87301-8"
             }
           ]
         },
-        "subject" : {
-          "reference" : "Patient/patient-mother-jada-ann-quinn",
-          "display" : "Patient - Mother (Jada Ann Quinn)"
+        "subject": {
+          "reference": "Patient/patient-mother-jada-ann-quinn",
+          "display": "Patient - Mother (Jada Ann Quinn)"
         },
-        "focus" : [
+        "focus": [
           {
-            "reference" : "Patient/patient-child-babyg-quinn",
-            "display" : "BabyG Quinn"
+            "reference": "Patient/patient-child-babyg-quinn",
+            "display": "BabyG Quinn"
           }
         ],
-        "effectiveDateTime" : "2019-12-02",
-        "valueCodeableConcept" : {
-          "coding" : [
+        "effectiveDateTime": "2019-12-02",
+        "valueCodeableConcept": {
+          "coding": [
             {
-              "system" : "http://terminology.hl7.org/CodeSystem/v2-0136",
-              "code" : "Y",
-              "display" : "Yes"
+              "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+              "code": "Y",
+              "display": "Yes"
             }
           ]
         }
@@ -1511,42 +1714,42 @@
     {
       "fullUrl": "urn:uuid:9b0abc88-167d-460e-9a02-af7524198937",
       "resource": {
-        "resourceType" : "Observation",
-        "id" : "observation-fetal-presentation-babyg-quinn",
-        "meta" : {
-          "profile" : [
+        "resourceType": "Observation",
+        "id": "observation-fetal-presentation-babyg-quinn",
+        "meta": {
+          "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-fetal-presentation"
           ]
         },
-        "text" : {
-          "status" : "generated",
-          "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"observation-fetal-presentation-babyg-quinn\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-fetal-presentation-babyg-quinn&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-fetal-presentation.html\">Observation - Fetal Presentation at Birth/Delivery</a></p></div><p><b>status</b>: final</p><p><b>code</b>: Fetal presentation--at birth [US Standard Certificate of Live Birth] <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#73761-9)</span></p><p><b>subject</b>: <a href=\"Patient-patient-child-babyg-quinn.html\">Patient/patient-child-babyg-quinn: Patient - Child (Baby G Quinn)</a> &quot; QUINN&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>performer</b>: <a href=\"Practitioner-practitioner-vital-records-janet-seito.html\">Practitioner/practitioner-vital-records-janet-seito</a> &quot; JANET&quot;</p><p><b>value</b>: Breech presentation (finding) <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://browser.ihtsdotools.org/\">SNOMED CT</a>#6096002)</span></p></div>"
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"observation-fetal-presentation-babyg-quinn\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-fetal-presentation-babyg-quinn&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-fetal-presentation.html\">Observation - Fetal Presentation at Birth/Delivery</a></p></div><p><b>status</b>: final</p><p><b>code</b>: Fetal presentation--at birth [US Standard Certificate of Live Birth] <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#73761-9)</span></p><p><b>subject</b>: <a href=\"Patient-patient-child-babyg-quinn.html\">Patient/patient-child-babyg-quinn: Patient - Child (Baby G Quinn)</a> &quot; QUINN&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>performer</b>: <a href=\"Practitioner-practitioner-vital-records-janet-seito.html\">Practitioner/practitioner-vital-records-janet-seito</a> &quot; JANET&quot;</p><p><b>value</b>: Breech presentation (finding) <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://browser.ihtsdotools.org/\">SNOMED CT</a>#6096002)</span></p></div>"
         },
-        "status" : "final",
-        "code" : {
-          "coding" : [
+        "status": "final",
+        "code": {
+          "coding": [
             {
-              "system" : "http://loinc.org",
-              "code" : "73761-9"
+              "system": "http://loinc.org",
+              "code": "73761-9"
             }
           ]
         },
-        "subject" : {
-          "reference" : "Patient/patient-child-babyg-quinn",
-          "display" : "Patient - Child (Baby G Quinn)"
+        "subject": {
+          "reference": "Patient/patient-child-babyg-quinn",
+          "display": "Patient - Child (Baby G Quinn)"
         },
-        "effectiveDateTime" : "2019-12-02",
-        "performer" : [
+        "effectiveDateTime": "2019-12-02",
+        "performer": [
           {
-            "reference" : "Practitioner/practitioner-vital-records-janet-seito"
+            "reference": "Practitioner/practitioner-vital-records-janet-seito"
           }
         ],
-        "valueCodeableConcept" : {
-          "coding" : [
+        "valueCodeableConcept": {
+          "coding": [
             {
-              "system" : "http://snomed.info/sct",
-              "code" : "6096002",
-              "display" : "Breech presentation (finding)"
+              "system": "http://snomed.info/sct",
+              "code": "6096002",
+              "display": "Breech presentation (finding)"
             }
           ]
         }
@@ -1554,51 +1757,50 @@
     },
     {
       "fullUrl": "urn:uuid:9b0abc88-167d-460e-9a02-af7524198937",
-      "resource": 
-      {
-        "resourceType" : "Observation",
-        "id" : "observation-number-previous-cesareans-jada-ann-quinn-w-edit",
-        "meta" : {
-          "profile" : [
+      "resource": {
+        "resourceType": "Observation",
+        "id": "observation-number-previous-cesareans-jada-ann-quinn-w-edit",
+        "meta": {
+          "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-number-previous-cesareans"
           ]
         },
-        "text" : {
-          "status" : "generated",
-          "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"observation-number-previous-cesareans-jada-ann-quinn-w-edit\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-number-previous-cesareans-jada-ann-quinn-w-edit&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-number-previous-cesareans.html\">Observation - Number of Previous Cesareans</a></p></div><p><b>status</b>: final</p><p><b>code</b>: Previous cesarean deliveries # <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#68497-7)</span></p><p><b>subject</b>: <a href=\"Patient-patient-mother-jada-ann-quinn.html\">Patient/patient-mother-jada-ann-quinn: Patient - Mother (Jada Ann Quinn)</a> &quot; QUINN&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>performer</b>: <a href=\"Practitioner-practitioner-vital-records-janet-seito.html\">Practitioner/practitioner-vital-records-janet-seito</a> &quot; JANET&quot;</p><p><b>value</b>: 1</p></div>"
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"observation-number-previous-cesareans-jada-ann-quinn-w-edit\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-number-previous-cesareans-jada-ann-quinn-w-edit&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-number-previous-cesareans.html\">Observation - Number of Previous Cesareans</a></p></div><p><b>status</b>: final</p><p><b>code</b>: Previous cesarean deliveries # <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#68497-7)</span></p><p><b>subject</b>: <a href=\"Patient-patient-mother-jada-ann-quinn.html\">Patient/patient-mother-jada-ann-quinn: Patient - Mother (Jada Ann Quinn)</a> &quot; QUINN&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>performer</b>: <a href=\"Practitioner-practitioner-vital-records-janet-seito.html\">Practitioner/practitioner-vital-records-janet-seito</a> &quot; JANET&quot;</p><p><b>value</b>: 1</p></div>"
         },
-        "status" : "final",
-        "code" : {
-          "coding" : [
+        "status": "final",
+        "code": {
+          "coding": [
             {
-              "system" : "http://loinc.org",
-              "code" : "68497-7",
-              "display" : "Previous cesarean deliveries #"
+              "system": "http://loinc.org",
+              "code": "68497-7",
+              "display": "Previous cesarean deliveries #"
             }
           ],
-          "text" : "Previous cesarean deliveries #"
+          "text": "Previous cesarean deliveries #"
         },
-        "subject" : {
-          "reference" : "Patient/patient-mother-jada-ann-quinn",
-          "display" : "Patient - Mother (Jada Ann Quinn)"
+        "subject": {
+          "reference": "Patient/patient-mother-jada-ann-quinn",
+          "display": "Patient - Mother (Jada Ann Quinn)"
         },
-        "effectiveDateTime" : "2019-12-02",
-        "performer" : [
+        "effectiveDateTime": "2019-12-02",
+        "performer": [
           {
-            "reference" : "Practitioner/practitioner-vital-records-janet-seito"
+            "reference": "Practitioner/practitioner-vital-records-janet-seito"
           }
         ],
-        "valueInteger" : 1,
-        "_valueInteger" : {
-          "extension" : [
+        "valueInteger": 1,
+        "_valueInteger": {
+          "extension": [
             {
-              "url" : "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
-              "valueCodeableConcept" : {
-                "coding" : [
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
+              "valueCodeableConcept": {
+                "coding": [
                   {
-                    "system" : "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
-                    "code" : "0",
-                    "display" : "Edit Passed"
+                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
+                    "code": "0",
+                    "display": "Edit Passed"
                   }
                 ]
               }
@@ -1609,93 +1811,92 @@
     },
     {
       "fullUrl": "urn:uuid:9b0abc88-167d-460e-9a02-af7524198937",
-      "resource": 
-      {
-        "resourceType" : "Observation",
-        "id" : "observation-labor-trial-attempted-babyg-quinn",
-        "meta" : {
-          "profile" : [
+      "resource": {
+        "resourceType": "Observation",
+        "id": "observation-labor-trial-attempted-babyg-quinn",
+        "meta": {
+          "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-labor-trial-attempted"
           ]
         },
-        "text" : {
-          "status" : "generated",
-          "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"observation-labor-trial-attempted-babyg-quinn\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-labor-trial-attempted-babyg-quinn&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-labor-trial-attempted.html\">Observation - Labor Trial Attempted</a></p></div><p><b>status</b>: final</p><p><b>code</b>: If cesarean, a trial of labor was attempted [US Standard Certificate of Live Birth] <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#73760-1)</span></p><p><b>subject</b>: <a href=\"Patient-patient-mother-jada-ann-quinn.html\">Patient/patient-mother-jada-ann-quinn: Patient - Mother (Jada Ann Quinn)</a> &quot; QUINN&quot;</p><p><b>focus</b>: <a href=\"Patient-patient-child-babyg-quinn.html\">Patient/patient-child-babyg-quinn: BabyG Quinn</a> &quot; QUINN&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>performer</b>: <a href=\"Practitioner-practitioner-vital-records-janet-seito.html\">Practitioner/practitioner-vital-records-janet-seito</a> &quot; JANET&quot;</p><p><b>value</b>: true</p></div>"
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"observation-labor-trial-attempted-babyg-quinn\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-labor-trial-attempted-babyg-quinn&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-labor-trial-attempted.html\">Observation - Labor Trial Attempted</a></p></div><p><b>status</b>: final</p><p><b>code</b>: If cesarean, a trial of labor was attempted [US Standard Certificate of Live Birth] <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#73760-1)</span></p><p><b>subject</b>: <a href=\"Patient-patient-mother-jada-ann-quinn.html\">Patient/patient-mother-jada-ann-quinn: Patient - Mother (Jada Ann Quinn)</a> &quot; QUINN&quot;</p><p><b>focus</b>: <a href=\"Patient-patient-child-babyg-quinn.html\">Patient/patient-child-babyg-quinn: BabyG Quinn</a> &quot; QUINN&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>performer</b>: <a href=\"Practitioner-practitioner-vital-records-janet-seito.html\">Practitioner/practitioner-vital-records-janet-seito</a> &quot; JANET&quot;</p><p><b>value</b>: true</p></div>"
         },
-        "status" : "final",
-        "code" : {
-          "coding" : [
+        "status": "final",
+        "code": {
+          "coding": [
             {
-              "system" : "http://loinc.org",
-              "code" : "73760-1",
-              "display" : "If cesarean, a trial of labor was attempted [US Standard Certificate of Live Birth]"
+              "system": "http://loinc.org",
+              "code": "73760-1",
+              "display": "If cesarean, a trial of labor was attempted [US Standard Certificate of Live Birth]"
             }
           ]
         },
-        "subject" : {
-          "reference" : "Patient/patient-mother-jada-ann-quinn",
-          "display" : "Patient - Mother (Jada Ann Quinn)"
+        "subject": {
+          "reference": "Patient/patient-mother-jada-ann-quinn",
+          "display": "Patient - Mother (Jada Ann Quinn)"
         },
-        "focus" : [
+        "focus": [
           {
-            "reference" : "Patient/patient-child-babyg-quinn",
-            "display" : "BabyG Quinn"
+            "reference": "Patient/patient-child-babyg-quinn",
+            "display": "BabyG Quinn"
           }
         ],
-        "effectiveDateTime" : "2019-12-02",
-        "performer" : [
+        "effectiveDateTime": "2019-12-02",
+        "performer": [
           {
-            "reference" : "Practitioner/practitioner-vital-records-janet-seito"
+            "reference": "Practitioner/practitioner-vital-records-janet-seito"
           }
         ],
-        "valueBoolean" : true
+        "valueBoolean": true
       }
     },
     {
       "fullUrl": "urn:uuid:9b0abc88-167d-460e-9a02-af7524198937",
       "resource": {
-        "resourceType" : "Observation",
-        "id" : "observation-paternity-acknowledgement-signed-james-quinn",
-        "meta" : {
-          "profile" : [
+        "resourceType": "Observation",
+        "id": "observation-paternity-acknowledgement-signed-james-quinn",
+        "meta": {
+          "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-paternity-acknowledgement-signed"
           ]
         },
-        "text" : {
-          "status" : "generated",
-          "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"observation-paternity-acknowledgement-signed-james-quinn\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-paternity-acknowledgement-signed-james-quinn&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-paternity-acknowledgement-signed.html\">Observation - Paternity Acknowledgement Signed</a></p></div><p><b>status</b>: final</p><p><b>code</b>: Paternity acknowledgment form signed Father <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#87302-6)</span></p><p><b>subject</b>: <a href=\"Patient-patient-child-babyg-quinn.html\">Patient/patient-child-babyg-quinn: Patient - Child (Baby G Quinn)</a> &quot; QUINN&quot;</p><p><b>focus</b>: <a href=\"RelatedPerson-relatedperson-father-natural-james-brandon-quinn.html\">RelatedPerson/relatedperson-father-natural-james-brandon-quinn: RelatedPerson - Father (James Brandon Quinn)</a> &quot; QUINN&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>performer</b>: <a href=\"Patient-patient-mother-jada-ann-quinn.html\">Patient/patient-mother-jada-ann-quinn</a> &quot; QUINN&quot;</p><p><b>value</b>: Yes <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://hl7.org/fhir/R4/v2/0136/index.html\">v2 Y/N Indicator</a>#Y)</span></p></div>"
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"observation-paternity-acknowledgement-signed-james-quinn\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-paternity-acknowledgement-signed-james-quinn&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-paternity-acknowledgement-signed.html\">Observation - Paternity Acknowledgement Signed</a></p></div><p><b>status</b>: final</p><p><b>code</b>: Paternity acknowledgment form signed Father <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#87302-6)</span></p><p><b>subject</b>: <a href=\"Patient-patient-child-babyg-quinn.html\">Patient/patient-child-babyg-quinn: Patient - Child (Baby G Quinn)</a> &quot; QUINN&quot;</p><p><b>focus</b>: <a href=\"RelatedPerson-relatedperson-father-natural-james-brandon-quinn.html\">RelatedPerson/relatedperson-father-natural-james-brandon-quinn: RelatedPerson - Father (James Brandon Quinn)</a> &quot; QUINN&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>performer</b>: <a href=\"Patient-patient-mother-jada-ann-quinn.html\">Patient/patient-mother-jada-ann-quinn</a> &quot; QUINN&quot;</p><p><b>value</b>: Yes <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://hl7.org/fhir/R4/v2/0136/index.html\">v2 Y/N Indicator</a>#Y)</span></p></div>"
         },
-        "status" : "final",
-        "code" : {
-          "coding" : [
+        "status": "final",
+        "code": {
+          "coding": [
             {
-              "system" : "http://loinc.org",
-              "code" : "87302-6"
+              "system": "http://loinc.org",
+              "code": "87302-6"
             }
           ]
         },
-        "subject" : {
-          "reference" : "Patient/patient-child-babyg-quinn",
-          "display" : "Patient - Child (Baby G Quinn)"
+        "subject": {
+          "reference": "Patient/patient-child-babyg-quinn",
+          "display": "Patient - Child (Baby G Quinn)"
         },
-        "focus" : [
+        "focus": [
           {
-            "reference" : "RelatedPerson/relatedperson-father-natural-james-brandon-quinn",
-            "display" : "RelatedPerson - Father (James Brandon Quinn)"
+            "reference": "RelatedPerson/relatedperson-father-natural-james-brandon-quinn",
+            "display": "RelatedPerson - Father (James Brandon Quinn)"
           }
         ],
-        "effectiveDateTime" : "2019-12-02",
-        "performer" : [
+        "effectiveDateTime": "2019-12-02",
+        "performer": [
           {
-            "reference" : "Patient/patient-mother-jada-ann-quinn"
+            "reference": "Patient/patient-mother-jada-ann-quinn"
           }
         ],
-        "valueCodeableConcept" : {
-          "coding" : [
+        "valueCodeableConcept": {
+          "coding": [
             {
-              "system" : "http://terminology.hl7.org/CodeSystem/v2-0136",
-              "code" : "Y",
-              "display" : "Yes"
+              "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+              "code": "Y",
+              "display": "Yes"
             }
           ]
         }
@@ -2085,243 +2286,751 @@
     },
     {
       "fullUrl": "urn:uuid:9b0abc88-167d-460e-9a02-af75241983734",
-      "resource":
-      {
-        "resourceType" : "Observation",
-        "id" : "observation-ssn-requested-for-child-babyg-quinn",
-        "meta" : {
-          "profile" : [
+      "resource": {
+        "resourceType": "Observation",
+        "id": "observation-ssn-requested-for-child-babyg-quinn",
+        "meta": {
+          "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-ssn-requested-for-child"
           ]
         },
-        "text" : {
-          "status" : "generated",
-          "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"observation-ssn-requested-for-child-babyg-quinn\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-ssn-requested-for-child-babyg-quinn&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-ssn-requested-for-child.html\">Observation - Social Security Number Requested For Child</a></p></div><p><b>status</b>: final</p><p><b>code</b>: Social Security Number was requested <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#87295-2)</span></p><p><b>subject</b>: <a href=\"Patient-patient-child-babyg-quinn.html\">Patient/patient-child-babyg-quinn: BabyG Quinn</a> &quot; QUINN&quot;</p><p><b>focus</b>: <a href=\"Patient-patient-mother-jada-ann-quinn.html\">Patient/patient-mother-jada-ann-quinn: Patient - Mother (Jada Ann Quinn)</a> &quot; QUINN&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>performer</b>: <a href=\"Patient-patient-mother-jada-ann-quinn.html\">Patient/patient-mother-jada-ann-quinn</a> &quot; QUINN&quot;</p><p><b>value</b>: true</p></div>"
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"observation-ssn-requested-for-child-babyg-quinn\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-ssn-requested-for-child-babyg-quinn&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-ssn-requested-for-child.html\">Observation - Social Security Number Requested For Child</a></p></div><p><b>status</b>: final</p><p><b>code</b>: Social Security Number was requested <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#87295-2)</span></p><p><b>subject</b>: <a href=\"Patient-patient-child-babyg-quinn.html\">Patient/patient-child-babyg-quinn: BabyG Quinn</a> &quot; QUINN&quot;</p><p><b>focus</b>: <a href=\"Patient-patient-mother-jada-ann-quinn.html\">Patient/patient-mother-jada-ann-quinn: Patient - Mother (Jada Ann Quinn)</a> &quot; QUINN&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>performer</b>: <a href=\"Patient-patient-mother-jada-ann-quinn.html\">Patient/patient-mother-jada-ann-quinn</a> &quot; QUINN&quot;</p><p><b>value</b>: true</p></div>"
         },
-        "status" : "final",
-        "code" : {
-          "coding" : [
+        "status": "final",
+        "code": {
+          "coding": [
             {
-              "system" : "http://loinc.org",
-              "code" : "87295-2"
+              "system": "http://loinc.org",
+              "code": "87295-2"
             }
           ]
         },
-        "subject" : {
-          "reference" : "Patient/patient-child-babyg-quinn",
-          "display" : "BabyG Quinn"
+        "subject": {
+          "reference": "Patient/patient-child-babyg-quinn",
+          "display": "BabyG Quinn"
         },
-        "focus" : [
+        "focus": [
           {
-            "reference" : "Patient/patient-mother-jada-ann-quinn",
-            "display" : "Patient - Mother (Jada Ann Quinn)"
+            "reference": "Patient/patient-mother-jada-ann-quinn",
+            "display": "Patient - Mother (Jada Ann Quinn)"
           }
         ],
-        "effectiveDateTime" : "2019-12-02",
-        "performer" : [
+        "effectiveDateTime": "2019-12-02",
+        "performer": [
           {
-            "reference" : "Patient/patient-mother-jada-ann-quinn"
+            "reference": "Patient/patient-mother-jada-ann-quinn"
           }
         ],
-        "valueBoolean" : true
+        "valueBoolean": true
       }
     },
-    {      
+    {
       "fullUrl": "urn:uuid:9b0abc88-167d-460e-9a02-af75241983095",
-      "resource":
-      {
-        "resourceType" : "Observation",
-        "id" : "observation-number-live-births-this-delivery-jada-ann-quinn",
-        "meta" : {
-          "profile" : [
+      "resource": {
+        "resourceType": "Observation",
+        "id": "observation-number-live-births-this-delivery-jada-ann-quinn",
+        "meta": {
+          "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-number-live-births-this-delivery"
           ]
         },
-        "text" : {
-          "status" : "generated",
-          "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"observation-number-live-births-this-delivery-jada-ann-quinn\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-number-live-births-this-delivery-jada-ann-quinn&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-number-live-births-this-delivery.html\">Observation - Number of Live Births This Delivery</a></p></div><p><b>status</b>: final</p><p><b>code</b>: Number of infants in this delivery delivered alive <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#73773-4)</span></p><p><b>subject</b>: <a href=\"Patient-patient-mother-jada-ann-quinn.html\">Patient/patient-mother-jada-ann-quinn: Patient - Mother (Jada Ann Quinn)</a> &quot; QUINN&quot;</p><p><b>focus</b>: <a href=\"Patient-patient-child-babyg-quinn.html\">Patient/patient-child-babyg-quinn: BabyG Quinn</a> &quot; QUINN&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>performer</b>: <a href=\"Practitioner-practitioner-vital-records-janet-seito.html\">Practitioner/practitioner-vital-records-janet-seito</a> &quot; JANET&quot;</p><p><b>value</b>: 2</p></div>"
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"observation-number-live-births-this-delivery-jada-ann-quinn\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-number-live-births-this-delivery-jada-ann-quinn&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-number-live-births-this-delivery.html\">Observation - Number of Live Births This Delivery</a></p></div><p><b>status</b>: final</p><p><b>code</b>: Number of infants in this delivery delivered alive <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#73773-4)</span></p><p><b>subject</b>: <a href=\"Patient-patient-mother-jada-ann-quinn.html\">Patient/patient-mother-jada-ann-quinn: Patient - Mother (Jada Ann Quinn)</a> &quot; QUINN&quot;</p><p><b>focus</b>: <a href=\"Patient-patient-child-babyg-quinn.html\">Patient/patient-child-babyg-quinn: BabyG Quinn</a> &quot; QUINN&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>performer</b>: <a href=\"Practitioner-practitioner-vital-records-janet-seito.html\">Practitioner/practitioner-vital-records-janet-seito</a> &quot; JANET&quot;</p><p><b>value</b>: 2</p></div>"
         },
-        "status" : "final",
-        "code" : {
-          "coding" : [
+        "status": "final",
+        "code": {
+          "coding": [
             {
-              "system" : "http://loinc.org",
-              "code" : "73773-4",
-              "display" : "Number of infants in this delivery delivered alive"
+              "system": "http://loinc.org",
+              "code": "73773-4",
+              "display": "Number of infants in this delivery delivered alive"
             }
           ]
         },
-        "subject" : {
-          "reference" : "Patient/patient-mother-jada-ann-quinn",
-          "display" : "Patient - Mother (Jada Ann Quinn)"
+        "subject": {
+          "reference": "Patient/patient-mother-jada-ann-quinn",
+          "display": "Patient - Mother (Jada Ann Quinn)"
         },
-        "focus" : [
+        "focus": [
           {
-            "reference" : "Patient/patient-child-babyg-quinn",
-            "display" : "BabyG Quinn"
+            "reference": "Patient/patient-child-babyg-quinn",
+            "display": "BabyG Quinn"
           }
         ],
-        "effectiveDateTime" : "2019-12-02",
-        "performer" : [
+        "effectiveDateTime": "2019-12-02",
+        "performer": [
           {
-            "reference" : "Practitioner/practitioner-vital-records-janet-seito"
+            "reference": "Practitioner/practitioner-vital-records-janet-seito"
           }
         ],
-        "valueInteger" : 3
+        "valueInteger": 3
       }
     },
     {
       "fullUrl": "urn:uuid:9b0abc88-167d-460e-9a02-af7524198346",
       "resource": {
-        "resourceType" : "Observation",
-        "id" : "observation-infant-living-babyg-quinn",
-        "meta" : {
-          "profile" : [
+        "resourceType": "Observation",
+        "id": "observation-infant-living-babyg-quinn",
+        "meta": {
+          "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-infant-living"
           ]
         },
-        "text" : {
-          "status" : "generated",
-          "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"observation-infant-living-babyg-quinn\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-infant-living-babyg-quinn&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-infant-living.html\">Observation - Infant Living</a></p></div><p><b>status</b>: final</p><p><b>code</b>: Infant living at time of report [US Standard Certificate of Live Birth] <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#73757-7)</span></p><p><b>subject</b>: <a href=\"Patient-patient-child-babyg-quinn.html\">Patient/patient-child-babyg-quinn: BabyG Quinn</a> &quot; QUINN&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>performer</b>: <a href=\"Practitioner-practitioner-vital-records-janet-seito.html\">Practitioner/practitioner-vital-records-janet-seito</a> &quot; JANET&quot;</p><p><b>value</b>: true</p></div>"
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"observation-infant-living-babyg-quinn\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-infant-living-babyg-quinn&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-infant-living.html\">Observation - Infant Living</a></p></div><p><b>status</b>: final</p><p><b>code</b>: Infant living at time of report [US Standard Certificate of Live Birth] <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#73757-7)</span></p><p><b>subject</b>: <a href=\"Patient-patient-child-babyg-quinn.html\">Patient/patient-child-babyg-quinn: BabyG Quinn</a> &quot; QUINN&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>performer</b>: <a href=\"Practitioner-practitioner-vital-records-janet-seito.html\">Practitioner/practitioner-vital-records-janet-seito</a> &quot; JANET&quot;</p><p><b>value</b>: true</p></div>"
         },
-        "status" : "final",
-        "code" : {
-          "coding" : [
+        "status": "final",
+        "code": {
+          "coding": [
             {
-              "system" : "http://loinc.org",
-              "code" : "73757-7",
-              "display" : "Infant living at time of report [US Standard Certificate of Live Birth]"
+              "system": "http://loinc.org",
+              "code": "73757-7",
+              "display": "Infant living at time of report [US Standard Certificate of Live Birth]"
             }
           ]
         },
-        "subject" : {
-          "reference" : "Patient/patient-child-babyg-quinn",
-          "display" : "BabyG Quinn"
+        "subject": {
+          "reference": "Patient/patient-child-babyg-quinn",
+          "display": "BabyG Quinn"
         },
-        "effectiveDateTime" : "2019-12-02",
-        "performer" : [
+        "effectiveDateTime": "2019-12-02",
+        "performer": [
           {
-            "reference" : "Practitioner/practitioner-vital-records-janet-seito"
+            "reference": "Practitioner/practitioner-vital-records-janet-seito"
           }
         ],
-        "valueBoolean" : true
+        "valueBoolean": true
       }
     },
     {
       "fullUrl": "urn:uuid:9b0abc88-167d-460e-9a02-af7524198931",
       "resource": {
-        "resourceType" : "Encounter",
-        "id" : "encounter-maternity-jada-ann-quinn",
-        "meta" : {
-          "profile" : [
+        "resourceType": "Encounter",
+        "id": "encounter-maternity-jada-ann-quinn",
+        "meta": {
+          "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Encounter-maternity"
           ]
         },
-        "text" : {
-          "status" : "extensions",
-          "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Encounter</b><a name=\"encounter-maternity-jada-ann-quinn\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Encounter &quot;encounter-maternity-jada-ann-quinn&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Encounter-maternity.html\">Encounter - Maternity</a></p></div><p><b>Role Vital Records</b>: mother <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/5.0.0/CodeSystem-v3-RoleCode.html\">RoleCode</a>#MTH)</span></p><p><b>identifier</b>: <code>http://hospital.smarthealthit.org</code>/9937012</p><p><b>status</b>: finished</p><p><b>class</b>: inpatient encounter (Details: http://terminology.hl7.org/CodeSystem/v3-ActCode code IMP = 'inpatient encounter', stated as 'inpatient encounter')</p><p><b>type</b>: Under Observation or Inpatient Care Services (Including Admission and Discharge Services) <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/5.0.0/CodeSystem-CPT.html\">Current Procedural Terminology (CPT®)</a>#99234)</span></p><p><b>subject</b>: <a href=\"Patient-patient-mother-jada-ann-quinn.html\">Patient/patient-mother-jada-ann-quinn: Patient - Mother (Jada Ann Quinn)</a> &quot; QUINN&quot;</p><h3>Participants</h3><table class=\"grid\"><tr><td style=\"display: none\">-</td><td><b>Type</b></td><td><b>Individual</b></td></tr><tr><td style=\"display: none\">*</td><td>Birth attendant [Extended Identifier] <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#87286-1)</span></td><td><a href=\"Practitioner-practitioner-vital-records-avery-jones.html\">Practitioner/practitioner-vital-records-avery-jones: Practitioner - Vital Records (Avery Jones, MD)</a> &quot; JONES&quot;</td></tr></table><p><b>period</b>: 2019-02-11 10:00:00-0700 --&gt; 2019-02-15 10:00:00-0700</p><h3>Hospitalizations</h3><table class=\"grid\"><tr><td style=\"display: none\">-</td><td><b>Origin</b></td><td><b>AdmitSource</b></td></tr><tr><td style=\"display: none\">*</td><td><a href=\"Location-location-north-hospital.html\">Location/location-north-hospital: Location - US Core Location (North Hospital)</a> &quot;North Hospital&quot;</td><td>The Patient has been transferred from another hospital for this encounter. <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/5.0.0/CodeSystem-admit-source.html\">Admit source</a>#hosp-trans &quot;Transferred from other hospital&quot;)</span></td></tr></table><h3>Locations</h3><table class=\"grid\"><tr><td style=\"display: none\">-</td><td><b>Location</b></td><td><b>PhysicalType</b></td></tr><tr><td style=\"display: none\">*</td><td><a href=\"Location-location-south-hospital.html\">Location/location-south-hospital: Location - US Core Location (South Hospital)</a> &quot;South Hospital&quot;</td><td>Hospital <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://browser.ihtsdotools.org/\">SNOMED CT</a>#22232009)</span></td></tr></table><p><b>serviceProvider</b>: <a href=\"Organization-organization-south-hospital.html\">Organization/organization-south-hospital: Organization - US Core Organization (South Hospital Organization)</a> &quot;South Hospital&quot;</p></div>"
+        "text": {
+          "status": "extensions",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Encounter</b><a name=\"encounter-maternity-jada-ann-quinn\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Encounter &quot;encounter-maternity-jada-ann-quinn&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Encounter-maternity.html\">Encounter - Maternity</a></p></div><p><b>Role Vital Records</b>: mother <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/5.0.0/CodeSystem-v3-RoleCode.html\">RoleCode</a>#MTH)</span></p><p><b>identifier</b>: <code>http://hospital.smarthealthit.org</code>/9937012</p><p><b>status</b>: finished</p><p><b>class</b>: inpatient encounter (Details: http://terminology.hl7.org/CodeSystem/v3-ActCode code IMP = 'inpatient encounter', stated as 'inpatient encounter')</p><p><b>type</b>: Under Observation or Inpatient Care Services (Including Admission and Discharge Services) <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/5.0.0/CodeSystem-CPT.html\">Current Procedural Terminology (CPT®)</a>#99234)</span></p><p><b>subject</b>: <a href=\"Patient-patient-mother-jada-ann-quinn.html\">Patient/patient-mother-jada-ann-quinn: Patient - Mother (Jada Ann Quinn)</a> &quot; QUINN&quot;</p><h3>Participants</h3><table class=\"grid\"><tr><td style=\"display: none\">-</td><td><b>Type</b></td><td><b>Individual</b></td></tr><tr><td style=\"display: none\">*</td><td>Birth attendant [Extended Identifier] <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#87286-1)</span></td><td><a href=\"Practitioner-practitioner-vital-records-avery-jones.html\">Practitioner/practitioner-vital-records-avery-jones: Practitioner - Vital Records (Avery Jones, MD)</a> &quot; JONES&quot;</td></tr></table><p><b>period</b>: 2019-02-11 10:00:00-0700 --&gt; 2019-02-15 10:00:00-0700</p><h3>Hospitalizations</h3><table class=\"grid\"><tr><td style=\"display: none\">-</td><td><b>Origin</b></td><td><b>AdmitSource</b></td></tr><tr><td style=\"display: none\">*</td><td><a href=\"Location-location-north-hospital.html\">Location/location-north-hospital: Location - US Core Location (North Hospital)</a> &quot;North Hospital&quot;</td><td>The Patient has been transferred from another hospital for this encounter. <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/5.0.0/CodeSystem-admit-source.html\">Admit source</a>#hosp-trans &quot;Transferred from other hospital&quot;)</span></td></tr></table><h3>Locations</h3><table class=\"grid\"><tr><td style=\"display: none\">-</td><td><b>Location</b></td><td><b>PhysicalType</b></td></tr><tr><td style=\"display: none\">*</td><td><a href=\"Location-location-south-hospital.html\">Location/location-south-hospital: Location - US Core Location (South Hospital)</a> &quot;South Hospital&quot;</td><td>Hospital <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://browser.ihtsdotools.org/\">SNOMED CT</a>#22232009)</span></td></tr></table><p><b>serviceProvider</b>: <a href=\"Organization-organization-south-hospital.html\">Organization/organization-south-hospital: Organization - US Core Organization (South Hospital Organization)</a> &quot;South Hospital&quot;</p></div>"
         },
-        "extension" : [
+        "extension": [
           {
-            "url" : "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-role-vr",
-            "valueCodeableConcept" : {
-              "coding" : [
+            "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-role-vr",
+            "valueCodeableConcept": {
+              "coding": [
                 {
-                  "system" : "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
-                  "code" : "MTH"
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+                  "code": "MTH"
                 }
               ]
             }
           }
         ],
-        "identifier" : [
+        "identifier": [
           {
-            "system" : "http://hospital.smarthealthit.org",
-            "value" : "9937012"
+            "system": "http://hospital.smarthealthit.org",
+            "value": "9937012"
           }
         ],
-        "status" : "finished",
-        "class" : {
-          "system" : "http://terminology.hl7.org/CodeSystem/v3-ActCode",
-          "code" : "IMP",
-          "display" : "inpatient encounter"
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "IMP",
+          "display": "inpatient encounter"
         },
-        "type" : [
+        "type": [
           {
-            "coding" : [
+            "coding": [
               {
-                "system" : "http://www.ama-assn.org/go/cpt",
-                "code" : "99234"
+                "system": "http://www.ama-assn.org/go/cpt",
+                "code": "99234"
               }
             ],
-            "text" : "Under Observation or Inpatient Care Services (Including Admission and Discharge Services)"
+            "text": "Under Observation or Inpatient Care Services (Including Admission and Discharge Services)"
           }
         ],
-        "subject" : {
-          "reference" : "Patient/patient-mother-jada-ann-quinn",
-          "display" : "Patient - Mother (Jada Ann Quinn)"
+        "subject": {
+          "reference": "Patient/patient-mother-jada-ann-quinn",
+          "display": "Patient - Mother (Jada Ann Quinn)"
         },
-        "participant" : [
+        "participant": [
           {
-            "type" : [
+            "type": [
               {
-                "coding" : [
+                "coding": [
                   {
-                    "system" : "http://loinc.org",
-                    "code" : "87286-1",
-                    "display" : "Birth attendant [Extended Identifier]"
+                    "system": "http://loinc.org",
+                    "code": "87286-1",
+                    "display": "Birth attendant [Extended Identifier]"
                   }
                 ]
               }
             ],
-            "individual" : {
-              "reference" : "Practitioner/practitioner-vital-records-avery-jones",
-              "display" : "Practitioner - Vital Records (Avery Jones, MD)"
+            "individual": {
+              "reference": "Practitioner/practitioner-vital-records-avery-jones",
+              "display": "Practitioner - Vital Records (Avery Jones, MD)"
             }
           }
         ],
-        "period" : {
-          "start" : "2019-02-11T10:00:00-07:00",
-          "end" : "2019-02-15T10:00:00-07:00"
+        "period": {
+          "start": "2019-02-11T10:00:00-07:00",
+          "end": "2019-02-15T10:00:00-07:00"
         },
-        "hospitalization" : {
-          "origin" : {
-            "reference" : "Location/location-north-hospital",
-            "display" : "Location - US Core Location (North Hospital)"
+        "hospitalization": {
+          "origin": {
+            "reference": "Location/location-north-hospital",
+            "display": "Location - US Core Location (North Hospital)"
           },
-          "admitSource" : {
-            "coding" : [
+          "admitSource": {
+            "coding": [
               {
-                "system" : "http://terminology.hl7.org/CodeSystem/admit-source",
-                "code" : "hosp-trans",
-                "display" : "Transferred from other hospital"
+                "system": "http://terminology.hl7.org/CodeSystem/admit-source",
+                "code": "hosp-trans",
+                "display": "Transferred from other hospital"
               }
             ],
-            "text" : "The Patient has been transferred from another hospital for this encounter."
+            "text": "The Patient has been transferred from another hospital for this encounter."
           }
         },
-        "location" : [
+        "location": [
           {
-            "location" : {
-              "reference" : "Location/location-south-hospital",
-              "display" : "Location - US Core Location (South Hospital)"
+            "location": {
+              "reference": "Location/location-south-hospital",
+              "display": "Location - US Core Location (South Hospital)"
             },
-            "physicalType" : {
-              "coding" : [
+            "physicalType": {
+              "coding": [
                 {
-                  "system" : "http://snomed.info/sct",
-                  "code" : "22232009",
-                  "display" : "Hospital"
+                  "system": "http://snomed.info/sct",
+                  "code": "22232009",
+                  "display": "Hospital"
                 }
               ]
             }
           }
         ],
-        "serviceProvider" : {
-          "reference" : "Organization/organization-south-hospital",
-          "display" : "Organization - US Core Organization (South Hospital Organization)"
+        "serviceProvider": {
+          "reference": "Organization/organization-south-hospital",
+          "display": "Organization - US Core Organization (South Hospital Organization)"
         }
       }
+    },
+    {
+      "resourceType": "Observation",
+      "id": "observation-date-of-first-prenatal-care-visit-jada-ann-quinn",
+      "meta": {
+        "profile": [
+          "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-date-of-first-prenatal-care-visit"
+        ]
+      },
+      "text": {
+        "status": "generated",
+        "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation </b><a name=\"observation-date-of-first-prenatal-care-visit-jada-ann-quinn\"> </a><a name=\"hcobservation-date-of-first-prenatal-care-visit-jada-ann-quinn\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">ResourceObservation &quot;observation-date-of-first-prenatal-care-visit-jada-ann-quinn&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-date-of-first-prenatal-care-visit.html\">Observation - Date of First Prenatal Care Visit</a></p></div><p><b>status</b>: final</p><p><b>code</b>: Date first prenatal visit <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#69044-6)</span></p><p><b>subject</b>: <a href=\"Patient-patient-mother-jada-ann-quinn.html\">Patient/patient-mother-jada-ann-quinn: Patient - Mother (Jada Ann Quinn)</a> &quot; QUINN&quot;</p><p><b>focus</b>: <a href=\"Patient-patient-child-babyg-quinn.html\">Patient/patient-child-babyg-quinn: BabyG Quinn</a> &quot; QUINN&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>performer</b>: <a href=\"Practitioner-practitioner-vital-records-janet-seito.html\">Practitioner/practitioner-vital-records-janet-seito</a> &quot; JANET&quot;</p><p><b>value</b>: 2018-07-20</p></div>"
+      },
+      "status": "final",
+      "code": {
+        "coding": [
+          {
+            "system": "http://loinc.org",
+            "code": "69044-6"
+          }
+        ]
+      },
+      "subject": {
+        "reference": "Patient/patient-mother-jada-ann-quinn",
+        "display": "Patient - Mother (Jada Ann Quinn)"
+      },
+      "focus": [
+        {
+          "reference": "Patient/patient-child-babyg-quinn",
+          "display": "BabyG Quinn"
+        }
+      ],
+      "effectiveDateTime": "2019-12-02",
+      "performer": [
+        {
+          "reference": "Practitioner/practitioner-vital-records-janet-seito"
+        }
+      ],
+      "valueDateTime": "2018-07-20"
+    },
+    {
+      "resourceType": "Observation",
+      "id": "observation-last-menstrual-period-jada-ann-quinn",
+      "meta": {
+        "profile": [
+          "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-last-menstrual-period"
+        ]
+      },
+      "text": {
+        "status": "generated",
+        "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"observation-last-menstrual-period-jada-ann-quinn\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-last-menstrual-period-jada-ann-quinn&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-last-menstrual-period.html\">Observation - Last Menstrual Period</a></p></div><p><b>status</b>: final</p><p><b>code</b>: Last menstrual period start date <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#8665-2)</span></p><p><b>subject</b>: <a href=\"Patient-patient-mother-jada-ann-quinn.html\">Patient/patient-mother-jada-ann-quinn: Patient - Mother (Jada Ann Quinn)</a> &quot; QUINN&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>performer</b>: <a href=\"Practitioner-practitioner-vital-records-janet-seito.html\">Practitioner/practitioner-vital-records-janet-seito</a> &quot; JANET&quot;</p><p><b>value</b>: 2018-06-05</p></div>"
+      },
+      "status": "final",
+      "code": {
+        "coding": [
+          {
+            "system": "http://loinc.org",
+            "code": "8665-2",
+            "display": "Last menstrual period start date"
+          }
+        ],
+        "text": "Last menstrual period start date"
+      },
+      "subject": {
+        "reference": "Patient/patient-mother-jada-ann-quinn",
+        "display": "Patient - Mother (Jada Ann Quinn)"
+      },
+      "effectiveDateTime": "2019-12-02",
+      "performer": [
+        {
+          "reference": "Practitioner/practitioner-vital-records-janet-seito"
+        }
+      ],
+      "valueDateTime": "2018-06-05"
+    },
+    {
+      "resourceType": "Observation",
+      "id": "observation-number-births-now-living-jada-ann-quinn",
+      "meta": {
+        "profile": [
+          "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-number-births-now-living"
+        ]
+      },
+      "text": {
+        "status": "generated",
+        "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"observation-number-births-now-living-jada-ann-quinn\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-number-births-now-living-jada-ann-quinn&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-number-births-now-living.html\">Observation - Number of Births Now Living</a></p></div><p><b>status</b>: final</p><p><b>code</b>: [#] Births.still living <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#11638-4)</span></p><p><b>subject</b>: <a href=\"Patient-patient-mother-jada-ann-quinn.html\">Patient/patient-mother-jada-ann-quinn: Patient - Mother (Jada Ann Quinn)</a> &quot; QUINN&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>performer</b>: <a href=\"Practitioner-practitioner-vital-records-janet-seito.html\">Practitioner/practitioner-vital-records-janet-seito</a> &quot; JANET&quot;</p><p><b>value</b>: 1</p></div>"
+      },
+      "status": "final",
+      "code": {
+        "coding": [
+          {
+            "system": "http://loinc.org",
+            "code": "11638-4",
+            "display": "[#] Births.still living"
+          }
+        ],
+        "text": "[#] Births.still living"
+      },
+      "subject": {
+        "reference": "Patient/patient-mother-jada-ann-quinn",
+        "display": "Patient - Mother (Jada Ann Quinn)"
+      },
+      "effectiveDateTime": "2019-12-02",
+      "performer": [
+        {
+          "reference": "Practitioner/practitioner-vital-records-janet-seito"
+        }
+      ],
+      "valueInteger": 1
+    },
+    {
+      "resourceType": "Observation",
+      "id": "observation-number-births-now-dead-jada-ann-quinn",
+      "meta": {
+        "versionId": "6",
+        "lastUpdated": "2023-04-06T00:30:36.396Z",
+        "profile": [
+          "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Observation-number-births-now-dead-vr"
+        ]
+      },
+      "text": {
+        "status": "generated",
+        "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"observation-number-births-now-dead-jada-ann-quinn\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-number-births-now-dead-jada-ann-quinn&quot; Version &quot;6&quot; Updated &quot;2023-04-06 00:30:36+0000&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"http://hl7.org/fhir/us/vr-common-library/STU1.1/StructureDefinition-Observation-number-births-now-dead-vr.html\">Observation - Number of Births Now Dead - Vital Records</a></p></div><p><b>status</b>: final</p><p><b>code</b>: Previous live births now dead # <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#68496-9)</span></p><p><b>subject</b>: <a href=\"Patient-patient-mother-jada-ann-quinn.html\">Patient/patient-mother-jada-ann-quinn: Patient - Mother (Jada Ann Quinn)</a> &quot; QUINN&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>performer</b>: <a href=\"Practitioner-practitioner-vital-records-janet-seito.html\">Practitioner/practitioner-vital-records-janet-seito</a> &quot; JONES&quot;</p><p><b>value</b>: 0</p></div>"
+      },
+      "status": "final",
+      "code": {
+        "coding": [
+          {
+            "system": "http://loinc.org",
+            "code": "68496-9",
+            "display": "Previous live births now dead #"
+          }
+        ],
+        "text": "Previous live births now dead #"
+      },
+      "subject": {
+        "reference": "Patient/patient-mother-jada-ann-quinn",
+        "display": "Patient - Mother (Jada Ann Quinn)"
+      },
+      "effectiveDateTime": "2019-12-02",
+      "performer": [
+        {
+          "reference": "Practitioner/practitioner-vital-records-janet-seito"
+        }
+      ],
+      "valueInteger": 0
+    },
+    {
+      "resourceType": "Observation",
+      "id": "observation-mother-delivery-weight-jada-ann-quinn-w-edit",
+      "meta": {
+        "profile": [
+          "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-mother-delivery-weight"
+        ]
+      },
+      "text": {
+        "status": "generated",
+        "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation </b><a name=\"observation-mother-delivery-weight-jada-ann-quinn-w-edit\"> </a><a name=\"hcobservation-mother-delivery-weight-jada-ann-quinn-w-edit\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">ResourceObservation &quot;observation-mother-delivery-weight-jada-ann-quinn-w-edit&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-mother-delivery-weight.html\">Observation - Mother Delivery Weight</a></p></div><p><b>status</b>: final</p><p><b>category</b>: Vital Signs <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/5.5.0/CodeSystem-observation-category.html\">Observation Category Codes</a>#vital-signs)</span></p><p><b>code</b>: Mother's body weight --at delivery <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#69461-2)</span></p><p><b>subject</b>: <a href=\"Patient-patient-mother-jada-ann-quinn.html\">Patient/patient-mother-jada-ann-quinn: Patient - Mother (Jada Ann Quinn)</a> &quot; QUINN&quot;</p><p><b>effective</b>: 2019-02-12</p><p><b>performer</b>: <a href=\"Practitioner-practitioner-vital-records-janet-seito.html\">Practitioner/practitioner-vital-records-janet-seito</a> &quot; JANET&quot;</p><p><b>value</b>: 175 [lb_av]<span style=\"background: LightGoldenRodYellow\"> (Details: UCUM  code[lb_av] = '[lb_av]')</span></p></div>"
+      },
+      "status": "final",
+      "category": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+              "code": "vital-signs",
+              "display": "Vital Signs"
+            }
+          ]
+        }
+      ],
+      "code": {
+        "coding": [
+          {
+            "system": "http://loinc.org",
+            "code": "69461-2",
+            "display": "Mother's body weight --at delivery"
+          }
+        ]
+      },
+      "subject": {
+        "reference": "Patient/patient-mother-jada-ann-quinn",
+        "display": "Patient - Mother (Jada Ann Quinn)"
+      },
+      "effectiveDateTime": "2019-02-12",
+      "performer": [
+        {
+          "reference": "Practitioner/practitioner-vital-records-janet-seito"
+        }
+      ],
+      "valueQuantity": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
+                  "code": "0",
+                  "display": "Edit Passed"
+                }
+              ]
+            }
+          }
+        ],
+        "value": 175,
+        "system": "http://unitsofmeasure.org",
+        "code": "[lb_av]"
+      }
+    },
+    {
+      "resourceType": "Observation",
+      "id": "observation-mother-height-jada-ann-quinn-w-edit",
+      "meta": {
+        "profile": [
+          "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-mother-height"
+        ]
+      },
+      "text": {
+        "status": "generated",
+        "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"observation-mother-height-jada-ann-quinn-w-edit\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-mother-height-jada-ann-quinn-w-edit&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-mother-height.html\">Observation - Mother Height</a></p></div><p><b>status</b>: final</p><p><b>category</b>: Vital Signs <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/5.0.0/CodeSystem-observation-category.html\">Observation Category Codes</a>#vital-signs)</span></p><p><b>code</b>: Body height <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#8302-2)</span></p><p><b>subject</b>: <a href=\"Patient-patient-mother-jada-ann-quinn.html\">Patient/patient-mother-jada-ann-quinn: Patient - Mother (Jada Ann Quinn)</a> &quot; QUINN&quot;</p><p><b>effective</b>: 2019-02-10</p><p><b>performer</b>: <a href=\"Patient-patient-mother-jada-ann-quinn.html\">Patient/patient-mother-jada-ann-quinn</a> &quot; QUINN&quot;</p><p><b>value</b>: 67 in<span style=\"background: LightGoldenRodYellow\"> (Details: UCUM code [in_i] = '[in_i]')</span></p></div>"
+      },
+      "status": "final",
+      "category": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+              "code": "vital-signs"
+            }
+          ]
+        }
+      ],
+      "code": {
+        "coding": [
+          {
+            "system": "http://loinc.org",
+            "code": "8302-2"
+          }
+        ]
+      },
+      "subject": {
+        "reference": "Patient/patient-mother-jada-ann-quinn",
+        "display": "Patient - Mother (Jada Ann Quinn)"
+      },
+      "effectiveDateTime": "2019-02-10",
+      "performer": [
+        {
+          "reference": "Patient/patient-mother-jada-ann-quinn"
+        }
+      ],
+      "valueQuantity": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
+                  "code": "editBypass0",
+                  "display": "Edit Passed"
+                }
+              ]
+            }
+          }
+        ],
+        "value": 67,
+        "unit": "in",
+        "system": "http://unitsofmeasure.org",
+        "code": "[in_i]"
+      }
+    },
+    {
+      "resourceType": "Observation",
+      "id": "observation-mother-prepregnancy-weight-jada-ann-quinn-w-edit",
+      "meta": {
+        "profile": [
+          "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-mother-prepregnancy-weight"
+        ]
+      },
+      "text": {
+        "status": "generated",
+        "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation </b><a name=\"observation-mother-prepregnancy-weight-jada-ann-quinn-w-edit\"> </a><a name=\"hcobservation-mother-prepregnancy-weight-jada-ann-quinn-w-edit\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">ResourceObservation &quot;observation-mother-prepregnancy-weight-jada-ann-quinn-w-edit&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-mother-prepregnancy-weight.html\">Observation - Mother Prepregnancy Weight</a></p></div><p><b>status</b>: final</p><p><b>category</b>: Vital Signs <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/5.5.0/CodeSystem-observation-category.html\">Observation Category Codes</a>#vital-signs)</span></p><p><b>code</b>: Body weight --pre current pregnancy <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#56077-1)</span></p><p><b>subject</b>: <a href=\"Patient-patient-mother-jada-ann-quinn.html\">Patient/patient-mother-jada-ann-quinn: Patient - Mother (Jada Ann Quinn)</a> &quot; QUINN&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>performer</b>: <a href=\"Practitioner-practitioner-vital-records-janet-seito.html\">Practitioner/practitioner-vital-records-janet-seito</a> &quot; JANET&quot;</p><p><b>value</b>: 145 [lb_av]<span style=\"background: LightGoldenRodYellow\"> (Details: UCUM  code[lb_av] = '[lb_av]')</span></p></div>"
+      },
+      "status": "final",
+      "category": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+              "code": "vital-signs",
+              "display": "Vital Signs"
+            }
+          ]
+        }
+      ],
+      "code": {
+        "coding": [
+          {
+            "system": "http://loinc.org",
+            "code": "56077-1",
+            "display": "Body weight --pre current pregnancy"
+          }
+        ]
+      },
+      "subject": {
+        "reference": "Patient/patient-mother-jada-ann-quinn",
+        "display": "Patient - Mother (Jada Ann Quinn)"
+      },
+      "effectiveDateTime": "2019-12-02",
+      "performer": [
+        {
+          "reference": "Practitioner/practitioner-vital-records-janet-seito"
+        }
+      ],
+      "valueQuantity": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
+                  "code": "0",
+                  "display": "Edit Passed"
+                }
+              ]
+            }
+          }
+        ],
+        "value": 145,
+        "system": "http://unitsofmeasure.org",
+        "code": "[lb_av]"
+      }
+    },
+    {
+      "resourceType": "Observation",
+      "id": "observation-mother-received-wic-food-jada-ann-quinn",
+      "meta": {
+        "versionId": "6",
+        "lastUpdated": "2023-04-06T00:30:24.884Z",
+        "profile": [
+          "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-mother-received-wic-food"
+        ]
+      },
+      "text": {
+        "status": "generated",
+        "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"observation-mother-received-wic-food-jada-ann-quinn\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-mother-received-wic-food-jada-ann-quinn&quot; Version &quot;6&quot; Updated &quot;2023-04-06 00:30:24+0000&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-mother-received-wic-food.html\">Observation - Mother Recieved WIC Food</a></p></div><p><b>status</b>: final</p><p><b>code</b>: Did mother get WIC food for herself during this pregnancy? <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#87303-4 &quot;Mother WIC food recipient&quot;)</span></p><p><b>subject</b>: <a href=\"Patient-patient-child-babyg-quinn.html\">Patient/patient-child-babyg-quinn: BabyG Quinn</a> &quot; QUINN&quot;</p><p><b>focus</b>: <a href=\"Patient-patient-mother-jada-ann-quinn.html\">Patient/patient-mother-jada-ann-quinn: Patient - Mother (Jada Ann Quinn)</a> &quot; QUINN&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>performer</b>: <a href=\"Patient-patient-mother-jada-ann-quinn.html\">Patient/patient-mother-jada-ann-quinn</a> &quot; QUINN&quot;</p><p><b>value</b>: Yes <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/5.0.0/CodeSystem-v2-0532.html\">expandedYes-NoIndicator</a>#Y)</span></p></div>"
+      },
+      "status": "final",
+      "code": {
+        "coding": [
+          {
+            "system": "http://loinc.org",
+            "code": "87303-4",
+            "display": "Mother WIC food recipient"
+          }
+        ],
+        "text": "Did mother get WIC food for herself during this pregnancy?"
+      },
+      "subject": {
+        "reference": "Patient/patient-child-babyg-quinn",
+        "display": "BabyG Quinn"
+      },
+      "focus": [
+        {
+          "reference": "Patient/patient-mother-jada-ann-quinn",
+          "display": "Patient - Mother (Jada Ann Quinn)"
+        }
+      ],
+      "effectiveDateTime": "2019-12-02",
+      "performer": [
+        {
+          "reference": "Patient/patient-mother-jada-ann-quinn"
+        }
+      ],
+      "valueCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0532",
+            "code": "Y",
+            "display": "Yes"
+          }
+        ]
+      }
+    },
+    {
+      "resourceType": "Observation",
+      "id": "observation-cig-smoking-pregnancy-1-jada-ann-quinn",
+      "meta": {
+        "profile": [
+          "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-cigarette-smoking-before-during-pregnancy"
+        ]
+      },
+      "text": {
+        "status": "generated",
+        "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation </b><a name=\"observation-cig-smoking-pregnancy-1-jada-ann-quinn\"> </a><a name=\"hcobservation-cig-smoking-pregnancy-1-jada-ann-quinn\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">ResourceObservation &quot;observation-cig-smoking-pregnancy-1-jada-ann-quinn&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-cigarette-smoking-before-during-pregnancy.html\">Observation - Cigarette Smoking Before and During Pregnancy</a></p></div><p><b>status</b>: final</p><p><b>code</b>: In the 3 months before you got pregnant, how many cigarettes did you smoke on an average day [PhenX] <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#64794-1)</span></p><p><b>subject</b>: <a href=\"Patient-patient-mother-jada-ann-quinn.html\">Patient/patient-mother-jada-ann-quinn: Patient - Mother (Jada Ann Quinn)</a> &quot; QUINN&quot;</p><p><b>focus</b>: <a href=\"Patient-patient-child-babyg-quinn.html\">Patient/patient-child-babyg-quinn: BabyG Quinn</a> &quot; QUINN&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>performer</b>: <a href=\"Patient-patient-mother-jada-ann-quinn.html\">Patient/patient-mother-jada-ann-quinn</a> &quot; QUINN&quot;</p><p><b>value</b>: 20</p></div>"
+      },
+      "status": "final",
+      "code": {
+        "coding": [
+          {
+            "system": "http://loinc.org",
+            "code": "64794-1",
+            "display": "In the 3 months before you got pregnant, how many cigarettes did you smoke on an average day [PhenX]"
+          }
+        ],
+        "text": "In the 3 months before you got pregnant, how many cigarettes did you smoke on an average day [PhenX]"
+      },
+      "subject": {
+        "reference": "Patient/patient-mother-jada-ann-quinn",
+        "display": "Patient - Mother (Jada Ann Quinn)"
+      },
+      "focus": [
+        {
+          "reference": "Patient/patient-child-babyg-quinn",
+          "display": "BabyG Quinn"
+        }
+      ],
+      "effectiveDateTime": "2019-12-02",
+      "performer": [
+        {
+          "reference": "Patient/patient-mother-jada-ann-quinn"
+        }
+      ],
+      "valueInteger": 20
+    },
+    {
+      "resourceType": "Observation",
+      "id": "observation-cig-smoking-pregnancy-2-jada-ann-quinn",
+      "meta": {
+        "profile": [
+          "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-cigarette-smoking-before-during-pregnancy"
+        ]
+      },
+      "text": {
+        "status": "generated",
+        "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"observation-cig-smoking-pregnancy-2-jada-ann-quinn\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-cig-smoking-pregnancy-2-jada-ann-quinn&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-cigarette-smoking-before-during-pregnancy.html\">Observation - Cigarette Smoking Before and During Pregnancy</a></p></div><p><b>status</b>: final</p><p><b>code</b>: Cigarettes smoked per day by Mother--1st trimester <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#87298-6)</span></p><p><b>subject</b>: <a href=\"Patient-patient-mother-jada-ann-quinn.html\">Patient/patient-mother-jada-ann-quinn: Patient - Mother (Jada Ann Quinn)</a> &quot; QUINN&quot;</p><p><b>focus</b>: <a href=\"Patient-patient-child-babyg-quinn.html\">Patient/patient-child-babyg-quinn: BabyG Quinn</a> &quot; QUINN&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>performer</b>: <a href=\"Patient-patient-mother-jada-ann-quinn.html\">Patient/patient-mother-jada-ann-quinn</a> &quot; QUINN&quot;</p><p><b>value</b>: 3</p></div>"
+      },
+      "status": "final",
+      "code": {
+        "coding": [
+          {
+            "system": "http://loinc.org",
+            "code": "87298-6",
+            "display": "Cigarettes smoked per day by Mother--1st trimester"
+          }
+        ],
+        "text": "Cigarettes smoked per day by Mother--1st trimester"
+      },
+      "subject": {
+        "reference": "Patient/patient-mother-jada-ann-quinn",
+        "display": "Patient - Mother (Jada Ann Quinn)"
+      },
+      "focus": [
+        {
+          "reference": "Patient/patient-child-babyg-quinn",
+          "display": "BabyG Quinn"
+        }
+      ],
+      "effectiveDateTime": "2019-12-02",
+      "performer": [
+        {
+          "reference": "Patient/patient-mother-jada-ann-quinn"
+        }
+      ],
+      "valueInteger": 3
+    },
+    {
+      "resourceType": "Observation",
+      "id": "observation-cig-smoking-pregnancy-3-jada-ann-quinn",
+      "meta": {
+        "versionId": "4",
+        "lastUpdated": "2023-06-21T10:17:52.644Z",
+        "profile": [
+          "https://profiles.ihe.net/QRPH/bfdr/StructureDefinition/Observation-cigarette-smoking-before-during-pregnancy"
+        ]
+      },
+      "text": {
+        "status": "generated",
+        "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"observation-cig-smoking-pregnancy-3-jada-ann-quinn\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-cig-smoking-pregnancy-3-jada-ann-quinn&quot; Version &quot;4&quot; Updated &quot;2023-06-21 10:17:52+0000&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Observation-cigarette-smoking-before-during-pregnancy.html\">Observation - Cigarette Smoking Before and During Pregnancy</a></p></div><p><b>status</b>: final</p><p><b>code</b>: Cigarettes smoked per day by Mother--2nd trimester <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#87299-4)</span></p><p><b>subject</b>: <a href=\"Patient-patient-mother-jada-ann-quinn.html\">Patient/patient-mother-jada-ann-quinn: Patient - Mother (Jada Ann Quinn)</a> &quot; QUINN&quot;</p><p><b>focus</b>: <a href=\"Patient-patient-child-babyg-quinn.html\">Patient/patient-child-babyg-quinn: BabyG Quinn</a> &quot; QUINN&quot;</p><p><b>effective</b>: 2019-12-02</p><p><b>performer</b>: <a href=\"Patient-patient-mother-jada-ann-quinn.html\">Patient/patient-mother-jada-ann-quinn</a> &quot; QUINN&quot;</p><p><b>value</b>: 1</p></div>"
+      },
+      "status": "final",
+      "code": {
+        "coding": [
+          {
+            "system": "http://loinc.org",
+            "code": "87299-4",
+            "display": "Cigarettes smoked per day by Mother--2nd trimester"
+          }
+        ],
+        "text": "Cigarettes smoked per day by Mother--2nd trimester"
+      },
+      "subject": {
+        "reference": "Patient/patient-mother-jada-ann-quinn",
+        "display": "Patient - Mother (Jada Ann Quinn)"
+      },
+      "focus": [
+        {
+          "reference": "Patient/patient-child-babyg-quinn",
+          "display": "BabyG Quinn"
+        }
+      ],
+      "effectiveDateTime": "2019-12-02",
+      "performer": [
+        {
+          "reference": "Patient/patient-mother-jada-ann-quinn"
+        }
+      ],
+      "valueInteger": 1
     }
   ]
 }
