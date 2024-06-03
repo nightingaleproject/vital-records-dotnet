@@ -1317,6 +1317,17 @@ namespace BFDR.Tests
       Assert.Equal("Jam", ije.FETMNAME.Trim(' '));
       Assert.Equal("Jones", ije.FETLNAME.Trim(' '));
       Assert.Equal("Junior", ije.SUFFIX.Trim(' '));
+      // update
+      ije.FETFNAME = "A";
+      Assert.Equal("A", ije.FETFNAME.Trim(' '));
+      ije.FETMNAME = "B";
+      Assert.Equal("B", ije.FETMNAME.Trim(' '));
+      ije.FETLNAME = "C";
+      Assert.Equal("C", ije.FETLNAME.Trim(' '));
+      ije.SUFFIX = "D";
+      Assert.Equal("D", ije.SUFFIX.Trim(' '));
+      
+
     }
 
     [Fact]

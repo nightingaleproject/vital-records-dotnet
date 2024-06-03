@@ -2771,9 +2771,20 @@
         <member name="P:BFDR.IJENatality.NatalityRecord">
             <summary>FHIR based natality record.</summary>
         </member>
+        <member name="M:BFDR.IJENatality.Update_FirstName(System.String,System.String[])">
+            
+             <summary>Sets FirstName.</summary>
+             
+        </member>
+        <member name="M:BFDR.IJENatality.Update_MiddleName(System.String,System.String[],System.String)">
+            
+             <summary>Sets Middle Name.</summary>
+             
+        </member>
         <member name="M:BFDR.IJENatality.Get_MotherRace(System.String)">
             
              <summary>Checks if the given race exists in the record for Mother.</summary>
+             
         </member>
         <member name="M:BFDR.IJENatality.Set_MotherRace(System.String,System.String)">
             <summary>Adds the given race to the record for Mother.</summary>

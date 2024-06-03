@@ -3232,22 +3232,7 @@ namespace BFDR
                 }
                 return " ";
             }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    if (String.IsNullOrWhiteSpace(FETFNAME)) throw new ArgumentException("Middle name cannot be set before first name");
-                    if (!String.IsNullOrWhiteSpace(value))
-                    {
-                        if (record.FetusGivenNames != null)
-                        {
-                            List<string> names = record.FetusGivenNames.ToList();
-                            if (names.Count() > 1) names[1] = value.Trim(); else names.Add(value.Trim());
-                            record.FetusGivenNames = names.ToArray();
-                        }
-                    }
-                }
-            }
+            set => record.FetusGivenNames = Update_MiddleName(value, record.FetusGivenNames, FETFNAME);
         }
 
         /// <summary>Fetus Last Name</summary>
