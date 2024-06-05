@@ -1616,5 +1616,54 @@ namespace BFDR.Tests
       Assert.Equal("New York", firstRecord.FatherPlaceOfBirth["addressCity"]);
       Assert.Equal("US", firstRecord.FatherPlaceOfBirth["addressCountry"]);
     }
+
+    [Fact]
+    public void Test_EmergingIssues()
+    {
+        FetalDeathRecord record1 = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
+        Assert.Null(record1.EmergingIssue1_1);
+        Assert.Null(record1.EmergingIssue1_2);
+        Assert.Null(record1.EmergingIssue1_3);
+        Assert.Null(record1.EmergingIssue1_4);
+        Assert.Null(record1.EmergingIssue1_5);
+        Assert.Null(record1.EmergingIssue1_6);
+        Assert.Null(record1.EmergingIssue8_1);
+        Assert.Null(record1.EmergingIssue8_2);
+        Assert.Null(record1.EmergingIssue8_3);
+        Assert.Null(record1.EmergingIssue20);
+        //set after parse
+        record1.EmergingIssue1_1 = "A";
+        record1.EmergingIssue1_2 = "B";
+        record1.EmergingIssue1_3 = "C";
+        record1.EmergingIssue1_4 = "D";
+        record1.EmergingIssue1_5 = "E";
+        record1.EmergingIssue1_6 = "F";
+        record1.EmergingIssue8_1 = "AAAAAAAA";
+        record1.EmergingIssue8_2 = "BBBBBBBB";
+        record1.EmergingIssue8_3 = "CCCCCCCC";
+        record1.EmergingIssue20 = "AAAAAAAAAAAAAAAAAAAA";
+        Assert.Equal("A", record1.EmergingIssue1_1);
+        Assert.Equal("B", record1.EmergingIssue1_2);
+        Assert.Equal("C", record1.EmergingIssue1_3);
+        Assert.Equal("D", record1.EmergingIssue1_4);
+        Assert.Equal("E", record1.EmergingIssue1_5);
+        Assert.Equal("F", record1.EmergingIssue1_6);
+        Assert.Equal("AAAAAAAA", record1.EmergingIssue8_1);
+        Assert.Equal("BBBBBBBB", record1.EmergingIssue8_2);
+        Assert.Equal("CCCCCCCC", record1.EmergingIssue8_3);
+        Assert.Equal("AAAAAAAAAAAAAAAAAAAA", record1.EmergingIssue20);
+        
+        IJEFetalDeath ije = new IJEFetalDeath(record1, false); // Don't validate since we don't care about most fields
+        Assert.Equal("A", ije.PLACE1_1);
+        Assert.Equal("B", ije.PLACE1_2);
+        Assert.Equal("C", ije.PLACE1_3);
+        Assert.Equal("D", ije.PLACE1_4);
+        Assert.Equal("E", ije.PLACE1_5);
+        Assert.Equal("F", ije.PLACE1_6);
+        Assert.Equal("AAAAAAAA", ije.PLACE8_1);
+        Assert.Equal("BBBBBBBB", ije.PLACE8_2);
+        Assert.Equal("CCCCCCCC", ije.PLACE8_3);
+        Assert.Equal("AAAAAAAAAAAAAAAAAAAA", ije.PLACE20);
+    }
   }
 }
