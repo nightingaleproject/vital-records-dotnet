@@ -1326,9 +1326,24 @@ namespace BFDR.Tests
       Assert.Equal("C", ije.FETLNAME.Trim(' '));
       ije.SUFFIX = "D";
       Assert.Equal("D", ije.SUFFIX.Trim(' '));
-      
-
     }
+
+    // FHIR manages names in a way that there is a fundamental incompatibility with IJE: the "middle name" is the second element in
+    // an array of given names. That means that it's not possible to set a middle name without first having a first name. The library
+    // handles this by 1) raising an exception if a middle name is set before a first name and 2) resetting the middle name if the first
+    // name is set again. If a user sets the first name and then the middle name then no problems will occur.
+
+    [Fact]
+    public void SettingMiddleNameFirstRaisesException()
+    {
+        IJEFetalDeath ije = new IJEFetalDeath();
+        Exception ex = Assert.Throws<System.ArgumentException>(() => ije.FETMNAME = "M");
+        Assert.Equal("Middle name cannot be set before first name", ex.Message);
+        // ex = Assert.Throws<System.ArgumentException>(() => ije.MOMMNAME = "M");
+        // Assert.Equal("Middle name cannot be set before first name", ex.Message);
+        // ex = Assert.Throws<System.ArgumentException>(() => ije.DADMNAME = "M");
+        // Assert.Equal("Middle name cannot be set before first name", ex.Message);
+        }
 
     [Fact]
     public void TestPatientDecedentFetusVitalRecordProperties()
