@@ -1665,5 +1665,61 @@ namespace BFDR.Tests
         Assert.Equal("CCCCCCCC", ije.PLACE8_3);
         Assert.Equal("AAAAAAAAAAAAAAAAAAAA", ije.PLACE20);
     }
+
+    [Fact]
+    public void TestMotherPlaceOfBirth()
+    {
+      FetalDeathRecord fhir = new FetalDeathRecord();
+      IJEFetalDeath ije = new IJEFetalDeath(fhir);
+
+      ije.BPLACEC_ST_TER = "MA";
+      ije.BPLACEC_CNT = "US";
+
+      Assert.Equal("MA", ije.BPLACEC_ST_TER);
+      Assert.Equal("Massachusetts", ije.MBPLACE_ST_TER_TXT);
+      Assert.Equal("US", ije.BPLACEC_CNT);
+      Assert.Equal("United States", ije.MBPLACE_CNTRY_TXT);
+    }
+
+    [Fact]
+    public void TestMotherResidence()
+    {
+      FetalDeathRecord fhirRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicFetalDeathRecord.json")));
+      IJEFetalDeath ije = new IJEFetalDeath(fhirRecord);
+
+      // set fields in parsed record
+      ije.STATEC = "NH";
+      ije.COUNTRYC = "US";
+      ije.COUNTYC = "007";
+      ije.COUNTYTXT = "Coos";
+      ije.CITYTXT = "Berlin";
+      ije.ZIPCODE= "03570";
+      ije.STNUM = "5";
+      ije.APTNUMB = "1";
+      ije.PREDIR = "E";
+      ije.POSTDIR = "W";
+      ije.STNAME = "Main";
+      ije.STDESIG = "St";
+      ije.ADDRESS = "5 E Main St Berlin, NH";
+      ije.LIMITS = "U";
+
+      Assert.Equal("NH", ije.STATEC);
+      Assert.Equal("New Hampshire", ije.STATETXT);
+      Assert.Equal("US", ije.COUNTRYC);
+      Assert.Equal("United States", ije.CNTRYTXT);
+      Assert.Equal("U", ije.LIMITS);
+      Assert.Equal("UNK", fhirRecord.MotherResidenceWithinCityLimits["code"]);
+      Assert.Equal("007", ije.COUNTYC);
+      Assert.Equal("Coos", ije.COUNTYTXT.Trim());
+      Assert.Equal("Berlin", ije.CITYTXT.Trim());
+      Assert.Equal("03570", ije.ZIPCODE.Trim());
+      Assert.Equal("5", ije.STNUM.Trim());
+      Assert.Equal("1", ije.APTNUMB.Trim());
+      Assert.Equal("E", ije.PREDIR.Trim());
+      Assert.Equal("W", ije.POSTDIR.Trim());
+      Assert.Equal("Main", ije.STNAME.Trim());
+      Assert.Equal("St", ije.STDESIG.Trim());
+      Assert.Equal("5 E Main St Berlin, NH", ije.ADDRESS.Trim());
+    }
   }
 }
