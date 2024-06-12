@@ -5966,10 +5966,7 @@ namespace BFDR
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87300-0')", "")]
         public string FacilityJFI
         {
-            get
-            {
-                return GetFacilityLocation(ValueSets.LocationTypes.Birth_Location)?.Identifier?.Find(identifier => identifier.Extension.Any(ext => ext.Url == BFDR.ExtensionURL.JurisdictionalFacilityIdentifier))?.GetExtension(BFDR.ExtensionURL.JurisdictionalFacilityIdentifier).Value.ToString();
-            }
+            get => GetFacilityLocation(ValueSets.LocationTypes.Birth_Location)?.Identifier?.Find(identifier => identifier.Extension.Any(ext => ext.Url == BFDR.ExtensionURL.JurisdictionalFacilityIdentifier))?.GetExtension(BFDR.ExtensionURL.JurisdictionalFacilityIdentifier).Value.ToString();
             set
             {
                 Location LocationBirth = GetFacilityLocation(ValueSets.LocationTypes.Birth_Location) ?? CreateAndSetLocationBirth(ValueSets.LocationTypes.Birth_Location);
