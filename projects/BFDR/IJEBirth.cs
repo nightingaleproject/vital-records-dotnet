@@ -2261,11 +2261,11 @@ namespace BFDR
         {
             get
             {
-                return NumericAllowingUnknown_Get("DOFP_MO", "FirstPrenatalCareVisitMonth");
+                return NumericAllowingUnknownAndAbsence_Get("DOFP_MO", "FirstPrenatalCareVisitMonth", "69044-6");
             }
             set
             {
-                NumericAllowingUnknown_Set("DOFP_MO", "FirstPrenatalCareVisitMonth", value);
+                NumericAllowingUnknownAndAbsence_Set("DOFP_MO", "FirstPrenatalCareVisitMonth", value, "69044-6");
             }
         }
 
@@ -2275,11 +2275,11 @@ namespace BFDR
         {
             get
             {
-                return NumericAllowingUnknown_Get("DOFP_DY", "FirstPrenatalCareVisitDay");
+                return NumericAllowingUnknownAndAbsence_Get("DOFP_DY", "FirstPrenatalCareVisitDay", "69044-6");
             }
             set
             {
-                NumericAllowingUnknown_Set("DOFP_DY", "FirstPrenatalCareVisitDay", value);
+                NumericAllowingUnknownAndAbsence_Set("DOFP_DY", "FirstPrenatalCareVisitDay", value, "69044-6");
             }
         }
 
@@ -2289,11 +2289,11 @@ namespace BFDR
         {
             get
             {
-                return NumericAllowingUnknown_Get("DOFP_YR", "FirstPrenatalCareVisitYear");
+                return NumericAllowingUnknownAndAbsence_Get("DOFP_YR", "FirstPrenatalCareVisitYear", "69044-6");
             }
             set
             {
-                NumericAllowingUnknown_Set("DOFP_YR", "FirstPrenatalCareVisitYear", value);
+                NumericAllowingUnknownAndAbsence_Set("DOFP_YR", "FirstPrenatalCareVisitYear", value, "69044-6");
             }
         }
 
@@ -2561,11 +2561,11 @@ namespace BFDR
         {
             get
             {
-                return NumericAllowingUnknown_Get("MLLB", "DateOfLastLiveBirthMonth");
+                return NumericAllowingUnknownAndAbsence_Get("MLLB", "DateOfLastLiveBirthMonth", "68499-3");
             }
             set
             {
-                NumericAllowingUnknown_Set("MLLB", "DateOfLastLiveBirthMonth", value);
+                NumericAllowingUnknownAndAbsence_Set("MLLB", "DateOfLastLiveBirthMonth", value, "68499-3");
             }
         }
 
@@ -2575,11 +2575,11 @@ namespace BFDR
         {
             get
             {
-                return NumericAllowingUnknown_Get("YLLB", "DateOfLastLiveBirthYear");
+                return NumericAllowingUnknownAndAbsence_Get("YLLB", "DateOfLastLiveBirthYear", "68499-3");
             }
             set
             {
-                NumericAllowingUnknown_Set("YLLB", "DateOfLastLiveBirthYear", value);
+                NumericAllowingUnknownAndAbsence_Set("YLLB", "DateOfLastLiveBirthYear", value, "68499-3");
             }
         }
 
@@ -2589,11 +2589,11 @@ namespace BFDR
         {
             get
             {
-                return NumericAllowingUnknown_Get("MOPO", "DateOfLastOtherPregnancyOutcomeMonth");
+                return NumericAllowingUnknownAndAbsence_Get("MOPO", "DateOfLastOtherPregnancyOutcomeMonth", "68500-8");
             }
             set
             {
-                NumericAllowingUnknown_Set("MOPO", "DateOfLastOtherPregnancyOutcomeMonth", value);
+                NumericAllowingUnknownAndAbsence_Set("MOPO", "DateOfLastOtherPregnancyOutcomeMonth", value, "68500-8");
             }
         }
 
@@ -2603,11 +2603,11 @@ namespace BFDR
         {
             get
             {
-                return NumericAllowingUnknown_Get("YOPO", "DateOfLastOtherPregnancyOutcomeYear");
+                return NumericAllowingUnknownAndAbsence_Get("YOPO", "DateOfLastOtherPregnancyOutcomeYear", "68500-8");
             }
             set
             {
-                NumericAllowingUnknown_Set("YOPO", "DateOfLastOtherPregnancyOutcomeYear", value);
+                NumericAllowingUnknownAndAbsence_Set("YOPO", "DateOfLastOtherPregnancyOutcomeYear", value, "68500-8");
             }
         }
 
@@ -3276,8 +3276,8 @@ namespace BFDR
         [IJEField(206, 875, 2, "Apgar Score at 10 Minutes", "APGAR10", 1)]
         public string APGAR10
         {
-            get => NumericAllowingUnknown_Get("APGAR10", "ApgarScoreTenMinutes");
-            set => NumericAllowingUnknown_Set("APGAR10", "ApgarScoreTenMinutes", value);
+            get => NumericAllowingUnknownAndAbsence_Get("APGAR10", "ApgarScoreTenMinutes", "9271-8");
+            set => NumericAllowingUnknownAndAbsence_Set("APGAR10", "ApgarScoreTenMinutes", value, "9271-8");
         }
 
         /// <summary>Plurality</summary>

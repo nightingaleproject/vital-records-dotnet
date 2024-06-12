@@ -10,11 +10,11 @@ const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 
 //window.API_URL = 'http://localhost:5000';
 window.API_URL = '';
-window.VERSION = '4.0.10';
+window.VERSION = '5.0.0';
 window.VERSION_DATE = 'August 15, 2023';
-window.VRDR_VERSION = '4.1.8';
+window.VRDR_VERSION = '5.0.0';
+window.BFDR_VERSION = '1.0.0-preview.3';
 window.VRDR_VERSION_DATE = 'August 15, 2023'; 
-window.BFDR_VERSION = 'v1.0.0-preview';
 
 const container = document.getElementById('root');
 const root = createRoot(container);

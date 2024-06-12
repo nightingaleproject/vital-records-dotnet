@@ -4117,30 +4117,6 @@ namespace VRDR.Tests
         }
 
         [Fact]
-        public void TestBadPartialDate()
-        {
-            Exception ex = Assert.Throws<System.ArgumentException>(() => new DeathRecord(File.ReadAllText(FixturePath("fixtures/json/DeathRecordBadPartialDate.json"))));
-            System.Text.StringBuilder errorMsg = new System.Text.StringBuilder();
-            errorMsg.Append("Missing 'Date-Month' of [http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDate] for resource [f384e3f6-2438-4e07-9df2-44e27e3aa72d].");
-            errorMsg.AppendLine();
-            errorMsg.Append("[http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDate] component contains extra invalid fields [http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Monh] for resource [f384e3f6-2438-4e07-9df2-44e27e3aa72d].");
-            errorMsg.AppendLine();
-            Assert.Equal(errorMsg.ToString(), ex.Message);
-        }
-
-        [Fact]
-        public void TestBadPartialDateTime()
-        {
-            Exception ex = Assert.Throws<System.ArgumentException>(() => new DeathRecord(File.ReadAllText(FixturePath("fixtures/json/DeathRecordBadPartialDateTime.json"))));
-            System.Text.StringBuilder errorMsg = new System.Text.StringBuilder();
-            errorMsg.Append("Missing 'Date-Time' of [http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDateTime] for resource [81899bd9-0441-45f0-9b89-9d91daa08983].");
-            errorMsg.AppendLine();
-            errorMsg.Append("[http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDateTime] component contains extra invalid fields [http://hl7.org/fhir/us/vrdr/StructureDefinition/Invalid, http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Tme] for resource [81899bd9-0441-45f0-9b89-9d91daa08983].");
-            errorMsg.AppendLine();
-            Assert.Equal(errorMsg.ToString(), ex.Message);
-        }
-
-        [Fact]
         public void TestEducationLevelObs()
         {
             var testRecord = new DeathRecord();

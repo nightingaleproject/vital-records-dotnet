@@ -30,12 +30,12 @@ export class HomeScreen extends Component {
           <div className="p-t-30" />
           <CanaryCard 
             title='Vital Records Death Reporting'
-            subtitle='VRDR'
+            subtitle={`VRDR ${window.VRDR_VERSION}`}
             link='/vrdr'
           />
           <CanaryCard 
             title='Birth and Fetal Death Reporting'
-            subtitle='BFDR'
+            subtitle={`BFDR ${window.BFDR_VERSION}`}
             link='/bfdr'
           />
         </Container>

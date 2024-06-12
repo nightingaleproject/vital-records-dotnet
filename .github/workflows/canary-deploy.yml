@@ -36,18 +36,18 @@ jobs:
           registryUrl: ctenvss20221223092705.azurecr.io
           registryUsername: ${{ secrets.CTENVSSCANARY_REGISTRY_USERNAME }}
           registryPassword: ${{ secrets.CTENVSSCANARY_REGISTRY_PASSWORD }}
-          containerAppName: nvss-canary-staging
+          containerAppName: nvss-canary-next
           resourceGroup: CTE_NVSS
-          imageToBuild: ctenvss20221223092705.azurecr.io/nvss-canary-staging:${{ github.sha }}
-      - name: Build and push RELEASE container image
-        if: ${{ github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && inputs.deploy_level == 'release') }}
-        uses: azure/container-apps-deploy-action@v1
-        with:
-          appSourcePath: ${{ github.workspace }}/projects
-          dockerfilePath: canary.Dockerfile
-          registryUrl: ctenvss20221223092705.azurecr.io
-          registryUsername: ${{ secrets.CTENVSSCANARY_REGISTRY_USERNAME }}
-          registryPassword: ${{ secrets.CTENVSSCANARY_REGISTRY_PASSWORD }}
-          containerAppName: nvss-canary
-          resourceGroup: CTE_NVSS
-          imageToBuild: ctenvss20221223092705.azurecr.io/nvss-canary:${{ github.sha }}
+          imageToBuild: ctenvss20221223092705.azurecr.io/nvss-canary-next:${{ github.sha }}
+      # - name: Build and push RELEASE container image
+      #   if: ${{ github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && inputs.deploy_level == 'release') }}
+      #   uses: azure/container-apps-deploy-action@v1
+      #   with:
+      #     appSourcePath: ${{ github.workspace }}/projects
+      #     dockerfilePath: canary.Dockerfile
+      #     registryUrl: ctenvss20221223092705.azurecr.io
+      #     registryUsername: ${{ secrets.CTENVSSCANARY_REGISTRY_USERNAME }}
+      #     registryPassword: ${{ secrets.CTENVSSCANARY_REGISTRY_PASSWORD }}
+      #     containerAppName: nvss-canary
+      #     resourceGroup: CTE_NVSS
+      #     imageToBuild: ctenvss20221223092705.azurecr.io/nvss-canary:${{ github.sha }}
