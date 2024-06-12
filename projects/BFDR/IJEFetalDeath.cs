@@ -369,12 +369,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Dictionary_Geo_Get("BPLACEC_ST_TER", "MotherPlaceOfBirth", "address", "state", true);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Dictionary_Set("BPLACEC_ST_TER", "MotherPlaceOfBirth", "addressState", value);
+                }
             }
         }
 
@@ -384,12 +386,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Dictionary_Geo_Get("BPLACEC_CNT", "MotherPlaceOfBirth", "address", "country", true);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Dictionary_Set("BPLACEC_CNT", "MotherPlaceOfBirth", "addressCountry", value);
+                }
             }
         }
 
@@ -414,12 +418,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Dictionary_Geo_Get("COUNTYC", "MotherResidence", "address", "countyC", true);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Dictionary_Geo_Set("COUNTYC", "MotherResidence", "address", "countyC", true, value);
+                }
             }
         }
 
@@ -429,12 +435,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Dictionary_Geo_Get("STATEC", "MotherResidence", "address", "state", true);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Dictionary_Geo_Set("STATEC", "MotherResidence", "address", "state", true, value);
+                }
             }
         }
 
@@ -444,27 +452,32 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Dictionary_Geo_Get("COUNTRYC", "MotherResidence", "address", "country", true);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Dictionary_Geo_Set("COUNTRYC", "MotherResidence", "address", "country", true, value);
+                }
             }
         }
 
+        /// NOTE: this field must be set after other residence fields have been set
         /// <summary>Residence of Mother--Inside City/Town Limits</summary>
         [IJEField(24, 80, 1, "Residence of Mother--Inside City/Town Limits", "LIMITS", 1)]
         public string LIMITS
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Get_MappingFHIRToIJE(VR.Mappings.YesNoUnknown.FHIRToIJE, "MotherResidenceWithinCityLimits", "LIMITS");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Set_MappingIJEToFHIR(VR.Mappings.YesNoUnknown.IJEToFHIR, "LIMITS", "MotherResidenceWithinCityLimits", value);
+                }
             }
         }
 
@@ -3638,12 +3651,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Dictionary_Geo_Get("STNUM", "MotherResidence", "address", "stnum", false);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Dictionary_Geo_Set("STNUM", "MotherResidence", "address", "stnum", false, value);
+                }
             }
         }
 
@@ -3653,12 +3668,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Dictionary_Geo_Get("PREDIR", "MotherResidence", "address", "predir", false);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Dictionary_Geo_Set("PREDIR", "MotherResidence", "address", "predir", false, value);
+                }
             }
         }
 
@@ -3668,12 +3685,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Dictionary_Geo_Get("STNAME", "MotherResidence", "address", "stname", false);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Dictionary_Geo_Set("STNAME", "MotherResidence", "address", "stname", false, value);
+                }
             }
         }
 
@@ -3683,12 +3702,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Dictionary_Geo_Get("STDESIG", "MotherResidence", "address", "stdesig", false);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Dictionary_Geo_Set("STDESIG", "MotherResidence", "address", "stdesig", false, value);
+                }
             }
         }
 
@@ -3698,12 +3719,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Dictionary_Geo_Get("POSTDIR", "MotherResidence", "address", "postdir", false);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Dictionary_Geo_Set("POSTDIR", "MotherResidence", "address", "postdir", false, value);
+                }
             }
         }
 
@@ -3713,12 +3736,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Dictionary_Geo_Get("APTNUMB", "MotherResidence", "address", "unitnum", false);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Dictionary_Geo_Set("APTNUMB", "MotherResidence", "address", "unitnum", false, value);
+                }
             }
         }
 
@@ -3728,12 +3753,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Dictionary_Geo_Get("ADDRESS", "MotherResidence", "address", "line1", false);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Dictionary_Geo_Set("ADDRESS", "MotherResidence", "address", "line1", false, value);
+                }
             }
         }
 
@@ -3743,12 +3770,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Dictionary_Geo_Get("ZIPCODE", "MotherResidence", "address", "zip", false);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Dictionary_Geo_Set("ZIPCODE", "MotherResidence", "address", "zip", false, value);
+                }
             }
         }
 
@@ -3758,12 +3787,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Dictionary_Geo_Get("COUNTYTXT", "MotherResidence", "address", "county", false);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Dictionary_Geo_Set("COUNTYTXT", "MotherResidence", "address", "county", false, value);
+                }
             }
         }
 
@@ -3773,12 +3804,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Dictionary_Geo_Get("CITYTXT", "MotherResidence", "address", "city", false);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Dictionary_Geo_Set("CITYTXT", "MotherResidence", "address", "city", false, value);
+                }
             }
         }
 
@@ -3788,12 +3821,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return IJEData.Instance.StateCodeToStateName(STATEC);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                STATEC = IJEData.Instance.StateNameToStateCode(value);
             }
         }
 
@@ -3803,12 +3835,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return IJEData.Instance.CountryCodeToCountryName(COUNTRYC);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                COUNTRYC = IJEData.Instance.CountryCodeToCountryName(value);
             }
         }
 
@@ -4122,12 +4153,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return IJEData.Instance.StateCodeToStateName(BPLACEC_ST_TER);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                BPLACEC_ST_TER = IJEData.Instance.StateNameToStateCode(value);
             }
         }
 
@@ -4137,12 +4167,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return IJEData.Instance.CountryCodeToCountryName(BPLACEC_CNT);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                BPLACEC_CNT = IJEData.Instance.CountryNameToCountryCode(value);
             }
         }
 
