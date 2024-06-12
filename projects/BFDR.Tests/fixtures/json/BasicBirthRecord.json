@@ -457,7 +457,15 @@
           ]
         },
         "deceasedBoolean": false,
-        "multipleBirthInteger": 1
+        "multipleBirthInteger": 1,
+        "_multipleBirthInteger": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/patient-multipleBirthTotal",
+              "valuePositiveInt": 1
+            }
+          ]
+        }
       }
     },
     {

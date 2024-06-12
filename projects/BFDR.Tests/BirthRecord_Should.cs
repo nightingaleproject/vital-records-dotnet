@@ -1500,7 +1500,7 @@ namespace BFDR.Tests
     [Fact]
     public void ParentReportedAgePresent()
     {
-      BirthRecord record2 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json")));
+      BirthRecord record2 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
       Assert.Equal(34, record2.MotherReportedAgeAtDelivery);
       Assert.Equal(35, record2.FatherReportedAgeAtDelivery);
     }
@@ -3240,12 +3240,11 @@ namespace BFDR.Tests
       Assert.Equal("1972-11-24", birthRecord.FatherDateOfBirth);
       Assert.Equal(35, birthRecord.FatherReportedAgeAtDelivery);
       tempDict = new();
-      tempDict.Add("code", "");
-      tempDict.Add("system", "");
-      tempDict.Add("display", "");
-      tempDict.Add("text", "");
+      tempDict.Add("code", "1dataQueried");
+      tempDict.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");
+      tempDict.Add("display", "Data queried");
       Assert.Equal(tempDict, birthRecord.FatherDateOfBirthEditFlag);
-      Assert.Null(birthRecord.FatherDateOfBirthEditFlagHelper);
+      Assert.Equal("1dataQueried", birthRecord.FatherDateOfBirthEditFlagHelper);
       tempDict = new();
       tempDict.Add("code", "Y");
       tempDict.Add("system", "http://terminology.hl7.org/CodeSystem/v2-0136");
@@ -3357,14 +3356,14 @@ namespace BFDR.Tests
       Assert.Equal(tempDict, birthRecord.GestationalAgeAtDeliveryEditFlag);
       Assert.Equal("0off", birthRecord.GestationalAgeAtDeliveryEditFlagHelper);
       Assert.Equal(1, birthRecord.NumberOfBirthsNowDead);
-      Assert.Equal(2, birthRecord.NumberOfBirthsNowLiving);
+      Assert.Equal(1, birthRecord.NumberOfBirthsNowLiving);
       Assert.Equal(3, birthRecord.NumberOfOtherPregnancyOutcomes);
       tempDict = new();
-      tempDict.Add("code", "N");
+      tempDict.Add("code", "Y");
       tempDict.Add("system", "http://terminology.hl7.org/CodeSystem/v2-0136");
-      tempDict.Add("display", "No");
+      tempDict.Add("display", "Yes");
       Assert.Equal(tempDict, birthRecord.MotherReceivedWICFood);
-      Assert.Equal("N", birthRecord.MotherReceivedWICFoodHelper);
+      Assert.Equal("Y", birthRecord.MotherReceivedWICFoodHelper);
       Assert.True(birthRecord.InfantBreastfedAtDischarge);
       Assert.Equal(145, birthRecord.MotherPrepregnancyWeight);
       Assert.Equal(175, birthRecord.MotherWeightAtDelivery);
@@ -3441,8 +3440,8 @@ namespace BFDR.Tests
       Assert.Equal("116441967701", birthRecord.FacilityNPI);
       Assert.Equal("UT12", birthRecord.FacilityJFI);
       Assert.Equal("South Hospital", birthRecord.BirthFacilityName);
-      Assert.Equal("Transfer From Hospital", birthRecord.FacilityMotherTransferredFrom);
-      Assert.Equal("Transfer To Hospital", birthRecord.FacilityInfantTransferredTo);
+      Assert.Equal("North Hospital", birthRecord.FacilityMotherTransferredFrom);
+      Assert.Equal("East Hospital", birthRecord.FacilityInfantTransferredTo);
       Assert.Equal("2018-06-05", birthRecord.LastMenstrualPeriod);
       Assert.Equal(2018, birthRecord.LastMenstrualPeriodYear);
       Assert.Equal(6, birthRecord.LastMenstrualPeriodMonth);
@@ -3464,8 +3463,8 @@ namespace BFDR.Tests
       tempDict = new();
       tempDict.Add("code", "5");
       tempDict.Add("system", "https://nahdo.org/sopt");
-      tempDict.Add("display", "PRIVATE HEALTH INSURANCE");
-      tempDict.Add("text", "PRIVATE HEALTH INSURANCE");
+      tempDict.Add("display", "Private Health Insurance");
+      tempDict.Add("text", "Private Health Insurance");
       Assert.Equal(tempDict, birthRecord.PayorTypeFinancialClass);
       Assert.Equal("5", birthRecord.PayorTypeFinancialClassHelper);
       Assert.Equal("Y", birthRecord.MotherMarriedDuringPregnancyHelper);
@@ -3490,7 +3489,7 @@ namespace BFDR.Tests
       tempDict.Add("text", "The patient was transferred to another healthcare facility.");
       Assert.Equal(tempDict, birthRecord.InfantTransferred);
       Assert.Equal("Y", birthRecord.InfantTransferredHelper);
-      Assert.Equal(3, birthRecord.NumberLiveBorn);
+      Assert.Equal(2, birthRecord.NumberLiveBorn);
       Assert.True(birthRecord.SSNRequested);
       Assert.Equal(7, birthRecord.ApgarScoreFiveMinutes);
       Assert.Null(birthRecord.ApgarScoreTenMinutes);
