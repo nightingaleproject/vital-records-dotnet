@@ -640,6 +640,7 @@
             <summary>Residence of Mother--Country</summary>
         </member>
         <member name="P:BFDR.IJEBirth.LIMITS">
+            NOTE: this field must be set after other residence fields have been set
             <summary>Residence of Mother--Inside City Limits</summary>
         </member>
         <member name="P:BFDR.IJEBirth.FDOB_YR">
@@ -1743,6 +1744,7 @@
             <summary>Residence of Mother--Country</summary>
         </member>
         <member name="P:BFDR.IJEFetalDeath.LIMITS">
+            NOTE: this field must be set after other residence fields have been set
             <summary>Residence of Mother--Inside City/Town Limits</summary>
         </member>
         <member name="P:BFDR.IJEFetalDeath.FDOB_YR">
