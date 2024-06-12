@@ -563,20 +563,7 @@ namespace BFDR
             }
             set
             {
-                HumanName name = Subject.Name.SingleOrDefault(n => n.Use == HumanName.NameUse.Official);
-                if (name != null && !String.IsNullOrEmpty(value))
-                {
-                    name.Family = value;
-                }
-                else if (!String.IsNullOrEmpty(value))
-                {
-                    name = new HumanName
-                    {
-                        Use = HumanName.NameUse.Official,
-                        Family = value
-                    };
-                    Subject.Name.Add(name);
-                }
+                updateFamilyName(value, Subject.Name);
             }
         }
 
@@ -635,20 +622,7 @@ namespace BFDR
             }
             set
             {
-                HumanName name = Father.Name.SingleOrDefault(n => n.Use == HumanName.NameUse.Official);
-                if (name != null && !String.IsNullOrEmpty(value))
-                {
-                    name.Family = value;
-                }
-                else if (!String.IsNullOrEmpty(value))
-                {
-                    name = new HumanName
-                    {
-                        Use = HumanName.NameUse.Official,
-                        Family = value
-                    };
-                    Father.Name.Add(name);
-                }
+                updateFamilyName(value, Father.Name);
             }
         }
 
@@ -706,24 +680,7 @@ namespace BFDR
             }
             set
             {
-                if (String.IsNullOrEmpty(value))
-                {
-                    return;
-                }
-                HumanName name = Subject.Name.SingleOrDefault(n => n.Use == HumanName.NameUse.Official);
-                if (name != null)
-                {
-                    string[] suffix = { value };
-                    name.Suffix = suffix;
-                }
-                else
-                {
-                    name = new HumanName();
-                    name.Use = HumanName.NameUse.Official;
-                    string[] suffix = { value };
-                    name.Suffix = suffix;
-                    Subject.Name.Add(name);
-                }
+                updateSuffix(value, Subject.Name);
             }
         }
 
@@ -745,24 +702,7 @@ namespace BFDR
             }
             set
             {
-                if (String.IsNullOrEmpty(value))
-                {
-                    return;
-                }
-                HumanName name = Mother.Name.SingleOrDefault(n => n.Use == HumanName.NameUse.Official);
-                if (name != null)
-                {
-                    string[] suffix = { value };
-                    name.Suffix = suffix;
-                }
-                else
-                {
-                    name = new HumanName();
-                    name.Use = HumanName.NameUse.Official;
-                    string[] suffix = { value };
-                    name.Suffix = suffix;
-                    Mother.Name.Add(name);
-                }
+                updateSuffix(value, Mother.Name);
             }
         }
 
@@ -784,24 +724,7 @@ namespace BFDR
             }
             set
             {
-                if (String.IsNullOrEmpty(value))
-                {
-                    return;
-                }
-                HumanName name = Father.Name.SingleOrDefault(n => n.Use == HumanName.NameUse.Official);
-                if (name != null)
-                {
-                    string[] suffix = { value };
-                    name.Suffix = suffix;
-                }
-                else
-                {
-                    name = new HumanName();
-                    name.Use = HumanName.NameUse.Official;
-                    string[] suffix = { value };
-                    name.Suffix = suffix;
-                    Father.Name.Add(name);
-                }
+                updateSuffix(value, Father.Name);
             }
         }
 
