@@ -365,7 +365,7 @@ namespace BFDR.Tests
       // Birth Sex
       Assert.Equal("F", firstRecord.BirthSex);
       // Plurality
-      Assert.Equal(1, firstRecord.Plurality); //TODO: check IG examples are correct
+      Assert.Equal(1, firstRecord.Plurality);
       // Set Order
       Assert.Equal(1, firstRecord.SetOrder);
       Assert.Equal(firstRecord.SetOrder, secondRecord.SetOrder);
@@ -2627,7 +2627,7 @@ namespace BFDR.Tests
       Assert.Equal("0", record.FatherEducationLevelEditFlagHelper);
       Assert.Equal("0", record.FatherEducationLevelEditFlag["code"]);
 
-      //set after parse - TODO testing: these tests commented out are giving null reference exception errors
+      //set after parse
       var coding = new Dictionary<string, string>();
       coding.Add("code", "1");
       coding.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");
@@ -3143,7 +3143,7 @@ namespace BFDR.Tests
       tempDict.Add("text", "");
       Assert.Equal(tempDict, birthRecord.PluralityEditFlag);
       Assert.Null(birthRecord.PluralityEditFlagHelper);
-      // Assert.Equal(1, birthRecord.Plurality); <<<<<<< TODO TODO TODO
+      Assert.Equal(1, birthRecord.Plurality);
       Assert.False(birthRecord.NoCongenitalAnomaliesOfTheNewborn);
       Assert.False(birthRecord.Anencephaly);
       Assert.False(birthRecord.CleftLipWithOrWithoutCleftPalate);
@@ -3267,7 +3267,7 @@ namespace BFDR.Tests
       tempDict.Add("display", "Unknown");
       Assert.Equal(tempDict, birthRecord.MotherEthnicity4);
       Assert.Equal("UNK", birthRecord.MotherEthnicity4Helper);
-      // Assert.Equal("White", birthRecord.MotherEthnicityLiteral); <<<<<<<<<<<<<<< TODO TODO TODO
+      // Assert.Equal("White", birthRecord.MotherEthnicityLiteral); <<<<<<<<<<<<<<<< TODO
       foreach (var pair in birthRecord.MotherRace)
       {
         switch (pair.Item1)
@@ -3491,16 +3491,15 @@ namespace BFDR.Tests
       Assert.True(birthRecord.SSNRequested);
       Assert.Equal(7, birthRecord.ApgarScoreFiveMinutes);
       Assert.Null(birthRecord.ApgarScoreTenMinutes);
-      // Assert.Equal("", birthRecord.CertifierName); TODO <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-      // Assert.Equal("", birthRecord.CertifierNPI);
-      // tempDict = new();
-      // tempDict.Add("code", "");
-      // tempDict.Add("system", "");
-      // tempDict.Add("display", "");
-      // tempDict.Add("text", "");
-      // Assert.Equal(tempDict, birthRecord.CertifierTitle);
-      // Assert.Equal("", birthRecord.CertifierTitleHelper);
-      // Assert.Equal("", birthRecord.CertifierOtherHelper);
+      Assert.Equal("Avery Jones", birthRecord.CertifierName);
+      Assert.Equal("76231001", birthRecord.CertifierNPI); // << Whis is NPI the same as title?
+      tempDict = new();
+      tempDict.Add("code", "76231001");
+      tempDict.Add("system", "http://snomed.info/sct");
+      tempDict.Add("display", "Osteopath (occupation)");
+      Assert.Equal(tempDict, birthRecord.CertifierTitle);
+      Assert.Equal("76231001", birthRecord.CertifierTitleHelper);
+      Assert.Null(birthRecord.CertifierOtherHelper);
       Assert.Equal("2019-02-12T13:30:00-07:00", birthRecord.CertificationDate);
       Assert.Equal(2019, birthRecord.CertifiedYear);
       Assert.Equal(2, birthRecord.CertifiedMonth);
