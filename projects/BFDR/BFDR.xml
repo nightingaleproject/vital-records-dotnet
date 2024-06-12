@@ -54,6 +54,38 @@
         <member name="M:BFDR.FetalDeathRecord.InitializeCompositionAndSubject">
             <inheritdoc/>
         </member>
+        <member name="P:BFDR.FetalDeathRecord.FetusGivenNames">
+            <summary>Fetus Legal Name - Given. Middle name should be the last entry.</summary>
+            <value>the fetus' name (first, etc., middle)</value>
+            <example>
+            <para>// Setter:</para>
+            <para>string[] names = { "Example", "Something", "Middle" };</para>
+            <para>ExampleFetalDeathRecord.FetusGivenNames = names;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Fetus Given Name(s): {string.Join(", ", ExampleFetalDeath.FetusGivenNames)}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.FetusFamilyName">
+            <summary>Fetus' Legal Name - Last.</summary>
+            <value>the fetus' last name</value>
+            <example>
+            <para>// Setter:</para>
+            <para>string lastName = "Quinn";</para>
+            <para>ExampleFetalDeathRecord.FetusFamilyName = lastName;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Fetus Family Name(s): {string.Join(", ", ExampleFetalDeathRecord.FetusFamilyName)}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.FetusSuffix">
+            <summary>Fetus' Suffix.</summary>
+            <value>the fetus' suffix</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.FetusSuffix = "Jr.";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Fetus Suffix: {ExampleFetusDeathRecord.FetusSuffix}");</para>
+            </example>
+        </member>
         <member name="P:BFDR.FetalDeathRecord.DeliveryPhysicalLocation">
             <summary>The place of delivery Type.</summary>
             <value>Place Where delivery Occurred, type of place or institution. A Dictionary representing a codeable concept of the physical location type:
@@ -2653,9 +2685,20 @@
         <member name="P:BFDR.IJENatality.NatalityRecord">
             <summary>FHIR based natality record.</summary>
         </member>
+        <member name="M:BFDR.IJENatality.Update_FirstName(System.String,System.String[])">
+            
+             <summary>Sets FirstName.</summary>
+             
+        </member>
+        <member name="M:BFDR.IJENatality.Update_MiddleName(System.String,System.String[],System.String)">
+            
+             <summary>Sets Middle Name.</summary>
+             
+        </member>
         <member name="M:BFDR.IJENatality.Get_MotherRace(System.String)">
             
              <summary>Checks if the given race exists in the record for Mother.</summary>
+             
         </member>
         <member name="M:BFDR.IJENatality.Set_MotherRace(System.String,System.String)">
             <summary>Adds the given race to the record for Mother.</summary>
