@@ -460,6 +460,7 @@ namespace BFDR
             }
         }
 
+        /// NOTE: this field must be set after other residence fields have been set
         /// <summary>Residence of Mother--Inside City Limits</summary>
         [IJEField(24, 80, 1, "Residence of Mother--Inside City Limits", "LIMITS", 1)]
         public string LIMITS
