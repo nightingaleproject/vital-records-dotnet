@@ -2837,10 +2837,13 @@ namespace BFDR
 
         private bool IsParentAgeAtBirthExt(Extension ext, string role)
         {
+            // TODO - Update value sets for VR.OtherExtensionURL, temporarily hardcoding here.
+            string motherOrFatherExtensionURL = "motherOrFather";
             if (ext.Url.Equals(VRExtensionURLs.ReportedParentAgeAtDelivery))
             {
                 if (ext.Extension.Any(
-                    subExt => subExt.Url == VR.OtherExtensionURL.ParentRole &&
+                    subExt => subExt.Url == motherOrFatherExtensionURL &&
+                    // subExt => subExt.Url == VR.OtherExtensionURL.ParentRole &&
                     (subExt.Value as CodeableConcept) != null &&
                     (subExt.Value as CodeableConcept).Coding.Any(code => code.Code.Equals(role))))
                 {
@@ -2861,7 +2864,10 @@ namespace BFDR
             Child.Extension.RemoveAll(ext => IsParentAgeAtBirthExt(ext, role));
             Extension parentAgeAtBirth = new Extension(VRExtensionURLs.ReportedParentAgeAtDelivery, null);
             CodeableConcept parentRole = new CodeableConcept(roleCode["system"], roleCode["code"], roleCode["display"]);
-            parentAgeAtBirth.Extension.Add(new Extension(VR.OtherExtensionURL.ParentRole, parentRole));
+            // TODO - Update value sets for VR.OtherExtensionURL, temporarily hardcoding here.
+            string motherOrFatherExtensionURL = "motherOrFather";
+            parentAgeAtBirth.Extension.Add(new Extension(motherOrFatherExtensionURL, parentRole));
+            // parentAgeAtBirth.Extension.Add(new Extension(VR.OtherExtensionURL.ParentRole, parentRole));
             if (value != null)
             {
                 Quantity ageInYears = new Quantity((decimal)value, "a");

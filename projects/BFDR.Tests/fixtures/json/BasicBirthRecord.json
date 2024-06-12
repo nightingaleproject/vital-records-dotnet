@@ -355,7 +355,15 @@
             "valueAddress": {
               "city": "Salt Lake City",
               "district": "Salt Lake",
-              "state": "UT"
+              "state": "UT",
+              "_district": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/DistrictCode",
+                    "valueString": "035"
+                  }
+                ]
+              }
             }
           },
           {
@@ -432,6 +440,9 @@
             "given": [
               "Baby",
               "G"
+            ],
+            "suffix": [
+              "III"
             ]
           }
         ],
