@@ -4012,11 +4012,11 @@ namespace BFDR
         {
             get
             {
-                return record.MotherOccupation;
+                return Truncate(record.MotherOccupation, 25);
             }
             set
             {
-                record.MotherOccupation = value;
+                record.MotherOccupation = Truncate(value, 25);
             }
         }
 
@@ -4041,11 +4041,11 @@ namespace BFDR
         {
             get
             {
-                return record.FatherOccupation;
+                return Truncate(record.FatherOccupation, 25);
             }
             set
             {
-                record.FatherOccupation = value;
+                record.FatherOccupation = Truncate(value, 25);
             }
         }
 
@@ -4070,11 +4070,11 @@ namespace BFDR
         {
             get
             {
-                return record.MotherIndustry;
+                return Truncate(record.MotherIndustry, 25);
             }
             set
             {
-                record.MotherIndustry = value;
+                record.MotherIndustry = Truncate(value, 25);;
             }
         }
 
@@ -4099,11 +4099,11 @@ namespace BFDR
         {
             get
             {
-                return record.FatherIndustry;
+                return Truncate(record.FatherIndustry, 25);
             }
             set
             {
-                record.FatherIndustry = value;
+                record.FatherIndustry = Truncate(value, 25);
             }
         }
 

@@ -912,10 +912,10 @@ namespace BFDR.Tests
 
       //ije translations
       IJEFetalDeath ije = new IJEFetalDeath(fetalDeathRecord);
-      Assert.Equal("Carpenter", ije.MOM_OC_T);
-      Assert.Equal("Construction", ije.MOM_IN_T);
-      Assert.Equal("Lawyer", ije.DAD_OC_T);
-      Assert.Equal("Legal Services", ije.DAD_IN_T);
+      Assert.Equal("Carpenter", ije.MOM_OC_T.Trim());
+      Assert.Equal("Construction", ije.MOM_IN_T.Trim());
+      Assert.Equal("Lawyer", ije.DAD_OC_T.Trim());
+      Assert.Equal("Legal Services", ije.DAD_IN_T.Trim());
       FetalDeathRecord fetalDeathRecord2 = ije.ToFetalDeathRecord();
       Assert.Equal("Carpenter", fetalDeathRecord2.MotherOccupation);
       Assert.Equal("Construction", fetalDeathRecord2.MotherIndustry);
@@ -937,6 +937,13 @@ namespace BFDR.Tests
       record.MotherIndustry = "Legal Services";
       Assert.Equal("Lawyer", record.MotherOccupation);
       Assert.Equal("Legal Services", record.MotherIndustry);
+      // convert to IJE
+      IJEFetalDeath ije = new(record);
+      Assert.Equal("Lawyer", ije.MOM_OC_T.Trim());
+      Assert.Equal("Legal Services", ije.MOM_IN_T.Trim());
+      Assert.Equal("Teaching Assistant", ije.DAD_OC_T.Trim());
+      // this should be truncated
+      Assert.Equal("Elementary and Secondary", ije.DAD_IN_T.Trim());
     }
 
     [Fact]
