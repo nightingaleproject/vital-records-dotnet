@@ -25,7 +25,7 @@ namespace canary.Models
             record.ChildGivenNames = new string[] { faker.Name.FirstName(gender), faker.Name.FirstName(gender) };
             record.ChildFamilyName = faker.Name.LastName(gender);
             record.ChildSuffix = faker.Name.Suffix();
-            record.BirthSexHelper = gender.ToString().Substring(0, 1);
+            record.BirthSex = gender.ToString().Substring(0, 1);
             record.InfantMedicalRecordNumber = "912912";
             record.MotherMedicalRecordNumber = "876876";
             record.MotherSocialSecurityNumber = faker.Person.Ssn();

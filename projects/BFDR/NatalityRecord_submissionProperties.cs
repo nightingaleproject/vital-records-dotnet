@@ -414,62 +414,30 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Sex at Time of Birth: {ExampleBirthRecord.BirthSex}");</para>
         /// </example>
-        [Property("Sex At Birth", Property.Types.Dictionary, "Child Demographics", "Child's Sex at Birth.", true, VR.IGURL.Child, true, 12)]
-        [PropertyParam("code", "The code used to describe this concept.")]
-        [PropertyParam("system", "The relevant code system.")]
-        [PropertyParam("display", "The human readable version of this code.")]
+        [Property("Sex At Birth", Property.Types.String, "Child Demographics", "Child's Sex at Birth.", true, VR.IGURL.Child, true, 12)]
         [FHIRPath("Bundle.entry.resource.where($this is Patient).extension.where(url='" + OtherExtensionURL.BirthSex + "')", "")]
-        public Dictionary<string, string> BirthSex
+        public string BirthSex
         {
             get
             {
                 if (Child != null)
                 {
                     Extension sex = Child.GetExtension(VR.OtherExtensionURL.BirthSex);
-                    if (sex != null && sex.Value != null && sex.Value as CodeableConcept != null)
+                    if (sex != null && sex.Value != null && sex.Value as Code != null)
                     {
-                        return CodeableConceptToDict((CodeableConcept)sex.Value);
+                        return (sex.Value as Code).Value;
                     }
-                }
-                return EmptyCodeableDict();
-            }
-            set
-            {
-                Child.Extension.RemoveAll(ext => ext.Url == VR.OtherExtensionURL.BirthSex);
-                if (IsDictEmptyOrDefault(value) && Child.Extension == null)
-                {
-                    return;
-                }
-                Child.SetExtension(VR.OtherExtensionURL.BirthSex, DictToCodeableConcept(value));
-            }
-        }
-
-        /// <summary>Child's Sex at Birth Helper.</summary>
-        /// <value>The child's sex at time of birth</value>
-        /// <example>
-        /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.BirthSexHelper = "female;</para>
-        /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Sex at Time of Birth: {ExampleBirthRecord.BirthSexHelper}");</para>
-        /// </example>
-        [Property("Sex At Birth Helper", Property.Types.String, "Child Demographics", "Child's Sex at Birth.", false, VR.IGURL.Child, true, 12)]
-        [FHIRPath("Bundle.entry.resource.where($this is Patient).extension.where(url='" + OtherExtensionURL.BirthSex + "')", "")]
-        public string BirthSexHelper
-        {
-            get
-            {
-                if (BirthSex.ContainsKey("code") && !String.IsNullOrWhiteSpace(BirthSex["code"]))
-                {
-                    return BirthSex["code"];
                 }
                 return null;
             }
             set
             {
-                if (!String.IsNullOrWhiteSpace(value))
+                if (!CodeExistsInValueSet(value, VR.ValueSets.SexAssignedAtBirth.Codes))
                 {
-                    SetCodeValue("BirthSex", value, VR.ValueSets.SexAssignedAtBirth.Codes);
+                    return;
                 }
+                Child.Extension.RemoveAll(ext => ext.Url == VR.OtherExtensionURL.BirthSex);
+                Child.SetExtension(VR.OtherExtensionURL.BirthSex, new Code(value));
             }
         }
 

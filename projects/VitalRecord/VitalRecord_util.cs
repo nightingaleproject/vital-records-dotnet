@@ -1151,6 +1151,22 @@ namespace VR
             throw new System.ArgumentException($"Code '{code}' is not an allowed value for field {field}");
         }
 
+        /// <summary>Helper function to determine whether a value appears in the the set of allowed codes.</summary>
+        // <param name="code">the code to check.</param>
+        // <param name="options">the list of valid options and related display strings and code systems</param>
+        protected bool CodeExistsInValueSet(string code, string[,] options)
+        {
+            // Iterate over the allowed options and see if the code supplied is one of them
+            for (int i = 0; i < options.GetLength(0); i += 1)
+            {
+                if (options[i, 0] == code)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         /// <summary>Helper function to set a quantity value based on a value, code and the set of allowed codes.</summary>
         // <param name="field">the field name to set.</param>
         // <param name="code">the code to set the field to.</param>

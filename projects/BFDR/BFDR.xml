@@ -1501,16 +1501,6 @@
             <para>Console.WriteLine($"Sex at Time of Birth: {ExampleBirthRecord.BirthSex}");</para>
             </example>
         </member>
-        <member name="P:BFDR.NatalityRecord.BirthSexHelper">
-            <summary>Child's Sex at Birth Helper.</summary>
-            <value>The child's sex at time of birth</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.BirthSexHelper = "female;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Sex at Time of Birth: {ExampleBirthRecord.BirthSexHelper}");</para>
-            </example>
-        </member>
         <member name="P:BFDR.NatalityRecord.ChildGivenNames">
             <summary>Child's Legal Name - Given. Middle name should be the last entry.</summary>
             <value>the child's name (first, etc., middle)</value>

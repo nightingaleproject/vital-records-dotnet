@@ -277,7 +277,7 @@
             <summary>Check if there were validation errors.</summary>
             <exception cref="T:System.ArgumentOutOfRangeException">if there are validation errors</exception>
         </member>
-        <member name="M:VR.IJE.Get_MappingFHIRToIJE(System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.String)">
+        <member name="M:VR.IJE.Get_MappingFHIRToIJEDirect(System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.String)">
             <summary>Given a Dictionary mapping FHIR codes to IJE strings and the relevant FHIR and IJE fields pull the value
             from the FHIR record object and provide the appropriate IJE string</summary>
             <param name="mapping">Dictionary for mapping the desired concept from FHIR to IJE; these dictionaries are defined in Mappings.cs</param>
