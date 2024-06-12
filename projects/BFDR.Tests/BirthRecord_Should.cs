@@ -3267,7 +3267,7 @@ namespace BFDR.Tests
       tempDict.Add("display", "Unknown");
       Assert.Equal(tempDict, birthRecord.MotherEthnicity4);
       Assert.Equal("UNK", birthRecord.MotherEthnicity4Helper);
-      // Assert.Equal("White", birthRecord.MotherEthnicityLiteral); <<<<<<<<<<<<<<<< TODO
+      Assert.Null(birthRecord.MotherEthnicityLiteral);
       foreach (var pair in birthRecord.MotherRace)
       {
         switch (pair.Item1)
@@ -3306,7 +3306,7 @@ namespace BFDR.Tests
       tempDict.Add("display", "Unknown");
       Assert.Equal(tempDict, birthRecord.FatherEthnicity4);
       Assert.Equal("UNK", birthRecord.FatherEthnicity4Helper);
-      // Assert.Equal("", birthRecord.FatherEthnicityLiteral); TODO <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+      Assert.Null(birthRecord.FatherEthnicityLiteral);
       foreach (var pair in birthRecord.FatherRace)
       {
         switch (pair.Item1)
@@ -3386,7 +3386,7 @@ namespace BFDR.Tests
       Assert.Equal("0off", birthRecord.BirthWeightEditFlagHelper);
       Assert.Equal("Jones", birthRecord.AttendantFamilyName);
       Assert.Equal("Avery Jones", birthRecord.AttendantName);
-      Assert.Equal("76231001", birthRecord.AttendantNPI); // TODO - why is the AttendantNPI the same as the AttendantTitle? <<<<<<<<<<<<<<<<<<<<
+      Assert.Equal("999888999888", birthRecord.AttendantNPI);
       tempDict = new();
       tempDict.Add("code", "76231001");
       tempDict.Add("system", "http://snomed.info/sct");
@@ -3492,7 +3492,7 @@ namespace BFDR.Tests
       Assert.Equal(7, birthRecord.ApgarScoreFiveMinutes);
       Assert.Null(birthRecord.ApgarScoreTenMinutes);
       Assert.Equal("Avery Jones", birthRecord.CertifierName);
-      Assert.Equal("76231001", birthRecord.CertifierNPI); // << Whis is NPI the same as title?
+      Assert.Equal("999888999888", birthRecord.CertifierNPI); // << Whis is NPI the same as title?
       tempDict = new();
       tempDict.Add("code", "76231001");
       tempDict.Add("system", "http://snomed.info/sct");
