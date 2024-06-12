@@ -443,6 +443,54 @@ namespace VR
             }
         }
 
+        /// <summary>Helper method to update last name.</summary>
+        /// <param name="value">A list of strings to be converted into a name.</param>
+        /// <param name="names">The current list of HumanName attributes for the person.</param>
+        /// <param name="use"> The type of name, defaults to official.</param>
+        public static void updateFamilyName(string value, List<HumanName> names, HumanName.NameUse use = HumanName.NameUse.Official)
+        {
+          HumanName name = names.SingleOrDefault(n => n.Use == HumanName.NameUse.Official);
+          if (name != null && !String.IsNullOrEmpty(value))
+          {
+              name.Family = value;
+          }
+          else if (!String.IsNullOrEmpty(value))
+          {
+              name = new HumanName
+              {
+                  Use = HumanName.NameUse.Official,
+                  Family = value
+              };
+              names.Add(name);
+          }
+        }
+
+        /// <summary>Helper method to update suffix.</summary>
+        /// <param name="value">A list of strings to be converted into a name.</param>
+        /// <param name="names">The current list of HumanName attributes for the person.</param>
+        /// <param name="use"> The type of name, defaults to official.</param>
+        public static void updateSuffix(string value, List<HumanName> names, HumanName.NameUse use = HumanName.NameUse.Official)
+        {
+          if (String.IsNullOrEmpty(value))
+                {
+                    return;
+                }
+                HumanName name = names.SingleOrDefault(n => n.Use == HumanName.NameUse.Official);
+                if (name != null)
+                {
+                    string[] suffix = { value };
+                    name.Suffix = suffix;
+                }
+                else
+                {
+                    name = new HumanName();
+                    name.Use = HumanName.NameUse.Official;
+                    string[] suffix = { value };
+                    name.Suffix = suffix;
+                    names.Add(name);
+                }
+        }
+
         /// <summary>Function that validates all partial date extensions in a bundle. Currently unused due
         /// to reevaluation of partial date handling due to changes in the VitalRecords IG.</summary>
         /// <param name="bundle">The bundle in which to validate the PartialDate/Time extensions.</param>

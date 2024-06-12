@@ -28,8 +28,40 @@ namespace BFDR
         // Class helper methods for getting and settings IJE fields.
         //
         /////////////////////////////////////////////////////////////////////////////////
+        
+
+        ///
+        /// <summary>Sets FirstName.</summary>
+        /// 
+        protected string[] Update_FirstName(string value, string[] givenNames)
+        {
+            if (!String.IsNullOrWhiteSpace(value))
+            {
+                givenNames = new string[] { value.Trim() };
+            }
+            return givenNames;
+        }
+        ///
+        /// <summary>Sets Middle Name.</summary>
+        /// 
+        protected string[] Update_MiddleName(string value, string[] givenNames, string ijeFirstName)
+        {
+          if (!String.IsNullOrWhiteSpace(value))
+          {
+              if (String.IsNullOrWhiteSpace(ijeFirstName)) throw new ArgumentException("Middle name cannot be set before first name");
+                  if (givenNames != null)
+                  {
+                      List<string> names = givenNames.ToList();
+                      if (names.Count() > 1) names[1] = value.Trim(); else names.Add(value.Trim());
+                      return names.ToArray();
+                  }
+              }
+          return givenNames;
+        }
+
         ///
         /// <summary>Checks if the given race exists in the record for Mother.</summary>
+        /// 
         protected string Get_MotherRace(string name)
         {
             Tuple<string, string>[] raceStatus = NatalityRecord.MotherRace.ToArray();

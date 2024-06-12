@@ -1254,6 +1254,98 @@ namespace BFDR.Tests
     }
 
     [Fact]
+    public void TestParentReportedAge()
+    {
+
+      // set 
+      SetterFetalDeathRecord.MotherReportedAgeAtDelivery = 26;
+      SetterFetalDeathRecord.FatherReportedAgeAtDelivery = 27;
+      Assert.Equal(26, SetterFetalDeathRecord.MotherReportedAgeAtDelivery); 
+      Assert.Equal(27, SetterFetalDeathRecord.FatherReportedAgeAtDelivery);
+
+      // parsed record
+      FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicFetalDeathRecord.json")));
+      Assert.Equal(33, record.MotherReportedAgeAtDelivery); 
+      Assert.Equal(31, record.FatherReportedAgeAtDelivery); 
+
+      // to IJE
+      IJEFetalDeath ije = new(record);
+      Assert.Equal("33", ije.MAGER.Trim(' '));
+      Assert.Equal("31", ije.FAGER.Trim(' '));
+    }
+
+
+    [Fact]
+    public void TestChildName()
+    {
+      // set
+      FetalDeathRecord record = new FetalDeathRecord();
+      Assert.Empty(record.FetusGivenNames);
+      Assert.Null(record.FetusFamilyName);
+      Assert.Null(record.FetusSuffix);
+      // Child's First Name
+      string[] names = {"Baby", "G"};
+      record.FetusGivenNames = names;
+      Assert.Equal("Baby", record.FetusGivenNames[0]);
+      // Child's Middle Name
+      Assert.Equal("G", record.FetusGivenNames[1]);
+      // Child's Last Name
+      record.FetusFamilyName = "Quinn";
+      Assert.Equal("Quinn", record.FetusFamilyName);
+      // Child's Surname Suffix
+      record.FetusSuffix = "III";
+      Assert.Equal("III", record.FetusSuffix);
+
+      // parsed record
+      FetalDeathRecord parsedRecord = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicFetalDeathRecord.json")));
+      Assert.Equal("Baby", parsedRecord.FetusGivenNames[0]);
+      Assert.Equal("G", parsedRecord.FetusGivenNames[1]);
+      Assert.Equal("Quinn", parsedRecord.FetusFamilyName);
+      // update
+      string[] parsedNames = {"Jim", "Jam"};
+      parsedRecord.FetusGivenNames = parsedNames;
+      parsedRecord.FetusFamilyName = "Jones";
+      parsedRecord.FetusSuffix = "Junior";
+      Assert.Equal("Jim", parsedRecord.FetusGivenNames[0]);
+      Assert.Equal("Jam", parsedRecord.FetusGivenNames[1]);
+      Assert.Equal("Jones", parsedRecord.ChildFamilyName);
+      Assert.Equal("Junior", parsedRecord.FetusSuffix);
+
+      // to IJE
+      IJEFetalDeath ije = new(parsedRecord);
+      Assert.Equal("Jim", ije.FETFNAME.Trim(' '));
+      Assert.Equal("Jam", ije.FETMNAME.Trim(' '));
+      Assert.Equal("Jones", ije.FETLNAME.Trim(' '));
+      Assert.Equal("Junior", ije.SUFFIX.Trim(' '));
+      // update
+      ije.FETFNAME = "A";
+      Assert.Equal("A", ije.FETFNAME.Trim(' '));
+      ije.FETMNAME = "B";
+      Assert.Equal("B", ije.FETMNAME.Trim(' '));
+      ije.FETLNAME = "C";
+      Assert.Equal("C", ije.FETLNAME.Trim(' '));
+      ije.SUFFIX = "D";
+      Assert.Equal("D", ije.SUFFIX.Trim(' '));
+    }
+
+    // FHIR manages names in a way that there is a fundamental incompatibility with IJE: the "middle name" is the second element in
+    // an array of given names. That means that it's not possible to set a middle name without first having a first name. The library
+    // handles this by 1) raising an exception if a middle name is set before a first name and 2) resetting the middle name if the first
+    // name is set again. If a user sets the first name and then the middle name then no problems will occur.
+
+    [Fact]
+    public void SettingMiddleNameFirstRaisesException()
+    {
+        IJEFetalDeath ije = new IJEFetalDeath();
+        Exception ex = Assert.Throws<System.ArgumentException>(() => ije.FETMNAME = "M");
+        Assert.Equal("Middle name cannot be set before first name", ex.Message);
+        // ex = Assert.Throws<System.ArgumentException>(() => ije.MOMMNAME = "M");
+        // Assert.Equal("Middle name cannot be set before first name", ex.Message);
+        // ex = Assert.Throws<System.ArgumentException>(() => ije.DADMNAME = "M");
+        // Assert.Equal("Middle name cannot be set before first name", ex.Message);
+        }
+
+    [Fact]
     public void TestPatientDecedentFetusVitalRecordProperties()
     {
       // Test FHIR record import.

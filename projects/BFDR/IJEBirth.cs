@@ -3995,13 +3995,7 @@ namespace BFDR
                 }
                 return new string(' ', 50);
             }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    record.ChildGivenNames = new string[] { value.Trim() };
-                }
-            }
+            set => record.ChildGivenNames = Update_FirstName(value, record.ChildGivenNames);
         }
 
         /// <summary>Child's Middle Name</summary>
@@ -4017,22 +4011,7 @@ namespace BFDR
                 }
                 return " ";
             }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    if (String.IsNullOrWhiteSpace(KIDFNAME)) throw new ArgumentException("Middle name cannot be set before first name");
-                    if (!String.IsNullOrWhiteSpace(value))
-                    {
-                        if (record.ChildGivenNames != null)
-                        {
-                            List<string> names = record.ChildGivenNames.ToList();
-                            if (names.Count() > 1) names[1] = value.Trim(); else names.Add(value.Trim());
-                            record.ChildGivenNames = names.ToArray();
-                        }
-                    }
-                }
-            }
+            set => record.ChildGivenNames = Update_MiddleName(value, record.ChildGivenNames, KIDFNAME);
         }
 
         /// <summary>Child's Last Name</summary>
@@ -4118,13 +4097,7 @@ namespace BFDR
                 }
                 return new string(' ', 50);
             }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    record.MotherGivenNames = new string[] { value.Trim() };
-                }
-            }
+            set => record.MotherGivenNames = Update_FirstName(value, record.MotherGivenNames);
         }
 
         /// <summary>Mother's Middle Name</summary>
@@ -4140,22 +4113,7 @@ namespace BFDR
                 }
                 return " ";
             }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    if (String.IsNullOrWhiteSpace(MOMFNAME)) throw new ArgumentException("Middle name cannot be set before first name");
-                    if (!String.IsNullOrWhiteSpace(value))
-                    {
-                        if (record.MotherGivenNames != null)
-                        {
-                            List<string> names = record.MotherGivenNames.ToList();
-                            if (names.Count() > 1) names[1] = value.Trim(); else names.Add(value.Trim());
-                            record.MotherGivenNames = names.ToArray();
-                        }
-                    }
-                }
-            }
+            set => record.MotherGivenNames = Update_MiddleName(value, record.MotherGivenNames, MOMFNAME);
         }
 
         /// <summary>Mother's Last Name</summary>
@@ -4220,22 +4178,7 @@ namespace BFDR
                 }
                 return " ";
             }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    if (String.IsNullOrWhiteSpace(MOMFMNME)) throw new ArgumentException("Middle name cannot be set before first name");
-                    if (!String.IsNullOrWhiteSpace(value))
-                    {
-                        if (record.MotherMaidenGivenNames != null)
-                        {
-                            List<string> names = record.MotherMaidenGivenNames.ToList();
-                            if (names.Count() > 1) names[1] = value.Trim(); else names.Add(value.Trim());
-                            record.MotherMaidenGivenNames = names.ToArray();
-                        }
-                    }
-                }
-            }
+            set => record.MotherMaidenGivenNames = Update_MiddleName(value, record.MotherMaidenGivenNames, MOMFMNME);
         }
 
         /// <summary>Mother's Maiden Surname</summary>
@@ -4477,13 +4420,7 @@ namespace BFDR
                 }
                 return new string(' ', 50);
             }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    record.FatherGivenNames = new string[] { value.Trim() };
-                }
-            }
+            set => record.FatherGivenNames = Update_FirstName(value, record.FatherGivenNames);
         }
 
         /// <summary>Father's Middle Name</summary>
@@ -4499,22 +4436,7 @@ namespace BFDR
                 }
                 return " ";
             }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    if (String.IsNullOrWhiteSpace(DADFNAME)) throw new ArgumentException("Middle name cannot be set before first name");
-                    if (!String.IsNullOrWhiteSpace(value))
-                    {
-                        if (record.FatherGivenNames != null)
-                        {
-                            List<string> names = record.FatherGivenNames.ToList();
-                            if (names.Count() > 1) names[1] = value.Trim(); else names.Add(value.Trim());
-                            record.FatherGivenNames = names.ToArray();
-                        }
-                    }
-                }
-            }
+            set => record.FatherGivenNames = Update_MiddleName(value, record.FatherGivenNames, DADFNAME);
         }
 
         /// <summary>Father's Last Name</summary>

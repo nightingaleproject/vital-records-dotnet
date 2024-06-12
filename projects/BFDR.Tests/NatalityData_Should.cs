@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using VR;
 using Xunit;
+using System.Security;
 
 namespace BFDR.Tests
 {
