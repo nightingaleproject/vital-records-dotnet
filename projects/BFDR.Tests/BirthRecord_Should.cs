@@ -867,6 +867,18 @@ namespace BFDR.Tests
       // Mother's Surname Suffix
       record.MotherSuffix = "II";
       Assert.Equal("II", record.MotherSuffix);
+      // to ije
+      IJEBirth ije = new IJEBirth(record);
+      Assert.Equal("Mommy".PadRight(50), ije.MOMFNAME);
+      Assert.Equal("D".PadRight(50), ije.MOMMIDDL);
+      Assert.Equal("Quin".PadRight(50), ije.MOMLNAME);
+      
+      Assert.Equal("Mommy".PadRight(50), ije.MOMFNAME);
+      Assert.Equal("D".PadRight(50), ije.MOMMIDDL);
+      Assert.Equal("Quin".PadRight(50), ije.MOMLNAME);
+
+      ije.MOMMIDDL = "A";
+      Assert.Equal("A".PadRight(50), ije.MOMMIDDL);
     }
 
     [Fact]
@@ -888,6 +900,11 @@ namespace BFDR.Tests
       // Father's Surname Suffix
       record.FatherSuffix = "III";
       Assert.Equal("III", record.FatherSuffix);
+      // to ije
+      IJEBirth ije = new IJEBirth(record);
+      Assert.Equal("Pappy".PadRight(50), ije.DADFNAME);
+      Assert.Equal("C".PadRight(50), ije.DADMNAME);
+      Assert.Equal("Pipp".PadRight(50), ije.DADLNAME);
     }
 
     [Fact]
@@ -1613,6 +1630,11 @@ namespace BFDR.Tests
       // Mother's Last Name
       FakeBirthRecord.MotherFamilyName = "Quin";
       Assert.Equal("Quin", FakeBirthRecord.MotherFamilyName);
+      // to ije
+      IJEBirth ije = new IJEBirth(FakeBirthRecord);
+      Assert.Equal("Mommy".PadRight(50), ije.MOMFNAME);
+      Assert.Equal("D".PadRight(50), ije.MOMMIDDL);
+      Assert.Equal("Quin".PadRight(50), ije.MOMLNAME);
     }
     [Fact]
     public void BirthLocationPresent()

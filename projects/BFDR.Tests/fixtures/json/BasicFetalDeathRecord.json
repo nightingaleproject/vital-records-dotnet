@@ -77,7 +77,71 @@
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Patient-decedent-fetus"
           ]
-        }
+        },
+        "extension": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-role-vr",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+                      "code": "MTH"
+                    }
+                  ],
+                  "text": "mother"
+                }
+              },
+              {
+                "url": "reportedAge",
+                "valueQuantity": {
+                  "value": 33,
+                  "unit": "a",
+                  "system": "http://unitsofmeasure.org",
+                  "code": "a"
+                }
+              }
+            ],
+            "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-reported-parent-age-at-delivery-vr"
+          },
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-role-vr",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+                      "code": "FTH"
+                    }
+                  ],
+                  "text": "father"
+                }
+              },
+              {
+                "url": "reportedAge",
+                "valueQuantity": {
+                  "value": 31,
+                  "unit": "a",
+                  "system": "http://unitsofmeasure.org",
+                  "code": "a"
+                }
+              }
+            ],
+            "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-reported-parent-age-at-delivery-vr"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Quinn",
+            "given": [
+              "Baby",
+              "G"
+            ]
+          }
+        ]
       }
     },
     {
