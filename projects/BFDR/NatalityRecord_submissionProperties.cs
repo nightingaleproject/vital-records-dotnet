@@ -5974,34 +5974,30 @@ namespace BFDR
         {
             get
             {
-                // TODO - update the VR Profile URLs with the auto generate script to have the correct JFI identifier url. Temporarily haradcoding the value here.
-                string jfiIdentifierProfileURL = "http://hl7.org/fhir/us/bfdr/StructureDefinition/Extension-jurisdictional-facility-identifier";
-                return GetFacilityLocation(ValueSets.LocationTypes.Birth_Location)?.Identifier?.Find(identifier => identifier.Extension.Any(ext => ext.Url == jfiIdentifierProfileURL))?.GetExtension(jfiIdentifierProfileURL).Value.ToString();
+                return GetFacilityLocation(ValueSets.LocationTypes.Birth_Location)?.Identifier?.Find(identifier => identifier.Extension.Any(ext => ext.Url == BFDR.ExtensionURL.JurisdictionalFacilityIdentifier))?.GetExtension(BFDR.ExtensionURL.JurisdictionalFacilityIdentifier).Value.ToString();
             }
             set
             {
-                // TODO - update the VR Profile URLs with the auto generate script to have the correct JFI identifier url. Temporarily haradcoding the value here.
-                string jfiIdentifierProfileURL = "http://hl7.org/fhir/us/bfdr/StructureDefinition/Extension-jurisdictional-facility-identifier";
                 Location LocationBirth = GetFacilityLocation(ValueSets.LocationTypes.Birth_Location) ?? CreateAndSetLocationBirth(ValueSets.LocationTypes.Birth_Location);
                 if (LocationBirth.Identifier == null)
                 {
                     LocationBirth.Identifier = new List<Identifier>();
                 }
                 // Check for an existing Facility JFI and if it exists, overwrite it.
-                if (LocationBirth.Identifier.Any(id => id.Extension.Any(ext => ext.Url == jfiIdentifierProfileURL)))
+                if (LocationBirth.Identifier.Any(id => id.Extension.Any(ext => ext.Url == BFDR.ExtensionURL.JurisdictionalFacilityIdentifier)))
                 {
-                    Identifier jfiIdentifier = LocationBirth.Identifier.Find(id => id.Extension.Any(ext => ext.Url == jfiIdentifierProfileURL));
-                    jfiIdentifier.SetExtension(jfiIdentifierProfileURL, new FhirString(value));
+                    Identifier jfiIdentifier = LocationBirth.Identifier.Find(id => id.Extension.Any(ext => ext.Url == BFDR.ExtensionURL.JurisdictionalFacilityIdentifier));
+                    jfiIdentifier.SetExtension(BFDR.ExtensionURL.JurisdictionalFacilityIdentifier, new FhirString(value));
                     return;
                 }
                 if (LocationBirth.Identifier.Count() < 1)
                 {
                     Identifier id = new Identifier();
-                    id.SetExtension(jfiIdentifierProfileURL, new FhirString(value));
+                    id.SetExtension(BFDR.ExtensionURL.JurisdictionalFacilityIdentifier, new FhirString(value));
                     LocationBirth.Identifier.Add(id);
                     return;
                 }
-                LocationBirth.Identifier.First().SetExtension(jfiIdentifierProfileURL, new FhirString(value));
+                LocationBirth.Identifier.First().SetExtension(BFDR.ExtensionURL.JurisdictionalFacilityIdentifier, new FhirString(value));
             }
         }
 

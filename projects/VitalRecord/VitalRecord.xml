@@ -757,9 +757,6 @@
         <member name="P:VR.ExtensionURL.RelatedpersonBirthplace">
             <summary>URL for RelatedpersonBirthplace</summary>
         </member>
-        <member name="P:VR.ExtensionURL.RelatedPersonDeceased">
-            <summary>URL for RelatedPersonDeceased</summary>
-        </member>
         <member name="P:VR.ExtensionURL.ReportedParentAgeAtDelivery">
             <summary>URL for ReportedParentAgeAtDelivery</summary>
         </member>
@@ -849,9 +846,6 @@
         </member>
         <member name="F:VR.IGURL.RelatedpersonBirthplace">
             <summary>URL for RelatedpersonBirthplace</summary>
-        </member>
-        <member name="F:VR.IGURL.RelatedPersonDeceased">
-            <summary>URL for RelatedPersonDeceased</summary>
         </member>
         <member name="F:VR.IGURL.ReportedParentAgeAtDelivery">
             <summary>URL for ReportedParentAgeAtDelivery</summary>
