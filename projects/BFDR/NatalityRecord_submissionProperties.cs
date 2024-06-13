@@ -385,70 +385,60 @@ namespace BFDR
         //     }
         // }
 
-        /// <summary>Child's BirthSex at Birth.</summary>
-        /// <value>The child's BirthSex at time of birth</value>
-        /// <example>
-        /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.BirthSex = "female;</para>
-        /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Sex at Time of Birth: {ExampleBirthRecord.BirthSex}");</para>
-        /// </example>
-        [Property("Sex At Birth", Property.Types.Dictionary, "Child Demographics", "Child's Sex at Birth.", true, VR.IGURL.Child, true, 12)]
-        [PropertyParam("code", "The code used to describe this concept.")]
-        [PropertyParam("system", "The relevant code system.")]
-        [PropertyParam("display", "The human readable version of this code.")]
-        [FHIRPath("Bundle.entry.resource.where($this is Patient).extension.where(url='" + OtherExtensionURL.BirthSex + "')", "")]
-        public Dictionary<string, string> BirthSex
+        /// <summary>
+        ///  Getter method for child or decedent fetus birth/delivery sex.
+        /// </summary>
+        /// <returns>BirthSex codeable concept as dictionary</returns>
+        public Dictionary<string, string> GetBirthSex()
         {
-            get
+            if (Subject != null)
             {
-                if (Subject != null)
+                Extension sex = Subject.GetExtension(VR.OtherExtensionURL.BirthSex);
+                if (sex != null && sex.Value != null && sex.Value as CodeableConcept != null)
                 {
-                    Extension sex = Subject.GetExtension(VR.OtherExtensionURL.BirthSex);
-                    if (sex != null && sex.Value != null && sex.Value as CodeableConcept != null)
-                    {
-                        return CodeableConceptToDict((CodeableConcept)sex.Value);
-                    }
+                    return CodeableConceptToDict((CodeableConcept)sex.Value);
                 }
-                return EmptyCodeableDict();
             }
-            set
+            return EmptyCodeableDict();
+        }
+        
+        /// <summary>
+        ///  Setter method for child or decedent fetus birth/delivery sex.
+        /// </summary>
+        /// <param name="value">The birth/delivery sex.</param>
+        protected void SetBirthSex(Dictionary<string, string> value)
+        {
+            Subject.Extension.RemoveAll(ext => ext.Url == VR.OtherExtensionURL.BirthSex);
+            if (IsDictEmptyOrDefault(value) && Subject.Extension == null)
             {
-                Subject.Extension.RemoveAll(ext => ext.Url == VR.OtherExtensionURL.BirthSex);
-                if (IsDictEmptyOrDefault(value) && Subject.Extension == null)
-                {
-                    return;
-                }
-                Subject.SetExtension(VR.OtherExtensionURL.BirthSex, DictToCodeableConcept(value));
+                return;
             }
+            Subject.SetExtension(VR.OtherExtensionURL.BirthSex, DictToCodeableConcept(value));
         }
 
-        /// <summary>Child's Sex at Birth Helper.</summary>
-        /// <value>The child's sex at time of birth</value>
-        /// <example>
-        /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.BirthSexHelper = "female;</para>
-        /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Sex at Time of Birth: {ExampleBirthRecord.BirthSexHelper}");</para>
-        /// </example>
-        [Property("Sex At Birth Helper", Property.Types.String, "Child Demographics", "Child's Sex at Birth.", false, VR.IGURL.Child, true, 12)]
-        [FHIRPath("Bundle.entry.resource.where($this is Patient).extension.where(url='" + OtherExtensionURL.BirthSex + "')", "")]
-        public string BirthSexHelper
+        /// <summary>
+        ///  Helper method for getting child or decedent fetus birth/delivery sex.
+        /// </summary>      
+        /// <returns>BirthSex code as string</returns>
+        public string GetBirthSexHelper()
         {
-            get
+            if (GetBirthSex().ContainsKey("code") && !String.IsNullOrWhiteSpace(GetBirthSex()["code"]))
             {
-                if (BirthSex.ContainsKey("code") && !String.IsNullOrWhiteSpace(BirthSex["code"]))
-                {
-                    return BirthSex["code"];
-                }
-                return null;
+                return GetBirthSex()["code"];
             }
-            set
+            return null;
+        }
+        
+        /// <summary>
+        ///  Helper method for setting child or decedent fetus birth/delivery sex.
+        /// </summary>
+        /// <param name="field">The field name to set.</param>       
+        /// <param name="value">The birth/delivery sex.</param>        
+        protected void SetBirthSexHelper(string field, string value)
+        {
+            if (!String.IsNullOrWhiteSpace(value))
             {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    SetCodeValue("BirthSex", value, VR.ValueSets.SexAssignedAtBirth.Codes);
-                }
+                SetCodeValue(field, value, VR.ValueSets.SexAssignedAtBirth.Codes);
             }
         }
 
@@ -1289,188 +1279,164 @@ namespace BFDR
             set => SetSSN(Father.Identifier, value);
         }
 
-        /// <summary>Multiple birth set order</summary>
-        /// <value>The order that the child was born if a multiple birth or null if it was a single birth</value>
-        /// <example>
-        /// <para>ExampleBirthRecord.SetOrder = null; // single birth</para>
-        /// <para>ExampleBirthRecord.SetOrder = -1; // unknow whether single or multiple birth</para>
-        /// <para>ExampleBirthRecord.SetOrder = 1; // multiple birth, born first</para>
-        /// </example>
-        [Property("SetOrder", Property.Types.Int32, "Child Demographics", "Child Demographics, Set Order", true, VR.IGURL.Child, true, 208)]
-        [FHIRPath("Bundle.entry.resource.where($this is Patient)", "multipleBirth")]
-        public int? SetOrder
+        /// <summary>
+        ///  Getter method for child or decedent fetus set order.
+        /// </summary>
+        /// <returns>Integer representing set order or -1 if dataAbsent</returns>
+        public int? GetSetOrder()
         {
-            get
+            if (Subject != null && Subject.MultipleBirth != null)
             {
-                if (Subject != null && Subject.MultipleBirth != null)
+                if (Subject.MultipleBirth as FhirBoolean != null)
                 {
-                    if (Subject.MultipleBirth as FhirBoolean != null)
+                    return null;
+                }
+                else if (Subject.MultipleBirth as Hl7.Fhir.Model.Integer != null && (Subject.MultipleBirth as Hl7.Fhir.Model.Integer).Value != null)
+                {
+                    return (Subject.MultipleBirth as Hl7.Fhir.Model.Integer).Value;
+                }
+                else if (Subject.MultipleBirth.Extension.Find(ext => ext.Url == ExtensionURL.DataAbsentReason) != null)
+                {
+                    return -1;
+                }
+            }
+            return null;
+        }
+        
+        /// <summary>
+        ///  Setter method for child or decedent fetus set order.
+        /// </summary>
+        /// <param name="value">The birth year.</param>        
+        protected void SetSetOrder(int? value)
+        {
+            Dictionary<string, string> pluralityEditFlag = GetPluralityEditFlag();
+            int? plurality = GetPlurality();
+            if (value == null)
+            {
+                Subject.MultipleBirth = new FhirBoolean(false);
+            }
+            else if (value == -1)
+            {
+                Subject.MultipleBirth = new Hl7.Fhir.Model.Integer();
+                Extension missingValueReason = new Extension(ExtensionURL.DataAbsentReason, new Code("unknown"));
+                Subject.MultipleBirth.Extension.Add(missingValueReason);
+            }
+            else
+            {
+                Subject.MultipleBirth = new Hl7.Fhir.Model.Integer(value);
+            }
+            SetPlurality(plurality);
+            SetPluralityEditFlag(pluralityEditFlag);
+        }
+
+        /// <summary>
+        ///  Getter method for child or decedent fetus plurality edit flag.
+        /// </summary>   
+        /// <returns>Plurality edit flag codeable concept as Dictionary</returns>
+        public Dictionary<string, string> GetPluralityEditFlag()
+        {
+            if (Subject != null && Subject.MultipleBirth != null)
+            {
+                Extension pluralityEditFlag = Subject.MultipleBirth.Extension.Find(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
+                if (pluralityEditFlag != null && pluralityEditFlag.Value != null && pluralityEditFlag.Value as CodeableConcept != null)
+                {
+                    return CodeableConceptToDict((CodeableConcept)pluralityEditFlag.Value);
+                }
+            }
+            return EmptyCodeableDict();
+        }
+        
+        /// <summary>
+        ///  Setter method for child or decedent fetus plurality edit flag.
+        /// </summary>
+        /// <param name="value">The birth year.</param> 
+        protected void SetPluralityEditFlag(Dictionary<string, string> value)
+        {
+            if (Subject.MultipleBirth == null)
+            {
+                Subject.MultipleBirth = new FhirBoolean(false);
+            }
+            Subject.MultipleBirth.Extension.RemoveAll(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
+            Subject.MultipleBirth.Extension.Add(new Extension(VRExtensionURLs.BypassEditFlag, DictToCodeableConcept(value)));
+        }
+        /// <summary>
+        ///  Helper method for getting child or decedent fetus plurality edit flag.
+        /// </summary>    
+        /// <returns>Plurality edit flag code as string</returns>
+        public string GetPluralityEditFlagHelper()
+        {
+            if (GetPluralityEditFlag().ContainsKey("code"))
+            {
+                string code = GetPluralityEditFlag()["code"];
+                if (!String.IsNullOrWhiteSpace(code))
+                {
+                    return code;
+                }
+            }
+            return null;
+        }
+        
+        /// <summary>
+        ///  Helper method for setting child or decedent fetus plurality edit flag.
+        /// </summary>
+        /// <param name="value">The birth year.</param>         
+        protected void SetPluralityEditFlagHelper(string value)
+        {
+            if (!String.IsNullOrEmpty(value))
+            {
+                SetCodeValue("PluralityEditFlag", value, VR.ValueSets.PluralityEditFlags.Codes);
+            }
+        }
+        /// <summary>
+        ///  Gettter method for child or decedent fetus plurality.
+        /// </summary>     
+        /// <returns>Integer representing Plurality or -1 if dataAbsent</returns>
+        public int? GetPlurality()
+        {
+            if (Subject != null && Subject.MultipleBirth != null)
+            {
+                Extension plurality = Subject.MultipleBirth.Extension.Find(ext => ext.Url == ExtensionURL.Plurality);
+                if (plurality != null)
+                {
+                    if (plurality.Value as PositiveInt != null && (plurality.Value as PositiveInt).Value != null)
                     {
-                        return null;
+                        return (plurality.Value as PositiveInt).Value;
                     }
-                    else if (Subject.MultipleBirth as Hl7.Fhir.Model.Integer != null && (Subject.MultipleBirth as Hl7.Fhir.Model.Integer).Value != null)
-                    {
-                        return (Subject.MultipleBirth as Hl7.Fhir.Model.Integer).Value;
-                    }
-                    else if (Subject.MultipleBirth.Extension.Find(ext => ext.Url == ExtensionURL.DataAbsentReason) != null)
+                    else if (plurality.Extension.Find(ext => ext.Url == ExtensionURL.DataAbsentReason) != null)
                     {
                         return -1;
                     }
                 }
-                return null;
             }
-            set
-            {
-                Dictionary<string, string> pluralityEditFlag = PluralityEditFlag;
-                int? plurality = Plurality;
-                if (value == null)
-                {
-                    Subject.MultipleBirth = new FhirBoolean(false);
-                }
-                else if (value == -1)
-                {
-                    Subject.MultipleBirth = new Hl7.Fhir.Model.Integer();
-                    Extension missingValueReason = new Extension(ExtensionURL.DataAbsentReason, new Code("unknown"));
-                    Subject.MultipleBirth.Extension.Add(missingValueReason);
-                }
-                else
-                {
-                    Subject.MultipleBirth = new Hl7.Fhir.Model.Integer(value);
-                }
-                Plurality = plurality;
-                PluralityEditFlag = pluralityEditFlag;
-            }
+            return null;
         }
-
-        /// <summary>Multiple birth set order edit flag</summary>
-        /// <value>the multiple birth set order edit flag</value>
-        /// <example>
-        /// <para>// Setter:</para>
-        /// <para>Dictionary&lt;string, string&gt; route = new Dictionary&lt;string, string&gt;();</para>
-        /// <para>route.Add("code", "queriedCorrect");</para>
-        /// <para>route.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");</para>
-        /// <para>route.Add("display", "Queried, and Correct");</para>
-        /// <para>ExampleBirthRecord.PluralityEditFlag = route;</para>
-        /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Multiple birth set order edit flag: {ExampleBirthRecord.PluralityEditFlag}");</para>
-        /// </example>
-        [Property("PluralityEditFlag", Property.Types.Dictionary, "Child Demographics", "Child Demographics, Plurality Edit Flag", true, VR.IGURL.Child, true, 211)]
-        [PropertyParam("code", "The code used to describe this concept.")]
-        [PropertyParam("system", "The relevant code system.")]
-        [PropertyParam("display", "The human readable version of this code.")]
-        [FHIRPath("Bundle.entry.resource.where($this is Patient).multipleBirth.extension.where(url = 'http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag')", "")]
-        public Dictionary<string, string> PluralityEditFlag
+        
+        /// <summary>
+        ///  Setter method for child or decedent fetus plurality.
+        /// </summary>
+        /// <param name="value">The birth year.</param>   
+        protected void SetPlurality(int? value)
         {
-            get
+            if (Subject.MultipleBirth == null)
             {
-                if (Subject != null && Subject.MultipleBirth != null)
-                {
-                    Extension pluralityEditFlag = Subject.MultipleBirth.Extension.Find(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
-                    if (pluralityEditFlag != null && pluralityEditFlag.Value != null && pluralityEditFlag.Value as CodeableConcept != null)
-                    {
-                        return CodeableConceptToDict((CodeableConcept)pluralityEditFlag.Value);
-                    }
-                }
-                return EmptyCodeableDict();
+                Subject.MultipleBirth = new FhirBoolean(false);
             }
-            set
+            Subject.MultipleBirth.Extension.RemoveAll(ext => ext.Url == ExtensionURL.Plurality);
+            if (value == null)
             {
-                if (Subject.MultipleBirth == null)
-                {
-                    Subject.MultipleBirth = new FhirBoolean(false);
-                }
-                Subject.MultipleBirth.Extension.RemoveAll(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
-                Subject.MultipleBirth.Extension.Add(new Extension(VRExtensionURLs.BypassEditFlag, DictToCodeableConcept(value)));
+                return;
             }
-        }
-
-        /// <summary>Multiple birth set order edit flag helper</summary>
-        /// <value>the multiple birth set order edit flag</value>
-        /// <example>
-        /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.PluralityEditFlagHelper = "queriedCorrect";</para>
-        /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Multiple birth set order edit flag: {ExampleBirthRecord.PluralityEditFlagHelper}");</para>
-        /// </example>
-        [Property("PluralityEditFlagHelper", Property.Types.String, "Child Demographics", "Child Demographics, Plurality Edit Flag", false, VR.IGURL.Child, true, 211)]
-        [FHIRPath("Bundle.entry.resource.where($this is Patient).multipleBirth.extension.where(url = 'http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag')", "")]
-        public string PluralityEditFlagHelper
-        {
-            get
+            else if (value == -1)
             {
-                if (PluralityEditFlag.ContainsKey("code"))
-                {
-                    string code = PluralityEditFlag["code"];
-                    if (!String.IsNullOrWhiteSpace(code))
-                    {
-                        return code;
-                    }
-                }
-                return null;
+                Extension plurality = new Extension(ExtensionURL.Plurality, new PositiveInt());
+                Extension missingValueReason = new Extension(ExtensionURL.DataAbsentReason, new Code("unknown"));
+                plurality.Extension.Add(missingValueReason);
+                Subject.MultipleBirth.Extension.Add(plurality);
             }
-            set
+            else
             {
-                if (!String.IsNullOrEmpty(value))
-                {
-                    SetCodeValue("PluralityEditFlag", value, VR.ValueSets.PluralityEditFlags.Codes);
-                }
-            }
-        }
-
-
-        /// <summary>Multiple birth plurality</summary>
-        /// <value>Where a patient is a part of a multiple birth, this is the total number of births that occurred in this pregnancy.</value>
-        /// <example>
-        /// <para>ExampleBirthRecord.Plurality = null; // single birth</para>
-        /// <para>ExampleBirthRecord.Plurality = -1; // unknown number of births birth</para>
-        /// <para>ExampleBirthRecord.Plurality = 2; // two births for this pregnancy</para>
-        /// </example>
-        [Property("Plurality", Property.Types.Int32, "Child Demographics", "Child Demographics, Plurality", true, VR.IGURL.Child, true, 207)]
-        [FHIRPath("Bundle.entry.resource.where($this is Patient).multipleBirth.extension.where(url = 'http://hl7.org/fhir/StructureDefinition/patient-multipleBirthTotal')", "")]
-        public int? Plurality
-        {
-            get
-            {
-                if (Subject != null && Subject.MultipleBirth != null)
-                {
-                    Extension plurality = Subject.MultipleBirth.Extension.Find(ext => ext.Url == ExtensionURL.Plurality);
-                    if (plurality != null)
-                    {
-                        if (plurality.Value as PositiveInt != null && (plurality.Value as PositiveInt).Value != null)
-                        {
-                            return (plurality.Value as PositiveInt).Value;
-                        }
-                        else if (plurality.Extension.Find(ext => ext.Url == ExtensionURL.DataAbsentReason) != null)
-                        {
-                            return -1;
-                        }
-                    }
-                }
-                return null;
-            }
-            set
-            {
-                if (Subject.MultipleBirth == null)
-                {
-                    Subject.MultipleBirth = new FhirBoolean(false);
-                }
-                Subject.MultipleBirth.Extension.RemoveAll(ext => ext.Url == ExtensionURL.Plurality);
-                if (value == null)
-                {
-                    return;
-                }
-                else if (value == -1)
-                {
-                    Extension plurality = new Extension(ExtensionURL.Plurality, new PositiveInt());
-                    Extension missingValueReason = new Extension(ExtensionURL.DataAbsentReason, new Code("unknown"));
-                    plurality.Extension.Add(missingValueReason);
-                    Subject.MultipleBirth.Extension.Add(plurality);
-                }
-                else
-                {
-                    Extension plurality = new Extension(ExtensionURL.Plurality, new PositiveInt(value));
-                    Subject.MultipleBirth.Extension.Add(plurality);
-                }
+                Extension plurality = new Extension(ExtensionURL.Plurality, new PositiveInt(value));
+                Subject.MultipleBirth.Extension.Add(plurality);
             }
         }
 

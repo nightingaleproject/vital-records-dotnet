@@ -111,6 +111,68 @@
             <para>Console.WriteLine($"Child Time of Birth: {ExampleBirthRecord.BirthTime}");</para>
             </example>
         </member>
+        <member name="P:BFDR.BirthRecord.BirthSex">
+            <summary>Child's BirthSex at Birth.</summary>
+            <value>The child's BirthSex at time of birth</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.BirthSex = "female;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Sex at Time of Birth: {ExampleBirthRecord.BirthSex}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.BirthSexHelper">
+            <summary>Child's Sex at Birth Helper.</summary>
+            <value>The child's sex at time of birth</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.BirthSexHelper = "female;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Sex at Time of Birth: {ExampleBirthRecord.BirthSexHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.SetOrder">
+            <summary>Multiple birth set order</summary>
+            <value>The order that the child was born if a multiple birth or null if it was a single birth</value>
+            <example>
+            <para>ExampleBirthRecord.SetOrder = null; // single birth</para>
+            <para>ExampleBirthRecord.SetOrder = -1; // unknow whether single or multiple birth</para>
+            <para>ExampleBirthRecord.SetOrder = 1; // multiple birth, born first</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.PluralityEditFlag">
+            <summary>Multiple birth set order edit flag</summary>
+            <value>the multiple birth set order edit flag</value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; route = new Dictionary&lt;string, string&gt;();</para>
+            <para>route.Add("code", "queriedCorrect");</para>
+            <para>route.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");</para>
+            <para>route.Add("display", "Queried, and Correct");</para>
+            <para>ExampleBirthRecord.PluralityEditFlag = route;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Multiple birth set order edit flag: {ExampleBirthRecord.PluralityEditFlag}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.PluralityEditFlagHelper">
+            <summary>Multiple birth set order edit flag helper</summary>
+            <value>the multiple birth set order edit flag</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.PluralityEditFlagHelper = "queriedCorrect";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Multiple birth set order edit flag: {ExampleBirthRecord.PluralityEditFlagHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.Plurality">
+            <summary>Multiple birth plurality</summary>
+            <value>Where a patient is a part of a multiple birth, this is the total number of births that occurred in this pregnancy.</value>
+            <example>
+            <para>ExampleBirthRecord.Plurality = null; // single birth</para>
+            <para>ExampleBirthRecord.Plurality = -1; // unknown number of births birth</para>
+            <para>ExampleBirthRecord.Plurality = 2; // two births for this pregnancy</para>
+            </example>
+        </member>
         <member name="T:BFDR.FetalDeathRecord">
             <summary>Class <c>FetalDeathRecord</c> is a class designed to help consume and produce fetal death
             records that follow the HL7 FHIR Vital Records FetalDeath Reporting Implementation Guide, as described
@@ -534,6 +596,68 @@
             <para>ExampleFetalDeathRecord.DeliveryTime = 11;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Decedent Fetus Time of Birth: {ExampleFetalDeathRecord.DeliveryTime}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.FetalDeathSex">
+            <summary>Decedent Fetus's BirthSex at fetal death.</summary>
+            <value>The decedent fetus's BirthSex at time of fetal death</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.FetalDeathSex = "female;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Sex at Time of Fetal Death: {ExampleFetalDeathRecord.FetalDeathSex}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.FetalDeathSexHelper">
+            <summary>Decedent Fetus's Sex at Fetal Death Helper.</summary>
+            <value>The decedent fetus's sex at time of fetal death</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.FetalDeathSexHelper = "female;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Sex at Time of Fetal Death: {ExampleFetalDeathRecord.FetalDeathSexHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.FetalDeathSetOrder">
+            <summary>Multiple birth set order</summary>
+            <value>The order that the decedent fetus was born if a multiple birth or null if it was a single birth</value>
+            <example>
+            <para>ExampleFetalDeathRecord.FetalDeathSetOrder = null; // single birth</para>
+            <para>ExampleFetalDeathRecord.FetalDeathSetOrder = -1; // unknow whether single or multiple birth</para>
+            <para>ExampleFetalDeathRecord.FetalDeathSetOrder = 1; // multiple birth, born first</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.FetalDeathPluralityEditFlag">
+            <summary>Multiple birth set order edit flag</summary>
+            <value>the multiple birth set order edit flag</value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; route = new Dictionary&lt;string, string&gt;();</para>
+            <para>route.Add("code", "queriedCorrect");</para>
+            <para>route.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");</para>
+            <para>route.Add("display", "Queried, and Correct");</para>
+            <para>ExampleFetalDeathRecord.FetalDeathPluralityEditFlag = route;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Multiple birth set order edit flag: {ExampleFetalDeathRecord.FetalDeathPluralityEditFlag}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.FetalDeathPluralityEditFlagHelper">
+            <summary>Multiple birth set order edit flag helper</summary>
+            <value>the multiple birth set order edit flag</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.FetalDeathPluralityEditFlagHelper = "queriedCorrect";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Multiple birth set order edit flag: {ExampleFetalDeathRecord.FetalDeathPluralityEditFlagHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.FetalDeathPlurality">
+            <summary>Multiple birth plurality</summary>
+            <value>Where a patient is a part of a multiple birth, this is the total number of births that occurred in this pregnancy.</value>
+            <example>
+            <para>ExampleFetalDeathRecord.FetalDeathPlurality = null; // single birth</para>
+            <para>ExampleFetalDeathRecord.FetalDeathPlurality = -1; // unknown number of births birth</para>
+            <para>ExampleFetalDeathRecord.FetalDeathPlurality = 2; // two births for this pregnancy</para>
             </example>
         </member>
         <member name="T:BFDR.IJEBirth">
@@ -3133,25 +3257,30 @@
             <para>Console.WriteLine($"Child Date of Birth: {ExampleBirthRecord.DateOfBirth}");</para>
             </example>
         </member>
-        <member name="P:BFDR.NatalityRecord.BirthSex">
-            <summary>Child's BirthSex at Birth.</summary>
-            <value>The child's BirthSex at time of birth</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.BirthSex = "female;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Sex at Time of Birth: {ExampleBirthRecord.BirthSex}");</para>
-            </example>
+        <member name="M:BFDR.NatalityRecord.GetBirthSex">
+            <summary>
+             Getter method for child or decedent fetus birth/delivery sex.
+            </summary>
+            <returns>BirthSex codeable concept as dictionary</returns>
         </member>
-        <member name="P:BFDR.NatalityRecord.BirthSexHelper">
-            <summary>Child's Sex at Birth Helper.</summary>
-            <value>The child's sex at time of birth</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.BirthSexHelper = "female;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Sex at Time of Birth: {ExampleBirthRecord.BirthSexHelper}");</para>
-            </example>
+        <member name="M:BFDR.NatalityRecord.SetBirthSex(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+             Setter method for child or decedent fetus birth/delivery sex.
+            </summary>
+            <param name="value">The birth/delivery sex.</param>
+        </member>
+        <member name="M:BFDR.NatalityRecord.GetBirthSexHelper">
+            <summary>
+             Helper method for getting child or decedent fetus birth/delivery sex.
+            </summary>      
+            <returns>BirthSex code as string</returns>
+        </member>
+        <member name="M:BFDR.NatalityRecord.SetBirthSexHelper(System.String,System.String)">
+            <summary>
+             Helper method for setting child or decedent fetus birth/delivery sex.
+            </summary>
+            <param name="field">The field name to set.</param>       
+            <param name="value">The birth/delivery sex.</param>        
         </member>
         <member name="P:BFDR.NatalityRecord.ChildGivenNames">
             <summary>Child's Legal Name - Given. Middle name should be the last entry.</summary>
@@ -3488,47 +3617,53 @@
             <para>Console.WriteLine($"Father's SocialSecurityNumber: {ExampleBirthRecord.FatherSocialSecurityNumber}");</para>
             </example>
         </member>
-        <member name="P:BFDR.NatalityRecord.SetOrder">
-            <summary>Multiple birth set order</summary>
-            <value>The order that the child was born if a multiple birth or null if it was a single birth</value>
-            <example>
-            <para>ExampleBirthRecord.SetOrder = null; // single birth</para>
-            <para>ExampleBirthRecord.SetOrder = -1; // unknow whether single or multiple birth</para>
-            <para>ExampleBirthRecord.SetOrder = 1; // multiple birth, born first</para>
-            </example>
+        <member name="M:BFDR.NatalityRecord.GetSetOrder">
+            <summary>
+             Getter method for child or decedent fetus set order.
+            </summary>
+            <returns>Integer representing set order or -1 if dataAbsent</returns>
         </member>
-        <member name="P:BFDR.NatalityRecord.PluralityEditFlag">
-            <summary>Multiple birth set order edit flag</summary>
-            <value>the multiple birth set order edit flag</value>
-            <example>
-            <para>// Setter:</para>
-            <para>Dictionary&lt;string, string&gt; route = new Dictionary&lt;string, string&gt;();</para>
-            <para>route.Add("code", "queriedCorrect");</para>
-            <para>route.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");</para>
-            <para>route.Add("display", "Queried, and Correct");</para>
-            <para>ExampleBirthRecord.PluralityEditFlag = route;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Multiple birth set order edit flag: {ExampleBirthRecord.PluralityEditFlag}");</para>
-            </example>
+        <member name="M:BFDR.NatalityRecord.SetSetOrder(System.Nullable{System.Int32})">
+            <summary>
+             Setter method for child or decedent fetus set order.
+            </summary>
+            <param name="value">The birth year.</param>        
         </member>
-        <member name="P:BFDR.NatalityRecord.PluralityEditFlagHelper">
-            <summary>Multiple birth set order edit flag helper</summary>
-            <value>the multiple birth set order edit flag</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.PluralityEditFlagHelper = "queriedCorrect";</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Multiple birth set order edit flag: {ExampleBirthRecord.PluralityEditFlagHelper}");</para>
-            </example>
+        <member name="M:BFDR.NatalityRecord.GetPluralityEditFlag">
+            <summary>
+             Getter method for child or decedent fetus plurality edit flag.
+            </summary>   
+            <returns>Plurality edit flag codeable concept as Dictionary</returns>
         </member>
-        <member name="P:BFDR.NatalityRecord.Plurality">
-            <summary>Multiple birth plurality</summary>
-            <value>Where a patient is a part of a multiple birth, this is the total number of births that occurred in this pregnancy.</value>
-            <example>
-            <para>ExampleBirthRecord.Plurality = null; // single birth</para>
-            <para>ExampleBirthRecord.Plurality = -1; // unknown number of births birth</para>
-            <para>ExampleBirthRecord.Plurality = 2; // two births for this pregnancy</para>
-            </example>
+        <member name="M:BFDR.NatalityRecord.SetPluralityEditFlag(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+             Setter method for child or decedent fetus plurality edit flag.
+            </summary>
+            <param name="value">The birth year.</param> 
+        </member>
+        <member name="M:BFDR.NatalityRecord.GetPluralityEditFlagHelper">
+            <summary>
+             Helper method for getting child or decedent fetus plurality edit flag.
+            </summary>    
+            <returns>Plurality edit flag code as string</returns>
+        </member>
+        <member name="M:BFDR.NatalityRecord.SetPluralityEditFlagHelper(System.String)">
+            <summary>
+             Helper method for setting child or decedent fetus plurality edit flag.
+            </summary>
+            <param name="value">The birth year.</param>         
+        </member>
+        <member name="M:BFDR.NatalityRecord.GetPlurality">
+            <summary>
+             Gettter method for child or decedent fetus plurality.
+            </summary>     
+            <returns>Integer representing Plurality or -1 if dataAbsent</returns>
+        </member>
+        <member name="M:BFDR.NatalityRecord.SetPlurality(System.Nullable{System.Int32})">
+            <summary>
+             Setter method for child or decedent fetus plurality.
+            </summary>
+            <param name="value">The birth year.</param>   
         </member>
         <member name="P:BFDR.NatalityRecord.NoCongenitalAnomaliesOfTheNewborn">
             <summary>No Congenital Anomalies of the Newborn.</summary>
