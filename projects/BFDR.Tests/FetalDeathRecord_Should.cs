@@ -1381,16 +1381,16 @@ namespace BFDR.Tests
       // Time of Delivery
       Assert.Equal("18:23:00", firstRecord.DeliveryTime);
       Assert.Equal(firstRecord.DeliveryTime, secondRecord.DeliveryTime);
-      // // Sex
-      // Assert.Equal("F", firstRecord.BirthSex["code"]);
-      // Assert.Equal(firstRecord.BirthSex, secondRecord.BirthSex);
-      // Assert.Equal("F", firstRecord.BirthSexHelper);
-      // Assert.Equal(firstRecord.BirthSex["code"], secondRecord.BirthSexHelper);
-      // // Plurality
-      // Assert.Equal(1, firstRecord.Plurality); //TODO: check IG examples are correct
-      // // Set Order
-      // Assert.Equal(1, firstRecord.SetOrder);
-      // Assert.Equal(firstRecord.SetOrder, secondRecord.SetOrder);
+      // Sex
+      Assert.Equal("F", firstRecord.FetalDeathSex["code"]);
+      Assert.Equal(firstRecord.FetalDeathSex, secondRecord.FetalDeathSex);
+      Assert.Equal("F", firstRecord.FetalDeathSexHelper);
+      Assert.Equal(firstRecord.FetalDeathSex["code"], secondRecord.FetalDeathSexHelper);
+      // Plurality
+      Assert.Equal(4, firstRecord.FetalDeathPlurality); 
+      // Set Order
+      Assert.Equal(3, firstRecord.FetalDeathSetOrder);
+      Assert.Equal(firstRecord.FetalDeathSetOrder, secondRecord.FetalDeathSetOrder);
       // // Mother's Age
       //  Assert.Equal(34, firstRecord.MotherReportedAgeAtDelivery); 
       // // Father's Age
@@ -1812,6 +1812,44 @@ namespace BFDR.Tests
       Assert.Equal("Main", ije.STNAME.Trim());
       Assert.Equal("St", ije.STDESIG.Trim());
       Assert.Equal("5 E Main St Berlin, NH", ije.ADDRESS.Trim());
+    }
+
+    [Fact]
+    public void Set_Plurality()
+    {
+      Assert.Null(SetterFetalDeathRecord.FetalDeathSetOrder);
+      Assert.Null(SetterFetalDeathRecord.FetalDeathPlurality);
+      Assert.Equal("", SetterFetalDeathRecord.FetalDeathPluralityEditFlag["code"]);
+      SetterFetalDeathRecord.FetalDeathSetOrder = null;
+      Assert.Null(SetterFetalDeathRecord.FetalDeathSetOrder);
+      SetterFetalDeathRecord.FetalDeathSetOrder = 3;
+      Assert.Equal(3, SetterFetalDeathRecord.FetalDeathSetOrder);
+      Assert.Null(SetterFetalDeathRecord.FetalDeathPlurality);
+      Assert.Equal("", SetterFetalDeathRecord.FetalDeathPluralityEditFlag["code"]);
+      SetterFetalDeathRecord.FetalDeathPlurality = 4;
+      Assert.Equal(3, SetterFetalDeathRecord.FetalDeathSetOrder);
+      Assert.Equal(4, SetterFetalDeathRecord.FetalDeathPlurality);
+      Assert.Equal("", SetterFetalDeathRecord.FetalDeathPluralityEditFlag["code"]);
+      SetterFetalDeathRecord.FetalDeathSetOrder = -1;
+      Assert.Equal(-1, SetterFetalDeathRecord.FetalDeathSetOrder);
+      Assert.Equal(4, SetterFetalDeathRecord.FetalDeathPlurality);
+      Assert.Equal("", SetterFetalDeathRecord.FetalDeathPluralityEditFlag["code"]);
+      SetterFetalDeathRecord.FetalDeathSetOrder = null;
+      Assert.Null(SetterFetalDeathRecord.FetalDeathSetOrder);
+      Assert.Equal(4, SetterFetalDeathRecord.FetalDeathPlurality);
+      Assert.Equal("", SetterFetalDeathRecord.FetalDeathPluralityEditFlag["code"]);
+      var coding = new Dictionary<string, string>();
+      coding.Add("code", "queriedCorrect");
+      coding.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");
+      SetterFetalDeathRecord.FetalDeathPluralityEditFlag = coding;
+      Assert.Null(SetterFetalDeathRecord.FetalDeathSetOrder);
+      Assert.Equal(4, SetterFetalDeathRecord.FetalDeathPlurality);
+      Assert.Equal("queriedCorrect", SetterFetalDeathRecord.FetalDeathPluralityEditFlag["code"]);
+      SetterFetalDeathRecord.FetalDeathPlurality = 2;
+      SetterFetalDeathRecord.FetalDeathSetOrder = 1;
+      Assert.Equal(1, SetterFetalDeathRecord.FetalDeathSetOrder);
+      Assert.Equal(2, SetterFetalDeathRecord.FetalDeathPlurality);
+      Assert.Equal("queriedCorrect", SetterFetalDeathRecord.FetalDeathPluralityEditFlag["code"]);
     }
   }
 }

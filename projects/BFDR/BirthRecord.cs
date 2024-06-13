@@ -193,5 +193,108 @@ namespace BFDR
             get => GetBirthTime();
             set => SetBirthTime(value);
         }
+
+        /// <summary>Child's BirthSex at Birth.</summary>
+        /// <value>The child's BirthSex at time of birth</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.BirthSex = "female;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Sex at Time of Birth: {ExampleBirthRecord.BirthSex}");</para>
+        /// </example>
+        [Property("Sex At Birth", Property.Types.Dictionary, "Child Demographics", "Child's Sex at Birth.", true, VR.IGURL.Child, true, 12)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient).extension.where(url='" + OtherExtensionURL.BirthSex + "')", "")]
+        public Dictionary<string, string> BirthSex
+        {
+            get => GetBirthSex();
+            set => SetBirthSex(value);
+        }
+
+        /// <summary>Child's Sex at Birth Helper.</summary>
+        /// <value>The child's sex at time of birth</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.BirthSexHelper = "female;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Sex at Time of Birth: {ExampleBirthRecord.BirthSexHelper}");</para>
+        /// </example>
+        [Property("Sex At Birth Helper", Property.Types.String, "Child Demographics", "Child's Sex at Birth.", false, VR.IGURL.Child, true, 12)]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient).extension.where(url='" + OtherExtensionURL.BirthSex + "')", "")]
+        public string BirthSexHelper
+        {
+            get => GetBirthSexHelper();
+            set => SetBirthSexHelper("BirthSex", value);
+        }
+        /// <summary>Multiple birth set order</summary>
+        /// <value>The order that the child was born if a multiple birth or null if it was a single birth</value>
+        /// <example>
+        /// <para>ExampleBirthRecord.SetOrder = null; // single birth</para>
+        /// <para>ExampleBirthRecord.SetOrder = -1; // unknow whether single or multiple birth</para>
+        /// <para>ExampleBirthRecord.SetOrder = 1; // multiple birth, born first</para>
+        /// </example>
+        [Property("SetOrder", Property.Types.Int32, "Child Demographics", "Child Demographics, Set Order", true, VR.IGURL.Child, true, 208)]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient)", "multipleBirth")]
+        public int? SetOrder
+        {
+            get => GetSetOrder();
+            set => SetSetOrder(value);
+        }
+
+        /// <summary>Multiple birth set order edit flag</summary>
+        /// <value>the multiple birth set order edit flag</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; route = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>route.Add("code", "queriedCorrect");</para>
+        /// <para>route.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");</para>
+        /// <para>route.Add("display", "Queried, and Correct");</para>
+        /// <para>ExampleBirthRecord.PluralityEditFlag = route;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Multiple birth set order edit flag: {ExampleBirthRecord.PluralityEditFlag}");</para>
+        /// </example>
+        [Property("PluralityEditFlag", Property.Types.Dictionary, "Child Demographics", "Child Demographics, Plurality Edit Flag", true, VR.IGURL.Child, true, 211)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient).multipleBirth.extension.where(url = 'http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag')", "")]
+        public Dictionary<string, string> PluralityEditFlag
+        {
+            get => GetPluralityEditFlag();
+            set => SetPluralityEditFlag(value);
+        }
+
+        /// <summary>Multiple birth set order edit flag helper</summary>
+        /// <value>the multiple birth set order edit flag</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.PluralityEditFlagHelper = "queriedCorrect";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Multiple birth set order edit flag: {ExampleBirthRecord.PluralityEditFlagHelper}");</para>
+        /// </example>
+        [Property("PluralityEditFlagHelper", Property.Types.String, "Child Demographics", "Child Demographics, Plurality Edit Flag", false, VR.IGURL.Child, true, 211)]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient).multipleBirth.extension.where(url = 'http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag')", "")]
+        public string PluralityEditFlagHelper
+        {
+            get => GetPluralityEditFlagHelper();
+            set => SetPluralityEditFlagHelper(value);
+        }
+
+        /// <summary>Multiple birth plurality</summary>
+        /// <value>Where a patient is a part of a multiple birth, this is the total number of births that occurred in this pregnancy.</value>
+        /// <example>
+        /// <para>ExampleBirthRecord.Plurality = null; // single birth</para>
+        /// <para>ExampleBirthRecord.Plurality = -1; // unknown number of births birth</para>
+        /// <para>ExampleBirthRecord.Plurality = 2; // two births for this pregnancy</para>
+        /// </example>
+        [Property("Plurality", Property.Types.Int32, "Child Demographics", "Child Demographics, Plurality", true, VR.IGURL.Child, true, 207)]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient).multipleBirth.extension.where(url = 'http://hl7.org/fhir/StructureDefinition/patient-multipleBirthTotal')", "")]
+        public int? Plurality
+        {
+            get => GetPlurality();
+            set => SetPlurality(value);
+        }
     }
 }
