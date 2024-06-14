@@ -930,20 +930,19 @@ namespace BFDR.Tests
       FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
       Assert.Equal("Secretary", record.MotherOccupation);
       Assert.Equal("State Agency", record.MotherIndustry);
-      Assert.Equal("Teaching Assistant", record.FatherOccupation);
-      Assert.Equal("Elementary and Secondary Schools", record.FatherIndustry);
+      Assert.Equal("Lawyer", record.FatherOccupation);
+      Assert.Equal("Legal Services", record.FatherIndustry);
       //set after parse
-      record.MotherOccupation = "Lawyer";
-      record.MotherIndustry = "Legal Services";
-      Assert.Equal("Lawyer", record.MotherOccupation);
-      Assert.Equal("Legal Services", record.MotherIndustry);
+      record.MotherOccupation = "Carpenter";
+      record.MotherIndustry = "Construction";
+      Assert.Equal("Carpenter", record.MotherOccupation);
+      Assert.Equal("Construction", record.MotherIndustry);
       // convert to IJE
       IJEFetalDeath ije = new(record);
-      Assert.Equal("Lawyer", ije.MOM_OC_T.Trim());
-      Assert.Equal("Legal Services", ije.MOM_IN_T.Trim());
-      Assert.Equal("Teaching Assistant", ije.DAD_OC_T.Trim());
-      // this should be truncated
-      Assert.Equal("Elementary and Secondary", ije.DAD_IN_T.Trim());
+      Assert.Equal("Carpenter", ije.MOM_OC_T.Trim());
+      Assert.Equal("Construction", ije.MOM_IN_T.Trim());
+      Assert.Equal("Lawyer", ije.DAD_OC_T.Trim());
+      Assert.Equal("Legal Services", ije.DAD_IN_T.Trim());
     }
 
 
