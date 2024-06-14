@@ -27,6 +27,152 @@
         <member name="M:BFDR.BirthRecord.GetYear">
             <summary>Return the birth year for this record to be used in the identifier</summary>
         </member>
+        <member name="M:BFDR.BirthRecord.RestoreReferences">
+            <inheritdoc/>
+        </member>
+        <member name="M:BFDR.BirthRecord.InitializeCompositionAndSubject">
+            <inheritdoc/>
+        </member>
+        <member name="P:BFDR.BirthRecord.BirthPhysicalLocation">
+            <summary>Child's Place Of Birth Type.</summary>
+            <value>Place Where Birth Occurred, type of place or institution. A Dictionary representing a codeable concept of the physical location type:
+            <para>"code" - The code used to describe this concept.</para>
+            <para>"system" - The relevant code system.</para>
+            <para>"display" - The human readable version of this code.</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; locationType = new Dictionary&lt;string, string&gt;();</para>
+            <para>locationType.Add("code", "22232009");</para>
+            <para>locationType.Add("system", "http://snomed.info/sct");</para>
+            <para>locationType.Add("display", "Hospital");</para>
+            <para>ExampleBirthRecord.BirthPhysicalLocation = locationType;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"The place type the child was born: {ExampleBirthRecord.BirthPhysicalLocation["code"]}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.BirthPhysicalLocationHelper">
+            <summary>Child's Place Of Birth Type Helper</summary>
+            <value>Child's Place Of Birth Type Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.BirthPhysicalLocationHelper = "Hospital";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Child's Place Of Birth Type: {ExampleBirthRecord.BirthPhysicalLocationHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.MotherWeightAtDelivery">
+            <summary>Mother's Weight at Delivery.</summary>
+            <value>the mother's weight at delivery in whole pounds, or -1 if explicitly unknown, or null if never specified</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherWeightAtDelivery = 120;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's Weight at Delivery: {ExampleBirthRecord.MotherWeightAtDelivery}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.BirthYear">
+            <summary>Child's Year of Birth.</summary>
+            <value>the child's year of birth, or -1 if explicitly unknown, or null if never specified</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.BirthYear = 1928;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Child Year of Birth: {ExampleBirthRecord.BirthYear}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.BirthMonth">
+            <summary>Child's Month of Birth.</summary>
+            <value>the child's month of birth, or -1 if explicitly unknown, or null if never specified</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.BirthMonth = 11;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Child Month of Birth: {ExampleBirthRecord.BirthMonth}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.BirthDay">
+            <summary>Child's Day of Birth.</summary>
+            <value>the child's day of birth, or -1 if explicitly unknown, or null if never specified</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.BirthDay = 11;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Child Day of Birth: {ExampleBirthRecord.BirthDay}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.BirthTime">
+            <summary>Child's Time of Birth.</summary>
+            <value>the child's time of birth.</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.BirthTime = 11;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Child Time of Birth: {ExampleBirthRecord.BirthTime}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.BirthSex">
+            <summary>Child's BirthSex at Birth.</summary>
+            <value>The child's BirthSex at time of birth</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.BirthSex = "female;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Sex at Time of Birth: {ExampleBirthRecord.BirthSex}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.BirthSexHelper">
+            <summary>Child's Sex at Birth Helper.</summary>
+            <value>The child's sex at time of birth</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.BirthSexHelper = "female;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Sex at Time of Birth: {ExampleBirthRecord.BirthSexHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.SetOrder">
+            <summary>Multiple birth set order</summary>
+            <value>The order that the child was born if a multiple birth or null if it was a single birth</value>
+            <example>
+            <para>ExampleBirthRecord.SetOrder = null; // single birth</para>
+            <para>ExampleBirthRecord.SetOrder = -1; // unknow whether single or multiple birth</para>
+            <para>ExampleBirthRecord.SetOrder = 1; // multiple birth, born first</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.PluralityEditFlag">
+            <summary>Multiple birth set order edit flag</summary>
+            <value>the multiple birth set order edit flag</value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; route = new Dictionary&lt;string, string&gt;();</para>
+            <para>route.Add("code", "queriedCorrect");</para>
+            <para>route.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");</para>
+            <para>route.Add("display", "Queried, and Correct");</para>
+            <para>ExampleBirthRecord.PluralityEditFlag = route;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Multiple birth set order edit flag: {ExampleBirthRecord.PluralityEditFlag}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.PluralityEditFlagHelper">
+            <summary>Multiple birth set order edit flag helper</summary>
+            <value>the multiple birth set order edit flag</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.PluralityEditFlagHelper = "queriedCorrect";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Multiple birth set order edit flag: {ExampleBirthRecord.PluralityEditFlagHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.Plurality">
+            <summary>Multiple birth plurality</summary>
+            <value>Where a patient is a part of a multiple birth, this is the total number of births that occurred in this pregnancy.</value>
+            <example>
+            <para>ExampleBirthRecord.Plurality = null; // single birth</para>
+            <para>ExampleBirthRecord.Plurality = -1; // unknown number of births birth</para>
+            <para>ExampleBirthRecord.Plurality = 2; // two births for this pregnancy</para>
+            </example>
+        </member>
         <member name="T:BFDR.Connectathon">
             <summary>Class <c>Connectathon</c> provides static methods for generating records used in Connectathon testing, used in Canary and in the CLI tool</summary>
         </member>
@@ -47,6 +193,29 @@
         </member>
         <member name="M:BFDR.Connectathon.WriteRecordAsXml(BFDR.BirthRecord,System.String)">
             <summary>Of historical interest for writing a record to a file</summary>
+        </member>
+        <member name="T:BFDR.FetalDeathRecord">
+            <summary>Class <c>FetalDeathRecord</c> is a class designed to help consume and produce fetal death
+            records that follow the HL7 FHIR Vital Records FetalDeath Reporting Implementation Guide, as described
+            at: http://hl7.org/fhir/us/bfdr and https://github.com/hl7/bfdr.
+            </summary>
+        </member>
+        <member name="M:BFDR.FetalDeathRecord.#ctor">
+            <summary>Default constructor that creates a new, empty FetalDeathRecord.</summary>
+        </member>
+        <member name="M:BFDR.FetalDeathRecord.#ctor(System.String,System.Boolean)">
+            <summary>Constructor that takes a string that represents a FHIR FetalDeath Record in either XML or JSON format.</summary>
+            <param name="record">represents a FHIR FetalDeath Record in either XML or JSON format.</param>
+            <param name="permissive">if the parser should be permissive when parsing the given string</param>
+            <exception cref="T:System.ArgumentException">Record is neither valid XML nor JSON.</exception>
+        </member>
+        <member name="M:BFDR.FetalDeathRecord.#ctor(Hl7.Fhir.Model.Bundle)">
+            <summary>Constructor that takes a FHIR Bundle that represents a FHIR FetalDeath Record.</summary>
+            <param name="bundle">represents a FHIR Bundle.</param>
+            <exception cref="T:System.ArgumentException">Record is invalid.</exception>
+        </member>
+        <member name="M:BFDR.FetalDeathRecord.GetYear">
+            <summary>Return the birth year for this record to be used in the identifier</summary>
         </member>
         <member name="M:BFDR.FetalDeathRecord.RestoreReferences">
             <inheritdoc/>
@@ -5665,7 +5834,8 @@
         </member>
         <member name="P:BFDR.NatalityRecord.MotherHeightEditFlag">
             <summary>Mother Height Edit Flag.</summary>
-            <value>the mother's height edit flag. A Dictionary representing a code, containing the following key/value pairs:        /// <para>"code" - the code</para>
+            <value>the mother's height edit flag. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
             <para>"system" - the code system this code belongs to</para>
             <para>"display" - a human readable meaning of the code</para>
             </value>
