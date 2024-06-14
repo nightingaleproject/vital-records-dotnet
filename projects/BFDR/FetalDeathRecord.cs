@@ -417,7 +417,7 @@ namespace BFDR
                 {
                     return;
                 }
-                Observation obs = GetOrCreateObservation("73772-6", CodeSystems.LOINC, BFDR.ProfileURL.ObservationNumberFetalDeathsThisDelivery, FETUS_SECTION, Mother.Id);
+                Observation obs = GetOrCreateObservation("73772-6", CodeSystems.LOINC, "Number Of Fetal Deaths This Delivery", BFDR.ProfileURL.ObservationNumberFetalDeathsThisDelivery, FETUS_SECTION, Mother.Id);
                 obs.Value = new Hl7.Fhir.Model.Integer(value);
             }
         }
