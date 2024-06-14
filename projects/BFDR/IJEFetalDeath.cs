@@ -3527,13 +3527,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                string[] names = record.MotherGivenNames;
+                if (names.Length > 0)
+                {
+                    return Truncate(names[0], 50).PadRight(50, ' ');
+                }
+                return new string(' ', 50);
             }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            set => record.MotherGivenNames = Update_FirstName(value, record.MotherGivenNames);
         }
 
         /// <summary>Mother's Legal Middle Name</summary>
@@ -3542,13 +3543,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                string[] names = record.MotherGivenNames;
+                if (names.Length > 1)
+                {
+                    return Truncate(names[1], 50).PadRight(50, ' ');
+                }
+                return " ";
             }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            set => record.MotherGivenNames = Update_MiddleName(value, record.MotherGivenNames, MOMFNAME);
         }
 
         /// <summary>Mother's Legal Last Name</summary>
@@ -3557,12 +3559,10 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
+                return LeftJustified_Get("MOMLNAME", "MotherFamilyName");            }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                LeftJustified_Set("MOMLNAME", "MotherFamilyName", value);
             }
         }
 
@@ -3572,12 +3572,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return LeftJustified_Get("MOMSUFFIX", "MotherSuffix");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                LeftJustified_Set("MOMSUFFIX", "MotherSuffix", value);
             }
         }
 
@@ -3587,12 +3586,19 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                string[] names = record.MotherMaidenGivenNames;
+                if (names.Length > 0)
+                {
+                    return Truncate(names[0], 50).PadRight(50, ' ');
+                }
+                return new string(' ', 50);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    record.MotherMaidenGivenNames = new string[] { value.Trim() };
+                }
             }
         }
 
@@ -3602,12 +3608,28 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                string[] names = record.MotherMaidenGivenNames;
+                if (names.Length > 1)
+                {
+                    return Truncate(names[1], 50).PadRight(50, ' ');
+                }
+                return " ";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    if (String.IsNullOrWhiteSpace(MOMFMNME)) throw new ArgumentException("Middle name cannot be set before first name");
+                    if (!String.IsNullOrWhiteSpace(value))
+                    {
+                        if (record.MotherMaidenGivenNames != null)
+                        {
+                            List<string> names = record.MotherMaidenGivenNames.ToList();
+                            if (names.Count() > 1) names[1] = value.Trim(); else names.Add(value.Trim());
+                            record.MotherMaidenGivenNames = names.ToArray();
+                        }
+                    }
+                }
             }
         }
 
@@ -3617,12 +3639,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return LeftJustified_Get("MOMMAIDN", "MotherMaidenFamilyName");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                LeftJustified_Set("MOMMAIDN", "MotherMaidenFamilyName", value);
             }
         }
 
@@ -3632,12 +3653,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return LeftJustified_Get("MOMMSUFFIX", "MotherMaidenSuffix");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                LeftJustified_Set("MOMMSUFFIX", "MotherMaidenSuffix", value);
             }
         }
 
@@ -3875,13 +3895,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                string[] names = record.FatherGivenNames;
+                if (names.Length > 0)
+                {
+                    return Truncate(names[0], 50).PadRight(50, ' ');
+                }
+                return new string(' ', 50);
             }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            set => record.FatherGivenNames = Update_FirstName(value, record.FatherGivenNames);
         }
 
         /// <summary>Father's Legal Middle Name</summary>
@@ -3890,13 +3911,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                string[] names = record.FatherGivenNames;
+                if (names.Length > 1)
+                {
+                    return Truncate(names[1], 50).PadRight(50, ' ');
+                }
+                return " ";
             }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            set => record.FatherGivenNames = Update_MiddleName(value, record.FatherGivenNames, DADFNAME);
         }
 
         /// <summary>Father's Legal Last Name</summary>
@@ -3905,12 +3927,10 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
+                return LeftJustified_Get("DADLNAME", "FatherFamilyName");            }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                LeftJustified_Set("DADLNAME", "FatherFamilyName", value);
             }
         }
 
@@ -3920,12 +3940,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return LeftJustified_Get("DADSUFFIX", "FatherSuffix");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                LeftJustified_Set("DADSUFFIX", "FatherSuffix", value);
             }
         }
 
@@ -3935,12 +3954,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return record.MotherSocialSecurityNumber;
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                record.MotherSocialSecurityNumber = value;
             }
         }
 
@@ -3950,12 +3968,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return record.FatherSocialSecurityNumber;
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                record.FatherSocialSecurityNumber = value;
             }
         }
 

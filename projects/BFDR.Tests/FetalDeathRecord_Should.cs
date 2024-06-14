@@ -1416,18 +1416,12 @@ namespace BFDR.Tests
       // City/town/place of Delivery (Literal)
       Assert.Equal("Salt Lake City", firstRecord.PlaceOfDelivery["addressCity"]);
       Assert.Equal(firstRecord.PlaceOfDelivery["addressCity"], secondRecord.PlaceOfDelivery["addressCity"]);
-      // // Infant Medical Record Number
-      // Assert.Equal("9932702", firstRecord.InfantMedicalRecordNumber);
-      // Assert.Equal(firstRecord.InfantMedicalRecordNumber, secondRecord.InfantMedicalRecordNumber);
-      // // Mother Medical Record Number
-      // Assert.Equal("1032702", firstRecord.MotherMedicalRecordNumber);
-      // Assert.Equal(firstRecord.MotherMedicalRecordNumber, secondRecord.MotherMedicalRecordNumber);
-      // // Mother Social Security Number
-      // Assert.Equal("132225986", firstRecord.MotherSocialSecurityNumber);
-      // Assert.Equal(firstRecord.MotherSocialSecurityNumber, secondRecord.MotherSocialSecurityNumber);
-      // // Father Social Security Number
-      // Assert.Equal("132225987", firstRecord.FatherSocialSecurityNumber);
-      // Assert.Equal(firstRecord.FatherSocialSecurityNumber, secondRecord.FatherSocialSecurityNumber);
+      // Mother Social Security Number
+      Assert.Equal("132224986", firstRecord.MotherSocialSecurityNumber);
+      Assert.Equal(firstRecord.MotherSocialSecurityNumber, secondRecord.MotherSocialSecurityNumber);
+      // Father Social Security Number
+      Assert.Null(firstRecord.FatherSocialSecurityNumber);
+      Assert.Equal(firstRecord.FatherSocialSecurityNumber, secondRecord.FatherSocialSecurityNumber);
     }
 
     [Fact]
@@ -1850,6 +1844,140 @@ namespace BFDR.Tests
       Assert.Equal(1, SetterFetalDeathRecord.FetalDeathSetOrder);
       Assert.Equal(2, SetterFetalDeathRecord.FetalDeathPlurality);
       Assert.Equal("queriedCorrect", SetterFetalDeathRecord.FetalDeathPluralityEditFlag["code"]);
+    }
+
+    [Fact]
+    public void TestMotherFatherSSN()
+    {
+      //parse
+      FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
+      Assert.Equal("132224986", record.MotherSocialSecurityNumber); 
+      Assert.Null(record.FatherSocialSecurityNumber); 
+
+      //set after parse
+      record.MotherSocialSecurityNumber = "123456789";
+      Assert.Equal("123456789", record.MotherSocialSecurityNumber);
+      record.FatherSocialSecurityNumber = "123123123";
+      Assert.Equal("123123123", record.FatherSocialSecurityNumber);
+      
+      IJEFetalDeath ije = new(record);
+      Assert.Equal("123456789", ije.MOM_SSN);
+      Assert.Equal("123123123", ije.DAD_SSN);
+    }
+
+    [Fact]
+    public void MotherNamesPresent()
+    {
+      FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
+      Assert.Equal("Carmen", record.MotherGivenNames[0]);
+      Assert.Equal("Teresa", record.MotherGivenNames[1]);
+      Assert.Equal("Lee", record.MotherFamilyName);
+      Assert.Null(record.MotherSuffix);
+      //set after parse
+      string[] names = {"Mommy", "D"};
+      record.MotherGivenNames = names;
+      Assert.Equal("Mommy", record.MotherGivenNames[0]);
+      // Mother's Middle Name
+      Assert.Equal("D", record.MotherGivenNames[1]);
+      // Mother's Last Name
+      record.MotherFamilyName = "Le";
+      Assert.Equal("Le", record.MotherFamilyName);
+
+      IJEFetalDeath ije = new(record);
+      Assert.Equal("Mommy", ije.MOMFNAME.Trim());
+      Assert.Equal("D", ije.MOMMNAME.Trim());
+      Assert.Equal("Le", ije.MOMLNAME.Trim());
+    }
+
+    [Fact]
+    public void FatherNamesPresent()
+    {
+      FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
+      Assert.Equal("Tom", record.FatherGivenNames[0]);
+      Assert.Equal("Yan", record.FatherGivenNames[1]);
+      Assert.Equal("Lee", record.FatherFamilyName);
+      Assert.Null(record.FatherSuffix);
+      //set after parse
+      string[] names = {"Daddy", "D"};
+      record.FatherGivenNames = names;
+      Assert.Equal("Daddy", record.FatherGivenNames[0]);
+      // Father's Middle Name
+      Assert.Equal("D", record.FatherGivenNames[1]);
+      // Father's Last Name
+      record.FatherFamilyName = "Le";
+      Assert.Equal("Le", record.FatherFamilyName);
+      // Father's suffix
+      record.FatherSuffix = "Jr";
+      Assert.Equal("Jr", record.FatherSuffix);
+
+      IJEFetalDeath ije = new(record);
+      Assert.Equal("Daddy", ije.DADFNAME.Trim());
+      Assert.Equal("D", ije.DADMNAME.Trim());
+      Assert.Equal("Le", ije.DADLNAME.Trim());
+      Assert.Equal("Jr", ije.DADSUFFIX.Trim());
+    }
+
+    [Fact]
+    public void TestMotherNameSetters()
+    {
+      FetalDeathRecord record = new FetalDeathRecord();
+      Assert.Empty(record.MotherGivenNames);
+      Assert.Null(record.MotherFamilyName);
+      Assert.Null(record.MotherSuffix);
+      // Mother's First Name
+      string[] names = {"Mommy", "D"};
+      record.MotherGivenNames = names;
+      Assert.Equal("Mommy", record.MotherGivenNames[0]);
+      // Mother's Middle Name
+      Assert.Equal("D", record.MotherGivenNames[1]);
+      // Mother's Last Name
+      record.MotherFamilyName = "Quin";
+      Assert.Equal("Quin", record.MotherFamilyName);
+      // Mother's Surname Suffix
+      record.MotherSuffix = "II";
+      Assert.Equal("II", record.MotherSuffix);
+    }
+
+    [Fact]
+    public void TestFatherNameSetters()
+    {
+      FetalDeathRecord record = new FetalDeathRecord();
+      Assert.Empty(record.FatherGivenNames);
+      Assert.Null(record.FatherFamilyName);
+      Assert.Null(record.FatherSuffix);
+      // Father's First Name
+      string[] names = {"Pappy", "C"};
+      record.FatherGivenNames = names;
+      Assert.Equal("Pappy", record.FatherGivenNames[0]);
+      // Father's Middle Name
+      Assert.Equal("C", record.FatherGivenNames[1]);
+      // Father's Last Name
+      record.FatherFamilyName = "Pipp";
+      Assert.Equal("Pipp", record.FatherFamilyName);
+      // Father's Surname Suffix
+      record.FatherSuffix = "III";
+      Assert.Equal("III", record.FatherSuffix);
+    }
+
+    [Fact]
+    public void TestMotherMaidenNameSetters()
+    {
+      FetalDeathRecord record = new FetalDeathRecord();
+      Assert.Empty(record.MotherMaidenGivenNames);
+      Assert.Null(record.MotherMaidenFamilyName);
+      Assert.Null(record.MotherMaidenSuffix);
+      // Mother's Maiden First Name
+      string[] names = {"Maiden", "A"};
+      record.MotherMaidenGivenNames = names;
+      Assert.Equal("Maiden", record.MotherMaidenGivenNames[0]);
+      // Mother's Maiden Middle Name
+      Assert.Equal("A", record.MotherMaidenGivenNames[1]);
+      // Mother's Maiden Last Name
+      record.MotherMaidenFamilyName = "Quince";
+      Assert.Equal("Quince", record.MotherMaidenFamilyName);
+      // Mother's Surname Suffix
+      record.MotherMaidenSuffix = "IV";
+      Assert.Equal("IV", record.MotherMaidenSuffix);
     }
   }
 }
