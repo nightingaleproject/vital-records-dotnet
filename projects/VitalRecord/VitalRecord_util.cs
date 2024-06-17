@@ -1164,6 +1164,7 @@ namespace VR
                     return true;
                 }
             }
+            Console.WriteLine("The given code " + code + " does not exist in the valuset " + options + ". Skipping setting this value.");
             return false;
         }
 
