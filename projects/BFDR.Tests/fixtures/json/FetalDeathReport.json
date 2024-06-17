@@ -1924,7 +1924,7 @@
           }
         ],
         "valueCodeableConcept": {
-          "text": "Teaching Assistant"
+          "text": "Lawyer"
         },
         "component": [
           {
@@ -1937,7 +1937,7 @@
               ]
             },
             "valueCodeableConcept": {
-              "text": "Elementary and Secondary Schools"
+              "text": "Legal Services"
             }
           }
         ]

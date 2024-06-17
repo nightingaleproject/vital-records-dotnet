@@ -4012,12 +4012,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return LeftJustified_Get("MOM_OC_T", "MotherOccupation");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                LeftJustified_Set("MOM_OC_T", "MotherOccupation", value);
             }
         }
 
@@ -4042,12 +4041,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return LeftJustified_Get("DAD_OC_T", "FatherOccupation");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                LeftJustified_Set("DAD_OC_T", "FatherOccupation", value);
             }
         }
 
@@ -4072,12 +4070,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return LeftJustified_Get("MOM_IN_T", "MotherIndustry");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                LeftJustified_Set("MOM_IN_T", "MotherIndustry", value);
             }
         }
 
@@ -4102,12 +4099,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return LeftJustified_Get("DAD_IN_T", "FatherIndustry");
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                LeftJustified_Set("DAD_IN_T", "FatherIndustry", value);
             }
         }
 
