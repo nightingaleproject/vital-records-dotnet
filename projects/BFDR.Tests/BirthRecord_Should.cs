@@ -2577,10 +2577,10 @@ namespace BFDR.Tests
 
       //ije translations
       IJEBirth ije = new IJEBirth(birthRecord);
-      Assert.Equal("Carpenter", ije.MOM_OC_T);
-      Assert.Equal("Construction", ije.MOM_IN_T);
-      Assert.Equal("Lawyer", ije.DAD_OC_T);
-      Assert.Equal("Legal Services", ije.DAD_IN_T);
+      Assert.Equal("Carpenter", ije.MOM_OC_T.Trim());
+      Assert.Equal("Construction", ije.MOM_IN_T.Trim());
+      Assert.Equal("Lawyer", ije.DAD_OC_T.Trim());
+      Assert.Equal("Legal Services", ije.DAD_IN_T.Trim());
       BirthRecord birthRecord2 = ije.ToBirthRecord();
       Assert.Equal("Carpenter", birthRecord2.MotherOccupation);
       Assert.Equal("Construction", birthRecord2.MotherIndustry);

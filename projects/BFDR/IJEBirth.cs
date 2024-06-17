@@ -4211,11 +4211,11 @@ namespace BFDR
         {
             get
             {
-                return record.MotherOccupation;
+                return LeftJustified_Get("MOM_OC_T", "MotherOccupation");
             }
             set
             {
-                record.MotherOccupation = value;
+                LeftJustified_Set("MOM_OC_T", "MotherOccupation", value);
             }
         }
 
@@ -4240,11 +4240,11 @@ namespace BFDR
         {
             get
             {
-                return record.FatherOccupation;
+                return LeftJustified_Get("DAD_OC_T", "FatherOccupation");
             }
             set
             {
-                record.FatherOccupation = value;
+                LeftJustified_Set("DAD_OC_T", "FatherOccupation", value);
             }
         }
 
@@ -4269,11 +4269,11 @@ namespace BFDR
         {
             get
             {
-                return record.MotherIndustry;
+                return LeftJustified_Get("MOM_IN_T", "MotherIndustry");
             }
             set
             {
-                record.MotherIndustry = value;
+                LeftJustified_Set("MOM_IN_T", "MotherIndustry", value);
             }
         }
 
@@ -4298,11 +4298,11 @@ namespace BFDR
         {
             get
             {
-                return record.FatherIndustry;
+                return LeftJustified_Get("DAD_IN_T", "FatherIndustry");
             }
             set
             {
-                record.FatherIndustry = value;
+                LeftJustified_Set("DAD_IN_T", "FatherIndustry", value);
             }
         }
 
