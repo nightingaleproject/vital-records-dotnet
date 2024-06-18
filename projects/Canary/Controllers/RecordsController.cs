@@ -7,10 +7,8 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using VRDR;
 using VR;
 using canary.Models;
-using BFDR;
 
 // TODO - Rather than using BFDR, use the phrasing "BFDR - Birth" and "BFDR - Fetal Death"
 
@@ -20,101 +18,6 @@ namespace canary.Controllers
     [ApiController]
     public class RecordsController : ControllerBase
     {
-
-        private static readonly Dictionary<string, Func<IQueryable<Record>>> dbRecords = new()
-        {
-            {"vrdr", () => {
-                    using RecordContext db = new();
-                    return db.DeathRecords;
-                }
-            },
-            {"bfdr", () => {
-                    using RecordContext db = new();
-                    return db.BirthRecords;
-                }
-            }
-        };
-
-        private static readonly Dictionary<string, Action<Record>> addDbRecord = new()
-        {
-            {"vrdr", (Record record) => {
-                    using RecordContext db = new();
-                    db.DeathRecords.Add((CanaryDeathRecord)record);
-                    db.SaveChanges();
-                }
-            },
-            {"bfdr", (Record record) => {
-                    using RecordContext db = new();
-                    db.BirthRecords.Add((CanaryBirthRecord)record);
-                    db.SaveChanges();
-                }
-            },
-        };
-
-        private static readonly Dictionary<string, Record> createEmptyCanaryRecord = new()
-        {
-            {"vrdr", new CanaryDeathRecord()},
-            {"bfdr", new CanaryBirthRecord()},
-        };
-
-        private static readonly Dictionary<string, VitalRecord> createEmptyRecord = new()
-        {
-            {"vrdr", new DeathRecord()},
-            {"bfdr", new BirthRecord()},
-        };
-
-        private static readonly Dictionary<string, PropertyInfo[]> getRecordProperties = new()
-        {
-            {"vrdr", typeof(DeathRecord).GetProperties()},
-            {"bfdr", typeof(BirthRecord).GetProperties()},
-        };
-
-        private static readonly Dictionary<string, Func<string, Record>> createRecordFromString = new()
-        {
-            {"vrdr", (string record) => new CanaryDeathRecord(record)},
-            {"bfdr", (string record) => new CanaryBirthRecord(record)},
-        };
-
-        private static readonly Dictionary<string, Func<string, Record>> createCanaryRecordFromString = new()
-        {
-
-            {"vrdr", (string input) => new CanaryDeathRecord(VitalRecord.FromDescription<DeathRecord>(input))},
-            {"bfdr", (string input) => new CanaryBirthRecord(VitalRecord.FromDescription<BirthRecord>(input))},
-        };
-
-        private static readonly Dictionary<string, Func<int, VitalRecord>> connectathonRecords = new()
-        {
-            {"vrdr", (int id) => VRDR.Connectathon.FromId(id)},
-            {"bfdr", (int id) => BFDR.Connectathon.FromId(id)}
-        };
-
-        private static readonly Dictionary<string, Func<string, (Record, List<Dictionary<string, string>>)>> createRecordFromIJE = new()
-        {
-            {"vrdr", static (string input) => {
-                    DeathRecord dr = new IJEMortality(input).ToRecord();
-                    return (new CanaryDeathRecord(dr), new List<Dictionary<string, string>> {} );
-                }
-            },
-            {"bfdr", static (string input) => {
-                    BirthRecord br = new IJEBirth(input).ToRecord();
-                    return (new CanaryBirthRecord(br), new List<Dictionary<string, string>> {} );
-                }
-            }
-        };
-
-        private static readonly Dictionary<string, Func<string, (Record, List<Dictionary<string, string>>)>> checkGetRecord = new() {
-            {"vrdr", static (string input) => {
-                    Record record = CanaryDeathRecord.CheckGet(input, false, out List<Dictionary<string, string>> issues);
-                    return (record, issues);
-                }
-            },
-            {"bfdr", static (string input) => {
-                    Record record = CanaryBirthRecord.CheckGet(input, false, out List<Dictionary<string, string>> issues);
-                    return (record, issues);
-                }
-            }
-        };
-
         /// <summary>
         /// Returns all records.
         /// GET /api/records
@@ -124,7 +27,7 @@ namespace canary.Controllers
         public Record[] VRDRIndex()
         {
             // Find the record in the database and return it
-            return dbRecords["vrdr"]().ToArray();
+            return ControllerMappers.dbRecords["vrdr"]().ToArray();
         }
 
         /// <summary>
@@ -136,7 +39,7 @@ namespace canary.Controllers
         public Record Get(string recordType, int id)
         {
             // Find the record in the database and return it
-            return dbRecords[recordType]().Where(record => record.RecordId == id).FirstOrDefault();
+            return ControllerMappers.dbRecords[recordType]().Where(record => record.RecordId == id).FirstOrDefault();
         }
 
         /// <summary>
@@ -146,7 +49,7 @@ namespace canary.Controllers
         [HttpGet("Records/{recordType:alpha}/JSON/{id:int}")]
         public string GetJSON(string recordType, int id)
         {
-            return connectathonRecords[recordType](id).ToJSON();
+            return ControllerMappers.connectathonRecords[recordType](id).ToJSON();
         }
 
         /// <summary>
@@ -156,7 +59,7 @@ namespace canary.Controllers
         [HttpGet("Records/{recordType:alpha}/XML/{id:int}")]
         public string GetXML(string recordType, int id)
         {
-            return connectathonRecords[recordType](id).ToXML();
+            return ControllerMappers.connectathonRecords[recordType](id).ToXML();
         }
 
         /// <summary>
@@ -167,7 +70,7 @@ namespace canary.Controllers
         public Record NewRecordGet(string recordType, string state, string type, string sex)
         {
             // Create new record from scratch
-            Record record = createEmptyCanaryRecord[recordType];
+            Record record = ControllerMappers.createEmptyCanaryRecord[recordType];
 
             // Populate the record with fake data
             record.Populate(state: state, sex: sex, type: type);
@@ -202,7 +105,7 @@ namespace canary.Controllers
             {
                 if (input.Trim().StartsWith("<") || input.Trim().StartsWith("{")) // XML or JSON?
                 {
-                    return checkGetRecord[recordType](input);
+                    return ControllerMappers.checkGetRecord[recordType](input);
                 }
                 else
                 {
@@ -217,7 +120,7 @@ namespace canary.Controllers
                         {
                             input = input.PadRight(5000, ' ');
                         }
-                        return createRecordFromIJE[recordType](input);
+                        return ControllerMappers.createRecordFromIJE[recordType](input);
                     }
                     catch (Exception e)
                     {
@@ -248,7 +151,7 @@ namespace canary.Controllers
 
             if (!String.IsNullOrEmpty(input))
             {
-                return createCanaryRecordFromString[recordType](input);
+                return ControllerMappers.createCanaryRecordFromString[recordType](input);
             }
             return null;
         }
@@ -260,8 +163,8 @@ namespace canary.Controllers
         [HttpGet("Records/{recordType:alpha}/Description")]
         public string GetDescription(string recordType)
         {
-            VitalRecord record = createEmptyRecord[recordType];
-            PropertyInfo[] properties = getRecordProperties[recordType];
+            VitalRecord record = ControllerMappers.createEmptyRecord[recordType];
+            PropertyInfo[] properties = ControllerMappers.getRecordProperties[recordType];
 
             Dictionary<string, Dictionary<string, dynamic>> description = new Dictionary<string, Dictionary<string, dynamic>>();
             foreach (PropertyInfo property in properties.OrderBy(p => p.GetCustomAttribute<Property>().Priority))
@@ -340,13 +243,13 @@ namespace canary.Controllers
         public Record Create(string recordType, string state, string type)
         {
             // Create new record from scratch
-            Record record = createEmptyCanaryRecord[recordType];
+            Record record = ControllerMappers.createEmptyCanaryRecord[recordType];
 
             // Populate the record with fake data
             record.Populate();
 
             // Save the record to the database
-            addDbRecord[recordType](record);
+            ControllerMappers.addDbRecord[recordType](record);
 
             // Return the record
             return record;

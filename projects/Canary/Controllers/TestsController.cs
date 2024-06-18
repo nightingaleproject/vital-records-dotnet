@@ -42,29 +42,13 @@ namespace canary.Controllers
         }
 
         /// <summary>
-        /// Gets a death test by id.
+        /// Gets a test by id.
         /// GET /api/tests/vrdr/1
         /// </summary>
-        [HttpGet("Tests/vrdr/{id:int}")]
-        public Test GetVRDRTest(int id)
+        [HttpGet("Tests/{recordType:string}/{id:int}")]
+        public Test GetTest(string recordType, int id)
         {
-            using (var db = new RecordContext())
-            {
-                return db.DeathTests.Where(t => t.TestId == id).FirstOrDefault();
-            }
-        }
-
-        /// <summary>
-        /// Gets a birth test by id.
-        /// GET /api/tests/bfdr/1
-        /// </summary>
-        [HttpGet("Tests/bfdr/{id:int}")]
-        public Test GetBFDRTest(int id)
-        {
-            using (var db = new RecordContext())
-            {
-                return db.BirthTests.Where(t => t.TestId == id).FirstOrDefault();
-            }
+            return ControllerMappers.dbTests[recordType]().Where(t => t.TestId == id).FirstOrDefault();
         }
 
         /// <summary>
