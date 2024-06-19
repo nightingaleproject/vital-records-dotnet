@@ -8,11 +8,21 @@ import * as NavigationOptions from './NavigationOptions';
 export function Navigation(props) {
 
   const recordTypeDropDowns = (recordType) => {
-    const shouldDisplayRecordDropdowns = recordType === 'vrdr' || recordType === 'bfdr'
+    const shouldDisplayRecordDropdowns = recordType === 'vrdr' || recordType === 'bfdr-birth' || recordType === 'bfdr-fetaldeath'
+    let recordTypeStr = recordType;
+    if (recordType.toLowerCase() === ('vrdr')) {
+      recordTypeStr = "VRDR"
+    }
+    if (recordType.toLowerCase() === ('bfdr-birth')) {
+      recordTypeStr = "BFDR Birth"
+    }
+    if (recordType.toLowerCase() === ('bfdr-fetaldeath')) {
+      recordTypeStr = "BFDR Fetal Death"
+    }
     if (shouldDisplayRecordDropdowns) {
       return (
         <Menu.Menu position="right">
-          <Menu.Item name={`${recordType.toUpperCase()} Dashboard`} as={Link} to={`/${recordType}`} icon="dashboard" />
+          <Menu.Item name={`${recordTypeStr} Dashboard`} as={Link} to={`/${recordType}`} icon="dashboard" />
           <Dropdown item text="Record Testing" direction="left">
             <Dropdown.Menu>
               {NavigationOptions.RecordTesting(recordType.toUpperCase()).map((navigationOption) => {

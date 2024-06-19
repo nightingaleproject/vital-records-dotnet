@@ -1,6 +1,12 @@
 import { faMailBulk } from '@fortawesome/free-solid-svg-icons';
 
 export function RecordTesting(recordType) {
+  if (recordType.toLowerCase() === ('bfdr-birth')) {
+    recordType = "BFDR Birth"
+  }
+  if (recordType.toLowerCase() === ('bfdr-fetaldeath')) {
+    recordType = "BFDR Fetal Death"
+  }
   return [
     {
       icon: "upload",
