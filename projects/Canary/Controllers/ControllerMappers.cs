@@ -140,10 +140,28 @@ namespace canary.Controllers
             {BFDR_BIRTH, (string record) => new CanaryBirthRecord(record)},
         };
 
-    public static readonly Dictionary<string, Func<string, Message>> creatMessageFromString = new()
+    public static readonly Dictionary<string, Func<string, Message>> createMessageFromString = new()
         {
             {VRDR, (string input) => new CanaryDeathMessage(input)},
             {BFDR_BIRTH, (string input) => new CanaryBirthMessage(input)},
+        };
+    
+    public static readonly Dictionary<string, Func<Record, string, Message>> createMessageFromType = new()
+        {
+            {VRDR, (Record record, string type) => new CanaryDeathMessage(record, type)},
+            {BFDR_BIRTH, (Record record, string type) => new CanaryBirthMessage(record, type)},
+        };
+
+    public static readonly Dictionary<string, Func<CommonMessage, Message>> createMessageFromMessage = new()
+        {
+            {VRDR, (CommonMessage message) => new CanaryDeathMessage(message)},
+            {BFDR_BIRTH, (CommonMessage message) => new CanaryBirthMessage(message)},
+        };
+
+    public static readonly Dictionary<string, Func<string, CommonMessage>> parseMessage = new()
+        {
+            {VRDR, (string input) => BaseMessage.Parse(input, false)},
+            {BFDR_BIRTH, (string input) => BirthRecordBaseMessage.Parse(input, false)},
         };
 
     public static readonly Dictionary<string, Func<string, VitalRecord>> createRecordFromDescription = new()

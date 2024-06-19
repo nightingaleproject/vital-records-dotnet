@@ -118,7 +118,7 @@ namespace canary.Controllers
             }
 
             // get the responses for the submitted message
-            Message msg = ControllerMappers.creatMessageFromString[recordType](type);
+            Message msg = ControllerMappers.createMessageFromString[recordType](type);
             Dictionary<string, Message> result = msg.GetResponsesFor(type);
             
             return result;
