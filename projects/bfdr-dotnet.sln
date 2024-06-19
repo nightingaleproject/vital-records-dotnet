@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BirthRecord.Tests", "BFDR.T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VitalRecord", "VitalRecord\VitalRecord.csproj", "{A51F0727-5994-4590-9DA4-0C4196C193F4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Canary", "Canary\Canary.csproj", "{0ED5FF58-9E96-4034-A26B-25113A56E195}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,18 @@ Global
 		{A51F0727-5994-4590-9DA4-0C4196C193F4}.Release|x64.Build.0 = Release|Any CPU
 		{A51F0727-5994-4590-9DA4-0C4196C193F4}.Release|x86.ActiveCfg = Release|Any CPU
 		{A51F0727-5994-4590-9DA4-0C4196C193F4}.Release|x86.Build.0 = Release|Any CPU
+		{0ED5FF58-9E96-4034-A26B-25113A56E195}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0ED5FF58-9E96-4034-A26B-25113A56E195}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0ED5FF58-9E96-4034-A26B-25113A56E195}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0ED5FF58-9E96-4034-A26B-25113A56E195}.Debug|x64.Build.0 = Debug|Any CPU
+		{0ED5FF58-9E96-4034-A26B-25113A56E195}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0ED5FF58-9E96-4034-A26B-25113A56E195}.Debug|x86.Build.0 = Debug|Any CPU
+		{0ED5FF58-9E96-4034-A26B-25113A56E195}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0ED5FF58-9E96-4034-A26B-25113A56E195}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0ED5FF58-9E96-4034-A26B-25113A56E195}.Release|x64.ActiveCfg = Release|Any CPU
+		{0ED5FF58-9E96-4034-A26B-25113A56E195}.Release|x64.Build.0 = Release|Any CPU
+		{0ED5FF58-9E96-4034-A26B-25113A56E195}.Release|x86.ActiveCfg = Release|Any CPU
+		{0ED5FF58-9E96-4034-A26B-25113A56E195}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -32,10 +32,10 @@ namespace canary.Controllers
 
         /// <summary>
         /// Given an id, returns the corresponding record based on the given record type.
-        /// GET /api/records/{recordType:alpha}/{id}
+        /// GET /api/records/{recordType:regex(^(vrdr|bfdr-birth|bfdr-fetaldeath)$)}/{id}
         /// </summary>
-        [HttpGet("Records/{recordType:alpha}/{id:int}")]
-        [HttpGet("Records/{recordType:alpha}/Get/{id:int}")]
+        [HttpGet("Records/{recordType:regex(^(vrdr|bfdr-birth|bfdr-fetaldeath)$)}/{id:int}")]
+        [HttpGet("Records/{recordType:regex(^(vrdr|bfdr-birth|bfdr-fetaldeath)$)}/Get/{id:int}")]
         public Record Get(string recordType, int id)
         {
             // Find the record in the database and return it
@@ -44,9 +44,9 @@ namespace canary.Controllers
 
         /// <summary>
         /// Given an id, returns the corresponding record as JSON.
-        /// GET /api/records/{recordType:alpha}/json/{id}
+        /// GET /api/records/{recordType:regex(^(vrdr|bfdr-birth|bfdr-fetaldeath)$)}/json/{id}
         /// </summary>
-        [HttpGet("Records/{recordType:alpha}/JSON/{id:int}")]
+        [HttpGet("Records/{recordType:regex(^(vrdr|bfdr-birth|bfdr-fetaldeath)$)}/JSON/{id:int}")]
         public string GetJSON(string recordType, int id)
         {
             return ControllerMappers.connectathonRecords[recordType](id).ToJSON();
@@ -54,9 +54,9 @@ namespace canary.Controllers
 
         /// <summary>
         /// Given an id, returns the corresponding record as XML.
-        /// GET /api/records/{recordType:alpha}/xml/{id}
+        /// GET /api/records/{recordType:regex(^(vrdr|bfdr-birth|bfdr-fetaldeath)$)}/xml/{id}
         /// </summary>
-        [HttpGet("Records/{recordType:alpha}/XML/{id:int}")]
+        [HttpGet("Records/{recordType:regex(^(vrdr|bfdr-birth|bfdr-fetaldeath)$)}/XML/{id:int}")]
         public string GetXML(string recordType, int id)
         {
             return ControllerMappers.connectathonRecords[recordType](id).ToXML();
@@ -64,9 +64,9 @@ namespace canary.Controllers
 
         /// <summary>
         /// Creates a new synthetic record based on the given type, and returns it. Does not save it to the database.
-        /// GET /api/records/{recordType:alpha}/New
+        /// GET /api/records/{recordType:regex(^(vrdr|bfdr-birth|bfdr-fetaldeath)$)}/New
         /// </summary>
-        [HttpGet("Records/{recordType:alpha}/New")]
+        [HttpGet("Records/{recordType:regex(^(vrdr|bfdr-birth|bfdr-fetaldeath)$)}/New")]
         public Record NewRecordGet(string recordType, string state, string type, string sex)
         {
             // Create new record from scratch
@@ -94,9 +94,9 @@ namespace canary.Controllers
 
         /// <summary>
         /// Creates a new death record using the contents provided. Returns the record and any validation issues.
-        /// POST /api/records/{recordType:alpha}/new
+        /// POST /api/records/{recordType:regex(^(vrdr|bfdr-birth|bfdr-fetaldeath)$)}/new
         /// </summary>
-        [HttpPost("Records/{recordType:alpha}/New")]
+        [HttpPost("Records/{recordType:regex(^(vrdr|bfdr-birth|bfdr-fetaldeath)$)}/New")]
         public async Task<(Record record, List<Dictionary<string, string>> issues)> NewPost(string recordType)
         {
             string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
@@ -142,9 +142,9 @@ namespace canary.Controllers
 
         /// <summary>
         /// Creates a new record using the "description" contents provided. Returns the record.
-        /// POST /api/records/{recordType:alpha}/description/new
+        /// POST /api/records/{recordType:regex(^(vrdr|bfdr-birth|bfdr-fetaldeath)$)}/description/new
         /// </summary>
-        [HttpPost("Records/{recordType:alpha}/Description/New")]
+        [HttpPost("Records/{recordType:regex(^(vrdr|bfdr-birth|bfdr-fetaldeath)$)}/Description/New")]
         public async Task<Record> NewDescriptionPost(string recordType)
         {
             string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
@@ -160,7 +160,7 @@ namespace canary.Controllers
         /// Get's the VitalRecord "Description" structure of the given record type.
         /// GET /api/records/description
         /// </summary>
-        [HttpGet("Records/{recordType:alpha}/Description")]
+        [HttpGet("Records/{recordType:regex(^(vrdr|bfdr-birth|bfdr-fetaldeath)$)}/Description")]
         public string GetDescription(string recordType)
         {
             VitalRecord record = ControllerMappers.createEmptyRecord[recordType];
@@ -237,9 +237,9 @@ namespace canary.Controllers
 
         /// <summary>
         /// Creates a new synthetic record, saves it to the database, and returns it.
-        /// GET /api/records/{recordType:alpha}/create
+        /// GET /api/records/{recordType:regex(^(vrdr|bfdr-birth|bfdr-fetaldeath)$)}/create
         /// </summary>
-        [HttpGet("Records/{recordType:alpha}/Create")]
+        [HttpGet("Records/{recordType:regex(^(vrdr|bfdr-birth|bfdr-fetaldeath)$)}/Create")]
         public Record Create(string recordType, string state, string type)
         {
             // Create new record from scratch

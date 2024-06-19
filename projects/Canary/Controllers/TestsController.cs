@@ -45,7 +45,7 @@ namespace canary.Controllers
         /// Gets a test by id.
         /// GET /api/tests/vrdr/1
         /// </summary>
-        [HttpGet("Tests/{recordType:string}/{id:int}")]
+        [HttpGet("Tests/{recordType:regex(^(vrdr|bfdr-birth|bfdr-fetaldeath)$)}/{id:int}")]
         public Test GetTest(string recordType, int id)
         {
             return ControllerMappers.dbTests[recordType]().Where(t => t.TestId == id).FirstOrDefault();
