@@ -8,7 +8,24 @@ import * as NavigationOptions from '../NavigationOptions';
 export function Dashboard(props) {
 
   const recordType = props.recordType.toUpperCase();
-  const ijeDataType = recordType === 'VRDR' ? 'Mortality' : 'Natality';
+  const ijeDataType = (() => {
+    if (recordType === 'VRDR') {
+      return 'Mortality'
+    } else if (recordType === 'BFDR-BIRTH') {
+      return 'Natality'
+    } else if (recordType === 'BFDR-FETALDEATH') {
+      return 'Fetal Death'
+    };
+  })();
+  const recordTypeStr = (() => {
+    if (recordType === 'VRDR') {
+      return 'VRDR'
+    } else if (recordType === 'BFDR-BIRTH') {
+      return 'BFDR Birth'
+    } else if (recordType === 'BFDR-FETALDEATH') {
+      return 'BFDR Fetal Death'
+    };
+  })();
 
   return (
     <React.Fragment>
@@ -36,7 +53,7 @@ export function Dashboard(props) {
               </Header>
             </Divider>
             <Item.Group className="m-h-30">
-              {NavigationOptions.RecordTesting(recordType).map((navigationOption) => {
+              {NavigationOptions.RecordTesting(recordTypeStr).map((navigationOption) => {
                 return (
                   <DashboardItem
                     key={navigationOption.title}
@@ -55,7 +72,7 @@ export function Dashboard(props) {
               </Header>
             </Divider>
             <Item.Group className="m-h-30">
-              {NavigationOptions.MessageTesting(recordType).map((navigationOption) => {
+              {NavigationOptions.MessageTesting(recordTypeStr).map((navigationOption) => {
                 return (
                   <DashboardItem
                     key={navigationOption.title}
@@ -75,7 +92,7 @@ export function Dashboard(props) {
               </Header>
             </Divider>
             <Item.Group className="m-h-30">
-              {NavigationOptions.RecordTools(recordType, ijeDataType).map((navigationOption) => {
+              {NavigationOptions.RecordTools(recordTypeStr, ijeDataType).map((navigationOption) => {
                 return (
                   <DashboardItem
                     key={navigationOption.title}
@@ -94,7 +111,7 @@ export function Dashboard(props) {
               </Header>
             </Divider>
             <Item.Group className="m-h-30">
-              {NavigationOptions.MessageTools(recordType, ijeDataType).map((navigationOption) => {
+              {NavigationOptions.MessageTools(recordTypeStr, ijeDataType).map((navigationOption) => {
                 return (
                   <DashboardItem
                     key={navigationOption.title}
