@@ -36,12 +36,12 @@ export default function App() {
     pathname
   );
   const recordType = match ? match.params.recordType : '';
-  if (recordType !== 'vrdr' && recordType !== 'bfdr' && recordType !== '') {
+  if (recordType !== 'vrdr' && recordType !== 'bfdr-birth' && recordType !== 'bfdr-fetaldeath' && recordType !== '') {
     console.error(`Invalid route '${recordType}' due to invalid record type.`)
     return (
       <div>
         <div>
-          Invalid record type '{recordType}'. Must be either 'VRDR' or 'BFDR'.
+          Invalid record type '{recordType}'. Must be either 'VRDR', 'BFDR-Birth', or 'BFDR-FetalDeath'.
         </div>
         <Button as={Link} to={"/"}>
           Return to Canary Home.
