@@ -37,7 +37,7 @@ export class MessageInspector extends Component {
                 Dashboard
               </Breadcrumb.Section>
               <Breadcrumb.Divider icon="right chevron" />
-              <Breadcrumb.Section>FHIR {this.props.recordType.toUpperCase()} Message Inspector</Breadcrumb.Section>
+              <Breadcrumb.Section>FHIR {this.props.recordTypeReadable} Message Inspector</Breadcrumb.Section>
             </Breadcrumb>
           </Grid.Row>
           <Grid.Row>

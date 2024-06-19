@@ -17,15 +17,6 @@ export function Dashboard(props) {
       return 'Fetal Death'
     };
   })();
-  const recordTypeStr = (() => {
-    if (recordType === 'VRDR') {
-      return 'VRDR'
-    } else if (recordType === 'BFDR-BIRTH') {
-      return 'BFDR Birth'
-    } else if (recordType === 'BFDR-FETALDEATH') {
-      return 'BFDR Fetal Death'
-    };
-  })();
 
   return (
     <React.Fragment>
@@ -53,7 +44,7 @@ export function Dashboard(props) {
               </Header>
             </Divider>
             <Item.Group className="m-h-30">
-              {NavigationOptions.RecordTesting(recordTypeStr).map((navigationOption) => {
+              {NavigationOptions.RecordTesting(props.recordTypeReadable).map((navigationOption) => {
                 return (
                   <DashboardItem
                     key={navigationOption.title}
@@ -72,7 +63,7 @@ export function Dashboard(props) {
               </Header>
             </Divider>
             <Item.Group className="m-h-30">
-              {NavigationOptions.MessageTesting(recordTypeStr).map((navigationOption) => {
+              {NavigationOptions.MessageTesting(props.recordTypeReadable).map((navigationOption) => {
                 return (
                   <DashboardItem
                     key={navigationOption.title}
@@ -92,7 +83,7 @@ export function Dashboard(props) {
               </Header>
             </Divider>
             <Item.Group className="m-h-30">
-              {NavigationOptions.RecordTools(recordTypeStr, ijeDataType).map((navigationOption) => {
+              {NavigationOptions.RecordTools(props.recordTypeReadable, ijeDataType).map((navigationOption) => {
                 return (
                   <DashboardItem
                     key={navigationOption.title}
@@ -111,7 +102,7 @@ export function Dashboard(props) {
               </Header>
             </Divider>
             <Item.Group className="m-h-30">
-              {NavigationOptions.MessageTools(recordTypeStr, ijeDataType).map((navigationOption) => {
+              {NavigationOptions.MessageTools(props.recordTypeReadable, ijeDataType).map((navigationOption) => {
                 return (
                   <DashboardItem
                     key={navigationOption.title}

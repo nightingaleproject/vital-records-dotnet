@@ -39,7 +39,7 @@ export class FHIRMessageSyntaxChecker extends Component {
                 Dashboard
               </Breadcrumb.Section>
               <Breadcrumb.Divider icon="right chevron" />
-              <Breadcrumb.Section>FHIR {this.props.recordType.toUpperCase()} Message Syntax Checker</Breadcrumb.Section>
+              <Breadcrumb.Section>FHIR {this.props.recordTypeReadable} Message Syntax Checker</Breadcrumb.Section>
             </Breadcrumb>
           </Grid.Row>
           <Grid.Row>

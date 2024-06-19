@@ -68,7 +68,7 @@ export class FHIRMessageCreator extends Component {
                 Dashboard
               </Breadcrumb.Section>
               <Breadcrumb.Divider icon="right chevron" />
-              <Breadcrumb.Section>Creating FHIR {this.props.recordType.toUpperCase()} Messages</Breadcrumb.Section>
+              <Breadcrumb.Section>Creating FHIR {this.props.recordTypeReadable} Messages</Breadcrumb.Section>
             </Breadcrumb>
           </Grid.Row>
           <Grid.Row>

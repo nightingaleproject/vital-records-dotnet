@@ -9,22 +9,13 @@ export function Navigation(props) {
 
   const recordTypeDropDowns = (recordType) => {
     const shouldDisplayRecordDropdowns = recordType === 'vrdr' || recordType === 'bfdr-birth' || recordType === 'bfdr-fetaldeath'
-    const recordTypeStr = (() => {
-      if (recordType.toLowerCase() === 'vrdr') {
-        return 'VRDR'
-      } else if (recordType.toLowerCase() === 'bfdr-birth') {
-        return 'BFDR Birth'
-      } else if (recordType.toLowerCase() === 'bfdr-fetaldeath') {
-        return 'BFDR Fetal Death'
-      };
-    })();
     if (shouldDisplayRecordDropdowns) {
       return (
         <Menu.Menu position="right">
-          <Menu.Item name={`${recordTypeStr} Dashboard`} as={Link} to={`/${recordType}`} icon="dashboard" />
+          <Menu.Item name={`${props.recordTypeReadable} Dashboard`} as={Link} to={`/${recordType}`} icon="dashboard" />
           <Dropdown item text="Record Testing" direction="left">
             <Dropdown.Menu>
-              {NavigationOptions.RecordTesting(recordTypeStr).map((navigationOption) => {
+              {NavigationOptions.RecordTesting(props.recordTypeReadable).map((navigationOption) => {
                 return (
                   <Dropdown.Item
                     key={navigationOption.title}
@@ -38,7 +29,7 @@ export function Navigation(props) {
           </Dropdown>
           <Dropdown item text="Message Testing" direction="left">
             <Dropdown.Menu>
-              {NavigationOptions.MessageTesting(recordTypeStr).map((navigationOption) => {
+              {NavigationOptions.MessageTesting(props.recordTypeReadable).map((navigationOption) => {
                 return (
                   <Dropdown.Item
                     key={navigationOption.title}
@@ -52,7 +43,7 @@ export function Navigation(props) {
           </Dropdown>
           <Dropdown item text="Record Tools" direction="left">
             <Dropdown.Menu>
-              {NavigationOptions.RecordTools(recordTypeStr).map((navigationOption) => {
+              {NavigationOptions.RecordTools(props.recordTypeReadable).map((navigationOption) => {
                 return (
                   <Dropdown.Item
                     key={navigationOption.title}
@@ -66,7 +57,7 @@ export function Navigation(props) {
           </Dropdown>
           <Dropdown item text="Message Tools" direction="left">
             <Dropdown.Menu>
-              {NavigationOptions.MessageTools(recordTypeStr).map((navigationOption) => {
+              {NavigationOptions.MessageTools(props.recordTypeReadable).map((navigationOption) => {
                 return (
                   <Dropdown.Item
                     key={navigationOption.title}
