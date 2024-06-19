@@ -60,6 +60,50 @@ namespace canary.Controllers
             },
         };
 
+    public static readonly Dictionary<string, Action<Test>> addDbTest = new()
+        {
+            {VRDR, (Test test) => {
+                    using RecordContext db = new();
+                    db.DeathTests.Add((DeathTest)test);
+                    db.SaveChanges();
+                }
+            },
+            {BFDR_BIRTH, (Test test) => {
+                    using RecordContext db = new();
+                    db.BirthTests.Add((BirthTest)test);
+                    db.SaveChanges();
+                }
+            },
+        };
+
+    public static readonly Dictionary<string, Action<Test>> removeDbTest = new()
+        {
+            {VRDR, (Test test) => {
+                    using RecordContext db = new();
+                    db.DeathTests.Remove((DeathTest)test);
+                    db.SaveChanges();
+                }
+            },
+            {BFDR_BIRTH, (Test test) => {
+                    using RecordContext db = new();
+                    db.BirthTests.Remove((BirthTest)test);
+                    db.SaveChanges();
+                }
+            },
+        };
+
+    public static readonly Dictionary<string, Action<Test, String>> runTest = new()
+        {
+            {VRDR, (Test test, string input) => {
+                    test.Run<DeathRecord>(input);
+                }
+            },
+            {BFDR_BIRTH, (Test test, string input) => {
+                    test.Run<BirthRecord>(input);
+                }
+            },
+        };
+
     public static readonly Dictionary<string, Record> createEmptyCanaryRecord = new()
         {
             {VRDR, new CanaryDeathRecord()},
@@ -70,6 +114,18 @@ namespace canary.Controllers
         {
             {VRDR, new DeathRecord()},
             {BFDR_BIRTH, new BirthRecord()},
+        };
+
+    public static readonly Dictionary<string, Test> createEmptyTest = new()
+        {
+            {VRDR, new DeathTest()},
+            {BFDR_BIRTH, new BirthTest()},
+        };
+
+    public static readonly Dictionary<string, Func<VitalRecord, Test>> createTestFromRecord = new()
+        {
+            {VRDR, (VitalRecord record) => new DeathTest((DeathRecord)record)},
+            {BFDR_BIRTH, (VitalRecord record) => new BirthTest((BirthRecord)record)},
         };
 
     public static readonly Dictionary<string, PropertyInfo[]> getRecordProperties = new()
@@ -84,17 +140,36 @@ namespace canary.Controllers
             {BFDR_BIRTH, (string record) => new CanaryBirthRecord(record)},
         };
 
+    public static readonly Dictionary<string, Func<string, Message>> creatMessageFromString = new()
+        {
+            {VRDR, (string input) => new CanaryDeathMessage(input)},
+            {BFDR_BIRTH, (string input) => new CanaryBirthMessage(input)},
+        };
+
+    public static readonly Dictionary<string, Func<string, VitalRecord>> createRecordFromDescription = new()
+        {
+
+            {VRDR, (string input) => VitalRecord.FromDescription<DeathRecord>(input)},
+            {BFDR_BIRTH, (string input) => VitalRecord.FromDescription<BirthRecord>(input)},
+        };
+
     public static readonly Dictionary<string, Func<string, Record>> createCanaryRecordFromString = new()
         {
 
-            {VRDR, (string input) => new CanaryDeathRecord(VitalRecord.FromDescription<DeathRecord>(input))},
-            {BFDR_BIRTH, (string input) => new CanaryBirthRecord(VitalRecord.FromDescription<BirthRecord>(input))},
+            {VRDR, (string input) => new CanaryDeathRecord(createRecordFromDescription[VRDR](input))},
+            {BFDR_BIRTH, (string input) => new CanaryBirthRecord(createRecordFromDescription[BFDR_BIRTH](input))},
         };
 
     public static readonly Dictionary<string, Func<int, VitalRecord>> connectathonRecords = new()
         {
             {VRDR, (int id) => VRDRConnectathon.FromId(id)},
             {BFDR_BIRTH, (int id) => BFDR.Connectathon.FromId(id)}
+        };
+
+    public static readonly Dictionary<string, Func<int, int, string, VitalRecord>> connectathonRecordsParams = new()
+        {
+            {VRDR, (int id, int certificateNumber, string state) => VRDRConnectathon.FromId(id, certificateNumber, state)},
+            {BFDR_BIRTH, (int id, int certificateNumber, string state) => BFDR.Connectathon.FromId(id, certificateNumber, state)}
         };
 
     public static readonly Dictionary<string, Func<string, (Record, List<Dictionary<string, string>>)>> createRecordFromIJE = new()
