@@ -17,7 +17,7 @@ namespace canary.Controllers
 
         /// <summary>
         /// Inspects a message using the contents provided. Returns the message + record and any validation issues.
-        /// POST Messages/bfdr/Inspect
+        /// POST Messages/bfdr-birth/Inspect
         /// </summary>
         [HttpPost("Messages/{recordType:regex(^(vrdr|bfdr-birth|bfdr-fetaldeath)$)}/Inspect")]
         public async Task<(Record record, List<Dictionary<string, string>> issues)> NewPost(string recordType)
