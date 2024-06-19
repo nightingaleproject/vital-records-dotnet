@@ -61,7 +61,9 @@ namespace canary.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "FetalDeathTest");
+                name: "FetalDeathRecords");
+            migrationBuilder.DropTable(
+                name: "FetalDeathTests");
         }
     }
 }

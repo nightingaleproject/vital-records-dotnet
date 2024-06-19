@@ -29,7 +29,7 @@ namespace canary.Controllers
                 if (input.Trim().StartsWith("<") || input.Trim().StartsWith("{")) // XML or JSON?
                 {
                     CommonMessage message = ControllerMappers.parseMessage[recordType](input);
-                    string extractedRecordString = ControllerMappers.createEmptyRecord[recordType].ToJSON();
+                    string extractedRecordString = ControllerMappers.createEmptyRecord[recordType]().ToJSON();
                     foreach (PropertyInfo property in message.GetType().GetProperties())
                     {
                         if (property.PropertyType == typeof(VitalRecord))

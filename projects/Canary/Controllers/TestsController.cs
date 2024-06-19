@@ -85,7 +85,7 @@ namespace canary.Controllers
         [HttpGet("Tests/{recordType:regex(^(vrdr|bfdr-birth|bfdr-fetaldeath)$)}/New")]
         public Test NewTest(string recordType)
         {
-            Test test = ControllerMappers.createEmptyTest[recordType];
+            Test test = ControllerMappers.createEmptyTest[recordType]();
             ControllerMappers.addDbTest[recordType](test);
             return test;
         }

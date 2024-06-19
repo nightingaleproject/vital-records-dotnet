@@ -70,7 +70,7 @@ namespace canary.Controllers
         public Record NewRecordGet(string recordType, string state, string type, string sex)
         {
             // Create new record from scratch
-            Record record = ControllerMappers.createEmptyCanaryRecord[recordType];
+            Record record = ControllerMappers.createEmptyCanaryRecord[recordType]();
 
             // Populate the record with fake data
             record.Populate(state: state, sex: sex, type: type);
@@ -163,7 +163,7 @@ namespace canary.Controllers
         [HttpGet("Records/{recordType:regex(^(vrdr|bfdr-birth|bfdr-fetaldeath)$)}/Description")]
         public string GetDescription(string recordType)
         {
-            VitalRecord record = ControllerMappers.createEmptyRecord[recordType];
+            VitalRecord record = ControllerMappers.createEmptyRecord[recordType]();
             PropertyInfo[] properties = ControllerMappers.getRecordProperties[recordType];
 
             Dictionary<string, Dictionary<string, dynamic>> description = new Dictionary<string, Dictionary<string, dynamic>>();
@@ -243,7 +243,7 @@ namespace canary.Controllers
         public Record Create(string recordType, string state, string type)
         {
             // Create new record from scratch
-            Record record = ControllerMappers.createEmptyCanaryRecord[recordType];
+            Record record = ControllerMappers.createEmptyCanaryRecord[recordType]();
 
             // Populate the record with fake data
             record.Populate();

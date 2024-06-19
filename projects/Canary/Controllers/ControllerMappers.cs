@@ -120,7 +120,7 @@ namespace canary.Controllers
             },
         };
 
-        public static readonly Dictionary<string, Action<Test, String>> runTest = new()
+        public static readonly Dictionary<string, Action<Test, string>> runTest = new()
         {
             {VRDR, (Test test, string input) => {
                     test.Run<DeathRecord>(input);
@@ -136,25 +136,25 @@ namespace canary.Controllers
             }
         };
 
-        public static readonly Dictionary<string, Record> createEmptyCanaryRecord = new()
+        public static readonly Dictionary<string, Func<Record>> createEmptyCanaryRecord = new()
         {
-            {VRDR, new CanaryDeathRecord()},
-            {BFDR_BIRTH, new CanaryBirthRecord()},
-            {BFDR_FETALDEATH, new CanaryFetalDeathRecord()}
+            {VRDR, () => new CanaryDeathRecord()},
+            {BFDR_BIRTH, () => new CanaryBirthRecord()},
+            {BFDR_FETALDEATH, () => new CanaryFetalDeathRecord()}
         };
 
-        public static readonly Dictionary<string, VitalRecord> createEmptyRecord = new()
+        public static readonly Dictionary<string, Func<VitalRecord>> createEmptyRecord = new()
         {
-            {VRDR, new DeathRecord()},
-            {BFDR_BIRTH, new BirthRecord()},
-            {BFDR_FETALDEATH, new FetalDeathRecord()}
+            {VRDR, () => new DeathRecord()},
+            {BFDR_BIRTH, () => new BirthRecord()},
+            {BFDR_FETALDEATH, () => new FetalDeathRecord()}
         };
 
-        public static readonly Dictionary<string, Test> createEmptyTest = new()
+        public static readonly Dictionary<string, Func<Test>> createEmptyTest = new()
         {
-            {VRDR, new DeathTest()},
-            {BFDR_BIRTH, new BirthTest()},
-            {BFDR_FETALDEATH, new FetalDeathTest()}
+            {VRDR, () => new DeathTest()},
+            {BFDR_BIRTH, () => new BirthTest()},
+            {BFDR_FETALDEATH, () => new FetalDeathTest()}
         };
 
         public static readonly Dictionary<string, Func<VitalRecord, Test>> createTestFromRecord = new()
