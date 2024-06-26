@@ -169,17 +169,8 @@
         <member name="F:VR.CodeSystems.DeathPregnancyStatus">
             <summary> Death Pregnancy Status </summary>
         </member>
-        <member name="F:VR.CodeSystems.BirthDeliveryOccurred">
-            <summary> Birth Delivery Occurred </summary>
-        </member>
         <member name="F:VR.CodeSystems.BFDREditFlags">
             <summary> BFDR Edit Flags </summary>
-        </member>
-        <member name="F:VR.CodeSystems.FetalDeathCauseOrCondition">
-            <summary> Fetal Death Cause Or Condition </summary>
-        </member>
-        <member name="F:VR.CodeSystems.InformantRelationshipToMother">
-            <summary> Informant Relationship To Mother </summary>
         </member>
         <member name="F:VR.CodeSystems.LocalBFDRCodes">
             <summary> Local BFDR Codes </summary>
