@@ -126,11 +126,11 @@ namespace BFDR.Tests
       // Test custom code system URL
       Assert.False(SetterBirthRecord.AssistedVentilationFollowingDelivery);
       String json = SetterBirthRecord.ToJSON();
-      Assert.DoesNotContain(CodeSystemURL.AbnormalConditionsNewborn, json);
+      Assert.DoesNotContain(CodeSystems.LocalBFDRCodes, json);
       SetterBirthRecord.AssistedVentilationFollowingDelivery = true;
       Assert.True(SetterBirthRecord.AssistedVentilationFollowingDelivery);
       json = SetterBirthRecord.ToJSON();
-      Assert.Contains(CodeSystemURL.AbnormalConditionsNewborn, json);
+      Assert.Contains(CodeSystems.LocalBFDRCodes, json);
     }
 
     [Fact]

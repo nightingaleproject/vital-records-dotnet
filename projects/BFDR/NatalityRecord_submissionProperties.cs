@@ -1702,7 +1702,7 @@ namespace BFDR
         [Property("Assisted Ventilation Following Delivery", Property.Types.Bool, "Specified Abnormal Conditions of Newborn",
                   "No Specified Abnormal Conditions of Newborn, Assisted Ventilation Following Delivery", true, IGURL.ProcedureAssistedVentilationFollowingDelivery, true, 212)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Procedure, categoryCode: "73812-0", code: "assistedventfollowingdelivery",
-                  codeSystem: CodeSystemURL.AbnormalConditionsNewborn, section: NEWBORN_INFORMATION_SECTION)]
+                  codeSystem: CodeSystemURL.LocalBFDRCodes, section: NEWBORN_INFORMATION_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public bool AssistedVentilationFollowingDelivery
         {
@@ -1714,7 +1714,7 @@ namespace BFDR
         [Property("Assisted Ventilation More Than Six Hours", Property.Types.Bool, "Specified Abnormal Conditions of Newborn",
                   "No Specified Abnormal Conditions of Newborn, Assisted Ventilation More Than Six Hours", true, IGURL.ProcedureAssistedVentilationMoreThanSixHours, true, 213)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Procedure, categoryCode: "73812-0", code: "assistedventmorethan6hrs",
-                  codeSystem: CodeSystemURL.AbnormalConditionsNewborn, section: NEWBORN_INFORMATION_SECTION)]
+                  codeSystem: CodeSystemURL.LocalBFDRCodes, section: NEWBORN_INFORMATION_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public bool AssistedVentilationMoreThanSixHours
         {
