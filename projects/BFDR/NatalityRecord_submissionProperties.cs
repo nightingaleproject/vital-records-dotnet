@@ -5744,7 +5744,7 @@ namespace BFDR
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87300-0')", "")]
         public string FacilityJFI
         {
-            get => GetFacilityLocation(ValueSets.LocationTypes.Birth_Location)?.Identifier?.Find(identifier => identifier.Extension.Any(ext => ext.Url == VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords))?.GetExtension(VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords).Value.ToString();
+            get => GetFacilityLocation(ValueSets.LocationTypes.Birth_Location)?.Identifier?.Find(identifier => identifier.Extension.Any(ext => ext.Url == ExtensionURL.JurisdictionalFacilityIdentifier))?.GetExtension(ExtensionURL.JurisdictionalFacilityIdentifier).Value.ToString();
             set
             {
                 Location LocationBirth = GetFacilityLocation(ValueSets.LocationTypes.Birth_Location) ?? CreateAndSetLocationBirth(ValueSets.LocationTypes.Birth_Location);
@@ -5753,10 +5753,10 @@ namespace BFDR
                     LocationBirth.Identifier = new List<Identifier>();
                 }
                 // Check for an existing Facility JFI and if it exists, overwrite it.
-                if (LocationBirth.Identifier.Any(id => id.Extension.Any(ext => ext.Url == VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords)))
+                if (LocationBirth.Identifier.Any(id => id.Extension.Any(ext => ext.Url == ExtensionURL.JurisdictionalFacilityIdentifier)))
                 {
-                    Identifier jfiIdentifier = LocationBirth.Identifier.Find(id => id.Extension.Any(ext => ext.Url == VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords));
-                    jfiIdentifier.SetExtension(VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords, new FhirString(value));
+                    Identifier jfiIdentifier = LocationBirth.Identifier.Find(id => id.Extension.Any(ext => ext.Url == ExtensionURL.JurisdictionalFacilityIdentifier));
+                    jfiIdentifier.SetExtension(ExtensionURL.JurisdictionalFacilityIdentifier, new FhirString(value));
                     return;
                 }
                 if (LocationBirth.Identifier.Count() < 1)
@@ -5766,7 +5766,7 @@ namespace BFDR
                     LocationBirth.Identifier.Add(id);
                     return;
                 }
-                LocationBirth.Identifier.First().SetExtension(VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords, new FhirString(value));
+                LocationBirth.Identifier.First().SetExtension(ExtensionURL.JurisdictionalFacilityIdentifier, new FhirString(value));
             }
         }
 

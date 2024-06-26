@@ -5787,6 +5787,9 @@
         <member name="F:BFDR.ExtensionURL.ExtensionEncounterMaternityReference">
             <summary>URL for ExtensionEncounterMaternityReference</summary>
         </member>
+        <member name="F:BFDR.ExtensionURL.JurisdictionalFacilityIdentifier">
+            <summary>URL for JurisdictionalFacilityIdentifier</summary>
+        </member>
         <member name="F:BFDR.ExtensionURL.LocationBFDR">
             <summary>URL for LocationBFDR</summary>
         </member>
@@ -5894,6 +5897,9 @@
         </member>
         <member name="F:BFDR.IGURL.ExtensionEncounterMaternityReference">
             <summary>URL for ExtensionEncounterMaternityReference</summary>
+        </member>
+        <member name="F:BFDR.IGURL.JurisdictionalFacilityIdentifier">
+            <summary>URL for JurisdictionalFacilityIdentifier</summary>
         </member>
         <member name="F:BFDR.IGURL.LocationBFDR">
             <summary>URL for LocationBFDR</summary>
