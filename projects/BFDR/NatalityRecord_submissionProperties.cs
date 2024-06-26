@@ -414,62 +414,43 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Sex at Time of Birth: {ExampleBirthRecord.BirthSex}");</para>
         /// </example>
-        [Property("Sex At Birth", Property.Types.Dictionary, "Child Demographics", "Child's Sex at Birth.", true, VR.IGURL.Child, true, 12)]
-        [PropertyParam("code", "The code used to describe this concept.")]
-        [PropertyParam("system", "The relevant code system.")]
-        [PropertyParam("display", "The human readable version of this code.")]
+        [Property("Sex At Birth", Property.Types.String, "Child Demographics", "Child's Sex at Birth.", true, VR.IGURL.Child, true, 12)]
         [FHIRPath("Bundle.entry.resource.where($this is Patient).extension.where(url='" + OtherExtensionURL.BirthSex + "')", "")]
-        public Dictionary<string, string> BirthSex
+        public string BirthSex
         {
             get
             {
                 if (Child != null)
                 {
                     Extension sex = Child.GetExtension(VR.OtherExtensionURL.BirthSex);
-                    if (sex != null && sex.Value != null && sex.Value as CodeableConcept != null)
+                    if (sex != null && sex.Value != null && sex.Value as Code != null)
                     {
-                        return CodeableConceptToDict((CodeableConcept)sex.Value);
+                        return (sex.Value as Code).Value;
                     }
-                }
-                return EmptyCodeableDict();
-            }
-            set
-            {
-                Child.Extension.RemoveAll(ext => ext.Url == VR.OtherExtensionURL.BirthSex);
-                if (IsDictEmptyOrDefault(value) && Child.Extension == null)
-                {
-                    return;
-                }
-                Child.SetExtension(VR.OtherExtensionURL.BirthSex, DictToCodeableConcept(value));
-            }
-        }
-
-        /// <summary>Child's Sex at Birth Helper.</summary>
-        /// <value>The child's sex at time of birth</value>
-        /// <example>
-        /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.BirthSexHelper = "female;</para>
-        /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Sex at Time of Birth: {ExampleBirthRecord.BirthSexHelper}");</para>
-        /// </example>
-        [Property("Sex At Birth Helper", Property.Types.String, "Child Demographics", "Child's Sex at Birth.", false, VR.IGURL.Child, true, 12)]
-        [FHIRPath("Bundle.entry.resource.where($this is Patient).extension.where(url='" + OtherExtensionURL.BirthSex + "')", "")]
-        public string BirthSexHelper
-        {
-            get
-            {
-                if (BirthSex.ContainsKey("code") && !String.IsNullOrWhiteSpace(BirthSex["code"]))
-                {
-                    return BirthSex["code"];
                 }
                 return null;
             }
             set
             {
-                if (!String.IsNullOrWhiteSpace(value))
+                if (!CodeExistsInValueSet(value, VR.ValueSets.SexAssignedAtBirth.Codes))
                 {
-                    SetCodeValue("BirthSex", value, VR.ValueSets.SexAssignedAtBirth.Codes);
+                    return;
                 }
+                Child.Extension.RemoveAll(ext => ext.Url == VR.OtherExtensionURL.BirthSex);
+                Child.SetExtension(VR.OtherExtensionURL.BirthSex, new Code(value));
+            }
+        }
+
+        /// <summary>Child's BirthSex at Birth. This a duplicate of BirthSex and is kept to maintain consistency for the IJE to FHIR mapper to work.</summary>
+        public string BirthSexHelper
+        {
+            get
+            {
+                return BirthSex;
+            }
+            set
+            {
+                BirthSex = value;
             }
         }
 
@@ -2840,7 +2821,7 @@ namespace BFDR
             if (ext.Url.Equals(VRExtensionURLs.ReportedParentAgeAtDelivery))
             {
                 if (ext.Extension.Any(
-                    subExt => subExt.Url == VR.OtherExtensionURL.ParentRole &&
+                    subExt => subExt.Url == "motherOrFather" &&
                     (subExt.Value as CodeableConcept) != null &&
                     (subExt.Value as CodeableConcept).Coding.Any(code => code.Code.Equals(role))))
                 {
@@ -2861,7 +2842,7 @@ namespace BFDR
             Child.Extension.RemoveAll(ext => IsParentAgeAtBirthExt(ext, role));
             Extension parentAgeAtBirth = new Extension(VRExtensionURLs.ReportedParentAgeAtDelivery, null);
             CodeableConcept parentRole = new CodeableConcept(roleCode["system"], roleCode["code"], roleCode["display"]);
-            parentAgeAtBirth.Extension.Add(new Extension(VR.OtherExtensionURL.ParentRole, parentRole));
+            parentAgeAtBirth.Extension.Add(new Extension("motherOrFather", parentRole));
             if (value != null)
             {
                 Quantity ageInYears = new Quantity((decimal)value, "a");
@@ -5998,7 +5979,7 @@ namespace BFDR
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87300-0')", "")]
         public string FacilityJFI
         {
-            get => GetFacilityLocation(ValueSets.LocationTypes.Birth_Location)?.Identifier?.Find(identifier => identifier.Extension.Any(ext => ext.Url == VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords))?.GetExtension(VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords).Value.ToString();
+            get => GetFacilityLocation(ValueSets.LocationTypes.Birth_Location)?.Identifier?.Find(identifier => identifier.Extension.Any(ext => ext.Url == BFDR.ExtensionURL.JurisdictionalFacilityIdentifier))?.GetExtension(BFDR.ExtensionURL.JurisdictionalFacilityIdentifier).Value.ToString();
             set
             {
                 Location LocationBirth = GetFacilityLocation(ValueSets.LocationTypes.Birth_Location) ?? CreateAndSetLocationBirth(ValueSets.LocationTypes.Birth_Location);
@@ -6007,20 +5988,20 @@ namespace BFDR
                     LocationBirth.Identifier = new List<Identifier>();
                 }
                 // Check for an existing Facility JFI and if it exists, overwrite it.
-                if (LocationBirth.Identifier.Any(id => id.Extension.Any(ext => ext.Url == VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords)))
+                if (LocationBirth.Identifier.Any(id => id.Extension.Any(ext => ext.Url == BFDR.ExtensionURL.JurisdictionalFacilityIdentifier)))
                 {
-                    Identifier jfiIdentifier = LocationBirth.Identifier.Find(id => id.Extension.Any(ext => ext.Url == VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords));
-                    jfiIdentifier.SetExtension(VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords, new FhirString(value));
+                    Identifier jfiIdentifier = LocationBirth.Identifier.Find(id => id.Extension.Any(ext => ext.Url == BFDR.ExtensionURL.JurisdictionalFacilityIdentifier));
+                    jfiIdentifier.SetExtension(BFDR.ExtensionURL.JurisdictionalFacilityIdentifier, new FhirString(value));
                     return;
                 }
                 if (LocationBirth.Identifier.Count() < 1)
                 {
                     Identifier id = new Identifier();
-                    id.SetExtension(VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords, new FhirString(value));
+                    id.SetExtension(BFDR.ExtensionURL.JurisdictionalFacilityIdentifier, new FhirString(value));
                     LocationBirth.Identifier.Add(id);
                     return;
                 }
-                LocationBirth.Identifier.First().SetExtension(VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords, new FhirString(value));
+                LocationBirth.Identifier.First().SetExtension(BFDR.ExtensionURL.JurisdictionalFacilityIdentifier, new FhirString(value));
             }
         }
 
