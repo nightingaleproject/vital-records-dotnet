@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
 <a name="1.0.0-preview.3"></a>
-
+## [1.0.0-preview.3](https://github.com/nightingaleproject/vital-records-dotnet/commit/6dd85fad045cadf988fdb8645bb33b2a905f109a) (2024-05-24)
 
 ### Features
 * Adds support for Explicit Absence "8" inputs for IJE fields YOPO, MOPO, MLLB, YLLB, APGAR10, DOFP_XX
