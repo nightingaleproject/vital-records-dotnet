@@ -5,11 +5,13 @@
 #
 # If you need to generate the concept map JSON files, first install sushi (https://github.com/FHIR/sushi) then
 #
-#     git clone https://github.com/HL7/vr.git
-#     cd vr
+#     git clone https://github.com/HL7/vr-common-library
+#     cd vr-common-library
 #     sushi
 #
-# The JSON files will be built in vr/fsh-generated/resources/
+# The JSON files will be built in vr-common-library/fsh-generated/resources/
+#
+# Usage: ruby scripts/generate_url_strings_from_VR_IG.rb vr-common-library/fsh-generated/resources/
 
 require 'json'
 require 'erb'
