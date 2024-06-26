@@ -19,7 +19,7 @@ namespace canary.Controllers
         /// Inspects a message using the contents provided. Returns the message + record and any validation issues.
         /// POST Messages/bfdr-birth/Inspect
         /// </summary>
-        [HttpPost("Messages/{recordType:regex(^(vrdr|bfdr-birth|bfdr-fetaldeath)$)}/Inspect")]
+        [HttpPost("Messages/{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/Inspect")]
         public async Task<(Record record, List<Dictionary<string, string>> issues)> NewPost(string recordType)
         {
             string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
@@ -55,9 +55,9 @@ namespace canary.Controllers
 
         /// <summary>
         /// Creates a new message using the contents provided. Returns the message and any validation issues.
-        /// POST /api/messages/{recordType:regex(^(vrdr|bfdr-birth|bfdr-fetaldeath)$)}/new
+        /// POST /api/messages/{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/new
         /// </summary>
-        [HttpPost("Messages/{recordType:regex(^(vrdr|bfdr-birth|bfdr-fetaldeath)$)}/New")]
+        [HttpPost("Messages/{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/New")]
         public async Task<(Message message, List<Dictionary<string, string>> issues)> NewMessagePost(string recordType)
         {
             string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
@@ -84,7 +84,7 @@ namespace canary.Controllers
         /// Creates a new VRDR message of the provided type using record provided
         /// POST /api/messages/vrdr/create?type={type}
         /// </summary>
-        [HttpPost("Messages/{recordType:regex(^(vrdr|bfdr-birth|bfdr-fetaldeath)$)}/Create")]
+        [HttpPost("Messages/{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/Create")]
         public async Task<(Message message, List<Dictionary<string, string>> issues)> NewMessageRecordPost(string recordType, String type)
         {
             string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();

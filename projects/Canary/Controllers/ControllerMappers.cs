@@ -12,9 +12,9 @@ namespace canary.Controllers
 {
     public static class ControllerMappers
     {
-        public static readonly string VRDR = "vrdr";
-        public static readonly string BFDR_BIRTH = "bfdr-birth";
-        public static readonly string BFDR_FETALDEATH = "bfdr-fetaldeath";
+        public const string VRDR = "vrdr";
+        public const string BFDR_BIRTH = "bfdr-birth";
+        public const string BFDR_FETALDEATH = "bfdr-fetaldeath";
 
         public static readonly Dictionary<string, Func<IQueryable<Record>>> dbRecords = new()
         {

@@ -66,6 +66,8 @@ namespace canary.Controllers
         /// POST /api/endpoints/record/{id:int}
         /// </summary>
         [HttpPost("Endpoints/vrdr/Record/{id:int}")]
+        [HttpPost("Endpoints/bfdr-birth/Record/{id:int}")]
+        [HttpPost("Endpoints/bfdr-fetaldeath/Record/{id:int}")]
         public async Task<int> VRDRRecordPost(int id)
         {
             Record record = null;
