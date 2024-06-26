@@ -289,11 +289,11 @@ namespace BFDR
         {
             get
             {
-                return Get_MappingFHIRToIJEDirect(VR.Mappings.BirthSexChild.FHIRToIJE, "BirthSex", "ISEX");
+                return Get_MappingFHIRToIJE(VR.Mappings.BirthSexChild.FHIRToIJE, "BirthSex", "ISEX");
             }
             set
             {
-                Set_MappingIJEToFHIRDirect(VR.Mappings.BirthSexChild.IJEToFHIR, "ISEX", "BirthSex", value);
+                Set_MappingIJEToFHIR(VR.Mappings.BirthSexChild.IJEToFHIR, "ISEX", "BirthSex", value);
             }
         }
 

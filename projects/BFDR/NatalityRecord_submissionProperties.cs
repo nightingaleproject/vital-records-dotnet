@@ -441,6 +441,19 @@ namespace BFDR
             }
         }
 
+        /// <summary>Child's BirthSex at Birth. This a duplicate of BirthSex and is kept to maintain consistency for the IJE to FHIR mapper to work.</summary>
+        public string BirthSexHelper
+        {
+            get
+            {
+                return BirthSex;
+            }
+            set
+            {
+                BirthSex = value;
+            }
+        }
+
         /// <summary>Child's Legal Name - Given. Middle name should be the last entry.</summary>
         /// <value>the child's name (first, etc., middle)</value>
         /// <example>
