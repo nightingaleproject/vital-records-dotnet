@@ -35,20 +35,17 @@ namespace canary.Controllers
             }
         };
 
-        public static readonly Dictionary<string, Func<IQueryable<Test>>> dbTests = new()
+        public static readonly Dictionary<string, Func<RecordContext, IQueryable<Test>>> dbTests = new()
         {
-            {VRDR, () => {
-                    using RecordContext db = new();
+            {VRDR, (RecordContext db) => {
                     return db.DeathTests;
                 }
             },
-            {BFDR_BIRTH, () => {
-                    using RecordContext db = new();
+            {BFDR_BIRTH, (RecordContext db) => {
                     return db.BirthTests;
                 }
             },
-            {BFDR_FETALDEATH, () => {
-                    using RecordContext db = new();
+            {BFDR_FETALDEATH, (RecordContext db) => {
                     return db.FetalDeathTests;
                 }
             }

@@ -79,6 +79,7 @@ export class Getter extends Component {
       // to handle all record types. TODO: Should probably migrate away from an unnecessary back end call here if we know
       // there is bad data.
       var data = self.state.pasteText;
+      const recordType = this.props.recordType
       if (!!this.props.ijeOnly) {
         data.replace(/(\r\n|\n|\r)/gm, ''); // Strip any line breaks if IJE!
       }
@@ -94,6 +95,7 @@ export class Getter extends Component {
         endpoint = `/messages/${this.props.recordType}/inspect`;
       } else {
         endpoint = `/records/${this.props.recordType}/new`;
+        data = JSON.parse(data);
       }
       axios
         .post(window.API_URL + endpoint + (!!this.props.strict ? '?strict=yes' : '?strict=no'), data)

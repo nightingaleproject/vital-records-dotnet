@@ -10,20 +10,19 @@ using Newtonsoft.Json;
 using VR;
 using canary.Models;
 
-// TODO - Rather than using BFDR, use the phrasing "BFDR - Birth" and "BFDR - Fetal Death"
-
 namespace canary.Controllers
 {
 
     [ApiController]
+    [Route("Records")]
     public class RecordsController : ControllerBase
     {
         /// <summary>
         /// Returns all records.
         /// GET /api/records
         /// </summary>
-        [HttpGet("Records")]
-        [HttpGet("Records/Index")]
+        [HttpGet("")]
+        [HttpGet("Index")]
         public Record[] VRDRIndex()
         {
             // Find the record in the database and return it
@@ -34,8 +33,8 @@ namespace canary.Controllers
         /// Given an id, returns the corresponding record based on the given record type.
         /// GET /api/records/{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/{id}
         /// </summary>
-        [HttpGet("Records/{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/{id:int}")]
-        [HttpGet("Records/{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/Get/{id:int}")]
+        [HttpGet("{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/{id:int}")]
+        [HttpGet("{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/Get/{id:int}")]
         public Record Get(string recordType, int id)
         {
             // Find the record in the database and return it
@@ -46,7 +45,7 @@ namespace canary.Controllers
         /// Given an id, returns the corresponding record as JSON.
         /// GET /api/records/{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/json/{id}
         /// </summary>
-        [HttpGet("Records/{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/JSON/{id:int}")]
+        [HttpGet("{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/JSON/{id:int}")]
         public string GetJSON(string recordType, int id)
         {
             return ControllerMappers.connectathonRecords[recordType](id).ToJSON();
@@ -56,7 +55,7 @@ namespace canary.Controllers
         /// Given an id, returns the corresponding record as XML.
         /// GET /api/records/{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/xml/{id}
         /// </summary>
-        [HttpGet("Records/{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/XML/{id:int}")]
+        [HttpGet("{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/XML/{id:int}")]
         public string GetXML(string recordType, int id)
         {
             return ControllerMappers.connectathonRecords[recordType](id).ToXML();
@@ -66,11 +65,9 @@ namespace canary.Controllers
         /// Creates a new synthetic record based on the given type, and returns it. Does not save it to the database.
         /// GET /api/records/{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/New
         /// </summary>
-        [HttpGet("Records/{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/New")]
+        [HttpGet("{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/New")]
         public Record NewRecordGet(string recordType, string state, string type, string sex)
         {
-            Console.WriteLine("GET Got record type: " + recordType + ".");
-
             // Create new record from scratch
             Record record = ControllerMappers.createEmptyCanaryRecord[recordType]();
 
@@ -85,12 +82,10 @@ namespace canary.Controllers
         /// Creates a new death record using the contents provided. Returns the record and any validation issues.
         /// POST /api/records/{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/new
         /// </summary>
-        [HttpPost("Records/{recordType}/New")]
-        public async Task<(Record, List<Dictionary<string, string>>)> NewPostAsync([FromRoute] string recordType)
+        [HttpPost("{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/New")]
+        public async Task<(Record, List<Dictionary<string, string>>)> NewPostAsync(string recordType)
         {
             string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
-
-            Console.WriteLine("POST Got record type: >" + recordType + "<.");
 
             if (!String.IsNullOrEmpty(input))
             {
@@ -135,7 +130,7 @@ namespace canary.Controllers
         /// Creates a new record using the "description" contents provided. Returns the record.
         /// POST /api/records/{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/description/new
         /// </summary>
-        [HttpPost("Records/{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/Description/New")]
+        [HttpPost("{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/Description/New")]
         public async Task<Record> NewDescriptionPost(string recordType)
         {
             string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
@@ -151,7 +146,7 @@ namespace canary.Controllers
         /// Get's the VitalRecord "Description" structure of the given record type.
         /// GET /api/records/description
         /// </summary>
-        [HttpGet("Records/{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/Description")]
+        [HttpGet("{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/Description")]
         public string GetDescription(string recordType)
         {
             VitalRecord record = ControllerMappers.createEmptyRecord[recordType]();
@@ -230,7 +225,7 @@ namespace canary.Controllers
         /// Creates a new synthetic record, saves it to the database, and returns it.
         /// GET /api/records/{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/create
         /// </summary>
-        [HttpGet("Records/{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/Create")]
+        [HttpGet("{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/Create")]
         public Record Create(string recordType, string state, string type)
         {
             // Create new record from scratch

@@ -48,7 +48,8 @@ namespace canary.Controllers
         [HttpGet("Tests/{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/{id:int}")]
         public Test GetTest(string recordType, int id)
         {
-            return ControllerMappers.dbTests[recordType]().Where(t => t.TestId == id).FirstOrDefault();
+            using RecordContext db = new();
+            return ControllerMappers.dbTests[recordType](db).Where(t => t.TestId == id).FirstOrDefault();
         }
 
         /// <summary>
@@ -97,7 +98,7 @@ namespace canary.Controllers
         [HttpPost("Tests/{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/{type}/Run/{id:int}")]
         public async Task<Test> RunTest(string recordType, string type, int id)
         {
-            Test test = ControllerMappers.dbTests[recordType]().Where(t => t.TestId == id).FirstOrDefault();
+            Test test = GetTest(recordType, id);
             string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
             if (!String.IsNullOrEmpty(input))
             {
