@@ -112,9 +112,6 @@ namespace VR
         /// <summary>URL for RelatedpersonBirthplace</summary>
         public string RelatedpersonBirthplace => Trim($"{_prefix}/StructureDefinition/Extension-relatedperson-birthplace-vr");
 
-        /// <summary>URL for RelatedPersonDeceased</summary>
-        public string RelatedPersonDeceased => Trim($"{_prefix}/StructureDefinition/Extension-relatedperson-deceased-vr");
-
         /// <summary>URL for ReportedParentAgeAtDelivery</summary>
         public string ReportedParentAgeAtDelivery => Trim($"{_prefix}/StructureDefinition/Extension-reported-parent-age-at-delivery-vr");
 
@@ -206,9 +203,6 @@ namespace VR
 
         /// <summary>URL for RelatedpersonBirthplace</summary>
         public const string RelatedpersonBirthplace = "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Extension-relatedperson-birthplace-vr.html";
-
-        /// <summary>URL for RelatedPersonDeceased</summary>
-        public const string RelatedPersonDeceased = "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Extension-relatedperson-deceased-vr.html";
 
         /// <summary>URL for ReportedParentAgeAtDelivery</summary>
         public const string ReportedParentAgeAtDelivery = "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Extension-reported-parent-age-at-delivery-vr.html";

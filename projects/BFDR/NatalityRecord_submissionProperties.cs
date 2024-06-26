@@ -3016,7 +3016,7 @@ namespace BFDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("MotherEthnicity1", value, VR.ValueSets.HispanicNoUnknown.Codes);
+                    SetCodeValue("MotherEthnicity1", value, VR.ValueSets.YesNoUnknown.Codes);
                 }
             }
         }
@@ -3095,7 +3095,7 @@ namespace BFDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("MotherEthnicity2", value, VR.ValueSets.HispanicNoUnknown.Codes);
+                    SetCodeValue("MotherEthnicity2", value, VR.ValueSets.YesNoUnknown.Codes);
                 }
             }
         }
@@ -3174,7 +3174,7 @@ namespace BFDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("MotherEthnicity3", value, VR.ValueSets.HispanicNoUnknown.Codes);
+                    SetCodeValue("MotherEthnicity3", value, VR.ValueSets.YesNoUnknown.Codes);
                 }
             }
         }
@@ -3253,7 +3253,7 @@ namespace BFDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("MotherEthnicity4", value, VR.ValueSets.HispanicNoUnknown.Codes);
+                    SetCodeValue("MotherEthnicity4", value, VR.ValueSets.YesNoUnknown.Codes);
                 }
             }
         }
@@ -3486,7 +3486,7 @@ namespace BFDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("FatherEthnicity1", value, VR.ValueSets.HispanicNoUnknown.Codes);
+                    SetCodeValue("FatherEthnicity1", value, VR.ValueSets.YesNoUnknown.Codes);
                 }
             }
         }
@@ -3565,7 +3565,7 @@ namespace BFDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("FatherEthnicity2", value, VR.ValueSets.HispanicNoUnknown.Codes);
+                    SetCodeValue("FatherEthnicity2", value, VR.ValueSets.YesNoUnknown.Codes);
                 }
             }
         }
@@ -3644,7 +3644,7 @@ namespace BFDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("FatherEthnicity3", value, VR.ValueSets.HispanicNoUnknown.Codes);
+                    SetCodeValue("FatherEthnicity3", value, VR.ValueSets.YesNoUnknown.Codes);
                 }
             }
         }
@@ -3724,7 +3724,7 @@ namespace BFDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("FatherEthnicity4", value, VR.ValueSets.HispanicNoUnknown.Codes);
+                    SetCodeValue("FatherEthnicity4", value, VR.ValueSets.YesNoUnknown.Codes);
                 }
             }
         }

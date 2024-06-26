@@ -252,25 +252,25 @@ namespace BFDR.Tests
 
       SetterBirthRecord.MotherEthnicity1Helper = "N";
       Dictionary<string, string> CodeN = new Dictionary<string, string>();
-      CodeN.Add("code", VR.ValueSets.HispanicNoUnknown.Codes[0, 0]);
-      CodeN.Add("display", VR.ValueSets.HispanicNoUnknown.Codes[0, 1]);
-      CodeN.Add("system", VR.ValueSets.HispanicNoUnknown.Codes[0, 2]);
+      CodeN.Add("code", VR.ValueSets.YesNoUnknown.Codes[0, 0]);
+      CodeN.Add("display", VR.ValueSets.YesNoUnknown.Codes[0, 1]);
+      CodeN.Add("system", VR.ValueSets.YesNoUnknown.Codes[0, 2]);
       Assert.Equal("N", SetterBirthRecord.MotherEthnicity1Helper);
       Assert.Equal(CodeN, SetterBirthRecord.MotherEthnicity1);
 
       SetterBirthRecord.MotherEthnicity1Helper = "Y";
       Dictionary<string, string> CodeY = new Dictionary<string, string>();
-      CodeY.Add("code", VR.ValueSets.HispanicNoUnknown.Codes[1, 0]);
-      CodeY.Add("display", VR.ValueSets.HispanicNoUnknown.Codes[1, 1]);
-      CodeY.Add("system", VR.ValueSets.HispanicNoUnknown.Codes[1, 2]);
+      CodeY.Add("code", VR.ValueSets.YesNoUnknown.Codes[1, 0]);
+      CodeY.Add("display", VR.ValueSets.YesNoUnknown.Codes[1, 1]);
+      CodeY.Add("system", VR.ValueSets.YesNoUnknown.Codes[1, 2]);
       Assert.Equal("Y", SetterBirthRecord.MotherEthnicity1Helper);
       Assert.Equal(CodeY, SetterBirthRecord.MotherEthnicity1);
 
       SetterBirthRecord.MotherEthnicity1Helper = "UNK";
       Dictionary<string, string> CodeU = new Dictionary<string, string>();
-      CodeU.Add("code", VR.ValueSets.HispanicNoUnknown.Codes[2, 0]);
-      CodeU.Add("display", VR.ValueSets.HispanicNoUnknown.Codes[2, 1]);
-      CodeU.Add("system", VR.ValueSets.HispanicNoUnknown.Codes[2, 2]);
+      CodeU.Add("code", VR.ValueSets.YesNoUnknown.Codes[2, 0]);
+      CodeU.Add("display", VR.ValueSets.YesNoUnknown.Codes[2, 1]);
+      CodeU.Add("system", VR.ValueSets.YesNoUnknown.Codes[2, 2]);
       Assert.Equal("UNK", SetterBirthRecord.MotherEthnicity1Helper);
       Assert.Equal(CodeU, SetterBirthRecord.MotherEthnicity1);
     }
@@ -283,25 +283,25 @@ namespace BFDR.Tests
 
       SetterBirthRecord.FatherEthnicity1Helper = "N";
       Dictionary<string, string> CodeN = new Dictionary<string, string>();
-      CodeN.Add("code", VR.ValueSets.HispanicNoUnknown.Codes[0, 0]);
-      CodeN.Add("display", VR.ValueSets.HispanicNoUnknown.Codes[0, 1]);
-      CodeN.Add("system", VR.ValueSets.HispanicNoUnknown.Codes[0, 2]);
+      CodeN.Add("code", VR.ValueSets.YesNoUnknown.Codes[0, 0]);
+      CodeN.Add("display", VR.ValueSets.YesNoUnknown.Codes[0, 1]);
+      CodeN.Add("system", VR.ValueSets.YesNoUnknown.Codes[0, 2]);
       Assert.Equal("N", SetterBirthRecord.FatherEthnicity1Helper);
       Assert.Equal(CodeN, SetterBirthRecord.FatherEthnicity1);
 
       SetterBirthRecord.FatherEthnicity1Helper = "Y";
       Dictionary<string, string> CodeY = new Dictionary<string, string>();
-      CodeY.Add("code", VR.ValueSets.HispanicNoUnknown.Codes[1, 0]);
-      CodeY.Add("display", VR.ValueSets.HispanicNoUnknown.Codes[1, 1]);
-      CodeY.Add("system", VR.ValueSets.HispanicNoUnknown.Codes[1, 2]);
+      CodeY.Add("code", VR.ValueSets.YesNoUnknown.Codes[1, 0]);
+      CodeY.Add("display", VR.ValueSets.YesNoUnknown.Codes[1, 1]);
+      CodeY.Add("system", VR.ValueSets.YesNoUnknown.Codes[1, 2]);
       Assert.Equal("Y", SetterBirthRecord.FatherEthnicity1Helper);
       Assert.Equal(CodeY, SetterBirthRecord.FatherEthnicity1);
 
       SetterBirthRecord.FatherEthnicity1Helper = "UNK";
       Dictionary<string, string> CodeU = new Dictionary<string, string>();
-      CodeU.Add("code", VR.ValueSets.HispanicNoUnknown.Codes[2, 0]);
-      CodeU.Add("display", VR.ValueSets.HispanicNoUnknown.Codes[2, 1]);
-      CodeU.Add("system", VR.ValueSets.HispanicNoUnknown.Codes[2, 2]);
+      CodeU.Add("code", VR.ValueSets.YesNoUnknown.Codes[2, 0]);
+      CodeU.Add("display", VR.ValueSets.YesNoUnknown.Codes[2, 1]);
+      CodeU.Add("system", VR.ValueSets.YesNoUnknown.Codes[2, 2]);
       Assert.Equal("UNK", SetterBirthRecord.FatherEthnicity1Helper);
       Assert.Equal(CodeU, SetterBirthRecord.FatherEthnicity1);
     }
