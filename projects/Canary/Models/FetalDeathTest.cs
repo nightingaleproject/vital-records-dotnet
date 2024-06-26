@@ -31,7 +31,7 @@ namespace canary.Models
 
         protected override Record CreateRecordFromFHIR(string description)
         {
-            return new CanaryFetalDeathRecord(VitalRecord.FromDescription<BirthRecord>(description));
+            return new CanaryFetalDeathRecord(VitalRecord.FromDescription<FetalDeathRecord>(description));
         }
 
         protected override Record CreateRecordFromVitalRecord(VitalRecord record)

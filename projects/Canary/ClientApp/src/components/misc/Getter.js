@@ -79,12 +79,18 @@ export class Getter extends Component {
       // to handle all record types. TODO: Should probably migrate away from an unnecessary back end call here if we know
       // there is bad data.
       var data = self.state.pasteText;
-      const recordType = this.props.recordType
       if (!!this.props.ijeOnly) {
         data.replace(/(\r\n|\n|\r)/gm, ''); // Strip any line breaks if IJE!
       }
       if (!!this.props.ijeOnly && (data[0] === '<' || data[0] === '{')) {
         data = 'bogus'; // The IJE catch in the back end will not like this, and will thus throw an error.
+      }
+      const isJSON = data && data.startsWith("{");
+      const headers = {
+        "Content-type": isJSON ? "application/json" : "text/plain"
+      }
+      if (isJSON) {
+        data = JSON.parse(data);
       }
       var endpoint = '';
       if (this.props.returnType) {
@@ -95,10 +101,9 @@ export class Getter extends Component {
         endpoint = `/messages/${this.props.recordType}/inspect`;
       } else {
         endpoint = `/records/${this.props.recordType}/new`;
-        data = JSON.parse(data);
       }
       axios
-        .post(window.API_URL + endpoint + (!!this.props.strict ? '?strict=yes' : '?strict=no'), data)
+        .post(window.API_URL + endpoint + (!!this.props.strict ? '?strict=yes' : '?strict=no'), data, {headers: headers})
         .then(function(response) {
           self.setState({ loading: false }, () => {
             var record = response.data.item1;

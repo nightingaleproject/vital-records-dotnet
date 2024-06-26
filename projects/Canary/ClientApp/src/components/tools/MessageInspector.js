@@ -27,8 +27,16 @@ export class MessageInspector extends Component {
   }
 
   render() {
+
+    if (this.props.recordType.toLowerCase() === 'bfdr-fetaldeath') {
       return (
-        
+        <h1>
+          BFDR Fetal Death does not yet support messaging.
+        </h1>
+      )
+    }
+
+      return (
       <React.Fragment>
         <Grid>
           <Grid.Row>

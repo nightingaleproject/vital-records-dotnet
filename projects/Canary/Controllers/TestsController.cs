@@ -5,10 +5,8 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using VRDR;
 using canary.Models;
 using VR;
-using BFDR;
 
 namespace canary.Controllers
 {
@@ -98,6 +96,7 @@ namespace canary.Controllers
         [HttpPost("Tests/{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/{type}/Run/{id:int}")]
         public async Task<Test> RunTest(string recordType, string type, int id)
         {
+            Console.WriteLine("LL" + recordType);
             Test test = GetTest(recordType, id);
             string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
             if (!String.IsNullOrEmpty(input))

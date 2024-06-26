@@ -27,6 +27,14 @@ export function FHIRMessageProducing(props) {
   const [response, setResponse] = React.useState();
   const [responses, setResponses] = React.useState();
 
+  if (props.recordType.toLowerCase() === 'bfdr-fetaldeath') {
+    return (
+      <h1>
+        BFDR Fetal Death does not yet support messaging.
+      </h1>
+    )
+  }
+
   useEffect(() => {
     if (!!id) {
       axios

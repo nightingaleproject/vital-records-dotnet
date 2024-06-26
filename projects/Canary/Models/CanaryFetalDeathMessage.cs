@@ -35,7 +35,7 @@ namespace canary.Models
 
         public CanaryFetalDeathMessage(Record record, String type)
         {
-            FetalDeathRecord br = (FetalDeathRecord) record.GetRecord();
+            FetalDeathRecord fdr = (FetalDeathRecord) record.GetRecord();
             // TODO - Fetal Death Messaging
             // switch (type)
             // {
@@ -54,7 +54,7 @@ namespace canary.Models
             //     default:
             //         throw new ArgumentException($"The given message type {type} is not valid.", "type");
             // }
-            message.MessageSource = "https://example.com/jurisdiction/message/endpoint";
+            // message.MessageSource = "https://example.com/jurisdiction/message/endpoint";
         }
 
         public static string GetDescriptionFor(string entry)
