@@ -16,20 +16,17 @@ namespace canary.Controllers
         public const string BFDR_BIRTH = "bfdr-birth";
         public const string BFDR_FETALDEATH = "bfdr-fetaldeath";
 
-        public static readonly Dictionary<string, Func<IQueryable<Record>>> dbRecords = new()
+        public static readonly Dictionary<string, Func<RecordContext, IQueryable<Record>>> dbRecords = new()
         {
-            {VRDR, () => {
-                    using RecordContext db = new();
+            {VRDR, (RecordContext db) => {
                     return db.DeathRecords;
                 }
             },
-            {BFDR_BIRTH, () => {
-                    using RecordContext db = new();
+            {BFDR_BIRTH, (RecordContext db) => {
                     return db.BirthRecords;
                 }
             },
-            {BFDR_FETALDEATH, () => {
-                    using RecordContext db = new();
+            {BFDR_FETALDEATH, (RecordContext db) => {
                     return db.FetalDeathRecords;
                 }
             }
@@ -51,66 +48,57 @@ namespace canary.Controllers
             }
         };
 
-        public static readonly Dictionary<string, Action<Record>> addDbRecord = new()
+        public static readonly Dictionary<string, Action<Record, RecordContext>> addDbRecord = new()
         {
-            {VRDR, (Record record) => {
-                    using RecordContext db = new();
+            {VRDR, (Record record, RecordContext db) => {
                     db.DeathRecords.Add((CanaryDeathRecord)record);
                     db.SaveChanges();
                 }
             },
-            {BFDR_BIRTH, (Record record) => {
-                    using RecordContext db = new();
+            {BFDR_BIRTH, (Record record, RecordContext db) => {
                     db.BirthRecords.Add((CanaryBirthRecord)record);
                     db.SaveChanges();
                 }
             },
-            {BFDR_FETALDEATH, (Record record) => {
-                    using RecordContext db = new();
+            {BFDR_FETALDEATH, (Record record, RecordContext db) => {
                     db.FetalDeathRecords.Add((CanaryFetalDeathRecord)record);
                     db.SaveChanges();
                 }
             }
         };
 
-        public static readonly Dictionary<string, Action<Test>> addDbTest = new()
+        public static readonly Dictionary<string, Action<Test, RecordContext>> addDbTest = new()
         {
-            {VRDR, (Test test) => {
-                    using RecordContext db = new();
+            {VRDR, (Test test, RecordContext db) => {
                     db.DeathTests.Add((DeathTest)test);
                     db.SaveChanges();
                 }
             },
-            {BFDR_BIRTH, (Test test) => {
-                    using RecordContext db = new();
+            {BFDR_BIRTH, (Test test, RecordContext db) => {
                     db.BirthTests.Add((BirthTest)test);
                     db.SaveChanges();
                 }
             },
-            {BFDR_FETALDEATH, (Test test) => {
-                    using RecordContext db = new();
+            {BFDR_FETALDEATH, (Test test, RecordContext db) => {
                     db.FetalDeathTests.Add((FetalDeathTest)test);
                     db.SaveChanges();
                 }
             }
         };
 
-        public static readonly Dictionary<string, Action<Test>> removeDbTest = new()
+        public static readonly Dictionary<string, Action<Test, RecordContext>> removeDbTest = new()
         {
-            {VRDR, (Test test) => {
-                    using RecordContext db = new();
+            {VRDR, (Test test, RecordContext db) => {
                     db.DeathTests.Remove((DeathTest)test);
                     db.SaveChanges();
                 }
             },
-            {BFDR_BIRTH, (Test test) => {
-                    using RecordContext db = new();
+            {BFDR_BIRTH, (Test test, RecordContext db) => {
                     db.BirthTests.Remove((BirthTest)test);
                     db.SaveChanges();
                 }
             },
-            {BFDR_FETALDEATH, (Test test) => {
-                    using RecordContext db = new();
+            {BFDR_FETALDEATH, (Test test, RecordContext db) => {
                     db.FetalDeathTests.Remove((FetalDeathTest)test);
                     db.SaveChanges();
                 }

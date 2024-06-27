@@ -26,7 +26,8 @@ namespace canary.Controllers
         public Record[] VRDRIndex()
         {
             // Find the record in the database and return it
-            return ControllerMappers.dbRecords["vrdr"]().ToArray();
+            using RecordContext db = new();
+            return ControllerMappers.dbRecords["vrdr"](db).ToArray();
         }
 
         /// <summary>
@@ -38,7 +39,8 @@ namespace canary.Controllers
         public Record Get(string recordType, int id)
         {
             // Find the record in the database and return it
-            return ControllerMappers.dbRecords[recordType]().Where(record => record.RecordId == id).FirstOrDefault();
+            using RecordContext db = new();
+            return ControllerMappers.dbRecords[recordType](db).Where(record => record.RecordId == id).FirstOrDefault();
         }
 
         /// <summary>
@@ -236,7 +238,8 @@ namespace canary.Controllers
             record.Populate();
 
             // Save the record to the database
-            ControllerMappers.addDbRecord[recordType](record);
+            using RecordContext db = new();
+            ControllerMappers.addDbRecord[recordType](record, db);
 
             // Return the record
             return record;

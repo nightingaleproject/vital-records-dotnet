@@ -11,14 +11,15 @@ using VR;
 namespace canary.Controllers
 {
     [ApiController]
+    [Route("Tests")]
     public class TestsController : ControllerBase
     {
         /// <summary>
         /// Returns all tests.
         /// GET /api/tests
         /// </summary>
-        [HttpGet("Tests")]
-        [HttpGet("Tests/Index")]
+        [HttpGet("")]
+        [HttpGet("Index")]
         public Dictionary<string, string>[] IndexVRDR()
         {
             using (var db = new RecordContext())
@@ -43,7 +44,7 @@ namespace canary.Controllers
         /// Gets a test by id.
         /// GET /api/tests/vrdr/1
         /// </summary>
-        [HttpGet("Tests/{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/{id:int}")]
+        [HttpGet("{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/{id:int}")]
         public Test GetTest(string recordType, int id)
         {
             using RecordContext db = new();
@@ -55,15 +56,16 @@ namespace canary.Controllers
         /// number and an optional state parameter
         /// GET /api/tests/vrdr/connectathon/1/1/AK
         /// </summary>
-        [HttpGet("Tests/{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/Connectathon/{id:int}/{certificateNumber:int}/{state?}")]
+        [HttpGet("{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/Connectathon/{id:int}/{certificateNumber:int}/{state?}")]
         public Test GetTestConnectathon(string recordType, int id, int certificateNumber, string state)
         {
             Test test = ControllerMappers.createTestFromRecord[recordType](ControllerMappers.connectathonRecordsParams[recordType](id, certificateNumber, state));
-            ControllerMappers.addDbTest[recordType](test);
+            using RecordContext db = new();
+            ControllerMappers.addDbTest[recordType](test, db);
             return test;
         }
 
-        [HttpPost("Tests/{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/Validator")]
+        [HttpPost("{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/Validator")]
         public async Task<Test> GetTestIJEValidator(string recordType)
         {
             string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
@@ -73,7 +75,8 @@ namespace canary.Controllers
             }
             VitalRecord record = ControllerMappers.createRecordFromDescription[recordType](input);
             Test test = ControllerMappers.createTestFromRecord[recordType](record);
-            ControllerMappers.addDbTest[recordType](test);
+            using RecordContext db = new();
+            ControllerMappers.addDbTest[recordType](test, db);
             return test;
         }
 
@@ -81,11 +84,12 @@ namespace canary.Controllers
         /// Starts a new VRDR test.
         /// GET /api/tests/new
         /// </summary>
-        [HttpGet("Tests/{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/New")]
+        [HttpGet("{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/New")]
         public Test NewTest(string recordType)
         {
             Test test = ControllerMappers.createEmptyTest[recordType]();
-            ControllerMappers.addDbTest[recordType](test);
+            using RecordContext db = new();
+            ControllerMappers.addDbTest[recordType](test, db);
             return test;
         }
 
@@ -93,10 +97,9 @@ namespace canary.Controllers
         /// Calculates test results.
         /// POST /api/tests/<type>/run/<id>
         /// </summary>
-        [HttpPost("Tests/{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/{type}/Run/{id:int}")]
+        [HttpPost("{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/{type}/Run/{id:int}")]
         public async Task<Test> RunTest(string recordType, string type, int id)
         {
-            Console.WriteLine("LL" + recordType);
             Test test = GetTest(recordType, id);
             string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
             if (!String.IsNullOrEmpty(input))
@@ -104,11 +107,12 @@ namespace canary.Controllers
                 test.Type = type;
                 ControllerMappers.runTest[recordType](test, input);
             }
-            ControllerMappers.removeDbTest[recordType](test);
+            using RecordContext db = new();
+            ControllerMappers.removeDbTest[recordType](test, db);
             return test;
         }
 
-        [HttpPost("Tests/{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/{type}/Response")]
+        [HttpPost("{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/{type}/Response")]
         public async Task<Dictionary<string, Message>> GetTestResponse(string recordType, string type)
         {
             string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
