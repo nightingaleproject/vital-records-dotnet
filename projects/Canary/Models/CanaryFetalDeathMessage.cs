@@ -28,7 +28,8 @@ namespace canary.Models
 
         public CanaryFetalDeathMessage(string message)
         {
-            this.message = BirthRecordBaseMessage.Parse(message, false);
+            // TODO: BFDR does not support messaging yet.
+            // this.message = xxxBirthRecordBaseMessage.Parse(message, false);
         }
 
         public CanaryFetalDeathMessage(CommonMessage message) : base(message) {}

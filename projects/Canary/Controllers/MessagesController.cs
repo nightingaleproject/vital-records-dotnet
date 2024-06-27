@@ -58,6 +58,7 @@ namespace canary.Controllers
         /// POST /api/messages/{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/new
         /// </summary>
         [HttpPost("Messages/{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/New")]
+        [Consumes("application/json")]
         public async Task<(Message message, List<Dictionary<string, string>> issues)> NewMessagePost(string recordType)
         {
             string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
