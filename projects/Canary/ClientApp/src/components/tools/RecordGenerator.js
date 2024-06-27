@@ -81,7 +81,7 @@ export class RecordGenerator extends Component {
                 Dashboard
               </Breadcrumb.Section>
               <Breadcrumb.Divider icon="right chevron" />
-              <Breadcrumb.Section>{`Generate Synthetic ${this.props.recordType.toUpperCase()} Records`}</Breadcrumb.Section>
+              <Breadcrumb.Section>{`Generate Synthetic ${this.props.recordTypeReadable} Records`}</Breadcrumb.Section>
             </Breadcrumb>
           </Grid.Row>
           <Grid.Row className="no-padding-b">

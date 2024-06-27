@@ -106,7 +106,7 @@ export class FHIRIJEValidatorProducing extends Component {
                 Dashboard
               </Breadcrumb.Section>
               <Breadcrumb.Divider icon="right chevron" />
-              <Breadcrumb.Section>Validate FHIR {this.props.recordType.toUpperCase()} Records with IJE (Producing)</Breadcrumb.Section>
+              <Breadcrumb.Section>Validate FHIR {this.props.recordTypeReadable} Records with IJE (Producing)</Breadcrumb.Section>
             </Breadcrumb>
           </Grid.Row>
           {!!this.state.test && this.state.test.completedBool && (

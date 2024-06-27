@@ -36,9 +36,16 @@ namespace canary
                 configuration.RootPath = "ClientApp/build";
             });
 
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
+
             services.AddControllers().AddNewtonsoftJson();
 
             services.AddCors();
+
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -75,10 +82,19 @@ namespace canary
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
+
+            app.UseRouting();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
+
 #if ExeRelease
             applicationLifetime.ApplicationStarted.Register(() => OpenUrl(
                 app.ServerFeatures.Get<IServerAddressesFeature>().Addresses.First()));
 #endif
+
+
         }
 
         private static void OpenUrl(string url)

@@ -27,6 +27,14 @@ export function FHIRMessageProducing(props) {
   const [response, setResponse] = React.useState();
   const [responses, setResponses] = React.useState();
 
+  if (props.recordType.toLowerCase() === 'bfdr-fetaldeath') {
+    return (
+      <h1>
+        BFDR Fetal Death does not yet support messaging.
+      </h1>
+    )
+  }
+
   useEffect(() => {
     if (!!id) {
       axios
@@ -155,7 +163,7 @@ export function FHIRMessageProducing(props) {
               Dashboard
             </Breadcrumb.Section>
             <Breadcrumb.Divider icon="right chevron" />
-            <Breadcrumb.Section>Producing FHIR {props.recordType.toUpperCase()} Messages</Breadcrumb.Section>
+            <Breadcrumb.Section>Producing FHIR {props.recordTypeReadable} Messages</Breadcrumb.Section>
           </Breadcrumb>
         </Grid.Row>
         {!!test && test.completedBool && (

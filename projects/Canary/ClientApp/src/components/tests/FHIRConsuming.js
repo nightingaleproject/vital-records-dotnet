@@ -110,7 +110,7 @@ export function FHIRConsuming(props) {
               Dashboard
             </Breadcrumb.Section>
             <Breadcrumb.Divider icon="right chevron" />
-            <Breadcrumb.Section>Consuming FHIR {recordType.toUpperCase()} Records</Breadcrumb.Section>
+            <Breadcrumb.Section>Consuming FHIR {props.recordTypeReadable} Records</Breadcrumb.Section>
           </Breadcrumb>
         </Grid.Row>
         {!!test && test.completedBool && (
