@@ -441,9 +441,9 @@ namespace BFDR.Tests
       Assert.Equal("H", ije.METHNIC1);
 
       Dictionary<string, string> CodeY = new Dictionary<string, string>();
-      CodeY.Add("code", VR.ValueSets.HispanicNoUnknown.Codes[1, 0]);
-      CodeY.Add("display", VR.ValueSets.HispanicNoUnknown.Codes[1, 1]);
-      CodeY.Add("system", VR.ValueSets.HispanicNoUnknown.Codes[1, 2]);
+      CodeY.Add("code", VR.ValueSets.YesNoUnknown.Codes[1, 0]);
+      CodeY.Add("display", VR.ValueSets.YesNoUnknown.Codes[1, 1]);
+      CodeY.Add("system", VR.ValueSets.YesNoUnknown.Codes[1, 2]);
       Assert.Equal(CodeY, fhir.MotherEthnicity1);
     }
 
@@ -458,9 +458,9 @@ namespace BFDR.Tests
       Assert.Equal("H", ije.FETHNIC1);
 
       Dictionary<string, string> CodeY = new Dictionary<string, string>();
-      CodeY.Add("code", VR.ValueSets.HispanicNoUnknown.Codes[1, 0]);
-      CodeY.Add("display", VR.ValueSets.HispanicNoUnknown.Codes[1, 1]);
-      CodeY.Add("system", VR.ValueSets.HispanicNoUnknown.Codes[1, 2]);
+      CodeY.Add("code", VR.ValueSets.YesNoUnknown.Codes[1, 0]);
+      CodeY.Add("display", VR.ValueSets.YesNoUnknown.Codes[1, 1]);
+      CodeY.Add("system", VR.ValueSets.YesNoUnknown.Codes[1, 2]);
       Assert.Equal(CodeY, fhir.FatherEthnicity1);
     }
 

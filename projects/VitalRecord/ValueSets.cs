@@ -140,23 +140,6 @@ namespace VR
             public static string Stepfather = "STPFTH";
         };
 
-        /// <summary> HispanicNoUnknown </summary>
-        public static class HispanicNoUnknown {
-            /// <summary> Codes </summary>
-            public static string[,] Codes = {
-                { "N", "No", VR.CodeSystems.YesNo },
-                { "Y", "Yes", VR.CodeSystems.YesNo },
-                { "UNK", "unknown", VR.CodeSystems.NullFlavor_HL7_V3 },
-            };
-
-            /// <summary> No </summary>
-            public static string No = "N";
-            /// <summary> Yes </summary>
-            public static string Yes = "Y";
-            /// <summary> Unknown </summary>
-            public static string Unknown = "UNK";
-        };
-
         /// <summary> HispanicOrigin </summary>
         public static class HispanicOrigin {
             /// <summary> Codes </summary>
@@ -574,6 +557,7 @@ namespace VR
                 { "M", "Married", VR.CodeSystems.PH_MaritalStatus_HL7_2x },
                 { "S", "Never Married", VR.CodeSystems.PH_MaritalStatus_HL7_2x },
                 { "W", "Widowed", VR.CodeSystems.PH_MaritalStatus_HL7_2x },
+                { "T", "Domestic Partnership", VR.CodeSystems.PH_MaritalStatus_HL7_2x },
                 { "UNK", "unknown", VR.CodeSystems.NullFlavor_HL7_V3 },
             };
 
@@ -587,6 +571,8 @@ namespace VR
             public static string Never_Married = "S";
             /// <summary> Widowed </summary>
             public static string Widowed = "W";
+            /// <summary> Domestic_Partnership </summary>
+            public static string Domestic_Partnership = "T";
             /// <summary> Unknown </summary>
             public static string Unknown = "UNK";
         };
@@ -615,6 +601,20 @@ namespace VR
             public static string Natural_Mother = "NMTH";
             /// <summary> Natural_Mother_Of_Fetus </summary>
             public static string Natural_Mother_Of_Fetus = "NMTHF";
+        };
+
+        /// <summary> PartialDateDataAbsentReason </summary>
+        public static class PartialDateDataAbsentReason {
+            /// <summary> Codes </summary>
+            public static string[,] Codes = {
+                { "unknown", "Unknown", VR.CodeSystems.Data_Absent_Reason_HL7_V3 },
+                { "temp-unknown", "Temporarily Unknown", VR.CodeSystems.Data_Absent_Reason_HL7_V3 },
+            };
+
+            /// <summary> Unknown </summary>
+            public static string Unknown = "unknown";
+            /// <summary> Temporarily_Unknown </summary>
+            public static string Temporarily_Unknown = "temp-unknown";
         };
 
         /// <summary> PluralityEditFlags </summary>

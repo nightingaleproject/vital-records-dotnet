@@ -2395,13 +2395,13 @@ namespace BFDR
         {
             get
             {
-                return Get_MappingFHIRToIJE(BFDR.Mappings.HistologicalPlacentalExamination.FHIRToIJE, "HistologicalPlacentalExaminationPerformed", "HISTOP");
+                return Get_MappingFHIRToIJE(Mappings.PerformedNotPerformedPlanned.FHIRToIJE, "HistologicalPlacentalExaminationPerformed", "HISTOP");
             }
             set
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Set_MappingIJEToFHIR(BFDR.Mappings.HistologicalPlacentalExamination.IJEToFHIR, "HISTOP", "HistologicalPlacentalExaminationPerformed", value);
+                    Set_MappingIJEToFHIR(Mappings.PerformedNotPerformedPlanned.IJEToFHIR, "HISTOP", "HistologicalPlacentalExaminationPerformed", value);
                 }
             }
         }

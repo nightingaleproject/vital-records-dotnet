@@ -169,17 +169,8 @@
         <member name="F:VR.CodeSystems.DeathPregnancyStatus">
             <summary> Death Pregnancy Status </summary>
         </member>
-        <member name="F:VR.CodeSystems.BirthDeliveryOccurred">
-            <summary> Birth Delivery Occurred </summary>
-        </member>
         <member name="F:VR.CodeSystems.BFDREditFlags">
             <summary> BFDR Edit Flags </summary>
-        </member>
-        <member name="F:VR.CodeSystems.FetalDeathCauseOrCondition">
-            <summary> Fetal Death Cause Or Condition </summary>
-        </member>
-        <member name="F:VR.CodeSystems.InformantRelationshipToMother">
-            <summary> Informant Relationship To Mother </summary>
         </member>
         <member name="F:VR.CodeSystems.LocalBFDRCodes">
             <summary> Local BFDR Codes </summary>
@@ -1047,21 +1038,6 @@
         <member name="F:VR.ValueSets.FatherRelationship.Stepfather">
             <summary> Stepfather </summary>
         </member>
-        <member name="T:VR.ValueSets.HispanicNoUnknown">
-            <summary> HispanicNoUnknown </summary>
-        </member>
-        <member name="F:VR.ValueSets.HispanicNoUnknown.Codes">
-            <summary> Codes </summary>
-        </member>
-        <member name="F:VR.ValueSets.HispanicNoUnknown.No">
-            <summary> No </summary>
-        </member>
-        <member name="F:VR.ValueSets.HispanicNoUnknown.Yes">
-            <summary> Yes </summary>
-        </member>
-        <member name="F:VR.ValueSets.HispanicNoUnknown.Unknown">
-            <summary> Unknown </summary>
-        </member>
         <member name="T:VR.ValueSets.HispanicOrigin">
             <summary> HispanicOrigin </summary>
         </member>
@@ -1485,6 +1461,9 @@
         <member name="F:VR.ValueSets.MaritalStatus.Widowed">
             <summary> Widowed </summary>
         </member>
+        <member name="F:VR.ValueSets.MaritalStatus.Domestic_Partnership">
+            <summary> Domestic_Partnership </summary>
+        </member>
         <member name="F:VR.ValueSets.MaritalStatus.Unknown">
             <summary> Unknown </summary>
         </member>
@@ -1511,6 +1490,18 @@
         </member>
         <member name="F:VR.ValueSets.MotherRelationship.Natural_Mother_Of_Fetus">
             <summary> Natural_Mother_Of_Fetus </summary>
+        </member>
+        <member name="T:VR.ValueSets.PartialDateDataAbsentReason">
+            <summary> PartialDateDataAbsentReason </summary>
+        </member>
+        <member name="F:VR.ValueSets.PartialDateDataAbsentReason.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:VR.ValueSets.PartialDateDataAbsentReason.Unknown">
+            <summary> Unknown </summary>
+        </member>
+        <member name="F:VR.ValueSets.PartialDateDataAbsentReason.Temporarily_Unknown">
+            <summary> Temporarily_Unknown </summary>
         </member>
         <member name="T:VR.ValueSets.PluralityEditFlags">
             <summary> PluralityEditFlags </summary>

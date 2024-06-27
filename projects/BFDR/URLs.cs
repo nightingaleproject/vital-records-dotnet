@@ -280,6 +280,9 @@ namespace BFDR
         /// <summary>URL for ExtensionEncounterMaternityReference</summary>
         public const string ExtensionEncounterMaternityReference = "http://hl7.org/fhir/us/bfdr/StructureDefinition/Extension-encounter-maternity-reference";
 
+        /// <summary>URL for JurisdictionalFacilityIdentifier</summary>
+        public const string JurisdictionalFacilityIdentifier = "http://hl7.org/fhir/us/bfdr/StructureDefinition/Extension-jurisdictional-facility-identifier";
+
         /// <summary>URL for LocationBFDR</summary>
         public const string LocationBFDR = "http://hl7.org/fhir/us/bfdr/StructureDefinition/Location-bfdr";
 
@@ -388,6 +391,9 @@ namespace BFDR
 
         /// <summary>URL for ExtensionEncounterMaternityReference</summary>
         public const string ExtensionEncounterMaternityReference = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Extension-encounter-maternity-reference.html";
+
+        /// <summary>URL for JurisdictionalFacilityIdentifier</summary>
+        public const string JurisdictionalFacilityIdentifier = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Extension-jurisdictional-facility-identifier.html";
 
         /// <summary>URL for LocationBFDR</summary>
         public const string LocationBFDR = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Location-bfdr.html";
@@ -598,8 +604,8 @@ namespace BFDR
     /// <summary>BFDR Custom Code System URLs</summary>
     public static class CodeSystemURL
     {
-        /// <summary>URL for Abnormal Conditions of the Newborn Code System</summary>
-        public const string AbnormalConditionsNewborn = "http://hl7.org/fhir/us/bfdr/CodeSystem/CodeSystem-abnormal-conditions-newborn";
+        /// <summary> Local BFDR Codes </summary>
+        public const string LocalBFDRCodes = "http://hl7.org/fhir/us/bfdr/CodeSystem/CodeSystem-local-bfdr-codes";
     }
 
 }

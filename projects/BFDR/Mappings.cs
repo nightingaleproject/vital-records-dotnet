@@ -208,34 +208,16 @@ namespace BFDR
             {
                 { "1", "70028003" },
                 { "2", "6096002" },
-                { "3", "163518000" },
-                { "9", "OTH" },
+                { "3", "OTH" },
+                { "9", "UNK" },
             };
             /// <summary>FHIR -> IJE Mapping for FetalPresentation</summary>
             public readonly static Dictionary<string, string> FHIRToIJE = new Dictionary<string, string>
             {
                 { "70028003", "1" },
                 { "6096002", "2" },
-                { "163518000", "3" },
-                { "OTH", "9" },
-            };
-        }
-        /// <summary>Mappings for HistologicalPlacentalExamination</summary>
-        public static class HistologicalPlacentalExamination
-        {
-            /// <summary>IJE -> FHIR Mapping for HistologicalPlacentalExamination</summary>
-            public readonly static Dictionary<string, string> IJEToFHIR = new Dictionary<string, string>
-            {
-                { "Y", "398166005" },
-                { "N", "262008008" },
-                { "P", "397943006" },
-            };
-            /// <summary>FHIR -> IJE Mapping for HistologicalPlacentalExamination</summary>
-            public readonly static Dictionary<string, string> FHIRToIJE = new Dictionary<string, string>
-            {
-                { "398166005", "Y" },
-                { "262008008", "N" },
-                { "397943006", "P" },
+                { "OTH", "3" },
+                { "UNK", "9" },
             };
         }
         /// <summary>Mappings for InfectionsDuringPregnancyLiveBirth</summary>
@@ -310,6 +292,24 @@ namespace BFDR
             {
                 { "0", "0" },
                 { "1failedVerified", "1" },
+            };
+        }
+        /// <summary>Mappings for PerformedNotPerformedPlanned</summary>
+        public static class PerformedNotPerformedPlanned
+        {
+            /// <summary>IJE -> FHIR Mapping for PerformedNotPerformedPlanned</summary>
+            public readonly static Dictionary<string, string> IJEToFHIR = new Dictionary<string, string>
+            {
+                { "Y", "398166005" },
+                { "N", "262008008" },
+                { "P", "397943006" },
+            };
+            /// <summary>FHIR -> IJE Mapping for PerformedNotPerformedPlanned</summary>
+            public readonly static Dictionary<string, string> FHIRToIJE = new Dictionary<string, string>
+            {
+                { "398166005", "Y" },
+                { "262008008", "N" },
+                { "397943006", "P" },
             };
         }
         /// <summary>Mappings for PregnancyReportEditFlags</summary>
