@@ -143,3 +143,13 @@ The content of the commit message body should contain:
 - manual project version advancements (in *.csproj) for any/all applicable projects with each commit
 - publish to NuGet automatically following version bump
 - [Task](https://taskfile.dev/) is enabled during devcontainer build
+
+## Code Coverage Report
+Pull requests will automatically include code coverage checks. To get a full report locally, install the [coverlet.collector](https://github.com/coverlet-coverage/coverlet) to generate a code coverage xml file (you may additionally install coverlet.msbuild as well). To generate a readable report, install [ReportGenerator](https://github.com/danielpalme/ReportGenerator):
+
+- `dotnet tool install -g dotnet-reportgenerator-globaltool` to install report generator global tool (accessible across projects)
+- `dotnet tool install dotnet-reportgenerator-globaltool --tool-path tools` for installing the same package in a "tools" directory within a project
+- `dotnet new tool-manifest` to create a tool manifest file within a project
+- `dotnet tool install dotnet-reportgenerator-globaltool` for installing without `-g` global flag, configuring it within a project
+
+To generate the report, coverlet must first evaluate code coverage (`dotnet test /p:CollectCoverage=true`) and use XPlat coverage tool to track execution (`dotnet test --collect:"XPlat Code Coverage"`). The generated coverage.cobertura.xml file can then be used to create a readable html report using ReportGenerator (`dotnet reportgenerator "-reports:coverage.cobertura.xml" "-targetdir:coveragereport" -reporttypes:Html` - `-reports:coverage.cobertura.xml` indicates the path to the xml coverage information and `-targetdir:coveragereport` indicates where the generated report will appear).
