@@ -146,6 +146,9 @@ _TeamCity*
 coverage*.json
 coverage*.xml
 coverage*.info
+# and report generation for BFDR tests
+projects/BFDR.Tests/tools
+projects/BFDR.Tests/.config/dotnet-tools.json
 
 # Visual Studio code coverage results
 *.coverage
