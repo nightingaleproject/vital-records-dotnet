@@ -1197,7 +1197,7 @@ namespace BFDR.Tests
       Assert.Equal("UNK", b2.MotherEthnicity2Helper);
       Assert.Equal("UNK", b2.MotherEthnicity3Helper);
       Assert.Equal("UNK", b2.MotherEthnicity4Helper);
-      Assert.Null(b2.MotherEthnicityLiteral);
+      Assert.Equal("Bolivian", b2.MotherEthnicityLiteral);
 
       // Race tuple
       foreach (var pair in b2.MotherRace)
@@ -1231,7 +1231,7 @@ namespace BFDR.Tests
       Assert.Equal("UNK", b2.FatherEthnicity2Helper);
       Assert.Equal("UNK", b2.FatherEthnicity3Helper);
       Assert.Equal("UNK", b2.FatherEthnicity4Helper);
-      Assert.Null(b2.FatherEthnicityLiteral);
+      Assert.Equal("Chilean", b2.FatherEthnicityLiteral);
 
       // Race tuple
       foreach (var pair in b2.FatherRace)
@@ -3266,7 +3266,7 @@ namespace BFDR.Tests
       tempDict.Add("display", "Unknown");
       Assert.Equal(tempDict, birthRecord.MotherEthnicity4);
       Assert.Equal("UNK", birthRecord.MotherEthnicity4Helper);
-      Assert.Null(birthRecord.MotherEthnicityLiteral);
+      Assert.Equal("Bolivian", birthRecord.MotherEthnicityLiteral);
       foreach (var pair in birthRecord.MotherRace)
       {
         switch (pair.Item1)
@@ -3305,7 +3305,7 @@ namespace BFDR.Tests
       tempDict.Add("display", "Unknown");
       Assert.Equal(tempDict, birthRecord.FatherEthnicity4);
       Assert.Equal("UNK", birthRecord.FatherEthnicity4Helper);
-      Assert.Null(birthRecord.FatherEthnicityLiteral);
+      Assert.Equal("Chilean", birthRecord.FatherEthnicityLiteral);
       foreach (var pair in birthRecord.FatherRace)
       {
         switch (pair.Item1)
