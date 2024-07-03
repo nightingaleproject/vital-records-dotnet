@@ -792,6 +792,17 @@
                 }
               ]
             }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
+                  "code": "HispanicLiteral"
+                }
+              ]
+            },
+            "valueString": "Bolivian"
           }
         ]
       }
@@ -830,6 +841,17 @@
               ]
             },
             "valueBoolean": false
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
+                  "code": "HispanicLiteral"
+                }
+              ]
+            },
+            "valueString": "Chilean"
           },
           {
             "code": {

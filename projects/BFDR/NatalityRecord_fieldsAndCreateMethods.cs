@@ -1,18 +1,8 @@
 using System;
 using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Diagnostics;
-using System.Globalization;
-using System.Text.RegularExpressions;
-using System.Xml.Linq;
-using Hl7.Fhir.ElementModel;
 using Hl7.Fhir.Model;
-using Hl7.Fhir.Serialization;
-using Hl7.FhirPath;
-using Newtonsoft.Json;
 using VR;
 
 

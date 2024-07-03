@@ -1215,7 +1215,7 @@ namespace BFDR.Tests
         Assert.Equal("UNK", b2.MotherEthnicity2Helper);
         Assert.Equal("UNK", b2.MotherEthnicity3Helper);
         Assert.Equal("UNK", b2.MotherEthnicity4Helper);
-        Assert.Null(b2.MotherEthnicityLiteral);
+        Assert.Equal("Bolivian", b2.MotherEthnicityLiteral);
 
         // Race tuple
         foreach (var pair in b2.MotherRace)
@@ -1249,7 +1249,7 @@ namespace BFDR.Tests
         Assert.Equal("UNK", b2.FatherEthnicity2Helper);
         Assert.Equal("UNK", b2.FatherEthnicity3Helper);
         Assert.Equal("UNK", b2.FatherEthnicity4Helper);
-        Assert.Null(b2.FatherEthnicityLiteral);
+        Assert.Equal("Chilean", b2.FatherEthnicityLiteral);
 
         // Race tuple
         foreach (var pair in b2.FatherRace)
