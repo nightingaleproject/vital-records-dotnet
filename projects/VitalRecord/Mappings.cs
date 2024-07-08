@@ -311,6 +311,7 @@ namespace VR
                 { "M", "M" },
                 { "S", "S" },
                 { "W", "W" },
+                { "U", "T" },
                 { "U", "UNK" },
             };
             /// <summary>FHIR -> IJE Mapping for MaritalStatus</summary>
@@ -321,6 +322,7 @@ namespace VR
                 { "M", "M" },
                 { "S", "S" },
                 { "W", "W" },
+                { "T", "U" },
                 { "UNK", "U" },
             };
         }

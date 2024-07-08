@@ -110,9 +110,9 @@ namespace BFDR.Tests
         SetterFetalDeathRecord.HistologicalPlacentalExaminationPerformedHelper = "398166005";
         Assert.Equal("Performed", SetterFetalDeathRecord.HistologicalPlacentalExaminationPerformed["display"]);
         Dictionary<string, string> cc = new Dictionary<string, string>();
-        cc.Add("code", BFDR.ValueSets.HistologicalPlacentalExamination.Codes[0, 0]);
-        cc.Add("system", BFDR.ValueSets.HistologicalPlacentalExamination.Codes[0, 2]);
-        cc.Add("display", BFDR.ValueSets.HistologicalPlacentalExamination.Codes[0, 1]);
+        cc.Add("code", BFDR.ValueSets.PerformedNotPerformedPlanned.Codes[0, 0]);
+        cc.Add("system", BFDR.ValueSets.PerformedNotPerformedPlanned.Codes[0, 2]);
+        cc.Add("display", BFDR.ValueSets.PerformedNotPerformedPlanned.Codes[0, 1]);
         Assert.Equal(cc, SetterFetalDeathRecord.HistologicalPlacentalExaminationPerformed);
 
         IJEFetalDeath ije = new IJEFetalDeath();
@@ -128,9 +128,9 @@ namespace BFDR.Tests
     {
         FetalDeathRecord record = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
         Dictionary<string, string> cc = new Dictionary<string, string>();
-        cc.Add("code", BFDR.ValueSets.HistologicalPlacentalExamination.Codes[0, 0]);
-        cc.Add("system", BFDR.ValueSets.HistologicalPlacentalExamination.Codes[0, 2]);
-        cc.Add("display", BFDR.ValueSets.HistologicalPlacentalExamination.Codes[0, 1]);
+        cc.Add("code", BFDR.ValueSets.PerformedNotPerformedPlanned.Codes[0, 0]);
+        cc.Add("system", BFDR.ValueSets.PerformedNotPerformedPlanned.Codes[0, 2]);
+        cc.Add("display", BFDR.ValueSets.PerformedNotPerformedPlanned.Codes[0, 1]);
         Assert.Equal("398166005", record.HistologicalPlacentalExaminationPerformedHelper);
         Assert.Equal(cc, record.HistologicalPlacentalExaminationPerformed);
         Assert.Equal(VR.CodeSystems.SCT, record.HistologicalPlacentalExaminationPerformed["system"]);

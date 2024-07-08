@@ -3026,15 +3026,6 @@
         <member name="F:BFDR.Mappings.FetalPresentation.FHIRToIJE">
             <summary>FHIR -> IJE Mapping for FetalPresentation</summary>
         </member>
-        <member name="T:BFDR.Mappings.HistologicalPlacentalExamination">
-            <summary>Mappings for HistologicalPlacentalExamination</summary>
-        </member>
-        <member name="F:BFDR.Mappings.HistologicalPlacentalExamination.IJEToFHIR">
-            <summary>IJE -> FHIR Mapping for HistologicalPlacentalExamination</summary>
-        </member>
-        <member name="F:BFDR.Mappings.HistologicalPlacentalExamination.FHIRToIJE">
-            <summary>FHIR -> IJE Mapping for HistologicalPlacentalExamination</summary>
-        </member>
         <member name="T:BFDR.Mappings.InfectionsDuringPregnancyLiveBirth">
             <summary>Mappings for InfectionsDuringPregnancyLiveBirth</summary>
         </member>
@@ -3061,6 +3052,15 @@
         </member>
         <member name="F:BFDR.Mappings.NumberPreviousCesareansEditFlags.FHIRToIJE">
             <summary>FHIR -> IJE Mapping for NumberPreviousCesareansEditFlags</summary>
+        </member>
+        <member name="T:BFDR.Mappings.PerformedNotPerformedPlanned">
+            <summary>Mappings for PerformedNotPerformedPlanned</summary>
+        </member>
+        <member name="F:BFDR.Mappings.PerformedNotPerformedPlanned.IJEToFHIR">
+            <summary>IJE -> FHIR Mapping for PerformedNotPerformedPlanned</summary>
+        </member>
+        <member name="F:BFDR.Mappings.PerformedNotPerformedPlanned.FHIRToIJE">
+            <summary>FHIR -> IJE Mapping for PerformedNotPerformedPlanned</summary>
         </member>
         <member name="T:BFDR.Mappings.PregnancyReportEditFlags">
             <summary>Mappings for PregnancyReportEditFlags</summary>
@@ -7134,8 +7134,8 @@
         <member name="T:BFDR.CodeSystemURL">
             <summary>BFDR Custom Code System URLs</summary>
         </member>
-        <member name="F:BFDR.CodeSystemURL.AbnormalConditionsNewborn">
-            <summary>URL for Abnormal Conditions of the Newborn Code System</summary>
+        <member name="F:BFDR.CodeSystemURL.LocalBFDRCodes">
+            <summary> Local BFDR Codes </summary>
         </member>
         <member name="T:BFDR.ValueSets">
             <summary> ValueSet Helpers </summary>
@@ -7365,11 +7365,11 @@
         <member name="F:BFDR.ValueSets.FetalPresentations.Breech_Presentation_Finding">
             <summary> Breech_Presentation_Finding </summary>
         </member>
-        <member name="F:BFDR.ValueSets.FetalPresentations.On_Examination_Fetal_Presentation_Unsure_Unknown_Fetal_Presentation_Finding">
-            <summary> On_Examination_Fetal_Presentation_Unsure_Unknown_Fetal_Presentation_Finding </summary>
-        </member>
         <member name="F:BFDR.ValueSets.FetalPresentations.Other">
             <summary> Other </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.FetalPresentations.Unknown">
+            <summary> Unknown </summary>
         </member>
         <member name="T:BFDR.ValueSets.FetalRemainsDispositionMethod">
             <summary> FetalRemainsDispositionMethod </summary>
@@ -7397,21 +7397,6 @@
         </member>
         <member name="F:BFDR.ValueSets.FetalRemainsDispositionMethod.Unknown">
             <summary> Unknown </summary>
-        </member>
-        <member name="T:BFDR.ValueSets.HistologicalPlacentalExamination">
-            <summary> HistologicalPlacentalExamination </summary>
-        </member>
-        <member name="F:BFDR.ValueSets.HistologicalPlacentalExamination.Codes">
-            <summary> Codes </summary>
-        </member>
-        <member name="F:BFDR.ValueSets.HistologicalPlacentalExamination.Performed">
-            <summary> Performed </summary>
-        </member>
-        <member name="F:BFDR.ValueSets.HistologicalPlacentalExamination.Not_Performed">
-            <summary> Not_Performed </summary>
-        </member>
-        <member name="F:BFDR.ValueSets.HistologicalPlacentalExamination.Planned">
-            <summary> Planned </summary>
         </member>
         <member name="T:BFDR.ValueSets.InfectionsDuringPregnancyLiveBirth">
             <summary> InfectionsDuringPregnancyLiveBirth </summary>
@@ -7541,6 +7526,21 @@
         </member>
         <member name="F:BFDR.ValueSets.ObstetricProcedureOutcome.Unsuccessful_Qualifier_Value">
             <summary> Unsuccessful_Qualifier_Value </summary>
+        </member>
+        <member name="T:BFDR.ValueSets.PerformedNotPerformedPlanned">
+            <summary> PerformedNotPerformedPlanned </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PerformedNotPerformedPlanned.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PerformedNotPerformedPlanned.Performed">
+            <summary> Performed </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PerformedNotPerformedPlanned.Not_Performed">
+            <summary> Not_Performed </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PerformedNotPerformedPlanned.Planned">
+            <summary> Planned </summary>
         </member>
         <member name="T:BFDR.ValueSets.PregnancyReportEditFlags">
             <summary> PregnancyReportEditFlags </summary>

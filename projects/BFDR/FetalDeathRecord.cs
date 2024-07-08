@@ -506,7 +506,7 @@ namespace BFDR
         public string HistologicalPlacentalExaminationPerformedHelper
         {
             get => GetObservationValueHelper();
-            set => SetObservationValueHelper(value, BFDR.ValueSets.HistologicalPlacentalExamination.Codes);
+            set => SetObservationValueHelper(value, BFDR.ValueSets.PerformedNotPerformedPlanned.Codes);
         }
 
         /// <summary>Fetal Remains Disposition Method.</summary>
