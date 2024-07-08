@@ -116,7 +116,7 @@ namespace BFDR
             public static string Other = "OTH";
             /// <summary> Unknown </summary>
             public static string Unknown = "UNK";
-        }
+        };
 
         /// <summary> BirthWeightEditFlags </summary>
         public static class BirthWeightEditFlags {
@@ -242,18 +242,18 @@ namespace BFDR
             public static string[,] Codes = {
                 { "70028003", "Vertex presentation (finding)", VR.CodeSystems.SCT },
                 { "6096002", "Breech presentation (finding)", VR.CodeSystems.SCT },
-                { "163518000", "On examination - fetal presentation unsure	Unknown fetal presentation (finding)", VR.CodeSystems.SCT },
                 { "OTH", "Other", VR.CodeSystems.NullFlavor_HL7_V3 },
+                { "UNK", "unknown", VR.CodeSystems.NullFlavor_HL7_V3 },
             };
 
             /// <summary> Vertex_Presentation_Finding </summary>
             public static string Vertex_Presentation_Finding = "70028003";
             /// <summary> Breech_Presentation_Finding </summary>
             public static string Breech_Presentation_Finding = "6096002";
-            /// <summary> On_Examination_Fetal_Presentation_Unsure_Unknown_Fetal_Presentation_Finding </summary>
-            public static string On_Examination_Fetal_Presentation_Unsure_Unknown_Fetal_Presentation_Finding = "163518000";
             /// <summary> Other </summary>
             public static string Other = "OTH";
+            /// <summary> Unknown </summary>
+            public static string Unknown = "UNK";
         };
 
         /// <summary> FetalRemainsDispositionMethod </summary>
@@ -283,23 +283,6 @@ namespace BFDR
             public static string Other = "OTH";
             /// <summary> Unknown </summary>
             public static string Unknown = "UNK";
-        };
-
-        /// <summary> HistologicalPlacentalExamination </summary>
-        public static class HistologicalPlacentalExamination {
-            /// <summary> Codes </summary>
-            public static string[,] Codes = {
-                { "398166005", "Performed", VR.CodeSystems.SCT },
-                { "262008008", "Not Performed", VR.CodeSystems.SCT },
-                { "397943006", "Planned", VR.CodeSystems.SCT },
-            };
-
-            /// <summary> Performed </summary>
-            public static string Performed = "398166005";
-            /// <summary> Not_Performed </summary>
-            public static string Not_Performed = "262008008";
-            /// <summary> Planned </summary>
-            public static string Planned = "397943006";
         };
 
         /// <summary> InfectionsDuringPregnancyLiveBirth </summary>
@@ -441,6 +424,23 @@ namespace BFDR
             public static string Successful_Qualifier_Value = "385669000";
             /// <summary> Unsuccessful_Qualifier_Value </summary>
             public static string Unsuccessful_Qualifier_Value = "385671000";
+        };
+
+        /// <summary> PerformedNotPerformedPlanned </summary>
+        public static class PerformedNotPerformedPlanned {
+            /// <summary> Codes </summary>
+            public static string[,] Codes = {
+                { "398166005", "Performed", VR.CodeSystems.SCT },
+                { "262008008", "Not Performed", VR.CodeSystems.SCT },
+                { "397943006", "Planned", VR.CodeSystems.SCT },
+            };
+
+            /// <summary> Performed </summary>
+            public static string Performed = "398166005";
+            /// <summary> Not_Performed </summary>
+            public static string Not_Performed = "262008008";
+            /// <summary> Planned </summary>
+            public static string Planned = "397943006";
         };
 
         /// <summary> PregnancyReportEditFlags </summary>

@@ -3551,7 +3551,7 @@
       },
       "identifier" : [{
         "extension" : [{
-          "url" : "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/AuxiliaryStateIdentifier1",
+          "url" : "http://hl7.org/fhir/us/bfdr/StructureDefinition/Extension-jurisdictional-facility-identifier",
           "valueString" : "UT1234567"
         }],
         "system" : "http://hl7.org/fhir/sid/us-npi",

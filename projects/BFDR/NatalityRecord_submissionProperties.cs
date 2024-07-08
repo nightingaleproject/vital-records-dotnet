@@ -1801,7 +1801,7 @@ namespace BFDR
         [Property("Assisted Ventilation Following Delivery", Property.Types.Bool, "Specified Abnormal Conditions of Newborn",
                   "No Specified Abnormal Conditions of Newborn, Assisted Ventilation Following Delivery", true, IGURL.ProcedureAssistedVentilationFollowingDelivery, true, 212)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Procedure, categoryCode: "73812-0", code: "assistedventfollowingdelivery",
-                  codeSystem: CodeSystemURL.AbnormalConditionsNewborn, section: NEWBORN_INFORMATION_SECTION)]
+                  codeSystem: CodeSystemURL.LocalBFDRCodes, section: NEWBORN_INFORMATION_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public bool AssistedVentilationFollowingDelivery
         {
@@ -1813,7 +1813,7 @@ namespace BFDR
         [Property("Assisted Ventilation More Than Six Hours", Property.Types.Bool, "Specified Abnormal Conditions of Newborn",
                   "No Specified Abnormal Conditions of Newborn, Assisted Ventilation More Than Six Hours", true, IGURL.ProcedureAssistedVentilationMoreThanSixHours, true, 213)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Procedure, categoryCode: "73812-0", code: "assistedventmorethan6hrs",
-                  codeSystem: CodeSystemURL.AbnormalConditionsNewborn, section: NEWBORN_INFORMATION_SECTION)]
+                  codeSystem: CodeSystemURL.LocalBFDRCodes, section: NEWBORN_INFORMATION_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public bool AssistedVentilationMoreThanSixHours
         {
@@ -3115,7 +3115,7 @@ namespace BFDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("MotherEthnicity1", value, VR.ValueSets.HispanicNoUnknown.Codes);
+                    SetCodeValue("MotherEthnicity1", value, VR.ValueSets.YesNoUnknown.Codes);
                 }
             }
         }
@@ -3194,7 +3194,7 @@ namespace BFDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("MotherEthnicity2", value, VR.ValueSets.HispanicNoUnknown.Codes);
+                    SetCodeValue("MotherEthnicity2", value, VR.ValueSets.YesNoUnknown.Codes);
                 }
             }
         }
@@ -3273,7 +3273,7 @@ namespace BFDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("MotherEthnicity3", value, VR.ValueSets.HispanicNoUnknown.Codes);
+                    SetCodeValue("MotherEthnicity3", value, VR.ValueSets.YesNoUnknown.Codes);
                 }
             }
         }
@@ -3352,7 +3352,7 @@ namespace BFDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("MotherEthnicity4", value, VR.ValueSets.HispanicNoUnknown.Codes);
+                    SetCodeValue("MotherEthnicity4", value, VR.ValueSets.YesNoUnknown.Codes);
                 }
             }
         }
@@ -3587,7 +3587,7 @@ namespace BFDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("FatherEthnicity1", value, VR.ValueSets.HispanicNoUnknown.Codes);
+                    SetCodeValue("FatherEthnicity1", value, VR.ValueSets.YesNoUnknown.Codes);
                 }
             }
         }
@@ -3666,7 +3666,7 @@ namespace BFDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("FatherEthnicity2", value, VR.ValueSets.HispanicNoUnknown.Codes);
+                    SetCodeValue("FatherEthnicity2", value, VR.ValueSets.YesNoUnknown.Codes);
                 }
             }
         }
@@ -3745,7 +3745,7 @@ namespace BFDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("FatherEthnicity3", value, VR.ValueSets.HispanicNoUnknown.Codes);
+                    SetCodeValue("FatherEthnicity3", value, VR.ValueSets.YesNoUnknown.Codes);
                 }
             }
         }
@@ -3825,7 +3825,7 @@ namespace BFDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("FatherEthnicity4", value, VR.ValueSets.HispanicNoUnknown.Codes);
+                    SetCodeValue("FatherEthnicity4", value, VR.ValueSets.YesNoUnknown.Codes);
                 }
             }
         }
