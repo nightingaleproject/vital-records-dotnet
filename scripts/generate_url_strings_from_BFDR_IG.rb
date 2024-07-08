@@ -94,8 +94,8 @@ namespace BFDR
     /// <summary>BFDR Custom Code System URLs</summary>
     public static class CodeSystemURL
     {
-        /// <summary>URL for Abnormal Conditions of the Newborn Code System</summary>
-        public const string AbnormalConditionsNewborn = "http://hl7.org/fhir/us/bfdr/CodeSystem/CodeSystem-abnormal-conditions-newborn";
+        /// <summary> Local BFDR Codes </summary>
+        public const string LocalBFDRCodes = "http://hl7.org/fhir/us/bfdr/CodeSystem/CodeSystem-local-bfdr-codes";
     }
 
 }

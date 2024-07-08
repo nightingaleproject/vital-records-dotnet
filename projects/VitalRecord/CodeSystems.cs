@@ -174,17 +174,8 @@ namespace VR
 
         // Code systems defined within vital record IGs: BFDR IG
 
-        /// <summary> Birth Delivery Occurred </summary>
-        public static string BirthDeliveryOccurred = "http://hl7.org/fhir/us/bfdr/CodeSystem/CodeSystem-vr-birth-delivery-occurred";
-
         /// <summary> BFDR Edit Flags </summary>
         public static string BFDREditFlags = "http://hl7.org/fhir/us/bfdr/CodeSystem/CodeSystem-edit-flags";
-
-        /// <summary> Fetal Death Cause Or Condition </summary>
-        public static string FetalDeathCauseOrCondition = "http://hl7.org/fhir/us/bfdr/CodeSystem/CodeSystem-vr-fetal-death-cause-or-condition";
-
-        /// <summary> Informant Relationship To Mother </summary>
-        public static string InformantRelationshipToMother = "http://hl7.org/fhir/us/bfdr/CodeSystem/CodeSystem-informant-relationship-to-mother";
 
         /// <summary> Local BFDR Codes </summary>
         public static string LocalBFDRCodes = "http://hl7.org/fhir/us/bfdr/CodeSystem/CodeSystem-local-bfdr-codes";
