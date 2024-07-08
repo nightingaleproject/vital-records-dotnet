@@ -37,7 +37,7 @@ namespace BFDR.Tests
       // Sex
       Assert.Equal("M", ijeImported.ISEX);
       Assert.Equal(ijeImported.ISEX, ijeConverted.ISEX);
-      Assert.Equal("M", br.BirthSex["code"]);
+      Assert.Equal("M", br.BirthSex);
       // Date of Birth (Infant)--Month
       Assert.Equal("11", ijeImported.IDOB_MO);
       Assert.Equal(ijeImported.IDOB_MO, ijeConverted.IDOB_MO);
@@ -53,7 +53,6 @@ namespace BFDR.Tests
       // Plurality
       // TODO ---
       // Set Order
-      // TODO ---
       Assert.Equal("06", ijeImported.SORD);
       Assert.Equal(ijeImported.SORD, ijeConverted.SORD);
       Assert.Equal(6, br.SetOrder);
@@ -109,16 +108,13 @@ namespace BFDR.Tests
       IJEBirth ije = new IJEBirth();
       ije.ISEX = "M";
       Assert.Equal("M", ije.ISEX);
-      Assert.Equal("M", ije.ToRecord().BirthSex["code"]);
-      Assert.Equal("M", ije.ToRecord().BirthSexHelper);
+      Assert.Equal("M", ije.ToRecord().BirthSex);
       ije.ISEX = "F";
       Assert.Equal("F", ije.ISEX);
-      Assert.Equal("F", ije.ToRecord().BirthSex["code"]);
-      Assert.Equal("F", ije.ToRecord().BirthSexHelper);
-      ije.ToRecord().BirthSexHelper = "M";
+      Assert.Equal("F", ije.ToRecord().BirthSex);
+      ije.ToRecord().BirthSex = "M";
       Assert.Equal("M", ije.ISEX);
-      Assert.Equal("M", ije.ToRecord().BirthSex["code"]);
-      Assert.Equal("M", ije.ToRecord().BirthSexHelper);
+      Assert.Equal("M", ije.ToRecord().BirthSex);
     }
 
     // Test Patient Mother Vital Properties
