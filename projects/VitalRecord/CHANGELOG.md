@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file. See [commit
 <a name="1.0.0-preview.1"></a>
 ## [1.0.0-preview.1](https://github.com/nightingaleproject/vital-records-dotnet/commit/c4a19c02a13452d4d498b4aa3354ae7264a2cad8) (2024-07-09)
 
-### Feautures
+### Features
 * add helper function for bfdr fields where all 8s represents unknown ([6dd85fa](https://github.com/nightingaleproject/vital-records-dotnet/commit/6dd85fad045cadf988fdb8645bb33b2a905f109a))
 * remove extraneous FHIR elements in partial dates and add temp-unknowns where necessary ([6dd85fa](https://github.com/nightingaleproject/vital-records-dotnet/commit/6dd85fad045cadf988fdb8645bb33b2a905f109a))
 
