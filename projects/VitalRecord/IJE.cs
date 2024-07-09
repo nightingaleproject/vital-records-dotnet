@@ -115,6 +115,8 @@ namespace VR
             return Truncate(valueString, info.Length).PadLeft(info.Length, '0');
         }
 
+        /// <summary>Get a value on the VitalRecord that is a numeric string with the option of being set to all 8s on the IJE side and absent on the
+        /// FHIR side to represent'unknown'</summary>
         protected string NumericAllowingUnknownAndAbsence_Get(string ijeFieldName, string fhirFieldName, string obsCodeToRemove)
         {
             IJEField info = FieldInfo(ijeFieldName);
@@ -144,6 +146,8 @@ namespace VR
             }
         }
 
+        /// <summary>Set a value on the VitalRecord that is a numeric string with the option of being set to all 8s on the IJE side and absent on the
+        /// FHIR side to represent'unknown'</summary>
         protected void NumericAllowingUnknownAndAbsence_Set(string ijeFieldName, string fhirFieldName, string value, string obsCodeToRemove)
         {
             IJEField info = FieldInfo(ijeFieldName);
