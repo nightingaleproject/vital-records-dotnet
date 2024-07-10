@@ -58,6 +58,15 @@ export default function App() {
       return 'BFDR Fetal Death'
     };
   })();
+  const ijeDataType = (() => {
+    if (recordType.toLowerCase() === 'vrdr') {
+      return 'Mortality'
+    } else if (recordType.toLowerCase() === 'bfdr-birth') {
+      return 'Natality'
+    } else if (recordType.toLowerCase() === 'bfdr-fetaldeath') {
+      return 'Fetal Death'
+    };
+  })();
 
   /**
    * Adds parameters to the given component class type.
@@ -81,14 +90,13 @@ export default function App() {
   const EDRSRoundtripConsumingParams = addParams(EDRSRoundtripConsuming)
   const EDRSRoundtripProducingParams = addParams(EDRSRoundtripProducing)
 
-  // conditional routes based on record type (if vfdr, then do the connnectathon specific routes, etc.)
-
+  // conditional routes based on record type.
   return (
-    <Layout recordType={recordType} recordTypeReadable={recordTypeReadable} >
+    <Layout recordType={recordType} recordTypeReadable={recordTypeReadable} ijeType={ijeDataType}>
       <Routes>
         <Route path="/" element={<HomeScreen />} />
         <Route path=":recordType/*">
-          <Route index element={<Dashboard recordType={recordType} recordTypeReadable={recordTypeReadable} />} />
+          <Route index element={<Dashboard recordType={recordType} recordTypeReadable={recordTypeReadable} ijeType={ijeDataType}/>} />
           <Route path="recent-tests" element={<RecentTests />} />
           <Route path="test-fhir-consuming">
             <Route index element={<FHIRConsuming recordType={recordType} recordTypeReadable={recordTypeReadable} />} />

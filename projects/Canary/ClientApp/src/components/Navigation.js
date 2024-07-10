@@ -43,7 +43,7 @@ export function Navigation(props) {
           </Dropdown>
           <Dropdown item text="Record Tools" direction="left">
             <Dropdown.Menu>
-              {NavigationOptions.RecordTools(props.recordTypeReadable).map((navigationOption) => {
+              {NavigationOptions.RecordTools(props.recordTypeReadable, props.ijeType).map((navigationOption) => {
                 return (
                   <Dropdown.Item
                     key={navigationOption.title}
