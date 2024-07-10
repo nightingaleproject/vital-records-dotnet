@@ -2,8 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
-<a name="1.0.0-preview.1"></a>
-## [1.0.0-preview.1](https://github.com/nightingaleproject/vital-records-dotnet/commit/c4a19c02a13452d4d498b4aa3354ae7264a2cad8) (2024-07-09)
+<a name="1.0.0-preview.2"></a>
+## [1.0.0-preview.2](https://github.com/nightingaleproject/vital-records-dotnet/commit/c4a19c02a13452d4d498b4aa3354ae7264a2cad8) (2024-07-09)
 
 ### Feautures
 * add helper function for bfdr fields where all 8s represents unknown ([6dd85fa](https://github.com/nightingaleproject/vital-records-dotnet/commit/6dd85fad045cadf988fdb8645bb33b2a905f109a))
