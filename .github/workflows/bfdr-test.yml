@@ -44,6 +44,24 @@ jobs:
     - name: Test CLI commands
       run: ./BFDR.Tests/run_tests.sh
     - name: Test
+      run: dotnet test bfdr-dotnet.sln
+  coverage:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./projects
+    permissions: write-all
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ matrix.dotnet-version }}
+    - name: Install dependencies
+      run: dotnet restore bfdr-dotnet.sln
+    - name: Build
+      run: dotnet build bfdr-dotnet.sln --configuration Release --no-restore
+    - name: Test
       run: dotnet test bfdr-dotnet.sln --configuration Release --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
     - name: Code Coverage Report
       uses: irongut/CodeCoverageSummary@v1.3.0
