@@ -239,9 +239,17 @@
             <summary>Get a value on the VitalRecord that is a numeric string with the option of being set to all 9s on the IJE side and -1 on the
             FHIR side to represent'unknown' and blank on the IJE side and null on the FHIR side to represent unspecified</summary>
         </member>
+        <member name="M:VR.IJE.NumericAllowingUnknownAndAbsence_Get(System.String,System.String,System.String)">
+            <summary>Get a value on the VitalRecord that is a numeric string with the option of being set to all 8s on the IJE side and absent on the
+            FHIR side to represent'unknown'</summary>
+        </member>
         <member name="M:VR.IJE.NumericAllowingUnknown_Set(System.String,System.String,System.String)">
             <summary>Set a value on the VitalRecord that is a numeric string with the option of being set to all 9s on the IJE side and -1 on the
             FHIR side to represent'unknown' and blank on the IJE side and null on the FHIR side to represent unspecified</summary>
+        </member>
+        <member name="M:VR.IJE.NumericAllowingUnknownAndAbsence_Set(System.String,System.String,System.String,System.String)">
+            <summary>Set a value on the VitalRecord that is a numeric string with the option of being set to all 8s on the IJE side and absent on the
+            FHIR side to represent'unknown'</summary>
         </member>
         <member name="M:VR.IJE.LeftJustified_Get(System.String,System.String)">
             <summary>Get a value on the VitalRecord whose IJE type is a left justified string.</summary>
