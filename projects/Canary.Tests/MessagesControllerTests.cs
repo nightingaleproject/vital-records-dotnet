@@ -26,7 +26,7 @@ namespace canary.tests
         Request = { Body = stream, ContentLength = stream.Length }
       };
       _messagesController.ControllerContext.HttpContext = httpContext;
-      var response = _messagesController.NewVRDRMessagePost();
+      var response = _messagesController.NewMessagePost("vrdr");
       var message = response.Result.message;
       var issues = response.Result.issues;
       Assert.Equal(new List<Dictionary<string, string>>(), issues);
@@ -43,7 +43,7 @@ namespace canary.tests
         Request = { Body = stream, ContentLength = stream.Length }
       };
       _messagesController.ControllerContext.HttpContext = httpContext;
-      var response = _messagesController.NewVRDRMessagePost();
+      var response = _messagesController.NewMessagePost("vrdr");
       var message = response.Result.message;
       var issues = response.Result.issues[0];
       Assert.Equal(2, issues.Count);

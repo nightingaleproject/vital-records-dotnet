@@ -33,10 +33,15 @@ export class HomeScreen extends Component {
             subtitle='VRDR STU2'
             link='https://canary-v4.fhir.nvss.cdc.gov'
           />
-          <CanaryCard
-            title='Birth and Fetal Death Reporting'
+          <CanaryCard 
+            title='BFDR Birth Reporting'
             subtitle={`BFDR ${window.BFDR_VERSION}`}
-            link='/bfdr'
+            link='/bfdr-birth'
+          />
+          <CanaryCard 
+            title='BFDR Fetal Death Reporting'
+            subtitle={`BFDR ${window.BFDR_VERSION}`}
+            link='/bfdr-fetaldeath'
           />
         </Container>
       </React.Fragment>

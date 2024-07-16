@@ -99,7 +99,7 @@ export class EDRSRoundtripProducing extends Component {
                 Dashboard
               </Breadcrumb.Section>
               <Breadcrumb.Divider icon="right chevron" />
-              <Breadcrumb.Section>{this.props.params.recordType.toUpperCase()} Record Roundtrip (Producing)</Breadcrumb.Section>
+              <Breadcrumb.Section>{this.props.params.recordTypeReadable} Record Roundtrip (Producing)</Breadcrumb.Section>
             </Breadcrumb>
           </Grid.Row>
           {!!this.state.test && this.state.test.completedBool && (
