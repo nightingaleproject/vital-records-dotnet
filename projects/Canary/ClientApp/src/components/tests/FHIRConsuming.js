@@ -71,9 +71,9 @@ export function FHIRConsuming(props) {
   }
 
   const updateFhirInfo = (path, value) => {
-    var fhirInfo = { ...fhirInfo };
-    _.set(fhirInfo, path, value);
-    setFhirInfo(fhirInfo);
+    const fhirInfoLocal = { ...fhirInfo };
+    _.set(fhirInfoLocal, path, value);
+    setFhirInfo(fhirInfoLocal);
   }
 
   const runTest = () => {
@@ -110,7 +110,7 @@ export function FHIRConsuming(props) {
               Dashboard
             </Breadcrumb.Section>
             <Breadcrumb.Divider icon="right chevron" />
-            <Breadcrumb.Section>Consuming FHIR {recordType.toUpperCase()} Records</Breadcrumb.Section>
+            <Breadcrumb.Section>Consuming FHIR {props.recordTypeReadable} Records</Breadcrumb.Section>
           </Breadcrumb>
         </Grid.Row>
         {!!test && test.completedBool && (

@@ -19,6 +19,11 @@ export class FHIRMessageCreator extends Component {
   }
 
   componentDidMount() {
+
+    if (this.props.recordType.toLowerCase() == 'bfdr-fetaldeath') {
+      return;
+    }
+
     document.getElementById('scroll-to').scrollIntoView({
       behavior: 'smooth',
       block: 'start'
@@ -57,6 +62,14 @@ export class FHIRMessageCreator extends Component {
 
   render() {
 
+    if (this.props.recordType.toLowerCase() == 'bfdr-fetaldeath') {
+      return (
+        <h1>
+          BFDR Fetal Death does not yet support messaging.
+        </h1>
+      );
+    }
+
     const messageTypeIcons = this.props.recordType.toLowerCase() == 'vrdr' ? messageTypeIconsVRDR : messageTypeIconsBFDR;
 
     return (
@@ -68,7 +81,7 @@ export class FHIRMessageCreator extends Component {
                 Dashboard
               </Breadcrumb.Section>
               <Breadcrumb.Divider icon="right chevron" />
-              <Breadcrumb.Section>Creating FHIR {this.props.recordType.toUpperCase()} Messages</Breadcrumb.Section>
+              <Breadcrumb.Section>Creating FHIR {this.props.recordTypeReadable} Messages</Breadcrumb.Section>
             </Breadcrumb>
           </Grid.Row>
           <Grid.Row>

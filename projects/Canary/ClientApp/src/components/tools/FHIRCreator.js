@@ -76,7 +76,7 @@ export class FHIRCreator extends Component {
               Dashboard
             </Breadcrumb.Section>
             <Breadcrumb.Divider icon="right chevron" />
-            <Breadcrumb.Section>FHIR {this.props.recordType.toUpperCase()} Record Creator</Breadcrumb.Section>
+            <Breadcrumb.Section>FHIR {this.props.recordTypeReadable} Record Creator</Breadcrumb.Section>
           </Breadcrumb>
         </Grid.Row>
         {!!this.state.fhirInfo && (
