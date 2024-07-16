@@ -2,12 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
-using VRDR;
 using VR;
 using Newtonsoft.Json;
-using System.IO;
 using System.Text.Json.Nodes;
-using BFDR;
 
 namespace canary.Models
 {
@@ -16,11 +13,13 @@ namespace canary.Models
 
         public DbSet<CanaryDeathRecord> DeathRecords { get; set; }
         public DbSet<CanaryBirthRecord> BirthRecords { get; set; }
+        public DbSet<CanaryFetalDeathRecord> FetalDeathRecords { get; set; }
 
         public DbSet<Endpoint> Endpoints { get; set; }
 
         public DbSet<DeathTest> DeathTests { get; set; }
         public DbSet<BirthTest> BirthTests { get; set; }
+        public DbSet<FetalDeathTest> FetalDeathTests { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -51,7 +50,7 @@ namespace canary.Models
 
             modelBuilder.Entity<CanaryDeathMessage>();
 
-            // BFDR
+            // BFDR Birth
             modelBuilder.Entity<BirthTest>().Property(t => t.ReferenceRecord).HasConversion(t => t.GetRecord().ToXML(),
                 t => new CanaryBirthRecord(t));
 
@@ -59,6 +58,15 @@ namespace canary.Models
                 t => new CanaryBirthRecord(t));
 
             modelBuilder.Entity<CanaryBirthMessage>();
+
+            // BFDR FetalDeath
+            modelBuilder.Entity<FetalDeathTest>().Property(t => t.ReferenceRecord).HasConversion(t => t.GetRecord().ToXML(),
+                t => new CanaryFetalDeathRecord(t));
+
+            modelBuilder.Entity<FetalDeathTest>().Property(t => t.TestRecord).HasConversion(t => t.GetRecord().ToXML(),
+                t => new CanaryFetalDeathRecord(t));
+
+            modelBuilder.Entity<CanaryFetalDeathMessage>();
         }
     }
 
