@@ -135,7 +135,7 @@ namespace BFDR.CLI
                 birthRecord.FatherEducationLevelEditFlagHelper = VR.ValueSets.EditBypass01234.Edit_Failed_Data_Queried_But_Not_Verified;
 
                 //Ethnicity
-                birthRecord.MotherEthnicity3Helper = VR.ValueSets.HispanicNoUnknown.Yes;
+                birthRecord.MotherEthnicity3Helper = VR.ValueSets.YesNoUnknown.Yes;
                 // Race
                 Tuple<string, string>[] motherRace = { Tuple.Create(NvssRace.BlackOrAfricanAmerican, "Y")};
                 birthRecord.MotherRace = motherRace;
