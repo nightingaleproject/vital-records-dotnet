@@ -71,9 +71,9 @@ export function FHIRConsuming(props) {
   }
 
   const updateFhirInfo = (path, value) => {
-    var fhirInfo = { ...fhirInfo };
-    _.set(fhirInfo, path, value);
-    setFhirInfo(fhirInfo);
+    const fhirInfoLocal = { ...fhirInfo };
+    _.set(fhirInfoLocal, path, value);
+    setFhirInfo(fhirInfoLocal);
   }
 
   const runTest = () => {
