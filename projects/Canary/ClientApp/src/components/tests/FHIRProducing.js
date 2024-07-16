@@ -107,7 +107,7 @@ export function FHIRProducing(props) {
               Dashboard
             </Breadcrumb.Section>
             <Breadcrumb.Divider icon="right chevron" />
-            <Breadcrumb.Section>Producing FHIR {props.recordType.toUpperCase()} Records</Breadcrumb.Section>
+            <Breadcrumb.Section>Producing FHIR {props.recordTypeReadable} Records</Breadcrumb.Section>
           </Breadcrumb>
         </Grid.Row>
         {!!test && test.completedBool && (

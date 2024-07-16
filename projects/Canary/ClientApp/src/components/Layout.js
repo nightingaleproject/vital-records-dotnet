@@ -8,7 +8,7 @@ export function Layout(props) {
   return (
     <React.Fragment>
       <SemanticToastContainer />
-      <Navigation recordType={props.recordType}/>
+      <Navigation recordType={props.recordType} recordTypeReadable={props.recordTypeReadable} ijeType={props.ijeType}/>
       <Container>
         <Grid>{props.children}</Grid>
       </Container>
