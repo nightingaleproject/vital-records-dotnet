@@ -3493,32 +3493,34 @@ namespace BFDR
         [Property("MotherEthnicityLiteral", Property.Types.String, "Race and Ethnicity Profiles", "Mother's Ethnicity Literal.", true, VR.IGURL.InputRaceAndEthnicity, false, 34)]
         [PropertyParam("ethnicity", "The literal string to describe ethnicity.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='inputraceandethnicityMother')", "")]
-        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        [FHIRSubject(FHIRSubject.Subject.Mother)]
         public string MotherEthnicityLiteral
         {
-            get
+            get => GetEthnicityLiteral("inputraceandethnicityMother", RACE_ETHNICITY_PROFILE_MOTHER);
+            set => SetEthnicityLiteral(value, Mother.Id, "inputraceandethnicityMother", RACE_ETHNICITY_PROFILE_MOTHER);
+        }
+
+        private string GetEthnicityLiteral(string code, string section, [CallerMemberName] string propertyName = null) {
+            Observation obs = GetOrCreateObservation(code, CodeSystems.InputRaceAndEthnicityPerson, "Input Race and Ethnicity Person", VR.ProfileURL.InputRaceAndEthnicity, section, null, propertyName);
+            Observation.ComponentComponent ethnicity = obs.Component.FirstOrDefault(c => c.Code.Coding[0].Code == NvssEthnicity.Literal);
+            if (ethnicity != null && ethnicity.Value != null && ethnicity.Value as FhirString != null)
             {
-                Observation obs = GetOrCreateObservation("inputraceandethnicityMother", CodeSystems.InputRaceAndEthnicityPerson, "Input Race and Ethnicity Person", VR.ProfileURL.InputRaceAndEthnicity, RACE_ETHNICITY_PROFILE_MOTHER);
-                Observation.ComponentComponent ethnicity = obs.Component.FirstOrDefault(c => c.Code.Coding[0].Code == NvssEthnicity.Literal);
-                if (ethnicity != null && ethnicity.Value != null && ethnicity.Value as FhirString != null)
-                {
-                    return ethnicity.Value.ToString();
-                }
-                return null;
+                return ethnicity.Value.ToString();
             }
-            set
+            return null;
+        }
+
+        private void SetEthnicityLiteral(string value, string subjectId, string code, string section, [CallerMemberName] string propertyName = null) {
+            if (String.IsNullOrWhiteSpace(value))
             {
-                if (String.IsNullOrWhiteSpace(value))
-                {
-                    return;
-                }
-                Observation obs = GetOrCreateObservation("inputraceandethnicityMother", CodeSystems.InputRaceAndEthnicityPerson, "Input Race and Ethnicity Person", VR.ProfileURL.InputRaceAndEthnicity, RACE_ETHNICITY_PROFILE_MOTHER);
-                obs.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.Literal);
-                Observation.ComponentComponent component = new Observation.ComponentComponent();
-                component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, NvssEthnicity.Literal, NvssEthnicity.LiteralDisplay, null);
-                component.Value = new FhirString(value);
-                obs.Component.Add(component);
+                return;
             }
+            Observation obs = GetOrCreateObservation(code, CodeSystems.InputRaceAndEthnicityPerson, "Input Race and Ethnicity Person", VR.ProfileURL.InputRaceAndEthnicity, section, null, propertyName);
+            obs.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.Literal);
+            Observation.ComponentComponent component = new Observation.ComponentComponent();
+            component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, NvssEthnicity.Literal, NvssEthnicity.LiteralDisplay, null);
+            component.Value = new FhirString(value.TrimEnd());
+            obs.Component.Add(component);
         }
 
         /// <summary>Mother's Race values.</summary>
@@ -3967,30 +3969,8 @@ namespace BFDR
         [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public string FatherEthnicityLiteral
         {
-            get
-            {
-                Observation obs = GetOrCreateObservation("inputraceandethnicityFather", CodeSystems.InputRaceAndEthnicityPerson, "Input Race and Ethnicity Person", VR.ProfileURL.InputRaceAndEthnicity, RACE_ETHNICITY_PROFILE_FATHER);
-                Observation.ComponentComponent ethnicity = obs.Component.FirstOrDefault(c => c.Code.Coding[0].Code == NvssEthnicity.Literal);
-                if (ethnicity != null && ethnicity.Value != null && ethnicity.Value as FhirString != null)
-                {
-                    return ethnicity.Value.ToString();
-                }
-                return null;
-            }
-            set
-            {
-                if (String.IsNullOrWhiteSpace(value))
-                {
-                    return;
-                }
-                Observation obs = GetOrCreateObservation("inputraceandethnicityFather", CodeSystems.InputRaceAndEthnicityPerson, "Input Race and Ethnicity Person", VR.ProfileURL.InputRaceAndEthnicity, RACE_ETHNICITY_PROFILE_FATHER);
-                obs.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.Literal);
-                Observation.ComponentComponent component = new Observation.ComponentComponent();
-                component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, NvssEthnicity.Literal, NvssEthnicity.LiteralDisplay, null);
-                component.Value = new FhirString(value);
-                obs.Component.Add(component);
-                obs.Subject = new ResourceReference("urn:uuid:" + Child.Id);
-            }
+            get => GetEthnicityLiteral("inputraceandethnicityFather", RACE_ETHNICITY_PROFILE_FATHER);
+            set => SetEthnicityLiteral(value, Father.Id, "inputraceandethnicityFather", RACE_ETHNICITY_PROFILE_FATHER);
         }
 
         /// <summary>Father's Race values.</summary>

@@ -460,6 +460,30 @@ namespace BFDR.Tests
     }
 
     [Fact]
+    public void TestSetEthnicityLiteral()
+    {
+      IJEBirth ije = new();
+      Assert.Equal("", ije.METHNIC5);
+      Assert.Equal("", ije.FETHNIC5);
+      ije.METHNIC5 = "Bolivian";
+      ije.FETHNIC5 = "Columbian";
+      Assert.Equal("Bolivian", ije.METHNIC5);
+      Assert.Equal("Columbian", ije.FETHNIC5);
+      Assert.Equal("Bolivian", ije.ToRecord().MotherEthnicityLiteral);
+      Assert.Equal("Columbian", ije.ToRecord().FatherEthnicityLiteral);
+    }
+
+    [Fact]
+    public void TestImportEthnicityLiteral()
+    {
+      IJEBirth ije = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/BasicBirthRecord.ije")), true);
+      Assert.Equal("Chilean", ije.METHNIC5);
+      Assert.Equal("Panamanian", ije.FETHNIC5);
+      Assert.Equal("Chilean", ije.ToRecord().MotherEthnicityLiteral);
+      Assert.Equal("Panamanian", ije.ToRecord().FatherEthnicityLiteral);
+    }
+
+    [Fact]
     public void TestImportMotherBirthplace()
     {
       // Test IJE import.
