@@ -2028,5 +2028,18 @@ namespace BFDR.Tests
       record.MotherMaidenSuffix = "IV";
       Assert.Equal("IV", record.MotherMaidenSuffix);
     }
+    [Fact]
+    public void TestPatientFetalDeath() {
+      Assert.Null(SetterFetalDeathRecord.PatientFetalDeath);
+      SetterFetalDeathRecord.PatientFetalDeath = true;
+      Assert.True(SetterFetalDeathRecord.PatientFetalDeath);
+      
+      //parse
+      FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
+      Assert.True(record.PatientFetalDeath);
+      //set after parse
+      record.PatientFetalDeath = false;
+      Assert.False(record.PatientFetalDeath);
+    }
   }
 }
