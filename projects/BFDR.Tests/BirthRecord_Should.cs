@@ -3514,7 +3514,14 @@ namespace BFDR.Tests
       Assert.Null(birthRecord.EmergingIssue8_3);
       Assert.Null(birthRecord.EmergingIssue20);
     }
-
+    [Fact]
+    public void unknownToAll8sFHIRtoIJETest()
+    {
+      Console.WriteLine("Converting fhir to ije!\n\n");
+      BirthRecord b = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord2.json")));
+      IJEBirth ije1 = new(b, false);
+      Console.WriteLine(ije1.ToString());
+    }
   }
 
 }
