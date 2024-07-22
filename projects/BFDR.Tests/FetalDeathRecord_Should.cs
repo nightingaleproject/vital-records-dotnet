@@ -2028,5 +2028,17 @@ namespace BFDR.Tests
       record.MotherMaidenSuffix = "IV";
       Assert.Equal("IV", record.MotherMaidenSuffix);
     }
+    [Fact]
+    public void TestPatientFetalDeath() {
+      Assert.True(SetterFetalDeathRecord.PatientFetalDeath); //default for DecedentFetus is True
+      //parse
+      FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
+      Assert.True(record.PatientFetalDeath);
+
+      SetterFetalDeathRecord.PatientFetalDeath = false; //DecedentFetus is required to have PatientFetalDeath extension = true. --> handle in business rules. 
+      Assert.Null(SetterFetalDeathRecord.PatientFetalDeath); //Fetal death should only be indicated if Patient is deceased (value = true).
+      SetterFetalDeathRecord.PatientFetalDeath = true;
+      Assert.True(SetterFetalDeathRecord.PatientFetalDeath);
+    }
   }
 }

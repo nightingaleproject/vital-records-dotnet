@@ -17,7 +17,9 @@ namespace BFDR
         private const string FETUS_SECTION = "76400-1";
 
         /// <summary>Default constructor that creates a new, empty FetalDeathRecord.</summary>
-        public FetalDeathRecord() : base() {}
+        public FetalDeathRecord() : base() {
+            this.PatientFetalDeath = true;
+        }
 
         /// <summary>Constructor that takes a string that represents a FHIR FetalDeath Record in either XML or JSON format.</summary>
         /// <param name="record">represents a FHIR FetalDeath Record in either XML or JSON format.</param>

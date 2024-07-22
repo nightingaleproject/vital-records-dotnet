@@ -348,6 +348,15 @@
             }
           ]
         },
+        "deceasedBoolean" : true,
+        "_deceasedBoolean" : {
+          "extension" : [
+            {
+              "url" : "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-patient-fetal-death-vr",
+              "valueBoolean" : true
+            }
+          ]
+        },
         "multipleBirthInteger": 3,
         "_multipleBirthInteger": {
           "extension" : [

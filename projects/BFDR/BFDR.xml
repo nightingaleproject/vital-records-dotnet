@@ -3673,6 +3673,16 @@
             </summary>
             <param name="value">The birth year.</param>   
         </member>
+        <member name="P:BFDR.NatalityRecord.PatientFetalDeath">
+            <summary>Patient Fetal Death</summary>
+            <value></value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.PatientFetalDeath = true;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Patient Fetal Death: {ExampleFetalDeathRecord.PatientFetalDeath}");</para>
+            </example>
+        </member>
         <member name="P:BFDR.NatalityRecord.NoCongenitalAnomaliesOfTheNewborn">
             <summary>No Congenital Anomalies of the Newborn.</summary>
         </member>
