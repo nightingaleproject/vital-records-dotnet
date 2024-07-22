@@ -3825,6 +3825,26 @@ namespace BFDR.Tests
       IJEBirth ije1 = new(b, true); // run with validation true since NCHS uses validation in their code, this confirms the record will be processed
       Console.WriteLine(ije1.ToString());
     }
+
+    [Fact]
+    public void TestPatientFetalDeath() {
+      Assert.Null(SetterBirthRecord.PatientFetalDeath); 
+      SetterBirthRecord.PatientFetalDeath = false; 
+      Assert.Null(SetterBirthRecord.PatientFetalDeath); //Fetal death should only be indicated if Patient is deceased (value=true).
+      SetterBirthRecord.PatientFetalDeath = true; 
+      Assert.True(SetterBirthRecord.PatientFetalDeath);
+      SetterBirthRecord.PatientFetalDeath = null;
+      Assert.Null(SetterBirthRecord.PatientFetalDeath);
+      
+      //parse
+      BirthRecord record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.Null(record.PatientFetalDeath);
+
+      record.PatientFetalDeath = true; //Patients who are marked deceased don't conform to PatientChildVitalRecords. If the deceased field is present, it must be false. --> handle in business rules
+      Assert.True(record.PatientFetalDeath);
+      record.PatientFetalDeath = false;
+      Assert.Null(record.PatientFetalDeath); //Fetal death should only be indicated if Patient is deceased (value=true).
+    }
   }
 
 }
