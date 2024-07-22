@@ -4095,7 +4095,7 @@ namespace BFDR
             if (value["code"] == "") {
                 return;
             }
-            Observation obs = GetOrCreateObservation(observationCode, CodeSystems.LocalObservationCodes, "Coded Race and Ethnicity Person", VR.ProfileURL.CodedRaceAndEthnicity, section);
+            Observation obs = GetOrCreateObservation(observationCode, CodeSystems.LocalObservationCodes, "Coded Race and Ethnicity Person", VR.ProfileURL.CodedRaceAndEthnicity, section, propertyName: propertyName);
             obs.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.CodeForLiteral);
             Observation.ComponentComponent component = new Observation.ComponentComponent();
             component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, ComponentCode, ComponentDisplay, null);
@@ -5267,7 +5267,7 @@ namespace BFDR
         }
 
 
-                /// <summary>Father Race Tabulation 3E.</summary>
+        /// <summary>Father Race Tabulation 3E.</summary>
         /// <value>Father Race Tabulation 3E. A Dictionary representing a code, containing the following key/value pairs:
         /// <para>"code" - the code</para>
         /// <para>"system" - the code system this code belongs to</para>
