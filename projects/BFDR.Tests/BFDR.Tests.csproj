@@ -18,6 +18,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Update="fixtures/json/BasicBirthRecord.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="fixtures/json/BasicBirthRecord2.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures/json/BirthRecordBabyGQuinn.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures/json/BirthRecordBabyGQuinnWithEditFlags.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures/json/BirthRecordBabyGQuinnJurisdiction.json" CopyToOutputDirectory="PreserveNewest" />

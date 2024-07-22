@@ -1040,6 +1040,7 @@ namespace BFDR
                 if (!BFDR.Mappings.BirthDeliveryOccurred.FHIRToIJE.ContainsKey(value))
                 {
                     // other
+                    Console.WriteLine("Warning: given 'child's place of birth type' code not found in value set. Setting value to 'Other'.");
                     BirthPhysicalLocation = CodeableConceptToDict(new CodeableConcept(CodeSystems.NullFlavor_HL7_V3, "OTH", "Other", value));
                 }
                 else
@@ -7395,6 +7396,7 @@ namespace BFDR
                 }
                 if (!VR.Mappings.BirthAttendantTitles.FHIRToIJE.ContainsKey(value))
                 { //other
+                    Console.WriteLine("Warning: given 'attendant title' code not found in value set. Setting value to 'Other'.");
                     AttendantTitle = CodeableConceptToDict(new CodeableConcept(CodeSystems.NullFlavor_HL7_V3, "OTH", "Other", value));
                 }
                 else
@@ -8674,6 +8676,7 @@ namespace BFDR
                 if (!BFDR.Mappings.BirthAndFetalDeathFinancialClass.FHIRToIJE.ContainsKey(value))
                 {
                     // unknown
+                    Console.WriteLine("Warning: given 'principal source of payment for this delivery' code not found in value set. Setting value to 'Unavailable / Unknown'.");
                     PayorTypeFinancialClass = CodeableConceptToDict(new CodeableConcept(CodeSystems.NAHDO, "9999", "Unavailable / Unknown", value));
                 }
                 else
@@ -9252,6 +9255,7 @@ namespace BFDR
                 }
                 if (!VR.Mappings.BirthAttendantTitles.FHIRToIJE.ContainsKey(value))
                 { //other
+                    Console.WriteLine("Warning: given 'certifier title' code not found in value set. Setting value to 'Other'.");
                     CertifierTitle = CodeableConceptToDict(new CodeableConcept(CodeSystems.NullFlavor_HL7_V3, "OTH", "Other", value));
                 }
                 else
