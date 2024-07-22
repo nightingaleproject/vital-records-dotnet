@@ -2030,15 +2030,15 @@ namespace BFDR.Tests
     }
     [Fact]
     public void TestPatientFetalDeath() {
-      Assert.True(SetterFetalDeathRecord.PatientFetalDeath);
+      Assert.True(SetterFetalDeathRecord.PatientFetalDeath); //default for DecedentFetus is True
       //parse
       FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
       Assert.True(record.PatientFetalDeath);
-      //patientFetalDeath should always be set to true, despite attempt to set to false
-      SetterFetalDeathRecord.PatientFetalDeath = false;
+
+      SetterFetalDeathRecord.PatientFetalDeath = false; //DecedentFetus is required to have PatientFetalDeath extension = true. --> handle in business rules. 
+      Assert.Null(SetterFetalDeathRecord.PatientFetalDeath); //Fetal death should only be indicated if Patient is deceased (value = true).
+      SetterFetalDeathRecord.PatientFetalDeath = true;
       Assert.True(SetterFetalDeathRecord.PatientFetalDeath);
-      record.PatientFetalDeath = false;
-      Assert.True(record.PatientFetalDeath);
     }
   }
 }

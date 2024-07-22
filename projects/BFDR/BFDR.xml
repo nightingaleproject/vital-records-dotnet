@@ -173,16 +173,6 @@
             <para>ExampleBirthRecord.Plurality = 2; // two births for this pregnancy</para>
             </example>
         </member>
-        <member name="P:BFDR.BirthRecord.PatientFetalDeath">
-            <summary>Patient Fetal Death</summary>
-            <value></value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.PatientFetalDeath = true;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Patient Fetal Death: {ExampleBirthRecord.PatientFetalDeath}");</para>
-            </example>
-        </member>
         <member name="T:BFDR.Connectathon">
             <summary>Class <c>Connectathon</c> provides static methods for generating records used in Connectathon testing, used in Canary and in the CLI tool</summary>
         </member>
@@ -686,16 +676,6 @@
             <para>ExampleFetalDeathRecord.FetalDeathPlurality = null; // single birth</para>
             <para>ExampleFetalDeathRecord.FetalDeathPlurality = -1; // unknown number of births birth</para>
             <para>ExampleFetalDeathRecord.FetalDeathPlurality = 2; // two births for this pregnancy</para>
-            </example>
-        </member>
-        <member name="P:BFDR.FetalDeathRecord.PatientFetalDeath">
-            <summary>Patient Fetal Death</summary>
-            <value></value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleFetalDeathRecord.PatientFetalDeath = true;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Patient Fetal Death: {ExampleFetalDeathRecord.PatientFetalDeath}");</para>
             </example>
         </member>
         <member name="T:BFDR.IJEBirth">
@@ -3702,6 +3682,16 @@
              Setter method for child or decedent fetus plurality.
             </summary>
             <param name="value">The birth year.</param>   
+        </member>
+        <member name="P:BFDR.NatalityRecord.PatientFetalDeath">
+            <summary>Patient Fetal Death</summary>
+            <value></value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.PatientFetalDeath = true;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Patient Fetal Death: {ExampleFetalDeathRecord.PatientFetalDeath}");</para>
+            </example>
         </member>
         <member name="P:BFDR.NatalityRecord.NoCongenitalAnomaliesOfTheNewborn">
             <summary>No Congenital Anomalies of the Newborn.</summary>

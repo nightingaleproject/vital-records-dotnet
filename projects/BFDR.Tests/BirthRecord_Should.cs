@@ -3022,19 +3022,22 @@ namespace BFDR.Tests
 
     [Fact]
     public void TestPatientFetalDeath() {
+      Assert.Null(SetterBirthRecord.PatientFetalDeath); 
+      SetterBirthRecord.PatientFetalDeath = false; 
+      Assert.Null(SetterBirthRecord.PatientFetalDeath); //Fetal death should only be indicated if Patient is deceased (value=true).
+      SetterBirthRecord.PatientFetalDeath = true; 
+      Assert.True(SetterBirthRecord.PatientFetalDeath);
+      SetterBirthRecord.PatientFetalDeath = null;
       Assert.Null(SetterBirthRecord.PatientFetalDeath);
-      SetterBirthRecord.PatientFetalDeath = false;
-      Assert.False(SetterBirthRecord.PatientFetalDeath);
+      
       //parse
       BirthRecord record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
       Assert.Null(record.PatientFetalDeath);
+
+      record.PatientFetalDeath = true; //Patients who are marked deceased don't conform to PatientChildVitalRecords. If the deceased field is present, it must be false. --> handle in business rules
+      Assert.True(record.PatientFetalDeath);
       record.PatientFetalDeath = false;
-      Assert.False(record.PatientFetalDeath);
-      //patientFetalDeath should always be set to false, despite attempt to set to true
-      SetterBirthRecord.PatientFetalDeath = true;
-      Assert.False(SetterBirthRecord.PatientFetalDeath);
-      record.PatientFetalDeath = true;
-      Assert.False(record.PatientFetalDeath);
+      Assert.Null(record.PatientFetalDeath); //Fetal death should only be indicated if Patient is deceased (value=true).
     }
   }
  

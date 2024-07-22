@@ -1329,50 +1329,5 @@ namespace BFDR
             get => GetPlurality();
             set => SetPlurality(value);
         }
-
-        /// <summary>Patient Fetal Death</summary>
-        /// <value></value>
-        /// <example>
-        /// <para>// Setter:</para>
-        /// <para>ExampleFetalDeathRecord.PatientFetalDeath = true;</para>
-        /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Patient Fetal Death: {ExampleFetalDeathRecord.PatientFetalDeath}");</para>
-        /// </example>
-        [Property("PatientFetalDeath", Property.Types.Bool, "PatientFetalDeath", "PatientFetalDeath", false, VR.IGURL.PatientFetalDeath, true, 288)]
-        [FHIRPath("Bundle.entry.resource.where($this is Patient)", "deceased")]
-
-        public bool? PatientFetalDeath
-        {
-            get
-            {
-                if (Subject != null && Subject.Deceased != null)
-                {
-                    Extension patientFetalDeath = Subject.Deceased.Extension.FirstOrDefault(ext => ext.Url == VRExtensionURLs.PatientFetalDeath);
-                    if (patientFetalDeath != null)
-                    {
-                        bool? fetalDeath = ((FhirBoolean)patientFetalDeath.Value).Value;
-                        return fetalDeath;
-                    }
-                }
-                return null;
-            }
-            set
-            {
-                if (Subject.Deceased == null)
-                {
-                    Subject.Deceased = new FhirBoolean(true);
-                }
-                Subject.Deceased.Extension.RemoveAll(ext => ext.Url == VRExtensionURLs.PatientFetalDeath);
-                if (value == null)
-                {
-                    return;
-                }
-                else
-                {
-                    Extension fetalDeath = new Extension(VRExtensionURLs.PatientFetalDeath, new FhirBoolean(true));
-                    Subject.Deceased.Extension.Add(fetalDeath);
-                }
-            }
-        }
     }
 }
