@@ -2030,16 +2030,15 @@ namespace BFDR.Tests
     }
     [Fact]
     public void TestPatientFetalDeath() {
-      Assert.Null(SetterFetalDeathRecord.PatientFetalDeath);
-      SetterFetalDeathRecord.PatientFetalDeath = true;
       Assert.True(SetterFetalDeathRecord.PatientFetalDeath);
-      
       //parse
       FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
       Assert.True(record.PatientFetalDeath);
-      //set after parse
+      //patientFetalDeath should always be set to true, despite attempt to set to false
+      SetterFetalDeathRecord.PatientFetalDeath = false;
+      Assert.True(SetterFetalDeathRecord.PatientFetalDeath);
       record.PatientFetalDeath = false;
-      Assert.False(record.PatientFetalDeath);
+      Assert.True(record.PatientFetalDeath);
     }
   }
 }

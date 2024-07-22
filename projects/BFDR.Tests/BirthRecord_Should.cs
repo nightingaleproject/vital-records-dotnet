@@ -3020,6 +3020,22 @@ namespace BFDR.Tests
       Assert.Equal(cc2, birthRecord3.NumberOfPreviousCesareansEditFlag);
     }
 
+    [Fact]
+    public void TestPatientFetalDeath() {
+      Assert.Null(SetterBirthRecord.PatientFetalDeath);
+      SetterBirthRecord.PatientFetalDeath = false;
+      Assert.False(SetterBirthRecord.PatientFetalDeath);
+      //parse
+      BirthRecord record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.Null(record.PatientFetalDeath);
+      record.PatientFetalDeath = false;
+      Assert.False(record.PatientFetalDeath);
+      //patientFetalDeath should always be set to false, despite attempt to set to true
+      SetterBirthRecord.PatientFetalDeath = true;
+      Assert.False(SetterBirthRecord.PatientFetalDeath);
+      record.PatientFetalDeath = true;
+      Assert.False(record.PatientFetalDeath);
+    }
   }
  
 }
