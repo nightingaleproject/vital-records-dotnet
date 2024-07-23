@@ -37,7 +37,7 @@ namespace BFDR.Tests
       // Sex
       Assert.Equal("M", ijeImported.ISEX);
       Assert.Equal(ijeImported.ISEX, ijeConverted.ISEX);
-      Assert.Equal("M", br.BirthSex["code"]);
+      Assert.Equal("M", br.BirthSex);
       // Date of Birth (Infant)--Month
       Assert.Equal("11", ijeImported.IDOB_MO);
       Assert.Equal(ijeImported.IDOB_MO, ijeConverted.IDOB_MO);
@@ -53,7 +53,6 @@ namespace BFDR.Tests
       // Plurality
       // TODO ---
       // Set Order
-      // TODO ---
       Assert.Equal("06", ijeImported.SORD);
       Assert.Equal(ijeImported.SORD, ijeConverted.SORD);
       Assert.Equal(6, br.SetOrder);
@@ -109,16 +108,13 @@ namespace BFDR.Tests
       IJEBirth ije = new IJEBirth();
       ije.ISEX = "M";
       Assert.Equal("M", ije.ISEX);
-      Assert.Equal("M", ije.ToRecord().BirthSex["code"]);
-      Assert.Equal("M", ije.ToRecord().BirthSexHelper);
+      Assert.Equal("M", ije.ToRecord().BirthSex);
       ije.ISEX = "F";
       Assert.Equal("F", ije.ISEX);
-      Assert.Equal("F", ije.ToRecord().BirthSex["code"]);
-      Assert.Equal("F", ije.ToRecord().BirthSexHelper);
-      ije.ToRecord().BirthSexHelper = "M";
+      Assert.Equal("F", ije.ToRecord().BirthSex);
+      ije.ToRecord().BirthSex = "M";
       Assert.Equal("M", ije.ISEX);
-      Assert.Equal("M", ije.ToRecord().BirthSex["code"]);
-      Assert.Equal("M", ije.ToRecord().BirthSexHelper);
+      Assert.Equal("M", ije.ToRecord().BirthSex);
     }
 
     // Test Patient Mother Vital Properties
@@ -461,6 +457,30 @@ namespace BFDR.Tests
       CodeY.Add("display", VR.ValueSets.HispanicNoUnknown.Codes[1, 1]);
       CodeY.Add("system", VR.ValueSets.HispanicNoUnknown.Codes[1, 2]);
       Assert.Equal(CodeY, fhir.FatherEthnicity1);
+    }
+
+    [Fact]
+    public void TestSetEthnicityLiteral()
+    {
+      IJEBirth ije = new();
+      Assert.Equal("", ije.METHNIC5);
+      Assert.Equal("", ije.FETHNIC5);
+      ije.METHNIC5 = "Bolivian";
+      ije.FETHNIC5 = "Columbian";
+      Assert.Equal("Bolivian", ije.METHNIC5);
+      Assert.Equal("Columbian", ije.FETHNIC5);
+      Assert.Equal("Bolivian", ije.ToRecord().MotherEthnicityLiteral);
+      Assert.Equal("Columbian", ije.ToRecord().FatherEthnicityLiteral);
+    }
+
+    [Fact]
+    public void TestImportEthnicityLiteral()
+    {
+      IJEBirth ije = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/BasicBirthRecord.ije")), true);
+      Assert.Equal("Chilean", ije.METHNIC5);
+      Assert.Equal("Panamanian", ije.FETHNIC5);
+      Assert.Equal("Chilean", ije.ToRecord().MotherEthnicityLiteral);
+      Assert.Equal("Panamanian", ije.ToRecord().FatherEthnicityLiteral);
     }
 
     [Fact]
@@ -831,9 +851,9 @@ namespace BFDR.Tests
     {
       BirthRecord fhir = new BirthRecord();
       IJEBirth ije = new IJEBirth(fhir);
-      Assert.Equal("    ", ije.DOFP_YR);
-      Assert.Equal("  ", ije.DOFP_MO);
-      Assert.Equal("  ", ije.DOFP_DY);
+      Assert.Equal("8888", ije.DOFP_YR);
+      Assert.Equal("88", ije.DOFP_MO);
+      Assert.Equal("88", ije.DOFP_DY);
       ije.DOFP_DY = "24";
       Assert.Equal("    ", ije.DOFP_YR);
       Assert.Equal("  ", ije.DOFP_MO);
@@ -913,7 +933,7 @@ namespace BFDR.Tests
       BirthRecord fhir = new BirthRecord();
       IJEBirth ije = new IJEBirth(fhir);
       Assert.Equal("  ", ije.APGAR5);
-      Assert.Equal("  ", ije.APGAR10);
+      Assert.Equal("88", ije.APGAR10);
       ije.APGAR5 = "99";
       ije.APGAR10 = "15";
       Assert.Equal("99", ije.APGAR5);
@@ -961,6 +981,51 @@ namespace BFDR.Tests
       Assert.Equal("N", ije3.ANEN);
       Assert.Equal("7134703", ije3.INF_MED_REC_NUM);
       Assert.Equal("2286144", ije3.MOM_MED_REC_NUM);
+    }
+
+    [Fact]
+    public void BlankEights() {
+      IJEBirth ije = new()
+      {
+          YOPO = "2020",
+          MOPO = "04",
+          DOFP_DY = "05",
+          DOFP_MO = "07",
+          DOFP_YR = "2021",
+          APGAR10 = "09",
+          MLLB = "08",
+          YLLB = "2017"
+      };
+
+      Assert.Equal("2020", ije.YOPO);
+      Assert.Equal("04", ije.MOPO);
+      Assert.Equal("09", ije.APGAR10);
+      Assert.Equal("05", ije.DOFP_DY);
+      Assert.Equal("07", ije.DOFP_MO);
+      Assert.Equal("2021", ije.DOFP_YR);
+      Assert.Equal("08", ije.MLLB);
+      Assert.Equal("2017", ije.YLLB);
+
+      ije.YOPO = "8888";
+      ije.DOFP_DY = "88";
+      ije.APGAR10 = "88";
+      ije.MLLB = "88";
+      Assert.Equal("8888", ije.YOPO);
+      Assert.Null(ije.ToRecord().DateOfLastOtherPregnancyOutcomeYear);
+      Assert.Equal("88", ije.MOPO);
+      Assert.Null(ije.ToRecord().DateOfLastOtherPregnancyOutcomeMonth);
+      Assert.Equal("88", ije.APGAR10);
+      Assert.Null(ije.ToRecord().ApgarScoreTenMinutes);
+      Assert.Equal("88", ije.DOFP_DY);
+      Assert.Null(ije.ToRecord().FirstPrenatalCareVisitDay);
+      Assert.Equal("88", ije.DOFP_MO);
+      Assert.Null(ije.ToRecord().FirstPrenatalCareVisitMonth);
+      Assert.Equal("8888", ije.DOFP_YR);
+      Assert.Null(ije.ToRecord().FirstPrenatalCareVisitYear);
+      Assert.Equal("88", ije.MLLB);
+      Assert.Null(ije.ToRecord().DateOfLastLiveBirthMonth);
+      Assert.Equal("8888", ije.YLLB);
+      Assert.Null(ije.ToRecord().DateOfLastLiveBirthYear);
     }
   }
 }

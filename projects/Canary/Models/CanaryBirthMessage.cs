@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Hl7.Fhir.Model;
 using BFDR;
 using VR;
+using System.Reflection;
 
 namespace canary.Models
 {
@@ -11,7 +12,16 @@ namespace canary.Models
 
         private static Dictionary<string, string> messageDescription = new Dictionary<string, string>()
         {
-            { "TODO", "TODO" },
+            { "MessageTimestamp", "The Timestamp of the Message" },
+            { "MessageId", "The Message Identifier" },
+            { "MessageType", "The NCHS Message Type" },
+            { "MessageSource", "The Jurisdiction Message Source" },
+            { "MessageDestination", "The NCHS Message Endpoint" },
+            { "MessageDestinations", "The NCHS Message Endpoints" },
+            { "CertNo", "Birth Certificate Number (BirthRecord Identifier)" },
+            { "StateAuxiliaryId", "Auxiliary State File Number (BirthRecord BundleIdentifier)" },
+            { "NCHSIdentifier", "The NCHS compound identifier for the supplied BirthRecord" },
+            { "JurisdictionId", "Two character identifier of the jurisdiction in which the birth occurred" }
         };
 
         public CanaryBirthMessage() { }
@@ -48,7 +58,8 @@ namespace canary.Models
 
         public static string GetDescriptionFor(string entry)
         {
-            return messageDescription.GetValueOrDefault(entry, "Unknown Property");
+            PropertyInfo myPropInfo = typeof(BirthRecord).GetProperty(entry);
+            return myPropInfo != null ? myPropInfo.Name : messageDescription.GetValueOrDefault(entry, "Unknown Property");
         }
 
         public override Dictionary<string, Message> GetResponsesFor(String type)

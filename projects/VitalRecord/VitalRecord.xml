@@ -239,9 +239,17 @@
             <summary>Get a value on the VitalRecord that is a numeric string with the option of being set to all 9s on the IJE side and -1 on the
             FHIR side to represent'unknown' and blank on the IJE side and null on the FHIR side to represent unspecified</summary>
         </member>
+        <member name="M:VR.IJE.NumericAllowingUnknownAndAbsence_Get(System.String,System.String,System.String)">
+            <summary>Get a value on the VitalRecord that is a numeric string with the option of being set to all 8s on the IJE side and absent on the
+            FHIR side to represent'unknown'</summary>
+        </member>
         <member name="M:VR.IJE.NumericAllowingUnknown_Set(System.String,System.String,System.String)">
             <summary>Set a value on the VitalRecord that is a numeric string with the option of being set to all 9s on the IJE side and -1 on the
             FHIR side to represent'unknown' and blank on the IJE side and null on the FHIR side to represent unspecified</summary>
+        </member>
+        <member name="M:VR.IJE.NumericAllowingUnknownAndAbsence_Set(System.String,System.String,System.String,System.String)">
+            <summary>Set a value on the VitalRecord that is a numeric string with the option of being set to all 8s on the IJE side and absent on the
+            FHIR side to represent'unknown'</summary>
         </member>
         <member name="M:VR.IJE.LeftJustified_Get(System.String,System.String)">
             <summary>Get a value on the VitalRecord whose IJE type is a left justified string.</summary>
@@ -741,9 +749,6 @@
         <member name="P:VR.ExtensionURL.RelatedpersonBirthplace">
             <summary>URL for RelatedpersonBirthplace</summary>
         </member>
-        <member name="P:VR.ExtensionURL.RelatedPersonDeceased">
-            <summary>URL for RelatedPersonDeceased</summary>
-        </member>
         <member name="P:VR.ExtensionURL.ReportedParentAgeAtDelivery">
             <summary>URL for ReportedParentAgeAtDelivery</summary>
         </member>
@@ -833,9 +838,6 @@
         </member>
         <member name="F:VR.IGURL.RelatedpersonBirthplace">
             <summary>URL for RelatedpersonBirthplace</summary>
-        </member>
-        <member name="F:VR.IGURL.RelatedPersonDeceased">
-            <summary>URL for RelatedPersonDeceased</summary>
         </member>
         <member name="F:VR.IGURL.ReportedParentAgeAtDelivery">
             <summary>URL for ReportedParentAgeAtDelivery</summary>
@@ -5444,6 +5446,10 @@
             <summary>Helper to support vital record property getter helper methods for values stored in Observations.</summary>
             <param name="code">the code to identify the type of Observation</param>
         </member>
+        <member name="M:VR.VitalRecord.RemoveObservation(System.String)">
+            <summary>Helper to support vital record property getter helper methods for removing Observations.</summary>
+            <param name="code">the code to identify the type of Observation</param>
+        </member>
         <member name="M:VR.VitalRecord.GetOrCreateObservation(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
             <summary>Helper to support vital record property setter helper methods for values stored in Observations.</summary>
             <param name="code">the code to specify the type of Observation</param>
@@ -5518,7 +5524,8 @@
             <param name="use"> The type of name, defaults to official.</param>
         </member>
         <member name="M:VR.VitalRecord.ValidatePartialDates(Hl7.Fhir.Model.Bundle)">
-            <summary>Helper method to validate that all PartialDate and PartialDateTime exensions are valid and have the valid required sub-extensions.</summary>
+            <summary>Function that validates all partial date extensions in a bundle. Currently unused due
+            to reevaluation of partial date handling due to changes in the VitalRecords IG.</summary>
             <param name="bundle">The bundle in which to validate the PartialDate/Time extensions.</param>
         </member>
         <member name="M:VR.VitalRecord.GetPartialDate(Hl7.Fhir.Model.Extension,System.String)">
@@ -5632,6 +5639,9 @@
         </member>
         <member name="M:VR.VitalRecord.SetCodeValue(System.String,System.String,System.String[0:,0:])">
             <summary>Helper function to set a codeable value based on a code and the set of allowed codes.</summary>
+        </member>
+        <member name="M:VR.VitalRecord.CodeExistsInValueSet(System.String,System.String[0:,0:])">
+            <summary>Helper function to determine whether a value appears in the the set of allowed codes.</summary>
         </member>
         <member name="M:VR.VitalRecord.SetQuantityValue(System.String,System.String,System.String,System.String[0:,0:])">
             <summary>Helper function to set a quantity value based on a value, code and the set of allowed codes.</summary>

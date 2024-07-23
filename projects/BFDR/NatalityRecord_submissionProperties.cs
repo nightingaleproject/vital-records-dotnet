@@ -414,62 +414,43 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Sex at Time of Birth: {ExampleBirthRecord.BirthSex}");</para>
         /// </example>
-        [Property("Sex At Birth", Property.Types.Dictionary, "Child Demographics", "Child's Sex at Birth.", true, VR.IGURL.Child, true, 12)]
-        [PropertyParam("code", "The code used to describe this concept.")]
-        [PropertyParam("system", "The relevant code system.")]
-        [PropertyParam("display", "The human readable version of this code.")]
+        [Property("Sex At Birth", Property.Types.String, "Child Demographics", "Child's Sex at Birth.", true, VR.IGURL.Child, true, 12)]
         [FHIRPath("Bundle.entry.resource.where($this is Patient).extension.where(url='" + OtherExtensionURL.BirthSex + "')", "")]
-        public Dictionary<string, string> BirthSex
+        public string BirthSex
         {
             get
             {
                 if (Child != null)
                 {
                     Extension sex = Child.GetExtension(VR.OtherExtensionURL.BirthSex);
-                    if (sex != null && sex.Value != null && sex.Value as CodeableConcept != null)
+                    if (sex != null && sex.Value != null && sex.Value as Code != null)
                     {
-                        return CodeableConceptToDict((CodeableConcept)sex.Value);
+                        return (sex.Value as Code).Value;
                     }
-                }
-                return EmptyCodeableDict();
-            }
-            set
-            {
-                Child.Extension.RemoveAll(ext => ext.Url == VR.OtherExtensionURL.BirthSex);
-                if (IsDictEmptyOrDefault(value) && Child.Extension == null)
-                {
-                    return;
-                }
-                Child.SetExtension(VR.OtherExtensionURL.BirthSex, DictToCodeableConcept(value));
-            }
-        }
-
-        /// <summary>Child's Sex at Birth Helper.</summary>
-        /// <value>The child's sex at time of birth</value>
-        /// <example>
-        /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.BirthSexHelper = "female;</para>
-        /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Sex at Time of Birth: {ExampleBirthRecord.BirthSexHelper}");</para>
-        /// </example>
-        [Property("Sex At Birth Helper", Property.Types.String, "Child Demographics", "Child's Sex at Birth.", false, VR.IGURL.Child, true, 12)]
-        [FHIRPath("Bundle.entry.resource.where($this is Patient).extension.where(url='" + OtherExtensionURL.BirthSex + "')", "")]
-        public string BirthSexHelper
-        {
-            get
-            {
-                if (BirthSex.ContainsKey("code") && !String.IsNullOrWhiteSpace(BirthSex["code"]))
-                {
-                    return BirthSex["code"];
                 }
                 return null;
             }
             set
             {
-                if (!String.IsNullOrWhiteSpace(value))
+                if (!CodeExistsInValueSet(value, VR.ValueSets.SexAssignedAtBirth.Codes))
                 {
-                    SetCodeValue("BirthSex", value, VR.ValueSets.SexAssignedAtBirth.Codes);
+                    return;
                 }
+                Child.Extension.RemoveAll(ext => ext.Url == VR.OtherExtensionURL.BirthSex);
+                Child.SetExtension(VR.OtherExtensionURL.BirthSex, new Code(value));
+            }
+        }
+
+        /// <summary>Child's BirthSex at Birth. This a duplicate of BirthSex and is kept to maintain consistency for the IJE to FHIR mapper to work.</summary>
+        public string BirthSexHelper
+        {
+            get
+            {
+                return BirthSex;
+            }
+            set
+            {
+                BirthSex = value;
             }
         }
 
@@ -1059,6 +1040,7 @@ namespace BFDR
                 if (!BFDR.Mappings.BirthDeliveryOccurred.FHIRToIJE.ContainsKey(value))
                 {
                     // other
+                    Console.WriteLine("Warning: given 'child's place of birth type' code not found in value set. Setting value to 'Other'.");
                     BirthPhysicalLocation = CodeableConceptToDict(new CodeableConcept(CodeSystems.NullFlavor_HL7_V3, "OTH", "Other", value));
                 }
                 else
@@ -2464,7 +2446,7 @@ namespace BFDR
                 {
                     return;
                 }
-                Observation obs = GetOrCreateObservation("68497-7", CodeSystems.LOINC, BFDR.ProfileURL.ObservationNumberPrenatalVisits, MEDICAL_INFORMATION_SECTION, Mother.Id);
+                Observation obs = GetOrCreateObservation("68497-7", CodeSystems.LOINC, "Number of Previous Cesareans", BFDR.ProfileURL.ObservationNumberPreviousCesareans, MEDICAL_INFORMATION_SECTION, Mother.Id);
                 obs.Value = new Hl7.Fhir.Model.Integer(value);
             }
         }
@@ -2477,7 +2459,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"NumberOfPreviousCesareansEditFlag: {ExampleBirthRecord.NumberOfPreviousCesareansEditFlag}");</para>
         /// </example>
-        [Property("Number Of Prenatal Visits Edit Flag", Property.Types.Dictionary, "Number of Prenatal Visits", "Number of Prenatal Visits Edit Flag.", true, IGURL.ObservationNumberPreviousCesareans, true, 14)]
+        [Property("Number Of Previous Cesareans Edit Flag", Property.Types.Dictionary, "Number of Previous Cesareans", "Number of Previous Cesareans Edit Flag.", true, IGURL.ObservationNumberPreviousCesareans, true, 14)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
@@ -2503,7 +2485,7 @@ namespace BFDR
                 Observation obs = GetObservation("68497-7");
                 if (obs == null)
                 {
-                    obs = GetOrCreateObservation("68497-7", CodeSystems.LOINC, BFDR.ProfileURL.ObservationNumberPreviousCesareans, MEDICAL_INFORMATION_SECTION, Mother.Id);
+                    obs = GetOrCreateObservation("68497-7", CodeSystems.LOINC, "Number of previous cesareans", BFDR.ProfileURL.ObservationNumberPreviousCesareans, MEDICAL_INFORMATION_SECTION, Mother.Id);
                     obs.Value = new UnsignedInt();
                 }
                 obs.Value?.Extension.RemoveAll(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
@@ -2513,9 +2495,9 @@ namespace BFDR
         }
 
         /// <summary>
-        /// NumberOfPrenatalVisitsEditFlag Helper
+        /// NumberOfPreviousCesareansEditFlag Helper
         /// </summary>
-        [Property("NumberOfPreviousCesareansEditFlagHelper", Property.Types.String, "Number of Prenatal Visits", "Number Of Previous Cesareans Edit Flag Helper.", false, IGURL.ObservationNumberPreviousCesareans, true, 2)]
+        [Property("NumberOfPreviousCesareansEditFlagHelper", Property.Types.String, "Number of Previous Cesareans", "Number Of Previous Cesareans Edit Flag Helper.", false, IGURL.ObservationNumberPreviousCesareans, true, 2)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='68493-6')", "")]
         public String NumberOfPreviousCesareansEditFlagHelper
@@ -2840,7 +2822,7 @@ namespace BFDR
             if (ext.Url.Equals(VRExtensionURLs.ReportedParentAgeAtDelivery))
             {
                 if (ext.Extension.Any(
-                    subExt => subExt.Url == VR.OtherExtensionURL.ParentRole &&
+                    subExt => subExt.Url == "motherOrFather" &&
                     (subExt.Value as CodeableConcept) != null &&
                     (subExt.Value as CodeableConcept).Coding.Any(code => code.Code.Equals(role))))
                 {
@@ -2861,7 +2843,7 @@ namespace BFDR
             Child.Extension.RemoveAll(ext => IsParentAgeAtBirthExt(ext, role));
             Extension parentAgeAtBirth = new Extension(VRExtensionURLs.ReportedParentAgeAtDelivery, null);
             CodeableConcept parentRole = new CodeableConcept(roleCode["system"], roleCode["code"], roleCode["display"]);
-            parentAgeAtBirth.Extension.Add(new Extension(VR.OtherExtensionURL.ParentRole, parentRole));
+            parentAgeAtBirth.Extension.Add(new Extension("motherOrFather", parentRole));
             if (value != null)
             {
                 Quantity ageInYears = new Quantity((decimal)value, "a");
@@ -3511,32 +3493,34 @@ namespace BFDR
         [Property("MotherEthnicityLiteral", Property.Types.String, "Race and Ethnicity Profiles", "Mother's Ethnicity Literal.", true, VR.IGURL.InputRaceAndEthnicity, false, 34)]
         [PropertyParam("ethnicity", "The literal string to describe ethnicity.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='inputraceandethnicityMother')", "")]
-        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        [FHIRSubject(FHIRSubject.Subject.Mother)]
         public string MotherEthnicityLiteral
         {
-            get
+            get => GetEthnicityLiteral("inputraceandethnicityMother", RACE_ETHNICITY_PROFILE_MOTHER);
+            set => SetEthnicityLiteral(value, Mother.Id, "inputraceandethnicityMother", RACE_ETHNICITY_PROFILE_MOTHER);
+        }
+
+        private string GetEthnicityLiteral(string code, string section, [CallerMemberName] string propertyName = null) {
+            Observation obs = GetOrCreateObservation(code, CodeSystems.InputRaceAndEthnicityPerson, "Input Race and Ethnicity Person", VR.ProfileURL.InputRaceAndEthnicity, section, null, propertyName);
+            Observation.ComponentComponent ethnicity = obs.Component.FirstOrDefault(c => c.Code.Coding[0].Code == NvssEthnicity.Literal);
+            if (ethnicity != null && ethnicity.Value != null && ethnicity.Value as FhirString != null)
             {
-                Observation obs = GetOrCreateObservation("inputraceandethnicityMother", CodeSystems.InputRaceAndEthnicityPerson, "Input Race and Ethnicity Person", VR.ProfileURL.InputRaceAndEthnicity, RACE_ETHNICITY_PROFILE_MOTHER);
-                Observation.ComponentComponent ethnicity = obs.Component.FirstOrDefault(c => c.Code.Coding[0].Code == NvssEthnicity.Literal);
-                if (ethnicity != null && ethnicity.Value != null && ethnicity.Value as FhirString != null)
-                {
-                    return ethnicity.Value.ToString();
-                }
-                return null;
+                return ethnicity.Value.ToString();
             }
-            set
+            return null;
+        }
+
+        private void SetEthnicityLiteral(string value, string subjectId, string code, string section, [CallerMemberName] string propertyName = null) {
+            if (String.IsNullOrWhiteSpace(value))
             {
-                if (String.IsNullOrWhiteSpace(value))
-                {
-                    return;
-                }
-                Observation obs = GetOrCreateObservation("inputraceandethnicityMother", CodeSystems.InputRaceAndEthnicityPerson, "Input Race and Ethnicity Person", VR.ProfileURL.InputRaceAndEthnicity, RACE_ETHNICITY_PROFILE_MOTHER);
-                obs.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.Literal);
-                Observation.ComponentComponent component = new Observation.ComponentComponent();
-                component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, NvssEthnicity.Literal, NvssEthnicity.LiteralDisplay, null);
-                component.Value = new FhirString(value);
-                obs.Component.Add(component);
+                return;
             }
+            Observation obs = GetOrCreateObservation(code, CodeSystems.InputRaceAndEthnicityPerson, "Input Race and Ethnicity Person", VR.ProfileURL.InputRaceAndEthnicity, section, null, propertyName);
+            obs.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.Literal);
+            Observation.ComponentComponent component = new Observation.ComponentComponent();
+            component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, NvssEthnicity.Literal, NvssEthnicity.LiteralDisplay, null);
+            component.Value = new FhirString(value.TrimEnd());
+            obs.Component.Add(component);
         }
 
         /// <summary>Mother's Race values.</summary>
@@ -3985,30 +3969,8 @@ namespace BFDR
         [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public string FatherEthnicityLiteral
         {
-            get
-            {
-                Observation obs = GetOrCreateObservation("inputraceandethnicityFather", CodeSystems.InputRaceAndEthnicityPerson, "Input Race and Ethnicity Person", VR.ProfileURL.InputRaceAndEthnicity, RACE_ETHNICITY_PROFILE_FATHER);
-                Observation.ComponentComponent ethnicity = obs.Component.FirstOrDefault(c => c.Code.Coding[0].Code == NvssEthnicity.Literal);
-                if (ethnicity != null && ethnicity.Value != null && ethnicity.Value as FhirString != null)
-                {
-                    return ethnicity.Value.ToString();
-                }
-                return null;
-            }
-            set
-            {
-                if (String.IsNullOrWhiteSpace(value))
-                {
-                    return;
-                }
-                Observation obs = GetOrCreateObservation("inputraceandethnicityFather", CodeSystems.InputRaceAndEthnicityPerson, "Input Race and Ethnicity Person", VR.ProfileURL.InputRaceAndEthnicity, RACE_ETHNICITY_PROFILE_FATHER);
-                obs.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.Literal);
-                Observation.ComponentComponent component = new Observation.ComponentComponent();
-                component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, NvssEthnicity.Literal, NvssEthnicity.LiteralDisplay, null);
-                component.Value = new FhirString(value);
-                obs.Component.Add(component);
-                obs.Subject = new ResourceReference("urn:uuid:" + Child.Id);
-            }
+            get => GetEthnicityLiteral("inputraceandethnicityFather", RACE_ETHNICITY_PROFILE_FATHER);
+            set => SetEthnicityLiteral(value, Father.Id, "inputraceandethnicityFather", RACE_ETHNICITY_PROFILE_FATHER);
         }
 
         /// <summary>Father's Race values.</summary>
@@ -4147,7 +4109,7 @@ namespace BFDR
             }
             set
             {
-                Observation obs = GetOrCreateObservation("68499-3", CodeSystems.LOINC, BFDR.ProfileURL.ObservationDateOfLastLiveBirth, DATE_OF_LAST_LIVE_BIRTH, Mother.Id);
+                Observation obs = GetOrCreateObservation("68499-3", CodeSystems.LOINC, "Date of last live birth", BFDR.ProfileURL.ObservationDateOfLastLiveBirth, DATE_OF_LAST_LIVE_BIRTH, Mother.Id);
                 if (obs.Value as Hl7.Fhir.Model.FhirDateTime == null)
                 {   
                     obs.Value = new FhirDateTime();
@@ -4186,7 +4148,7 @@ namespace BFDR
             }
             set
             {
-                Observation obs = GetOrCreateObservation("68499-3", CodeSystems.LOINC, BFDR.ProfileURL.ObservationDateOfLastLiveBirth, DATE_OF_LAST_LIVE_BIRTH, Mother.Id);
+                Observation obs = GetOrCreateObservation("68499-3", CodeSystems.LOINC, "Date of last live birth", BFDR.ProfileURL.ObservationDateOfLastLiveBirth, DATE_OF_LAST_LIVE_BIRTH, Mother.Id);
                 if (obs.Value as Hl7.Fhir.Model.FhirDateTime == null)
                 {   
                     obs.Value = new FhirDateTime();
@@ -4225,7 +4187,7 @@ namespace BFDR
             }
             set
             {
-                Observation obs = GetOrCreateObservation("68499-3", CodeSystems.LOINC, DATE_OF_LAST_LIVE_BIRTH, BFDR.ProfileURL.ObservationDateOfLastLiveBirth, Mother.Id);
+                Observation obs = GetOrCreateObservation("68499-3", CodeSystems.LOINC, "Date of last live birth", BFDR.ProfileURL.ObservationDateOfLastLiveBirth, DATE_OF_LAST_LIVE_BIRTH, Mother.Id);
                 if (obs.Value as Hl7.Fhir.Model.FhirDateTime == null)
                 {   
                     obs.Value = new FhirDateTime();
@@ -4263,7 +4225,7 @@ namespace BFDR
             }
             set
             {
-                Observation obs = GetOrCreateObservation("68499-3", CodeSystems.LOINC, BFDR.ProfileURL.ObservationDateOfLastLiveBirth, DATE_OF_LAST_LIVE_BIRTH, Mother.Id);
+                Observation obs = GetOrCreateObservation("68499-3", CodeSystems.LOINC, "Date of last live birth", BFDR.ProfileURL.ObservationDateOfLastLiveBirth, DATE_OF_LAST_LIVE_BIRTH, Mother.Id);
                 obs.Value = ConvertToDateTime(value);
             }
         }
@@ -4294,7 +4256,7 @@ namespace BFDR
             }
             set
             {
-                Observation obs = GetOrCreateObservation("68500-8", CodeSystems.LOINC, BFDR.ProfileURL.ObservationDateOfLastOtherPregnancyOutcome, DATE_OF_LAST_OTHER_PREGNANCY_OUTCOME, Mother.Id);
+                Observation obs = GetOrCreateObservation("68500-8", CodeSystems.LOINC, "Date of last other pregnancy outcome", BFDR.ProfileURL.ObservationDateOfLastOtherPregnancyOutcome, DATE_OF_LAST_OTHER_PREGNANCY_OUTCOME, Mother.Id);
                 if (obs.Value as Hl7.Fhir.Model.FhirDateTime == null)
                 {   
                     obs.Value = new FhirDateTime();
@@ -4333,7 +4295,7 @@ namespace BFDR
             }
             set
             {
-                Observation obs = GetOrCreateObservation("68500-8", CodeSystems.LOINC, "Last Other Pregnancy Outcome", BFDR.ProfileURL.ObservationDateOfLastOtherPregnancyOutcome, DATE_OF_LAST_OTHER_PREGNANCY_OUTCOME, Mother.Id);
+                Observation obs = GetOrCreateObservation("68500-8", CodeSystems.LOINC, "Date of last other pregnancy outcome", BFDR.ProfileURL.ObservationDateOfLastOtherPregnancyOutcome, DATE_OF_LAST_OTHER_PREGNANCY_OUTCOME, Mother.Id);
                 if (obs.Value as Hl7.Fhir.Model.FhirDateTime == null)
                 {
                     obs.Value = new FhirDateTime();
@@ -4372,7 +4334,7 @@ namespace BFDR
             }
             set
             {
-                Observation obs = GetOrCreateObservation("68500-8", CodeSystems.LOINC, BFDR.ProfileURL.ObservationDateOfLastOtherPregnancyOutcome, DATE_OF_LAST_OTHER_PREGNANCY_OUTCOME, Mother.Id);
+                Observation obs = GetOrCreateObservation("68500-8", CodeSystems.LOINC, "Date of last other pregnancy outcome", BFDR.ProfileURL.ObservationDateOfLastOtherPregnancyOutcome, DATE_OF_LAST_OTHER_PREGNANCY_OUTCOME, Mother.Id);
                 if (obs.Value as Hl7.Fhir.Model.FhirDateTime == null)
                 {
                     obs.Value = new FhirDateTime();
@@ -4409,7 +4371,7 @@ namespace BFDR
             }
             set
             {
-                Observation obs = GetOrCreateObservation("68500-8", CodeSystems.LOINC, BFDR.ProfileURL.ObservationDateOfLastOtherPregnancyOutcome, DATE_OF_LAST_OTHER_PREGNANCY_OUTCOME, Mother.Id);
+                Observation obs = GetOrCreateObservation("68500-8", CodeSystems.LOINC, "Date of last other pregnancy outcome", BFDR.ProfileURL.ObservationDateOfLastOtherPregnancyOutcome, DATE_OF_LAST_OTHER_PREGNANCY_OUTCOME, Mother.Id);
                 obs.Value = ConvertToDateTime(value);
             }
         }
@@ -4464,7 +4426,7 @@ namespace BFDR
                 Observation obs = GetObservation("68493-6");
                 if (obs == null)
                 {
-                    obs = GetOrCreateObservation("68493-6", CodeSystems.LOINC, BFDR.ProfileURL.ObservationNumberPrenatalVisits, NUMBER_OF_PRENATAL_VISITS, Mother.Id);
+                    obs = GetOrCreateObservation("68493-6", CodeSystems.LOINC, "Number of prenatal visits", BFDR.ProfileURL.ObservationNumberPrenatalVisits, NUMBER_OF_PRENATAL_VISITS, Mother.Id);
                     obs.Value = new UnsignedInt();
                 }
                 obs.Value?.Extension.RemoveAll(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
@@ -4555,7 +4517,7 @@ namespace BFDR
                 Observation obs = GetObservation("11884-4");
                 if (obs == null)
                 {
-                    obs = GetOrCreateObservation("11884-4", CodeSystems.LOINC, BFDR.ProfileURL.ObservationGestationalAgeAtDelivery, GESTATIONAL_AGE, Mother.Id);
+                    obs = GetOrCreateObservation("11884-4", CodeSystems.LOINC, "Gestational age at delivery", BFDR.ProfileURL.ObservationGestationalAgeAtDelivery, GESTATIONAL_AGE, Mother.Id);
                     obs.Value = new Quantity();
                 }
                 Quantity quantity = (Quantity)obs.Value;
@@ -4607,7 +4569,7 @@ namespace BFDR
                 {
                     return;
                 }
-                Observation obs = GetOrCreateObservation("11884-4", CodeSystems.LOINC, BFDR.ProfileURL.ObservationGestationalAgeAtDelivery, GESTATIONAL_AGE, Mother.Id);
+                Observation obs = GetOrCreateObservation("11884-4", CodeSystems.LOINC, "Gestational age at delivery", BFDR.ProfileURL.ObservationGestationalAgeAtDelivery, GESTATIONAL_AGE, Mother.Id);
                 if (obs.Value == null)
                 {
                     obs.Value = new CodeableConcept();
@@ -4682,7 +4644,7 @@ namespace BFDR
                 {
                     return;
                 }
-                Observation obs = GetOrCreateObservation("11638-4", CodeSystems.LOINC, BFDR.ProfileURL.ObservationNumberBirthsNowLiving, NUMBER_OF_BIRTHS_NOW_LIVING, Mother.Id);
+                Observation obs = GetOrCreateObservation("11638-4", CodeSystems.LOINC, "Number of births now living", BFDR.ProfileURL.ObservationNumberBirthsNowLiving, NUMBER_OF_BIRTHS_NOW_LIVING, Mother.Id);
                 obs.Value = new Hl7.Fhir.Model.Integer(value);
             }
         }
@@ -4732,7 +4694,7 @@ namespace BFDR
             }
             set
             {
-                Observation obs = GetOrCreateObservation("87303-4", CodeSystems.LOINC, BFDR.ProfileURL.ObservationMotherReceivedWICFood, MOTHER_RECEIVED_WIC_FOOD, Mother.Id);
+                Observation obs = GetOrCreateObservation("87303-4", CodeSystems.LOINC, "Mother received WIC food", BFDR.ProfileURL.ObservationMotherReceivedWICFood, MOTHER_RECEIVED_WIC_FOOD, Mother.Id);
                 obs.Value = DictToCodeableConcept(value);
             }
         }
@@ -4797,7 +4759,7 @@ namespace BFDR
                 {
                     return;
                 }
-                Observation obs = GetOrCreateObservation("73756-9", CodeSystems.LOINC, BFDR.ProfileURL.ObservationInfantBreastfedAtDischarge, INFANT_BREASTFED_AT_DISCHARGE, Mother.Id);
+                Observation obs = GetOrCreateObservation("73756-9", CodeSystems.LOINC, "Infant breastfed at discharge", BFDR.ProfileURL.ObservationInfantBreastfedAtDischarge, INFANT_BREASTFED_AT_DISCHARGE, Mother.Id);
                 obs.Value = new FhirBoolean(value);
             }
         }
@@ -5321,6 +5283,7 @@ namespace BFDR
                 }
                 if (!VR.Mappings.BirthAttendantTitles.FHIRToIJE.ContainsKey(value))
                 { //other
+                    Console.WriteLine("Warning: given 'attendant title' code not found in value set. Setting value to 'Other'.");
                     AttendantTitle = CodeableConceptToDict(new CodeableConcept(CodeSystems.NullFlavor_HL7_V3, "OTH", "Other", value));
                 }
                 else
@@ -5660,7 +5623,7 @@ namespace BFDR
 
             set
             {
-              Observation obs = GetOrCreateObservation("8302-2", CodeSystems.LOINC, BFDR.ProfileURL.ObservationMotherHeight, MOTHER_PRENATAL_SECTION, Mother.Id);
+              Observation obs = GetOrCreateObservation("8302-2", CodeSystems.LOINC, "Mother height", BFDR.ProfileURL.ObservationMotherHeight, MOTHER_PRENATAL_SECTION, Mother.Id);
               obs.Category.Add(new CodeableConcept(CodeSystems.ObservationCategory, "vital-signs"));
               string unit = "in_i";
               // Create an empty quantity if needed
@@ -5713,7 +5676,7 @@ namespace BFDR
 
             set
             {
-                Observation obs = GetOrCreateObservation("8302-2", CodeSystems.LOINC, BFDR.ProfileURL.ObservationMotherHeight, MOTHER_PRENATAL_SECTION, Mother.Id);
+                Observation obs = GetOrCreateObservation("8302-2", CodeSystems.LOINC, "Mother Height", BFDR.ProfileURL.ObservationMotherHeight, MOTHER_PRENATAL_SECTION, Mother.Id);
                 // Create an empty quantity if needed
                 if (obs.Value == null || obs.Value as Quantity == null)
                 {
@@ -5752,7 +5715,11 @@ namespace BFDR
             }
             set 
             {
-                Observation obs = GetOrCreateObservation("8302-2", CodeSystems.LOINC, BFDR.ProfileURL.ObservationMotherHeight, MOTHER_PRENATAL_SECTION, Mother.Id);
+                Observation obs = GetOrCreateObservation("8302-2", CodeSystems.LOINC, "Mother Height", BFDR.ProfileURL.ObservationMotherHeight, MOTHER_PRENATAL_SECTION, Mother.Id);
+                if (obs.Value == null)
+                {
+                    obs.Value = new FhirString();
+                }
                 obs.Value.Extension.RemoveAll(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
 
                 if (String.IsNullOrEmpty(value))
@@ -5994,7 +5961,7 @@ namespace BFDR
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87300-0')", "")]
         public string FacilityJFI
         {
-            get => GetFacilityLocation(ValueSets.LocationTypes.Birth_Location)?.Identifier?.Find(identifier => identifier.Extension.Any(ext => ext.Url == VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords))?.GetExtension(VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords).Value.ToString();
+            get => GetFacilityLocation(ValueSets.LocationTypes.Birth_Location)?.Identifier?.Find(identifier => identifier.Extension.Any(ext => ext.Url == BFDR.ExtensionURL.JurisdictionalFacilityIdentifier))?.GetExtension(BFDR.ExtensionURL.JurisdictionalFacilityIdentifier).Value.ToString();
             set
             {
                 Location LocationBirth = GetFacilityLocation(ValueSets.LocationTypes.Birth_Location) ?? CreateAndSetLocationBirth(ValueSets.LocationTypes.Birth_Location);
@@ -6003,20 +5970,20 @@ namespace BFDR
                     LocationBirth.Identifier = new List<Identifier>();
                 }
                 // Check for an existing Facility JFI and if it exists, overwrite it.
-                if (LocationBirth.Identifier.Any(id => id.Extension.Any(ext => ext.Url == VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords)))
+                if (LocationBirth.Identifier.Any(id => id.Extension.Any(ext => ext.Url == BFDR.ExtensionURL.JurisdictionalFacilityIdentifier)))
                 {
-                    Identifier jfiIdentifier = LocationBirth.Identifier.Find(id => id.Extension.Any(ext => ext.Url == VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords));
-                    jfiIdentifier.SetExtension(VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords, new FhirString(value));
+                    Identifier jfiIdentifier = LocationBirth.Identifier.Find(id => id.Extension.Any(ext => ext.Url == BFDR.ExtensionURL.JurisdictionalFacilityIdentifier));
+                    jfiIdentifier.SetExtension(BFDR.ExtensionURL.JurisdictionalFacilityIdentifier, new FhirString(value));
                     return;
                 }
                 if (LocationBirth.Identifier.Count() < 1)
                 {
                     Identifier id = new Identifier();
-                    id.SetExtension(VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords, new FhirString(value));
+                    id.SetExtension(BFDR.ExtensionURL.JurisdictionalFacilityIdentifier, new FhirString(value));
                     LocationBirth.Identifier.Add(id);
                     return;
                 }
-                LocationBirth.Identifier.First().SetExtension(VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords, new FhirString(value));
+                LocationBirth.Identifier.First().SetExtension(BFDR.ExtensionURL.JurisdictionalFacilityIdentifier, new FhirString(value));
             }
         }
 
@@ -6026,9 +5993,9 @@ namespace BFDR
         /// <para>// Setter:</para>
         /// <para>ExampleBirthRecord.BirthFacilityName = "South Hospital";</para>
         /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Jurisdictional Facility Identifier: {ExampleBirthRecord.BirthFacilityName}");</para>
+        /// <para>Console.WriteLine($"Birth Facility Name: {ExampleBirthRecord.BirthFacilityName}");</para>
         /// </example>
-        [Property("Facility ID (JFI)", Property.Types.String, "Birth Location", "Facility ID (JFI), Jurisdictional Facility Identifier", true, IGURL.LocationBFDR, true, 34)]
+        [Property("Birth Facility Name", Property.Types.String, "Birth Location", "Birth Facility Name", true, IGURL.LocationBFDR, true, 34)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87300-0')", "")]
         public string BirthFacilityName
         {
@@ -6060,7 +6027,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Facility Mother Transferred From: {ExampleBirthRecord.FacilityInfantTransferredTo}");</para>
         /// </example>
-        [Property("cility Infant Transferred To", Property.Types.String, "Birth Location", "Facility Infant Transferred To (if transferred w/in 24 hours)", true, IGURL.LocationBFDR, true, 34)]
+        [Property("Facility Infant Transferred To", Property.Types.String, "Birth Location", "Facility Infant Transferred To (if transferred w/in 24 hours)", true, IGURL.LocationBFDR, true, 34)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87300-0')", "")]
         public string FacilityInfantTransferredTo
         {
@@ -6596,6 +6563,7 @@ namespace BFDR
                 if (!BFDR.Mappings.BirthAndFetalDeathFinancialClass.FHIRToIJE.ContainsKey(value))
                 {
                     // unknown
+                    Console.WriteLine("Warning: given 'principal source of payment for this delivery' code not found in value set. Setting value to 'Unavailable / Unknown'.");
                     PayorTypeFinancialClass = CodeableConceptToDict(new CodeableConcept(CodeSystems.NAHDO, "9999", "Unavailable / Unknown", value));
                 }
                 else
@@ -6653,7 +6621,7 @@ namespace BFDR
         public string PaternityAcknowledgementSignedHelper
         {
             get => GetObservationValueHelper();
-            set => SetObservationValueHelper(value, VR.ValueSets.YesNoNotApplicable.Codes);
+            set => SetObservationValueHelper(value, VR.ValueSets.YesNoUnknownNotApplicable.Codes);
         }
 
         /// <summary>Mother Transferred</summary>
@@ -6954,7 +6922,7 @@ namespace BFDR
             return null;
         }
 
-        private Observation SetIntegerObservationValue(string code, string codeDesc, int? value, string section, string profileURL, string subjectId, [CallerMemberName] string propertyName = null)
+        private Observation SetIntegerObservationValue(string code, string codeDesc, int? value, string profileURL, string section, string subjectId, [CallerMemberName] string propertyName = null)
         {
             Observation obs = GetOrCreateObservation(code, CodeSystems.LOINC, codeDesc, profileURL, section, null, propertyName);
             if (obs.Category.FirstOrDefault(cat => cat.Coding.Any(catCode => catCode.Code == "vital-signs")) == null)
@@ -6988,7 +6956,7 @@ namespace BFDR
         public int? ApgarScoreFiveMinutes
         {
             get => GetIntegerObservationValue("9274-2");
-            set => SetIntegerObservationValue("9274-2", "5 minute Apgar Score", value, NEWBORN_INFORMATION_SECTION, BFDR.ProfileURL.ObservationApgarScore, Child.Id);
+            set => SetIntegerObservationValue("9274-2", "5 minute Apgar Score", value, BFDR.ProfileURL.ObservationApgarScore, NEWBORN_INFORMATION_SECTION, Child.Id);
         }
 
         /// <summary>APGAR score at 10 mins.</summary>
@@ -7005,7 +6973,7 @@ namespace BFDR
         public int? ApgarScoreTenMinutes
         {
             get => GetIntegerObservationValue("9271-8");
-            set => SetIntegerObservationValue("9271-8", "10 minute Apgar Score", value, NEWBORN_INFORMATION_SECTION, BFDR.ProfileURL.ObservationApgarScore, Child.Id);
+            set => SetIntegerObservationValue("9271-8", "10 minute Apgar Score", value, BFDR.ProfileURL.ObservationApgarScore, NEWBORN_INFORMATION_SECTION, Child.Id);
         }
 
 
@@ -7174,6 +7142,7 @@ namespace BFDR
                 }
                 if (!VR.Mappings.BirthAttendantTitles.FHIRToIJE.ContainsKey(value))
                 { //other
+                    Console.WriteLine("Warning: given 'certifier title' code not found in value set. Setting value to 'Other'.");
                     CertifierTitle = CodeableConceptToDict(new CodeableConcept(CodeSystems.NullFlavor_HL7_V3, "OTH", "Other", value));
                 }
                 else

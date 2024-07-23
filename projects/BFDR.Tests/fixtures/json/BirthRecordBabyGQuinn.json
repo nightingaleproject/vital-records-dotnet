@@ -340,7 +340,7 @@
           "url" : "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-role-vr",
           "valueCodeableConcept" : {
             "coding" : [{
-              "system" : "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+              "system" : "motherOrFather",
               "code" : "MTH",
               "display" : "mother"
             }]

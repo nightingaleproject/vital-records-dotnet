@@ -86,8 +86,7 @@ namespace VR
         public static string VRCLHispanicOrigin = "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-hispanic-origin-vr";
 
         /// <summary> Input Race and Ethnicity Person </summary>
-        // TODO: update once VRCL is published ot hl7
-        public static string InputRaceAndEthnicityPerson = "https://build.fhir.org/ig/HL7/vr-common-library/CodeSystem-CodeSystem-local-observation-codes-vr.html";
+        public static string InputRaceAndEthnicityPerson = "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-local-observation-codes-vr";
 
         /// <summary> VRCL Edit Flags </summary>
         public static string VRCLEditFlags = "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags";

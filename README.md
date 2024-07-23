@@ -15,6 +15,8 @@
 | VRDR                  | [![VRDR on NuGet](https://img.shields.io/nuget/v/VRDR?label=)](https://www.nuget.org/packages/VRDR/)    |
 | VRDR.Messaging        | [![VRDR.Messaging on NuGet](https://img.shields.io/nuget/v/VRDR.Messaging?label=)](https://www.nuget.org/packages/VRDR.Messaging/)    |
 | VRDR.Client           | [![VRDR.Client on NuGet](https://img.shields.io/nuget/v/VRDR.Client?label=)](https://www.nuget.org/packages/VRDR.Client/)    |
+| BFDR                  | [![VRDR on NuGet](https://img.shields.io/nuget/v/BFDR?label=)](https://www.nuget.org/packages/BFDR/)    |
+| BFDR.Messaging        | [![VRDR.Messaging on NuGet](https://img.shields.io/nuget/v/BFDR.Messaging?label=)](https://www.nuget.org/packages/BFDR.Messaging/)    |
 
 ## <a name="commit"></a> Commit Message Format
 

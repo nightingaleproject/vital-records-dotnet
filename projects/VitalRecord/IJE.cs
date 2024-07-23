@@ -115,6 +115,18 @@ namespace VR
             return Truncate(valueString, info.Length).PadLeft(info.Length, '0');
         }
 
+        /// <summary>Get a value on the VitalRecord that is a numeric string with the option of being set to all 8s on the IJE side and absent on the
+        /// FHIR side to represent'unknown'</summary>
+        protected string NumericAllowingUnknownAndAbsence_Get(string ijeFieldName, string fhirFieldName, string obsCodeToRemove)
+        {
+            IJEField info = FieldInfo(ijeFieldName);
+            if(!Record.GetBundle().Entry.Any(e => e.Resource is Observation obs && obs.Code.Coding.Any(coding => coding.Code == obsCodeToRemove)))
+            {
+                return new String('8', info.Length); // Set to explicitly absent.
+            }
+            return NumericAllowingUnknown_Get(ijeFieldName, fhirFieldName);
+        }
+
         /// <summary>Set a value on the VitalRecord that is a numeric string with the option of being set to all 9s on the IJE side and -1 on the
         /// FHIR side to represent'unknown' and blank on the IJE side and null on the FHIR side to represent unspecified</summary>
         protected void NumericAllowingUnknown_Set(string ijeFieldName, string fhirFieldName, string value)
@@ -132,6 +144,19 @@ namespace VR
             {
                 Record.GetType().GetProperty(fhirFieldName).SetValue(Record, Convert.ToInt32(value));
             }
+        }
+
+        /// <summary>Set a value on the VitalRecord that is a numeric string with the option of being set to all 8s on the IJE side and absent on the
+        /// FHIR side to represent'unknown'</summary>
+        protected void NumericAllowingUnknownAndAbsence_Set(string ijeFieldName, string fhirFieldName, string value, string obsCodeToRemove)
+        {
+            IJEField info = FieldInfo(ijeFieldName);
+            if (value == new string('8', info.Length))
+            {
+                Record.GetBundle().Entry.RemoveAll(e => e.Resource is Observation obs && obs.Code.Coding.Any(coding => coding.Code == obsCodeToRemove));
+                return;
+            }
+            NumericAllowingUnknown_Set(ijeFieldName, fhirFieldName, value);
         }
 
         /// <summary>Get a value on the VitalRecord whose IJE type is a left justified string.</summary>

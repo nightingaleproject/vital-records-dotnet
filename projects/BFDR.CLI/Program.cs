@@ -69,7 +69,7 @@ namespace BFDR.CLI
                 birthRecord.CertificateNumber = "100";
                 birthRecord.StateLocalIdentifier1 = "123";
                 birthRecord.DateOfBirth = "2023-01-01";
-                birthRecord.BirthSexHelper = "M";
+                birthRecord.BirthSex = "M";
 
                 string[] childNames = { "Alexander", "Arlo" };
                 birthRecord.ChildGivenNames = childNames;

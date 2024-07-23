@@ -334,13 +334,13 @@ namespace BFDR.Tests
       BirthRecord secondRecord = VitalRecord.FromDescription<BirthRecord>(firstDescription);
 
       // Record Certificate Number
-      Assert.Equal("48858", firstRecord.CertificateNumber);
+      Assert.Equal("15075", firstRecord.CertificateNumber);
       Assert.Equal(firstRecord.CertificateNumber, secondRecord.CertificateNumber);
       // Record Birth Record Identifier
-      Assert.Equal("2019UT48858", firstRecord.RecordIdentifier);
+      Assert.Equal("2019UT015075", firstRecord.RecordIdentifier);
       Assert.Equal(firstRecord.RecordIdentifier, secondRecord.RecordIdentifier);
       // Record State Local Identifier 1
-      Assert.Equal("000000000042", firstRecord.StateLocalIdentifier1);
+      Assert.Equal("444455555", firstRecord.StateLocalIdentifier1);
       Assert.Equal(firstRecord.StateLocalIdentifier1, secondRecord.StateLocalIdentifier1);
       // Date of Birth - Year
       Assert.Equal(2019, firstRecord.BirthYear);
@@ -349,10 +349,10 @@ namespace BFDR.Tests
       Assert.Equal(2, firstRecord.BirthMonth);
       Assert.Equal(firstRecord.BirthMonth, secondRecord.BirthMonth);
       // Date of Birth - Day
-      Assert.Equal(25, firstRecord.BirthDay);
+      Assert.Equal(12, firstRecord.BirthDay);
       Assert.Equal(firstRecord.BirthDay, secondRecord.BirthDay);
       // Complete Date of Birth.
-      Assert.Equal("2019-02-25", firstRecord.DateOfBirth);
+      Assert.Equal("2019-02-12", firstRecord.DateOfBirth);
       Assert.Equal(firstRecord.DateOfBirth, secondRecord.DateOfBirth);
       // State of Birth
       Assert.Equal("UT", firstRecord.PlaceOfBirth["addressState"]);
@@ -361,20 +361,17 @@ namespace BFDR.Tests
       // Time of Birth
       Assert.Equal("13:00:00", firstRecord.BirthTime);
       Assert.Equal(firstRecord.BirthTime, secondRecord.BirthTime);
-      // Sex
-      Assert.Equal("F", firstRecord.BirthSex["code"]);
-      Assert.Equal(firstRecord.BirthSex, secondRecord.BirthSex);
-      Assert.Equal("F", firstRecord.BirthSexHelper);
-      Assert.Equal(firstRecord.BirthSex["code"], secondRecord.BirthSexHelper);
+      // Birth Sex
+      Assert.Equal("F", firstRecord.BirthSex);
       // Plurality
-      Assert.Equal(1, firstRecord.Plurality); //TODO: check IG examples are correct
+      Assert.Equal(1, firstRecord.Plurality);
       // Set Order
       Assert.Equal(1, firstRecord.SetOrder);
       Assert.Equal(firstRecord.SetOrder, secondRecord.SetOrder);
       // Mother's Age
-       Assert.Equal(34, firstRecord.MotherReportedAgeAtDelivery); 
+      Assert.Equal(34, firstRecord.MotherReportedAgeAtDelivery);
       // Father's Age
-       Assert.Equal(35, firstRecord.FatherReportedAgeAtDelivery);
+      Assert.Equal(35, firstRecord.FatherReportedAgeAtDelivery);
       // Child's First Name
       Assert.Equal("Baby", firstRecord.ChildGivenNames[0]);
       Assert.Equal(firstRecord.ChildGivenNames[0], secondRecord.ChildGivenNames[0]);
@@ -759,7 +756,7 @@ namespace BFDR.Tests
       Assert.Null(record.ChildFamilyName);
       Assert.Null(record.ChildSuffix);
       // Child's First Name
-      string[] names = {"Baby", "G"};
+      string[] names = { "Baby", "G" };
       record.ChildGivenNames = names;
       Assert.Equal("Baby", record.ChildGivenNames[0]);
       // Child's Middle Name
@@ -780,7 +777,7 @@ namespace BFDR.Tests
       Assert.Null(record.MotherFamilyName);
       Assert.Null(record.MotherSuffix);
       // Mother's First Name
-      string[] names = {"Mommy", "D"};
+      string[] names = { "Mommy", "D" };
       record.MotherGivenNames = names;
       Assert.Equal("Mommy", record.MotherGivenNames[0]);
       // Mother's Middle Name
@@ -801,7 +798,7 @@ namespace BFDR.Tests
       Assert.Null(record.FatherFamilyName);
       Assert.Null(record.FatherSuffix);
       // Father's First Name
-      string[] names = {"Pappy", "C"};
+      string[] names = { "Pappy", "C" };
       record.FatherGivenNames = names;
       Assert.Equal("Pappy", record.FatherGivenNames[0]);
       // Father's Middle Name
@@ -822,7 +819,7 @@ namespace BFDR.Tests
       Assert.Null(record.MotherMaidenFamilyName);
       Assert.Null(record.MotherMaidenSuffix);
       // Mother's Maiden First Name
-      string[] names = {"Maiden", "A"};
+      string[] names = { "Maiden", "A" };
       record.MotherMaidenGivenNames = names;
       Assert.Equal("Maiden", record.MotherMaidenGivenNames[0]);
       // Mother's Maiden Middle Name
@@ -839,12 +836,14 @@ namespace BFDR.Tests
     public void TestChildSexSetters()
     {
       BirthRecord record = new BirthRecord();
-      record.BirthSexHelper = "F";
-      Assert.Equal("F", record.BirthSex["code"]);
-      Assert.Equal("F", record.BirthSexHelper);
-      record.BirthSexHelper = "M";
-      Assert.Equal("M", record.BirthSex["code"]);
-      Assert.Equal("M", record.BirthSexHelper);
+      record.BirthSex = "F";
+      Assert.Equal("F", record.BirthSex);
+      record.BirthSex = "UNK";
+      Assert.Equal("UNK", record.BirthSex);
+      record.BirthSex = "M";
+      Assert.Equal("M", record.BirthSex);
+      record.BirthSex = "X";
+      Assert.Equal("M", record.BirthSex);
     }
 
     [Fact]
@@ -1127,129 +1126,129 @@ namespace BFDR.Tests
     [Fact]
     public void ParseMotherRaceEthnicityJsonToIJE()
     {
-        // Hispanic or Latino
-        BirthRecord b = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/RaceEthnicityCaseRecord.json")));
-        IJEBirth ije1 = new IJEBirth(b);
-        Assert.Equal("H", ije1.METHNIC1);
-        Assert.Equal("H", ije1.METHNIC2);
-        Assert.Equal("H", ije1.METHNIC3);
-        Assert.Equal("H", ije1.METHNIC4);
-        Assert.Equal("Y", ije1.MRACE1);
-        Assert.Equal("Y", ije1.MRACE2);
-        Assert.Equal("Y", ije1.MRACE3);
-        Assert.Equal("N", ije1.MRACE4);
-        Assert.Equal("N", ije1.MRACE5);
-        Assert.Equal("N", ije1.MRACE6);
-        Assert.Equal("N", ije1.MRACE7);
-        Assert.Equal("N", ije1.MRACE8);
-        Assert.Equal("N", ije1.MRACE9);
-        Assert.Equal("N", ije1.MRACE10);
-        Assert.Equal("N", ije1.MRACE11);
-        Assert.Equal("N", ije1.MRACE12);
-        Assert.Equal("N", ije1.MRACE13);
-        Assert.Equal("N", ije1.MRACE14);
-        Assert.Equal("N", ije1.MRACE15);
+      // Hispanic or Latino
+      BirthRecord b = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/RaceEthnicityCaseRecord.json")));
+      IJEBirth ije1 = new IJEBirth(b);
+      Assert.Equal("H", ije1.METHNIC1);
+      Assert.Equal("H", ije1.METHNIC2);
+      Assert.Equal("H", ije1.METHNIC3);
+      Assert.Equal("H", ije1.METHNIC4);
+      Assert.Equal("Y", ije1.MRACE1);
+      Assert.Equal("Y", ije1.MRACE2);
+      Assert.Equal("Y", ije1.MRACE3);
+      Assert.Equal("N", ije1.MRACE4);
+      Assert.Equal("N", ije1.MRACE5);
+      Assert.Equal("N", ije1.MRACE6);
+      Assert.Equal("N", ije1.MRACE7);
+      Assert.Equal("N", ije1.MRACE8);
+      Assert.Equal("N", ije1.MRACE9);
+      Assert.Equal("N", ije1.MRACE10);
+      Assert.Equal("N", ije1.MRACE11);
+      Assert.Equal("N", ije1.MRACE12);
+      Assert.Equal("N", ije1.MRACE13);
+      Assert.Equal("N", ije1.MRACE14);
+      Assert.Equal("N", ije1.MRACE15);
 
-        // Non Hispanic or Latino
-        BirthRecord b2 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/RaceEthnicityCaseRecord2.json")));
-        IJEBirth ije2 = new IJEBirth(b2);
-        Assert.Equal("N", ije2.METHNIC1);
-        Assert.Equal("N", ije2.METHNIC2);
-        Assert.Equal("N", ije2.METHNIC3);
-        Assert.Equal("N", ije2.METHNIC4);
-        Assert.Equal("Y", ije2.MRACE10);
-        Assert.Equal("Malaysian", ije2.MRACE18);
-        Assert.Equal("Y", ije2.MRACE3);
+      // Non Hispanic or Latino
+      BirthRecord b2 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/RaceEthnicityCaseRecord2.json")));
+      IJEBirth ije2 = new IJEBirth(b2);
+      Assert.Equal("N", ije2.METHNIC1);
+      Assert.Equal("N", ije2.METHNIC2);
+      Assert.Equal("N", ije2.METHNIC3);
+      Assert.Equal("N", ije2.METHNIC4);
+      Assert.Equal("Y", ije2.MRACE10);
+      Assert.Equal("Malaysian", ije2.MRACE18);
+      Assert.Equal("Y", ije2.MRACE3);
 
-        BirthRecord b3 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
-        IJEBirth ije3 = new IJEBirth(b3);
-        Assert.Equal("H", ije3.METHNIC1);
-        Assert.Equal("U", ije3.METHNIC2);
-        Assert.Equal("U", ije3.METHNIC3);
-        Assert.Equal("U", ije3.METHNIC4);
-        Assert.Equal("", ije3.MRACE18);
-        Assert.Equal("Y", ije3.MRACE1);
-        Assert.Equal("Y", ije3.MRACE2);
-        Assert.Equal("Y", ije3.MRACE3);
-        Assert.Equal("N", ije3.MRACE4);
-        Assert.Equal("N", ije3.MRACE5);
-        Assert.Equal("N", ije3.MRACE6);
-        Assert.Equal("N", ije3.MRACE7);
-        Assert.Equal("N", ije3.MRACE8);
-        Assert.Equal("N", ije3.MRACE9);
-        Assert.Equal("N", ije3.MRACE10);
-        Assert.Equal("N", ije3.MRACE11);
-        Assert.Equal("N", ije3.MRACE12);
-        Assert.Equal("N", ije3.MRACE13);
-        Assert.Equal("N", ije3.MRACE14);
-        Assert.Equal("N", ije3.MRACE15);
+      BirthRecord b3 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      IJEBirth ije3 = new IJEBirth(b3);
+      Assert.Equal("H", ije3.METHNIC1);
+      Assert.Equal("U", ije3.METHNIC2);
+      Assert.Equal("U", ije3.METHNIC3);
+      Assert.Equal("U", ije3.METHNIC4);
+      Assert.Equal("", ije3.MRACE18);
+      Assert.Equal("Y", ije3.MRACE1);
+      Assert.Equal("Y", ije3.MRACE2);
+      Assert.Equal("Y", ije3.MRACE3);
+      Assert.Equal("N", ije3.MRACE4);
+      Assert.Equal("N", ije3.MRACE5);
+      Assert.Equal("N", ije3.MRACE6);
+      Assert.Equal("N", ije3.MRACE7);
+      Assert.Equal("N", ije3.MRACE8);
+      Assert.Equal("N", ije3.MRACE9);
+      Assert.Equal("N", ije3.MRACE10);
+      Assert.Equal("N", ije3.MRACE11);
+      Assert.Equal("N", ije3.MRACE12);
+      Assert.Equal("N", ije3.MRACE13);
+      Assert.Equal("N", ije3.MRACE14);
+      Assert.Equal("N", ije3.MRACE15);
     }
 
     [Fact]
     public void ParseMotherRaceEthnicityIJEtoJson()
     {
-        BirthRecord b = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
-        IJEBirth ije1 = new IJEBirth(b);
-        IJEBirth ije2 = new IJEBirth(ije1.ToString(), true);
-        BirthRecord b2 = ije2.ToRecord();
+      BirthRecord b = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      IJEBirth ije1 = new IJEBirth(b);
+      IJEBirth ije2 = new IJEBirth(ije1.ToString(), true);
+      BirthRecord b2 = ije2.ToRecord();
 
-        // Ethnicity tuple
-        Assert.Equal("Y", b2.MotherEthnicity1Helper);
-        Assert.Equal("UNK", b2.MotherEthnicity2Helper);
-        Assert.Equal("UNK", b2.MotherEthnicity3Helper);
-        Assert.Equal("UNK", b2.MotherEthnicity4Helper);
-        Assert.Null(b2.MotherEthnicityLiteral);
+      // Ethnicity tuple
+      Assert.Equal("Y", b2.MotherEthnicity1Helper);
+      Assert.Equal("UNK", b2.MotherEthnicity2Helper);
+      Assert.Equal("UNK", b2.MotherEthnicity3Helper);
+      Assert.Equal("UNK", b2.MotherEthnicity4Helper);
+      Assert.Equal("Bolivian", b2.MotherEthnicityLiteral);
 
-        // Race tuple
-        foreach (var pair in b2.MotherRace)
+      // Race tuple
+      foreach (var pair in b2.MotherRace)
+      {
+        switch (pair.Item1)
         {
-            switch (pair.Item1)
-            {
-                case NvssRace.White:
-                    Assert.Equal("Y", pair.Item2);
-                    break;
-                case NvssRace.AmericanIndianOrAlaskanNative:
-                    Assert.Equal("Y", pair.Item2);
-                    break;
-                default:
-                    break;
-            }
+          case NvssRace.White:
+            Assert.Equal("Y", pair.Item2);
+            break;
+          case NvssRace.AmericanIndianOrAlaskanNative:
+            Assert.Equal("Y", pair.Item2);
+            break;
+          default:
+            break;
         }
-        Assert.Equal(15, b2.MotherRace.Length);
+      }
+      Assert.Equal(15, b2.MotherRace.Length);
     }
 
 
     [Fact]
     public void ParseFatherRaceEthnicityIJEtoJson()
     {
-        BirthRecord b = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
-        IJEBirth ije1 = new IJEBirth(b);
-        IJEBirth ije2 = new IJEBirth(ije1.ToString(), true);
-        BirthRecord b2 = ije2.ToRecord();
+      BirthRecord b = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      IJEBirth ije1 = new IJEBirth(b);
+      IJEBirth ije2 = new IJEBirth(ije1.ToString(), true);
+      BirthRecord b2 = ije2.ToRecord();
 
-        // Ethnicity tuple
-        Assert.Equal("Y", b2.FatherEthnicity1Helper);
-        Assert.Equal("UNK", b2.FatherEthnicity2Helper);
-        Assert.Equal("UNK", b2.FatherEthnicity3Helper);
-        Assert.Equal("UNK", b2.FatherEthnicity4Helper);
-        Assert.Null(b2.FatherEthnicityLiteral);
+      // Ethnicity tuple
+      Assert.Equal("Y", b2.FatherEthnicity1Helper);
+      Assert.Equal("UNK", b2.FatherEthnicity2Helper);
+      Assert.Equal("UNK", b2.FatherEthnicity3Helper);
+      Assert.Equal("UNK", b2.FatherEthnicity4Helper);
+      Assert.Equal("Chilean", b2.FatherEthnicityLiteral);
 
-        // Race tuple
-        foreach (var pair in b2.FatherRace)
+      // Race tuple
+      foreach (var pair in b2.FatherRace)
+      {
+        switch (pair.Item1)
         {
-            switch (pair.Item1)
-            {
-                case NvssRace.White:
-                    Assert.Equal("N", pair.Item2);
-                    break;
-                case NvssRace.AmericanIndianOrAlaskanNative:
-                    Assert.Equal("Y", pair.Item2);
-                    break;
-                default:
-                    break;
-            }
+          case NvssRace.White:
+            Assert.Equal("N", pair.Item2);
+            break;
+          case NvssRace.AmericanIndianOrAlaskanNative:
+            Assert.Equal("Y", pair.Item2);
+            break;
+          default:
+            break;
         }
-        Assert.Equal(15, b2.FatherRace.Length);
+      }
+      Assert.Equal(15, b2.FatherRace.Length);
     }
     [Fact]
     public void IdentifiersPresent()
@@ -1317,7 +1316,7 @@ namespace BFDR.Tests
       // Manually set birth record values.
       BirthRecord br1 = new()
       {
-          BirthPhysicalLocationHelper = "22232009",
+        BirthPhysicalLocationHelper = "22232009",
       };
       // Test IJE conversion from BirthRecord.
       IJEBirth ije = new(br1);
@@ -1330,9 +1329,9 @@ namespace BFDR.Tests
 
       Dictionary<string, string> birthPlaceCode = new()
       {
-          ["code"] = "22232009",
-          ["system"] = "http://snomed.info/sct",
-          ["display"] = "Hospital"
+        ["code"] = "22232009",
+        ["system"] = "http://snomed.info/sct",
+        ["display"] = "Hospital"
       };
       br1.BirthPhysicalLocation = birthPlaceCode;
       ije = new(br1);
@@ -1377,95 +1376,95 @@ namespace BFDR.Tests
     [Fact]
     public void TestAttendantPropertiesSetter()
     {
-        // Attendant's name
-        Assert.Null(SetterBirthRecord.AttendantName);
-        SetterBirthRecord.AttendantName = "Janet Seito";
-        Assert.Equal("Janet Seito", SetterBirthRecord.AttendantName);
-        // Attendant's NPI
-        Assert.Null(SetterBirthRecord.AttendantNPI);
-        SetterBirthRecord.AttendantNPI = "123456789011";
-        Assert.Equal("123456789011", SetterBirthRecord.AttendantNPI);
-        // Attendant's Title
-        Dictionary<string, string> AttendantTitle = new Dictionary<string, string>();
-        AttendantTitle.Add("code", "112247003");
-        AttendantTitle.Add("system", CodeSystems.SCT);
-        AttendantTitle.Add("display", "Medical Doctor");
-        SetterBirthRecord.AttendantTitle = AttendantTitle;
-        Assert.Equal("112247003", SetterBirthRecord.AttendantTitle["code"]);
-        Assert.Equal(CodeSystems.SCT, SetterBirthRecord.AttendantTitle["system"]);
-        Assert.Equal("Medical Doctor", SetterBirthRecord.AttendantTitle["display"]);
-        // test setting other Attendant Title
-        BirthRecord record2 = new BirthRecord();
-        record2.AttendantName = "Jessica Leung";
-        Assert.Equal("Jessica Leung", record2.AttendantName);
-        record2.AttendantTitleHelper = "Birth Clerk"; //set using Title helper
-        Assert.Equal("OTH", record2.AttendantTitle["code"]);
-        Assert.Equal(CodeSystems.NullFlavor_HL7_V3, record2.AttendantTitle["system"]);
-        Assert.Equal("Other", record2.AttendantTitle["display"]);
-        Assert.Equal("Birth Clerk", record2.AttendantTitle["text"]);
-        record2.AttendantOtherHelper = "Birth Clerk"; //set using Other helper
-        Assert.Equal("OTH", record2.AttendantTitle["code"]);
-        Assert.Equal(CodeSystems.NullFlavor_HL7_V3, record2.AttendantTitle["system"]);
-        Assert.Equal("Other", record2.AttendantTitle["display"]);
-        Assert.Equal("Birth Clerk", record2.AttendantTitle["text"]);
-        Assert.Equal("Birth Clerk", record2.AttendantOtherHelper);
-        // test IJE translations
-        IJEBirth ije1 = new IJEBirth(SetterBirthRecord);
-        Assert.Equal("Janet Seito", ije1.ATTEND_NAME.Trim());
-        Assert.Equal("123456789011", ije1.ATTEND_NPI);
-        Assert.Equal("1", ije1.ATTEND);
-        IJEBirth ije2 = new IJEBirth(record2);
-        Assert.Equal("Jessica Leung", ije2.ATTEND_NAME.Trim());
-        Assert.Equal("            ", ije2.ATTEND_NPI);
-        Assert.Equal("5", ije2.ATTEND);
-        Assert.Equal("Birth Clerk", ije2.ATTEND_OTH_TXT.Trim());
+      // Attendant's name
+      Assert.Null(SetterBirthRecord.AttendantName);
+      SetterBirthRecord.AttendantName = "Janet Seito";
+      Assert.Equal("Janet Seito", SetterBirthRecord.AttendantName);
+      // Attendant's NPI
+      Assert.Null(SetterBirthRecord.AttendantNPI);
+      SetterBirthRecord.AttendantNPI = "123456789011";
+      Assert.Equal("123456789011", SetterBirthRecord.AttendantNPI);
+      // Attendant's Title
+      Dictionary<string, string> AttendantTitle = new Dictionary<string, string>();
+      AttendantTitle.Add("code", "112247003");
+      AttendantTitle.Add("system", CodeSystems.SCT);
+      AttendantTitle.Add("display", "Medical Doctor");
+      SetterBirthRecord.AttendantTitle = AttendantTitle;
+      Assert.Equal("112247003", SetterBirthRecord.AttendantTitle["code"]);
+      Assert.Equal(CodeSystems.SCT, SetterBirthRecord.AttendantTitle["system"]);
+      Assert.Equal("Medical Doctor", SetterBirthRecord.AttendantTitle["display"]);
+      // test setting other Attendant Title
+      BirthRecord record2 = new BirthRecord();
+      record2.AttendantName = "Jessica Leung";
+      Assert.Equal("Jessica Leung", record2.AttendantName);
+      record2.AttendantTitleHelper = "Birth Clerk"; //set using Title helper
+      Assert.Equal("OTH", record2.AttendantTitle["code"]);
+      Assert.Equal(CodeSystems.NullFlavor_HL7_V3, record2.AttendantTitle["system"]);
+      Assert.Equal("Other", record2.AttendantTitle["display"]);
+      Assert.Equal("Birth Clerk", record2.AttendantTitle["text"]);
+      record2.AttendantOtherHelper = "Birth Clerk"; //set using Other helper
+      Assert.Equal("OTH", record2.AttendantTitle["code"]);
+      Assert.Equal(CodeSystems.NullFlavor_HL7_V3, record2.AttendantTitle["system"]);
+      Assert.Equal("Other", record2.AttendantTitle["display"]);
+      Assert.Equal("Birth Clerk", record2.AttendantTitle["text"]);
+      Assert.Equal("Birth Clerk", record2.AttendantOtherHelper);
+      // test IJE translations
+      IJEBirth ije1 = new IJEBirth(SetterBirthRecord);
+      Assert.Equal("Janet Seito", ije1.ATTEND_NAME.Trim());
+      Assert.Equal("123456789011", ije1.ATTEND_NPI);
+      Assert.Equal("1", ije1.ATTEND);
+      IJEBirth ije2 = new IJEBirth(record2);
+      Assert.Equal("Jessica Leung", ije2.ATTEND_NAME.Trim());
+      Assert.Equal("            ", ije2.ATTEND_NPI);
+      Assert.Equal("5", ije2.ATTEND);
+      Assert.Equal("Birth Clerk", ije2.ATTEND_OTH_TXT.Trim());
     }
 
     [Fact]
     public void TestCertifierPropertiesSetter()
     {
-        // Certifier's name
-        Assert.Null(SetterBirthRecord.CertifierName);
-        SetterBirthRecord.CertifierName = "Avery Jones";
-        Assert.Equal("Avery Jones", SetterBirthRecord.CertifierName);
-        // Certifier's NPI
-        Assert.Null(SetterBirthRecord.CertifierNPI);
-        SetterBirthRecord.CertifierNPI = "123456789011";
-        Assert.Equal("123456789011", SetterBirthRecord.CertifierNPI);
-        // Certifier's Title
-        Dictionary<string, string> CertifierTitle = new Dictionary<string, string>();
-        CertifierTitle.Add("code", "76231001");
-        CertifierTitle.Add("system", CodeSystems.SCT);
-        CertifierTitle.Add("display", "Osteopath");
-        SetterBirthRecord.CertifierTitle = CertifierTitle;
-        Assert.Equal("76231001", SetterBirthRecord.CertifierTitle["code"]);
-        Assert.Equal(CodeSystems.SCT, SetterBirthRecord.CertifierTitle["system"]);
-        Assert.Equal("Osteopath", SetterBirthRecord.CertifierTitle["display"]);
-        // test setting other Certifier Title
-        BirthRecord record2 = new BirthRecord();
-        record2.CertifierName = "Jessica Leung";
-        Assert.Equal("Jessica Leung", record2.CertifierName);
-        record2.CertifierTitleHelper = "Birth Clerk"; //set using Title helper
-        Assert.Equal("OTH", record2.CertifierTitle["code"]);
-        Assert.Equal(CodeSystems.NullFlavor_HL7_V3, record2.CertifierTitle["system"]);
-        Assert.Equal("Other", record2.CertifierTitle["display"]);
-        Assert.Equal("Birth Clerk", record2.CertifierTitle["text"]);
-        record2.CertifierOtherHelper = "Birth Clerk"; //set using Other helper
-        Assert.Equal("OTH", record2.CertifierTitle["code"]);
-        Assert.Equal(CodeSystems.NullFlavor_HL7_V3, record2.CertifierTitle["system"]);
-        Assert.Equal("Other", record2.CertifierTitle["display"]);
-        Assert.Equal("Birth Clerk", record2.CertifierTitle["text"]);
-        Assert.Equal("Birth Clerk", record2.CertifierOtherHelper);
-        // test IJE translations
-        IJEBirth ije1 = new IJEBirth(SetterBirthRecord);
-        Assert.Equal("Avery Jones", ije1.CERTIF_NAME.Trim());
-        Assert.Equal("123456789011", ije1.CERTIF_NPI);
-        Assert.Equal("2", ije1.CERTIF);
-        IJEBirth ije2 = new IJEBirth(record2);
-        Assert.Equal("Jessica Leung", ije2.CERTIF_NAME.Trim());
-        Assert.Equal("            ", ije2.CERTIF_NPI);
-        Assert.Equal("5", ije2.CERTIF);
-        Assert.Equal("Birth Clerk", ije2.CERTIF_OTH_TXT.Trim());
+      // Certifier's name
+      Assert.Null(SetterBirthRecord.CertifierName);
+      SetterBirthRecord.CertifierName = "Avery Jones";
+      Assert.Equal("Avery Jones", SetterBirthRecord.CertifierName);
+      // Certifier's NPI
+      Assert.Null(SetterBirthRecord.CertifierNPI);
+      SetterBirthRecord.CertifierNPI = "123456789011";
+      Assert.Equal("123456789011", SetterBirthRecord.CertifierNPI);
+      // Certifier's Title
+      Dictionary<string, string> CertifierTitle = new Dictionary<string, string>();
+      CertifierTitle.Add("code", "76231001");
+      CertifierTitle.Add("system", CodeSystems.SCT);
+      CertifierTitle.Add("display", "Osteopath");
+      SetterBirthRecord.CertifierTitle = CertifierTitle;
+      Assert.Equal("76231001", SetterBirthRecord.CertifierTitle["code"]);
+      Assert.Equal(CodeSystems.SCT, SetterBirthRecord.CertifierTitle["system"]);
+      Assert.Equal("Osteopath", SetterBirthRecord.CertifierTitle["display"]);
+      // test setting other Certifier Title
+      BirthRecord record2 = new BirthRecord();
+      record2.CertifierName = "Jessica Leung";
+      Assert.Equal("Jessica Leung", record2.CertifierName);
+      record2.CertifierTitleHelper = "Birth Clerk"; //set using Title helper
+      Assert.Equal("OTH", record2.CertifierTitle["code"]);
+      Assert.Equal(CodeSystems.NullFlavor_HL7_V3, record2.CertifierTitle["system"]);
+      Assert.Equal("Other", record2.CertifierTitle["display"]);
+      Assert.Equal("Birth Clerk", record2.CertifierTitle["text"]);
+      record2.CertifierOtherHelper = "Birth Clerk"; //set using Other helper
+      Assert.Equal("OTH", record2.CertifierTitle["code"]);
+      Assert.Equal(CodeSystems.NullFlavor_HL7_V3, record2.CertifierTitle["system"]);
+      Assert.Equal("Other", record2.CertifierTitle["display"]);
+      Assert.Equal("Birth Clerk", record2.CertifierTitle["text"]);
+      Assert.Equal("Birth Clerk", record2.CertifierOtherHelper);
+      // test IJE translations
+      IJEBirth ije1 = new IJEBirth(SetterBirthRecord);
+      Assert.Equal("Avery Jones", ije1.CERTIF_NAME.Trim());
+      Assert.Equal("123456789011", ije1.CERTIF_NPI);
+      Assert.Equal("2", ije1.CERTIF);
+      IJEBirth ije2 = new IJEBirth(record2);
+      Assert.Equal("Jessica Leung", ije2.CERTIF_NAME.Trim());
+      Assert.Equal("            ", ije2.CERTIF_NPI);
+      Assert.Equal("5", ije2.CERTIF);
+      Assert.Equal("Birth Clerk", ije2.CERTIF_OTH_TXT.Trim());
     }
 
     [Fact]
@@ -1499,8 +1498,8 @@ namespace BFDR.Tests
     [Fact]
     public void ParentReportedAgePresent()
     {
-      BirthRecord record2 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json")));
-      Assert.Equal(34, record2.MotherReportedAgeAtDelivery); 
+      BirthRecord record2 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.Equal(34, record2.MotherReportedAgeAtDelivery);
       Assert.Equal(35, record2.FatherReportedAgeAtDelivery);
     }
 
@@ -1512,7 +1511,7 @@ namespace BFDR.Tests
       Assert.Equal("Arlo", FakeBirthRecord.ChildGivenNames[1]);
       Assert.Equal("Adkins", FakeBirthRecord.ChildFamilyName);
       //set after parse
-      string[] names = {"Alex", "D"};
+      string[] names = { "Alex", "D" };
       FakeBirthRecord.ChildGivenNames = names;
       Assert.Equal("Alex", FakeBirthRecord.ChildGivenNames[0]);
       // Mother's Middle Name
@@ -1527,7 +1526,7 @@ namespace BFDR.Tests
       Assert.Equal("Xenia", FakeBirthRecord.MotherGivenNames[0]);
       Assert.Equal("Adkins", FakeBirthRecord.MotherFamilyName);
       //set after parse
-      string[] names = {"Mommy", "D"};
+      string[] names = { "Mommy", "D" };
       FakeBirthRecord.MotherGivenNames = names;
       Assert.Equal("Mommy", FakeBirthRecord.MotherGivenNames[0]);
       // Mother's Middle Name
@@ -1578,7 +1577,7 @@ namespace BFDR.Tests
       Assert.Null(FakeBirthRecord.SetOrder);
       Assert.Null(FakeBirthRecord.Plurality);
       Assert.True(FakeBirthRecord.NoCongenitalAnomaliesOfTheNewborn);
-      Assert.True(FakeBirthRecord.EpiduralOrSpinalAnesthesia );
+      Assert.True(FakeBirthRecord.EpiduralOrSpinalAnesthesia);
       Assert.True(FakeBirthRecord.AugmentationOfLabor);
       Assert.True(FakeBirthRecord.NoSpecifiedAbnormalConditionsOfNewborn);
       Assert.True(FakeBirthRecord.NoInfectionsPresentDuringPregnancy);
@@ -1590,15 +1589,15 @@ namespace BFDR.Tests
       Assert.False(FakeBirthRecord.ArtificialInsemination);
 
       //more examples using Baby G record
-      BirthRecord record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json"))); 
+      BirthRecord record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json")));
       //congenital anomalies
       Assert.False(record.NoCongenitalAnomaliesOfTheNewborn);
       Assert.False(record.Anencephaly);
-      Assert.False(record.CleftLipWithOrWithoutCleftPalate);   
-      Assert.False(record.CleftPalateAlone);   
-      Assert.False(record.CongenitalDiaphragmaticHernia);  
+      Assert.False(record.CleftLipWithOrWithoutCleftPalate);
+      Assert.False(record.CleftPalateAlone);
+      Assert.False(record.CongenitalDiaphragmaticHernia);
       Assert.True(record.CyanoticCongenitalHeartDisease);
-      Assert.True(record.DownSyndrome);   
+      Assert.True(record.DownSyndrome);
       Assert.False(record.Gastroschisis);
       Assert.False(record.Hypospadias);
       Assert.False(record.LimbReductionDefect);
@@ -1649,53 +1648,53 @@ namespace BFDR.Tests
       Assert.False(record.AssistedFertilization);
       Assert.True(record.InfertilityTreatment);
       //final route and method of delivery
-      Assert.False(record.UnknownFinalRouteAndMethodOfDelivery); 
-      Assert.Equal("11466000", record.FinalRouteAndMethodOfDelivery["code"]); 
+      Assert.False(record.UnknownFinalRouteAndMethodOfDelivery);
+      Assert.Equal("11466000", record.FinalRouteAndMethodOfDelivery["code"]);
       //obstetric procedures
       Assert.False(record.NoObstetricProcedures);
       Assert.False(record.SuccessfulExternalCephalicVersion);
-      Assert.True(record.UnsuccessfulExternalCephalicVersion); 
+      Assert.True(record.UnsuccessfulExternalCephalicVersion);
     }
 
     [Fact]
     public void TestPropertiesWithHelpers()
     {
-        // Test all properties that have helpers
-        // TODO: Move some existing property tests here
-        TestCodedPropertyWithHelper("MotherEducationLevel", VR.ValueSets.EducationLevel.Codes);
-        TestCodedPropertyWithHelper("MotherEducationLevelEditFlag", VR.ValueSets.EditBypass01234.Codes);
-        TestCodedPropertyWithHelper("FatherEducationLevel", VR.ValueSets.EducationLevel.Codes);
-        TestCodedPropertyWithHelper("FatherEducationLevelEditFlag", VR.ValueSets.EditBypass01234.Codes);
+      // Test all properties that have helpers
+      // TODO: Move some existing property tests here
+      TestCodedPropertyWithHelper("MotherEducationLevel", VR.ValueSets.EducationLevel.Codes);
+      TestCodedPropertyWithHelper("MotherEducationLevelEditFlag", VR.ValueSets.EditBypass01234.Codes);
+      TestCodedPropertyWithHelper("FatherEducationLevel", VR.ValueSets.EducationLevel.Codes);
+      TestCodedPropertyWithHelper("FatherEducationLevelEditFlag", VR.ValueSets.EditBypass01234.Codes);
     }
 
     // Given a property name that takes a code and has a helper property, and a list of codes to test,
     // test setting and getting all the valid codes
     private void TestCodedPropertyWithHelper(string propertyName, string[,] codes)
     {
-        // Helper name is just an extension of the property name
-        string helperName = propertyName + "Helper";
-        BirthRecord record = new BirthRecord();
-        // Default should be null
-        Assert.Equal("", ((Dictionary<string, string>)record.GetType().GetProperty(propertyName).GetValue(record))["code"]);
+      // Helper name is just an extension of the property name
+      string helperName = propertyName + "Helper";
+      BirthRecord record = new BirthRecord();
+      // Default should be null
+      Assert.Equal("", ((Dictionary<string, string>)record.GetType().GetProperty(propertyName).GetValue(record))["code"]);
+      Assert.Null(record.GetType().GetProperty(helperName).GetValue(record));
+      for (int i = 0; i < codes.GetLength(0); i++)
+      {
+        // Set to the code via the helper and make sure the get returns the same code for both the helper and the base
+        // property along with the appropriate system and display values
+        record.GetType().GetProperty(helperName).SetValue(record, codes[i, 0]);
+        Assert.Equal(codes[i, 0], record.GetType().GetProperty(helperName).GetValue(record));
+        Assert.Equal(codes[i, 0], ((Dictionary<string, string>)record.GetType().GetProperty(propertyName).GetValue(record))["code"]);
+        Assert.Equal(codes[i, 1], ((Dictionary<string, string>)record.GetType().GetProperty(propertyName).GetValue(record))["display"]);
+        Assert.Equal(codes[i, 2], ((Dictionary<string, string>)record.GetType().GetProperty(propertyName).GetValue(record))["system"]);
+        // Reset it and then set the value via the base property coded value and make sure the correct values are present
+        record.GetType().GetProperty(propertyName).SetValue(record, null);
         Assert.Null(record.GetType().GetProperty(helperName).GetValue(record));
-        for (int i = 0; i < codes.GetLength(0); i++)
-        {
-            // Set to the code via the helper and make sure the get returns the same code for both the helper and the base
-            // property along with the appropriate system and display values
-            record.GetType().GetProperty(helperName).SetValue(record, codes[i, 0]);
-            Assert.Equal(codes[i, 0], record.GetType().GetProperty(helperName).GetValue(record));
-            Assert.Equal(codes[i, 0], ((Dictionary<string, string>)record.GetType().GetProperty(propertyName).GetValue(record))["code"]);
-            Assert.Equal(codes[i, 1], ((Dictionary<string, string>)record.GetType().GetProperty(propertyName).GetValue(record))["display"]);
-            Assert.Equal(codes[i, 2], ((Dictionary<string, string>)record.GetType().GetProperty(propertyName).GetValue(record))["system"]);
-            // Reset it and then set the value via the base property coded value and make sure the correct values are present
-            record.GetType().GetProperty(propertyName).SetValue(record, null);
-            Assert.Null(record.GetType().GetProperty(helperName).GetValue(record));
-            Dictionary<string, string> dict = new Dictionary<string, string>();
-            dict.Add("code", codes[i, 0]);
-            record.GetType().GetProperty(propertyName).SetValue(record, dict);
-            Assert.Equal(codes[i, 0], record.GetType().GetProperty(helperName).GetValue(record));
-            Assert.Equal(codes[i, 0], ((Dictionary<string, string>)record.GetType().GetProperty(propertyName).GetValue(record))["code"]);
-        }
+        Dictionary<string, string> dict = new Dictionary<string, string>();
+        dict.Add("code", codes[i, 0]);
+        record.GetType().GetProperty(propertyName).SetValue(record, dict);
+        Assert.Equal(codes[i, 0], record.GetType().GetProperty(helperName).GetValue(record));
+        Assert.Equal(codes[i, 0], ((Dictionary<string, string>)record.GetType().GetProperty(propertyName).GetValue(record))["code"]);
+      }
     }
 
     [Fact]
@@ -1723,61 +1722,61 @@ namespace BFDR.Tests
     [Fact]
     public void SetAttendantAfterParse()
     {
-        //name
-        Assert.Equal("Avery Jones", FakeBirthRecord.AttendantName);
-        FakeBirthRecord.AttendantName = "Janet Seito";
-        Assert.Equal("Janet Seito", FakeBirthRecord.AttendantName);
-        //NPI
-        Assert.Equal("762310012345", FakeBirthRecord.AttendantNPI);
-        FakeBirthRecord.AttendantNPI = "762310012000";
-        Assert.Equal("762310012000", FakeBirthRecord.AttendantNPI);
-        //title
-        Assert.Equal("76231001", FakeBirthRecord.AttendantTitle["code"]);
-        Assert.Equal(CodeSystems.SCT, FakeBirthRecord.AttendantTitle["system"]);
-        Assert.Equal("Osteopath", FakeBirthRecord.AttendantTitle["display"]);
-        Dictionary<string, string> AttendantTitle = new Dictionary<string, string>();
-        AttendantTitle.Add("code", "112247003");
-        AttendantTitle.Add("system", CodeSystems.SCT);
-        AttendantTitle.Add("display", "Medical Doctor");
-        FakeBirthRecord.AttendantTitle = AttendantTitle;
-        //Other
-        FakeBirthRecord.AttendantOtherHelper = "Nurse";
-        Assert.Equal("OTH", FakeBirthRecord.AttendantTitle["code"]);
-        Assert.Equal(CodeSystems.NullFlavor_HL7_V3, FakeBirthRecord.AttendantTitle["system"]);
-        Assert.Equal("Other", FakeBirthRecord.AttendantTitle["display"]);
-        Assert.Equal("Nurse", FakeBirthRecord.AttendantTitle["text"]);
-        Assert.Equal("Nurse", FakeBirthRecord.AttendantOtherHelper);
+      //name
+      Assert.Equal("Avery Jones", FakeBirthRecord.AttendantName);
+      FakeBirthRecord.AttendantName = "Janet Seito";
+      Assert.Equal("Janet Seito", FakeBirthRecord.AttendantName);
+      //NPI
+      Assert.Equal("762310012345", FakeBirthRecord.AttendantNPI);
+      FakeBirthRecord.AttendantNPI = "762310012000";
+      Assert.Equal("762310012000", FakeBirthRecord.AttendantNPI);
+      //title
+      Assert.Equal("76231001", FakeBirthRecord.AttendantTitle["code"]);
+      Assert.Equal(CodeSystems.SCT, FakeBirthRecord.AttendantTitle["system"]);
+      Assert.Equal("Osteopath", FakeBirthRecord.AttendantTitle["display"]);
+      Dictionary<string, string> AttendantTitle = new Dictionary<string, string>();
+      AttendantTitle.Add("code", "112247003");
+      AttendantTitle.Add("system", CodeSystems.SCT);
+      AttendantTitle.Add("display", "Medical Doctor");
+      FakeBirthRecord.AttendantTitle = AttendantTitle;
+      //Other
+      FakeBirthRecord.AttendantOtherHelper = "Nurse";
+      Assert.Equal("OTH", FakeBirthRecord.AttendantTitle["code"]);
+      Assert.Equal(CodeSystems.NullFlavor_HL7_V3, FakeBirthRecord.AttendantTitle["system"]);
+      Assert.Equal("Other", FakeBirthRecord.AttendantTitle["display"]);
+      Assert.Equal("Nurse", FakeBirthRecord.AttendantTitle["text"]);
+      Assert.Equal("Nurse", FakeBirthRecord.AttendantOtherHelper);
     }
 
     [Fact]
     public void SetCertifierAfterParse()
     {
-        //name
-        Assert.Equal("Janet Seito", FakeBirthRecord.CertifierName);
-        FakeBirthRecord.CertifierName = "Janet Seto";
-        Assert.Equal("Janet Seto", FakeBirthRecord.CertifierName);
-        //NPI
-        Assert.Equal("223347044", FakeBirthRecord.CertifierNPI);
-        FakeBirthRecord.CertifierNPI = "762310012000";
-        Assert.Equal("762310012000", FakeBirthRecord.CertifierNPI);
-        //title
-        Assert.Equal("76231001", FakeBirthRecord.CertifierTitle["code"]);
-        Assert.Equal(CodeSystems.SCT, FakeBirthRecord.CertifierTitle["system"]);
-        Assert.Equal("Osteopath", FakeBirthRecord.CertifierTitle["display"]);
-        Dictionary<string, string> CertifierTitle = new Dictionary<string, string>();
-        CertifierTitle.Add("code", "112247003");
-        CertifierTitle.Add("system", CodeSystems.SCT);
-        CertifierTitle.Add("display", "Medical Doctor");
-        FakeBirthRecord.CertifierTitle = CertifierTitle;
-        //Other
-        FakeBirthRecord.CertifierOtherHelper = "Nurse";
-        Assert.Equal("OTH", FakeBirthRecord.CertifierTitle["code"]);
-        Assert.Equal(CodeSystems.NullFlavor_HL7_V3, FakeBirthRecord.CertifierTitle["system"]);
-        Assert.Equal("Other", FakeBirthRecord.CertifierTitle["display"]);
-        Assert.Equal("Nurse", FakeBirthRecord.CertifierTitle["text"]);
-        Assert.Equal("Nurse", FakeBirthRecord.CertifierOtherHelper);
+      //name
+      Assert.Equal("Janet Seito", FakeBirthRecord.CertifierName);
+      FakeBirthRecord.CertifierName = "Janet Seto";
+      Assert.Equal("Janet Seto", FakeBirthRecord.CertifierName);
+      //NPI
+      Assert.Equal("223347044", FakeBirthRecord.CertifierNPI);
+      FakeBirthRecord.CertifierNPI = "762310012000";
+      Assert.Equal("762310012000", FakeBirthRecord.CertifierNPI);
+      //title
+      Assert.Equal("76231001", FakeBirthRecord.CertifierTitle["code"]);
+      Assert.Equal(CodeSystems.SCT, FakeBirthRecord.CertifierTitle["system"]);
+      Assert.Equal("Osteopath", FakeBirthRecord.CertifierTitle["display"]);
+      Dictionary<string, string> CertifierTitle = new Dictionary<string, string>();
+      CertifierTitle.Add("code", "112247003");
+      CertifierTitle.Add("system", CodeSystems.SCT);
+      CertifierTitle.Add("display", "Medical Doctor");
+      FakeBirthRecord.CertifierTitle = CertifierTitle;
+      //Other
+      FakeBirthRecord.CertifierOtherHelper = "Nurse";
+      Assert.Equal("OTH", FakeBirthRecord.CertifierTitle["code"]);
+      Assert.Equal(CodeSystems.NullFlavor_HL7_V3, FakeBirthRecord.CertifierTitle["system"]);
+      Assert.Equal("Other", FakeBirthRecord.CertifierTitle["display"]);
+      Assert.Equal("Nurse", FakeBirthRecord.CertifierTitle["text"]);
+      Assert.Equal("Nurse", FakeBirthRecord.CertifierOtherHelper);
     }
-    
+
     [Fact]
     public void TestImportLocation()
     {
@@ -1785,8 +1784,8 @@ namespace BFDR.Tests
       Assert.Equal("116441967701", br.FacilityNPI);
       Assert.Equal("UT12", br.FacilityJFI);
       Assert.Equal("South Hospital", br.BirthFacilityName);
-      Assert.Equal("Transfer From Hospital", br.FacilityMotherTransferredFrom);
-      Assert.Equal("Transfer To Hospital", br.FacilityInfantTransferredTo);
+      Assert.Equal("North Hospital", br.FacilityMotherTransferredFrom);
+      Assert.Equal("East Hospital", br.FacilityInfantTransferredTo);
     }
 
     [Fact]
@@ -1794,11 +1793,11 @@ namespace BFDR.Tests
     {
       BirthRecord br = new()
       {
-          FacilityNPI = "4815162342",
-          FacilityJFI = "636",
-          BirthFacilityName = "Lahey Hospital",
-          FacilityMotherTransferredFrom = "Sunnyvale Medical",
-          FacilityInfantTransferredTo = "LD Care"
+        FacilityNPI = "4815162342",
+        FacilityJFI = "636",
+        BirthFacilityName = "Lahey Hospital",
+        FacilityMotherTransferredFrom = "Sunnyvale Medical",
+        FacilityInfantTransferredTo = "LD Care"
       };
       Assert.Equal("4815162342", br.FacilityNPI);
       Assert.Equal("636", br.FacilityJFI);
@@ -1853,9 +1852,9 @@ namespace BFDR.Tests
       Assert.Equal("2024-04", SetterBirthRecord.LastMenstrualPeriod);
 
     }
-  
+
     [Fact]
-    public void TestImportLastMenstrualPeriod() 
+    public void TestImportLastMenstrualPeriod()
     {
       BirthRecord record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json")));
       Assert.Equal("2018-06-05", record.LastMenstrualPeriod);
@@ -1874,84 +1873,84 @@ namespace BFDR.Tests
     [Fact]
     public void TestMotherHeightPropertiesSetter()
     {
-        BirthRecord record = new BirthRecord();
-        // Height
-        Assert.Null(record.MotherHeight);
-        record.MotherHeight = 67;
-        Assert.Equal(67, record.MotherHeight);
-        // Edit Flag
-        Assert.Equal("", record.MotherHeightEditFlag["code"]);
-        record.MotherHeightEditFlagHelper = VR.ValueSets.EditBypass01234.Edit_Passed;
-        Assert.Equal(VR.ValueSets.EditBypass01234.Edit_Passed, record.MotherHeightEditFlag["code"]);
-        // IJE translations
-        IJEBirth ije1 = new IJEBirth(record);
-        Assert.Equal("5", ije1.HFT);
-        Assert.Equal("7", ije1.HIN);  
-        Assert.Equal("0", ije1.HGT_BYPASS);
-    }  
+      BirthRecord record = new BirthRecord();
+      // Height
+      Assert.Null(record.MotherHeight);
+      record.MotherHeight = 67;
+      Assert.Equal(67, record.MotherHeight);
+      // Edit Flag
+      Assert.Equal("", record.MotherHeightEditFlag["code"]);
+      record.MotherHeightEditFlagHelper = VR.ValueSets.EditBypass01234.Edit_Passed;
+      Assert.Equal(VR.ValueSets.EditBypass01234.Edit_Passed, record.MotherHeightEditFlag["code"]);
+      // IJE translations
+      IJEBirth ije1 = new IJEBirth(record);
+      Assert.Equal("5", ije1.HFT);
+      Assert.Equal("7", ije1.HIN);
+      Assert.Equal("0", ije1.HGT_BYPASS);
+    }
 
     [Fact]
     public void TestImportMotherHeightProperties()
     {
-        BirthRecord record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json")));
-        Assert.Equal(67, record.MotherHeight);
+      BirthRecord record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json")));
+      Assert.Equal(67, record.MotherHeight);
 
-        //set after parse 
-        record.MotherHeight = 68; 
-        Assert.Equal(68, record.MotherHeight);
-    } 
+      //set after parse 
+      record.MotherHeight = 68;
+      Assert.Equal(68, record.MotherHeight);
+    }
 
     [Fact]
     public void TestWeightPropertiesSetter()
     {
-        BirthRecord record = new BirthRecord();
-        // Prepregnancy Weight
-        Assert.Null(record.MotherPrepregnancyWeight);
-        record.MotherPrepregnancyWeight = 145;
-        Assert.Equal(145, record.MotherPrepregnancyWeight);
-        // Mother Weight at Delivery
-        Assert.Null(record.MotherWeightAtDelivery);
-        record.MotherWeightAtDelivery = 175;
-        Assert.Equal(175, record.MotherWeightAtDelivery);
-        // Birth Weight
-        Assert.Null(record.BirthWeight);
-        record.BirthWeight = 2500;
-        Assert.Equal(2500, record.BirthWeight);
-        // Edit Flags
-        Assert.Equal("", record.MotherPrepregnancyWeightEditFlag["code"]);
-        record.MotherPrepregnancyWeightEditFlagHelper = BFDR.ValueSets.PregnancyReportEditFlags.Edit_Passed;
-        Assert.Equal(BFDR.ValueSets.PregnancyReportEditFlags.Edit_Passed, record.MotherPrepregnancyWeightEditFlag["code"]);
-        Assert.Equal("", record.MotherWeightAtDeliveryEditFlag["code"]);
-        record.MotherWeightAtDeliveryEditFlagHelper = BFDR.ValueSets.PregnancyReportEditFlags.Edit_Passed;
-        Assert.Equal(BFDR.ValueSets.PregnancyReportEditFlags.Edit_Passed, record.MotherWeightAtDeliveryEditFlag["code"]);
-        Assert.Equal("", record.BirthWeightEditFlag["code"]);
-        record.BirthWeightEditFlagHelper = BFDR.ValueSets.BirthWeightEditFlags.Off;
-        Assert.Equal(BFDR.ValueSets.BirthWeightEditFlags.Off, record.BirthWeightEditFlag["code"]);
-        // IJE translations
-        IJEBirth ije1 = new IJEBirth(record);
-        Assert.Equal("145", ije1.PWGT);
-        Assert.Equal("175", ije1.DWGT);  
-        Assert.Equal("2500", ije1.BWG);
-    }  
-  
+      BirthRecord record = new BirthRecord();
+      // Prepregnancy Weight
+      Assert.Null(record.MotherPrepregnancyWeight);
+      record.MotherPrepregnancyWeight = 145;
+      Assert.Equal(145, record.MotherPrepregnancyWeight);
+      // Mother Weight at Delivery
+      Assert.Null(record.MotherWeightAtDelivery);
+      record.MotherWeightAtDelivery = 175;
+      Assert.Equal(175, record.MotherWeightAtDelivery);
+      // Birth Weight
+      Assert.Null(record.BirthWeight);
+      record.BirthWeight = 2500;
+      Assert.Equal(2500, record.BirthWeight);
+      // Edit Flags
+      Assert.Equal("", record.MotherPrepregnancyWeightEditFlag["code"]);
+      record.MotherPrepregnancyWeightEditFlagHelper = BFDR.ValueSets.PregnancyReportEditFlags.Edit_Passed;
+      Assert.Equal(BFDR.ValueSets.PregnancyReportEditFlags.Edit_Passed, record.MotherPrepregnancyWeightEditFlag["code"]);
+      Assert.Equal("", record.MotherWeightAtDeliveryEditFlag["code"]);
+      record.MotherWeightAtDeliveryEditFlagHelper = BFDR.ValueSets.PregnancyReportEditFlags.Edit_Passed;
+      Assert.Equal(BFDR.ValueSets.PregnancyReportEditFlags.Edit_Passed, record.MotherWeightAtDeliveryEditFlag["code"]);
+      Assert.Equal("", record.BirthWeightEditFlag["code"]);
+      record.BirthWeightEditFlagHelper = BFDR.ValueSets.BirthWeightEditFlags.Off;
+      Assert.Equal(BFDR.ValueSets.BirthWeightEditFlags.Off, record.BirthWeightEditFlag["code"]);
+      // IJE translations
+      IJEBirth ije1 = new IJEBirth(record);
+      Assert.Equal("145", ije1.PWGT);
+      Assert.Equal("175", ije1.DWGT);
+      Assert.Equal("2500", ije1.BWG);
+    }
+
     [Fact]
     public void TestImportWeightProperties()
     {
-        BirthRecord record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json")));
-        // Prepregnancy Weight
-        Assert.Equal(145, record.MotherPrepregnancyWeight);
-        // Mother Weight at Delivery
-        Assert.Equal(175, record.MotherWeightAtDelivery);
-        // Birth Weight
-        Assert.Equal(2500, record.BirthWeight);
+      BirthRecord record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json")));
+      // Prepregnancy Weight
+      Assert.Equal(145, record.MotherPrepregnancyWeight);
+      // Mother Weight at Delivery
+      Assert.Equal(175, record.MotherWeightAtDelivery);
+      // Birth Weight
+      Assert.Equal(2500, record.BirthWeight);
 
-        // set after parse
-        record.MotherPrepregnancyWeight = 146;
-        record.MotherWeightAtDelivery = 176;
-        record.BirthWeight = 2502;
-        Assert.Equal(146, record.MotherPrepregnancyWeight);
-        Assert.Equal(176, record.MotherWeightAtDelivery);
-        Assert.Equal(2502, record.BirthWeight);
+      // set after parse
+      record.MotherPrepregnancyWeight = 146;
+      record.MotherWeightAtDelivery = 176;
+      record.BirthWeight = 2502;
+      Assert.Equal(146, record.MotherPrepregnancyWeight);
+      Assert.Equal(176, record.MotherWeightAtDelivery);
+      Assert.Equal(2502, record.BirthWeight);
     }
 
     [Fact]
@@ -1979,10 +1978,10 @@ namespace BFDR.Tests
     }
 
     [Fact]
-    public void TestImportFirstPrenatalCareVisit() 
+    public void TestImportFirstPrenatalCareVisit()
     {
-      BirthRecord record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json"))); 
-      Assert.Equal("2018-07-20", record.FirstPrenatalCareVisit); 
+      BirthRecord record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json")));
+      Assert.Equal("2018-07-20", record.FirstPrenatalCareVisit);
       Assert.Equal(2018, record.FirstPrenatalCareVisitYear);
       Assert.Equal(7, record.FirstPrenatalCareVisitMonth);
       Assert.Equal(20, record.FirstPrenatalCareVisitDay);
@@ -2006,7 +2005,7 @@ namespace BFDR.Tests
 
     [Fact]
     public void ParseRegistrationDate()
-    { 
+    {
       BirthRecord firstRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json")));
       Assert.Equal("2019-02-12", firstRecord.RegistrationDate);
       Assert.Equal(2019, firstRecord.RegistrationDateYear);
@@ -2014,7 +2013,7 @@ namespace BFDR.Tests
       Assert.Equal(12, firstRecord.RegistrationDateDay);
 
       //set after parse
-      firstRecord.FirstPrenatalCareVisit = "2023-01"; 
+      firstRecord.FirstPrenatalCareVisit = "2023-01";
       Assert.Equal("2023-01", firstRecord.FirstPrenatalCareVisit);
       Assert.Equal(2023, firstRecord.FirstPrenatalCareVisitYear);
       Assert.Equal(1, firstRecord.FirstPrenatalCareVisitMonth);
@@ -2064,12 +2063,12 @@ namespace BFDR.Tests
 
       Assert.Equal("5", firstRecord.PayorTypeFinancialClass["code"]);
       Assert.Equal(VR.CodeSystems.NAHDO, firstRecord.PayorTypeFinancialClass["system"]);
-      Assert.Equal("PRIVATE HEALTH INSURANCE", firstRecord.PayorTypeFinancialClass["display"]);
+      Assert.Equal("PRIVATE HEALTH INSURANCE", firstRecord.PayorTypeFinancialClass["display"].ToUpperInvariant());
       Assert.Equal(firstRecord.PayorTypeFinancialClass["code"], firstRecord.PayorTypeFinancialClassHelper);
 
       Assert.Equal("5", secondRecord.PayorTypeFinancialClass["code"]);
       Assert.Equal(VR.CodeSystems.NAHDO, secondRecord.PayorTypeFinancialClass["system"]);
-      Assert.Equal("PRIVATE HEALTH INSURANCE", secondRecord.PayorTypeFinancialClass["display"]);
+      Assert.Equal("PRIVATE HEALTH INSURANCE", secondRecord.PayorTypeFinancialClass["display"].ToUpperInvariant());
       Assert.Equal(secondRecord.PayorTypeFinancialClass["code"], secondRecord.PayorTypeFinancialClassHelper);
 
       //set after parse
@@ -2084,7 +2083,7 @@ namespace BFDR.Tests
     {
       BirthRecord br = new()
       {
-          PayorTypeFinancialClassHelper = "311"
+        PayorTypeFinancialClassHelper = "311"
       };
 
       Assert.Equal("311", br.PayorTypeFinancialClass["code"]);
@@ -2094,9 +2093,9 @@ namespace BFDR.Tests
 
       Dictionary<string, string> payorType = new()
       {
-          ["code"] = "2",
-          ["system"] = VR.CodeSystems.NAHDO,
-          ["display"] = "MEDICAID"
+        ["code"] = "2",
+        ["system"] = VR.CodeSystems.NAHDO,
+        ["display"] = "MEDICAID"
       };
       br.PayorTypeFinancialClass = payorType;
       Assert.Equal("2", br.PayorTypeFinancialClass["code"]);
@@ -2129,7 +2128,7 @@ namespace BFDR.Tests
       Assert.Equal("Indian Health Service or Tribe", br.PayorTypeFinancialClass["display"]);
       Assert.Equal(br.PayorTypeFinancialClass["code"], br.PayorTypeFinancialClassHelper);
     }
-    
+
     [Fact]
     public void SetMaritalStatus()
     {
@@ -2149,11 +2148,11 @@ namespace BFDR.Tests
     [Fact]
     public void TestImportMaritalStatus()
     {
-      BirthRecord record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json"))); 
+      BirthRecord record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json")));
       Assert.Null(record.MaritalStatus);
 
       //set after parse 
-      record.MaritalStatus = "Married"; 
+      record.MaritalStatus = "Married";
       Assert.Equal("Married", record.MaritalStatus);
     }
 
@@ -2182,7 +2181,7 @@ namespace BFDR.Tests
     [Fact]
     public void TestImportMarriedDuringPregnancy()
     {
-      BirthRecord record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json"))); 
+      BirthRecord record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json")));
       Assert.Equal("Y", record.MotherMarriedDuringPregnancyHelper);
 
       //set after parse
@@ -2218,7 +2217,7 @@ namespace BFDR.Tests
     [Fact]
     public void TestImportPaternityAcknowledgementSigned()
     {
-      BirthRecord record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json"))); 
+      BirthRecord record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json")));
       Assert.Equal("Y", record.PaternityAcknowledgementSignedHelper);
 
       //set after parse
@@ -2263,7 +2262,7 @@ namespace BFDR.Tests
     [Fact]
     public void TestImportMotherTransferred()
     {
-      BirthRecord record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json"))); 
+      BirthRecord record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json")));
       Assert.Equal("Y", record.MotherTransferredHelper);
 
       //set after parse
@@ -2294,7 +2293,7 @@ namespace BFDR.Tests
     [Fact]
     public void TestImportInfantLiving()
     {
-      BirthRecord record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json"))); 
+      BirthRecord record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json")));
       Assert.True(record.InfantLiving);
       //set after parse
       record.InfantLiving = false;
@@ -2334,7 +2333,7 @@ namespace BFDR.Tests
     [Fact]
     public void TestImportInfantTransferred()
     {
-      BirthRecord record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json"))); 
+      BirthRecord record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json")));
       Assert.Equal("Y", record.InfantTransferredHelper);
       Dictionary<string, string> cc = new Dictionary<string, string>();
       cc.Add("code", "other-hcf");
@@ -2357,13 +2356,13 @@ namespace BFDR.Tests
       Assert.Equal(1, birthRecord2.NumberLiveBorn);
 
       BirthRecord birthRecord3 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
-      Assert.Equal(3, birthRecord3.NumberLiveBorn);
+      Assert.Equal(2, birthRecord3.NumberLiveBorn);
     }
 
     [Fact]
     public void TestImportNumberLiveBorn()
     {
-      BirthRecord record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json"))); 
+      BirthRecord record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json")));
       Assert.Equal(2, record.NumberLiveBorn);
       //set after parse
       record.NumberLiveBorn = 3;
@@ -2389,64 +2388,64 @@ namespace BFDR.Tests
     [Fact]
     public void TestImportSSNRequested()
     {
-      BirthRecord record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json"))); 
+      BirthRecord record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json")));
       Assert.True(record.SSNRequested);
       //set after parse
       record.SSNRequested = false;
       Assert.False(record.SSNRequested);
     }
-    
+
     [Fact]
     public void Test_EmergingIssues()
     {
-        BirthRecord record1 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
-        Assert.Null(record1.EmergingIssue1_1);
-        Assert.Null(record1.EmergingIssue1_2);
-        Assert.Null(record1.EmergingIssue1_3);
-        Assert.Null(record1.EmergingIssue1_4);
-        Assert.Null(record1.EmergingIssue1_5);
-        Assert.Null(record1.EmergingIssue1_6);
-        Assert.Null(record1.EmergingIssue8_1);
-        Assert.Null(record1.EmergingIssue8_2);
-        Assert.Null(record1.EmergingIssue8_3);
-        Assert.Null(record1.EmergingIssue20);
-        //set after parse
-        record1.EmergingIssue1_1 = "A";
-        record1.EmergingIssue1_2 = "B";
-        record1.EmergingIssue1_3 = "C";
-        record1.EmergingIssue1_4 = "D";
-        record1.EmergingIssue1_5 = "E";
-        record1.EmergingIssue1_6 = "F";
-        record1.EmergingIssue8_1 = "AAAAAAAA";
-        record1.EmergingIssue8_2 = "BBBBBBBB";
-        record1.EmergingIssue8_3 = "CCCCCCCC";
-        record1.EmergingIssue20 = "AAAAAAAAAAAAAAAAAAAA";
-        Assert.Equal("A", record1.EmergingIssue1_1);
-        Assert.Equal("B", record1.EmergingIssue1_2);
-        Assert.Equal("C", record1.EmergingIssue1_3);
-        Assert.Equal("D", record1.EmergingIssue1_4);
-        Assert.Equal("E", record1.EmergingIssue1_5);
-        Assert.Equal("F", record1.EmergingIssue1_6);
-        Assert.Equal("AAAAAAAA", record1.EmergingIssue8_1);
-        Assert.Equal("BBBBBBBB", record1.EmergingIssue8_2);
-        Assert.Equal("CCCCCCCC", record1.EmergingIssue8_3);
-        Assert.Equal("AAAAAAAAAAAAAAAAAAAA", record1.EmergingIssue20);
-        IJEBirth ije = new IJEBirth(record1, false); // Don't validate since we don't care about most fields
-        Assert.Equal("A", ije.PLACE1_1);
-        Assert.Equal("B", ije.PLACE1_2);
-        Assert.Equal("C", ije.PLACE1_3);
-        Assert.Equal("D", ije.PLACE1_4);
-        Assert.Equal("E", ije.PLACE1_5);
-        Assert.Equal("F", ije.PLACE1_6);
-        Assert.Equal("AAAAAAAA", ije.PLACE8_1);
-        Assert.Equal("BBBBBBBB", ije.PLACE8_2);
-        Assert.Equal("CCCCCCCC", ije.PLACE8_3);
-        Assert.Equal("AAAAAAAAAAAAAAAAAAAA", ije.PLACE20);
+      BirthRecord record1 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.Null(record1.EmergingIssue1_1);
+      Assert.Null(record1.EmergingIssue1_2);
+      Assert.Null(record1.EmergingIssue1_3);
+      Assert.Null(record1.EmergingIssue1_4);
+      Assert.Null(record1.EmergingIssue1_5);
+      Assert.Null(record1.EmergingIssue1_6);
+      Assert.Null(record1.EmergingIssue8_1);
+      Assert.Null(record1.EmergingIssue8_2);
+      Assert.Null(record1.EmergingIssue8_3);
+      Assert.Null(record1.EmergingIssue20);
+      //set after parse
+      record1.EmergingIssue1_1 = "A";
+      record1.EmergingIssue1_2 = "B";
+      record1.EmergingIssue1_3 = "C";
+      record1.EmergingIssue1_4 = "D";
+      record1.EmergingIssue1_5 = "E";
+      record1.EmergingIssue1_6 = "F";
+      record1.EmergingIssue8_1 = "AAAAAAAA";
+      record1.EmergingIssue8_2 = "BBBBBBBB";
+      record1.EmergingIssue8_3 = "CCCCCCCC";
+      record1.EmergingIssue20 = "AAAAAAAAAAAAAAAAAAAA";
+      Assert.Equal("A", record1.EmergingIssue1_1);
+      Assert.Equal("B", record1.EmergingIssue1_2);
+      Assert.Equal("C", record1.EmergingIssue1_3);
+      Assert.Equal("D", record1.EmergingIssue1_4);
+      Assert.Equal("E", record1.EmergingIssue1_5);
+      Assert.Equal("F", record1.EmergingIssue1_6);
+      Assert.Equal("AAAAAAAA", record1.EmergingIssue8_1);
+      Assert.Equal("BBBBBBBB", record1.EmergingIssue8_2);
+      Assert.Equal("CCCCCCCC", record1.EmergingIssue8_3);
+      Assert.Equal("AAAAAAAAAAAAAAAAAAAA", record1.EmergingIssue20);
+      IJEBirth ije = new IJEBirth(record1, false); // Don't validate since we don't care about most fields
+      Assert.Equal("A", ije.PLACE1_1);
+      Assert.Equal("B", ije.PLACE1_2);
+      Assert.Equal("C", ije.PLACE1_3);
+      Assert.Equal("D", ije.PLACE1_4);
+      Assert.Equal("E", ije.PLACE1_5);
+      Assert.Equal("F", ije.PLACE1_6);
+      Assert.Equal("AAAAAAAA", ije.PLACE8_1);
+      Assert.Equal("BBBBBBBB", ije.PLACE8_2);
+      Assert.Equal("CCCCCCCC", ije.PLACE8_3);
+      Assert.Equal("AAAAAAAAAAAAAAAAAAAA", ije.PLACE20);
     }
-    
+
     [Fact]
     public void ParseCertificationDate()
-    { 
+    {
       BirthRecord firstRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
       Assert.Equal("2019-02-12T13:30:00-07:00", firstRecord.CertificationDate);
       Assert.Equal(2019, firstRecord.CertifiedYear);
@@ -2600,7 +2599,7 @@ namespace BFDR.Tests
       Assert.Equal(7, record.ApgarScoreFiveMinutes);
       Assert.Null(record.ApgarScoreTenMinutes);
       //set after parse
-      record.ApgarScoreTenMinutes = 4; 
+      record.ApgarScoreTenMinutes = 4;
       Assert.Equal(4, record.ApgarScoreTenMinutes);
     }
 
@@ -2627,7 +2626,7 @@ namespace BFDR.Tests
       Assert.Equal("0", record.FatherEducationLevelEditFlagHelper);
       Assert.Equal("0", record.FatherEducationLevelEditFlag["code"]);
 
-      //set after parse - TODO testing: these tests commented out are giving null reference exception errors
+      //set after parse
       var coding = new Dictionary<string, string>();
       coding.Add("code", "1");
       coding.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");
@@ -2636,13 +2635,13 @@ namespace BFDR.Tests
       codingBirthWeight.Add("code", "1correctOutOfRange");
       codingBirthWeight.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");
       record.PluralityEditFlag = coding;
-      Assert.Equal( "1", record.PluralityEditFlagHelper);
+      Assert.Equal("1", record.PluralityEditFlagHelper);
       Assert.Equal("1", record.PluralityEditFlag["code"]);
       record.MotherDateOfBirthEditFlag = coding;
       Assert.Equal("1", record.MotherDateOfBirthEditFlagHelper);
       Assert.Equal("1", record.MotherDateOfBirthEditFlag["code"]);
       record.FatherDateOfBirthEditFlag = coding;
-      Assert.Equal("1",record.FatherDateOfBirthEditFlagHelper);
+      Assert.Equal("1", record.FatherDateOfBirthEditFlagHelper);
       Assert.Equal("1", record.FatherDateOfBirthEditFlag["code"]);
       record.MotherPrepregnancyWeightEditFlag = coding;
       Assert.Equal("1", record.MotherPrepregnancyWeightEditFlagHelper);
@@ -2663,9 +2662,9 @@ namespace BFDR.Tests
       Assert.Equal("1", record.FatherEducationLevelEditFlagHelper);
       Assert.Equal("1", record.FatherEducationLevelEditFlag["code"]);
     }
-  
 
-    [Fact]  
+
+    [Fact]
     public void SetPartialDateOfLastLiveBirthFields()
     {
       BirthRecord birthRecord = new BirthRecord();
@@ -2816,7 +2815,7 @@ namespace BFDR.Tests
       Assert.Equal("38", birthRecord2.GestationalAgeAtDelivery["value"]);
       Assert.Equal("wk", birthRecord2.GestationalAgeAtDelivery["code"]);
       Assert.Equal("http://unitsofmeasure.org", birthRecord2.GestationalAgeAtDelivery["system"]);
-      
+
       BirthRecord birthRecord3 = new BirthRecord();
       Dictionary<string, string> dict2 = new Dictionary<string, string>();
       dict2.Add("value", "48");
@@ -2871,7 +2870,7 @@ namespace BFDR.Tests
       Assert.Equal(3, birthRecord2.NumberOfBirthsNowLiving);
 
       BirthRecord parsedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
-      Assert.Equal(2, parsedRecord.NumberOfBirthsNowLiving);
+      Assert.Equal(1, parsedRecord.NumberOfBirthsNowLiving);
     }
 
     [Fact]
@@ -2891,12 +2890,12 @@ namespace BFDR.Tests
     public void SetMotherReceivedWICFood()
     {
       IJEBirth ije = new IJEBirth();
-      ije.WIC = "Y";
+      ije.WIC = "N";
       BirthRecord birthRecord = ije.ToBirthRecord();
-      Assert.Equal("Y", birthRecord.MotherReceivedWICFoodHelper);
+      Assert.Equal("N", birthRecord.MotherReceivedWICFoodHelper);
 
       BirthRecord parsedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
-      Assert.Equal("N", parsedRecord.MotherReceivedWICFoodHelper);
+      Assert.Equal("Y", parsedRecord.MotherReceivedWICFoodHelper);
     }
 
     [Fact]
@@ -2967,8 +2966,11 @@ namespace BFDR.Tests
 
       BirthRecord birthRecord3 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
       Assert.Equal(1, birthRecord3.NumberOfPreviousCesareans);
+
+      BirthRecord birthRecord4 = VitalRecord.FromDescription<BirthRecord>(birthRecord3.ToDescription());
+      Assert.Equal(1, birthRecord4.NumberOfPreviousCesareans);
     }
-    
+
     [Fact]
     public void SetNumberOfPreviousCesareansEditFlag()
     {
@@ -2995,6 +2997,531 @@ namespace BFDR.Tests
       Assert.Equal(cc2, birthRecord3.NumberOfPreviousCesareansEditFlag);
     }
 
+    [Fact]
+    public void TestFullBirthRecordImport()
+    {
+      BirthRecord birthRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Dictionary<string, string> tempDict;
+      Assert.Equal("15075", birthRecord.CertificateNumber);
+      Assert.Equal("2019UT015075", birthRecord.RecordIdentifier);
+      Assert.Equal("444455555", birthRecord.StateLocalIdentifier1);
+      Assert.Equal(2019, birthRecord.BirthYear);
+      Assert.Equal(2, birthRecord.BirthMonth);
+      Assert.Equal(12, birthRecord.BirthDay);
+      Assert.Equal("13:00:00", birthRecord.BirthTime);
+      Assert.Equal("2019-02-12", birthRecord.DateOfBirth);
+      tempDict = new();
+      tempDict.Add("code", "F");
+      tempDict.Add("system", "http://hl7.org/fhir/administrative-gender");
+      tempDict.Add("display", "Female");
+      Assert.Equal("F", birthRecord.BirthSex);
+      Assert.Equal(new[] { "Baby", "G" }, birthRecord.ChildGivenNames);
+      Assert.Equal(new[] { "Jada", "Ann" }, birthRecord.MotherGivenNames);
+      Assert.Equal(new[] { "James", "Brandon" }, birthRecord.FatherGivenNames);
+      Assert.Equal(new[] { "Jada", "Ann" }, birthRecord.MotherMaidenGivenNames);
+      Assert.Equal("Quinn", birthRecord.ChildFamilyName);
+      Assert.Equal("Quinn", birthRecord.MotherFamilyName);
+      Assert.Equal("Quinn", birthRecord.FatherFamilyName);
+      Assert.Equal("King", birthRecord.MotherMaidenFamilyName);
+      Assert.Equal("III", birthRecord.ChildSuffix);
+      Assert.Null(birthRecord.MotherSuffix);
+      Assert.Null(birthRecord.FatherSuffix);
+      Assert.Null(birthRecord.MotherMaidenSuffix);
+      Assert.Equal("UT", birthRecord.BirthLocationJurisdiction);
+      tempDict = new();
+      tempDict.Add("addressLine1", "");
+      tempDict.Add("addressLine2", "");
+      tempDict.Add("addressCity", "Salt Lake City");
+      tempDict.Add("addressCityC", "");
+      tempDict.Add("addressCounty", "Salt Lake");
+      tempDict.Add("addressCountyC", "035");
+      tempDict.Add("addressState", "UT");
+      tempDict.Add("addressJurisdiction", "UT");
+      tempDict.Add("addressZip", "");
+      tempDict.Add("addressCountry", "");
+      tempDict.Add("addressStnum", "");
+      tempDict.Add("addressPredir", "");
+      tempDict.Add("addressStname", "");
+      tempDict.Add("addressStdesig", "");
+      tempDict.Add("addressPostdir", "");
+      tempDict.Add("addressUnitnum", "");
+      Assert.Equal(tempDict, birthRecord.PlaceOfBirth);
+      tempDict = new();
+      tempDict.Add("code", "22232009");
+      tempDict.Add("system", "http://snomed.info/sct");
+      tempDict.Add("display", "Hospital");
+      Assert.Equal(tempDict, birthRecord.BirthPhysicalLocation);
+      Assert.Equal("22232009", birthRecord.BirthPhysicalLocationHelper);
+      tempDict = new();
+      tempDict.Add("addressLine1", "");
+      tempDict.Add("addressLine2", "");
+      tempDict.Add("addressCity", "");
+      tempDict.Add("addressCityC", "");
+      tempDict.Add("addressCounty", "");
+      tempDict.Add("addressCountyC", "");
+      tempDict.Add("addressState", "UT");
+      tempDict.Add("addressJurisdiction", "UT");
+      tempDict.Add("addressZip", "");
+      tempDict.Add("addressCountry", "US");
+      tempDict.Add("addressStnum", "");
+      tempDict.Add("addressPredir", "");
+      tempDict.Add("addressStname", "");
+      tempDict.Add("addressStdesig", "");
+      tempDict.Add("addressPostdir", "");
+      tempDict.Add("addressUnitnum", "");
+      Assert.Equal(tempDict, birthRecord.MotherPlaceOfBirth);
+      tempDict = new();
+      tempDict.Add("addressLine1", "");
+      tempDict.Add("addressLine2", "");
+      tempDict.Add("addressCity", "");
+      tempDict.Add("addressCityC", "");
+      tempDict.Add("addressCounty", "");
+      tempDict.Add("addressCountyC", "");
+      tempDict.Add("addressState", "NY");
+      tempDict.Add("addressJurisdiction", "NY");
+      tempDict.Add("addressZip", "");
+      tempDict.Add("addressCountry", "");
+      tempDict.Add("addressStnum", "");
+      tempDict.Add("addressPredir", "");
+      tempDict.Add("addressStname", "");
+      tempDict.Add("addressStdesig", "");
+      tempDict.Add("addressPostdir", "");
+      tempDict.Add("addressUnitnum", "");
+      Assert.Equal(tempDict, birthRecord.FatherPlaceOfBirth);
+      tempDict = new();
+      tempDict.Add("addressLine1", "1875 West Morton Avenue");
+      tempDict.Add("addressLine2", "");
+      tempDict.Add("addressCity", "Salt Lake City");
+      tempDict.Add("addressCityC", "");
+      tempDict.Add("addressCounty", "Salt Lake");
+      tempDict.Add("addressCountyC", "");
+      tempDict.Add("addressState", "UT");
+      tempDict.Add("addressJurisdiction", "UT");
+      tempDict.Add("addressZip", "84116");
+      tempDict.Add("addressCountry", "US");
+      tempDict.Add("addressStnum", "");
+      tempDict.Add("addressPredir", "");
+      tempDict.Add("addressStname", "");
+      tempDict.Add("addressStdesig", "");
+      tempDict.Add("addressPostdir", "");
+      tempDict.Add("addressUnitnum", "");
+      Assert.Equal(tempDict, birthRecord.MotherResidence);
+      tempDict = new();
+      tempDict.Add("addressLine1", "1848 South 1300 East");
+      tempDict.Add("addressLine2", "");
+      tempDict.Add("addressCity", "Salt Lake City");
+      tempDict.Add("addressCityC", "");
+      tempDict.Add("addressCounty", "");
+      tempDict.Add("addressCountyC", "");
+      tempDict.Add("addressState", "UT");
+      tempDict.Add("addressJurisdiction", "UT");
+      tempDict.Add("addressZip", "84401");
+      tempDict.Add("addressCountry", "US");
+      tempDict.Add("addressStnum", "");
+      tempDict.Add("addressPredir", "");
+      tempDict.Add("addressStname", "");
+      tempDict.Add("addressStdesig", "");
+      tempDict.Add("addressPostdir", "");
+      tempDict.Add("addressUnitnum", "");
+      Assert.Equal(tempDict, birthRecord.MotherBilling);
+      tempDict = new();
+      tempDict.Add("code", "Y");
+      tempDict.Add("system", "http://terminology.hl7.org/CodeSystem/v2-0136");
+      tempDict.Add("display", "Yes");
+      Assert.Equal(tempDict, birthRecord.MotherResidenceWithinCityLimits);
+      Assert.Equal("Y", birthRecord.MotherResidenceWithinCityLimitsHelper);
+      Assert.Equal("9932702", birthRecord.InfantMedicalRecordNumber);
+      Assert.Equal("1032702", birthRecord.MotherMedicalRecordNumber);
+      Assert.Equal("132225986", birthRecord.MotherSocialSecurityNumber);
+      Assert.Equal("132225987", birthRecord.FatherSocialSecurityNumber);
+      Assert.Equal(1, birthRecord.SetOrder);
+      tempDict = new();
+      tempDict.Add("code", "");
+      tempDict.Add("system", "");
+      tempDict.Add("display", "");
+      tempDict.Add("text", "");
+      Assert.Equal(tempDict, birthRecord.PluralityEditFlag);
+      Assert.Null(birthRecord.PluralityEditFlagHelper);
+      Assert.Equal(1, birthRecord.Plurality);
+      Assert.False(birthRecord.NoCongenitalAnomaliesOfTheNewborn);
+      Assert.False(birthRecord.Anencephaly);
+      Assert.False(birthRecord.CleftLipWithOrWithoutCleftPalate);
+      Assert.False(birthRecord.CleftPalateAlone);
+      Assert.False(birthRecord.CongenitalDiaphragmaticHernia);
+      Assert.True(birthRecord.CyanoticCongenitalHeartDisease);
+      Assert.True(birthRecord.DownSyndrome);
+      Assert.False(birthRecord.Gastroschisis);
+      Assert.False(birthRecord.Hypospadias);
+      Assert.False(birthRecord.LimbReductionDefect);
+      Assert.False(birthRecord.Meningomyelocele);
+      Assert.False(birthRecord.Omphalocele);
+      Assert.False(birthRecord.SuspectedChromosomalDisorder);
+      Assert.False(birthRecord.NoCharacteristicsOfLaborAndDelivery);
+      Assert.True(birthRecord.EpiduralOrSpinalAnesthesia);
+      Assert.True(birthRecord.AntibioticsAdministeredDuringLabor);
+      Assert.False(birthRecord.AugmentationOfLabor);
+      Assert.True(birthRecord.Chorioamnionitis);
+      Assert.True(birthRecord.InductionOfLabor);
+      Assert.False(birthRecord.AdministrationOfSteroidsForFetalLungMaturation);
+      Assert.False(birthRecord.NoSpecifiedAbnormalConditionsOfNewborn);
+      Assert.False(birthRecord.NICUAdmission);
+      Assert.True(birthRecord.AntibioticForSuspectedNeonatalSepsis);
+      Assert.False(birthRecord.AssistedVentilationFollowingDelivery);
+      Assert.False(birthRecord.AssistedVentilationMoreThanSixHours);
+      Assert.False(birthRecord.Seizure);
+      Assert.False(birthRecord.SurfactantReplacementTherapy);
+      Assert.False(birthRecord.NoInfectionsPresentDuringPregnancy);
+      Assert.True(birthRecord.Chlamydia);
+      Assert.False(birthRecord.Gonorrhea);
+      Assert.False(birthRecord.HepatitisB);
+      Assert.False(birthRecord.HepatitisC);
+      Assert.False(birthRecord.Syphilis);
+      Assert.False(birthRecord.GenitalHerpesSimplex);
+      Assert.False(birthRecord.NoMaternalMorbidities);
+      Assert.False(birthRecord.ICUAdmission);
+      Assert.False(birthRecord.MaternalTransfusion);
+      Assert.False(birthRecord.PerinealLaceration);
+      Assert.True(birthRecord.RupturedUterus);
+      Assert.False(birthRecord.UnplannedHysterectomy);
+      Assert.False(birthRecord.NoPregnancyRiskFactors);
+      Assert.False(birthRecord.EclampsiaHypertension);
+      Assert.False(birthRecord.GestationalDiabetes);
+      Assert.True(birthRecord.GestationalHypertension);
+      Assert.True(birthRecord.PrepregnancyDiabetes);
+      Assert.False(birthRecord.PrepregnancyHypertension);
+      Assert.False(birthRecord.PreviousCesarean);
+      Assert.False(birthRecord.PreviousPretermBirth);
+      Assert.True(birthRecord.ArtificialInsemination);
+      Assert.False(birthRecord.AssistedFertilization);
+      Assert.True(birthRecord.InfertilityTreatment);
+      Assert.False(birthRecord.UnknownFinalRouteAndMethodOfDelivery);
+      tempDict = new();
+      tempDict.Add("code", "11466000");
+      tempDict.Add("system", "http://snomed.info/sct");
+      tempDict.Add("display", "Cesarean section");
+      tempDict.Add("text", "Cesarean section");
+      Assert.Equal(tempDict, birthRecord.FinalRouteAndMethodOfDelivery);
+      Assert.Equal("11466000", birthRecord.FinalRouteAndMethodOfDeliveryHelper);
+      tempDict = new();
+      tempDict.Add("code", "6096002");
+      tempDict.Add("system", "http://snomed.info/sct");
+      tempDict.Add("display", "Breech presentation (finding)");
+      Assert.Equal(tempDict, birthRecord.FetalPresentation);
+      Assert.Equal("6096002", birthRecord.FetalPresentationHelper);
+      Assert.True(birthRecord.LaborTrialAttempted);
+      Assert.Equal(1, birthRecord.NumberOfPreviousCesareans);
+      tempDict = new();
+      tempDict.Add("code", "0");
+      tempDict.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");
+      tempDict.Add("display", "Edit Passed");
+      Assert.Equal(tempDict, birthRecord.NumberOfPreviousCesareansEditFlag);
+      Assert.Equal("0", birthRecord.NumberOfPreviousCesareansEditFlagHelper);
+      Assert.False(birthRecord.NoObstetricProcedures);
+      Assert.False(birthRecord.SuccessfulExternalCephalicVersion);
+      Assert.True(birthRecord.UnsuccessfulExternalCephalicVersion);
+      Assert.Equal(15, birthRecord.MotherBirthDay);
+      Assert.Equal(1, birthRecord.MotherBirthMonth);
+      Assert.Equal(1985, birthRecord.MotherBirthYear);
+      Assert.Equal("1985-01-15", birthRecord.MotherDateOfBirth);
+      Assert.Equal(34, birthRecord.MotherReportedAgeAtDelivery);
+      tempDict = new();
+      tempDict.Add("code", "");
+      tempDict.Add("system", "");
+      tempDict.Add("display", "");
+      tempDict.Add("text", "");
+      Assert.Equal(tempDict, birthRecord.MotherDateOfBirthEditFlag);
+      Assert.Null(birthRecord.MotherDateOfBirthEditFlagHelper);
+      Assert.Equal(24, birthRecord.FatherBirthDay);
+      Assert.Equal(11, birthRecord.FatherBirthMonth);
+      Assert.Equal(1972, birthRecord.FatherBirthYear);
+      Assert.Equal("1972-11-24", birthRecord.FatherDateOfBirth);
+      Assert.Equal(35, birthRecord.FatherReportedAgeAtDelivery);
+      tempDict = new();
+      tempDict.Add("code", "1dataQueried");
+      tempDict.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");
+      tempDict.Add("display", "Data queried");
+      Assert.Equal(tempDict, birthRecord.FatherDateOfBirthEditFlag);
+      Assert.Equal("1dataQueried", birthRecord.FatherDateOfBirthEditFlagHelper);
+      tempDict = new();
+      tempDict.Add("code", "Y");
+      tempDict.Add("system", "http://terminology.hl7.org/CodeSystem/v2-0136");
+      tempDict.Add("display", "Yes");
+      Assert.Equal(tempDict, birthRecord.MotherEthnicity1);
+      Assert.Equal("Y", birthRecord.MotherEthnicity1Helper);
+      tempDict = new();
+      tempDict.Add("code", "UNK");
+      tempDict.Add("system", "http://terminology.hl7.org/CodeSystem/v3-NullFlavor");
+      tempDict.Add("display", "Unknown");
+      Assert.Equal(tempDict, birthRecord.MotherEthnicity2);
+      Assert.Equal("UNK", birthRecord.MotherEthnicity2Helper);
+      tempDict = new();
+      tempDict.Add("code", "UNK");
+      tempDict.Add("system", "http://terminology.hl7.org/CodeSystem/v3-NullFlavor");
+      tempDict.Add("display", "Unknown");
+      Assert.Equal(tempDict, birthRecord.MotherEthnicity3);
+      Assert.Equal("UNK", birthRecord.MotherEthnicity3Helper);
+      tempDict = new();
+      tempDict.Add("code", "UNK");
+      tempDict.Add("system", "http://terminology.hl7.org/CodeSystem/v3-NullFlavor");
+      tempDict.Add("display", "Unknown");
+      Assert.Equal(tempDict, birthRecord.MotherEthnicity4);
+      Assert.Equal("UNK", birthRecord.MotherEthnicity4Helper);
+      Assert.Equal("Bolivian", birthRecord.MotherEthnicityLiteral);
+      foreach (var pair in birthRecord.MotherRace)
+      {
+        switch (pair.Item1)
+        {
+          case NvssRace.White:
+            Assert.Equal("Y", pair.Item2);
+            break;
+          case NvssRace.AmericanIndianOrAlaskanNative:
+            Assert.Equal("Y", pair.Item2);
+            break;
+          default:
+            break;
+        }
+      }
+      tempDict = new();
+      tempDict.Add("code", "Y");
+      tempDict.Add("system", "http://terminology.hl7.org/CodeSystem/v2-0136");
+      tempDict.Add("display", "Yes");
+      Assert.Equal(tempDict, birthRecord.FatherEthnicity1);
+      Assert.Equal("Y", birthRecord.FatherEthnicity1Helper);
+      tempDict = new();
+      tempDict.Add("code", "UNK");
+      tempDict.Add("system", "http://terminology.hl7.org/CodeSystem/v3-NullFlavor");
+      tempDict.Add("display", "Unknown");
+      Assert.Equal(tempDict, birthRecord.FatherEthnicity2);
+      Assert.Equal("UNK", birthRecord.FatherEthnicity2Helper);
+      tempDict = new();
+      tempDict.Add("code", "UNK");
+      tempDict.Add("system", "http://terminology.hl7.org/CodeSystem/v3-NullFlavor");
+      tempDict.Add("display", "Unknown");
+      Assert.Equal(tempDict, birthRecord.FatherEthnicity3);
+      Assert.Equal("UNK", birthRecord.FatherEthnicity3Helper);
+      tempDict = new();
+      tempDict.Add("code", "UNK");
+      tempDict.Add("system", "http://terminology.hl7.org/CodeSystem/v3-NullFlavor");
+      tempDict.Add("display", "Unknown");
+      Assert.Equal(tempDict, birthRecord.FatherEthnicity4);
+      Assert.Equal("UNK", birthRecord.FatherEthnicity4Helper);
+      Assert.Equal("Chilean", birthRecord.FatherEthnicityLiteral);
+      foreach (var pair in birthRecord.FatherRace)
+      {
+        switch (pair.Item1)
+        {
+          case NvssRace.White:
+            Assert.Equal("N", pair.Item2);
+            break;
+          case NvssRace.BlackOrAfricanAmerican:
+            Assert.Equal("Y", pair.Item2);
+            break;
+          case NvssRace.AmericanIndianOrAlaskanNative:
+            Assert.Equal("Y", pair.Item2);
+            break;
+          case NvssRace.AsianIndian:
+            Assert.Equal("N", pair.Item2);
+            break;
+          default:
+            break;
+        }
+      }
+      Assert.Equal(20, birthRecord.DateOfLastLiveBirthDay);
+      Assert.Equal(11, birthRecord.DateOfLastLiveBirthMonth);
+      Assert.Equal(2014, birthRecord.DateOfLastLiveBirthYear);
+      Assert.Equal("2014-11-20", birthRecord.DateOfLastLiveBirth);
+      Assert.Equal(10, birthRecord.DateOfLastOtherPregnancyOutcomeDay);
+      Assert.Equal(5, birthRecord.DateOfLastOtherPregnancyOutcomeMonth);
+      Assert.Equal(2015, birthRecord.DateOfLastOtherPregnancyOutcomeYear);
+      Assert.Equal("2015-05-10", birthRecord.DateOfLastOtherPregnancyOutcome);
+      Assert.Equal(8, birthRecord.NumberOfPrenatalVisits);
+      tempDict = new();
+      tempDict.Add("code", "0");
+      tempDict.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");
+      tempDict.Add("display", "Edit Passed");
+      Assert.Equal(tempDict, birthRecord.NumberOfPrenatalVisitsEditFlag);
+      Assert.Equal("0", birthRecord.NumberOfPrenatalVisitsEditFlagHelper);
+      tempDict = new();
+      tempDict.Add("value", "36");
+      tempDict.Add("code", "wk");
+      tempDict.Add("system", "http://unitsofmeasure.org");
+      Assert.Equal(tempDict, birthRecord.GestationalAgeAtDelivery);
+      tempDict = new();
+      tempDict.Add("code", "0off");
+      tempDict.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");
+      tempDict.Add("display", "Off");
+      Assert.Equal(tempDict, birthRecord.GestationalAgeAtDeliveryEditFlag);
+      Assert.Equal("0off", birthRecord.GestationalAgeAtDeliveryEditFlagHelper);
+      Assert.Equal(1, birthRecord.NumberOfBirthsNowDead);
+      Assert.Equal(1, birthRecord.NumberOfBirthsNowLiving);
+      Assert.Equal(3, birthRecord.NumberOfOtherPregnancyOutcomes);
+      tempDict = new();
+      tempDict.Add("code", "Y");
+      tempDict.Add("system", "http://terminology.hl7.org/CodeSystem/v2-0136");
+      tempDict.Add("display", "Yes");
+      Assert.Equal(tempDict, birthRecord.MotherReceivedWICFood);
+      Assert.Equal("Y", birthRecord.MotherReceivedWICFoodHelper);
+      Assert.True(birthRecord.InfantBreastfedAtDischarge);
+      Assert.Equal(145, birthRecord.MotherPrepregnancyWeight);
+      Assert.Equal(175, birthRecord.MotherWeightAtDelivery);
+      Assert.Equal(2500, birthRecord.BirthWeight);
+      tempDict = new();
+      tempDict.Add("code", "0");
+      tempDict.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");
+      tempDict.Add("display", "Edit Passed");
+      Assert.Equal(tempDict, birthRecord.MotherPrepregnancyWeightEditFlag);
+      Assert.Equal("0", birthRecord.MotherPrepregnancyWeightEditFlagHelper);
+      tempDict = new();
+      tempDict.Add("code", "0");
+      tempDict.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");
+      tempDict.Add("display", "Edit Passed");
+      Assert.Equal(tempDict, birthRecord.MotherWeightAtDeliveryEditFlag);
+      Assert.Equal("0", birthRecord.MotherWeightAtDeliveryEditFlagHelper);
+      tempDict = new();
+      tempDict.Add("code", "0off");
+      tempDict.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");
+      tempDict.Add("display", "Off");
+      Assert.Equal(tempDict, birthRecord.BirthWeightEditFlag);
+      Assert.Equal("0off", birthRecord.BirthWeightEditFlagHelper);
+      Assert.Equal("Jones", birthRecord.AttendantFamilyName);
+      Assert.Equal("Avery Jones", birthRecord.AttendantName);
+      Assert.Equal("999888999888", birthRecord.AttendantNPI);
+      tempDict = new();
+      tempDict.Add("code", "76231001");
+      tempDict.Add("system", "http://snomed.info/sct");
+      tempDict.Add("display", "Osteopath (occupation)");
+      Assert.Equal(tempDict, birthRecord.AttendantTitle);
+      Assert.Equal("76231001", birthRecord.AttendantTitleHelper);
+      Assert.Null(birthRecord.AttendantOtherHelper);
+      Assert.Equal(20, birthRecord.CigarettesPerDayInThreeMonthsPriorToPregancy);
+      Assert.Equal(3, birthRecord.CigarettesPerDayInFirstTrimester);
+      Assert.Equal(1, birthRecord.CigarettesPerDayInSecondTrimester);
+      Assert.Equal(0, birthRecord.CigarettesPerDayInLastTrimester);
+      Assert.Equal("Carpenter", birthRecord.MotherOccupation);
+      Assert.Equal("Lawyer", birthRecord.FatherOccupation);
+      Assert.Equal("Construction", birthRecord.MotherIndustry);
+      Assert.Equal("Legal Services", birthRecord.FatherIndustry);
+      Assert.Equal(67, birthRecord.MotherHeight);
+      tempDict = new();
+      tempDict.Add("code", "0");
+      tempDict.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");
+      tempDict.Add("display", "Edit Passed");
+      Assert.Equal(tempDict, birthRecord.MotherHeightEditFlag);
+      Assert.Equal("0", birthRecord.MotherHeightEditFlagHelper);
+      tempDict = new();
+      tempDict.Add("code", "POSTG");
+      tempDict.Add("system", "http://terminology.hl7.org/CodeSystem/v3-EducationLevel");
+      tempDict.Add("display", "Doctoral or post graduate education");
+      tempDict.Add("text", "Doctoral or post graduate education");
+      Assert.Equal(tempDict, birthRecord.MotherEducationLevel);
+      Assert.Equal("POSTG", birthRecord.MotherEducationLevelHelper);
+      tempDict = new();
+      tempDict.Add("code", "0");
+      tempDict.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");
+      tempDict.Add("display", "Edit Passed");
+      Assert.Equal(tempDict, birthRecord.MotherEducationLevelEditFlag);
+      Assert.Equal("0", birthRecord.MotherEducationLevelEditFlagHelper);
+      tempDict = new();
+      tempDict.Add("code", "POSTG");
+      tempDict.Add("system", "http://terminology.hl7.org/CodeSystem/v3-EducationLevel");
+      tempDict.Add("display", "Doctoral or post graduate education");
+      tempDict.Add("text", "Doctoral or post graduate education");
+      Assert.Equal(tempDict, birthRecord.FatherEducationLevel);
+      Assert.Equal("POSTG", birthRecord.FatherEducationLevelHelper);
+      tempDict = new();
+      tempDict.Add("code", "0");
+      tempDict.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");
+      tempDict.Add("display", "Edit Passed");
+      Assert.Equal(tempDict, birthRecord.FatherEducationLevelEditFlag);
+      Assert.Equal("0", birthRecord.FatherEducationLevelEditFlagHelper);
+      Assert.Equal("116441967701", birthRecord.FacilityNPI);
+      Assert.Equal("UT12", birthRecord.FacilityJFI);
+      Assert.Equal("South Hospital", birthRecord.BirthFacilityName);
+      Assert.Equal("North Hospital", birthRecord.FacilityMotherTransferredFrom);
+      Assert.Equal("East Hospital", birthRecord.FacilityInfantTransferredTo);
+      Assert.Equal("2018-06-05", birthRecord.LastMenstrualPeriod);
+      Assert.Equal(2018, birthRecord.LastMenstrualPeriodYear);
+      Assert.Equal(6, birthRecord.LastMenstrualPeriodMonth);
+      Assert.Equal(5, birthRecord.LastMenstrualPeriodDay);
+      Assert.Equal("2018-07-20", birthRecord.FirstPrenatalCareVisit);
+      Assert.Equal("Divorced", birthRecord.MaritalStatus);
+      tempDict = new();
+      tempDict.Add("code", "Y");
+      tempDict.Add("system", "http://terminology.hl7.org/CodeSystem/v2-0136");
+      tempDict.Add("display", "Yes");
+      Assert.Equal(tempDict, birthRecord.MotherMarriedDuringPregnancy);
+      Assert.Equal(2018, birthRecord.FirstPrenatalCareVisitYear);
+      Assert.Equal(7, birthRecord.FirstPrenatalCareVisitMonth);
+      Assert.Equal(20, birthRecord.FirstPrenatalCareVisitDay);
+      Assert.Equal("2019-02-12", birthRecord.RegistrationDate);
+      Assert.Equal(2019, birthRecord.RegistrationDateYear);
+      Assert.Equal(2, birthRecord.RegistrationDateMonth);
+      Assert.Equal(12, birthRecord.RegistrationDateDay);
+      tempDict = new();
+      tempDict.Add("code", "5");
+      tempDict.Add("system", "https://nahdo.org/sopt");
+      tempDict.Add("display", "Private Health Insurance");
+      tempDict.Add("text", "Private Health Insurance");
+      Assert.Equal(tempDict, birthRecord.PayorTypeFinancialClass);
+      Assert.Equal("5", birthRecord.PayorTypeFinancialClassHelper);
+      Assert.Equal("Y", birthRecord.MotherMarriedDuringPregnancyHelper);
+      tempDict = new();
+      tempDict.Add("code", "Y");
+      tempDict.Add("system", "http://terminology.hl7.org/CodeSystem/v2-0136");
+      tempDict.Add("display", "Yes");
+      Assert.Equal(tempDict, birthRecord.PaternityAcknowledgementSigned);
+      Assert.Equal("Y", birthRecord.PaternityAcknowledgementSignedHelper);
+      tempDict = new();
+      tempDict.Add("code", "hosp-trans");
+      tempDict.Add("system", "http://terminology.hl7.org/CodeSystem/admit-source");
+      tempDict.Add("display", "Transferred from other hospital");
+      tempDict.Add("text", "The Patient has been transferred from another hospital for this encounter.");
+      Assert.Equal(tempDict, birthRecord.MotherTransferred);
+      Assert.Equal("Y", birthRecord.MotherTransferredHelper);
+      Assert.True(birthRecord.InfantLiving);
+      tempDict = new();
+      tempDict.Add("code", "other-hcf");
+      tempDict.Add("system", "http://terminology.hl7.org/CodeSystem/discharge-disposition");
+      tempDict.Add("display", "Other healthcare facility");
+      tempDict.Add("text", "The patient was transferred to another healthcare facility.");
+      Assert.Equal(tempDict, birthRecord.InfantTransferred);
+      Assert.Equal("Y", birthRecord.InfantTransferredHelper);
+      Assert.Equal(2, birthRecord.NumberLiveBorn);
+      Assert.True(birthRecord.SSNRequested);
+      Assert.Equal(7, birthRecord.ApgarScoreFiveMinutes);
+      Assert.Null(birthRecord.ApgarScoreTenMinutes);
+      Assert.Equal("Avery Jones", birthRecord.CertifierName);
+      Assert.Equal("999888999888", birthRecord.CertifierNPI); // << Whis is NPI the same as title?
+      tempDict = new();
+      tempDict.Add("code", "76231001");
+      tempDict.Add("system", "http://snomed.info/sct");
+      tempDict.Add("display", "Osteopath (occupation)");
+      Assert.Equal(tempDict, birthRecord.CertifierTitle);
+      Assert.Equal("76231001", birthRecord.CertifierTitleHelper);
+      Assert.Null(birthRecord.CertifierOtherHelper);
+      Assert.Equal("2019-02-12T13:30:00-07:00", birthRecord.CertificationDate);
+      Assert.Equal(2019, birthRecord.CertifiedYear);
+      Assert.Equal(2, birthRecord.CertifiedMonth);
+      Assert.Equal(12, birthRecord.CertifiedDay);
+      Assert.Null(birthRecord.EmergingIssue1_1);
+      Assert.Null(birthRecord.EmergingIssue1_2);
+      Assert.Null(birthRecord.EmergingIssue1_3);
+      Assert.Null(birthRecord.EmergingIssue1_4);
+      Assert.Null(birthRecord.EmergingIssue1_5);
+      Assert.Null(birthRecord.EmergingIssue1_6);
+      Assert.Null(birthRecord.EmergingIssue8_1);
+      Assert.Null(birthRecord.EmergingIssue8_2);
+      Assert.Null(birthRecord.EmergingIssue8_3);
+      Assert.Null(birthRecord.EmergingIssue20);
+    }
+    [Fact]
+    public void unknownToAll8sFHIRtoIJETest()
+    {
+      Console.WriteLine("Converting fhir to ije!\n\n");
+      BirthRecord b = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord2.json")));
+      IJEBirth ije1 = new(b, false);
+      Console.WriteLine(ije1.ToString());
+    }
   }
- 
+
 }

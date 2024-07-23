@@ -27,6 +27,24 @@
         <member name="M:BFDR.BirthRecord.GetYear">
             <summary>Return the birth year for this record to be used in the identifier</summary>
         </member>
+        <member name="T:BFDR.Connectathon">
+            <summary>Class <c>Connectathon</c> provides static methods for generating records used in Connectathon testing, used in Canary and in the CLI tool</summary>
+        </member>
+        <member name="P:BFDR.Connectathon.Records">
+            <summary>Retrieve all available pre-set records</summary>
+        </member>
+        <member name="M:BFDR.Connectathon.FromId(System.Int32,System.Nullable{System.Int32},System.String,System.Nullable{System.Int32})">
+            <summary>Generate a BirthRecord from one of 2 pre-set records, providing an optional certificate number and state</summary>
+        </member>
+        <member name="M:BFDR.Connectathon.YytrfCardenasRomero">
+            <summary>Generate the Yytrf Cardenas Romero example record</summary>
+        </member>
+        <member name="M:BFDR.Connectathon.XyugbnxZalbanaiz">
+            <summary>Generate the Xyugbnx Zalbanaiz example record</summary>
+        </member>
+        <member name="M:BFDR.Connectathon.WriteRecordAsXml(BFDR.BirthRecord,System.String)">
+            <summary>Of historical interest for writing a record to a file</summary>
+        </member>
         <member name="T:BFDR.IJEBirth">
             <summary>A "wrapper" class to convert between a FHIR based <c>BirthRecord</c> and
             a record in IJE Natality format. Each property of this class corresponds exactly
@@ -1484,14 +1502,7 @@
             </example>
         </member>
         <member name="P:BFDR.NatalityRecord.BirthSexHelper">
-            <summary>Child's Sex at Birth Helper.</summary>
-            <value>The child's sex at time of birth</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.BirthSexHelper = "female;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Sex at Time of Birth: {ExampleBirthRecord.BirthSexHelper}");</para>
-            </example>
+            <summary>Child's BirthSex at Birth. This a duplicate of BirthSex and is kept to maintain consistency for the IJE to FHIR mapper to work.</summary>
         </member>
         <member name="P:BFDR.NatalityRecord.ChildGivenNames">
             <summary>Child's Legal Name - Given. Middle name should be the last entry.</summary>
@@ -2134,7 +2145,7 @@
         </member>
         <member name="P:BFDR.NatalityRecord.NumberOfPreviousCesareansEditFlagHelper">
             <summary>
-            NumberOfPrenatalVisitsEditFlag Helper
+            NumberOfPreviousCesareansEditFlag Helper
             </summary>
         </member>
         <member name="P:BFDR.NatalityRecord.NoObstetricProcedures">
@@ -3192,7 +3203,7 @@
             <para>// Setter:</para>
             <para>ExampleBirthRecord.BirthFacilityName = "South Hospital";</para>
             <para>// Getter:</para>
-            <para>Console.WriteLine($"Jurisdictional Facility Identifier: {ExampleBirthRecord.BirthFacilityName}");</para>
+            <para>Console.WriteLine($"Birth Facility Name: {ExampleBirthRecord.BirthFacilityName}");</para>
             </example>
         </member>
         <member name="P:BFDR.NatalityRecord.FacilityMotherTransferredFrom">
@@ -4005,6 +4016,9 @@
         <member name="F:BFDR.ExtensionURL.ExtensionEncounterMaternityReference">
             <summary>URL for ExtensionEncounterMaternityReference</summary>
         </member>
+        <member name="F:BFDR.ExtensionURL.JurisdictionalFacilityIdentifier">
+            <summary>URL for JurisdictionalFacilityIdentifier</summary>
+        </member>
         <member name="F:BFDR.ExtensionURL.LocationBFDR">
             <summary>URL for LocationBFDR</summary>
         </member>
@@ -4112,6 +4126,9 @@
         </member>
         <member name="F:BFDR.IGURL.ExtensionEncounterMaternityReference">
             <summary>URL for ExtensionEncounterMaternityReference</summary>
+        </member>
+        <member name="F:BFDR.IGURL.JurisdictionalFacilityIdentifier">
+            <summary>URL for JurisdictionalFacilityIdentifier</summary>
         </member>
         <member name="F:BFDR.IGURL.LocationBFDR">
             <summary>URL for LocationBFDR</summary>
