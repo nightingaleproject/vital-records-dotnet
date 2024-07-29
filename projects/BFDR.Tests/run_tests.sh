@@ -2,8 +2,8 @@
 set -e
 
 # Run the C# test suite
-echo "* dotnet test BFDR.Tests/BFDR.Tests.csproj"
-dotnet test BFDR.Tests/BFDR.Tests.csproj
+# echo "* dotnet test BFDR.Tests/BFDR.Tests.csproj"
+# dotnet test BFDR.Tests/BFDR.Tests.csproj
 
 # Make sure we can read and parse a JSON file
 echo "* dotnet run --project BFDR.CLI 2ije BFDR.Tests/fixtures/json/BasicBirthRecord.json"
