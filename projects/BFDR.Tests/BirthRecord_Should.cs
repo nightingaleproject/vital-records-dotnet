@@ -1655,7 +1655,7 @@ namespace BFDR.Tests
     {
       Assert.Null(FakeBirthRecord.SetOrder);
       Assert.Null(FakeBirthRecord.Plurality);
-      Assert.False(FakeBirthRecord.NoCongenitalAnomaliesOfTheNewborn);
+      Assert.True(FakeBirthRecord.NoCongenitalAnomaliesOfTheNewborn);
       Assert.True(FakeBirthRecord.EpiduralOrSpinalAnesthesia);
       Assert.True(FakeBirthRecord.AugmentationOfLabor);
       Assert.True(FakeBirthRecord.NoSpecifiedAbnormalConditionsOfNewborn);

@@ -103,6 +103,7 @@ namespace BFDR.CLI
 
                 birthRecord.SetOrder = null;
                 birthRecord.Plurality = null;
+                birthRecord.CyanoticCongenitalHeartDisease = true;
                 birthRecord.NoCongenitalAnomaliesOfTheNewborn = true;
                 birthRecord.EpiduralOrSpinalAnesthesia = true;
                 birthRecord.AugmentationOfLabor = true;
@@ -110,7 +111,6 @@ namespace BFDR.CLI
                 birthRecord.NoInfectionsPresentDuringPregnancy = true;
                 birthRecord.GestationalHypertension = true;
 
-                birthRecord.CyanoticCongenitalHeartDisease = true;
 
                 Dictionary<string, string> route = new Dictionary<string, string>();
                 route.Add("code", "700000006");
