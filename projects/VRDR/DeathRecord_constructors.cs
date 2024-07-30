@@ -486,7 +486,7 @@ namespace VRDR
             }
             if (fullRecord)
             {
-                UpdateDeathRecordIdentifier();
+                //UpdateDeathRecordIdentifier();
             }
         }
     }
