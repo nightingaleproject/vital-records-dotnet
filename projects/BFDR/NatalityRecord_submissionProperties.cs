@@ -4083,6 +4083,13 @@ namespace BFDR
             }
         }
 
+        /// <summary>Get a coded race and ethnicity dictionary (representing a codeableconcept).
+        /// <para>
+        /// This helper gets the correct observation using the observationCode, section, propertyName.
+        /// It then uses the componentCode to get the component (e.g. FirstAmericanIndianCode) 
+        /// and returns the corresponding codeable concept or and empty one if none are found.
+        /// </para>
+        /// </summary>
         private Dictionary<string, string> GetCodedRaceEthnicity(string observationCode, string componentCode, string section, [CallerMemberName] string propertyName = null) {
             Observation obs = GetOrCreateObservation(observationCode, CodeSystems.LocalObservationCodes, "Coded Race and Ethnicity Person", VR.ProfileURL.CodedRaceAndEthnicity, section, null, propertyName);
             Observation.ComponentComponent raceEthnicity = obs.Component.FirstOrDefault(c => c.Code.Coding[0].Code == componentCode);
@@ -4092,6 +4099,14 @@ namespace BFDR
             }
             return EmptyCodeableDict();
         }
+
+        /// <summary>Set a coded race and ethnicity.
+        /// <para>
+        /// This helper sets the coded race/ethnicity field determined by the observationCode, componentCode, section, and propertyName.
+        /// Once the correct observation and component are found or created, it is set to the given value.
+        /// ComponentDisplay gives a more human readable display value for the component code.
+        /// </para>
+        /// </summary>
         private void SetCodedRaceEthnicity(Dictionary<string, string>  value, string observationCode, string ComponentCode, string ComponentDisplay, string section, [CallerMemberName] string propertyName = null) {
             if (value["code"] == "") {
                 return;
