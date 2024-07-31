@@ -3663,7 +3663,7 @@ namespace VRDR.Tests
             Bundle bundle = DeathRecord1_JSON.GetDemographicCodedContentBundle();
             Assert.NotNull(bundle);
             DeathRecord codedcontentbundle = new DeathRecord(bundle);
-            Assert.Equal("2019YC000182", codedcontentbundle.DeathRecordIdentifier);
+            Assert.Equal("2022YC000182", codedcontentbundle.DeathRecordIdentifier);
             Assert.Equal("000182", codedcontentbundle.Identifier);
             Assert.Equal("000000000042", codedcontentbundle.StateLocalIdentifier1);
             Assert.Equal("100000000001", codedcontentbundle.StateLocalIdentifier2);
