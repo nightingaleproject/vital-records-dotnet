@@ -9,17 +9,17 @@ using VR;
 
 namespace BFDR
 {
-    /// <summary>Class <c>BirthRecordBaseMessage</c> is the base class of all messages.</summary>
-    public partial class BirthRecordBaseMessage : BFDRBaseMessage
+    /// <summary>Class <c>FetalDeathRecordBaseMessage</c> is the base class of all messages.</summary>
+    public partial class FetalDeathRecordBaseMessage : BFDRBaseMessage
     {
         /// <summary>
-        /// Construct a BirthRecordBaseMessage from a FHIR Bundle. This constructor will also validate that the Bundle
+        /// Construct a FetalDeathRecordBaseMessage from a FHIR Bundle. This constructor will also validate that the Bundle
         /// represents a FHIR message of the correct type.
         /// </summary>
         /// <param name="messageBundle">a FHIR Bundle that will be used to initialize the CommonMessage</param>
         /// <param name="ignoreMissingEntries">if true, then missing bundle entries will not result in an exception</param>
         /// <param name="ignoreBundleType">if true, then an incorrect bundle type will not result in an exception</param>
-        protected BirthRecordBaseMessage(Bundle messageBundle, bool ignoreMissingEntries = false, bool ignoreBundleType = false) : base(messageBundle)
+        protected FetalDeathRecordBaseMessage(Bundle messageBundle, bool ignoreMissingEntries = false, bool ignoreBundleType = false) : base(messageBundle)
         {
             // MessageBundle = messageBundle;
 
@@ -27,7 +27,7 @@ namespace BFDR
             // if (messageBundle?.Type != Bundle.BundleType.Message && !ignoreBundleType)
             // {
             //     String actualType = messageBundle?.Type == null ? "null" : messageBundle?.Type.ToString();
-            //     throw new MessageParseException($"The FHIR Bundle must be of type message, not {actualType}", new BirthRecordBaseMessage(messageBundle, true, true));
+            //     throw new MessageParseException($"The FHIR Bundle must be of type message, not {actualType}", new FetalDeathRecordBaseMessage(messageBundle, true, true));
             // }
 
             // // Find Header
@@ -38,19 +38,19 @@ namespace BFDR
         }
 
         /// <summary>Constructor that creates a new, empty message for the specified message type.</summary>
-        protected BirthRecordBaseMessage(String messageType) : base(messageType)
+        protected FetalDeathRecordBaseMessage(String messageType) : base(messageType)
         {
             // MessageHeader.MessageDestinationComponent dest = new MessageHeader.MessageDestinationComponent();
-            // dest.Endpoint = BirthRecordSubmissionMessage.MESSAGE_TYPE;
+            // dest.Endpoint = FetalDeathRecordSubmissionMessage.MESSAGE_TYPE;
             // Header.Destination.Add(dest);
         }
 
         // TODO: Think about a common approach for extracting business identifiers across VRDR and BFDR
         /// <summary>
-        /// Extract the business identifiers for the message from the supplied birth record.
+        /// Extract the business identifiers for the message from the supplied fetal death record.
         /// </summary>
-        /// <param name="from">the birth record to extract the identifiers from</param>
-        protected void ExtractBusinessIdentifiers(BirthRecord from)
+        /// <param name="from">the fetal death record to extract the identifiers from</param>
+        protected void ExtractBusinessIdentifiers(FetalDeathRecord from)
         {
             uint certificateNumber;
             if (UInt32.TryParse(from?.CertificateNumber, out certificateNumber))
@@ -68,7 +68,7 @@ namespace BFDR
             }
             if (from?.GetYear() != null)
             {
-                this.BirthYear = (uint)from.BirthYear;
+                this.DeathYear = (uint)from.DeathYear;
             }
             this.JurisdictionId = from?.BirthLocationJurisdiction;
         }
@@ -79,35 +79,35 @@ namespace BFDR
         //
         /////////////////////////////////////////////////////////////////////////////////
 
-        /// <summary>Override GetYear method to be implemented differently by the BirthRecord and FetalDeathRecord subclasses</summary>
+        /// <summary>Override GetYear method to be implemented differently by the FetalDeathRecord and FetalDeathRecord subclasses</summary>
         public override uint? GetYear()
         {
-            return this.BirthYear;
+            return this.DeathYear;
         }
 
         /// <summary>Override SetYear method to be implemented differently by the Birth Message and FetalDeath Message subclasses</summary>
         public override void SetYear(uint? year)
         {
-            this.BirthYear = year;
+            this.DeathYear = year;
         }
 
-        /// TODO move this to an override for GetYear and SetYear in birth messaging
-        /// <summary>The year in which the birth occurred</summary>
-        public uint? BirthYear
+        /// TODO move this to an override for GetYear and SetYear in fetal death messaging
+        /// <summary>The year in which the fetal death occurred</summary>
+        public uint? DeathYear
         {
             get
             {
-                return (uint?)Record?.GetSingleValue<UnsignedInt>("birth_year")?.Value;
+                return (uint?)Record?.GetSingleValue<UnsignedInt>("death_year")?.Value;
             }
             set
             {
-                Record.Remove("birth_year");
+                Record.Remove("death_year");
                 if (value != null)
                 {
                     if (value < 1000 || value > 9999) {
-                        throw new ArgumentException("Year of birth must be specified using four digits");
+                        throw new ArgumentException("Year of death must be specified using four digits");
                     }
-                    Record.Add("birth_year", new UnsignedInt((int)value));
+                    Record.Add("death_year", new UnsignedInt((int)value));
                 }
             }
         }
@@ -117,26 +117,26 @@ namespace BFDR
         {
             get
             {
-                if (BirthYear == null || JurisdictionId == null || CertNo == null)
+                if (DeathYear == null || JurisdictionId == null || CertNo == null)
                 {
                     return null;
                 }
-                return BirthYear.Value.ToString("D4") + JurisdictionId + CertNo.Value.ToString("D6");
+                return DeathYear.Value.ToString("D4") + JurisdictionId + CertNo.Value.ToString("D6");
             }
         }
 
         /// <summary>
         /// Parse an XML or JSON serialization of a FHIR Bundle and construct the appropriate subclass of
-        /// BirthRecordBaseMessage. The new object is checked to ensure it the same or a subtype of the type parameter.
+        /// FetalDeathRecordBaseMessage. The new object is checked to ensure it the same or a subtype of the type parameter.
         /// </summary>
         /// <typeparam name="T">the expected message type</typeparam>
         /// <param name="source">the XML or JSON serialization of a FHIR Bundle</param>
         /// <param name="permissive">if the parser should be permissive when parsing the given string</param>
         /// <returns>The deserialized message object</returns>
         /// <exception cref="MessageParseException">Thrown when source does not represent the same or a subtype of the type parameter.</exception>
-        public static T Parse<T>(StreamReader source, bool permissive = false) where T: BirthRecordBaseMessage
+        public static T Parse<T>(StreamReader source, bool permissive = false) where T: FetalDeathRecordBaseMessage
         {
-            BirthRecordBaseMessage typedMessage = Parse(source, permissive);
+            FetalDeathRecordBaseMessage typedMessage = Parse(source, permissive);
             if (!typeof(T).IsInstanceOfType(typedMessage))
             {
                 throw new MessageParseException($"The supplied message was of type {typedMessage.GetType()}, expected {typeof(T)} or a subclass", typedMessage);
@@ -145,16 +145,16 @@ namespace BFDR
         }
 
         /// <summary>
-        /// Construct the appropriate subclass of BirthRecordBaseMessage based on a FHIR Bundle.
+        /// Construct the appropriate subclass of FetalDeathRecordBaseMessage based on a FHIR Bundle.
         /// The new object is checked to ensure it the same or a subtype of the type parameter.
         /// </summary>
         /// <typeparam name="T">the expected message type</typeparam>
         /// <param name="bundle">A FHIR Bundle</param>
         /// <returns>The message object of the appropriate message type</returns>
         /// <exception cref="MessageParseException">Thrown when source does not represent the same or a subtype of the type parameter.</exception>
-        public static T Parse<T>(Bundle bundle) where T: BirthRecordBaseMessage
+        public static T Parse<T>(Bundle bundle) where T: FetalDeathRecordBaseMessage
         {
-            BirthRecordBaseMessage typedMessage = Parse(bundle);
+            FetalDeathRecordBaseMessage typedMessage = Parse(bundle);
             if (!typeof(T).IsInstanceOfType(typedMessage))
             {
                 throw new MessageParseException($"The supplied message was of type {typedMessage.GetType()}, expected {typeof(T)} or a subclass", typedMessage);
@@ -164,16 +164,16 @@ namespace BFDR
 
         /// <summary>
         /// Parse an XML or JSON serialization of a FHIR Bundle and construct the appropriate subclass of
-        /// BirthRecordBaseMessage. The new object is checked to ensure it the same or a subtype of the type parameter.
+        /// FetalDeathRecordBaseMessage. The new object is checked to ensure it the same or a subtype of the type parameter.
         /// </summary>
         /// <typeparam name="T">the expected message type</typeparam>
         /// <param name="source">the XML or JSON serialization of a FHIR Bundle</param>
         /// <param name="permissive">if the parser should be permissive when parsing the given string</param>
         /// <returns>the deserialized message object</returns>
         /// <exception cref="MessageParseException">thrown when source does not represent the same or a subtype of the type parameter.</exception>
-        public static T Parse<T>(string source, bool permissive = false) where T: BirthRecordBaseMessage
+        public static T Parse<T>(string source, bool permissive = false) where T: FetalDeathRecordBaseMessage
         {
-            BirthRecordBaseMessage typedMessage = Parse(source, permissive);
+            FetalDeathRecordBaseMessage typedMessage = Parse(source, permissive);
             if (!typeof(T).IsInstanceOfType(typedMessage))
             {
                 throw new MessageParseException($"The supplied message was of type {typedMessage.GetType()}, expected {typeof(T)} or a subclass", typedMessage);
@@ -183,12 +183,12 @@ namespace BFDR
 
         /// <summary>
         /// Parse an XML or JSON serialization of a FHIR Bundle and construct the appropriate subclass of
-        /// BirthRecordBaseMessage. Clients can use the typeof operator to determine the type of message object returned.
+        /// FetalDeathRecordBaseMessage. Clients can use the typeof operator to determine the type of message object returned.
         /// </summary>
         /// <param name="source">the XML or JSON serialization of a FHIR Bundle</param>
         /// <param name="permissive">if the parser should be permissive when parsing the given string</param>
         /// <returns>The deserialized message object</returns>
-        public static BirthRecordBaseMessage Parse(string source, bool permissive = false)
+        public static FetalDeathRecordBaseMessage Parse(string source, bool permissive = false)
         {
             Bundle bundle = ParseGenericBundle(source, permissive);
 
@@ -196,39 +196,39 @@ namespace BFDR
         }
 
         /// <summary>
-        /// Construct the appropriate subclass of BirthRecordBaseMessage based on a FHIR Bundle.
+        /// Construct the appropriate subclass of FetalDeathRecordBaseMessage based on a FHIR Bundle.
         /// Clients can use the typeof operator to determine the type of message object returned.
         /// </summary>
         /// <param name="bundle">A FHIR Bundle</param>
         /// <returns>The message object of the appropriate message type</returns>
-        public static BirthRecordBaseMessage Parse(Bundle bundle)
+        public static FetalDeathRecordBaseMessage Parse(Bundle bundle)
         {
-            BirthRecordBaseMessage message = new BirthRecordBaseMessage(bundle, true, false);
+            FetalDeathRecordBaseMessage message = new FetalDeathRecordBaseMessage(bundle, true, false);
             switch (message.MessageType)
             {
-                case BirthRecordSubmissionMessage.MESSAGE_TYPE:
-                    message = new BirthRecordSubmissionMessage(bundle, message);
+                case FetalDeathRecordSubmissionMessage.MESSAGE_TYPE:
+                    message = new FetalDeathRecordSubmissionMessage(bundle, message);
                     break;
-                case BirthRecordUpdateMessage.MESSAGE_TYPE:
-                    message = new BirthRecordUpdateMessage(bundle, message);
+                case FetalDeathRecordUpdateMessage.MESSAGE_TYPE:
+                    message = new FetalDeathRecordUpdateMessage(bundle, message);
                     break;
-                case BirthRecordAcknowledgementMessage.MESSAGE_TYPE:
-                    message = new BirthRecordAcknowledgementMessage(bundle);
+                case FetalDeathRecordAcknowledgementMessage.MESSAGE_TYPE:
+                    message = new FetalDeathRecordAcknowledgementMessage(bundle);
                     break;
-                case BirthRecordVoidMessage.MESSAGE_TYPE:
-                    message = new BirthRecordVoidMessage(bundle);
+                case FetalDeathRecordVoidMessage.MESSAGE_TYPE:
+                    message = new FetalDeathRecordVoidMessage(bundle);
                     break;
-                case BirthRecordErrorMessage.MESSAGE_TYPE:
-                    message = new BirthRecordErrorMessage(bundle, message);
+                case FetalDeathRecordErrorMessage.MESSAGE_TYPE:
+                    message = new FetalDeathRecordErrorMessage(bundle, message);
                     break;
-                case BirthRecordStatusMessage.MESSAGE_TYPE:
-                    message = new BirthRecordStatusMessage(bundle);
+                case FetalDeathRecordStatusMessage.MESSAGE_TYPE:
+                    message = new FetalDeathRecordStatusMessage(bundle);
                     break;
-                case BirthRecordDemographicsCodingMessage.MESSAGE_TYPE:
-                    message = new BirthRecordDemographicsCodingMessage(bundle, message);
+                case FetalDeathRecordDemographicsCodingMessage.MESSAGE_TYPE:
+                    message = new FetalDeathRecordDemographicsCodingMessage(bundle, message);
                     break;
-                case BirthRecordDemographicsCodingUpdateMessage.MESSAGE_TYPE:
-                    message = new BirthRecordDemographicsCodingUpdateMessage(bundle, message);
+                case FetalDeathRecordDemographicsCodingUpdateMessage.MESSAGE_TYPE:
+                    message = new FetalDeathRecordDemographicsCodingUpdateMessage(bundle, message);
                     break;
                 default:
                     string errorText;
@@ -251,53 +251,53 @@ namespace BFDR
 
         /// <summary>
         /// Parse an XML or JSON serialization of a FHIR Bundle and construct the appropriate subclass of
-        /// BirthRecordBaseMessage. Clients can use the typeof operator to determine the type of message object returned.
+        /// FetalDeathRecordBaseMessage. Clients can use the typeof operator to determine the type of message object returned.
         /// </summary>
         /// <param name="source">the XML or JSON serialization of a FHIR Bundle</param>
         /// <param name="permissive">if the parser should be permissive when parsing the given string</param>
         /// <returns>The deserialized message object</returns>
-        public static BirthRecordBaseMessage Parse(StreamReader source, bool permissive = false)
+        public static FetalDeathRecordBaseMessage Parse(StreamReader source, bool permissive = false)
         {
             string content = source.ReadToEnd();
             return Parse(content, permissive);
         }
 
         /// <summary>
-        /// Convert message to message type and extract the birth record
+        /// Convert message to message type and extract the fetal death record
         /// </summary>
         /// <param name="message">base message</param>
-        /// <returns>The birth record inside the base message</returns>
-        public static BirthRecord GetBirthRecordFromMessage(BirthRecordBaseMessage message)
+        /// <returns>The fetal death record inside the base message</returns>
+        public static FetalDeathRecord GetFetalDeathRecordFromMessage(FetalDeathRecordBaseMessage message)
         {
                 
             Type messageType = message.GetType();
 
-            BirthRecord br = null;
+            FetalDeathRecord br = null;
 
             switch (messageType.Name)
             {
-                case "BirthRecordSubmissionMessage":
+                case "FetalDeathRecordSubmissionMessage":
                 {
-                    var brsm = message as BirthRecordSubmissionMessage;
-                    br = brsm?.BirthRecord;
+                    var brsm = message as FetalDeathRecordSubmissionMessage;
+                    br = brsm?.FetalDeathRecord;
                     break;
                 }
-                case "BirthRecordUpdateMessage":
+                case "FetalDeathRecordUpdateMessage":
                 {
-                    var brsm = message as BirthRecordUpdateMessage;
-                    br = brsm?.BirthRecord;
+                    var brsm = message as FetalDeathRecordUpdateMessage;
+                    br = brsm?.FetalDeathRecord;
                     break;
                 }
-                case "BirthRecordDemographicsCodingMessage":
+                case "FetalDeathRecordDemographicsCodingMessage":
                 {
-                    var brsm = message as BirthRecordDemographicsCodingMessage;
-                    br = brsm?.BirthRecord;
+                    var brsm = message as FetalDeathRecordDemographicsCodingMessage;
+                    br = brsm?.FetalDeathRecord;
                     break;
                 }
-                case "BirthRecordDemographicsCodingUpdateMessage":
+                case "FetalDeathRecordDemographicsCodingUpdateMessage":
                 {
-                    var brsm = message as BirthRecordDemographicsCodingUpdateMessage;
-                    br = brsm?.BirthRecord;
+                    var brsm = message as FetalDeathRecordDemographicsCodingUpdateMessage;
+                    br = brsm?.FetalDeathRecord;
                     break;
                 }
             }
@@ -309,16 +309,16 @@ namespace BFDR
     /// <summary>
     /// An exception that may be thrown during message parsing
     /// </summary>
-    public class MessageParseException : System.ArgumentException
+    public class FetalDeathMessageParseException : System.ArgumentException
     {
-        private BirthRecordBaseMessage sourceMessage;
+        private FetalDeathRecordBaseMessage sourceMessage;
 
         /// <summary>
         /// Construct a new instance.
         /// </summary>
         /// <param name="errorMessage">A text error message describing the problem</param>
         /// <param name="sourceMessage">The message that caused the problem</param>
-        public MessageParseException(string errorMessage, BirthRecordBaseMessage sourceMessage) : base(errorMessage)
+        public FetalDeathMessageParseException(string errorMessage, FetalDeathRecordBaseMessage sourceMessage) : base(errorMessage)
         {
             this.sourceMessage = sourceMessage;
         }
@@ -326,9 +326,9 @@ namespace BFDR
         /// <summary>
         /// Build an ExtractionErrorMessage that conveys the issues reported in this exception.
         /// </summary>
-        public BirthRecordErrorMessage CreateExtractionErrorMessage()
+        public FetalDeathRecordErrorMessage CreateExtractionErrorMessage()
         {
-            var message = new BirthRecordErrorMessage(sourceMessage);
+            var message = new FetalDeathRecordErrorMessage(sourceMessage);
             message.Issues.Add(new Issue(OperationOutcome.IssueSeverity.Error, OperationOutcome.IssueType.Exception, this.Message));
             return message;
         }
