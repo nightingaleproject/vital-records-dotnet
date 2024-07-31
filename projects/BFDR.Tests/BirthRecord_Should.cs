@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using Hl7.Fhir.Model;
+using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 using VR;
 using Xunit;
 
@@ -1121,6 +1124,97 @@ namespace BFDR.Tests
       record4.FatherBirthYear = 1988;
       Assert.Equal(1988, record4.FatherBirthYear);
       Assert.Equal("1988-09-05", record4.FatherDateOfBirth);
+    }
+
+    [Fact]
+    public void TestComplexPartialDates()
+    {
+      // Tests source: https://github.com/HL7/vr-common-library/blob/fixPartialDateTime/input/pagecontent/usage.md#partial-dates-and-times
+      string pdtUrl = "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-partial-date-time-vr";
+      BirthRecord br = new();
+      // 2023
+      br.BirthYear = 2023;
+      Date fhirBirth = ((Patient) br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
+      Extension pdt = fhirBirth.GetExtension(pdtUrl);
+      Assert.Equal(2023, br.BirthYear);
+      Assert.Null(br.BirthMonth);
+      Assert.Null(br.BirthDay);
+      Assert.Equal("2023", fhirBirth.Value);
+      Assert.Null(br.BirthTime);
+      Assert.Null(pdt);
+      IJEBirth ije = new(br);
+      Assert.Equal("2023", ije.IDOB_YR);
+      Assert.Equal("  ", ije.IDOB_MO);
+      Assert.Equal("  ", ije.IDOB_DY);
+      Assert.Equal("    ", ije.TB);
+      // 2023-12
+      br.BirthYear = 2023;
+      br.BirthMonth = 12;
+      fhirBirth = ((Patient) br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
+      pdt = fhirBirth.GetExtension(pdtUrl);
+      Assert.Equal(2023, br.BirthYear);
+      Assert.Equal(12, br.BirthMonth);
+      Assert.Null(br.BirthDay);
+      Assert.Equal("2023-12", fhirBirth.Value);
+      Assert.Null(br.BirthTime);
+      Assert.Null(pdt);
+      Assert.Equal("2023", ije.IDOB_YR);
+      Assert.Equal("12", ije.IDOB_MO);
+      Assert.Equal("  ", ije.IDOB_DY);
+      Assert.Equal("    ", ije.TB);
+      // 2023-12-23
+      br.BirthYear = 2023;
+      br.BirthMonth = 12;
+      br.BirthDay = 23;
+      fhirBirth = ((Patient) br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
+      pdt = fhirBirth.GetExtension(pdtUrl);
+      Assert.Equal(2023, br.BirthYear);
+      Assert.Equal(12, br.BirthMonth);
+      Assert.Equal(23, br.BirthDay);
+      Assert.Equal("2023-12-23", fhirBirth.Value);
+      Assert.Null(br.BirthTime);
+      Assert.Null(pdt);
+      Assert.Equal("2023", ije.IDOB_YR);
+      Assert.Equal("12", ije.IDOB_MO);
+      Assert.Equal("23", ije.IDOB_DY);
+      Assert.Equal("    ", ije.TB);
+      // 2023-12-23 T13:28:17-05:00
+      br.BirthYear = 2023;
+      br.BirthMonth = 12;
+      br.BirthDay = 23;
+      br.BirthTime = "13:28:17-5:00";
+      fhirBirth = ((Patient) br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
+      pdt = fhirBirth.GetExtension(pdtUrl);
+      Assert.Equal(2023, br.BirthYear);
+      Assert.Equal(12, br.BirthMonth);
+      Assert.Equal(23, br.BirthDay);
+      Assert.Equal("2023-12-23", fhirBirth.Value);
+      Assert.Equal("13:28:17", br.BirthTime);
+      Assert.Null(pdt);
+      Assert.Equal("2023", ije.IDOB_YR);
+      Assert.Equal("12", ije.IDOB_MO);
+      Assert.Equal("23", ije.IDOB_DY);
+      Assert.Equal("1328", ije.TB);
+      // 2023-12-23 BLANK
+      br.BirthYear = 2023;
+      br.BirthMonth = 12;
+      br.BirthDay = 23;
+      br.BirthTime = "-1";
+      fhirBirth = ((Patient) br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
+      pdt = fhirBirth.GetExtension(pdtUrl);
+      Assert.Equal(2023, br.BirthYear);
+      Assert.Equal(12, br.BirthMonth);
+      Assert.Equal(23, br.BirthDay);
+      Assert.Equal("2023-12-23", fhirBirth.Value);
+      Assert.Null(br.BirthTime);
+      Assert.Equal(2023, ((Integer)pdt.GetExtension(VR.ExtensionURL.PartialDateTimeYearVR).Value).Value);
+      Assert.Equal(12, ((Integer)pdt.GetExtension(VR.ExtensionURL.PartialDateTimeMonthVR).Value).Value);
+      Assert.Equal(23, ((Integer)pdt.GetExtension(VR.ExtensionURL.PartialDateTimeDayVR).Value).Value);
+      Assert.Equal("temp-unknown", ((FhirString)pdt.GetExtension(VR.ExtensionURL.PartialDateTimeTimeVR).Value).Value);
+      Assert.Equal("2023", ije.IDOB_YR);
+      Assert.Equal("12", ije.IDOB_MO);
+      Assert.Equal("23", ije.IDOB_DY);
+      Assert.Equal("9999", ije.TB);
     }
 
     [Fact]
