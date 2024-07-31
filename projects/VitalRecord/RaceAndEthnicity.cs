@@ -54,6 +54,72 @@ namespace VR
         public const string SecondOtherRaceLiteral = "SecondOtherRaceLiteral";
         /// <summary> MissingValueReason </summary>
         public const string MissingValueReason = "MissingValueReason";
+        /// <summary> FirstEditedCode </summary>
+        public const string FirstEditedCode = "FirstEditedCode";
+        /// <summary> FirstEditedCode Display </summary>
+        public const string FirstEditedCodeDisplay = "First Edited Code";
+        /// <summary> SecondEditedCode </summary>
+        public const string SecondEditedCode = "SecondEditedCode";
+        /// <summary> SecondEditedCode Display </summary>
+        public const string SecondEditedCodeDisplay = "Second Edited Code";
+        /// <summary> ThirdEditedCode </summary>
+        public const string ThirdEditedCode = "ThirdEditedCode";
+        /// <summary> ThirdEditedCode Display </summary>
+        public const string ThirdEditedCodeDisplay = "Third Edited Code";
+        /// <summary> FirstEditedCode </summary>
+        public const string FourthEditedCode = "FourthEditedCode";
+        /// <summary> FourthEditedCode Display </summary>
+        public const string FourthEditedCodeDisplay = "Fourth Edited Code";
+        /// <summary> FirstEditedCode </summary>
+        public const string FifthEditedCode = "FifthEditedCode";
+        /// <summary> FifthEditedCode Display </summary>
+        public const string FifthEditedCodeDisplay = "Fifth Edited Code";
+        /// <summary> SixthEditedCode </summary>
+        public const string SixthEditedCode = "SixthEditedCode";
+        /// <summary> SixthEditedCode Display </summary>
+        public const string SixthEditedCodeDisplay = "Sixth Edited Code";
+        /// <summary> SeventhEditedCode </summary>
+        public const string SeventhEditedCode = "SeventhEditedCode";
+        /// <summary> SeventhEditedCode Display </summary>
+        public const string SeventhEditedCodeDisplay = "Seventh Edited Code";
+        /// <summary> EighthEditedCode </summary>
+        public const string EighthEditedCode = "EighthEditedCode";
+        /// <summary> EighthEditedCode Display </summary>
+        public const string EighthEditedCodeDisplay = "Eighth Edited Code";
+        /// <summary> FirstAmericanIndianCode </summary>
+        public const string FirstAmericanIndianCode = "FirstAmericanIndianCode";
+        /// <summary> FirstAmericanIndianCode Display </summary>
+        public const string FirstAmericanIndianCodeDisplay = "First American Indian Code";
+        /// <summary> SecondAmericanIndianCode </summary>
+        public const string SecondAmericanIndianCode = "SecondAmericanIndianCode";
+        /// <summary> SecondAmericanIndian Display </summary>
+        public const string SecondAmericanIndianCodeDisplay = "Second American Indian Code";
+        /// <summary> FirstOtherAsianCode </summary>
+        public const string FirstOtherAsianCode = "FirstOtherAsianCode";
+        /// <summary> FirstOtherAsianCode Display </summary>
+        public const string FirstOtherAsianCodeDisplay = "First Other Asian Code";
+        /// <summary> SecondOtherAsianCode </summary>
+        public const string SecondOtherAsianCode = "SecondOtherAsianCode";
+        /// <summary> SecondOtherAsianCode Display </summary>
+        public const string SecondOtherAsianCodeDisplay = "Second Other Asian Code";
+        /// <summary> FirstOtherPacificIslander </summary>
+        public const string FirstOtherPacificIslanderCode = "FirstOtherPacificIslanderCode";
+        /// <summary> FirstOtherPacificIslanderCode Display </summary>
+        public const string FirstOtherPacificIslanderCodeDisplay = "First Other Pacific Islander Code";
+        /// <summary> SecondOtherPacificIslanderCode </summary>
+        public const string SecondOtherPacificIslanderCode = "SecondOtherPacificIslanderCode";
+        /// <summary> SecondOtherPacificIslanderCode Display </summary>
+        public const string SecondOtherPacificIslanderCodeDisplay = "Second Other Pacific Islander Code";
+        /// <summary> FirstOtherRaceCode </summary>
+        public const string FirstOtherRaceCode = "FirstOtherRaceCode";
+        /// <summary> FirstOtherRaceCode Display </summary>
+        public const string FirstOtherRaceCodeDisplay = "First Other Race Code";
+        /// <summary> SecondOtherRaceCode </summary>
+        public const string SecondOtherRaceCode = "SecondOtherRaceCode";
+        /// <summary> SecondOtherRaceCode Display </summary>
+        public const string SecondOtherRaceCodeDisplay = "Second Other Race Code";
+
+
         /// <summary> GetBooleanRaceCodes Returns a list of the Boolean Race Codes, Y or N values </summary>
         public static List<string> GetBooleanRaceCodes()
         {
@@ -134,10 +200,19 @@ namespace VR
         public const string Other = "HispanicOther";
         /// <summary> Hispanic Other </summary>
         public const string OtherDisplay = "Hispanic Other";
+        /// <summary> Edited Code </summary>
+        public const string EditedCode = "HispanicCode";
+        /// <summary> Edited Code Display </summary>
+        public const string EditedCodeDisplay = "Hispanic Code";
         /// <summary> Literal </summary>
         public const string Literal = "HispanicLiteral";
         /// <summary> Hispanic Literal </summary>
         public const string LiteralDisplay = "Hispanic Literal";
+        /// <summary> Code For Literal </summary>
+        public const string CodeForLiteral = "HispanicCodeForLiteral";
+        /// <summary> Hispanic Code for Literal </summary>
+        public const string CodeForLiteralDisplay = "Hispanic Code for Literal";
+
     }
 
 
