@@ -76,7 +76,7 @@ export class Record extends Component {
     }
     if (this.state.activeItem === 'IJE') {
       file = new Blob([this.props.record.ije.replace(/(\r\n|\n|\r)/gm, '').substr(0, 5000)], { type: 'text/plain' });
-      element.download = `record-${Date.now().toString()}.MOR`;
+      element.download = `record-${Date.now().toString()}.IJE`;
     }
     element.href = URL.createObjectURL(file);
     element.click();

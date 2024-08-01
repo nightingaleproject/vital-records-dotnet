@@ -1040,6 +1040,7 @@ namespace BFDR
                 if (!BFDR.Mappings.BirthDeliveryOccurred.FHIRToIJE.ContainsKey(value))
                 {
                     // other
+                    Console.WriteLine("Warning: given 'child's place of birth type' code not found in value set. Setting value to 'Other'.");
                     BirthPhysicalLocation = CodeableConceptToDict(new CodeableConcept(CodeSystems.NullFlavor_HL7_V3, "OTH", "Other", value));
                 }
                 else
@@ -4082,6 +4083,2134 @@ namespace BFDR
             }
         }
 
+        /// <summary>Get a coded race and ethnicity dictionary (representing a codeableconcept).
+        /// <para>
+        /// This helper gets the correct observation using the observationCode, section, propertyName.
+        /// It then uses the componentCode to get the component (e.g. FirstAmericanIndianCode) 
+        /// and returns the corresponding codeable concept or and empty one if none are found.
+        /// </para>
+        /// </summary>
+        private Dictionary<string, string> GetCodedRaceEthnicity(string observationCode, string componentCode, string section, [CallerMemberName] string propertyName = null) {
+            Observation obs = GetOrCreateObservation(observationCode, CodeSystems.LocalObservationCodes, "Coded Race and Ethnicity Person", VR.ProfileURL.CodedRaceAndEthnicity, section, null, propertyName);
+            Observation.ComponentComponent raceEthnicity = obs.Component.FirstOrDefault(c => c.Code.Coding[0].Code == componentCode);
+            if (raceEthnicity!= null && raceEthnicity.Value != null && raceEthnicity.Value as CodeableConcept != null)
+            {
+                return CodeableConceptToDict((CodeableConcept)raceEthnicity.Value);
+            }
+            return EmptyCodeableDict();
+        }
+
+        /// <summary>Set a coded race and ethnicity.
+        /// <para>
+        /// This helper sets the coded race/ethnicity field determined by the observationCode, componentCode, section, and propertyName.
+        /// Once the correct observation and component are found or created, it is set to the given value.
+        /// ComponentDisplay gives a more human readable display value for the component code.
+        /// </para>
+        /// </summary>
+        private void SetCodedRaceEthnicity(Dictionary<string, string>  value, string observationCode, string ComponentCode, string ComponentDisplay, string section, [CallerMemberName] string propertyName = null) {
+            if (value["code"] == "") {
+                return;
+            }
+            Observation obs = GetOrCreateObservation(observationCode, CodeSystems.LocalObservationCodes, "Coded Race and Ethnicity Person", VR.ProfileURL.CodedRaceAndEthnicity, section, propertyName: propertyName);
+            obs.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.CodeForLiteral);
+            Observation.ComponentComponent component = new Observation.ComponentComponent();
+            component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, ComponentCode, ComponentDisplay, null);
+            component.Value = DictToCodeableConcept(value);
+            obs.Component.Add(component);
+            obs.Subject = new ResourceReference("urn:uuid:" + Child.Id);
+        }
+
+        /// <summary>Mother Race Tabulation 1E.</summary>
+        /// <value>Mother Race Tabulation 1E. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>ethnicity.Add("code", "214");</para>
+        /// <para>ethnicity.Add("system", CodeSystems.RaceCode);</para>
+        /// <para>ethnicity.Add("display", "Arab");</para>
+        /// <para>ExampleDeathRecord.MotherRaceTabulation1E = ethnicity;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"MotherRaceTabulation1E: {ExampleBirthRecord.MotherRaceTabulation1E['display']}");</para>
+        /// </example>
+        [Property("Mother Race Tabulation 1E", Property.Types.Dictionary, "Coded Content", "Mother Race Tabulation 1E.", true, VR.IGURL.CodedRaceAndEthnicity, false, 62)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public Dictionary<string, string> MotherRaceTabulation1E
+        {
+            get => GetCodedRaceEthnicity(CODED_RACE_ETHNICITY_PROFILE_MOTHER, NvssRace.FirstEditedCode, "MTH");
+            set => SetCodedRaceEthnicity(value, CODED_RACE_ETHNICITY_PROFILE_MOTHER, NvssRace.FirstEditedCode, NvssRace.FirstEditedCodeDisplay, "MTH");
+        }
+
+        /// <summary>Mother Race Tabulation 1E Helper</summary>
+        /// <value>Mother Race Tabulation 1E Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotheEthnicityCodeForLiteralHelper = VR.ValueSets.HispanicOrigin.Arab;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"MotherRaceTabulation1E: {ExampleBirthRecord.MotherRaceTabulation1EHelper}");</para>
+        /// </example>
+        [Property("Mother Race Tabulation 1E Helper", Property.Types.String, "Coded Content", "Mother Race Tabulation 1E Helper.", false, VR.IGURL.CodedRaceAndEthnicity, false, 62)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicityMother')", "")]
+        public string MotherRaceTabulation1EHelper
+        {
+            get
+            {
+                if (MotherRaceTabulation1E.ContainsKey("code") && !String.IsNullOrWhiteSpace(MotherRaceTabulation1E["code"]))
+                {
+                    return MotherRaceTabulation1E["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("MotherRaceTabulation1E", value, VR.ValueSets.RaceCode.Codes);
+                }
+            }
+        }
+
+        /// <summary>Mother Race Tabulation 2E.</summary>
+        /// <value>Mother Race Tabulation 2E. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>ethnicity.Add("code", "214");</para>
+        /// <para>ethnicity.Add("system", CodeSystems.RaceCode);</para>
+        /// <para>ethnicity.Add("display", "Arab");</para>
+        /// <para>ExampleDeathRecord.MotherRaceTabulation2E = ethnicity;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"MotherRaceTabulation2E: {ExampleBirthRecord.MotherRaceTabulation2E['display']}");</para>
+        /// </example>
+        [Property("Mother Race Tabulation 2E", Property.Types.Dictionary, "Coded Content", "Mother Race Tabulation 2E.", true, VR.IGURL.CodedRaceAndEthnicity, false, 63)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public Dictionary<string, string> MotherRaceTabulation2E
+        {
+            get => GetCodedRaceEthnicity(CODED_RACE_ETHNICITY_PROFILE_MOTHER, NvssRace.SecondEditedCode, "MTH");
+            set => SetCodedRaceEthnicity(value, CODED_RACE_ETHNICITY_PROFILE_MOTHER, NvssRace.SecondEditedCode, NvssRace.SecondEditedCodeDisplay, "MTH");
+        }
+
+        /// <summary>Mother Race Tabulation 2E Helper</summary>
+        /// <value>Mother Race Tabulation 2E Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotheEthnicityCodeForLiteralHelper = VR.ValueSets.HispanicOrigin.Arab;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"MotherRaceTabulation2E: {ExampleBirthRecord.MotherRaceTabulation2EHelper}");</para>
+        /// </example>
+        [Property("Mother Race Tabulation 2E Helper", Property.Types.String, "Coded Content", "Mother Race Tabulation 2E Helper.", false, VR.IGURL.CodedRaceAndEthnicity, false, 63)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicityMother')", "")]
+        public string MotherRaceTabulation2EHelper
+        {
+            get
+            {
+                if (MotherRaceTabulation2E.ContainsKey("code") && !String.IsNullOrWhiteSpace(MotherRaceTabulation2E["code"]))
+                {
+                    return MotherRaceTabulation2E["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("MotherRaceTabulation2E", value, VR.ValueSets.RaceCode.Codes);
+                }
+            }
+        }
+
+
+                /// <summary>Mother Race Tabulation 3E.</summary>
+        /// <value>Mother Race Tabulation 3E. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>ethnicity.Add("code", "214");</para>
+        /// <para>ethnicity.Add("system", CodeSystems.RaceCode);</para>
+        /// <para>ethnicity.Add("display", "Arab");</para>
+        /// <para>ExampleDeathRecord.MotherRaceTabulation3E = ethnicity;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"MotherRaceTabulation3E: {ExampleBirthRecord.MotherRaceTabulation3E['display']}");</para>
+        /// </example>
+        [Property("Mother Race Tabulation 3E", Property.Types.Dictionary, "Coded Content", "Mother Race Tabulation 3E.", true, VR.IGURL.CodedRaceAndEthnicity, false, 64)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public Dictionary<string, string> MotherRaceTabulation3E
+        {
+            get => GetCodedRaceEthnicity(CODED_RACE_ETHNICITY_PROFILE_MOTHER, NvssRace.ThirdEditedCode, "MTH");
+            set => SetCodedRaceEthnicity(value, CODED_RACE_ETHNICITY_PROFILE_MOTHER, NvssRace.ThirdEditedCode, NvssRace.ThirdEditedCodeDisplay, "MTH");
+        }
+
+        /// <summary>Mother Race Tabulation 3E Helper</summary>
+        /// <value>Mother Race Tabulation 3E Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotheEthnicityCodeForLiteralHelper = VR.ValueSets.HispanicOrigin.Arab;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"MotherRaceTabulation3E: {ExampleBirthRecord.MotherRaceTabulation3EHelper}");</para>
+        /// </example>
+        [Property("Mother Race Tabulation 3E Helper", Property.Types.String, "Coded Content", "Mother Race Tabulation 3E Helper.", false, VR.IGURL.CodedRaceAndEthnicity, false, 64)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicityMother')", "")]
+        public string MotherRaceTabulation3EHelper
+        {
+            get
+            {
+                if (MotherRaceTabulation3E.ContainsKey("code") && !String.IsNullOrWhiteSpace(MotherRaceTabulation3E["code"]))
+                {
+                    return MotherRaceTabulation3E["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("MotherRaceTabulation3E", value, VR.ValueSets.RaceCode.Codes);
+                }
+            }
+        }
+
+        /// <summary>Mother Race Tabulation 4E.</summary>
+        /// <value>Mother Race Tabulation 4E. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>ethnicity.Add("code", "214");</para>
+        /// <para>ethnicity.Add("system", CodeSystems.RaceCode);</para>
+        /// <para>ethnicity.Add("display", "Arab");</para>
+        /// <para>ExampleDeathRecord.MotherRaceTabulation4E = ethnicity;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"MotherRaceTabulation4E: {ExampleBirthRecord.MotherRaceTabulation4E['display']}");</para>
+        /// </example>
+        [Property("Mother Race Tabulation 4E", Property.Types.Dictionary, "Coded Content", "Mother Race Tabulation 4E.", true, VR.IGURL.CodedRaceAndEthnicity, false, 65)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public Dictionary<string, string> MotherRaceTabulation4E
+        {
+            get => GetCodedRaceEthnicity(CODED_RACE_ETHNICITY_PROFILE_MOTHER, NvssRace.FourthEditedCode, "MTH");
+            set => SetCodedRaceEthnicity(value, CODED_RACE_ETHNICITY_PROFILE_MOTHER, NvssRace.FourthEditedCode, NvssRace.FourthEditedCodeDisplay, "MTH");
+        }
+
+        /// <summary>Mother Race Tabulation 4E Helper</summary>
+        /// <value>Mother Race Tabulation 4E Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotheEthnicityCodeForLiteralHelper = VR.ValueSets.HispanicOrigin.Arab;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"MotherRaceTabulation4E: {ExampleBirthRecord.MotherRaceTabulation4EHelper}");</para>
+        /// </example>
+        [Property("Mother Race Tabulation 4E Helper", Property.Types.String, "Coded Content", "Mother Race Tabulation 4E Helper.", false, VR.IGURL.CodedRaceAndEthnicity, false, 65)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicityMother')", "")]
+        public string MotherRaceTabulation4EHelper
+        {
+            get
+            {
+                if (MotherRaceTabulation4E.ContainsKey("code") && !String.IsNullOrWhiteSpace(MotherRaceTabulation4E["code"]))
+                {
+                    return MotherRaceTabulation4E["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("MotherRaceTabulation4E", value, VR.ValueSets.RaceCode.Codes);
+                }
+            }
+        }
+
+        /// <summary>Mother Race Tabulation 5E.</summary>
+        /// <value>Mother Race Tabulation 5E. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>ethnicity.Add("code", "214");</para>
+        /// <para>ethnicity.Add("system", CodeSystems.RaceCode);</para>
+        /// <para>ethnicity.Add("display", "Arab");</para>
+        /// <para>ExampleDeathRecord.MotherRaceTabulation5E = ethnicity;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"MotherRaceTabulation5E: {ExampleBirthRecord.MotherRaceTabulation5E['display']}");</para>
+        /// </example>
+        [Property("Mother Race Tabulation 5E", Property.Types.Dictionary, "Coded Content", "Mother Race Tabulation 5E.", true, VR.IGURL.CodedRaceAndEthnicity, false, 66)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public Dictionary<string, string> MotherRaceTabulation5E
+        {
+            get => GetCodedRaceEthnicity(CODED_RACE_ETHNICITY_PROFILE_MOTHER, NvssRace.FifthEditedCode, "MTH");
+            set => SetCodedRaceEthnicity(value, CODED_RACE_ETHNICITY_PROFILE_MOTHER, NvssRace.FifthEditedCode, NvssRace.FifthEditedCodeDisplay, "MTH");
+        }
+
+        /// <summary>Mother Race Tabulation 5E Helper</summary>
+        /// <value>Mother Race Tabulation 5E Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotheEthnicityCodeForLiteralHelper = VR.ValueSets.HispanicOrigin.Arab;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"MotherRaceTabulation5E: {ExampleBirthRecord.MotherRaceTabulation5EHelper}");</para>
+        /// </example>
+        [Property("Mother Race Tabulation 5E Helper", Property.Types.String, "Coded Content", "Mother Race Tabulation 5E Helper.", false, VR.IGURL.CodedRaceAndEthnicity, false, 66)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicityMother')", "")]
+        public string MotherRaceTabulation5EHelper
+        {
+            get
+            {
+                if (MotherRaceTabulation5E.ContainsKey("code") && !String.IsNullOrWhiteSpace(MotherRaceTabulation5E["code"]))
+                {
+                    return MotherRaceTabulation5E["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("MotherRaceTabulation5E", value, VR.ValueSets.RaceCode.Codes);
+                }
+            }
+        }
+
+        /// <summary>Mother Race Tabulation 6E.</summary>
+        /// <value>Mother Race Tabulation 6E. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>ethnicity.Add("code", "214");</para>
+        /// <para>ethnicity.Add("system", CodeSystems.RaceCode);</para>
+        /// <para>ethnicity.Add("display", "Arab");</para>
+        /// <para>ExampleDeathRecord.MotherRaceTabulation6E = ethnicity;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"MotherRaceTabulation6E: {ExampleBirthRecord.MotherRaceTabulation6E['display']}");</para>
+        /// </example>
+        [Property("Mother Race Tabulation 6E", Property.Types.Dictionary, "Coded Content", "Mother Race Tabulation 6E.", true, VR.IGURL.CodedRaceAndEthnicity, false, 67)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public Dictionary<string, string> MotherRaceTabulation6E
+        {
+            get => GetCodedRaceEthnicity(CODED_RACE_ETHNICITY_PROFILE_MOTHER, NvssRace.SixthEditedCode, "MTH");
+            set => SetCodedRaceEthnicity(value, CODED_RACE_ETHNICITY_PROFILE_MOTHER, NvssRace.SixthEditedCode, NvssRace.SixthEditedCodeDisplay, "MTH");
+        }
+
+        /// <summary>Mother Race Tabulation 6E Helper</summary>
+        /// <value>Mother Race Tabulation 6E Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotheEthnicityCodeForLiteralHelper = VR.ValueSets.HispanicOrigin.Arab;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"MotherRaceTabulation6E: {ExampleBirthRecord.MotherRaceTabulation6EHelper}");</para>
+        /// </example>
+        [Property("Mother Race Tabulation 6E Helper", Property.Types.String, "Coded Content", "Mother Race Tabulation 6E Helper.", false, VR.IGURL.CodedRaceAndEthnicity, false, 67)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicityMother')", "")]
+        public string MotherRaceTabulation6EHelper
+        {
+            get
+            {
+                if (MotherRaceTabulation6E.ContainsKey("code") && !String.IsNullOrWhiteSpace(MotherRaceTabulation6E["code"]))
+                {
+                    return MotherRaceTabulation6E["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("MotherRaceTabulation6E", value, VR.ValueSets.RaceCode.Codes);
+                }
+            }
+        }
+
+        /// <summary>Mother Race Tabulation 7E.</summary>
+        /// <value>Mother Race Tabulation 7E. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>ethnicity.Add("code", "214");</para>
+        /// <para>ethnicity.Add("system", CodeSystems.RaceCode);</para>
+        /// <para>ethnicity.Add("display", "Arab");</para>
+        /// <para>ExampleDeathRecord.MotherRaceTabulation7E = ethnicity;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"MotherRaceTabulation7E: {ExampleBirthRecord.MotherRaceTabulation7E['display']}");</para>
+        /// </example>
+        [Property("Mother Race Tabulation 7E", Property.Types.Dictionary, "Coded Content", "Mother Race Tabulation 7E.", true, VR.IGURL.CodedRaceAndEthnicity, false, 68)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public Dictionary<string, string> MotherRaceTabulation7E
+        {
+            get => GetCodedRaceEthnicity(CODED_RACE_ETHNICITY_PROFILE_MOTHER, NvssRace.SeventhEditedCode, "MTH");
+            set => SetCodedRaceEthnicity(value, CODED_RACE_ETHNICITY_PROFILE_MOTHER, NvssRace.SeventhEditedCode, NvssRace.SeventhEditedCodeDisplay, "MTH");
+        }
+
+        /// <summary>Mother Race Tabulation 7E Helper</summary>
+        /// <value>Mother Race Tabulation 7E Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotheEthnicityCodeForLiteralHelper = VR.ValueSets.HispanicOrigin.Arab;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"MotherRaceTabulation7E: {ExampleBirthRecord.MotherRaceTabulation7EHelper}");</para>
+        /// </example>
+        [Property("Mother Race Tabulation 7E Helper", Property.Types.String, "Coded Content", "Mother Race Tabulation 7E Helper.", false, VR.IGURL.CodedRaceAndEthnicity, false, 68)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicityMother')", "")]
+        public string MotherRaceTabulation7EHelper
+        {
+            get
+            {
+                if (MotherRaceTabulation7E.ContainsKey("code") && !String.IsNullOrWhiteSpace(MotherRaceTabulation7E["code"]))
+                {
+                    return MotherRaceTabulation7E["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("MotherRaceTabulation7E", value, VR.ValueSets.RaceCode.Codes);
+                }
+            }
+        }
+
+        /// <summary>Mother Race Tabulation 8E.</summary>
+        /// <value>Mother Race Tabulation 8E. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>ethnicity.Add("code", "214");</para>
+        /// <para>ethnicity.Add("system", CodeSystems.RaceCode);</para>
+        /// <para>ethnicity.Add("display", "Arab");</para>
+        /// <para>ExampleDeathRecord.MotherRaceTabulation8E = ethnicity;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"MotherRaceTabulation8E: {ExampleBirthRecord.MotherRaceTabulation8E['display']}");</para>
+        /// </example>
+        [Property("Mother Race Tabulation 8E", Property.Types.Dictionary, "Coded Content", "Mother Race Tabulation 8E.", true, VR.IGURL.CodedRaceAndEthnicity, false, 69)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public Dictionary<string, string> MotherRaceTabulation8E
+        {
+            get => GetCodedRaceEthnicity(CODED_RACE_ETHNICITY_PROFILE_MOTHER, NvssRace.EighthEditedCode, "MTH");
+            set => SetCodedRaceEthnicity(value, CODED_RACE_ETHNICITY_PROFILE_MOTHER, NvssRace.EighthEditedCode, NvssRace.EighthEditedCodeDisplay, "MTH");
+        }
+
+        /// <summary>Mother Race Tabulation 8E Helper</summary>
+        /// <value>Mother Race Tabulation 8E Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotherRaceTabulation8EHelper = VR.ValueSets.RaceCode.Arab;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother's Race: {ExampleBirthRecord.MotherRaceTabulation8EHelper}");</para>
+        /// </example>
+        [Property("Mother Race Tabulation 8E Helper", Property.Types.String, "Coded Content", "Mother Race Tabulation 8E Helper.", false, VR.IGURL.CodedRaceAndEthnicity, false, 69)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicityMother')", "")]
+        public string MotherRaceTabulation8EHelper
+        {
+            get
+            {
+                if (MotherRaceTabulation8E.ContainsKey("code") && !String.IsNullOrWhiteSpace(MotherRaceTabulation8E["code"]))
+                {
+                    return MotherRaceTabulation8E["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("MotherRaceTabulation8E", value, VR.ValueSets.RaceCode.Codes);
+                }
+            }
+        }
+
+        /// <summary>Mother First American Indian Code.</summary>
+        /// <value>Mother First American Indian Code. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>ethnicity.Add("code", "214");</para>
+        /// <para>ethnicity.Add("system", CodeSystems.RaceCode);</para>
+        /// <para>ethnicity.Add("display", "Ahtna");</para>
+        /// <para>ExampleDeathRecord.FirstAmericanIndianCode = ethnicity;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"FirstAmericanIndianCode: {ExampleBirthRecord.FirstAmericanIndianCode['display']}");</para>
+        /// </example>
+        [Property("Mother First American Indian Code", Property.Types.Dictionary, "Coded Content", "Mother First American Indian Code.", true, VR.IGURL.CodedRaceAndEthnicity, false, 70)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public Dictionary<string, string> MotherFirstAmericanIndianCode
+        {
+            get => GetCodedRaceEthnicity(CODED_RACE_ETHNICITY_PROFILE_MOTHER, NvssRace.FirstAmericanIndianCode, "MTH");
+            set => SetCodedRaceEthnicity(value, CODED_RACE_ETHNICITY_PROFILE_MOTHER, NvssRace.FirstAmericanIndianCode, NvssRace.FirstAmericanIndianCodeDisplay, "MTH");
+        }
+
+        /// <summary>Mother First American Indian Code Helper</summary>
+        /// <value>Mother First American Indian Code Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotherFirstAmericanIndianCodeHelper = VR.ValueSets.RaceCodeAhtna;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother's Race: {ExampleBirthRecord.MotherFirstAmericanIndianCodeHelper}");</para>
+        /// </example>
+        [Property("Mother First American Indian Code Helper", Property.Types.String, "Coded Content", "Mother First American Indian Code Helper.", false, VR.IGURL.CodedRaceAndEthnicity, false, 70)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicityMother')", "")]
+        public string MotherFirstAmericanIndianCodeHelper
+        {
+            get
+            {
+                if (MotherFirstAmericanIndianCode.ContainsKey("code") && !String.IsNullOrWhiteSpace(MotherFirstAmericanIndianCode["code"]))
+                {
+                    return MotherFirstAmericanIndianCode["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("MotherFirstAmericanIndianCode", value, VR.ValueSets.RaceCode.Codes);
+                }
+            }
+        }
+
+        /// <summary>Mother Second American Indian Code.</summary>
+        /// <value>Mother Second American Indian Code. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>ethnicity.Add("code", "214");</para>
+        /// <para>ethnicity.Add("system", CodeSystems.RaceCode);</para>
+        /// <para>ethnicity.Add("display", "Ahtna");</para>
+        /// <para>ExampleDeathRecord.MotherSecondAmericanIndianCode = ethnicity;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"MotherSecondAmericanIndianCode: {ExampleBirthRecord.MotherSecondAmericanIndianCode['display']}");</para>
+        /// </example>
+        [Property("Mother Second American Indian Code", Property.Types.Dictionary, "Coded Content", "Mother Second American Indian Code.", true, VR.IGURL.CodedRaceAndEthnicity, false, 71)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public Dictionary<string, string> MotherSecondAmericanIndianCode
+        {
+            get => GetCodedRaceEthnicity(CODED_RACE_ETHNICITY_PROFILE_MOTHER, NvssRace.SecondAmericanIndianCode, "MTH");
+            set => SetCodedRaceEthnicity(value, CODED_RACE_ETHNICITY_PROFILE_MOTHER, NvssRace.SecondAmericanIndianCode, NvssRace.SecondAmericanIndianCodeDisplay, "MTH");
+        }
+
+        /// <summary>Mother Second American Indian Code Helper</summary>
+        /// <value>Mother Second American Indian Code Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotherSecondAmericanIndianCodeHelper = VR.ValueSets.RaceCodeAhtna;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother's Race: {ExampleBirthRecord.MotherSecondAmericanIndianCodeHelper}");</para>
+        /// </example>
+        [Property("Mother Second American Indian Code Helper", Property.Types.String, "Coded Content", "Mother Second American Indian Code Helper.", false, VR.IGURL.CodedRaceAndEthnicity, false, 71)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicityMother')", "")]
+        public string MotherSecondAmericanIndianCodeHelper
+        {
+            get
+            {
+                if (MotherSecondAmericanIndianCode.ContainsKey("code") && !String.IsNullOrWhiteSpace(MotherSecondAmericanIndianCode["code"]))
+                {
+                    return MotherSecondAmericanIndianCode["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("MotherSecondAmericanIndianCode", value, VR.ValueSets.RaceCode.Codes);
+                }
+            }
+        }
+
+        /// <summary>Mother First Other Asian Code.</summary>
+        /// <value>Mother First Other Asian Code. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; race = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>race.Add("code", "421");</para>
+        /// <para>race.Add("system", CodeSystems.RaceCode);</para>
+        /// <para>race.Add("display", "Filipino");</para>
+        /// <para>ExampleDeathRecord.MotherFirstOtherAsianCode = race;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"MotherFirstOtherAsianCode: {ExampleBirthRecord.MotherFirstOtherAsianCode['display']}");</para>
+        /// </example>
+        [Property("Mother First Other Asian Code", Property.Types.Dictionary, "Coded Content", "Mother First Other Asian Code.", true, VR.IGURL.CodedRaceAndEthnicity, false, 72)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public Dictionary<string, string> MotherFirstOtherAsianCode
+        {
+            get => GetCodedRaceEthnicity(CODED_RACE_ETHNICITY_PROFILE_MOTHER, NvssRace.FirstOtherAsianCode, "MTH");
+            set => SetCodedRaceEthnicity(value, CODED_RACE_ETHNICITY_PROFILE_MOTHER, NvssRace.FirstOtherAsianCode, NvssRace.FirstOtherAsianCodeDisplay, "MTH");
+        }
+
+        /// <summary>Mother First Other Asian Code Helper</summary>
+        /// <value>Mother First Other Asian Code Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotherFirstOtherAsianCodeHelper = VR.ValueSets.RaceCodeFilipino;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother's Race: {ExampleBirthRecord.MotherFirstOtherAsianCodeHelper}");</para>
+        /// </example>
+        [Property("Mother First Other Asian Code Helper", Property.Types.String, "Coded Content", "Mother First Other Asian Code Helper.", false, VR.IGURL.CodedRaceAndEthnicity, false, 72)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicityMother')", "")]
+        public string MotherFirstOtherAsianCodeHelper
+        {
+            get
+            {
+                if (MotherFirstOtherAsianCode.ContainsKey("code") && !String.IsNullOrWhiteSpace(MotherFirstOtherAsianCode["code"]))
+                {
+                    return MotherFirstOtherAsianCode["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("MotherFirstOtherAsianCode", value, VR.ValueSets.RaceCode.Codes);
+                }
+            }
+        }
+
+        /// <summary>Mother Second Other Asian Code.</summary>
+        /// <value>Mother Second Other Asian Code. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; race = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>race.Add("code", "421");</para>
+        /// <para>race.Add("system", CodeSystems.RaceCode);</para>
+        /// <para>race.Add("display", "Filipino");</para>
+        /// <para>ExampleDeathRecord.MotherSecondOtherAsianCode = race;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"MotherSecondOtherAsianCode: {ExampleBirthRecord.MotherSecondOtherAsianCode['display']}");</para>
+        /// </example>
+        [Property("Mother Second Other Asian Code", Property.Types.Dictionary, "Coded Content", "Mother Second Other Asian Code.", true, VR.IGURL.CodedRaceAndEthnicity, false, 73)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public Dictionary<string, string> MotherSecondOtherAsianCode
+        {
+            get => GetCodedRaceEthnicity(CODED_RACE_ETHNICITY_PROFILE_MOTHER, NvssRace.SecondOtherAsianCode, "MTH");
+            set => SetCodedRaceEthnicity(value, CODED_RACE_ETHNICITY_PROFILE_MOTHER, NvssRace.SecondOtherAsianCode, NvssRace.SecondOtherAsianCodeDisplay, "MTH");
+        }
+
+        /// <summary>Mother Second Other Asian Code Helper</summary>
+        /// <value>Mother Second Other Asian Code Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotherSecondOtherAsianCodeHelper = VR.ValueSets.RaceCodeFilipino;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother's Race: {ExampleBirthRecord.MotherSecondOtherAsianCodeHelper}");</para>
+        /// </example>
+        [Property("Mother Second Other Asian Code Helper", Property.Types.String, "Coded Content", "Mother Second Other Asian Code Helper.", false, VR.IGURL.CodedRaceAndEthnicity, false, 73)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicityMother')", "")]
+        public string MotherSecondOtherAsianCodeHelper
+        {
+            get
+            {
+                if (MotherSecondOtherAsianCode.ContainsKey("code") && !String.IsNullOrWhiteSpace(MotherSecondOtherAsianCode["code"]))
+                {
+                    return MotherSecondOtherAsianCode["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("MotherSecondOtherAsianCode", value, VR.ValueSets.RaceCode.Codes);
+                }
+            }
+        }
+        
+        /// <summary>Mother First Other Pacific Islander Code.</summary>
+        /// <value>Mother First Other Pacific Islander Code. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; race = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>race.Add("code", "531");</para>
+        /// <para>race.Add("system", CodeSystems.RaceCode);</para>
+        /// <para>race.Add("display", "Mariana Islander");</para>
+        /// <para>ExampleDeathRecord.MotherFirstOtherPacificIslanderCode = race;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"MotherFirstOtherPacificIslanderCode: {ExampleBirthRecord.MotherFirstOtherPacificIslanderCode['display']}");</para>
+        /// </example>
+        [Property("Mother First Other Pacific Islander Code", Property.Types.Dictionary, "Coded Content", "Mother First Other Pacific Islander Code.", true, VR.IGURL.CodedRaceAndEthnicity, false, 74)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public Dictionary<string, string> MotherFirstOtherPacificIslanderCode
+        {
+            get => GetCodedRaceEthnicity(CODED_RACE_ETHNICITY_PROFILE_MOTHER, NvssRace.FirstOtherPacificIslanderCode, "MTH");
+            set => SetCodedRaceEthnicity(value, CODED_RACE_ETHNICITY_PROFILE_MOTHER, NvssRace.FirstOtherPacificIslanderCode, NvssRace.FirstOtherPacificIslanderCodeDisplay, "MTH");
+        }
+
+        /// <summary>Mother First Other Pacific Islander Code Helper</summary>
+        /// <value>Mother First Other Pacific Islander Code Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotherFirstOtherPacificIslanderCodeHelper = VR.ValueSets.RaceCodeMariana_Islander;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother's Race: {ExampleBirthRecord.MotherFirstOtherPacificIslanderCodeHelper}");</para>
+        /// </example>
+        [Property("Mother First Other Pacific Islander Code Helper", Property.Types.String, "Coded Content", "Mother First Other Pacific Islander Code Helper.", false, VR.IGURL.CodedRaceAndEthnicity, false, 74)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicityMother')", "")]
+        public string MotherFirstOtherPacificIslanderCodeHelper
+        {
+            get
+            {
+                if (MotherFirstOtherPacificIslanderCode.ContainsKey("code") && !String.IsNullOrWhiteSpace(MotherFirstOtherPacificIslanderCode["code"]))
+                {
+                    return MotherFirstOtherPacificIslanderCode["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("MotherFirstOtherPacificIslanderCode", value, VR.ValueSets.RaceCode.Codes);
+                }
+            }
+        }
+
+        /// <summary>Mother Second Other Pacific Islander Code.</summary>
+        /// <value>Mother Second Other Pacific Islander Code. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; race = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>race.Add("code", "531");</para>
+        /// <para>race.Add("system", CodeSystems.RaceCode);</para>
+        /// <para>race.Add("display", "Mariana Islander");</para>
+        /// <para>ExampleDeathRecord.MotherSecondOtherPacificIslanderCode = race;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"MotherSecondOtherPacificIslanderCode: {ExampleBirthRecord.MotherSecondOtherPacificIslanderCode['display']}");</para>
+        /// </example>
+        [Property("Mother Second Other Pacific Islander Code", Property.Types.Dictionary, "Coded Content", "Mother Second Other Pacific Islander Code.", true, VR.IGURL.CodedRaceAndEthnicity, false, 75)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public Dictionary<string, string> MotherSecondOtherPacificIslanderCode
+        {
+            get => GetCodedRaceEthnicity(CODED_RACE_ETHNICITY_PROFILE_MOTHER, NvssRace.SecondOtherPacificIslanderCode, "MTH");
+            set => SetCodedRaceEthnicity(value, CODED_RACE_ETHNICITY_PROFILE_MOTHER, NvssRace.SecondOtherPacificIslanderCode, NvssRace.SecondOtherPacificIslanderCodeDisplay, "MTH");
+        }
+
+        /// <summary>Mother Second Other Pacific Islander Code Helper</summary>
+        /// <value>Mother Second Other Pacific Islander Code Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotherSecondOtherPacificIslanderCodeHelper = VR.ValueSets.RaceCodeMariana_Islander;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother's Race: {ExampleBirthRecord.MotherSecondOtherPacificIslanderCodeHelper}");</para>
+        /// </example>
+        [Property("Mother Second Other Pacific Islander Code Helper", Property.Types.String, "Coded Content", "Mother Second Other Pacific Islander Code Helper.", false, VR.IGURL.CodedRaceAndEthnicity, false, 75)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicityMother')", "")]
+        public string MotherSecondOtherPacificIslanderCodeHelper
+        {
+            get
+            {
+                if (MotherSecondOtherPacificIslanderCode.ContainsKey("code") && !String.IsNullOrWhiteSpace(MotherSecondOtherPacificIslanderCode["code"]))
+                {
+                    return MotherSecondOtherPacificIslanderCode["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("MotherSecondOtherPacificIslanderCode", value, VR.ValueSets.RaceCode.Codes);
+                }
+            }
+        }
+
+        /// <summary>Mother First Other Race Code.</summary>
+        /// <value>Mother First Other Race Code. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; race = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>race.Add("code", "531");</para>
+        /// <para>race.Add("system", CodeSystems.RaceCode);</para>
+        /// <para>race.Add("display", "Mariana Islander");</para>
+        /// <para>ExampleDeathRecord.MotherFirstOtherRaceCode = race;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"MotherFirstOtherRaceCode: {ExampleBirthRecord.MotherFirstOtherRaceCode['display']}");</para>
+        /// </example>
+        [Property("Mother First Other Race Code", Property.Types.Dictionary, "Coded Content", "Mother First Other Race Code.", true, VR.IGURL.CodedRaceAndEthnicity, false, 76)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public Dictionary<string, string> MotherFirstOtherRaceCode
+        {
+            get => GetCodedRaceEthnicity(CODED_RACE_ETHNICITY_PROFILE_MOTHER, NvssRace.FirstOtherRaceCode, "MTH");
+            set => SetCodedRaceEthnicity(value, CODED_RACE_ETHNICITY_PROFILE_MOTHER, NvssRace.FirstOtherRaceCode, NvssRace.FirstOtherRaceCodeDisplay, "MTH");
+        }
+
+        /// <summary>Mother First Other Race Code Helper</summary>
+        /// <value>Mother First Other Race Code Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotherFirstOtherRaceCodeHelper = VR.ValueSets.RaceCodeMariana_Islander;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother's Race: {ExampleBirthRecord.MotherFirstOtherRaceCodeHelper}");</para>
+        /// </example>
+        [Property("Mother First Other Race Code Helper", Property.Types.String, "Coded Content", "Mother First Other Race Code Helper.", false, VR.IGURL.CodedRaceAndEthnicity, false, 76)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicityMother')", "")]
+        public string MotherFirstOtherRaceCodeHelper
+        {
+            get
+            {
+                if (MotherFirstOtherRaceCode.ContainsKey("code") && !String.IsNullOrWhiteSpace(MotherFirstOtherRaceCode["code"]))
+                {
+                    return MotherFirstOtherRaceCode["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("MotherFirstOtherRaceCode", value, VR.ValueSets.RaceCode.Codes);
+                }
+            }
+        }
+
+        /// <summary>Mother Second Other Race Code.</summary>
+        /// <value>Mother Second Other Race Code. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; race = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>race.Add("code", "531");</para>
+        /// <para>race.Add("system", CodeSystems.RaceCode);</para>
+        /// <para>race.Add("display", "Mariana Islander");</para>
+        /// <para>ExampleDeathRecord.MotherSecondOtherRaceCode = race;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"MotherSecondOtherRaceCode: {ExampleBirthRecord.MotherSecondOtherRaceCode['display']}");</para>
+        /// </example>
+        [Property("Mother Second Other Race Code", Property.Types.Dictionary, "Coded Content", "Mother Second Other Race Code.", true, VR.IGURL.CodedRaceAndEthnicity, false, 77)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public Dictionary<string, string> MotherSecondOtherRaceCode
+        {
+            get => GetCodedRaceEthnicity(CODED_RACE_ETHNICITY_PROFILE_MOTHER, NvssRace.SecondOtherRaceCode, "MTH");
+            set => SetCodedRaceEthnicity(value, CODED_RACE_ETHNICITY_PROFILE_MOTHER, NvssRace.SecondOtherRaceCode, NvssRace.SecondOtherRaceCodeDisplay, "MTH");
+        }
+
+        /// <summary>Mother Second Other Race Code Helper</summary>
+        /// <value>MOther Second Other Race Code Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotherSecondOtherRaceCodeHelper = VR.ValueSets.RaceCodeMariana_Islander;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother's Race: {ExampleBirthRecord.MotherSecondOtherRaceCodeHelper}");</para>
+        /// </example>
+        [Property("Mother Second Other Race Code Helper", Property.Types.String, "Coded Content", "Mother Second Other Race Code Helper.", false, VR.IGURL.CodedRaceAndEthnicity, false, 77)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicityMother')", "")]
+        public string MotherSecondOtherRaceCodeHelper
+        {
+            get
+            {
+                if (MotherSecondOtherRaceCode.ContainsKey("code") && !String.IsNullOrWhiteSpace(MotherSecondOtherRaceCode["code"]))
+                {
+                    return MotherSecondOtherRaceCode["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("MotherSecondOtherRaceCode", value, VR.ValueSets.RaceCode.Codes);
+                }
+            }
+        }
+
+        /// <summary>Mother Ethnicity Code For Literal.</summary>
+        /// <value>Mother Ethnicity Code For Literal. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>ethnicity.Add("code", "214");</para>
+        /// <para>ethnicity.Add("system", CodeSystems.VRCLHispanicOrigin);</para>
+        /// <para>ethnicity.Add("display", "Chicano");</para>
+        /// <para>ExampleDeathRecord.MotherEthnicityCodeForLiteral = ethnicity;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Ethnicity Code For Literal: {ExampleBirthRecord.MotherEthnicityCodeForLiteral['display']}");</para>
+        /// </example>
+        [Property("Mother Ethnicity Code For Literal", Property.Types.Dictionary, "Coded Content", "Ethnicity Code For Literal.", true, VR.IGURL.CodedRaceAndEthnicity, false, 292)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public Dictionary<string, string> MotherEthnicityCodeForLiteral
+        {
+            get => GetCodedRaceEthnicity(CODED_RACE_ETHNICITY_PROFILE_MOTHER, NvssEthnicity.CodeForLiteral, "MTH");
+            set => SetCodedRaceEthnicity(value, CODED_RACE_ETHNICITY_PROFILE_MOTHER, NvssEthnicity.CodeForLiteral, NvssEthnicity.CodeForLiteralDisplay, "MTH");
+        }
+
+        /// <summary>Mother Ethnicity Code For Literal Helper</summary>
+        /// <value>Mother Ethnicity Code For Literal Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotheEthnicityCodeForLiteralHelper = VR.ValueSets.HispanicOrigin.Andalusian;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother's Ethnicity: {ExampleBirthRecord.MotherEthnicityCodeForLiteralHelper}");</para>
+        /// </example>
+        [Property("Mother Ethnicity Code For Literal Helper", Property.Types.String, "Coded Content", "Mother Ethnicity Code For Literal Helper.", false, VR.IGURL.CodedRaceAndEthnicity, false, 292)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicityMother')", "")]
+        public string MotherEthnicityCodeForLiteralHelper
+        {
+            get
+            {
+                if (MotherEthnicityCodeForLiteral.ContainsKey("code") && !String.IsNullOrWhiteSpace(MotherEthnicityCodeForLiteral["code"]))
+                {
+                    return MotherEthnicityCodeForLiteral["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("MotherEthnicityCodeForLiteral", value, VR.ValueSets.HispanicOrigin.Codes);
+                }
+            }
+        }
+
+        /// <summary>Mother Ethnicity Edited Code.</summary>
+        /// <value>Mother Ethnicity Edited Code. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>ethnicity.Add("code", "214");</para>
+        /// <para>ethnicity.Add("system", CodeSystems.VRCLHispanicOrigin);</para>
+        /// <para>ethnicity.Add("display", "Chicano");</para>
+        /// <para>ExampleDeathRecord.MotherEthnicityEditedCode = ethnicity;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother Ethnicity Edited Code: {ExampleBirthRecord.MotherEthnicityEditedCode['display']}");</para>
+        /// </example>
+        [Property("Mother Ethnicity Edited Code", Property.Types.Dictionary, "Coded Content", "Mother Ethnicity Edited Code.", true, VR.IGURL.CodedRaceAndEthnicity, false, 293)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public Dictionary<string, string> MotherEthnicityEditedCode
+        {
+            get => GetCodedRaceEthnicity(CODED_RACE_ETHNICITY_PROFILE_MOTHER, NvssEthnicity.EditedCode, "MTH");
+            set => SetCodedRaceEthnicity(value, CODED_RACE_ETHNICITY_PROFILE_MOTHER, NvssEthnicity.EditedCode, NvssEthnicity.EditedCodeDisplay, "MTH");
+        }
+
+        /// <summary>Mother Ethnicity Edited Code Helper</summary>
+        /// <value>Mother Ethnicity Edited Code Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotherEthnicityCodeHelper = VR.ValueSets.HispanicOrigin.Andalusian;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother's Ethnicity: {ExampleBirthRecord.MotherEthnicityEditedCodeHelper}");</para>
+        /// </example>
+        [Property("Mother Ethnicity Edited Code Helper", Property.Types.String, "Coded Content", "Mother Ethnicity Edited Code Helper.", false, VR.IGURL.CodedRaceAndEthnicity, false, 293)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicityMother')", "")]
+        public string MotherEthnicityEditedCodeHelper
+        {
+            get
+            {
+                if (MotherEthnicityEditedCode.ContainsKey("code") && !String.IsNullOrWhiteSpace(MotherEthnicityEditedCode["code"]))
+                {
+                    return MotherEthnicityEditedCode["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("MotherEthnicityEditedCode", value, VR.ValueSets.HispanicOrigin.Codes);
+                }
+            }
+        }
+
+
+        /// <summary>Father Race Tabulation 1E.</summary>
+        /// <value>Father Race Tabulation 1E. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>ethnicity.Add("code", "214");</para>
+        /// <para>ethnicity.Add("system", CodeSystems.RaceCode);</para>
+        /// <para>ethnicity.Add("display", "Arab");</para>
+        /// <para>ExampleDeathRecord.FatherRaceTabulation1E = ethnicity;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"FatherRaceTabulation1E: {ExampleBirthRecord.FatherRaceTabulation1E['display']}");</para>
+        /// </example>
+        [Property("Father Race Tabulation 1E", Property.Types.Dictionary, "Coded Content", "Father Race Tabulation 1E.", true, VR.IGURL.CodedRaceAndEthnicity, false, 108)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public Dictionary<string, string> FatherRaceTabulation1E
+        {
+            get => GetCodedRaceEthnicity(CODED_RACE_ETHNICITY_PROFILE_FATHER, NvssRace.FirstEditedCode, "NFTH");
+            set => SetCodedRaceEthnicity(value, CODED_RACE_ETHNICITY_PROFILE_FATHER, NvssRace.FirstEditedCode, NvssRace.FirstEditedCodeDisplay, "NFTH");
+        }
+
+        /// <summary>Father Race Tabulation 1E Helper</summary>
+        /// <value>Father Race Tabulation 1E Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotheEthnicityCodeForLiteralHelper = VR.ValueSets.HispanicOrigin.Arab;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"FatherRaceTabulation1E: {ExampleBirthRecord.FatherRaceTabulation1EHelper}");</para>
+        /// </example>
+        [Property("Father Race Tabulation 1E Helper", Property.Types.String, "Coded Content", "Father Race Tabulation 1E Helper.", false, VR.IGURL.CodedRaceAndEthnicity, false, 108)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicityFather')", "")]
+        public string FatherRaceTabulation1EHelper
+        {
+            get
+            {
+                if (FatherRaceTabulation1E.ContainsKey("code") && !String.IsNullOrWhiteSpace(FatherRaceTabulation1E["code"]))
+                {
+                    return FatherRaceTabulation1E["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("FatherRaceTabulation1E", value, VR.ValueSets.RaceCode.Codes);
+                }
+            }
+        }
+
+        /// <summary>Father Race Tabulation 2E.</summary>
+        /// <value>Father Race Tabulation 2E. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>ethnicity.Add("code", "214");</para>
+        /// <para>ethnicity.Add("system", CodeSystems.RaceCode);</para>
+        /// <para>ethnicity.Add("display", "Arab");</para>
+        /// <para>ExampleDeathRecord.FatherRaceTabulation2E = ethnicity;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"FatherRaceTabulation2E: {ExampleBirthRecord.FatherRaceTabulation2E['display']}");</para>
+        /// </example>
+        [Property("Father Race Tabulation 2E", Property.Types.Dictionary, "Coded Content", "Father Race Tabulation 2E.", true, VR.IGURL.CodedRaceAndEthnicity, false, 109)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public Dictionary<string, string> FatherRaceTabulation2E
+        {
+            get => GetCodedRaceEthnicity(CODED_RACE_ETHNICITY_PROFILE_FATHER, NvssRace.SecondEditedCode, "NFTH");
+            set => SetCodedRaceEthnicity(value, CODED_RACE_ETHNICITY_PROFILE_FATHER, NvssRace.SecondEditedCode, NvssRace.SecondEditedCodeDisplay, "NFTH");
+        }
+
+        /// <summary>Father Race Tabulation 2E Helper</summary>
+        /// <value>Father Race Tabulation 2E Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotheEthnicityCodeForLiteralHelper = VR.ValueSets.HispanicOrigin.Arab;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"FatherRaceTabulation2E: {ExampleBirthRecord.FatherRaceTabulation2EHelper}");</para>
+        /// </example>
+        [Property("Father Race Tabulation 2E Helper", Property.Types.String, "Coded Content", "Father Race Tabulation 2E Helper.", false, VR.IGURL.CodedRaceAndEthnicity, false, 109)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicityFather')", "")]
+        public string FatherRaceTabulation2EHelper
+        {
+            get
+            {
+                if (FatherRaceTabulation2E.ContainsKey("code") && !String.IsNullOrWhiteSpace(FatherRaceTabulation2E["code"]))
+                {
+                    return FatherRaceTabulation2E["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("FatherRaceTabulation2E", value, VR.ValueSets.RaceCode.Codes);
+                }
+            }
+        }
+
+
+        /// <summary>Father Race Tabulation 3E.</summary>
+        /// <value>Father Race Tabulation 3E. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>ethnicity.Add("code", "214");</para>
+        /// <para>ethnicity.Add("system", CodeSystems.RaceCode);</para>
+        /// <para>ethnicity.Add("display", "Arab");</para>
+        /// <para>ExampleDeathRecord.FatherRaceTabulation3E = ethnicity;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"FatherRaceTabulation3E: {ExampleBirthRecord.FatherRaceTabulation3E['display']}");</para>
+        /// </example>
+        [Property("Father Race Tabulation 3E", Property.Types.Dictionary, "Coded Content", "Father Race Tabulation 3E.", true, VR.IGURL.CodedRaceAndEthnicity, false, 110)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public Dictionary<string, string> FatherRaceTabulation3E
+        {
+            get => GetCodedRaceEthnicity(CODED_RACE_ETHNICITY_PROFILE_FATHER, NvssRace.ThirdEditedCode, "NFTH");
+            set => SetCodedRaceEthnicity(value, CODED_RACE_ETHNICITY_PROFILE_FATHER, NvssRace.ThirdEditedCode, NvssRace.ThirdEditedCodeDisplay, "NFTH");
+        }
+
+        /// <summary>Father Race Tabulation 3E Helper</summary>
+        /// <value>Father Race Tabulation 3E Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotheEthnicityCodeForLiteralHelper = VR.ValueSets.HispanicOrigin.Arab;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"FatherRaceTabulation3E: {ExampleBirthRecord.FatherRaceTabulation3EHelper}");</para>
+        /// </example>
+        [Property("Father Race Tabulation 3E Helper", Property.Types.String, "Coded Content", "Father Race Tabulation 3E Helper.", false, VR.IGURL.CodedRaceAndEthnicity, false, 110)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicityFather')", "")]
+        public string FatherRaceTabulation3EHelper
+        {
+            get
+            {
+                if (FatherRaceTabulation3E.ContainsKey("code") && !String.IsNullOrWhiteSpace(FatherRaceTabulation3E["code"]))
+                {
+                    return FatherRaceTabulation3E["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("FatherRaceTabulation3E", value, VR.ValueSets.RaceCode.Codes);
+                }
+            }
+        }
+
+        /// <summary>Father Race Tabulation 4E.</summary>
+        /// <value>Father Race Tabulation 4E. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>ethnicity.Add("code", "214");</para>
+        /// <para>ethnicity.Add("system", CodeSystems.RaceCode);</para>
+        /// <para>ethnicity.Add("display", "Arab");</para>
+        /// <para>ExampleDeathRecord.FatherRaceTabulation4E = ethnicity;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"FatherRaceTabulation4E: {ExampleBirthRecord.FatherRaceTabulation4E['display']}");</para>
+        /// </example>
+        [Property("Father Race Tabulation 4E", Property.Types.Dictionary, "Coded Content", "Father Race Tabulation 4E.", true, VR.IGURL.CodedRaceAndEthnicity, false, 111)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public Dictionary<string, string> FatherRaceTabulation4E
+        {
+            get => GetCodedRaceEthnicity(CODED_RACE_ETHNICITY_PROFILE_FATHER, NvssRace.FourthEditedCode, "NFTH");
+            set => SetCodedRaceEthnicity(value, CODED_RACE_ETHNICITY_PROFILE_FATHER, NvssRace.FourthEditedCode, NvssRace.FourthEditedCodeDisplay, "NFTH");
+        }
+
+        /// <summary>Father Race Tabulation 4E Helper</summary>
+        /// <value>Father Race Tabulation 4E Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotheEthnicityCodeForLiteralHelper = VR.ValueSets.HispanicOrigin.Arab;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"FatherRaceTabulation4E: {ExampleBirthRecord.FatherRaceTabulation4EHelper}");</para>
+        /// </example>
+        [Property("Father Race Tabulation 4E Helper", Property.Types.String, "Coded Content", "Father Race Tabulation 4E Helper.", false, VR.IGURL.CodedRaceAndEthnicity, false, 111)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicityFather')", "")]
+        public string FatherRaceTabulation4EHelper
+        {
+            get
+            {
+                if (FatherRaceTabulation4E.ContainsKey("code") && !String.IsNullOrWhiteSpace(FatherRaceTabulation4E["code"]))
+                {
+                    return FatherRaceTabulation4E["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("FatherRaceTabulation4E", value, VR.ValueSets.RaceCode.Codes);
+                }
+            }
+        }
+
+        /// <summary>Father Race Tabulation 5E.</summary>
+        /// <value>Father Race Tabulation 5E. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>ethnicity.Add("code", "214");</para>
+        /// <para>ethnicity.Add("system", CodeSystems.RaceCode);</para>
+        /// <para>ethnicity.Add("display", "Arab");</para>
+        /// <para>ExampleDeathRecord.FatherRaceTabulation5E = ethnicity;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"FatherRaceTabulation5E: {ExampleBirthRecord.FatherRaceTabulation5E['display']}");</para>
+        /// </example>
+        [Property("Father Race Tabulation 5E", Property.Types.Dictionary, "Coded Content", "Father Race Tabulation 5E.", true, VR.IGURL.CodedRaceAndEthnicity, false, 112)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public Dictionary<string, string> FatherRaceTabulation5E
+        {
+            get => GetCodedRaceEthnicity(CODED_RACE_ETHNICITY_PROFILE_FATHER, NvssRace.FifthEditedCode, "NFTH");
+            set => SetCodedRaceEthnicity(value, CODED_RACE_ETHNICITY_PROFILE_FATHER, NvssRace.FifthEditedCode, NvssRace.FifthEditedCodeDisplay, "NFTH");
+        }
+
+        /// <summary>Father Race Tabulation 5E Helper</summary>
+        /// <value>Father Race Tabulation 5E Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotheEthnicityCodeForLiteralHelper = VR.ValueSets.HispanicOrigin.Arab;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"FatherRaceTabulation5E: {ExampleBirthRecord.FatherRaceTabulation5EHelper}");</para>
+        /// </example>
+        [Property("Father Race Tabulation 5E Helper", Property.Types.String, "Coded Content", "Father Race Tabulation 5E Helper.", false, VR.IGURL.CodedRaceAndEthnicity, false, 112)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicityFather')", "")]
+        public string FatherRaceTabulation5EHelper
+        {
+            get
+            {
+                if (FatherRaceTabulation5E.ContainsKey("code") && !String.IsNullOrWhiteSpace(FatherRaceTabulation5E["code"]))
+                {
+                    return FatherRaceTabulation5E["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("FatherRaceTabulation5E", value, VR.ValueSets.RaceCode.Codes);
+                }
+            }
+        }
+
+        /// <summary>Father Race Tabulation 6E.</summary>
+        /// <value>Father Race Tabulation 6E. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>ethnicity.Add("code", "214");</para>
+        /// <para>ethnicity.Add("system", CodeSystems.RaceCode);</para>
+        /// <para>ethnicity.Add("display", "Arab");</para>
+        /// <para>ExampleDeathRecord.FatherRaceTabulation6E = ethnicity;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"FatherRaceTabulation6E: {ExampleBirthRecord.FatherRaceTabulation6E['display']}");</para>
+        /// </example>
+        [Property("Father Race Tabulation 6E", Property.Types.Dictionary, "Coded Content", "Father Race Tabulation 6E.", true, VR.IGURL.CodedRaceAndEthnicity, false, 113)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public Dictionary<string, string> FatherRaceTabulation6E
+        {
+            get => GetCodedRaceEthnicity(CODED_RACE_ETHNICITY_PROFILE_FATHER, NvssRace.SixthEditedCode, "NFTH");
+            set => SetCodedRaceEthnicity(value, CODED_RACE_ETHNICITY_PROFILE_FATHER, NvssRace.SixthEditedCode, NvssRace.SixthEditedCodeDisplay, "NFTH");
+        }
+
+        /// <summary>Father Race Tabulation 6E Helper</summary>
+        /// <value>Father Race Tabulation 6E Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotheEthnicityCodeForLiteralHelper = VR.ValueSets.HispanicOrigin.Arab;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"FatherRaceTabulation6E: {ExampleBirthRecord.FatherRaceTabulation6EHelper}");</para>
+        /// </example>
+        [Property("Father Race Tabulation 6E Helper", Property.Types.String, "Coded Content", "Father Race Tabulation 6E Helper.", false, VR.IGURL.CodedRaceAndEthnicity, false, 113)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicityFather')", "")]
+        public string FatherRaceTabulation6EHelper
+        {
+            get
+            {
+                if (FatherRaceTabulation6E.ContainsKey("code") && !String.IsNullOrWhiteSpace(FatherRaceTabulation6E["code"]))
+                {
+                    return FatherRaceTabulation6E["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("FatherRaceTabulation6E", value, VR.ValueSets.RaceCode.Codes);
+                }
+            }
+        }
+
+        /// <summary>Father Race Tabulation 7E.</summary>
+        /// <value>Father Race Tabulation 7E. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>ethnicity.Add("code", "214");</para>
+        /// <para>ethnicity.Add("system", CodeSystems.RaceCode);</para>
+        /// <para>ethnicity.Add("display", "Arab");</para>
+        /// <para>ExampleDeathRecord.FatherRaceTabulation7E = ethnicity;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"FatherRaceTabulation7E: {ExampleBirthRecord.FatherRaceTabulation7E['display']}");</para>
+        /// </example>
+        [Property("Father Race Tabulation 7E", Property.Types.Dictionary, "Coded Content", "Father Race Tabulation 7E.", true, VR.IGURL.CodedRaceAndEthnicity, false, 114)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public Dictionary<string, string> FatherRaceTabulation7E
+        {
+            get => GetCodedRaceEthnicity(CODED_RACE_ETHNICITY_PROFILE_FATHER, NvssRace.SeventhEditedCode, "NFTH");
+            set => SetCodedRaceEthnicity(value, CODED_RACE_ETHNICITY_PROFILE_FATHER, NvssRace.SeventhEditedCode, NvssRace.SeventhEditedCodeDisplay, "NFTH");
+        }
+
+        /// <summary>Father Race Tabulation 7E Helper</summary>
+        /// <value>Father Race Tabulation 7E Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotheEthnicityCodeForLiteralHelper = VR.ValueSets.HispanicOrigin.Arab;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"FatherRaceTabulation7E: {ExampleBirthRecord.FatherRaceTabulation7EHelper}");</para>
+        /// </example>
+        [Property("Father Race Tabulation 7E Helper", Property.Types.String, "Coded Content", "Father Race Tabulation 7E Helper.", false, VR.IGURL.CodedRaceAndEthnicity, false, 114)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicityFather')", "")]
+        public string FatherRaceTabulation7EHelper
+        {
+            get
+            {
+                if (FatherRaceTabulation7E.ContainsKey("code") && !String.IsNullOrWhiteSpace(FatherRaceTabulation7E["code"]))
+                {
+                    return FatherRaceTabulation7E["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("FatherRaceTabulation7E", value, VR.ValueSets.RaceCode.Codes);
+                }
+            }
+        }
+
+        /// <summary>Father Race Tabulation 8E.</summary>
+        /// <value>Father Race Tabulation 8E. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>ethnicity.Add("code", "214");</para>
+        /// <para>ethnicity.Add("system", CodeSystems.RaceCode);</para>
+        /// <para>ethnicity.Add("display", "Arab");</para>
+        /// <para>ExampleDeathRecord.FatherRaceTabulation8E = ethnicity;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"FatherRaceTabulation8E: {ExampleBirthRecord.FatherRaceTabulation8E['display']}");</para>
+        /// </example>
+        [Property("Father Race Tabulation 8E", Property.Types.Dictionary, "Coded Content", "Father Race Tabulation 8E.", true, VR.IGURL.CodedRaceAndEthnicity, false, 115)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public Dictionary<string, string> FatherRaceTabulation8E
+        {
+            get => GetCodedRaceEthnicity(CODED_RACE_ETHNICITY_PROFILE_FATHER, NvssRace.EighthEditedCode, "NFTH");
+            set => SetCodedRaceEthnicity(value, CODED_RACE_ETHNICITY_PROFILE_FATHER, NvssRace.EighthEditedCode, NvssRace.EighthEditedCodeDisplay, "NFTH");
+        }
+
+        /// <summary>Father Race Tabulation 8E Helper</summary>
+        /// <value>Father Race Tabulation 8E Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.FatherRaceTabulation8EHelper = VR.ValueSets.RaceCode.Arab;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Father's Race: {ExampleBirthRecord.FatherRaceTabulation8EHelper}");</para>
+        /// </example>
+        [Property("Father Race Tabulation 8E Helper", Property.Types.String, "Coded Content", "Father Race Tabulation 8E Helper.", false, VR.IGURL.CodedRaceAndEthnicity, false, 115)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicityFather')", "")]
+        public string FatherRaceTabulation8EHelper
+        {
+            get
+            {
+                if (FatherRaceTabulation8E.ContainsKey("code") && !String.IsNullOrWhiteSpace(FatherRaceTabulation8E["code"]))
+                {
+                    return FatherRaceTabulation8E["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("FatherRaceTabulation8E", value, VR.ValueSets.RaceCode.Codes);
+                }
+            }
+        }
+
+        /// <summary>Father First American Indian Code.</summary>
+        /// <value>Father First American Indian Code. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>ethnicity.Add("code", "214");</para>
+        /// <para>ethnicity.Add("system", CodeSystems.RaceCode);</para>
+        /// <para>ethnicity.Add("display", "Ahtna");</para>
+        /// <para>ExampleDeathRecord.FirstAmericanIndianCode = ethnicity;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"FirstAmericanIndianCode: {ExampleBirthRecord.FirstAmericanIndianCode['display']}");</para>
+        /// </example>
+        [Property("Father First American Indian Code", Property.Types.Dictionary, "Coded Content", "Father First American Indian Code.", true, VR.IGURL.CodedRaceAndEthnicity, false, 116)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public Dictionary<string, string> FatherFirstAmericanIndianCode
+        {
+            get => GetCodedRaceEthnicity(CODED_RACE_ETHNICITY_PROFILE_FATHER, NvssRace.FirstAmericanIndianCode, "NFTH");
+            set => SetCodedRaceEthnicity(value, CODED_RACE_ETHNICITY_PROFILE_FATHER, NvssRace.FirstAmericanIndianCode, NvssRace.FirstAmericanIndianCodeDisplay, "NFTH");
+        }
+
+        /// <summary>Father First American Indian Code Helper</summary>
+        /// <value>Father First American Indian Code Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.FatherFirstAmericanIndianCodeHelper = VR.ValueSets.RaceCodeAhtna;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Father's Race: {ExampleBirthRecord.FatherFirstAmericanIndianCodeHelper}");</para>
+        /// </example>
+        [Property("Father First American Indian Code Helper", Property.Types.String, "Coded Content", "Father First American Indian Code Helper.", false, VR.IGURL.CodedRaceAndEthnicity, false, 116)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicityFather')", "")]
+        public string FatherFirstAmericanIndianCodeHelper
+        {
+            get
+            {
+                if (FatherFirstAmericanIndianCode.ContainsKey("code") && !String.IsNullOrWhiteSpace(FatherFirstAmericanIndianCode["code"]))
+                {
+                    return FatherFirstAmericanIndianCode["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("FatherFirstAmericanIndianCode", value, VR.ValueSets.RaceCode.Codes);
+                }
+            }
+        }
+
+        /// <summary>Father Second American Indian Code.</summary>
+        /// <value>Father Second American Indian Code. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>ethnicity.Add("code", "214");</para>
+        /// <para>ethnicity.Add("system", CodeSystems.RaceCode);</para>
+        /// <para>ethnicity.Add("display", "Ahtna");</para>
+        /// <para>ExampleDeathRecord.FatherSecondAmericanIndianCode = ethnicity;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"FatherSecondAmericanIndianCode: {ExampleBirthRecord.FatherSecondAmericanIndianCode['display']}");</para>
+        /// </example>
+        [Property("Father Second American Indian Code", Property.Types.Dictionary, "Coded Content", "Father Second American Indian Code.", true, VR.IGURL.CodedRaceAndEthnicity, false, 117)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public Dictionary<string, string> FatherSecondAmericanIndianCode
+        {
+            get => GetCodedRaceEthnicity(CODED_RACE_ETHNICITY_PROFILE_FATHER, NvssRace.SecondAmericanIndianCode, "NFTH");
+            set => SetCodedRaceEthnicity(value, CODED_RACE_ETHNICITY_PROFILE_FATHER, NvssRace.SecondAmericanIndianCode, NvssRace.SecondAmericanIndianCodeDisplay, "NFTH");
+        }
+
+        /// <summary>Father Second American Indian Code Helper</summary>
+        /// <value>Fathe Second American Indian Code Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.FatherSecondAmericanIndianCodeHelper = VR.ValueSets.RaceCodeAhtna;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Father's Race: {ExampleBirthRecord.FatherSecondAmericanIndianCodeHelper}");</para>
+        /// </example>
+        [Property("Father Second American Indian Code Helper", Property.Types.String, "Coded Content", "Father Second American Indian Code Helper.", false, VR.IGURL.CodedRaceAndEthnicity, false, 117)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicityFather')", "")]
+        public string FatherSecondAmericanIndianCodeHelper
+        {
+            get
+            {
+                if (FatherSecondAmericanIndianCode.ContainsKey("code") && !String.IsNullOrWhiteSpace(FatherSecondAmericanIndianCode["code"]))
+                {
+                    return FatherSecondAmericanIndianCode["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("FatherSecondAmericanIndianCode", value, VR.ValueSets.RaceCode.Codes);
+                }
+            }
+        }
+
+        /// <summary>Father First Other Asian Code.</summary>
+        /// <value>Father First Other Asian Code. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; race = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>race.Add("code", "421");</para>
+        /// <para>race.Add("system", CodeSystems.RaceCode);</para>
+        /// <para>race.Add("display", "Filipino");</para>
+        /// <para>ExampleDeathRecord.FatherFirstOtherAsianCode = race;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"FatherFirstOtherAsianCode: {ExampleBirthRecord.FatherFirstOtherAsianCode['display']}");</para>
+        /// </example>
+        [Property("Father First Other Asian Code", Property.Types.Dictionary, "Coded Content", "Father First Other Asian Code.", true, VR.IGURL.CodedRaceAndEthnicity, false, 118)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public Dictionary<string, string> FatherFirstOtherAsianCode
+        {
+            get => GetCodedRaceEthnicity(CODED_RACE_ETHNICITY_PROFILE_FATHER, NvssRace.FirstOtherAsianCode, "NFTH");
+            set => SetCodedRaceEthnicity(value, CODED_RACE_ETHNICITY_PROFILE_FATHER, NvssRace.FirstOtherAsianCode, NvssRace.FirstOtherAsianCodeDisplay, "NFTH");
+        }
+
+        /// <summary>Father First Other Asian Code Helper</summary>
+        /// <value>Father First Other Asian Code Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.FatherFirstOtherAsianCodeHelper = VR.ValueSets.RaceCodeFilipino;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Father's Race: {ExampleBirthRecord.FatherFirstOtherAsianCodeHelper}");</para>
+        /// </example>
+        [Property("Father First Other Asian Code Helper", Property.Types.String, "Coded Content", "Father First Other Asian Code Helper.", false, VR.IGURL.CodedRaceAndEthnicity, false, 118)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicityFather')", "")]
+        public string FatherFirstOtherAsianCodeHelper
+        {
+            get
+            {
+                if (FatherFirstOtherAsianCode.ContainsKey("code") && !String.IsNullOrWhiteSpace(FatherFirstOtherAsianCode["code"]))
+                {
+                    return FatherFirstOtherAsianCode["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("FatherFirstOtherAsianCode", value, VR.ValueSets.RaceCode.Codes);
+                }
+            }
+        }
+
+        /// <summary>Father Second Other Asian Code.</summary>
+        /// <value>Father Second Other Asian Code. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; race = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>race.Add("code", "421");</para>
+        /// <para>race.Add("system", CodeSystems.RaceCode);</para>
+        /// <para>race.Add("display", "Filipino");</para>
+        /// <para>ExampleDeathRecord.FatherSecondOtherAsianCode = race;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"FatherSecondOtherAsianCode: {ExampleBirthRecord.FatherSecondOtherAsianCode['display']}");</para>
+        /// </example>
+        [Property("Father Second Other Asian Code", Property.Types.Dictionary, "Coded Content", "Father Second Other Asian Code.", true, VR.IGURL.CodedRaceAndEthnicity, false, 119)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public Dictionary<string, string> FatherSecondOtherAsianCode
+        {
+            get => GetCodedRaceEthnicity(CODED_RACE_ETHNICITY_PROFILE_FATHER, NvssRace.SecondOtherAsianCode, "NFTH");
+            set => SetCodedRaceEthnicity(value, CODED_RACE_ETHNICITY_PROFILE_FATHER, NvssRace.SecondOtherAsianCode, NvssRace.SecondOtherAsianCodeDisplay, "NFTH");
+        }
+
+        /// <summary>Father Second Other Asian Code Helper</summary>
+        /// <value>Father Second Other Asian Code Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.FatherSecondOtherAsianCodeHelper = VR.ValueSets.RaceCodeFilipino;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Father's Race: {ExampleBirthRecord.FatherSecondOtherAsianCodeHelper}");</para>
+        /// </example>
+        [Property("Father Second Other Asian Code Helper", Property.Types.String, "Coded Content", "Father Second Other Asian Code Helper.", false, VR.IGURL.CodedRaceAndEthnicity, false, 119)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicityFather')", "")]
+        public string FatherSecondOtherAsianCodeHelper
+        {
+            get
+            {
+                if (FatherSecondOtherAsianCode.ContainsKey("code") && !String.IsNullOrWhiteSpace(FatherSecondOtherAsianCode["code"]))
+                {
+                    return FatherSecondOtherAsianCode["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("FatherSecondOtherAsianCode", value, VR.ValueSets.RaceCode.Codes);
+                }
+            }
+        }
+        
+        /// <summary>Father First Other Pacific Islander Code.</summary>
+        /// <value>Father First Other Pacific Islander Code. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; race = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>race.Add("code", "531");</para>
+        /// <para>race.Add("system", CodeSystems.RaceCode);</para>
+        /// <para>race.Add("display", "Mariana Islander");</para>
+        /// <para>ExampleDeathRecord.FatherFirstOtherPacificIslanderCode = race;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"FatherFirstOtherPacificIslanderCode: {ExampleBirthRecord.FatherFirstOtherPacificIslanderCode['display']}");</para>
+        /// </example>
+        [Property("Father First Other Pacific Islander Code", Property.Types.Dictionary, "Coded Content", "Father First Other Pacific Islander Code.", true, VR.IGURL.CodedRaceAndEthnicity, false, 120)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public Dictionary<string, string> FatherFirstOtherPacificIslanderCode
+        {
+            get => GetCodedRaceEthnicity(CODED_RACE_ETHNICITY_PROFILE_FATHER, NvssRace.FirstOtherPacificIslanderCode, "NFTH");
+            set => SetCodedRaceEthnicity(value, CODED_RACE_ETHNICITY_PROFILE_FATHER, NvssRace.FirstOtherPacificIslanderCode, NvssRace.FirstOtherPacificIslanderCodeDisplay, "NFTH");
+        }
+
+        /// <summary>Father First Other Pacific Islander Code Helper</summary>
+        /// <value>Father First Other Pacific Islander Code Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.FatherFirstOtherPacificIslanderCodeHelper = VR.ValueSets.RaceCodeMariana_Islander;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Father's Race: {ExampleBirthRecord.FatherFirstOtherPacificIslanderCodeHelper}");</para>
+        /// </example>
+        [Property("Father First Other Pacific Islander Code Helper", Property.Types.String, "Coded Content", "Father First Other Pacific Islander Code Helper.", false, VR.IGURL.CodedRaceAndEthnicity, false, 120)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicityFather')", "")]
+        public string FatherFirstOtherPacificIslanderCodeHelper
+        {
+            get
+            {
+                if (FatherFirstOtherPacificIslanderCode.ContainsKey("code") && !String.IsNullOrWhiteSpace(FatherFirstOtherPacificIslanderCode["code"]))
+                {
+                    return FatherFirstOtherPacificIslanderCode["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("FatherFirstOtherPacificIslanderCode", value, VR.ValueSets.RaceCode.Codes);
+                }
+            }
+        }
+
+        /// <summary>Mother Second Other Pacific Islander Code.</summary>
+        /// <value>Mother Second Other Pacific Islander Code. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; race = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>race.Add("code", "531");</para>
+        /// <para>race.Add("system", CodeSystems.RaceCode);</para>
+        /// <para>race.Add("display", "Mariana Islander");</para>
+        /// <para>ExampleDeathRecord.FatherSecondOtherPacificIslanderCode = race;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"FatherSecondOtherPacificIslanderCode: {ExampleBirthRecord.FatherSecondOtherPacificIslanderCode['display']}");</para>
+        /// </example>
+        [Property("Mother Second Other Pacific Islander Code", Property.Types.Dictionary, "Coded Content", "Mother Second Other Pacific Islander Code.", true, VR.IGURL.CodedRaceAndEthnicity, false, 121)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public Dictionary<string, string> FatherSecondOtherPacificIslanderCode
+        {
+            get => GetCodedRaceEthnicity(CODED_RACE_ETHNICITY_PROFILE_FATHER, NvssRace.SecondOtherPacificIslanderCode, "NFTH");
+            set => SetCodedRaceEthnicity(value, CODED_RACE_ETHNICITY_PROFILE_FATHER, NvssRace.SecondOtherPacificIslanderCode, NvssRace.SecondOtherPacificIslanderCodeDisplay, "NFTH");
+        }
+
+        /// <summary>Mother Second Other Pacific Islander Code Helper</summary>
+        /// <value>Mother Second Other Pacific Islander Code Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.FatherSecondOtherPacificIslanderCodeHelper = VR.ValueSets.RaceCodeMariana_Islander;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Father's Race: {ExampleBirthRecord.FatherSecondOtherPacificIslanderCodeHelper}");</para>
+        /// </example>
+        [Property("Father Second Other Pacific Islander Code Helper", Property.Types.String, "Coded Content", "Father Second Other Pacific Islander Code Helper.", false, VR.IGURL.CodedRaceAndEthnicity, false, 121)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicityFather')", "")]
+        public string FatherSecondOtherPacificIslanderCodeHelper
+        {
+            get
+            {
+                if (FatherSecondOtherPacificIslanderCode.ContainsKey("code") && !String.IsNullOrWhiteSpace(FatherSecondOtherPacificIslanderCode["code"]))
+                {
+                    return FatherSecondOtherPacificIslanderCode["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("FatherSecondOtherPacificIslanderCode", value, VR.ValueSets.RaceCode.Codes);
+                }
+            }
+        }
+
+        /// <summary>Father First Other Race Code.</summary>
+        /// <value>Father First Other Race Code. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; race = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>race.Add("code", "531");</para>
+        /// <para>race.Add("system", CodeSystems.RaceCode);</para>
+        /// <para>race.Add("display", "Mariana Islander");</para>
+        /// <para>ExampleDeathRecord.FatherFirstOtherRaceCode = race;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"FatherFirstOtherRaceCode: {ExampleBirthRecord.FatherFirstOtherRaceCode['display']}");</para>
+        /// </example>
+        [Property("Father First Other Race Code", Property.Types.Dictionary, "Coded Content", "Father First Other Race Code.", true, VR.IGURL.CodedRaceAndEthnicity, false, 122)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public Dictionary<string, string> FatherFirstOtherRaceCode
+        {
+            get => GetCodedRaceEthnicity(CODED_RACE_ETHNICITY_PROFILE_FATHER, NvssRace.FirstOtherRaceCode, "NFTH");
+            set => SetCodedRaceEthnicity(value, CODED_RACE_ETHNICITY_PROFILE_FATHER, NvssRace.FirstOtherRaceCode, NvssRace.FirstOtherRaceCodeDisplay, "NFTH");
+        }
+
+        /// <summary>Father First Other Race Code Helper</summary>
+        /// <value>Father First Other Race Code Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.FatherFirstOtherRaceCodeHelper = VR.ValueSets.RaceCodeMariana_Islander;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Father's Race: {ExampleBirthRecord.FatherFirstOtherRaceCodeHelper}");</para>
+        /// </example>
+        [Property("Father First Other Race Code Helper", Property.Types.String, "Coded Content", "Father First Other Race Code Helper.", false, VR.IGURL.CodedRaceAndEthnicity, false, 122)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicityFather')", "")]
+        public string FatherFirstOtherRaceCodeHelper
+        {
+            get
+            {
+                if (FatherFirstOtherRaceCode.ContainsKey("code") && !String.IsNullOrWhiteSpace(FatherFirstOtherRaceCode["code"]))
+                {
+                    return FatherFirstOtherRaceCode["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("FatherFirstOtherRaceCode", value, VR.ValueSets.RaceCode.Codes);
+                }
+            }
+        }
+
+        /// <summary>Father Second Other Race Code.</summary>
+        /// <value>Father Second Other Race Code. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; race = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>race.Add("code", "531");</para>
+        /// <para>race.Add("system", CodeSystems.RaceCode);</para>
+        /// <para>race.Add("display", "Mariana Islander");</para>
+        /// <para>ExampleDeathRecord.FatherSecondOtherRaceCode = race;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"FatherSecondOtherRaceCode: {ExampleBirthRecord.FatherSecondOtherRaceCode['display']}");</para>
+        /// </example>
+        [Property("Father Second Other Race Code", Property.Types.Dictionary, "Coded Content", "Father Second Other Race Code.", true, VR.IGURL.CodedRaceAndEthnicity, false, 123)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public Dictionary<string, string> FatherSecondOtherRaceCode
+        {
+            get => GetCodedRaceEthnicity(CODED_RACE_ETHNICITY_PROFILE_FATHER, NvssRace.SecondOtherRaceCode, "NFTH");
+            set => SetCodedRaceEthnicity(value, CODED_RACE_ETHNICITY_PROFILE_FATHER, NvssRace.SecondOtherRaceCode, NvssRace.SecondOtherRaceCodeDisplay, "NFTH");
+        }
+
+        /// <summary>Father Second Other Race Code Helper</summary>
+        /// <value>Father Second Other Race Code Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.FatherSecondOtherRaceCodeHelper = VR.ValueSets.RaceCodeMariana_Islander;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Father's Race: {ExampleBirthRecord.FatherSecondOtherRaceCodeHelper}");</para>
+        /// </example>
+        [Property("Father Second Other Race Code Helper", Property.Types.String, "Coded Content", "Father Second Other Race Code Helper.", false, VR.IGURL.CodedRaceAndEthnicity, false, 123)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicityFather')", "")]
+        public string FatherSecondOtherRaceCodeHelper
+        {
+            get
+            {
+                if (FatherSecondOtherRaceCode.ContainsKey("code") && !String.IsNullOrWhiteSpace(FatherSecondOtherRaceCode["code"]))
+                {
+                    return FatherSecondOtherRaceCode["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("FatherSecondOtherRaceCode", value, VR.ValueSets.RaceCode.Codes);
+                }
+            }
+        }
+
+        /// <summary>Father Ethnicity Code For Literal.</summary>
+        /// <value>Father Ethnicity Code For Literal. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>ethnicity.Add("code", "214");</para>
+        /// <para>ethnicity.Add("system", CodeSystems.VRCLEthnicityOrigin);</para>
+        /// <para>ethnicity.Add("display", "Chicano");</para>
+        /// <para>ExampleDeathRecord.FatherEthnicityCodeForLiteral = ethnicity;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Ethnicity Code For Literal: {ExampleBirthRecord.FatherEthnicityCodeForLiteral['display']}");</para>
+        /// </example>
+        [Property("Father Ethnicity Code For Literal", Property.Types.Dictionary, "Coded Content", "Ethnicity Code For Literal.", true, VR.IGURL.CodedRaceAndEthnicity, false, 295)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public Dictionary<string, string> FatherEthnicityCodeForLiteral
+        {
+            get => GetCodedRaceEthnicity(CODED_RACE_ETHNICITY_PROFILE_FATHER, NvssEthnicity.CodeForLiteral, "NFTH");
+            set => SetCodedRaceEthnicity(value, CODED_RACE_ETHNICITY_PROFILE_FATHER, NvssEthnicity.CodeForLiteral, NvssEthnicity.CodeForLiteralDisplay, "NFTH");
+        }
+
+        /// <summary>Father Ethnicity Code For Literal Helper</summary>
+        /// <value>Father Ethnicity Code For Literal Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.FatherEthnicityCodeForLiteralHelper = VR.ValueSets.HispanicOrigin.Andalusian;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Father's Ethnicity: {ExampleBirthRecord.FatherEthnicityCodeForLiteralHelper}");</para>
+        /// </example>
+        [Property("Father Ethnicity Code For Literal Helper", Property.Types.String, "Coded Content", "Father Ethnicity Code For Literal Helper.", false, VR.IGURL.CodedRaceAndEthnicity, false, 295)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicityFather')", "")]
+        public string FatherEthnicityCodeForLiteralHelper
+        {
+            get
+            {
+                if (FatherEthnicityCodeForLiteral.ContainsKey("code") && !String.IsNullOrWhiteSpace(FatherEthnicityCodeForLiteral["code"]))
+                {
+                    return FatherEthnicityCodeForLiteral["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("FatherEthnicityCodeForLiteral", value, VR.ValueSets.HispanicOrigin.Codes);
+                }
+            }
+        }
+
+        /// <summary>Father Ethnicity Edited Code.</summary>
+        /// <value>Father Ethnicity Edited Code. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>ethnicity.Add("code", "214");</para>
+        /// <para>ethnicity.Add("system", CodeSystems.VRCLHispanicOrigin);</para>
+        /// <para>ethnicity.Add("display", "Chicano");</para>
+        /// <para>ExampleDeathRecord.FatherEthnicityEditedCode = ethnicity;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Father Ethnicity Edited Code: {ExampleBirthRecord.FatherEthnicityEditedCode['display']}");</para>
+        /// </example>
+        [Property("Father Ethnicity Edited Code", Property.Types.Dictionary, "Coded Content", "Father Ethnicity Edited Code.", true, VR.IGURL.CodedRaceAndEthnicity, false, 296)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public Dictionary<string, string> FatherEthnicityEditedCode
+        {
+            get => GetCodedRaceEthnicity(CODED_RACE_ETHNICITY_PROFILE_FATHER, NvssEthnicity.EditedCode, "NFTH");
+            set => SetCodedRaceEthnicity(value, CODED_RACE_ETHNICITY_PROFILE_FATHER, NvssEthnicity.EditedCode, NvssEthnicity.EditedCodeDisplay, "NFTH");
+        }
+
+        /// <summary>Father Ethnicity Edited Code Helper</summary>
+        /// <value>Father Ethnicity Edited Code Helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.FatherEthnicityCodeHelper = VR.ValueSets.HispanicOrigin.Andalusian;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Father's Ethnicity: {ExampleBirthRecord.FatherEthnicityEditedCodeHelper}");</para>
+        /// </example>
+        [Property("Father Ethnicity Edited CodeHelper", Property.Types.String, "Coded Content", "Father Hispanic Edited Code Helper.", false, VR.IGURL.CodedRaceAndEthnicity, false, 296)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicityFather')", "")]
+        public string FatherEthnicityEditedCodeHelper
+        {
+            get
+            {
+                if (FatherEthnicityEditedCode.ContainsKey("code") && !String.IsNullOrWhiteSpace(FatherEthnicityEditedCode["code"]))
+                {
+                    return FatherEthnicityEditedCode["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("FatherEthnicityEditedCode", value, VR.ValueSets.HispanicOrigin.Codes);
+                }
+            }
+        }
+
         /// <summary>Date of last live birth day</summary>
         /// <value>the date of the Mother's last live birth day
         /// </value>
@@ -5282,6 +7411,7 @@ namespace BFDR
                 }
                 if (!VR.Mappings.BirthAttendantTitles.FHIRToIJE.ContainsKey(value))
                 { //other
+                    Console.WriteLine("Warning: given 'attendant title' code not found in value set. Setting value to 'Other'.");
                     AttendantTitle = CodeableConceptToDict(new CodeableConcept(CodeSystems.NullFlavor_HL7_V3, "OTH", "Other", value));
                 }
                 else
@@ -6561,6 +8691,7 @@ namespace BFDR
                 if (!BFDR.Mappings.BirthAndFetalDeathFinancialClass.FHIRToIJE.ContainsKey(value))
                 {
                     // unknown
+                    Console.WriteLine("Warning: given 'principal source of payment for this delivery' code not found in value set. Setting value to 'Unavailable / Unknown'.");
                     PayorTypeFinancialClass = CodeableConceptToDict(new CodeableConcept(CodeSystems.NAHDO, "9999", "Unavailable / Unknown", value));
                 }
                 else
@@ -7139,6 +9270,7 @@ namespace BFDR
                 }
                 if (!VR.Mappings.BirthAttendantTitles.FHIRToIJE.ContainsKey(value))
                 { //other
+                    Console.WriteLine("Warning: given 'certifier title' code not found in value set. Setting value to 'Other'.");
                     CertifierTitle = CodeableConceptToDict(new CodeableConcept(CodeSystems.NullFlavor_HL7_V3, "OTH", "Other", value));
                 }
                 else
