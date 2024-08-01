@@ -382,7 +382,7 @@ namespace VRDR.Tests
             Assert.Equal("2020NY000182", DeathCertificateDocument1_JSON.DeathRecordIdentifier);
             Assert.Equal("2020NY000182", CauseOfDeathCodedContentBundle1_JSON.DeathRecordIdentifier);
             Assert.Equal("2020NY000182", DemographicCodedContentBundle1_JSON.DeathRecordIdentifier);
-            Assert.Equal("2022YC000182", DeathRecord1_XML.DeathRecordIdentifier);
+            Assert.Equal("2002YC000182", DeathRecord1_XML.DeathRecordIdentifier);
         }
 
         [Fact]
