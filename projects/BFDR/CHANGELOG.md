@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+<a name="1.0.0-preview.5"></a>
+## [1.0.0-preview.5](https://github.com/nightingaleproject/vital-records-dotnet/commit/db5765b2710016d4b3fd9c80e9e27227503376e3) (2024-07-30)
+
+### Features
+* Add code coverage to git workflows
+
+### Fixes
+* Fix handling of parent ethnicity literls
+* Add coded race and ethnicity for parent
+
 <a name="1.0.0-preview.4"></a>
 ## [1.0.0-preview.4](https://github.com/nightingaleproject/vital-records-dotnet/commit/2380dac3c4a2988fd254a30e02806d6420f1a1d4) (2024-07-11)
 
