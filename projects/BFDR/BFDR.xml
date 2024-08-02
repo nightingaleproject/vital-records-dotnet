@@ -1361,8 +1361,11 @@
         <member name="F:BFDR.NatalityRecord.EncounterMaternity">
             <summary>The maternity encounter.</summary>
         </member>
-        <member name="F:BFDR.NatalityRecord.RACE_ETHNICITY_PROFILE_MOTHER">
+        <member name="F:BFDR.NatalityRecord.MOTHER_PRENATAL_SECTION">
             <summary>Composition Section Constants</summary>
+        </member>
+        <member name="F:BFDR.NatalityRecord.RACE_ETHNICITY_MOTHER">
+            <summary>DemographicComposition Section Constants</summary>
         </member>
         <member name="P:BFDR.NatalityRecord.CompositionSections">
             <summary>CompositionSections that define the codes that represent the different sections in the composition</summary>
@@ -2579,6 +2582,1014 @@
             <para>ExampleBirthRecord.FatherRace = {NvssRace.BlackOrAfricanAmerican, "Y"};</para>
             <para>// Getter:</para>
             <para>string boaa = ExampleBirthRecord.RaceBlackOfAfricanAmerican;</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.MotherRaceTabulation1E">
+            <summary>Mother Race Tabulation 1E.</summary>
+            <value>Mother Race Tabulation 1E. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+            <para>ethnicity.Add("code", "214");</para>
+            <para>ethnicity.Add("system", CodeSystems.RaceCode);</para>
+            <para>ethnicity.Add("display", "Arab");</para>
+            <para>ExampleDeathRecord.MotherRaceTabulation1E = ethnicity;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"MotherRaceTabulation1E: {ExampleBirthRecord.MotherRaceTabulation1E['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.MotherRaceTabulation1EHelper">
+            <summary>Mother Race Tabulation 1E Helper</summary>
+            <value>Mother Race Tabulation 1E Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotheEthnicityCodeForLiteralHelper = VR.ValueSets.HispanicOrigin.Arab;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"MotherRaceTabulation1E: {ExampleBirthRecord.MotherRaceTabulation1EHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.MotherRaceTabulation2E">
+            <summary>Mother Race Tabulation 2E.</summary>
+            <value>Mother Race Tabulation 2E. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+            <para>ethnicity.Add("code", "214");</para>
+            <para>ethnicity.Add("system", CodeSystems.RaceCode);</para>
+            <para>ethnicity.Add("display", "Arab");</para>
+            <para>ExampleDeathRecord.MotherRaceTabulation2E = ethnicity;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"MotherRaceTabulation2E: {ExampleBirthRecord.MotherRaceTabulation2E['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.MotherRaceTabulation2EHelper">
+            <summary>Mother Race Tabulation 2E Helper</summary>
+            <value>Mother Race Tabulation 2E Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotheEthnicityCodeForLiteralHelper = VR.ValueSets.HispanicOrigin.Arab;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"MotherRaceTabulation2E: {ExampleBirthRecord.MotherRaceTabulation2EHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.MotherRaceTabulation3E">
+            <summary>Mother Race Tabulation 3E.</summary>
+            <value>Mother Race Tabulation 3E. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+            <para>ethnicity.Add("code", "214");</para>
+            <para>ethnicity.Add("system", CodeSystems.RaceCode);</para>
+            <para>ethnicity.Add("display", "Arab");</para>
+            <para>ExampleDeathRecord.MotherRaceTabulation3E = ethnicity;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"MotherRaceTabulation3E: {ExampleBirthRecord.MotherRaceTabulation3E['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.MotherRaceTabulation3EHelper">
+            <summary>Mother Race Tabulation 3E Helper</summary>
+            <value>Mother Race Tabulation 3E Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotheEthnicityCodeForLiteralHelper = VR.ValueSets.HispanicOrigin.Arab;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"MotherRaceTabulation3E: {ExampleBirthRecord.MotherRaceTabulation3EHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.MotherRaceTabulation4E">
+            <summary>Mother Race Tabulation 4E.</summary>
+            <value>Mother Race Tabulation 4E. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+            <para>ethnicity.Add("code", "214");</para>
+            <para>ethnicity.Add("system", CodeSystems.RaceCode);</para>
+            <para>ethnicity.Add("display", "Arab");</para>
+            <para>ExampleDeathRecord.MotherRaceTabulation4E = ethnicity;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"MotherRaceTabulation4E: {ExampleBirthRecord.MotherRaceTabulation4E['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.MotherRaceTabulation4EHelper">
+            <summary>Mother Race Tabulation 4E Helper</summary>
+            <value>Mother Race Tabulation 4E Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotheEthnicityCodeForLiteralHelper = VR.ValueSets.HispanicOrigin.Arab;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"MotherRaceTabulation4E: {ExampleBirthRecord.MotherRaceTabulation4EHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.MotherRaceTabulation5E">
+            <summary>Mother Race Tabulation 5E.</summary>
+            <value>Mother Race Tabulation 5E. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+            <para>ethnicity.Add("code", "214");</para>
+            <para>ethnicity.Add("system", CodeSystems.RaceCode);</para>
+            <para>ethnicity.Add("display", "Arab");</para>
+            <para>ExampleDeathRecord.MotherRaceTabulation5E = ethnicity;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"MotherRaceTabulation5E: {ExampleBirthRecord.MotherRaceTabulation5E['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.MotherRaceTabulation5EHelper">
+            <summary>Mother Race Tabulation 5E Helper</summary>
+            <value>Mother Race Tabulation 5E Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotheEthnicityCodeForLiteralHelper = VR.ValueSets.HispanicOrigin.Arab;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"MotherRaceTabulation5E: {ExampleBirthRecord.MotherRaceTabulation5EHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.MotherRaceTabulation6E">
+            <summary>Mother Race Tabulation 6E.</summary>
+            <value>Mother Race Tabulation 6E. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+            <para>ethnicity.Add("code", "214");</para>
+            <para>ethnicity.Add("system", CodeSystems.RaceCode);</para>
+            <para>ethnicity.Add("display", "Arab");</para>
+            <para>ExampleDeathRecord.MotherRaceTabulation6E = ethnicity;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"MotherRaceTabulation6E: {ExampleBirthRecord.MotherRaceTabulation6E['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.MotherRaceTabulation6EHelper">
+            <summary>Mother Race Tabulation 6E Helper</summary>
+            <value>Mother Race Tabulation 6E Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotheEthnicityCodeForLiteralHelper = VR.ValueSets.HispanicOrigin.Arab;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"MotherRaceTabulation6E: {ExampleBirthRecord.MotherRaceTabulation6EHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.MotherRaceTabulation7E">
+            <summary>Mother Race Tabulation 7E.</summary>
+            <value>Mother Race Tabulation 7E. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+            <para>ethnicity.Add("code", "214");</para>
+            <para>ethnicity.Add("system", CodeSystems.RaceCode);</para>
+            <para>ethnicity.Add("display", "Arab");</para>
+            <para>ExampleDeathRecord.MotherRaceTabulation7E = ethnicity;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"MotherRaceTabulation7E: {ExampleBirthRecord.MotherRaceTabulation7E['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.MotherRaceTabulation7EHelper">
+            <summary>Mother Race Tabulation 7E Helper</summary>
+            <value>Mother Race Tabulation 7E Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotheEthnicityCodeForLiteralHelper = VR.ValueSets.HispanicOrigin.Arab;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"MotherRaceTabulation7E: {ExampleBirthRecord.MotherRaceTabulation7EHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.MotherRaceTabulation8E">
+            <summary>Mother Race Tabulation 8E.</summary>
+            <value>Mother Race Tabulation 8E. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+            <para>ethnicity.Add("code", "214");</para>
+            <para>ethnicity.Add("system", CodeSystems.RaceCode);</para>
+            <para>ethnicity.Add("display", "Arab");</para>
+            <para>ExampleDeathRecord.MotherRaceTabulation8E = ethnicity;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"MotherRaceTabulation8E: {ExampleBirthRecord.MotherRaceTabulation8E['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.MotherRaceTabulation8EHelper">
+            <summary>Mother Race Tabulation 8E Helper</summary>
+            <value>Mother Race Tabulation 8E Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherRaceTabulation8EHelper = VR.ValueSets.RaceCode.Arab;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's Race: {ExampleBirthRecord.MotherRaceTabulation8EHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.MotherFirstAmericanIndianCode">
+            <summary>Mother First American Indian Code.</summary>
+            <value>Mother First American Indian Code. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+            <para>ethnicity.Add("code", "214");</para>
+            <para>ethnicity.Add("system", CodeSystems.RaceCode);</para>
+            <para>ethnicity.Add("display", "Ahtna");</para>
+            <para>ExampleDeathRecord.FirstAmericanIndianCode = ethnicity;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"FirstAmericanIndianCode: {ExampleBirthRecord.FirstAmericanIndianCode['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.MotherFirstAmericanIndianCodeHelper">
+            <summary>Mother First American Indian Code Helper</summary>
+            <value>Mother First American Indian Code Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherFirstAmericanIndianCodeHelper = VR.ValueSets.RaceCodeAhtna;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's Race: {ExampleBirthRecord.MotherFirstAmericanIndianCodeHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.MotherSecondAmericanIndianCode">
+            <summary>Mother Second American Indian Code.</summary>
+            <value>Mother Second American Indian Code. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+            <para>ethnicity.Add("code", "214");</para>
+            <para>ethnicity.Add("system", CodeSystems.RaceCode);</para>
+            <para>ethnicity.Add("display", "Ahtna");</para>
+            <para>ExampleDeathRecord.MotherSecondAmericanIndianCode = ethnicity;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"MotherSecondAmericanIndianCode: {ExampleBirthRecord.MotherSecondAmericanIndianCode['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.MotherSecondAmericanIndianCodeHelper">
+            <summary>Mother Second American Indian Code Helper</summary>
+            <value>Mother Second American Indian Code Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherSecondAmericanIndianCodeHelper = VR.ValueSets.RaceCodeAhtna;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's Race: {ExampleBirthRecord.MotherSecondAmericanIndianCodeHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.MotherFirstOtherAsianCode">
+            <summary>Mother First Other Asian Code.</summary>
+            <value>Mother First Other Asian Code. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; race = new Dictionary&lt;string, string&gt;();</para>
+            <para>race.Add("code", "421");</para>
+            <para>race.Add("system", CodeSystems.RaceCode);</para>
+            <para>race.Add("display", "Filipino");</para>
+            <para>ExampleDeathRecord.MotherFirstOtherAsianCode = race;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"MotherFirstOtherAsianCode: {ExampleBirthRecord.MotherFirstOtherAsianCode['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.MotherFirstOtherAsianCodeHelper">
+            <summary>Mother First Other Asian Code Helper</summary>
+            <value>Mother First Other Asian Code Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherFirstOtherAsianCodeHelper = VR.ValueSets.RaceCodeFilipino;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's Race: {ExampleBirthRecord.MotherFirstOtherAsianCodeHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.MotherSecondOtherAsianCode">
+            <summary>Mother Second Other Asian Code.</summary>
+            <value>Mother Second Other Asian Code. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; race = new Dictionary&lt;string, string&gt;();</para>
+            <para>race.Add("code", "421");</para>
+            <para>race.Add("system", CodeSystems.RaceCode);</para>
+            <para>race.Add("display", "Filipino");</para>
+            <para>ExampleDeathRecord.MotherSecondOtherAsianCode = race;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"MotherSecondOtherAsianCode: {ExampleBirthRecord.MotherSecondOtherAsianCode['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.MotherSecondOtherAsianCodeHelper">
+            <summary>Mother Second Other Asian Code Helper</summary>
+            <value>Mother Second Other Asian Code Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherSecondOtherAsianCodeHelper = VR.ValueSets.RaceCodeFilipino;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's Race: {ExampleBirthRecord.MotherSecondOtherAsianCodeHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.MotherFirstOtherPacificIslanderCode">
+            <summary>Mother First Other Pacific Islander Code.</summary>
+            <value>Mother First Other Pacific Islander Code. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; race = new Dictionary&lt;string, string&gt;();</para>
+            <para>race.Add("code", "531");</para>
+            <para>race.Add("system", CodeSystems.RaceCode);</para>
+            <para>race.Add("display", "Mariana Islander");</para>
+            <para>ExampleDeathRecord.MotherFirstOtherPacificIslanderCode = race;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"MotherFirstOtherPacificIslanderCode: {ExampleBirthRecord.MotherFirstOtherPacificIslanderCode['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.MotherFirstOtherPacificIslanderCodeHelper">
+            <summary>Mother First Other Pacific Islander Code Helper</summary>
+            <value>Mother First Other Pacific Islander Code Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherFirstOtherPacificIslanderCodeHelper = VR.ValueSets.RaceCodeMariana_Islander;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's Race: {ExampleBirthRecord.MotherFirstOtherPacificIslanderCodeHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.MotherSecondOtherPacificIslanderCode">
+            <summary>Mother Second Other Pacific Islander Code.</summary>
+            <value>Mother Second Other Pacific Islander Code. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; race = new Dictionary&lt;string, string&gt;();</para>
+            <para>race.Add("code", "531");</para>
+            <para>race.Add("system", CodeSystems.RaceCode);</para>
+            <para>race.Add("display", "Mariana Islander");</para>
+            <para>ExampleDeathRecord.MotherSecondOtherPacificIslanderCode = race;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"MotherSecondOtherPacificIslanderCode: {ExampleBirthRecord.MotherSecondOtherPacificIslanderCode['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.MotherSecondOtherPacificIslanderCodeHelper">
+            <summary>Mother Second Other Pacific Islander Code Helper</summary>
+            <value>Mother Second Other Pacific Islander Code Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherSecondOtherPacificIslanderCodeHelper = VR.ValueSets.RaceCodeMariana_Islander;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's Race: {ExampleBirthRecord.MotherSecondOtherPacificIslanderCodeHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.MotherFirstOtherRaceCode">
+            <summary>Mother First Other Race Code.</summary>
+            <value>Mother First Other Race Code. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; race = new Dictionary&lt;string, string&gt;();</para>
+            <para>race.Add("code", "531");</para>
+            <para>race.Add("system", CodeSystems.RaceCode);</para>
+            <para>race.Add("display", "Mariana Islander");</para>
+            <para>ExampleDeathRecord.MotherFirstOtherRaceCode = race;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"MotherFirstOtherRaceCode: {ExampleBirthRecord.MotherFirstOtherRaceCode['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.MotherFirstOtherRaceCodeHelper">
+            <summary>Mother First Other Race Code Helper</summary>
+            <value>Mother First Other Race Code Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherFirstOtherRaceCodeHelper = VR.ValueSets.RaceCodeMariana_Islander;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's Race: {ExampleBirthRecord.MotherFirstOtherRaceCodeHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.MotherSecondOtherRaceCode">
+            <summary>Mother Second Other Race Code.</summary>
+            <value>Mother Second Other Race Code. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; race = new Dictionary&lt;string, string&gt;();</para>
+            <para>race.Add("code", "531");</para>
+            <para>race.Add("system", CodeSystems.RaceCode);</para>
+            <para>race.Add("display", "Mariana Islander");</para>
+            <para>ExampleDeathRecord.MotherSecondOtherRaceCode = race;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"MotherSecondOtherRaceCode: {ExampleBirthRecord.MotherSecondOtherRaceCode['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.MotherSecondOtherRaceCodeHelper">
+            <summary>Mother Second Other Race Code Helper</summary>
+            <value>MOther Second Other Race Code Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherSecondOtherRaceCodeHelper = VR.ValueSets.RaceCodeMariana_Islander;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's Race: {ExampleBirthRecord.MotherSecondOtherRaceCodeHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.MotherEthnicityCodeForLiteral">
+            <summary>Mother Ethnicity Code For Literal.</summary>
+            <value>Mother Ethnicity Code For Literal. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+            <para>ethnicity.Add("code", "214");</para>
+            <para>ethnicity.Add("system", CodeSystems.VRCLHispanicOrigin);</para>
+            <para>ethnicity.Add("display", "Chicano");</para>
+            <para>ExampleDeathRecord.MotherEthnicityCodeForLiteral = ethnicity;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Ethnicity Code For Literal: {ExampleBirthRecord.MotherEthnicityCodeForLiteral['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.MotherEthnicityCodeForLiteralHelper">
+            <summary>Mother Ethnicity Code For Literal Helper</summary>
+            <value>Mother Ethnicity Code For Literal Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotheEthnicityCodeForLiteralHelper = VR.ValueSets.HispanicOrigin.Andalusian;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's Ethnicity: {ExampleBirthRecord.MotherEthnicityCodeForLiteralHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.MotherEthnicityEditedCode">
+            <summary>Mother Ethnicity Edited Code.</summary>
+            <value>Mother Ethnicity Edited Code. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+            <para>ethnicity.Add("code", "214");</para>
+            <para>ethnicity.Add("system", CodeSystems.VRCLHispanicOrigin);</para>
+            <para>ethnicity.Add("display", "Chicano");</para>
+            <para>ExampleDeathRecord.MotherEthnicityEditedCode = ethnicity;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother Ethnicity Edited Code: {ExampleBirthRecord.MotherEthnicityEditedCode['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.MotherEthnicityEditedCodeHelper">
+            <summary>Mother Ethnicity Edited Code Helper</summary>
+            <value>Mother Ethnicity Edited Code Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherEthnicityCodeHelper = VR.ValueSets.HispanicOrigin.Andalusian;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's Ethnicity: {ExampleBirthRecord.MotherEthnicityEditedCodeHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherRaceTabulation1E">
+            <summary>Father Race Tabulation 1E.</summary>
+            <value>Father Race Tabulation 1E. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+            <para>ethnicity.Add("code", "214");</para>
+            <para>ethnicity.Add("system", CodeSystems.RaceCode);</para>
+            <para>ethnicity.Add("display", "Arab");</para>
+            <para>ExampleDeathRecord.FatherRaceTabulation1E = ethnicity;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"FatherRaceTabulation1E: {ExampleBirthRecord.FatherRaceTabulation1E['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherRaceTabulation1EHelper">
+            <summary>Father Race Tabulation 1E Helper</summary>
+            <value>Father Race Tabulation 1E Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotheEthnicityCodeForLiteralHelper = VR.ValueSets.HispanicOrigin.Arab;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"FatherRaceTabulation1E: {ExampleBirthRecord.FatherRaceTabulation1EHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherRaceTabulation2E">
+            <summary>Father Race Tabulation 2E.</summary>
+            <value>Father Race Tabulation 2E. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+            <para>ethnicity.Add("code", "214");</para>
+            <para>ethnicity.Add("system", CodeSystems.RaceCode);</para>
+            <para>ethnicity.Add("display", "Arab");</para>
+            <para>ExampleDeathRecord.FatherRaceTabulation2E = ethnicity;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"FatherRaceTabulation2E: {ExampleBirthRecord.FatherRaceTabulation2E['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherRaceTabulation2EHelper">
+            <summary>Father Race Tabulation 2E Helper</summary>
+            <value>Father Race Tabulation 2E Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotheEthnicityCodeForLiteralHelper = VR.ValueSets.HispanicOrigin.Arab;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"FatherRaceTabulation2E: {ExampleBirthRecord.FatherRaceTabulation2EHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherRaceTabulation3E">
+            <summary>Father Race Tabulation 3E.</summary>
+            <value>Father Race Tabulation 3E. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+            <para>ethnicity.Add("code", "214");</para>
+            <para>ethnicity.Add("system", CodeSystems.RaceCode);</para>
+            <para>ethnicity.Add("display", "Arab");</para>
+            <para>ExampleDeathRecord.FatherRaceTabulation3E = ethnicity;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"FatherRaceTabulation3E: {ExampleBirthRecord.FatherRaceTabulation3E['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherRaceTabulation3EHelper">
+            <summary>Father Race Tabulation 3E Helper</summary>
+            <value>Father Race Tabulation 3E Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotheEthnicityCodeForLiteralHelper = VR.ValueSets.HispanicOrigin.Arab;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"FatherRaceTabulation3E: {ExampleBirthRecord.FatherRaceTabulation3EHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherRaceTabulation4E">
+            <summary>Father Race Tabulation 4E.</summary>
+            <value>Father Race Tabulation 4E. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+            <para>ethnicity.Add("code", "214");</para>
+            <para>ethnicity.Add("system", CodeSystems.RaceCode);</para>
+            <para>ethnicity.Add("display", "Arab");</para>
+            <para>ExampleDeathRecord.FatherRaceTabulation4E = ethnicity;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"FatherRaceTabulation4E: {ExampleBirthRecord.FatherRaceTabulation4E['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherRaceTabulation4EHelper">
+            <summary>Father Race Tabulation 4E Helper</summary>
+            <value>Father Race Tabulation 4E Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotheEthnicityCodeForLiteralHelper = VR.ValueSets.HispanicOrigin.Arab;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"FatherRaceTabulation4E: {ExampleBirthRecord.FatherRaceTabulation4EHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherRaceTabulation5E">
+            <summary>Father Race Tabulation 5E.</summary>
+            <value>Father Race Tabulation 5E. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+            <para>ethnicity.Add("code", "214");</para>
+            <para>ethnicity.Add("system", CodeSystems.RaceCode);</para>
+            <para>ethnicity.Add("display", "Arab");</para>
+            <para>ExampleDeathRecord.FatherRaceTabulation5E = ethnicity;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"FatherRaceTabulation5E: {ExampleBirthRecord.FatherRaceTabulation5E['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherRaceTabulation5EHelper">
+            <summary>Father Race Tabulation 5E Helper</summary>
+            <value>Father Race Tabulation 5E Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotheEthnicityCodeForLiteralHelper = VR.ValueSets.HispanicOrigin.Arab;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"FatherRaceTabulation5E: {ExampleBirthRecord.FatherRaceTabulation5EHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherRaceTabulation6E">
+            <summary>Father Race Tabulation 6E.</summary>
+            <value>Father Race Tabulation 6E. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+            <para>ethnicity.Add("code", "214");</para>
+            <para>ethnicity.Add("system", CodeSystems.RaceCode);</para>
+            <para>ethnicity.Add("display", "Arab");</para>
+            <para>ExampleDeathRecord.FatherRaceTabulation6E = ethnicity;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"FatherRaceTabulation6E: {ExampleBirthRecord.FatherRaceTabulation6E['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherRaceTabulation6EHelper">
+            <summary>Father Race Tabulation 6E Helper</summary>
+            <value>Father Race Tabulation 6E Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotheEthnicityCodeForLiteralHelper = VR.ValueSets.HispanicOrigin.Arab;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"FatherRaceTabulation6E: {ExampleBirthRecord.FatherRaceTabulation6EHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherRaceTabulation7E">
+            <summary>Father Race Tabulation 7E.</summary>
+            <value>Father Race Tabulation 7E. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+            <para>ethnicity.Add("code", "214");</para>
+            <para>ethnicity.Add("system", CodeSystems.RaceCode);</para>
+            <para>ethnicity.Add("display", "Arab");</para>
+            <para>ExampleDeathRecord.FatherRaceTabulation7E = ethnicity;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"FatherRaceTabulation7E: {ExampleBirthRecord.FatherRaceTabulation7E['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherRaceTabulation7EHelper">
+            <summary>Father Race Tabulation 7E Helper</summary>
+            <value>Father Race Tabulation 7E Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotheEthnicityCodeForLiteralHelper = VR.ValueSets.HispanicOrigin.Arab;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"FatherRaceTabulation7E: {ExampleBirthRecord.FatherRaceTabulation7EHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherRaceTabulation8E">
+            <summary>Father Race Tabulation 8E.</summary>
+            <value>Father Race Tabulation 8E. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+            <para>ethnicity.Add("code", "214");</para>
+            <para>ethnicity.Add("system", CodeSystems.RaceCode);</para>
+            <para>ethnicity.Add("display", "Arab");</para>
+            <para>ExampleDeathRecord.FatherRaceTabulation8E = ethnicity;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"FatherRaceTabulation8E: {ExampleBirthRecord.FatherRaceTabulation8E['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherRaceTabulation8EHelper">
+            <summary>Father Race Tabulation 8E Helper</summary>
+            <value>Father Race Tabulation 8E Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.FatherRaceTabulation8EHelper = VR.ValueSets.RaceCode.Arab;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Father's Race: {ExampleBirthRecord.FatherRaceTabulation8EHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherFirstAmericanIndianCode">
+            <summary>Father First American Indian Code.</summary>
+            <value>Father First American Indian Code. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+            <para>ethnicity.Add("code", "214");</para>
+            <para>ethnicity.Add("system", CodeSystems.RaceCode);</para>
+            <para>ethnicity.Add("display", "Ahtna");</para>
+            <para>ExampleDeathRecord.FirstAmericanIndianCode = ethnicity;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"FirstAmericanIndianCode: {ExampleBirthRecord.FirstAmericanIndianCode['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherFirstAmericanIndianCodeHelper">
+            <summary>Father First American Indian Code Helper</summary>
+            <value>Father First American Indian Code Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.FatherFirstAmericanIndianCodeHelper = VR.ValueSets.RaceCodeAhtna;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Father's Race: {ExampleBirthRecord.FatherFirstAmericanIndianCodeHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherSecondAmericanIndianCode">
+            <summary>Father Second American Indian Code.</summary>
+            <value>Father Second American Indian Code. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+            <para>ethnicity.Add("code", "214");</para>
+            <para>ethnicity.Add("system", CodeSystems.RaceCode);</para>
+            <para>ethnicity.Add("display", "Ahtna");</para>
+            <para>ExampleDeathRecord.FatherSecondAmericanIndianCode = ethnicity;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"FatherSecondAmericanIndianCode: {ExampleBirthRecord.FatherSecondAmericanIndianCode['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherSecondAmericanIndianCodeHelper">
+            <summary>Father Second American Indian Code Helper</summary>
+            <value>Fathe Second American Indian Code Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.FatherSecondAmericanIndianCodeHelper = VR.ValueSets.RaceCodeAhtna;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Father's Race: {ExampleBirthRecord.FatherSecondAmericanIndianCodeHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherFirstOtherAsianCode">
+            <summary>Father First Other Asian Code.</summary>
+            <value>Father First Other Asian Code. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; race = new Dictionary&lt;string, string&gt;();</para>
+            <para>race.Add("code", "421");</para>
+            <para>race.Add("system", CodeSystems.RaceCode);</para>
+            <para>race.Add("display", "Filipino");</para>
+            <para>ExampleDeathRecord.FatherFirstOtherAsianCode = race;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"FatherFirstOtherAsianCode: {ExampleBirthRecord.FatherFirstOtherAsianCode['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherFirstOtherAsianCodeHelper">
+            <summary>Father First Other Asian Code Helper</summary>
+            <value>Father First Other Asian Code Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.FatherFirstOtherAsianCodeHelper = VR.ValueSets.RaceCodeFilipino;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Father's Race: {ExampleBirthRecord.FatherFirstOtherAsianCodeHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherSecondOtherAsianCode">
+            <summary>Father Second Other Asian Code.</summary>
+            <value>Father Second Other Asian Code. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; race = new Dictionary&lt;string, string&gt;();</para>
+            <para>race.Add("code", "421");</para>
+            <para>race.Add("system", CodeSystems.RaceCode);</para>
+            <para>race.Add("display", "Filipino");</para>
+            <para>ExampleDeathRecord.FatherSecondOtherAsianCode = race;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"FatherSecondOtherAsianCode: {ExampleBirthRecord.FatherSecondOtherAsianCode['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherSecondOtherAsianCodeHelper">
+            <summary>Father Second Other Asian Code Helper</summary>
+            <value>Father Second Other Asian Code Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.FatherSecondOtherAsianCodeHelper = VR.ValueSets.RaceCodeFilipino;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Father's Race: {ExampleBirthRecord.FatherSecondOtherAsianCodeHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherFirstOtherPacificIslanderCode">
+            <summary>Father First Other Pacific Islander Code.</summary>
+            <value>Father First Other Pacific Islander Code. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; race = new Dictionary&lt;string, string&gt;();</para>
+            <para>race.Add("code", "531");</para>
+            <para>race.Add("system", CodeSystems.RaceCode);</para>
+            <para>race.Add("display", "Mariana Islander");</para>
+            <para>ExampleDeathRecord.FatherFirstOtherPacificIslanderCode = race;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"FatherFirstOtherPacificIslanderCode: {ExampleBirthRecord.FatherFirstOtherPacificIslanderCode['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherFirstOtherPacificIslanderCodeHelper">
+            <summary>Father First Other Pacific Islander Code Helper</summary>
+            <value>Father First Other Pacific Islander Code Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.FatherFirstOtherPacificIslanderCodeHelper = VR.ValueSets.RaceCodeMariana_Islander;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Father's Race: {ExampleBirthRecord.FatherFirstOtherPacificIslanderCodeHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherSecondOtherPacificIslanderCode">
+            <summary>Mother Second Other Pacific Islander Code.</summary>
+            <value>Mother Second Other Pacific Islander Code. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; race = new Dictionary&lt;string, string&gt;();</para>
+            <para>race.Add("code", "531");</para>
+            <para>race.Add("system", CodeSystems.RaceCode);</para>
+            <para>race.Add("display", "Mariana Islander");</para>
+            <para>ExampleDeathRecord.FatherSecondOtherPacificIslanderCode = race;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"FatherSecondOtherPacificIslanderCode: {ExampleBirthRecord.FatherSecondOtherPacificIslanderCode['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherSecondOtherPacificIslanderCodeHelper">
+            <summary>Mother Second Other Pacific Islander Code Helper</summary>
+            <value>Mother Second Other Pacific Islander Code Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.FatherSecondOtherPacificIslanderCodeHelper = VR.ValueSets.RaceCodeMariana_Islander;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Father's Race: {ExampleBirthRecord.FatherSecondOtherPacificIslanderCodeHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherFirstOtherRaceCode">
+            <summary>Father First Other Race Code.</summary>
+            <value>Father First Other Race Code. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; race = new Dictionary&lt;string, string&gt;();</para>
+            <para>race.Add("code", "531");</para>
+            <para>race.Add("system", CodeSystems.RaceCode);</para>
+            <para>race.Add("display", "Mariana Islander");</para>
+            <para>ExampleDeathRecord.FatherFirstOtherRaceCode = race;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"FatherFirstOtherRaceCode: {ExampleBirthRecord.FatherFirstOtherRaceCode['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherFirstOtherRaceCodeHelper">
+            <summary>Father First Other Race Code Helper</summary>
+            <value>Father First Other Race Code Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.FatherFirstOtherRaceCodeHelper = VR.ValueSets.RaceCodeMariana_Islander;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Father's Race: {ExampleBirthRecord.FatherFirstOtherRaceCodeHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherSecondOtherRaceCode">
+            <summary>Father Second Other Race Code.</summary>
+            <value>Father Second Other Race Code. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; race = new Dictionary&lt;string, string&gt;();</para>
+            <para>race.Add("code", "531");</para>
+            <para>race.Add("system", CodeSystems.RaceCode);</para>
+            <para>race.Add("display", "Mariana Islander");</para>
+            <para>ExampleDeathRecord.FatherSecondOtherRaceCode = race;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"FatherSecondOtherRaceCode: {ExampleBirthRecord.FatherSecondOtherRaceCode['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherSecondOtherRaceCodeHelper">
+            <summary>Father Second Other Race Code Helper</summary>
+            <value>Father Second Other Race Code Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.FatherSecondOtherRaceCodeHelper = VR.ValueSets.RaceCodeMariana_Islander;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Father's Race: {ExampleBirthRecord.FatherSecondOtherRaceCodeHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherEthnicityCodeForLiteral">
+            <summary>Father Ethnicity Code For Literal.</summary>
+            <value>Father Ethnicity Code For Literal. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+            <para>ethnicity.Add("code", "214");</para>
+            <para>ethnicity.Add("system", CodeSystems.VRCLEthnicityOrigin);</para>
+            <para>ethnicity.Add("display", "Chicano");</para>
+            <para>ExampleDeathRecord.FatherEthnicityCodeForLiteral = ethnicity;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Ethnicity Code For Literal: {ExampleBirthRecord.FatherEthnicityCodeForLiteral['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherEthnicityCodeForLiteralHelper">
+            <summary>Father Ethnicity Code For Literal Helper</summary>
+            <value>Father Ethnicity Code For Literal Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.FatherEthnicityCodeForLiteralHelper = VR.ValueSets.HispanicOrigin.Andalusian;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Father's Ethnicity: {ExampleBirthRecord.FatherEthnicityCodeForLiteralHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherEthnicityEditedCode">
+            <summary>Father Ethnicity Edited Code.</summary>
+            <value>Father Ethnicity Edited Code. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; ethnicity = new Dictionary&lt;string, string&gt;();</para>
+            <para>ethnicity.Add("code", "214");</para>
+            <para>ethnicity.Add("system", CodeSystems.VRCLHispanicOrigin);</para>
+            <para>ethnicity.Add("display", "Chicano");</para>
+            <para>ExampleDeathRecord.FatherEthnicityEditedCode = ethnicity;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Father Ethnicity Edited Code: {ExampleBirthRecord.FatherEthnicityEditedCode['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherEthnicityEditedCodeHelper">
+            <summary>Father Ethnicity Edited Code Helper</summary>
+            <value>Father Ethnicity Edited Code Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.FatherEthnicityCodeHelper = VR.ValueSets.HispanicOrigin.Andalusian;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Father's Ethnicity: {ExampleBirthRecord.FatherEthnicityEditedCodeHelper}");</para>
             </example>
         </member>
         <member name="P:BFDR.NatalityRecord.DateOfLastLiveBirthDay">
