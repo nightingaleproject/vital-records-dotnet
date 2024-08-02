@@ -484,6 +484,182 @@ namespace BFDR.Tests
     }
 
     [Fact]
+    public void TestSetCodedEthnicityLiteral()
+    {
+      IJEBirth ije = new();
+      Assert.Equal("", ije.METHNIC5C);
+      Assert.Equal("", ije.FETHNIC5C);
+      ije.METHNIC5C = VR.ValueSets.HispanicOrigin.Bolivian;
+      ije.FETHNIC5C = VR.ValueSets.HispanicOrigin.Chicano;
+      Assert.Equal("232", ije.METHNIC5C);
+      Assert.Equal("214", ije.FETHNIC5C);
+      Assert.Equal("232", ije.ToRecord().MotherEthnicityCodeForLiteralHelper);
+      Assert.Equal("214", ije.ToRecord().FatherEthnicityCodeForLiteralHelper);
+    }
+
+    [Fact]
+    public void TestSetCodedEthnicity()
+    {
+      IJEBirth ije = new();
+      Assert.Equal("", ije.METHNICE);
+      Assert.Equal("", ije.FETHNICE);
+      Assert.Equal("", ije.METHNIC5C);
+      Assert.Equal("", ije.FETHNIC5C);
+      ije.FETHNICE = VR.ValueSets.HispanicOrigin.Chicano;
+      ije.METHNICE = VR.ValueSets.HispanicOrigin.Bolivian;
+      ije.FETHNIC5C = VR.ValueSets.HispanicOrigin.Dominican;
+      ije.METHNIC5C = VR.ValueSets.HispanicOrigin.Mestizo;
+      Assert.Equal("232", ije.METHNICE);
+      Assert.Equal("214", ije.FETHNICE);
+      Assert.Equal("289", ije.METHNIC5C);
+      Assert.Equal("275", ije.FETHNIC5C);
+      Assert.Equal("214", ije.ToRecord().FatherEthnicityEditedCodeHelper);
+      Assert.Equal("232", ije.ToRecord().MotherEthnicityEditedCodeHelper);
+      Assert.Equal("275", ije.ToRecord().FatherEthnicityCodeForLiteralHelper);
+      Assert.Equal("289", ije.ToRecord().MotherEthnicityCodeForLiteralHelper);
+    }
+
+    [Fact]
+    public void TestSetFatherRaceTabulation()
+    {
+      IJEBirth ije = new();
+      Assert.Equal("", ije.FRACE1E);
+      Assert.Equal("", ije.FRACE2E);
+      Assert.Equal("", ije.FRACE3E);
+      Assert.Equal("", ije.FRACE4E);
+      Assert.Equal("", ije.FRACE6E);
+      Assert.Equal("", ije.FRACE7E);
+      Assert.Equal("", ije.FRACE8E);
+      Assert.Equal("", ije.FRACE16C);
+      Assert.Equal("", ije.FRACE17C);
+      Assert.Equal("", ije.FRACE18C);
+      Assert.Equal("", ije.FRACE19C);
+      Assert.Equal("", ije.FRACE20C);
+      Assert.Equal("", ije.FRACE21C);
+      Assert.Equal("", ije.FRACE22C);
+      Assert.Equal("", ije.FRACE23C);
+      ije.FRACE1E = VR.ValueSets.RaceCode.Arab;
+      Assert.Equal("102", ije.FRACE1E);
+      Assert.Equal("102", ije.ToRecord().FatherRaceTabulation1EHelper);
+      ije.FRACE2E = VR.ValueSets.RaceCode.Yapese;
+      Assert.Equal("541", ije.FRACE2E);
+      Assert.Equal("541", ije.ToRecord().FatherRaceTabulation2EHelper);
+      ije.FRACE3E = VR.ValueSets.RaceCode.Moor;
+      Assert.Equal("667", ije.FRACE3E);
+      Assert.Equal("667", ije.ToRecord().FatherRaceTabulation3EHelper);
+      ije.FRACE4E = VR.ValueSets.RaceCode.Arab;
+      Assert.Equal("102", ije.FRACE4E);
+      Assert.Equal("102", ije.ToRecord().FatherRaceTabulation4EHelper);
+      ije.FRACE5E = VR.ValueSets.RaceCode.Apache;
+      Assert.Equal("A09", ije.FRACE5E);
+      Assert.Equal("A09", ije.ToRecord().FatherRaceTabulation5EHelper);
+      ije.FRACE6E = VR.ValueSets.RaceCode.Yapese;
+      Assert.Equal("541", ije.FRACE6E);
+      Assert.Equal("541", ije.ToRecord().FatherRaceTabulation6EHelper);
+      ije.FRACE7E = VR.ValueSets.RaceCode.Hmong;
+      Assert.Equal("422", ije.FRACE7E);
+      Assert.Equal("422", ije.ToRecord().FatherRaceTabulation7EHelper);
+      ije.FRACE8E = VR.ValueSets.RaceCode.Moor;
+      Assert.Equal("667", ije.FRACE8E);
+      Assert.Equal("667", ije.ToRecord().FatherRaceTabulation8EHelper);
+
+      ije.FRACE16C = VR.ValueSets.RaceCode.Apache;
+      Assert.Equal("A09", ije.FRACE16C);
+      Assert.Equal("A09", ije.ToRecord().FatherFirstAmericanIndianCodeHelper);
+      ije.FRACE17C = VR.ValueSets.RaceCode.Algonquian;
+      Assert.Equal("A05", ije.FRACE17C);
+      Assert.Equal("A05", ije.ToRecord().FatherSecondAmericanIndianCodeHelper);
+      ije.FRACE18C = VR.ValueSets.RaceCode.Hmong;
+      Assert.Equal("422", ije.FRACE18C);
+      Assert.Equal("422", ije.ToRecord().FatherFirstOtherAsianCodeHelper);
+      ije.FRACE19C = VR.ValueSets.RaceCode.Filipino;
+      Assert.Equal("421", ije.FRACE19C);
+      Assert.Equal("421", ije.ToRecord().FatherSecondOtherAsianCodeHelper);
+      ije.FRACE20C = VR.ValueSets.RaceCode.Yapese;
+      Assert.Equal("541", ije.FRACE20C);
+      Assert.Equal("541", ije.ToRecord().FatherFirstOtherPacificIslanderCodeHelper);
+      ije.FRACE21C = VR.ValueSets.RaceCode.Fijian;
+      Assert.Equal("542", ije.FRACE21C);
+      Assert.Equal("542", ije.ToRecord().FatherSecondOtherPacificIslanderCodeHelper);
+      ije.FRACE22C = VR.ValueSets.RaceCode.Fijian;
+      Assert.Equal("542", ije.FRACE22C);
+      Assert.Equal("542", ije.ToRecord().FatherFirstOtherRaceCodeHelper);
+      ije.FRACE23C = VR.ValueSets.RaceCode.Moor;
+      Assert.Equal("667", ije.FRACE23C);
+      Assert.Equal("667", ije.ToRecord().FatherSecondOtherRaceCodeHelper);
+    }
+
+    [Fact]
+    public void TestSetMotherRaceTabulation()
+    {
+      IJEBirth ije = new();
+      Assert.Equal("", ije.MRACE1E);
+      Assert.Equal("", ije.MRACE2E);
+      Assert.Equal("", ije.MRACE3E);
+      Assert.Equal("", ije.MRACE4E);
+      Assert.Equal("", ije.MRACE6E);
+      Assert.Equal("", ije.MRACE7E);
+      Assert.Equal("", ije.MRACE8E);
+      Assert.Equal("", ije.MRACE16C);
+      Assert.Equal("", ije.MRACE17C);
+      Assert.Equal("", ije.MRACE18C);
+      Assert.Equal("", ije.MRACE19C);
+      Assert.Equal("", ije.MRACE20C);
+      Assert.Equal("", ije.MRACE21C);
+      Assert.Equal("", ije.MRACE22C);
+      Assert.Equal("", ije.MRACE23C);
+      ije.MRACE1E = VR.ValueSets.RaceCode.Arab;
+      Assert.Equal("102", ije.MRACE1E);
+      Assert.Equal("102", ije.ToRecord().MotherRaceTabulation1EHelper);
+      ije.MRACE2E = VR.ValueSets.RaceCode.Yapese;
+      Assert.Equal("541", ije.MRACE2E);
+      Assert.Equal("541", ije.ToRecord().MotherRaceTabulation2EHelper);
+      ije.MRACE3E = VR.ValueSets.RaceCode.Moor;
+      Assert.Equal("667", ije.MRACE3E);
+      Assert.Equal("667", ije.ToRecord().MotherRaceTabulation3EHelper);
+      ije.MRACE4E = VR.ValueSets.RaceCode.Arab;
+      Assert.Equal("102", ije.MRACE4E);
+      Assert.Equal("102", ije.ToRecord().MotherRaceTabulation4EHelper);
+      ije.MRACE5E = VR.ValueSets.RaceCode.Apache;
+      Assert.Equal("A09", ije.MRACE5E);
+      Assert.Equal("A09", ije.ToRecord().MotherRaceTabulation5EHelper);
+      ije.MRACE6E = VR.ValueSets.RaceCode.Yapese;
+      Assert.Equal("541", ije.MRACE6E);
+      Assert.Equal("541", ije.ToRecord().MotherRaceTabulation6EHelper);
+      ije.MRACE7E = VR.ValueSets.RaceCode.Hmong;
+      Assert.Equal("422", ije.MRACE7E);
+      Assert.Equal("422", ije.ToRecord().MotherRaceTabulation7EHelper);
+      ije.MRACE8E = VR.ValueSets.RaceCode.Moor;
+      Assert.Equal("667", ije.MRACE8E);
+      Assert.Equal("667", ije.ToRecord().MotherRaceTabulation8EHelper);
+
+      ije.MRACE16C = VR.ValueSets.RaceCode.Apache;
+      Assert.Equal("A09", ije.MRACE16C);
+      Assert.Equal("A09", ije.ToRecord().MotherFirstAmericanIndianCodeHelper);
+      ije.MRACE17C = VR.ValueSets.RaceCode.Algonquian;
+      Assert.Equal("A05", ije.MRACE17C);
+      Assert.Equal("A05", ije.ToRecord().MotherSecondAmericanIndianCodeHelper);
+      ije.MRACE18C = VR.ValueSets.RaceCode.Hmong;
+      Assert.Equal("422", ije.MRACE18C);
+      Assert.Equal("422", ije.ToRecord().MotherFirstOtherAsianCodeHelper);
+      ije.MRACE19C = VR.ValueSets.RaceCode.Filipino;
+      Assert.Equal("421", ije.MRACE19C);
+      Assert.Equal("421", ije.ToRecord().MotherSecondOtherAsianCodeHelper);
+      ije.MRACE20C = VR.ValueSets.RaceCode.Yapese;
+      Assert.Equal("541", ije.MRACE20C);
+      Assert.Equal("541", ije.ToRecord().MotherFirstOtherPacificIslanderCodeHelper);
+      ije.MRACE21C = VR.ValueSets.RaceCode.Fijian;
+      Assert.Equal("542", ije.MRACE21C);
+      Assert.Equal("542", ije.ToRecord().MotherSecondOtherPacificIslanderCodeHelper);
+      ije.MRACE22C = VR.ValueSets.RaceCode.Fijian;
+      Assert.Equal("542", ije.MRACE22C);
+      Assert.Equal("542", ije.ToRecord().MotherFirstOtherRaceCodeHelper);
+      ije.MRACE23C = VR.ValueSets.RaceCode.Moor;
+      Assert.Equal("667", ije.MRACE23C);
+      Assert.Equal("667", ije.ToRecord().MotherSecondOtherRaceCodeHelper);
+    }
+
+    [Fact]
     public void TestImportMotherBirthplace()
     {
       // Test IJE import.

@@ -103,6 +103,7 @@ namespace BFDR.CLI
 
                 birthRecord.SetOrder = null;
                 birthRecord.Plurality = null;
+                birthRecord.CyanoticCongenitalHeartDisease = true;
                 birthRecord.NoCongenitalAnomaliesOfTheNewborn = true;
                 birthRecord.EpiduralOrSpinalAnesthesia = true;
                 birthRecord.AugmentationOfLabor = true;
@@ -110,7 +111,6 @@ namespace BFDR.CLI
                 birthRecord.NoInfectionsPresentDuringPregnancy = true;
                 birthRecord.GestationalHypertension = true;
 
-                birthRecord.CyanoticCongenitalHeartDisease = true;
 
                 Dictionary<string, string> route = new Dictionary<string, string>();
                 route.Add("code", "700000006");
@@ -136,11 +136,16 @@ namespace BFDR.CLI
 
                 //Ethnicity
                 birthRecord.MotherEthnicity3Helper = VR.ValueSets.HispanicNoUnknown.Yes;
+                birthRecord.MotherEthnicityLiteral = VR.ValueSets.HispanicOrigin.Colombian;
                 // Race
                 Tuple<string, string>[] motherRace = { Tuple.Create(NvssRace.BlackOrAfricanAmerican, "Y")};
                 birthRecord.MotherRace = motherRace;
                 Tuple<string, string>[] fatherRace = { Tuple.Create(NvssRace.White, "Y")};
                 birthRecord.FatherRace = fatherRace;
+                birthRecord.MotherRaceTabulation1EHelper = VR.ValueSets.RaceCode.Colombian;
+                birthRecord.FatherRaceTabulation1EHelper = VR.ValueSets.RaceCode.Arab;
+                birthRecord.MotherEthnicityEditedCodeHelper = VR.ValueSets.HispanicOrigin.Colombian;
+                birthRecord.FatherEthnicityEditedCodeHelper = VR.ValueSets.HispanicOrigin.Non_Hispanic;
 
                 // Write out the Record
                 Console.WriteLine(birthRecord.ToJSON());
