@@ -52,6 +52,7 @@ jobs:
     defaults:
       run:
         working-directory: ./projects
+    permissions: write-all
     steps:
     - uses: actions/checkout@v4
     - name: Setup .NET
