@@ -23,6 +23,7 @@ on:
       - 'projects/VRDR.Filter/**'
       - 'projects/VRDR.Messaging/**'
       - 'projects/VRDR.Tests/**'
+      - ".github/workflows/vrdr-test.yml"
   workflow_dispatch:
 
 jobs:
