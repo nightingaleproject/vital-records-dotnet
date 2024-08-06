@@ -64,7 +64,7 @@ export class ConnectathonDashboard extends Component {
                     <DashboardItem
                       key={i}
                       icon={!!x[sexKey] && x[sexKey]['code'] || 'male'}
-                      title={`#${i + 1}: ${x[familyNameKey]}, ${x[givenNamesKey].join(' ')}`}
+                      title={`#${i + 1}: ${x[familyNameKey] ?? '[null]'}, ${x[givenNamesKey] != '' ? x[givenNamesKey].join(' ') : "[null]"}`}
                       description={`${x[descriptionKey]}`}
                       route={this.getUrl(i + 1)}
                     />
