@@ -37,7 +37,7 @@ namespace BFDR.Tests
       // Sex
       Assert.Equal("M", ijeImported.ISEX);
       Assert.Equal(ijeImported.ISEX, ijeConverted.ISEX);
-      Assert.Equal("M", br.BirthSex["code"]);
+      Assert.Equal("M", br.BirthSex);
       // Date of Birth (Infant)--Month
       Assert.Equal("11", ijeImported.IDOB_MO);
       Assert.Equal(ijeImported.IDOB_MO, ijeConverted.IDOB_MO);
@@ -53,7 +53,6 @@ namespace BFDR.Tests
       // Plurality
       // TODO ---
       // Set Order
-      // TODO ---
       Assert.Equal("06", ijeImported.SORD);
       Assert.Equal(ijeImported.SORD, ijeConverted.SORD);
       Assert.Equal(6, br.SetOrder);
@@ -109,16 +108,13 @@ namespace BFDR.Tests
       IJEBirth ije = new IJEBirth();
       ije.ISEX = "M";
       Assert.Equal("M", ije.ISEX);
-      Assert.Equal("M", ije.ToRecord().BirthSex["code"]);
-      Assert.Equal("M", ije.ToRecord().BirthSexHelper);
+      Assert.Equal("M", ije.ToRecord().BirthSex);
       ije.ISEX = "F";
       Assert.Equal("F", ije.ISEX);
-      Assert.Equal("F", ije.ToRecord().BirthSex["code"]);
-      Assert.Equal("F", ije.ToRecord().BirthSexHelper);
-      ije.ToRecord().BirthSexHelper = "M";
+      Assert.Equal("F", ije.ToRecord().BirthSex);
+      ije.ToRecord().BirthSex = "M";
       Assert.Equal("M", ije.ISEX);
-      Assert.Equal("M", ije.ToRecord().BirthSex["code"]);
-      Assert.Equal("M", ije.ToRecord().BirthSexHelper);
+      Assert.Equal("M", ije.ToRecord().BirthSex);
     }
 
     // Test Patient Mother Vital Properties
@@ -461,6 +457,206 @@ namespace BFDR.Tests
       CodeY.Add("display", VR.ValueSets.HispanicNoUnknown.Codes[1, 1]);
       CodeY.Add("system", VR.ValueSets.HispanicNoUnknown.Codes[1, 2]);
       Assert.Equal(CodeY, fhir.FatherEthnicity1);
+    }
+
+    [Fact]
+    public void TestSetEthnicityLiteral()
+    {
+      IJEBirth ije = new();
+      Assert.Equal("", ije.METHNIC5);
+      Assert.Equal("", ije.FETHNIC5);
+      ije.METHNIC5 = "Bolivian";
+      ije.FETHNIC5 = "Columbian";
+      Assert.Equal("Bolivian", ije.METHNIC5);
+      Assert.Equal("Columbian", ije.FETHNIC5);
+      Assert.Equal("Bolivian", ije.ToRecord().MotherEthnicityLiteral);
+      Assert.Equal("Columbian", ije.ToRecord().FatherEthnicityLiteral);
+    }
+
+    [Fact]
+    public void TestImportEthnicityLiteral()
+    {
+      IJEBirth ije = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/BasicBirthRecord.ije")), true);
+      Assert.Equal("Chilean", ije.METHNIC5);
+      Assert.Equal("Panamanian", ije.FETHNIC5);
+      Assert.Equal("Chilean", ije.ToRecord().MotherEthnicityLiteral);
+      Assert.Equal("Panamanian", ije.ToRecord().FatherEthnicityLiteral);
+    }
+
+    [Fact]
+    public void TestSetCodedEthnicityLiteral()
+    {
+      IJEBirth ije = new();
+      Assert.Equal("", ije.METHNIC5C);
+      Assert.Equal("", ije.FETHNIC5C);
+      ije.METHNIC5C = VR.ValueSets.HispanicOrigin.Bolivian;
+      ije.FETHNIC5C = VR.ValueSets.HispanicOrigin.Chicano;
+      Assert.Equal("232", ije.METHNIC5C);
+      Assert.Equal("214", ije.FETHNIC5C);
+      Assert.Equal("232", ije.ToRecord().MotherEthnicityCodeForLiteralHelper);
+      Assert.Equal("214", ije.ToRecord().FatherEthnicityCodeForLiteralHelper);
+    }
+
+    [Fact]
+    public void TestSetCodedEthnicity()
+    {
+      IJEBirth ije = new();
+      Assert.Equal("", ije.METHNICE);
+      Assert.Equal("", ije.FETHNICE);
+      Assert.Equal("", ije.METHNIC5C);
+      Assert.Equal("", ije.FETHNIC5C);
+      ije.FETHNICE = VR.ValueSets.HispanicOrigin.Chicano;
+      ije.METHNICE = VR.ValueSets.HispanicOrigin.Bolivian;
+      ije.FETHNIC5C = VR.ValueSets.HispanicOrigin.Dominican;
+      ije.METHNIC5C = VR.ValueSets.HispanicOrigin.Mestizo;
+      Assert.Equal("232", ije.METHNICE);
+      Assert.Equal("214", ije.FETHNICE);
+      Assert.Equal("289", ije.METHNIC5C);
+      Assert.Equal("275", ije.FETHNIC5C);
+      Assert.Equal("214", ije.ToRecord().FatherEthnicityEditedCodeHelper);
+      Assert.Equal("232", ije.ToRecord().MotherEthnicityEditedCodeHelper);
+      Assert.Equal("275", ije.ToRecord().FatherEthnicityCodeForLiteralHelper);
+      Assert.Equal("289", ije.ToRecord().MotherEthnicityCodeForLiteralHelper);
+    }
+
+    [Fact]
+    public void TestSetFatherRaceTabulation()
+    {
+      IJEBirth ije = new();
+      Assert.Equal("", ije.FRACE1E);
+      Assert.Equal("", ije.FRACE2E);
+      Assert.Equal("", ije.FRACE3E);
+      Assert.Equal("", ije.FRACE4E);
+      Assert.Equal("", ije.FRACE6E);
+      Assert.Equal("", ije.FRACE7E);
+      Assert.Equal("", ije.FRACE8E);
+      Assert.Equal("", ije.FRACE16C);
+      Assert.Equal("", ije.FRACE17C);
+      Assert.Equal("", ije.FRACE18C);
+      Assert.Equal("", ije.FRACE19C);
+      Assert.Equal("", ije.FRACE20C);
+      Assert.Equal("", ije.FRACE21C);
+      Assert.Equal("", ije.FRACE22C);
+      Assert.Equal("", ije.FRACE23C);
+      ije.FRACE1E = VR.ValueSets.RaceCode.Arab;
+      Assert.Equal("102", ije.FRACE1E);
+      Assert.Equal("102", ije.ToRecord().FatherRaceTabulation1EHelper);
+      ije.FRACE2E = VR.ValueSets.RaceCode.Yapese;
+      Assert.Equal("541", ije.FRACE2E);
+      Assert.Equal("541", ije.ToRecord().FatherRaceTabulation2EHelper);
+      ije.FRACE3E = VR.ValueSets.RaceCode.Moor;
+      Assert.Equal("667", ije.FRACE3E);
+      Assert.Equal("667", ije.ToRecord().FatherRaceTabulation3EHelper);
+      ije.FRACE4E = VR.ValueSets.RaceCode.Arab;
+      Assert.Equal("102", ije.FRACE4E);
+      Assert.Equal("102", ije.ToRecord().FatherRaceTabulation4EHelper);
+      ije.FRACE5E = VR.ValueSets.RaceCode.Apache;
+      Assert.Equal("A09", ije.FRACE5E);
+      Assert.Equal("A09", ije.ToRecord().FatherRaceTabulation5EHelper);
+      ije.FRACE6E = VR.ValueSets.RaceCode.Yapese;
+      Assert.Equal("541", ije.FRACE6E);
+      Assert.Equal("541", ije.ToRecord().FatherRaceTabulation6EHelper);
+      ije.FRACE7E = VR.ValueSets.RaceCode.Hmong;
+      Assert.Equal("422", ije.FRACE7E);
+      Assert.Equal("422", ije.ToRecord().FatherRaceTabulation7EHelper);
+      ije.FRACE8E = VR.ValueSets.RaceCode.Moor;
+      Assert.Equal("667", ije.FRACE8E);
+      Assert.Equal("667", ije.ToRecord().FatherRaceTabulation8EHelper);
+
+      ije.FRACE16C = VR.ValueSets.RaceCode.Apache;
+      Assert.Equal("A09", ije.FRACE16C);
+      Assert.Equal("A09", ije.ToRecord().FatherFirstAmericanIndianCodeHelper);
+      ije.FRACE17C = VR.ValueSets.RaceCode.Algonquian;
+      Assert.Equal("A05", ije.FRACE17C);
+      Assert.Equal("A05", ije.ToRecord().FatherSecondAmericanIndianCodeHelper);
+      ije.FRACE18C = VR.ValueSets.RaceCode.Hmong;
+      Assert.Equal("422", ije.FRACE18C);
+      Assert.Equal("422", ije.ToRecord().FatherFirstOtherAsianCodeHelper);
+      ije.FRACE19C = VR.ValueSets.RaceCode.Filipino;
+      Assert.Equal("421", ije.FRACE19C);
+      Assert.Equal("421", ije.ToRecord().FatherSecondOtherAsianCodeHelper);
+      ije.FRACE20C = VR.ValueSets.RaceCode.Yapese;
+      Assert.Equal("541", ije.FRACE20C);
+      Assert.Equal("541", ije.ToRecord().FatherFirstOtherPacificIslanderCodeHelper);
+      ije.FRACE21C = VR.ValueSets.RaceCode.Fijian;
+      Assert.Equal("542", ije.FRACE21C);
+      Assert.Equal("542", ije.ToRecord().FatherSecondOtherPacificIslanderCodeHelper);
+      ije.FRACE22C = VR.ValueSets.RaceCode.Fijian;
+      Assert.Equal("542", ije.FRACE22C);
+      Assert.Equal("542", ije.ToRecord().FatherFirstOtherRaceCodeHelper);
+      ije.FRACE23C = VR.ValueSets.RaceCode.Moor;
+      Assert.Equal("667", ije.FRACE23C);
+      Assert.Equal("667", ije.ToRecord().FatherSecondOtherRaceCodeHelper);
+    }
+
+    [Fact]
+    public void TestSetMotherRaceTabulation()
+    {
+      IJEBirth ije = new();
+      Assert.Equal("", ije.MRACE1E);
+      Assert.Equal("", ije.MRACE2E);
+      Assert.Equal("", ije.MRACE3E);
+      Assert.Equal("", ije.MRACE4E);
+      Assert.Equal("", ije.MRACE6E);
+      Assert.Equal("", ije.MRACE7E);
+      Assert.Equal("", ije.MRACE8E);
+      Assert.Equal("", ije.MRACE16C);
+      Assert.Equal("", ije.MRACE17C);
+      Assert.Equal("", ije.MRACE18C);
+      Assert.Equal("", ije.MRACE19C);
+      Assert.Equal("", ije.MRACE20C);
+      Assert.Equal("", ije.MRACE21C);
+      Assert.Equal("", ije.MRACE22C);
+      Assert.Equal("", ije.MRACE23C);
+      ije.MRACE1E = VR.ValueSets.RaceCode.Arab;
+      Assert.Equal("102", ije.MRACE1E);
+      Assert.Equal("102", ije.ToRecord().MotherRaceTabulation1EHelper);
+      ije.MRACE2E = VR.ValueSets.RaceCode.Yapese;
+      Assert.Equal("541", ije.MRACE2E);
+      Assert.Equal("541", ije.ToRecord().MotherRaceTabulation2EHelper);
+      ije.MRACE3E = VR.ValueSets.RaceCode.Moor;
+      Assert.Equal("667", ije.MRACE3E);
+      Assert.Equal("667", ije.ToRecord().MotherRaceTabulation3EHelper);
+      ije.MRACE4E = VR.ValueSets.RaceCode.Arab;
+      Assert.Equal("102", ije.MRACE4E);
+      Assert.Equal("102", ije.ToRecord().MotherRaceTabulation4EHelper);
+      ije.MRACE5E = VR.ValueSets.RaceCode.Apache;
+      Assert.Equal("A09", ije.MRACE5E);
+      Assert.Equal("A09", ije.ToRecord().MotherRaceTabulation5EHelper);
+      ije.MRACE6E = VR.ValueSets.RaceCode.Yapese;
+      Assert.Equal("541", ije.MRACE6E);
+      Assert.Equal("541", ije.ToRecord().MotherRaceTabulation6EHelper);
+      ije.MRACE7E = VR.ValueSets.RaceCode.Hmong;
+      Assert.Equal("422", ije.MRACE7E);
+      Assert.Equal("422", ije.ToRecord().MotherRaceTabulation7EHelper);
+      ije.MRACE8E = VR.ValueSets.RaceCode.Moor;
+      Assert.Equal("667", ije.MRACE8E);
+      Assert.Equal("667", ije.ToRecord().MotherRaceTabulation8EHelper);
+
+      ije.MRACE16C = VR.ValueSets.RaceCode.Apache;
+      Assert.Equal("A09", ije.MRACE16C);
+      Assert.Equal("A09", ije.ToRecord().MotherFirstAmericanIndianCodeHelper);
+      ije.MRACE17C = VR.ValueSets.RaceCode.Algonquian;
+      Assert.Equal("A05", ije.MRACE17C);
+      Assert.Equal("A05", ije.ToRecord().MotherSecondAmericanIndianCodeHelper);
+      ije.MRACE18C = VR.ValueSets.RaceCode.Hmong;
+      Assert.Equal("422", ije.MRACE18C);
+      Assert.Equal("422", ije.ToRecord().MotherFirstOtherAsianCodeHelper);
+      ije.MRACE19C = VR.ValueSets.RaceCode.Filipino;
+      Assert.Equal("421", ije.MRACE19C);
+      Assert.Equal("421", ije.ToRecord().MotherSecondOtherAsianCodeHelper);
+      ije.MRACE20C = VR.ValueSets.RaceCode.Yapese;
+      Assert.Equal("541", ije.MRACE20C);
+      Assert.Equal("541", ije.ToRecord().MotherFirstOtherPacificIslanderCodeHelper);
+      ije.MRACE21C = VR.ValueSets.RaceCode.Fijian;
+      Assert.Equal("542", ije.MRACE21C);
+      Assert.Equal("542", ije.ToRecord().MotherSecondOtherPacificIslanderCodeHelper);
+      ije.MRACE22C = VR.ValueSets.RaceCode.Fijian;
+      Assert.Equal("542", ije.MRACE22C);
+      Assert.Equal("542", ije.ToRecord().MotherFirstOtherRaceCodeHelper);
+      ije.MRACE23C = VR.ValueSets.RaceCode.Moor;
+      Assert.Equal("667", ije.MRACE23C);
+      Assert.Equal("667", ije.ToRecord().MotherSecondOtherRaceCodeHelper);
     }
 
     [Fact]
@@ -831,9 +1027,9 @@ namespace BFDR.Tests
     {
       BirthRecord fhir = new BirthRecord();
       IJEBirth ije = new IJEBirth(fhir);
-      Assert.Equal("    ", ije.DOFP_YR);
-      Assert.Equal("  ", ije.DOFP_MO);
-      Assert.Equal("  ", ije.DOFP_DY);
+      Assert.Equal("8888", ije.DOFP_YR);
+      Assert.Equal("88", ije.DOFP_MO);
+      Assert.Equal("88", ije.DOFP_DY);
       ije.DOFP_DY = "24";
       Assert.Equal("    ", ije.DOFP_YR);
       Assert.Equal("  ", ije.DOFP_MO);
@@ -913,7 +1109,7 @@ namespace BFDR.Tests
       BirthRecord fhir = new BirthRecord();
       IJEBirth ije = new IJEBirth(fhir);
       Assert.Equal("  ", ije.APGAR5);
-      Assert.Equal("  ", ije.APGAR10);
+      Assert.Equal("88", ije.APGAR10);
       ije.APGAR5 = "99";
       ije.APGAR10 = "15";
       Assert.Equal("99", ije.APGAR5);
@@ -961,6 +1157,51 @@ namespace BFDR.Tests
       Assert.Equal("N", ije3.ANEN);
       Assert.Equal("7134703", ije3.INF_MED_REC_NUM);
       Assert.Equal("2286144", ije3.MOM_MED_REC_NUM);
+    }
+
+    [Fact]
+    public void BlankEights() {
+      IJEBirth ije = new()
+      {
+          YOPO = "2020",
+          MOPO = "04",
+          DOFP_DY = "05",
+          DOFP_MO = "07",
+          DOFP_YR = "2021",
+          APGAR10 = "09",
+          MLLB = "08",
+          YLLB = "2017"
+      };
+
+      Assert.Equal("2020", ije.YOPO);
+      Assert.Equal("04", ije.MOPO);
+      Assert.Equal("09", ije.APGAR10);
+      Assert.Equal("05", ije.DOFP_DY);
+      Assert.Equal("07", ije.DOFP_MO);
+      Assert.Equal("2021", ije.DOFP_YR);
+      Assert.Equal("08", ije.MLLB);
+      Assert.Equal("2017", ije.YLLB);
+
+      ije.YOPO = "8888";
+      ije.DOFP_DY = "88";
+      ije.APGAR10 = "88";
+      ije.MLLB = "88";
+      Assert.Equal("8888", ije.YOPO);
+      Assert.Null(ije.ToRecord().DateOfLastOtherPregnancyOutcomeYear);
+      Assert.Equal("88", ije.MOPO);
+      Assert.Null(ije.ToRecord().DateOfLastOtherPregnancyOutcomeMonth);
+      Assert.Equal("88", ije.APGAR10);
+      Assert.Null(ije.ToRecord().ApgarScoreTenMinutes);
+      Assert.Equal("88", ije.DOFP_DY);
+      Assert.Null(ije.ToRecord().FirstPrenatalCareVisitDay);
+      Assert.Equal("88", ije.DOFP_MO);
+      Assert.Null(ije.ToRecord().FirstPrenatalCareVisitMonth);
+      Assert.Equal("8888", ije.DOFP_YR);
+      Assert.Null(ije.ToRecord().FirstPrenatalCareVisitYear);
+      Assert.Equal("88", ije.MLLB);
+      Assert.Null(ije.ToRecord().DateOfLastLiveBirthMonth);
+      Assert.Equal("8888", ije.YLLB);
+      Assert.Null(ije.ToRecord().DateOfLastLiveBirthYear);
     }
   }
 }

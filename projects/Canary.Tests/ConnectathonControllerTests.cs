@@ -1,9 +1,5 @@
 using Xunit;
 using canary.Controllers;
-using System.IO;
-using System.Text;
-using Microsoft.AspNetCore.Http;
-using System.Collections.Generic;
 using VRDR;
 
 namespace canary.tests
@@ -17,7 +13,7 @@ namespace canary.tests
             var controller = new ConnectathonController();
 
             // Act
-            var result = controller.Index();
+            var result = controller.IndexVRDR();
 
             // Assert
             var deathRecordArray = Assert.IsType<DeathRecord[]>(result);

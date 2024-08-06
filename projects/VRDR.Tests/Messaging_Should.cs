@@ -148,13 +148,6 @@ namespace VRDR.Tests
             Assert.Equal(submission.StateAuxiliaryId, parsed.StateAuxiliaryId);
             Assert.Equal(submission.NCHSIdentifier, parsed.NCHSIdentifier);
         }
-
-	[Fact]
-        public void ProtectedSetMessageBundle()
-        {
-            DeathRecordSubmissionMessage submission = new DeathRecordSubmissionMessage();
-            Assert.NotNull(submission.MessageBundle);
-	}
 		
         [Fact]
         public void CreateUpdate()

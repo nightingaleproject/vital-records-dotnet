@@ -239,9 +239,17 @@
             <summary>Get a value on the VitalRecord that is a numeric string with the option of being set to all 9s on the IJE side and -1 on the
             FHIR side to represent'unknown' and blank on the IJE side and null on the FHIR side to represent unspecified</summary>
         </member>
+        <member name="M:VR.IJE.NumericAllowingUnknownAndAbsence_Get(System.String,System.String,System.String)">
+            <summary>Get a value on the VitalRecord that is a numeric string with the option of being set to all 8s on the IJE side and absent on the
+            FHIR side to represent'unknown'</summary>
+        </member>
         <member name="M:VR.IJE.NumericAllowingUnknown_Set(System.String,System.String,System.String)">
             <summary>Set a value on the VitalRecord that is a numeric string with the option of being set to all 9s on the IJE side and -1 on the
             FHIR side to represent'unknown' and blank on the IJE side and null on the FHIR side to represent unspecified</summary>
+        </member>
+        <member name="M:VR.IJE.NumericAllowingUnknownAndAbsence_Set(System.String,System.String,System.String,System.String)">
+            <summary>Set a value on the VitalRecord that is a numeric string with the option of being set to all 8s on the IJE side and absent on the
+            FHIR side to represent'unknown'</summary>
         </member>
         <member name="M:VR.IJE.LeftJustified_Get(System.String,System.String)">
             <summary>Get a value on the VitalRecord whose IJE type is a left justified string.</summary>
@@ -611,6 +619,102 @@
         <member name="F:VR.NvssRace.MissingValueReason">
             <summary> MissingValueReason </summary>
         </member>
+        <member name="F:VR.NvssRace.FirstEditedCode">
+            <summary> FirstEditedCode </summary>
+        </member>
+        <member name="F:VR.NvssRace.FirstEditedCodeDisplay">
+            <summary> FirstEditedCode Display </summary>
+        </member>
+        <member name="F:VR.NvssRace.SecondEditedCode">
+            <summary> SecondEditedCode </summary>
+        </member>
+        <member name="F:VR.NvssRace.SecondEditedCodeDisplay">
+            <summary> SecondEditedCode Display </summary>
+        </member>
+        <member name="F:VR.NvssRace.ThirdEditedCode">
+            <summary> ThirdEditedCode </summary>
+        </member>
+        <member name="F:VR.NvssRace.ThirdEditedCodeDisplay">
+            <summary> ThirdEditedCode Display </summary>
+        </member>
+        <member name="F:VR.NvssRace.FourthEditedCode">
+            <summary> FirstEditedCode </summary>
+        </member>
+        <member name="F:VR.NvssRace.FourthEditedCodeDisplay">
+            <summary> FourthEditedCode Display </summary>
+        </member>
+        <member name="F:VR.NvssRace.FifthEditedCode">
+            <summary> FirstEditedCode </summary>
+        </member>
+        <member name="F:VR.NvssRace.FifthEditedCodeDisplay">
+            <summary> FifthEditedCode Display </summary>
+        </member>
+        <member name="F:VR.NvssRace.SixthEditedCode">
+            <summary> SixthEditedCode </summary>
+        </member>
+        <member name="F:VR.NvssRace.SixthEditedCodeDisplay">
+            <summary> SixthEditedCode Display </summary>
+        </member>
+        <member name="F:VR.NvssRace.SeventhEditedCode">
+            <summary> SeventhEditedCode </summary>
+        </member>
+        <member name="F:VR.NvssRace.SeventhEditedCodeDisplay">
+            <summary> SeventhEditedCode Display </summary>
+        </member>
+        <member name="F:VR.NvssRace.EighthEditedCode">
+            <summary> EighthEditedCode </summary>
+        </member>
+        <member name="F:VR.NvssRace.EighthEditedCodeDisplay">
+            <summary> EighthEditedCode Display </summary>
+        </member>
+        <member name="F:VR.NvssRace.FirstAmericanIndianCode">
+            <summary> FirstAmericanIndianCode </summary>
+        </member>
+        <member name="F:VR.NvssRace.FirstAmericanIndianCodeDisplay">
+            <summary> FirstAmericanIndianCode Display </summary>
+        </member>
+        <member name="F:VR.NvssRace.SecondAmericanIndianCode">
+            <summary> SecondAmericanIndianCode </summary>
+        </member>
+        <member name="F:VR.NvssRace.SecondAmericanIndianCodeDisplay">
+            <summary> SecondAmericanIndian Display </summary>
+        </member>
+        <member name="F:VR.NvssRace.FirstOtherAsianCode">
+            <summary> FirstOtherAsianCode </summary>
+        </member>
+        <member name="F:VR.NvssRace.FirstOtherAsianCodeDisplay">
+            <summary> FirstOtherAsianCode Display </summary>
+        </member>
+        <member name="F:VR.NvssRace.SecondOtherAsianCode">
+            <summary> SecondOtherAsianCode </summary>
+        </member>
+        <member name="F:VR.NvssRace.SecondOtherAsianCodeDisplay">
+            <summary> SecondOtherAsianCode Display </summary>
+        </member>
+        <member name="F:VR.NvssRace.FirstOtherPacificIslanderCode">
+            <summary> FirstOtherPacificIslander </summary>
+        </member>
+        <member name="F:VR.NvssRace.FirstOtherPacificIslanderCodeDisplay">
+            <summary> FirstOtherPacificIslanderCode Display </summary>
+        </member>
+        <member name="F:VR.NvssRace.SecondOtherPacificIslanderCode">
+            <summary> SecondOtherPacificIslanderCode </summary>
+        </member>
+        <member name="F:VR.NvssRace.SecondOtherPacificIslanderCodeDisplay">
+            <summary> SecondOtherPacificIslanderCode Display </summary>
+        </member>
+        <member name="F:VR.NvssRace.FirstOtherRaceCode">
+            <summary> FirstOtherRaceCode </summary>
+        </member>
+        <member name="F:VR.NvssRace.FirstOtherRaceCodeDisplay">
+            <summary> FirstOtherRaceCode Display </summary>
+        </member>
+        <member name="F:VR.NvssRace.SecondOtherRaceCode">
+            <summary> SecondOtherRaceCode </summary>
+        </member>
+        <member name="F:VR.NvssRace.SecondOtherRaceCodeDisplay">
+            <summary> SecondOtherRaceCode Display </summary>
+        </member>
         <member name="M:VR.NvssRace.GetBooleanRaceCodes">
             <summary> GetBooleanRaceCodes Returns a list of the Boolean Race Codes, Y or N values </summary>
         </member>
@@ -647,11 +751,23 @@
         <member name="F:VR.NvssEthnicity.OtherDisplay">
             <summary> Hispanic Other </summary>
         </member>
+        <member name="F:VR.NvssEthnicity.EditedCode">
+            <summary> Edited Code </summary>
+        </member>
+        <member name="F:VR.NvssEthnicity.EditedCodeDisplay">
+            <summary> Edited Code Display </summary>
+        </member>
         <member name="F:VR.NvssEthnicity.Literal">
             <summary> Literal </summary>
         </member>
         <member name="F:VR.NvssEthnicity.LiteralDisplay">
             <summary> Hispanic Literal </summary>
+        </member>
+        <member name="F:VR.NvssEthnicity.CodeForLiteral">
+            <summary> Code For Literal </summary>
+        </member>
+        <member name="F:VR.NvssEthnicity.CodeForLiteralDisplay">
+            <summary> Hispanic Code for Literal </summary>
         </member>
         <member name="T:VR.ProfileURL">
             <summary>Profile URLs</summary>
@@ -740,9 +856,6 @@
         </member>
         <member name="P:VR.ExtensionURL.RelatedpersonBirthplace">
             <summary>URL for RelatedpersonBirthplace</summary>
-        </member>
-        <member name="P:VR.ExtensionURL.RelatedPersonDeceased">
-            <summary>URL for RelatedPersonDeceased</summary>
         </member>
         <member name="P:VR.ExtensionURL.ReportedParentAgeAtDelivery">
             <summary>URL for ReportedParentAgeAtDelivery</summary>
@@ -833,9 +946,6 @@
         </member>
         <member name="F:VR.IGURL.RelatedpersonBirthplace">
             <summary>URL for RelatedpersonBirthplace</summary>
-        </member>
-        <member name="F:VR.IGURL.RelatedPersonDeceased">
-            <summary>URL for RelatedPersonDeceased</summary>
         </member>
         <member name="F:VR.IGURL.ReportedParentAgeAtDelivery">
             <summary>URL for ReportedParentAgeAtDelivery</summary>
@@ -5444,6 +5554,10 @@
             <summary>Helper to support vital record property getter helper methods for values stored in Observations.</summary>
             <param name="code">the code to identify the type of Observation</param>
         </member>
+        <member name="M:VR.VitalRecord.RemoveObservation(System.String)">
+            <summary>Helper to support vital record property getter helper methods for removing Observations.</summary>
+            <param name="code">the code to identify the type of Observation</param>
+        </member>
         <member name="M:VR.VitalRecord.GetOrCreateObservation(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
             <summary>Helper to support vital record property setter helper methods for values stored in Observations.</summary>
             <param name="code">the code to specify the type of Observation</param>
@@ -5518,7 +5632,8 @@
             <param name="use"> The type of name, defaults to official.</param>
         </member>
         <member name="M:VR.VitalRecord.ValidatePartialDates(Hl7.Fhir.Model.Bundle)">
-            <summary>Helper method to validate that all PartialDate and PartialDateTime exensions are valid and have the valid required sub-extensions.</summary>
+            <summary>Function that validates all partial date extensions in a bundle. Currently unused due
+            to reevaluation of partial date handling due to changes in the VitalRecords IG.</summary>
             <param name="bundle">The bundle in which to validate the PartialDate/Time extensions.</param>
         </member>
         <member name="M:VR.VitalRecord.GetPartialDate(Hl7.Fhir.Model.Extension,System.String)">
@@ -5632,6 +5747,9 @@
         </member>
         <member name="M:VR.VitalRecord.SetCodeValue(System.String,System.String,System.String[0:,0:])">
             <summary>Helper function to set a codeable value based on a code and the set of allowed codes.</summary>
+        </member>
+        <member name="M:VR.VitalRecord.CodeExistsInValueSet(System.String,System.String[0:,0:])">
+            <summary>Helper function to determine whether a value appears in the the set of allowed codes.</summary>
         </member>
         <member name="M:VR.VitalRecord.SetQuantityValue(System.String,System.String,System.String,System.String[0:,0:])">
             <summary>Helper function to set a quantity value based on a value, code and the set of allowed codes.</summary>

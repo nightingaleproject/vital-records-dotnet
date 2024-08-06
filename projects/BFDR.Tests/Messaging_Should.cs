@@ -41,10 +41,10 @@ namespace BFDR.Tests
             BirthRecordSubmissionMessage submission = new BirthRecordSubmissionMessage(record);
             Assert.NotNull(submission.BirthRecord);
             Assert.Equal("http://nchs.cdc.gov/bfdr_submission", submission.MessageType);
-            Assert.Equal((uint)48858, submission.CertNo);
+            Assert.Equal((uint)15075, submission.CertNo);
             Assert.Equal((uint)2019, submission.BirthYear);
-            Assert.Equal("000000000042", submission.StateAuxiliaryId);
-            Assert.Equal("2019UT048858", submission.NCHSIdentifier);
+            Assert.Equal("444455555", submission.StateAuxiliaryId);
+            Assert.Equal("2019UT015075", submission.NCHSIdentifier);
             Assert.Equal(2019, submission.BirthRecord.BirthYear);
 
             // Test with null record
@@ -91,10 +91,10 @@ namespace BFDR.Tests
             BirthRecordUpdateMessage submission = new BirthRecordUpdateMessage(record);
             Assert.NotNull(submission.BirthRecord);
             Assert.Equal("http://nchs.cdc.gov/bfdr_submission_update", submission.MessageType);
-            Assert.Equal((uint)48858, submission.CertNo);
+            Assert.Equal((uint)15075, submission.CertNo);
             Assert.Equal((uint)2019, submission.BirthYear);
-            Assert.Equal("000000000042", submission.StateAuxiliaryId);
-            Assert.Equal("2019UT048858", submission.NCHSIdentifier);
+            Assert.Equal("444455555", submission.StateAuxiliaryId);
+            Assert.Equal("2019UT015075", submission.NCHSIdentifier);
             Assert.Equal(2019, submission.BirthRecord.BirthYear);
 
             // Test with null record

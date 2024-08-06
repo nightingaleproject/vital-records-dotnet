@@ -140,9 +140,9 @@ possible to set a middle name without first setting a first name. The library ha
 
 1. Requiring the entire given name (first name and any middle names) to be set all at once when
 using the BirthRecord class
-2. Raising an exception if a middle name is set before a first name when using the IJENatality
+1. Raising an exception if a middle name is set before a first name when using the IJEBirth
 class
-3. Resetting the middle name if the first name is set again when using the IJENatality class;
+1. Resetting the middle name if the first name is set again when using the IJEBirth class;
 setting the first name and then the middle name ensures no issues will occur.
 
 For the child's last name, if the family name, denoted as ChildFamilyName in FHIR, is missing or unknown,
@@ -162,8 +162,8 @@ string xml = File.ReadAllText("./example_bfdr_fhir_record.xml");
 // Construct a new BirthRecord object from the string
 BirthRecord birthRecord = new BirthRecord(xml);
 
-// Create an IJENatality instance from the BirthRecord
-IJENatality ije = new IJENatality(birthRecord);
+// Create an IJEBirth instance from the BirthRecord
+IJEBirth ije = new IJEBirth(birthRecord);
 
 // Print out the corresponding IJE version of the BirthRecord
 string ijeString = ije.ToString(); // Converts BirthRecord to IJE
@@ -174,8 +174,8 @@ An example of converting an IJE string to a BFDR FHIR Birth Record:
 ```cs
 using BFDR;
 
-// Construct a new IJENatality instance from an IJE string
-IJENatality ije = new IJENatality("..."); // This will convert the IJE string to a BirthRecord
+// Construct a new IJEBirth instance from an IJE string
+IJEBirth ije = new IJEBirth("..."); // This will convert the IJE string to a BirthRecord
 
 // Grab the corresponding FHIR BirthRecord
 BirthRecord birthRecord = ije.ToRecord();
@@ -358,9 +358,9 @@ The property values of these Metadata/attributes for BirthRecord are set and ret
 Snippet from [BFDR.CLI/Program.cs](../master/projects/BFDR.CLI/Program.cs#L479-L489) gives an example of how these custom attributes can be used:
 ```
 BirthRecord d = new BirthRecord(File.ReadAllText(args[1]));
-IJENatality ije1 = new IJENatality(d, false);
+IJEBirth ije1 = new IJEBirth(d, false);
 // Loop over every property (these are the fields); Order by priority
-List<PropertyInfo> properties = typeof(IJENatality).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Location).ToList();
+List<PropertyInfo> properties = typeof(IJEBirth).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Location).ToList();
 foreach (PropertyInfo property in properties)
 {
     // Grab the field attributes
@@ -390,7 +390,7 @@ which is mapped to the following custom attribute class with the same name:
 
 and with the following constructor:
 
-`public IJEField(int field, int location, int length, string contents, string name, int priority)` in the same file [BFDR/IJENatality.cs](../master/BFDR/IJENatality.cs)
+`public IJEField(int field, int location, int length, string contents, string name, int priority)` in the same file [BFDR/IJEBirth.cs](../master/BFDR/IJEBirth.cs)
 
 
 Official resources:<br/>

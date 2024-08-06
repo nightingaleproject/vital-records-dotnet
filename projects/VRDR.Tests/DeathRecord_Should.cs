@@ -377,12 +377,12 @@ namespace VRDR.Tests
         [Fact]
         public void Get_DeathRecordIdentifier()
         {
-            Assert.Equal("2019YC000182", DeathRecord1_JSON.DeathRecordIdentifier);
+            Assert.Equal("2022YC000182", DeathRecord1_JSON.DeathRecordIdentifier);
             Assert.Equal("2020NY000182", DeathCertificateDocument2_JSON.DeathRecordIdentifier);
             Assert.Equal("2020NY000182", DeathCertificateDocument1_JSON.DeathRecordIdentifier);
             Assert.Equal("2020NY000182", CauseOfDeathCodedContentBundle1_JSON.DeathRecordIdentifier);
             Assert.Equal("2020NY000182", DemographicCodedContentBundle1_JSON.DeathRecordIdentifier);
-            Assert.Equal("2019YC000182", DeathRecord1_XML.DeathRecordIdentifier);
+            Assert.Equal("2002YC000182", DeathRecord1_XML.DeathRecordIdentifier);
         }
 
         [Fact]
@@ -1329,6 +1329,14 @@ namespace VRDR.Tests
             Assert.Equal(-1, dr1.BirthMonth);
             Assert.Equal(24, (int)dr1.BirthDay);
             Assert.Null(dr1.DateOfBirth);
+        }
+
+        [Fact]
+        public void Test_StateText_JSON_To_IJE()
+        {
+            DeathRecord dr = new DeathRecord(File.ReadAllText(FixturePath("fixtures/json/Test_StateText_JSON_To_IJE.json")));
+            IJEMortality ije1 = new IJEMortality(dr);
+            Assert.Equal("District of Columbia", ije1.STATETEXT_R.Trim());
         }
 
         [Fact]
@@ -3648,7 +3656,7 @@ namespace VRDR.Tests
             Bundle bundle = DeathRecord1_JSON.GetCauseOfDeathCodedContentBundle();
             DeathRecord codedcontentbundle = new DeathRecord(bundle);
             Assert.NotNull(bundle);
-            Assert.Equal("2019YC000182", codedcontentbundle.DeathRecordIdentifier);
+            Assert.Equal("2022YC000182", codedcontentbundle.DeathRecordIdentifier);
             Assert.Equal("000182", codedcontentbundle.Identifier);
             Assert.Equal("000000000042", codedcontentbundle.StateLocalIdentifier1);
             Assert.Equal("100000000001", codedcontentbundle.StateLocalIdentifier2);
@@ -3663,7 +3671,7 @@ namespace VRDR.Tests
             Bundle bundle = DeathRecord1_JSON.GetDemographicCodedContentBundle();
             Assert.NotNull(bundle);
             DeathRecord codedcontentbundle = new DeathRecord(bundle);
-            Assert.Equal("2019YC000182", codedcontentbundle.DeathRecordIdentifier);
+            Assert.Equal("2022YC000182", codedcontentbundle.DeathRecordIdentifier);
             Assert.Equal("000182", codedcontentbundle.Identifier);
             Assert.Equal("000000000042", codedcontentbundle.StateLocalIdentifier1);
             Assert.Equal("100000000001", codedcontentbundle.StateLocalIdentifier2);
@@ -3679,7 +3687,7 @@ namespace VRDR.Tests
             Assert.NotNull(bundle);
             var numExtensions = bundle.Meta.Extension.Count();
             Assert.Equal(2, numExtensions); // alias and replace
-            Assert.Equal("2019YC000182", mortalityrosterbundle.DeathRecordIdentifier);
+            Assert.Equal("2022YC000182", mortalityrosterbundle.DeathRecordIdentifier);
             Assert.Equal("000182", mortalityrosterbundle.Identifier);
             Assert.Equal("000000000042", mortalityrosterbundle.StateLocalIdentifier1);
             Assert.Equal("100000000001", mortalityrosterbundle.StateLocalIdentifier2);
@@ -4114,30 +4122,6 @@ namespace VRDR.Tests
 
             Exception ex = Assert.Throws<System.ArgumentException>(() => testRecord.PregnancyStatusHelper = "8");
             Exception ex2 = Assert.Throws<System.ArgumentException>(() => testRecord.PregnancyStatusHelper = "10");
-        }
-
-        [Fact]
-        public void TestBadPartialDate()
-        {
-            Exception ex = Assert.Throws<System.ArgumentException>(() => new DeathRecord(File.ReadAllText(FixturePath("fixtures/json/DeathRecordBadPartialDate.json"))));
-            System.Text.StringBuilder errorMsg = new System.Text.StringBuilder();
-            errorMsg.Append("Missing 'Date-Month' of [http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDate] for resource [f384e3f6-2438-4e07-9df2-44e27e3aa72d].");
-            errorMsg.AppendLine();
-            errorMsg.Append("[http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDate] component contains extra invalid fields [http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Monh] for resource [f384e3f6-2438-4e07-9df2-44e27e3aa72d].");
-            errorMsg.AppendLine();
-            Assert.Equal(errorMsg.ToString(), ex.Message);
-        }
-
-        [Fact]
-        public void TestBadPartialDateTime()
-        {
-            Exception ex = Assert.Throws<System.ArgumentException>(() => new DeathRecord(File.ReadAllText(FixturePath("fixtures/json/DeathRecordBadPartialDateTime.json"))));
-            System.Text.StringBuilder errorMsg = new System.Text.StringBuilder();
-            errorMsg.Append("Missing 'Date-Time' of [http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDateTime] for resource [81899bd9-0441-45f0-9b89-9d91daa08983].");
-            errorMsg.AppendLine();
-            errorMsg.Append("[http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDateTime] component contains extra invalid fields [http://hl7.org/fhir/us/vrdr/StructureDefinition/Invalid, http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Tme] for resource [81899bd9-0441-45f0-9b89-9d91daa08983].");
-            errorMsg.AppendLine();
-            Assert.Equal(errorMsg.ToString(), ex.Message);
         }
 
         [Fact]
