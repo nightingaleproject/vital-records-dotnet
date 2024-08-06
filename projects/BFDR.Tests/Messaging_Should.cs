@@ -48,6 +48,7 @@ namespace BFDR.Tests
             Assert.Equal("2019UT015075", submission.NCHSIdentifier);
             Assert.Equal(2019, submission.BirthRecord.BirthYear);
             Assert.Equal("BFDR_STU2_0", submission.PayloadVersionId);
+            Assert.Equal("48858", submission.BirthRecord.CertificateNumber);
 
             // Test with null record
             submission = new BirthRecordSubmissionMessage(null);
@@ -125,6 +126,7 @@ namespace BFDR.Tests
             Assert.Equal(submission.JurisdictionId, submission.BirthRecord.BirthLocationJurisdiction);
             Assert.Equal(2019, submission.BirthRecord.BirthYear);
             Assert.Equal("BFDR_STU2_0", submission.PayloadVersionId);
+            Assert.Equal("48858", submission.BirthRecord.CertificateNumber);
         }
 
         [Fact]
