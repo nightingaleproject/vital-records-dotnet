@@ -42,6 +42,9 @@
         <member name="M:BFDR.Connectathon.XyugbnxZalbanaiz">
             <summary>Generate the Xyugbnx Zalbanaiz example record</summary>
         </member>
+        <member name="M:BFDR.Connectathon.NullMonroe">
+            <summary>Generate the [Null] Monroe example record which is contains mostly null data</summary>
+        </member>
         <member name="M:BFDR.Connectathon.WriteRecordAsXml(BFDR.BirthRecord,System.String)">
             <summary>Of historical interest for writing a record to a file</summary>
         </member>
@@ -2583,6 +2586,24 @@
             <para>// Getter:</para>
             <para>string boaa = ExampleBirthRecord.RaceBlackOfAfricanAmerican;</para>
             </example>
+        </member>
+        <member name="M:BFDR.NatalityRecord.GetCodedRaceEthnicity(System.String,System.String,System.String,System.String)">
+            <summary>Get a coded race and ethnicity dictionary (representing a codeableconcept).
+            <para>
+            This helper gets the correct observation using the observationCode, section, propertyName.
+            It then uses the componentCode to get the component (e.g. FirstAmericanIndianCode) 
+            and returns the corresponding codeable concept or and empty one if none are found.
+            </para>
+            </summary>
+        </member>
+        <member name="M:BFDR.NatalityRecord.SetCodedRaceEthnicity(System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.String,System.String,System.String,System.String)">
+            <summary>Set a coded race and ethnicity.
+            <para>
+            This helper sets the coded race/ethnicity field determined by the observationCode, componentCode, section, and propertyName.
+            Once the correct observation and component are found or created, it is set to the given value.
+            ComponentDisplay gives a more human readable display value for the component code.
+            </para>
+            </summary>
         </member>
         <member name="P:BFDR.NatalityRecord.MotherRaceTabulation1E">
             <summary>Mother Race Tabulation 1E.</summary>
