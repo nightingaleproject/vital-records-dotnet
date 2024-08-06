@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+<a name="1.0.0-preview.6"></a>
+## [1.0.0-preview.6](https://github.com/nightingaleproject/vital-records-dotnet/commit/6884361c8d9b3df8b22f334c6d04f1e39e566b82) (2024-08-06)
+
+### Features
+* Add support for null connectathon test case in Canary
+
 <a name="1.0.0-preview.5"></a>
 ## [1.0.0-preview.5](https://github.com/nightingaleproject/vital-records-dotnet/commit/db5765b2710016d4b3fd9c80e9e27227503376e3) (2024-07-30)
 
