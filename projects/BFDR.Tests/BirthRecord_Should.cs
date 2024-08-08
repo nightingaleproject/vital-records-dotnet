@@ -3601,6 +3601,14 @@ namespace BFDR.Tests
       IJEBirth ije1 = new(b, false);
       Console.WriteLine(ije1.ToString());
     }
+
+    [Fact]
+    public void parsePaternityAcknowledgedSigned()
+    {
+      BirthRecord b = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/zalbanaiz.json")));
+      IJEBirth ije1 = new(b, true);
+      Console.WriteLine(ije1.ToString());
+    }
   }
 
 }
