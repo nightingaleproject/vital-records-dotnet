@@ -196,6 +196,11 @@
             records that follow the HL7 FHIR Vital Records FetalDeath Reporting Implementation Guide, as described
             at: http://hl7.org/fhir/us/bfdr and https://github.com/hl7/bfdr.
             </summary>
+            <summary>Class <c>FetalDeathRecord</c> models a FHIR Birth and Fetal Death Records Reporting (BFDR) Fetal Death
+            Record. This class was designed to help consume and produce fetal death records that follow the
+            HL7 FHIR Vital Records Birth and Fetal Death Reporting Implementation Guide, as described at:
+            http://hl7.org/fhir/us/bfdr and https://github.com/hl7/bfdr.
+            </summary>
         </member>
         <member name="M:BFDR.FetalDeathRecord.#ctor">
             <summary>Default constructor that creates a new, empty FetalDeathRecord.</summary>
@@ -676,6 +681,108 @@
             <para>ExampleFetalDeathRecord.FetalDeathPlurality = null; // single birth</para>
             <para>ExampleFetalDeathRecord.FetalDeathPlurality = -1; // unknown number of births birth</para>
             <para>ExampleFetalDeathRecord.FetalDeathPlurality = 2; // two births for this pregnancy</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.CodedInitiatingFetalCOD">
+            <summary>Decedent Fetus's Coded Initiating Fetal Death Cause or Condition</summary>
+            <value>Decedent Fetus's Coded Initiating Fetal Death Cause or Condition.</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.CodedInitiatingFetalCOD = "I13.1";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Decedent Fetus's Coded Initiating Fetal Death Cause or Condition: {ExampleFetalDeathRecord.CodedInitiatingFetalCOD}");</para>
+            </example>
+        </member>
+        <member name="M:BFDR.FetalDeathRecord.GetorCreateCodedOtherCODObservation(System.Int32)">
+            <summary>Helper to get or create a coded other significant fetal death cause or condition observation.</summary>
+            <param name="position">the integer to specify the position, or order of mention</param>
+        </member>
+        <member name="M:BFDR.FetalDeathRecord.GetCodedOtherCOD(Hl7.Fhir.Model.Observation)">
+            <summary>Get a coded fetal death other significant cause or condition.
+            <para>
+            This helper returns the code of the the other significant fetal death cause or condition based on position.
+            </para>
+            </summary>
+            <param name="obs">represents a coded other significant fetal death cause or condition observation</param>
+        </member>
+        <member name="M:BFDR.FetalDeathRecord.SetCodedOtherCOD(Hl7.Fhir.Model.Observation,System.String,System.Int32)">
+            <summary>Set a coded fetal death other significant cause or condition.
+            <para>
+            This helper sets the code of the the other significant fetal death cause or condition based on position.
+            </para>
+            </summary>
+            <param name="obs">represents a coded other significant fetal death cause or condition observation</param>
+            <param name="value">the code of the other significant fetal death cause or condition</param>
+            <param name="position">the integer to specify the position, or order of mention</param>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OCOD1">
+            <summary>Coded Fetal Other Cause of Death, First Mentioned.</summary>
+            <value>the coded other significant cause or conditions of death</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.OCOD1 = "P02.1";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Cause: {ExampleFetalDeathRecord.OCOD1}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OCOD2">
+            <summary>Coded Fetal Other Cause of Death, Second Mentioned.</summary>
+            <value>the coded other significant cause or conditions of death</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.OCOD2 = "P02.1";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Cause: {ExampleFetalDeathRecord.OCOD2}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OCOD3">
+            <summary>Coded Fetal Other Cause of Death, Third Mentioned.</summary>
+            <value>the coded other significant cause or conditions of death</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.OCOD3 = "P02.1";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Cause: {ExampleFetalDeathRecord.OCOD3}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OCOD4">
+            <summary>Coded Fetal Other Cause of Death, Fourth Mentioned.</summary>
+            <value>the coded other significant cause or conditions of death</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.OCOD4 = "P02.1";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Cause: {ExampleFetalDeathRecord.OCOD4}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OCOD5">
+            <summary>Coded Fetal Other Cause of Death, Fifth Mentioned.</summary>
+            <value>the coded other significant cause or conditions of death</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.OCOD5 = "P02.1";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Cause: {ExampleFetalDeathRecord.OCOD5}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OCOD6">
+            <summary>Coded Fetal Other Cause of Death, Sixth Mentioned.</summary>
+            <value>the coded other significant cause or conditions of death</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.OCOD6 = "P02.1";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Cause: {ExampleFetalDeathRecord.OCOD6}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OCOD7">
+            <summary>Coded Fetal Other Cause of Death, Seventh Mentioned.</summary>
+            <value>the coded other significant cause or conditions of death</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.OCOD7 = "P02.1";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Cause: {ExampleFetalDeathRecord.OCOD7}");</para>
             </example>
         </member>
         <member name="T:BFDR.IJEBirth">
@@ -1815,6 +1922,15 @@
             <summary>Converts the IJE representation of presence-only fields to the FHIR equivalent.</summary>
             <param name="value">Y (yes), N (no)</param>
             <param name="field">a function that will set a field in the FHIR record</param>
+        </member>
+        <member name="M:BFDR.IJEFetalDeath.NCHSICD10toActualICD10(System.String)">
+            <summary>NCHS ICD10 to actual ICD10 </summary>
+        </member>
+        <member name="M:BFDR.IJEFetalDeath.ActualICD10toNCHSICD10(System.String)">
+            <summary>Actual ICD10 to NCHS ICD10 </summary>
+        </member>
+        <member name="M:BFDR.IJEFetalDeath.ValidNCHSICD10(System.String)">
+            <summary>Actual ICD10 to NCHS ICD10 </summary>
         </member>
         <member name="P:BFDR.IJEFetalDeath.FDOD_YR">
             <summary>Date of Delivery (Fetus)--Year</summary>
