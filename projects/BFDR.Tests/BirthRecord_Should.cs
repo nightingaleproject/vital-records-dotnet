@@ -3603,10 +3603,19 @@ namespace BFDR.Tests
     }
 
     [Fact]
-    public void parsePaternityAcknowledgedSigned()
+    public void parseRecordZWithValidation()
     {
-      BirthRecord b = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/zalbanaiz.json")));
-      IJEBirth ije1 = new(b, true);
+      // TODO pass in the IJE and convert roundtrip so the record is up to date with the library 
+      BirthRecord b = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordZ.json")));
+      IJEBirth ije1 = new(b, true); // run with validation true since NCHS uses validation in their code, this confirms the record will be processed
+      Console.WriteLine(ije1.ToString());
+    }
+
+    [Fact]
+    public void parseRecordRWithValidation()
+    {
+      BirthRecord b = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordR.json")));
+      IJEBirth ije1 = new(b, true); // run with validation true since NCHS uses validation in their code, this confirms the record will be processed
       Console.WriteLine(ije1.ToString());
     }
   }
