@@ -1206,11 +1206,12 @@ namespace BFDR.Tests
       Assert.Equal(12, br.BirthMonth);
       Assert.Equal(23, br.BirthDay);
       Assert.Equal("2023-12-23", fhirBirth.Value);
-      Assert.Null(br.BirthTime);
+      Assert.Equal("-1", br.BirthTime);
       Assert.Equal(2023, ((Integer)pdt.GetExtension(VR.ExtensionURL.PartialDateTimeYearVR).Value).Value);
       Assert.Equal(12, ((Integer)pdt.GetExtension(VR.ExtensionURL.PartialDateTimeMonthVR).Value).Value);
       Assert.Equal(23, ((Integer)pdt.GetExtension(VR.ExtensionURL.PartialDateTimeDayVR).Value).Value);
-      Assert.Equal("temp-unknown", ((FhirString)pdt.GetExtension(VR.ExtensionURL.PartialDateTimeTimeVR).Value).Value);
+      Assert.Null(pdt.GetExtension(VR.ExtensionURL.PartialDateTimeTimeVR).Value);
+      Assert.Equal("unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateTimeTimeVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
       Assert.Equal("2023", ije.IDOB_YR);
       Assert.Equal("12", ije.IDOB_MO);
       Assert.Equal("23", ije.IDOB_DY);
