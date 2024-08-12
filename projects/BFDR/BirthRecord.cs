@@ -202,12 +202,12 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Sex at Time of Birth: {ExampleBirthRecord.BirthSex}");</para>
         /// </example>
-        [Property("Sex At Birth", Property.Types.Dictionary, "Child Demographics", "Child's Sex at Birth.", true, VR.IGURL.Child, true, 12)]
+        [Property("Sex At Birth", Property.Types.String, "Child Demographics", "Child's Sex at Birth.", true, VR.IGURL.Child, true, 12)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
         [FHIRPath("Bundle.entry.resource.where($this is Patient).extension.where(url='" + OtherExtensionURL.BirthSex + "')", "")]
-        public Dictionary<string, string> BirthSex
+        public string BirthSex
         {
             get => GetBirthSex();
             set => SetBirthSex(value);
@@ -225,9 +225,10 @@ namespace BFDR
         [FHIRPath("Bundle.entry.resource.where($this is Patient).extension.where(url='" + OtherExtensionURL.BirthSex + "')", "")]
         public string BirthSexHelper
         {
-            get => GetBirthSexHelper();
-            set => SetBirthSexHelper("BirthSex", value);
+            get => GetBirthSex();
+            set => SetBirthSex(value);
         }
+
         /// <summary>Multiple birth set order</summary>
         /// <value>The order that the child was born if a multiple birth or null if it was a single birth</value>
         /// <example>

@@ -82,7 +82,7 @@
           {
             "extension": [
               {
-                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-role-vr",
+                "url": "motherOrFather",
                 "valueCodeableConcept": {
                   "coding": [
                     {
@@ -108,7 +108,7 @@
           {
             "extension": [
               {
-                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-role-vr",
+                "url": "motherOrFather",
                 "valueCodeableConcept": {
                   "coding": [
                     {

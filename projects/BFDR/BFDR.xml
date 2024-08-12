@@ -3287,8 +3287,11 @@
             </summary>
             <returns>BirthSex codeable concept as dictionary</returns>
         </member>
-        <member name="P:BFDR.NatalityRecord.BirthSexHelper">
-            <summary>Child's BirthSex at Birth. This a duplicate of BirthSex and is kept to maintain consistency for the IJE to FHIR mapper to work.</summary>
+        <member name="M:BFDR.NatalityRecord.SetBirthSex(System.String)">
+            <summary>
+             Setter method for child or decedent fetus birth/delivery sex.
+            </summary>
+            <param name="value">The birth/delivery sex.</param>
         </member>
         <member name="P:BFDR.NatalityRecord.ChildGivenNames">
             <summary>Child's Legal Name - Given. Middle name should be the last entry.</summary>
@@ -3452,6 +3455,34 @@
             <para>ExampleBirthRecord.PlaceOfBirth = address;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"State where child was born: {ExampleBirthRecord.PlaceOfBirth["placeOfBirthState"]}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.BirthPhysicalLocation">
+            <summary>Child's Place Of Birth Type.</summary>
+            <value>Place Where Birth Occurred, type of place or institution. A Dictionary representing a codeable concept of the physical location type:
+            <para>"code" - The code used to describe this concept.</para>
+            <para>"system" - The relevant code system.</para>
+            <para>"display" - The human readable version of this code.</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; locationType = new Dictionary&lt;string, string&gt;();</para>
+            <para>locationType.Add("code", "22232009");</para>
+            <para>locationType.Add("system", "http://snomed.info/sct");</para>
+            <para>locationType.Add("display", "Hospital");</para>
+            <para>ExampleBirthRecord.BirthPhysicalLocation = locationType;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"The place type the child was born: {ExampleBirthRecord.BirthPhysicalLocation["code"]}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.BirthPhysicalLocationHelper">
+            <summary>Child's Place Of Birth Type Helper</summary>
+            <value>Child's Place Of Birth Type Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.BirthPhysicalLocationHelper = "Hospital";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Child's Place Of Birth Type: {ExampleBirthRecord.BirthPhysicalLocationHelper}");</para>
             </example>
         </member>
         <member name="P:BFDR.NatalityRecord.MotherPlaceOfBirth">
@@ -5585,16 +5616,6 @@
             <para>ExampleBirthRecord.MotherPrepregnancyWeight = 120;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Mother's Prepregancy Weight: {ExampleBirthRecord.MotherPrepregnancyWeight}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.NatalityRecord.MotherWeightAtDelivery">
-            <summary>Mother's Weight at Delivery.</summary>
-            <value>the mother's weight at delivery in whole pounds, or -1 if explicitly unknown, or null if never specified</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.MotherWeightAtDelivery = 120;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Mother's Weight at Delivery: {ExampleBirthRecord.MotherWeightAtDelivery}");</para>
             </example>
         </member>
         <member name="P:BFDR.NatalityRecord.BirthWeight">
