@@ -48,7 +48,7 @@ namespace BFDR.Tests
             Assert.Equal("2019UT015075", submission.NCHSIdentifier);
             Assert.Equal(2019, submission.BirthRecord.BirthYear);
             Assert.Equal("BFDR_STU2_0", submission.PayloadVersionId);
-            Assert.Equal("48858", submission.BirthRecord.CertificateNumber);
+            Assert.Equal("15075", submission.BirthRecord.CertificateNumber);
 
             // Test with null record
             submission = new BirthRecordSubmissionMessage(null);

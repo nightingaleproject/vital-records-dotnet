@@ -3803,10 +3803,9 @@ namespace BFDR.Tests
     [Fact]
     public void unknownToAll8sFHIRtoIJETest()
     {
-      Console.WriteLine("Converting fhir to ije!\n\n");
       BirthRecord b = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord2.json")));
+      // TODO add assert to confirm specific fields are set to 8s in ije
       IJEBirth ije1 = new(b, false);
-      Console.WriteLine(ije1.ToString());
     }
 
     [Fact]
