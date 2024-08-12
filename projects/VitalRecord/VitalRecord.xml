@@ -6316,6 +6316,14 @@
         <member name="M:VR.VitalRecord.SetCodeValue(System.String,System.String,System.String[0:,0:])">
             <summary>Helper function to set a codeable value based on a code and the set of allowed codes.</summary>
         </member>
+        <member name="M:VR.VitalRecord.CreateCode(System.String,System.String[0:,0:])">
+             <summary>
+            
+             </summary>
+             <param name="code"></param>
+             <param name="options"></param>
+             <exception cref="T:System.ArgumentException"></exception>
+        </member>
         <member name="M:VR.VitalRecord.CodeExistsInValueSet(System.String,System.String[0:,0:])">
             <summary>Helper function to determine whether a value appears in the the set of allowed codes.</summary>
         </member>

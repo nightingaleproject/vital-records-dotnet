@@ -389,65 +389,35 @@ namespace BFDR
         ///  Getter method for child or decedent fetus birth/delivery sex.
         /// </summary>
         /// <returns>BirthSex codeable concept as dictionary</returns>
-        public Dictionary<string, string> GetBirthSex()
+        public string GetBirthSex()
         {
             if (Subject != null)
             {
+
                 Extension sex = Subject.GetExtension(VR.OtherExtensionURL.BirthSex);
-                if (sex != null && sex.Value != null && sex.Value as CodeableConcept != null)
+                if (sex != null && sex.Value != null && sex.Value as Code != null)
                 {
-                    Extension sex = Subject.GetExtension(VR.OtherExtensionURL.BirthSex);
-                    if (sex != null && sex.Value != null && sex.Value as Code != null)
-                    {
-                        return (sex.Value as Code).Value;
-                    }
+                    return (sex.Value as Code).Value;
                 }
+                
                 return null;
             }
-            return EmptyCodeableDict();
+            return null;
         }
         
         /// <summary>
         ///  Setter method for child or decedent fetus birth/delivery sex.
         /// </summary>
         /// <param name="value">The birth/delivery sex.</param>
-        protected void SetBirthSex(Dictionary<string, string> value)
+        protected void SetBirthSex(string value)
         {
+            if (!CodeExistsInValueSet(value, VR.ValueSets.SexAssignedAtBirth.Codes))
+            {
+                return;
+            }
             Subject.Extension.RemoveAll(ext => ext.Url == VR.OtherExtensionURL.BirthSex);
-            if (IsDictEmptyOrDefault(value) && Subject.Extension == null)
-            {
-                if (!CodeExistsInValueSet(value, VR.ValueSets.SexAssignedAtBirth.Codes))
-                {
-                    return;
-                }
-                Subject.Extension.RemoveAll(ext => ext.Url == VR.OtherExtensionURL.BirthSex);
-                Subject.SetExtension(VR.OtherExtensionURL.BirthSex, new Code(value));
-            }
-            //Subject.SetExtension(VR.OtherExtensionURL.BirthSex, DictToCodeableConcept(value));
-        }
-
-        /// <summary>
-        ///  Helper method for getting child or decedent fetus birth/delivery sex.
-        /// </summary>      
-        /// <returns>BirthSex code as string</returns>
-        public string GetBirthSexHelper()
-        {
-
-            return BirthSex.value;
-
-        }
-        
-        /// <summary>
-        ///  Helper method for setting child or decedent fetus birth/delivery sex.
-        /// </summary>
-        /// <param name="field">The field name to set.</param>       
-        /// <param name="value">The birth/delivery sex.</param>        
-        protected void SetBirthSexHelper(string field, string value)
-        {
-            if (!String.IsNullOrWhiteSpace(value))
-            {
-                BirthSex = value;
-            }
+            Subject.SetExtension(VR.OtherExtensionURL.BirthSex, new Code(value));
+            
         }
 
         /// <summary>Child's Legal Name - Given. Middle name should be the last entry.</summary>
@@ -4057,7 +4027,7 @@ namespace BFDR
             component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, ComponentCode, ComponentDisplay, null);
             component.Value = DictToCodeableConcept(value);
             obs.Component.Add(component);
-            obs.Subject = new ResourceReference("urn:uuid:" + Child.Id);
+            obs.Subject = new ResourceReference("urn:uuid:" + Subject.Id);
         }
 
         /// <summary>Mother Race Tabulation 1E.</summary>

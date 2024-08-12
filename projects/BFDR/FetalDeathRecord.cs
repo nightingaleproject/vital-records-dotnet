@@ -1234,12 +1234,12 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Sex at Time of Fetal Death: {ExampleFetalDeathRecord.FetalDeathSex}");</para>
         /// </example>
-        [Property("Decedent Fetus Sex At Birth", Property.Types.Dictionary, "Fetus Demographics", "Decedent Fetus's Sex at Birth.", true, BFDR.ProfileURL.PatientDecedentFetus, true, 12)]
+        [Property("Decedent Fetus Sex At Birth", Property.Types.String, "Fetus Demographics", "Decedent Fetus's Sex at Birth.", true, BFDR.ProfileURL.PatientDecedentFetus, true, 12)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
         [FHIRPath("Bundle.entry.resource.where($this is Patient).extension.where(url='" + OtherExtensionURL.BirthSex + "')", "")]
-        public Dictionary<string, string> FetalDeathSex
+        public string FetalDeathSex
         {
             get => GetBirthSex();
             set => SetBirthSex(value);
@@ -1257,8 +1257,8 @@ namespace BFDR
         [FHIRPath("Bundle.entry.resource.where($this is Patient).extension.where(url='" + OtherExtensionURL.BirthSex + "')", "")]
         public string FetalDeathSexHelper
         {
-            get => GetBirthSexHelper();
-            set => SetBirthSexHelper("FetalDeathSex", value);
+            get => GetBirthSex();
+            set => SetBirthSex(value);
         }
 
         /// <summary>Multiple birth set order</summary>

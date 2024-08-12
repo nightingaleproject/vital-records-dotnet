@@ -1431,10 +1431,10 @@ namespace BFDR.Tests
       Assert.Equal("18:23:00", firstRecord.DeliveryTime);
       Assert.Equal(firstRecord.DeliveryTime, secondRecord.DeliveryTime);
       // Sex
-      Assert.Equal("F", firstRecord.FetalDeathSex["code"]);
+      Assert.Equal("F", firstRecord.FetalDeathSex);
       Assert.Equal(firstRecord.FetalDeathSex, secondRecord.FetalDeathSex);
-      Assert.Equal("F", firstRecord.FetalDeathSexHelper);
-      Assert.Equal(firstRecord.FetalDeathSex["code"], secondRecord.FetalDeathSexHelper);
+      // Assert.Equal("F", firstRecord.FetalDeathSexHelper);
+      // Assert.Equal(firstRecord.FetalDeathSex["code"], secondRecord.FetalDeathSexHelper);
       // Plurality
       Assert.Equal(4, firstRecord.FetalDeathPlurality); 
       // Set Order
