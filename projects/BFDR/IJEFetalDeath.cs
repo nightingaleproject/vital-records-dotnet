@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using VR;
 
 namespace BFDR
@@ -112,6 +113,61 @@ namespace BFDR
             {
                 field(false);
             }
+        }
+
+       /// <summary>NCHS ICD10 to actual ICD10 </summary>
+        private string NCHSICD10toActualICD10(string nchsicd10code)
+        {
+            string code = "";
+
+            if (!String.IsNullOrEmpty(nchsicd10code))
+            {
+                if (ValidNCHSICD10(nchsicd10code.Trim()))
+                {
+                    code = nchsicd10code.Trim();
+                }
+                else
+                {
+                    throw new ArgumentException($"NCHS ICD10 code {nchsicd10code} is invalid.");
+                }
+
+            }
+
+            if (code.Length >= 4)    // codes of length 4 or 5 need to have a decimal inserted
+            {
+                code = nchsicd10code.Insert(3, ".");
+            }
+
+            return (code);
+        }
+        /// <summary>Actual ICD10 to NCHS ICD10 </summary>
+        private string ActualICD10toNCHSICD10(string icd10code)
+        {
+            if (!String.IsNullOrEmpty(icd10code))
+            {
+                return (icd10code.Replace(".", ""));
+            }
+            else
+            {
+                return "";
+            }
+        }
+
+        /// <summary>Actual ICD10 to NCHS ICD10 </summary>
+        public static bool ValidNCHSICD10(string nchsicd10code)
+        {
+            // ICD-10 diagnosis codes always begin with a letter followed by a digit.
+            // The third character is usually a digit, but could be an A or B [1].
+            // After the first three characters, there may be a decimal point, and up to three more alphanumeric characters.
+            // Sometimes the decimal is left out.
+            // NCHS ICD10 codes are the same as above for the first three characters.
+            // The decimal point is always dropped.
+            // Some codes have a fourth character that reflects an actual ICD10 code.
+            // NCHS tacks on an extra character to some ICD10 codes, e.g., K7210 (K27.10)
+            Regex NCHSICD10regex = new Regex(@"^[A-Z][0-9][0-9AB][0-9A-Z]{0,2}$");
+
+            return (String.IsNullOrEmpty(nchsicd10code) ||
+                 NCHSICD10regex.Match(nchsicd10code).Success);
         }
 
         /////////////////////////////////////////////////////////////////////////////////
@@ -3047,12 +3103,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return ActualICD10toNCHSICD10(LeftJustified_Get("ICOD", "CodedInitiatingFetalCOD"));
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                LeftJustified_Set("ICOD", "CodedInitiatingFetalCOD", NCHSICD10toActualICD10(value));
             }
         }
 
@@ -3062,12 +3117,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return ActualICD10toNCHSICD10(LeftJustified_Get("OCOD1", "OCOD1"));
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                LeftJustified_Set("OCOD1", "OCOD1", NCHSICD10toActualICD10(value));
             }
         }
 
@@ -3077,12 +3131,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return ActualICD10toNCHSICD10(LeftJustified_Get("OCOD2", "OCOD2"));
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                LeftJustified_Set("OCOD2", "OCOD2", NCHSICD10toActualICD10(value));
             }
         }
 
@@ -3092,12 +3145,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return ActualICD10toNCHSICD10(LeftJustified_Get("OCOD3", "OCOD3"));
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                LeftJustified_Set("OCOD3", "OCOD3", NCHSICD10toActualICD10(value));
             }
         }
 
@@ -3107,12 +3159,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return ActualICD10toNCHSICD10(LeftJustified_Get("OCOD4", "OCOD4"));
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                LeftJustified_Set("OCOD4", "OCOD4", NCHSICD10toActualICD10(value));
             }
         }
 
@@ -3122,12 +3173,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return ActualICD10toNCHSICD10(LeftJustified_Get("OCOD5", "OCOD5"));
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                LeftJustified_Set("OCOD5", "OCOD5", NCHSICD10toActualICD10(value));
             }
         }
 
@@ -3137,12 +3187,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return ActualICD10toNCHSICD10(LeftJustified_Get("OCOD6", "OCOD6"));
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                LeftJustified_Set("OCOD6", "OCOD6", NCHSICD10toActualICD10(value));
             }
         }
 
@@ -3152,12 +3201,11 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return ActualICD10toNCHSICD10(LeftJustified_Get("OCOD7", "OCOD7"));
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                LeftJustified_Set("OCOD7", "OCOD7", NCHSICD10toActualICD10(value));
             }
         }
 

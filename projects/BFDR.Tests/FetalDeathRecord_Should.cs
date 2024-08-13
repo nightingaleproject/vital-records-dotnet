@@ -2040,5 +2040,52 @@ namespace BFDR.Tests
       SetterFetalDeathRecord.PatientFetalDeath = true;
       Assert.True(SetterFetalDeathRecord.PatientFetalDeath);
     }
+    [Fact]
+    public void TestCodedInitiatingFetalCOD(){
+      Assert.Null(SetterFetalDeathRecord.CodedInitiatingFetalCOD);
+      SetterFetalDeathRecord.CodedInitiatingFetalCOD = "R836";
+      Assert.Equal("R836", SetterFetalDeathRecord.CodedInitiatingFetalCOD);
+      SetterFetalDeathRecord.CodedInitiatingFetalCOD = "R83.6";
+      Assert.Equal("R83.6", SetterFetalDeathRecord.CodedInitiatingFetalCOD);
+      SetterFetalDeathRecord.CodedInitiatingFetalCOD = "R83.";
+      Assert.Equal("R83.", SetterFetalDeathRecord.CodedInitiatingFetalCOD);
+      SetterFetalDeathRecord.CodedInitiatingFetalCOD = "R83";
+      Assert.Equal("R83", SetterFetalDeathRecord.CodedInitiatingFetalCOD);
+      //parse
+      FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/Bundle-FetalCauseOfDeathCodedContentBundle-notNamedExample.json")));
+      Assert.Equal("P01.1", record.CodedInitiatingFetalCOD);
+      //set after parse
+      record.CodedInitiatingFetalCOD = "R836";
+      Assert.Equal("R836", record.CodedInitiatingFetalCOD);
+
+      IJEFetalDeath ije = new IJEFetalDeath();
+      ije.ICOD = "R836";
+      FetalDeathRecord fetalDeathRecord2 = ije.ToFetalDeathRecord();
+      Assert.Equal("R83.6", fetalDeathRecord2.CodedInitiatingFetalCOD);
+    }
+
+    [Fact]
+    public void TestCodedOtherFetalCOD(){
+      Assert.Null(SetterFetalDeathRecord.OCOD1);
+      SetterFetalDeathRecord.OCOD1 = "R836";
+      Assert.Equal("R836", SetterFetalDeathRecord.OCOD1);
+      SetterFetalDeathRecord.OCOD1 = "R83.6";
+      Assert.Equal("R83.6", SetterFetalDeathRecord.OCOD1);
+      SetterFetalDeathRecord.OCOD1 = "R83.";
+      Assert.Equal("R83.", SetterFetalDeathRecord.OCOD1);
+      SetterFetalDeathRecord.OCOD1 = "R83";
+      Assert.Equal("R83", SetterFetalDeathRecord.OCOD1);
+      //parse
+      FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/Bundle-FetalCauseOfDeathCodedContentBundle-notNamedExample.json")));
+      Assert.Equal("P02.1", record.OCOD1);
+      //set after parse
+      record.OCOD1 = "R836";
+      Assert.Equal("R836", record.OCOD1);
+
+      IJEFetalDeath ije = new IJEFetalDeath();
+      ije.OCOD1 = "R836";
+      FetalDeathRecord fetalDeathRecord2 = ije.ToFetalDeathRecord();
+      Assert.Equal("R83.6", fetalDeathRecord2.OCOD1);
+    }
   }
 }
