@@ -16,6 +16,8 @@ namespace BFDR
 
         private const string FETUS_SECTION = "76400-1";
 
+        private const string CODEDCAUSEOFFETALDEATH_SECTION = "86804-2";
+
         /// <summary>Default constructor that creates a new, empty FetalDeathRecord.</summary>
         public FetalDeathRecord() : base() {
             this.PatientFetalDeath = true;
