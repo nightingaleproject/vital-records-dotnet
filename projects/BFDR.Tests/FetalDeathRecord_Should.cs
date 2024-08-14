@@ -1261,6 +1261,93 @@ namespace BFDR.Tests
         }
         Assert.Equal(17, b2.FatherRace.Length);
     }
+  
+    [Fact]
+    public void TestImportRace()
+    {
+      FetalDeathRecord record = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/Bundle-bundle-coded-race-and-ethnicity-baby-g-quinn.json")), true);
+      Assert.Equal("101", record.FatherRaceTabulation1EHelper);
+      Assert.Equal("101", record.MotherRaceTabulation1EHelper);
+      Assert.Equal("233", record.FatherEthnicityEditedCodeHelper);
+      Assert.Equal("233", record.MotherEthnicityEditedCodeHelper);
+    }
+
+    [Fact]
+    public void Set_FatherRace()
+    {
+      // default Ethnicity should be null
+      Assert.Null(SetterFetalDeathRecord.FatherRaceTabulation1EHelper);
+      SetterFetalDeathRecord.FatherRaceTabulation1EHelper = "222";
+      Assert.Equal("222", SetterFetalDeathRecord.FatherRaceTabulation1EHelper);
+      Assert.Equal("Tobago", SetterFetalDeathRecord.FatherRaceTabulation1E["display"]);
+    }
+
+    [Fact]
+    public void Set_MotherRace()
+    {
+      // default Ethnicity should be null
+      Assert.Null(SetterFetalDeathRecord.FatherRaceTabulation1EHelper);
+      SetterFetalDeathRecord.FatherRaceTabulation1EHelper = "222";
+      Assert.Equal("222", SetterFetalDeathRecord.FatherRaceTabulation1EHelper);
+      Assert.Equal("Tobago", SetterFetalDeathRecord.FatherRaceTabulation1E["display"]);
+    }
+
+    [Fact]
+    public void Set_FatherEthnicityLiteral()
+    {
+      // default Ethnicity should be null
+      Assert.Null(SetterFetalDeathRecord.FatherEthnicityLiteral);
+      SetterFetalDeathRecord.FatherEthnicityLiteral = "Guatemalan";
+      Assert.Equal("Guatemalan", SetterFetalDeathRecord.FatherEthnicityLiteral);
+    }
+
+    [Fact]
+    public void Set_MotherCodedEthnicityLiteral()
+    {
+      Assert.Equal("", SetterFetalDeathRecord.MotherEthnicityCodeForLiteral["display"]);
+      Dictionary<string, string> CodedEthnicity = new Dictionary<string, string>();
+      CodedEthnicity.Add("code", VR.ValueSets.HispanicOrigin.Codes[2, 0]);
+      CodedEthnicity.Add("display", VR.ValueSets.HispanicOrigin.Codes[2, 1]);
+      CodedEthnicity.Add("system", VR.ValueSets.HispanicOrigin.Codes[2, 2]);
+      SetterFetalDeathRecord.MotherEthnicityCodeForLiteral = CodedEthnicity;
+      Assert.Equal("Andalusian", SetterFetalDeathRecord.MotherEthnicityCodeForLiteral["display"]);
+    }
+
+    [Fact]
+    public void Set_MotherCodedEthnicityEdited()
+    {
+      Assert.Equal("", SetterFetalDeathRecord.MotherEthnicityEditedCode["display"]);
+      Dictionary<string, string> CodedEthnicity = new Dictionary<string, string>();
+      CodedEthnicity.Add("code", VR.ValueSets.HispanicOrigin.Codes[2, 0]);
+      CodedEthnicity.Add("display", VR.ValueSets.HispanicOrigin.Codes[2, 1]);
+      CodedEthnicity.Add("system", VR.ValueSets.HispanicOrigin.Codes[2, 2]);
+      SetterFetalDeathRecord.MotherEthnicityEditedCode = CodedEthnicity;
+      Assert.Equal("Andalusian", SetterFetalDeathRecord.MotherEthnicityEditedCode["display"]);
+    }
+
+    [Fact]
+    public void Set_FatherCodedEthnicityEdited()
+    {
+      Assert.Equal("", SetterFetalDeathRecord.FatherEthnicityEditedCode["display"]);
+      Dictionary<string, string> CodedEthnicity = new Dictionary<string, string>();
+      CodedEthnicity.Add("code", VR.ValueSets.HispanicOrigin.Codes[2, 0]);
+      CodedEthnicity.Add("display", VR.ValueSets.HispanicOrigin.Codes[2, 1]);
+      CodedEthnicity.Add("system", VR.ValueSets.HispanicOrigin.Codes[2, 2]);
+      SetterFetalDeathRecord.FatherEthnicityEditedCode = CodedEthnicity;
+      Assert.Equal("Andalusian", SetterFetalDeathRecord.FatherEthnicityEditedCode["display"]);
+    }
+
+    [Fact]
+    public void Set_FatherCodedEthnicityLiteral()
+    {
+      Assert.Equal("", SetterFetalDeathRecord.FatherEthnicityCodeForLiteral["display"]);
+      Dictionary<string, string> CodedEthnicity = new Dictionary<string, string>();
+      CodedEthnicity.Add("code", VR.ValueSets.HispanicOrigin.Codes[2, 0]);
+      CodedEthnicity.Add("display", VR.ValueSets.HispanicOrigin.Codes[2, 1]);
+      CodedEthnicity.Add("system", VR.ValueSets.HispanicOrigin.Codes[2, 2]);
+      SetterFetalDeathRecord.FatherEthnicityCodeForLiteral = CodedEthnicity;
+      Assert.Equal("Andalusian", SetterFetalDeathRecord.FatherEthnicityCodeForLiteral["display"]);
+    }
 
     [Fact]
     public void TestImportEducation()
