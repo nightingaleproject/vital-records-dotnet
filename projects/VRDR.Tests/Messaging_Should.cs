@@ -1205,6 +1205,14 @@ namespace VRDR.Tests
             Assert.Null(submission.DeathRecord.UsualIndustry);
         }
 
+        [Fact]
+        public void TestValidateMessageHeader()
+        {
+            DeathRecordSubmissionMessage submission = BaseMessage.Parse<DeathRecordSubmissionMessage>(FixtureStream("fixtures/json/DeathRecordSubmissionMessage.json"));
+            submission.CertNo = null;
+            Assert.Throws<ArgumentException>(() => CommonMessage.ValidateMessageHeader(submission));
+        }
+
 
         private string FixturePath(string filePath)
         {

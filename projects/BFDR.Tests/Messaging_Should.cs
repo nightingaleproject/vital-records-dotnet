@@ -374,5 +374,13 @@ namespace BFDR.Tests
             Assert.Equal("2022YC000123", message.NCHSIdentifier);
             // TODO: Check demographic coding fields once implemented
         }
+
+        [Fact]
+        public void TestValidateMessageHeader()
+        {
+            BirthRecordSubmissionMessage submission = BirthRecordBaseMessage.Parse<BirthRecordSubmissionMessage>(TestHelpers.FixtureStream("fixtures/json/BirthRecordSubmissionMessage.json"));
+            submission.CertNo = null;
+            Assert.Throws<ArgumentException>(() => CommonMessage.ValidateMessageHeader(submission));
+        }
     }
 }

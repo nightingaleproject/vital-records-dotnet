@@ -445,5 +445,51 @@ namespace VR
             CommonMessage message = new CommonMessage(bundle, true, false);
             return message;
         }
+
+        /// <summary>
+        /// Validate the fields in a CommonMessage header meet NCHS processing requirements. This
+        /// function will be used by the STEVE API and NVSS API for validation. Library users can
+        /// also use this to test their messages meet the validation requirements before submitting. The function
+        /// throws an error if there are invalid fields. Nothing is returned if the message is valid.
+        /// </summary>
+        /// <param name="message">common message</param>
+        /// <return> void <return>
+        public static void ValidateMessageHeader(CommonMessage message)
+        {
+            if (String.IsNullOrWhiteSpace(message.MessageSource))
+            {
+                throw new ArgumentException("Message source endpoint cannot be null");
+            }
+            if (String.IsNullOrWhiteSpace(message.MessageDestination))
+            {
+                throw new ArgumentException("Message destination endpoint cannot be null");
+            }
+            if (String.IsNullOrWhiteSpace(message.MessageId))
+            {
+                throw new ArgumentException("Message ID cannot be null");
+            }
+            if (String.IsNullOrWhiteSpace(message.GetType().Name))
+            {
+                throw new ArgumentException("Message Event Type cannot be null");
+            }
+            if (message.CertNo == null)
+            {
+                throw new ArgumentException("Message Certificate Number cannot be null");
+            }
+            if ((uint)message.CertNo.ToString().Length > 6)
+            {
+                throw new ArgumentException("Message Certificate Number cannot be more than 6 digits long");
+            }
+            if (String.IsNullOrWhiteSpace(message.JurisdictionId))
+            {
+                throw new ArgumentException($"Message jurisdiction ID {message.JurisdictionId} cannot be null.");
+            }
+            // TODO once message years are implemented add validation here
+            // if (message.EventYear == null)
+            // {
+            //     throw new ArgumentException($"Message jurisdiction ID {message.DeathYear} cannot be null.");
+            // }
+            return;
+        }
     }
 }
