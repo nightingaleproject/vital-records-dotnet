@@ -641,7 +641,7 @@ namespace BFDR
         {
             get
             {
-                return Get_MappingFHIRToIJE(VR.Mappings.YesNoUnknownNotApplicable.IJEToFHIR, "PaternityAcknowledgementSigned", "ACKN");
+                return Get_MappingFHIRToIJE(VR.Mappings.YesNoUnknownNotApplicable.FHIRToIJE, "PaternityAcknowledgementSigned", "ACKN");
             }
             set
             {

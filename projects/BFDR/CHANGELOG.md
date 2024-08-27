@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+<a name="1.0.0-preview.7"></a>
+## [1.0.0-preview.7](https://github.com/nightingaleproject/vital-records-dotnet/commit/6884361c8d9b3df8b22f334c6d04f1e39e566b82) (2024-08-08)
+
+### Features
+* Update Connectathon test cases to use valid year of birth
+
+### Fixes
+* Update PaternityAcknowledgementSigned to use correct mapping
+
 <a name="1.0.0-preview.6"></a>
 ## [1.0.0-preview.6](https://github.com/nightingaleproject/vital-records-dotnet/commit/6884361c8d9b3df8b22f334c6d04f1e39e566b82) (2024-08-06)
 
