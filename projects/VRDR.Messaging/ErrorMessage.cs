@@ -22,6 +22,7 @@ namespace VRDR
             this.StateAuxiliaryId = sourceMessage?.StateAuxiliaryId;
             this.JurisdictionId = sourceMessage?.JurisdictionId;
             this.DeathYear = sourceMessage?.DeathYear;
+            this.PayloadVersionId = sourceMessage?.PayloadVersionId;
         }
 
         /// <summary>

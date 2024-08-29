@@ -340,6 +340,19 @@ namespace VR
             }
         }
 
+        /// <summary>Identifier of the payload version</summary>
+        public string PayloadVersionId
+        {
+            get
+            {
+                return Record?.GetSingleValue<FhirString>("payload_version_id")?.Value;
+            }
+            set
+            {
+                SetSingleStringValue("payload_version_id", value);
+            }
+        }
+
         private static ParserSettings GetParserSettings(bool permissive)
         {
             return new ParserSettings { AcceptUnknownMembers = permissive,

@@ -10,6 +10,7 @@
     <Authors>smacadam@mitre.org,rscalfani@mitre.org,pete@mitre.org</Authors>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PayloadVersionID>BFDR_STU2_0</PayloadVersionID>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Hl7.Fhir.R4" Version="4.3.0" />
@@ -22,4 +23,10 @@
     <ProjectReference Include="../BFDR/BFDR.csproj" />
     <ProjectReference Include="../VitalRecord.Messaging/VitalRecord.Messaging.csproj" />
   </ItemGroup>
+  <Target Name="GenerateCustomPropertyFile" BeforeTargets="BeforeCompile">
+    <WriteLinesToFile
+      File="GeneratedCustomProperty.cs"
+      Lines="public static class GeneratedCustomProperty {public const string Value = &quot;$(PayloadVersionID)&quot;%3B}"
+      Overwrite="true" />
+  </Target>
 </Project>

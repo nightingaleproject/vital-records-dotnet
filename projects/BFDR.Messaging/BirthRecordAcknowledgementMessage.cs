@@ -18,6 +18,7 @@ namespace BFDR
             this.StateAuxiliaryId = messageToAck?.StateAuxiliaryId;
             this.JurisdictionId = messageToAck?.JurisdictionId;
             this.BirthYear = messageToAck?.BirthYear;
+            this.PayloadVersionId = messageToAck?.PayloadVersionId;
 
             if(typeof(BirthRecordVoidMessage).IsInstanceOfType(messageToAck))
             {

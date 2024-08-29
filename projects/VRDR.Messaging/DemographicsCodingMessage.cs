@@ -53,6 +53,7 @@ namespace VRDR
             this.StateAuxiliaryId = messageToCode?.StateAuxiliaryId;
             this.JurisdictionId = messageToCode?.JurisdictionId;
             this.DeathYear = messageToCode?.DeathYear;
+            this.PayloadVersionId = messageToCode?.PayloadVersionId;
         }
 
         /// <summary>Constructor that creates a DemographicsCodingMessage for the specified message.</summary>
