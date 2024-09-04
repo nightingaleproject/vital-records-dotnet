@@ -26,7 +26,7 @@
   <Target Name="GenerateCustomPropertyFile" BeforeTargets="BeforeCompile">
     <WriteLinesToFile
       File="GeneratedCustomProperty.cs"
-      Lines="public static class GeneratedCustomProperty {public const string Value = &quot;$(PayloadVersionID)&quot;%3B}"
+      Lines="/// &lt;summary&gt;Generated file from VRDR.Messaging.csproj&lt;/summary&gt;;public static class GeneratedCustomProperty {;/// &lt;summary&gt;Payload Version Identifier&lt;/summary&gt;;public const string Value = &quot;$(PayloadVersionID)&quot;%3B}"
       Overwrite="true" />
   </Target>
 </Project>

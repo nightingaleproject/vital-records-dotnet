@@ -37,6 +37,10 @@ namespace VRDR
             Record = findEntry<Parameters>(ignoreMissingEntries);
         }
 
+        /// <summary>
+        /// Constructor that creates a baseMessage for the specified message type.
+        /// </summary>
+        /// <param name="messageType">string specifying type of message</param>
         protected BaseMessage(String messageType) : base(messageType)
         {
             MessageHeader.MessageDestinationComponent dest = new MessageHeader.MessageDestinationComponent();
