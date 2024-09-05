@@ -3899,16 +3899,16 @@ namespace BFDR
         [IJEField(240, 925, 1, "Risk Factors--Infertility: Fertility Enhancing Drugs  (RECOMMENDED ADDITION EFFECTIVE 2004)", "INFT_DRG", 1)]
         public string INFT_DRG
         {
-            get => PresenceToIJE(record.ArtificialInsemination, record.NoPregnancyRiskFactors);
-            set => IJEToPresence(value, (v) => record.ArtificialInsemination = v, (v) => record.NoPregnancyRiskFactors = v);
+            get => PresenceToIJE(record.FertilityEnhancingDrugTherapyArtificialIntrauterineInsemination, record.NoPregnancyRiskFactors);
+            set => IJEToPresence(value, (v) => record.FertilityEnhancingDrugTherapyArtificialIntrauterineInsemination = v, (v) => record.NoPregnancyRiskFactors = v);
         }
 
         /// <summary>Risk Factors--Infertility: Asst. Rep. Technology  (RECOMMENDED ADDITION EFFECTIVE 2004)</summary>
         [IJEField(241, 926, 1, "Risk Factors--Infertility: Asst. Rep. Technology  (RECOMMENDED ADDITION EFFECTIVE 2004)", "INFT_ART", 1)]
         public string INFT_ART
         {
-            get => PresenceToIJE(record.AssistedFertilization, record.NoPregnancyRiskFactors);
-            set => IJEToPresence(value, (v) => record.AssistedFertilization = v, (v) => record.NoPregnancyRiskFactors = v);
+            get => PresenceToIJE(record.AssistedReproductiveTechnology, record.NoPregnancyRiskFactors);
+            set => IJEToPresence(value, (v) => record.AssistedReproductiveTechnology = v, (v) => record.NoPregnancyRiskFactors = v);
         }
 
         /// <summary>FILLER 1</summary>
@@ -4404,7 +4404,7 @@ namespace BFDR
             }
             set
             {
-                COUNTRYC = IJEData.Instance.CountryCodeToCountryName(value);
+                COUNTRYC = IJEData.Instance.CountryNameToCountryCode(value);
             }
         }
 
