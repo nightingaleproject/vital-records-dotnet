@@ -60,6 +60,10 @@
           {
             "name": "state_auxiliary_id",
             "valueString": "abcdef10"
+          },
+          {
+            "name": "payload_version_id",
+            "valueString": "VRDR_STU3_0"
           }
         ]
       },
