@@ -54,7 +54,7 @@ namespace VRDR
             this.StateAuxiliaryId = messageToCode?.StateAuxiliaryId;
             this.JurisdictionId = messageToCode?.JurisdictionId;
             this.DeathYear = messageToCode?.DeathYear;
-            this.PayloadVersionId = messageToCode?.PayloadVersionId;
+            this.PayloadVersionId = $"{GeneratedCustomProperty.Value}";
         }
 
         /// <summary>Constructor that creates a CauseOfDeathCoding message for the specified message.</summary>

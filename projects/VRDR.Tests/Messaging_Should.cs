@@ -260,7 +260,7 @@ namespace VRDR.Tests
             Assert.Null(ack.CertNo);
             Assert.Null(ack.StateAuxiliaryId);
             Assert.Null(ack.NCHSIdentifier);
-            Assert.Null(ack.PayloadVersionId);
+            Assert.Equal("VRDR_STU3_0", ack.PayloadVersionId);
 
             submission = new DeathRecordSubmissionMessage();
             ack = new AcknowledgementMessage(submission);
@@ -297,7 +297,7 @@ namespace VRDR.Tests
             Assert.Null(coding.CertNo);
             Assert.Null(coding.StateAuxiliaryId);
             Assert.Null(coding.NCHSIdentifier);
-            Assert.Null(coding.PayloadVersionId);
+            Assert.Equal("VRDR_STU3_0", coding.PayloadVersionId);
 
             submission = new DeathRecordSubmissionMessage();
             coding = new CauseOfDeathCodingMessage(submission);
@@ -334,7 +334,7 @@ namespace VRDR.Tests
             Assert.Null(coding.CertNo);
             Assert.Null(coding.StateAuxiliaryId);
             Assert.Null(coding.NCHSIdentifier);
-            Assert.Null(coding.PayloadVersionId);
+            Assert.Equal("VRDR_STU3_0", coding.PayloadVersionId);
 
             submission = new DeathRecordSubmissionMessage();
             coding = new DemographicsCodingMessage(submission);
@@ -458,7 +458,7 @@ namespace VRDR.Tests
                     // now create an acknowledgement message for the cause of death coding message
                     var ackMessage = new AcknowledgementMessage(codCodeMsg);
                     Assert.Equal("KY", ackMessage.JurisdictionId);
-                    Assert.Null(ackMessage.PayloadVersionId);
+                    Assert.Equal("VRDR_STU3_0", ackMessage.PayloadVersionId);
 
                     // test serialization of the message to JSON
                     var ackMessageStr = ackMessage.ToJSON();
@@ -469,7 +469,7 @@ namespace VRDR.Tests
                     var ackMessageParsed = BaseMessage.Parse<AcknowledgementMessage>(ackMessageStr);
                     Assert.NotNull(ackMessageParsed);
                     Assert.Equal("KY", ackMessageParsed.JurisdictionId);
-                    Assert.Null(ackMessageParsed.PayloadVersionId);
+                    Assert.Equal("VRDR_STU3_0", ackMessageParsed.PayloadVersionId);
 
                     break;
                 default:
@@ -844,7 +844,7 @@ namespace VRDR.Tests
             Assert.Null(status.CertNo);
             Assert.Null(status.StateAuxiliaryId);
             Assert.Null(status.NCHSIdentifier);
-            Assert.Null(status.PayloadVersionId);
+            Assert.Equal("VRDR_STU3_0", status.PayloadVersionId);
 
             submission = new DeathRecordSubmissionMessage();
             status = new StatusMessage(submission, "manualCauseOfDeathCoding");
@@ -869,7 +869,8 @@ namespace VRDR.Tests
             Assert.Equal(voidMessage.MessageSource, ack.MessageDestination);
             Assert.Equal(voidMessage.MessageDestination, ack.MessageSource);
             Assert.Equal(voidMessage.StateAuxiliaryId, ack.StateAuxiliaryId);
-            Assert.Equal(voidMessage.PayloadVersionId, ack.PayloadVersionId);
+            Assert.Null(voidMessage.PayloadVersionId);
+            Assert.Equal("VRDR_STU3_0", ack.PayloadVersionId);
             Assert.Equal(voidMessage.CertNo, ack.CertNo);
             Assert.Equal(voidMessage.NCHSIdentifier, ack.NCHSIdentifier);
             Assert.Equal(voidMessage.BlockCount, ack.BlockCount);
@@ -883,7 +884,7 @@ namespace VRDR.Tests
             Assert.Null(ack.CertNo);
             Assert.Null(ack.StateAuxiliaryId);
             Assert.Null(ack.NCHSIdentifier);
-            Assert.Null(ack.PayloadVersionId);
+            Assert.Equal("VRDR_STU3_0", ack.PayloadVersionId);
             Assert.Null(ack.BlockCount);
 
             voidMessage = new DeathRecordVoidMessage();
@@ -911,7 +912,8 @@ namespace VRDR.Tests
             Assert.Equal(statusMessage.StateAuxiliaryId, ack.StateAuxiliaryId);
             Assert.Equal(statusMessage.CertNo, ack.CertNo);
             Assert.Equal(statusMessage.NCHSIdentifier, ack.NCHSIdentifier);
-            Assert.Equal(statusMessage.PayloadVersionId, ack.PayloadVersionId);
+            Assert.Null(statusMessage.PayloadVersionId);
+            Assert.Equal("VRDR_STU3_0", ack.PayloadVersionId);
 
             statusMessage = null;
             ack = new AcknowledgementMessage(statusMessage);
@@ -922,7 +924,7 @@ namespace VRDR.Tests
             Assert.Null(ack.CertNo);
             Assert.Null(ack.StateAuxiliaryId);
             Assert.Null(ack.NCHSIdentifier);
-            Assert.Null(ack.PayloadVersionId);
+            Assert.Equal("VRDR_STU3_0", ack.PayloadVersionId);
 
             statusMessage = new StatusMessage();
             ack = new AcknowledgementMessage(statusMessage);
@@ -1025,7 +1027,8 @@ namespace VRDR.Tests
             Assert.Equal(message.StateAuxiliaryId, ack.StateAuxiliaryId);
             Assert.Equal(message.CertNo, ack.CertNo);
             Assert.Equal(message.NCHSIdentifier, ack.NCHSIdentifier);
-            Assert.Equal(message.PayloadVersionId, ack.PayloadVersionId);
+            Assert.Null(message.PayloadVersionId);
+            Assert.Equal("VRDR_STU3_0", ack.PayloadVersionId);
         }
 
         [Fact]
@@ -1100,7 +1103,7 @@ namespace VRDR.Tests
             Assert.Null(responseMsg.CertNo);
             Assert.Null(responseMsg.NCHSIdentifier);
             Assert.Null(responseMsg.StateAuxiliaryId);
-            Assert.Null(responseMsg.PayloadVersionId);
+            Assert.Equal("VRDR_STU3_0", responseMsg.PayloadVersionId);
 
             ex = Assert.Throws<MessageParseException>(() => BaseMessage.Parse(FixtureStream("fixtures/json/MissingMessageType.json")));
             Assert.Equal("Message type was missing from MessageHeader", ex.Message);
@@ -1111,7 +1114,7 @@ namespace VRDR.Tests
             Assert.Null(responseMsg.CertNo);
             Assert.Null(responseMsg.NCHSIdentifier);
             Assert.Null(responseMsg.StateAuxiliaryId);
-            Assert.Null(responseMsg.PayloadVersionId);
+            Assert.Equal("VRDR_STU3_0", responseMsg.PayloadVersionId);
 
             ex = Assert.Throws<MessageParseException>(() => BaseMessage.Parse(FixtureStream("fixtures/json/EmptyMessage.json")));
             Assert.Equal("Failed to find a Bundle Entry containing a Resource of type MessageHeader", ex.Message);
@@ -1122,7 +1125,7 @@ namespace VRDR.Tests
             Assert.Null(responseMsg.CertNo);
             Assert.Null(responseMsg.NCHSIdentifier);
             Assert.Null(responseMsg.StateAuxiliaryId);
-            Assert.Null(responseMsg.PayloadVersionId);
+            Assert.Equal("VRDR_STU3_0", responseMsg.PayloadVersionId);
 
             ex = Assert.Throws<MessageParseException>(() => BaseMessage.Parse(FixtureStream("fixtures/json/Empty.json")));
             Assert.Equal("The FHIR Bundle must be of type message, not null", ex.Message);
@@ -1133,7 +1136,7 @@ namespace VRDR.Tests
             Assert.Null(responseMsg.CertNo);
             Assert.Null(responseMsg.NCHSIdentifier);
             Assert.Null(responseMsg.StateAuxiliaryId);
-            Assert.Null(responseMsg.PayloadVersionId);
+            Assert.Equal("VRDR_STU3_0", responseMsg.PayloadVersionId);
         }
 
         [Fact]
@@ -1190,7 +1193,7 @@ namespace VRDR.Tests
             Assert.Null(err.CertNo);
             Assert.Null(err.StateAuxiliaryId);
             Assert.Null(err.NCHSIdentifier);
-            Assert.Null(err.PayloadVersionId);
+            Assert.Equal("VRDR_STU3_0", err.PayloadVersionId);
             Assert.Empty(err.Issues);
         }
 

@@ -228,7 +228,8 @@ namespace BFDR.Tests
             Assert.Equal(voidMessage.CertNo, ack.CertNo);
             Assert.Equal(voidMessage.NCHSIdentifier, ack.NCHSIdentifier);
             Assert.Equal(voidMessage.BlockCount, ack.BlockCount);
-            Assert.Equal(voidMessage.PayloadVersionId, ack.PayloadVersionId);
+            Assert.Null(voidMessage.PayloadVersionId);
+            Assert.Equal("BFDR_STU2_0", ack.PayloadVersionId);
         }
 
         [Fact]
@@ -245,6 +246,7 @@ namespace BFDR.Tests
             Assert.Equal(submission.CertNo, status.CertNo);
             Assert.Equal(submission.NCHSIdentifier, status.NCHSIdentifier);
             Assert.Equal(submission.PayloadVersionId, status.PayloadVersionId);
+            Assert.Equal("BFDR_STU2_0", status.PayloadVersionId);
         }
 
         [Fact]
@@ -259,7 +261,8 @@ namespace BFDR.Tests
             Assert.Equal(statusMessage.StateAuxiliaryId, ack.StateAuxiliaryId);
             Assert.Equal(statusMessage.CertNo, ack.CertNo);
             Assert.Equal(statusMessage.NCHSIdentifier, ack.NCHSIdentifier);
-            Assert.Equal(statusMessage.PayloadVersionId, ack.PayloadVersionId);
+            Assert.Null(statusMessage.PayloadVersionId);
+            Assert.Equal("BFDR_STU2_0", ack.PayloadVersionId);
         }
 
         [Fact]
@@ -273,7 +276,8 @@ namespace BFDR.Tests
             Assert.Equal(submission.StateAuxiliaryId, err.StateAuxiliaryId);
             Assert.Equal(submission.CertNo, err.CertNo);
             Assert.Equal(submission.NCHSIdentifier, err.NCHSIdentifier);
-            Assert.Equal(submission.PayloadVersionId, err.PayloadVersionId);
+            Assert.Null(submission.PayloadVersionId);
+            Assert.Equal("BFDR_STU2_0", err.PayloadVersionId);
             Assert.Empty(err.Issues);
             var issues = new List<Issue>();
             var issue = new Issue(OperationOutcome.IssueSeverity.Fatal, OperationOutcome.IssueType.Invalid, "The message was invalid");
@@ -323,7 +327,8 @@ namespace BFDR.Tests
             Assert.Equal(submission.StateAuxiliaryId, coding.StateAuxiliaryId);
             Assert.Equal(submission.CertNo, coding.CertNo);
             Assert.Equal(submission.NCHSIdentifier, coding.NCHSIdentifier);
-            Assert.Equal(submission.PayloadVersionId, coding.PayloadVersionId);
+            Assert.Null(submission.PayloadVersionId);
+            Assert.Equal("BFDR_STU2_0", coding.PayloadVersionId);
         }
 
         [Fact]

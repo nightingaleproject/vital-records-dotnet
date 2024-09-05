@@ -53,7 +53,7 @@ namespace BFDR
             this.StateAuxiliaryId = messageToCode?.StateAuxiliaryId;
             this.JurisdictionId = messageToCode?.JurisdictionId;
             this.BirthYear = messageToCode?.BirthYear;
-            this.PayloadVersionId = messageToCode?.PayloadVersionId;
+            this.PayloadVersionId = $"{GeneratedCustomProperty.Value}";
         }
 
         /// <summary>Constructor that creates a BirthRecordDemographicsCodingMessage for the specified message.</summary>

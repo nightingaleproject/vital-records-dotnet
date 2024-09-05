@@ -33,7 +33,7 @@ namespace VRDR
             this.StateAuxiliaryId = messageToStatus?.StateAuxiliaryId;
             this.JurisdictionId = messageToStatus?.JurisdictionId;
             this.DeathYear = messageToStatus?.DeathYear;
-            this.PayloadVersionId = messageToStatus?.PayloadVersionId;
+            this.PayloadVersionId = $"{GeneratedCustomProperty.Value}";
         }
 
         /// <summary>Constructor that creates a status message for the specified message.</summary>
