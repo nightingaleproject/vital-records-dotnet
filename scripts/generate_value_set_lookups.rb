@@ -41,7 +41,7 @@
 # To generate the value set lookup file for the common VitalRecord library, first checkout the VR Common IG
 #
 #     git clone https://github.com/HL7/vr-common-library.git
-#     cd vrdr
+#     cd vr-common-library
 #     sushi
 #
 # The value set JSON files will be built in vr-common-library/fsh-generated/resources/. To generate the value
