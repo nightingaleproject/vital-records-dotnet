@@ -27,13 +27,12 @@ namespace BFDR.Tests
         Assert.Null(SetterFetalDeathRecord.StateLocalIdentifier1);
         SetterFetalDeathRecord.StateLocalIdentifier1 = "0000033";
         Assert.Equal("0000033", SetterFetalDeathRecord.StateLocalIdentifier1);
-        // TODO: Delivery year is not implemented yet
         SetterFetalDeathRecord.DeliveryYear = 2020;
         // SetterFetalDeathRecord.CertificateNumber = "767676";
         // Assert.Equal("2020XX767676", SetterFetalDeathRecord.RecordIdentifier);
         SetterFetalDeathRecord.BirthLocationJurisdiction = "WY";
         SetterFetalDeathRecord.CertificateNumber = "898989";
-        Assert.Equal("0000WY898989", SetterFetalDeathRecord.RecordIdentifier);
+        Assert.Equal("2020WY898989", SetterFetalDeathRecord.RecordIdentifier);
     }
 
     [Fact]

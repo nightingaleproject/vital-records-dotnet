@@ -58,7 +58,7 @@
             "valueUnsignedInt": 123456
           },
           {
-            "name": "birth_year",
+            "name": "event_year",
             "valueUnsignedInt": 2018
           },
           {

@@ -4,11 +4,11 @@ using Hl7.Fhir.Model;
 
 namespace BFDR
 {
-    /// <summary>Class <c>FetalDeathRecordErrorMessage</c> is used to communicate that initial processing of a FetalDeathRecordSubmissionMessage failed.</summary>
-    public class FetalDeathRecordErrorMessage : FetalDeathRecordBaseMessage
+    /// <summary>Class <c>BFDRErrorMessage</c> is used to communicate that initial processing of a BFDR message failed.</summary>
+    public class BFDRErrorMessage : BFDRBaseMessage
     {
         /// <summary>
-        /// The Event URI for FetalDeathRecordErrorMessage
+        /// The Event URI for BFDRErrorMessage
         /// </summary>
         public const string MESSAGE_TYPE = "http://nchs.cdc.gov/bfdr_extraction_error";
 
@@ -16,20 +16,20 @@ namespace BFDR
 
         /// <summary>Constructor that creates an extraction error for the specified message.</summary>
         /// <param name="sourceMessage">the message that could not be processed.</param>
-        public FetalDeathRecordErrorMessage(FetalDeathRecordBaseMessage sourceMessage) : this(sourceMessage?.MessageId, sourceMessage?.MessageSource, sourceMessage?.MessageDestination)
+        public BFDRErrorMessage(BFDRBaseMessage sourceMessage) : this(sourceMessage?.MessageId, sourceMessage?.MessageSource, sourceMessage?.MessageDestination)
         {
             this.CertNo = sourceMessage?.CertNo;
             this.StateAuxiliaryId = sourceMessage?.StateAuxiliaryId;
             this.JurisdictionId = sourceMessage?.JurisdictionId;
-            this.BirthYear = sourceMessage?.BirthYear;
+            this.EventYear = sourceMessage?.GetYear(); // use GetYear for backward compatibility for VRDR death_year
         }
 
         /// <summary>
-        /// Construct an FetalDeathRecordErrorMessage from a FHIR Bundle.
+        /// Construct an BFDRErrorMessage from a FHIR Bundle.
         /// </summary>
-        /// <param name="messageBundle">a FHIR Bundle that will be used to initialize the FetalDeathRecordErrorMessage</param>
-        /// <param name="baseMessage">the FetalDeathRecordBaseMessage instance that was constructed during parsing that can be used in a MessageParseException if needed</param>
-        internal FetalDeathRecordErrorMessage(Bundle messageBundle, FetalDeathRecordBaseMessage baseMessage) : base(messageBundle)
+        /// <param name="messageBundle">a FHIR Bundle that will be used to initialize the BFDRErrorMessage</param>
+        /// <param name="baseMessage">the BFDRBaseMessage instance that was constructed during parsing that can be used in a MessageParseException if needed</param>
+        internal BFDRErrorMessage(Bundle messageBundle, BFDRBaseMessage baseMessage) : base(messageBundle)
         {
             try
             {
@@ -45,7 +45,7 @@ namespace BFDR
         /// <param name="messageId">the id of the message to create an extraction error for.</param>
         /// <param name="destination">the endpoint identifier that the extraction error message will be sent to.</param>
         /// <param name="source">the endpoint identifier that the extraction error message will be sent from.</param>
-        public FetalDeathRecordErrorMessage(string messageId, string destination, string source = "http://nchs.cdc.gov/bfdr_submission") : base(MESSAGE_TYPE)
+        public BFDRErrorMessage(string messageId, string destination, string source = "http://nchs.cdc.gov/bfdr_submission") : base(MESSAGE_TYPE)
         {
             Header.Source.Endpoint = source;
             this.MessageDestination = destination;

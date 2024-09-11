@@ -214,7 +214,7 @@ namespace BFDR.CLI
             }
             else if (args.Length == 2 && args[0] == "extract2ijecontent")
             {  // dumps content of a submission message in key/value IJE format
-                BirthRecordBaseMessage message = BirthRecordBaseMessage.Parse(File.ReadAllText(args[1]), true);
+                BFDRBaseMessage message = BFDRBaseMessage.Parse(File.ReadAllText(args[1]), true);
                 switch (message)
                 {
                     case BirthRecordSubmissionMessage submission:
@@ -276,7 +276,7 @@ namespace BFDR.CLI
             else if (args.Length == 2 && args[0] == "void")
             {
                 BirthRecord record = new BirthRecord(File.ReadAllText(args[1]));
-                BirthRecordVoidMessage message = new BirthRecordVoidMessage(record);
+                BFDRVoidMessage message = new BFDRVoidMessage(record);
                 message.MessageSource = "http://mitre.org/bfdr";
                 Console.WriteLine(message.ToJSON(true));
                 return 0;
@@ -284,7 +284,7 @@ namespace BFDR.CLI
             else if (args.Length == 3 && args[0] == "void")
             {
                 BirthRecord record = new BirthRecord(File.ReadAllText(args[1]));
-                BirthRecordVoidMessage message = new BirthRecordVoidMessage(record);
+                BFDRVoidMessage message = new BFDRVoidMessage(record);
                 message.BlockCount = UInt32.Parse(args[2]);
                 message.MessageSource = "http://mitre.org/bfdr";
                 Console.WriteLine(message.ToJSON(true));
@@ -292,8 +292,8 @@ namespace BFDR.CLI
             }
             else if (args.Length == 2 && args[0] == "ack")
             {
-                BirthRecordBaseMessage message = BirthRecordBaseMessage.Parse(File.ReadAllText(args[1]));
-                BirthRecordAcknowledgementMessage ackMessage = new BirthRecordAcknowledgementMessage(message);
+                BFDRBaseMessage message = BFDRBaseMessage.Parse(File.ReadAllText(args[1]));
+                BFDRAcknowledgementMessage ackMessage = new BFDRAcknowledgementMessage(message);
                 Console.WriteLine(ackMessage.ToJSON(true));
                 return 0;
             }
@@ -308,8 +308,8 @@ namespace BFDR.CLI
                 for (int i = 2; i < args.Length; i++)
                 {
                     string outputFilename = args[i].Replace(".json", "_acknowledgement.json");
-                    BirthRecordBaseMessage message = BirthRecordBaseMessage.Parse(File.ReadAllText(args[i]));
-                    BirthRecordAcknowledgementMessage ackMessage = new BirthRecordAcknowledgementMessage(message);
+                    BirthRecordBasBFDRBaseMessageeMessage message = BFDRBaseMessage.Parse(File.ReadAllText(args[i]));
+                    BFDRAcknowledgementMessage ackMessage = new BFDRAcknowledgementMessage(message);
                     Console.WriteLine($"Writing acknowledgement to {outputFilename}");
                     StreamWriter sw = new StreamWriter(outputFilename);
                     sw.WriteLine(ackMessage.ToJSON(true));
@@ -320,10 +320,10 @@ namespace BFDR.CLI
           //  else if (args.Length >= 3 && args[0] == "batch")
           //  {
           //      string url = args[1];
-          //      List<BirthRecordBaseMessage> messages = new List<BirthRecordBaseMessage>();
+          //      List<BFDRBaseMessage> messages = new List<BFDRBaseMessage>();
           //      for (int i = 2; i < args.Length; i++)
           //      {
-          //          messages.Add(BirthRecordBaseMessage.Parse(File.ReadAllText(args[i])));
+          //          messages.Add(BFDRBaseMessage.Parse(File.ReadAllText(args[i])));
           //      }
           //      string payload = Client.CreateBulkUploadPayload(messages, url, true);
           //      Console.WriteLine(payload);
@@ -333,12 +333,12 @@ namespace BFDR.CLI
            // {
            //     Console.WriteLine($"Filtering file {args[1]}");
 
-           //     BirthRecordBaseMessage baseMessage = BirthRecordBaseMessage.Parse(File.ReadAllText(args[1]));
+           //     BFDRBaseMessage baseMessage = BFDRBaseMessage.Parse(File.ReadAllText(args[1]));
                 
            //     FilterService FilterService = new FilterService("./BFDR.Filter/NCHSIJEFilter.json", "./BFDR.Filter/IJEToFHIRMapping.json");
 
            //     var filteredFile = FilterService.filterMessage(baseMessage).ToJson();
-           //     BirthRecordBaseMessage.Parse(filteredFile);
+           //     BFDRBaseMessage.Parse(filteredFile);
            //     Console.WriteLine($"File successfully filtered and saved to {args[2]}");
                     
            //     File.WriteAllText(args[2], filteredFile);
@@ -401,7 +401,7 @@ namespace BFDR.CLI
             }
             else if (args.Length == 2 && args[0] == "extract")
             {
-                BirthRecordBaseMessage message = BirthRecordBaseMessage.Parse(File.ReadAllText(args[1]));
+                BFDRBaseMessage message = BFDRBaseMessage.Parse(File.ReadAllText(args[1]));
                 BirthRecord record;
                 switch (message)
                 {
@@ -409,7 +409,7 @@ namespace BFDR.CLI
                         record = submission.BirthRecord;
                         Console.WriteLine(record.ToJSON());
                         break;
-                    case BirthRecordDemographicsCodingMessage coding:
+                    case BFDRParentalDemographicsCodingMessage coding:
                         record = coding.BirthRecord;
                         Console.WriteLine(record.ToJSON());
                         break;
@@ -644,7 +644,7 @@ namespace BFDR.CLI
             }
             else if (args.Length == 2 && args[0] == "extract")
             {
-                BirthRecordBaseMessage message = BirthRecordBaseMessage.Parse(File.ReadAllText(args[1]));
+                BFDRBaseMessage message = BFDRBaseMessage.Parse(File.ReadAllText(args[1]));
                 BirthRecord record;
                 switch (message)
                 {
@@ -652,7 +652,7 @@ namespace BFDR.CLI
                         record = submission.BirthRecord;
                         Console.WriteLine(record.ToJSON());
                         break;
-                    case BirthRecordDemographicsCodingMessage coding:
+                    case BFDRParentalDemographicsCodingMessage coding:
                         record = coding.BirthRecord;
                         Console.WriteLine(record.ToJSON());
                         break;

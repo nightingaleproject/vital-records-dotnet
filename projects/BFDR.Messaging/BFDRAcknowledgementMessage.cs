@@ -2,36 +2,36 @@ using Hl7.Fhir.Model;
 
 namespace BFDR
 {
-    /// <summary>Class <c>BirthRecordAcknowledgementMessage</c> supports the acknowledgment of other messages.</summary>
-    public class BirthRecordAcknowledgementMessage : BirthRecordBaseMessage
+    /// <summary>Class <c>BFDRAcknowledgementMessage</c> supports the acknowledgment of other messages.</summary>
+    public class BFDRAcknowledgementMessage : BFDRBaseMessage
     {
         /// <summary>
-        /// The Event URI for BirthRecordAcknowledgementMessage
+        /// The Event URI for BFDRAcknowledgementMessage
         /// </summary>
         public const string MESSAGE_TYPE = "http://nchs.cdc.gov/bfdr_acknowledgement";
 
         /// <summary>Constructor that creates an acknowledgement for the specified message.</summary>
         /// <param name="messageToAck">the message to create an acknowledgement for.</param>
-        public BirthRecordAcknowledgementMessage(BirthRecordBaseMessage messageToAck) : this(messageToAck?.MessageId, messageToAck?.MessageSource, messageToAck?.MessageDestination)
+        public BFDRAcknowledgementMessage(BFDRBaseMessage messageToAck) : this(messageToAck?.MessageId, messageToAck?.MessageSource, messageToAck?.MessageDestination)
         {
             this.CertNo = messageToAck?.CertNo;
             this.StateAuxiliaryId = messageToAck?.StateAuxiliaryId;
             this.JurisdictionId = messageToAck?.JurisdictionId;
-            this.BirthYear = messageToAck?.BirthYear;
+            this.EventYear = messageToAck?.GetYear();
 
-            if(typeof(BirthRecordVoidMessage).IsInstanceOfType(messageToAck))
+            if(typeof(BFDRVoidMessage).IsInstanceOfType(messageToAck))
             {
-                BirthRecordVoidMessage voidMessageToAck = (BirthRecordVoidMessage) messageToAck;
+                BFDRVoidMessage voidMessageToAck = (BFDRVoidMessage) messageToAck;
                 this.BlockCount = voidMessageToAck?.BlockCount;
             }
         }
 
         /// <summary>
-        /// Construct an BirthRecordAcknowledgementMessage from a FHIR Bundle.
+        /// Construct an BFDRAcknowledgementMessage from a FHIR Bundle.
         /// </summary>
-        /// <param name="messageBundle">a FHIR Bundle that will be used to initialize the BirthRecordAcknowledgementMessage</param>
+        /// <param name="messageBundle">a FHIR Bundle that will be used to initialize the BFDRAcknowledgementMessage</param>
         /// <returns></returns>
-        internal BirthRecordAcknowledgementMessage(Bundle messageBundle) : base(messageBundle)
+        internal BFDRAcknowledgementMessage(Bundle messageBundle) : base(messageBundle)
         {
             // no payload for Ack message
         }
@@ -40,7 +40,7 @@ namespace BFDR
         /// <param name="messageId">the id of the message to create an acknowledgement for.</param>
         /// <param name="destination">the endpoint identifier that the ack message will be sent to.</param>
         /// <param name="source">the endpoint identifier that the ack message will be sent from.</param>
-        public BirthRecordAcknowledgementMessage(string messageId, string destination, string source = "http://nchs.cdc.gov/bfdr_submission") : base(MESSAGE_TYPE)
+        public BFDRAcknowledgementMessage(string messageId, string destination, string source = "http://nchs.cdc.gov/bfdr_submission") : base(MESSAGE_TYPE)
         {
             Header.Source.Endpoint = source;
             this.MessageDestination = destination;
