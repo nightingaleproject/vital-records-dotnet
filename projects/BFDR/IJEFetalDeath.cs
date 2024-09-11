@@ -666,7 +666,7 @@ namespace BFDR
         {
             get
             {
-                string code = Get_MappingFHIRToIJE(VR.Mappings.HispanicNoUnknown.FHIRToIJE, "MotherEthnicity1", "METHNIC1");
+                string code = Get_MappingFHIRToIJE(VR.Mappings.YesNoUnknown.FHIRToIJE, "MotherEthnicity1", "METHNIC1");
                 if (String.IsNullOrWhiteSpace(code))
                 {
                     code = "U";
@@ -677,7 +677,7 @@ namespace BFDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Set_MappingIJEToFHIR(VR.Mappings.HispanicNoUnknown.IJEToFHIR, "METHNIC1", "MotherEthnicity1", value);
+                    Set_MappingIJEToFHIR(VR.Mappings.YesNoUnknown.IJEToFHIR, "METHNIC1", "MotherEthnicity1", value);
                 }
             }
         }
@@ -688,7 +688,7 @@ namespace BFDR
         {
             get
             {
-                string code = Get_MappingFHIRToIJE(VR.Mappings.HispanicNoUnknown.FHIRToIJE, "MotherEthnicity2", "METHNIC2");
+                string code = Get_MappingFHIRToIJE(VR.Mappings.YesNoUnknown.FHIRToIJE, "MotherEthnicity2", "METHNIC2");
                 if (String.IsNullOrWhiteSpace(code))
                 {
                     code = "U";
@@ -699,7 +699,7 @@ namespace BFDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Set_MappingIJEToFHIR(VR.Mappings.HispanicNoUnknown.IJEToFHIR, "METHNIC2", "MotherEthnicity2", value);
+                    Set_MappingIJEToFHIR(VR.Mappings.YesNoUnknown.IJEToFHIR, "METHNIC2", "MotherEthnicity2", value);
                 }
             }
         }
@@ -710,7 +710,7 @@ namespace BFDR
         {
             get
             {
-                string code = Get_MappingFHIRToIJE(VR.Mappings.HispanicNoUnknown.FHIRToIJE, "MotherEthnicity3", "METHNIC3");
+                string code = Get_MappingFHIRToIJE(VR.Mappings.YesNoUnknown.FHIRToIJE, "MotherEthnicity3", "METHNIC3");
                 if (String.IsNullOrWhiteSpace(code))
                 {
                     code = "U";
@@ -721,7 +721,7 @@ namespace BFDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Set_MappingIJEToFHIR(VR.Mappings.HispanicNoUnknown.IJEToFHIR, "METHNIC3", "MotherEthnicity3", value);
+                    Set_MappingIJEToFHIR(VR.Mappings.YesNoUnknown.IJEToFHIR, "METHNIC3", "MotherEthnicity3", value);
                 }
             }
         }
@@ -732,7 +732,7 @@ namespace BFDR
         {
             get
             {
-                string code = Get_MappingFHIRToIJE(VR.Mappings.HispanicNoUnknown.FHIRToIJE, "MotherEthnicity4", "METHNIC4");
+                string code = Get_MappingFHIRToIJE(VR.Mappings.YesNoUnknown.FHIRToIJE, "MotherEthnicity4", "METHNIC4");
                 if (String.IsNullOrWhiteSpace(code))
                 {
                     code = "U";
@@ -743,7 +743,7 @@ namespace BFDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Set_MappingIJEToFHIR(VR.Mappings.HispanicNoUnknown.IJEToFHIR, "METHNIC4", "MotherEthnicity4", value);
+                    Set_MappingIJEToFHIR(VR.Mappings.YesNoUnknown.IJEToFHIR, "METHNIC4", "MotherEthnicity4", value);
                 }
             }
         }
@@ -1613,11 +1613,11 @@ namespace BFDR
         {
             get
             {
-                return Get_MappingFHIRToIJE(VR.Mappings.EditBypass01234.FHIRToIJE, "MotherHeightEditFlag", "HGT_BYPASS");
+                return Get_MappingFHIRToIJE(BFDR.Mappings.PregnancyReportEditFlags.FHIRToIJE, "MotherHeightEditFlag", "HGT_BYPASS");
             }
             set
             {
-                Set_MappingIJEToFHIR(VR.Mappings.EditBypass01234.IJEToFHIR, "HGT_BYPASS", "MotherHeightEditFlag",  value);
+                Set_MappingIJEToFHIR(BFDR.Mappings.PregnancyReportEditFlags.IJEToFHIR, "HGT_BYPASS", "MotherHeightEditFlag",  value);
             }
         }
 
@@ -4301,7 +4301,7 @@ namespace BFDR
         {
             get
             {
-                string code = Get_MappingFHIRToIJE(VR.Mappings.HispanicNoUnknown.FHIRToIJE, "FatherEthnicity1", "FETHNIC1");
+                string code = Get_MappingFHIRToIJE(VR.Mappings.YesNoUnknown.FHIRToIJE, "FatherEthnicity1", "FETHNIC1");
                 if (String.IsNullOrWhiteSpace(code))
                 {
                     code = "U";
@@ -4312,7 +4312,7 @@ namespace BFDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Set_MappingIJEToFHIR(VR.Mappings.HispanicNoUnknown.IJEToFHIR, "FETHNIC1", "FatherEthnicity1", value);
+                    Set_MappingIJEToFHIR(VR.Mappings.YesNoUnknown.IJEToFHIR, "FETHNIC1", "FatherEthnicity1", value);
                 }
             }
         }
@@ -4323,7 +4323,7 @@ namespace BFDR
         {
             get
             {
-                string code = Get_MappingFHIRToIJE(VR.Mappings.HispanicNoUnknown.FHIRToIJE, "FatherEthnicity2", "FETHNIC2");
+                string code = Get_MappingFHIRToIJE(VR.Mappings.YesNoUnknown.FHIRToIJE, "FatherEthnicity2", "FETHNIC2");
                 if (String.IsNullOrWhiteSpace(code))
                 {
                     code = "U";
@@ -4334,7 +4334,7 @@ namespace BFDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Set_MappingIJEToFHIR(VR.Mappings.HispanicNoUnknown.IJEToFHIR, "FETHNIC2", "FatherEthnicity2", value);
+                    Set_MappingIJEToFHIR(VR.Mappings.YesNoUnknown.IJEToFHIR, "FETHNIC2", "FatherEthnicity2", value);
                 }
             }
         }
@@ -4345,7 +4345,7 @@ namespace BFDR
         {
             get
             {
-                string code = Get_MappingFHIRToIJE(VR.Mappings.HispanicNoUnknown.FHIRToIJE, "FatherEthnicity3", "FETHNIC3");
+                string code = Get_MappingFHIRToIJE(VR.Mappings.YesNoUnknown.FHIRToIJE, "FatherEthnicity3", "FETHNIC3");
                 if (String.IsNullOrWhiteSpace(code))
                 {
                     code = "U";
@@ -4356,7 +4356,7 @@ namespace BFDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Set_MappingIJEToFHIR(VR.Mappings.HispanicNoUnknown.IJEToFHIR, "FETHNIC3", "FatherEthnicity3", value);
+                    Set_MappingIJEToFHIR(VR.Mappings.YesNoUnknown.IJEToFHIR, "FETHNIC3", "FatherEthnicity3", value);
                 }
             }
         }
@@ -4367,7 +4367,7 @@ namespace BFDR
         {
             get
             {
-                string code = Get_MappingFHIRToIJE(VR.Mappings.HispanicNoUnknown.FHIRToIJE, "FatherEthnicity4", "FETHNIC4");
+                string code = Get_MappingFHIRToIJE(VR.Mappings.YesNoUnknown.FHIRToIJE, "FatherEthnicity4", "FETHNIC4");
                 if (String.IsNullOrWhiteSpace(code))
                 {
                     code = "U";
@@ -4378,7 +4378,7 @@ namespace BFDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Set_MappingIJEToFHIR(VR.Mappings.HispanicNoUnknown.IJEToFHIR, "FETHNIC4", "FatherEthnicity4", value);
+                    Set_MappingIJEToFHIR(VR.Mappings.YesNoUnknown.IJEToFHIR, "FETHNIC4", "FatherEthnicity4", value);
                 }
             }
         }

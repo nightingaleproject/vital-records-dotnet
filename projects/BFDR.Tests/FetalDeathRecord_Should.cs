@@ -1147,9 +1147,9 @@ namespace BFDR.Tests
     {
         FetalDeathRecord b3 = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
         IJEFetalDeath ije3 = new IJEFetalDeath(b3);
-        Assert.Equal("H", ije3.METHNIC1);
-        Assert.Equal("H", ije3.METHNIC2);
-        Assert.Equal("H", ije3.METHNIC3);
+        Assert.Equal("Y", ije3.METHNIC1);
+        Assert.Equal("Y", ije3.METHNIC2);
+        Assert.Equal("Y", ije3.METHNIC3);
         Assert.Equal("N", ije3.METHNIC4);
         Assert.Equal("Malaysian", ije3.MRACE18);
         Assert.Equal("Y", ije3.MRACE1);
@@ -1207,9 +1207,9 @@ namespace BFDR.Tests
     {
         FetalDeathRecord b3 = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
         IJEFetalDeath ije3 = new IJEFetalDeath(b3);
-        Assert.Equal("H", ije3.FETHNIC1);
-        Assert.Equal("H", ije3.FETHNIC2);
-        Assert.Equal("H", ije3.FETHNIC3);
+        Assert.Equal("Y", ije3.FETHNIC1);
+        Assert.Equal("Y", ije3.FETHNIC2);
+        Assert.Equal("Y", ije3.FETHNIC3);
         Assert.Equal("N", ije3.FETHNIC4);
         Assert.Equal("Malaysian", ije3.FRACE18);
         Assert.Equal("Y", ije3.FRACE1);
