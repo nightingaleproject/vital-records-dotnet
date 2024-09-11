@@ -1577,8 +1577,8 @@
         <member name="F:VR.ValueSets.MaritalStatus.Widowed">
             <summary> Widowed </summary>
         </member>
-        <member name="F:VR.ValueSets.MaritalStatus.Domestic_Partnership">
-            <summary> Domestic_Partnership </summary>
+        <member name="F:VR.ValueSets.MaritalStatus.Domestic_Partner">
+            <summary> Domestic_Partner </summary>
         </member>
         <member name="F:VR.ValueSets.MaritalStatus.Unknown">
             <summary> Unknown </summary>

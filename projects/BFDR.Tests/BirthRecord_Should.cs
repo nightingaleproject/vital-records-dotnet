@@ -1409,10 +1409,10 @@ namespace BFDR.Tests
       // Hispanic or Latino
       BirthRecord b = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/RaceEthnicityCaseRecord.json")));
       IJEBirth ije1 = new IJEBirth(b);
-      Assert.Equal("H", ije1.METHNIC1);
-      Assert.Equal("H", ije1.METHNIC2);
-      Assert.Equal("H", ije1.METHNIC3);
-      Assert.Equal("H", ije1.METHNIC4);
+      Assert.Equal("Y", ije1.METHNIC1);
+      Assert.Equal("Y", ije1.METHNIC2);
+      Assert.Equal("Y", ije1.METHNIC3);
+      Assert.Equal("Y", ije1.METHNIC4);
       Assert.Equal("Y", ije1.MRACE1);
       Assert.Equal("Y", ije1.MRACE2);
       Assert.Equal("Y", ije1.MRACE3);
@@ -1442,7 +1442,7 @@ namespace BFDR.Tests
 
       BirthRecord b3 = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
       IJEBirth ije3 = new IJEBirth(b3);
-      Assert.Equal("H", ije3.METHNIC1);
+      Assert.Equal("Y", ije3.METHNIC1);
       Assert.Equal("U", ije3.METHNIC2);
       Assert.Equal("U", ije3.METHNIC3);
       Assert.Equal("U", ije3.METHNIC4);

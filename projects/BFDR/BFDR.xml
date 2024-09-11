@@ -7467,6 +7467,21 @@
         <member name="F:BFDR.ValueSets.EstimateOfGestationEditFlags.Queried_Data_Correct_Out_Of_Range">
             <summary> Queried_Data_Correct_Out_Of_Range </summary>
         </member>
+        <member name="T:BFDR.ValueSets.FertilityEnhancingDrugTherapyArtificialInsem">
+            <summary> FertilityEnhancingDrugTherapyArtificialInsem </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.FertilityEnhancingDrugTherapyArtificialInsem.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.FertilityEnhancingDrugTherapyArtificialInsem.Artificial_Insemination_Procedure">
+            <summary> Artificial_Insemination_Procedure </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.FertilityEnhancingDrugTherapyArtificialInsem.Intrauterine_Artificial_Insemination_Procedure">
+            <summary> Intrauterine_Artificial_Insemination_Procedure </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.FertilityEnhancingDrugTherapyArtificialInsem.Fertility_Enhancing_Drug_Therapy_Procedure_Procedure">
+            <summary> Fertility_Enhancing_Drug_Therapy_Procedure_Procedure </summary>
+        </member>
         <member name="T:BFDR.ValueSets.FetalDeathCauseOrCondition">
             <summary> FetalDeathCauseOrCondition </summary>
         </member>
