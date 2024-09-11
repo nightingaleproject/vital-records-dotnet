@@ -308,7 +308,7 @@ namespace BFDR.CLI
                 for (int i = 2; i < args.Length; i++)
                 {
                     string outputFilename = args[i].Replace(".json", "_acknowledgement.json");
-                    BirthRecordBasBFDRBaseMessageeMessage message = BFDRBaseMessage.Parse(File.ReadAllText(args[i]));
+                    BFDRBaseMessage message = BFDRBaseMessage.Parse(File.ReadAllText(args[i]));
                     BFDRAcknowledgementMessage ackMessage = new BFDRAcknowledgementMessage(message);
                     Console.WriteLine($"Writing acknowledgement to {outputFilename}");
                     StreamWriter sw = new StreamWriter(outputFilename);
@@ -402,7 +402,7 @@ namespace BFDR.CLI
             else if (args.Length == 2 && args[0] == "extract")
             {
                 BFDRBaseMessage message = BFDRBaseMessage.Parse(File.ReadAllText(args[1]));
-                BirthRecord record;
+                NatalityRecord record;
                 switch (message)
                 {
                     case BirthRecordSubmissionMessage submission:
@@ -410,7 +410,7 @@ namespace BFDR.CLI
                         Console.WriteLine(record.ToJSON());
                         break;
                     case BFDRParentalDemographicsCodingMessage coding:
-                        record = coding.BirthRecord;
+                        record = coding.NatalityRecord;
                         Console.WriteLine(record.ToJSON());
                         break;
                 }
@@ -645,7 +645,7 @@ namespace BFDR.CLI
             else if (args.Length == 2 && args[0] == "extract")
             {
                 BFDRBaseMessage message = BFDRBaseMessage.Parse(File.ReadAllText(args[1]));
-                BirthRecord record;
+                NatalityRecord record;
                 switch (message)
                 {
                     case BirthRecordSubmissionMessage submission:
@@ -653,7 +653,7 @@ namespace BFDR.CLI
                         Console.WriteLine(record.ToJSON());
                         break;
                     case BFDRParentalDemographicsCodingMessage coding:
-                        record = coding.BirthRecord;
+                        record = coding.NatalityRecord;
                         Console.WriteLine(record.ToJSON());
                         break;
                 }
