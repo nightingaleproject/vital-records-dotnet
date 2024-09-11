@@ -83,43 +83,6 @@ namespace BFDR
         //
         /////////////////////////////////////////////////////////////////////////////////
 
-        // /// <summary>Virtual GetYear method to be implemented differently by the BirthRecord and FetalDeathRecord subclasses</summary>
-        // public virtual uint? GetYear()
-        // {
-        //     return 0;
-        // }
-        // /// <summary>Virtual SetYear method to be implemented differently by the Birth Message and FetalDeath Message subclasses</summary>
-        // public virtual void SetYear(uint? year)
-        // {
-        //     return;
-        // }
-
-        // /// <summary>NCHS identifier. Format is 4-digit year, two character jurisdiction id, six character/digit certificate id.</summary>
-        // public string NCHSIdentifier
-        // {
-        //     get
-        //     {
-        //         if (GetYear() == null || JurisdictionId == null || CertNo == null)
-        //         {
-        //             return null;
-        //         }
-        //         return GetYear().Value.ToString("D4") + JurisdictionId + CertNo.Value.ToString("D6");
-        //     }
-        // }
-
-    //     /// <summary>NCHS identifier. Format is 4-digit year, two character jurisdiction id, six character/digit certificate id.</summary>
-    //     public string NCHSIdentifier
-    //     {
-    //         get
-    //         {
-    //             if (GetYear() == null || JurisdictionId == null || CertNo == null)
-    //             {
-    //                 return null;
-    //             }
-    //             return GetYear().Value.ToString("D4") + JurisdictionId + CertNo.Value.ToString("D6");
-    //         }
-    //     }
-
         /// <summary>
         /// Parse an XML or JSON serialization of a FHIR Bundle and construct the appropriate subclass of
         /// BFDRBaseMessage. The new object is checked to ensure it the same or a subtype of the type parameter.
