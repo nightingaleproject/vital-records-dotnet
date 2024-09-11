@@ -1872,7 +1872,7 @@ namespace BFDR.Tests
       Assert.True(FakeBirthRecord.NoObstetricProcedures);
       // some negative cases
       Assert.False(FakeBirthRecord.GestationalDiabetes);
-      Assert.False(FakeBirthRecord.ArtificialInsemination);
+      Assert.False(FakeBirthRecord.FertilityEnhancingDrugTherapyArtificialIntrauterineInsemination);
 
       //more examples using Baby G record
       BirthRecord record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json")));
@@ -1930,8 +1930,8 @@ namespace BFDR.Tests
       Assert.False(record.PrepregnancyHypertension);
       Assert.False(record.PreviousCesarean);
       Assert.False(record.PreviousPretermBirth);
-      Assert.True(record.ArtificialInsemination);
-      Assert.False(record.AssistedFertilization);
+      Assert.True(record.FertilityEnhancingDrugTherapyArtificialIntrauterineInsemination);
+      Assert.False(record.AssistedReproductiveTechnology);
       Assert.True(record.InfertilityTreatment);
       //final route and method of delivery
       Assert.False(record.UnknownFinalRouteAndMethodOfDelivery);
@@ -3477,8 +3477,8 @@ namespace BFDR.Tests
       Assert.False(birthRecord.PrepregnancyHypertension);
       Assert.False(birthRecord.PreviousCesarean);
       Assert.False(birthRecord.PreviousPretermBirth);
-      Assert.True(birthRecord.ArtificialInsemination);
-      Assert.False(birthRecord.AssistedFertilization);
+      Assert.True(birthRecord.FertilityEnhancingDrugTherapyArtificialIntrauterineInsemination);
+      Assert.False(birthRecord.AssistedReproductiveTechnology);
       Assert.True(birthRecord.InfertilityTreatment);
       Assert.False(birthRecord.UnknownFinalRouteAndMethodOfDelivery);
       tempDict = new();

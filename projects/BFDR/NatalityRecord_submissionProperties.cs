@@ -31,15 +31,15 @@ namespace BFDR
         //
         /////////////////////////////////////////////////////////////////////////////////
 
-        /// <summary>Birth Certificate Number.</summary>
+        /// <summary>Certificate Number.</summary>
         /// <value>a record identification string.</value>
         /// <example>
         /// <para>// Setter:</para>
         /// <para>ExampleBirthRecord.Identifier = "42";</para>
         /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Birth Certificate Number: {ExampleBirthRecord.Identifier}");</para>
+        /// <para>Console.WriteLine($"Certificate Number: {ExampleBirthRecord.Identifier}");</para>
         /// </example>
-        [Property("Certificate Number", Property.Types.String, "Birth Certification", "Birth Certificate Number.", true, VR.IGURL.CertificateNumber, true, 3)]
+        [Property("Certificate Number", Property.Types.String, "Identifier", "Certificate Number.", true, VR.IGURL.CertificateNumber, true, 3)]
         [FHIRPath("Bundle", "identifier")]
         public string CertificateNumber
         {
@@ -67,13 +67,13 @@ namespace BFDR
             }
         }
 
-        /// <summary>Birth Record Bundle Identifier, NCHS identifier.</summary>
-        /// <value>a record bundle identification string, e.g., 2022MA000100, derived from year of birth, jurisdiction of birth, and certificate number</value>
+        /// <summary>Record Bundle Identifier, NCHS identifier.</summary>
+        /// <value>a record bundle identification string, e.g., 2022MA000100, derived from year of birth/death, jurisdiction of birth/death, and certificate number</value>
         /// <example>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"NCHS identifier: {ExampleBirthRecord.BirthRecordIdentifier}");</para>
         /// </example>
-        [Property("Birth Record Identifier", Property.Types.String, "Birth Certification", "Birth Record identifier.", true, VR.IGURL.CertificateNumber, false, 4)]
+        [Property("Record Identifier", Property.Types.String, "Identifier", "Record Identifier.", true, VR.IGURL.CertificateNumber, false, 4)]
         [FHIRPath("Bundle", "identifier")]
         public string RecordIdentifier
         {
@@ -110,7 +110,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"State local identifier: {ExampleBirthRecord.StateLocalIdentifier1}");</para>
         /// </example>
-        [Property("State Local Identifier1", Property.Types.String, "Birth Certification", "State Local Identifier.", true, VR.IGURL.AuxiliaryStateIdentifier1VitalRecords, true, 5)]
+        [Property("State Local Identifier1", Property.Types.String, "Identifier", "State Local Identifier.", true, VR.IGURL.AuxiliaryStateIdentifier1VitalRecords, true, 5)]
         [FHIRPath("Bundle", "identifier")]
         public string StateLocalIdentifier1
         {
@@ -2080,21 +2080,21 @@ namespace BFDR
             set => UpdateEntry(value);
         }
 
-        /// <summary>Artificial Insemination.</summary>
-        [Property("Artificial Insemination", Property.Types.Bool, "Pregnancy Risk Factors",
-                  "Pregnancy Risk Factors, Artificial Insemination", true, IGURL.ProcedureArtificialInsemination, true, 247)]
+        /// <summary>Fertility Enhancing Drug Therapy, Artificial or Intrauterine Insemination.</summary>
+        [Property("Fertility Enhancing Drug Therapy, Artificial or Intrauterine Insemination", Property.Types.Bool, "Pregnancy Risk Factors",
+                  "Pregnancy Risk Factors, Fertility Enhancing Drug Therapy, Artificial or Intrauterine Insemination", true, IGURL.ProcedureFertilityEnhancingDrugTherapyArtificialInsemination, true, 247)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Procedure, categoryCode: "73775-9", code: "58533008", section: MEDICAL_INFORMATION_SECTION)]
-        public bool ArtificialInsemination
+        public bool FertilityEnhancingDrugTherapyArtificialIntrauterineInsemination
         {
             get => EntryExists();
             set => UpdateEntry(value);
         }
 
-        /// <summary>Assisted Fertilization.</summary>
-        [Property("Assisted Fertilization", Property.Types.Bool, "Pregnancy Risk Factors",
-                  "Pregnancy Risk Factors, Assisted Fertilization", true, IGURL.ProcedureAssistedFertilization, true, 248)]
+        /// <summary>Assisted Reproductive Technology.</summary>
+        [Property("Assisted Reproductive Technology", Property.Types.Bool, "Pregnancy Risk Factors",
+                  "Pregnancy Risk Factors, Assisted Reproductive Technology", true, IGURL.ProcedureAssistedReproductiveTechnology, true, 248)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Procedure, categoryCode: "73775-9", code: "63487001", section: MEDICAL_INFORMATION_SECTION)]
-        public bool AssistedFertilization
+        public bool AssistedReproductiveTechnology
         {
             get => EntryExists();
             set => UpdateEntry(value);
@@ -7449,9 +7449,9 @@ namespace BFDR
             }
             var entry = Bundle.Entry.Where(
                 e => e.Resource is Observation obs &&
-                CodeableConceptToDict(obs.Code)["code"] == "21843-8" &&
+                CodeableConceptToDict(obs.Code)["code"] == "11341-5" &&
                 obs.Extension.Find(
-                    ext => ext.Url == VR.OtherExtensionURL.ParentRole &&
+                    ext => ext.Url == BFDR.ExtensionURL.ExtensionRole &&
                     CodeableConceptToDict(ext.Value as CodeableConcept)["code"] == role
                 ) != null).FirstOrDefault();
 
@@ -7477,7 +7477,7 @@ namespace BFDR
             Observation obs = GetOccupationObservation(role);
             if (obs != null)
             {
-                var comp = obs.Component.Where(c => CodeableConceptToDict(c.Code)["code"] == "21844-6").FirstOrDefault();
+                var comp = obs.Component.Where(c => CodeableConceptToDict(c.Code)["code"] == "86188-0").FirstOrDefault();
                 if (comp != null)
                 {
                     return (comp.Value as CodeableConcept)?.Text;
@@ -7494,9 +7494,9 @@ namespace BFDR
                 obs = new Observation
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Code = new CodeableConcept(VR.CodeSystems.LOINC, "21843-8"),
+                    Code = new CodeableConcept(VR.CodeSystems.LOINC, "11341-5"),
                 };
-                Extension roleExt = new Extension(VR.OtherExtensionURL.ParentRole, new CodeableConcept(VR.CodeSystems.RoleCode_HL7_V3, role));
+                Extension roleExt = new Extension(BFDR.ExtensionURL.ExtensionRole, new CodeableConcept(VR.CodeSystems.RoleCode_HL7_V3, role));
                 obs.Extension.Add(roleExt);
                 if (role == "MTH")
                 {
@@ -7528,12 +7528,12 @@ namespace BFDR
                 return;
             }
             Observation obs = GetOccupationObservation(role) ?? SetOccupation(role, null);
-            var comp = obs.Component.Where(c => CodeableConceptToDict(c.Code)["code"] == "21844-6").FirstOrDefault();
+            var comp = obs.Component.Where(c => CodeableConceptToDict(c.Code)["code"] == "86188-0").FirstOrDefault();
             if (comp == null)
             {
                 comp = new Observation.ComponentComponent
                 {
-                    Code = new CodeableConcept(CodeSystems.LOINC, "21844-6")
+                    Code = new CodeableConcept(CodeSystems.LOINC, "86188-0")
                 };
                 obs.Component.Add(comp);
             }
@@ -7552,8 +7552,8 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Mother's Occupation: {ExampleBirthRecord.MotherOccupation}");</para>
         /// </example>
-        [Property("MotherOccupation", Property.Types.String, "Mother Information", "Occupation", false, VR.OtherIGURL.UsualWork, true, 282)]
-        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='21843-8')", "")]
+        [Property("MotherOccupation", Property.Types.String, "Mother Information", "Occupation", false, IGURL.ObservationPresentJob, true, 282)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='11341-5')", "")]
         public string MotherOccupation
         {
             get => GetOccupation("MTH");
@@ -7568,8 +7568,8 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Father's Occupation: {ExampleBirthRecord.FatherOccupation}");</para>
         /// </example>
-        [Property("FatherOccupation", Property.Types.String, "Father Information", "Occupation", false, VR.OtherIGURL.UsualWork, true, 284)]
-        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='21843-8')", "")]
+        [Property("FatherOccupation", Property.Types.String, "Father Information", "Occupation", false, IGURL.ObservationPresentJob, true, 284)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='11341-5')", "")]
         public string FatherOccupation
         {
             get => GetOccupation("FTH");
@@ -7584,8 +7584,8 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Mother's Industry: {ExampleBirthRecord.MotherIndustry}");</para>
         /// </example>
-        [Property("MotherIndustry", Property.Types.String, "Mother Information", "Industry", false, VR.OtherIGURL.UsualWork, true, 286)]
-        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='21843-8')", "")]
+        [Property("MotherIndustry", Property.Types.String, "Mother Information", "Industry", false, IGURL.ObservationPresentJob, true, 286)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='86188-0')", "")]
         public string MotherIndustry
         {
             get => GetIndustry("MTH");
@@ -7600,8 +7600,8 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Father's Industry: {ExampleBirthRecord.FatherIndustry}");</para>
         /// </example>
-        [Property("FatherIndustry", Property.Types.String, "Father Information", "Industry", false, VR.OtherIGURL.UsualWork, true, 288)]
-        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='21843-8')", "")]
+        [Property("FatherIndustry", Property.Types.String, "Father Information", "Industry", false, IGURL.ObservationPresentJob, true, 288)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='86188-0')", "")]
         public string FatherIndustry
         {
             get => GetIndustry("FTH");

@@ -250,7 +250,7 @@ namespace BFDR
 
         /// <summary>Initiating cause/condition, Rupture of membranes prior to onset of labor.</summary>
         [Property("Rupture of Membranes Prior to Onset of Labor", Property.Types.Bool, "Initiating Cause/Condition",
-                  "Initiating Cause/Condition, Rupture of Membranes Prior to Onset of Labor", true, IGURL.ConditionFetalDeathCauseOrCondition, true, 100)]
+                  "Initiating Cause/Condition, Rupture of Membranes Prior to Onset of Labor", true, IGURL.ConditionFetalDeathInitiatingCauseOrCondition, true, 100)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "76060-3", code: "44223004", section: FETUS_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.DecedentFetus)]
         public bool PrematureRuptureOfMembranes
@@ -261,7 +261,7 @@ namespace BFDR
 
         /// <summary>Initiating cause/condition, Abruptio placenta.</summary>
         [Property("Abruptio Placenta", Property.Types.Bool, "Initiating Cause/Condition",
-                  "Initiating Cause/Condition, Abruptio Placenta", true, IGURL.ConditionFetalDeathCauseOrCondition, true, 100)]
+                  "Initiating Cause/Condition, Abruptio Placenta", true, IGURL.ConditionFetalDeathInitiatingCauseOrCondition, true, 100)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "76060-3", code: "415105001", section: FETUS_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.DecedentFetus)]
         public bool AbruptioPlacenta
@@ -272,7 +272,7 @@ namespace BFDR
 
         /// <summary>Initiating cause/condition, Placental insufficiency.</summary>
         [Property("Placental Insufficiency", Property.Types.Bool, "Initiating Cause/Condition",
-                  "Initiating Cause/Condition, Placental Insufficiency", true, IGURL.ConditionFetalDeathCauseOrCondition, true, 100)]
+                  "Initiating Cause/Condition, Placental Insufficiency", true, IGURL.ConditionFetalDeathInitiatingCauseOrCondition, true, 100)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "76060-3", code: "237292005", section: FETUS_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.DecedentFetus)]
         public bool PlacentalInsufficiency
@@ -283,7 +283,7 @@ namespace BFDR
 
         /// <summary>Initiating cause/condition, Prolapsed cord.</summary>
         [Property("Prolapsed Cord", Property.Types.Bool, "Initiating Cause/Condition",
-                  "Initiating Cause/Condition, Prolapsed Cord", true, IGURL.ConditionFetalDeathCauseOrCondition, true, 100)]
+                  "Initiating Cause/Condition, Prolapsed Cord", true, IGURL.ConditionFetalDeathInitiatingCauseOrCondition, true, 100)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "76060-3", code: "270500004", section: FETUS_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.DecedentFetus)]
         public bool ProlapsedCord
@@ -294,7 +294,7 @@ namespace BFDR
 
         /// <summary>Initiating cause/condition, Chorioamnionitis.</summary>
         [Property("Chorioamnionitis", Property.Types.Bool, "Initiating Cause/Condition",
-                  "Initiating Cause/Condition, Chorioamnionitis", true, IGURL.ConditionFetalDeathCauseOrCondition, true, 100)]
+                  "Initiating Cause/Condition, Chorioamnionitis", true, IGURL.ConditionFetalDeathInitiatingCauseOrCondition, true, 100)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "76060-3", code: "11612004", section: FETUS_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.DecedentFetus)]
         public bool ChorioamnionitisCOD
@@ -305,7 +305,7 @@ namespace BFDR
 
         /// <summary>Initiating cause/condition, Other complications of placenta, cord, or membranes.</summary>
         [Property("Other Complications of Placenta, Cord, or Membranes", Property.Types.Bool, "Initiating Cause/Condition",
-                  "Initiating Cause/Condition, Other Complications of Placenta, Cord, or Membranes", true, IGURL.ConditionFetalDeathCauseOrCondition, true, 100)]
+                  "Initiating Cause/Condition, Other Complications of Placenta, Cord, or Membranes", true, IGURL.ConditionFetalDeathInitiatingCauseOrCondition, true, 100)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "76060-3", code: "membranes", section: FETUS_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.DecedentFetus)]
         public bool OtherComplicationsOfPlacentaCordOrMembranes
@@ -316,7 +316,7 @@ namespace BFDR
 
         /// <summary>Initiating cause/condition, Unknown.</summary>
         [Property("Unknown Initiating Cause or Condition", Property.Types.Bool, "Initiating Cause/Condition",
-                  "Initiating Cause/Condition, Unknown", true, IGURL.ConditionFetalDeathCauseOrCondition, true, 100)]
+                  "Initiating Cause/Condition, Unknown", true, IGURL.ConditionFetalDeathInitiatingCauseOrCondition, true, 100)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "76060-3", code: "UNK", section: FETUS_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.DecedentFetus)]
         public bool InitiatingCauseOrConditionUnknown
@@ -327,7 +327,7 @@ namespace BFDR
 
         /// <summary>Initiating cause/condition, Maternal conditions/diseases literal.</summary>
         [Property("Maternal Conditions Diseases Literal", Property.Types.String, "Initiating Cause/Condition",
-                  "Initiating Cause/Condition, Maternal Conditions Diseases Literal", true, IGURL.ConditionFetalDeathCauseOrCondition, true, 100)]
+                  "Initiating Cause/Condition, Maternal Conditions Diseases Literal", true, IGURL.ConditionFetalDeathInitiatingCauseOrCondition, true, 100)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "76060-3", code: "maternalconditions", section: FETUS_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.DecedentFetus)]
         public string MaternalConditionsDiseasesLiteral
@@ -619,7 +619,7 @@ namespace BFDR
 
         /// <summary>Initiating cause/condition, Other complications of placenta, cord, or membranes literal.</summary>
         [Property("Other Complications of Placenta Cord Membranes Literal", Property.Types.String, "Initiating Cause/Condition",
-                  "Initiating Cause/Condition, Other Complications of Placenta Cord Membranes Literal", true, IGURL.ConditionFetalDeathCauseOrCondition, true, 100)]
+                  "Initiating Cause/Condition, Other Complications of Placenta Cord Membranes Literal", true, IGURL.ConditionFetalDeathInitiatingCauseOrCondition, true, 100)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "76060-3", code: "membranes", section: FETUS_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.DecedentFetus)]
         public string OtherComplicationsOfPlacentaCordMembranesLiteral
@@ -649,7 +649,7 @@ namespace BFDR
 
         /// <summary>Initiating cause/condition, Other obstetrical or pregnancy complications literal.</summary>
         [Property("Other Obstetrical or Pregnancy Complications Literal", Property.Types.String, "Initiating Cause/Condition",
-                  "Initiating Cause/Condition, Other Obstetrical or Pregnancy Complications Literal", true, IGURL.ConditionFetalDeathCauseOrCondition, true, 100)]
+                  "Initiating Cause/Condition, Other Obstetrical or Pregnancy Complications Literal", true, IGURL.ConditionFetalDeathInitiatingCauseOrCondition, true, 100)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "76060-3", code: "obstetricalcomplications", section: FETUS_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.DecedentFetus)]
         public string OtherObstetricalOrPregnancyComplicationsLiteral
@@ -679,7 +679,7 @@ namespace BFDR
 
         /// <summary>Initiating cause/condition, Fetal anomaly literal.</summary>
         [Property("Fetal Anomaly Literal", Property.Types.String, "Initiating Cause/Condition",
-                  "Initiating Cause/Condition, Fetal Anomaly Literal", true, IGURL.ConditionFetalDeathCauseOrCondition, true, 100)]
+                  "Initiating Cause/Condition, Fetal Anomaly Literal", true, IGURL.ConditionFetalDeathInitiatingCauseOrCondition, true, 100)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "76060-3", code: "702709008", section: FETUS_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.DecedentFetus)]
         public string FetalAnomalyLiteral
@@ -709,7 +709,7 @@ namespace BFDR
 
         /// <summary>Initiating cause/condition, Fetal injury literal.</summary>
         [Property("Fetal Injury Literal", Property.Types.String, "Initiating Cause/Condition",
-                  "Initiating Cause/Condition, Fetal Injury Literal", true, IGURL.ConditionFetalDeathCauseOrCondition, true, 100)]
+                  "Initiating Cause/Condition, Fetal Injury Literal", true, IGURL.ConditionFetalDeathInitiatingCauseOrCondition, true, 100)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "76060-3", code: "277489001", section: FETUS_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.DecedentFetus)]
         public string FetalInjuryLiteral
@@ -739,7 +739,7 @@ namespace BFDR
 
         /// <summary>Initiating cause/condition, Fetal infection literal.</summary>
         [Property("Fetal Infection Literal", Property.Types.String, "Initiating Cause/Condition",
-                  "Initiating Cause/Condition, Fetal Infection Literal", true, IGURL.ConditionFetalDeathCauseOrCondition, true, 100)]
+                  "Initiating Cause/Condition, Fetal Infection Literal", true, IGURL.ConditionFetalDeathInitiatingCauseOrCondition, true, 100)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "76060-3", code: "128270001", section: FETUS_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.DecedentFetus)]
         public string FetalInfectionLiteral
@@ -769,7 +769,7 @@ namespace BFDR
 
         /// <summary>Initiating cause/condition, Other fetal conditions/disorders literal.</summary>
         [Property("Other Fetal Conditions/Disorders Literal", Property.Types.String, "Initiating Cause/Condition",
-                  "Initiating Cause/Condition, Other Fetal Conditions/Disorders Literal", true, IGURL.ConditionFetalDeathCauseOrCondition, true, 100)]
+                  "Initiating Cause/Condition, Other Fetal Conditions/Disorders Literal", true, IGURL.ConditionFetalDeathInitiatingCauseOrCondition, true, 100)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "76060-3", code: "fetalconditions", section: FETUS_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.DecedentFetus)]
         public string OtherFetalConditionsDisordersLiteral

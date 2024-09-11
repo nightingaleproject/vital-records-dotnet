@@ -2815,16 +2815,16 @@ namespace BFDR
         [IJEField(174, 574, 1, "Risk Factors--Infertility: Fertility Enhancing Drugs (added after 2004)", "INFT_DRG", 1)]
         public string INFT_DRG
         {
-            get => PresenceToIJE(record.ArtificialInsemination, record.NoPregnancyRiskFactors);
-            set => IJEToPresence(value, (v) => record.ArtificialInsemination = v, (v) => record.NoPregnancyRiskFactors = v);
+            get => PresenceToIJE(record.FertilityEnhancingDrugTherapyArtificialIntrauterineInsemination, record.NoPregnancyRiskFactors);
+            set => IJEToPresence(value, (v) => record.FertilityEnhancingDrugTherapyArtificialIntrauterineInsemination = v, (v) => record.NoPregnancyRiskFactors = v);
         }
 
         /// <summary>Risk Factors--Infertility: Asst. Rep. Technology (added after 2004)</summary>
         [IJEField(175, 575, 1, "Risk Factors--Infertility: Asst. Rep. Technology (added after 2004)", "INFT_ART", 1)]
         public string INFT_ART
         {
-            get => PresenceToIJE(record.AssistedFertilization, record.NoPregnancyRiskFactors);
-            set => IJEToPresence(value, (v) => record.AssistedFertilization = v, (v) => record.NoPregnancyRiskFactors = v);
+            get => PresenceToIJE(record.AssistedReproductiveTechnology, record.NoPregnancyRiskFactors);
+            set => IJEToPresence(value, (v) => record.AssistedReproductiveTechnology = v, (v) => record.NoPregnancyRiskFactors = v);
         }
 
         /// <summary>Date of Registration--Year</summary>
@@ -4148,6 +4148,7 @@ namespace BFDR
             get
             {
                 return LeftJustified_Get("DAD_IN_T", "FatherIndustry");
+                //return Truncate(LeftJustified_Get("DAD_IN_T", "FatherIndustry"), 20).Trim();
             }
             set
             {

@@ -3291,18 +3291,18 @@
             <summary>Create Birth Encounter.</summary>
         </member>
         <member name="P:BFDR.NatalityRecord.CertificateNumber">
-            <summary>Birth Certificate Number.</summary>
+            <summary>Certificate Number.</summary>
             <value>a record identification string.</value>
             <example>
             <para>// Setter:</para>
             <para>ExampleBirthRecord.Identifier = "42";</para>
             <para>// Getter:</para>
-            <para>Console.WriteLine($"Birth Certificate Number: {ExampleBirthRecord.Identifier}");</para>
+            <para>Console.WriteLine($"Certificate Number: {ExampleBirthRecord.Identifier}");</para>
             </example>
         </member>
         <member name="P:BFDR.NatalityRecord.RecordIdentifier">
-            <summary>Birth Record Bundle Identifier, NCHS identifier.</summary>
-            <value>a record bundle identification string, e.g., 2022MA000100, derived from year of birth, jurisdiction of birth, and certificate number</value>
+            <summary>Record Bundle Identifier, NCHS identifier.</summary>
+            <value>a record bundle identification string, e.g., 2022MA000100, derived from year of birth/death, jurisdiction of birth/death, and certificate number</value>
             <example>
             <para>// Getter:</para>
             <para>Console.WriteLine($"NCHS identifier: {ExampleBirthRecord.BirthRecordIdentifier}");</para>
@@ -3974,11 +3974,11 @@
         <member name="P:BFDR.NatalityRecord.PreviousPretermBirth">
             <summary>Previous Preterm Birth.</summary>
         </member>
-        <member name="P:BFDR.NatalityRecord.ArtificialInsemination">
-            <summary>Artificial Insemination.</summary>
+        <member name="P:BFDR.NatalityRecord.FertilityEnhancingDrugTherapyArtificialIntrauterineInsemination">
+            <summary>Fertility Enhancing Drug Therapy, Artificial or Intrauterine Insemination.</summary>
         </member>
-        <member name="P:BFDR.NatalityRecord.AssistedFertilization">
-            <summary>Assisted Fertilization.</summary>
+        <member name="P:BFDR.NatalityRecord.AssistedReproductiveTechnology">
+            <summary>Assisted Reproductive Technology.</summary>
         </member>
         <member name="P:BFDR.NatalityRecord.InfertilityTreatment">
             <summary>Infertility Treatment.</summary>
@@ -6693,6 +6693,9 @@
         <member name="F:BFDR.ProfileURL.BundleDocumentCodedCauseOfFetalDeath">
             <summary>URL for BundleDocumentCodedCauseOfFetalDeath</summary>
         </member>
+        <member name="F:BFDR.ProfileURL.BundleDocumentCodedIndustryOccupation">
+            <summary>URL for BundleDocumentCodedIndustryOccupation</summary>
+        </member>
         <member name="F:BFDR.ProfileURL.BundleDocumentDemographicCodedContent">
             <summary>URL for BundleDocumentDemographicCodedContent</summary>
         </member>
@@ -6701,6 +6704,9 @@
         </member>
         <member name="F:BFDR.ProfileURL.CompositionCodedCauseOfFetalDeath">
             <summary>URL for CompositionCodedCauseOfFetalDeath</summary>
+        </member>
+        <member name="F:BFDR.ProfileURL.CompositionCodedIndustryAndOccupation">
+            <summary>URL for CompositionCodedIndustryAndOccupation</summary>
         </member>
         <member name="F:BFDR.ProfileURL.CompositionCodedRaceAndEthnicity">
             <summary>URL for CompositionCodedRaceAndEthnicity</summary>
@@ -6726,8 +6732,8 @@
         <member name="F:BFDR.ProfileURL.ConditionEclampsiaHypertension">
             <summary>URL for ConditionEclampsiaHypertension</summary>
         </member>
-        <member name="F:BFDR.ProfileURL.ConditionFetalDeathCauseOrCondition">
-            <summary>URL for ConditionFetalDeathCauseOrCondition</summary>
+        <member name="F:BFDR.ProfileURL.ConditionFetalDeathInitiatingCauseOrCondition">
+            <summary>URL for ConditionFetalDeathInitiatingCauseOrCondition</summary>
         </member>
         <member name="F:BFDR.ProfileURL.ConditionFetalDeathOtherCauseOrCondition">
             <summary>URL for ConditionFetalDeathOtherCauseOrCondition</summary>
@@ -6765,9 +6771,6 @@
         <member name="F:BFDR.ProfileURL.EncounterMaternity">
             <summary>URL for EncounterMaternity</summary>
         </member>
-        <member name="F:BFDR.ProfileURL.ObservationNoneOfSpecifiedCongenitalAnomoliesOfTheNewborn">
-            <summary>URL for ObservationNoneOfSpecifiedCongenitalAnomoliesOfTheNewborn</summary>
-        </member>
         <member name="F:BFDR.ProfileURL.ObservationAntibioticsAdministeredDuringLabor">
             <summary>URL for ObservationAntibioticsAdministeredDuringLabor</summary>
         </member>
@@ -6776,6 +6779,9 @@
         </member>
         <member name="F:BFDR.ProfileURL.ObservationAutopsyHistologicalExamResultsUsed">
             <summary>URL for ObservationAutopsyHistologicalExamResultsUsed</summary>
+        </member>
+        <member name="F:BFDR.ProfileURL.ObservationAutopsyPerformedIndicator">
+            <summary>URL for ObservationAutopsyPerformedIndicator</summary>
         </member>
         <member name="F:BFDR.ProfileURL.ObservationBirthPluralityOfPregnancy">
             <summary>URL for ObservationBirthPluralityOfPregnancy</summary>
@@ -6852,6 +6858,9 @@
         <member name="F:BFDR.ProfileURL.ObservationNoneOfSpecifiedInfectionsPresentDuringPregnancy">
             <summary>URL for ObservationNoneOfSpecifiedInfectionsPresentDuringPregnancy</summary>
         </member>
+        <member name="F:BFDR.ProfileURL.ObservationNoneOfSpecifiedCongenitalAnomoliesOfTheNewborn">
+            <summary>URL for ObservationNoneOfSpecifiedCongenitalAnomoliesOfTheNewborn</summary>
+        </member>
         <member name="F:BFDR.ProfileURL.ObservationNoneOfSpecifiedAbnormalConditionsOfNewborn">
             <summary>URL for ObservationNoneOfSpecifiedAbnormalConditionsOfNewborn</summary>
         </member>
@@ -6894,6 +6903,9 @@
         <member name="F:BFDR.ProfileURL.ObservationPlannedToDeliverAtHome">
             <summary>URL for ObservationPlannedToDeliverAtHome</summary>
         </member>
+        <member name="F:BFDR.ProfileURL.ObservationPresentJob">
+            <summary>URL for ObservationPresentJob</summary>
+        </member>
         <member name="F:BFDR.ProfileURL.ObservationPreviousCesarean">
             <summary>URL for ObservationPreviousCesarean</summary>
         </member>
@@ -6915,11 +6927,8 @@
         <member name="F:BFDR.ProfileURL.ProcedureAntibioticSuspectedNeonatalSepsis">
             <summary>URL for ProcedureAntibioticSuspectedNeonatalSepsis</summary>
         </member>
-        <member name="F:BFDR.ProfileURL.ProcedureArtificialInsemination">
-            <summary>URL for ProcedureArtificialInsemination</summary>
-        </member>
-        <member name="F:BFDR.ProfileURL.ProcedureAssistedFertilization">
-            <summary>URL for ProcedureAssistedFertilization</summary>
+        <member name="F:BFDR.ProfileURL.ProcedureAssistedReproductiveTechnology">
+            <summary>URL for ProcedureAssistedReproductiveTechnology</summary>
         </member>
         <member name="F:BFDR.ProfileURL.ProcedureAssistedVentilationFollowingDelivery">
             <summary>URL for ProcedureAssistedVentilationFollowingDelivery</summary>
@@ -6935,6 +6944,9 @@
         </member>
         <member name="F:BFDR.ProfileURL.ProcedureEpiduralOrSpinalAnesthesia">
             <summary>URL for ProcedureEpiduralOrSpinalAnesthesia</summary>
+        </member>
+        <member name="F:BFDR.ProfileURL.ProcedureFertilityEnhancingDrugTherapyArtificialInsemination">
+            <summary>URL for ProcedureFertilityEnhancingDrugTherapyArtificialInsemination</summary>
         </member>
         <member name="F:BFDR.ProfileURL.ProcedureFinalRouteMethodDelivery">
             <summary>URL for ProcedureFinalRouteMethodDelivery</summary>
@@ -6962,6 +6974,9 @@
         </member>
         <member name="F:BFDR.ExtensionURL.JurisdictionalFacilityIdentifier">
             <summary>URL for JurisdictionalFacilityIdentifier</summary>
+        </member>
+        <member name="F:BFDR.ExtensionURL.ExtensionRole">
+            <summary>URL for ExtensionRole</summary>
         </member>
         <member name="F:BFDR.ExtensionURL.LocationBFDR">
             <summary>URL for LocationBFDR</summary>
@@ -6996,6 +7011,9 @@
         <member name="F:BFDR.IGURL.BundleDocumentCodedCauseOfFetalDeath">
             <summary>URL for BundleDocumentCodedCauseOfFetalDeath</summary>
         </member>
+        <member name="F:BFDR.IGURL.BundleDocumentCodedIndustryOccupation">
+            <summary>URL for BundleDocumentCodedIndustryOccupation</summary>
+        </member>
         <member name="F:BFDR.IGURL.BundleDocumentDemographicCodedContent">
             <summary>URL for BundleDocumentDemographicCodedContent</summary>
         </member>
@@ -7004,6 +7022,9 @@
         </member>
         <member name="F:BFDR.IGURL.CompositionCodedCauseOfFetalDeath">
             <summary>URL for CompositionCodedCauseOfFetalDeath</summary>
+        </member>
+        <member name="F:BFDR.IGURL.CompositionCodedIndustryAndOccupation">
+            <summary>URL for CompositionCodedIndustryAndOccupation</summary>
         </member>
         <member name="F:BFDR.IGURL.CompositionCodedRaceAndEthnicity">
             <summary>URL for CompositionCodedRaceAndEthnicity</summary>
@@ -7029,8 +7050,8 @@
         <member name="F:BFDR.IGURL.ConditionEclampsiaHypertension">
             <summary>URL for ConditionEclampsiaHypertension</summary>
         </member>
-        <member name="F:BFDR.IGURL.ConditionFetalDeathCauseOrCondition">
-            <summary>URL for ConditionFetalDeathCauseOrCondition</summary>
+        <member name="F:BFDR.IGURL.ConditionFetalDeathInitiatingCauseOrCondition">
+            <summary>URL for ConditionFetalDeathInitiatingCauseOrCondition</summary>
         </member>
         <member name="F:BFDR.IGURL.ConditionFetalDeathOtherCauseOrCondition">
             <summary>URL for ConditionFetalDeathOtherCauseOrCondition</summary>
@@ -7074,11 +7095,11 @@
         <member name="F:BFDR.IGURL.JurisdictionalFacilityIdentifier">
             <summary>URL for JurisdictionalFacilityIdentifier</summary>
         </member>
+        <member name="F:BFDR.IGURL.ExtensionRole">
+            <summary>URL for ExtensionRole</summary>
+        </member>
         <member name="F:BFDR.IGURL.LocationBFDR">
             <summary>URL for LocationBFDR</summary>
-        </member>
-        <member name="F:BFDR.IGURL.ObservationNoneOfSpecifiedCongenitalAnomoliesOfTheNewborn">
-            <summary>URL for ObservationNoneOfSpecifiedCongenitalAnomoliesOfTheNewborn</summary>
         </member>
         <member name="F:BFDR.IGURL.ObservationAntibioticsAdministeredDuringLabor">
             <summary>URL for ObservationAntibioticsAdministeredDuringLabor</summary>
@@ -7088,6 +7109,9 @@
         </member>
         <member name="F:BFDR.IGURL.ObservationAutopsyHistologicalExamResultsUsed">
             <summary>URL for ObservationAutopsyHistologicalExamResultsUsed</summary>
+        </member>
+        <member name="F:BFDR.IGURL.ObservationAutopsyPerformedIndicator">
+            <summary>URL for ObservationAutopsyPerformedIndicator</summary>
         </member>
         <member name="F:BFDR.IGURL.ObservationBirthPluralityOfPregnancy">
             <summary>URL for ObservationBirthPluralityOfPregnancy</summary>
@@ -7164,6 +7188,9 @@
         <member name="F:BFDR.IGURL.ObservationNoneOfSpecifiedInfectionsPresentDuringPregnancy">
             <summary>URL for ObservationNoneOfSpecifiedInfectionsPresentDuringPregnancy</summary>
         </member>
+        <member name="F:BFDR.IGURL.ObservationNoneOfSpecifiedCongenitalAnomoliesOfTheNewborn">
+            <summary>URL for ObservationNoneOfSpecifiedCongenitalAnomoliesOfTheNewborn</summary>
+        </member>
         <member name="F:BFDR.IGURL.ObservationNoneOfSpecifiedAbnormalConditionsOfNewborn">
             <summary>URL for ObservationNoneOfSpecifiedAbnormalConditionsOfNewborn</summary>
         </member>
@@ -7206,6 +7233,9 @@
         <member name="F:BFDR.IGURL.ObservationPlannedToDeliverAtHome">
             <summary>URL for ObservationPlannedToDeliverAtHome</summary>
         </member>
+        <member name="F:BFDR.IGURL.ObservationPresentJob">
+            <summary>URL for ObservationPresentJob</summary>
+        </member>
         <member name="F:BFDR.IGURL.ObservationPreviousCesarean">
             <summary>URL for ObservationPreviousCesarean</summary>
         </member>
@@ -7233,11 +7263,8 @@
         <member name="F:BFDR.IGURL.ProcedureAntibioticSuspectedNeonatalSepsis">
             <summary>URL for ProcedureAntibioticSuspectedNeonatalSepsis</summary>
         </member>
-        <member name="F:BFDR.IGURL.ProcedureArtificialInsemination">
-            <summary>URL for ProcedureArtificialInsemination</summary>
-        </member>
-        <member name="F:BFDR.IGURL.ProcedureAssistedFertilization">
-            <summary>URL for ProcedureAssistedFertilization</summary>
+        <member name="F:BFDR.IGURL.ProcedureAssistedReproductiveTechnology">
+            <summary>URL for ProcedureAssistedReproductiveTechnology</summary>
         </member>
         <member name="F:BFDR.IGURL.ProcedureAssistedVentilationFollowingDelivery">
             <summary>URL for ProcedureAssistedVentilationFollowingDelivery</summary>
@@ -7253,6 +7280,9 @@
         </member>
         <member name="F:BFDR.IGURL.ProcedureEpiduralOrSpinalAnesthesia">
             <summary>URL for ProcedureEpiduralOrSpinalAnesthesia</summary>
+        </member>
+        <member name="F:BFDR.IGURL.ProcedureFertilityEnhancingDrugTherapyArtificialInsemination">
+            <summary>URL for ProcedureFertilityEnhancingDrugTherapyArtificialInsemination</summary>
         </member>
         <member name="F:BFDR.IGURL.ProcedureFinalRouteMethodDelivery">
             <summary>URL for ProcedureFinalRouteMethodDelivery</summary>

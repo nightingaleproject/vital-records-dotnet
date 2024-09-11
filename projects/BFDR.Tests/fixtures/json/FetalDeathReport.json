@@ -192,7 +192,7 @@
                 "reference": "Observation/observation-parent-education-level-carmen-teresa-lee-w-edit"
               },
               {
-                "reference": "Observation/observation-usual-work-carmen-teresa-lee"
+                "reference" : "Observation/observation-present-job-carmen-teresa-lee"
               },
               {
                 "reference": "Observation/observation-input-race-and-ethnicity-carmen-teresa-lee"
@@ -213,7 +213,7 @@
             },
             "entry": [
               {
-                "reference": "Observation/observation-usual-work-tom-yan-lee"
+                "reference" : "Observation/observation-present-job-tom-yan-lee"
               },
               {
                 "reference": "Observation/observation-input-race-and-ethnicity-father"
@@ -1815,133 +1815,111 @@
       }
     },
     {
-      "fullUrl": "http://www.example.org/fhir/Observation/observation-usual-work-carmen-teresa-lee",
-      "resource": {
-        "resourceType": "Observation",
-        "id": "observation-usual-work-carmen-teresa-lee",
-        "meta": {
-          "profile": [
-            "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Observation-usual-work-vr"
-          ]
+      "fullUrl" : "http://www.example.org/fhir/Observation/observation-present-job-carmen-teresa-lee",
+      "resource" : {
+        "resourceType" : "Observation",
+        "id" : "observation-present-job-carmen-teresa-lee",
+        "meta" : {
+          "profile" : ["http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-present-job"]
         },
-        "text": {
-          "status": "extensions",
-          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Observation_observation-usual-work-carmen-teresa-lee\"> </a><p><b>Generated Narrative: Observation</b><a name=\"observation-usual-work-carmen-teresa-lee\"> </a><a name=\"hcobservation-usual-work-carmen-teresa-lee\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-usual-work-carmen-teresa-lee&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"https://build.fhir.org/ig/HL7/vr-common-library//StructureDefinition-Observation-usual-work-vr.html\">Observation - Usual Work</a></p></div><p><b>Role Vital Records</b>: mother <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/5.0.0/CodeSystem-v3-RoleCode.html\">RoleCode</a>#MTH)</span></p><p><b>status</b>: final</p><p><b>code</b>: Hx of Usual occupation <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#21843-8)</span></p><p><b>subject</b>: <a href=\"#Patient_patient-decedent-fetus-not-named\">See above (Patient/patient-decedent-fetus-not-named)</a></p><p><b>focus</b>: <a href=\"#RelatedPerson_relatedperson-mother-carmen-teresa-lee\">See above (RelatedPerson/relatedperson-mother-carmen-teresa-lee)</a></p><p><b>value</b>: Secretary <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> ()</span></p><h3>Components</h3><table class=\"grid\"><tr><td style=\"display: none\">-</td><td><b>Code</b></td><td><b>Value[x]</b></td></tr><tr><td style=\"display: none\">*</td><td>Hx of Usual industry <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#21844-6)</span></td><td>State Agency <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> ()</span></td></tr></table></div>"
+        "text" : {
+          "status" : "extensions",
+          "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Observation_observation-present-job-carmen-teresa-lee\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Observation observation-present-job-carmen-teresa-lee</b></p><a name=\"observation-present-job-carmen-teresa-lee\"> </a><a name=\"hcobservation-present-job-carmen-teresa-lee\"> </a><a name=\"observation-present-job-carmen-teresa-lee-en-US\"> </a><p><b>Extension Parental Role</b>: <span title=\"Codes:{http://terminology.hl7.org/CodeSystem/v3-RoleCode MTH}\">mother</span></p><p><b>status</b>: Final</p><p><b>code</b>: <span title=\"Codes:{http://loinc.org 11341-5}\">History of Occupation</span></p><p><b>subject</b>: <a href=\"Patient-patient-decedent-fetus-not-named.html\">null (official) Female, DoB: 2019-01-09 ( Medical Record Number: 9932702\u00a0(use:\u00a0usual,\u00a0))</a></p><p><b>focus</b>: <a href=\"RelatedPerson-relatedperson-mother-carmen-teresa-lee.html\">RelatedPerson Carmen Teresa Lee (official)</a></p><p><b>effective</b>: 2019-01-09 --&gt; (ongoing)</p><p><b>value</b>: <span title=\"Codes:\">Secretary</span></p><h3>Components</h3><table class=\"grid\"><tr><td style=\"display: none\">-</td><td><b>Code</b></td><td><b>Value[x]</b></td></tr><tr><td style=\"display: none\">*</td><td><span title=\"Codes:{http://loinc.org 86188-0}\">History of Occupation industry</span></td><td><span title=\"Codes:\">State Agency</span></td></tr></table></div>"
         },
-        "extension": [
-          {
-            "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-role-vr",
-            "valueCodeableConcept": {
-              "coding": [
-                {
-                  "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
-                  "code": "MTH",
-                  "display": "mother"
-                }
-              ]
-            }
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/us/bfdr/StructureDefinition/Extension-role",
+          "valueCodeableConcept" : {
+            "coding" : [{
+              "system" : "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+              "code" : "MTH",
+              "display" : "mother"
+            }]
           }
-        ],
-        "status": "final",
-        "code": {
-          "coding": [
-            {
-              "system": "http://loinc.org",
-              "code": "21843-8"
-            }
-          ]
+        }],
+        "status" : "final",
+        "code" : {
+          "coding" : [{
+            "system" : "http://loinc.org",
+            "code" : "11341-5"
+          }]
         },
-        "subject": {
-          "reference": "Patient/patient-decedent-fetus-not-named"
+        "subject" : {
+          "reference" : "Patient/patient-decedent-fetus-not-named"
         },
-        "focus": [
-          {
-            "reference": "RelatedPerson/relatedperson-mother-carmen-teresa-lee"
+        "focus" : [{
+          "reference" : "RelatedPerson/relatedperson-mother-carmen-teresa-lee"
+        }],
+        "effectivePeriod" : {
+          "start" : "2019-01-09"
+        },
+        "valueCodeableConcept" : {
+          "text" : "Secretary"
+        },
+        "component" : [{
+          "code" : {
+            "coding" : [{
+              "system" : "http://loinc.org",
+              "code" : "86188-0"
+            }]
+          },
+          "valueCodeableConcept" : {
+            "text" : "State Agency"
           }
-        ],
-        "valueCodeableConcept": {
-          "text": "Secretary"
-        },
-        "component": [
-          {
-            "code": {
-              "coding": [
-                {
-                  "system": "http://loinc.org",
-                  "code": "21844-6"
-                }
-              ]
-            },
-            "valueCodeableConcept": {
-              "text": "State Agency"
-            }
-          }
-        ]
+        }]
       }
     },
     {
-      "fullUrl": "http://www.example.org/fhir/Observation/observation-usual-work-tom-yan-lee",
-      "resource": {
-        "resourceType": "Observation",
-        "id": "observation-usual-work-tom-yan-lee",
-        "meta": {
-          "profile": [
-            "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Observation-usual-work-vr"
-          ]
+      "fullUrl" : "http://www.example.org/fhir/Observation/observation-present-job-tom-yan-lee",
+      "resource" : {
+        "resourceType" : "Observation",
+        "id" : "observation-present-job-tom-yan-lee",
+        "meta" : {
+          "profile" : ["http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-present-job"]
         },
-        "text": {
-          "status": "extensions",
-          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Observation_observation-usual-work-tom-yan-lee\"> </a><p><b>Generated Narrative: Observation</b><a name=\"observation-usual-work-tom-yan-lee\"> </a><a name=\"hcobservation-usual-work-tom-yan-lee\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;observation-usual-work-tom-yan-lee&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"https://build.fhir.org/ig/HL7/vr-common-library//StructureDefinition-Observation-usual-work-vr.html\">Observation - Usual Work</a></p></div><p><b>Role Vital Records</b>: father <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/5.0.0/CodeSystem-v3-RoleCode.html\">RoleCode</a>#FTH)</span></p><p><b>status</b>: final</p><p><b>code</b>: Hx of Usual occupation <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#21843-8)</span></p><p><b>subject</b>: <a href=\"#Patient_patient-decedent-fetus-not-named\">See above (Patient/patient-decedent-fetus-not-named)</a></p><p><b>focus</b>: <a href=\"#RelatedPerson_relatedperson-father-natural-tom-yan-lee\">See above (RelatedPerson/relatedperson-father-natural-tom-yan-lee)</a></p><p><b>value</b>: Teaching Assistant <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> ()</span></p><h3>Components</h3><table class=\"grid\"><tr><td style=\"display: none\">-</td><td><b>Code</b></td><td><b>Value[x]</b></td></tr><tr><td style=\"display: none\">*</td><td>Hx of Usual industry <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#21844-6)</span></td><td>Elementary and Secondary Schools <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> ()</span></td></tr></table></div>"
+        "text" : {
+          "status" : "extensions",
+          "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Observation_observation-present-job-tom-yan-lee\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Observation observation-present-job-tom-yan-lee</b></p><a name=\"observation-present-job-tom-yan-lee\"> </a><a name=\"hcobservation-present-job-tom-yan-lee\"> </a><a name=\"observation-present-job-tom-yan-lee-en-US\"> </a><p><b>Extension Parental Role</b>: <span title=\"Codes:{http://terminology.hl7.org/CodeSystem/v3-RoleCode FTH}\">father</span></p><p><b>status</b>: Final</p><p><b>code</b>: <span title=\"Codes:{http://loinc.org 11341-5}\">History of Occupation</span></p><p><b>subject</b>: <a href=\"Patient-patient-decedent-fetus-not-named.html\">null (official) Female, DoB: 2019-01-09 ( Medical Record Number: 9932702\u00a0(use:\u00a0usual,\u00a0))</a></p><p><b>focus</b>: <a href=\"RelatedPerson-relatedperson-father-natural-tom-yan-lee.html\">RelatedPerson Tom Yan Lee (official)</a></p><p><b>effective</b>: 2019-01-09 --&gt; (ongoing)</p><p><b>value</b>: <span title=\"Codes:\">Teaching Assistant</span></p><h3>Components</h3><table class=\"grid\"><tr><td style=\"display: none\">-</td><td><b>Code</b></td><td><b>Value[x]</b></td></tr><tr><td style=\"display: none\">*</td><td><span title=\"Codes:{http://loinc.org 86188-0}\">History of Occupation industry</span></td><td><span title=\"Codes:\">Elementary and Secondary Schools</span></td></tr></table></div>"
         },
-        "extension": [
-          {
-            "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-role-vr",
-            "valueCodeableConcept": {
-              "coding": [
-                {
-                  "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
-                  "code": "FTH",
-                  "display": "father"
-                }
-              ]
-            }
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/us/bfdr/StructureDefinition/Extension-role",
+          "valueCodeableConcept" : {
+            "coding" : [{
+              "system" : "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+              "code" : "FTH",
+              "display" : "father"
+            }]
           }
-        ],
-        "status": "final",
-        "code": {
-          "coding": [
-            {
-              "system": "http://loinc.org",
-              "code": "21843-8"
-            }
-          ]
+        }],
+        "status" : "final",
+        "code" : {
+          "coding" : [{
+            "system" : "http://loinc.org",
+            "code" : "11341-5"
+          }]
         },
-        "subject": {
-          "reference": "Patient/patient-decedent-fetus-not-named"
+        "subject" : {
+          "reference" : "Patient/patient-decedent-fetus-not-named"
         },
-        "focus": [
-          {
-            "reference": "RelatedPerson/relatedperson-father-natural-tom-yan-lee"
+        "focus" : [{
+          "reference" : "RelatedPerson/relatedperson-father-natural-tom-yan-lee"
+        }],
+        "effectivePeriod" : {
+          "start" : "2019-01-09"
+        },
+        "valueCodeableConcept" : {
+          "text" : "Teaching Assistant"
+        },
+        "component" : [{
+          "code" : {
+            "coding" : [{
+              "system" : "http://loinc.org",
+              "code" : "86188-0"
+            }]
+          },
+          "valueCodeableConcept" : {
+            "text" : "Elementary Schools"
           }
-        ],
-        "valueCodeableConcept": {
-          "text": "Lawyer"
-        },
-        "component": [
-          {
-            "code": {
-              "coding": [
-                {
-                  "system": "http://loinc.org",
-                  "code": "21844-6"
-                }
-              ]
-            },
-            "valueCodeableConcept": {
-              "text": "Legal Services"
-            }
-          }
-        ]
+        }]
       }
     },
     {

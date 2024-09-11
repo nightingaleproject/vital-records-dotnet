@@ -406,16 +406,16 @@ namespace BFDR.Tests
       Assert.False(record.PrepregnancyDiabetes); 
       Assert.False(record.PrepregnancyHypertension); 
       Assert.False(record.PreviousCesarean); 
-      Assert.False(record.ArtificialInsemination); 
-      Assert.False(record.AssistedFertilization); 
+      Assert.False(record.FertilityEnhancingDrugTherapyArtificialIntrauterineInsemination); 
+      Assert.False(record.AssistedReproductiveTechnology); 
       Assert.False(record.InfertilityTreatment); 
       //set after parse
       record.NoMaternalMorbidities = true;
       Assert.True(record.NoMaternalMorbidities);
       record.EclampsiaHypertension = true;
       Assert.True(record.EclampsiaHypertension);
-      record.ArtificialInsemination = true;
-      Assert.True(record.ArtificialInsemination);
+      record.FertilityEnhancingDrugTherapyArtificialIntrauterineInsemination = true;
+      Assert.True(record.FertilityEnhancingDrugTherapyArtificialIntrauterineInsemination);
     }
 
     [Fact]
@@ -930,8 +930,8 @@ namespace BFDR.Tests
       FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
       Assert.Equal("Secretary", record.MotherOccupation);
       Assert.Equal("State Agency", record.MotherIndustry);
-      Assert.Equal("Lawyer", record.FatherOccupation);
-      Assert.Equal("Legal Services", record.FatherIndustry);
+      Assert.Equal("Teaching Assistant", record.FatherOccupation);
+      Assert.Equal("Elementary Schools", record.FatherIndustry);
       //set after parse
       record.MotherOccupation = "Carpenter";
       record.MotherIndustry = "Construction";
@@ -941,8 +941,8 @@ namespace BFDR.Tests
       IJEFetalDeath ije = new(record);
       Assert.Equal("Carpenter", ije.MOM_OC_T.Trim());
       Assert.Equal("Construction", ije.MOM_IN_T.Trim());
-      Assert.Equal("Lawyer", ije.DAD_OC_T.Trim());
-      Assert.Equal("Legal Services", ije.DAD_IN_T.Trim());
+      Assert.Equal("Teaching Assistant", ije.DAD_OC_T.Trim());
+      Assert.Equal("Elementary Schools", ije.DAD_IN_T.Trim());
     }
 
 
