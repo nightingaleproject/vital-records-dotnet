@@ -829,6 +829,10 @@ namespace BFDR
             }
             set
             {
+                if (value["addressState"] != "" && !CodeExistsInValueSet(value["addressState"], VR.ValueSets.Jurisdiction.Codes))
+                {
+                    return;
+                }
                 SetPlaceOfBirth(Subject, value);
             }
         }
@@ -976,7 +980,18 @@ namespace BFDR
         public Dictionary<string, string> MotherPlaceOfBirth
         {
             get => GetPlaceOfBirth(Mother);
-            set => SetPlaceOfBirth(Mother, value);
+            set 
+            {
+                if (value["addressState"] != "" && !CodeExistsInValueSet(value["addressState"], VR.ValueSets.StatesTerritoriesProvinces.Codes))
+                {
+                    return;
+                }
+                if (value["addressCountry"] != "" && !CodeExistsInValueSet(value["addressCountry"], VR.ValueSets.ResidenceCountry.Codes))
+                {
+                    return;
+                }
+                SetPlaceOfBirth(Mother, value);
+            }
         }
 
         /// <summary>Father's Place Of Birth.</summary>
