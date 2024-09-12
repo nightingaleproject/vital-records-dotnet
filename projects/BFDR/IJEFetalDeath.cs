@@ -1169,240 +1169,128 @@ namespace BFDR
         [IJEField(62, 374, 3, "Mother's Race Tabulation Variable 1E", "MRACE1E", 1)]
         public string MRACE1E
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("MRACE1E", "MotherRaceTabulation1EHelper");
+            set => LeftJustified_Set("MRACE1E", "MotherRaceTabulation1EHelper", value);
         }
 
         /// <summary>Mother's Race Tabulation Variable 2E</summary>
         [IJEField(63, 377, 3, "Mother's Race Tabulation Variable 2E", "MRACE2E", 1)]
         public string MRACE2E
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("MRACE2E", "MotherRaceTabulation2EHelper");
+            set => LeftJustified_Set("MRACE2E", "MotherRaceTabulation2EHelper", value);
         }
 
         /// <summary>Mother's Race Tabulation Variable 3E</summary>
         [IJEField(64, 380, 3, "Mother's Race Tabulation Variable 3E", "MRACE3E", 1)]
         public string MRACE3E
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("MRACE3E", "MotherRaceTabulation3EHelper");
+            set => LeftJustified_Set("MRACE3E", "MotherRaceTabulation3EHelper", value);
         }
 
         /// <summary>Mother's Race Tabulation Variable 4E</summary>
         [IJEField(65, 383, 3, "Mother's Race Tabulation Variable 4E", "MRACE4E", 1)]
         public string MRACE4E
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("MRACE4E", "MotherRaceTabulation4EHelper");
+            set => LeftJustified_Set("MRACE4E", "MotherRaceTabulation4EHelper", value);
         }
 
         /// <summary>Mother's Race Tabulation Variable 5E</summary>
         [IJEField(66, 386, 3, "Mother's Race Tabulation Variable 5E", "MRACE5E", 1)]
         public string MRACE5E
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("MRACE5E", "MotherRaceTabulation5EHelper");
+            set => LeftJustified_Set("MRACE5E", "MotherRaceTabulation5EHelper", value);
         }
 
         /// <summary>Mother's Race Tabulation Variable 6E</summary>
         [IJEField(67, 389, 3, "Mother's Race Tabulation Variable 6E", "MRACE6E", 1)]
         public string MRACE6E
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("MRACE6E", "MotherRaceTabulation6EHelper");
+            set => LeftJustified_Set("MRACE6E", "MotherRaceTabulation6EHelper", value);
         }
 
         /// <summary>Mother's Race Tabulation Variable 7E</summary>
         [IJEField(68, 392, 3, "Mother's Race Tabulation Variable 7E", "MRACE7E", 1)]
         public string MRACE7E
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("MRACE7E", "MotherRaceTabulation7EHelper");
+            set => LeftJustified_Set("MRACE7E", "MotherRaceTabulation7EHelper", value);
         }
 
         /// <summary>Mother's Race Tabulation Variable 8E</summary>
         [IJEField(69, 395, 3, "Mother's Race Tabulation Variable 8E", "MRACE8E", 1)]
         public string MRACE8E
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("MRACE8E", "MotherRaceTabulation8EHelper");
+            set => LeftJustified_Set("MRACE8E", "MotherRaceTabulation8EHelper", value);
         }
 
         /// <summary>Mother's Race Tabulation Variable 16C</summary>
         [IJEField(70, 398, 3, "Mother's Race Tabulation Variable 16C", "MRACE16C", 1)]
         public string MRACE16C
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("MRACE16C", "MotherFirstAmericanIndianCodeHelper");
+            set => LeftJustified_Set("MRACE16C", "MotherFirstAmericanIndianCodeHelper", value);
         }
 
         /// <summary>Mother's Race Tabulation Variable 17C</summary>
         [IJEField(71, 401, 3, "Mother's Race Tabulation Variable 17C", "MRACE17C", 1)]
         public string MRACE17C
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("MRACE17C", "MotherSecondAmericanIndianCodeHelper");
+            set => LeftJustified_Set("MRACE17C", "MotherSecondAmericanIndianCodeHelper", value);
         }
 
         /// <summary>Mother's Race Tabulation Variable 18C</summary>
         [IJEField(72, 404, 3, "Mother's Race Tabulation Variable 18C", "MRACE18C", 1)]
         public string MRACE18C
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("MRACE18C", "MotherFirstOtherAsianCodeHelper");
+            set => LeftJustified_Set("MRACE18C", "MotherFirstOtherAsianCodeHelper", value);
         }
 
         /// <summary>Mother's Race Tabulation Variable 19C</summary>
         [IJEField(73, 407, 3, "Mother's Race Tabulation Variable 19C", "MRACE19C", 1)]
         public string MRACE19C
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("MRACE19C", "MotherSecondOtherAsianCodeHelper");
+            set => LeftJustified_Set("MRACE19C", "MotherSecondOtherAsianCodeHelper", value);
         }
 
         /// <summary>Mother's Race Tabulation Variable 20C</summary>
         [IJEField(74, 410, 3, "Mother's Race Tabulation Variable 20C", "MRACE20C", 1)]
         public string MRACE20C
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("MRACE20C", "MotherFirstOtherPacificIslanderCodeHelper");
+            set => LeftJustified_Set("MRACE20C", "MotherFirstOtherPacificIslanderCodeHelper", value);
         }
 
         /// <summary>Mother's Race Tabulation Variable 21C</summary>
         [IJEField(75, 413, 3, "Mother's Race Tabulation Variable 21C", "MRACE21C", 1)]
         public string MRACE21C
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("MRACE21C", "MotherSecondOtherPacificIslanderCodeHelper");
+            set => LeftJustified_Set("MRACE21C", "MotherSecondOtherPacificIslanderCodeHelper", value);
         }
 
         /// <summary>Mother's Race Tabulation Variable 22C</summary>
         [IJEField(76, 416, 3, "Mother's Race Tabulation Variable 22C", "MRACE22C", 1)]
         public string MRACE22C
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("MRACE22C", "MotherFirstOtherRaceCodeHelper");
+            set => LeftJustified_Set("MRACE22C", "MotherFirstOtherRaceCodeHelper", value);
         }
 
         /// <summary>Mother's Race Tabulation Variable 23C</summary>
         [IJEField(77, 419, 3, "Mother's Race Tabulation Variable 23C", "MRACE23C", 1)]
         public string MRACE23C
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("MRACE23C", "MotherSecondOtherRaceCodeHelper");
+            set => LeftJustified_Set("MRACE23C", "MotherSecondOtherRaceCodeHelper", value);
         }
 
         /// <summary>Attendant</summary>
@@ -4804,270 +4692,144 @@ namespace BFDR
         [IJEField(313, 4570, 3, "Father's Race Tabulation Variable 1E", "FRACE1E", 1)]
         public string FRACE1E
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("FRACE1E", "FatherRaceTabulation1EHelper");
+            set => LeftJustified_Set("FRACE1E", "FatherRaceTabulation1EHelper", value);
         }
 
         /// <summary>Father's Race Tabulation Variable 2E</summary>
         [IJEField(314, 4573, 3, "Father's Race Tabulation Variable 2E", "FRACE2E", 1)]
         public string FRACE2E
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("FRACE2E", "FatherRaceTabulation2EHelper");
+            set => LeftJustified_Set("FRACE2E", "FatherRaceTabulation2EHelper", value);
         }
 
         /// <summary>Father's Race Tabulation Variable 3E</summary>
         [IJEField(315, 4576, 3, "Father's Race Tabulation Variable 3E", "FRACE3E", 1)]
         public string FRACE3E
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("FRACE3E", "FatherRaceTabulation3EHelper");
+            set => LeftJustified_Set("FRACE3E", "FatherRaceTabulation3EHelper", value);
         }
 
         /// <summary>Father's Race Tabulation Variable 4E</summary>
         [IJEField(316, 4579, 3, "Father's Race Tabulation Variable 4E", "FRACE4E", 1)]
         public string FRACE4E
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("FRACE4E", "FatherRaceTabulation4EHelper");
+            set => LeftJustified_Set("FRACE4E", "FatherRaceTabulation4EHelper", value);
         }
 
         /// <summary>Father's Race Tabulation Variable 5E</summary>
         [IJEField(317, 4582, 3, "Father's Race Tabulation Variable 5E", "FRACE5E", 1)]
         public string FRACE5E
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("FRACE5E", "FatherRaceTabulation5EHelper");
+            set => LeftJustified_Set("FRACE5E", "FatherRaceTabulation5EHelper", value);
         }
 
         /// <summary>Father's Race Tabulation Variable 6E</summary>
         [IJEField(318, 4585, 3, "Father's Race Tabulation Variable 6E", "FRACE6E", 1)]
         public string FRACE6E
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("FRACE6E", "FatherRaceTabulation6EHelper");
+            set => LeftJustified_Set("FRACE6E", "FatherRaceTabulation6EHelper", value);
         }
 
         /// <summary>Father's Race Tabulation Variable 7E</summary>
         [IJEField(319, 4588, 3, "Father's Race Tabulation Variable 7E", "FRACE7E", 1)]
         public string FRACE7E
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("FRACE7E", "FatherRaceTabulation7EHelper");
+            set => LeftJustified_Set("FRACE7E", "FatherRaceTabulation7EHelper", value);
         }
 
         /// <summary>Father's Race Tabulation Variable 8E</summary>
         [IJEField(320, 4591, 3, "Father's Race Tabulation Variable 8E", "FRACE8E", 1)]
         public string FRACE8E
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("FRACE8E", "FatherRaceTabulation8EHelper");
+            set => LeftJustified_Set("FRACE8E", "FatherRaceTabulation8EHelper", value);
         }
 
         /// <summary>Father's Race Tabulation Variable 16C</summary>
         [IJEField(321, 4594, 3, "Father's Race Tabulation Variable 16C", "FRACE16C", 1)]
         public string FRACE16C
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("FRACE16C", "FatherFirstAmericanIndianCodeHelper");
+            set => LeftJustified_Set("FRACE16C", "FatherFirstAmericanIndianCodeHelper", value);
         }
 
         /// <summary>Father's Race Tabulation Variable 17C</summary>
         [IJEField(322, 4597, 3, "Father's Race Tabulation Variable 17C", "FRACE17C", 1)]
         public string FRACE17C
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("FRACE17C", "FatherSecondAmericanIndianCodeHelper");
+            set => LeftJustified_Set("FRACE17C", "FatherSecondAmericanIndianCodeHelper", value);
         }
 
         /// <summary>Father's Race Tabulation Variable 18C</summary>
         [IJEField(323, 4600, 3, "Father's Race Tabulation Variable 18C", "FRACE18C", 1)]
         public string FRACE18C
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("FRACE18C", "FatherFirstOtherAsianCodeHelper");
+            set => LeftJustified_Set("FRACE18C", "FatherFirstOtherAsianCodeHelper", value);
         }
 
         /// <summary>Father's Race Tabulation Variable 19C</summary>
         [IJEField(324, 4603, 3, "Father's Race Tabulation Variable 19C", "FRACE19C", 1)]
         public string FRACE19C
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("FRACE19C", "FatherSecondOtherAsianCodeHelper");
+            set => LeftJustified_Set("FRACE19C", "FatherSecondOtherAsianCodeHelper", value);
         }
 
         /// <summary>Father's Race Tabulation Variable 20C</summary>
         [IJEField(325, 4606, 3, "Father's Race Tabulation Variable 20C", "FRACE20C", 1)]
         public string FRACE20C
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("FRACE20C", "FatherFirstOtherPacificIslanderCodeHelper");
+            set => LeftJustified_Set("FRACE20C", "FatherFirstOtherPacificIslanderCodeHelper", value);
         }
 
         /// <summary>Father's Race Tabulation Variable 21C</summary>
         [IJEField(326, 4609, 3, "Father's Race Tabulation Variable 21C", "FRACE21C", 1)]
         public string FRACE21C
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("FRACE21C", "FatherSecondOtherPacificIslanderCodeHelper");
+            set => LeftJustified_Set("FRACE21C", "FatherSecondOtherPacificIslanderCodeHelper", value);
         }
 
         /// <summary>Father's Race Tabulation Variable 22C</summary>
         [IJEField(327, 4612, 3, "Father's Race Tabulation Variable 22C", "FRACE22C", 1)]
         public string FRACE22C
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("FRACE22C", "FatherFirstOtherRaceCodeHelper");
+            set => LeftJustified_Set("FRACE22C", "FatherFirstOtherRaceCodeHelper", value);
         }
 
         /// <summary>Father's Race Tabulation Variable 23C</summary>
         [IJEField(328, 4615, 3, "Father's Race Tabulation Variable 23C", "FRACE23C", 1)]
         public string FRACE23C
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("FRACE23C", "FatherSecondOtherRaceCodeHelper");
+            set => LeftJustified_Set("FRACE23C", "FatherSecondOtherRaceCodeHelper", value);
         }
 
         /// <summary>Mother's Hispanic Code for Literal</summary>
         [IJEField(329, 4618, 3, "Mother's Hispanic Code for Literal", "METHNIC5C", 1)]
         public string METHNIC5C
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("METHNIC5C", "MotherEthnicityCodeForLiteralHelper");
+            set => LeftJustified_Set("METHNIC5C", "MotherEthnicityCodeForLiteralHelper", value);
         }
 
         /// <summary>Mother's Edited Hispanic Origin Code</summary>
         [IJEField(330, 4621, 3, "Mother's Edited Hispanic Origin Code", "METHNICE", 1)]
         public string METHNICE
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("METHNICE", "MotherEthnicityEditedCodeHelper");
+            set => LeftJustified_Set("METHNICE", "MotherEthnicityEditedCodeHelper", value);
         }
 
         /// <summary>Mother's Bridged Race - NCHS Code</summary>
@@ -5089,30 +4851,16 @@ namespace BFDR
         [IJEField(332, 4626, 3, "Father's Hispanic Code for Literal", "FETHNIC5C", 1)]
         public string FETHNIC5C
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("FETHNIC5C", "FatherEthnicityCodeForLiteralHelper");
+            set => LeftJustified_Set("FETHNIC5C", "FatherEthnicityCodeForLiteralHelper", value);
         }
 
         /// <summary>Father's Edited Hispanic Origin Code</summary>
         [IJEField(333, 4629, 3, "Father's Edited Hispanic Origin Code", "FETHNICE", 1)]
         public string FETHNICE
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location: 
-            }
+            get => LeftJustified_Get("FETHNICE", "FatherEthnicityEditedCodeHelper");
+            set => LeftJustified_Set("FETHNICE", "FatherEthnicityEditedCodeHelper", value);
         }
 
         /// <summary>Father's Bridged Race - NCHS Code</summary>
