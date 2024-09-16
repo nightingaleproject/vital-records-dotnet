@@ -26,6 +26,7 @@ namespace BFDR.CLI
 @"* BFDR Command Line Interface - commands
   - help:  prints this help message  (no arguments)
   - fakerecord: prints a fake JSON birth record (no arguments)
+  - fakefetaldeathrecord: prints a fake JSON fetal death record (no arguments)
   - description: prints a verbose JSON description of the record (in the format used to drive Canary) (1 argument: the path to the birth record)
   - 2ije: Read in the FHIR XML or JSON birth record and print out as IJE (1 argument: path to birth record in JSON or XML format)
   - 2ijecontent: Read in the FHIR XML or JSON birth record and dump content  in key/value IJE format (1 argument: path to birth record in JSON or XML format)
@@ -33,8 +34,8 @@ namespace BFDR.CLI
   - ije2json: Read in several IJE birth records and print out as JSON files to same directory they were imported from (2 or more arguments: list of paths to birth records in IJE format)
   - ije2xml: Read in the IJE birth record and print out as XML (1 argument: path to birth record in IJE format)
   - extract2ijecontent: Dump content of a submission message in key/value IJE format (1 argument: submission message)
-  - submit: Create a submission FHIR message wrapping a FHIR birth record (1 argument: FHIR birth record)
-  - resubmit: Create a submission update FHIR message wrapping a FHIR birth record (1 argument: FHIR birth record)
+  - submit: Create a submission FHIR message wrapping a FHIR birth record (2 arguments: 'birth' or 'fetaldeath', FHIR birth record)
+  - resubmit: Create a submission update FHIR message wrapping a FHIR birth record or fetal death record (2 arguments: 'birth' or 'fetaldeath', FHIR birth record)
   - void: Creates a Void message for a Birth Record (1 argument: FHIR birth record; one optional argument: number of records to void)
   - ack: Create an acknowledgement FHIR message for a submission FHIR message (1 argument: submission FHIR message; many arguments: output directory and FHIR messages)
   - ije2json: Creates an IJE birth record and prints out as JSON
@@ -235,10 +236,18 @@ namespace BFDR.CLI
                 }
                 return 0;
             }
-            else if (args.Length == 2 && args[0] == "submit")
+            else if (args.Length == 3 && args[0] == "submit" args[1] == "birth")
             {
-                BirthRecord record = new BirthRecord(File.ReadAllText(args[1]));
+                BirthRecord record = new BirthRecord(File.ReadAllText(args[2]));
                 BirthRecordSubmissionMessage message = new BirthRecordSubmissionMessage(record);
+                message.MessageSource = "http://mitre.org/bfdr";
+                Console.WriteLine(message.ToJSON(true));
+                return 0;
+            }
+            else if (args.Length == 3 && args[0] == "submit" args[1] == "fetaldeath")
+            {
+                FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(args[2]));
+                FetalDeathRecordSubmissionMessage message = new FetalDeathRecordSubmissionMessage(record);
                 message.MessageSource = "http://mitre.org/bfdr";
                 Console.WriteLine(message.ToJSON(true));
                 return 0;
@@ -264,18 +273,25 @@ namespace BFDR.CLI
                 }
                 return 0;
             }
-
-            else if (args.Length == 2 && args[0] == "resubmit")
+            else if (args.Length == 3 && args[0] == "resubmit" && args[1] == "birth")
             {
-                BirthRecord record = new BirthRecord(File.ReadAllText(args[1]));
+                BirthRecord record = new BirthRecord(File.ReadAllText(args[2]));
                 BirthRecordUpdateMessage message = new BirthRecordUpdateMessage(record);
+                message.MessageSource = "http://mitre.org/bfdr";
+                Console.WriteLine(message.ToJSON(true));
+                return 0;
+            }
+            else if (args.Length == 3 && args[0] == "resubmit" && args[1] == "fetaldeath")
+            {
+                FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(args[1]));
+                FetalDeathRecordUpdateMessage message = new FetalDeathRecordUpdateMessage(record);
                 message.MessageSource = "http://mitre.org/bfdr";
                 Console.WriteLine(message.ToJSON(true));
                 return 0;
             }
             else if (args.Length == 2 && args[0] == "void")
             {
-                BirthRecord record = new BirthRecord(File.ReadAllText(args[1]));
+                NatalityRecord record = new NatalityRecord(File.ReadAllText(args[2]));
                 BFDRVoidMessage message = new BFDRVoidMessage(record);
                 message.MessageSource = "http://mitre.org/bfdr";
                 Console.WriteLine(message.ToJSON(true));
@@ -283,7 +299,7 @@ namespace BFDR.CLI
             }
             else if (args.Length == 3 && args[0] == "void")
             {
-                BirthRecord record = new BirthRecord(File.ReadAllText(args[1]));
+                NatalityRecord record = new NatalityRecord(File.ReadAllText(args[1]));
                 BFDRVoidMessage message = new BFDRVoidMessage(record);
                 message.BlockCount = UInt32.Parse(args[2]);
                 message.MessageSource = "http://mitre.org/bfdr";
@@ -407,6 +423,22 @@ namespace BFDR.CLI
                 {
                     case BirthRecordSubmissionMessage submission:
                         record = submission.BirthRecord;
+                        Console.WriteLine(record.ToJSON());
+                        break;
+                    case BirthRecordSubmissionUpdateMessage submission:
+                        record = submission.BirthRecord;
+                        Console.WriteLine(record.ToJSON());
+                        break;
+                    case FetalDeathRecordSubmissionMessage submission:
+                        record = submission.FetalDeathRecord;
+                        Console.WriteLine(record.ToJSON());
+                        break;
+                    case FetalDeathRecordSubmissionUpdateMessage submission:
+                        record = submission.FetalDeathRecord;
+                        Console.WriteLine(record.ToJSON());
+                        break;
+                    case CodedCauseOfFetalDeathMessage codmessage:
+                        record = codmessage.FetalDeathRecord;
                         Console.WriteLine(record.ToJSON());
                         break;
                     case BFDRParentalDemographicsCodingMessage coding:
@@ -641,23 +673,6 @@ namespace BFDR.CLI
                 }
                 Console.WriteLine($"Differences detected: {differences}");
                 return differences;
-            }
-            else if (args.Length == 2 && args[0] == "extract")
-            {
-                BFDRBaseMessage message = BFDRBaseMessage.Parse(File.ReadAllText(args[1]));
-                NatalityRecord record;
-                switch (message)
-                {
-                    case BirthRecordSubmissionMessage submission:
-                        record = submission.BirthRecord;
-                        Console.WriteLine(record.ToJSON());
-                        break;
-                    case BFDRParentalDemographicsCodingMessage coding:
-                        record = coding.NatalityRecord;
-                        Console.WriteLine(record.ToJSON());
-                        break;
-                }
-                return 0;
             }
             else
             {

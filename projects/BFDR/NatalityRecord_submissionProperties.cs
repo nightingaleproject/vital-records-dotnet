@@ -749,6 +749,7 @@ namespace BFDR
             }
         }
 
+        // TODO: isn't this specific to Birth Record?
         /// <summary>Birth Location Jurisdiction.</summary>
         /// <value>the vital record jurisdiction identifier.</value>
         /// <example>

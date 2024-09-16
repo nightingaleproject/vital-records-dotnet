@@ -168,6 +168,7 @@ namespace BFDR
             {
                 year = (uint)this.GetYear();
             }
+            
             String jurisdictionId = this.BirthLocationJurisdiction;
             if (jurisdictionId == null || jurisdictionId.Trim().Length < 2)
             {
