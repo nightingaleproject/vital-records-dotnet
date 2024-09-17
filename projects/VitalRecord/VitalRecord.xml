@@ -5537,6 +5537,11 @@
             reasons are present to note that the data is not in fact present). This method takes an optional flag to determine if this extension
             should include the time field, which is not always needed</summary>
         </member>
+        <member name="M:VR.VitalRecord.NewUnkownPartialDateTimeExtension(System.Boolean)">
+            <summary>NewUnknownPartialDateTimeExtension, Build a blank PartialDateTime extension (which means all the placeholder data absent
+            reasons are present to note that the data is unknown). This method takes an optional flag to determine if this extension
+            should include the time field, which is not always needed</summary>
+        </member>
         <member name="M:VR.VitalRecord.SetPartialDate(Hl7.Fhir.Model.Extension,System.String,System.Nullable{System.Int32})">
             <summary>Setter helper for anything that uses PartialDateTime, allowing a particular date field (year, month, or day) to be
             set in the extension. Arguments are the extension to poplulate, the part of the URL to populate, and the value to specify.
@@ -5574,6 +5579,37 @@
         </member>
         <member name="M:VR.VitalRecord.CreateAndSetPartialDate(Hl7.Fhir.Model.FhirDateTime,System.String,System.Nullable{System.Int32})">
             <summary>Sets the given value to the given partial date extension and creates any necessary missing extensions.</summary>
+        </member>
+        <member name="M:VR.VitalRecord.UpdateFhirDate(Hl7.Fhir.Model.Date,System.Nullable{System.Int32},System.String)">
+            <summary>
+            Updates the Fhir Date with the given value and partial date url.
+            </summary>
+            <param name="dateElement"></param>
+            <param name="value"></param>
+            <param name="partialDateUrl"></param>
+            <returns></returns>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:VR.VitalRecord.AddTimeToDate(Hl7.Fhir.Model.Date,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String)">
+            <summary>
+            Updates the given date element with the given time data, moving elements to the partial date time extension as needed.
+            </summary>
+            <param name="dateElement"></param>
+            <param name="yearValue"></param>
+            <param name="monthValue"></param>
+            <param name="dayValue"></param>
+            <param name="timeValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VR.VitalRecord.BuildFhirDate(System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String)">
+            <summary>
+            Builds a Fhir Date using the given date elements, placing items in the partial date time extensions as needed.
+            </summary>
+            <param name="yearValue"></param>
+            <param name="monthValue"></param>
+            <param name="dayValue"></param>
+            <param name="timeValue"></param>
+            <returns></returns>
         </member>
         <member name="P:VR.VitalRecord.PartialDateYearUrl">
             <summary>Overrideable method that dictates which Extension URL to use for PartialDateTime Year</summary>

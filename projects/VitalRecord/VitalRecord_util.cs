@@ -897,7 +897,7 @@ namespace VR
             int? monthValue = parsedMonth ?? GetPartialDate(dateElement.GetExtension(PartialDateTimeUrl), VR.ExtensionURL.PartialDateTimeMonthVR);
             int? dayValue = parsedDay ?? GetPartialDate(dateElement.GetExtension(PartialDateTimeUrl), VR.ExtensionURL.PartialDateTimeDayVR);
             string pbtTime = GetTimeFragment(dateElement.GetExtension(ExtensionURL.PatientBirthTime)?.Value);
-            string pdtTime = ((FhirDateTime)dateElement.GetExtension(PartialDateTimeUrl)?.GetExtension(ExtensionURL.PartialDateTimeTimeVR)?.Value)?.Value;
+            string pdtTime = ((Time)dateElement.GetExtension(PartialDateTimeUrl)?.GetExtension(ExtensionURL.PartialDateTimeTimeVR)?.Value)?.Value;
             string timeValue = (pbtTime ?? pdtTime) ?? GetPartialTime(dateElement.GetExtension(PartialDateTimeUrl));
             // Set whichever date element we're updating to the given value.
             switch(partialDateUrl) {
@@ -930,36 +930,41 @@ namespace VR
         /// <returns></returns>
         protected Date AddTimeToDate(Date dateElement, int? yearValue, int? monthValue, int? dayValue, string timeValue)
         {
-            if (timeValue == "temp-unknown")
+            if (timeValue == "temp-unknown" || timeValue == "-1")
             {
-                SetAllPartialDateExtensions(dateElement, yearValue, monthValue, dayValue);
+                // Don't reset the dateElement.Value since it's assumed to have already been set correctly.
+                dateElement = SetPartialDateExtensions(dateElement, yearValue, monthValue, dayValue);
                 dateElement.RemoveExtension(VR.ExtensionURL.PatientBirthTime);
                 dateElement.GetExtension(PartialDateTimeUrl).RemoveExtension(VR.ExtensionURL.PartialDateTimeTimeVR);
-                dateElement.GetExtension(PartialDateTimeUrl).Extension.Add(BuildTempUnknownPartialDateTime(VR.ExtensionURL.PartialDateTimeTimeVR));
-            }
-            else if (timeValue == "-1")
-            {
-                SetAllPartialDateExtensions(dateElement, yearValue, monthValue, dayValue);
-                dateElement.RemoveExtension(VR.ExtensionURL.PatientBirthTime);
-                dateElement.GetExtension(PartialDateTimeUrl).RemoveExtension(VR.ExtensionURL.PartialDateTimeTimeVR);
-                dateElement.GetExtension(PartialDateTimeUrl).Extension.Add(BuildUnknownPartialDateTime(VR.ExtensionURL.PartialDateTimeTimeVR));
-            }
-            else if (timeValue == null)
-            {
-                // Do nothing.
-            }
-            else
-            {
-                dateElement.SetExtension(VR.ExtensionURL.PatientBirthTime, new FhirDateTime(timeValue));
-                if (yearValue == -1 || monthValue == -1 || dayValue == -1)
+                if (timeValue == "temp-unknown")
                 {
-                    dateElement.GetExtension(PartialDateTimeUrl).SetExtension(PartialDateTimeTimeUrl, new FhirDateTime(timeValue));
+                    dateElement.GetExtension(PartialDateTimeUrl).Extension.Add(BuildTempUnknownPartialDateTime(VR.ExtensionURL.PartialDateTimeTimeVR));
+                }
+                else
+                {
+                    dateElement.GetExtension(PartialDateTimeUrl).Extension.Add(BuildUnknownPartialDateTime(VR.ExtensionURL.PartialDateTimeTimeVR));
+                }
+            }
+            else if (timeValue != null)
+            {
+                if (yearValue == -1 || monthValue == -1 || dayValue == -1 || yearValue == null || monthValue == null || dayValue == null)
+                {
+                    dateElement.RemoveExtension(VR.ExtensionURL.PatientBirthTime);
+                    if (!dateElement.Extension.Any(e => e.Url == PartialDateTimeUrl))
+                    {
+                        dateElement.AddExtension(PartialDateTimeUrl, null);
+                    }
+                    dateElement.GetExtension(PartialDateTimeUrl).SetExtension(PartialDateTimeTimeUrl, new Time(timeValue));
+                }
+                else
+                {
+                    dateElement.SetExtension(VR.ExtensionURL.PatientBirthTime, new FhirDateTime(new Date((int)yearValue, (int)monthValue, (int)dayValue).Value.ToString() + "T" + timeValue));
                 }
             }
             return dateElement;
         }
 
-        private Date SetAllPartialDateExtensions(Date dateElement, int? yearValue, int? monthValue, int? dayValue)
+        private Date SetPartialDateExtensions(Date dateElement, int? yearValue, int? monthValue, int? dayValue)
         {
             dateElement.SetExtension(PartialDateTimeUrl, new Extension());
             List<(int? val, string url)> dateElements = new List<(int? val, string url)>
@@ -1011,7 +1016,7 @@ namespace VR
 
                 if (dayValue == -1)
                 {
-                    fdtYearMonth = SetAllPartialDateExtensions(fdtYearMonth, yearValue, monthValue, dayValue);
+                    fdtYearMonth = SetPartialDateExtensions(fdtYearMonth, yearValue, monthValue, dayValue);
                 }
                 return AddTimeToDate(fdtYearMonth, yearValue, monthValue, dayValue, timeValue);;
             }
@@ -1024,14 +1029,14 @@ namespace VR
 
                 if (dayValue == -1 || monthValue == -1)
                 {
-                    fdtYear = SetAllPartialDateExtensions(fdtYear, yearValue, monthValue, dayValue);
+                    fdtYear = SetPartialDateExtensions(fdtYear, yearValue, monthValue, dayValue);
                 }
                 return AddTimeToDate(fdtYear, yearValue, monthValue, dayValue, timeValue);
             }
 
             // If the year is not valid or is unknown, build an empty FhirDateTime and store all date data in the partial date time extensions.
             Date fdtYearUnknown = new Date();
-            fdtYearUnknown = SetAllPartialDateExtensions(fdtYearUnknown, yearValue, monthValue, dayValue);
+            fdtYearUnknown = SetPartialDateExtensions(fdtYearUnknown, yearValue, monthValue, dayValue);
             return AddTimeToDate(fdtYearUnknown, yearValue, monthValue, dayValue, timeValue);
         }
 
