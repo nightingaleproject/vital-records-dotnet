@@ -1088,27 +1088,6 @@
         <member name="F:VR.ValueSets.DateOfBirthEditFlags.Data_Queried">
             <summary> Data_Queried </summary>
         </member>
-        <member name="T:VR.ValueSets.EditBypass01234">
-            <summary> EditBypass01234 </summary>
-        </member>
-        <member name="F:VR.ValueSets.EditBypass01234.Codes">
-            <summary> Codes </summary>
-        </member>
-        <member name="F:VR.ValueSets.EditBypass01234.Edit_Passed">
-            <summary> Edit_Passed </summary>
-        </member>
-        <member name="F:VR.ValueSets.EditBypass01234.Edit_Failed_Data_Queried_And_Verified">
-            <summary> Edit_Failed_Data_Queried_And_Verified </summary>
-        </member>
-        <member name="F:VR.ValueSets.EditBypass01234.Edit_Failed_Data_Queried_But_Not_Verified">
-            <summary> Edit_Failed_Data_Queried_But_Not_Verified </summary>
-        </member>
-        <member name="F:VR.ValueSets.EditBypass01234.Edit_Failed_Review_Needed">
-            <summary> Edit_Failed_Review_Needed </summary>
-        </member>
-        <member name="F:VR.ValueSets.EditBypass01234.Edit_Failed_Query_Needed">
-            <summary> Edit_Failed_Query_Needed </summary>
-        </member>
         <member name="T:VR.ValueSets.EducationLevelPerson">
             <summary> EducationLevelPerson </summary>
         </member>
@@ -6782,6 +6761,27 @@
         <member name="F:VR.ValueSets.YesNoUnknown.Unknown">
             <summary> Unknown </summary>
         </member>
+        <member name="T:VR.ValueSets.EditBypass01234">
+            <summary> EditBypass01234 </summary>
+        </member>
+        <member name="F:VR.ValueSets.EditBypass01234.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:VR.ValueSets.EditBypass01234.Edit_Passed">
+            <summary> Edit_Passed </summary>
+        </member>
+        <member name="F:VR.ValueSets.EditBypass01234.Edit_Failed_Data_Queried_And_Verified">
+            <summary> Edit_Failed_Data_Queried_And_Verified </summary>
+        </member>
+        <member name="F:VR.ValueSets.EditBypass01234.Edit_Failed_Data_Queried_But_Not_Verified">
+            <summary> Edit_Failed_Data_Queried_But_Not_Verified </summary>
+        </member>
+        <member name="F:VR.ValueSets.EditBypass01234.Edit_Failed_Review_Needed">
+            <summary> Edit_Failed_Review_Needed </summary>
+        </member>
+        <member name="F:VR.ValueSets.EditBypass01234.Edit_Failed_Query_Needed">
+            <summary> Edit_Failed_Query_Needed </summary>
+        </member>
         <member name="T:VR.VitalRecord">
             <summary>Class <c>VitalRecord</c> is a base class for FHIR Vital Records 
             including Death Reporting (VRDR) and Birth and Fetal Death Reporting (BFDR)
@@ -7125,7 +7125,7 @@
              <param name="options"></param>
              <exception cref="T:System.ArgumentException"></exception>
         </member>
-        <member name="M:VR.VitalRecord.CodeExistsInValueSet(System.String,System.String[0:,0:])">
+        <member name="M:VR.VitalRecord.CodeExistsInValueSet(System.String,System.String[0:,0:],System.String)">
             <summary>Helper function to determine whether a value appears in the the set of allowed codes.</summary>
         </member>
         <member name="M:VR.VitalRecord.SetQuantityValue(System.String,System.String,System.String,System.String[0:,0:])">

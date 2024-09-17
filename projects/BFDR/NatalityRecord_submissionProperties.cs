@@ -829,7 +829,7 @@ namespace BFDR
             }
             set
             {
-                if (value["addressState"] != "" && !CodeExistsInValueSet(value["addressState"], VR.ValueSets.Jurisdiction.Codes))
+                if (!String.IsNullOrEmpty(value["addressState"]) && !CodeExistsInValueSet(value["addressState"], VR.ValueSets.Jurisdiction.Codes))
                 {
                     return;
                 }
@@ -982,11 +982,11 @@ namespace BFDR
             get => GetPlaceOfBirth(Mother);
             set 
             {
-                if (value["addressState"] != "" && !CodeExistsInValueSet(value["addressState"], VR.ValueSets.StatesTerritoriesProvinces.Codes))
+                if (!String.IsNullOrEmpty(value["addressState"]) && !CodeExistsInValueSet(value["addressState"], VR.ValueSets.StatesTerritoriesProvinces.Codes))
                 {
                     return;
                 }
-                if (value["addressCountry"] != "" && !CodeExistsInValueSet(value["addressCountry"], VR.ValueSets.ResidenceCountry.Codes))
+                if (!String.IsNullOrEmpty(value["addressCountry"]) && !CodeExistsInValueSet(value["addressCountry"], VR.ValueSets.ResidenceCountry.Codes))
                 {
                     return;
                 }
