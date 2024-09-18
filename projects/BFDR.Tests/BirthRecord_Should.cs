@@ -846,6 +846,18 @@ namespace BFDR.Tests
       // Child's Surname Suffix
       record.ChildSuffix = "III";
       Assert.Equal("III", record.ChildSuffix);
+
+      // test missing family name
+      Assert.Equal("Quinn", record.ChildFamilyName);
+      Assert.Null(record.GetFamilyNameAbsentDataReason());
+      record.ChildFamilyName = ""; //set family name to empty 
+      Assert.Equal("", record.ChildFamilyName);
+      Assert.Equal("temp-unknown", record.GetFamilyNameAbsentDataReason());
+      record.ChildFamilyName = null; //set family name to null 
+      Assert.Null(record.ChildFamilyName);
+      Assert.Equal("temp-unknown", record.GetFamilyNameAbsentDataReason());
+      IJEBirth ije2 = new(record);
+      Assert.Equal("", ije2.KIDLNAME.Trim(' '));
     }
 
     [Fact]
