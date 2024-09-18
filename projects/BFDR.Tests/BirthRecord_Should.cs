@@ -1160,6 +1160,7 @@ namespace BFDR.Tests
       Assert.Equal("2023-12", br.DateOfBirth);
       Assert.Equal("2023-12", fhirBirth.Value);
       Assert.Null(br.BirthTime);
+      Assert.Null(fhirBirth.GetExtension(VR.ExtensionURL.PatientBirthTime));
       Assert.Null(pdt);
       Assert.Equal("2023", ije.IDOB_YR);
       Assert.Equal("12", ije.IDOB_MO);
@@ -1178,6 +1179,7 @@ namespace BFDR.Tests
       Assert.Equal("2023-12-23", br.DateOfBirth);
       Assert.Equal("2023-12-23", fhirBirth.Value);
       Assert.Null(br.BirthTime);
+      Assert.Null(fhirBirth.GetExtension(VR.ExtensionURL.PatientBirthTime));
       Assert.Null(pdt);
       Assert.Equal("2023", ije.IDOB_YR);
       Assert.Equal("12", ije.IDOB_MO);
@@ -1196,6 +1198,7 @@ namespace BFDR.Tests
       Assert.Equal(23, br.BirthDay);
       Assert.Equal("2023-12-23", br.DateOfBirth);
       Assert.Equal("2023-12-23", fhirBirth.Value);
+      Assert.Equal("2023-12-23T13:28:17-5:00", ((FhirDateTime)fhirBirth.GetExtension(VR.ExtensionURL.PatientBirthTime).Value).Value);
       Assert.Equal("13:28:17", br.BirthTime);
       Assert.Null(pdt);
       Assert.Equal("2023", ije.IDOB_YR);
