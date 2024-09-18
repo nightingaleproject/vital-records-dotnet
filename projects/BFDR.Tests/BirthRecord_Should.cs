@@ -1305,7 +1305,6 @@ namespace BFDR.Tests
       Assert.Equal("  ", ije.IDOB_MO);
       Assert.Equal("23", ije.IDOB_DY);
       Assert.Equal("9999", ije.TB);
-
     }
 
     [Fact]
@@ -1446,7 +1445,7 @@ namespace BFDR.Tests
       Assert.Equal("101", FakeBirthRecord.CertificateNumber);
       Assert.Equal("124", FakeBirthRecord.StateLocalIdentifier1);
     }
-    
+
     [Fact]
     public void TestImportMotherBirthplace()
     {
