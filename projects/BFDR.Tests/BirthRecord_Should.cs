@@ -752,6 +752,10 @@ namespace BFDR.Tests
       Assert.Equal("Nashua", record.FatherPlaceOfBirth["addressCity"]);
       Assert.Equal(ije.BPLACEC_CNT, record.MotherPlaceOfBirth["addressCountry"]);
       Assert.Equal(ije.BPLACEC_ST_TER, record.MotherPlaceOfBirth["addressState"]);
+
+      
+      Exception ex = Assert.Throws<System.ArgumentException>(() => record.PlaceOfBirth = new Dictionary<string, string>{["addressState"] = "X"});
+      Assert.Equal("Code 'X' is not an allowed value for the valueset used in PlaceOfBirth", ex.Message);
     }
 
     [Fact]
@@ -941,7 +945,8 @@ namespace BFDR.Tests
       Assert.Equal("UNK", record.BirthSex);
       record.BirthSex = "M";
       Assert.Equal("M", record.BirthSex);
-      record.BirthSex = "X";
+      Exception ex = Assert.Throws<System.ArgumentException>(() => record.BirthSex = "X");
+      Assert.Equal("Code 'X' is not an allowed value for the valueset used in SetBirthSex", ex.Message);
       Assert.Equal("M", record.BirthSex);
     }
 
