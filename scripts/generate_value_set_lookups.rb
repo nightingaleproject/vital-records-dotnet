@@ -105,6 +105,19 @@ value_set_files.each do |filename|
   valuesets[classname] = JSON.parse(File.read(filename))
 end
 
+# There is a special case where the ResidenceCountry value set is defined by including all codes in the CountryCode codesystem
+# while also excluding specific codes
+if valuesets['ResidenceCountry']
+  countryCode = JSON.parse(File.read("#{path_to_value_sets}/resources/CodeSystem-CodeSystem-country-code-vr.json"))
+  valuesets['ResidenceCountry']['compose']['include'][0]['concept'] = []
+  countryCode["concept"].each do |concept|
+    valuesets['ResidenceCountry']['compose']['include'][0]['concept'] << {
+      'code' => concept['code'],
+      'display' => concept['display']
+    }
+  end
+end
+
 # There is a special case where the SexAssignedAtBirth value set refers to VSAC, which we can't easily
 # process, so we populate it here
 # TODO: Reconsider this workaround if the SexAssignedAtBirth value set is updated
@@ -177,11 +190,15 @@ namespace <%= namespace %>
             /// <summary> Codes </summary>
             public static string[,] Codes = {
 <% groups = value_set_data['compose']['include'] -%>
+<% excluded_codes = (value_set_data['compose']['exclude'] || []).flat_map do |exclude_entry| -%>
+  <% exclude_entry['concept'].map { |concept| concept['code'] } -%>
+<% end -%>
 <% groups.each do | group | -%>
 <% next unless group['concept'] -%>
 <% system = codesystems[group['system']] || group['system'] -%>
 <% systems_without_constants << group['system'] unless codesystems[group['system']] -%>
 <% group['concept'].each_with_index do |concept, index| -%>
+<% next unless !excluded_codes.include?(concept['code']) -%>
                 { "<%= concept['code'] %>", "<%= concept['display'] %>", VR.CodeSystems.<%= system %> },
 <% end -%>
 <% end -%>
@@ -191,6 +208,7 @@ namespace <%= namespace %>
 <% next unless group['concept'] -%>
 <% system = codesystems[group['system']] || group['system'] -%>
 <% group['concept'].each do |concept| -%>
+<% next unless !excluded_codes.include?(concept['code']) -%>
 <% raise 'Concept ' + concept.inspect + ' in ' + classname + ' found without a display value' unless concept['display'] -%>
 <% display = concept['display'].gsub("'", '').split(/[^a-z0-9]+/i).map(&:capitalize).join('_') -%>
 <% display = "_" + display if display.match(/^\\d/) -%>

@@ -1250,7 +1250,7 @@ namespace VR
         /// <summary>Helper function to determine whether a value appears in the the set of allowed codes.</summary>
         // <param name="code">the code to check.</param>
         // <param name="options">the list of valid options and related display strings and code systems</param>
-        protected bool CodeExistsInValueSet(string code, string[,] options)
+        protected bool CodeExistsInValueSet(string code, string[,] options, [CallerMemberName] string propertyName = null)
         {
             // Iterate over the allowed options and see if the code supplied is one of them
             for (int i = 0; i < options.GetLength(0); i += 1)
@@ -1260,8 +1260,7 @@ namespace VR
                     return true;
                 }
             }
-            Console.WriteLine("The given code " + code + " does not exist in the valuset " + options + ". Skipping setting this value.");
-            return false;
+            throw new System.ArgumentException($"Code '{code}' is not an allowed value for the valueset used in {propertyName}");
         }
 
         /// <summary>Helper function to set a quantity value based on a value, code and the set of allowed codes.</summary>
