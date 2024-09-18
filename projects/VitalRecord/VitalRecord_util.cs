@@ -950,10 +950,7 @@ namespace VR
                 if (yearValue == -1 || monthValue == -1 || dayValue == -1 || yearValue == null || monthValue == null || dayValue == null)
                 {
                     dateElement.RemoveExtension(VR.ExtensionURL.PatientBirthTime);
-                    if (!dateElement.Extension.Any(e => e.Url == PartialDateTimeUrl))
-                    {
-                        dateElement.AddExtension(PartialDateTimeUrl, null);
-                    }
+                    dateElement = SetPartialDateExtensions(dateElement, yearValue, monthValue, dayValue);
                     dateElement.GetExtension(PartialDateTimeUrl).SetExtension(PartialDateTimeTimeUrl, new Time(timeValue));
                 }
                 else
@@ -973,18 +970,18 @@ namespace VR
                 (monthValue, VR.ExtensionURL.PartialDateTimeMonthVR),
                 (yearValue, VR.ExtensionURL.PartialDateTimeYearVR)
             };
-            foreach ((int? val, string url) datePart in dateElements)
+            foreach ((int? val, string url) in dateElements)
             {
-                switch (datePart.val)
+                switch (val)
                 {
                     case -1:
-                        dateElement.GetExtension(PartialDateTimeUrl).Extension.Add(BuildUnknownPartialDateTime(datePart.url));
+                        dateElement.GetExtension(PartialDateTimeUrl).Extension.Add(BuildUnknownPartialDateTime(url));
                         break;
                     case null:
-                        dateElement.GetExtension(PartialDateTimeUrl).Extension.Add(BuildTempUnknownPartialDateTime(datePart.url));
+                        dateElement.GetExtension(PartialDateTimeUrl).Extension.Add(BuildTempUnknownPartialDateTime(url));
                         break;
                     default:
-                        dateElement.GetExtension(PartialDateTimeUrl).SetExtension(datePart.url, new Integer(datePart.val));
+                        dateElement.GetExtension(PartialDateTimeUrl).SetExtension(url, new Integer(val));
                         break;
                 }
             }
@@ -1018,7 +1015,7 @@ namespace VR
                 {
                     fdtYearMonth = SetPartialDateExtensions(fdtYearMonth, yearValue, monthValue, dayValue);
                 }
-                return AddTimeToDate(fdtYearMonth, yearValue, monthValue, dayValue, timeValue);;
+                return AddTimeToDate(fdtYearMonth, yearValue, monthValue, dayValue, timeValue);
             }
 
             // If just the year date element is valid and known, build a FhirDateTime in the format yyyy.
@@ -1027,7 +1024,7 @@ namespace VR
                 Date fdtYear = new Date((int)yearValue);
                 fdtYear.RemoveExtension(PartialDateTimeUrl);
 
-                if (dayValue == -1 || monthValue == -1)
+                if (dayValue == -1 || monthValue == -1 || (monthValue == null && dayValue > 0))
                 {
                     fdtYear = SetPartialDateExtensions(fdtYear, yearValue, monthValue, dayValue);
                 }
