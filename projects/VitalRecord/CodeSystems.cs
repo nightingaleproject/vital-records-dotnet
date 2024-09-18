@@ -103,6 +103,9 @@ namespace VR
         /// <summary> VRCL States Territories </summary>
         public static string VRCLUSStatesTerritories = "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-us-states-territories-vr";
 
+        /// <summary> VRCL Country Codes </summary>
+        public static string VRCLCountryCodes = "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-country-code-vr";
+
         /// <summary> Component </summary>
         public static string ComponentCodeVR = "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component";
 
