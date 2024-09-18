@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Version>1.0.0-preview.4</Version>
+    <Version>1.0.0-preview.7</Version>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>BFDR</RootNamespace>
     <DocumentationFile>BFDR.xml</DocumentationFile>

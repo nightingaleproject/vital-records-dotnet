@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Version>1.0.0-preview.4</Version>
+    <Version>1.0.0-preview.7</Version>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>BFDR</RootNamespace>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -10,6 +10,7 @@
     <Authors>smacadam@mitre.org,rscalfani@mitre.org,pete@mitre.org</Authors>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PayloadVersionID>BFDR_STU2_0</PayloadVersionID>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Hl7.Fhir.R4" Version="4.3.0" />
@@ -22,4 +23,10 @@
     <ProjectReference Include="../BFDR/BFDR.csproj" />
     <ProjectReference Include="../VitalRecord.Messaging/VitalRecord.Messaging.csproj" />
   </ItemGroup>
+  <Target Name="GenerateCustomPropertyFile" BeforeTargets="BeforeCompile">
+    <WriteLinesToFile
+      File="GeneratedCustomProperty.cs"
+      Lines="/// &lt;summary&gt;Generated file from VRDR.Messaging.csproj&lt;/summary&gt;;public static class GeneratedCustomProperty {;/// &lt;summary&gt;Payload Version Identifier&lt;/summary&gt;;public const string Value = &quot;$(PayloadVersionID)&quot;%3B}"
+      Overwrite="true" />
+  </Target>
 </Project>

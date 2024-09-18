@@ -14,7 +14,7 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.0" />
     <PackageReference Include="xunit" Version="2.4.2" />
     <PackageReference Include="ReportGenerator" Version="5.3.5" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
     <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
   </ItemGroup>
   <ItemGroup>
@@ -42,5 +42,7 @@
     <None Update="fixtures/json/BirthRecordFakeWithRace.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures/json/BirthRecordFakeNoRace.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures/json/BirthRecordStatusMessage.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="fixtures/json/BirthRecordZ.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="fixtures/json/BirthRecordR.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>

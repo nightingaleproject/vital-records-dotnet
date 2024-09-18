@@ -8,7 +8,8 @@ Canary is an open source testing framework that supports development of systems 
 
     Releases v2.x.x of the Canary project support FHIR STU3, in line with the May 2019 ballot version of VRDR (v0.1.0)
     Releases v3.x.x of the Canary project support FHIR R4, in line with the STU2 Ballot version of VRDR
-    Releases v4.x.x of the Canary project support FHIR R4, in line with the STU2 v1.3 version of VRDR (v1.3)
+    Releases v4.x.x of the Canary project support FHIR R4, in line with the STU2 v2.2 version of VRDR (v2.2)
+    Releases v5.x.x of the Canary project support FHIR R4, in line with STU v2.0 version of BFDR
 
 If you are upgrading from 2.x.x to 3.x.x, please note that there are differences between FHIR STU3 and R4 that impact the structure of the VRDR Death Record. [This commit illustrates the differences between FHIR STU3 and FHIR R4 VRDR Death Records](https://github.com/nightingaleproject/vrdr-dotnet/commit/2b4c2026fdab80e7233f3a7d7ed6e17d5d63f38e). Death Record data may need similar updates from STU3 to R4 when updating to Canary Version 3.
 
@@ -52,7 +53,7 @@ docker run --rm -p 8080:80 mitre/canary:latest
 These commands will pull the latest version of Canary from Docker Hub, and run it. You can access it from a web browser at [http://localhost:8080](http://localhost:8080). To run a specific version, simply append the version to the `docker run` command above. You can see all versions of Canary that are available to run from DockerHub [here](https://hub.docker.com/r/mitre/canary/tags). For example:
 
 ```
-docker run --rm -p 8080:80 mitre/canary:v4.0.3
+docker run --rm -p 8080:80 mitre/canary:v5.1.1
 ```
 
 If you want to build a Dockerized Canary from scratch (from source), you can do so by running (inside the project root directory):

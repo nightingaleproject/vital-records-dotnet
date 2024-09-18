@@ -18,6 +18,7 @@ namespace VRDR
             this.StateAuxiliaryId = messageToAck?.StateAuxiliaryId;
             this.JurisdictionId = messageToAck?.JurisdictionId;
             this.DeathYear = messageToAck?.DeathYear;
+            this.PayloadVersionId = $"{GeneratedCustomProperty.Value}";
 
             if(typeof(DeathRecordVoidMessage).IsInstanceOfType(messageToAck))
             {

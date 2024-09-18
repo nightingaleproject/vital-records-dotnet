@@ -318,6 +318,37 @@ namespace BFDR.Tests
       Assert.Equal("Guatemalan", SetterBirthRecord.MotherEthnicityLiteral);
     }
 
+
+    [Fact]
+    public void TestImportRace()
+    {
+      BirthRecord record = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordFakeWithRace.json")), true);
+      Assert.Equal("102", record.FatherRaceTabulation1EHelper);
+      Assert.Equal("607", record.MotherRaceTabulation1EHelper);
+      Assert.Equal("100", record.FatherEthnicityEditedCodeHelper);
+      Assert.Equal("234", record.MotherEthnicityEditedCodeHelper);
+    }
+
+    [Fact]
+    public void Set_FatherRace()
+    {
+      // default Ethnicity should be null
+      Assert.Null(SetterBirthRecord.FatherRaceTabulation1EHelper);
+      SetterBirthRecord.FatherRaceTabulation1EHelper = "222";
+      Assert.Equal("222", SetterBirthRecord.FatherRaceTabulation1EHelper);
+      Assert.Equal("Tobago", SetterBirthRecord.FatherRaceTabulation1E["display"]);
+    }
+
+    [Fact]
+    public void Set_MotherRace()
+    {
+      // default Ethnicity should be null
+      Assert.Null(SetterBirthRecord.FatherRaceTabulation1EHelper);
+      SetterBirthRecord.FatherRaceTabulation1EHelper = "222";
+      Assert.Equal("222", SetterBirthRecord.FatherRaceTabulation1EHelper);
+      Assert.Equal("Tobago", SetterBirthRecord.FatherRaceTabulation1E["display"]);
+    }
+
     [Fact]
     public void Set_FatherEthnicityLiteral()
     {
@@ -325,6 +356,54 @@ namespace BFDR.Tests
       Assert.Null(SetterBirthRecord.FatherEthnicityLiteral);
       SetterBirthRecord.FatherEthnicityLiteral = "Guatemalan";
       Assert.Equal("Guatemalan", SetterBirthRecord.FatherEthnicityLiteral);
+    }
+
+    [Fact]
+    public void Set_MotherCodedEthnicityLiteral()
+    {
+      Assert.Equal("", SetterBirthRecord.MotherEthnicityCodeForLiteral["display"]);
+      Dictionary<string, string> CodedEthnicity = new Dictionary<string, string>();
+      CodedEthnicity.Add("code", VR.ValueSets.HispanicOrigin.Codes[2, 0]);
+      CodedEthnicity.Add("display", VR.ValueSets.HispanicOrigin.Codes[2, 1]);
+      CodedEthnicity.Add("system", VR.ValueSets.HispanicOrigin.Codes[2, 2]);
+      SetterBirthRecord.MotherEthnicityCodeForLiteral = CodedEthnicity;
+      Assert.Equal("Andalusian", SetterBirthRecord.MotherEthnicityCodeForLiteral["display"]);
+    }
+
+    [Fact]
+    public void Set_MotherCodedEthnicityEdited()
+    {
+      Assert.Equal("", SetterBirthRecord.MotherEthnicityEditedCode["display"]);
+      Dictionary<string, string> CodedEthnicity = new Dictionary<string, string>();
+      CodedEthnicity.Add("code", VR.ValueSets.HispanicOrigin.Codes[2, 0]);
+      CodedEthnicity.Add("display", VR.ValueSets.HispanicOrigin.Codes[2, 1]);
+      CodedEthnicity.Add("system", VR.ValueSets.HispanicOrigin.Codes[2, 2]);
+      SetterBirthRecord.MotherEthnicityEditedCode = CodedEthnicity;
+      Assert.Equal("Andalusian", SetterBirthRecord.MotherEthnicityEditedCode["display"]);
+    }
+
+    [Fact]
+    public void Set_FatherCodedEthnicityEdited()
+    {
+      Assert.Equal("", SetterBirthRecord.FatherEthnicityEditedCode["display"]);
+      Dictionary<string, string> CodedEthnicity = new Dictionary<string, string>();
+      CodedEthnicity.Add("code", VR.ValueSets.HispanicOrigin.Codes[2, 0]);
+      CodedEthnicity.Add("display", VR.ValueSets.HispanicOrigin.Codes[2, 1]);
+      CodedEthnicity.Add("system", VR.ValueSets.HispanicOrigin.Codes[2, 2]);
+      SetterBirthRecord.FatherEthnicityEditedCode = CodedEthnicity;
+      Assert.Equal("Andalusian", SetterBirthRecord.FatherEthnicityEditedCode["display"]);
+    }
+
+    [Fact]
+    public void Set_FatherCodedEthnicityLiteral()
+    {
+      Assert.Equal("", SetterBirthRecord.FatherEthnicityCodeForLiteral["display"]);
+      Dictionary<string, string> CodedEthnicity = new Dictionary<string, string>();
+      CodedEthnicity.Add("code", VR.ValueSets.HispanicOrigin.Codes[2, 0]);
+      CodedEthnicity.Add("display", VR.ValueSets.HispanicOrigin.Codes[2, 1]);
+      CodedEthnicity.Add("system", VR.ValueSets.HispanicOrigin.Codes[2, 2]);
+      SetterBirthRecord.FatherEthnicityCodeForLiteral = CodedEthnicity;
+      Assert.Equal("Andalusian", SetterBirthRecord.FatherEthnicityCodeForLiteral["display"]);
     }
 
     [Fact]
@@ -3705,6 +3784,23 @@ namespace BFDR.Tests
       Console.WriteLine("Converting fhir to ije!\n\n");
       BirthRecord b = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord2.json")));
       IJEBirth ije1 = new(b, false);
+      Console.WriteLine(ije1.ToString());
+    }
+
+    [Fact]
+    public void parseRecordZWithValidation()
+    {
+      // TODO pass in the IJE and convert roundtrip so the record is up to date with the library 
+      BirthRecord b = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordZ.json")));
+      IJEBirth ije1 = new(b, true); // run with validation true since NCHS uses validation in their code, this confirms the record will be processed
+      Console.WriteLine(ije1.ToString());
+    }
+
+    [Fact]
+    public void parseRecordRWithValidation()
+    {
+      BirthRecord b = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordR.json")));
+      IJEBirth ije1 = new(b, true); // run with validation true since NCHS uses validation in their code, this confirms the record will be processed
       Console.WriteLine(ije1.ToString());
     }
   }

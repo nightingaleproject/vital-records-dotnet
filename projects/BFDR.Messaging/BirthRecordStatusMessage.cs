@@ -33,6 +33,7 @@ namespace BFDR
             this.StateAuxiliaryId = messageToStatus?.StateAuxiliaryId;
             this.JurisdictionId = messageToStatus?.JurisdictionId;
             this.BirthYear = messageToStatus?.BirthYear;
+            this.PayloadVersionId = $"{GeneratedCustomProperty.Value}";
         }
 
         // TODO: The allowed status values will be different for birth
