@@ -4068,7 +4068,7 @@ namespace BFDR
                     obs.Value = new FhirDateTime();
                     obs.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                FhirDateTime newDate = BuildFhirDateTime(obs.Value as FhirDateTime, value, PartialDateDayUrl);
+                FhirDateTime newDate = ConvertDateToFhirDateTime(UpdateFhirDate(ConvertFhirDateTimeToDate(obs.Value as FhirDateTime), value, PartialDateDayUrl));
                 if (newDate != null)
                 {
                     obs.Value = newDate;
@@ -4107,7 +4107,7 @@ namespace BFDR
                     obs.Value = new FhirDateTime();
                     obs.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                FhirDateTime newDate = BuildFhirDateTime(obs.Value as FhirDateTime, value, PartialDateMonthUrl);
+                FhirDateTime newDate = ConvertDateToFhirDateTime(UpdateFhirDate(ConvertFhirDateTimeToDate(obs.Value as FhirDateTime), value, PartialDateMonthUrl));
                 if (newDate != null)
                 {
                     obs.Value = newDate;
@@ -4146,7 +4146,7 @@ namespace BFDR
                     obs.Value = new FhirDateTime();
                     obs.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                FhirDateTime newDate = BuildFhirDateTime(obs.Value as FhirDateTime, value, PartialDateYearUrl);
+                FhirDateTime newDate = ConvertDateToFhirDateTime(UpdateFhirDate(ConvertFhirDateTimeToDate(obs.Value as FhirDateTime), value, PartialDateYearUrl));
                 if (newDate != null)
                 {
                     obs.Value = newDate;
@@ -4215,7 +4215,7 @@ namespace BFDR
                     obs.Value = new FhirDateTime();
                     obs.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                FhirDateTime newDate = BuildFhirDateTime(obs.Value as FhirDateTime, value, PartialDateDayUrl);
+                FhirDateTime newDate = ConvertDateToFhirDateTime(UpdateFhirDate(ConvertFhirDateTimeToDate(obs.Value as FhirDateTime), value, PartialDateDayUrl));
                 if (newDate != null)
                 {
                     obs.Value = newDate;
@@ -4254,7 +4254,7 @@ namespace BFDR
                     obs.Value = new FhirDateTime();
                     obs.Value.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                FhirDateTime newDate = BuildFhirDateTime(obs.Value as FhirDateTime, value, PartialDateMonthUrl);
+                FhirDateTime newDate = ConvertDateToFhirDateTime(UpdateFhirDate(ConvertFhirDateTimeToDate(obs.Value as FhirDateTime), value, PartialDateMonthUrl));
                 if (newDate != null)
                 {
                     obs.Value = newDate;
@@ -4293,7 +4293,7 @@ namespace BFDR
                     obs.Value = new FhirDateTime();
                     obs.Value.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                FhirDateTime newDate = BuildFhirDateTime(obs.Value as FhirDateTime, value, PartialDateYearUrl);
+                FhirDateTime newDate = ConvertDateToFhirDateTime(UpdateFhirDate(ConvertFhirDateTimeToDate(obs.Value as FhirDateTime), value, PartialDateYearUrl));
                 if (newDate != null)
                 {
                     obs.Value = newDate;
@@ -6045,7 +6045,7 @@ namespace BFDR
                     obs.Value = new FhirDateTime();
                     obs.Value.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                FhirDateTime newDate = BuildFhirDateTime(obs.Value as FhirDateTime, value, PartialDateYearUrl);
+                FhirDateTime newDate = ConvertDateToFhirDateTime(UpdateFhirDate(ConvertFhirDateTimeToDate(obs.Value as FhirDateTime), value, PartialDateYearUrl));
                 if (newDate != null)
                 {
                     obs.Value = newDate;
@@ -6078,7 +6078,7 @@ namespace BFDR
                     obs.Value = new FhirDateTime();
                     obs.Value.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                FhirDateTime newDate = BuildFhirDateTime(obs.Value as FhirDateTime, value, PartialDateMonthUrl);
+                FhirDateTime newDate = ConvertDateToFhirDateTime(UpdateFhirDate(ConvertFhirDateTimeToDate(obs.Value as FhirDateTime), value, PartialDateMonthUrl));
                 if (newDate != null)
                 {
                     obs.Value = newDate;
@@ -6112,7 +6112,7 @@ namespace BFDR
                     obs.Value = new FhirDateTime();
                     obs.Value.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                FhirDateTime newDate = BuildFhirDateTime(obs.Value as FhirDateTime, value, PartialDateDayUrl);
+                FhirDateTime newDate = ConvertDateToFhirDateTime(UpdateFhirDate(ConvertFhirDateTimeToDate(obs.Value as FhirDateTime), value, PartialDateDayUrl));
                 if (newDate != null)
                 {
                     obs.Value = newDate;
@@ -6220,7 +6220,7 @@ namespace BFDR
                     obs.Value = new FhirDateTime();
                     obs.Value.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                FhirDateTime newDate = BuildFhirDateTime(obs.Value as FhirDateTime, value, PartialDateYearUrl);
+                FhirDateTime newDate = ConvertDateToFhirDateTime(UpdateFhirDate(ConvertFhirDateTimeToDate(obs.Value as FhirDateTime), value, PartialDateYearUrl));
                 if (newDate != null)
                 {
                     obs.Value = newDate;
@@ -6253,7 +6253,7 @@ namespace BFDR
                     obs.Value = new FhirDateTime();
                     obs.Value.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                FhirDateTime newDate = BuildFhirDateTime(obs.Value as FhirDateTime, value, PartialDateMonthUrl);
+                FhirDateTime newDate = ConvertDateToFhirDateTime(UpdateFhirDate(ConvertFhirDateTimeToDate(obs.Value as FhirDateTime), value, PartialDateMonthUrl));
                 if (newDate != null)
                 {
                     obs.Value = newDate;
@@ -6286,7 +6286,7 @@ namespace BFDR
                     obs.Value = new FhirDateTime();
                     obs.Value.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                FhirDateTime newDate = BuildFhirDateTime(obs.Value as FhirDateTime, value, PartialDateDayUrl);
+                FhirDateTime newDate = ConvertDateToFhirDateTime(UpdateFhirDate(ConvertFhirDateTimeToDate(obs.Value as FhirDateTime), value, PartialDateDayUrl));
                 if (newDate != null)
                 {
                     obs.Value = newDate;
@@ -6344,7 +6344,7 @@ namespace BFDR
                     this.Composition.DateElement = new FhirDateTime();
                     this.Composition.DateElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                FhirDateTime newDate = BuildFhirDateTime(this.Composition.DateElement, value, PartialDateYearUrl);
+                FhirDateTime newDate =ConvertDateToFhirDateTime(UpdateFhirDate(ConvertFhirDateTimeToDate(this.Composition.DateElement), value, PartialDateYearUrl));
                 if (newDate != null)
                 {
                     this.Composition.DateElement = newDate;
@@ -6380,7 +6380,7 @@ namespace BFDR
                     this.Composition.DateElement = new FhirDateTime();
                     this.Composition.DateElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                FhirDateTime newDate = BuildFhirDateTime(this.Composition.DateElement, value, PartialDateMonthUrl);
+                FhirDateTime newDate = ConvertDateToFhirDateTime(UpdateFhirDate(ConvertFhirDateTimeToDate(this.Composition.DateElement), value, PartialDateMonthUrl));
                 if (newDate != null)
                 {
                     this.Composition.DateElement = newDate;
@@ -6416,7 +6416,7 @@ namespace BFDR
                     this.Composition.DateElement = new FhirDateTime();
                     this.Composition.DateElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                FhirDateTime newDate = BuildFhirDateTime(this.Composition.DateElement, value, PartialDateDayUrl);
+                FhirDateTime newDate = ConvertDateToFhirDateTime(UpdateFhirDate(ConvertFhirDateTimeToDate(this.Composition.DateElement), value, PartialDateDayUrl));
                 if (newDate != null)
                 {
                     this.Composition.DateElement = newDate;
@@ -7250,7 +7250,7 @@ namespace BFDR
                     p.StartElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
                     stateComp.Period = p;
                 }
-                FhirDateTime newDate = BuildFhirDateTime(stateComp.Period.StartElement, value, PartialDateYearUrl);
+                FhirDateTime newDate = ConvertDateToFhirDateTime(UpdateFhirDate(ConvertFhirDateTimeToDate(stateComp.Period.StartElement), value, PartialDateYearUrl));
                 if (newDate != null)
                 {
                     stateComp.Period.StartElement = newDate;
@@ -7318,7 +7318,7 @@ namespace BFDR
                     p.StartElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
                     stateComp.Period = p;
                 }
-                FhirDateTime newDate = BuildFhirDateTime(stateComp.Period.StartElement, value, PartialDateMonthUrl);
+                FhirDateTime newDate = ConvertDateToFhirDateTime(UpdateFhirDate(ConvertFhirDateTimeToDate(stateComp.Period.StartElement), value, PartialDateMonthUrl));
                 if (newDate != null)
                 {
                     stateComp.Period.StartElement = newDate; 
@@ -7386,7 +7386,7 @@ namespace BFDR
                     p.StartElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
                     stateComp.Period = p;
                 }
-                FhirDateTime newDate = BuildFhirDateTime(stateComp.Period.StartElement, value, PartialDateDayUrl);
+                FhirDateTime newDate = ConvertDateToFhirDateTime(UpdateFhirDate(ConvertFhirDateTimeToDate(stateComp.Period.StartElement), value, PartialDateDayUrl));
                 if (newDate != null)
                 {
                     stateComp.Period.StartElement = newDate; 

@@ -1402,7 +1402,6 @@ namespace BFDR.Tests
       Assert.Equal(15, b2.MotherRace.Length);
     }
 
-
     [Fact]
     public void ParseFatherRaceEthnicityIJEtoJson()
     {
@@ -1435,6 +1434,7 @@ namespace BFDR.Tests
       }
       Assert.Equal(15, b2.FatherRace.Length);
     }
+
     [Fact]
     public void IdentifiersPresent()
     {
@@ -1446,6 +1446,7 @@ namespace BFDR.Tests
       Assert.Equal("101", FakeBirthRecord.CertificateNumber);
       Assert.Equal("124", FakeBirthRecord.StateLocalIdentifier1);
     }
+    
     [Fact]
     public void TestImportMotherBirthplace()
     {

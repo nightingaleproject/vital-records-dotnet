@@ -5601,16 +5601,6 @@
             <param name="timeValue"></param>
             <returns></returns>
         </member>
-        <member name="M:VR.VitalRecord.BuildFhirDate(System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String)">
-            <summary>
-            Builds a Fhir Date using the given date elements, placing items in the partial date time extensions as needed.
-            </summary>
-            <param name="yearValue"></param>
-            <param name="monthValue"></param>
-            <param name="dayValue"></param>
-            <param name="timeValue"></param>
-            <returns></returns>
-        </member>
         <member name="P:VR.VitalRecord.PartialDateYearUrl">
             <summary>Overrideable method that dictates which Extension URL to use for PartialDateTime Year</summary>
         </member>
