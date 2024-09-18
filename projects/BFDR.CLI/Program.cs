@@ -25,8 +25,7 @@ namespace BFDR.CLI
         static string commands =
 @"* BFDR Command Line Interface - commands
   - help:  prints this help message  (no arguments)
-  - fakerecord: prints a fake JSON birth record (no arguments)
-  - fakefetaldeathrecord: prints a fake JSON fetal death record (no arguments)
+  - fakerecord: prints a fake JSON birth record (1 argument: 'birth' or 'fetaldeath')
   - description: prints a verbose JSON description of the record (in the format used to drive Canary) (1 argument: the path to the birth record)
   - 2ije: Read in the FHIR XML or JSON birth record and print out as IJE (1 argument: path to birth record in JSON or XML format)
   - 2ijecontent: Read in the FHIR XML or JSON birth record and dump content  in key/value IJE format (1 argument: path to birth record in JSON or XML format)
@@ -60,7 +59,7 @@ namespace BFDR.CLI
                 Console.WriteLine(commands);
                 //return (0);
             }
-            else if (args.Length == 1 && args[0] == "fakerecord")
+            else if (args.Length == 2 && args[0] == "fakerecord" && args[1] == "birth" )
             {
                 // 0. Set up a BirthRecord object
                 BirthRecord birthRecord = new BirthRecord();
@@ -150,6 +149,99 @@ namespace BFDR.CLI
 
                 // Write out the Record
                 Console.WriteLine(birthRecord.ToJSON());
+
+                return 0;
+            }
+            else if (args.Length == 2 && args[0] == "fakerecord" && args[1] == "fetaldeath" )
+            {
+                // 0. Set up a FetalDeathRecord object
+                FetalDeathRecord fetaldeathRecord = new FetalDeathRecord();
+                fetaldeathRecord.BirthYear = 2023;
+                fetaldeathRecord.BirthMonth = 1;
+                fetaldeathRecord.BirthDay = 1;
+                fetaldeathRecord.CertificateNumber = "100";
+                fetaldeathRecord.StateLocalIdentifier1 = "123";
+                fetaldeathRecord.DateOfBirth = "2023-01-01";
+                birtfetaldeathRecordhRecord.BirthSex = "M";
+
+                string[] childNames = { "Alexander", "Arlo" };
+                fetaldeathRecord.ChildGivenNames = childNames;
+                string[] motherName = { "Xenia" };
+                fetaldeathRecord.MotherGivenNames = motherName;
+                string lastName = "Adkins";
+                fetaldeathRecord.ChildFamilyName = lastName;
+                fetaldeathRecord.MotherFamilyName = lastName;
+
+                fetaldeathRecord.CertifierName = "Janet Seito";
+                fetaldeathRecord.CertifierNPI = "223347044";
+                fetaldeathRecord.CertifierTitleHelper = "76231001";
+                fetaldeathRecord.AttendantName ="Avery Jones";
+                fetaldeathRecord.AttendantNPI = "762310012345";
+                fetaldeathRecord.AttendantTitleHelper = "76231001";
+               
+
+                fetaldeathRecord.BirthLocationJurisdiction = "MA";
+                Dictionary<string, string> birthAddress = new Dictionary<string, string>();
+                birthAddress.Add("addressLine1", "123 Fake Street");
+                birthAddress.Add("addressCity", "Springfield");
+                birthAddress.Add("addressCounty", "Hampden");
+                birthAddress.Add("addressState", "MA");
+                birthAddress.Add("addressZip", "01101");
+                birthAddress.Add("addressCountry", "US");
+                birthRecord.PlaceOfBirth = birthAddress;
+
+                fetaldeathRecord.InfantMedicalRecordNumber = "7134703";
+                fetaldeathRecord.MotherMedicalRecordNumber = "2286144";
+                fetaldeathRecord.MotherSocialSecurityNumber = "133756482";
+
+                fetaldeathRecord.SetOrder = null;
+                fetaldeathRecord.Plurality = null;
+                fetaldeathRecord.CyanoticCongenitalHeartDisease = true;
+                fetaldeathRecord.NoCongenitalAnomaliesOfTheNewborn = true;
+                fetaldeathRecord.EpiduralOrSpinalAnesthesia = true;
+                fetaldeathRecord.AugmentationOfLabor = true;
+                fetaldeathRecord.NoSpecifiedAbnormalConditionsOfNewborn = true;
+                fetaldeathRecord.NoInfectionsPresentDuringPregnancy = true;
+                fetaldeathRecord.GestationalHypertension = true;
+
+
+                Dictionary<string, string> route = new Dictionary<string, string>();
+                route.Add("code", "700000006");
+                route.Add("system", "http://snomed.info/sct");
+                route.Add("display", "Vaginal delivery of fetus (procedure)");
+                fetaldeathRecord.FinalRouteAndMethodOfDelivery = route;
+
+                fetaldeathRecord.NoObstetricProcedures = true;
+
+                fetaldeathRecord.MotherBirthDay = 12;
+                fetaldeathRecord.MotherBirthMonth = 1;
+                fetaldeathRecord.MotherBirthYear = 1992;
+                fetaldeathRecord.MotherDateOfBirth = "1992-01-12";
+                fetaldeathRecord.FatherBirthDay = 21;
+                fetaldeathRecord.FatherBirthMonth = 9;
+                fetaldeathRecord.FatherBirthYear = 1990;
+                fetaldeathRecord.FatherDateOfBirth = "1990-09-21";
+
+                fetaldeathRecord.MotherEducationLevelHelper = VR.ValueSets.EducationLevel.Doctoral_Or_Post_Graduate_Education;
+                fetaldeathRecord.MotherEducationLevelEditFlagHelper = VR.ValueSets.EditBypass01234.Edit_Passed;
+                fetaldeathRecord.FatherEducationLevelHelper = VR.ValueSets.EducationLevel.Bachelors_Degree;
+                fetaldeathRecord.FatherEducationLevelEditFlagHelper = VR.ValueSets.EditBypass01234.Edit_Failed_Data_Queried_But_Not_Verified;
+
+                //Ethnicity
+                fetaldeathRecord.MotherEthnicityLiteral = VR.ValueSets.HispanicOrigin.Colombian;
+                fetaldeathRecord.MotherEthnicity3Helper = VR.ValueSets.YesNoUnknown.Yes;
+                // Race
+                Tuple<string, string>[] motherRace = { Tuple.Create(NvssRace.BlackOrAfricanAmerican, "Y")};
+                fetaldeathRecord.MotherRace = motherRace;
+                Tuple<string, string>[] fatherRace = { Tuple.Create(NvssRace.White, "Y")};
+                fetaldeathRecord.FatherRace = fatherRace;
+                fetaldeathRecord.MotherRaceTabulation1EHelper = VR.ValueSets.RaceCode.Colombian;
+                fetaldeathRecord.FatherRaceTabulation1EHelper = VR.ValueSets.RaceCode.Arab;
+                fetaldeathRecord.MotherEthnicityEditedCodeHelper = VR.ValueSets.HispanicOrigin.Colombian;
+                fetaldeathRecord.FatherEthnicityEditedCodeHelper = VR.ValueSets.HispanicOrigin.Non_Hispanic;
+
+                // Write out the Record
+                Console.WriteLine(fetaldeathRecord.ToJSON());
 
                 return 0;
             }
