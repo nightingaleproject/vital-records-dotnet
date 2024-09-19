@@ -875,9 +875,10 @@ namespace VR
         /// <param name="dateElement"></param>
         /// <param name="value"></param>
         /// <param name="partialDateUrl"></param>
+        /// <param name="useBirthTime"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        protected Date UpdateFhirDate(Date dateElement, int? value, string partialDateUrl)
+        protected Date UpdateFhirDate(Date dateElement, int? value, string partialDateUrl, bool useBirthTime = false)
         {
             if (value == null)
             {
@@ -889,7 +890,8 @@ namespace VR
             int? yearValue = parsedYear ?? GetPartialDate(pdtExt, VR.ExtensionURL.PartialDateTimeYearVR);
             int? monthValue = parsedMonth ?? GetPartialDate(pdtExt, VR.ExtensionURL.PartialDateTimeMonthVR);
             int? dayValue = parsedDay ?? GetPartialDate(pdtExt, VR.ExtensionURL.PartialDateTimeDayVR);
-            string timeValue = GetTimeFragment(dateElement.GetExtension(ExtensionURL.PatientBirthTime)?.Value)
+            string pbt = useBirthTime ? GetTimeFragment(dateElement.GetExtension(ExtensionURL.PatientBirthTime)?.Value) : null;
+            string timeValue = pbt
                     ?? ((Time)pdtExt?.GetExtension(ExtensionURL.PartialDateTimeTimeVR)?.Value)?.Value
                     ?? GetPartialTime(dateElement.GetExtension(PartialDateTimeUrl));
             // Set whichever date element we're updating to the given value.
@@ -912,7 +914,7 @@ namespace VR
             if (yearValue != -1 && yearValue != null && monthValue != -1 && monthValue != null && dayValue != -1 && dayValue != null)
             {
                 Date date = new Date((int)yearValue, (int)monthValue, (int)dayValue);
-                return AddTimeToDate(date, yearValue, monthValue, dayValue, timeValue);
+                return AddTimeToDate(date, yearValue, monthValue, dayValue, timeValue, useBirthTime);
             }
 
             // If just the year and month date elements are valid and known, build a FhirDateTime in the format yyyy-mm.
@@ -924,7 +926,7 @@ namespace VR
                 {
                     fdtYearMonth = SetPartialDateExtensions(fdtYearMonth, yearValue, monthValue, dayValue);
                 }
-                return AddTimeToDate(fdtYearMonth, yearValue, monthValue, dayValue, timeValue);
+                return AddTimeToDate(fdtYearMonth, yearValue, monthValue, dayValue, timeValue, useBirthTime);
             }
 
             // If just the year date element is valid and known, build a FhirDateTime in the format yyyy.
@@ -936,13 +938,13 @@ namespace VR
                 {
                     fdtYear = SetPartialDateExtensions(fdtYear, yearValue, monthValue, dayValue);
                 }
-                return AddTimeToDate(fdtYear, yearValue, monthValue, dayValue, timeValue);
+                return AddTimeToDate(fdtYear, yearValue, monthValue, dayValue, timeValue, useBirthTime);
             }
 
             // If the year is not valid or is unknown, build an empty FhirDateTime and store all date data in the partial date time extensions.
             Date fdtYearUnknown = new Date();
             fdtYearUnknown = SetPartialDateExtensions(fdtYearUnknown, yearValue, monthValue, dayValue);
-            return AddTimeToDate(fdtYearUnknown, yearValue, monthValue, dayValue, timeValue);
+            return AddTimeToDate(fdtYearUnknown, yearValue, monthValue, dayValue, timeValue, useBirthTime);
         }
 
         /// <summary>
@@ -953,8 +955,9 @@ namespace VR
         /// <param name="monthValue"></param>
         /// <param name="dayValue"></param>
         /// <param name="timeValue"></param>
+        /// <param name="useBirthTime"></param>
         /// <returns></returns>
-        protected Date AddTimeToDate(Date dateElement, int? yearValue, int? monthValue, int? dayValue, string timeValue)
+        protected Date AddTimeToDate(Date dateElement, int? yearValue, int? monthValue, int? dayValue, string timeValue, bool useBirthTime = false)
         {
             if (timeValue == "temp-unknown" || timeValue == "-1")
             {
@@ -969,7 +972,7 @@ namespace VR
             }
             else if (timeValue != null)
             {
-                if (yearValue == -1 || monthValue == -1 || dayValue == -1 || yearValue == null || monthValue == null || dayValue == null)
+                if (yearValue == -1 || monthValue == -1 || dayValue == -1 || yearValue == null || monthValue == null || dayValue == null || !useBirthTime)
                 {
                     dateElement.RemoveExtension(VR.ExtensionURL.PatientBirthTime);
                     dateElement = SetPartialDateExtensions(dateElement, yearValue, monthValue, dayValue);

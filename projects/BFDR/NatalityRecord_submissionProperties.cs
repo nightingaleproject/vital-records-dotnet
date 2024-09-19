@@ -159,7 +159,7 @@ namespace BFDR
                 {
                     AddBirthDateToPatient(Child, false);
                 }
-                Date newDate = UpdateFhirDate(Child.BirthDateElement, value, PartialDateYearUrl);
+                Date newDate = UpdateFhirDate(Child.BirthDateElement, value, PartialDateYearUrl, true);
                 if (newDate != null)
                 {
                     Child.BirthDateElement = newDate;
@@ -207,7 +207,7 @@ namespace BFDR
                 {
                     AddBirthDateToPatient(Child, false);
                 }
-                Date newDate = UpdateFhirDate(Child.BirthDateElement, value, PartialDateMonthUrl);
+                Date newDate = UpdateFhirDate(Child.BirthDateElement, value, PartialDateMonthUrl, true);
                 if (newDate != null)
                 {
                     Child.BirthDateElement = newDate;
@@ -237,7 +237,7 @@ namespace BFDR
                 {
                     AddBirthDateToPatient(Child, false);
                 }
-                Date newDate = UpdateFhirDate(Child.BirthDateElement, value, PartialDateDayUrl);
+                Date newDate = UpdateFhirDate(Child.BirthDateElement, value, PartialDateDayUrl, true);
                 if (newDate != null)
                 {
                     Child.BirthDateElement = newDate;
@@ -283,7 +283,7 @@ namespace BFDR
                 {
                     AddBirthDateToPatient(Child, true);
                 }
-                AddTimeToDate(Child.BirthDateElement, BirthYear, BirthMonth, BirthDay, value);
+                AddTimeToDate(Child.BirthDateElement, BirthYear, BirthMonth, BirthDay, value, true);
             }
         }
 
