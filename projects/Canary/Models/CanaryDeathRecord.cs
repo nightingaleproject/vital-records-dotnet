@@ -1,8 +1,18 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text.Json.Nodes;
+using System.Text.RegularExpressions;
+using System.Text;
+using System.Threading.Tasks;
 using VR;
 using VRDR;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using RestSharp;
+using RestSharp.Authenticators;
 
 namespace canary.Models
 {
@@ -16,6 +26,17 @@ namespace canary.Models
         public CanaryDeathRecord(string record) : base(record) {}
 
         public CanaryDeathRecord(string record, bool permissive) : base(record, permissive) {}
+
+        public static string ValidateFshSushi(string fshInput)
+        {
+            string resultData = string.Empty;
+
+            System.Threading.Tasks.Task<string> task =
+                System.Threading.Tasks.Task.Run<string>(async () => await GetSushResults(fshInput));
+
+            resultData = task.Result;
+            return resultData;
+        }
 
         /// <summary>Check the given FHIR record string and return a list of issues. Also returned
         /// the parsed record if parsing was successful.</summary>
@@ -57,5 +78,7 @@ namespace canary.Models
         {
             return typeof(IJEMortality).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Field).ToList();
         }
+
+
     }
 }

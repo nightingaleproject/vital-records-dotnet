@@ -14,6 +14,7 @@ import { RecentTests } from './components/tests/RecentTests';
 import { FHIRCreator } from './components/tools/FHIRCreator';
 import { FHIRInspector } from './components/tools/FHIRInspector';
 import { MessageInspector } from './components/tools/MessageInspector';
+import { FshSushiInspector } from './components/tools/FshSushiInspector';
 import { FHIRMessageCreator } from './components/tools/FHIRMessageCreator';
 import { FHIRMessageSyntaxChecker } from './components/tools/FHIRMessageSyntaxChecker';
 import { FHIRSyntaxChecker } from './components/tools/FHIRSyntaxChecker';
@@ -24,6 +25,7 @@ import { RecordGenerator } from './components/tools/RecordGenerator';
 import { HomeScreen } from './components/HomeScreen';
 import { Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import { MessageFshConverter } from './components/tools/MessageFshConverter';
 
 export default function App() {
 
@@ -117,6 +119,8 @@ export default function App() {
           <Route path="tool-record-converter" element={<RecordConverter recordType={recordType} />} />
           <Route path="tool-record-generator" element={<RecordGenerator recordType={recordType} />} />
           <Route path="tool-message-inspector" element={<MessageInspector recordType={recordType} />} />
+          <Route path="tool-fsh-sushi-inspector" element={<FshSushiInspector recordType={recordType} />} />
+          <Route path="tool-message-to-fsh" element={<MessageFshConverter recordType={recordType} />} />
         </Route>
       </Routes>
     </Layout>

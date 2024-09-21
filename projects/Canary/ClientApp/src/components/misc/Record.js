@@ -27,6 +27,9 @@ export class Record extends Component {
     if (!!this.props.ijeOnly) {
       this.setState({ activeItem: 'IJE' });
     }
+    if (!!this.props.showFsh) {
+        this.setState({ activeItem: 'FSH' });
+    }
   }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
@@ -58,6 +61,10 @@ export class Record extends Component {
   formatJson(json, spaces) {
     return JSON.stringify(JSON.parse(json), null, spaces);
   }
+      formatFsh(fsh) {
+        if (!fsh) { return ''; }
+        return JSON.parse(fsh).fsh;
+    }
 
   formatIje(ije) {
     return ije.match(/.{1,140}/g).join('\n');
@@ -193,6 +200,7 @@ export class Record extends Component {
           <Issues issues={this.props.issues} />
         )}
         {!!this.props.issues && this.props.issues.length === 0 && !!this.props.showSuccess && (
+
           <div className="inherit-width">
             <Transition transitionOnMount animation="fade" duration={1000}>
               <div className="inherit-width">
@@ -207,6 +215,7 @@ export class Record extends Component {
             </Transition>
           </div>
         )}
+
         {!!this.props.record && !!this.props.record.xml && !!this.props.record.json && (!!this.props.hideIje || !!this.props.record.ije) && (
           <React.Fragment>
             <Menu attached="top" pointing size="large">
@@ -216,6 +225,7 @@ export class Record extends Component {
                   <Menu.Item name="XML" active={this.state.activeItem === 'XML'} onClick={this.handleItemClick} />
                 </React.Fragment>
               )}
+              {!!this.props.showFsh && <Menu.Item name="FSH" active={this.state.activeItem === 'FSH'} onClick={this.handleItemClick} />}
               {!!!this.props.hideIje && <Menu.Item name="IJE" active={this.state.activeItem === 'IJE'} onClick={this.handleItemClick} />}
               {!!this.props.showSave && (
                 <Menu.Menu position="right">
@@ -281,6 +291,22 @@ export class Record extends Component {
                   tabSize={0}
                 />
               )}
+            {this.state.activeItem === 'FSH' && !!this.props.showFsh && (
+                <AceEditor
+                    theme="chrome"
+                    name="record-fsh"
+                    fontSize={12}
+                    showGutter={true}
+                    highlightActiveLine={true}
+                    showPrintMargin={false}
+                    value={this.props.record ? this.formatFsh(this.props.record.fsh) : ''}
+                    width="100%"
+                    readOnly={true}
+                    maxLines={this.props.lines || Infinity}
+                    tabSize={0}
+                />
+
+            )}
             </Segment>
           </React.Fragment>
         )}

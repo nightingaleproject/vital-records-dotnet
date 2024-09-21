@@ -17,6 +17,55 @@ namespace canary.Controllers
     public class MessagesController : ControllerBase
     {
         /// <summary>
+        /// Inspects FSH message
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("Messages/sushi/Inspect")]
+        public async Task<(string results, List<Dictionary<string, string>> issues)> NewFshPost()
+        {
+            string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
+
+            if (!String.IsNullOrEmpty(input))
+            {
+                //Verify input is FSH, check for Alias?
+                if (input.Trim().StartsWith("Alias:")) // FSH?
+                {
+                    var messageInspectResults = Record.ValidateFshSushi(input);
+
+                    var issueList = Record.ParseSushiErrorsAndWarnings(messageInspectResults);
+
+                    return (results: messageInspectResults, issues: issueList);
+
+                }
+                else
+                {
+                    return (null, new List<Dictionary<string, string>>
+                        { new Dictionary<string, string> { { "severity", "error" },
+                            { "message", "The given input is not FSH." } } }
+                    );
+                }
+            }
+            else
+            {
+                return (null, new List<Dictionary<string, string>> { new Dictionary<string, string> { { "severity", "error" }, { "message", "The given input appears to be empty." } } });
+            }
+        }
+
+        [HttpPost("Messages/vrdr/fshconvert")]
+        public async Task<(Record record, List<Dictionary<string, string>> issues)> NewVRDRFshPost()
+        {
+            return await NewPost<DeathRecord>((input) => BaseMessage.Parse(input, false), true);
+        }
+
+
+        [HttpPost("Messages/bfdr/fshconvert")]
+        public async Task<(Record record, List<Dictionary<string, string>> issues)> NewBFDRFshPost()
+        {
+            return await NewPost<DeathRecord>((input) => BaseMessage.Parse(input, false), true);
+        }
+
+
+        /// <summary>
         /// Inspects a death message using the contents provided. Returns the message + record and any validation issues.
         /// POST Messages/vrdr/Inspect
         /// </summary>
@@ -36,7 +85,7 @@ namespace canary.Controllers
             return await NewPost<BirthRecord>((input) => BirthRecordBaseMessage.Parse(input, false));
         }
 
-        private async Task<(Record record, List<Dictionary<string, string>> issues)> NewPost<RecordType>(Func<string, CommonMessage> parser) where RecordType : VitalRecord, new()
+        private async Task<(Record record, List<Dictionary<string, string>> issues)> NewPost<RecordType>(Func<string, CommonMessage> parser, bool getFsh = false) where RecordType : VitalRecord, new()
         {
             string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
 
@@ -56,6 +105,24 @@ namespace canary.Controllers
                     string recordString = extracted.ToJSON();
                     List<Dictionary<string, string>> issues;
                     var messageInspectResults = typeof(RecordType) == typeof(DeathRecord) ? CanaryDeathRecord.CheckGet(recordString, false, out issues) : CanaryBirthRecord.CheckGet(recordString, false, out issues);
+
+                    if (getFsh)
+                    {
+                        //TODO:  Get FSH data
+                        System.Threading.Tasks.Task<string> task =
+                            System.Threading.Tasks.Task.Run<string>(async () => await Record.GetFshData(recordString));
+                        messageInspectResults.Fsh = task.Result;
+
+                        if (!String.IsNullOrWhiteSpace(messageInspectResults.Fsh))
+                        {
+                            var issueList = Record.ParseSushiErrorsAndWarnings(messageInspectResults.Fsh);
+                            if (issueList != null && issueList.Count > 0)
+                            {
+                                issues.AddRange(issueList);
+                            }
+                        }
+
+                    }
 
                     return (messageInspectResults, issues);
                 }

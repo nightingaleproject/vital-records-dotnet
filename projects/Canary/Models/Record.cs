@@ -4,11 +4,16 @@ using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using VRDR;
 using VR;
-using VRDR;
 using Newtonsoft.Json;
 using System.IO;
 using System.Text.Json.Nodes;
 using BFDR;
+using Newtonsoft.Json.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using RestSharp;
+using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace canary.Models
 {
@@ -69,6 +74,9 @@ namespace canary.Models
 
         private string ije { get; set; }
 
+        private string fsh { get; set; }
+
+
         public int RecordId { get; set; }
 
         public string Xml
@@ -120,6 +128,21 @@ namespace canary.Models
                 this.record = this.CreateIJEFromString(value).ToRecord();
                 ije = value;
             }
+        }
+
+        public string Fsh
+        {
+            get
+            {
+                if (record == null)
+                {
+                    return null;
+                }
+                return fsh;
+            }
+
+            set { fsh = value; }
+
         }
 
         public VitalRecord GetRecord()
@@ -241,7 +264,122 @@ namespace canary.Models
             return DecorateErrorsRecursive(e, entries);
         }
 
-        private static void validateRecordType(Record record)
+        public static string ValidateFshSushi(string fshInput)
+        {
+            string resultData = string.Empty;
+
+            System.Threading.Tasks.Task<string> task =
+                System.Threading.Tasks.Task.Run<string>(async () => await GetSushResults(fshInput));
+
+            resultData = task.Result;
+            return resultData;
+        }
+
+        public static List<Dictionary<string, string>> ParseSushiErrorsAndWarnings(string sushiResults)
+        {
+            var issueList = new List<Dictionary<string, string>>();
+
+            if (String.IsNullOrWhiteSpace(sushiResults))
+            {
+                return issueList;
+            }
+
+            JToken jToken = JToken.Parse(sushiResults);
+
+            var errorList = jToken["errors"].Select(z => z).ToList();
+
+            foreach (var errorData in errorList)
+            {
+                StringBuilder messageInfo = new StringBuilder();
+                messageInfo.Append((string)errorData["message"]);
+                if (errorData["location"] != null)
+                {
+                    messageInfo.Append(" Location: ");
+                    messageInfo.Append(" start col: ");
+                    messageInfo.Append((string)errorData["location"]["startColumn"]);
+                    messageInfo.Append(" end col: ");
+                    messageInfo.Append((string)errorData["location"]["endColumn"]);
+                    messageInfo.Append(" start line: ");
+                    messageInfo.Append((string)errorData["location"]["startLine"]);
+                    messageInfo.Append(" end line: ");
+                    messageInfo.Append((string)errorData["location"]["endLine"]);
+                }
+
+                issueList.Add(
+                    new Dictionary<string, string> { { "severity", "error" },
+                        { "message", messageInfo.ToString() } }
+                );
+            }
+
+            var warningList = jToken["warnings"].Select(z => z).ToList();
+
+            foreach (var warningData in warningList)
+            {
+                StringBuilder messageInfo = new StringBuilder();
+                messageInfo.Append((string)warningData["message"]);
+                if (warningData["location"] != null)
+                {
+                    messageInfo.Append(" Location: ");
+                    messageInfo.Append(" start col: ");
+                    messageInfo.Append((string)warningData["location"]["startColumn"]);
+                    messageInfo.Append(" end col: ");
+                    messageInfo.Append((string)warningData["location"]["endColumn"]);
+                    messageInfo.Append(" start line: ");
+                    messageInfo.Append((string)warningData["location"]["startLine"]);
+                    messageInfo.Append(" end line: ");
+                    messageInfo.Append((string)warningData["location"]["endLine"]);
+                }
+
+                issueList.Add(
+                    new Dictionary<string, string> { { "severity", "warning" },
+                        { "message", messageInfo.ToString() } }
+                );
+            }
+
+            return issueList;
+        }
+
+        public async static Task<string> GetFshInspection(string fshData)
+        {
+            string ret = string.Empty;
+
+            try
+            {
+                string url = Environment.GetEnvironmentVariable("DATA_CONVERSION_HOST") ?? "cte-nvss-canary-a213fdc38384.azurewebsites.net";
+
+                JsonObject fshJson = new JsonObject();
+                fshJson.Add("fsh", fshData);
+                string convertedFshData = fshJson.ToString();
+
+                var options = new RestClientOptions("https://" + url)
+                {
+                    MaxTimeout = -1,
+                };
+                var client = new RestClient(options);
+                var request = new RestRequest("/api/FshToFhir", Method.Post);
+                request.AddHeader("Host", url);
+                request.AddJsonBody(fshJson);
+                RestResponse response = await client.ExecuteAsync(request);
+                ret = response.Content;
+
+            }
+            catch (Exception ex)
+            {
+                ret = ex.Message;
+            }
+            return ret;
+        }
+
+        public async static Task<string> GetSushResults(string fshInput)
+        {
+            string ret = string.Empty;
+
+            ret = await GetFshInspection(fshInput);
+
+            return ret;
+        }
+
+        public static void validateRecordType(Record record)
         {
             List<string> acceptedPayloadTypes = new List<string>() { "document" };  //Add to this with "document", "newtype", "etc"
 
@@ -262,7 +400,7 @@ namespace canary.Models
             }
         }
 
-        private static List<Dictionary<string, string>> DecorateErrorsRecursive(Exception exception, List<Dictionary<string, string>> entries)
+        public static List<Dictionary<string, string>> DecorateErrorsRecursive(Exception exception, List<Dictionary<string, string>> entries)
         {
             if (exception != null && exception.Message != null)
             {
@@ -293,6 +431,82 @@ namespace canary.Models
         {
             this.record = this.GenerateFakeRecord(state, type, sex);
             this.Ije = this.CreateIJEFromRecord(this.record, true).ToString();
+        }
+
+        public async static Task<string> GetFshData(string fhirMessage)
+        {
+            string ret = string.Empty;
+
+            string rawFsh = await GetRawFshData(fhirMessage);
+
+            ret = await ConvertFshDataProfileNames(rawFsh);
+
+            return ret;
+
+        }
+
+        public async static Task<string> GetRawFshData(string fhirMessage)
+        {
+            string ret = string.Empty;
+
+            try
+            {
+                string url = Environment.GetEnvironmentVariable("DATA_CONVERSION_HOST") ?? "cte-nvss-canary-a213fdc38384.azurewebsites.net";
+
+                byte[] bytes = Encoding.ASCII.GetBytes(fhirMessage);
+
+                var fhrContent = Regex.Replace(fhirMessage, @"(""[^""\\]*(?:\\.[^""\\]*)*"")|\s+", "$1");
+
+                var options = new RestClientOptions("https://" + url)
+                {
+                    MaxTimeout = -1,
+                };
+                var client = new RestClient(options);
+                var request = new RestRequest("/api/FhirToFsh", Method.Post);
+                request.AddHeader("Cache-Control", "no-cache");
+                request.AddHeader("Host", url);
+                request.AddJsonBody(fhirMessage);
+                RestResponse response = await client.ExecuteAsync(request);
+                ret = response.Content;
+
+            }
+            catch (Exception ex)
+            {
+                ret = ex.Message;
+            }
+            return ret;
+        }
+
+        public async static Task<string> ConvertFshDataProfileNames(string rawFshData)
+        {
+            string ret = string.Empty;
+
+            try
+            {
+                string url = Environment.GetEnvironmentVariable("DATA_CONVERSION_HOST") ?? "cte-nvss-canary-a213fdc38384.azurewebsites.net";
+
+                byte[] bytes = Encoding.ASCII.GetBytes(rawFshData);
+
+                var fhrContent = Regex.Replace(rawFshData, @"(""[^""\\]*(?:\\.[^""\\]*)*"")|\s+", "$1");
+
+                var options = new RestClientOptions("https://" + url)
+                {
+                    MaxTimeout = -1,
+                };
+                var client = new RestClient(options);
+                var request = new RestRequest("/api/ConvertInstanceOf", Method.Post);
+                request.AddHeader("Cache-Control", "no-cache");
+                request.AddHeader("Host", url);
+                request.AddJsonBody(rawFshData);
+                RestResponse response = await client.ExecuteAsync(request);
+                ret = response.Content;
+
+            }
+            catch (Exception ex)
+            {
+                ret = ex.Message;
+            }
+            return ret;
         }
 
     }
