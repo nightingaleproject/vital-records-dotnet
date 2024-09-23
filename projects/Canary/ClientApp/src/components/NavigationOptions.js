@@ -127,7 +127,7 @@ export function MessageTools(recordType) {
     },
     {
       icon: "find",
-      title: `FHIR Message to FSH Convertor`,
+      title: `FHIR Message to FSH Converter`,
       description: `Inspect a FSH record and show details about what it contains.`,
       route: "tool-message-to-fsh"
     }
