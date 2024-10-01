@@ -156,13 +156,13 @@ namespace BFDR.CLI
             {
                 // 0. Set up a FetalDeathRecord object
                 FetalDeathRecord fetaldeathRecord = new FetalDeathRecord();
-                fetaldeathRecord.BirthYear = 2023;
-                fetaldeathRecord.BirthMonth = 1;
-                fetaldeathRecord.BirthDay = 1;
+                fetaldeathRecord.DeliveryYear = 2023;
+                fetaldeathRecord.DeliveryMonth = 1;
+                fetaldeathRecord.DeliveryDay = 1;
                 fetaldeathRecord.CertificateNumber = "100";
                 fetaldeathRecord.StateLocalIdentifier1 = "123";
-                fetaldeathRecord.DateOfBirth = "2023-01-01";
-                birtfetaldeathRecordhRecord.BirthSex = "M";
+                fetaldeathRecord.DateOfDelivery = "2023-01-01";
+                fetaldeathRecord.FetalDeathSex = "M";
 
                 string[] childNames = { "Alexander", "Arlo" };
                 fetaldeathRecord.ChildGivenNames = childNames;
@@ -188,14 +188,14 @@ namespace BFDR.CLI
                 birthAddress.Add("addressState", "MA");
                 birthAddress.Add("addressZip", "01101");
                 birthAddress.Add("addressCountry", "US");
-                birthRecord.PlaceOfBirth = birthAddress;
+                fetaldeathRecord.PlaceOfBirth = birthAddress;
 
                 fetaldeathRecord.InfantMedicalRecordNumber = "7134703";
                 fetaldeathRecord.MotherMedicalRecordNumber = "2286144";
                 fetaldeathRecord.MotherSocialSecurityNumber = "133756482";
 
-                fetaldeathRecord.SetOrder = null;
-                fetaldeathRecord.Plurality = null;
+                fetaldeathRecord.FetalDeathSetOrder = null;
+                fetaldeathRecord.FetalDeathPlurality = null;
                 fetaldeathRecord.CyanoticCongenitalHeartDisease = true;
                 fetaldeathRecord.NoCongenitalAnomaliesOfTheNewborn = true;
                 fetaldeathRecord.EpiduralOrSpinalAnesthesia = true;
@@ -328,7 +328,7 @@ namespace BFDR.CLI
                 }
                 return 0;
             }
-            else if (args.Length == 3 && args[0] == "submit" args[1] == "birth")
+            else if (args.Length == 3 && args[0] == "submit" && args[1] == "birth")
             {
                 BirthRecord record = new BirthRecord(File.ReadAllText(args[2]));
                 BirthRecordSubmissionMessage message = new BirthRecordSubmissionMessage(record);
@@ -336,7 +336,7 @@ namespace BFDR.CLI
                 Console.WriteLine(message.ToJSON(true));
                 return 0;
             }
-            else if (args.Length == 3 && args[0] == "submit" args[1] == "fetaldeath")
+            else if (args.Length == 3 && args[0] == "submit" && args[1] == "fetaldeath")
             {
                 FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(args[2]));
                 FetalDeathRecordSubmissionMessage message = new FetalDeathRecordSubmissionMessage(record);
@@ -383,7 +383,7 @@ namespace BFDR.CLI
             }
             else if (args.Length == 2 && args[0] == "void")
             {
-                NatalityRecord record = new NatalityRecord(File.ReadAllText(args[2]));
+                BirthRecord record = new BirthRecord(File.ReadAllText(args[2]));
                 BFDRVoidMessage message = new BFDRVoidMessage(record);
                 message.MessageSource = "http://mitre.org/bfdr";
                 Console.WriteLine(message.ToJSON(true));
@@ -391,7 +391,7 @@ namespace BFDR.CLI
             }
             else if (args.Length == 3 && args[0] == "void")
             {
-                NatalityRecord record = new NatalityRecord(File.ReadAllText(args[1]));
+                BirthRecord record = new BirthRecord(File.ReadAllText(args[1]));
                 BFDRVoidMessage message = new BFDRVoidMessage(record);
                 message.BlockCount = UInt32.Parse(args[2]);
                 message.MessageSource = "http://mitre.org/bfdr";
@@ -517,15 +517,7 @@ namespace BFDR.CLI
                         record = submission.BirthRecord;
                         Console.WriteLine(record.ToJSON());
                         break;
-                    case BirthRecordSubmissionUpdateMessage submission:
-                        record = submission.BirthRecord;
-                        Console.WriteLine(record.ToJSON());
-                        break;
                     case FetalDeathRecordSubmissionMessage submission:
-                        record = submission.FetalDeathRecord;
-                        Console.WriteLine(record.ToJSON());
-                        break;
-                    case FetalDeathRecordSubmissionUpdateMessage submission:
                         record = submission.FetalDeathRecord;
                         Console.WriteLine(record.ToJSON());
                         break;
