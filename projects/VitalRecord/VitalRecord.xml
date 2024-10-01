@@ -6988,11 +6988,12 @@
             <param name="names">The current list of HumanName attributes for the person.</param>
             <param name="use"> The type of name, defaults to official.</param>
         </member>
-        <member name="M:VR.VitalRecord.updateFamilyName(System.String,System.Collections.Generic.List{Hl7.Fhir.Model.HumanName},Hl7.Fhir.Model.HumanName.NameUse)">
+        <member name="M:VR.VitalRecord.updateFamilyName(System.String,System.Collections.Generic.List{Hl7.Fhir.Model.HumanName},Hl7.Fhir.Model.HumanName.NameUse,System.String)">
             <summary>Helper method to update last name.</summary>
             <param name="value">A list of strings to be converted into a name.</param>
             <param name="names">The current list of HumanName attributes for the person.</param>
             <param name="use"> The type of name, defaults to official.</param>
+            <param name="propertyName">The name of the Natality record property</param>
         </member>
         <member name="M:VR.VitalRecord.updateSuffix(System.String,System.Collections.Generic.List{Hl7.Fhir.Model.HumanName},Hl7.Fhir.Model.HumanName.NameUse)">
             <summary>Helper method to update suffix.</summary>
