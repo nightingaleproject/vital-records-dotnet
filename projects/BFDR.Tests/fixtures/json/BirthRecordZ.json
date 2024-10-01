@@ -2137,6 +2137,12 @@
               {
                 "extension": [
                   {
+                    "extension": [
+                      {
+                        "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                        "valueCode": "temp-unknown"
+                      }
+                    ],
                     "url": "day"
                   },
                   {
@@ -2146,7 +2152,25 @@
                         "valueCode": "temp-unknown"
                       }
                     ],
-                    "url": "day"
+                    "url": "month"
+                  },
+                  {
+                    "extension": [
+                      {
+                        "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                        "valueCode": "temp-unknown"
+                      }
+                    ],
+                    "url": "year"
+                  },
+                  {
+                    "extension": [
+                      {
+                        "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                        "valueCode": "temp-unknown"
+                      }
+                    ],
+                    "url": "time"
                   }
                 ],
                 "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-partial-date-time-vr"
