@@ -200,13 +200,13 @@ namespace BFDR
         {
             get
             {
-                return Dictionary_Geo_Get("DSTATE", "PlaceOfDelivery", "address", "state", true);
+                return Dictionary_Geo_Get("DSTATE", "PlaceOfBirth", "address", "state", true);
             }
             set
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Dictionary_Set("DSTATE", "PlaceOfDelivery", "addressState", value);
+                    Dictionary_Set("DSTATE", "PlaceOfBirth", "addressState", value);
                 }
             }
         }
@@ -217,12 +217,23 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                if (String.IsNullOrWhiteSpace(record?.CertificateNumber))
+                {
+                    return "".PadLeft(6, '0');
+                }
+                string id_str = record.CertificateNumber;
+                if (id_str.Length > 6)
+                {
+                    id_str = id_str.Substring(id_str.Length - 6);
+                }
+                return id_str.PadLeft(6, '0');
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    RightJustifiedZeroed_Set("FILENO", "CertificateNumber", value.Trim());
+                }
             }
         }
 
@@ -247,12 +258,23 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                if (String.IsNullOrWhiteSpace(record?.StateLocalIdentifier1))
+                {
+                    return "".PadLeft(12, '0');
+                }
+                string auxNo = record.StateLocalIdentifier1;
+                if (auxNo.Length > 12)
+                {
+                    auxNo = auxNo.Substring(auxNo.Length - 12);
+                }
+                return auxNo.PadLeft(12, '0');
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    RightJustifiedZeroed_Set("AUXNO", "StateLocalIdentifier1", value.Trim());
+                }
             }
         }
 
@@ -2322,13 +2344,13 @@ namespace BFDR
         {
             get
             {
-                return Get_MappingFHIRToIJE(VR.Mappings.YesNoUnknown.FHIRToIJE, "AutopsyPerformedIndicator", "AUTOP");
+                return Get_MappingFHIRToIJE(BFDR.Mappings.PerformedNotPerformedPlanned.FHIRToIJE, "AutopsyPerformedIndicator", "AUTOP");
             }
             set
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Set_MappingIJEToFHIR(VR.Mappings.YesNoUnknown.IJEToFHIR, "AUTOP", "AutopsyPerformedIndicator", value);
+                    Set_MappingIJEToFHIR(BFDR.Mappings.PerformedNotPerformedPlanned.IJEToFHIR, "AUTOP", "AutopsyPerformedIndicator", value);
                 }
             }
         }

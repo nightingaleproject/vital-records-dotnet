@@ -33,6 +33,46 @@
         <member name="M:BFDR.BirthRecord.InitializeCompositionAndSubject">
             <inheritdoc/>
         </member>
+        <member name="P:BFDR.BirthRecord.CertificationDate">
+            <summary>Date of Certification.</summary>
+            <value>the date of certification</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.CertifiedDate = "2023-02-19";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Date of birth certification: {ExampleBirthRecord.CertificationDate}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.CertifiedYear">
+            <summary>Certified Year</summary>
+            <value>year of certification</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.CertifiedYear = 2023;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Certified Year: {ExampleBirthRecord.CertifiedYear}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.CertifiedMonth">
+            <summary>Certified Month</summary>
+            <value>month of certification</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.CertifiedMonth = 10;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Certified Month: {ExampleBirthRecord.CertifiedMonth}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.CertifiedDay">
+            <summary>Certified Day</summary>
+            <value>day of certification</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.CertifiedDay = 23;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Certified Day: {ExampleBirthRecord.CertifiedDay}");</para>
+            </example> 
+        </member>
         <member name="P:BFDR.BirthRecord.BirthPhysicalLocation">
             <summary>Child's Place Of Birth Type.</summary>
             <value>Place Where Birth Occurred, type of place or institution. A Dictionary representing a codeable concept of the physical location type:
@@ -227,6 +267,46 @@
         </member>
         <member name="M:BFDR.FetalDeathRecord.InitializeCompositionAndSubject">
             <inheritdoc/>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.CertificationDate">
+            <summary>Date of Certification.</summary>
+            <value>the date of certification</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.CertifiedDate = "2023-02-19";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Date of certification: {ExampleFetalDeathRecord.CertificationDate}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.CertifiedYear">
+            <summary>Certified Year</summary>
+            <value>year of certification</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.CertifiedYear = 2023;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Certified Year: {ExampleFetalDeathRecord.CertifiedYear}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.CertifiedMonth">
+            <summary>Certified Month</summary>
+            <value>month of certification</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.CertifiedMonth = 10;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Certified Month: {ExampleFetalDeathRecord.CertifiedMonth}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.CertifiedDay">
+            <summary>Certified Day</summary>
+            <value>day of certification</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.CertifiedDay = 23;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Certified Day: {ExampleFetalDeathRecord.CertifiedDay}");</para>
+            </example> 
         </member>
         <member name="P:BFDR.FetalDeathRecord.FetusGivenNames">
             <summary>Fetus Legal Name - Given. Middle name should be the last entry.</summary>
@@ -3290,6 +3370,9 @@
         <member name="M:BFDR.NatalityRecord.CreateBirthEncounter">
             <summary>Create Birth Encounter.</summary>
         </member>
+        <member name="M:BFDR.NatalityRecord.CreateMaternityEncounter">
+            <summary>Create Maternity Encounter.</summary>
+        </member>
         <member name="P:BFDR.NatalityRecord.CertificateNumber">
             <summary>Certificate Number.</summary>
             <value>a record identification string.</value>
@@ -3485,6 +3568,12 @@
             <para>// Getter:</para>
             <para>Console.WriteLine($"Father Family Name(s): {string.Join(", ", ExampleBirthRecord.FatherFamilyName)}");</para>
             </example>
+        </member>
+        <member name="M:BFDR.NatalityRecord.GetFamilyNameAbsentDataReason">
+            <summary>
+             Helper method that gets the child or decedent fetus data absent reason code
+            </summary>
+            <returns>data absent reason code for last name</returns>
         </member>
         <member name="P:BFDR.NatalityRecord.MotherMaidenFamilyName">
             <summary>Mother's Maiden Name - Last.</summary>
@@ -6269,7 +6358,7 @@
         </member>
         <member name="P:BFDR.NatalityRecord.RegistrationDate">
             <summary>Date of Registration.</summary>
-            <value>the date that the birth was registered</value>
+            <value>the date that the birth/fetal death was registered</value>
             <example>
             <para>// Setter:</para>
             <para>ExampleBirthRecord.RegistrationDate = "2023-02-19";</para>
@@ -6279,7 +6368,7 @@
         </member>
         <member name="P:BFDR.NatalityRecord.RegistrationDateYear">
             <summary>Year of Registration.</summary>
-            <value>the year that the birth was registered</value>
+            <value>the year that the birth/fetal death was registered</value>
             <example>
             <para>// Setter:</para>
             <para>ExampleBirthRecord.RegistrationDateYear = 2023;</para>
@@ -6289,7 +6378,7 @@
         </member>
         <member name="P:BFDR.NatalityRecord.RegistrationDateMonth">
             <summary>Month of Registration.</summary>
-            <value>the month that the birth was registered</value>
+            <value>the month that the birth/fetal death was registered</value>
             <example>
             <para>// Setter:</para>
             <para>ExampleBirthRecord.RegistrationDateMonth = 10;</para>
@@ -6299,7 +6388,7 @@
         </member>
         <member name="P:BFDR.NatalityRecord.RegistrationDateDay">
             <summary>Day of Registration.</summary>
-            <value>the day that the birth was registered</value>
+            <value>the day that the birth/fetal death was registered</value>
             <example>
             <para>// Setter:</para>
             <para>ExampleBirthRecord.RegistrationDateDay = 23;</para>
@@ -6516,46 +6605,6 @@
             <para>// Getter:</para>
             <para>Console.WriteLine($"Certifier Other: {ExampleBirthRecord.CertifierOtherHelper}");</para>
             </example>
-        </member>
-        <member name="P:BFDR.NatalityRecord.CertificationDate">
-            <summary>Date of Certification.</summary>
-            <value>the date of certification</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.CertifiedDate = "2023-02-19";</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Date of birth certification: {ExampleBirthRecord.CertificationDate}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.NatalityRecord.CertifiedYear">
-            <summary>Certified Year</summary>
-            <value>year of certification</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.CertifiedYear = 2023;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Certified Year: {ExampleBirthRecord.CertifiedYear}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.NatalityRecord.CertifiedMonth">
-            <summary>Certified Month</summary>
-            <value>month of certification</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.CertifiedMonth = 10;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Certified Month: {ExampleBirthRecord.CertifiedMonth}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.NatalityRecord.CertifiedDay">
-            <summary>Certified Day</summary>
-            <value>day of certification</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.CertifiedDay = 23;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Certified Day: {ExampleBirthRecord.CertifiedDay}");</para>
-            </example> 
         </member>
         <member name="M:BFDR.NatalityRecord.SetEmergingIssue(System.String,System.String)">
             <summary>Set an emerging issue value, creating an empty EmergingIssues Observation as needed.</summary>

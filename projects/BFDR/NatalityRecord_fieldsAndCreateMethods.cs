@@ -171,6 +171,18 @@ namespace BFDR
             Extension roleExt = new Extension(VRExtensionURLs.Role, new CodeableConcept(CodeSystems.RoleCode_HL7_V3, "CHILD"));
             EncounterBirth.Extension.Add(roleExt);
         }
+
+        /// <summary>Create Maternity Encounter.</summary>
+        protected void CreateMaternityEncounter()
+        {
+            EncounterMaternity = new Encounter();
+            EncounterMaternity .Id = Guid.NewGuid().ToString();
+            EncounterMaternity .Meta = new Meta();
+            string[] encounterBirth_profile = { ProfileURL.EncounterMaternity };
+            EncounterMaternity .Meta.Profile = encounterBirth_profile;
+            Extension roleExt = new Extension(VRExtensionURLs.Role, new CodeableConcept(CodeSystems.RoleCode_HL7_V3, "MTH"));
+            EncounterMaternity.Extension.Add(roleExt);
+        }
     }
 
     /// <summary>Describes the subject of a birth record field</summary>

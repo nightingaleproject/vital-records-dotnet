@@ -70,38 +70,38 @@ namespace BFDR.Tests
     public void SetAutopsyPerformedIndicator()
     {
         Dictionary<string, string> cc = new Dictionary<string, string>();
-        cc.Add("code", VR.ValueSets.YesNoUnknown.Codes[1, 0]);
-        cc.Add("system", VR.ValueSets.YesNoUnknown.Codes[1, 2]);
-        cc.Add("display", VR.ValueSets.YesNoUnknown.Codes[1, 1]);
+        cc.Add("code", BFDR.ValueSets.PerformedNotPerformedPlanned.Codes[1, 0]);
+        cc.Add("system", BFDR.ValueSets.PerformedNotPerformedPlanned.Codes[1, 2]);
+        cc.Add("display", BFDR.ValueSets.PerformedNotPerformedPlanned.Codes[1, 1]);
         SetterFetalDeathRecord.AutopsyPerformedIndicator = cc;
-        Assert.Equal("Y", SetterFetalDeathRecord.AutopsyPerformedIndicator["code"]);
-        Assert.Equal(VR.CodeSystems.YesNo, SetterFetalDeathRecord.AutopsyPerformedIndicator["system"]);
-        Assert.Equal("Yes", SetterFetalDeathRecord.AutopsyPerformedIndicator["display"]);
-        Assert.Equal("Y", SetterFetalDeathRecord.AutopsyPerformedIndicatorHelper);
-        SetterFetalDeathRecord.AutopsyPerformedIndicatorHelper = "N";
-        Assert.Equal("N", SetterFetalDeathRecord.AutopsyPerformedIndicator["code"]);
-        Assert.Equal(VR.CodeSystems.YesNo, SetterFetalDeathRecord.AutopsyPerformedIndicator["system"]);
-        Assert.Equal("No", SetterFetalDeathRecord.AutopsyPerformedIndicator["display"]);
-        Assert.Equal("N", SetterFetalDeathRecord.AutopsyPerformedIndicatorHelper);
-        SetterFetalDeathRecord.AutopsyPerformedIndicatorHelper = "UNK";
-        Assert.Equal("UNK", SetterFetalDeathRecord.AutopsyPerformedIndicator["code"]);
-        Assert.Equal(VR.CodeSystems.NullFlavor_HL7_V3, SetterFetalDeathRecord.AutopsyPerformedIndicator["system"]);
-        Assert.Equal("unknown", SetterFetalDeathRecord.AutopsyPerformedIndicator["display"]);
-        Assert.Equal("UNK", SetterFetalDeathRecord.AutopsyPerformedIndicatorHelper);
+        Assert.Equal("262008008", SetterFetalDeathRecord.AutopsyPerformedIndicator["code"]);
+        Assert.Equal(VR.CodeSystems.SCT, SetterFetalDeathRecord.AutopsyPerformedIndicator["system"]);
+        Assert.Equal("Not Performed", SetterFetalDeathRecord.AutopsyPerformedIndicator["display"]);
+        Assert.Equal("262008008", SetterFetalDeathRecord.AutopsyPerformedIndicatorHelper);
+        SetterFetalDeathRecord.AutopsyPerformedIndicatorHelper = "398166005";
+        Assert.Equal("398166005", SetterFetalDeathRecord.AutopsyPerformedIndicator["code"]);
+        Assert.Equal(VR.CodeSystems.SCT, SetterFetalDeathRecord.AutopsyPerformedIndicator["system"]);
+        Assert.Equal("Performed", SetterFetalDeathRecord.AutopsyPerformedIndicator["display"]);
+        Assert.Equal("398166005", SetterFetalDeathRecord.AutopsyPerformedIndicatorHelper);
+        SetterFetalDeathRecord.AutopsyPerformedIndicatorHelper = "397943006";
+        Assert.Equal("397943006", SetterFetalDeathRecord.AutopsyPerformedIndicator["code"]);
+        Assert.Equal(VR.CodeSystems.SCT, SetterFetalDeathRecord.AutopsyPerformedIndicator["system"]);
+        Assert.Equal("Planned", SetterFetalDeathRecord.AutopsyPerformedIndicator["display"]);
+        Assert.Equal("397943006", SetterFetalDeathRecord.AutopsyPerformedIndicatorHelper);
 
         IJEFetalDeath ije = new IJEFetalDeath();
         ije.AUTOP = "N";
         FetalDeathRecord fetalDeathRecord2 = ije.ToFetalDeathRecord();
-        Assert.Equal("N", fetalDeathRecord2.AutopsyPerformedIndicatorHelper);
+        Assert.Equal("262008008", fetalDeathRecord2.AutopsyPerformedIndicatorHelper);
     }
 
     [Fact]
     public void GetAutopsyPerformedIndicator()
     {
-        Assert.Equal(VR.ValueSets.YesNoUnknown.Yes, BasicFetalDeathRecord.AutopsyPerformedIndicatorHelper);
-        Assert.Equal("Y", BasicFetalDeathRecord.AutopsyPerformedIndicator["code"]);
-        Assert.Equal(VR.CodeSystems.YesNo, BasicFetalDeathRecord.AutopsyPerformedIndicator["system"]);
-        Assert.Equal("Yes", BasicFetalDeathRecord.AutopsyPerformedIndicator["display"]);
+        Assert.Equal(BFDR.ValueSets.PerformedNotPerformedPlanned.Performed, BasicFetalDeathRecord.AutopsyPerformedIndicatorHelper);
+        Assert.Equal("398166005", BasicFetalDeathRecord.AutopsyPerformedIndicator["code"]);
+        Assert.Equal(VR.CodeSystems.SCT, BasicFetalDeathRecord.AutopsyPerformedIndicator["system"]);
+        Assert.Equal("Performed", BasicFetalDeathRecord.AutopsyPerformedIndicator["display"]);
     }
 
     [Fact]
@@ -1462,6 +1462,18 @@ namespace BFDR.Tests
       Assert.Equal("C", ije.FETLNAME.Trim(' '));
       ije.SUFFIX = "D";
       Assert.Equal("D", ije.SUFFIX.Trim(' '));
+
+      // test missing family name
+      Assert.Equal("Quinn", record.FetusFamilyName);
+      Assert.Null(record.GetFamilyNameAbsentDataReason());
+      record.FetusFamilyName = ""; //set family name to empty 
+      Assert.Equal("", record.FetusFamilyName);
+      Assert.Equal("unknown", record.GetFamilyNameAbsentDataReason());
+      record.FetusFamilyName = null; //set family name to null 
+      Assert.Null(record.FetusFamilyName);
+      Assert.Equal("unknown", record.GetFamilyNameAbsentDataReason());
+      IJEFetalDeath ije2 = new(record);
+      Assert.Equal("", ije2.FETLNAME.Trim(' '));
     }
 
     // FHIR manages names in a way that there is a fundamental incompatibility with IJE: the "middle name" is the second element in
