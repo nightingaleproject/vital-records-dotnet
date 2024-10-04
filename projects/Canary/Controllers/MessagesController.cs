@@ -51,19 +51,11 @@ namespace canary.Controllers
             }
         }
 
-        [HttpPost("Messages/vrdr/fshconvert")]
+        [HttpPost("Messages/vrdr/InspectWithFsh")]
         public async Task<(Record record, List<Dictionary<string, string>> issues)> NewVRDRFshPost()
         {
             return await NewPost<DeathRecord>((input) => BaseMessage.Parse(input, false), true);
         }
-
-
-        [HttpPost("Messages/bfdr/fshconvert")]
-        public async Task<(Record record, List<Dictionary<string, string>> issues)> NewBFDRFshPost()
-        {
-            return await NewPost<DeathRecord>((input) => BaseMessage.Parse(input, false), true);
-        }
-
 
         /// <summary>
         /// Inspects a death message using the contents provided. Returns the message + record and any validation issues.
@@ -104,25 +96,24 @@ namespace canary.Controllers
                     }
                     string recordString = extracted.ToJSON();
                     List<Dictionary<string, string>> issues;
-                    var messageInspectResults = typeof(RecordType) == typeof(DeathRecord) ? CanaryDeathRecord.CheckGet(recordString, false, out issues) : CanaryBirthRecord.CheckGet(recordString, false, out issues);
+                    var messageInspectResults = typeof(RecordType) == typeof(DeathRecord) ? CanaryDeathRecord.CheckGet(recordString, false, out issues, getFsh) : CanaryBirthRecord.CheckGet(recordString, false, out issues);
 
-                    if (getFsh)
-                    {
-                        //TODO:  Get FSH data
-                        System.Threading.Tasks.Task<string> task =
-                            System.Threading.Tasks.Task.Run<string>(async () => await Record.GetFshData(recordString));
-                        messageInspectResults.Fsh = task.Result;
+                    //if (getFsh)
+                    //{
+                    //    System.Threading.Tasks.Task<string> task =
+                    //        System.Threading.Tasks.Task.Run<string>(async () => await Record.GetFshData(recordString));
+                    //    messageInspectResults.Fsh = task.Result;
 
-                        if (!String.IsNullOrWhiteSpace(messageInspectResults.Fsh))
-                        {
-                            var issueList = Record.ParseSushiErrorsAndWarnings(messageInspectResults.Fsh);
-                            if (issueList != null && issueList.Count > 0)
-                            {
-                                issues.AddRange(issueList);
-                            }
-                        }
+                    //    if (!String.IsNullOrWhiteSpace(messageInspectResults.Fsh))
+                    //    {
+                    //        var issueList = Record.ParseSushiErrorsAndWarnings(messageInspectResults.Fsh);
+                    //        if (issueList != null && issueList.Count > 0)
+                    //        {
+                    //            issues.AddRange(issueList);
+                    //        }
+                    //    }
 
-                    }
+                    //}
 
                     return (messageInspectResults, issues);
                 }

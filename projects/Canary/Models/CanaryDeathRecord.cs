@@ -19,30 +19,19 @@ namespace canary.Models
 
     public class CanaryDeathRecord : Record
     {
-        public CanaryDeathRecord() : base() {}
+        public CanaryDeathRecord(bool retrieveFsh = false) : base(retrieveFsh) {}
 
-        public CanaryDeathRecord(VitalRecord record) : base(record) {}
+        public CanaryDeathRecord(VitalRecord record, bool retrieveFsh = false) : base(record, retrieveFsh) {}
 
-        public CanaryDeathRecord(string record) : base(record) {}
+        public CanaryDeathRecord(string record) : base(record, false) { }
 
-        public CanaryDeathRecord(string record, bool permissive) : base(record, permissive) {}
+        public CanaryDeathRecord(string record, bool retrieveFsh = false) : base(record, retrieveFsh) {}
 
-        public static string ValidateFshSushi(string fshInput)
+        public CanaryDeathRecord(string record, bool permissive, bool retrieveFsh = false) : base(record, permissive, retrieveFsh) {}
+
+        public static Record CheckGet(string record, bool permissive, out List<Dictionary<string, string>> issues, bool retrieveFsh = false)
         {
-            string resultData = string.Empty;
-
-            System.Threading.Tasks.Task<string> task =
-                System.Threading.Tasks.Task.Run<string>(async () => await GetSushResults(fshInput));
-
-            resultData = task.Result;
-            return resultData;
-        }
-
-        /// <summary>Check the given FHIR record string and return a list of issues. Also returned
-        /// the parsed record if parsing was successful.</summary>
-        public static Record CheckGet(string record, bool permissive, out List<Dictionary<string, string>> issues)
-        {
-            CanaryDeathRecord recordToSerialize = new CanaryDeathRecord(new DeathRecord(record, permissive));
+            CanaryDeathRecord recordToSerialize = new CanaryDeathRecord(new DeathRecord(record, permissive), retrieveFsh);
             return Record.CheckGet(recordToSerialize, out issues);
         }
 

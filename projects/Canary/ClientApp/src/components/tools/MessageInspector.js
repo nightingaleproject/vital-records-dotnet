@@ -57,14 +57,14 @@ export class MessageInspector extends Component {
                                   </Header.Content>
                               </Header>
                               <div className="p-b-15" />
-                              <Record record={this.state.record} showSave lines={20} showIje />
+                              <Record record={this.state.record} showSave lines={20} showIje showFsh />
                           </Container>
                       </Grid.Row>
                   )}
           <div className="p-b-15" />
             {!!this.state.issues && this.state.issues.length > 0 && (
                 <Grid.Row>
-                    <Record record={null} issues={this.state.issues} messageInspector={true} showIssues />
+                    <Record record={null} issues={this.state.issues} messageInspector={true} showIssues showIje showFsh />
                 </Grid.Row>
           )}
           {!!this.state.fhirInfo && (

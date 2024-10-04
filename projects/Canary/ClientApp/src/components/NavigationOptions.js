@@ -100,7 +100,7 @@ export function RecordTools(recordType, ijeType) {
 }
 
 export function MessageTools(recordType) {
-  return [
+  var list = [
     {
       icon: "envelope",
       title: `FHIR ${recordType} Message Syntax Checker`,
@@ -118,18 +118,26 @@ export function MessageTools(recordType) {
       title: `FHIR ${recordType} Message Inspector`,
       description: `Inspect a FHIR ${recordType} Message file and show details about what it contains.`,
       route: "tool-message-inspector"
-    },
-    {
-      icon: "find",
-      title: `FSH SUSHI Inspector`,
-      description: `Inspect a FSH record and show details about what it contains.`,
-      route: "tool-fsh-sushi-inspector"
-    },
-    {
-      icon: "find",
-      title: `FHIR Message to FSH Converter`,
-      description: `Inspect a FSH record and show details about what it contains.`,
-      route: "tool-message-to-fsh"
-    }
-  ]
+    }    
+  ];
+  if(recordType === 'VRDR'){
+      list.push(
+          {
+              icon: "find",
+              title: `FHIR Message to FSH Converter`,
+              description: `Inspect a FSH record and show details about what it contains.`,
+              route: "tool-message-to-fsh"
+          }
+      );
+
+      list.push(
+          {
+              icon: "find",
+              title: `FSH SUSHI Inspector`,
+              description: `Inspect a FSH record and show details about what it contains.`,
+              route: "tool-fsh-sushi-inspector"
+          }
+      );
+  }
+  return list;
 }

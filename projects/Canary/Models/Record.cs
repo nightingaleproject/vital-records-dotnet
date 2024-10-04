@@ -195,28 +195,51 @@ namespace canary.Models
             }
         }
 
-        public Record()
+        public Record(bool retrieveFsh = false)
         {
             record = this.CreateEmptyRecord();
             this.ije = this.CreateIJEFromRecord(this.record, false).ToString();
+            if (retrieveFsh) {
+                System.Threading.Tasks.Task<string> task =
+                            System.Threading.Tasks.Task.Run<string>(async () => await Record.GetFshData(this.record.ToJson()));
+                this.fsh = task.Result;
+            }
         }
 
-        public Record(VitalRecord record)
+        public Record(VitalRecord record, bool retrieveFsh = false)
         {
             this.record = record;
             this.ije = this.CreateIJEFromRecord(record, false).ToString();
+            if (retrieveFsh)
+            {
+                System.Threading.Tasks.Task<string> task =
+                            System.Threading.Tasks.Task.Run<string>(async () => await Record.GetFshData(this.record.ToJson()));
+                this.fsh = task.Result;
+            }
         }
 
-        public Record(string record)
+        public Record(string record, bool retrieveFsh = false)
         {
             this.record = this.CreateRecordFromFHIR(record);
             this.ije = this.CreateIJEFromRecord(this.record, false).ToString();
+            if (retrieveFsh)
+            {
+                System.Threading.Tasks.Task<string> task =
+                            System.Threading.Tasks.Task.Run<string>(async () => await Record.GetFshData(this.record.ToJson()));
+                this.fsh = task.Result;
+            }
         }
 
-        public Record(string record, bool permissive)
+        public Record(string record, bool permissive, bool retrieveFsh = false)
         {
             this.record = this.CreateRecordFromFHIR(record, permissive);
             this.ije = this.CreateIJEFromRecord(this.record).ToString();
+            if (retrieveFsh)
+            {
+                System.Threading.Tasks.Task<string> task =
+                            System.Threading.Tasks.Task.Run<string>(async () => await Record.GetFshData(this.record.ToJson()));
+                this.fsh = task.Result;
+            }
         }
 
         protected abstract VitalRecord CreateEmptyRecord();

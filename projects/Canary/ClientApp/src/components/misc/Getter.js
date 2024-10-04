@@ -91,11 +91,11 @@ export class Getter extends Component {
       } else if(this.props.messageValidation) {
         endpoint = `/messages/${this.props.recordType}/new`
       } else if (this.props.messageInspector) {
-        endpoint = `/messages/${this.props.recordType}/inspect`;
+        endpoint = `/messages/${this.props.recordType}/InspectWithFsh`;
       } else if (this.props.source == 'FshSushiInspector') {
         endpoint = `/messages/sushi/inspect`;
       } else if (this.props.source == 'MessageFshConverter') {
-        endpoint = `/messages/${this.props.recordType}/fshconvert`;
+        endpoint = `/messages/${this.props.recordType}/InspectWithFsh`;
       } else {
         endpoint = `/records/${this.props.recordType}/new`;
       }

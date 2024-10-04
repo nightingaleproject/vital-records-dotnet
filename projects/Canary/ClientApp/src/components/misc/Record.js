@@ -24,11 +24,13 @@ export class Record extends Component {
   }
 
   componentDidMount() {
-    if (!!this.props.ijeOnly) {
+    if (!!this.props.ijeOnly && !!!this.props.hideIje) {
       this.setState({ activeItem: 'IJE' });
     }
-    if (!!this.props.showFsh) {
+    else if (!!this.props.showFsh && !!!this.props.showIje) {
         this.setState({ activeItem: 'FSH' });
+    }else{
+        this.setState({ activeItem: 'JSON' });
     }
   }
 
@@ -291,7 +293,7 @@ export class Record extends Component {
                   tabSize={0}
                 />
               )}
-            {this.state.activeItem === 'FSH' && !!this.props.showFsh && (
+            {this.state.activeItem === 'FSH' && (
                 <AceEditor
                     theme="chrome"
                     name="record-fsh"

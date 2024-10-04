@@ -56,7 +56,7 @@ export class MessageFshConverter extends Component {
                                   </Header.Content>
                               </Header>
                               <div className="p-b-15" />
-                              <Record record={this.state.record} showSave lines={20} hideIje ijeOnly={true} showFsh showIssues />
+                              <Record record={this.state.record} showSave lines={20} ijeOnly={true} hideIje={true} showFsh showIssues />
                           </Container>
                       </Grid.Row>
                   )}
