@@ -222,6 +222,11 @@ namespace BFDR
                   //TODO: add mother, input, coded race/ethnicity reference slices
                 };
                 Composition.Section.Add(motherSection);
+                // get the input and coded observation
+                Observation motherInputRaceAdEthnicityObs = GetOrCreateObservation(RACE_ETHNICITY_PROFILE_MOTHER, CodeSystems.InputRaceAndEthnicityPerson, "Input Race and Ethnicity Person", VR.ProfileURL.InputRaceAndEthnicity, RACE_ETHNICITY_PROFILE_MOTHER);
+                AddResourceToBundleIfPresent(motherInputRaceAdEthnicityObs, dccBundle);
+                Observation motherCodedRaceAdEthnicityObs = GetOrCreateObservation(CODED_RACE_ETHNICITY_PROFILE_MOTHER, CodeSystems.InputRaceAndEthnicityPerson, "Input Race and Ethnicity Person", VR.ProfileURL.CodedRaceAndEthnicity, CODED_RACE_ETHNICITY_PROFILE_MOTHER);
+                AddResourceToBundleIfPresent(motherCodedRaceAdEthnicityObs, dccBundle);
             } else if (Father != null)
             {
                 Composition.SectionComponent fatherSection = new Composition.SectionComponent
@@ -230,6 +235,12 @@ namespace BFDR
                   //TODO: add father, input, coded race/ethnicity reference slices
                 };
                 Composition.Section.Add(fatherSection);
+
+                // get the input and coded observation
+                Observation fatherInputRaceAdEthnicityObs = GetOrCreateObservation(RACE_ETHNICITY_PROFILE_FATHER, CodeSystems.InputRaceAndEthnicityPerson, "Input Race and Ethnicity Person", VR.ProfileURL.InputRaceAndEthnicity, RACE_ETHNICITY_PROFILE_FATHER);
+                AddResourceToBundleIfPresent(fatherInputRaceAdEthnicityObs, dccBundle);
+                Observation fatherCodedRaceAdEthnicityObs = GetOrCreateObservation(CODED_RACE_ETHNICITY_PROFILE_FATHER, CodeSystems.InputRaceAndEthnicityPerson, "Input Race and Ethnicity Person", VR.ProfileURL.CodedRaceAndEthnicity, CODED_RACE_ETHNICITY_PROFILE_FATHER);
+                AddResourceToBundleIfPresent(fatherCodedRaceAdEthnicityObs, dccBundle);
             } else 
             {
                 //TODO: demographic content composition should have a relevant mother and/or father - this should be an exception
