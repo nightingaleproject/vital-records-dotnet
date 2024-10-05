@@ -98,23 +98,6 @@ namespace canary.Controllers
                     List<Dictionary<string, string>> issues;
                     var messageInspectResults = typeof(RecordType) == typeof(DeathRecord) ? CanaryDeathRecord.CheckGet(recordString, false, out issues, getFsh) : CanaryBirthRecord.CheckGet(recordString, false, out issues);
 
-                    //if (getFsh)
-                    //{
-                    //    System.Threading.Tasks.Task<string> task =
-                    //        System.Threading.Tasks.Task.Run<string>(async () => await Record.GetFshData(recordString));
-                    //    messageInspectResults.Fsh = task.Result;
-
-                    //    if (!String.IsNullOrWhiteSpace(messageInspectResults.Fsh))
-                    //    {
-                    //        var issueList = Record.ParseSushiErrorsAndWarnings(messageInspectResults.Fsh);
-                    //        if (issueList != null && issueList.Count > 0)
-                    //        {
-                    //            issues.AddRange(issueList);
-                    //        }
-                    //    }
-
-                    //}
-
                     return (messageInspectResults, issues);
                 }
                 else
