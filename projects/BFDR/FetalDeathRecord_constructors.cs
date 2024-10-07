@@ -18,6 +18,7 @@ namespace BFDR
     /// <summary>Default constructor that creates a new, empty FetalDeathRecord.</summary>
     public FetalDeathRecord() : base(ProfileURL.BundleDocumentFetalDeathReport)
     {
+      Composition.Encounter = new ResourceReference("urn:uuid:" + EncounterMaternity.Id);
       this.PatientFetalDeath = true;
     }
 
@@ -47,7 +48,7 @@ namespace BFDR
       this.RestoreReferences(ProfileURL.BundleDocumentFetalDeathReport, new[] { ProfileURL.CompositionJurisdictionFetalDeathReport }, ProfileURL.PatientDecedentFetus);
       // Restore FetalDeath specific references.
       string maternityEncounterId = Composition?.Encounter.Reference;
-      EncounterMaternity = Bundle.Entry.FindAll(entry => entry.Resource is Encounter).ConvertAll(entry => (Encounter)entry.Resource).Find(resource => resource.Meta.Profile.Any(relatedPersonProfile => relatedPersonProfile == ProfileURL.EncounterMaternity) && maternityEncounterId.Contains(resource.Id));
+      EncounterMaternity = Bundle.Entry.FindAll(entry => entry.Resource is Encounter).ConvertAll(entry => (Encounter)entry.Resource).Find(resource => resource.Meta.Profile.Any(p => p == ProfileURL.EncounterMaternity) && maternityEncounterId.Contains(resource.Id));
     }
 
     /// <inheritdoc/>

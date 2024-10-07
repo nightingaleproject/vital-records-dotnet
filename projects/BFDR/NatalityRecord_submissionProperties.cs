@@ -6,7 +6,6 @@ using Hl7.Fhir.Model;
 using VR;
 using Hl7.Fhir.Support;
 using static Hl7.Fhir.Model.Encounter;
-using Hl7.Fhir.Utility;
 
 // NatalityRecord_submissionProperties.cs
 // These fields are used primarily for submitting birth records to NCHS.

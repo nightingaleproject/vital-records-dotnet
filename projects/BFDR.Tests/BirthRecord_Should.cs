@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using Hl7.Fhir.Model;
 using VR;
 using Xunit;
 
@@ -2069,6 +2071,19 @@ namespace BFDR.Tests
       Assert.Equal(146, record.MotherPrepregnancyWeight);
       Assert.Equal(176, record.MotherWeightAtDelivery);
       Assert.Equal(2502, record.BirthWeight);
+    }
+
+    [Fact]
+    public void TestEncounterRole()
+    {
+      BirthRecord importedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json")));
+      Encounter encBirth = (Encounter) importedRecord.GetBundle().Entry.Find(e => e.Resource.Meta.Profile.Any(p => p == ProfileURL.EncounterBirth)).Resource;
+      Encounter encMaternity = (Encounter) importedRecord.GetBundle().Entry.Find(e => e.Resource.Meta.Profile.Any(p => p == ProfileURL.EncounterMaternity)).Resource;
+      Assert.NotNull(encBirth.Extension.Find(e => e.Url.Contains("/StructureDefinition/Extension-role-vr")));
+      Assert.NotNull(encMaternity.Extension.Find(e => e.Url.Contains("/StructureDefinition/Extension-role-vr")));
+      BirthRecord emptyRecord = new();
+      encMaternity = (Encounter) emptyRecord.GetBundle().Entry.Find(e => e.Resource.Meta.Profile.Any(p => p == ProfileURL.EncounterMaternity)).Resource;
+      Assert.NotNull(encMaternity.Extension.Find(e => e.Url.Contains("/StructureDefinition/Extension-role-vr")));
     }
 
     [Fact]

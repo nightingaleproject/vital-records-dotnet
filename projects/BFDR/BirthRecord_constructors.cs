@@ -19,6 +19,9 @@ namespace BFDR
         {
             // Start with an empty EncounterBirth.
             CreateBirthEncounter();
+            Composition.Encounter = new ResourceReference("urn:uuid:" + EncounterBirth.Id);
+            Composition.Encounter.AddExtension(ExtensionURL.ExtensionEncounterMaternityReference, new ResourceReference("urn:uuid:" + EncounterMaternity.Id));
+            Bundle.AddResourceEntry(EncounterBirth, "urn:uuid:" + EncounterBirth.Id);
         }
 
         /// <summary>Constructor that takes a string that represents a FHIR Birth Record in either XML or JSON format.</summary>
@@ -45,9 +48,9 @@ namespace BFDR
             base.RestoreReferences(ProfileURL.BundleDocumentBirthReport, new[] {ProfileURL.CompositionProviderLiveBirthReport, ProfileURL.CompositionJurisdictionLiveBirthReport}, VR.ProfileURL.Child);
             // Restore BirthRecord specific references.
             string birthEncounterId = Composition?.Encounter?.Reference;
-            EncounterBirth = Bundle.Entry.FindAll(entry => entry.Resource is Encounter).ConvertAll(entry => (Encounter) entry.Resource).Find(resource => resource.Meta.Profile.Any(relatedPersonProfile => relatedPersonProfile == ProfileURL.EncounterBirth) && birthEncounterId.Contains(resource.Id));
+            EncounterBirth = Bundle.Entry.FindAll(entry => entry.Resource is Encounter).ConvertAll(entry => (Encounter) entry.Resource).Find(resource => resource.Meta.Profile.Any(p => p == ProfileURL.EncounterBirth) && birthEncounterId.Contains(resource.Id));
             string encounterMaternityId = ((ResourceReference) Composition?.Encounter?.Extension.FirstOrDefault(e => e.Url == ExtensionURL.ExtensionEncounterMaternityReference)?.Value)?.Reference;
-            EncounterMaternity = Bundle.Entry.FindAll(entry => entry.Resource is Encounter).ConvertAll(entry => (Encounter) entry.Resource).Find(resource => resource.Meta.Profile.Any(relatedPersonProfile => relatedPersonProfile == ProfileURL.EncounterMaternity) && encounterMaternityId.Contains(resource.Id));
+            EncounterMaternity = Bundle.Entry.FindAll(entry => entry.Resource is Encounter).ConvertAll(entry => (Encounter) entry.Resource).Find(resource => resource.Meta.Profile.Any(p => p == ProfileURL.EncounterMaternity) && encounterMaternityId.Contains(resource.Id));
         }
 
         /// <inheritdoc/>
