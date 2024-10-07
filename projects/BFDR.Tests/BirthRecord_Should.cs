@@ -2946,6 +2946,20 @@ namespace BFDR.Tests
       IJEBirth ije2 = new(birthRecord3);
       ije2.OWGEST = "06";
 
+      BirthRecord birthRecord4 = new BirthRecord();
+      Dictionary<string, string> dict3 = new Dictionary<string, string>
+      {
+          { "value", "12.5" },
+          { "code", "d" }
+      };
+      birthRecord4.GestationalAgeAtDelivery = dict3;
+      Assert.Equal(dict3["value"], birthRecord4.GestationalAgeAtDelivery["value"]);
+      Assert.Equal("d", birthRecord4.GestationalAgeAtDelivery["code"]);
+      Assert.Equal("http://unitsofmeasure.org", birthRecord4.GestationalAgeAtDelivery["system"]);
+      // IJE should divide days by 7 and round down
+      IJEBirth ije3 = new(birthRecord4);
+      ije3.OWGEST = "03";
+
       BirthRecord parsedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
       Assert.Equal("36", parsedRecord.GestationalAgeAtDelivery["value"]);
       Assert.Equal("wk", parsedRecord.GestationalAgeAtDelivery["code"]);
