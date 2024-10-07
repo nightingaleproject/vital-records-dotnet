@@ -153,7 +153,7 @@ namespace BFDR
         }
 
         /// <summary>Abstract GetYear method to be implemented differently by the BirthRecord and FetalDeathRecord subclasses</summary>
-        protected abstract uint? GetYear();
+        public abstract uint? GetYear();
 
         /// <summary>Update the bundle identifier from the component fields.</summary>
         private void UpdateRecordIdentifier()
@@ -168,6 +168,7 @@ namespace BFDR
             {
                 year = (uint)this.GetYear();
             }
+            
             String jurisdictionId = this.BirthLocationJurisdiction;
             if (jurisdictionId == null || jurisdictionId.Trim().Length < 2)
             {
