@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Hl7.Fhir.ElementModel;
 using Hl7.Fhir.Model;
 using VR;
 using static Hl7.Fhir.Model.Encounter;
@@ -14,307 +12,6 @@ namespace BFDR
     /// </summary>
     public partial class BirthRecord : NatalityRecord
     {
-
-        /// <summary>Default constructor that creates a new, empty BirthRecord.</summary>
-        public BirthRecord() : base()
-        {
-
-            // Start with an empty child. Need reference in Composition.
-
-        }
-
-        /// <summary>Constructor that takes a string that represents a FHIR Birth Record in either XML or JSON format.</summary>
-        /// <param name="record">represents a FHIR Birth Record in either XML or JSON format.</param>
-        /// <param name="permissive">if the parser should be permissive when parsing the given string</param>
-        /// <exception cref="ArgumentException">Record is neither valid XML nor JSON.</exception>
-        public BirthRecord(string record, bool permissive = false) : base(record, permissive) {}
-
-        /// <summary>Constructor that takes a FHIR Bundle that represents a FHIR Birth Record.</summary>
-        /// <param name="bundle">represents a FHIR Bundle.</param>
-        /// <exception cref="ArgumentException">Record is invalid.</exception>
-        public BirthRecord(Bundle bundle) : base(bundle) {}
-
-        /// <summary>Return the birth year for this record to be used in the identifier</summary>
-        public override uint? GetYear()
-        {
-            return (uint?)this.BirthYear;
-        }
-        
-        /// <inheritdoc/>
-        protected override void RestoreReferences()
-        {
-            // Restore BirthRecord specific references.
-            List<Patient> patients = Bundle.Entry.FindAll(entry => entry.Resource is Patient).ConvertAll(entry => (Patient) entry.Resource);
-            Subject = patients.Find(patient => patient.Meta.Profile.Any(patientProfile => patientProfile == VR.ProfileURL.Child));
-            // Restore the common references between Birth Records and Fetal Death Records.
-            base.RestoreReferences();
-        }
-
-        /// <inheritdoc/>
-        protected override void InitializeCompositionAndSubject()
-        {
-            // Initialize empty BirthRecord specific Subject and Composition.
-            Subject = new Patient
-            {
-                Id = Guid.NewGuid().ToString(),
-                Meta = new Meta() {
-                    Profile = new[] { VR.ProfileURL.Child }
-                }
-            };
-            Composition.Meta = new Meta
-            {
-                Profile = new[] { ProfileURL.CompositionJurisdictionLiveBirthReport }
-            };
-            Composition.Type = new CodeableConcept(CodeSystems.LOINC, "71230-7", "Birth certificate", null);
-            Composition.Title = "Birth Certificate";
-        }
-
-        /// <summary>Date of Certification.</summary>
-        /// <value>the date of certification</value>
-        /// <example>
-        /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.CertifiedDate = "2023-02-19";</para>
-        /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Date of birth certification: {ExampleBirthRecord.CertificationDate}");</para>
-        /// </example>
-        [Property("CertificationDate", Property.Types.String, "Birth Certification", "Date of Certification.", true, BFDR.IGURL.CompositionProviderLiveBirthReport, true, 243)]
-        [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(extension.value.coding.code='CHILD')", "")]
-        public string CertificationDate
-        {
-            get
-            {
-                Encounter.ParticipantComponent certifier = EncounterBirth?.Participant?.FirstOrDefault(entry => ((Encounter.ParticipantComponent)entry).Type.Any(t => t.Coding.Any(c => c.Code == "87287-9")));
-                if (certifier != null && certifier?.Period?.Start != null)
-                {
-                    return certifier.Period.Start;
-                }
-                return null;
-            }
-            set
-            {
-                Encounter.ParticipantComponent certifier = EncounterBirth.Participant.FirstOrDefault(entry => ((Encounter.ParticipantComponent)entry).Type.Any(t => t.Coding.Any(c => c.Code == "87287-9")));
-                if (certifier != null)
-                {
-                    Period p = new Period();
-                    p.StartElement = ConvertToDateTime(value);
-                    certifier.Period = p;
-                }
-                else
-                {
-                    Encounter.ParticipantComponent newCertifier = new Encounter.ParticipantComponent();
-                    CodeableConcept t = new CodeableConcept(CodeSystems.LOINC, "87287-9", "Birth certifier", null);
-                    newCertifier.Type.Add(t);
-                    Period p = new Period();
-                    p.StartElement = ConvertToDateTime(value);
-                    newCertifier.Period = p;
-                    EncounterBirth.Participant.Add(newCertifier);
-                }
-            }
-        }
-
-        /// <summary>Certified Year</summary>
-        /// <value>year of certification</value>
-        /// <example>
-        /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.CertifiedYear = 2023;</para>
-        /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Certified Year: {ExampleBirthRecord.CertifiedYear}");</para>
-        /// </example>
-        [Property("Certified Year", Property.Types.Int32, "Birth Certification", "Certified Year", true, IGURL.EncounterBirth, true, 4)]
-        [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(extension.value.coding.code='CHILD')", "")] 
-        public int? CertifiedYear
-        {
-            get
-            {
-                if (EncounterBirth == null)
-                {
-                    return null;
-                }
-                Encounter.ParticipantComponent certifier = EncounterBirth.Participant.FirstOrDefault(entry => ((Encounter.ParticipantComponent)entry).Type.Any(t => t.Coding.Any(c => c.Code == "87287-9")));
-                // First check the value string
-                if (certifier == null || certifier.Period == null || certifier.Period.StartElement == null)
-                {
-                    return null;
-                }
-                if (certifier != null && certifier.Period.StartElement != null && ParseDateElements(certifier.Period.Start, out int? year, out int? month, out int? day))
-                {
-                    return year;
-                }
-                return GetDateFragmentOrPartialDate(certifier.Period.StartElement, VR.ExtensionURL.PartialDateTimeYearVR);
-            }
-            set
-            {
-                if (value == null)
-                {
-                    return;
-                }
-                if (EncounterBirth == null)
-                {
-                    CreateBirthEncounter();
-                }
-                Encounter.ParticipantComponent stateComp = EncounterBirth.Participant.FirstOrDefault(entry => ((Encounter.ParticipantComponent)entry).Type.Any(t => t.Coding.Any(c => c.Code == "87287-9")));
-                if (stateComp == null) // make certifier participant with date
-                {  
-                    Encounter.ParticipantComponent certifier = new Encounter.ParticipantComponent();
-                    CodeableConcept t = new CodeableConcept(CodeSystems.LOINC, "87287-9", "Birth certifier", null);
-                    certifier.Type.Add(t);
-                    Period p = new Period();
-                    p.StartElement = new FhirDateTime();
-                    p.StartElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
-                    certifier.Period = p;
-                    EncounterBirth.Participant.Add(certifier);
-                    stateComp = certifier;
-                }  
-                if (stateComp.Period == null || stateComp.Period.StartElement == null) //certifier participant exists but no period or period.start
-                {
-                    Period p = new Period();
-                    p.StartElement = new FhirDateTime();
-                    p.StartElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
-                    stateComp.Period = p;
-                }
-                FhirDateTime newDate = SetYear(value, stateComp.Period.StartElement);
-                if (newDate != null)
-                {
-                    stateComp.Period.StartElement = newDate;
-                }
-            }
-        }
-
-        /// <summary>Certified Month</summary>
-        /// <value>month of certification</value>
-        /// <example>
-        /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.CertifiedMonth = 10;</para>
-        /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Certified Month: {ExampleBirthRecord.CertifiedMonth}");</para>
-        /// </example>
-        [Property("Certified Month", Property.Types.Int32, "Birth Certification", "Certified Month", true, IGURL.EncounterBirth, true, 4)]
-        [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(extension.value.coding.code='CHILD')", "")] 
-        public int? CertifiedMonth
-        {
-            get
-            {
-                if (EncounterBirth == null)
-                {
-                    return null;
-                }
-                Encounter.ParticipantComponent certifier = EncounterBirth.Participant.FirstOrDefault(entry => ((Encounter.ParticipantComponent)entry).Type.Any(t => t.Coding.Any(c => c.Code == "87287-9")));
-                // First check the value string
-                if (certifier == null || certifier.Period == null || certifier.Period.StartElement == null)
-                {
-                    return null;
-                }
-                if (certifier != null && certifier.Period.StartElement != null && ParseDateElements(certifier.Period.Start, out int? year, out int? month, out int? day))
-                {
-                    return month;
-                }
-                return GetDateFragmentOrPartialDate(certifier.Period.StartElement, VR.ExtensionURL.PartialDateTimeMonthVR);
-            }
-            set
-            {
-                if (value == null)
-                {
-                    return;
-                }
-                if (EncounterBirth == null)
-                {
-                    CreateBirthEncounter();
-                }
-                Encounter.ParticipantComponent stateComp = EncounterBirth.Participant.FirstOrDefault(entry => ((Encounter.ParticipantComponent)entry).Type.Any(t => t.Coding.Any(c => c.Code == "87287-9")));
-                if (stateComp == null) // make certifier participant with date
-                {  
-                    Encounter.ParticipantComponent certifier = new Encounter.ParticipantComponent();
-                    CodeableConcept t = new CodeableConcept(CodeSystems.LOINC, "87287-9", "Birth certifier", null);
-                    certifier.Type.Add(t);
-                    Period p = new Period();
-                    p.StartElement = new FhirDateTime();
-                    p.StartElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
-                    certifier.Period = p;
-                    EncounterBirth.Participant.Add(certifier);
-                    stateComp = certifier;
-                }  
-                if (stateComp.Period == null || stateComp.Period.StartElement == null) //certifier participant exists but no period or period.start
-                {
-                    Period p = new Period();
-                    p.StartElement = new FhirDateTime();
-                    p.StartElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
-                    stateComp.Period = p;
-                }
-                FhirDateTime newDate = SetMonth(value, stateComp.Period.StartElement); 
-                if (newDate != null)
-                {
-                    stateComp.Period.StartElement = newDate; 
-                }
-            }
-        }
-
-        /// <summary>Certified Day</summary>
-        /// <value>day of certification</value>
-        /// <example>
-        /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.CertifiedDay = 23;</para>
-        /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Certified Day: {ExampleBirthRecord.CertifiedDay}");</para>
-        /// </example> 
-        [Property("Certified Day", Property.Types.Int32, "Birth Certification", "Certified Day", true, IGURL.EncounterBirth, true, 4)]
-        [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(extension.value.coding.code='CHILD')", "")] 
-        public int? CertifiedDay
-        {
-            get
-            {
-                if (EncounterBirth == null)
-                {
-                    return null;
-                }
-                Encounter.ParticipantComponent certifier = EncounterBirth.Participant.FirstOrDefault(entry => ((Encounter.ParticipantComponent)entry).Type.Any(t => t.Coding.Any(c => c.Code == "87287-9")));
-                // First check the value string
-                if (certifier == null || certifier.Period == null || certifier.Period.StartElement == null)
-                {
-                    return null;
-                }
-                if (certifier != null && certifier.Period.StartElement != null && ParseDateElements(certifier.Period.Start, out int? year, out int? month, out int? day))
-                {
-                    return day;
-                }
-                return GetDateFragmentOrPartialDate(certifier.Period.StartElement, VR.ExtensionURL.PartialDateTimeDayVR);
-            }
-            set
-            {
-                if (value == null)
-                {
-                    return;
-                }
-                if (EncounterBirth == null)
-                {
-                    CreateBirthEncounter();
-                }
-                Encounter.ParticipantComponent stateComp = EncounterBirth.Participant.FirstOrDefault(entry => ((Encounter.ParticipantComponent)entry).Type.Any(t => t.Coding.Any(c => c.Code == "87287-9")));
-                if (stateComp == null) // make certifier participant with date
-                {  
-                    Encounter.ParticipantComponent certifier = new Encounter.ParticipantComponent();
-                    CodeableConcept t = new CodeableConcept(CodeSystems.LOINC, "87287-9", "Birth certifier", null);
-                    certifier.Type.Add(t);
-                    Period p = new Period();
-                    p.StartElement = new FhirDateTime();
-                    p.StartElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
-                    certifier.Period = p;
-                    EncounterBirth.Participant.Add(certifier);
-                    stateComp = certifier;
-                }  
-                if (stateComp.Period == null || stateComp.Period.StartElement == null) //certifier participant exists but no period or period.start
-                {
-                    Period p = new Period();
-                    p.StartElement = new FhirDateTime();
-                    p.StartElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
-                    stateComp.Period = p;
-                }
-                FhirDateTime newDate = SetDay(value, stateComp.Period.StartElement); 
-                if (newDate != null)
-                {
-                    stateComp.Period.StartElement = newDate; 
-                }
-            }
-        }
 
         /// <summary>Child's Place Of Birth Type.</summary>
         /// <value>Place Where Birth Occurred, type of place or institution. A Dictionary representing a codeable concept of the physical location type:
@@ -543,6 +240,162 @@ namespace BFDR
         {
             get => GetPlurality();
             set => SetPlurality(value);
+        }
+
+        /// <summary>Date of Certification.</summary>
+        /// <value>the date of certification</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.CertifiedDate = "2023-02-19";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Date of birth certification: {ExampleBirthRecord.CertificationDate}");</para>
+        /// </example>
+        [Property("CertificationDate", Property.Types.String, "Birth Certification", "Date of Certification.", true, BFDR.IGURL.CompositionProviderLiveBirthReport, true, 243)]
+        [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(extension.value.coding.code='CHILD')", "")]
+        public string CertificationDate
+        {
+            get => GetCertificationDate(EncounterBirth);
+            set => SetCertificationDate(EncounterBirth, value);
+        }
+
+        /// <summary>Certified Year</summary>
+        /// <value>year of certification</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.CertifiedYear = 2023;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Certified Year: {ExampleBirthRecord.CertifiedYear}");</para>
+        /// </example>
+        [Property("Certified Year", Property.Types.Int32, "Birth Certification", "Certified Year", true, IGURL.EncounterBirth, true, 4)]
+        [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(extension.value.coding.code='CHILD')", "")]
+        public int? CertifiedYear
+        {
+            get => GetCertifiedDateElement(EncounterBirth, PartialDateYearUrl);
+            set => SetCertifiedDateElement(EncounterBirth ?? CreateBirthEncounter(), PartialDateYearUrl, value);
+        }
+
+        /// <summary>Certified Month</summary>
+        /// <value>month of certification</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.CertifiedMonth = 10;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Certified Month: {ExampleBirthRecord.CertifiedMonth}");</para>
+        /// </example>
+        [Property("Certified Month", Property.Types.Int32, "Birth Certification", "Certified Month", true, IGURL.EncounterBirth, true, 4)]
+        [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(extension.value.coding.code='CHILD')", "")]
+        public int? CertifiedMonth
+        {
+            get => GetCertifiedDateElement(EncounterBirth, PartialDateMonthUrl);
+            set => SetCertifiedDateElement(EncounterBirth ?? CreateBirthEncounter(), PartialDateMonthUrl, value);
+        }
+
+        /// <summary>Certified Day</summary>
+        /// <value>day of certification</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.CertifiedDay = 23;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Certified Day: {ExampleBirthRecord.CertifiedDay}");</para>
+        /// </example> 
+        [Property("Certified Day", Property.Types.Int32, "Birth Certification", "Certified Day", true, IGURL.EncounterBirth, true, 4)]
+        [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(extension.value.coding.code='CHILD')", "")]
+        public int? CertifiedDay
+        {
+            get => GetCertifiedDateElement(EncounterBirth, PartialDateDayUrl);
+            set => SetCertifiedDateElement(EncounterBirth ?? CreateBirthEncounter(), PartialDateDayUrl, value);
+        }
+
+        /// <summary>Infant Transferred</summary>
+        /// <value>Infant transferred</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.InfantTransferred = "hosp-trans";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Infant transferred: {ExampleBirthRecord.InfantTransferred}");</para>
+        /// </example>
+        [Property("InfantTransferred", Property.Types.Dictionary, "InfantTransferred", "InfantTransferred", false, BFDR.IGURL.EncounterBirth, true, 288)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient)", "hospitalization")]
+        public Dictionary<string, string> InfantTransferred
+        {
+            get
+            {
+                Dictionary<string, string> dischargeDisposition = CodeableConceptToDict(EncounterBirth?.Hospitalization?.DischargeDisposition);
+                return dischargeDisposition;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    return;
+                }
+                CodeableConcept dischargeDisposition = DictToCodeableConcept(value);
+                HospitalizationComponent hosp = new HospitalizationComponent();
+                hosp.DischargeDisposition = dischargeDisposition;
+                EncounterBirth.Hospitalization = hosp;
+            }
+        }
+
+        /// <summary>Infant Transferred Helper</summary>
+        /// <value>Infant transferred helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.InfantTransferredHelper = "hosp-trans";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Infant transferred helper: {ExampleBirthRecord.InfantTransferredHelper}");</para>
+        /// </example>
+        [Property("InfantTransferred", Property.Types.String, "InfantTransferred", "InfantTransferred", false, BFDR.IGURL.EncounterBirth, true, 288)]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient)", "hospitalization")]
+        public string InfantTransferredHelper
+        {
+            get
+            {
+                if (InfantTransferred.ContainsKey("code"))
+                {
+                    string code = InfantTransferred["code"];
+                    if (code == "other-hcf")
+                    {
+                        return "Y";
+                    }
+                    else if (FacilityInfantTransferredTo == "UNKNOWN")
+                    {
+                        return "U";
+                    }
+                    else if (code == "oth")
+                    {
+                        return "N";
+                    }
+                }
+
+                return "";
+            }
+            set
+            {
+                if (String.IsNullOrEmpty(value))
+                {
+                    return;
+                }
+                // IJE values are Y, N, U, only set to "hosp-trans" if value is Y
+                // IG guidance https://build.fhir.org/ig/HL7/fhir-bfdr/usage.html#mother-or-infant-transferred
+                if (value == "Y")
+                {
+                    // TODO update this to point to generated code system
+                    InfantTransferred = CodeableConceptToDict(new CodeableConcept(CodeSystems.DischargeDisposition, "other-hcf", "Other healthcare facility", "The patient was transferred to another healthcare facility."));
+                }
+                else if (value == "N")
+                {
+                    // TODO update this to point to generated code system
+                    InfantTransferred = CodeableConceptToDict(new CodeableConcept(CodeSystems.DischargeDisposition, "oth", "Other", "Did not transfer"));
+                }
+                else if (value == "U")
+                {
+                    // TODO set destination in this observation to a reference of the location
+                    FacilityInfantTransferredTo = "UNKNOWN";
+                }
+            }
         }
     }
 }
