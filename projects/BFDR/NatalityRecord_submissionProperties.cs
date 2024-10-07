@@ -851,113 +851,6 @@ namespace BFDR
             }
         }
 
-        /// <summary>Child's Place Of Birth Type.</summary>
-        /// <value>Place Where Birth Occurred, type of place or institution. A Dictionary representing a codeable concept of the physical location type:
-        /// <para>"code" - The code used to describe this concept.</para>
-        /// <para>"system" - The relevant code system.</para>
-        /// <para>"display" - The human readable version of this code.</para>
-        /// </value>
-        /// <example>
-        /// <para>// Setter:</para>
-        /// <para>Dictionary&lt;string, string&gt; locationType = new Dictionary&lt;string, string&gt;();</para>
-        /// <para>locationType.Add("code", "22232009");</para>
-        /// <para>locationType.Add("system", "http://snomed.info/sct");</para>
-        /// <para>locationType.Add("display", "Hospital");</para>
-        /// <para>ExampleBirthRecord.BirthPhysicalLocation = locationType;</para>
-        /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"The place type the child was born: {ExampleBirthRecord.BirthPhysicalLocation["code"]}");</para>
-        /// </example>
-        [Property("BirthPhysicalLocation", Property.Types.Dictionary, "Birth Physical Location", "Birth Physical Location.", true, IGURL.EncounterBirth, true, 16)]
-        [PropertyParam("code", "The code used to describe this concept.")]
-        [PropertyParam("system", "The relevant code system.")]
-        [PropertyParam("display", "The human readable version of this code.")]
-        [FHIRPath("Bundle.entry.resource.where($this is Encounter)", "")]
-        public Dictionary<string, string> BirthPhysicalLocation
-        {
-            get
-            {
-                if (EncounterBirth == null)
-                {
-                    return EmptyCodeableDict();
-                }
-                return CodeableConceptToDict(EncounterBirth.Location.Select(loc => loc.PhysicalType).FirstOrDefault());
-            }
-            set
-            {
-                if (EncounterBirth == null)
-                {
-                    EncounterBirth = new Encounter()
-                    {
-                        Id = Guid.NewGuid().ToString(),
-                        Meta = new Meta()
-                    };
-                    EncounterBirth.Meta.Profile = new List<string>()
-                    {
-                        ProfileURL.EncounterBirth
-                    };
-                }
-                EncounterBirth.Location = new List<Hl7.Fhir.Model.Encounter.LocationComponent>();
-                LocationComponent location = new LocationComponent
-                {
-                    PhysicalType = DictToCodeableConcept(value)
-                };
-                EncounterBirth.Location.Add(location);
-            }
-        }
-
-        /// <summary>Child's Place Of Birth Type Helper</summary>
-        /// <value>Child's Place Of Birth Type Helper</value>
-        /// <example>
-        /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.BirthPhysicalLocationHelper = "Hospital";</para>
-        /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Child's Place Of Birth Type: {ExampleBirthRecord.BirthPhysicalLocationHelper}");</para>
-        /// </example>
-        [Property("BirthPhysicalLocationHelper", Property.Types.String, "Birth Physical Location", "Birth Physical Location Helper.", false, IGURL.EncounterBirth, true, 4)]
-        [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(meta.profile == " + IGURL.EncounterBirth + ")", "")]
-        public string BirthPhysicalLocationHelper
-        {
-            get
-            {
-                if (BirthPhysicalLocation.ContainsKey("code"))
-                {
-                    string code = BirthPhysicalLocation["code"];
-                    if (code == "OTH")
-                    {
-                        if (BirthPhysicalLocation.ContainsKey("text") && !String.IsNullOrWhiteSpace(BirthPhysicalLocation["text"]))
-                        {
-                            return BirthPhysicalLocation["text"];
-                        }
-                        return "Other";
-                    }
-                    else if (!String.IsNullOrWhiteSpace(code))
-                    {
-                        return code;
-                    }
-                }
-                return null;
-            }
-            set
-            {
-                if (String.IsNullOrWhiteSpace(value))
-                {
-                    // do nothing
-                    return;
-                }
-                if (!BFDR.Mappings.BirthDeliveryOccurred.FHIRToIJE.ContainsKey(value))
-                {
-                    // other
-                    Console.WriteLine("Warning: given 'child's place of birth type' code not found in value set. Setting value to 'Other'.");
-                    BirthPhysicalLocation = CodeableConceptToDict(new CodeableConcept(CodeSystems.NullFlavor_HL7_V3, "OTH", "Other", value));
-                }
-                else
-                {
-                    // normal path
-                    SetCodeValue("BirthPhysicalLocation", value, BFDR.ValueSets.BirthDeliveryOccurred.Codes);
-                }
-            }
-        }
-
         /// <summary>Mother's Place Of Birth.</summary>
         /// <value>Mother's Place Of Birth. A Dictionary representing residence address, containing the following key/value pairs:
         /// <para>"addressLine1" - address, line one</para>
@@ -8821,98 +8714,6 @@ namespace BFDR
             }
         }
 
-        /// <summary>Infant Transferred</summary>
-        /// <value>Infant transferred</value>
-        /// <example>
-        /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.InfantTransferred = "hosp-trans";</para>
-        /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Infant transferred: {ExampleBirthRecord.InfantTransferred}");</para>
-        /// </example>
-        [Property("InfantTransferred", Property.Types.Dictionary, "InfantTransferred", "InfantTransferred", false, BFDR.IGURL.EncounterBirth, true, 288)]
-        [PropertyParam("code", "The code used to describe this concept.")]
-        [PropertyParam("system", "The relevant code system.")]
-        [PropertyParam("display", "The human readable version of this code.")]
-        [FHIRPath("Bundle.entry.resource.where($this is Patient)", "hospitalization")]
-        public Dictionary<string, string> InfantTransferred
-        {
-            get
-            {
-                Dictionary<string, string> dischargeDisposition = CodeableConceptToDict(EncounterBirth?.Hospitalization?.DischargeDisposition);
-                return dischargeDisposition;
-            }
-            set
-            {
-                if (value == null)
-                {
-                    return;
-                }
-                CodeableConcept dischargeDisposition = DictToCodeableConcept(value);
-                HospitalizationComponent hosp = new HospitalizationComponent();
-                hosp.DischargeDisposition = dischargeDisposition;
-                EncounterBirth.Hospitalization = hosp;
-            }
-        }
-
-        /// <summary>Infant Transferred Helper</summary>
-        /// <value>Infant transferred helper</value>
-        /// <example>
-        /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.InfantTransferredHelper = "hosp-trans";</para>
-        /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Infant transferred helper: {ExampleBirthRecord.InfantTransferredHelper}");</para>
-        /// </example>
-        [Property("InfantTransferred", Property.Types.String, "InfantTransferred", "InfantTransferred", false, BFDR.IGURL.EncounterBirth, true, 288)]
-        [FHIRPath("Bundle.entry.resource.where($this is Patient)", "hospitalization")]
-        public string InfantTransferredHelper
-        {
-            get
-            {
-                if (InfantTransferred.ContainsKey("code"))
-                {
-                    string code = InfantTransferred["code"];
-                    if (code == "other-hcf")
-                    {
-                        return "Y";
-                    }
-                    else if (FacilityInfantTransferredTo == "UNKNOWN")
-                    {
-                        return "U";
-                    }
-                    else if (code == "oth")
-                    {
-                        return "N";
-                    }
-                }
-
-                return "";
-            }
-            set
-            {
-                if (String.IsNullOrEmpty(value))
-                {
-                    return;
-                }
-                // IJE values are Y, N, U, only set to "hosp-trans" if value is Y
-                // IG guidance https://build.fhir.org/ig/HL7/fhir-bfdr/usage.html#mother-or-infant-transferred
-                if (value == "Y")
-                {
-                    // TODO update this to point to generated code system
-                    InfantTransferred = CodeableConceptToDict(new CodeableConcept(CodeSystems.DischargeDisposition, "other-hcf", "Other healthcare facility", "The patient was transferred to another healthcare facility."));
-                }
-                else if (value == "N")
-                {
-                    // TODO update this to point to generated code system
-                    InfantTransferred = CodeableConceptToDict(new CodeableConcept(CodeSystems.DischargeDisposition, "oth", "Other", "Did not transfer"));
-                }
-                else if (value == "U")
-                {
-                    // TODO set destination in this observation to a reference of the location
-                    FacilityInfantTransferredTo = "UNKNOWN";
-                }
-            }
-        }
-
         /// <summary>Number Live Born</summary>
         /// <value>Number of live born</value>
         /// <example>
@@ -9556,6 +9357,108 @@ namespace BFDR
                 {
                     SetEmergingIssue("EmergingIssue20", value);
                 }
+            }
+        }
+
+        protected int? GetCertifiedDateElement(Encounter encounter, string dateUrl)
+        {
+            if (encounter == null)
+            {
+                return null;
+            }
+            Encounter.ParticipantComponent certifier = encounter.Participant.FirstOrDefault(entry => ((Encounter.ParticipantComponent)entry).Type.Any(t => t.Coding.Any(c => c.Code == "87287-9")));
+            // First check the value string
+            if (certifier == null || certifier.Period == null || certifier.Period.StartElement == null)
+            {
+                return null;
+            }
+            if (certifier != null && certifier.Period.StartElement != null && ParseDateElements(certifier.Period.Start, out int? year, out int? month, out int? day))
+            {
+                switch(dateUrl) {
+                    case VR.ExtensionURL.PartialDateTimeDayVR:
+                        return day;
+                    case VR.ExtensionURL.PartialDateTimeMonthVR:
+                        return month;
+                    case VR.ExtensionURL.PartialDateTimeYearVR:
+                        return year;
+                    default:
+                        throw new Exception("Invalid date element url.");
+                }
+            }
+            return GetDateFragmentOrPartialDate(certifier.Period.StartElement, dateUrl);
+        }
+
+        protected void SetCertifiedDateElement(Encounter encounter, string dateUrl, int? value)
+        {
+            if (value == null)
+            {
+                return;
+            }
+            Encounter.ParticipantComponent stateComp = encounter.Participant.FirstOrDefault(entry => ((Encounter.ParticipantComponent)entry).Type.Any(t => t.Coding.Any(c => c.Code == "87287-9")));
+            if (stateComp == null) // make certifier participant with date
+            {
+                Encounter.ParticipantComponent certifier = new Encounter.ParticipantComponent();
+                CodeableConcept t = new CodeableConcept(CodeSystems.LOINC, "87287-9", "Birth certifier", null);
+                certifier.Type.Add(t);
+                Period p = new Period();
+                p.StartElement = new FhirDateTime();
+                p.StartElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
+                certifier.Period = p;
+                encounter.Participant.Add(certifier);
+                stateComp = certifier;
+            }
+            if (stateComp.Period == null || stateComp.Period.StartElement == null) //certifier participant exists but no period or period.start
+            {
+                Period p = new Period();
+                p.StartElement = new FhirDateTime();
+                p.StartElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
+                stateComp.Period = p;
+            }
+            FhirDateTime newDate;
+            switch(dateUrl) {
+                case VR.ExtensionURL.PartialDateTimeDayVR:
+                    newDate = SetDay(value, stateComp.Period.StartElement);
+                    break;
+                case VR.ExtensionURL.PartialDateTimeMonthVR:
+                    newDate = SetMonth(value, stateComp.Period.StartElement);
+                    break;
+                case VR.ExtensionURL.PartialDateTimeYearVR:
+                    newDate = SetYear(value, stateComp.Period.StartElement);
+                    break;
+                default:
+                    throw new Exception("Invalid date element url.");
+            } 
+            if (newDate != null)
+            {
+                stateComp.Period.StartElement = newDate;
+            }
+        }
+
+        protected string GetCertificationDate(Encounter encounter)
+        {
+            Encounter.ParticipantComponent certifier = encounter?.Participant?.FirstOrDefault(entry => ((Encounter.ParticipantComponent)entry).Type.Any(t => t.Coding.Any(c => c.Code == "87287-9")));
+            return certifier?.Period?.Start;
+        }
+        protected void SetCertificationDate(Encounter encounter, string value)
+        {
+            Encounter.ParticipantComponent certifier = encounter.Participant.FirstOrDefault(entry => ((Encounter.ParticipantComponent)entry).Type.Any(t => t.Coding.Any(c => c.Code == "87287-9")));
+            if (certifier != null)
+            {
+                if (certifier.Period == null)
+                {
+                    certifier.Period = new Period();
+                }
+                certifier.Period.StartElement = ConvertToDateTime(value);
+            }
+            else
+            {
+                Encounter.ParticipantComponent newCertifier = new Encounter.ParticipantComponent();
+                CodeableConcept t = new CodeableConcept(CodeSystems.LOINC, "87287-9", "Birth certifier", null);
+                newCertifier.Type.Add(t);
+                Period p = new Period();
+                p.StartElement = ConvertToDateTime(value);
+                newCertifier.Period = p;
+                encounter.Participant.Add(newCertifier);
             }
         }
     }
