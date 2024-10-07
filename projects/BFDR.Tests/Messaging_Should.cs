@@ -422,7 +422,8 @@ namespace BFDR.Tests
             ije.BSTATE = "YC";
             ije.FILENO = "123";
             // TODO: Set the IJE fields that support demographic data
-            BirthRecordDemographicsCodingUpdateMessage message = new BirthRecordDemographicsCodingUpdateMessage(ije.ToRecord());
+            BirthRecord br = ije.ToRecord();
+            BirthRecordDemographicsCodingUpdateMessage message = new BirthRecordDemographicsCodingUpdateMessage(br);
             message.MessageSource = "http://nchs.cdc.gov/bfdr_submission";
             message.MessageDestination = "https://example.org/jurisdiction/endpoint";
             Assert.Equal(BirthRecordDemographicsCodingUpdateMessage.MESSAGE_TYPE, message.MessageType);

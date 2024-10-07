@@ -93,7 +93,7 @@ namespace BFDR
         {
             get
             {
-                return birthRecord?.GetDemographicCodedContentBundle();
+                return birthRecord?.GetBundle();
             }
         }
         /// <summary>The id of the birth record submission/update message that was coded to produce the content of this message</summary>
