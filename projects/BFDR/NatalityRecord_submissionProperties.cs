@@ -2598,7 +2598,7 @@ namespace BFDR
         //       }
         //     },
         //     {
-        //       "url" : "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-role-vr",
+        //       "url" : "http://hl7.org/fhir/us/bfdr/StructureDefinition/Extension-role",
         //       "valueCodeableConcept" : {
         //         "coding" : [
         //           {

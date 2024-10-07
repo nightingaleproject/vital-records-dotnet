@@ -76,7 +76,7 @@ namespace BFDR
         protected Encounter CreateBirthEncounter()
         {
             EncounterBirth = CreateEncounter(ProfileURL.EncounterBirth);
-            Extension roleExt = new Extension(VRExtensionURLs.Role, new CodeableConcept(CodeSystems.RoleCode_HL7_V3, "CHILD"));
+            Extension roleExt = new Extension(BFDR.ExtensionURL.ExtensionRole, new CodeableConcept(CodeSystems.RoleCode_HL7_V3, "CHILD"));
             EncounterBirth.Extension.Add(roleExt);
             return EncounterBirth;
         }

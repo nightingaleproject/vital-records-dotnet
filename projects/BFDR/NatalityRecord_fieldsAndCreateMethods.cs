@@ -107,7 +107,7 @@ namespace BFDR
             Attendant.Meta = new Meta();
             string[] attendant_profile = { VR.ProfileURL.Practitioner };
             Attendant.Meta.Profile = attendant_profile;
-            Extension roleExt = new Extension(VRExtensionURLs.Role, new Code("attendant"));
+            Extension roleExt = new Extension(BFDR.ExtensionURL.ExtensionRole, new Code("attendant"));
             Attendant.Extension.Add(roleExt);
             // Not linked to Composition or inserted in bundle, since this is run before the composition exists.
         }
@@ -120,7 +120,7 @@ namespace BFDR
             Certifier .Meta = new Meta();
             string[] certifier_profile = { VR.ProfileURL.Practitioner };
             Certifier .Meta.Profile = certifier_profile;
-            Extension roleExt = new Extension(VRExtensionURLs.Role, new Code("certifier"));
+            Extension roleExt = new Extension(BFDR.ExtensionURL.ExtensionRole, new Code("certifier"));
             Certifier.Extension.Add(roleExt);
             // Not linked to Composition or inserted in bundle, since this is run before the composition exists.
         }
@@ -152,7 +152,7 @@ namespace BFDR
         protected Encounter CreateMaternityEncounter()
         {
             EncounterMaternity = CreateEncounter(ProfileURL.EncounterMaternity);
-            Extension roleExt = new Extension(VRExtensionURLs.Role, new CodeableConcept(CodeSystems.RoleCode_HL7_V3, "MTH"));
+            Extension roleExt = new Extension(BFDR.ExtensionURL.ExtensionRole, new CodeableConcept(CodeSystems.RoleCode_HL7_V3, "MTH"));
             EncounterMaternity.Extension.Add(roleExt);
             return EncounterMaternity;
         }

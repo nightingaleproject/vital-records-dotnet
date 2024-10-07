@@ -447,7 +447,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Autopsy Performed Indicator: {ExampleFetalDeathRecord.AutopsyPerformedIndicator['display']}");</para>
         /// </example>
-        [Property("Autopsy Performed Indicator", Property.Types.Dictionary, "Fetus", "Autopsy Performed Indicator.", true, VR.IGURL.AutopsyPerformedIndicator, true, 148)]
+        [Property("Autopsy Performed Indicator", Property.Types.Dictionary, "Fetus", "Autopsy Performed Indicator.", true, BFDR.IGURL.ObservationAutopsyPerformedIndicator, true, 148)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
@@ -455,7 +455,7 @@ namespace BFDR
         public Dictionary<string, string> AutopsyPerformedIndicator
         {
             get => GetObservationValue("85699-7");
-            set => SetObservationValue(value, "85699-7", CodeSystems.LOINC, "Autopsy Performed Indicator", VR.ProfileURL.AutopsyPerformedIndicator, FETUS_SECTION);
+            set => SetObservationValue(value, "85699-7", CodeSystems.LOINC, "Autopsy Performed Indicator", BFDR.ProfileURL.ObservationAutopsyPerformedIndicator, FETUS_SECTION);
         }
 
         /// <summary>Autopsy Performed Indicator Helper. This is a helper method, to access the code use the AutopsyPerformedIndicator property.</summary>
@@ -466,7 +466,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Autopsy Performed Indicator: {ExampleDFetaleathRecord.AutopsyPerformedIndicatorBoolean}");</para>
         /// </example>
-        [Property("Autopsy Performed Indicator Helper", Property.Types.String, "Fetus", "Autopsy Performed Indicator.", false, VR.IGURL.AutopsyPerformedIndicator, true, 148)]
+        [Property("Autopsy Performed Indicator Helper", Property.Types.String, "Fetus", "Autopsy Performed Indicator.", false, BFDR.IGURL.ObservationAutopsyPerformedIndicator, true, 148)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='85699-7')", "")]
         public string AutopsyPerformedIndicatorHelper
         {
