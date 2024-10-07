@@ -27,13 +27,13 @@ namespace BFDR.Tests
         Assert.Null(SetterFetalDeathRecord.StateLocalIdentifier1);
         SetterFetalDeathRecord.StateLocalIdentifier1 = "0000033";
         Assert.Equal("0000033", SetterFetalDeathRecord.StateLocalIdentifier1);
-        // TODO: Delivery year is not implemented yet
-        // SetterFetalDeathRecord.DeliveryYear = 2020;
+        SetterFetalDeathRecord.DeliveryYear = 2020;
         // SetterFetalDeathRecord.CertificateNumber = "767676";
         // Assert.Equal("2020XX767676", SetterFetalDeathRecord.RecordIdentifier);
+        // Is the field name BirthLocationJurisdiction for Fetal Death?
         SetterFetalDeathRecord.BirthLocationJurisdiction = "WY";
         SetterFetalDeathRecord.CertificateNumber = "898989";
-        Assert.Equal("0000WY898989", SetterFetalDeathRecord.RecordIdentifier);
+        Assert.Equal("2020WY898989", SetterFetalDeathRecord.RecordIdentifier);
     }
 
     [Fact]
@@ -2151,7 +2151,7 @@ namespace BFDR.Tests
       SetterFetalDeathRecord.CodedInitiatingFetalCOD = "R83";
       Assert.Equal("R83", SetterFetalDeathRecord.CodedInitiatingFetalCOD);
       //parse
-      FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/Bundle-FetalCauseOfDeathCodedContentBundle-notNamedExample.json")));
+      FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathCauseOrConditionCodedContent.json")));
       Assert.Equal("P01.1", record.CodedInitiatingFetalCOD);
       //set after parse
       record.CodedInitiatingFetalCOD = "R836";
@@ -2175,7 +2175,7 @@ namespace BFDR.Tests
       SetterFetalDeathRecord.OCOD1 = "R83";
       Assert.Equal("R83", SetterFetalDeathRecord.OCOD1);
       //parse
-      FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/Bundle-FetalCauseOfDeathCodedContentBundle-notNamedExample.json")));
+      FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathCauseOrConditionCodedContent.json")));
       Assert.Equal("P02.1", record.OCOD1);
       //set after parse
       record.OCOD1 = "R836";

@@ -35,7 +35,7 @@ namespace BFDR
         public BirthRecord(Bundle bundle) : base(bundle) {}
 
         /// <summary>Return the birth year for this record to be used in the identifier</summary>
-        protected override uint? GetYear()
+        public override uint? GetYear()
         {
             return (uint?)this.BirthYear;
         }

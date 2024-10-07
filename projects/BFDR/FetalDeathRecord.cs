@@ -35,11 +35,9 @@ namespace BFDR
         public FetalDeathRecord(Bundle bundle) : base(bundle) {}
 
         /// <summary>Return the birth year for this record to be used in the identifier</summary>
-        protected override uint? GetYear()
+        public override uint? GetYear()
         {
-            // TODO: Uncomment and remove null return when DeliveryYear is implemented
-            // return (uint?)this.DeliveryYear;
-            return null;
+            return (uint?)this.DeliveryYear;
         }
 
         /// <inheritdoc/>

@@ -29,7 +29,7 @@ namespace canary.Models
         public CanaryFetalDeathMessage(string message)
         {
             // TODO: BFDR does not support messaging yet.
-            // this.message = xxxBirthRecordBaseMessage.Parse(message, false);
+            // this.message = BFDRBaseMessage.Parse(message, false);
         }
 
         public CanaryFetalDeathMessage(CommonMessage message) : base(message) {}
@@ -68,12 +68,12 @@ namespace canary.Models
         {
             Dictionary<string, Message> result = new Dictionary<string, Message>();
             // Create acknowledgement
-            BirthRecordAcknowledgementMessage ack = new BirthRecordAcknowledgementMessage((BirthRecordBaseMessage) message);
+            BFDRAcknowledgementMessage ack = new BFDRAcknowledgementMessage((BFDRBaseMessage) message);
             Message ackMsg = new CanaryBirthMessage(ack);
             result.Add("ACK", ackMsg);
 
             // Create the extraction error
-            BirthRecordErrorMessage err = new BirthRecordErrorMessage((BirthRecordBaseMessage) message);
+            BFDRErrorMessage err = new BFDRErrorMessage((BFDRBaseMessage) message);
             // Add the issues found during processing
             var issues = new List<BFDR.Issue>();
             var issue = new BFDR.Issue(OperationOutcome.IssueSeverity.Fatal, OperationOutcome.IssueType.Invalid, "This is a fake message");

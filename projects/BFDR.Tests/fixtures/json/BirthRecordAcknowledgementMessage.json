@@ -16,7 +16,7 @@
           }
         ],
         "source": {
-          "endpoint": "http://nchs.cdc.gov/bfdr_submission"
+          "endpoint": "http://nchs.cdc.gov/bfdr_birth"
         },
         "response": {
           "identifier": "0df23820-f4ad-4a29-8862-a5effb85f1c5",
@@ -43,7 +43,7 @@
             "valueString": "UT"
           },
           {
-            "name": "birth_year",
+            "name": "event_year",
             "valueUnsignedInt": 2019
           }
         ]

@@ -187,8 +187,8 @@ namespace canary.Controllers
         public static readonly Dictionary<string, Func<string, CommonMessage>> parseMessage = new()
         {
             {VRDR, (string input) => BaseMessage.Parse(input, false)},
-            {BFDR_BIRTH, (string input) => BirthRecordBaseMessage.Parse(input, false)},
-            {BFDR_FETALDEATH, (string input) => BirthRecordBaseMessage.Parse(input, false)} // TODO - Fetal Death Messaging
+            {BFDR_BIRTH, (string input) => BFDRBaseMessage.Parse(input, false)},
+            {BFDR_FETALDEATH, (string input) => BFDRBaseMessage.Parse(input, false)} // TODO - Fetal Death Messaging
         };
 
         public static readonly Dictionary<string, Func<string, VitalRecord>> createRecordFromDescription = new()

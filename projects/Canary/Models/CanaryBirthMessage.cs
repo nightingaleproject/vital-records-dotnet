@@ -28,7 +28,7 @@ namespace canary.Models
 
         public CanaryBirthMessage(string message)
         {
-            this.message = BirthRecordBaseMessage.Parse(message, false);
+            this.message = BFDRBaseMessage.Parse(message, false);
         }
 
         public CanaryBirthMessage(CommonMessage message) : base(message) {}
@@ -48,7 +48,7 @@ namespace canary.Models
                     break;
                 case "Void":
                 case "http://nchs.cdc.gov/bfdr_submission_void":
-                    message = new BirthRecordVoidMessage(br);
+                    message = new BFDRVoidMessage(br);
                     break;
                 default:
                     throw new ArgumentException($"The given message type {type} is not valid.", "type");
@@ -66,12 +66,12 @@ namespace canary.Models
         {
             Dictionary<string, Message> result = new Dictionary<string, Message>();
             // Create acknowledgement
-            BirthRecordAcknowledgementMessage ack = new BirthRecordAcknowledgementMessage((BirthRecordBaseMessage) message);
+            BFDRAcknowledgementMessage ack = new BFDRAcknowledgementMessage((BFDRBaseMessage) message);
             Message ackMsg = new CanaryBirthMessage(ack);
             result.Add("ACK", ackMsg);
 
             // Create the extraction error
-            BirthRecordErrorMessage err = new BirthRecordErrorMessage((BirthRecordBaseMessage) message);
+            BFDRErrorMessage err = new BFDRErrorMessage((BFDRBaseMessage) message);
             // Add the issues found during processing
             var issues = new List<BFDR.Issue>();
             var issue = new BFDR.Issue(OperationOutcome.IssueSeverity.Fatal, OperationOutcome.IssueType.Invalid, "This is a fake message");

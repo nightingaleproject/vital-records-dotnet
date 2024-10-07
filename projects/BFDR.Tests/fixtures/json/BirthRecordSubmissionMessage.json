@@ -9,7 +9,7 @@
       "resource": {
         "resourceType": "MessageHeader",
         "id": "c36cfa0d-f3d4-4b1a-9df4-410f640b50c3",
-        "eventUri": "http://nchs.cdc.gov/bfdr_submission",
+        "eventUri": "http://nchs.cdc.gov/bfdr_birth",
         "destination": [
           {
             "endpoint": "http://nchs.cdc.gov/bfdr_submission"
@@ -40,7 +40,7 @@
             "valueString": "000000000042"
           },
           {
-            "name": "birth_year",
+            "name": "event_year",
             "valueUnsignedInt": 2019
           },
           {
