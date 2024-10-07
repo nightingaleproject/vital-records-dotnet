@@ -1,18 +1,8 @@
 using System;
 using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Diagnostics;
-using System.Globalization;
-using System.Text.RegularExpressions;
-using System.Xml.Linq;
-using Hl7.Fhir.ElementModel;
 using Hl7.Fhir.Model;
-using Hl7.Fhir.Serialization;
-using Hl7.FhirPath;
-using Newtonsoft.Json;
 using VR;
 
 
@@ -42,9 +32,6 @@ namespace BFDR
 
         /// <summary>The Certifier.</summary>
         protected Practitioner Certifier;
-
-        /// <summary>The encounter of the birth.</summary>
-        protected Encounter EncounterBirth;
 
         /// <summary>The coverage associated with the birth.</summary>
         protected Coverage Coverage;
@@ -160,28 +147,14 @@ namespace BFDR
             return locationBirth;
         }
         
-        /// <summary>Create Birth Encounter.</summary>
-        protected void CreateBirthEncounter()
-        {
-            EncounterBirth = new Encounter();
-            EncounterBirth .Id = Guid.NewGuid().ToString();
-            EncounterBirth .Meta = new Meta();
-            string[] encounterBirth_profile = { ProfileURL.EncounterBirth };
-            EncounterBirth .Meta.Profile = encounterBirth_profile;
-            Extension roleExt = new Extension(VRExtensionURLs.Role, new CodeableConcept(CodeSystems.RoleCode_HL7_V3, "CHILD"));
-            EncounterBirth.Extension.Add(roleExt);
-        }
 
         /// <summary>Create Maternity Encounter.</summary>
-        protected void CreateMaternityEncounter()
+        protected Encounter CreateMaternityEncounter()
         {
-            EncounterMaternity = new Encounter();
-            EncounterMaternity .Id = Guid.NewGuid().ToString();
-            EncounterMaternity .Meta = new Meta();
-            string[] encounterBirth_profile = { ProfileURL.EncounterMaternity };
-            EncounterMaternity .Meta.Profile = encounterBirth_profile;
+            EncounterMaternity = CreateEncounter(ProfileURL.EncounterMaternity);
             Extension roleExt = new Extension(VRExtensionURLs.Role, new CodeableConcept(CodeSystems.RoleCode_HL7_V3, "MTH"));
             EncounterMaternity.Extension.Add(roleExt);
+            return EncounterMaternity;
         }
     }
 
