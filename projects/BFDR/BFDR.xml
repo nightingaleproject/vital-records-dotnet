@@ -9,69 +9,10 @@
             that follow the HL7 FHIR Vital Records Birth Reporting Implementation Guide, as described at:
             http://hl7.org/fhir/us/bfdr and https://github.com/hl7/bfdr.
             </summary>
-        </member>
-        <member name="M:BFDR.BirthRecord.#ctor">
-            <summary>Default constructor that creates a new, empty BirthRecord.</summary>
-        </member>
-        <member name="M:BFDR.BirthRecord.#ctor(System.String,System.Boolean)">
-            <summary>Constructor that takes a string that represents a FHIR Birth Record in either XML or JSON format.</summary>
-            <param name="record">represents a FHIR Birth Record in either XML or JSON format.</param>
-            <param name="permissive">if the parser should be permissive when parsing the given string</param>
-            <exception cref="T:System.ArgumentException">Record is neither valid XML nor JSON.</exception>
-        </member>
-        <member name="M:BFDR.BirthRecord.#ctor(Hl7.Fhir.Model.Bundle)">
-            <summary>Constructor that takes a FHIR Bundle that represents a FHIR Birth Record.</summary>
-            <param name="bundle">represents a FHIR Bundle.</param>
-            <exception cref="T:System.ArgumentException">Record is invalid.</exception>
-        </member>
-        <member name="M:BFDR.BirthRecord.GetYear">
-            <summary>Return the birth year for this record to be used in the identifier</summary>
-        </member>
-        <member name="M:BFDR.BirthRecord.RestoreReferences">
-            <inheritdoc/>
-        </member>
-        <member name="M:BFDR.BirthRecord.InitializeCompositionAndSubject">
-            <inheritdoc/>
-        </member>
-        <member name="P:BFDR.BirthRecord.CertificationDate">
-            <summary>Date of Certification.</summary>
-            <value>the date of certification</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.CertifiedDate = "2023-02-19";</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Date of birth certification: {ExampleBirthRecord.CertificationDate}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.BirthRecord.CertifiedYear">
-            <summary>Certified Year</summary>
-            <value>year of certification</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.CertifiedYear = 2023;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Certified Year: {ExampleBirthRecord.CertifiedYear}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.BirthRecord.CertifiedMonth">
-            <summary>Certified Month</summary>
-            <value>month of certification</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.CertifiedMonth = 10;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Certified Month: {ExampleBirthRecord.CertifiedMonth}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.BirthRecord.CertifiedDay">
-            <summary>Certified Day</summary>
-            <value>day of certification</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.CertifiedDay = 23;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Certified Day: {ExampleBirthRecord.CertifiedDay}");</para>
-            </example> 
+            <summary>Class <c>BirthRecord</c> is a class designed to help consume and produce birth records
+            that follow the HL7 FHIR Vital Records Birth Reporting Implementation Guide, as described at:
+            http://hl7.org/fhir/us/bfdr and https://github.com/hl7/bfdr.
+            </summary>
         </member>
         <member name="P:BFDR.BirthRecord.BirthPhysicalLocation">
             <summary>Child's Place Of Birth Type.</summary>
@@ -213,6 +154,95 @@
             <para>ExampleBirthRecord.Plurality = 2; // two births for this pregnancy</para>
             </example>
         </member>
+        <member name="P:BFDR.BirthRecord.CertificationDate">
+            <summary>Date of Certification.</summary>
+            <value>the date of certification</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.CertifiedDate = "2023-02-19";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Date of birth certification: {ExampleBirthRecord.CertificationDate}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.CertifiedYear">
+            <summary>Certified Year</summary>
+            <value>year of certification</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.CertifiedYear = 2023;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Certified Year: {ExampleBirthRecord.CertifiedYear}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.CertifiedMonth">
+            <summary>Certified Month</summary>
+            <value>month of certification</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.CertifiedMonth = 10;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Certified Month: {ExampleBirthRecord.CertifiedMonth}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.CertifiedDay">
+            <summary>Certified Day</summary>
+            <value>day of certification</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.CertifiedDay = 23;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Certified Day: {ExampleBirthRecord.CertifiedDay}");</para>
+            </example> 
+        </member>
+        <member name="P:BFDR.BirthRecord.InfantTransferred">
+            <summary>Infant Transferred</summary>
+            <value>Infant transferred</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.InfantTransferred = "hosp-trans";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Infant transferred: {ExampleBirthRecord.InfantTransferred}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.InfantTransferredHelper">
+            <summary>Infant Transferred Helper</summary>
+            <value>Infant transferred helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.InfantTransferredHelper = "hosp-trans";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Infant transferred helper: {ExampleBirthRecord.InfantTransferredHelper}");</para>
+            </example>
+        </member>
+        <member name="F:BFDR.BirthRecord.EncounterBirth">
+            <summary>The encounter of the birth.</summary>
+        </member>
+        <member name="M:BFDR.BirthRecord.#ctor">
+            <summary>Default constructor that creates a new, empty BirthRecord.</summary>
+        </member>
+        <member name="M:BFDR.BirthRecord.#ctor(System.String,System.Boolean)">
+            <summary>Constructor that takes a string that represents a FHIR Birth Record in either XML or JSON format.</summary>
+            <param name="record">represents a FHIR Birth Record in either XML or JSON format.</param>
+            <param name="permissive">if the parser should be permissive when parsing the given string</param>
+            <exception cref="T:System.ArgumentException">Record is neither valid XML nor JSON.</exception>
+        </member>
+        <member name="M:BFDR.BirthRecord.#ctor(Hl7.Fhir.Model.Bundle)">
+            <summary>Constructor that takes a FHIR Bundle that represents a FHIR Birth Record.</summary>
+            <param name="bundle">represents a FHIR Bundle.</param>
+            <exception cref="T:System.ArgumentException">Record is invalid.</exception>
+        </member>
+        <member name="M:BFDR.BirthRecord.GetYear">
+            <summary>Return the birth year for this record to be used in the identifier</summary>
+        </member>
+        <member name="M:BFDR.BirthRecord.RestoreReferences">
+            <inheritdoc/>
+        </member>
+        <member name="M:BFDR.BirthRecord.InitializeCompositionAndSubject">
+            <inheritdoc/>
+        </member>
+        <member name="M:BFDR.BirthRecord.CreateBirthEncounter">
+            <summary>Create Birth Encounter.</summary>
+        </member>
         <member name="T:BFDR.Connectathon">
             <summary>Class <c>Connectathon</c> provides static methods for generating records used in Connectathon testing, used in Canary and in the CLI tool</summary>
         </member>
@@ -239,43 +269,24 @@
             records that follow the HL7 FHIR Vital Records FetalDeath Reporting Implementation Guide, as described
             at: http://hl7.org/fhir/us/bfdr and https://github.com/hl7/bfdr.
             </summary>
+            <summary>Class <c>FetalDeathRecord</c> is a class designed to help consume and produce fetal death
+            records that follow the HL7 FHIR Vital Records FetalDeath Reporting Implementation Guide, as described
+            at: http://hl7.org/fhir/us/bfdr and https://github.com/hl7/bfdr.
+            </summary>
             <summary>Class <c>FetalDeathRecord</c> models a FHIR Birth and Fetal Death Records Reporting (BFDR) Fetal Death
             Record. This class was designed to help consume and produce fetal death records that follow the
             HL7 FHIR Vital Records Birth and Fetal Death Reporting Implementation Guide, as described at:
             http://hl7.org/fhir/us/bfdr and https://github.com/hl7/bfdr.
             </summary>
         </member>
-        <member name="M:BFDR.FetalDeathRecord.#ctor">
-            <summary>Default constructor that creates a new, empty FetalDeathRecord.</summary>
-        </member>
-        <member name="M:BFDR.FetalDeathRecord.#ctor(System.String,System.Boolean)">
-            <summary>Constructor that takes a string that represents a FHIR FetalDeath Record in either XML or JSON format.</summary>
-            <param name="record">represents a FHIR FetalDeath Record in either XML or JSON format.</param>
-            <param name="permissive">if the parser should be permissive when parsing the given string</param>
-            <exception cref="T:System.ArgumentException">Record is neither valid XML nor JSON.</exception>
-        </member>
-        <member name="M:BFDR.FetalDeathRecord.#ctor(Hl7.Fhir.Model.Bundle)">
-            <summary>Constructor that takes a FHIR Bundle that represents a FHIR FetalDeath Record.</summary>
-            <param name="bundle">represents a FHIR Bundle.</param>
-            <exception cref="T:System.ArgumentException">Record is invalid.</exception>
-        </member>
-        <member name="M:BFDR.FetalDeathRecord.GetYear">
-            <summary>Return the birth year for this record to be used in the identifier</summary>
-        </member>
-        <member name="M:BFDR.FetalDeathRecord.RestoreReferences">
-            <inheritdoc/>
-        </member>
-        <member name="M:BFDR.FetalDeathRecord.InitializeCompositionAndSubject">
-            <inheritdoc/>
-        </member>
         <member name="P:BFDR.FetalDeathRecord.CertificationDate">
             <summary>Date of Certification.</summary>
             <value>the date of certification</value>
             <example>
             <para>// Setter:</para>
-            <para>ExampleFetalDeathRecord.CertifiedDate = "2023-02-19";</para>
+            <para>ExampleBirthRecord.CertifiedDate = "2023-02-19";</para>
             <para>// Getter:</para>
-            <para>Console.WriteLine($"Date of certification: {ExampleFetalDeathRecord.CertificationDate}");</para>
+            <para>Console.WriteLine($"Date of birth certification: {ExampleBirthRecord.CertificationDate}");</para>
             </example>
         </member>
         <member name="P:BFDR.FetalDeathRecord.CertifiedYear">
@@ -283,9 +294,9 @@
             <value>year of certification</value>
             <example>
             <para>// Setter:</para>
-            <para>ExampleFetalDeathRecord.CertifiedYear = 2023;</para>
+            <para>ExampleBirthRecord.CertifiedYear = 2023;</para>
             <para>// Getter:</para>
-            <para>Console.WriteLine($"Certified Year: {ExampleFetalDeathRecord.CertifiedYear}");</para>
+            <para>Console.WriteLine($"Certified Year: {ExampleBirthRecord.CertifiedYear}");</para>
             </example>
         </member>
         <member name="P:BFDR.FetalDeathRecord.CertifiedMonth">
@@ -293,9 +304,9 @@
             <value>month of certification</value>
             <example>
             <para>// Setter:</para>
-            <para>ExampleFetalDeathRecord.CertifiedMonth = 10;</para>
+            <para>ExampleBirthRecord.CertifiedMonth = 10;</para>
             <para>// Getter:</para>
-            <para>Console.WriteLine($"Certified Month: {ExampleFetalDeathRecord.CertifiedMonth}");</para>
+            <para>Console.WriteLine($"Certified Month: {ExampleBirthRecord.CertifiedMonth}");</para>
             </example>
         </member>
         <member name="P:BFDR.FetalDeathRecord.CertifiedDay">
@@ -303,9 +314,9 @@
             <value>day of certification</value>
             <example>
             <para>// Setter:</para>
-            <para>ExampleFetalDeathRecord.CertifiedDay = 23;</para>
+            <para>ExampleBirthRecord.CertifiedDay = 23;</para>
             <para>// Getter:</para>
-            <para>Console.WriteLine($"Certified Day: {ExampleFetalDeathRecord.CertifiedDay}");</para>
+            <para>Console.WriteLine($"Certified Day: {ExampleBirthRecord.CertifiedDay}");</para>
             </example> 
         </member>
         <member name="P:BFDR.FetalDeathRecord.FetusGivenNames">
@@ -765,6 +776,29 @@
             <para>ExampleFetalDeathRecord.FetalDeathPlurality = -1; // unknown number of births birth</para>
             <para>ExampleFetalDeathRecord.FetalDeathPlurality = 2; // two births for this pregnancy</para>
             </example>
+        </member>
+        <member name="M:BFDR.FetalDeathRecord.#ctor">
+            <summary>Default constructor that creates a new, empty FetalDeathRecord.</summary>
+        </member>
+        <member name="M:BFDR.FetalDeathRecord.#ctor(System.String,System.Boolean)">
+            <summary>Constructor that takes a string that represents a FHIR FetalDeath Record in either XML or JSON format.</summary>
+            <param name="record">represents a FHIR FetalDeath Record in either XML or JSON format.</param>
+            <param name="permissive">if the parser should be permissive when parsing the given string</param>
+            <exception cref="T:System.ArgumentException">Record is neither valid XML nor JSON.</exception>
+        </member>
+        <member name="M:BFDR.FetalDeathRecord.#ctor(Hl7.Fhir.Model.Bundle)">
+            <summary>Constructor that takes a FHIR Bundle that represents a FHIR FetalDeath Record.</summary>
+            <param name="bundle">represents a FHIR Bundle.</param>
+            <exception cref="T:System.ArgumentException">Record is invalid.</exception>
+        </member>
+        <member name="M:BFDR.FetalDeathRecord.GetYear">
+            <summary>Return the birth year for this record to be used in the identifier</summary>
+        </member>
+        <member name="M:BFDR.FetalDeathRecord.RestoreReferences">
+            <inheritdoc/>
+        </member>
+        <member name="M:BFDR.FetalDeathRecord.InitializeCompositionAndSubject">
+            <inheritdoc/>
         </member>
         <member name="P:BFDR.FetalDeathRecord.CodedInitiatingFetalCOD">
             <summary>Decedent Fetus's Coded Initiating Fetal Death Cause or Condition</summary>
@@ -3289,7 +3323,7 @@
             TODO BFDR STU2 supports usual work and role extension
             </summary>
         </member>
-        <member name="M:BFDR.NatalityRecord.#ctor">
+        <member name="M:BFDR.NatalityRecord.#ctor(System.String)">
             <summary>Default constructor that creates a new, empty NatalityRecord.</summary>
         </member>
         <member name="M:BFDR.NatalityRecord.#ctor(System.String,System.Boolean)">
@@ -3313,7 +3347,7 @@
             <summary>Helper method to return the subset of this record that makes up a DemographicCodedContent bundle.</summary>
             <returns>a new FHIR Bundle</returns>
         </member>
-        <member name="M:BFDR.NatalityRecord.RestoreReferences">
+        <member name="M:BFDR.NatalityRecord.RestoreReferences(System.String,System.String[],System.String)">
             <summary>Restores class references from a newly parsed record.</summary>
         </member>
         <member name="F:BFDR.NatalityRecord.Subject">
@@ -3330,9 +3364,6 @@
         </member>
         <member name="F:BFDR.NatalityRecord.Certifier">
             <summary>The Certifier.</summary>
-        </member>
-        <member name="F:BFDR.NatalityRecord.EncounterBirth">
-            <summary>The encounter of the birth.</summary>
         </member>
         <member name="F:BFDR.NatalityRecord.Coverage">
             <summary>The coverage associated with the birth.</summary>
@@ -3366,9 +3397,6 @@
         </member>
         <member name="M:BFDR.NatalityRecord.CreateAndSetLocationBirth(System.String)">
             <summary>Create and set Birth Location.</summary>
-        </member>
-        <member name="M:BFDR.NatalityRecord.CreateBirthEncounter">
-            <summary>Create Birth Encounter.</summary>
         </member>
         <member name="M:BFDR.NatalityRecord.CreateMaternityEncounter">
             <summary>Create Maternity Encounter.</summary>
@@ -3660,34 +3688,6 @@
             <para>ExampleBirthRecord.PlaceOfBirth = address;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"State where child was born: {ExampleBirthRecord.PlaceOfBirth["placeOfBirthState"]}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.NatalityRecord.BirthPhysicalLocation">
-            <summary>Child's Place Of Birth Type.</summary>
-            <value>Place Where Birth Occurred, type of place or institution. A Dictionary representing a codeable concept of the physical location type:
-            <para>"code" - The code used to describe this concept.</para>
-            <para>"system" - The relevant code system.</para>
-            <para>"display" - The human readable version of this code.</para>
-            </value>
-            <example>
-            <para>// Setter:</para>
-            <para>Dictionary&lt;string, string&gt; locationType = new Dictionary&lt;string, string&gt;();</para>
-            <para>locationType.Add("code", "22232009");</para>
-            <para>locationType.Add("system", "http://snomed.info/sct");</para>
-            <para>locationType.Add("display", "Hospital");</para>
-            <para>ExampleBirthRecord.BirthPhysicalLocation = locationType;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"The place type the child was born: {ExampleBirthRecord.BirthPhysicalLocation["code"]}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.NatalityRecord.BirthPhysicalLocationHelper">
-            <summary>Child's Place Of Birth Type Helper</summary>
-            <value>Child's Place Of Birth Type Helper</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.BirthPhysicalLocationHelper = "Hospital";</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Child's Place Of Birth Type: {ExampleBirthRecord.BirthPhysicalLocationHelper}");</para>
             </example>
         </member>
         <member name="P:BFDR.NatalityRecord.MotherPlaceOfBirth">
@@ -6482,26 +6482,6 @@
             <para>ExampleBirthRecord.InfantLiving = true;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Mother transferred: {ExampleBirthRecord.MotherTransferred}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.NatalityRecord.InfantTransferred">
-            <summary>Infant Transferred</summary>
-            <value>Infant transferred</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.InfantTransferred = "hosp-trans";</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Infant transferred: {ExampleBirthRecord.InfantTransferred}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.NatalityRecord.InfantTransferredHelper">
-            <summary>Infant Transferred Helper</summary>
-            <value>Infant transferred helper</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.InfantTransferredHelper = "hosp-trans";</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Infant transferred helper: {ExampleBirthRecord.InfantTransferredHelper}");</para>
             </example>
         </member>
         <member name="P:BFDR.NatalityRecord.NumberLiveBorn">
