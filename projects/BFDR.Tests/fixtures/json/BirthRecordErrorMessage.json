@@ -47,7 +47,7 @@
             "valueString": "42"
           },
           {
-            "name": "birth_year",
+            "name": "event_year",
             "valueUnsignedInt": 2018
           },
           {

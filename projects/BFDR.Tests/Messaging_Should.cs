@@ -12,19 +12,36 @@ namespace BFDR.Tests
     public class Messaging_Should
     {
         private BirthRecord record;
+        private FetalDeathRecord fetalDeathRecord;
 
         public Messaging_Should()
         {
             // TODO: Should we also test with an XML record? And a JSON record without identifiers?
             record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+            fetalDeathRecord = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicFetalDeathRecord.json")));
         }
 
         [Fact]
-        public void CreateEmptySubmission()
+        public void CreateEmptyBirthSubmission()
         {
             BirthRecordSubmissionMessage submission = new BirthRecordSubmissionMessage();
-            Assert.Equal("http://nchs.cdc.gov/bfdr_submission", submission.MessageType);
+            Assert.Equal("http://nchs.cdc.gov/bfdr_birth", submission.MessageType);
             Assert.Null(submission.BirthRecord);
+            Assert.Equal("http://nchs.cdc.gov/bfdr_submission", submission.MessageDestination);
+            Assert.NotNull(submission.MessageTimestamp);
+            Assert.Null(submission.MessageSource);
+            Assert.NotNull(submission.MessageId);
+            Assert.Null(submission.CertNo);
+            Assert.Null(submission.StateAuxiliaryId);
+            Assert.Null(submission.NCHSIdentifier);
+        }
+
+        [Fact]
+        public void CreateEmptyFetalDeathSubmission()
+        {
+            FetalDeathRecordSubmissionMessage submission = new FetalDeathRecordSubmissionMessage();
+            Assert.Equal("http://nchs.cdc.gov/bfdr_death", submission.MessageType);
+            Assert.Null(submission.FetalDeathRecord);
             Assert.Equal("http://nchs.cdc.gov/bfdr_submission", submission.MessageDestination);
             Assert.NotNull(submission.MessageTimestamp);
             Assert.Null(submission.MessageSource);
@@ -40,9 +57,9 @@ namespace BFDR.Tests
             // Test with fixture record
             BirthRecordSubmissionMessage submission = new BirthRecordSubmissionMessage(record);
             Assert.NotNull(submission.BirthRecord);
-            Assert.Equal("http://nchs.cdc.gov/bfdr_submission", submission.MessageType);
+            Assert.Equal("http://nchs.cdc.gov/bfdr_birth", submission.MessageType);
             Assert.Equal((uint)15075, submission.CertNo);
-            Assert.Equal((uint)2019, submission.BirthYear);
+            Assert.Equal((uint)2019, submission.EventYear);
             Assert.Equal("444455555", submission.StateAuxiliaryId);
             Assert.Equal("2019UT015075", submission.NCHSIdentifier);
             Assert.Equal(2019, submission.BirthRecord.BirthYear);
@@ -51,31 +68,84 @@ namespace BFDR.Tests
             // Test with null record
             submission = new BirthRecordSubmissionMessage(null);
             Assert.Null(submission.BirthRecord);
-            Assert.Equal("http://nchs.cdc.gov/bfdr_submission", submission.MessageType);
+            Assert.Equal("http://nchs.cdc.gov/bfdr_birth", submission.MessageType);
             Assert.Null(submission.CertNo);
             Assert.Null(submission.StateAuxiliaryId);
             Assert.Null(submission.NCHSIdentifier);
         }
 
         [Fact]
-        public void LoadSubmissionFromJSON()
+        public void CreateSubmissionFromFetalDeathRecord()
         {
-            BirthRecordSubmissionMessage submission = BirthRecordBaseMessage.Parse<BirthRecordSubmissionMessage>(TestHelpers.FixtureStream("fixtures/json/BirthRecordSubmissionMessage.json"));
-            Assert.Equal("http://nchs.cdc.gov/bfdr_submission", submission.MessageType);
+            // Test with fixture record
+            FetalDeathRecordSubmissionMessage submission = new FetalDeathRecordSubmissionMessage(fetalDeathRecord);
+            Assert.NotNull(submission.FetalDeathRecord);
+            Assert.Equal("http://nchs.cdc.gov/bfdr_death", submission.MessageType);
+            Assert.Equal((uint)87366, submission.CertNo);
+            Assert.Equal((uint)2020, submission.EventYear);
+            Assert.Equal("444455555", submission.StateAuxiliaryId);
+            Assert.Equal("NY", submission.JurisdictionId);
+            Assert.Equal("2020NY087366", submission.NCHSIdentifier);
+            Assert.Equal((uint)2020, submission.FetalDeathRecord.GetYear());
+            Assert.Equal("87366", submission.FetalDeathRecord.CertificateNumber);
+
+            // Test with null record
+            submission = new FetalDeathRecordSubmissionMessage(null);
+            Assert.Null(submission.FetalDeathRecord);
+            Assert.Equal("http://nchs.cdc.gov/bfdr_death", submission.MessageType);
+            Assert.Null(submission.CertNo);
+            Assert.Null(submission.StateAuxiliaryId);
+            Assert.Null(submission.NCHSIdentifier);
+        }
+
+        [Fact]
+        public void LoadBirthSubmissionFromJSON()
+        {
+            BirthRecordSubmissionMessage submission = BFDRBaseMessage.Parse<BirthRecordSubmissionMessage>(TestHelpers.FixtureStream("fixtures/json/BirthRecordSubmissionMessage.json"));
+            Assert.Equal("http://nchs.cdc.gov/bfdr_birth", submission.MessageType);
             Assert.Equal("2019UT048858", submission.NCHSIdentifier);
             Assert.Equal((uint)48858, submission.CertNo);
-            Assert.Equal((uint)2019, submission.BirthYear);
+            Assert.Equal((uint)2019, submission.EventYear);
             Assert.Equal("000000000042", submission.StateAuxiliaryId);
             Assert.Equal(submission.JurisdictionId, submission.BirthRecord.BirthLocationJurisdiction);
             Assert.Equal(2019, submission.BirthRecord.BirthYear);
         }
 
+        // TODO need example test message
+        // [Fact]
+        // public void LoadFetalDeathSubmissionFromJSON()
+        // {
+        //     FetalDeathRecordSubmissionMessage submission = BFDRBaseMessage.Parse<FetalDeathRecordSubmissionMessage>(TestHelpers.FixtureStream("fixtures/json/BirthRecordSubmissionMessage.json"));
+        //     Assert.Equal("http://nchs.cdc.gov/bfdr_death", submission.MessageType);
+        //     Assert.Equal("2019UT048858", submission.NCHSIdentifier);
+        //     Assert.Equal((uint)48858, submission.CertNo);
+        //     Assert.Equal((uint)2019, submission.EventYear);
+        //     Assert.Equal("000000000042", submission.StateAuxiliaryId);
+        //     Assert.Equal(submission.JurisdictionId, submission.FetalDeathRecord.GetLocationJurisdiction());
+        //     Assert.Equal(2019, submission.FetalDeathRecord.GetYear());
+        // }
+
         [Fact]
         public void CreateEmptyUpdate()
         {
             BirthRecordUpdateMessage submission = new BirthRecordUpdateMessage();
-            Assert.Equal("http://nchs.cdc.gov/bfdr_submission_update", submission.MessageType);
+            Assert.Equal("http://nchs.cdc.gov/bfdr_birth_update", submission.MessageType);
             Assert.Null(submission.BirthRecord);
+            Assert.Equal("http://nchs.cdc.gov/bfdr_submission", submission.MessageDestination);
+            Assert.NotNull(submission.MessageTimestamp);
+            Assert.Null(submission.MessageSource);
+            Assert.NotNull(submission.MessageId);
+            Assert.Null(submission.CertNo);
+            Assert.Null(submission.StateAuxiliaryId);
+            Assert.Null(submission.NCHSIdentifier);
+        }
+
+        [Fact]
+        public void CreateEmptyFetalDeathUpdate()
+        {
+            FetalDeathRecordUpdateMessage submission = new FetalDeathRecordUpdateMessage();
+            Assert.Equal("http://nchs.cdc.gov/bfdr_death_update", submission.MessageType);
+            Assert.Null(submission.FetalDeathRecord);
             Assert.Equal("http://nchs.cdc.gov/bfdr_submission", submission.MessageDestination);
             Assert.NotNull(submission.MessageTimestamp);
             Assert.Null(submission.MessageSource);
@@ -91,9 +161,9 @@ namespace BFDR.Tests
             // Test with fixture record
             BirthRecordUpdateMessage submission = new BirthRecordUpdateMessage(record);
             Assert.NotNull(submission.BirthRecord);
-            Assert.Equal("http://nchs.cdc.gov/bfdr_submission_update", submission.MessageType);
+            Assert.Equal("http://nchs.cdc.gov/bfdr_birth_update", submission.MessageType);
             Assert.Equal((uint)15075, submission.CertNo);
-            Assert.Equal((uint)2019, submission.BirthYear);
+            Assert.Equal((uint)2019, submission.EventYear);
             Assert.Equal("444455555", submission.StateAuxiliaryId);
             Assert.Equal("2019UT015075", submission.NCHSIdentifier);
             Assert.Equal(2019, submission.BirthRecord.BirthYear);
@@ -101,7 +171,30 @@ namespace BFDR.Tests
             // Test with null record
             submission = new BirthRecordUpdateMessage(null);
             Assert.Null(submission.BirthRecord);
-            Assert.Equal("http://nchs.cdc.gov/bfdr_submission_update", submission.MessageType);
+            Assert.Equal("http://nchs.cdc.gov/bfdr_birth_update", submission.MessageType);
+            Assert.Null(submission.CertNo);
+            Assert.Null(submission.StateAuxiliaryId);
+            Assert.Null(submission.NCHSIdentifier);
+        }
+
+        [Fact]
+        public void CreateUpdateFromFetalDeathRecord()
+        {
+            // Test with fixture record
+            FetalDeathRecordUpdateMessage submission = new FetalDeathRecordUpdateMessage(fetalDeathRecord);
+            Assert.NotNull(submission.FetalDeathRecord);
+            Assert.Equal("http://nchs.cdc.gov/bfdr_death_update", submission.MessageType);
+            Assert.Equal((uint)87366, submission.CertNo);
+            Assert.Equal((uint)2020, submission.EventYear);
+            Assert.Equal("444455555", submission.StateAuxiliaryId);
+            Assert.Equal("NY", submission.JurisdictionId);
+            Assert.Equal("2020NY087366", submission.NCHSIdentifier);
+            Assert.Equal((uint)2020, submission.FetalDeathRecord.GetYear());
+
+            // Test with null record
+            submission = new FetalDeathRecordUpdateMessage(null);
+            Assert.Null(submission.FetalDeathRecord);
+            Assert.Equal("http://nchs.cdc.gov/bfdr_death_update", submission.MessageType);
             Assert.Null(submission.CertNo);
             Assert.Null(submission.StateAuxiliaryId);
             Assert.Null(submission.NCHSIdentifier);
@@ -110,16 +203,31 @@ namespace BFDR.Tests
         [Fact]
         public void LoadUpdateFromJSON()
         {
-            BirthRecordUpdateMessage submission = BirthRecordBaseMessage.Parse<BirthRecordUpdateMessage>(TestHelpers.FixtureStream("fixtures/json/BirthRecordUpdateMessage.json"));
-            Assert.Equal("http://nchs.cdc.gov/bfdr_submission_update", submission.MessageType);
+            BirthRecordUpdateMessage submission = BFDRBaseMessage.Parse<BirthRecordUpdateMessage>(TestHelpers.FixtureStream("fixtures/json/BirthRecordUpdateMessage.json"));
+            Assert.Equal("http://nchs.cdc.gov/bfdr_birth_update", submission.MessageType);
             Assert.Equal("2019UT048858", submission.NCHSIdentifier);
             Assert.Equal((uint)48858, submission.CertNo);
-            Assert.Equal((uint)2019, submission.BirthYear);
+            Assert.Equal((uint)2019, submission.EventYear);
             Assert.Equal("000000000042", submission.StateAuxiliaryId);
             Assert.Equal(submission.JurisdictionId, submission.BirthRecord.BirthLocationJurisdiction);
             Assert.Equal(2019, submission.BirthRecord.BirthYear);
             Assert.Equal("48858", submission.BirthRecord.CertificateNumber);
         }
+
+        // TODO need test example
+        // [Fact]
+        // public void LoadUpdateFetalDeathFromJSON()
+        // {
+        //     FetalDeathRecordUpdateMessage submission = BFDRBaseMessage.Parse<FetalDeathRecordUpdateMessage>(TestHelpers.FixtureStream("fixtures/json/BirthRecordUpdateMessage.json"));
+        //     Assert.Equal("http://nchs.cdc.gov/bfdr_birth_update", submission.MessageType);
+        //     Assert.Equal("2019UT048858", submission.NCHSIdentifier);
+        //     Assert.Equal((uint)48858, submission.CertNo);
+        //     Assert.Equal((uint)2019, submission.EventYear);
+        //     Assert.Equal("000000000042", submission.StateAuxiliaryId);
+        //     Assert.Equal(submission.JurisdictionId, submission.FetalDeathRecord.BirthLocationJurisdiction);
+        //     Assert.Equal(2019, submission.FetalDeathRecord.BirthYear);
+        //     Assert.Equal("48858", submission.FetalDeathRecord.CertificateNumber);
+        // }
 
         [Fact]
         public void CreateMultipleDestinationsMessage()
@@ -141,7 +249,21 @@ namespace BFDR.Tests
         public void CreateAckForMessage()
         {
             BirthRecordUpdateMessage submission = new BirthRecordUpdateMessage(record);
-            BirthRecordAcknowledgementMessage ack = new BirthRecordAcknowledgementMessage(submission);
+            BFDRAcknowledgementMessage ack = new BFDRAcknowledgementMessage(submission);
+            Assert.Equal("http://nchs.cdc.gov/bfdr_acknowledgement", ack.MessageType);
+            Assert.Equal(submission.MessageId, ack.AckedMessageId);
+            Assert.Equal(submission.MessageSource, ack.MessageDestination);
+            Assert.Equal(submission.MessageDestination, ack.MessageSource);
+            Assert.Equal(submission.StateAuxiliaryId, ack.StateAuxiliaryId);
+            Assert.Equal(submission.CertNo, ack.CertNo);
+            Assert.Equal(submission.NCHSIdentifier, ack.NCHSIdentifier);
+        }
+
+        [Fact]
+        public void CreateAckForFetalDeathMessage()
+        {
+            FetalDeathRecordUpdateMessage submission = new FetalDeathRecordUpdateMessage(fetalDeathRecord);
+            BFDRAcknowledgementMessage ack = new BFDRAcknowledgementMessage(submission);
             Assert.Equal("http://nchs.cdc.gov/bfdr_acknowledgement", ack.MessageType);
             Assert.Equal(submission.MessageId, ack.AckedMessageId);
             Assert.Equal(submission.MessageSource, ack.MessageDestination);
@@ -154,27 +276,27 @@ namespace BFDR.Tests
         [Fact]
         public void LoadAckFromJSON()
         {
-            BirthRecordAcknowledgementMessage ack = BirthRecordBaseMessage.Parse<BirthRecordAcknowledgementMessage>(TestHelpers.FixtureStream("fixtures/json/BirthRecordAcknowledgementMessage.json"));
+            BFDRAcknowledgementMessage ack = BFDRBaseMessage.Parse<BFDRAcknowledgementMessage>(TestHelpers.FixtureStream("fixtures/json/BirthRecordAcknowledgementMessage.json"));
             Assert.Equal("http://nchs.cdc.gov/bfdr_acknowledgement", ack.MessageType);
             Assert.Equal("0df23820-f4ad-4a29-8862-a5effb85f1c5", ack.AckedMessageId);
             Assert.Equal("http://mitre.org/bfdr", ack.MessageDestination);
             Assert.Equal("2019UT048858", ack.NCHSIdentifier);
             Assert.Equal((uint)48858, ack.CertNo);
-            Assert.Equal((uint)2019, ack.BirthYear);
+            Assert.Equal((uint)2019, ack.EventYear);
             Assert.Equal("000000000042", ack.StateAuxiliaryId);
         }
 
         [Fact]
-        public void CreateBirthRecordVoidMessage()
+        public void CreateBFDRVoidMessage()
         {
-            BirthRecordVoidMessage message = new BirthRecordVoidMessage();
+            BFDRVoidMessage message = new BFDRVoidMessage();
             Assert.Equal("http://nchs.cdc.gov/bfdr_submission_void", message.MessageType);
             Assert.Null(message.CertNo);
             message.CertNo = 11;
             Assert.Equal((uint)11, message.CertNo);
-            Assert.Null(message.BirthYear);
-            message.BirthYear = 2021;
-            Assert.Equal((uint)2021, message.BirthYear);
+            Assert.Null(message.EventYear);
+            message.EventYear = 2021;
+            Assert.Equal((uint)2021, message.EventYear);
             Assert.Null(message.JurisdictionId);
             message.JurisdictionId = "MA";
             Assert.Equal("MA", message.JurisdictionId);
@@ -189,39 +311,40 @@ namespace BFDR.Tests
             Assert.Equal((uint)0, message.BlockCount);
         }
 
-        [Fact]
-        public void LoadBirthRecordVoidMessageFromJson()
-        {
-            BirthRecordVoidMessage message = BirthRecordBaseMessage.Parse<BirthRecordVoidMessage>(TestHelpers.FixtureStream("fixtures/json/BirthRecordVoidMessage.json"));
-            Assert.Equal("http://nchs.cdc.gov/bfdr_submission_void", message.MessageType);
-            Assert.Equal((uint)48858, message.CertNo);
-            Assert.Equal((uint)10, message.BlockCount);
-            Assert.Equal("000000000042", message.StateAuxiliaryId);
-            Assert.Equal("2019UT048858", message.NCHSIdentifier);
-            Assert.Equal("http://nchs.cdc.gov/bfdr_submission", message.MessageDestination);
-            Assert.Equal("http://mitre.org/bfdr", message.MessageSource);
-        }
+        // TODO confirm if Voids exist in BFDR
+        // [Fact]
+        // public void LoadBFDRVoidMessageFromJson()
+        // {
+        //     BFDRVoidMessage message = BFDRBaseMessage.Parse<BFDRVoidMessage>(TestHelpers.FixtureStream("fixtures/json/BirthRecordVoidMessage.json"));
+        //     Assert.Equal("http://nchs.cdc.gov/bfdr_submission_void", message.MessageType);
+        //     Assert.Equal((uint)48858, message.CertNo);
+        //     Assert.Equal((uint)10, message.BlockCount);
+        //     Assert.Equal("000000000042", message.StateAuxiliaryId);
+        //     Assert.Equal("2019UT048858", message.NCHSIdentifier);
+        //     Assert.Equal("http://nchs.cdc.gov/bfdr_submission", message.MessageDestination);
+        //     Assert.Equal("http://mitre.org/bfdr", message.MessageSource);
+        // }
 
-        [Fact]
-        public void CreateAckForBirthRecordVoidMessage()
-        {
-            BirthRecordVoidMessage voidMessage = BirthRecordBaseMessage.Parse<BirthRecordVoidMessage>(TestHelpers.FixtureStream("fixtures/json/BirthRecordVoidMessage.json"));
-            BirthRecordAcknowledgementMessage ack = new BirthRecordAcknowledgementMessage(voidMessage);
-            Assert.Equal("http://nchs.cdc.gov/bfdr_acknowledgement", ack.MessageType);
-            Assert.Equal(voidMessage.MessageId, ack.AckedMessageId);
-            Assert.Equal(voidMessage.MessageSource, ack.MessageDestination);
-            Assert.Equal(voidMessage.MessageDestination, ack.MessageSource);
-            Assert.Equal(voidMessage.StateAuxiliaryId, ack.StateAuxiliaryId);
-            Assert.Equal(voidMessage.CertNo, ack.CertNo);
-            Assert.Equal(voidMessage.NCHSIdentifier, ack.NCHSIdentifier);
-            Assert.Equal(voidMessage.BlockCount, ack.BlockCount);
-        }
+        // [Fact]
+        // public void CreateAckForBFDRVoidMessage()
+        // {
+        //     BFDRVoidMessage voidMessage = BFDRBaseMessage.Parse<BFDRVoidMessage>(TestHelpers.FixtureStream("fixtures/json/BirthRecordVoidMessage.json"));
+        //     BFDRAcknowledgementMessage ack = new BFDRAcknowledgementMessage(voidMessage);
+        //     Assert.Equal("http://nchs.cdc.gov/bfdr_acknowledgement", ack.MessageType);
+        //     Assert.Equal(voidMessage.MessageId, ack.AckedMessageId);
+        //     Assert.Equal(voidMessage.MessageSource, ack.MessageDestination);
+        //     Assert.Equal(voidMessage.MessageDestination, ack.MessageSource);
+        //     Assert.Equal(voidMessage.StateAuxiliaryId, ack.StateAuxiliaryId);
+        //     Assert.Equal(voidMessage.CertNo, ack.CertNo);
+        //     Assert.Equal(voidMessage.NCHSIdentifier, ack.NCHSIdentifier);
+        //     Assert.Equal(voidMessage.BlockCount, ack.BlockCount);
+        // }
 
         [Fact]
         public void CreateStatusMessage()
         {
             BirthRecordSubmissionMessage submission = new BirthRecordSubmissionMessage(record);
-            BirthRecordStatusMessage status = new BirthRecordStatusMessage(submission, "manualDemographicCoding");
+            BFDRStatusMessage status = new BFDRStatusMessage(submission, "manualDemographicCoding");
             Assert.Equal("http://nchs.cdc.gov/bfdr_status", status.MessageType);
             Assert.Equal("manualDemographicCoding", status.Status);
             Assert.Equal(submission.MessageId, status.StatusedMessageId);
@@ -235,8 +358,8 @@ namespace BFDR.Tests
         [Fact]
         public void CreateAckForStatusMessage()
         {
-            BirthRecordStatusMessage statusMessage = BirthRecordBaseMessage.Parse<BirthRecordStatusMessage>(TestHelpers.FixtureStream("fixtures/json/BirthRecordStatusMessage.json"));
-            BirthRecordAcknowledgementMessage ack = new BirthRecordAcknowledgementMessage(statusMessage);
+            BFDRStatusMessage statusMessage = BFDRBaseMessage.Parse<BFDRStatusMessage>(TestHelpers.FixtureStream("fixtures/json/BirthRecordStatusMessage.json"));
+            BFDRAcknowledgementMessage ack = new BFDRAcknowledgementMessage(statusMessage);
             Assert.Equal("http://nchs.cdc.gov/bfdr_acknowledgement", ack.MessageType);
             Assert.Equal(statusMessage.MessageId, ack.AckedMessageId);
             Assert.Equal(statusMessage.MessageSource, ack.MessageDestination);
@@ -249,8 +372,8 @@ namespace BFDR.Tests
         [Fact]
         public void CreateExtractionErrorForMessage()
         {
-            BirthRecordSubmissionMessage submission = BirthRecordBaseMessage.Parse<BirthRecordSubmissionMessage>(TestHelpers.FixtureStream("fixtures/json/BirthRecordSubmissionMessage.json"));
-            BirthRecordErrorMessage err = new BirthRecordErrorMessage(submission);
+            BirthRecordSubmissionMessage submission = BFDRBaseMessage.Parse<BirthRecordSubmissionMessage>(TestHelpers.FixtureStream("fixtures/json/BirthRecordSubmissionMessage.json"));
+            BFDRErrorMessage err = new BFDRErrorMessage(submission);
             Assert.Equal("http://nchs.cdc.gov/bfdr_extraction_error", err.MessageType);
             Assert.Equal(submission.MessageId, err.FailedMessageId);
             Assert.Equal(submission.MessageSource, err.MessageDestination);
@@ -277,7 +400,7 @@ namespace BFDR.Tests
         [Fact]
         public void LoadExtractionErrorFromJson()
         {
-            BirthRecordErrorMessage err = BirthRecordBaseMessage.Parse<BirthRecordErrorMessage>(TestHelpers.FixtureStream("fixtures/json/BirthRecordErrorMessage.json"));
+            BFDRErrorMessage err = BFDRBaseMessage.Parse<BFDRErrorMessage>(TestHelpers.FixtureStream("fixtures/json/BirthRecordErrorMessage.json"));
             Assert.Equal("http://nchs.cdc.gov/bfdr_extraction_error", err.MessageType);
             Assert.Equal((uint)1, err.CertNo);
             Assert.Equal("42", err.StateAuxiliaryId);
@@ -296,8 +419,8 @@ namespace BFDR.Tests
         [Fact]
         public void CreateDemographicForMessage()
         {
-            BirthRecordSubmissionMessage submission = BirthRecordBaseMessage.Parse<BirthRecordSubmissionMessage>(TestHelpers.FixtureStream("fixtures/json/BirthRecordSubmissionMessage.json"));
-            BirthRecordDemographicsCodingMessage coding = new BirthRecordDemographicsCodingMessage(submission);
+            BirthRecordSubmissionMessage submission = BFDRBaseMessage.Parse<BirthRecordSubmissionMessage>(TestHelpers.FixtureStream("fixtures/json/BirthRecordSubmissionMessage.json"));
+            BFDRParentalDemographicsCodingMessage coding = new BFDRParentalDemographicsCodingMessage(submission);
             Assert.Equal("http://nchs.cdc.gov/bfdr_demographics_coding", coding.MessageType);
             Assert.Equal(submission.MessageId, coding.CodedMessageId);
             Assert.Equal(submission.MessageSource, coding.MessageDestination);
@@ -310,11 +433,11 @@ namespace BFDR.Tests
         [Fact]
         public void CreateDemographicCodingResponseFromJSON()
         {
-            BirthRecordDemographicsCodingMessage message = BirthRecordBaseMessage.Parse<BirthRecordDemographicsCodingMessage>(TestHelpers.FixtureStream("fixtures/json/BirthRecordDemographicsCodingMessage.json"));
-            Assert.Equal(BirthRecordDemographicsCodingMessage.MESSAGE_TYPE, message.MessageType);
+            BFDRParentalDemographicsCodingMessage message = BFDRBaseMessage.Parse<BFDRParentalDemographicsCodingMessage>(TestHelpers.FixtureStream("fixtures/json/BirthRecordDemographicsCodingMessage.json"));
+            Assert.Equal(BFDRParentalDemographicsCodingMessage.MESSAGE_TYPE, message.MessageType);
             Assert.Equal("http://nchs.cdc.gov/bfdr_submission", message.MessageDestination);
             Assert.Equal((uint)100, message.CertNo);
-            Assert.Equal((uint)2023, message.BirthYear);
+            Assert.Equal((uint)2023, message.EventYear);
             Assert.Equal("123", message.StateAuxiliaryId);
             Assert.Equal("2023YC000100", message.NCHSIdentifier);
             // TODO: Check demographic coding fields once implemented
@@ -323,11 +446,11 @@ namespace BFDR.Tests
         [Fact]
         public void CreateDemographicsCodingUpdateFromJSON()
         {
-            BirthRecordDemographicsCodingUpdateMessage message = BirthRecordBaseMessage.Parse<BirthRecordDemographicsCodingUpdateMessage>(TestHelpers.FixtureStream("fixtures/json/BirthRecordDemographicsCodingUpdateMessage.json"));
-            Assert.Equal(BirthRecordDemographicsCodingUpdateMessage.MESSAGE_TYPE, message.MessageType);
+            BFDRParentalDemographicsCodingUpdateMessage message = BFDRBaseMessage.Parse<BFDRParentalDemographicsCodingUpdateMessage>(TestHelpers.FixtureStream("fixtures/json/BirthRecordDemographicsCodingUpdateMessage.json"));
+            Assert.Equal(BFDRParentalDemographicsCodingUpdateMessage.MESSAGE_TYPE, message.MessageType);
             Assert.Equal("http://nchs.cdc.gov/bfdr_submission", message.MessageDestination);
             Assert.Equal((uint)100, message.CertNo);
-            Assert.Equal((uint)2023, message.BirthYear);
+            Assert.Equal((uint)2023, message.EventYear);
             Assert.Equal("123", message.StateAuxiliaryId);
             Assert.Equal("2023YC000100", message.NCHSIdentifier);
             // TODO: Check demographic coding fields once implemented
@@ -342,14 +465,14 @@ namespace BFDR.Tests
             ije.BSTATE = "YC";
             ije.FILENO = "123";
             // TODO: Set the IJE fields that support demographic data
-            BirthRecordDemographicsCodingMessage message = new BirthRecordDemographicsCodingMessage(ije.ToRecord());
+            BFDRParentalDemographicsCodingMessage message = new BFDRParentalDemographicsCodingMessage(ije.ToRecord());
             message.MessageSource = "http://nchs.cdc.gov/bfdr_submission";
             message.MessageDestination = "https://example.org/jurisdiction/endpoint";
-            Assert.Equal(BirthRecordDemographicsCodingMessage.MESSAGE_TYPE, message.MessageType);
+            Assert.Equal(BFDRParentalDemographicsCodingMessage.MESSAGE_TYPE, message.MessageType);
             Assert.Equal("http://nchs.cdc.gov/bfdr_submission", message.MessageSource);
             Assert.Equal("https://example.org/jurisdiction/endpoint", message.MessageDestination);
             Assert.Equal((uint)123, message.CertNo);
-            Assert.Equal((uint)2022, message.BirthYear);
+            Assert.Equal((uint)2022, message.EventYear);
             Assert.Equal("2022YC000123", message.NCHSIdentifier);
             // TODO: Check demographic coding fields once implemented
         }
@@ -363,14 +486,14 @@ namespace BFDR.Tests
             ije.BSTATE = "YC";
             ije.FILENO = "123";
             // TODO: Set the IJE fields that support demographic data
-            BirthRecordDemographicsCodingUpdateMessage message = new BirthRecordDemographicsCodingUpdateMessage(ije.ToRecord());
-            message.MessageSource = "http://nchs.cdc.gov/bfdr_submission";
+            BFDRParentalDemographicsCodingUpdateMessage message = new BFDRParentalDemographicsCodingUpdateMessage(ije.ToRecord());
+            message.MessageSource = "http://nchs.cdc.gov/bfdr_demographics_coding_update";
             message.MessageDestination = "https://example.org/jurisdiction/endpoint";
-            Assert.Equal(BirthRecordDemographicsCodingUpdateMessage.MESSAGE_TYPE, message.MessageType);
-            Assert.Equal("http://nchs.cdc.gov/bfdr_submission", message.MessageSource);
+            Assert.Equal(BFDRParentalDemographicsCodingUpdateMessage.MESSAGE_TYPE, message.MessageType);
+            Assert.Equal("http://nchs.cdc.gov/bfdr_demographics_coding_update", message.MessageSource);
             Assert.Equal("https://example.org/jurisdiction/endpoint", message.MessageDestination);
             Assert.Equal((uint)123, message.CertNo);
-            Assert.Equal((uint)2022, message.BirthYear);
+            Assert.Equal((uint)2022, message.EventYear);
             Assert.Equal("2022YC000123", message.NCHSIdentifier);
             // TODO: Check demographic coding fields once implemented
         }

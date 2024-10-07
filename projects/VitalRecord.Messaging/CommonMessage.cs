@@ -340,6 +340,52 @@ namespace VR
             }
         }
 
+        /// TODO move this to an override for GetYear and SetYear in fetal death messaging
+        /// <summary>The year in which the fetal death occurred</summary>
+        public uint? EventYear
+        {
+            get
+            {
+                return (uint?)Record?.GetSingleValue<UnsignedInt>("event_year")?.Value;
+            }
+            set
+            {
+                Record.Remove("event_year");
+                if (value != null)
+                {
+                    if (value < 1000 || value > 9999) {
+                        throw new ArgumentException("Year of event must be specified using four digits");
+                    }
+                    Record.Add("event_year", new UnsignedInt((int)value));
+                }
+            }
+        }
+
+        /// <summary>Override GetYear method to be implemented differently by VRDR for backwards compatibility</summary>
+        public uint? GetYear()
+        {
+            return this.EventYear;
+        }
+
+        /// <summary>Override SetYear method to be implemented differently by VRDR for backwards compatibility</summary>
+        public void SetYear(uint? year)
+        {
+            this.EventYear = year;
+        }
+
+        /// <summary>NCHS identifier. Format is 4-digit year, two character jurisdiction id, six character/digit certificate id.</summary>
+        public string NCHSIdentifier
+        {
+            get
+            {
+                if (GetYear() == null || JurisdictionId == null || CertNo == null)
+                {
+                    return null;
+                }
+                return GetYear().Value.ToString("D4") + JurisdictionId + CertNo.Value.ToString("D6");
+            }
+        }
+
         private static ParserSettings GetParserSettings(bool permissive)
         {
             return new ParserSettings { AcceptUnknownMembers = permissive,
