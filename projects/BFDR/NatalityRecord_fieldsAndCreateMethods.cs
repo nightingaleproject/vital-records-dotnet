@@ -105,7 +105,7 @@ namespace BFDR
             Attendant = new Practitioner();
             Attendant.Id = Guid.NewGuid().ToString();
             Attendant.Meta = new Meta();
-            string[] attendant_profile = { VR.ProfileURL.Practitioner };
+            string[] attendant_profile = { BFDR.ExtensionURL.PractitionerBirthAttendant };
             Attendant.Meta.Profile = attendant_profile;
             Extension roleExt = new Extension(BFDR.ExtensionURL.ExtensionRole, new Code("attendant"));
             Attendant.Extension.Add(roleExt);
@@ -118,7 +118,7 @@ namespace BFDR
             Certifier = new Practitioner();
             Certifier .Id = Guid.NewGuid().ToString();
             Certifier .Meta = new Meta();
-            string[] certifier_profile = { VR.ProfileURL.Practitioner };
+            string[] certifier_profile = { BFDR.ExtensionURL.PractitionerBirthCertifier };
             Certifier .Meta.Profile = certifier_profile;
             Extension roleExt = new Extension(BFDR.ExtensionURL.ExtensionRole, new Code("certifier"));
             Certifier.Extension.Add(roleExt);
