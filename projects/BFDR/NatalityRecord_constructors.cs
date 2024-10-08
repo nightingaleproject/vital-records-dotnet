@@ -230,6 +230,7 @@ namespace BFDR
                   //TODO: add father, input, coded race/ethnicity reference slices
                 };
                 Composition.Section.Add(fatherSection);
+
             } else 
             {
                 //TODO: demographic content composition should have a relevant mother and/or father - this should be an exception

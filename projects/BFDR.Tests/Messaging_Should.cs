@@ -382,6 +382,38 @@ namespace BFDR.Tests
         }
 
         [Fact]
+        public void CreateDemographicCodingResponseJson()
+        {
+                // create an IJE birth message, convert it to FHIR, round trip the FHIR to json and back to make sure the bundles are all added to the json correctly
+                IJEBirth ijeb = new IJEBirth();
+                ijeb.MRACE1E = "199";
+                ijeb.MRACE2E = "";
+                ijeb.MRACE3E = "";
+                ijeb.MRACE4E = "";
+                ijeb.MRACE5E = "";
+                ijeb.MRACE6E = "";
+                ijeb.MRACE7E = "";
+                ijeb.MRACE8E = "";
+
+                ijeb.METHNIC1 = "N";
+                ijeb.METHNIC2 = "N";                
+                ijeb.METHNIC3 = "N";
+                ijeb.METHNIC4 = "N";
+                ijeb.METHNIC5 = "";
+                ijeb.METHNICE = "100";
+                ijeb.METHNIC5C = "";
+
+                BirthRecord br = ijeb.ToRecord();
+                BirthRecordDemographicsCodingMessage msg = new BirthRecordDemographicsCodingMessage(br);
+                String msgJson = msg.ToJson();
+                // parse the json and make sure the bundles are present
+                BirthRecordDemographicsCodingMessage message = BirthRecordBaseMessage.Parse<BirthRecordDemographicsCodingMessage>(msgJson);
+                BirthRecord br2 = message.BirthRecord;
+                Assert.Equal("100", br2.MotherEthnicityEditedCodeHelper);
+                Assert.Equal("199", br2.MotherRaceTabulation1EHelper);
+        }
+
+        [Fact]
         public void CreateDemographicCodingUpdate()
         {
             // This test creates a response using the approach NCHS will use via IJE setters
@@ -390,7 +422,8 @@ namespace BFDR.Tests
             ije.BSTATE = "YC";
             ije.FILENO = "123";
             // TODO: Set the IJE fields that support demographic data
-            BirthRecordDemographicsCodingUpdateMessage message = new BirthRecordDemographicsCodingUpdateMessage(ije.ToRecord());
+            BirthRecord br = ije.ToRecord();
+            BirthRecordDemographicsCodingUpdateMessage message = new BirthRecordDemographicsCodingUpdateMessage(br);
             message.MessageSource = "http://nchs.cdc.gov/bfdr_submission";
             message.MessageDestination = "https://example.org/jurisdiction/endpoint";
             Assert.Equal(BirthRecordDemographicsCodingUpdateMessage.MESSAGE_TYPE, message.MessageType);
