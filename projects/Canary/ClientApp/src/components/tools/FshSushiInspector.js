@@ -5,8 +5,8 @@ import { Getter } from '../misc/Getter';
 import { FHIRInfo } from '../misc/info/FHIRInfo';
 import { Record } from '../misc/Record';
 
-export class MessageInspector extends Component {
-  displayName = MessageInspector.name;
+export class FshSushiInspector extends Component {
+  displayName = FshSushiInspector.name;
 
   constructor(props) {
     super(props);
@@ -17,13 +17,14 @@ export class MessageInspector extends Component {
   updateRecord(record, issues) {
     if (record && record.fhirInfo) {
       this.setState({ record: null, fhirInfo: null, issues: null }, () => {
-        this.setState({ record: record, fhirInfo: record.fhirInfo, issues: [] }, () => {
+        this.setState({ record: record, fhirInfo: record.fhirInfo, issues: issues }, () => {
           document.getElementById('scroll-to').scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
       })
-    } else if (issues && issues.length > 0) {
+    } else if (issues) {
       this.setState({ issues: issues, fhirInfo: null });
     }
+
   }
 
   render() {
@@ -37,11 +38,11 @@ export class MessageInspector extends Component {
                 Dashboard
               </Breadcrumb.Section>
               <Breadcrumb.Divider icon="right chevron" />
-              <Breadcrumb.Section>FHIR {this.props.recordType.toUpperCase()} Message Inspector</Breadcrumb.Section>
+              <Breadcrumb.Section>FSH {this.props.recordType.toUpperCase()} Inspector</Breadcrumb.Section>
             </Breadcrumb>
           </Grid.Row>
           <Grid.Row>
-           <Getter updateRecord={this.updateRecord} recordType={this.props.recordType} strict messageInspector={true} allowIje={false}/>
+           <Getter updateRecord={this.updateRecord} recordType={this.props.recordType} strict allowIje={false} source={"FshSushiInspector"} />
           </Grid.Row>
                   {!!this.state.fhirInfo && (
                       <Grid.Row>
@@ -57,16 +58,14 @@ export class MessageInspector extends Component {
                                   </Header.Content>
                               </Header>
                               <div className="p-b-15" />
-                              <Record record={this.state.record} showSave lines={20} showIje showFsh />
+                              <Record record={this.state.record} issues={this.state.issues} messageType={"FSH"} showSave messageValidation={true} lines={20} showIje issues={this.state.issues} showIssues showSuccess />
                           </Container>
                       </Grid.Row>
                   )}
           <div className="p-b-15" />
-            {!!this.state.issues && this.state.issues.length > 0 && (
                 <Grid.Row>
-                    <Record record={null} issues={this.state.issues} messageInspector={true} showIssues showIje showFsh />
+                    <Record record={null} issues={this.state.issues}  messageType={"FSH"} messageValidation={true} showIssues showSuccess />
                 </Grid.Row>
-          )}
           {!!this.state.fhirInfo && (
             <Grid.Row>
               <Container fluid>

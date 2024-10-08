@@ -1,27 +1,37 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text.Json.Nodes;
+using System.Text.RegularExpressions;
+using System.Text;
+using System.Threading.Tasks;
 using VR;
 using VRDR;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using RestSharp;
+using RestSharp.Authenticators;
 
 namespace canary.Models
 {
 
     public class CanaryDeathRecord : Record
     {
-        public CanaryDeathRecord() : base() {}
+        public CanaryDeathRecord(bool retrieveFsh = false) : base(retrieveFsh) {}
 
-        public CanaryDeathRecord(VitalRecord record) : base(record) {}
+        public CanaryDeathRecord(VitalRecord record, bool retrieveFsh = false) : base(record, retrieveFsh) {}
 
-        public CanaryDeathRecord(string record) : base(record) {}
+        public CanaryDeathRecord(string record) : base(record, false) { }
 
-        public CanaryDeathRecord(string record, bool permissive) : base(record, permissive) {}
+        public CanaryDeathRecord(string record, bool retrieveFsh = false) : base(record, retrieveFsh) {}
 
-        /// <summary>Check the given FHIR record string and return a list of issues. Also returned
-        /// the parsed record if parsing was successful.</summary>
-        public static Record CheckGet(string record, bool permissive, out List<Dictionary<string, string>> issues)
+        public CanaryDeathRecord(string record, bool permissive, bool retrieveFsh = false) : base(record, permissive, retrieveFsh) {}
+
+        public static Record CheckGet(string record, bool permissive, out List<Dictionary<string, string>> issues, bool retrieveFsh = false)
         {
-            CanaryDeathRecord recordToSerialize = new CanaryDeathRecord(new DeathRecord(record, permissive));
+            CanaryDeathRecord recordToSerialize = new CanaryDeathRecord(new DeathRecord(record, permissive), retrieveFsh);
             return Record.CheckGet(recordToSerialize, out issues);
         }
 
@@ -57,5 +67,7 @@ namespace canary.Models
         {
             return typeof(IJEMortality).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Field).ToList();
         }
+
+
     }
 }
