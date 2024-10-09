@@ -3,7 +3,7 @@
   "id": "43ec7dfc-a767-4990-8b28-fef56f90f856",
   "meta": {
     "profile": [
-      "http://hl7.org/fhir/us/bfdr/StructureDefinition/Bundle-document-birth-report"
+      "http://hl7.org/fhir/us/bfdr/StructureDefinition/Bundle-document-fetal-death-report"
     ]
   },
   "identifier": {
@@ -279,7 +279,7 @@
         },
         "extension": [
           {
-            "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-role-vr",
+            "url": "http://hl7.org/fhir/us/bfdr/StructureDefinition/Extension-role",
             "valueCode": "certifier"
           }
         ]
@@ -297,7 +297,7 @@
         },
         "extension": [
           {
-            "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-role-vr",
+            "url": "http://hl7.org/fhir/us/bfdr/StructureDefinition/Extension-role",
             "valueCode": "attendant"
           }
         ]
