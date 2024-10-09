@@ -16,11 +16,11 @@ namespace BFDR
         /// <value>the date of certification</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.CertifiedDate = "2023-02-19";</para>
+        /// <para>ExampleFetalDeathRecord.CertifiedDate = "2023-02-19";</para>
         /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Date of birth certification: {ExampleBirthRecord.CertificationDate}");</para>
+        /// <para>Console.WriteLine($"Date of Fetal Death certification: {ExampleFetalDeathRecord.CertificationDate}");</para>
         /// </example>
-        [Property("CertificationDate", Property.Types.String, "Birth Certification", "Date of Certification.", true, BFDR.IGURL.CompositionProviderLiveBirthReport, true, 243)]
+        [Property("CertificationDate", Property.Types.String, "Fetal Death Certification", "Date of Certification.", true, BFDR.IGURL.CompositionProviderFetalDeathReport, true, 243)]
         [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(extension.value.coding.code='CHILD')", "")]
         public string CertificationDate
         {
@@ -32,11 +32,11 @@ namespace BFDR
         /// <value>year of certification</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.CertifiedYear = 2023;</para>
+        /// <para>ExampleFetalDeathRecord.CertifiedYear = 2023;</para>
         /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Certified Year: {ExampleBirthRecord.CertifiedYear}");</para>
+        /// <para>Console.WriteLine($"Certified Year: {ExampleFetalDeathRecord.CertifiedYear}");</para>
         /// </example>
-        [Property("Certified Year", Property.Types.Int32, "Birth Certification", "Certified Year", true, IGURL.EncounterBirth, true, 4)]
+        [Property("Certified Year", Property.Types.Int32, "Fetal Death Certification", "Certified Year", true, IGURL.EncounterMaternity, true, 4)]
         [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(extension.value.coding.code='CHILD')", "")]
         public int? CertifiedYear
         {
@@ -48,11 +48,11 @@ namespace BFDR
         /// <value>month of certification</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.CertifiedMonth = 10;</para>
+        /// <para>ExampleFetalDeathRecord.CertifiedMonth = 10;</para>
         /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Certified Month: {ExampleBirthRecord.CertifiedMonth}");</para>
+        /// <para>Console.WriteLine($"Certified Month: {ExampleFetalDeathRecord.CertifiedMonth}");</para>
         /// </example>
-        [Property("Certified Month", Property.Types.Int32, "Birth Certification", "Certified Month", true, IGURL.EncounterBirth, true, 4)]
+        [Property("Certified Month", Property.Types.Int32, "Fetal Death Certification", "Certified Month", true, IGURL.EncounterMaternity, true, 4)]
         [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(extension.value.coding.code='CHILD')", "")]
         public int? CertifiedMonth
         {
@@ -64,11 +64,11 @@ namespace BFDR
         /// <value>day of certification</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.CertifiedDay = 23;</para>
+        /// <para>ExampleFetalDeathRecord.CertifiedDay = 23;</para>
         /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Certified Day: {ExampleBirthRecord.CertifiedDay}");</para>
+        /// <para>Console.WriteLine($"Certified Day: {ExampleFetalDeathRecord.CertifiedDay}");</para>
         /// </example> 
-        [Property("Certified Day", Property.Types.Int32, "Birth Certification", "Certified Day", true, IGURL.EncounterBirth, true, 4)]
+        [Property("Certified Day", Property.Types.Int32, "Fetal Death Certification", "Certified Day", true, IGURL.EncounterMaternity, true, 4)]
         [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(extension.value.coding.code='CHILD')", "")]
         public int? CertifiedDay
         {
@@ -156,9 +156,9 @@ namespace BFDR
         /// <para>locationType.Add("code", "22232009");</para>
         /// <para>locationType.Add("system", "http://snomed.info/sct");</para>
         /// <para>locationType.Add("display", "Hospital");</para>
-        /// <para>ExampleBirthRecord.BirthPhysicalLocation = locationType;</para>
+        /// <para>ExampleFetalDeathRecord.DeliveryPhysicalLocation = locationType;</para>
         /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"The place type the child was born: {ExampleBirthRecord.BirthPhysicalLocation["code"]}");</para>
+        /// <para>Console.WriteLine($"The place type the child was born: {ExampleFetalDeathRecord.DeliveryPhysicalLocation["code"]}");</para>
         /// </example>
         [Property("DeliveryPhysicalLocation", Property.Types.Dictionary, "Delivery Physical Location", "Delivery Physical Location.", true, IGURL.EncounterMaternity, true, 16)]
         [PropertyParam("code", "The code used to describe this concept.")]
@@ -175,9 +175,9 @@ namespace BFDR
         /// <value>Child's Place Of Birth Type Helper</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.BirthPhysicalLocationHelper = "Hospital";</para>
+        /// <para>ExampleFetalDeathRecord.DeliveryPhysicalLocationHelper = "Hospital";</para>
         /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Child's Place Of Birth Type: {ExampleBirthRecord.BirthPhysicalLocationHelper}");</para>
+        /// <para>Console.WriteLine($"Child's Place Of Birth Type: {ExampleFetalDeathRecord.DeliveryPhysicalLocationHelper}");</para>
         /// </example>
         [Property("DeliveryPhysicalLocationHelper", Property.Types.String, "Delivery Physical Location", "Delivery Physical Location Helper.", false, IGURL.EncounterMaternity, true, 4)]
         [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(meta.profile == " + IGURL.EncounterMaternity + ")", "")]
@@ -191,9 +191,9 @@ namespace BFDR
         /// <value>Estimated time of fetal death</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.TimeOfFetalDeath = ;</para>
+        /// <para>ExampleFetalDeathRecord.TimeOfFetalDeath = ;</para>
         /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Sex at Time of Birth: {ExampleBirthRecord.TimeOfFetalDeath}");</para>
+        /// <para>Console.WriteLine($"Sex at Time of Birth: {ExampleFetalDeathRecord.TimeOfFetalDeath}");</para>
         /// </example>
         [Property("Estimated time of fetal death", Property.Types.Dictionary, "Fetal Death", "Estimated time of fetal death.", true, VR.IGURL.PatientFetalDeath, true, 12)]
         [PropertyParam("code", "The code used to describe this concept.")]
@@ -223,9 +223,9 @@ namespace BFDR
         /// <value>The child's sex at time of birth</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.TimeOfFetalDeathHelper = "female";</para>
+        /// <para>ExampleFetalDeathRecord.TimeOfFetalDeathHelper = "female";</para>
         /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Time of Fetal Death: {ExampleBirthRecord.TimeOfFetalDeathHelper}");</para>
+        /// <para>Console.WriteLine($"Time of Fetal Death: {ExampleFetalDeathRecord.TimeOfFetalDeathHelper}");</para>
         /// </example>
         [Property("Estimated Time of Fetal Death Helper", Property.Types.String, "Fetal Death", "Estimated time of fetal death.", false, VR.IGURL.Child, true, 12)]
         [FHIRPath("Bundle.entry.resource.where($this is Patient).extension.where(url='" + OtherExtensionURL.BirthSex + "')", "")]
@@ -1125,9 +1125,9 @@ namespace BFDR
         /// <para>address.Add("addressState", "MA");</para>
         /// <para>address.Add("addressZip", "12345");</para>
         /// <para>address.Add("addressCountry", "US");</para>
-        /// <para>ExampleBirthRecord.PlaceOfDelivery = address;</para>
+        /// <para>ExampleFetalDeathRecord.PlaceOfDelivery = address;</para>
         /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"State where baby was delivered: {ExampleBirthRecord.PlaceOfDelivery["addressState"]}");</para>
+        /// <para>Console.WriteLine($"State where baby was delivered: {ExampleFetalDeathRecord.PlaceOfDelivery["addressState"]}");</para>
         /// </example>
         [Property("Place of Delivery", Property.Types.Dictionary, "Place of Delivery", "Place of Delivery.", true, IGURL.LocationBFDR, true, 20)]
         [PropertyParam("addressLine1", "address, line one")]

@@ -284,9 +284,9 @@
             <value>the date of certification</value>
             <example>
             <para>// Setter:</para>
-            <para>ExampleBirthRecord.CertifiedDate = "2023-02-19";</para>
+            <para>ExampleFetalDeathRecord.CertifiedDate = "2023-02-19";</para>
             <para>// Getter:</para>
-            <para>Console.WriteLine($"Date of birth certification: {ExampleBirthRecord.CertificationDate}");</para>
+            <para>Console.WriteLine($"Date of Fetal Death certification: {ExampleFetalDeathRecord.CertificationDate}");</para>
             </example>
         </member>
         <member name="P:BFDR.FetalDeathRecord.CertifiedYear">
@@ -294,9 +294,9 @@
             <value>year of certification</value>
             <example>
             <para>// Setter:</para>
-            <para>ExampleBirthRecord.CertifiedYear = 2023;</para>
+            <para>ExampleFetalDeathRecord.CertifiedYear = 2023;</para>
             <para>// Getter:</para>
-            <para>Console.WriteLine($"Certified Year: {ExampleBirthRecord.CertifiedYear}");</para>
+            <para>Console.WriteLine($"Certified Year: {ExampleFetalDeathRecord.CertifiedYear}");</para>
             </example>
         </member>
         <member name="P:BFDR.FetalDeathRecord.CertifiedMonth">
@@ -304,9 +304,9 @@
             <value>month of certification</value>
             <example>
             <para>// Setter:</para>
-            <para>ExampleBirthRecord.CertifiedMonth = 10;</para>
+            <para>ExampleFetalDeathRecord.CertifiedMonth = 10;</para>
             <para>// Getter:</para>
-            <para>Console.WriteLine($"Certified Month: {ExampleBirthRecord.CertifiedMonth}");</para>
+            <para>Console.WriteLine($"Certified Month: {ExampleFetalDeathRecord.CertifiedMonth}");</para>
             </example>
         </member>
         <member name="P:BFDR.FetalDeathRecord.CertifiedDay">
@@ -314,9 +314,9 @@
             <value>day of certification</value>
             <example>
             <para>// Setter:</para>
-            <para>ExampleBirthRecord.CertifiedDay = 23;</para>
+            <para>ExampleFetalDeathRecord.CertifiedDay = 23;</para>
             <para>// Getter:</para>
-            <para>Console.WriteLine($"Certified Day: {ExampleBirthRecord.CertifiedDay}");</para>
+            <para>Console.WriteLine($"Certified Day: {ExampleFetalDeathRecord.CertifiedDay}");</para>
             </example> 
         </member>
         <member name="P:BFDR.FetalDeathRecord.FetusGivenNames">
@@ -364,9 +364,9 @@
             <para>locationType.Add("code", "22232009");</para>
             <para>locationType.Add("system", "http://snomed.info/sct");</para>
             <para>locationType.Add("display", "Hospital");</para>
-            <para>ExampleBirthRecord.BirthPhysicalLocation = locationType;</para>
+            <para>ExampleFetalDeathRecord.DeliveryPhysicalLocation = locationType;</para>
             <para>// Getter:</para>
-            <para>Console.WriteLine($"The place type the child was born: {ExampleBirthRecord.BirthPhysicalLocation["code"]}");</para>
+            <para>Console.WriteLine($"The place type the child was born: {ExampleFetalDeathRecord.DeliveryPhysicalLocation["code"]}");</para>
             </example>
         </member>
         <member name="P:BFDR.FetalDeathRecord.DeliveryPhysicalLocationHelper">
@@ -374,9 +374,9 @@
             <value>Child's Place Of Birth Type Helper</value>
             <example>
             <para>// Setter:</para>
-            <para>ExampleBirthRecord.BirthPhysicalLocationHelper = "Hospital";</para>
+            <para>ExampleFetalDeathRecord.DeliveryPhysicalLocationHelper = "Hospital";</para>
             <para>// Getter:</para>
-            <para>Console.WriteLine($"Child's Place Of Birth Type: {ExampleBirthRecord.BirthPhysicalLocationHelper}");</para>
+            <para>Console.WriteLine($"Child's Place Of Birth Type: {ExampleFetalDeathRecord.DeliveryPhysicalLocationHelper}");</para>
             </example>
         </member>
         <member name="P:BFDR.FetalDeathRecord.TimeOfFetalDeath">
@@ -384,9 +384,9 @@
             <value>Estimated time of fetal death</value>
             <example>
             <para>// Setter:</para>
-            <para>ExampleBirthRecord.TimeOfFetalDeath = ;</para>
+            <para>ExampleFetalDeathRecord.TimeOfFetalDeath = ;</para>
             <para>// Getter:</para>
-            <para>Console.WriteLine($"Sex at Time of Birth: {ExampleBirthRecord.TimeOfFetalDeath}");</para>
+            <para>Console.WriteLine($"Sex at Time of Birth: {ExampleFetalDeathRecord.TimeOfFetalDeath}");</para>
             </example>
         </member>
         <member name="P:BFDR.FetalDeathRecord.TimeOfFetalDeathHelper">
@@ -394,9 +394,9 @@
             <value>The child's sex at time of birth</value>
             <example>
             <para>// Setter:</para>
-            <para>ExampleBirthRecord.TimeOfFetalDeathHelper = "female";</para>
+            <para>ExampleFetalDeathRecord.TimeOfFetalDeathHelper = "female";</para>
             <para>// Getter:</para>
-            <para>Console.WriteLine($"Time of Fetal Death: {ExampleBirthRecord.TimeOfFetalDeathHelper}");</para>
+            <para>Console.WriteLine($"Time of Fetal Death: {ExampleFetalDeathRecord.TimeOfFetalDeathHelper}");</para>
             </example>
         </member>
         <member name="P:BFDR.FetalDeathRecord.PrematureRuptureOfMembranes">
@@ -660,9 +660,9 @@
             <para>address.Add("addressState", "MA");</para>
             <para>address.Add("addressZip", "12345");</para>
             <para>address.Add("addressCountry", "US");</para>
-            <para>ExampleBirthRecord.PlaceOfDelivery = address;</para>
+            <para>ExampleFetalDeathRecord.PlaceOfDelivery = address;</para>
             <para>// Getter:</para>
-            <para>Console.WriteLine($"State where baby was delivered: {ExampleBirthRecord.PlaceOfDelivery["addressState"]}");</para>
+            <para>Console.WriteLine($"State where baby was delivered: {ExampleFetalDeathRecord.PlaceOfDelivery["addressState"]}");</para>
             </example>
         </member>
         <member name="P:BFDR.FetalDeathRecord.DateOfDelivery">

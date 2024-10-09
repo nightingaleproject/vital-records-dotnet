@@ -2774,7 +2774,7 @@ namespace BFDR
                 }
                 Dictionary<string, string> dictionary = new Dictionary<string, string>();
                 dictionary.Add("code", value);
-                dictionary.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");
+                dictionary.Add("system", CodeSystems.VRCLEditFlags);
                 MotherDateOfBirthEditFlag = dictionary;
             }
         }
