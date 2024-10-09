@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>VRDR</RootNamespace>
-    <Version>5.0.0</Version>
+    <Version>5.0.0-preview.1</Version>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageId>VRDR.Messaging</PackageId>
     <Title>FHIR VRDR Death Record Messaging</Title>
@@ -10,6 +10,7 @@
     <Authors>aholmes@mitre.org</Authors>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PayloadVersionID>VRDR_STU3_0</PayloadVersionID>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Hl7.Fhir.R4" Version="4.3.0" />
@@ -18,4 +19,10 @@
     <ProjectReference Include="..\VRDR\VRDR.csproj" />
     <ProjectReference Include="..\VitalRecord.Messaging\VitalRecord.Messaging.csproj" />
   </ItemGroup>
+  <Target Name="GenerateCustomPropertyFile" BeforeTargets="BeforeCompile">
+    <WriteLinesToFile
+      File="GeneratedCustomProperty.cs"
+      Lines="/// &lt;summary&gt;Generated file from VRDR.Messaging.csproj&lt;/summary&gt;;public static class GeneratedCustomProperty {;/// &lt;summary&gt;Payload Version Identifier&lt;/summary&gt;;public const string Value = &quot;$(PayloadVersionID)&quot;%3B}"
+      Overwrite="true" />
+  </Target>
 </Project>

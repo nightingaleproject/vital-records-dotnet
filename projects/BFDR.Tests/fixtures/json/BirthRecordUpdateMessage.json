@@ -46,6 +46,10 @@
           {
             "name": "jurisdiction_id",
             "valueString": "UT"
+          },
+          {
+            "name": "payload_version_id",
+            "valueString": "BFDR_STU2_0"
           }
         ]
       }

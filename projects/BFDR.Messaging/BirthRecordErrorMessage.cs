@@ -22,6 +22,7 @@ namespace BFDR
             this.StateAuxiliaryId = sourceMessage?.StateAuxiliaryId;
             this.JurisdictionId = sourceMessage?.JurisdictionId;
             this.BirthYear = sourceMessage?.BirthYear;
+            this.PayloadVersionId = $"{GeneratedCustomProperty.Value}";
         }
 
         /// <summary>
