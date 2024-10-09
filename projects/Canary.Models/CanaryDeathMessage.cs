@@ -6,7 +6,7 @@ using BFDR;
 using VR;
 using VRDR.Interfaces;
 
-namespace canary.Models
+namespace Canary.Models
 {
     public class CanaryDeathMessage : Message, ICanaryDeathMessage
     {

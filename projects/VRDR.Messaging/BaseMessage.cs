@@ -10,7 +10,7 @@ using VR;
 namespace VRDR
 {
     /// <summary>Class <c>BaseMessage</c> is the base class of all messages.</summary>
-    public partial class BaseMessage : CommonMessage
+    public partial class BaseMessage : CommonMessage 
     {
         /// <summary>
         /// Construct a BaseMessage from a FHIR Bundle. This constructor will also validate that the Bundle

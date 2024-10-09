@@ -10,6 +10,8 @@ using canary.Models;
 using System.Reflection;
 using BFDR;
 using VR;
+using VRDR.Interfaces;
+using VRDR;
 
 namespace canary.Controllers
 {
@@ -83,6 +85,7 @@ namespace canary.Controllers
             string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
 
             try {
+
                 BaseMessage message = BaseMessage.Parse(input, false);
                 // If we were to return the Message here, the controller would automatically
                 // serialize the message into a JSON object. Since that would happen outside of this
@@ -92,6 +95,7 @@ namespace canary.Controllers
                 // One such error can be caused by removing the `<source>` endpoint from a Submission
                 // message and then trying to validate it.
                 JsonConvert.SerializeObject(message);
+                //ICanaryDeathMessage canaryDeathMessage = 
                 return (message: new CanaryDeathMessage(message), issues: new List<Dictionary<string, string>>());
             }
             catch (Exception e)
