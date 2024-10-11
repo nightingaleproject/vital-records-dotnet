@@ -27,7 +27,7 @@ export class Record extends Component {
     if (!!this.props.ijeOnly && !!!this.props.hideIje) {
       this.setState({ activeItem: 'IJE' });
     }
-    else if (!!this.props.showFsh && !!!this.props.showIje) {
+    else if (this.props.source === "MessageFshConverter") {
         this.setState({ activeItem: 'FSH' });
     }else{
         this.setState({ activeItem: 'JSON' });

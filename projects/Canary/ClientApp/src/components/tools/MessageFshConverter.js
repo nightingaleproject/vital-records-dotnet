@@ -40,7 +40,7 @@ export class MessageFshConverter extends Component {
             </Breadcrumb>
           </Grid.Row>
           <Grid.Row>
-            <Getter updateRecord={this.updateRecord} recordType={this.props.recordType} strict allowIje={false} showIssues showFsh={true} source={"MessageFshConverter"} />
+            <Getter updateRecord={this.updateRecord} recordType={this.props.recordType} strict allowIje={false} source={"MessageFshConverter"} />
           </Grid.Row>
                   {!!this.state.fhirInfo && (
                       <Grid.Row>
@@ -51,19 +51,19 @@ export class MessageFshConverter extends Component {
                                   <Header.Content>
                                       Whole message content.  
                                       <Header.Subheader>
-                                          Enter or load the appropriate Connectathon test case data into your EDRS. 
+                                          Formatted as FSH. You can download, copy or POST this data.
                                       </Header.Subheader>
                                   </Header.Content>
                               </Header>
                               <div className="p-b-15" />
-                              <Record record={this.state.record} showSave lines={20} ijeOnly={true} hideIje={true} showFsh showIssues />
+                              <Record record={this.state.record} showSave lines={20} ijeOnly={true} hideIje={true} showFsh showIssues source={"MessageFshConverter"} />
                           </Container>
                       </Grid.Row>
                   )}
           <div className="p-b-15" />
             {!!this.state.issues && this.state.issues.length > 0 && (
                 <Grid.Row>
-                    <Record record={null} issues={this.state.issues} showIssues />
+                    <Record record={null} issues={this.state.issues} showIssues source={"MessageFshConverter"} />
                 </Grid.Row>
           )}
          </Grid>
