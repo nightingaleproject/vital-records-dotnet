@@ -63,10 +63,11 @@ export class Record extends Component {
   formatJson(json, spaces) {
     return JSON.stringify(JSON.parse(json), null, spaces);
   }
-      formatFsh(fsh) {
-        if (!fsh) { return ''; }
-        return JSON.parse(fsh).fsh;
-    }
+
+  formatFsh(fsh) {
+    if (!fsh) { return ''; }
+    return JSON.parse(fsh).fsh;
+  }
 
   formatIje(ije) {
     return ije.match(/.{1,140}/g).join('\n');
@@ -101,6 +102,9 @@ export class Record extends Component {
     }
     if (this.state.activeItem === 'IJE') {
       element.value = this.props.record.ije.replace(/(\r\n|\n|\r)/gm, '').substr(0, 5000);
+    }
+    if (this.state.activeItem === 'FSH') {
+      element.value =  this.formatFsh(this.props.record.fsh);
     }
     document.body.appendChild(element);
     element.select();
