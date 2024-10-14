@@ -17,7 +17,7 @@ namespace BFDR
     public abstract partial class NatalityRecord : VitalRecord
     {
         /// <summary>Default constructor that creates a new, empty NatalityRecord.</summary>
-        public NatalityRecord() : base()
+        public NatalityRecord(string bundleProfile) : base()
         {
             InitializeCompositionAndSubject();
 
@@ -26,7 +26,7 @@ namespace BFDR
             Bundle.Id = Guid.NewGuid().ToString();
             Bundle.Type = Bundle.BundleType.Document; // By default, Bundle type is "document".
             Bundle.Meta = new Meta();
-            string[] bundle_profile = { ProfileURL.BundleDocumentBirthReport };
+            string[] bundle_profile = { bundleProfile };
             Bundle.Timestamp = DateTime.Now;
             Bundle.Meta.Profile = bundle_profile;
 
@@ -47,17 +47,6 @@ namespace BFDR
             Father.Meta.Profile = father_profile;
             Father.Relationship.Add(new CodeableConcept(CodeSystems.RoleCode_HL7_V3, "NFTH"));
 
-            // Start with an empty EncounterBirth.
-            EncounterBirth = new Encounter()
-            {
-                Id = Guid.NewGuid().ToString(),
-                Meta = new Meta()
-            };
-            EncounterBirth.Meta.Profile = new List<string>()
-            {
-                ProfileURL.EncounterBirth
-            };
-
             // Start with an empty Coverage.
             Coverage = new Coverage()
             {
@@ -70,15 +59,7 @@ namespace BFDR
             };
 
             // Start with an empty EncounterMaternity.
-            EncounterMaternity = new Encounter()
-            {
-                Id = Guid.NewGuid().ToString(),
-                Meta = new Meta()
-            };
-            EncounterMaternity.Meta.Profile = new List<string>()
-            {
-                ProfileURL.EncounterMaternity
-            };
+            CreateMaternityEncounter();
 
             CreateCertifier();
 
@@ -115,8 +96,6 @@ namespace BFDR
             //eventComponent.Detail.Add(new ResourceReference("urn:uuid:" + BirthCertification.Id));
             Composition.Event.Add(eventComponent);
             Bundle.AddResourceEntry(Composition, "urn:uuid:" + Composition.Id);
-            Composition.Encounter = new ResourceReference("urn:uuid:" + EncounterMaternity.Id);
-
 
             // Add entries for the child, mother, and father.
             Bundle.AddResourceEntry(Subject, "urn:uuid:" + Subject.Id);
@@ -125,6 +104,7 @@ namespace BFDR
 
             Bundle.AddResourceEntry(Certifier, "urn:uuid:" + Certifier.Id);
             Bundle.AddResourceEntry(Attendant, "urn:uuid:" + Attendant.Id);
+            Bundle.AddResourceEntry(EncounterMaternity, "urn:uuid:" + EncounterMaternity.Id);
             // AddReferenceToComposition(BirthCertification.Id, "BirthCertification");
             // Bundle.AddResourceEntry(BirthCertification, "urn:uuid:" + BirthCertification.Id);
 
@@ -196,6 +176,10 @@ namespace BFDR
             // Make sure to include the base identifiers, including certificate number and auxiliary state IDs
             dccBundle.Identifier = Bundle.Identifier;
             // Add composition
+            if (Composition == null)
+            {
+                Composition = new Composition();
+            }
             Composition.Id = Guid.NewGuid().ToString();
             Composition.Status = CompositionStatus.Final;
             Composition.Meta = new Meta();
@@ -235,38 +219,27 @@ namespace BFDR
         }
 
         /// <summary>Restores class references from a newly parsed record.</summary>
-        protected override void RestoreReferences()
+        protected void RestoreReferences(string bundleProfile, string[] compositionProfiles, string subjectProfile)
         {
-            // Depending on the type of bundle, some of this information may not be present, so check it in a null-safe way
-            string profile = Bundle.Meta?.Profile?.FirstOrDefault();
-            // TODO: Currently we support natality: https://build.fhir.org/ig/HL7/fhir-bfdr/StructureDefinition-Bundle-document-birth-report.html
-            // but will want to support fetal death as well: https://build.fhir.org/ig/HL7/fhir-bfdr/StructureDefinition-Bundle-document-fetal-death-report.html
-            // and will have to check if it is birthRecord or fetalDeathRecords, rather than just fullRecord
-            // bool birthRecord = BFDR.ProfileURL.BundleDocumentBirthReport.Equals(profile);
-            // bool fetalDeathRecord = BFDR.ProfileURL.BundleDocumentBirthReport.Equals(profile);
-            bool fullRecord = BFDR.ProfileURL.BundleDocumentBirthReport.Equals(profile);
-            // Grab Composition
-            var compositionEntry = Bundle.Entry.FirstOrDefault(entry => entry.Resource is Composition);
-            if (compositionEntry != null)
-            {
-                Composition = (Composition)compositionEntry.Resource;
-            }
-            else if (fullRecord)
+            Composition = (Composition) Bundle.Entry.FirstOrDefault(entry => entry.Resource is Composition && entry.Resource.Meta.Profile.Any(p => compositionProfiles.Contains(p)))?.Resource;
+            bool fullRecord = Bundle.Meta?.Profile?.Any(p => p == bundleProfile) ?? false;
+            if (Composition == null && fullRecord)
             {
                 throw new System.ArgumentException("Failed to find a Composition. The first entry in the FHIR Bundle should be a Composition.");
             }
-            // Grab Child and Mother.
+            // Depending on the type of bundle, some of this information may not be present, so check it in a null-safe way
             if (fullRecord && (Composition.Subject == null || String.IsNullOrWhiteSpace(Composition.Subject.Reference)))
             {
                 throw new System.ArgumentException("The Composition is missing a subject (a reference to the Child resource).");
             }
+            // Grab Subject (Child/Fetus) and Mother.
             List<Patient> patients = Bundle.Entry.FindAll(entry => entry.Resource is Patient).ConvertAll(entry => (Patient) entry.Resource);
-            Mother = patients.Find(patient => patient.Meta.Profile.Any(patientProfile => patientProfile == VR.ProfileURL.Mother));
+            string subjectId = Composition?.Subject.Reference;
+            Subject = patients.Find(patient => patient.Meta.Profile.Any(p => p == subjectProfile) && subjectId.Contains(patient.Id));
+            Mother = patients.Find(patient => patient.Meta.Profile.Any(p => p == VR.ProfileURL.Mother));
             // Grab Father
             Father = Bundle.Entry.FindAll(entry => entry.Resource is RelatedPerson).ConvertAll(entry => (RelatedPerson) entry.Resource).Find(resource => resource.Meta.Profile.Any(relatedPersonProfile => relatedPersonProfile == VR.ProfileURL.RelatedPersonFatherNatural));
-            EncounterBirth = Bundle.Entry.FindAll(entry => entry.Resource is Encounter).ConvertAll(entry => (Encounter) entry.Resource).Find(resource => resource.Meta.Profile.Any(relatedPersonProfile => relatedPersonProfile == ProfileURL.EncounterBirth));
             Coverage = Bundle.Entry.FindAll(entry => entry.Resource is Coverage).ConvertAll(entry => (Coverage) entry.Resource).Find(resource => resource.Meta.Profile.Any(coverageProfile => coverageProfile == ProfileURL.CoveragePrincipalPayerDelivery));
-            EncounterMaternity = Bundle.Entry.FindAll(entry => entry.Resource is Encounter).ConvertAll(entry => (Encounter) entry.Resource).Find(resource => resource.Meta.Profile.Any(relatedPersonProfile => relatedPersonProfile == ProfileURL.EncounterMaternity));
             // Grab attendant and certifier
             List<Practitioner> practitioners = Bundle.Entry.FindAll(entry => entry.Resource is Practitioner).ConvertAll(entry => (Practitioner) entry.Resource);
             Attendant = practitioners.Find(patient => patient.Extension.Any(ext => Convert.ToString(ext.Value) == "attendant"));

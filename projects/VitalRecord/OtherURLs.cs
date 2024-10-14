@@ -21,18 +21,6 @@ namespace VR
 
         /// <summary>URL for US Core Birthsex </summary>
         public const string BirthSex = "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex";
-
-        /// <summary>URL for parent role </summary>
-        public const string ParentRole = "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-role-vr";
     }
 
-    /// <summary>IG URLs for non-VRDR Profiles</summary>
-    public static class OtherIGURL
-    {
-        /// <summary>URL for USCorePractitioner</summary>
-        public const string USCorePractitioner = "http://hl7.org/fhir/us/core/STU4/StructureDefinition-us-core-practitioner.html";
-
-        /// <summary>URL for UsualWork - TODO figure out why this one isn't generated from the IG</summary>
-        public const string UsualWork = "https://build.fhir.org/ig/HL7/vr-common-library//StructureDefinition-Observation-usual-work-vr.html";
-    }
 }
