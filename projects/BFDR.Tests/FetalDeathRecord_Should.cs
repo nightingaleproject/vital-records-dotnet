@@ -1506,7 +1506,7 @@ namespace BFDR.Tests
       Assert.Equal("9876", firstRecord.CertificateNumber);
       Assert.Equal(firstRecord.CertificateNumber, secondRecord.CertificateNumber);
       // Record Birth Record Identifier
-      Assert.Equal("2019NJ009876", firstRecord.RecordIdentifier);
+      Assert.Equal("2019MI009876", firstRecord.RecordIdentifier);
       Assert.Equal(firstRecord.RecordIdentifier, secondRecord.RecordIdentifier);
       // Record State Local Identifier 1
       Assert.Equal("11111-11111", firstRecord.StateLocalIdentifier1);

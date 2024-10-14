@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Hl7.Fhir.Model;
-using Microsoft.VisualStudio.TestPlatform.ObjectModel;
+using Microsoft.VisualStudio.TestPlatform.ObjectModel; // TODO check if this is used
 using VR;
 using Xunit;
 
@@ -2257,6 +2257,19 @@ namespace BFDR.Tests
     }
 
     [Fact]
+    public void TestEncounterRole()
+    {
+      BirthRecord importedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json")));
+      Encounter encBirth = (Encounter) importedRecord.GetBundle().Entry.Find(e => e.Resource.Meta.Profile.Any(p => p == ProfileURL.EncounterBirth)).Resource;
+      Encounter encMaternity = (Encounter) importedRecord.GetBundle().Entry.Find(e => e.Resource.Meta.Profile.Any(p => p == ProfileURL.EncounterMaternity)).Resource;
+      Assert.NotNull(encBirth.Extension.Find(e => e.Url.Equals(BFDR.ExtensionURL.ExtensionRole)));
+      Assert.NotNull(encMaternity.Extension.Find(e => e.Url.Equals(BFDR.ExtensionURL.ExtensionRole)));
+      BirthRecord emptyRecord = new();
+      encMaternity = (Encounter) emptyRecord.GetBundle().Entry.Find(e => e.Resource.Meta.Profile.Any(p => p == ProfileURL.EncounterMaternity)).Resource;
+      Assert.NotNull(encMaternity.Extension.Find(e => e.Url.Equals(BFDR.ExtensionURL.ExtensionRole)));
+    }
+
+    [Fact]
     public void SetFirstPrenatalCareVisit()
     {
       Assert.Null(SetterBirthRecord.FirstPrenatalCareVisit);
@@ -3130,6 +3143,20 @@ namespace BFDR.Tests
       // IJE should divide days by 7 and round down
       IJEBirth ije2 = new(birthRecord3);
       ije2.OWGEST = "06";
+
+      BirthRecord birthRecord4 = new BirthRecord();
+      Dictionary<string, string> dict3 = new Dictionary<string, string>
+      {
+          { "value", "12.5" },
+          { "code", "d" }
+      };
+      birthRecord4.GestationalAgeAtDelivery = dict3;
+      Assert.Equal(dict3["value"], birthRecord4.GestationalAgeAtDelivery["value"]);
+      Assert.Equal("d", birthRecord4.GestationalAgeAtDelivery["code"]);
+      Assert.Equal("http://unitsofmeasure.org", birthRecord4.GestationalAgeAtDelivery["system"]);
+      // IJE should divide days by 7 and round down
+      IJEBirth ije3 = new(birthRecord4);
+      ije3.OWGEST = "03";
 
       BirthRecord parsedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
       Assert.Equal("36", parsedRecord.GestationalAgeAtDelivery["value"]);
