@@ -219,11 +219,11 @@ namespace BFDR
             }
         }
 
-        /// <summary>Child's Sex at Birth Helper.</summary>
-        /// <value>The child's sex at time of birth</value>
+        /// <summary>Estimated time of fetal death Helper.</summary>
+        /// <value>Estimated time of fetal death</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleFetalDeathRecord.TimeOfFetalDeathHelper = "female";</para>
+        /// <para>ExampleFetalDeathRecord.TimeOfFetalDeathHelper = "434681000124104";</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Time of Fetal Death: {ExampleFetalDeathRecord.TimeOfFetalDeathHelper}");</para>
         /// </example>
