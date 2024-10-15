@@ -88,6 +88,10 @@ export class Record extends Component {
       file = new Blob([this.props.record.ije.replace(/(\r\n|\n|\r)/gm, '').substr(0, 5000)], { type: 'text/plain' });
       element.download = `record-${Date.now().toString()}.IJE`;
     }
+    if (this.state.activeItem === 'FSH') {
+      file = new Blob([this.formatFsh(this.props.record.fsh, 2)], { type: 'text/plain' });
+      element.download = `record-${Date.now().toString()}.fsh`;
+    }
     element.href = URL.createObjectURL(file);
     element.click();
   }
@@ -126,6 +130,10 @@ export class Record extends Component {
     if (this.state.activeItem === 'IJE') {
       type = 'plain/text';
       content = this.props.record.ije.replace(/(\r\n|\n|\r)/gm, '').substr(0, 5000);
+    }
+    if (this.state.activeItem === 'FSH') {
+      type = 'application/json';
+      content = this.props.record.fsh;
     }
     var self = this;
     this.setState({ sending: true }, () => {
