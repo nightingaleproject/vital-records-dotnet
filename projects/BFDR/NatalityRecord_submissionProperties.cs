@@ -141,7 +141,7 @@ namespace BFDR
         /// </summary>
         protected int? GetBirthYear()
         {
-            return GetDateElementNoTime(Subject?.BirthDateElement, VR.ExtensionURL.PartialDateTimeYearVR);
+            return GetDateElement(Subject?.BirthDateElement, VR.ExtensionURL.PartialDateTimeYearVR);
         }
 
         /// <summary>
@@ -152,23 +152,13 @@ namespace BFDR
         {
             if (Subject.BirthDateElement == null)
             {
-                return GetDateElement(Subject?.BirthDateElement, VR.ExtensionURL.PartialDateTimeYearVR);
+                AddBirthDateToPatient(Subject, false);
             }
-            string time = this.GetBirthTime();
-            Date newDate = SetYear(value, Subject.BirthDateElement);
+            Date newDate = UpdateFhirDate(Subject.BirthDateElement, value, PartialDateYearUrl, true);
             if (newDate != null)
             {
-                if (Subject.BirthDateElement == null)
-                {
-                    AddBirthDateToPatient(Subject, false);
-                }
-                Date newDate = UpdateFhirDate(Subject.BirthDateElement, value, PartialDateYearUrl, true);
-                if (newDate != null)
-                {
-                    Subject.BirthDateElement = newDate;
-                }
+                Subject.BirthDateElement = newDate;
             }
-            this.SetBirthTime(time);
         }
 
         /// <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Year</summary>x
@@ -194,7 +184,7 @@ namespace BFDR
         /// </summary>
         protected int? GetBirthMonth()
         {
-            return GetDateElementNoTime(Subject?.BirthDateElement, VR.ExtensionURL.PartialDateTimeMonthVR);
+            return GetDateElement(Subject?.BirthDateElement, VR.ExtensionURL.PartialDateTimeMonthVR);
         }
 
         /// <summary>
@@ -203,25 +193,15 @@ namespace BFDR
         /// <param name="value">The birth month.</param>
         protected void SetBirthMonth(int? value)
         {
-            string time = this.GetBirthTime();
             if (Subject.BirthDateElement == null)
             {
-                return GetDateElement(Subject?.BirthDateElement, VR.ExtensionURL.PartialDateTimeMonthVR);
+                AddBirthDateToPatient(Subject, false);
             }
-            Date newDate = SetMonth(value, Subject.BirthDateElement);
+            Date newDate = UpdateFhirDate(Subject.BirthDateElement, value, PartialDateMonthUrl, true);
             if (newDate != null)
             {
-                if (Subject.BirthDateElement == null)
-                {
-                    AddBirthDateToPatient(Subject, false);
-                }
-                Date newDate = UpdateFhirDate(Subject.BirthDateElement, value, PartialDateMonthUrl, true);
-                if (newDate != null)
-                {
-                    Subject.BirthDateElement = newDate;
-                }
+                Subject.BirthDateElement = newDate;
             }
-            this.SetBirthTime(time);
         }
 
         /// <summary>
@@ -229,7 +209,7 @@ namespace BFDR
         /// </summary>
         protected int? GetBirthDay()
         {
-            return GetDateElementNoTime(Subject?.BirthDateElement, VR.ExtensionURL.PartialDateTimeDayVR);
+            return GetDateElement(Subject?.BirthDateElement, VR.ExtensionURL.PartialDateTimeDayVR);
         }
 
         /// <summary>
@@ -238,25 +218,15 @@ namespace BFDR
         /// <param name="value">The birth day.</param>
         protected void SetBirthDay(int? value)
         {
-            string time = this.GetBirthTime();
             if (Subject.BirthDateElement == null)
             {
-                return GetDateElement(Subject?.BirthDateElement, VR.ExtensionURL.PartialDateTimeDayVR);
+                AddBirthDateToPatient(Subject, false);
             }
-            Date newDate = SetDay(value, Subject.BirthDateElement);
+            Date newDate = UpdateFhirDate(Subject.BirthDateElement, value, PartialDateDayUrl, true);
             if (newDate != null)
             {
-                if (Subject.BirthDateElement == null)
-                {
-                    AddBirthDateToPatient(Subject, false);
-                }
-                Date newDate = UpdateFhirDate(Subject.BirthDateElement, value, PartialDateDayUrl, true);
-                if (newDate != null)
-                {
-                    Subject.BirthDateElement = newDate;
-                }
+                Subject.BirthDateElement = newDate;
             }
-            this.SetBirthTime(time);
         }
 
         /// <summary>
@@ -264,8 +234,6 @@ namespace BFDR
         /// </summary>
         protected string GetBirthTime()
         {
-            if (Subject == null || Subject.BirthDateElement == null)
-            {
                 if (Subject == null || Subject.BirthDateElement == null)
                 {
                     return null;
@@ -278,22 +246,23 @@ namespace BFDR
                 }
                 // If it's not there, check for a PartialDateTime.
                 return this.GetPartialTime(this.Subject.BirthDateElement.GetExtension(PartialDateTimeUrl));
-            }
-            // First check for a time in the patient.birthDate PatientBirthTime extension.
-            if (Subject.BirthDateElement.Extension.Any(ext => ext.Url == VR.ExtensionURL.PatientBirthTime))
+        }
+
+        /// <summary>
+        /// Set method fir BirthTime 
+        /// </summary>
+        /// <param name="value"></param>
+        protected void SetBirthTime(string value)
+        {
+            if (Subject == null)
             {
-                if (Subject == null)
-                {
-                    return;
-                }
-                if (Subject.BirthDateElement == null)
-                {
-                    AddBirthDateToPatient(Subject, true);
-                }
-                AddTimeToDate(Subject.BirthDateElement, BirthYear, BirthMonth, BirthDay, value, true);
+                return;
             }
-            // Child.BirthDateElement.GetExtension(VRExtensionURLs.PartialDateTimeVR).SetExtension(PartialDateTimeTimeUrl, new Time(value));
-            SetPartialTime(Subject.BirthDateElement.GetExtension(VRExtensionURLs.PartialDateTime), value);
+            if (Subject.BirthDateElement == null)
+            {
+                AddBirthDateToPatient(Subject, true);
+            }
+            AddTimeToDate(Subject.BirthDateElement, GetBirthYear(), GetBirthMonth(), GetBirthDay(), value, true);
         }
 
         /// <summary>
@@ -9048,251 +9017,6 @@ namespace BFDR
             }
         }
 
-        /// <summary>Date of Certification.</summary>
-        /// <value>the date of certification</value>
-        /// <example>
-        /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.CertifiedDate = "2023-02-19";</para>
-        /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Date of birth certification: {ExampleBirthRecord.CertificationDate}");</para>
-        /// </example>
-        [Property("CertificationDate", Property.Types.String, "Birth Certification", "Date of Certification.", true, BFDR.IGURL.CompositionProviderLiveBirthReport, true, 243)]
-        [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(extension.value.coding.code='CHILD')", "")]
-        public string CertificationDate
-        {
-            get
-            {
-                Encounter.ParticipantComponent certifier = EncounterBirth?.Participant?.FirstOrDefault(entry => ((Encounter.ParticipantComponent)entry).Type.Any(t => t.Coding.Any(c => c.Code == "87287-9")));
-                if (certifier != null && certifier.Period.Start != null)
-                {
-                    return certifier.Period.Start;
-                }
-                return null;
-            }
-            set
-            {
-                Encounter.ParticipantComponent certifier = EncounterBirth.Participant.FirstOrDefault(entry => ((Encounter.ParticipantComponent)entry).Type.Any(t => t.Coding.Any(c => c.Code == "87287-9")));
-                if (certifier != null)
-                {
-                    certifier.Period.StartElement = ConvertToDateTime(value);
-                }
-                else
-                {
-                    Encounter.ParticipantComponent newCertifier = new Encounter.ParticipantComponent();
-                    CodeableConcept t = new CodeableConcept(CodeSystems.LOINC, "87287-9", "Birth certifier", null);
-                    newCertifier.Type.Add(t);
-                    Period p = new Period();
-                    p.StartElement = ConvertToDateTime(value);
-                    newCertifier.Period = p;
-                    EncounterBirth.Participant.Add(newCertifier);
-                }
-            }
-        }
-
-        /// <summary>Certified Year</summary>
-        /// <value>year of certification</value>
-        /// <example>
-        /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.CertifiedYear = 2023;</para>
-        /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Certified Year: {ExampleBirthRecord.CertifiedYear}");</para>
-        /// </example>
-        [Property("Certified Year", Property.Types.Int32, "Birth Certification", "Certified Year", true, IGURL.EncounterBirth, true, 4)]
-        [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(extension.value.coding.code='CHILD')", "")] 
-        public int? CertifiedYear
-        {
-            get
-            {
-                if (EncounterBirth == null)
-                {
-                    return null;
-                }
-                Encounter.ParticipantComponent certifier = EncounterBirth.Participant.FirstOrDefault(entry => ((Encounter.ParticipantComponent)entry).Type.Any(t => t.Coding.Any(c => c.Code == "87287-9")));
-                // First check the value string
-                if (certifier == null || certifier.Period == null || certifier.Period.StartElement == null)
-                {
-                    return null;
-                }
-                if (certifier != null && certifier.Period.StartElement != null && ParseDateElements(certifier.Period.Start, out int? year, out int? month, out int? day))
-                {
-                    return year;
-                }
-                return GetDateFragmentOrPartialDate(certifier.Period.StartElement, VR.ExtensionURL.PartialDateTimeYearVR);
-            }
-            set
-            {
-                if (value == null)
-                {
-                    return;
-                }
-                if (EncounterBirth == null)
-                {
-                    CreateBirthEncounter();
-                }
-                Encounter.ParticipantComponent stateComp = EncounterBirth.Participant.FirstOrDefault(entry => ((Encounter.ParticipantComponent)entry).Type.Any(t => t.Coding.Any(c => c.Code == "87287-9")));
-                if (stateComp == null) // make certifier participant with date
-                {  
-                    Encounter.ParticipantComponent certifier = new Encounter.ParticipantComponent();
-                    CodeableConcept t = new CodeableConcept(CodeSystems.LOINC, "87287-9", "Birth certifier", null);
-                    certifier.Type.Add(t);
-                    Period p = new Period();
-                    p.StartElement = new FhirDateTime();
-                    p.StartElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
-                    certifier.Period = p;
-                    EncounterBirth.Participant.Add(certifier);
-                    stateComp = certifier;
-                }  
-                if (stateComp.Period == null || stateComp.Period.StartElement == null) //certifier participant exists but no period or period.start
-                {
-                    Period p = new Period();
-                    p.StartElement = new FhirDateTime();
-                    p.StartElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
-                    stateComp.Period = p;
-                }
-                FhirDateTime newDate = ConvertDateToFhirDateTime(UpdateFhirDate(ConvertFhirDateTimeToDate(stateComp.Period.StartElement), value, PartialDateYearUrl));
-                if (newDate != null)
-                {
-                    stateComp.Period.StartElement = newDate;
-                }
-            }
-        }
-
-        /// <summary>Certified Month</summary>
-        /// <value>month of certification</value>
-        /// <example>
-        /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.CertifiedMonth = 10;</para>
-        /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Certified Month: {ExampleBirthRecord.CertifiedMonth}");</para>
-        /// </example>
-        [Property("Certified Month", Property.Types.Int32, "Birth Certification", "Certified Month", true, IGURL.EncounterBirth, true, 4)]
-        [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(extension.value.coding.code='CHILD')", "")] 
-        public int? CertifiedMonth
-        {
-            get
-            {
-                if (EncounterBirth == null)
-                {
-                    return null;
-                }
-                Encounter.ParticipantComponent certifier = EncounterBirth.Participant.FirstOrDefault(entry => ((Encounter.ParticipantComponent)entry).Type.Any(t => t.Coding.Any(c => c.Code == "87287-9")));
-                // First check the value string
-                if (certifier == null || certifier.Period == null || certifier.Period.StartElement == null)
-                {
-                    return null;
-                }
-                if (certifier != null && certifier.Period.StartElement != null && ParseDateElements(certifier.Period.Start, out int? year, out int? month, out int? day))
-                {
-                    return month;
-                }
-                return GetDateFragmentOrPartialDate(certifier.Period.StartElement, VR.ExtensionURL.PartialDateTimeMonthVR);
-            }
-            set
-            {
-                if (value == null)
-                {
-                    return;
-                }
-                if (EncounterBirth == null)
-                {
-                    CreateBirthEncounter();
-                }
-                Encounter.ParticipantComponent stateComp = EncounterBirth.Participant.FirstOrDefault(entry => ((Encounter.ParticipantComponent)entry).Type.Any(t => t.Coding.Any(c => c.Code == "87287-9")));
-                if (stateComp == null) // make certifier participant with date
-                {  
-                    Encounter.ParticipantComponent certifier = new Encounter.ParticipantComponent();
-                    CodeableConcept t = new CodeableConcept(CodeSystems.LOINC, "87287-9", "Birth certifier", null);
-                    certifier.Type.Add(t);
-                    Period p = new Period();
-                    p.StartElement = new FhirDateTime();
-                    p.StartElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
-                    certifier.Period = p;
-                    EncounterBirth.Participant.Add(certifier);
-                    stateComp = certifier;
-                }  
-                if (stateComp.Period == null || stateComp.Period.StartElement == null) //certifier participant exists but no period or period.start
-                {
-                    Period p = new Period();
-                    p.StartElement = new FhirDateTime();
-                    p.StartElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
-                    stateComp.Period = p;
-                }
-                FhirDateTime newDate = ConvertDateToFhirDateTime(UpdateFhirDate(ConvertFhirDateTimeToDate(stateComp.Period.StartElement), value, PartialDateMonthUrl));
-                if (newDate != null)
-                {
-                    stateComp.Period.StartElement = newDate; 
-                }
-            }
-        }
-
-        /// <summary>Certified Day</summary>
-        /// <value>day of certification</value>
-        /// <example>
-        /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.CertifiedDay = 23;</para>
-        /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Certified Day: {ExampleBirthRecord.CertifiedDay}");</para>
-        /// </example> 
-        [Property("Certified Day", Property.Types.Int32, "Birth Certification", "Certified Day", true, IGURL.EncounterBirth, true, 4)]
-        [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(extension.value.coding.code='CHILD')", "")] 
-        public int? CertifiedDay
-        {
-            get
-            {
-                if (EncounterBirth == null)
-                {
-                    return null;
-                }
-                Encounter.ParticipantComponent certifier = EncounterBirth.Participant.FirstOrDefault(entry => ((Encounter.ParticipantComponent)entry).Type.Any(t => t.Coding.Any(c => c.Code == "87287-9")));
-                // First check the value string
-                if (certifier == null || certifier.Period == null || certifier.Period.StartElement == null)
-                {
-                    return null;
-                }
-                if (certifier != null && certifier.Period.StartElement != null && ParseDateElements(certifier.Period.Start, out int? year, out int? month, out int? day))
-                {
-                    return day;
-                }
-                return GetDateFragmentOrPartialDate(certifier.Period.StartElement, VR.ExtensionURL.PartialDateTimeDayVR);
-            }
-            set
-            {
-                if (value == null)
-                {
-                    return;
-                }
-                if (EncounterBirth == null)
-                {
-                    CreateBirthEncounter();
-                }
-                Encounter.ParticipantComponent stateComp = EncounterBirth.Participant.FirstOrDefault(entry => ((Encounter.ParticipantComponent)entry).Type.Any(t => t.Coding.Any(c => c.Code == "87287-9")));
-                if (stateComp == null) // make certifier participant with date
-                {  
-                    Encounter.ParticipantComponent certifier = new Encounter.ParticipantComponent();
-                    CodeableConcept t = new CodeableConcept(CodeSystems.LOINC, "87287-9", "Birth certifier", null);
-                    certifier.Type.Add(t);
-                    Period p = new Period();
-                    p.StartElement = new FhirDateTime();
-                    p.StartElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
-                    certifier.Period = p;
-                    EncounterBirth.Participant.Add(certifier);
-                    stateComp = certifier;
-                }  
-                if (stateComp.Period == null || stateComp.Period.StartElement == null) //certifier participant exists but no period or period.start
-                {
-                    Period p = new Period();
-                    p.StartElement = new FhirDateTime();
-                    p.StartElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
-                    stateComp.Period = p;
-                }
-                FhirDateTime newDate = ConvertDateToFhirDateTime(UpdateFhirDate(ConvertFhirDateTimeToDate(stateComp.Period.StartElement), value, PartialDateDayUrl));
-                if (newDate != null)
-                {
-                    stateComp.Period.StartElement = newDate; 
-                }
-            }
-        }
-
         /// <summary>Set an emerging issue value, creating an empty EmergingIssues Observation as needed.</summary>
         private void SetEmergingIssue(string identifier, string value)
         {
@@ -9642,24 +9366,31 @@ namespace BFDR
                 p.StartElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 stateComp.Period = p;
             }
-            FhirDateTime newDate;
-            switch(dateUrl) {
-                case VR.ExtensionURL.PartialDateTimeDayVR:
-                    newDate = SetDay(value, stateComp.Period.StartElement);
-                    break;
-                case VR.ExtensionURL.PartialDateTimeMonthVR:
-                    newDate = SetMonth(value, stateComp.Period.StartElement);
-                    break;
-                case VR.ExtensionURL.PartialDateTimeYearVR:
-                    newDate = SetYear(value, stateComp.Period.StartElement);
-                    break;
-                default:
-                    throw new Exception("Invalid date element url.");
-            } 
+            // TODO create new helper function specific to FHIRDateTimes so we don't drop time information 
+            FhirDateTime newDate = ConvertDateToFhirDateTime(UpdateFhirDate(ConvertFhirDateTimeToDate(stateComp.Period.StartElement), value, dateUrl, true));
             if (newDate != null)
             {
                 stateComp.Period.StartElement = newDate;
             }
+
+            // switch(dateUrl) {
+            //     case VR.ExtensionURL.PartialDateTimeDayVR:
+                    
+            //         newDate = SetDay(value, stateComp.Period.StartElement);
+            //         break;
+            //     case VR.ExtensionURL.PartialDateTimeMonthVR:
+            //         newDate = SetMonth(value, stateComp.Period.StartElement);
+            //         break;
+            //     case VR.ExtensionURL.PartialDateTimeYearVR:
+            //         newDate = SetYear(value, stateComp.Period.StartElement);
+            //         break;
+            //     default:
+            //         throw new Exception("Invalid date element url.");
+            // } 
+            // if (newDate != null)
+            // {
+            //     stateComp.Period.StartElement = newDate;
+            // }
         }
 
         protected string GetCertificationDate(Encounter encounter)

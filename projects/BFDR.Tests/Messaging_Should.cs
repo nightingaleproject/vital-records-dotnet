@@ -524,11 +524,11 @@ namespace BFDR.Tests
                 ijeb.METHNIC5C = "";
 
                 BirthRecord br = ijeb.ToRecord();
-                BirthRecordDemographicsCodingMessage msg = new BirthRecordDemographicsCodingMessage(br);
+                BFDRParentalDemographicsCodingMessage msg = new BFDRParentalDemographicsCodingMessage(br);
                 String msgJson = msg.ToJson();
                 // parse the json and make sure the bundles are present
-                BirthRecordDemographicsCodingMessage message = BirthRecordBaseMessage.Parse<BirthRecordDemographicsCodingMessage>(msgJson);
-                BirthRecord br2 = message.BirthRecord;
+                BFDRParentalDemographicsCodingMessage message = BFDRBaseMessage.Parse<BFDRParentalDemographicsCodingMessage>(msgJson);
+                NatalityRecord br2 = message.NatalityRecord;
                 Assert.Equal("100", br2.MotherEthnicityEditedCodeHelper);
                 Assert.Equal("199", br2.MotherRaceTabulation1EHelper);
         }

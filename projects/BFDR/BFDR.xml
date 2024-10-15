@@ -3487,9 +3487,9 @@
         </member>
         <member name="M:BFDR.NatalityRecord.SetBirthTime(System.String)">
             <summary>
-             Setter method for child or decedent fetus birth/delivery time.
+            Set method fir BirthTime 
             </summary>
-            <param name="value">The birth time.</param>
+            <param name="value"></param>
         </member>
         <member name="M:BFDR.NatalityRecord.DateIsComplete(System.String)">
             <summary>

@@ -15,7 +15,7 @@ namespace BFDR
         public const String MESSAGE_TYPE = "http://nchs.cdc.gov/bfdr_demographics_coding";
 
         /// <summary>Bundle that contains the message payload.</summary>
-        private NatalityRecord natalityRecord;
+        private NatalityRecord natalityRecord; // this is natality record to  be inclusive of birth or fetal death response codes
 
         /// <summary>
         /// Construct a BFDRParentalDemographicsCodingMessage from a record containing demographics coded content.
@@ -38,7 +38,7 @@ namespace BFDR
         {
             try
             {
-                BirthRecord b = new BirthRecord(findEntry<Bundle>());
+                NatalityRecord = new BirthRecord(findEntry<Bundle>());
             }
             catch (System.ArgumentException ex)
             {
@@ -93,7 +93,7 @@ namespace BFDR
         {
             get
             {
-                return natalityRecord?.GetDemographicCodedContentBundle();
+                return natalityRecord?.GetBundle();
             }
         }
         /// <summary>The id of the birth record submission/update message that was coded to produce the content of this message</summary>
