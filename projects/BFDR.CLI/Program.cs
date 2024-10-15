@@ -761,7 +761,7 @@ namespace BFDR.CLI
             }
             else if (args.Length == 2 && args[0] == "extract")
             {
-                BirthRecordBaseMessage message = BirthRecordBaseMessage.Parse(File.ReadAllText(args[1]));
+                BFDRBaseMessage message = BFDRBaseMessage.Parse(File.ReadAllText(args[1]));
                 BirthRecord record;
                 switch (message)
                 {
@@ -769,7 +769,7 @@ namespace BFDR.CLI
                         record = submission.BirthRecord;
                         Console.WriteLine(record.ToJSON());
                         break;
-                    case BirthRecordDemographicsCodingMessage coding:
+                    case BFDRParentalDemographicsCodingMessage coding:
                         record = coding.BirthRecord;
                         Console.WriteLine(record.ToJSON());
                         break;

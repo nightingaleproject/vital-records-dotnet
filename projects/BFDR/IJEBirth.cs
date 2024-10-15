@@ -572,11 +572,7 @@ namespace BFDR
         {
             get
             {
-<<<<<<< HEAD
-                return Get_MappingFHIRToIJE(VR.Mappings.YesNoUnknownNotApplicable.FHIRToIJE, "PaternityAcknowledgementSigned", "ACKN");
-=======
-                return Get_MappingFHIRToIJE(VR.Mappings.YesNoNotApplicable.IJEToFHIR, "PaternityAcknowledgementSigned", "ACKN");
->>>>>>> 7f1b311 (fix(bfdr): regenerate valuesets and concept maps and update to align with IG (#174))
+                return Get_MappingFHIRToIJE(VR.Mappings.YesNoNotApplicable.FHIRToIJE, "PaternityAcknowledgementSigned", "ACKN");
             }
             set
             {
