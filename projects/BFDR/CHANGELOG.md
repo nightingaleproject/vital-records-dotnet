@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+<a name="1.0.0-preview.8"></a>
+## [1.0.0-preview.7](https://github.com/nightingaleproject/vital-records-dotnet/commit/73693cc824b0a8e5b666743204978d42b3de4bd9) (2024-10-08)
+
+### Features
+* Add IG version to FHIR message header 
+
+### Fixes
+* Fix demographic coding message fhir to json conversion to include the record bundle
+* Fix the birth year in the connectathon test records
+* Fix partial date implementation to align with IG
+
 <a name="1.0.0-preview.7"></a>
 ## [1.0.0-preview.7](https://github.com/nightingaleproject/vital-records-dotnet/commit/6884361c8d9b3df8b22f334c6d04f1e39e566b82) (2024-08-08)
 
