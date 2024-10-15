@@ -502,7 +502,7 @@ namespace BFDR.Tests
         }
 
         [Fact]
-        public void CreateDemographicCodingResponseJson()
+        public void CreateDemographicCodingResponseForBirthJson()
         {
                 // create an IJE birth message, convert it to FHIR, round trip the FHIR to json and back to make sure the bundles are all added to the json correctly
                 IJEBirth ijeb = new IJEBirth();
@@ -534,6 +534,38 @@ namespace BFDR.Tests
         }
 
         [Fact]
+        public void CreateDemographicCodingResponseForFetalDeathJson()
+        {
+                // create an IJE birth message, convert it to FHIR, round trip the FHIR to json and back to make sure the bundles are all added to the json correctly
+                IJEFetalDeath ijefd = new IJEFetalDeath();
+                ijefd.MRACE1E = "199";
+                ijefd.MRACE2E = "";
+                ijefd.MRACE3E = "";
+                ijefd.MRACE4E = "";
+                ijefd.MRACE5E = "";
+                ijefd.MRACE6E = "";
+                ijefd.MRACE7E = "";
+                ijefd.MRACE8E = "";
+
+                ijefd.METHNIC1 = "N";
+                ijefd.METHNIC2 = "N";                
+                ijefd.METHNIC3 = "N";
+                ijefd.METHNIC4 = "N";
+                ijefd.METHNIC5 = "";
+                ijefd.METHNICE = "100";
+                ijefd.METHNIC5C = "";
+
+                FetalDeathRecord fdr = ijefd.ToRecord();
+                BFDRParentalDemographicsCodingMessage msg = new BFDRParentalDemographicsCodingMessage(fdr);
+                String msgJson = msg.ToJson();
+                // parse the json and make sure the bundles are present
+                BFDRParentalDemographicsCodingMessage message = BFDRBaseMessage.Parse<BFDRParentalDemographicsCodingMessage>(msgJson);
+                NatalityRecord fdr2 = message.NatalityRecord;
+                Assert.Equal("100", fdr2.MotherEthnicityEditedCodeHelper);
+                Assert.Equal("199", fdr2.MotherRaceTabulation1EHelper);
+        }
+
+        [Fact]
         public void CreateDemographicCodingUpdate()
         {
             // This test creates a response using the approach NCHS will use via IJE setters
@@ -553,6 +585,22 @@ namespace BFDR.Tests
             Assert.Equal("2022YC000123", message.NCHSIdentifier);
             Assert.Equal("BFDR_STU2_0", message.PayloadVersionId);
             // TODO: Check demographic coding fields once implemented
+        }
+
+        [Fact]
+        public void CreateCodedCauseOfFetalDeathMessageJson()
+        {
+                // create an IJE birth message, convert it to FHIR, round trip the FHIR to json and back to make sure the bundles are all added to the json correctly
+                IJEFetalDeath ijefd = new IJEFetalDeath();
+                ijefd.ICOD = "P011";
+
+                FetalDeathRecord fdr = ijefd.ToRecord();
+                CodedCauseOfFetalDeathMessage msg = new CodedCauseOfFetalDeathMessage(fdr);
+                String msgJson = msg.ToJson();
+                // parse the json and make sure the bundles are present
+                CodedCauseOfFetalDeathMessage message = BFDRBaseMessage.Parse<CodedCauseOfFetalDeathMessage>(msgJson);
+                FetalDeathRecord fdr2 = message.FetalDeathRecord;
+                Assert.Equal("P01.1", fdr2.CodedInitiatingFetalCOD);
         }
     }
 }
