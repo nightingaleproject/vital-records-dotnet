@@ -22,7 +22,7 @@ namespace BFDR
         /// </summary>
         /// <param name="record">a record containing demographics coded content for initializing the BFDRParentalDemographicsCodingMessage</param>
         /// <returns></returns>
-        public BFDRParentalDemographicsCodingMessage(BirthRecord record) : base(MESSAGE_TYPE)
+        public BFDRParentalDemographicsCodingMessage(NatalityRecord record) : base(MESSAGE_TYPE)
         {
             this.NatalityRecord = record;
             ExtractBusinessIdentifiers(record);
@@ -38,11 +38,20 @@ namespace BFDR
         {
             try
             {
+                // first try parsing as a birth record
                 NatalityRecord = new BirthRecord(findEntry<Bundle>());
             }
-            catch (System.ArgumentException ex)
+            catch (Exception ex)
             {
-                throw new MessageParseException($"Error processing BirthRecord entry in the message: {ex.Message}", baseMessage);
+                // if birth record failed, try fetal death record
+                try
+                {
+                    NatalityRecord = new FetalDeathRecord(findEntry<Bundle>());
+                }
+                catch (Exception ex2)
+                {
+                    throw new MessageParseException($"Error processing entry as BirthRecord or FetalDeathRecord in the message: {ex.Message}, {ex2.Message}", baseMessage);
+                }
             }
         }
         /// <summary>Constructor that creates an BFDRParentalDemographicsCodingMessage for the specified submitted birth record message.</summary>
@@ -129,7 +138,7 @@ namespace BFDR
         /// </summary>
         /// <param name="record">a record containing demographics coded content for initializing the BFDRParentalDemographicsCodingUpdateMessage</param>
         /// <returns></returns>
-        public BFDRParentalDemographicsCodingUpdateMessage(BirthRecord record) : base(record)
+        public BFDRParentalDemographicsCodingUpdateMessage(NatalityRecord record) : base(record)
         {
             MessageType = MESSAGE_TYPE;
         }

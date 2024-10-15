@@ -196,6 +196,12 @@ namespace BFDR
                 case BirthRecordUpdateMessage.MESSAGE_TYPE:
                     message = new BirthRecordUpdateMessage(bundle, message);
                     break;
+                case CodedCauseOfFetalDeathMessage.MESSAGE_TYPE:
+                    message = new CodedCauseOfFetalDeathMessage(bundle, message);
+                    break;
+                case CodedCauseOfFetalDeathUpdateMessage.MESSAGE_TYPE:
+                    message = new CodedCauseOfFetalDeathUpdateMessage(bundle, message);
+                    break;
                 default:
                     string errorText;
                     if (message.Header == null)
