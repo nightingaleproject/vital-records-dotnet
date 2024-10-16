@@ -7,13 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Bogus" Version="35.3.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.15" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.14" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BFDR.Messaging\BFDR.Messaging.csproj" />
     <ProjectReference Include="..\BFDR\BFDR.csproj" />
+    <ProjectReference Include="..\VitalRecord\VitalRecord.csproj" />
     <ProjectReference Include="..\VRDR.Interfaces\VRDR.Interfaces.csproj" />
+    <ProjectReference Include="..\VRDR.Messaging\VRDR.Messaging.csproj" />
     <ProjectReference Include="..\VRDR\VRDR.csproj" />
   </ItemGroup>
 

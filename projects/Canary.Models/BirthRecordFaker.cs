@@ -5,7 +5,7 @@ using VRDR;
 using VR;
 using BFDR;
 
-namespace Canary.Models
+namespace canary.Models
 {
     /// <summary>Class <c>Faker</c> can be used to generate synthetic <c>BirthRecord</c>s. Various
     /// options are available to tailoring the records generated to specific use case by the class.

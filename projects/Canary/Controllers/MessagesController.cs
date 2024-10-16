@@ -11,7 +11,6 @@ using System.Reflection;
 using BFDR;
 using VR;
 using VRDR.Interfaces;
-using VRDR;
 
 namespace canary.Controllers
 {

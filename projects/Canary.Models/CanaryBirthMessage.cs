@@ -4,6 +4,16 @@ using Hl7.Fhir.Model;
 using BFDR;
 using VR;
 using System.Reflection;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using VRDR;
+using canary.Models;
+using VRDR.Interfaces;
+
 
 namespace canary.Models
 {
