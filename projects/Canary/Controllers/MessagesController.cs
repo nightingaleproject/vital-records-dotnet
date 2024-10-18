@@ -25,7 +25,8 @@ namespace canary.Controllers
         [HttpPost("Messages/vrdr/Inspect")]
         public async Task<(Record record, List<Dictionary<string, string>> issues)> NewVRDRPost()
         {
-            return await NewPost<DeathRecord>((input) => (CommonMessage)BaseMessage.Parse(input, false));
+            return await NewPost<DeathRecord>((input) => 
+                (CommonMessage)VRDRMessaging.ParseBasemessage(input, false, "1.0"));
         }
 
         /// <summary>
