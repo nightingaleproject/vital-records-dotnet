@@ -6,11 +6,12 @@ using Hl7.Fhir.ElementModel;
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Serialization;
 using VR;
+using VRDR.Interfaces;
 
 namespace VRDR
 {
     /// <summary>Class <c>BaseMessage</c> is the base class of all messages.</summary>
-    public partial class BaseMessage : CommonMessage 
+    public partial class BaseMessage : CommonMessage, IBaseMessage
     {
         /// <summary>
         /// Construct a BaseMessage from a FHIR Bundle. This constructor will also validate that the Bundle
@@ -165,7 +166,7 @@ namespace VRDR
         /// <exception cref="MessageParseException">thrown when source does not represent the same or a subtype of the type parameter.</exception>
         public static T Parse<T>(string source, bool permissive = false) where T: BaseMessage
         {
-            BaseMessage typedMessage = Parse(source, permissive);
+            BaseMessage typedMessage = (BaseMessage)Parse(source, permissive);
             if (!typeof(T).IsInstanceOfType(typedMessage))
             {
                 throw new MessageParseException($"The supplied message was of type {typedMessage.GetType()}, expected {typeof(T)} or a subclass", typedMessage);
@@ -180,7 +181,7 @@ namespace VRDR
         /// <param name="source">the XML or JSON serialization of a FHIR Bundle</param>
         /// <param name="permissive">if the parser should be permissive when parsing the given string</param>
         /// <returns>The deserialized message object</returns>
-        public static BaseMessage Parse(string source, bool permissive = false)
+        public static ICommonMessage Parse(string source, bool permissive = false)
         {
             Bundle bundle = ParseGenericBundle(source, permissive);
 
@@ -260,7 +261,7 @@ namespace VRDR
         public static BaseMessage Parse(StreamReader source, bool permissive = false)
         {
             string content = source.ReadToEnd();
-            return Parse(content, permissive);
+            return (BaseMessage)Parse(content, permissive);
         }
 
         /// <summary>

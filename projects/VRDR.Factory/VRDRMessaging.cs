@@ -13,9 +13,16 @@ namespace VRDR.Factory
             return null;
         }
 
-        public static ICanaryDeathMessage GetCanaryDeathMessage(CommonMessage message, string version)
+        public static ICanaryDeathMessage GetCanaryDeathMessage(ICommonMessage message, string version)
         {
-            return new CanaryDeathMessage(message);
+            if (String.Equals(version, "1.0"))
+            {
+                return new CanaryDeathMessage(message);
+            }
+            else
+            {
+                return null;
+            }
         }
 
     }

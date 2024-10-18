@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Canary\Canary.csproj" />
+    <ProjectReference Include="..\Canary.Models\Canary.Models.csproj" />
     <ProjectReference Include="..\VRDR.Interfaces\VRDR.Interfaces.csproj" />
     <ProjectReference Include="..\VRDR.Messaging\VRDR.Messaging.csproj" />
   </ItemGroup>

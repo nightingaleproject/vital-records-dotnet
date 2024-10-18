@@ -5,11 +5,12 @@ using System.Collections.Generic;
 using Hl7.Fhir.ElementModel;
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Serialization;
+using VRDR.Interfaces;
 
 namespace VR
 {
     /// <summary>Class <c>CommonMessage</c> is the base class of all messages.</summary>
-    public class CommonMessage
+    public class CommonMessage : ICommonMessage
     {
         /// <summary>Bundle that contains the message.</summary>
         protected Bundle MessageBundle { get; set; }

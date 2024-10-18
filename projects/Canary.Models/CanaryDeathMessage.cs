@@ -273,6 +273,8 @@ namespace canary.Models
             this.message = BaseMessage.Parse(message, false);
         }
 
+        public CanaryDeathMessage(ICommonMessage message) : base(message) { }
+
         public CanaryDeathMessage(CommonMessage message) : base(message) {}
 
         public CanaryDeathMessage(Record record, String type)
