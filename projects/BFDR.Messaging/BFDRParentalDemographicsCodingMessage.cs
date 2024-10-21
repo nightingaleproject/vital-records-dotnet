@@ -12,7 +12,7 @@ namespace BFDR
         /// <summary>
         /// The event URI for BFDRDemographicsCodingMessage.
         /// </summary>
-        public const String MESSAGE_TYPE = "http://nchs.cdc.gov/bfdr_demographics_coding";
+        public new const String MESSAGE_TYPE = "http://nchs.cdc.gov/bfdr_demographics_coding";
 
         /// <summary>Bundle that contains the message payload.</summary>
         private NatalityRecord natalityRecord; // this is natality record to  be inclusive of birth or fetal death response codes

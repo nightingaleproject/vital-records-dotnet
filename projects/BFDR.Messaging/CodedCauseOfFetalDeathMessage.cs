@@ -9,7 +9,7 @@ namespace BFDR
         /// <summary>
         /// The event URI for CodedCauseOfFetalDeathMessage.
         /// </summary>
-        public const String MESSAGE_TYPE = "http://nchs.cdc.gov/bfdr_causeofdeath";
+        public new const String MESSAGE_TYPE = "http://nchs.cdc.gov/bfdr_causeofdeath";
 
         /// <summary>Bundle that contains the message payload.</summary>
         private FetalDeathRecord fetalDeathRecord;

@@ -9,7 +9,7 @@ namespace BFDR
         /// <summary>
         /// The Event URI for BFDRStatusMessage
         /// </summary>
-        public const string MESSAGE_TYPE = "http://nchs.cdc.gov/bfdr_status";
+        public new const string MESSAGE_TYPE = "http://nchs.cdc.gov/bfdr_status";
 
         /// <summary>Default constructor that creates a new, empty BFDRStatusMessage.</summary>
         public BFDRStatusMessage() : base(MESSAGE_TYPE)
