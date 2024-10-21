@@ -9,7 +9,7 @@ namespace BFDR
         /// <summary>
         /// The event URI for BirthRecordSubmission.
         /// </summary>
-        public const String MESSAGE_TYPE = "http://nchs.cdc.gov/bfdr_birth";
+        public new const String MESSAGE_TYPE = "http://nchs.cdc.gov/bfdr_birth";
 
         /// <summary>Bundle that contains the message payload.</summary>
         private BirthRecord birthRecord;

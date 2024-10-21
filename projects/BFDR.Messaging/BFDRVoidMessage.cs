@@ -9,7 +9,7 @@ namespace BFDR
         /// <summary>
         /// The Event URI for BFDRVoidMessage
         /// </summary>
-        public const string MESSAGE_TYPE = "http://nchs.cdc.gov/bfdr_submission_void";
+        public new const string MESSAGE_TYPE = "http://nchs.cdc.gov/bfdr_submission_void";
 
         /// <summary>Default constructor that creates a new, empty BFDRVoidMessage.</summary>
         public BFDRVoidMessage() : base(MESSAGE_TYPE)

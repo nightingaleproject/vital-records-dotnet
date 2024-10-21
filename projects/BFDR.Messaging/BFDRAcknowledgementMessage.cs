@@ -8,7 +8,7 @@ namespace BFDR
         /// <summary>
         /// The Event URI for BFDRAcknowledgementMessage
         /// </summary>
-        public const string MESSAGE_TYPE = "http://nchs.cdc.gov/bfdr_acknowledgement";
+        public new const string MESSAGE_TYPE = "http://nchs.cdc.gov/bfdr_acknowledgement";
 
         /// <summary>Constructor that creates an acknowledgement for the specified message.</summary>
         /// <param name="messageToAck">the message to create an acknowledgement for.</param>

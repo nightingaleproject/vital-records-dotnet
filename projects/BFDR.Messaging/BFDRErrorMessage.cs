@@ -10,7 +10,7 @@ namespace BFDR
         /// <summary>
         /// The Event URI for BFDRErrorMessage
         /// </summary>
-        public const string MESSAGE_TYPE = "http://nchs.cdc.gov/bfdr_extraction_error";
+        public new const string MESSAGE_TYPE = "http://nchs.cdc.gov/bfdr_extraction_error";
 
         private OperationOutcome details;
 
