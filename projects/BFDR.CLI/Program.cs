@@ -770,7 +770,7 @@ namespace BFDR.CLI
                         Console.WriteLine(record.ToJSON());
                         break;
                     case BFDRParentalDemographicsCodingMessage coding:
-                        record = coding.BirthRecord;
+                        record = (BirthRecord)coding.NatalityRecord;
                         Console.WriteLine(record.ToJSON());
                         break;
                 }
@@ -797,7 +797,7 @@ namespace BFDR.CLI
                 ijeb.METHNIC5C = "";
 
                 BirthRecord br = ijeb.ToRecord();
-                BirthRecordDemographicsCodingMessage msg = new BirthRecordDemographicsCodingMessage(br);
+                BFDRParentalDemographicsCodingMessage msg = new BFDRParentalDemographicsCodingMessage(br);
                 Console.WriteLine(msg.ToJson());
                 // there's something wrong with the ToJson call when converting the message to json to insert in the db
                 return 0;
