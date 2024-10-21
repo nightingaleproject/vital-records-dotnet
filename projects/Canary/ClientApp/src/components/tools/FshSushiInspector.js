@@ -53,7 +53,7 @@ export class FshSushiInspector extends Component {
                                   <Header.Content>
                                       Whole message content.  Select required format.
                                       <Header.Subheader>
-                                          Enter or load the appropriate Connectathon test case data into your EDRS. If your EDRS allows data to be loaded in FHIR or IJE format, you can load the data from the below prompt.
+                                          The errors and issues are displayed below the FSH content.
                                       </Header.Subheader>
                                   </Header.Content>
                               </Header>
