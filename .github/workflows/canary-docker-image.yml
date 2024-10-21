@@ -41,7 +41,7 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
-            type=edge,branch=master
+            type=edge,branch=canary-di
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}
             type=raw,value=release,enable=${{ github.event_name == 'release' }}
