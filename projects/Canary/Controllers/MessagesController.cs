@@ -10,6 +10,8 @@ using canary.Models;
 using System.Reflection;
 using BFDR;
 using VR;
+using VRDR.Interfaces;
+using VRDR.Factory;
 
 namespace canary.Controllers
 {
@@ -20,10 +22,11 @@ namespace canary.Controllers
         /// Inspects a death message using the contents provided. Returns the message + record and any validation issues.
         /// POST Messages/vrdr/Inspect
         /// </summary>
-        [HttpPost("Messages/vrdr/Inspect")]
+        [HttpPost("Messages/v1/vrdr/Inspect")]
         public async Task<(Record record, List<Dictionary<string, string>> issues)> NewVRDRPost()
         {
-            return await NewPost<DeathRecord>((input) => BaseMessage.Parse(input, false));
+            return await NewPost<DeathRecord>((input) => 
+                (CommonMessage)VRDRv1.ParseBasemessage(input, false, "1.0"));
         }
 
         /// <summary>
@@ -83,7 +86,8 @@ namespace canary.Controllers
             string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
 
             try {
-                BaseMessage message = BaseMessage.Parse(input, false);
+
+                ICommonMessage message = BaseMessage.Parse(input, false);
                 // If we were to return the Message here, the controller would automatically
                 // serialize the message into a JSON object. Since that would happen outside of this
                 // try/catch block, this would mean any errors would return a 500 and not display
@@ -92,6 +96,8 @@ namespace canary.Controllers
                 // One such error can be caused by removing the `<source>` endpoint from a Submission
                 // message and then trying to validate it.
                 JsonConvert.SerializeObject(message);
+                ICanaryDeathMessage canaryDeathMessage = VRDRv1.GetCanaryDeathMessage(message, "1.0");
+                
                 return (message: new CanaryDeathMessage(message), issues: new List<Dictionary<string, string>>());
             }
             catch (Exception e)

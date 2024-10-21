@@ -764,7 +764,7 @@ namespace VRDR.CLI
             }
             else if (args.Length == 2 && args[0] == "extract")
             {
-                BaseMessage message = BaseMessage.Parse(File.ReadAllText(args[1]));
+                BaseMessage message = (BaseMessage)BaseMessage.Parse(File.ReadAllText(args[1]));
                 DeathRecord record;
                 switch (message)
                 {
@@ -785,7 +785,7 @@ namespace VRDR.CLI
             }
             else if (args.Length == 2 && args[0] == "extract2ijecontent")
             {  // dumps content of a submission message in key/value IJE format
-                BaseMessage message = BaseMessage.Parse(File.ReadAllText(args[1]), true);
+                BaseMessage message = (BaseMessage)BaseMessage.Parse(File.ReadAllText(args[1]), true);
                 switch (message)
                 {
                     case DeathRecordSubmissionMessage submission:
@@ -888,7 +888,7 @@ namespace VRDR.CLI
             }
             else if (args.Length == 2 && args[0] == "ack")
             {
-                BaseMessage message = BaseMessage.Parse(File.ReadAllText(args[1]));
+                BaseMessage message = (BaseMessage)BaseMessage.Parse(File.ReadAllText(args[1]));
                 AcknowledgementMessage ackMessage = new AcknowledgementMessage(message);
                 Console.WriteLine(ackMessage.ToJSON(true));
                 return 0;
@@ -904,7 +904,7 @@ namespace VRDR.CLI
                 for (int i = 2; i < args.Length; i++)
                 {
                     string outputFilename = args[i].Replace(".json", "_acknowledgement.json");
-                    BaseMessage message = BaseMessage.Parse(File.ReadAllText(args[i]));
+                    BaseMessage message = (BaseMessage)BaseMessage.Parse(File.ReadAllText(args[i]));
                     AcknowledgementMessage ackMessage = new AcknowledgementMessage(message);
                     Console.WriteLine($"Writing acknowledgement to {outputFilename}");
                     StreamWriter sw = new StreamWriter(outputFilename);
@@ -1019,7 +1019,7 @@ namespace VRDR.CLI
             }
             else if (args.Length == 2 && args[0] == "showcodes")
             {
-                BaseMessage message = BaseMessage.Parse(File.ReadAllText(args[1]));
+                BaseMessage message = (BaseMessage)BaseMessage.Parse(File.ReadAllText(args[1]));
                 switch (message)
                 {
                     case CauseOfDeathCodingMessage codingResponse:
@@ -1108,7 +1108,7 @@ namespace VRDR.CLI
                 List<BaseMessage> messages = new List<BaseMessage>();
                 for (int i = 2; i < args.Length; i++)
                 {
-                    messages.Add(BaseMessage.Parse(File.ReadAllText(args[i])));
+                    messages.Add((BaseMessage)BaseMessage.Parse(File.ReadAllText(args[i])));
                 }
                 string payload = Client.CreateBulkUploadPayload(messages, url, true);
                 Console.WriteLine(payload);
@@ -1118,7 +1118,7 @@ namespace VRDR.CLI
             {
                 Console.WriteLine($"Filtering file {args[1]}");
 
-                BaseMessage baseMessage = BaseMessage.Parse(File.ReadAllText(args[1]));
+                BaseMessage baseMessage = (BaseMessage)BaseMessage.Parse(File.ReadAllText(args[1]));
                 
                 FilterService FilterService = new FilterService("./VRDR.Filter/NCHSIJEFilter.json", "./VRDR.Filter/IJEToFHIRMapping.json");
 

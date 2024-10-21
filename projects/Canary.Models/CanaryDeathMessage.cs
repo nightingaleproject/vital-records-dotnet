@@ -4,10 +4,11 @@ using VRDR;
 using Hl7.Fhir.Model;
 using BFDR;
 using VR;
+using VRDR.Interfaces;
 
 namespace canary.Models
 {
-    public class CanaryDeathMessage : Message
+    public class CanaryDeathMessage : Message, ICanaryDeathMessage
     {
 
         private static Dictionary<string, string> messageDescription = new Dictionary<string, string>()
@@ -271,6 +272,8 @@ namespace canary.Models
         {
             this.message = BaseMessage.Parse(message, false);
         }
+
+        public CanaryDeathMessage(ICommonMessage message) : base(message) { }
 
         public CanaryDeathMessage(CommonMessage message) : base(message) {}
 

@@ -20,5 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VitalRecord\VitalRecord.csproj" />
+    <ProjectReference Include="..\VRDR.Interfaces\VRDR.Interfaces.csproj" />
   </ItemGroup>
 </Project>

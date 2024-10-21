@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using VRDR;
 using Hl7.Fhir.Model;
 using VR;
+using VRDR.Interfaces;
 
 namespace canary.Models
 {
     public abstract class Message
     {
-        protected CommonMessage message { get; set; }
+        protected ICommonMessage message { get; set; }
 
         private static String[] validateForPresence = new String[] {
             "MessageTimestamp",
@@ -25,6 +26,11 @@ namespace canary.Models
             this.message = BaseMessage.Parse(message, false);
         }
 
+        public Message(ICommonMessage message)
+        {
+            this.message = message;
+        }
+
         public Message(CommonMessage message)
         {
             this.message = message;
@@ -32,7 +38,7 @@ namespace canary.Models
 
         public CommonMessage GetMessage()
         {
-            return message;
+            return (CommonMessage)message;
         }
 
         public string MessageType
