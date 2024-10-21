@@ -6,7 +6,7 @@ using canary.Models;
 
 namespace VRDR.Factory
 {
-    public static class VRDRMessaging
+    public static class VRDRv1
     {
 
         public static ICanaryDeathMessage GetCanaryDeathMessage(ICommonMessage message, string version)

@@ -22,11 +22,11 @@ namespace canary.Controllers
         /// Inspects a death message using the contents provided. Returns the message + record and any validation issues.
         /// POST Messages/vrdr/Inspect
         /// </summary>
-        [HttpPost("Messages/vrdr/Inspect")]
+        [HttpPost("Messages/v1/vrdr/Inspect")]
         public async Task<(Record record, List<Dictionary<string, string>> issues)> NewVRDRPost()
         {
             return await NewPost<DeathRecord>((input) => 
-                (CommonMessage)VRDRMessaging.ParseBasemessage(input, false, "1.0"));
+                (CommonMessage)VRDRv1.ParseBasemessage(input, false, "1.0"));
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace canary.Controllers
                 // One such error can be caused by removing the `<source>` endpoint from a Submission
                 // message and then trying to validate it.
                 JsonConvert.SerializeObject(message);
-                ICanaryDeathMessage canaryDeathMessage = VRDRMessaging.GetCanaryDeathMessage(message, "1.0");
+                ICanaryDeathMessage canaryDeathMessage = VRDRv1.GetCanaryDeathMessage(message, "1.0");
                 
                 return (message: new CanaryDeathMessage(message), issues: new List<Dictionary<string, string>>());
             }
