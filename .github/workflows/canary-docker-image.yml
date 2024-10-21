@@ -53,8 +53,8 @@ jobs:
         id: push
         uses: docker/build-push-action@v6
         with:
-          context: ../projects
-          file: ../projects/canary.Dockerfile
+          context: ./projects
+          file: ./projects/canary.Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
