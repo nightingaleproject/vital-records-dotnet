@@ -91,7 +91,11 @@ export class Getter extends Component {
       } else if(this.props.messageValidation) {
         endpoint = `/messages/${this.props.recordType}/new`
       } else if (this.props.messageInspector) {
-        endpoint = `/messages/${this.props.recordType}/inspect`;
+        endpoint = `/messages/${this.props.recordType}/InspectWithFsh`;
+      } else if (this.props.source == 'FshSushiInspector') {
+        endpoint = `/messages/sushi/inspect`;
+      } else if (this.props.source == 'MessageFshConverter') {
+        endpoint = `/messages/${this.props.recordType}/InspectWithFsh`;
       } else {
         endpoint = `/records/${this.props.recordType}/new`;
       }
@@ -204,6 +208,12 @@ export class Getter extends Component {
     } else {
       containerTip = 'The contents must be formatted as an IJE ' + ijeDataType + ' record.'
     }
+
+    if (this.props.source == 'FshSushiInspector')
+    {
+      containerTip = 'The contents must be formatted as FSH.'
+    }
+
     return (
       <React.Fragment>
         <Form className="p-t-10">

@@ -319,8 +319,9 @@ namespace VR
             // Start with empty IJE record
             StringBuilder ije = new StringBuilder(new String(' ', (int)IJELength), (int)IJELength);
 
+            var propertyList = this.GetType().GetProperties();
             // Loop over every property (these are the fields)
-            foreach (PropertyInfo property in this.GetType().GetProperties())
+            foreach (PropertyInfo property in propertyList)
             {
                 // Grab the field value
                 string field = Convert.ToString(property.GetValue(this, null));
