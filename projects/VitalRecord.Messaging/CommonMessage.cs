@@ -374,7 +374,7 @@ namespace VR
         }
 
         /// <summary>Override GetYear method to be implemented differently by VRDR for backwards compatibility</summary>
-        public uint? GetYear()
+        public virtual uint? GetYear()
         {
             return this.EventYear;
         }
