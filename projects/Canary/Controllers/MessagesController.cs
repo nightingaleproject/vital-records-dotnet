@@ -96,7 +96,9 @@ namespace canary.Controllers
                     }
                     string recordString = extracted.ToJSON();
                     List<Dictionary<string, string>> issues;
-                    var messageInspectResults = typeof(RecordType) == typeof(DeathRecord) ? CanaryDeathRecord.CheckGet(recordString, false, out issues, getFsh) : CanaryBirthRecord.CheckGet(recordString, false, out issues);
+                    var messageInspectResults = 
+                        typeof(RecordType) == typeof(DeathRecord) ? 
+                        CanaryDeathRecord.CheckGet(recordString, false, out issues, getFsh) : CanaryBirthRecord.CheckGet(recordString, false, out issues);
 
                     return (messageInspectResults, issues);
                 }

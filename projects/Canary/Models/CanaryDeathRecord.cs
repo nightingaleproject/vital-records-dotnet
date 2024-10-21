@@ -19,20 +19,18 @@ namespace canary.Models
 
     public class CanaryDeathRecord : Record
     {
-        public CanaryDeathRecord(bool retrieveFsh = false) : base(retrieveFsh) {}
+        public CanaryDeathRecord() : base() {}
 
-        public CanaryDeathRecord(VitalRecord record, bool retrieveFsh = false) : base(record, retrieveFsh) {}
+        public CanaryDeathRecord(VitalRecord record) : base(record) {}
 
-        public CanaryDeathRecord(string record) : base(record, false) { }
+        public CanaryDeathRecord(string record) : base(record) {}
 
-        public CanaryDeathRecord(string record, bool retrieveFsh = false) : base(record, retrieveFsh) {}
-
-        public CanaryDeathRecord(string record, bool permissive, bool retrieveFsh = false) : base(record, permissive, retrieveFsh) {}
+        public CanaryDeathRecord(string record, bool permissive) : base(record, permissive) {}
 
         public static Record CheckGet(string record, bool permissive, out List<Dictionary<string, string>> issues, bool retrieveFsh = false)
         {
-            CanaryDeathRecord recordToSerialize = new CanaryDeathRecord(new DeathRecord(record, permissive), retrieveFsh);
-            return Record.CheckGet(recordToSerialize, out issues);
+            CanaryDeathRecord recordToSerialize = new CanaryDeathRecord(new DeathRecord(record, permissive));
+            return Record.CheckGet(recordToSerialize, out issues, retrieveFsh);
         }
 
         protected override VitalRecord CreateEmptyRecord()

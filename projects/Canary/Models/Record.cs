@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using RestSharp;
 using System.Text.RegularExpressions;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace canary.Models
 {
@@ -195,51 +196,35 @@ namespace canary.Models
             }
         }
 
-        public Record(bool retrieveFsh = false)
+        public Record()
         {
             record = this.CreateEmptyRecord();
             this.ije = this.CreateIJEFromRecord(this.record, false).ToString();
-            if (retrieveFsh) {
-                System.Threading.Tasks.Task<string> task =
-                            System.Threading.Tasks.Task.Run<string>(async () => await Record.GetFshData(this.record.ToJson()));
-                this.fsh = task.Result;
-            }
         }
 
-        public Record(VitalRecord record, bool retrieveFsh = false)
+        public Record(VitalRecord record)
         {
             this.record = record;
             this.ije = this.CreateIJEFromRecord(record, false).ToString();
-            if (retrieveFsh)
-            {
-                System.Threading.Tasks.Task<string> task =
-                            System.Threading.Tasks.Task.Run<string>(async () => await Record.GetFshData(this.record.ToJson()));
-                this.fsh = task.Result;
-            }
         }
 
-        public Record(string record, bool retrieveFsh = false)
+        public Record(string record)
         {
             this.record = this.CreateRecordFromFHIR(record);
             this.ije = this.CreateIJEFromRecord(this.record, false).ToString();
-            if (retrieveFsh)
-            {
-                System.Threading.Tasks.Task<string> task =
-                            System.Threading.Tasks.Task.Run<string>(async () => await Record.GetFshData(this.record.ToJson()));
-                this.fsh = task.Result;
-            }
         }
 
-        public Record(string record, bool permissive, bool retrieveFsh = false)
+        public Record(string record, bool permissive)
         {
             this.record = this.CreateRecordFromFHIR(record, permissive);
             this.ije = this.CreateIJEFromRecord(this.record).ToString();
-            if (retrieveFsh)
-            {
-                System.Threading.Tasks.Task<string> task =
-                            System.Threading.Tasks.Task.Run<string>(async () => await Record.GetFshData(this.record.ToJson()));
-                this.fsh = task.Result;
-            }
+        }
+
+        public static string RetrieveFshData(string record)
+        {
+            System.Threading.Tasks.Task<string> task =
+                        System.Threading.Tasks.Task.Run<string>(async () => await Record.GetFshData(record));
+            return task.Result;
         }
 
         protected abstract VitalRecord CreateEmptyRecord();
@@ -258,7 +243,7 @@ namespace canary.Models
 
         /// <summary>Check the given FHIR record string and return a list of issues. Also returned
         /// the parsed record if parsing was successful.</summary>
-        protected static Record CheckGet(Record recordToSerialize, out List<Dictionary<string, string>> issues)
+        protected static Record CheckGet(Record recordToSerialize, out List<Dictionary<string, string>> issues, bool getFsh = false)
         {
             Record newRecord = null;
             List<Dictionary<string, string>> entries = new List<Dictionary<string, string>>();
@@ -270,12 +255,17 @@ namespace canary.Models
                 JsonConvert.SerializeObject(recordToSerialize);
                 newRecord = recordToSerialize;
                 validateRecordType(newRecord);
+                if (getFsh)
+                {
+                    newRecord.Fsh = RetrieveFshData(newRecord.Json);
+                }
             }
             catch (Exception e)
             {
                 entries = DecorateErrors(e);
             }
             issues = entries;
+            
             return newRecord;
         }
 
