@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Hl7.Fhir.Model;
-using Microsoft.VisualStudio.TestPlatform.ObjectModel; // TODO check if this is used
 using VR;
 using Xunit;
 
