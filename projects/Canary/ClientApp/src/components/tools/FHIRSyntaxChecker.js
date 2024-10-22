@@ -27,7 +27,7 @@ export class FHIRSyntaxChecker extends Component {
                 Dashboard
               </Breadcrumb.Section>
               <Breadcrumb.Divider icon="right chevron" />
-              <Breadcrumb.Section>FHIR {this.props.recordType.toUpperCase()} Record Syntax Checker</Breadcrumb.Section>
+              <Breadcrumb.Section>FHIR {this.props.recordTypeReadable} Record Syntax Checker</Breadcrumb.Section>
             </Breadcrumb>
           </Grid.Row>
           <Grid.Row>

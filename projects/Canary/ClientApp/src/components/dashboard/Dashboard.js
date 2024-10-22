@@ -7,9 +7,6 @@ import * as NavigationOptions from '../NavigationOptions';
 
 export function Dashboard(props) {
 
-  const recordType = props.recordType.toUpperCase();
-  const ijeDataType = recordType === 'VRDR' ? 'Mortality' : 'Natality';
-
   return (
     <React.Fragment>
       <Grid centered columns={1}>
@@ -18,13 +15,13 @@ export function Dashboard(props) {
             <Divider horizontal>
               <Header as="h2">
                 <FontAwesomeIcon icon={faFeatherAlt} size="lg" fixedWidth className="p-r-5" />
-                Open Source {ijeDataType} Data Standards Testing
+                Open Source {props.ijeType} Data Standards Testing
               </Header>
             </Divider>
             <Segment size="large" basic>
               <Container>
                 <p>
-                  Canary is a testing framework that supports development of systems that perform standards based exchange of {ijeDataType.toLowerCase()} data, providing tests
+                  Canary is a testing framework that supports development of systems that perform standards based exchange of {props.ijeType.toLowerCase()} data, providing tests
                   and tools to aid developers in implementing the <a href="https://hl7.org/fhir/us/vrdr/">FHIR Vital Records Death Record</a> format. TODO, this should change based on BFDR/VRDR.
                 </p>
               </Container>
@@ -36,7 +33,7 @@ export function Dashboard(props) {
               </Header>
             </Divider>
             <Item.Group className="m-h-30">
-              {NavigationOptions.RecordTesting(recordType).map((navigationOption) => {
+              {NavigationOptions.RecordTesting(props.recordTypeReadable).map((navigationOption) => {
                 return (
                   <DashboardItem
                     key={navigationOption.title}
@@ -55,7 +52,7 @@ export function Dashboard(props) {
               </Header>
             </Divider>
             <Item.Group className="m-h-30">
-              {NavigationOptions.MessageTesting(recordType).map((navigationOption) => {
+              {NavigationOptions.MessageTesting(props.recordTypeReadable).map((navigationOption) => {
                 return (
                   <DashboardItem
                     key={navigationOption.title}
@@ -75,7 +72,7 @@ export function Dashboard(props) {
               </Header>
             </Divider>
             <Item.Group className="m-h-30">
-              {NavigationOptions.RecordTools(recordType, ijeDataType).map((navigationOption) => {
+              {NavigationOptions.RecordTools(props.recordTypeReadable, props.ijeType).map((navigationOption) => {
                 return (
                   <DashboardItem
                     key={navigationOption.title}
@@ -94,7 +91,7 @@ export function Dashboard(props) {
               </Header>
             </Divider>
             <Item.Group className="m-h-30">
-              {NavigationOptions.MessageTools(recordType, ijeDataType).map((navigationOption) => {
+              {NavigationOptions.MessageTools(props.recordTypeReadable, props.ijeType).map((navigationOption) => {
                 return (
                   <DashboardItem
                     key={navigationOption.title}

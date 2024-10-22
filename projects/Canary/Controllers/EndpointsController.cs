@@ -20,7 +20,8 @@ namespace canary.Controllers
         /// </summary>
         [HttpGet("Endpoints/New")]
         [HttpGet("Endpoints/vrdr/New")]
-        [HttpGet("Endpoints/bfdr/New")]
+        [HttpGet("Endpoints/bfdr-birth/New")]
+        [HttpGet("Endpoints/bfdr-fetaldeath/New")]
         public int New()
         {
             // Find the record in the database and return it
@@ -45,10 +46,12 @@ namespace canary.Controllers
         /// </summary>
         [HttpGet("Endpoints/{id:int}")]
         [HttpGet("Endpoints/vrdr/{id:int}")]
-        [HttpGet("Endpoints/bfdr/{id:int}")]
+        [HttpGet("Endpoints/bfdr-birth/{id:int}")]
+        [HttpGet("Endpoints/bfdr-fetaldeath/{id:int}")]
         [HttpGet("Endpoints/Get/{id:int}")]
         [HttpGet("Endpoints/Get/vrdr/{id:int}")]
-        [HttpGet("Endpoints/Get/bfdr/{id:int}")]
+        [HttpGet("Endpoints/Get/bfdr-birth/{id:int}")]
+        [HttpGet("Endpoints/Get/bfdr-fetaldeath/{id:int}")]
         public Endpoint Get(int id)
         {
             // Find the record in the database and return it
@@ -63,6 +66,8 @@ namespace canary.Controllers
         /// POST /api/endpoints/record/{id:int}
         /// </summary>
         [HttpPost("Endpoints/vrdr/Record/{id:int}")]
+        [HttpPost("Endpoints/bfdr-birth/Record/{id:int}")]
+        [HttpPost("Endpoints/bfdr-fetaldeath/Record/{id:int}")]
         public async Task<int> VRDRRecordPost(int id)
         {
             Record record = null;

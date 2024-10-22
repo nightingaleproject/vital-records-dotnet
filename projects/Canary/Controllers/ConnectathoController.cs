@@ -23,8 +23,8 @@ namespace canary.Controllers
         /// Returns all Connectathon Birth Record test messages.
         /// GET /connectathon/bfdr
         /// </summary>
-        [HttpGet("Connectathon/bfdr")]
-        [HttpGet("Connectathon/bfdr/Index")]
+        [HttpGet("Connectathon/bfdr-birth")]
+        [HttpGet("Connectathon/bfdr-birth/Index")]
         public BirthRecord[] IndexBFDR()
         {
             return BFDR.Connectathon.Records;

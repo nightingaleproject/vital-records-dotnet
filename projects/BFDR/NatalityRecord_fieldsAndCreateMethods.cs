@@ -1,18 +1,8 @@
 using System;
 using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Diagnostics;
-using System.Globalization;
-using System.Text.RegularExpressions;
-using System.Xml.Linq;
-using Hl7.Fhir.ElementModel;
 using Hl7.Fhir.Model;
-using Hl7.Fhir.Serialization;
-using Hl7.FhirPath;
-using Newtonsoft.Json;
 using VR;
 
 
@@ -28,8 +18,8 @@ namespace BFDR
     /// </summary>
     public partial class NatalityRecord
     {
-        /// <summary>The Child.</summary>
-        protected Patient Child;
+        /// <summary>The Natality Subject - eithr a Child or a DecedentFetus.</summary>
+        protected Patient Subject;
 
         /// <summary>The Mother.</summary>
         protected Patient Mother;
@@ -43,9 +33,6 @@ namespace BFDR
         /// <summary>The Certifier.</summary>
         protected Practitioner Certifier;
 
-        /// <summary>The encounter of the birth.</summary>
-        protected Encounter EncounterBirth;
-
         /// <summary>The coverage associated with the birth.</summary>
         protected Coverage Coverage;
         /// <summary>The maternity encounter.</summary>
@@ -57,7 +44,7 @@ namespace BFDR
         private const string CODED_RACE_ETHNICITY_PROFILE_MOTHER = "codedraceandethnicityMother";
 
         /// <summary>Composition Section Constants</summary>
-        private const string MOTHER_PRENATAL_SECTION = "57073-9";
+        protected const string MOTHER_PRENATAL_SECTION = "57073-9";
         private const string MEDICAL_INFORMATION_SECTION = "55752-0";
         private const string NEWBORN_INFORMATION_SECTION = "57075-4";
         private const string MOTHER_INFORMATION_SECTION = "92014-0";
@@ -109,7 +96,7 @@ namespace BFDR
             {
                 return Mother.Id;
             }
-            return subjects.First().subject == FHIRSubject.Subject.Newborn ? Child.Id : Mother.Id;
+            return subjects.First().subject == FHIRSubject.Subject.Newborn ? Subject.Id : Mother.Id;
         }
 
         /// <summary>Create Attendant/Practitioner.</summary>
@@ -118,9 +105,9 @@ namespace BFDR
             Attendant = new Practitioner();
             Attendant.Id = Guid.NewGuid().ToString();
             Attendant.Meta = new Meta();
-            string[] attendant_profile = { VR.ProfileURL.Practitioner };
+            string[] attendant_profile = { BFDR.ExtensionURL.PractitionerBirthAttendant };
             Attendant.Meta.Profile = attendant_profile;
-            Extension roleExt = new Extension(VRExtensionURLs.Role, new Code("attendant"));
+            Extension roleExt = new Extension(BFDR.ExtensionURL.ExtensionRole, new Code("attendant"));
             Attendant.Extension.Add(roleExt);
             // Not linked to Composition or inserted in bundle, since this is run before the composition exists.
         }
@@ -131,9 +118,9 @@ namespace BFDR
             Certifier = new Practitioner();
             Certifier .Id = Guid.NewGuid().ToString();
             Certifier .Meta = new Meta();
-            string[] certifier_profile = { VR.ProfileURL.Practitioner };
+            string[] certifier_profile = { BFDR.ExtensionURL.PractitionerBirthCertifier };
             Certifier .Meta.Profile = certifier_profile;
-            Extension roleExt = new Extension(VRExtensionURLs.Role, new Code("certifier"));
+            Extension roleExt = new Extension(BFDR.ExtensionURL.ExtensionRole, new Code("certifier"));
             Certifier.Extension.Add(roleExt);
             // Not linked to Composition or inserted in bundle, since this is run before the composition exists.
         }
@@ -160,16 +147,14 @@ namespace BFDR
             return locationBirth;
         }
         
-        /// <summary>Create Birth Encounter.</summary>
-        protected void CreateBirthEncounter()
+
+        /// <summary>Create Maternity Encounter.</summary>
+        protected Encounter CreateMaternityEncounter()
         {
-            EncounterBirth = new Encounter();
-            EncounterBirth .Id = Guid.NewGuid().ToString();
-            EncounterBirth .Meta = new Meta();
-            string[] encounterBirth_profile = { ProfileURL.EncounterBirth };
-            EncounterBirth .Meta.Profile = encounterBirth_profile;
-            Extension roleExt = new Extension(VRExtensionURLs.Role, new CodeableConcept(CodeSystems.RoleCode_HL7_V3, "CHILD"));
-            EncounterBirth.Extension.Add(roleExt);
+            EncounterMaternity = CreateEncounter(ProfileURL.EncounterMaternity);
+            Extension roleExt = new Extension(BFDR.ExtensionURL.ExtensionRole, new CodeableConcept(CodeSystems.RoleCode_HL7_V3, "MTH"));
+            EncounterMaternity.Extension.Add(roleExt);
+            return EncounterMaternity;
         }
     }
 
@@ -182,7 +167,9 @@ namespace BFDR
             /// <summary>The mother</summary>
             Mother,
             /// <summary>The newborn</summary>
-            Newborn
+            Newborn,
+            /// <summary>The decedent fetus</summary>
+            DecedentFetus
         }
         /// <summary>The subject of the field</summary>
         public Subject subject;

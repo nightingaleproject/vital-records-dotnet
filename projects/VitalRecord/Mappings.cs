@@ -14,7 +14,7 @@ namespace VR
             /// <summary>IJE -> FHIR Mapping for BirthAttendantTitles</summary>
             public readonly static Dictionary<string, string> IJEToFHIR = new Dictionary<string, string>
             {
-                { "1", "112247003" },
+                { "1", "309343006" },
                 { "2", "76231001" },
                 { "3", "445521000124102" },
                 { "4", "445531000124104" },
@@ -24,7 +24,7 @@ namespace VR
             /// <summary>FHIR -> IJE Mapping for BirthAttendantTitles</summary>
             public readonly static Dictionary<string, string> FHIRToIJE = new Dictionary<string, string>
             {
-                { "112247003", "1" },
+                { "309343006", "1" },
                 { "76231001", "2" },
                 { "445521000124102", "3" },
                 { "445531000124104", "4" },
@@ -311,6 +311,7 @@ namespace VR
                 { "M", "M" },
                 { "S", "S" },
                 { "W", "W" },
+                { "U", "T" },
                 { "U", "UNK" },
             };
             /// <summary>FHIR -> IJE Mapping for MaritalStatus</summary>
@@ -321,6 +322,7 @@ namespace VR
                 { "M", "M" },
                 { "S", "S" },
                 { "W", "W" },
+                { "T", "U" },
                 { "UNK", "U" },
             };
         }

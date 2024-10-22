@@ -71,6 +71,9 @@ namespace VR
         /// <summary> ActReason </summary>
         public static string ActReason = "http://terminology.hl7.org/CodeSystem/v3-ActReason";
 
+        /// <summary> ProvinceCodes </summary>
+        public static string ProvinceCodes = "https://canadapost.ca/CodeSystem/ProvinceCodes";
+
         // Code systems defined within vital record IGs: VRCL IG
 
         /// <summary> VRCL Missing Value Reason </summary>
@@ -96,6 +99,12 @@ namespace VR
 
         /// <summary> VRCL Jurisdictions </summary>
         public static string VRCLJurisdictions = "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-jurisdictions-vr";
+
+        /// <summary> VRCL States Territories </summary>
+        public static string VRCLUSStatesTerritories = "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-us-states-territories-vr";
+
+        /// <summary> VRCL Country Codes </summary>
+        public static string VRCLCountryCodes = "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-country-code-vr";
 
         /// <summary> Component </summary>
         public static string ComponentCodeVR = "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component";
@@ -167,17 +176,8 @@ namespace VR
 
         // Code systems defined within vital record IGs: BFDR IG
 
-        /// <summary> Birth Delivery Occurred </summary>
-        public static string BirthDeliveryOccurred = "http://hl7.org/fhir/us/bfdr/CodeSystem/CodeSystem-vr-birth-delivery-occurred";
-
         /// <summary> BFDR Edit Flags </summary>
         public static string BFDREditFlags = "http://hl7.org/fhir/us/bfdr/CodeSystem/CodeSystem-edit-flags";
-
-        /// <summary> Fetal Death Cause Or Condition </summary>
-        public static string FetalDeathCauseOrCondition = "http://hl7.org/fhir/us/bfdr/CodeSystem/CodeSystem-vr-fetal-death-cause-or-condition";
-
-        /// <summary> Informant Relationship To Mother </summary>
-        public static string InformantRelationshipToMother = "http://hl7.org/fhir/us/bfdr/CodeSystem/CodeSystem-informant-relationship-to-mother";
 
         /// <summary> Local BFDR Codes </summary>
         public static string LocalBFDRCodes = "http://hl7.org/fhir/us/bfdr/CodeSystem/CodeSystem-local-bfdr-codes";

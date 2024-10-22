@@ -13,11 +13,16 @@ export class ConnectathonDashboard extends Component {
     this.state = { ...this.props, records: null, loading: false };    
   }
 
+
   componentDidMount() {
     this.fetchRecords()
   }
 
   fetchRecords() {
+    const isFetalDeath = this.props.params.recordType.toLowerCase() == 'bfdr-fetaldeath';
+    if (isFetalDeath) {
+      return;
+    }
     var self = this;
     axios
       .get(`${window.API_URL}/connectathon/${this.props.params.recordType}`)
@@ -42,6 +47,16 @@ export class ConnectathonDashboard extends Component {
   }
 
   render() {
+    const isFetalDeath = this.props.params.recordType.toLowerCase() == 'bfdr-fetaldeath';
+    if (isFetalDeath) {
+      return (
+        <React.Fragment>
+          <h1>
+            BFDR Fetal Death does not yet have any supported Connectathon Records.
+          </h1>
+        </React.Fragment>
+      )
+    }
     const isVRDR = this.props.params.recordType.toLowerCase() == 'vrdr';
     const sexKey = isVRDR ? 'sexAtDeath' : 'birthSex';
     const familyNameKey = isVRDR ? 'familyName' : 'childFamilyName';
