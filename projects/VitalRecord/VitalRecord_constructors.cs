@@ -67,6 +67,14 @@ namespace VR
                     }
                     else
                     {
+                        try
+                        {
+                            System.Text.Json.JsonDocument.Parse(record);
+                        }
+                        catch (System.Text.Json.JsonException e)
+                        {
+                            throw new FormatException(e.Message);
+                        }
                         FhirJsonParser parser = new FhirJsonParser(parserSettings);
                         Bundle = parser.Parse<Bundle>(record);
                     }
