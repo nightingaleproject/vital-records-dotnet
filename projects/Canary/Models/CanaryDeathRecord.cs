@@ -1,8 +1,18 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text.Json.Nodes;
+using System.Text.RegularExpressions;
+using System.Text;
+using System.Threading.Tasks;
 using VR;
 using VRDR;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using RestSharp;
+using RestSharp.Authenticators;
 
 namespace canary.Models
 {
@@ -17,12 +27,10 @@ namespace canary.Models
 
         public CanaryDeathRecord(string record, bool permissive) : base(record, permissive) {}
 
-        /// <summary>Check the given FHIR record string and return a list of issues. Also returned
-        /// the parsed record if parsing was successful.</summary>
-        public static Record CheckGet(string record, bool permissive, out List<Dictionary<string, string>> issues)
+        public static Record CheckGet(string record, bool permissive, out List<Dictionary<string, string>> issues, bool retrieveFsh = false)
         {
             CanaryDeathRecord recordToSerialize = new CanaryDeathRecord(new DeathRecord(record, permissive));
-            return Record.CheckGet(recordToSerialize, out issues);
+            return Record.CheckGet(recordToSerialize, out issues, retrieveFsh);
         }
 
         protected override VitalRecord CreateEmptyRecord()
@@ -57,5 +65,7 @@ namespace canary.Models
         {
             return typeof(IJEMortality).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Field).ToList();
         }
+
+
     }
 }
