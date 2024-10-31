@@ -385,7 +385,7 @@ namespace BFDR.CLI
             else if (args.Length == 2 && args[0] == "void")
             {
                 BirthRecord record = new BirthRecord(File.ReadAllText(args[2]));
-                BFDRVoidMessage message = new BFDRVoidMessage(record);
+                BirthRecordVoidMessage message = new BirthRecordVoidMessage(record);
                 message.MessageSource = "http://mitre.org/bfdr";
                 Console.WriteLine(message.ToJSON(true));
                 return 0;
@@ -393,7 +393,7 @@ namespace BFDR.CLI
             else if (args.Length == 3 && args[0] == "void")
             {
                 BirthRecord record = new BirthRecord(File.ReadAllText(args[1]));
-                BFDRVoidMessage message = new BFDRVoidMessage(record);
+                BirthRecordVoidMessage message = new BirthRecordVoidMessage(record);
                 message.BlockCount = UInt32.Parse(args[2]);
                 message.MessageSource = "http://mitre.org/bfdr";
                 Console.WriteLine(message.ToJSON(true));
@@ -402,7 +402,7 @@ namespace BFDR.CLI
             else if (args.Length == 2 && args[0] == "ack")
             {
                 BFDRBaseMessage message = BFDRBaseMessage.Parse(File.ReadAllText(args[1]));
-                BFDRAcknowledgementMessage ackMessage = new BFDRAcknowledgementMessage(message);
+                BirthRecordAcknowledgementMessage ackMessage = new BirthRecordAcknowledgementMessage(message);
                 Console.WriteLine(ackMessage.ToJSON(true));
                 return 0;
             }
@@ -418,7 +418,7 @@ namespace BFDR.CLI
                 {
                     string outputFilename = args[i].Replace(".json", "_acknowledgement.json");
                     BFDRBaseMessage message = BFDRBaseMessage.Parse(File.ReadAllText(args[i]));
-                    BFDRAcknowledgementMessage ackMessage = new BFDRAcknowledgementMessage(message);
+                    BirthRecordAcknowledgementMessage ackMessage = new BirthRecordAcknowledgementMessage(message);
                     Console.WriteLine($"Writing acknowledgement to {outputFilename}");
                     StreamWriter sw = new StreamWriter(outputFilename);
                     sw.WriteLine(ackMessage.ToJSON(true));
@@ -526,7 +526,7 @@ namespace BFDR.CLI
                         record = codmessage.FetalDeathRecord;
                         Console.WriteLine(record.ToJSON());
                         break;
-                    case BFDRParentalDemographicsCodingMessage coding:
+                    case BirthRecordParentalDemographicsCodingMessage coding:
                         record = coding.NatalityRecord;
                         Console.WriteLine(record.ToJSON());
                         break;
@@ -769,7 +769,7 @@ namespace BFDR.CLI
                         record = submission.BirthRecord;
                         Console.WriteLine(record.ToJSON());
                         break;
-                    case BFDRParentalDemographicsCodingMessage coding:
+                    case BirthRecordParentalDemographicsCodingMessage coding:
                         record = (BirthRecord)coding.NatalityRecord;
                         Console.WriteLine(record.ToJSON());
                         break;
@@ -797,7 +797,7 @@ namespace BFDR.CLI
                 ijeb.METHNIC5C = "";
 
                 BirthRecord br = ijeb.ToRecord();
-                BFDRParentalDemographicsCodingMessage msg = new BFDRParentalDemographicsCodingMessage(br);
+                BirthRecordParentalDemographicsCodingMessage msg = new BirthRecordParentalDemographicsCodingMessage(br);
                 Console.WriteLine(msg.ToJson());
                 // there's something wrong with the ToJson call when converting the message to json to insert in the db
                 return 0;
