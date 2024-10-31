@@ -2,8 +2,63 @@ using Hl7.Fhir.Model;
 
 namespace BFDR
 {
+    /// <summary>Class <c>BirthRecordAcknowledgementMessage</c> supports the acknowledgment of other messages.</summary>
+    public class BirthRecordAcknowledgementMessage : BFDRAcknowledgementMessage
+    {
+        /// <summary>
+        /// The Event URI for BirthRecordAcknowledgementMessage
+        /// </summary>
+        public new const string MESSAGE_TYPE = "http://nchs.cdc.gov/birth_acknowledgement";
+
+        /// <summary>Default constructor that creates a new, empty BirthRecordAcknowledgementMessage.</summary>
+        public BirthRecordAcknowledgementMessage(BFDRBaseMessage message) : base(message)
+        {
+            MessageType = MESSAGE_TYPE;
+        }
+        /// <summary>Constructor that creates a BirthRecordAcknowledgementMessage from a bundle.</summary>
+        internal BirthRecordAcknowledgementMessage(Bundle messageBundle) : base(messageBundle)
+        {
+            MessageType = MESSAGE_TYPE;
+        }
+
+        /// <summary>Constructor that creates an acknowledgement for the specified message.</summary>
+        /// <param name="messageId">the id of the message to create an acknowledgement for.</param>
+        /// <param name="destination">the endpoint identifier that the ack message will be sent to.</param>
+        /// <param name="source">the endpoint identifier that the ack message will be sent from.</param>
+        public BirthRecordAcknowledgementMessage(string messageId, string destination, string source = "http://nchs.cdc.gov/bfdr_submission") : base(messageId, destination, source)
+        { 
+            MessageType = MESSAGE_TYPE;
+        }
+    }
+    /// <summary>Class <c>FetalDeathRecordAcknowledgementMessage</c> supports the acknowledgment of other messages.</summary>
+    public class FetalDeathRecordAcknowledgementMessage : BFDRAcknowledgementMessage
+    {
+        /// <summary>
+        /// The Event URI for FetalDeathRecordAcknowledgementMessage
+        /// </summary>
+        public new const string MESSAGE_TYPE = "http://nchs.cdc.gov/fd_acknowledgement";
+        /// <summary>Default constructor that creates a new, empty FetalDeathRecordAcknowledgementMessage.</summary>
+        public FetalDeathRecordAcknowledgementMessage(BFDRBaseMessage message) : base(message)
+        {
+            MessageType = MESSAGE_TYPE;
+        }
+        /// <summary>Constructor that creates a FetalDeathRecordAcknowledgementMessage from a bundle.</summary>
+        internal FetalDeathRecordAcknowledgementMessage(Bundle messageBundle) : base(messageBundle)
+        {
+            MessageType = MESSAGE_TYPE;
+        }
+
+        /// <summary>Constructor that creates an acknowledgement for the specified message.</summary>
+        /// <param name="messageId">the id of the message to create an acknowledgement for.</param>
+        /// <param name="destination">the endpoint identifier that the ack message will be sent to.</param>
+        /// <param name="source">the endpoint identifier that the ack message will be sent from.</param>
+        public FetalDeathRecordAcknowledgementMessage(string messageId, string destination, string source = "http://nchs.cdc.gov/bfdr_submission") : base(messageId, destination, source)
+        { 
+            MessageType = MESSAGE_TYPE;
+        }
+    }
     /// <summary>Class <c>BFDRAcknowledgementMessage</c> supports the acknowledgment of other messages.</summary>
-    public class BFDRAcknowledgementMessage : BFDRBaseMessage
+    public abstract class BFDRAcknowledgementMessage : BFDRBaseMessage
     {
         /// <summary>
         /// The Event URI for BFDRAcknowledgementMessage

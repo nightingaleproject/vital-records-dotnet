@@ -70,13 +70,13 @@ export const messageTypesVRDR = {
 }
 
 export const messageTypesBFDR = {
-  "http://nchs.cdc.gov/bfdr_acknowledgement": "Acknowledgement",
-  "http://nchs.cdc.gov/bfdr_demographics_coding": "Demographics Coding",
-  "http://nchs.cdc.gov/http://nchs.cdc.gov/bfdr_extraction_error": "Error",
-  "http://nchs.cdc.gov/bfdr_status": "Status",
-  "http://nchs.cdc.gov/bfdr_submission": "Submission",
-  "http://nchs.cdc.gov/bfdr_submission_void": "Void",
-  "http://nchs.cdc.gov/bfdr_submission_update": "Update"
+  "http://nchs.cdc.gov/birth_acknowledgement": "Acknowledgement",
+  "http://nchs.cdc.gov/birth_demographics_coding": "Demographics Coding",
+  "http://nchs.cdc.gov/birth_extraction_error": "Error",
+  "http://nchs.cdc.gov/birth_status": "Status",
+  "http://nchs.cdc.gov/birth_submission": "Submission",
+  "http://nchs.cdc.gov/birth_submission_void": "Void",
+  "http://nchs.cdc.gov/birth_submission_update": "Update"
 }
 
 

@@ -9,7 +9,7 @@
             "resource": {
                 "resourceType": "MessageHeader",
                 "id": "acba0c0a-6b83-464c-aa52-ce9cfb4ea7bc",
-                "eventUri": "http://nchs.cdc.gov/bfdr_demographics_coding",
+                "eventUri": "http://nchs.cdc.gov/birth_demographics_coding",
                 "destination": [
                     {
                         "endpoint": "http://nchs.cdc.gov/bfdr_submission"

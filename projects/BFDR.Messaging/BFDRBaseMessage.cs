@@ -166,23 +166,41 @@ namespace BFDR
             BFDRBaseMessage message = new BFDRBaseMessage(bundle, true, false);
             switch (message.MessageType)
             {
-                case BFDRAcknowledgementMessage.MESSAGE_TYPE:
-                    message = new BFDRAcknowledgementMessage(bundle);
+                case BirthRecordAcknowledgementMessage.MESSAGE_TYPE:
+                    message = new BirthRecordAcknowledgementMessage(bundle);
                     break;
-                case BFDRErrorMessage.MESSAGE_TYPE:
-                    message = new BFDRErrorMessage(bundle, message);
+                case FetalDeathRecordAcknowledgementMessage.MESSAGE_TYPE:
+                    message = new FetalDeathRecordAcknowledgementMessage(bundle);
                     break;
-                case BFDRStatusMessage.MESSAGE_TYPE:
-                    message = new BFDRStatusMessage(bundle);
+                case BirthRecordErrorMessage.MESSAGE_TYPE:
+                    message = new BirthRecordErrorMessage(bundle, message);
                     break;
-                case BFDRVoidMessage.MESSAGE_TYPE:
-                    message = new BFDRVoidMessage(bundle);
+                case FetalDeathRecordErrorMessage.MESSAGE_TYPE:
+                    message = new FetalDeathRecordErrorMessage(bundle, message);
                     break;
-                case BFDRParentalDemographicsCodingMessage.MESSAGE_TYPE:
-                    message = new BFDRParentalDemographicsCodingMessage(bundle, message);
+                case BirthRecordStatusMessage.MESSAGE_TYPE:
+                    message = new BirthRecordStatusMessage(bundle);
                     break;
-                case BFDRParentalDemographicsCodingUpdateMessage.MESSAGE_TYPE:
-                    message = new BFDRParentalDemographicsCodingUpdateMessage(bundle, message);
+                case FetalDeathRecordStatusMessage.MESSAGE_TYPE:
+                    message = new FetalDeathRecordStatusMessage(bundle);
+                    break;
+                case BirthRecordVoidMessage.MESSAGE_TYPE:
+                    message = new BirthRecordVoidMessage(bundle);
+                    break;
+                case FetalDeathRecordVoidMessage.MESSAGE_TYPE:
+                    message = new FetalDeathRecordVoidMessage(bundle);
+                    break;
+                case BirthRecordParentalDemographicsCodingMessage.MESSAGE_TYPE:
+                    message = new BirthRecordParentalDemographicsCodingMessage(bundle, message);
+                    break;
+                case BirthRecordParentalDemographicsCodingUpdateMessage.MESSAGE_TYPE:
+                    message = new BirthRecordParentalDemographicsCodingUpdateMessage(bundle, message);
+                    break;
+                case FetalDeathRecordParentalDemographicsCodingMessage.MESSAGE_TYPE:
+                    message = new FetalDeathRecordParentalDemographicsCodingMessage(bundle, message);
+                    break;
+                case FetalDeathRecordParentalDemographicsCodingUpdateMessage.MESSAGE_TYPE:
+                    message = new FetalDeathRecordParentalDemographicsCodingUpdateMessage(bundle, message);
                     break;
                 case FetalDeathRecordSubmissionMessage.MESSAGE_TYPE:
                     message = new FetalDeathRecordSubmissionMessage(bundle, message);
@@ -309,9 +327,19 @@ namespace BFDR
         /// <summary>
         /// Build an ExtractionErrorMessage that conveys the issues reported in this exception.
         /// </summary>
-        public BFDRErrorMessage CreateBFDRExtractionErrorMessage()
+        public BirthRecordErrorMessage CreateBirthRecordExtractionErrorMessage()
         {
-            var message = new BFDRErrorMessage(sourceMessage);
+            var message = new BirthRecordErrorMessage(sourceMessage);
+            message.Issues.Add(new Issue(OperationOutcome.IssueSeverity.Error, OperationOutcome.IssueType.Exception, this.Message));
+            return message;
+        }
+
+        /// <summary>
+        /// Build an ExtractionErrorMessage that conveys the issues reported in this exception.
+        /// </summary>
+        public FetalDeathRecordErrorMessage CreateFetalDeathRecordExtractionErrorMessage()
+        {
+            var message = new FetalDeathRecordErrorMessage(sourceMessage);
             message.Issues.Add(new Issue(OperationOutcome.IssueSeverity.Error, OperationOutcome.IssueType.Exception, this.Message));
             return message;
         }

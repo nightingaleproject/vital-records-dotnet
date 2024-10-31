@@ -9,7 +9,7 @@ namespace BFDR
         /// <summary>
         /// The event URI for BirthRecordSubmission.
         /// </summary>
-        public new const String MESSAGE_TYPE = "http://nchs.cdc.gov/bfdr_birth";
+        public new const String MESSAGE_TYPE = "http://nchs.cdc.gov/birth_submission";
 
         /// <summary>Bundle that contains the message payload.</summary>
         private BirthRecord birthRecord;
@@ -76,7 +76,7 @@ namespace BFDR
         /// <summary>
         /// The event URI for BirthRecordUpdateMessage.
         /// </summary>
-        public new const String MESSAGE_TYPE = "http://nchs.cdc.gov/bfdr_birth_update";
+        public new const String MESSAGE_TYPE = "http://nchs.cdc.gov/birth_submission_update";
 
         /// <summary>Default constructor that creates a new, empty BirthRecordUpdateMessage.</summary>
         public BirthRecordUpdateMessage() : base()

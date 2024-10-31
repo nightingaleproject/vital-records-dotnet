@@ -3,8 +3,89 @@ using Hl7.Fhir.Model;
 
 namespace BFDR
 {
+    /// <summary>Class <c>BirthRecordStatusMessage</c> provides a status update to a jurisdiction about a previously submitted message.</summary>
+    public class BirthRecordStatusMessage : BFDRStatusMessage
+    {
+        /// <summary>
+        /// The Event URI for BirthRecordStatusMessage
+        /// </summary>
+        public new const string MESSAGE_TYPE = "http://nchs.cdc.gov/birth_status";
+
+        /// <summary>Default constructor that creates a new, empty BFDRStatusMessage.</summary>
+        public BirthRecordStatusMessage() : base()
+        {
+            MessageType = MESSAGE_TYPE;
+        }
+
+        /// <summary>Default constructor that creates a new, empty BirthRecordStatusMessage.</summary>
+        public BirthRecordStatusMessage(BFDRBaseMessage message, string status) : base(message, status)
+        {
+            MessageType = MESSAGE_TYPE;
+        }
+        /// <summary>
+        /// Construct a BirthRecordStatusMessage from a FHIR Bundle.
+        /// </summary>
+        /// <param name="messageBundle">a FHIR Bundle that will be used to initialize the BirthRecordStatusMessage</param>
+        /// <returns></returns>
+        internal BirthRecordStatusMessage(Bundle messageBundle) : base(messageBundle)
+        {
+            MessageType = MESSAGE_TYPE;
+        }
+
+        /// <summary>Constructor that creates a status message for the specified message.</summary>
+        /// <param name="messageId">the id of the message to create status message for.</param>
+        /// <param name="destination">the endpoint identifier that the ack message will be sent to.</param>
+        /// <param name="status">the status being sent, from http://build.fhir.org/ig/nightingaleproject/vital_records_fhir_messaging_ig/branches/main/ValueSet-VRM-Status-vs.html</param>
+        /// <param name="source">the endpoint identifier that the ack message will be sent from.</param>
+        public BirthRecordStatusMessage(string messageId, string destination, string status, string source = "http://nchs.cdc.gov/bfdr_submission") : base(messageId, destination, status, source)
+        {
+            MessageType = MESSAGE_TYPE;
+        }
+    }
+    /// <summary>Class <c>FetalDeathRecordStatusMessage</c> provides a status update to a jurisdiction about a previously submitted message.</summary>
+    public class FetalDeathRecordStatusMessage : BFDRStatusMessage
+    {
+        /// <summary>
+        /// The Event URI for FetalDeathRecordStatusMessage
+        /// </summary>
+        public new const string MESSAGE_TYPE = "http://nchs.cdc.gov/fd_status";
+       
+        /// <summary>Default constructor that creates a new, empty BFDRStatusMessage.</summary>
+        public FetalDeathRecordStatusMessage() : base()
+        {
+            MessageType = MESSAGE_TYPE;
+        }
+
+        /// <summary>Default constructor that creates a new, empty FetalDeathRecordStatusMessage.</summary>
+        public FetalDeathRecordStatusMessage(BFDRBaseMessage message, string status) : base(message, status)
+        {
+            MessageType = MESSAGE_TYPE;
+        }
+
+        /// <summary>
+        /// Construct a FetalDeathRecordStatusMessage from a FHIR Bundle.
+        /// </summary>
+        /// <param name="messageBundle">a FHIR Bundle that will be used to initialize the FetalDeathRecordStatusMessage</param>
+        /// <returns></returns>
+        internal FetalDeathRecordStatusMessage(Bundle messageBundle) : base(messageBundle)
+        {
+            MessageType = MESSAGE_TYPE;
+        }
+
+        /// <summary>Constructor that creates a status message for the specified message.</summary>
+        /// <param name="messageId">the id of the message to create status message for.</param>
+        /// <param name="destination">the endpoint identifier that the ack message will be sent to.</param>
+        /// <param name="status">the status being sent, from http://build.fhir.org/ig/nightingaleproject/vital_records_fhir_messaging_ig/branches/main/ValueSet-VRM-Status-vs.html</param>
+        /// <param name="source">the endpoint identifier that the ack message will be sent from.</param>
+
+        public FetalDeathRecordStatusMessage(string messageId, string destination, string status, string source = "http://nchs.cdc.gov/bfdr_submission") : base(messageId, destination, status, source)
+        {
+            MessageType = MESSAGE_TYPE;
+        }
+    }
+
     /// <summary>Class <c>BFDRStatusMessage</c> provides a status update to a jurisdiction about a previously submitted message.</summary>
-    public class BFDRStatusMessage : BFDRBaseMessage
+    public abstract class BFDRStatusMessage : BFDRBaseMessage
     {
         /// <summary>
         /// The Event URI for BFDRStatusMessage

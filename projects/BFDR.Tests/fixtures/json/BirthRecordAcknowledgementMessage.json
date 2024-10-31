@@ -9,14 +9,14 @@
       "resource": {
         "resourceType": "MessageHeader",
         "id": "b9674fdb-3026-47aa-9be1-0fdaf28b82ab",
-        "eventUri": "http://nchs.cdc.gov/bfdr_acknowledgement",
+        "eventUri": "http://nchs.cdc.gov/birth_acknowledgement",
         "destination": [
           {
             "endpoint": "http://mitre.org/bfdr"
           }
         ],
         "source": {
-          "endpoint": "http://nchs.cdc.gov/bfdr_birth"
+          "endpoint": "http://nchs.cdc.gov/birth_submission"
         },
         "response": {
           "identifier": "0df23820-f4ad-4a29-8862-a5effb85f1c5",

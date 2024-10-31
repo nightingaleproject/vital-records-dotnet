@@ -4,8 +4,73 @@ using Hl7.Fhir.Model;
 
 namespace BFDR
 {
+    /// <summary>Class <c>BirthRecordErrorMessage</c> is used to communicate that initial processing of a BFDR message failed.</summary>
+    public class BirthRecordErrorMessage : BFDRErrorMessage
+    {
+        /// <summary>
+        /// The Event URI for BirthRecordErrorMessage
+        /// </summary>
+        public new const string MESSAGE_TYPE = "http://nchs.cdc.gov/birth_extraction_error";
+
+        /// <summary>Default constructor that creates a new, empty BirthRecordErrorMessage.</summary>
+        public BirthRecordErrorMessage(BFDRBaseMessage message) : base(message)
+        {
+            MessageType = MESSAGE_TYPE;
+        }
+
+        /// <summary>
+        /// Construct an BirthRecordErrorMessage from a FHIR Bundle.
+        /// </summary>
+        /// <param name="messageBundle">a FHIR Bundle that will be used to initialize the BirthRecordErrorMessage</param>
+        /// <param name="baseMessage">the BFDRBaseMessage instance that was constructed during parsing that can be used in a MessageParseException if needed</param>
+        internal BirthRecordErrorMessage(Bundle messageBundle, BFDRBaseMessage baseMessage) : base(messageBundle, baseMessage)
+        {
+            MessageType = MESSAGE_TYPE;
+        }
+
+        /// <summary>Constructor that creates an extraction error message for the specified message.</summary>
+        /// <param name="messageId">the id of the message to create an extraction error for.</param>
+        /// <param name="destination">the endpoint identifier that the extraction error message will be sent to.</param>
+        /// <param name="source">the endpoint identifier that the extraction error message will be sent from.</param>
+        public BirthRecordErrorMessage(string messageId, string destination, string source = "http://nchs.cdc.gov/bfdr_submission") : base(messageId, destination, source)
+        {
+            MessageType = MESSAGE_TYPE;
+        }
+    }
+    /// <summary>Class <c>FetalDeathRecordErrorMessage</c> is used to communicate that initial processing of a BFDR message failed.</summary>
+    public class FetalDeathRecordErrorMessage : BFDRErrorMessage
+    {
+        /// <summary>
+        /// The Event URI for FetalDeathRecordErrorMessage
+        /// </summary>
+        public new const string MESSAGE_TYPE = "http://nchs.cdc.gov/fd_extraction_error";
+        /// <summary>Default constructor that creates a new, empty FetalDeathRecordErrorMessage.</summary>
+        public FetalDeathRecordErrorMessage(BFDRBaseMessage message) : base(message)
+        {
+            MessageType = MESSAGE_TYPE;
+        }
+        /// <summary>
+        /// Construct an FetalDeathRecordErrorMessage from a FHIR Bundle.
+        /// </summary>
+        /// <param name="messageBundle">a FHIR Bundle that will be used to initialize the FetalDeathRecordErrorMessage</param>
+        /// <param name="baseMessage">the BFDRBaseMessage instance that was constructed during parsing that can be used in a MessageParseException if needed</param>
+        internal FetalDeathRecordErrorMessage(Bundle messageBundle, BFDRBaseMessage baseMessage) : base(messageBundle, baseMessage)
+        {
+            MessageType = MESSAGE_TYPE;
+        }
+
+        /// <summary>Constructor that creates an extraction error message for the specified message.</summary>
+        /// <param name="messageId">the id of the message to create an extraction error for.</param>
+        /// <param name="destination">the endpoint identifier that the extraction error message will be sent to.</param>
+        /// <param name="source">the endpoint identifier that the extraction error message will be sent from.</param>
+        public FetalDeathRecordErrorMessage(string messageId, string destination, string source = "http://nchs.cdc.gov/bfdr_submission") : base(messageId, destination, source)
+        {
+            MessageType = MESSAGE_TYPE;
+        }
+    }
+
     /// <summary>Class <c>BFDRErrorMessage</c> is used to communicate that initial processing of a BFDR message failed.</summary>
-    public class BFDRErrorMessage : BFDRBaseMessage
+    public abstract class BFDRErrorMessage : BFDRBaseMessage
     {
         /// <summary>
         /// The Event URI for BFDRErrorMessage
