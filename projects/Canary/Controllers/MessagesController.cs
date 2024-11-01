@@ -19,7 +19,7 @@ namespace canary.Controllers
         /// Inspects FSH message
         /// </summary>
         /// <returns></returns>
-        [HttpPost("Messages/sushi/Inspect")]
+        [HttpPost("sushi/Inspect")]
         public async Task<(string results, List<Dictionary<string, string>> issues)> NewFshPost()
         {
             string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
@@ -50,7 +50,7 @@ namespace canary.Controllers
             }
         }
 
-        [HttpPost("Messages/vrdr/InspectWithFsh")]
+        [HttpPost("vrdr/InspectWithFsh")]
         public async Task<(Record record, List<Dictionary<string, string>> issues)> NewVRDRFshPost()
         {
             return await NewPost("vrdr", true);

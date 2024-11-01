@@ -432,9 +432,9 @@ namespace BFDR.Tests
       BirthRecord fhir = new BirthRecord();
       IJEBirth ije = new IJEBirth(fhir);
       Assert.Equal("U", ije.METHNIC1);
-      ije.METHNIC1 = "Y";
+      ije.METHNIC1 = "H";
       Assert.Equal("Y", fhir.MotherEthnicity1Helper);
-      Assert.Equal("Y", ije.METHNIC1);
+      Assert.Equal("H", ije.METHNIC1);
 
       Dictionary<string, string> CodeY = new Dictionary<string, string>();
       CodeY.Add("code", VR.ValueSets.YesNoUnknown.Codes[1, 0]);
@@ -449,9 +449,9 @@ namespace BFDR.Tests
       BirthRecord fhir = new BirthRecord();
       IJEBirth ije = new IJEBirth(fhir);
       Assert.Equal("U", ije.FETHNIC1);
-      ije.FETHNIC1 = "Y";
+      ije.FETHNIC1 = "H";
       Assert.Equal("Y", fhir.FatherEthnicity1Helper);
-      Assert.Equal("Y", ije.FETHNIC1);
+      Assert.Equal("H", ije.FETHNIC1);
 
       Dictionary<string, string> CodeY = new Dictionary<string, string>();
       CodeY.Add("code", VR.ValueSets.YesNoUnknown.Codes[1, 0]);

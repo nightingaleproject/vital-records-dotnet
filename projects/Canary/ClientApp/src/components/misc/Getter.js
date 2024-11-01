@@ -98,7 +98,7 @@ export class Getter extends Component {
       } else if(this.props.messageValidation) {
         endpoint = `/messages/${this.props.recordType}/new`
       } else if (this.props.messageInspector) {
-        endpoint = `/messages/${this.props.recordType}/InspectWithFsh`;
+        endpoint = `/messages/${this.props.recordType}/inspect`;
       } else if (this.props.source == 'FshSushiInspector') {
         endpoint = `/messages/sushi/inspect`;
       } else if (this.props.source == 'MessageFshConverter') {

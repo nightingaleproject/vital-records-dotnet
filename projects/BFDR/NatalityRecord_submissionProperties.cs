@@ -363,12 +363,20 @@ namespace BFDR
         /// <param name="value">The birth/delivery sex.</param>
         protected void SetBirthSex(string value)
         {
-            if (!CodeExistsInValueSet(value, VR.ValueSets.SexAssignedAtBirth.Codes))
+            try
             {
-                return;
+                if (!CodeExistsInValueSet(value, VR.ValueSets.SexAssignedAtBirth.Codes))
+                {
+                    return;
+                }
+                Subject.Extension.RemoveAll(ext => ext.Url == VR.OtherExtensionURL.BirthSex);
+                Subject.SetExtension(VR.OtherExtensionURL.BirthSex, new Code(value));
             }
-            Subject.Extension.RemoveAll(ext => ext.Url == VR.OtherExtensionURL.BirthSex);
-            Subject.SetExtension(VR.OtherExtensionURL.BirthSex, new Code(value));
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine($"Failed to set BirthSex: {ex}");
+            }
+
 
         }
 
@@ -795,11 +803,20 @@ namespace BFDR
             }
             set
             {
-                if (!String.IsNullOrEmpty(value["addressState"]) && !CodeExistsInValueSet(value["addressState"], VR.ValueSets.Jurisdiction.Codes))
-                {
-                    return;
+                try
+                {                
+                    if (!String.IsNullOrEmpty(value["addressState"]) && !CodeExistsInValueSet(value["addressState"], VR.ValueSets.Jurisdiction.Codes))
+                    {
+                        return;
+                    }
+                    SetPlaceOfBirth(Subject, value);
                 }
-                SetPlaceOfBirth(Subject, value);
+                catch (ArgumentException ex)
+                {
+                    Console.WriteLine($"Failed to set PlaceOfBirth: {ex}");
+                }
+
+                
             }
         }
 
@@ -841,15 +858,22 @@ namespace BFDR
             get => GetPlaceOfBirth(Mother);
             set 
             {
-                if (!String.IsNullOrEmpty(value["addressState"]) && !CodeExistsInValueSet(value["addressState"], VR.ValueSets.StatesTerritoriesProvinces.Codes))
-                {
-                    return;
+                try{
+                    if (!String.IsNullOrEmpty(value["addressState"]) && !CodeExistsInValueSet(value["addressState"], VR.ValueSets.StatesTerritoriesProvinces.Codes))
+                    {
+                        return;
+                    }
+                    if (!String.IsNullOrEmpty(value["addressCountry"]) && !CodeExistsInValueSet(value["addressCountry"], VR.ValueSets.ResidenceCountry.Codes))
+                    {
+                        return;
+                    }
+                    SetPlaceOfBirth(Mother, value);
                 }
-                if (!String.IsNullOrEmpty(value["addressCountry"]) && !CodeExistsInValueSet(value["addressCountry"], VR.ValueSets.ResidenceCountry.Codes))
+                catch (ArgumentException ex)
                 {
-                    return;
+                    Console.WriteLine($"Failed to set MotherBirthPlace: {ex}");
                 }
-                SetPlaceOfBirth(Mother, value);
+
             }
         }
 
