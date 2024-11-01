@@ -94,7 +94,7 @@ namespace canary.Controllers
             {
                 if (input.Trim().StartsWith("<") || input.Trim().StartsWith("{")) // XML or JSON?
                 {
-                    return ControllerMappers.checkGetRecord[recordType](input);
+                    return ControllerMappers.checkGetRecord[recordType](input, false);
                 }
                 else
                 {

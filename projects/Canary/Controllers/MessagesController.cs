@@ -61,6 +61,7 @@ namespace canary.Controllers
         /// Inspects a deathrecord birthrecord or fetaldeathrecord message using the contents provided. Returns the message + record and any validation issues.
         /// POST Messages/vrdr/Inspect
         /// </summary>
+        [HttpPost("{recordType:regex(^(" + ControllerMappers.VRDR + "|" + ControllerMappers.BFDR_BIRTH + "|" + ControllerMappers.BFDR_FETALDEATH + ")$)}/Inspect")]
         public async Task<(Record record, List<Dictionary<string, string>> issues)> NewPost(string recordType, bool getFsh = false)
         {
             string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
@@ -131,7 +132,7 @@ namespace canary.Controllers
         {
             string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
 
-            (Record record, List<Dictionary<string, string>> _) = ControllerMappers.checkGetRecord[recordType](input);
+            (Record record, List<Dictionary<string, string>> _) = ControllerMappers.checkGetRecord[recordType](input, false);
             try {
                 return (ControllerMappers.createMessageFromType[recordType](record, type), null);
             }
