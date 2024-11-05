@@ -536,5 +536,45 @@ namespace VR
             }
             this.Record.GetType().GetProperty(fhirFieldName).SetValue(this.Record, dictionary);
         }
+
+        /// <summary>Converts the FHIR representation of presence-only fields to the IJE equivalent.</summary>
+        /// <param name="fieldValue">the value of the field</param>
+        /// <param name="noneOfTheAboveValue">the value of the corresponding none-of-the-above field</param>
+        /// <returns>Y (yes), N (no), or U (unknown)</returns>
+        protected string PresenceToIJE(bool fieldValue, bool noneOfTheAboveValue)
+        {
+            if (fieldValue)
+            {
+                return "Y";
+            }
+            else if (noneOfTheAboveValue)
+            {
+                return "N";
+            }
+            else
+            {
+                return "U";
+            }
+        }
+
+        /// <summary>Converts the IJE representation of presence-only fields to the FHIR equivalent.</summary>
+        /// <param name="value">Y (yes), N (no), or U (unknown)</param>
+        /// <param name="field">a function that will set a field in the FHIR record</param>
+        /// <param name="noneOfTheAboveField">a function that will set the corresponding none-of-the-above field in the FHIR record</param>
+        protected void IJEToPresence(string value, Func<bool, bool> field, Func<bool, bool> noneOfTheAboveField)
+        {
+            if (value.Equals("Y"))
+            {
+                field(true);
+            }
+            else if (value.Equals("N"))
+            {
+                noneOfTheAboveField(true);
+            }
+            else
+            {
+                field(false);
+            }
+        }
     }
 }

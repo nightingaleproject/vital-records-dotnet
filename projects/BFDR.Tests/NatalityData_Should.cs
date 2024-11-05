@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using VR;
 using Xunit;
+using System.Security;
 
 namespace BFDR.Tests
 {
@@ -436,9 +437,9 @@ namespace BFDR.Tests
       Assert.Equal("H", ije.METHNIC1);
 
       Dictionary<string, string> CodeY = new Dictionary<string, string>();
-      CodeY.Add("code", VR.ValueSets.HispanicNoUnknown.Codes[1, 0]);
-      CodeY.Add("display", VR.ValueSets.HispanicNoUnknown.Codes[1, 1]);
-      CodeY.Add("system", VR.ValueSets.HispanicNoUnknown.Codes[1, 2]);
+      CodeY.Add("code", VR.ValueSets.YesNoUnknown.Codes[1, 0]);
+      CodeY.Add("display", VR.ValueSets.YesNoUnknown.Codes[1, 1]);
+      CodeY.Add("system", VR.ValueSets.YesNoUnknown.Codes[1, 2]);
       Assert.Equal(CodeY, fhir.MotherEthnicity1);
     }
 
@@ -453,9 +454,9 @@ namespace BFDR.Tests
       Assert.Equal("H", ije.FETHNIC1);
 
       Dictionary<string, string> CodeY = new Dictionary<string, string>();
-      CodeY.Add("code", VR.ValueSets.HispanicNoUnknown.Codes[1, 0]);
-      CodeY.Add("display", VR.ValueSets.HispanicNoUnknown.Codes[1, 1]);
-      CodeY.Add("system", VR.ValueSets.HispanicNoUnknown.Codes[1, 2]);
+      CodeY.Add("code", VR.ValueSets.YesNoUnknown.Codes[1, 0]);
+      CodeY.Add("display", VR.ValueSets.YesNoUnknown.Codes[1, 1]);
+      CodeY.Add("system", VR.ValueSets.YesNoUnknown.Codes[1, 2]);
       Assert.Equal(CodeY, fhir.FatherEthnicity1);
     }
 
@@ -523,21 +524,21 @@ namespace BFDR.Tests
     public void TestSetFatherRaceTabulation()
     {
       IJEBirth ije = new();
-      Assert.Equal("", ije.FRACE1E);
-      Assert.Equal("", ije.FRACE2E);
-      Assert.Equal("", ije.FRACE3E);
-      Assert.Equal("", ije.FRACE4E);
-      Assert.Equal("", ije.FRACE6E);
-      Assert.Equal("", ije.FRACE7E);
-      Assert.Equal("", ije.FRACE8E);
-      Assert.Equal("", ije.FRACE16C);
-      Assert.Equal("", ije.FRACE17C);
-      Assert.Equal("", ije.FRACE18C);
-      Assert.Equal("", ije.FRACE19C);
-      Assert.Equal("", ije.FRACE20C);
-      Assert.Equal("", ije.FRACE21C);
-      Assert.Equal("", ije.FRACE22C);
-      Assert.Equal("", ije.FRACE23C);
+      Assert.Equal("", ije.FRACE1E.Trim());
+      Assert.Equal("", ije.FRACE2E.Trim());
+      Assert.Equal("", ije.FRACE3E.Trim());
+      Assert.Equal("", ije.FRACE4E.Trim());
+      Assert.Equal("", ije.FRACE6E.Trim());
+      Assert.Equal("", ije.FRACE7E.Trim());
+      Assert.Equal("", ije.FRACE8E.Trim());
+      Assert.Equal("", ije.FRACE16C.Trim());
+      Assert.Equal("", ije.FRACE17C.Trim());
+      Assert.Equal("", ije.FRACE18C.Trim());
+      Assert.Equal("", ije.FRACE19C.Trim());
+      Assert.Equal("", ije.FRACE20C.Trim());
+      Assert.Equal("", ije.FRACE21C.Trim());
+      Assert.Equal("", ije.FRACE22C.Trim());
+      Assert.Equal("", ije.FRACE23C.Trim());
       ije.FRACE1E = VR.ValueSets.RaceCode.Arab;
       Assert.Equal("102", ije.FRACE1E);
       Assert.Equal("102", ije.ToRecord().FatherRaceTabulation1EHelper);
@@ -593,21 +594,21 @@ namespace BFDR.Tests
     public void TestSetMotherRaceTabulation()
     {
       IJEBirth ije = new();
-      Assert.Equal("", ije.MRACE1E);
-      Assert.Equal("", ije.MRACE2E);
-      Assert.Equal("", ije.MRACE3E);
-      Assert.Equal("", ije.MRACE4E);
-      Assert.Equal("", ije.MRACE6E);
-      Assert.Equal("", ije.MRACE7E);
-      Assert.Equal("", ije.MRACE8E);
-      Assert.Equal("", ije.MRACE16C);
-      Assert.Equal("", ije.MRACE17C);
-      Assert.Equal("", ije.MRACE18C);
-      Assert.Equal("", ije.MRACE19C);
-      Assert.Equal("", ije.MRACE20C);
-      Assert.Equal("", ije.MRACE21C);
-      Assert.Equal("", ije.MRACE22C);
-      Assert.Equal("", ije.MRACE23C);
+      Assert.Equal("", ije.MRACE1E.Trim());
+      Assert.Equal("", ije.MRACE2E.Trim());
+      Assert.Equal("", ije.MRACE3E.Trim());
+      Assert.Equal("", ije.MRACE4E.Trim());
+      Assert.Equal("", ije.MRACE6E.Trim());
+      Assert.Equal("", ije.MRACE7E.Trim());
+      Assert.Equal("", ije.MRACE8E.Trim());
+      Assert.Equal("", ije.MRACE16C.Trim());
+      Assert.Equal("", ije.MRACE17C.Trim());
+      Assert.Equal("", ije.MRACE18C.Trim());
+      Assert.Equal("", ije.MRACE19C.Trim());
+      Assert.Equal("", ije.MRACE20C.Trim());
+      Assert.Equal("", ije.MRACE21C.Trim());
+      Assert.Equal("", ije.MRACE22C.Trim());
+      Assert.Equal("", ije.MRACE23C.Trim());
       ije.MRACE1E = VR.ValueSets.RaceCode.Arab;
       Assert.Equal("102", ije.MRACE1E);
       Assert.Equal("102", ije.ToRecord().MotherRaceTabulation1EHelper);
@@ -861,7 +862,7 @@ namespace BFDR.Tests
       Assert.Equal("0", ije.DWGT_BYPASS);
       Assert.Equal("120", ije.DWGT);
       Assert.Equal("3200", ije.BWG);
-            Assert.Equal("2failedBirthWeightGestationEdit", ije.BW_BYPASS);
+      Assert.Equal("2failedBirthWeightGestationEdit", ije.BW_BYPASS);
       ije.PWGT = "999";
       Assert.Equal("999", ije.PWGT);
       Assert.Equal(-1, fhir.MotherPrepregnancyWeight);
@@ -873,48 +874,48 @@ namespace BFDR.Tests
       BirthRecord fhir = new BirthRecord();
       IJEBirth ije = new IJEBirth(fhir);
       Assert.Null(fhir.MotherOccupation);
-      Assert.Null(ije.MOM_OC_T);
+      Assert.Equal("", ije.MOM_OC_T.Trim());
       Assert.Null(fhir.FatherOccupation);
-      Assert.Null(ije.DAD_OC_T);
+      Assert.Equal("", ije.DAD_OC_T.Trim());
       Assert.Null(fhir.MotherIndustry);
-      Assert.Null(ije.MOM_IN_T);
+      Assert.Equal("",ije.MOM_IN_T.Trim());
       Assert.Null(fhir.FatherIndustry);
-      Assert.Null(ije.DAD_IN_T);
+      Assert.Equal("",ije.DAD_IN_T.Trim());
       ije.MOM_OC_T = "scientist";
-      Assert.Equal("scientist", ije.MOM_OC_T);
+      Assert.Equal("scientist", ije.MOM_OC_T.Trim());
       Assert.Equal("scientist", fhir.MotherOccupation);
       Assert.Null(fhir.MotherIndustry);
-      Assert.Null(ije.MOM_IN_T);
+      Assert.Equal("",ije.MOM_IN_T.Trim());
       Assert.Null(fhir.FatherOccupation);
-      Assert.Null(ije.DAD_OC_T);
+      Assert.Equal("", ije.DAD_OC_T.Trim());
       Assert.Null(fhir.FatherIndustry);
-      Assert.Null(ije.DAD_IN_T);
+      Assert.Equal("",ije.DAD_IN_T.Trim());
       ije.MOM_IN_T = "public health";
-      Assert.Equal("scientist", ije.MOM_OC_T);
+      Assert.Equal("scientist", ije.MOM_OC_T.Trim());
       Assert.Equal("scientist", fhir.MotherOccupation);
-      Assert.Equal("public health", ije.MOM_IN_T);
+      Assert.Equal("public health", ije.MOM_IN_T.Trim());
       Assert.Equal("public health", fhir.MotherIndustry);
       Assert.Null(fhir.FatherOccupation);
-      Assert.Null(ije.DAD_OC_T);
+      Assert.Equal("", ije.DAD_OC_T.Trim());
       Assert.Null(fhir.FatherIndustry);
-      Assert.Null(ije.DAD_IN_T);
+      Assert.Equal("",ije.DAD_IN_T.Trim());
       ije.DAD_IN_T = "real estate";
-      Assert.Equal("scientist", ije.MOM_OC_T);
+      Assert.Equal("scientist", ije.MOM_OC_T.Trim());
       Assert.Equal("scientist", fhir.MotherOccupation);
-      Assert.Equal("public health", ije.MOM_IN_T);
+      Assert.Equal("public health", ije.MOM_IN_T.Trim());
       Assert.Equal("public health", fhir.MotherIndustry);
       Assert.Null(fhir.FatherOccupation);
-      Assert.Null(ije.DAD_OC_T);
-      Assert.Equal("real estate", ije.DAD_IN_T);
+      Assert.Equal("", ije.DAD_OC_T.Trim());
+      Assert.Equal("real estate", ije.DAD_IN_T.Trim());
       Assert.Equal("real estate", fhir.FatherIndustry);
       ije.DAD_OC_T = "realtor";
-      Assert.Equal("realtor", ije.DAD_OC_T);
+      Assert.Equal("realtor", ije.DAD_OC_T.Trim());
       Assert.Equal("realtor", fhir.FatherOccupation);
-      Assert.Equal("real estate", ije.DAD_IN_T);
+      Assert.Equal("real estate", ije.DAD_IN_T.Trim());
       Assert.Equal("real estate", fhir.FatherIndustry);
-      Assert.Equal("scientist", ije.MOM_OC_T);
+      Assert.Equal("scientist", ije.MOM_OC_T.Trim());
       Assert.Equal("scientist", fhir.MotherOccupation);
-      Assert.Equal("public health", ije.MOM_IN_T);
+      Assert.Equal("public health", ije.MOM_IN_T.Trim());
       Assert.Equal("public health", fhir.MotherIndustry);
     }
 

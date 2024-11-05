@@ -36,7 +36,7 @@ export class FHIRInspector extends Component {
                 Dashboard
               </Breadcrumb.Section>
               <Breadcrumb.Divider icon="right chevron" />
-              <Breadcrumb.Section>FHIR {this.props.recordType.toUpperCase()} Record Inspector</Breadcrumb.Section>
+              <Breadcrumb.Section>FHIR {this.props.recordTypeReadable} Record Inspector</Breadcrumb.Section>
             </Breadcrumb>
           </Grid.Row>
           <Grid.Row>

@@ -30,6 +30,15 @@ export class FHIRMessageSyntaxChecker extends Component {
   }
 
   render() {
+    if (this.props.recordType.toLowerCase() == 'bfdr-fetaldeath') {
+      return (
+        <React.Fragment>
+          <h1>
+            BFDR Fetal Death does not yet support messaging.
+          </h1>
+        </React.Fragment>
+      )
+    }
     return (
       <React.Fragment>
         <Grid>
@@ -39,7 +48,7 @@ export class FHIRMessageSyntaxChecker extends Component {
                 Dashboard
               </Breadcrumb.Section>
               <Breadcrumb.Divider icon="right chevron" />
-              <Breadcrumb.Section>FHIR {this.props.recordType.toUpperCase()} Message Syntax Checker</Breadcrumb.Section>
+              <Breadcrumb.Section>FHIR {this.props.recordTypeReadable} Message Syntax Checker</Breadcrumb.Section>
             </Breadcrumb>
           </Grid.Row>
           <Grid.Row>

@@ -8,14 +8,14 @@ import * as NavigationOptions from './NavigationOptions';
 export function Navigation(props) {
 
   const recordTypeDropDowns = (recordType) => {
-    const shouldDisplayRecordDropdowns = recordType === 'vrdr' || recordType === 'bfdr'
+    const shouldDisplayRecordDropdowns = recordType === 'vrdr' || recordType === 'bfdr-birth' || recordType === 'bfdr-fetaldeath'
     if (shouldDisplayRecordDropdowns) {
       return (
         <Menu.Menu position="right">
-          <Menu.Item name={`${recordType.toUpperCase()} Dashboard`} as={Link} to={`/${recordType}`} icon="dashboard" />
+          <Menu.Item name={`${props.recordTypeReadable} Dashboard`} as={Link} to={`/${recordType}`} icon="dashboard" />
           <Dropdown item text="Record Testing" direction="left">
             <Dropdown.Menu>
-              {NavigationOptions.RecordTesting(recordType.toUpperCase()).map((navigationOption) => {
+              {NavigationOptions.RecordTesting(props.recordTypeReadable).map((navigationOption) => {
                 return (
                   <Dropdown.Item
                     key={navigationOption.title}
@@ -29,7 +29,7 @@ export function Navigation(props) {
           </Dropdown>
           <Dropdown item text="Message Testing" direction="left">
             <Dropdown.Menu>
-              {NavigationOptions.MessageTesting(recordType.toUpperCase()).map((navigationOption) => {
+              {NavigationOptions.MessageTesting(props.recordTypeReadable).map((navigationOption) => {
                 return (
                   <Dropdown.Item
                     key={navigationOption.title}
@@ -43,7 +43,7 @@ export function Navigation(props) {
           </Dropdown>
           <Dropdown item text="Record Tools" direction="left">
             <Dropdown.Menu>
-              {NavigationOptions.RecordTools(recordType.toUpperCase()).map((navigationOption) => {
+              {NavigationOptions.RecordTools(props.recordTypeReadable, props.ijeType).map((navigationOption) => {
                 return (
                   <Dropdown.Item
                     key={navigationOption.title}
@@ -57,7 +57,7 @@ export function Navigation(props) {
           </Dropdown>
           <Dropdown item text="Message Tools" direction="left">
             <Dropdown.Menu>
-              {NavigationOptions.MessageTools(recordType.toUpperCase()).map((navigationOption) => {
+              {NavigationOptions.MessageTools(props.recordTypeReadable).map((navigationOption) => {
                 return (
                   <Dropdown.Item
                     key={navigationOption.title}
@@ -85,9 +85,6 @@ export function Navigation(props) {
             Canary Testing Framework
           </span>
           <span className="p-l-5">
-            <small>
-              {window.VERSION};
-            </small>
             <small>
               VRDR {window.VRDR_VERSION};
             </small>

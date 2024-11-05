@@ -28,15 +28,20 @@ export class HomeScreen extends Component {
             </Header>
           </Divider>
           <div className="p-t-30" />
-          <CanaryCard 
+          <CanaryCard
             title='Vital Records Death Reporting'
-            subtitle={`VRDR ${window.VRDR_VERSION}`}
-            link='/vrdr'
+            subtitle='VRDR STU2'
+            link='https://canary-v4.fhir.nvss.cdc.gov'
           />
           <CanaryCard 
-            title='Birth and Fetal Death Reporting'
+            title='BFDR Birth Reporting'
             subtitle={`BFDR ${window.BFDR_VERSION}`}
-            link='/bfdr'
+            link='/bfdr-birth'
+          />
+          <CanaryCard 
+            title='BFDR Fetal Death Reporting'
+            subtitle={`BFDR ${window.BFDR_VERSION}`}
+            link='/bfdr-fetaldeath'
           />
         </Container>
       </React.Fragment>

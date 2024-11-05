@@ -11,12 +11,12 @@ namespace BFDR
     /// FHIR based <c>BirthRecord</c> to the IJE format for a specific field, and
     /// the setters convert from IJE format for a specific field and set that value
     /// on the embedded FHIR based <c>BirthRecord</c>.</summary>
-    public class IJEBirth : IJE
+    public class IJEBirth : IJENatality
     {
         private readonly BirthRecord record;
 
         /// <summary>Constructor that takes a <c>BirthRecord</c>.</summary>
-        public IJEBirth(BirthRecord record, bool validate = true)
+        public IJEBirth(BirthRecord record, bool validate = true) : base(record, validate)
         {
             this.record = record;
             if (validate)
@@ -58,6 +58,15 @@ namespace BFDR
             }
         }
 
+        /// <summary>FHIR based natality record.</summary>
+        protected override NatalityRecord NatalityRecord
+        {
+            get
+            {
+                return this.record;
+            }
+        }
+
         /// <summary>FHIR based vital record.</summary>
         /// Redundant due to ToRecord(), but kept for compatibility with IJEMortality which has this method for backwards compatibility.
         public BirthRecord ToBirthRecord()
@@ -66,105 +75,26 @@ namespace BFDR
         }
 
         /// <summary>FHIR based vital record.</summary>
-        /// Hides the IJE ToRecord method that returns a VitalRecord instead of a DeathRecord
+        /// Hides the IJE ToRecord method that returns a VitalRecord instead of a BirthRecord
         public new BirthRecord ToRecord()
         {
             return this.record;
         }
-
-        /// <summary>Converts the FHIR representation of presence-only fields to the IJE equivalent.</summary>
-        /// <param name="fieldValue">the value of the field</param>
-        /// <param name="noneOfTheAboveValue">the value of the corresponding none-of-the-above field</param>
-        /// <returns>Y (yes), N (no), or U (unknown)</returns>
-        private string PresenceToIJE(bool fieldValue, bool noneOfTheAboveValue)
-        {
-            if (fieldValue)
-            {
-                return "Y";
-            }
-            else if (noneOfTheAboveValue)
-            {
-                return "N";
-            }
-            else
-            {
-                return "U";
-            }
-        }
-
-        /// <summary>Converts the IJE representation of presence-only fields to the FHIR equivalent.</summary>
-        /// <param name="value">Y (yes), N (no), or U (unknown)</param>
-        /// <param name="field">a function that will set a field in the FHIR record</param>
-        /// <param name="noneOfTheAboveField">a function that will set the corresponding none-of-the-above field in the FHIR record</param>
-        private void IJEToPresence(string value, Func<bool, bool> field, Func<bool, bool> noneOfTheAboveField)
-        {
-            if (value.Equals("Y"))
-            {
-                field(true);
-            }
-            else if (value.Equals("N"))
-            {
-                noneOfTheAboveField(true);
-            }
-            else
-            {
-                field(false);
-            }
-        }
-
 
         /////////////////////////////////////////////////////////////////////////////////
         //
         // Class helper methods for getting and settings IJE fields.
         //
         /////////////////////////////////////////////////////////////////////////////////
-        /// <summary>Checks if the given race exists in the record for Mother.</summary>
-        private string Get_MotherRace(string name)
-        {
-            Tuple<string, string>[] raceStatus = record.MotherRace.ToArray();
+    
 
-            Tuple<string, string> raceTuple = Array.Find(raceStatus, element => element.Item1 == name);
-            if (raceTuple != null)
-            {
-                return (raceTuple.Item2).Trim();
-            }
-            return "";
-        }
-
-        /// <summary>Adds the given race to the record for Mother.</summary>
-        private void Set_MotherRace(string name, string value)
-        {
-            List<Tuple<string, string>> raceStatus = record.MotherRace.ToList();
-            raceStatus.Add(Tuple.Create(name, value));
-            record.MotherRace = raceStatus.Distinct().ToArray();
-        }
-        /// <summary>Checks if the given race exists in the record for Father.</summary>
-        private string Get_FatherRace(string name)
-        {
-            Tuple<string, string>[] raceStatus = record.FatherRace.ToArray();
-
-            Tuple<string, string> raceTuple = Array.Find(raceStatus, element => element.Item1 == name);
-            if (raceTuple != null)
-            {
-                return (raceTuple.Item2).Trim();
-            }
-            return "";
-        }
-
-        /// <summary>Adds the given race to the record for Father.</summary>
-        private void Set_FatherRace(string name, string value)
-        {
-            List<Tuple<string, string>> raceStatus = record.FatherRace.ToList();
-            raceStatus.Add(Tuple.Create(name, value));
-            record.FatherRace = raceStatus.Distinct().ToArray();
-        }
         /////////////////////////////////////////////////////////////////////////////////
         //
         // Class Properties that provide getters and setters for each of the IJE
         // Natality fields.
         //
-        // Getters look at the embedded DeathRecord and convert values to IJE style.
-        // Setters convert and store IJE style values to the embedded DeathRecord.
+        // Getters look at the embedded BirthRecord and convert values to IJE style.
+        // Setters convert and store IJE style values to the embedded BirthRecord.
         //
         /////////////////////////////////////////////////////////////////////////////////
 
@@ -530,6 +460,7 @@ namespace BFDR
             }
         }
 
+        /// NOTE: this field must be set after other residence fields have been set
         /// <summary>Residence of Mother--Inside City Limits</summary>
         [IJEField(24, 80, 1, "Residence of Mother--Inside City Limits", "LIMITS", 1)]
         public string LIMITS
@@ -1195,400 +1126,128 @@ namespace BFDR
         [IJEField(62, 374, 3, "Mother's Race Tabulation Variable 1E", "MRACE1E", 1)]
         public string MRACE1E
         {
-            get
-            {
-                var race = record.MotherRaceTabulation1EHelper;
-                if (!String.IsNullOrWhiteSpace(race))
-                {
-                    return Truncate(race, 3).Trim();
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    record.MotherRaceTabulation1EHelper = value;
-                }
-            }
+            get => LeftJustified_Get("MRACE1E", "MotherRaceTabulation1EHelper");
+            set => LeftJustified_Set("MRACE1E", "MotherRaceTabulation1EHelper", value);
         }
 
         /// <summary>Mother's Race Tabulation Variable 2E</summary>
         [IJEField(63, 377, 3, "Mother's Race Tabulation Variable 2E", "MRACE2E", 1)]
         public string MRACE2E
         {
-            get
-            {
-                var race = record.MotherRaceTabulation2EHelper;
-                if (!String.IsNullOrWhiteSpace(race))
-                {
-                    return Truncate(race, 3).Trim();
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    record.MotherRaceTabulation2EHelper = value;
-                }
-            }
+            get => LeftJustified_Get("MRACE2E", "MotherRaceTabulation2EHelper");
+            set => LeftJustified_Set("MRACE2E", "MotherRaceTabulation2EHelper", value);
         }
 
         /// <summary>Mother's Race Tabulation Variable 3E</summary>
         [IJEField(64, 380, 3, "Mother's Race Tabulation Variable 3E", "MRACE3E", 1)]
         public string MRACE3E
         {
-            get
-            {
-                var race = record.MotherRaceTabulation3EHelper;
-                if (!String.IsNullOrWhiteSpace(race))
-                {
-                    return Truncate(race, 3).Trim();
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    record.MotherRaceTabulation3EHelper = value;
-                }
-            }
+            get => LeftJustified_Get("MRACE3E", "MotherRaceTabulation3EHelper");
+            set => LeftJustified_Set("MRACE3E", "MotherRaceTabulation3EHelper", value);
         }
 
         /// <summary>Mother's Race Tabulation Variable 4E</summary>
         [IJEField(65, 383, 3, "Mother's Race Tabulation Variable 4E", "MRACE4E", 1)]
         public string MRACE4E
         {
-            get
-            {
-                var race = record.MotherRaceTabulation4EHelper;
-                if (!String.IsNullOrWhiteSpace(race))
-                {
-                    return Truncate(race, 3).Trim();
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    record.MotherRaceTabulation4EHelper = value;
-                }
-            }
+            get => LeftJustified_Get("MRACE4E", "MotherRaceTabulation4EHelper");
+            set => LeftJustified_Set("MRACE4E", "MotherRaceTabulation4EHelper", value);
         }
 
         /// <summary>Mother's Race Tabulation Variable 5E</summary>
         [IJEField(66, 386, 3, "Mother's Race Tabulation Variable 5E", "MRACE5E", 1)]
         public string MRACE5E
         {
-            get
-            {
-                var race = record.MotherRaceTabulation5EHelper;
-                if (!String.IsNullOrWhiteSpace(race))
-                {
-                    return Truncate(race, 3).Trim();
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    record.MotherRaceTabulation5EHelper = value;
-                }
-            }
+            get => LeftJustified_Get("MRACE5E", "MotherRaceTabulation5EHelper");
+            set => LeftJustified_Set("MRACE5E", "MotherRaceTabulation5EHelper", value);
         }
 
         /// <summary>Mother's Race Tabulation Variable 6E</summary>
         [IJEField(67, 389, 3, "Mother's Race Tabulation Variable 6E", "MRACE6E", 1)]
         public string MRACE6E
         {
-            get
-            {
-                var race = record.MotherRaceTabulation6EHelper;
-                if (!String.IsNullOrWhiteSpace(race))
-                {
-                    return Truncate(race, 3).Trim();
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    record.MotherRaceTabulation6EHelper = value;
-                }
-            }
+            get => LeftJustified_Get("MRACE6E", "MotherRaceTabulation6EHelper");
+            set => LeftJustified_Set("MRACE6E", "MotherRaceTabulation6EHelper", value);
         }
 
         /// <summary>Mother's Race Tabulation Variable 7E</summary>
         [IJEField(68, 392, 3, "Mother's Race Tabulation Variable 7E", "MRACE7E", 1)]
         public string MRACE7E
         {
-            get
-            {
-                var race = record.MotherRaceTabulation7EHelper;
-                if (!String.IsNullOrWhiteSpace(race))
-                {
-                    return Truncate(race, 3).Trim();
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    record.MotherRaceTabulation7EHelper = value;
-                }
-            }
+            get => LeftJustified_Get("MRACE7E", "MotherRaceTabulation7EHelper");
+            set => LeftJustified_Set("MRACE7E", "MotherRaceTabulation7EHelper", value);
         }
 
         /// <summary>Mother's Race Tabulation Variable 8E</summary>
         [IJEField(69, 395, 3, "Mother's Race Tabulation Variable 8E", "MRACE8E", 1)]
         public string MRACE8E
         {
-            get
-            {
-                var race = record.MotherRaceTabulation8EHelper;
-                if (!String.IsNullOrWhiteSpace(race))
-                {
-                    return Truncate(race, 3).Trim();
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    record.MotherRaceTabulation8EHelper = value;
-                }
-            }
+            get => LeftJustified_Get("MRACE8E", "MotherRaceTabulation8EHelper");
+            set => LeftJustified_Set("MRACE8E", "MotherRaceTabulation8EHelper", value);
         }
 
         /// <summary>Mother's Race Tabulation Variable 16C</summary>
         [IJEField(70, 398, 3, "Mother's Race Tabulation Variable 16C", "MRACE16C", 1)]
         public string MRACE16C
         {
-            get
-            {
-                var race = record.MotherFirstAmericanIndianCodeHelper;
-                if (!String.IsNullOrWhiteSpace(race))
-                {
-                    return Truncate(race, 3).Trim();
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    record.MotherFirstAmericanIndianCodeHelper = value;
-                }
-            }
+            get => LeftJustified_Get("MRACE16C", "MotherFirstAmericanIndianCodeHelper");
+            set => LeftJustified_Set("MRACE16C", "MotherFirstAmericanIndianCodeHelper", value);
         }
 
         /// <summary>Mother's Race Tabulation Variable 17C</summary>
         [IJEField(71, 401, 3, "Mother's Race Tabulation Variable 17C", "MRACE17C", 1)]
         public string MRACE17C
         {
-            get
-            {
-                var race = record.MotherSecondAmericanIndianCodeHelper;
-                if (!String.IsNullOrWhiteSpace(race))
-                {
-                    return Truncate(race, 3).Trim();
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    record.MotherSecondAmericanIndianCodeHelper = value;
-                }
-            }
+            get => LeftJustified_Get("MRACE17C", "MotherSecondAmericanIndianCodeHelper");
+            set => LeftJustified_Set("MRACE17C", "MotherSecondAmericanIndianCodeHelper", value);
         }
 
         /// <summary>Mother's Race Tabulation Variable 18C</summary>
         [IJEField(72, 404, 3, "Mother's Race Tabulation Variable 18C", "MRACE18C", 1)]
         public string MRACE18C
         {
-            get
-            {
-                var race = record.MotherFirstOtherAsianCodeHelper;
-                if (!String.IsNullOrWhiteSpace(race))
-                {
-                    return Truncate(race, 3).Trim();
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    record.MotherFirstOtherAsianCodeHelper = value;
-                }
-            }
+            get => LeftJustified_Get("MRACE18C", "MotherFirstOtherAsianCodeHelper");
+            set => LeftJustified_Set("MRACE18C", "MotherFirstOtherAsianCodeHelper", value);
         }
 
         /// <summary>Mother's Race Tabulation Variable 19C</summary>
         [IJEField(73, 407, 3, "Mother's Race Tabulation Variable 19C", "MRACE19C", 1)]
         public string MRACE19C
         {
-            get
-            {
-                var race = record.MotherSecondOtherAsianCodeHelper;
-                if (!String.IsNullOrWhiteSpace(race))
-                {
-                    return Truncate(race, 3).Trim();
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    record.MotherSecondOtherAsianCodeHelper = value;
-                }
-            }
+            get => LeftJustified_Get("MRACE19C", "MotherSecondOtherAsianCodeHelper");
+            set => LeftJustified_Set("MRACE19C", "MotherSecondOtherAsianCodeHelper", value);
         }
 
         /// <summary>Mother's Race Tabulation Variable 20C</summary>
         [IJEField(74, 410, 3, "Mother's Race Tabulation Variable 20C", "MRACE20C", 1)]
         public string MRACE20C
         {
-            get
-            {
-                var race = record.MotherFirstOtherPacificIslanderCodeHelper;
-                if (!String.IsNullOrWhiteSpace(race))
-                {
-                    return Truncate(race, 3).Trim();
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    record.MotherFirstOtherPacificIslanderCodeHelper = value;
-                }
-            }
+            get => LeftJustified_Get("MRACE20C", "MotherFirstOtherPacificIslanderCodeHelper");
+            set => LeftJustified_Set("MRACE20C", "MotherFirstOtherPacificIslanderCodeHelper", value);
         }
 
         /// <summary>Mother's Race Tabulation Variable 21C</summary>
         [IJEField(75, 413, 3, "Mother's Race Tabulation Variable 21C", "MRACE21C", 1)]
         public string MRACE21C
         {
-            get
-            {
-                var race = record.MotherSecondOtherPacificIslanderCodeHelper;
-                if (!String.IsNullOrWhiteSpace(race))
-                {
-                    return Truncate(race, 3).Trim();
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    record.MotherSecondOtherPacificIslanderCodeHelper = value;
-                }
-            }
+            get => LeftJustified_Get("MRACE21C", "MotherSecondOtherPacificIslanderCodeHelper");
+            set => LeftJustified_Set("MRACE21C", "MotherSecondOtherPacificIslanderCodeHelper", value);
         }
 
         /// <summary>Mother's Race Tabulation Variable 22C</summary>
         [IJEField(76, 416, 3, "Mother's Race Tabulation Variable 22C", "MRACE22C", 1)]
         public string MRACE22C
         {
-            get
-            {
-                var race = record.MotherFirstOtherRaceCodeHelper;
-                if (!String.IsNullOrWhiteSpace(race))
-                {
-                    return Truncate(race, 3).Trim();
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    record.MotherFirstOtherRaceCodeHelper = value;
-                }
-            }
+            get => LeftJustified_Get("MRACE22C", "MotherFirstOtherRaceCodeHelper");
+            set => LeftJustified_Set("MRACE22C", "MotherFirstOtherRaceCodeHelper", value);
         }
 
         /// <summary>Mother's Race Tabulation Variable 23C</summary>
         [IJEField(77, 419, 3, "Mother's Race Tabulation Variable 23C", "MRACE23C", 1)]
         public string MRACE23C
         {
-            get
-            {
-                var race = record.MotherSecondOtherRaceCodeHelper;
-                if (!String.IsNullOrWhiteSpace(race))
-                {
-                    return Truncate(race, 3).Trim();
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    record.MotherSecondOtherRaceCodeHelper = value;
-                }
-            }
+            get => LeftJustified_Get("MRACE23C", "MotherSecondOtherRaceCodeHelper");
+            set => LeftJustified_Set("MRACE23C", "MotherSecondOtherRaceCodeHelper", value);
         }
 
         /// <summary>Father's Education</summary>
@@ -2134,400 +1793,128 @@ namespace BFDR
         [IJEField(108, 703, 3, "Father's Race Tabulation Variable 1E", "FRACE1E", 1)]
         public string FRACE1E
         {
-            get
-            {
-                var race = record.FatherRaceTabulation1EHelper;
-                if (!String.IsNullOrWhiteSpace(race))
-                {
-                    return Truncate(race, 3).Trim();
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    record.FatherRaceTabulation1EHelper = value;
-                }
-            }
+            get => LeftJustified_Get("FRACE1E", "FatherRaceTabulation1EHelper");
+            set => LeftJustified_Set("FRACE1E", "FatherRaceTabulation1EHelper", value);
         }
 
         /// <summary>Father's Race Tabulation Variable 2E</summary>
         [IJEField(109, 706, 3, "Father's Race Tabulation Variable 2E", "FRACE2E", 1)]
         public string FRACE2E
         {
-            get
-            {
-                var race = record.FatherRaceTabulation2EHelper;
-                if (!String.IsNullOrWhiteSpace(race))
-                {
-                    return Truncate(race, 3).Trim();
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    record.FatherRaceTabulation2EHelper = value;
-                }
-            }
+            get => LeftJustified_Get("FRACE2E", "FatherRaceTabulation2EHelper");
+            set => LeftJustified_Set("FRACE2E", "FatherRaceTabulation2EHelper", value);
         }
 
         /// <summary>Father's Race Tabulation Variable 3E</summary>
         [IJEField(110, 709, 3, "Father's Race Tabulation Variable 3E", "FRACE3E", 1)]
         public string FRACE3E
         {
-            get
-            {
-                var race = record.FatherRaceTabulation3EHelper;
-                if (!String.IsNullOrWhiteSpace(race))
-                {
-                    return Truncate(race, 3).Trim();
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    record.FatherRaceTabulation3EHelper = value;
-                }
-            }
+            get => LeftJustified_Get("FRACE3E", "FatherRaceTabulation3EHelper");
+            set => LeftJustified_Set("FRACE3E", "FatherRaceTabulation3EHelper", value);
         }
 
         /// <summary>Father's Race Tabulation Variable 4E</summary>
         [IJEField(111, 712, 3, "Father's Race Tabulation Variable 4E", "FRACE4E", 1)]
         public string FRACE4E
         {
-            get
-            {
-                var race = record.FatherRaceTabulation4EHelper;
-                if (!String.IsNullOrWhiteSpace(race))
-                {
-                    return Truncate(race, 3).Trim();
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    record.FatherRaceTabulation4EHelper = value;
-                }
-            }
+            get => LeftJustified_Get("FRACE4E", "FatherRaceTabulation4EHelper");
+            set => LeftJustified_Set("FRACE4E", "FatherRaceTabulation4EHelper", value);
         }
 
         /// <summary>Father's Race Tabulation Variable 5E</summary>
         [IJEField(112, 715, 3, "Father's Race Tabulation Variable 5E", "FRACE5E", 1)]
         public string FRACE5E
         {
-            get
-            {
-                var race = record.FatherRaceTabulation5EHelper;
-                if (!String.IsNullOrWhiteSpace(race))
-                {
-                    return Truncate(race, 3).Trim();
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    record.FatherRaceTabulation5EHelper = value;
-                }
-            }
+            get => LeftJustified_Get("FRACE5E", "FatherRaceTabulation5EHelper");
+            set => LeftJustified_Set("FRACE5E", "FatherRaceTabulation5EHelper", value);
         }
 
         /// <summary>Father's Race Tabulation Variable 6E</summary>
         [IJEField(113, 718, 3, "Father's Race Tabulation Variable 6E", "FRACE6E", 1)]
         public string FRACE6E
         {
-            get
-            {
-                var race = record.FatherRaceTabulation6EHelper;
-                if (!String.IsNullOrWhiteSpace(race))
-                {
-                    return Truncate(race, 3).Trim();
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    record.FatherRaceTabulation6EHelper = value;
-                }
-            }
+            get => LeftJustified_Get("FRACE6E", "FatherRaceTabulation6EHelper");
+            set => LeftJustified_Set("FRACE6E", "FatherRaceTabulation6EHelper", value);
         }
 
         /// <summary>Father's Race Tabulation Variable 7E</summary>
         [IJEField(114, 721, 3, "Father's Race Tabulation Variable 7E", "FRACE7E", 1)]
         public string FRACE7E
         {
-            get
-            {
-                var race = record.FatherRaceTabulation7EHelper;
-                if (!String.IsNullOrWhiteSpace(race))
-                {
-                    return Truncate(race, 3).Trim();
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    record.FatherRaceTabulation7EHelper = value;
-                }
-            }
+            get => LeftJustified_Get("FRACE7E", "FatherRaceTabulation7EHelper");
+            set => LeftJustified_Set("FRACE7E", "FatherRaceTabulation7EHelper", value);
         }
 
         /// <summary>Father's Race Tabulation Variable 8E</summary>
         [IJEField(115, 724, 3, "Father's Race Tabulation Variable 8E", "FRACE8E", 1)]
         public string FRACE8E
         {
-            get
-            {
-                var race = record.FatherRaceTabulation8EHelper;
-                if (!String.IsNullOrWhiteSpace(race))
-                {
-                    return Truncate(race, 3).Trim();
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    record.FatherRaceTabulation8EHelper = value;
-                }
-            }
+            get => LeftJustified_Get("FRACE8E", "FatherRaceTabulation8EHelper");
+            set => LeftJustified_Set("FRACE8E", "FatherRaceTabulation8EHelper", value);
         }
 
         /// <summary>Father's Race Tabulation Variable 16C</summary>
         [IJEField(116, 727, 3, "Father's Race Tabulation Variable 16C", "FRACE16C", 1)]
         public string FRACE16C
         {
-            get
-            {
-                var race = record.FatherFirstAmericanIndianCodeHelper;
-                if (!String.IsNullOrWhiteSpace(race))
-                {
-                    return Truncate(race, 3).Trim();
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    record.FatherFirstAmericanIndianCodeHelper = value;
-                }
-            }
+            get => LeftJustified_Get("FRACE16C", "FatherFirstAmericanIndianCodeHelper");
+            set => LeftJustified_Set("FRACE16C", "FatherFirstAmericanIndianCodeHelper", value);
         }
 
         /// <summary>Father's Race Tabulation Variable 17C</summary>
         [IJEField(117, 730, 3, "Father's Race Tabulation Variable 17C", "FRACE17C", 1)]
         public string FRACE17C
         {
-            get
-            {
-                var race = record.FatherSecondAmericanIndianCodeHelper;
-                if (!String.IsNullOrWhiteSpace(race))
-                {
-                    return Truncate(race, 3).Trim();
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    record.FatherSecondAmericanIndianCodeHelper = value;
-                }
-            }
+            get => LeftJustified_Get("FRACE17C", "FatherSecondAmericanIndianCodeHelper");
+            set => LeftJustified_Set("FRACE17C", "FatherSecondAmericanIndianCodeHelper", value);
         }
 
         /// <summary>Father's Race Tabulation Variable 18C</summary>
         [IJEField(118, 733, 3, "Father's Race Tabulation Variable 18C", "FRACE18C", 1)]
         public string FRACE18C
         {
-            get
-            {
-                var race = record.FatherFirstOtherAsianCodeHelper;
-                if (!String.IsNullOrWhiteSpace(race))
-                {
-                    return Truncate(race, 3).Trim();
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    record.FatherFirstOtherAsianCodeHelper = value;
-                }
-            }
+            get => LeftJustified_Get("FRACE18C", "FatherFirstOtherAsianCodeHelper");
+            set => LeftJustified_Set("FRACE18C", "FatherFirstOtherAsianCodeHelper", value);
         }
 
         /// <summary>Father's Race Tabulation Variable 19C</summary>
         [IJEField(119, 736, 3, "Father's Race Tabulation Variable 19C", "FRACE19C", 1)]
         public string FRACE19C
         {
-            get
-            {
-                var race = record.FatherSecondOtherAsianCodeHelper;
-                if (!String.IsNullOrWhiteSpace(race))
-                {
-                    return Truncate(race, 3).Trim();
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    record.FatherSecondOtherAsianCodeHelper = value;
-                }
-            }
+            get => LeftJustified_Get("FRACE19C", "FatherSecondOtherAsianCodeHelper");
+            set => LeftJustified_Set("FRACE19C", "FatherSecondOtherAsianCodeHelper", value);
         }
 
         /// <summary>Father's Race Tabulation Variable 20C</summary>
         [IJEField(120, 739, 3, "Father's Race Tabulation Variable 20C", "FRACE20C", 1)]
         public string FRACE20C
         {
-            get
-            {
-                var race = record.FatherFirstOtherPacificIslanderCodeHelper;
-                if (!String.IsNullOrWhiteSpace(race))
-                {
-                    return Truncate(race, 3).Trim();
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    record.FatherFirstOtherPacificIslanderCodeHelper = value;
-                }
-            }
+            get => LeftJustified_Get("FRACE20C", "FatherFirstOtherPacificIslanderCodeHelper");
+            set => LeftJustified_Set("FRACE20C", "FatherFirstOtherPacificIslanderCodeHelper", value);
         }
 
         /// <summary>Father's Race Tabulation Variable 21C</summary>
         [IJEField(121, 742, 3, "Father's Race Tabulation Variable 21C", "FRACE21C", 1)]
         public string FRACE21C
         {
-            get
-            {
-                var race = record.FatherSecondOtherPacificIslanderCodeHelper;
-                if (!String.IsNullOrWhiteSpace(race))
-                {
-                    return Truncate(race, 3).Trim();
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    record.FatherSecondOtherPacificIslanderCodeHelper = value;
-                }
-            }
+            get => LeftJustified_Get("FRACE21C", "FatherSecondOtherPacificIslanderCodeHelper");
+            set => LeftJustified_Set("FRACE21C", "FatherSecondOtherPacificIslanderCodeHelper", value);
         }
 
         /// <summary>Father's Race Tabulation Variable 22C</summary>
         [IJEField(122, 745, 3, "Father's Race Tabulation Variable 22C", "FRACE22C", 1)]
         public string FRACE22C
         {
-            get
-            {
-                var race = record.FatherFirstOtherRaceCodeHelper;
-                if (!String.IsNullOrWhiteSpace(race))
-                {
-                    return Truncate(race, 3).Trim();
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    record.FatherFirstOtherRaceCodeHelper = value;
-                }
-            }
+            get => LeftJustified_Get("FRACE22C", "FatherFirstOtherRaceCodeHelper");
+            set => LeftJustified_Set("FRACE22C", "FatherFirstOtherRaceCodeHelper", value);
         }
 
         /// <summary>Father's Race Tabulation Variable 23C</summary>
         [IJEField(123, 748, 3, "Father's Race Tabulation Variable 23C", "FRACE23C", 1)]
         public string FRACE23C
         {
-            get
-            {
-                var race = record.FatherSecondOtherRaceCodeHelper;
-                if (!String.IsNullOrWhiteSpace(race))
-                {
-                    return Truncate(race, 3).Trim();
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    record.FatherSecondOtherRaceCodeHelper = value;
-                }
-            }
+            get => LeftJustified_Get("FRACE23C", "FatherSecondOtherRaceCodeHelper");
+            set => LeftJustified_Set("FRACE23C", "FatherSecondOtherRaceCodeHelper", value);
         }
 
         /// <summary>Attendant Title</summary>
@@ -2537,9 +1924,9 @@ namespace BFDR
             get
             {
                 var ret = record.AttendantTitleHelper;
-                if (ret != null && Mappings.BirthAttendantTitles.FHIRToIJE.ContainsKey(ret))
+                if (ret != null && VR.Mappings.BirthAttendantTitles.FHIRToIJE.ContainsKey(ret))
                 {
-                    return Get_MappingFHIRToIJE(Mappings.BirthAttendantTitles.FHIRToIJE, "AttendantTitle", "ATTEND");
+                    return Get_MappingFHIRToIJE(VR.Mappings.BirthAttendantTitles.FHIRToIJE, "AttendantTitle", "ATTEND");
                 }
                 else  // If the return value is not a code, it is just an arbitrary string, so return it.
                 {
@@ -2548,9 +1935,9 @@ namespace BFDR
             }
             set
             {
-                if (Mappings.BirthAttendantTitles.IJEToFHIR.ContainsKey(value.Split(' ')[0]))
+                if (VR.Mappings.BirthAttendantTitles.IJEToFHIR.ContainsKey(value.Split(' ')[0]))
                 {
-                    Set_MappingIJEToFHIR(Mappings.BirthAttendantTitles.IJEToFHIR, "ATTEND", "AttendantTitle", value.Trim());
+                    Set_MappingIJEToFHIR(VR.Mappings.BirthAttendantTitles.IJEToFHIR, "ATTEND", "AttendantTitle", value.Trim());
                 }
                 else  // If the value is not a valid code, it is just an arbitrary string.  The helper will deal with it.
                 {
@@ -2751,11 +2138,11 @@ namespace BFDR
         {
             get
             {
-                return Get_MappingFHIRToIJE(VR.Mappings.EditBypass01234.FHIRToIJE, "MotherHeightEditFlag", "HGT_BYPASS");
+                return Get_MappingFHIRToIJE(BFDR.Mappings.PregnancyReportEditFlags.FHIRToIJE, "MotherHeightEditFlag", "HGT_BYPASS");
             }
             set
             {
-                Set_MappingIJEToFHIR(VR.Mappings.EditBypass01234.IJEToFHIR, "HGT_BYPASS", "MotherHeightEditFlag",  value);
+                Set_MappingIJEToFHIR(BFDR.Mappings.PregnancyReportEditFlags.IJEToFHIR, "HGT_BYPASS", "MotherHeightEditFlag",  value);
             }
         }
 
@@ -3968,16 +3355,16 @@ namespace BFDR
         [IJEField(240, 925, 1, "Risk Factors--Infertility: Fertility Enhancing Drugs  (RECOMMENDED ADDITION EFFECTIVE 2004)", "INFT_DRG", 1)]
         public string INFT_DRG
         {
-            get => PresenceToIJE(record.ArtificialInsemination, record.NoPregnancyRiskFactors);
-            set => IJEToPresence(value, (v) => record.ArtificialInsemination = v, (v) => record.NoPregnancyRiskFactors = v);
+            get => PresenceToIJE(record.FertilityEnhancingDrugTherapyArtificialIntrauterineInsemination, record.NoPregnancyRiskFactors);
+            set => IJEToPresence(value, (v) => record.FertilityEnhancingDrugTherapyArtificialIntrauterineInsemination = v, (v) => record.NoPregnancyRiskFactors = v);
         }
 
         /// <summary>Risk Factors--Infertility: Asst. Rep. Technology  (RECOMMENDED ADDITION EFFECTIVE 2004)</summary>
         [IJEField(241, 926, 1, "Risk Factors--Infertility: Asst. Rep. Technology  (RECOMMENDED ADDITION EFFECTIVE 2004)", "INFT_ART", 1)]
         public string INFT_ART
         {
-            get => PresenceToIJE(record.AssistedFertilization, record.NoPregnancyRiskFactors);
-            set => IJEToPresence(value, (v) => record.AssistedFertilization = v, (v) => record.NoPregnancyRiskFactors = v);
+            get => PresenceToIJE(record.AssistedReproductiveTechnology, record.NoPregnancyRiskFactors);
+            set => IJEToPresence(value, (v) => record.AssistedReproductiveTechnology = v, (v) => record.NoPregnancyRiskFactors = v);
         }
 
         /// <summary>FILLER 1</summary>
@@ -4065,13 +3452,7 @@ namespace BFDR
                 }
                 return new string(' ', 50);
             }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    record.ChildGivenNames = new string[] { value.Trim() };
-                }
-            }
+            set => record.ChildGivenNames = Update_FirstName(value, record.ChildGivenNames);
         }
 
         /// <summary>Child's Middle Name</summary>
@@ -4087,22 +3468,7 @@ namespace BFDR
                 }
                 return " ";
             }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    if (String.IsNullOrWhiteSpace(KIDFNAME)) throw new ArgumentException("Middle name cannot be set before first name");
-                    if (!String.IsNullOrWhiteSpace(value))
-                    {
-                        if (record.ChildGivenNames != null)
-                        {
-                            List<string> names = record.ChildGivenNames.ToList();
-                            if (names.Count() > 1) names[1] = value.Trim(); else names.Add(value.Trim());
-                            record.ChildGivenNames = names.ToArray();
-                        }
-                    }
-                }
-            }
+            set => record.ChildGivenNames = Update_MiddleName(value, record.ChildGivenNames, KIDFNAME);
         }
 
         /// <summary>Child's Last Name</summary>
@@ -4188,13 +3554,7 @@ namespace BFDR
                 }
                 return new string(' ', 50);
             }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    record.MotherGivenNames = new string[] { value.Trim() };
-                }
-            }
+            set => record.MotherGivenNames = Update_FirstName(value, record.MotherGivenNames);
         }
 
         /// <summary>Mother's Middle Name</summary>
@@ -4210,22 +3570,7 @@ namespace BFDR
                 }
                 return " ";
             }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    if (String.IsNullOrWhiteSpace(MOMFNAME)) throw new ArgumentException("Middle name cannot be set before first name");
-                    if (!String.IsNullOrWhiteSpace(value))
-                    {
-                        if (record.MotherGivenNames != null)
-                        {
-                            List<string> names = record.MotherGivenNames.ToList();
-                            if (names.Count() > 1) names[1] = value.Trim(); else names.Add(value.Trim());
-                            record.MotherGivenNames = names.ToArray();
-                        }
-                    }
-                }
-            }
+            set => record.MotherGivenNames = Update_MiddleName(value, record.MotherGivenNames, MOMFNAME);
         }
 
         /// <summary>Mother's Last Name</summary>
@@ -4290,22 +3635,7 @@ namespace BFDR
                 }
                 return " ";
             }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    if (String.IsNullOrWhiteSpace(MOMFMNME)) throw new ArgumentException("Middle name cannot be set before first name");
-                    if (!String.IsNullOrWhiteSpace(value))
-                    {
-                        if (record.MotherMaidenGivenNames != null)
-                        {
-                            List<string> names = record.MotherMaidenGivenNames.ToList();
-                            if (names.Count() > 1) names[1] = value.Trim(); else names.Add(value.Trim());
-                            record.MotherMaidenGivenNames = names.ToArray();
-                        }
-                    }
-                }
-            }
+            set => record.MotherMaidenGivenNames = Update_MiddleName(value, record.MotherMaidenGivenNames, MOMFMNME);
         }
 
         /// <summary>Mother's Maiden Surname</summary>
@@ -4530,7 +3860,7 @@ namespace BFDR
             }
             set
             {
-                COUNTRYC = IJEData.Instance.CountryCodeToCountryName(value);
+                COUNTRYC = IJEData.Instance.CountryNameToCountryCode(value);
             }
         }
 
@@ -4547,13 +3877,7 @@ namespace BFDR
                 }
                 return new string(' ', 50);
             }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    record.FatherGivenNames = new string[] { value.Trim() };
-                }
-            }
+            set => record.FatherGivenNames = Update_FirstName(value, record.FatherGivenNames);
         }
 
         /// <summary>Father's Middle Name</summary>
@@ -4569,22 +3893,7 @@ namespace BFDR
                 }
                 return " ";
             }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    if (String.IsNullOrWhiteSpace(DADFNAME)) throw new ArgumentException("Middle name cannot be set before first name");
-                    if (!String.IsNullOrWhiteSpace(value))
-                    {
-                        if (record.FatherGivenNames != null)
-                        {
-                            List<string> names = record.FatherGivenNames.ToList();
-                            if (names.Count() > 1) names[1] = value.Trim(); else names.Add(value.Trim());
-                            record.FatherGivenNames = names.ToArray();
-                        }
-                    }
-                }
-            }
+            set => record.FatherGivenNames = Update_MiddleName(value, record.FatherGivenNames, DADFNAME);
         }
 
         /// <summary>Father's Last Name</summary>
@@ -4678,11 +3987,11 @@ namespace BFDR
         {
             get
             {
-                return record.MotherOccupation;
+                return LeftJustified_Get("MOM_OC_T", "MotherOccupation");
             }
             set
             {
-                record.MotherOccupation = value;
+                LeftJustified_Set("MOM_OC_T", "MotherOccupation", value);
             }
         }
 
@@ -4707,11 +4016,11 @@ namespace BFDR
         {
             get
             {
-                return record.FatherOccupation;
+                return LeftJustified_Get("DAD_OC_T", "FatherOccupation");
             }
             set
             {
-                record.FatherOccupation = value;
+                LeftJustified_Set("DAD_OC_T", "FatherOccupation", value);
             }
         }
 
@@ -4736,11 +4045,11 @@ namespace BFDR
         {
             get
             {
-                return record.MotherIndustry;
+                return LeftJustified_Get("MOM_IN_T", "MotherIndustry");
             }
             set
             {
-                record.MotherIndustry = value;
+                LeftJustified_Set("MOM_IN_T", "MotherIndustry", value);
             }
         }
 
@@ -4765,11 +4074,11 @@ namespace BFDR
         {
             get
             {
-                return record.FatherIndustry;
+                return LeftJustified_Get("DAD_IN_T", "FatherIndustry");
             }
             set
             {
-                record.FatherIndustry = value;
+                LeftJustified_Set("DAD_IN_T", "FatherIndustry", value);
             }
         }
 

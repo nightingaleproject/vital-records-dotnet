@@ -15,7 +15,7 @@ namespace canary.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.10");
+            modelBuilder.HasAnnotation("ProductVersion", "7.0.15");
 
             modelBuilder.Entity("canary.Models.BirthTest", b =>
                 {
@@ -129,6 +129,52 @@ namespace canary.Migrations
                     b.ToTable("Endpoints");
                 });
 
+            modelBuilder.Entity("canary.Models.FetalDeathTest", b =>
+                {
+                    b.Property<int>("TestId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("CompletedBool")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CompletedDateTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Correct")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Incorrect")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ReferenceRecord")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Results")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("TestMessageMessageId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("TestRecord")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Total")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("TestId");
+
+                    b.HasIndex("TestMessageMessageId");
+
+                    b.ToTable("FetalDeathTest");
+                });
+
             modelBuilder.Entity("canary.Models.Message", b =>
                 {
                     b.Property<int>("MessageId")
@@ -196,6 +242,13 @@ namespace canary.Migrations
                     b.HasDiscriminator().HasValue("CanaryDeathMessage");
                 });
 
+            modelBuilder.Entity("canary.Models.CanaryFetalDeathMessage", b =>
+                {
+                    b.HasBaseType("canary.Models.Message");
+
+                    b.HasDiscriminator().HasValue("CanaryFetalDeathMessage");
+                });
+
             modelBuilder.Entity("canary.Models.CanaryBirthRecord", b =>
                 {
                     b.HasBaseType("canary.Models.Record");
@@ -210,6 +263,13 @@ namespace canary.Migrations
                     b.HasDiscriminator().HasValue("CanaryDeathRecord");
                 });
 
+            modelBuilder.Entity("canary.Models.CanaryFetalDeathRecord", b =>
+                {
+                    b.HasBaseType("canary.Models.Record");
+
+                    b.HasDiscriminator().HasValue("CanaryFetalDeathRecord");
+                });
+
             modelBuilder.Entity("canary.Models.BirthTest", b =>
                 {
                     b.HasOne("canary.Models.Message", "TestMessage")
@@ -220,6 +280,15 @@ namespace canary.Migrations
                 });
 
             modelBuilder.Entity("canary.Models.DeathTest", b =>
+                {
+                    b.HasOne("canary.Models.Message", "TestMessage")
+                        .WithMany()
+                        .HasForeignKey("TestMessageMessageId");
+
+                    b.Navigation("TestMessage");
+                });
+
+            modelBuilder.Entity("canary.Models.FetalDeathTest", b =>
                 {
                     b.HasOne("canary.Models.Message", "TestMessage")
                         .WithMany()

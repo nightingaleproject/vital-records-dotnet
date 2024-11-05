@@ -73,6 +73,9 @@
         <member name="F:VR.CodeSystems.ActReason">
             <summary> ActReason </summary>
         </member>
+        <member name="F:VR.CodeSystems.ProvinceCodes">
+            <summary> ProvinceCodes </summary>
+        </member>
         <member name="F:VR.CodeSystems.VRCLMissingValueReason">
             <summary> VRCL Missing Value Reason </summary>
         </member>
@@ -96,6 +99,12 @@
         </member>
         <member name="F:VR.CodeSystems.VRCLJurisdictions">
             <summary> VRCL Jurisdictions </summary>
+        </member>
+        <member name="F:VR.CodeSystems.VRCLUSStatesTerritories">
+            <summary> VRCL States Territories </summary>
+        </member>
+        <member name="F:VR.CodeSystems.VRCLCountryCodes">
+            <summary> VRCL Country Codes </summary>
         </member>
         <member name="F:VR.CodeSystems.ComponentCodeVR">
             <summary> Component </summary>
@@ -163,17 +172,8 @@
         <member name="F:VR.CodeSystems.DeathPregnancyStatus">
             <summary> Death Pregnancy Status </summary>
         </member>
-        <member name="F:VR.CodeSystems.BirthDeliveryOccurred">
-            <summary> Birth Delivery Occurred </summary>
-        </member>
         <member name="F:VR.CodeSystems.BFDREditFlags">
             <summary> BFDR Edit Flags </summary>
-        </member>
-        <member name="F:VR.CodeSystems.FetalDeathCauseOrCondition">
-            <summary> Fetal Death Cause Or Condition </summary>
-        </member>
-        <member name="F:VR.CodeSystems.InformantRelationshipToMother">
-            <summary> Informant Relationship To Mother </summary>
         </member>
         <member name="F:VR.CodeSystems.LocalBFDRCodes">
             <summary> Local BFDR Codes </summary>
@@ -309,6 +309,18 @@
         </member>
         <member name="M:VR.IJE.Dictionary_Geo_Set(System.String,System.String,System.String,System.String,System.Boolean,System.String)">
             <summary>Set a value on the VitalRecord whose property is a geographic type (and is contained in a dictionary).</summary>
+        </member>
+        <member name="M:VR.IJE.PresenceToIJE(System.Boolean,System.Boolean)">
+            <summary>Converts the FHIR representation of presence-only fields to the IJE equivalent.</summary>
+            <param name="fieldValue">the value of the field</param>
+            <param name="noneOfTheAboveValue">the value of the corresponding none-of-the-above field</param>
+            <returns>Y (yes), N (no), or U (unknown)</returns>
+        </member>
+        <member name="M:VR.IJE.IJEToPresence(System.String,System.Func{System.Boolean,System.Boolean},System.Func{System.Boolean,System.Boolean})">
+            <summary>Converts the IJE representation of presence-only fields to the FHIR equivalent.</summary>
+            <param name="value">Y (yes), N (no), or U (unknown)</param>
+            <param name="field">a function that will set a field in the FHIR record</param>
+            <param name="noneOfTheAboveField">a function that will set the corresponding none-of-the-above field in the FHIR record</param>
         </member>
         <member name="T:VR.IJEData">
             <summary>Data helper class for dealing with IJE mortality data. Follows Singleton-esque pattern!</summary>
@@ -531,18 +543,6 @@
         </member>
         <member name="F:VR.OtherExtensionURL.BirthSex">
             <summary>URL for US Core Birthsex </summary>
-        </member>
-        <member name="F:VR.OtherExtensionURL.ParentRole">
-            <summary>URL for parent role </summary>
-        </member>
-        <member name="T:VR.OtherIGURL">
-            <summary>IG URLs for non-VRDR Profiles</summary>
-        </member>
-        <member name="F:VR.OtherIGURL.USCorePractitioner">
-            <summary>URL for USCorePractitioner</summary>
-        </member>
-        <member name="F:VR.OtherIGURL.UsualWork">
-            <summary>URL for UsualWork - TODO figure out why this one isn't generated from the IG</summary>
         </member>
         <member name="T:VR.NvssRace">
             <summary> String representations of IJE Race fields </summary>
@@ -784,17 +784,11 @@
         <member name="F:VR.ProfileURL.Location">
             <summary>URL for Location</summary>
         </member>
-        <member name="F:VR.ProfileURL.AutopsyPerformedIndicator">
-            <summary>URL for AutopsyPerformedIndicator</summary>
-        </member>
         <member name="F:VR.ProfileURL.EducationLevel">
             <summary>URL for EducationLevel</summary>
         </member>
         <member name="F:VR.ProfileURL.EmergingIssues">
             <summary>URL for EmergingIssues</summary>
-        </member>
-        <member name="F:VR.ProfileURL.UsualWork">
-            <summary>URL for UsualWork</summary>
         </member>
         <member name="F:VR.ProfileURL.Child">
             <summary>URL for Child</summary>
@@ -859,9 +853,6 @@
         </member>
         <member name="P:VR.ExtensionURL.ReportedParentAgeAtDelivery">
             <summary>URL for ReportedParentAgeAtDelivery</summary>
-        </member>
-        <member name="P:VR.ExtensionURL.Role">
-            <summary>URL for Role</summary>
         </member>
         <member name="P:VR.ExtensionURL.WithinCityLimitsIndicator">
             <summary>URL for WithinCityLimitsIndicator</summary>
@@ -950,26 +941,17 @@
         <member name="F:VR.IGURL.ReportedParentAgeAtDelivery">
             <summary>URL for ReportedParentAgeAtDelivery</summary>
         </member>
-        <member name="F:VR.IGURL.Role">
-            <summary>URL for Role</summary>
-        </member>
         <member name="F:VR.IGURL.WithinCityLimitsIndicator">
             <summary>URL for WithinCityLimitsIndicator</summary>
         </member>
         <member name="F:VR.IGURL.Location">
             <summary>URL for Location</summary>
         </member>
-        <member name="F:VR.IGURL.AutopsyPerformedIndicator">
-            <summary>URL for AutopsyPerformedIndicator</summary>
-        </member>
         <member name="F:VR.IGURL.EducationLevel">
             <summary>URL for EducationLevel</summary>
         </member>
         <member name="F:VR.IGURL.EmergingIssues">
             <summary>URL for EmergingIssues</summary>
-        </member>
-        <member name="F:VR.IGURL.UsualWork">
-            <summary>URL for UsualWork</summary>
         </member>
         <member name="F:VR.IGURL.Child">
             <summary>URL for Child</summary>
@@ -1144,21 +1126,6 @@
         </member>
         <member name="F:VR.ValueSets.FatherRelationship.Stepfather">
             <summary> Stepfather </summary>
-        </member>
-        <member name="T:VR.ValueSets.HispanicNoUnknown">
-            <summary> HispanicNoUnknown </summary>
-        </member>
-        <member name="F:VR.ValueSets.HispanicNoUnknown.Codes">
-            <summary> Codes </summary>
-        </member>
-        <member name="F:VR.ValueSets.HispanicNoUnknown.No">
-            <summary> No </summary>
-        </member>
-        <member name="F:VR.ValueSets.HispanicNoUnknown.Yes">
-            <summary> Yes </summary>
-        </member>
-        <member name="F:VR.ValueSets.HispanicNoUnknown.Unknown">
-            <summary> Unknown </summary>
         </member>
         <member name="T:VR.ValueSets.HispanicOrigin">
             <summary> HispanicOrigin </summary>
@@ -1391,6 +1358,174 @@
         <member name="F:VR.ValueSets.Jurisdiction.Codes">
             <summary> Codes </summary>
         </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Alabama">
+            <summary> Alabama </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Alaska">
+            <summary> Alaska </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Arizona">
+            <summary> Arizona </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Arkansas">
+            <summary> Arkansas </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.California">
+            <summary> California </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Colorado">
+            <summary> Colorado </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Connecticut">
+            <summary> Connecticut </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Delaware">
+            <summary> Delaware </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.District_Of_Columbia">
+            <summary> District_Of_Columbia </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Florida">
+            <summary> Florida </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Georgia">
+            <summary> Georgia </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Hawaii">
+            <summary> Hawaii </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Idaho">
+            <summary> Idaho </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Illinois">
+            <summary> Illinois </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Indiana">
+            <summary> Indiana </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Iowa">
+            <summary> Iowa </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Kansas">
+            <summary> Kansas </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Kentucky">
+            <summary> Kentucky </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Louisiana">
+            <summary> Louisiana </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Maine">
+            <summary> Maine </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Maryland">
+            <summary> Maryland </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Massachusetts">
+            <summary> Massachusetts </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Michigan">
+            <summary> Michigan </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Minnesota">
+            <summary> Minnesota </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Mississippi">
+            <summary> Mississippi </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Missouri">
+            <summary> Missouri </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Montana">
+            <summary> Montana </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Nebraska">
+            <summary> Nebraska </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Nevada">
+            <summary> Nevada </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.New_Hampshire">
+            <summary> New_Hampshire </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.New_Jersey">
+            <summary> New_Jersey </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.New_Mexico">
+            <summary> New_Mexico </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.New_York">
+            <summary> New_York </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.North_Carolina">
+            <summary> North_Carolina </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.North_Dakota">
+            <summary> North_Dakota </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Ohio">
+            <summary> Ohio </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Oklahoma">
+            <summary> Oklahoma </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Oregon">
+            <summary> Oregon </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Pennsylvania">
+            <summary> Pennsylvania </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Rhode_Island">
+            <summary> Rhode_Island </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.South_Carolina">
+            <summary> South_Carolina </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.South_Dakota">
+            <summary> South_Dakota </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Tennessee">
+            <summary> Tennessee </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Texas">
+            <summary> Texas </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Utah">
+            <summary> Utah </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Vermont">
+            <summary> Vermont </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Virginia">
+            <summary> Virginia </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Washington">
+            <summary> Washington </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.West_Virginia">
+            <summary> West_Virginia </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Wisconsin">
+            <summary> Wisconsin </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Wyoming">
+            <summary> Wyoming </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.American_Samoa">
+            <summary> American_Samoa </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Guam">
+            <summary> Guam </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Northern_Mariana_Islands">
+            <summary> Northern_Mariana_Islands </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Puerto_Rico">
+            <summary> Puerto_Rico </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Virgin_Islands">
+            <summary> Virgin_Islands </summary>
+        </member>
         <member name="F:VR.ValueSets.Jurisdiction.New_York_City">
             <summary> New_York_City </summary>
         </member>
@@ -1414,6 +1549,9 @@
         </member>
         <member name="F:VR.ValueSets.MaritalStatus.Widowed">
             <summary> Widowed </summary>
+        </member>
+        <member name="F:VR.ValueSets.MaritalStatus.Domestic_Partner">
+            <summary> Domestic_Partner </summary>
         </member>
         <member name="F:VR.ValueSets.MaritalStatus.Unknown">
             <summary> Unknown </summary>
@@ -1441,6 +1579,18 @@
         </member>
         <member name="F:VR.ValueSets.MotherRelationship.Natural_Mother_Of_Fetus">
             <summary> Natural_Mother_Of_Fetus </summary>
+        </member>
+        <member name="T:VR.ValueSets.PartialDateDataAbsentReason">
+            <summary> PartialDateDataAbsentReason </summary>
+        </member>
+        <member name="F:VR.ValueSets.PartialDateDataAbsentReason.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:VR.ValueSets.PartialDateDataAbsentReason.Unknown">
+            <summary> Unknown </summary>
+        </member>
+        <member name="F:VR.ValueSets.PartialDateDataAbsentReason.Temporarily_Unknown">
+            <summary> Temporarily_Unknown </summary>
         </member>
         <member name="T:VR.ValueSets.PluralityEditFlags">
             <summary> PluralityEditFlags </summary>
@@ -5114,6 +5264,804 @@
         <member name="F:VR.ValueSets.RaceRecode40.Unknown_And_Other_Race">
             <summary> Unknown_And_Other_Race </summary>
         </member>
+        <member name="T:VR.ValueSets.ResidenceCountry">
+            <summary> ResidenceCountry </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Aruba">
+            <summary> Aruba </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Antigua_And_Barbuda">
+            <summary> Antigua_And_Barbuda </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.United_Arab_Emirates">
+            <summary> United_Arab_Emirates </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry._Afghanistan">
+            <summary> _Afghanistan </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Algeria">
+            <summary> Algeria </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Azerbaijan">
+            <summary> Azerbaijan </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Albania">
+            <summary> Albania </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Armenia">
+            <summary> Armenia </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Andorra">
+            <summary> Andorra </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Angola">
+            <summary> Angola </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Argentina">
+            <summary> Argentina </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Australia">
+            <summary> Australia </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Ashmore_And_Cartier_Islands">
+            <summary> Ashmore_And_Cartier_Islands </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Austria">
+            <summary> Austria </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Anguilla">
+            <summary> Anguilla </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Akrotiri">
+            <summary> Akrotiri </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Antarctica">
+            <summary> Antarctica </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Bahrain">
+            <summary> Bahrain </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Barbados">
+            <summary> Barbados </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Botswana">
+            <summary> Botswana </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Bermuda">
+            <summary> Bermuda </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Belgium">
+            <summary> Belgium </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Bahamas_The">
+            <summary> Bahamas_The </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Bangladesh">
+            <summary> Bangladesh </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Belize">
+            <summary> Belize </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Bosnia_And_Herzegovina">
+            <summary> Bosnia_And_Herzegovina </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Bolivia">
+            <summary> Bolivia </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Burma_Myanmar">
+            <summary> Burma_Myanmar </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Benin">
+            <summary> Benin </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Belarus">
+            <summary> Belarus </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Solomon_Islands">
+            <summary> Solomon_Islands </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Brazil">
+            <summary> Brazil </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Bassas_Da_India">
+            <summary> Bassas_Da_India </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Bhutan">
+            <summary> Bhutan </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Bulgaria">
+            <summary> Bulgaria </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Bouvet_Island">
+            <summary> Bouvet_Island </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Brunei">
+            <summary> Brunei </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Burundi">
+            <summary> Burundi </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Canada">
+            <summary> Canada </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Cambodia">
+            <summary> Cambodia </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Chad">
+            <summary> Chad </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Sri_Lanka">
+            <summary> Sri_Lanka </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Congo_Brazzaville_Republic_Of_The_Congo">
+            <summary> Congo_Brazzaville_Republic_Of_The_Congo </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Congo_Kinshasa_Democratic_Republic_Of_The_Congo_Zaire">
+            <summary> Congo_Kinshasa_Democratic_Republic_Of_The_Congo_Zaire </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.China">
+            <summary> China </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Chile">
+            <summary> Chile </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Cayman_Islands">
+            <summary> Cayman_Islands </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Cocos_Keeling_Islands">
+            <summary> Cocos_Keeling_Islands </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Cameroon">
+            <summary> Cameroon </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Comoros">
+            <summary> Comoros </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Colombia">
+            <summary> Colombia </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Coral_Sea_Islands">
+            <summary> Coral_Sea_Islands </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Costa_Rica">
+            <summary> Costa_Rica </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Central_African_Republic">
+            <summary> Central_African_Republic </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Cuba">
+            <summary> Cuba </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Cape_Verde">
+            <summary> Cape_Verde </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Cook_Islands">
+            <summary> Cook_Islands </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Cyprus">
+            <summary> Cyprus </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Denmark">
+            <summary> Denmark </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Djibouti">
+            <summary> Djibouti </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Dominica">
+            <summary> Dominica </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Jarvis_Island">
+            <summary> Jarvis_Island </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Dominican_Republic">
+            <summary> Dominican_Republic </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Dhekelia">
+            <summary> Dhekelia </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Ecuador">
+            <summary> Ecuador </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Egypt">
+            <summary> Egypt </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Ireland">
+            <summary> Ireland </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Equatorial_Guinea">
+            <summary> Equatorial_Guinea </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Estonia">
+            <summary> Estonia </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Eritrea">
+            <summary> Eritrea </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.El_Salvador">
+            <summary> El_Salvador </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Ethiopia">
+            <summary> Ethiopia </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Europa_Island">
+            <summary> Europa_Island </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Czech_Republic">
+            <summary> Czech_Republic </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.French_Guiana">
+            <summary> French_Guiana </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry._Land_Finland">
+            <summary> _Land_Finland </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Fiji">
+            <summary> Fiji </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Falkland_Islands_Islas_Malvinas_Islas_Malvinas">
+            <summary> Falkland_Islands_Islas_Malvinas_Islas_Malvinas </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Federated_States_Of_Micronesia_Micronesia_Federated_States_Of">
+            <summary> Federated_States_Of_Micronesia_Micronesia_Federated_States_Of </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Faroe_Islands">
+            <summary> Faroe_Islands </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.French_Polynesia_Tahiti">
+            <summary> French_Polynesia_Tahiti </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.France">
+            <summary> France </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.French_Southern_And_Antarctic_Lands">
+            <summary> French_Southern_And_Antarctic_Lands </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Gambia_The">
+            <summary> Gambia_The </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Gabon">
+            <summary> Gabon </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Georgia">
+            <summary> Georgia </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Ghana">
+            <summary> Ghana </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Gibraltar">
+            <summary> Gibraltar </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Grenada">
+            <summary> Grenada </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Guernsey">
+            <summary> Guernsey </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Greenland">
+            <summary> Greenland </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Germany">
+            <summary> Germany </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Glorioso_Islands">
+            <summary> Glorioso_Islands </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Guadeloupe">
+            <summary> Guadeloupe </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Greece">
+            <summary> Greece </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Guatemala">
+            <summary> Guatemala </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Guinea">
+            <summary> Guinea </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Guyana">
+            <summary> Guyana </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Gaza_Strip">
+            <summary> Gaza_Strip </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Haiti">
+            <summary> Haiti </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Hong_Kong">
+            <summary> Hong_Kong </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Heard_Island_And_Mcdonald_Islands">
+            <summary> Heard_Island_And_Mcdonald_Islands </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Honduras">
+            <summary> Honduras </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Howland_Island">
+            <summary> Howland_Island </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Croatia">
+            <summary> Croatia </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Hungary">
+            <summary> Hungary </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Iceland">
+            <summary> Iceland </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Indonesia">
+            <summary> Indonesia </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Isle_Of_Man">
+            <summary> Isle_Of_Man </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.India">
+            <summary> India </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.British_Indian_Ocean_Territory">
+            <summary> British_Indian_Ocean_Territory </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Clipperton_Island">
+            <summary> Clipperton_Island </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Iran">
+            <summary> Iran </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Israel">
+            <summary> Israel </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Italy">
+            <summary> Italy </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.C_Te_D_Ivoire_Ivory_Coast">
+            <summary> C_Te_D_Ivoire_Ivory_Coast </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Iraq">
+            <summary> Iraq </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Japan">
+            <summary> Japan </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Jersey">
+            <summary> Jersey </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Jamaica">
+            <summary> Jamaica </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Jan_Mayen">
+            <summary> Jan_Mayen </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Jordan">
+            <summary> Jordan </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Johnston_Atoll">
+            <summary> Johnston_Atoll </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Juan_De_Nova_Island">
+            <summary> Juan_De_Nova_Island </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Kenya">
+            <summary> Kenya </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Kyrgyzstan">
+            <summary> Kyrgyzstan </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Korea_North_North_Korea">
+            <summary> Korea_North_North_Korea </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Kiribati">
+            <summary> Kiribati </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Korea_South_South_Korea">
+            <summary> Korea_South_South_Korea </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Christmas_Island">
+            <summary> Christmas_Island </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Kuwait">
+            <summary> Kuwait </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Kosovo">
+            <summary> Kosovo </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Kazakhstan">
+            <summary> Kazakhstan </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Laos">
+            <summary> Laos </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Lebanon">
+            <summary> Lebanon </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Latvia">
+            <summary> Latvia </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Lithuania">
+            <summary> Lithuania </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Liberia">
+            <summary> Liberia </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Slovakia">
+            <summary> Slovakia </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Palmyra_Atoll">
+            <summary> Palmyra_Atoll </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Liechtenstein">
+            <summary> Liechtenstein </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Lesotho">
+            <summary> Lesotho </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Luxembourg">
+            <summary> Luxembourg </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Libya">
+            <summary> Libya </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Madagascar">
+            <summary> Madagascar </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Martinique">
+            <summary> Martinique </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Macau">
+            <summary> Macau </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Moldova">
+            <summary> Moldova </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Mayotte">
+            <summary> Mayotte </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Mongolia">
+            <summary> Mongolia </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Montserrat">
+            <summary> Montserrat </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Malawi">
+            <summary> Malawi </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Montenegro">
+            <summary> Montenegro </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Macedonia">
+            <summary> Macedonia </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Mali">
+            <summary> Mali </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Monaco">
+            <summary> Monaco </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Morocco">
+            <summary> Morocco </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Mauritius">
+            <summary> Mauritius </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Midway_Islands">
+            <summary> Midway_Islands </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Mauritania">
+            <summary> Mauritania </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Malta">
+            <summary> Malta </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Oman">
+            <summary> Oman </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Maldives">
+            <summary> Maldives </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Mexico">
+            <summary> Mexico </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Malaysia">
+            <summary> Malaysia </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Mozambique">
+            <summary> Mozambique </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.New_Caledonia">
+            <summary> New_Caledonia </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Niue">
+            <summary> Niue </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Norfolk_Island">
+            <summary> Norfolk_Island </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Niger">
+            <summary> Niger </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.New_Hebrides_Vanuatu">
+            <summary> New_Hebrides_Vanuatu </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Nigeria">
+            <summary> Nigeria </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Bonaire_Netherlands_Saba_Saint_Eustatius">
+            <summary> Bonaire_Netherlands_Saba_Saint_Eustatius </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Sint_Maarten">
+            <summary> Sint_Maarten </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Norway">
+            <summary> Norway </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Nepal">
+            <summary> Nepal </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Nauru">
+            <summary> Nauru </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Suriname">
+            <summary> Suriname </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Nicaragua">
+            <summary> Nicaragua </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.New_Zealand">
+            <summary> New_Zealand </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.South_Sudan">
+            <summary> South_Sudan </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Paraguay">
+            <summary> Paraguay </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Pitcairn_Island">
+            <summary> Pitcairn_Island </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Peru">
+            <summary> Peru </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Paracel_Islands">
+            <summary> Paracel_Islands </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Spratly_Islands">
+            <summary> Spratly_Islands </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Etorofu_Habomai_Kunashiri_And_Shikotan_Islands">
+            <summary> Etorofu_Habomai_Kunashiri_And_Shikotan_Islands </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Pakistan">
+            <summary> Pakistan </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Poland">
+            <summary> Poland </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Panama">
+            <summary> Panama </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Azores_Portugal">
+            <summary> Azores_Portugal </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Papua_New_Guinea">
+            <summary> Papua_New_Guinea </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Palau">
+            <summary> Palau </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Guinea_Bissau">
+            <summary> Guinea_Bissau </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Qatar">
+            <summary> Qatar </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Reunion">
+            <summary> Reunion </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Serbia">
+            <summary> Serbia </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Marshall_Islands">
+            <summary> Marshall_Islands </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Saint_Martin">
+            <summary> Saint_Martin </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Romania">
+            <summary> Romania </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Philippines">
+            <summary> Philippines </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Russia">
+            <summary> Russia </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Rwanda">
+            <summary> Rwanda </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Saudi_Arabia">
+            <summary> Saudi_Arabia </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Saint_Pierre_And_Miquelon">
+            <summary> Saint_Pierre_And_Miquelon </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Nevis_Saint_Kitts_And_Nevis">
+            <summary> Nevis_Saint_Kitts_And_Nevis </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Seychelles">
+            <summary> Seychelles </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.South_Africa">
+            <summary> South_Africa </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Senegal">
+            <summary> Senegal </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Saint_Helena_Ascension_And_Tristan_Da_Cunha">
+            <summary> Saint_Helena_Ascension_And_Tristan_Da_Cunha </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Slovenia">
+            <summary> Slovenia </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Sierra_Leone">
+            <summary> Sierra_Leone </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.San_Marino">
+            <summary> San_Marino </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Singapore">
+            <summary> Singapore </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Somalia">
+            <summary> Somalia </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Spain">
+            <summary> Spain </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Saint_Lucia">
+            <summary> Saint_Lucia </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Sudan">
+            <summary> Sudan </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Svalbard">
+            <summary> Svalbard </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Sweden">
+            <summary> Sweden </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.South_Georgia_And_South_Sandwich_Islands">
+            <summary> South_Georgia_And_South_Sandwich_Islands </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Syria">
+            <summary> Syria </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Switzerland">
+            <summary> Switzerland </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Saint_Barth_Lemy">
+            <summary> Saint_Barth_Lemy </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Trinidad_And_Tobago">
+            <summary> Trinidad_And_Tobago </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Tromelin_Island">
+            <summary> Tromelin_Island </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Thailand">
+            <summary> Thailand </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Tajikistan">
+            <summary> Tajikistan </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Turks_And_Caicos_Islands">
+            <summary> Turks_And_Caicos_Islands </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Tokelau">
+            <summary> Tokelau </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Tonga">
+            <summary> Tonga </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Togo">
+            <summary> Togo </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Sao_Tome_And_Principe">
+            <summary> Sao_Tome_And_Principe </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Tunisia">
+            <summary> Tunisia </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.East_Timor_Timor_Leste">
+            <summary> East_Timor_Timor_Leste </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Turkey">
+            <summary> Turkey </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Tuvalu">
+            <summary> Tuvalu </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Taiwan">
+            <summary> Taiwan </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Turkmenistan">
+            <summary> Turkmenistan </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Tanzania">
+            <summary> Tanzania </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Cura_Ao">
+            <summary> Cura_Ao </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Uganda">
+            <summary> Uganda </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.England_Great_Britain_United_Kingdom">
+            <summary> England_Great_Britain_United_Kingdom </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Ukraine">
+            <summary> Ukraine </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.United_States">
+            <summary> United_States </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Burkina_Faso_Upper_Volta">
+            <summary> Burkina_Faso_Upper_Volta </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Uruguay">
+            <summary> Uruguay </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Uzbekistan">
+            <summary> Uzbekistan </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Saint_Vincent_And_The_Grenadines">
+            <summary> Saint_Vincent_And_The_Grenadines </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Venezuela">
+            <summary> Venezuela </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.British_Virgin_Islands_Virgin_Islands_British">
+            <summary> British_Virgin_Islands_Virgin_Islands_British </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Vietnam">
+            <summary> Vietnam </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Holy_See_Vatican_City">
+            <summary> Holy_See_Vatican_City </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Namibia">
+            <summary> Namibia </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.West_Bank">
+            <summary> West_Bank </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Wallis_And_Futuna">
+            <summary> Wallis_And_Futuna </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Western_Sahara">
+            <summary> Western_Sahara </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Wake_Island">
+            <summary> Wake_Island </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Samoa">
+            <summary> Samoa </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Swaziland">
+            <summary> Swaziland </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Yemen">
+            <summary> Yemen </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Zambia">
+            <summary> Zambia </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Zimbabwe">
+            <summary> Zimbabwe </summary>
+        </member>
+        <member name="F:VR.ValueSets.ResidenceCountry.Not_Classifiable">
+            <summary> Not_Classifiable </summary>
+        </member>
         <member name="T:VR.ValueSets.Role">
             <summary> Role </summary>
         </member>
@@ -5141,6 +6089,222 @@
         <member name="F:VR.ValueSets.SexAssignedAtBirth.Unknown">
             <summary> Unknown </summary>
         </member>
+        <member name="T:VR.ValueSets.StatesTerritoriesProvinces">
+            <summary> StatesTerritoriesProvinces </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Alabama">
+            <summary> Alabama </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Alaska">
+            <summary> Alaska </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Arizona">
+            <summary> Arizona </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Arkansas">
+            <summary> Arkansas </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.California">
+            <summary> California </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Colorado">
+            <summary> Colorado </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Connecticut">
+            <summary> Connecticut </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Delaware">
+            <summary> Delaware </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.District_Of_Columbia">
+            <summary> District_Of_Columbia </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Florida">
+            <summary> Florida </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Georgia">
+            <summary> Georgia </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Hawaii">
+            <summary> Hawaii </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Idaho">
+            <summary> Idaho </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Illinois">
+            <summary> Illinois </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Indiana">
+            <summary> Indiana </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Iowa">
+            <summary> Iowa </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Kansas">
+            <summary> Kansas </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Kentucky">
+            <summary> Kentucky </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Louisiana">
+            <summary> Louisiana </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Maine">
+            <summary> Maine </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Maryland">
+            <summary> Maryland </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Massachusetts">
+            <summary> Massachusetts </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Michigan">
+            <summary> Michigan </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Minnesota">
+            <summary> Minnesota </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Mississippi">
+            <summary> Mississippi </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Missouri">
+            <summary> Missouri </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Montana">
+            <summary> Montana </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Nebraska">
+            <summary> Nebraska </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Nevada">
+            <summary> Nevada </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.New_Hampshire">
+            <summary> New_Hampshire </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.New_Jersey">
+            <summary> New_Jersey </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.New_Mexico">
+            <summary> New_Mexico </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.New_York">
+            <summary> New_York </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.North_Carolina">
+            <summary> North_Carolina </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.North_Dakota">
+            <summary> North_Dakota </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Ohio">
+            <summary> Ohio </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Oklahoma">
+            <summary> Oklahoma </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Oregon">
+            <summary> Oregon </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Pennsylvania">
+            <summary> Pennsylvania </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Rhode_Island">
+            <summary> Rhode_Island </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.South_Carolina">
+            <summary> South_Carolina </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.South_Dakota">
+            <summary> South_Dakota </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Tennessee">
+            <summary> Tennessee </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Texas">
+            <summary> Texas </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Utah">
+            <summary> Utah </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Vermont">
+            <summary> Vermont </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Virginia">
+            <summary> Virginia </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Washington">
+            <summary> Washington </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.West_Virginia">
+            <summary> West_Virginia </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Wisconsin">
+            <summary> Wisconsin </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Wyoming">
+            <summary> Wyoming </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.American_Samoa">
+            <summary> American_Samoa </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Guam">
+            <summary> Guam </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Northern_Mariana_Islands">
+            <summary> Northern_Mariana_Islands </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Puerto_Rico">
+            <summary> Puerto_Rico </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Virgin_Islands">
+            <summary> Virgin_Islands </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Alberta">
+            <summary> Alberta </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.British_Columbia">
+            <summary> British_Columbia </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Manitoba">
+            <summary> Manitoba </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.New_Brunswick">
+            <summary> New_Brunswick </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Newfoundland_And_Labrador">
+            <summary> Newfoundland_And_Labrador </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Nova_Scotia">
+            <summary> Nova_Scotia </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Northwest_Territories">
+            <summary> Northwest_Territories </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Nunavut">
+            <summary> Nunavut </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Ontario">
+            <summary> Ontario </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Prince_Edward_Island">
+            <summary> Prince_Edward_Island </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Quebec">
+            <summary> Quebec </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Saskatchewan">
+            <summary> Saskatchewan </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Yukon">
+            <summary> Yukon </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Unknown">
+            <summary> Unknown </summary>
+        </member>
         <member name="T:VR.ValueSets.UnitsOfAge">
             <summary> UnitsOfAge </summary>
         </member>
@@ -5165,6 +6329,180 @@
         <member name="F:VR.ValueSets.UnitsOfAge.Unknown">
             <summary> Unknown </summary>
         </member>
+        <member name="T:VR.ValueSets.UsstatesTerritories">
+            <summary> UsstatesTerritories </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Alabama">
+            <summary> Alabama </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Alaska">
+            <summary> Alaska </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Arizona">
+            <summary> Arizona </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Arkansas">
+            <summary> Arkansas </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.California">
+            <summary> California </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Colorado">
+            <summary> Colorado </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Connecticut">
+            <summary> Connecticut </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Delaware">
+            <summary> Delaware </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.District_Of_Columbia">
+            <summary> District_Of_Columbia </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Florida">
+            <summary> Florida </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Georgia">
+            <summary> Georgia </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Hawaii">
+            <summary> Hawaii </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Idaho">
+            <summary> Idaho </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Illinois">
+            <summary> Illinois </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Indiana">
+            <summary> Indiana </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Iowa">
+            <summary> Iowa </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Kansas">
+            <summary> Kansas </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Kentucky">
+            <summary> Kentucky </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Louisiana">
+            <summary> Louisiana </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Maine">
+            <summary> Maine </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Maryland">
+            <summary> Maryland </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Massachusetts">
+            <summary> Massachusetts </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Michigan">
+            <summary> Michigan </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Minnesota">
+            <summary> Minnesota </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Mississippi">
+            <summary> Mississippi </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Missouri">
+            <summary> Missouri </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Montana">
+            <summary> Montana </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Nebraska">
+            <summary> Nebraska </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Nevada">
+            <summary> Nevada </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.New_Hampshire">
+            <summary> New_Hampshire </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.New_Jersey">
+            <summary> New_Jersey </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.New_Mexico">
+            <summary> New_Mexico </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.New_York">
+            <summary> New_York </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.North_Carolina">
+            <summary> North_Carolina </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.North_Dakota">
+            <summary> North_Dakota </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Ohio">
+            <summary> Ohio </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Oklahoma">
+            <summary> Oklahoma </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Oregon">
+            <summary> Oregon </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Pennsylvania">
+            <summary> Pennsylvania </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Rhode_Island">
+            <summary> Rhode_Island </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.South_Carolina">
+            <summary> South_Carolina </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.South_Dakota">
+            <summary> South_Dakota </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Tennessee">
+            <summary> Tennessee </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Texas">
+            <summary> Texas </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Utah">
+            <summary> Utah </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Vermont">
+            <summary> Vermont </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Virginia">
+            <summary> Virginia </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Washington">
+            <summary> Washington </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.West_Virginia">
+            <summary> West_Virginia </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Wisconsin">
+            <summary> Wisconsin </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Wyoming">
+            <summary> Wyoming </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.American_Samoa">
+            <summary> American_Samoa </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Guam">
+            <summary> Guam </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Northern_Mariana_Islands">
+            <summary> Northern_Mariana_Islands </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Puerto_Rico">
+            <summary> Puerto_Rico </summary>
+        </member>
+        <member name="F:VR.ValueSets.UsstatesTerritories.Virgin_Islands">
+            <summary> Virgin_Islands </summary>
+        </member>
         <member name="T:VR.ValueSets.Usstates">
             <summary> Usstates </summary>
         </member>
@@ -5176,9 +6514,6 @@
         </member>
         <member name="F:VR.ValueSets.Usstates.Alaska">
             <summary> Alaska </summary>
-        </member>
-        <member name="F:VR.ValueSets.Usstates.American_Samoa">
-            <summary> American_Samoa </summary>
         </member>
         <member name="F:VR.ValueSets.Usstates.Arizona">
             <summary> Arizona </summary>
@@ -5206,9 +6541,6 @@
         </member>
         <member name="F:VR.ValueSets.Usstates.Georgia">
             <summary> Georgia </summary>
-        </member>
-        <member name="F:VR.ValueSets.Usstates.Guam">
-            <summary> Guam </summary>
         </member>
         <member name="F:VR.ValueSets.Usstates.Hawaii">
             <summary> Hawaii </summary>
@@ -5282,9 +6614,6 @@
         <member name="F:VR.ValueSets.Usstates.North_Dakota">
             <summary> North_Dakota </summary>
         </member>
-        <member name="F:VR.ValueSets.Usstates.Northern_Mariana_Islands">
-            <summary> Northern_Mariana_Islands </summary>
-        </member>
         <member name="F:VR.ValueSets.Usstates.Ohio">
             <summary> Ohio </summary>
         </member>
@@ -5296,9 +6625,6 @@
         </member>
         <member name="F:VR.ValueSets.Usstates.Pennsylvania">
             <summary> Pennsylvania </summary>
-        </member>
-        <member name="F:VR.ValueSets.Usstates.Puerto_Rico">
-            <summary> Puerto_Rico </summary>
         </member>
         <member name="F:VR.ValueSets.Usstates.Rhode_Island">
             <summary> Rhode_Island </summary>
@@ -5320,9 +6646,6 @@
         </member>
         <member name="F:VR.ValueSets.Usstates.Vermont">
             <summary> Vermont </summary>
-        </member>
-        <member name="F:VR.ValueSets.Usstates.Virgin_Islands">
-            <summary> Virgin_Islands </summary>
         </member>
         <member name="F:VR.ValueSets.Usstates.Virginia">
             <summary> Virginia </summary>
@@ -5558,6 +6881,10 @@
             <summary>Helper to support vital record property getter helper methods for removing Observations.</summary>
             <param name="code">the code to identify the type of Observation</param>
         </member>
+        <member name="M:VR.VitalRecord.GetCondition(System.String)">
+            <summary>Helper to support vital record property getter helper methods for values stored in Conditions.</summary>
+            <param name="code">the code to identify the type of Condition</param>
+        </member>
         <member name="M:VR.VitalRecord.GetOrCreateObservation(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
             <summary>Helper to support vital record property setter helper methods for values stored in Observations.</summary>
             <param name="code">the code to specify the type of Observation</param>
@@ -5627,6 +6954,19 @@
         </member>
         <member name="M:VR.VitalRecord.updateGivenHumanName(System.String[],System.Collections.Generic.List{Hl7.Fhir.Model.HumanName},Hl7.Fhir.Model.HumanName.NameUse)">
             <summary>Helper method to create a HumanName from a list of strings.</summary>
+            <param name="value">A list of strings to be converted into a name.</param>
+            <param name="names">The current list of HumanName attributes for the person.</param>
+            <param name="use"> The type of name, defaults to official.</param>
+        </member>
+        <member name="M:VR.VitalRecord.updateFamilyName(System.String,System.Collections.Generic.List{Hl7.Fhir.Model.HumanName},Hl7.Fhir.Model.HumanName.NameUse,System.String)">
+            <summary>Helper method to update last name.</summary>
+            <param name="value">A list of strings to be converted into a name.</param>
+            <param name="names">The current list of HumanName attributes for the person.</param>
+            <param name="use"> The type of name, defaults to official.</param>
+            <param name="propertyName">The name of the Natality record property</param>
+        </member>
+        <member name="M:VR.VitalRecord.updateSuffix(System.String,System.Collections.Generic.List{Hl7.Fhir.Model.HumanName},Hl7.Fhir.Model.HumanName.NameUse)">
+            <summary>Helper method to update suffix.</summary>
             <param name="value">A list of strings to be converted into a name.</param>
             <param name="names">The current list of HumanName attributes for the person.</param>
             <param name="use"> The type of name, defaults to official.</param>
@@ -5758,7 +7098,15 @@
         <member name="M:VR.VitalRecord.SetCodeValue(System.String,System.String,System.String[0:,0:])">
             <summary>Helper function to set a codeable value based on a code and the set of allowed codes.</summary>
         </member>
-        <member name="M:VR.VitalRecord.CodeExistsInValueSet(System.String,System.String[0:,0:])">
+        <member name="M:VR.VitalRecord.CreateCode(System.String,System.String[0:,0:])">
+             <summary>
+            
+             </summary>
+             <param name="code"></param>
+             <param name="options"></param>
+             <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:VR.VitalRecord.CodeExistsInValueSet(System.String,System.String[0:,0:],System.String)">
             <summary>Helper function to determine whether a value appears in the the set of allowed codes.</summary>
         </member>
         <member name="M:VR.VitalRecord.SetQuantityValue(System.String,System.String,System.String,System.String[0:,0:])">
@@ -5885,6 +7233,43 @@
         </member>
         <member name="M:VR.VitalRecord.SetPlaceOfBirth(Hl7.Fhir.Model.RelatedPerson,System.Collections.Generic.Dictionary{System.String,System.String})">
             <summary>Sets the given place of birth dictionary on the given patient.</summary>
+        </member>
+        <member name="M:VR.VitalRecord.CreateEncounter(System.String)">
+            <summary>
+            Creates an encounter with the given profile url.
+            </summary>
+            <param name="profileURL"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VR.VitalRecord.GetPhysicalLocation(Hl7.Fhir.Model.Encounter)">
+            <summary>
+            Gets the physical location from the given encounter.
+            </summary>
+            <param name="encounter"></param>
+            <returns>A dictionary in the form of a codeable concept.</returns>
+        </member>
+        <member name="M:VR.VitalRecord.SetPhysicalLocation(Hl7.Fhir.Model.Encounter,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Sets the physical location of the given encounter to the given dictionary, which should be in codeablconcept format.
+            </summary>
+            <param name="encounter"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:VR.VitalRecord.GetPhysicalLocationHelper(Hl7.Fhir.Model.Encounter)">
+            <summary>
+            Gets the physical location from the given encounter.
+            </summary>
+            <param name="encounter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VR.VitalRecord.SetPhysicalLocationHelper(Hl7.Fhir.Model.Encounter,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String[0:,0:])">
+            <summary>
+            Sets the given physical location string in the given encounter, mapping the string based on the given mapping and value set.
+            </summary>
+            <param name="encounter"></param>
+            <param name="value"></param>
+            <param name="fHIRToIJEMapping"></param>
+            <param name="valueSetCodes"></param>
         </member>
         <member name="T:VR.PropertyParam">
             <summary>Property attribute used to describe a VitalRecord property parameter,

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Hl7.Fhir.Model;
-using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 using VR;
 using Xunit;
 
@@ -129,11 +128,11 @@ namespace BFDR.Tests
       // Test custom code system URL
       Assert.False(SetterBirthRecord.AssistedVentilationFollowingDelivery);
       String json = SetterBirthRecord.ToJSON();
-      Assert.DoesNotContain(CodeSystemURL.AbnormalConditionsNewborn, json);
+      Assert.DoesNotContain(CodeSystems.LocalBFDRCodes, json);
       SetterBirthRecord.AssistedVentilationFollowingDelivery = true;
       Assert.True(SetterBirthRecord.AssistedVentilationFollowingDelivery);
       json = SetterBirthRecord.ToJSON();
-      Assert.Contains(CodeSystemURL.AbnormalConditionsNewborn, json);
+      Assert.Contains(CodeSystems.LocalBFDRCodes, json);
     }
 
     [Fact]
@@ -255,25 +254,25 @@ namespace BFDR.Tests
 
       SetterBirthRecord.MotherEthnicity1Helper = "N";
       Dictionary<string, string> CodeN = new Dictionary<string, string>();
-      CodeN.Add("code", VR.ValueSets.HispanicNoUnknown.Codes[0, 0]);
-      CodeN.Add("display", VR.ValueSets.HispanicNoUnknown.Codes[0, 1]);
-      CodeN.Add("system", VR.ValueSets.HispanicNoUnknown.Codes[0, 2]);
+      CodeN.Add("code", VR.ValueSets.YesNoUnknown.Codes[0, 0]);
+      CodeN.Add("display", VR.ValueSets.YesNoUnknown.Codes[0, 1]);
+      CodeN.Add("system", VR.ValueSets.YesNoUnknown.Codes[0, 2]);
       Assert.Equal("N", SetterBirthRecord.MotherEthnicity1Helper);
       Assert.Equal(CodeN, SetterBirthRecord.MotherEthnicity1);
 
       SetterBirthRecord.MotherEthnicity1Helper = "Y";
       Dictionary<string, string> CodeY = new Dictionary<string, string>();
-      CodeY.Add("code", VR.ValueSets.HispanicNoUnknown.Codes[1, 0]);
-      CodeY.Add("display", VR.ValueSets.HispanicNoUnknown.Codes[1, 1]);
-      CodeY.Add("system", VR.ValueSets.HispanicNoUnknown.Codes[1, 2]);
+      CodeY.Add("code", VR.ValueSets.YesNoUnknown.Codes[1, 0]);
+      CodeY.Add("display", VR.ValueSets.YesNoUnknown.Codes[1, 1]);
+      CodeY.Add("system", VR.ValueSets.YesNoUnknown.Codes[1, 2]);
       Assert.Equal("Y", SetterBirthRecord.MotherEthnicity1Helper);
       Assert.Equal(CodeY, SetterBirthRecord.MotherEthnicity1);
 
       SetterBirthRecord.MotherEthnicity1Helper = "UNK";
       Dictionary<string, string> CodeU = new Dictionary<string, string>();
-      CodeU.Add("code", VR.ValueSets.HispanicNoUnknown.Codes[2, 0]);
-      CodeU.Add("display", VR.ValueSets.HispanicNoUnknown.Codes[2, 1]);
-      CodeU.Add("system", VR.ValueSets.HispanicNoUnknown.Codes[2, 2]);
+      CodeU.Add("code", VR.ValueSets.YesNoUnknown.Codes[2, 0]);
+      CodeU.Add("display", VR.ValueSets.YesNoUnknown.Codes[2, 1]);
+      CodeU.Add("system", VR.ValueSets.YesNoUnknown.Codes[2, 2]);
       Assert.Equal("UNK", SetterBirthRecord.MotherEthnicity1Helper);
       Assert.Equal(CodeU, SetterBirthRecord.MotherEthnicity1);
     }
@@ -286,25 +285,25 @@ namespace BFDR.Tests
 
       SetterBirthRecord.FatherEthnicity1Helper = "N";
       Dictionary<string, string> CodeN = new Dictionary<string, string>();
-      CodeN.Add("code", VR.ValueSets.HispanicNoUnknown.Codes[0, 0]);
-      CodeN.Add("display", VR.ValueSets.HispanicNoUnknown.Codes[0, 1]);
-      CodeN.Add("system", VR.ValueSets.HispanicNoUnknown.Codes[0, 2]);
+      CodeN.Add("code", VR.ValueSets.YesNoUnknown.Codes[0, 0]);
+      CodeN.Add("display", VR.ValueSets.YesNoUnknown.Codes[0, 1]);
+      CodeN.Add("system", VR.ValueSets.YesNoUnknown.Codes[0, 2]);
       Assert.Equal("N", SetterBirthRecord.FatherEthnicity1Helper);
       Assert.Equal(CodeN, SetterBirthRecord.FatherEthnicity1);
 
       SetterBirthRecord.FatherEthnicity1Helper = "Y";
       Dictionary<string, string> CodeY = new Dictionary<string, string>();
-      CodeY.Add("code", VR.ValueSets.HispanicNoUnknown.Codes[1, 0]);
-      CodeY.Add("display", VR.ValueSets.HispanicNoUnknown.Codes[1, 1]);
-      CodeY.Add("system", VR.ValueSets.HispanicNoUnknown.Codes[1, 2]);
+      CodeY.Add("code", VR.ValueSets.YesNoUnknown.Codes[1, 0]);
+      CodeY.Add("display", VR.ValueSets.YesNoUnknown.Codes[1, 1]);
+      CodeY.Add("system", VR.ValueSets.YesNoUnknown.Codes[1, 2]);
       Assert.Equal("Y", SetterBirthRecord.FatherEthnicity1Helper);
       Assert.Equal(CodeY, SetterBirthRecord.FatherEthnicity1);
 
       SetterBirthRecord.FatherEthnicity1Helper = "UNK";
       Dictionary<string, string> CodeU = new Dictionary<string, string>();
-      CodeU.Add("code", VR.ValueSets.HispanicNoUnknown.Codes[2, 0]);
-      CodeU.Add("display", VR.ValueSets.HispanicNoUnknown.Codes[2, 1]);
-      CodeU.Add("system", VR.ValueSets.HispanicNoUnknown.Codes[2, 2]);
+      CodeU.Add("code", VR.ValueSets.YesNoUnknown.Codes[2, 0]);
+      CodeU.Add("display", VR.ValueSets.YesNoUnknown.Codes[2, 1]);
+      CodeU.Add("system", VR.ValueSets.YesNoUnknown.Codes[2, 2]);
       Assert.Equal("UNK", SetterBirthRecord.FatherEthnicity1Helper);
       Assert.Equal(CodeU, SetterBirthRecord.FatherEthnicity1);
     }
@@ -752,6 +751,10 @@ namespace BFDR.Tests
       Assert.Equal("Nashua", record.FatherPlaceOfBirth["addressCity"]);
       Assert.Equal(ije.BPLACEC_CNT, record.MotherPlaceOfBirth["addressCountry"]);
       Assert.Equal(ije.BPLACEC_ST_TER, record.MotherPlaceOfBirth["addressState"]);
+
+      
+      // Exception ex = Assert.Throws<System.ArgumentException>(() => record.PlaceOfBirth = new Dictionary<string, string>{["addressState"] = "X"});
+      // Assert.Equal("Code 'X' is not an allowed value for the valueset used in PlaceOfBirth", ex.Message);
     }
 
     [Fact]
@@ -849,6 +852,18 @@ namespace BFDR.Tests
       // Child's Surname Suffix
       record.ChildSuffix = "III";
       Assert.Equal("III", record.ChildSuffix);
+
+      // test missing family name
+      Assert.Equal("Quinn", record.ChildFamilyName);
+      Assert.Null(record.GetFamilyNameAbsentDataReason());
+      record.ChildFamilyName = ""; //set family name to empty 
+      Assert.Equal("", record.ChildFamilyName);
+      Assert.Equal("temp-unknown", record.GetFamilyNameAbsentDataReason());
+      record.ChildFamilyName = null; //set family name to null 
+      Assert.Null(record.ChildFamilyName);
+      Assert.Equal("temp-unknown", record.GetFamilyNameAbsentDataReason());
+      IJEBirth ije2 = new(record);
+      Assert.Equal("", ije2.KIDLNAME.Trim(' '));
     }
 
     [Fact]
@@ -870,6 +885,18 @@ namespace BFDR.Tests
       // Mother's Surname Suffix
       record.MotherSuffix = "II";
       Assert.Equal("II", record.MotherSuffix);
+      // to ije
+      IJEBirth ije = new IJEBirth(record);
+      Assert.Equal("Mommy".PadRight(50), ije.MOMFNAME);
+      Assert.Equal("D".PadRight(50), ije.MOMMIDDL);
+      Assert.Equal("Quin".PadRight(50), ije.MOMLNAME);
+      
+      Assert.Equal("Mommy".PadRight(50), ije.MOMFNAME);
+      Assert.Equal("D".PadRight(50), ije.MOMMIDDL);
+      Assert.Equal("Quin".PadRight(50), ije.MOMLNAME);
+
+      ije.MOMMIDDL = "A";
+      Assert.Equal("A".PadRight(50), ije.MOMMIDDL);
     }
 
     [Fact]
@@ -891,6 +918,11 @@ namespace BFDR.Tests
       // Father's Surname Suffix
       record.FatherSuffix = "III";
       Assert.Equal("III", record.FatherSuffix);
+      // to ije
+      IJEBirth ije = new IJEBirth(record);
+      Assert.Equal("Pappy".PadRight(50), ije.DADFNAME);
+      Assert.Equal("C".PadRight(50), ije.DADMNAME);
+      Assert.Equal("Pipp".PadRight(50), ije.DADLNAME);
     }
 
     [Fact]
@@ -924,7 +956,8 @@ namespace BFDR.Tests
       Assert.Equal("UNK", record.BirthSex);
       record.BirthSex = "M";
       Assert.Equal("M", record.BirthSex);
-      record.BirthSex = "X";
+      // Exception ex = Assert.Throws<System.ArgumentException>(() => record.BirthSex = "X");
+      // Assert.Equal("Code 'X' is not an allowed value for the valueset used in SetBirthSex", ex.Message);
       Assert.Equal("M", record.BirthSex);
     }
 
@@ -1650,11 +1683,11 @@ namespace BFDR.Tests
       Assert.Equal("123456789011", SetterBirthRecord.AttendantNPI);
       // Attendant's Title
       Dictionary<string, string> AttendantTitle = new Dictionary<string, string>();
-      AttendantTitle.Add("code", "112247003");
+      AttendantTitle.Add("code", "309343006");
       AttendantTitle.Add("system", CodeSystems.SCT);
       AttendantTitle.Add("display", "Medical Doctor");
       SetterBirthRecord.AttendantTitle = AttendantTitle;
-      Assert.Equal("112247003", SetterBirthRecord.AttendantTitle["code"]);
+      Assert.Equal("309343006", SetterBirthRecord.AttendantTitle["code"]);
       Assert.Equal(CodeSystems.SCT, SetterBirthRecord.AttendantTitle["system"]);
       Assert.Equal("Medical Doctor", SetterBirthRecord.AttendantTitle["display"]);
       // test setting other Attendant Title
@@ -1798,6 +1831,11 @@ namespace BFDR.Tests
       // Mother's Last Name
       FakeBirthRecord.MotherFamilyName = "Quin";
       Assert.Equal("Quin", FakeBirthRecord.MotherFamilyName);
+      // to ije
+      IJEBirth ije = new IJEBirth(FakeBirthRecord);
+      Assert.Equal("Mommy".PadRight(50), ije.MOMFNAME);
+      Assert.Equal("D".PadRight(50), ije.MOMMIDDL);
+      Assert.Equal("Quin".PadRight(50), ije.MOMLNAME);
     }
     [Fact]
     public void BirthLocationPresent()
@@ -1850,7 +1888,7 @@ namespace BFDR.Tests
       Assert.True(FakeBirthRecord.NoObstetricProcedures);
       // some negative cases
       Assert.False(FakeBirthRecord.GestationalDiabetes);
-      Assert.False(FakeBirthRecord.ArtificialInsemination);
+      Assert.False(FakeBirthRecord.FertilityEnhancingDrugTherapyArtificialIntrauterineInsemination);
 
       //more examples using Baby G record
       BirthRecord record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json")));
@@ -1908,8 +1946,8 @@ namespace BFDR.Tests
       Assert.False(record.PrepregnancyHypertension);
       Assert.False(record.PreviousCesarean);
       Assert.False(record.PreviousPretermBirth);
-      Assert.True(record.ArtificialInsemination);
-      Assert.False(record.AssistedFertilization);
+      Assert.True(record.FertilityEnhancingDrugTherapyArtificialIntrauterineInsemination);
+      Assert.False(record.AssistedReproductiveTechnology);
       Assert.True(record.InfertilityTreatment);
       //final route and method of delivery
       Assert.False(record.UnknownFinalRouteAndMethodOfDelivery);
@@ -2215,6 +2253,19 @@ namespace BFDR.Tests
       Assert.Equal(146, record.MotherPrepregnancyWeight);
       Assert.Equal(176, record.MotherWeightAtDelivery);
       Assert.Equal(2502, record.BirthWeight);
+    }
+
+    [Fact]
+    public void TestEncounterRole()
+    {
+      BirthRecord importedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json")));
+      Encounter encBirth = (Encounter) importedRecord.GetBundle().Entry.Find(e => e.Resource.Meta.Profile.Any(p => p == ProfileURL.EncounterBirth)).Resource;
+      Encounter encMaternity = (Encounter) importedRecord.GetBundle().Entry.Find(e => e.Resource.Meta.Profile.Any(p => p == ProfileURL.EncounterMaternity)).Resource;
+      Assert.NotNull(encBirth.Extension.Find(e => e.Url.Equals(BFDR.ExtensionURL.ExtensionRole)));
+      Assert.NotNull(encMaternity.Extension.Find(e => e.Url.Equals(BFDR.ExtensionURL.ExtensionRole)));
+      BirthRecord emptyRecord = new();
+      encMaternity = (Encounter) emptyRecord.GetBundle().Entry.Find(e => e.Resource.Meta.Profile.Any(p => p == ProfileURL.EncounterMaternity)).Resource;
+      Assert.NotNull(encMaternity.Extension.Find(e => e.Url.Equals(BFDR.ExtensionURL.ExtensionRole)));
     }
 
     [Fact]
@@ -2818,10 +2869,10 @@ namespace BFDR.Tests
 
       //ije translations
       IJEBirth ije = new IJEBirth(birthRecord);
-      Assert.Equal("Carpenter", ije.MOM_OC_T);
-      Assert.Equal("Construction", ije.MOM_IN_T);
-      Assert.Equal("Lawyer", ije.DAD_OC_T);
-      Assert.Equal("Legal Services", ije.DAD_IN_T);
+      Assert.Equal("Carpenter", ije.MOM_OC_T.Trim());
+      Assert.Equal("Construction", ije.MOM_IN_T.Trim());
+      Assert.Equal("Lawyer", ije.DAD_OC_T.Trim());
+      Assert.Equal("Legal Services", ije.DAD_IN_T.Trim());
       BirthRecord birthRecord2 = ije.ToBirthRecord();
       Assert.Equal("Carpenter", birthRecord2.MotherOccupation);
       Assert.Equal("Construction", birthRecord2.MotherIndustry);
@@ -3091,6 +3142,20 @@ namespace BFDR.Tests
       // IJE should divide days by 7 and round down
       IJEBirth ije2 = new(birthRecord3);
       ije2.OWGEST = "06";
+
+      BirthRecord birthRecord4 = new BirthRecord();
+      Dictionary<string, string> dict3 = new Dictionary<string, string>
+      {
+          { "value", "12.5" },
+          { "code", "d" }
+      };
+      birthRecord4.GestationalAgeAtDelivery = dict3;
+      Assert.Equal(dict3["value"], birthRecord4.GestationalAgeAtDelivery["value"]);
+      Assert.Equal("d", birthRecord4.GestationalAgeAtDelivery["code"]);
+      Assert.Equal("http://unitsofmeasure.org", birthRecord4.GestationalAgeAtDelivery["system"]);
+      // IJE should divide days by 7 and round down
+      IJEBirth ije3 = new(birthRecord4);
+      ije3.OWGEST = "03";
 
       BirthRecord parsedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
       Assert.Equal("36", parsedRecord.GestationalAgeAtDelivery["value"]);
@@ -3455,8 +3520,8 @@ namespace BFDR.Tests
       Assert.False(birthRecord.PrepregnancyHypertension);
       Assert.False(birthRecord.PreviousCesarean);
       Assert.False(birthRecord.PreviousPretermBirth);
-      Assert.True(birthRecord.ArtificialInsemination);
-      Assert.False(birthRecord.AssistedFertilization);
+      Assert.True(birthRecord.FertilityEnhancingDrugTherapyArtificialIntrauterineInsemination);
+      Assert.False(birthRecord.AssistedReproductiveTechnology);
       Assert.True(birthRecord.InfertilityTreatment);
       Assert.False(birthRecord.UnknownFinalRouteAndMethodOfDelivery);
       tempDict = new();
@@ -3781,10 +3846,9 @@ namespace BFDR.Tests
     [Fact]
     public void unknownToAll8sFHIRtoIJETest()
     {
-      Console.WriteLine("Converting fhir to ije!\n\n");
       BirthRecord b = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord2.json")));
+      // TODO add assert to confirm specific fields are set to 8s in ije
       IJEBirth ije1 = new(b, false);
-      Console.WriteLine(ije1.ToString());
     }
 
     [Fact]
@@ -3802,6 +3866,26 @@ namespace BFDR.Tests
       BirthRecord b = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordR.json")));
       IJEBirth ije1 = new(b, true); // run with validation true since NCHS uses validation in their code, this confirms the record will be processed
       Console.WriteLine(ije1.ToString());
+    }
+
+    [Fact]
+    public void TestPatientFetalDeath() {
+      Assert.Null(SetterBirthRecord.PatientFetalDeath); 
+      SetterBirthRecord.PatientFetalDeath = false; 
+      Assert.Null(SetterBirthRecord.PatientFetalDeath); //Fetal death should only be indicated if Patient is deceased (value=true).
+      SetterBirthRecord.PatientFetalDeath = true; 
+      Assert.True(SetterBirthRecord.PatientFetalDeath);
+      SetterBirthRecord.PatientFetalDeath = null;
+      Assert.Null(SetterBirthRecord.PatientFetalDeath);
+      
+      //parse
+      BirthRecord record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
+      Assert.Null(record.PatientFetalDeath);
+
+      record.PatientFetalDeath = true; //Patients who are marked deceased don't conform to PatientChildVitalRecords. If the deceased field is present, it must be false. --> handle in business rules
+      Assert.True(record.PatientFetalDeath);
+      record.PatientFetalDeath = false;
+      Assert.Null(record.PatientFetalDeath); //Fetal death should only be indicated if Patient is deceased (value=true).
     }
   }
 

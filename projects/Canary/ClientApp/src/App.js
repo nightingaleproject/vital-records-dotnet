@@ -38,12 +38,12 @@ export default function App() {
     pathname
   );
   const recordType = match ? match.params.recordType : '';
-  if (recordType !== 'vrdr' && recordType !== 'bfdr' && recordType !== '') {
+  if (recordType !== 'vrdr' && recordType !== 'bfdr-birth' && recordType !== 'bfdr-fetaldeath' && recordType !== '') {
     console.error(`Invalid route '${recordType}' due to invalid record type.`)
     return (
       <div>
         <div>
-          Invalid record type '{recordType}'. Must be either 'VRDR' or 'BFDR'.
+          Invalid record type '{recordType}'. Must be either 'VRDR', 'BFDR-Birth', or 'BFDR-FetalDeath'.
         </div>
         <Button as={Link} to={"/"}>
           Return to Canary Home.
@@ -51,6 +51,24 @@ export default function App() {
       </div>
     );
   }
+  const recordTypeReadable = (() => {
+    if (recordType.toLowerCase() === 'vrdr') {
+      return 'VRDR'
+    } else if (recordType.toLowerCase() === 'bfdr-birth') {
+      return 'BFDR Birth'
+    } else if (recordType.toLowerCase() === 'bfdr-fetaldeath') {
+      return 'BFDR Fetal Death'
+    };
+  })();
+  const ijeDataType = (() => {
+    if (recordType.toLowerCase() === 'vrdr') {
+      return 'Mortality'
+    } else if (recordType.toLowerCase() === 'bfdr-birth') {
+      return 'Natality'
+    } else if (recordType.toLowerCase() === 'bfdr-fetaldeath') {
+      return 'Fetal Death'
+    };
+  })();
 
   /**
    * Adds parameters to the given component class type.
@@ -74,30 +92,29 @@ export default function App() {
   const EDRSRoundtripConsumingParams = addParams(EDRSRoundtripConsuming)
   const EDRSRoundtripProducingParams = addParams(EDRSRoundtripProducing)
 
-  // conditional routes based on record type (if vfdr, then do the connnectathon specific routes, etc.)
-
+  // conditional routes based on record type.
   return (
-    <Layout recordType={recordType}>
+    <Layout recordType={recordType} recordTypeReadable={recordTypeReadable} ijeType={ijeDataType}>
       <Routes>
         <Route path="/" element={<HomeScreen />} />
         <Route path=":recordType/*">
-          <Route index element={<Dashboard recordType={recordType} />} />
+          <Route index element={<Dashboard recordType={recordType} recordTypeReadable={recordTypeReadable} ijeType={ijeDataType}/>} />
           <Route path="recent-tests" element={<RecentTests />} />
           <Route path="test-fhir-consuming">
-            <Route index element={<FHIRConsuming recordType={recordType} />} />
-            <Route path=":id" element={<FHIRConsuming recordType={recordType} />} />
+            <Route index element={<FHIRConsuming recordType={recordType} recordTypeReadable={recordTypeReadable} />} />
+            <Route path=":id" element={<FHIRConsuming recordType={recordType} recordTypeReadable={recordTypeReadable} />} />
           </Route>
           <Route path="test-fhir-producing">
-            <Route index element={<FHIRProducing recordType={recordType} />} />
-            <Route path=":id" element={<FHIRProducing recordType={recordType} />} />
+            <Route index element={<FHIRProducing recordType={recordType} recordTypeReadable={recordTypeReadable} />} />
+            <Route path=":id" element={<FHIRProducing recordType={recordType} recordTypeReadable={recordTypeReadable} />} />
           </Route>
           <Route path="test-fhir-message-producing">
-            <Route index element={<FHIRMessageProducing recordType={recordType}  />} />
-            <Route path=":id" element={<FHIRMessageProducing recordType={recordType} />} />
+            <Route index element={<FHIRMessageProducing recordType={recordType} recordTypeReadable={recordTypeReadable} />} />
+            <Route path=":id" element={<FHIRMessageProducing recordType={recordType} recordTypeReadable={recordTypeReadable} />} />
           </Route>
           <Route path="test-fhir-message-creation">
-            <Route index element={<FHIRMessageCreator recordType={recordType} />} />
-            <Route path=":id" element={<FHIRMessageCreator recordType={recordType} />} />
+            <Route index element={<FHIRMessageCreator recordType={recordType} recordTypeReadable={recordTypeReadable} />} />
+            <Route path=":id" element={<FHIRMessageCreator recordType={recordType} />} recordTypeReadable={recordTypeReadable} />
           </Route>
           <Route path="test-edrs-roundtrip-consuming">
             <Route index element={<EDRSRoundtripConsumingParams />} />
@@ -107,20 +124,20 @@ export default function App() {
             <Route index element={<EDRSRoundtripProducingParams />} />
             <Route path=":id" element={<EDRSRoundtripProducingParams />} />
           </Route>
-          <Route path="test-fhir-ije-validator-producing" element={<FHIRIJEValidatorProducing recordType={recordType} />} />
+          <Route path="test-fhir-ije-validator-producing" element={<FHIRIJEValidatorProducing recordType={recordType} recordTypeReadable={recordTypeReadable} />} />
           <Route path="test-connectathon-dash/:type" element={<ConnectathonDashboardParams />} />
           <Route path="test-connectathon/:id" element={<ConnectathonParams />} />
           <Route path="test-connectathon-messaging/:id" element={<MessageConnectathonProducingParams />} />
-          <Route path="tool-fhir-inspector" element={<FHIRInspector recordType={recordType} />} />
-          <Route path="tool-fhir-creator" element={<FHIRCreator recordType={recordType} />} />
-          <Route path="tool-fhir-syntax-checker" element={<FHIRSyntaxChecker recordType={recordType} />} />
-          <Route path="tool-fhir-message-syntax-checker" element={<FHIRMessageSyntaxChecker recordType={recordType} />} />
-          <Route path="tool-ije-inspector" element={<IJEInspector recordType={recordType} />} />
-          <Route path="tool-record-converter" element={<RecordConverter recordType={recordType} />} />
-          <Route path="tool-record-generator" element={<RecordGenerator recordType={recordType} />} />
-          <Route path="tool-message-inspector" element={<MessageInspector recordType={recordType} />} />
-          <Route path="tool-fsh-sushi-inspector" element={<FshSushiInspector recordType={recordType} />} />
-          <Route path="tool-message-to-fsh" element={<MessageFshConverter recordType={recordType} />} />
+          <Route path="tool-fhir-inspector" element={<FHIRInspector recordType={recordType} recordTypeReadable={recordTypeReadable} />} />
+          <Route path="tool-fhir-creator" element={<FHIRCreator recordType={recordType} recordTypeReadable={recordTypeReadable} />} />
+          <Route path="tool-fhir-syntax-checker" element={<FHIRSyntaxChecker recordType={recordType} recordTypeReadable={recordTypeReadable} />} />
+          <Route path="tool-fhir-message-syntax-checker" element={<FHIRMessageSyntaxChecker recordType={recordType} recordTypeReadable={recordTypeReadable} />} />
+          <Route path="tool-ije-inspector" element={<IJEInspector recordType={recordType} recordTypeReadable={recordTypeReadable} />} />
+          <Route path="tool-record-converter" element={<RecordConverter recordType={recordType} recordTypeReadable={recordTypeReadable} />} />
+          <Route path="tool-record-generator" element={<RecordGenerator recordType={recordType} recordTypeReadable={recordTypeReadable} />} />
+          <Route path="tool-message-inspector" element={<MessageInspector recordType={recordType} recordTypeReadable={recordTypeReadable} />} />
+          <Route path="tool-fsh-sushi-inspector" element={<FshSushiInspector recordType={recordType} recordTypeReadable={recordTypeReadable}/>} />
+          <Route path="tool-message-to-fsh" element={<MessageFshConverter recordType={recordType} recordTypeReadable={recordTypeReadable}/>} />
         </Route>
       </Routes>
     </Layout>
