@@ -60,6 +60,10 @@
           {
             "name": "state_auxiliary_id",
             "valueString": "abcdef10"
+          },
+          {
+            "name": "payload_version_id",
+            "valueString": "VRDR_STU3_0"
           }
         ]
       },
@@ -1454,7 +1458,7 @@
               "id": "InjuryLocation-Example1",
               "meta": {
                 "profile": [
-                  "	http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-injury-location"
+                  "http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-injury-location"
                 ]
               },
               "type": [

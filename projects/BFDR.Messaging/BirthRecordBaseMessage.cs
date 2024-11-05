@@ -43,6 +43,8 @@ namespace BFDR
             MessageHeader.MessageDestinationComponent dest = new MessageHeader.MessageDestinationComponent();
             dest.Endpoint = BirthRecordSubmissionMessage.MESSAGE_TYPE;
             Header.Destination.Add(dest);
+            // Set payload version identifier
+            this.PayloadVersionId = $"{GeneratedCustomProperty.Value}";
         }
 
         // TODO: Think about a common approach for extracting business identifiers across VRDR and BFDR

@@ -32,6 +32,7 @@ namespace BFDR.Tests
             Assert.Null(submission.CertNo);
             Assert.Null(submission.StateAuxiliaryId);
             Assert.Null(submission.NCHSIdentifier);
+            Assert.Equal("BFDR_STU2_0", submission.PayloadVersionId);
         }
 
         [Fact]
@@ -46,6 +47,7 @@ namespace BFDR.Tests
             Assert.Equal("444455555", submission.StateAuxiliaryId);
             Assert.Equal("2019UT015075", submission.NCHSIdentifier);
             Assert.Equal(2019, submission.BirthRecord.BirthYear);
+            Assert.Equal("BFDR_STU2_0", submission.PayloadVersionId);
 
             // Test with null record
             submission = new BirthRecordSubmissionMessage(null);
@@ -54,6 +56,7 @@ namespace BFDR.Tests
             Assert.Null(submission.CertNo);
             Assert.Null(submission.StateAuxiliaryId);
             Assert.Null(submission.NCHSIdentifier);
+            Assert.Equal("BFDR_STU2_0", submission.PayloadVersionId);
         }
 
         [Fact]
@@ -67,6 +70,7 @@ namespace BFDR.Tests
             Assert.Equal("000000000042", submission.StateAuxiliaryId);
             Assert.Equal(submission.JurisdictionId, submission.BirthRecord.BirthLocationJurisdiction);
             Assert.Equal(2019, submission.BirthRecord.BirthYear);
+            Assert.Null(submission.PayloadVersionId);
         }
 
         [Fact]
@@ -82,6 +86,7 @@ namespace BFDR.Tests
             Assert.Null(submission.CertNo);
             Assert.Null(submission.StateAuxiliaryId);
             Assert.Null(submission.NCHSIdentifier);
+            Assert.Equal("BFDR_STU2_0", submission.PayloadVersionId);
         }
 
         [Fact]
@@ -96,6 +101,7 @@ namespace BFDR.Tests
             Assert.Equal("444455555", submission.StateAuxiliaryId);
             Assert.Equal("2019UT015075", submission.NCHSIdentifier);
             Assert.Equal(2019, submission.BirthRecord.BirthYear);
+            Assert.Equal("BFDR_STU2_0", submission.PayloadVersionId);
 
             // Test with null record
             submission = new BirthRecordUpdateMessage(null);
@@ -104,6 +110,7 @@ namespace BFDR.Tests
             Assert.Null(submission.CertNo);
             Assert.Null(submission.StateAuxiliaryId);
             Assert.Null(submission.NCHSIdentifier);
+            Assert.Equal("BFDR_STU2_0", submission.PayloadVersionId);
         }
 
         [Fact]
@@ -117,6 +124,7 @@ namespace BFDR.Tests
             Assert.Equal("000000000042", submission.StateAuxiliaryId);
             Assert.Equal(submission.JurisdictionId, submission.BirthRecord.BirthLocationJurisdiction);
             Assert.Equal(2019, submission.BirthRecord.BirthYear);
+            Assert.Equal("BFDR_STU2_0", submission.PayloadVersionId);
         }
 
         [Fact]
@@ -133,6 +141,7 @@ namespace BFDR.Tests
             submission.MessageDestination = destinationsString2;
             Assert.Equal(destinationsArray2, submission.MessageDestinations);
             Assert.Equal(destinationsString2, submission.MessageDestination);
+            Assert.Equal("BFDR_STU2_0", submission.PayloadVersionId);
         }
 
        [Fact]
@@ -147,6 +156,7 @@ namespace BFDR.Tests
             Assert.Equal(submission.StateAuxiliaryId, ack.StateAuxiliaryId);
             Assert.Equal(submission.CertNo, ack.CertNo);
             Assert.Equal(submission.NCHSIdentifier, ack.NCHSIdentifier);
+            Assert.Equal("BFDR_STU2_0", submission.PayloadVersionId);
         }
 
         [Fact]
@@ -160,6 +170,7 @@ namespace BFDR.Tests
             Assert.Equal((uint)48858, ack.CertNo);
             Assert.Equal((uint)2019, ack.BirthYear);
             Assert.Equal("000000000042", ack.StateAuxiliaryId);
+            Assert.Null(ack.PayloadVersionId);
         }
 
         [Fact]
@@ -185,6 +196,7 @@ namespace BFDR.Tests
             Assert.Equal((uint)100, message.BlockCount);
             message.BlockCount = 0;
             Assert.Equal((uint)0, message.BlockCount);
+            Assert.Equal("BFDR_STU2_0", message.PayloadVersionId);
         }
 
         [Fact]
@@ -198,6 +210,9 @@ namespace BFDR.Tests
             Assert.Equal("2019UT048858", message.NCHSIdentifier);
             Assert.Equal("http://nchs.cdc.gov/bfdr_submission", message.MessageDestination);
             Assert.Equal("http://mitre.org/bfdr", message.MessageSource);
+            Assert.Null(message.PayloadVersionId);
+            message.PayloadVersionId = "BFDR_STU2_0";
+            Assert.Equal("BFDR_STU2_0", message.PayloadVersionId);
         }
 
         [Fact]
@@ -213,6 +228,8 @@ namespace BFDR.Tests
             Assert.Equal(voidMessage.CertNo, ack.CertNo);
             Assert.Equal(voidMessage.NCHSIdentifier, ack.NCHSIdentifier);
             Assert.Equal(voidMessage.BlockCount, ack.BlockCount);
+            Assert.Null(voidMessage.PayloadVersionId);
+            Assert.Equal("BFDR_STU2_0", ack.PayloadVersionId);
         }
 
         [Fact]
@@ -228,6 +245,8 @@ namespace BFDR.Tests
             Assert.Equal(submission.StateAuxiliaryId, status.StateAuxiliaryId);
             Assert.Equal(submission.CertNo, status.CertNo);
             Assert.Equal(submission.NCHSIdentifier, status.NCHSIdentifier);
+            Assert.Equal(submission.PayloadVersionId, status.PayloadVersionId);
+            Assert.Equal("BFDR_STU2_0", status.PayloadVersionId);
         }
 
         [Fact]
@@ -242,6 +261,8 @@ namespace BFDR.Tests
             Assert.Equal(statusMessage.StateAuxiliaryId, ack.StateAuxiliaryId);
             Assert.Equal(statusMessage.CertNo, ack.CertNo);
             Assert.Equal(statusMessage.NCHSIdentifier, ack.NCHSIdentifier);
+            Assert.Null(statusMessage.PayloadVersionId);
+            Assert.Equal("BFDR_STU2_0", ack.PayloadVersionId);
         }
 
         [Fact]
@@ -255,6 +276,8 @@ namespace BFDR.Tests
             Assert.Equal(submission.StateAuxiliaryId, err.StateAuxiliaryId);
             Assert.Equal(submission.CertNo, err.CertNo);
             Assert.Equal(submission.NCHSIdentifier, err.NCHSIdentifier);
+            Assert.Null(submission.PayloadVersionId);
+            Assert.Equal("BFDR_STU2_0", err.PayloadVersionId);
             Assert.Empty(err.Issues);
             var issues = new List<Issue>();
             var issue = new Issue(OperationOutcome.IssueSeverity.Fatal, OperationOutcome.IssueType.Invalid, "The message was invalid");
@@ -280,6 +303,7 @@ namespace BFDR.Tests
             Assert.Equal((uint)1, err.CertNo);
             Assert.Equal("42", err.StateAuxiliaryId);
             Assert.Equal("2018MA000001", err.NCHSIdentifier);
+            Assert.Null(err.PayloadVersionId);
             var issues = err.Issues;
             Assert.Equal(2, (int)issues.Count);
             Assert.Equal(OperationOutcome.IssueSeverity.Fatal, issues[0].Severity);
@@ -303,6 +327,8 @@ namespace BFDR.Tests
             Assert.Equal(submission.StateAuxiliaryId, coding.StateAuxiliaryId);
             Assert.Equal(submission.CertNo, coding.CertNo);
             Assert.Equal(submission.NCHSIdentifier, coding.NCHSIdentifier);
+            Assert.Null(submission.PayloadVersionId);
+            Assert.Equal("BFDR_STU2_0", coding.PayloadVersionId);
         }
 
         [Fact]
@@ -315,6 +341,7 @@ namespace BFDR.Tests
             Assert.Equal((uint)2023, message.BirthYear);
             Assert.Equal("123", message.StateAuxiliaryId);
             Assert.Equal("2023YC000100", message.NCHSIdentifier);
+            Assert.Null(message.PayloadVersionId);
             // TODO: Check demographic coding fields once implemented
         }
 
@@ -328,6 +355,7 @@ namespace BFDR.Tests
             Assert.Equal((uint)2023, message.BirthYear);
             Assert.Equal("123", message.StateAuxiliaryId);
             Assert.Equal("2023YC000100", message.NCHSIdentifier);
+            Assert.Null(message.PayloadVersionId);
             // TODO: Check demographic coding fields once implemented
         }
 
@@ -349,7 +377,40 @@ namespace BFDR.Tests
             Assert.Equal((uint)123, message.CertNo);
             Assert.Equal((uint)2022, message.BirthYear);
             Assert.Equal("2022YC000123", message.NCHSIdentifier);
+            Assert.Equal("BFDR_STU2_0", message.PayloadVersionId);
             // TODO: Check demographic coding fields once implemented
+        }
+
+        [Fact]
+        public void CreateDemographicCodingResponseJson()
+        {
+                // create an IJE birth message, convert it to FHIR, round trip the FHIR to json and back to make sure the bundles are all added to the json correctly
+                IJEBirth ijeb = new IJEBirth();
+                ijeb.MRACE1E = "199";
+                ijeb.MRACE2E = "";
+                ijeb.MRACE3E = "";
+                ijeb.MRACE4E = "";
+                ijeb.MRACE5E = "";
+                ijeb.MRACE6E = "";
+                ijeb.MRACE7E = "";
+                ijeb.MRACE8E = "";
+
+                ijeb.METHNIC1 = "N";
+                ijeb.METHNIC2 = "N";                
+                ijeb.METHNIC3 = "N";
+                ijeb.METHNIC4 = "N";
+                ijeb.METHNIC5 = "";
+                ijeb.METHNICE = "100";
+                ijeb.METHNIC5C = "";
+
+                BirthRecord br = ijeb.ToRecord();
+                BirthRecordDemographicsCodingMessage msg = new BirthRecordDemographicsCodingMessage(br);
+                String msgJson = msg.ToJson();
+                // parse the json and make sure the bundles are present
+                BirthRecordDemographicsCodingMessage message = BirthRecordBaseMessage.Parse<BirthRecordDemographicsCodingMessage>(msgJson);
+                BirthRecord br2 = message.BirthRecord;
+                Assert.Equal("100", br2.MotherEthnicityEditedCodeHelper);
+                Assert.Equal("199", br2.MotherRaceTabulation1EHelper);
         }
 
         [Fact]
@@ -361,7 +422,8 @@ namespace BFDR.Tests
             ije.BSTATE = "YC";
             ije.FILENO = "123";
             // TODO: Set the IJE fields that support demographic data
-            BirthRecordDemographicsCodingUpdateMessage message = new BirthRecordDemographicsCodingUpdateMessage(ije.ToRecord());
+            BirthRecord br = ije.ToRecord();
+            BirthRecordDemographicsCodingUpdateMessage message = new BirthRecordDemographicsCodingUpdateMessage(br);
             message.MessageSource = "http://nchs.cdc.gov/bfdr_submission";
             message.MessageDestination = "https://example.org/jurisdiction/endpoint";
             Assert.Equal(BirthRecordDemographicsCodingUpdateMessage.MESSAGE_TYPE, message.MessageType);
@@ -370,6 +432,7 @@ namespace BFDR.Tests
             Assert.Equal((uint)123, message.CertNo);
             Assert.Equal((uint)2022, message.BirthYear);
             Assert.Equal("2022YC000123", message.NCHSIdentifier);
+            Assert.Equal("BFDR_STU2_0", message.PayloadVersionId);
             // TODO: Check demographic coding fields once implemented
         }
     }

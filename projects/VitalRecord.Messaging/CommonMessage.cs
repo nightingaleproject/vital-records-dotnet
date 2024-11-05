@@ -340,6 +340,19 @@ namespace VR
             }
         }
 
+        /// <summary>Identifier of the payload version</summary>
+        public string PayloadVersionId
+        {
+            get
+            {
+                return Record?.GetSingleValue<FhirString>("payload_version_id")?.Value;
+            }
+            set
+            {
+                SetSingleStringValue("payload_version_id", value);
+            }
+        }
+
         private static ParserSettings GetParserSettings(bool permissive)
         {
             return new ParserSettings { AcceptUnknownMembers = permissive,
@@ -383,7 +396,19 @@ namespace VR
         {
             Bundle bundle = null;
 
+            // The purpose of this code is to validate that the content string is a valid JSON.
+            // This address the issue of jurisdictions sending a JSON that is not a valid JSON.
+            // If it is not, the code throws an ArgumentException with a message indicating the error.
+            try
+            {
+                System.Text.Json.JsonDocument.Parse(content);
+            }
+            catch (System.Text.Json.JsonException e)
+            {
+                throw new FormatException(e.Message);
+            }
             // Grab all errors found by visiting all nodes and report if not permissive
+
             if (!permissive)
             {
                 List<string> entries = new List<string>();

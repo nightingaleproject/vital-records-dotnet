@@ -67,12 +67,19 @@ namespace VR
                     }
                     else
                     {
+                        try
+                        {
+                            System.Text.Json.JsonDocument.Parse(record);
+                        }
+                        catch (System.Text.Json.JsonException e)
+                        {
+                            throw new FormatException(e.Message);
+                        }
                         FhirJsonParser parser = new FhirJsonParser(parserSettings);
                         Bundle = parser.Parse<Bundle>(record);
                     }
 
-                    // Validate the partial dates. This code is commented out since we are reevaluating partial date handling based on updates to the VitalRecords IG.
-                    // ValidatePartialDates(Bundle);
+                    ValidatePartialDates(Bundle);
                     
                     Navigator = Bundle.ToTypedElement();
                 }

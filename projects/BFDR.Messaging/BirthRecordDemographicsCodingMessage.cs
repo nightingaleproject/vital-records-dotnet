@@ -53,6 +53,7 @@ namespace BFDR
             this.StateAuxiliaryId = messageToCode?.StateAuxiliaryId;
             this.JurisdictionId = messageToCode?.JurisdictionId;
             this.BirthYear = messageToCode?.BirthYear;
+            this.PayloadVersionId = $"{GeneratedCustomProperty.Value}";
         }
 
         /// <summary>Constructor that creates a BirthRecordDemographicsCodingMessage for the specified message.</summary>
@@ -92,7 +93,7 @@ namespace BFDR
         {
             get
             {
-                return birthRecord?.GetDemographicCodedContentBundle();
+                return birthRecord?.GetBundle();
             }
         }
         /// <summary>The id of the birth record submission/update message that was coded to produce the content of this message</summary>

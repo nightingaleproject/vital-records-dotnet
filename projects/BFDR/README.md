@@ -23,8 +23,8 @@ Interactions with NCHS are governed by the CI build version of the BFDR and Birt
 </tr>
 </tr>
 <tr>
-<td style="text-align: center;"><a href="https://build.fhir.org/ig/HL7/fhir-bfdr/branches/master/index.html">STU2.0 CI build version</a></td>
-<td style="text-align: center;"><a href="https://build.fhir.org/ig/nightingaleproject/vital_records_fhir_messaging_ig/">v1.1.0-ci-build</a></td>
+<td style="text-align: center;"><a href="https://build.fhir.org/ig/HL7/fhir-bfdr/branches/v2.0.0-preview3/ije_mapping_natality.html">STU2.0 v2.0.0-preview3</a></td>
+<td style="text-align: center;"><a href="https://nightingaleproject.github.io/vital_records_fhir_messaging_ig/v2.0.0-preview1/index.html">v2.0.0-preview1</a></td>
 <td style="text-align: center;">R4</td>
 <td style="text-align: center;">V4.0.3</td>
 <td style="text-align: center;"><a href="">nuget</a> <a href=""> github</a></td>
@@ -432,6 +432,7 @@ With each commit to the default branch, a release pull request will be automatic
 To create a new release of BFDR on NuGet:
 
 1. Bump the version of the libraries listed in the [Directory.Build.props](Directory.Build.props) file. Whenever a commit is merged into the master branch that changes the Directory.Build.props file, [Github Actions](.github/workflows/publish.yml) will automatically build and publish a new version of the package based on the value specified.
+1. Update the PayloadVersionID in BFDR.Messaging.csproj to match the IG version implemented by the library. See [Payload Version Identifier Values](https://nightingaleproject.github.io/vital_records_fhir_messaging_ig/v2.0.0-preview1/ValueSet-Payload-version-vs.html)
 1. Update the version numbers listed in this README
 1. Update the CHANGELOG.md file with information on what is changing in the release
 1. Merge the above changes to master, causing the GitHub publishing workflow to fire

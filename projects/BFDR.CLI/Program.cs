@@ -50,6 +50,7 @@ namespace BFDR.CLI
   - ijebuilder: Create json birth record using IJE (natality) mapped fields
   - compare: Compare an IJE record with a FHIR record by each IJE field (2 arguments:  IJE record, FHIR Record)
   - extract: Extract a FHIR record from a FHIR message (1 argument: FHIR message)
+  - nre2json: Creates a Demographic Coding Bundle from a NRE Message (1 argument: TRX file)
     ";
 
         static int Main(string[] args)
@@ -657,6 +658,32 @@ namespace BFDR.CLI
                         Console.WriteLine(record.ToJSON());
                         break;
                 }
+                return 0;
+            }
+            else if (args.Length == 1 && args[0] == "nre2json")
+            {
+                IJEBirth ijeb = new IJEBirth();
+                ijeb.MRACE1E = "199";
+                ijeb.MRACE2E = "";
+                ijeb.MRACE3E = "";
+                ijeb.MRACE4E = "";
+                ijeb.MRACE5E = "";
+                ijeb.MRACE6E = "";
+                ijeb.MRACE7E = "";
+                ijeb.MRACE8E = "";
+
+                ijeb.METHNIC1 = "N";
+                ijeb.METHNIC2 = "N";                
+                ijeb.METHNIC3 = "N";
+                ijeb.METHNIC4 = "N";
+                ijeb.METHNIC5 = "";
+                ijeb.METHNICE = "100";
+                ijeb.METHNIC5C = "";
+
+                BirthRecord br = ijeb.ToRecord();
+                BirthRecordDemographicsCodingMessage msg = new BirthRecordDemographicsCodingMessage(br);
+                Console.WriteLine(msg.ToJson());
+                // there's something wrong with the ToJson call when converting the message to json to insert in the db
                 return 0;
             }
             else

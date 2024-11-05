@@ -15,7 +15,7 @@ namespace VR
     {
         private static ExtensionURL extensions = new ExtensionURL();
         /// <summary>Overridable instance of ExtensionURL that allow changing the URL prefix by subclasses</summary>
-        protected virtual ExtensionURL VRExtensionURLs => extensions;
+        public virtual ExtensionURL VRExtensionURLs => extensions;
         
         /// <summary>Bundle that contains the vital record.</summary>
         protected Bundle Bundle;

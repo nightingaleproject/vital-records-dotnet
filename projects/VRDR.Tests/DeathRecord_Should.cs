@@ -3838,6 +3838,14 @@ namespace VRDR.Tests
         }
 
         [Fact]
+        public void ValidateBadDeathRecord()
+        {
+            // A malformated record JSON record should throw an exception
+            FormatException ex = Assert.Throws<FormatException>(() => new DeathRecord(File.ReadAllText(FixturePath("fixtures/json/BadDeathRecord.json"))));
+            Assert.Equal("Invalid Json encountered. Details: Unexpected character encountered while parsing value: e. Path 'entry[0].resource.extension[0].valueCodeableConcept.coding[0].code', line 45, position 27.", ex.Message);
+        }
+
+        [Fact]
         public void TestForOverwrites()
         {
             // This test makes sure that there are no fields that, when writing them, accidentally change another field;
@@ -4345,6 +4353,30 @@ namespace VRDR.Tests
             ije = new IJEMortality(record, false);
             record = ije.ToDeathRecord();
             Assert.Null(record.FamilyName);
+        }
+
+        [Fact]
+        public void TestBadPartialDate()
+        {
+            Exception ex = Assert.Throws<System.ArgumentException>(() => new DeathRecord(File.ReadAllText(FixturePath("fixtures/json/DeathRecordBadPartialDate.json"))));
+            System.Text.StringBuilder errorMsg = new System.Text.StringBuilder();
+            errorMsg.Append("Missing 'Date-Month' of [http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDate] for resource [f384e3f6-2438-4e07-9df2-44e27e3aa72d].");
+            errorMsg.AppendLine();
+            errorMsg.Append("[http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDate] component contains extra invalid fields [http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Monh] for resource [f384e3f6-2438-4e07-9df2-44e27e3aa72d].");
+            errorMsg.AppendLine();
+            Assert.Equal(errorMsg.ToString(), ex.Message);
+            }
+
+        [Fact]
+        public void TestBadPartialDateTime()
+        {
+            Exception ex = Assert.Throws<System.ArgumentException>(() => new DeathRecord(File.ReadAllText(FixturePath("fixtures/json/DeathRecordBadPartialDateTime.json"))));
+            System.Text.StringBuilder errorMsg = new System.Text.StringBuilder();
+            errorMsg.Append("Missing 'Date-Time' of [http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDateTime] for resource [81899bd9-0441-45f0-9b89-9d91daa08983].");
+            errorMsg.AppendLine();
+            errorMsg.Append("[http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDateTime] component contains extra invalid fields [http://hl7.org/fhir/us/vrdr/StructureDefinition/Invalid, http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Tme] for resource [81899bd9-0441-45f0-9b89-9d91daa08983].");
+            errorMsg.AppendLine();
+            Assert.Equal(errorMsg.ToString(), ex.Message);
         }
 
         private string FixturePath(string filePath)
