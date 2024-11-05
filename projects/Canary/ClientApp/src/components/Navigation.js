@@ -86,9 +86,6 @@ export function Navigation(props) {
           </span>
           <span className="p-l-5">
             <small>
-              {window.VERSION};
-            </small>
-            <small>
               VRDR {window.VRDR_VERSION};
             </small>
             <small>
