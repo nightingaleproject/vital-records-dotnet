@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+<a name="1.0.0-preview.4"></a>
+## [1.0.0-preview.4](https://github.com/nightingaleproject/vital-records-dotnet/commit/ba4cd43e081ede28959f0e9d3070b59644943953#diff-7b854a1e3a0d54f7ed17b2542764e52a452d596f0827084fdf95084a40fde76d) (2024-11-05)
+
+### Features
+* Update VRCL code systems, mappings, value sets, and urls to align with VRCL STU 2.0
+* Add support for presence to IJE fields
+* Add helper functions for FHIR date time fields
+* Add helper functions to get and set physical location fields
+* Add helper functions to get and set encounters
+
 <a name="1.0.0-preview.3"></a>
 ## [1.0.0-preview.3](https://github.com/nightingaleproject/vital-records-dotnet/commit/db5765b2710016d4b3fd9c80e9e27227503376e3) (2024-07-30)
 
