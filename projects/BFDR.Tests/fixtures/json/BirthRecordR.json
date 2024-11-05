@@ -1,684 +1,491 @@
 {
-    "resourceType": "Bundle",
-    "id": "54df4328-dac3-4ca4-bc32-c0efb5558ce8",
-    "meta": {
-      "profile": [
-        "http://hl7.org/fhir/us/bfdr/StructureDefinition/Bundle-document-birth-report"
-      ]
-    },
-    "identifier": {
-      "extension": [
-        {
-          "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/CertificateNumber",
-          "valueString": "99991"
-        }
-      ],
-      "system": "http://nchs.cdc.gov/bfdr_id",
-      "value": "2002TT099991"
-    },
-    "type": "document",
-    "timestamp": "2024-08-08T18:22:14.5871048+00:00",
-    "entry": [
+  "resourceType": "Bundle",
+  "id": "55e83b8f-fbb0-4207-bbc7-3258607af187",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/us/bfdr/StructureDefinition/Bundle-document-birth-report"
+    ]
+  },
+  "identifier": {
+    "extension": [
       {
-        "fullUrl": "urn:uuid:6e81880b-6948-40d5-b19f-a1385ba8d9e2",
-        "resource": {
-          "resourceType": "Composition",
-          "id": "6e81880b-6948-40d5-b19f-a1385ba8d9e2",
-          "meta": {
-            "profile": [
-              "http://hl7.org/fhir/us/bfdr/StructureDefinition/Composition-jurisdiction-live-birth-report"
-            ]
-          },
-          "status": "final",
-          "type": {
-            "coding": [
-              {
-                "system": "http://loinc.org",
-                "code": "71230-7",
-                "display": "Birth certificate"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:fb2bcecb-efee-4289-ac01-52b879295b21"
-          },
-          "encounter": {
-            "reference": "urn:uuid:2dedf127-6ee0-481b-96ab-d97c5f905a2e"
-          },
-          "date": "2020-01-02",
-          "title": "Birth Certificate",
-          "attester": [
+        "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/CertificateNumber",
+        "valueString": "99991"
+      }
+    ],
+    "system": "http://nchs.cdc.gov/bfdr_id",
+    "value": "2002AZ099991"
+  },
+  "type": "document",
+  "timestamp": "2024-11-05T13:55:57.367736-05:00",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:7e8a5f74-e0b0-4b71-b583-083905b549cb",
+      "resource": {
+        "resourceType": "Composition",
+        "id": "7e8a5f74-e0b0-4b71-b583-083905b549cb",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/bfdr/StructureDefinition/Composition-jurisdiction-live-birth-report"
+          ]
+        },
+        "status": "final",
+        "type": {
+          "coding": [
             {
-              "mode": "legal"
-            }
-          ],
-          "event": [
-            {
-              "code": [
-                {
-                  "coding": [
-                    {
-                      "system": "http://snomed.info/sct",
-                      "code": "103693007",
-                      "display": "Diagnostic procedure (procedure)"
-                    }
-                  ]
-                }
-              ]
-            }
-          ],
-          "section": [
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://loinc.org",
-                    "code": "92014-0"
-                  }
-                ]
-              },
-              "entry": [
-                {
-                  "reference": "urn:uuid:363a7d77-aaa3-43e2-9832-5b8dc761de63"
-                },
-                {
-                  "reference": "urn:uuid:2719bb32-d7d3-433b-80f4-2f3005032fca"
-                },
-                {
-                  "reference": "urn:uuid:6e2fe11e-ef51-43be-8705-429c385808cc"
-                },
-                {
-                  "reference": "urn:uuid:21683828-6b26-4337-a18e-5d36f8de1448"
-                }
-              ]
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://loinc.org",
-                    "code": "92013-2"
-                  }
-                ]
-              },
-              "entry": [
-                {
-                  "reference": "urn:uuid:fbf1d684-0133-40d1-8dbf-9e6d7819b0ea"
-                },
-                {
-                  "reference": "urn:uuid:480f051d-cf85-458d-841a-838b869e326c"
-                },
-                {
-                  "reference": "urn:uuid:0a299946-735b-4d2c-a429-faaf49766b45"
-                }
-              ]
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://loinc.org",
-                    "code": "68493-6"
-                  }
-                ]
-              },
-              "entry": [
-                {
-                  "reference": "urn:uuid:cc66468a-b41c-4770-bfca-e5294f35c290"
-                }
-              ]
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://loinc.org",
-                    "code": "57073-9"
-                  }
-                ]
-              },
-              "entry": [
-                {
-                  "reference": "urn:uuid:26a36236-cf14-476e-9496-26d66cfe5c65"
-                },
-                {
-                  "reference": "urn:uuid:a2716847-4446-4eed-852a-79cbfd039ddb"
-                },
-                {
-                  "reference": "urn:uuid:740126d0-5975-406b-9516-0a08b8a4f80a"
-                },
-                {
-                  "reference": "urn:uuid:25eeea1d-2470-4c81-b486-67a17b73d467"
-                },
-                {
-                  "reference": "urn:uuid:e35f384d-b066-4740-80f9-1229f8e8f4a8"
-                },
-                {
-                  "reference": "urn:uuid:09c67e23-8a83-44be-ab7e-190a5c1b7a22"
-                },
-                {
-                  "reference": "urn:uuid:1e2b6500-e6d5-4196-87b8-a92b61068f26"
-                },
-                {
-                  "reference": "urn:uuid:669b0644-19b3-44c4-8657-2bdc24e1567d"
-                }
-              ]
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://loinc.org",
-                    "code": "87303-4"
-                  }
-                ]
-              },
-              "entry": [
-                {
-                  "reference": "urn:uuid:8ce95e7d-7960-447f-b5ca-62c66d7217ad"
-                }
-              ]
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://loinc.org",
-                    "code": "11638-4"
-                  }
-                ]
-              },
-              "entry": [
-                {
-                  "reference": "urn:uuid:80e428a6-23f2-4dc1-a57b-5966606efb2b"
-                }
-              ]
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://loinc.org",
-                    "code": "68496-9"
-                  }
-                ]
-              },
-              "entry": [
-                {
-                  "reference": "urn:uuid:b1d835c6-c26d-4265-bbe2-664228f4f4ac"
-                }
-              ]
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://loinc.org",
-                    "code": "69043-8"
-                  }
-                ]
-              },
-              "entry": [
-                {
-                  "reference": "urn:uuid:7ee68b1d-f249-4f71-8205-bc314c66d570"
-                }
-              ]
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://loinc.org",
-                    "code": "68499-3"
-                  }
-                ]
-              },
-              "entry": [
-                {
-                  "reference": "urn:uuid:b16fc058-e53c-4b81-b6f8-4158b7e00233"
-                }
-              ]
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://loinc.org",
-                    "code": "55752-0"
-                  }
-                ]
-              },
-              "focus": {
-                "reference": "urn:uuid:076aeec1-72b8-4cff-a197-76c16e48dd29"
-              },
-              "entry": [
-                {
-                  "reference": "urn:uuid:db08120a-6a42-47d2-94d4-64ab3206df81"
-                },
-                {
-                  "reference": "urn:uuid:cd6681ab-c8cb-4e5d-b849-b404df10f525"
-                },
-                {
-                  "reference": "urn:uuid:6666a08c-e9e4-470a-a066-e196be223287"
-                },
-                {
-                  "reference": "urn:uuid:d33c043a-2e95-4a29-b0de-7d7893521c82"
-                },
-                {
-                  "reference": "urn:uuid:2f5959cf-65a6-4b5e-8d8a-00e24ab071dd"
-                },
-                {
-                  "reference": "urn:uuid:da3c0606-18f1-413f-ad90-fde3db15bbcf"
-                },
-                {
-                  "reference": "urn:uuid:648b472b-81fe-44d9-93d7-563a5eae0fe6"
-                },
-                {
-                  "reference": "urn:uuid:b42ab91c-ac7f-46ce-a6cd-2024bf0d6746"
-                }
-              ]
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://loinc.org",
-                    "code": "57075-4"
-                  }
-                ]
-              },
-              "entry": [
-                {
-                  "reference": "urn:uuid:a8ef5601-086f-4002-a9da-23984c1d96ce"
-                },
-                {
-                  "reference": "urn:uuid:00652b86-2ae0-43fb-8239-308a1d71b655"
-                },
-                {
-                  "reference": "urn:uuid:6e4d0fde-a573-49d2-b246-0759cf6f8275"
-                },
-                {
-                  "reference": "urn:uuid:00626801-ed84-4b7e-bfe8-3a127a5f6381"
-                },
-                {
-                  "reference": "urn:uuid:acf8a7b2-4496-4f46-a871-922b7cb841ad"
-                },
-                {
-                  "reference": "urn:uuid:c4a7b60d-14ed-4103-8ae4-fc0bb416629b"
-                },
-                {
-                  "reference": "urn:uuid:45d0c001-c980-4718-8da1-e4d77022ac9e"
-                }
-              ]
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://loinc.org",
-                    "code": "11884-4"
-                  }
-                ]
-              },
-              "entry": [
-                {
-                  "reference": "urn:uuid:1d72e8a4-ca15-489c-8da4-abae23b204d3"
-                }
-              ]
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://loinc.org",
-                    "code": "73756-9"
-                  }
-                ]
-              },
-              "entry": [
-                {
-                  "reference": "urn:uuid:617b4661-5393-4980-8d49-2405505d8127"
-                }
-              ]
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://loinc.org",
-                    "code": "emergingIssues"
-                  }
-                ]
-              },
-              "entry": [
-                {
-                  "reference": "urn:uuid:59f4cfbb-e6ae-4e6a-b352-1c83bc25e460"
-                },
-                {
-                  "reference": "urn:uuid:eebccf7f-aeb3-4ac9-ad17-6f730cbb7f46"
-                },
-                {
-                  "reference": "urn:uuid:3d1f9e1a-1b56-41d7-99dd-b953515cdfc7"
-                },
-                {
-                  "reference": "urn:uuid:579f70f9-c1af-4e1d-af0c-cc2822ff6be8"
-                },
-                {
-                  "reference": "urn:uuid:62ecee9d-2138-4927-a03c-fc053dc9db98"
-                },
-                {
-                  "reference": "urn:uuid:07c391ed-a0b3-48a3-9235-f9c87f72cc0a"
-                },
-                {
-                  "reference": "urn:uuid:8cdc0e87-34ba-4213-8a0f-85510a5b9b84"
-                },
-                {
-                  "reference": "urn:uuid:1f151d01-644d-4b19-952c-bfb60ed0fd7b"
-                },
-                {
-                  "reference": "urn:uuid:975e6e64-76de-48d8-a417-e1386185a6e4"
-                }
-              ]
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://loinc.org",
-                    "code": "MTH"
-                  }
-                ]
-              },
-              "entry": [
-                {
-                  "reference": "urn:uuid:7a230837-71d1-40f1-a94a-946f98ae770c"
-                }
-              ]
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://loinc.org",
-                    "code": "NFTH"
-                  }
-                ]
-              },
-              "entry": [
-                {
-                  "reference": "urn:uuid:fbc56789-e5c6-4069-9526-b46100376c4f"
-                }
-              ]
+              "system": "http://loinc.org",
+              "code": "71230-7",
+              "display": "Birth certificate"
             }
           ]
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:fb2bcecb-efee-4289-ac01-52b879295b21",
-        "resource": {
-          "resourceType": "Patient",
-          "id": "fb2bcecb-efee-4289-ac01-52b879295b21",
-          "meta": {
-            "profile": [
-              "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Patient-child-vr"
-            ]
-          },
+        },
+        "subject": {
+          "reference": "urn:uuid:3fc3ab9c-dc49-40f9-80b7-098cb5b607db"
+        },
+        "encounter": {
           "extension": [
             {
-              "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
-              "valueCode": "F"
-            },
-            {
-              "extension": [
-                {
-                  "url": "motherOrFather",
-                  "valueCodeableConcept": {
-                    "coding": [
-                      {
-                        "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
-                        "code": "MTH"
-                      }
-                    ],
-                    "text": "mother"
-                  }
-                },
-                {
-                  "url": "reportedAge",
-                  "valueQuantity": {
-                    "value": -1,
-                    "unit": "a",
-                    "system": "http://unitsofmeasure.org",
-                    "code": "a"
-                  }
-                }
-              ],
-              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-reported-parent-age-at-delivery-vr"
-            },
-            {
-              "extension": [
-                {
-                  "url": "motherOrFather",
-                  "valueCodeableConcept": {
-                    "coding": [
-                      {
-                        "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
-                        "code": "FTH"
-                      }
-                    ],
-                    "text": "father"
-                  }
-                },
-                {
-                  "url": "reportedAge",
-                  "valueQuantity": {
-                    "value": -1,
-                    "unit": "a",
-                    "system": "http://unitsofmeasure.org",
-                    "code": "a"
-                  }
-                }
-              ],
-              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-reported-parent-age-at-delivery-vr"
-            },
-            {
-              "url": "http://hl7.org/fhir/StructureDefinition/patient-birthPlace",
-              "valueAddress": {
-                "city": "TUCSON",
-                "district": "PIMA",
-                "_district": {
-                  "extension": [
-                    {
-                      "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/DistrictCode",
-                      "valuePositiveInt": 19
-                    }
-                  ]
-                },
-                "state": "TT",
-                "_state": {
-                  "extension": [
-                    {
-                      "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-jurisdiction-id-vr",
-                      "valueString": "TT"
-                    }
-                  ]
-                }
+              "url": "http://hl7.org/fhir/us/bfdr/StructureDefinition/Extension-encounter-maternity-reference",
+              "valueReference": {
+                "reference": "urn:uuid:9ad7d302-b6fd-4ed4-87a5-f424acb1bddb"
               }
             }
           ],
-          "identifier": [
-            {
-              "type": {
+          "reference": "urn:uuid:ab646851-0232-465b-89e5-cf61a535ec25"
+        },
+        "date": "2020-01-02",
+        "title": "Birth Certificate",
+        "attester": [
+          {
+            "mode": "legal"
+          }
+        ],
+        "event": [
+          {
+            "code": [
+              {
                 "coding": [
                   {
-                    "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
-                    "code": "MR",
-                    "display": "Medical Record Number"
+                    "system": "http://snomed.info/sct",
+                    "code": "103693007",
+                    "display": "Diagnostic procedure (procedure)"
                   }
                 ]
-              },
-              "value": "1393674"
-            }
-          ],
-          "name": [
-            {
-              "use": "official",
-              "family": "CARDENAS ROMERO",
-              "given": [
-                "YYTRF",
-                "XMIDDLEXX"
-              ]
-            }
-          ],
-          "birthDate": "2002-01-01",
-          "_birthDate": {
-            "extension": [
-              {
-                "url": "http://hl7.org/fhir/StructureDefinition/patient-birthTime",
-                "valueDateTime": "2002-01-01T10:31:00"
-              }
-            ]
-          },
-          "_multipleBirthInteger": {
-            "extension": [
-              {
-                "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
-                "valueCode": "unknown"
-              },
-              {
-                "url": "http://hl7.org/fhir/StructureDefinition/patient-multipleBirthTotal",
-                "valuePositiveInt": 1
-              },
-              {
-                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
-                "valueCodeableConcept": {
-                  "coding": [
-                    {
-                      "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
-                      "code": "0off",
-                      "display": "Off"
-                    }
-                  ]
-                }
               }
             ]
           }
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:076aeec1-72b8-4cff-a197-76c16e48dd29",
-        "resource": {
-          "resourceType": "Patient",
-          "id": "076aeec1-72b8-4cff-a197-76c16e48dd29",
-          "meta": {
-            "profile": [
-              "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Patient-mother-vr"
-            ]
-          },
-          "extension": [
-            {
-              "url": "http://hl7.org/fhir/StructureDefinition/patient-birthPlace",
-              "valueAddress": {
-                "state": "XX",
-                "_state": {
-                  "extension": [
-                    {
-                      "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-jurisdiction-id-vr",
-                      "valueString": "XX"
-                    }
-                  ]
-                },
-                "country": "MX"
-              }
-            }
-          ],
-          "identifier": [
-            {
-              "type": {
-                "coding": [
-                  {
-                    "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
-                    "code": "SS",
-                    "display": "Social Security Number"
-                  }
-                ]
-              },
-              "value": "888888888"
-            },
-            {
-              "type": {
-                "coding": [
-                  {
-                    "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
-                    "code": "MR",
-                    "display": "Medical Record Number"
-                  }
-                ]
-              },
-              "value": "1393655"
-            }
-          ],
-          "name": [
-            {
-              "use": "official",
-              "family": "ROMERO LEON",
-              "given": [
-                "ALEJANDRA"
+        ],
+        "section": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "92014-0"
+                }
               ]
             },
-            {
-              "use": "maiden",
-              "family": "ROMERO LEON"
-            }
-          ],
-          "birthDate": "1992-10-13",
-          "_birthDate": {
+            "entry": [
+              {
+                "reference": "urn:uuid:ce3525e9-f660-4aeb-a35c-39d1c8aeaeef"
+              },
+              {
+                "reference": "urn:uuid:6c451f7b-3d13-445f-a4b0-4018dd0a3263"
+              },
+              {
+                "reference": "urn:uuid:bfd40581-2856-4646-a7b1-08e4dc0c4b76"
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "92013-2"
+                }
+              ]
+            },
+            "entry": [
+              {
+                "reference": "urn:uuid:43e7fa1b-4a74-4f50-8dda-9650588eb1d8"
+              },
+              {
+                "reference": "urn:uuid:718e958a-754d-4ca4-97e1-9760fdd04b2b"
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "68493-6"
+                }
+              ]
+            },
+            "entry": [
+              {
+                "reference": "urn:uuid:71642a8e-f4a8-4e97-a340-12513c526012"
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "57073-9"
+                }
+              ]
+            },
+            "entry": [
+              {
+                "reference": "urn:uuid:0d6df8b5-e84a-4516-8258-84280a51c079"
+              },
+              {
+                "reference": "urn:uuid:bdc3a91d-b4e8-411c-8521-5ee9771ab6aa"
+              },
+              {
+                "reference": "urn:uuid:e060aad7-1bf4-42d5-8f39-384607202851"
+              },
+              {
+                "reference": "urn:uuid:b0c6ab4f-cd7b-40d3-a4e8-c8386ab4a17b"
+              },
+              {
+                "reference": "urn:uuid:e363a700-f798-45ab-a2e5-78e7e6f57619"
+              },
+              {
+                "reference": "urn:uuid:a1d8edde-17a1-4be7-b01b-1cde1357b351"
+              },
+              {
+                "reference": "urn:uuid:39f655ed-22e9-4371-b202-efea1fd0268f"
+              },
+              {
+                "reference": "urn:uuid:58982128-6c89-48bb-afab-97a213945a78"
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "87303-4"
+                }
+              ]
+            },
+            "entry": [
+              {
+                "reference": "urn:uuid:58cccf01-58c8-4196-808d-63c0e1bf2ee5"
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "11638-4"
+                }
+              ]
+            },
+            "entry": [
+              {
+                "reference": "urn:uuid:6e40b433-b74b-4eb6-b1b8-72f7b1821339"
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "68496-9"
+                }
+              ]
+            },
+            "entry": [
+              {
+                "reference": "urn:uuid:8264c25e-dc23-452b-ba3e-30185031f9d4"
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "69043-8"
+                }
+              ]
+            },
+            "entry": [
+              {
+                "reference": "urn:uuid:9cda84a6-163a-4f51-aeb9-05d97f4bb1a3"
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "68499-3"
+                }
+              ]
+            },
+            "entry": [
+              {
+                "reference": "urn:uuid:4a4c81af-e3c0-4c92-9d50-c02a9c2c5d87"
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "55752-0"
+                }
+              ]
+            },
+            "focus": {
+              "reference": "urn:uuid:dd01d442-6c71-4b1f-9eba-605d08422c91"
+            },
+            "entry": [
+              {
+                "reference": "urn:uuid:818aa1cf-5f84-4ef3-b9c0-3c0419aba2ff"
+              },
+              {
+                "reference": "urn:uuid:8910955b-005f-4b0a-9fc9-f2e8f7317508"
+              },
+              {
+                "reference": "urn:uuid:f0702d11-8a47-406c-8c95-5d0b03eaa3b5"
+              },
+              {
+                "reference": "urn:uuid:278146a1-2289-4994-9e75-48b1927476ae"
+              },
+              {
+                "reference": "urn:uuid:cfdb2d03-52f6-433e-8a60-daed72958b0c"
+              },
+              {
+                "reference": "urn:uuid:1142f351-55d0-424b-9803-8d2a0f06f6c3"
+              },
+              {
+                "reference": "urn:uuid:b6b38602-ac2b-4d3d-9c54-c00357aeb1dc"
+              },
+              {
+                "reference": "urn:uuid:cecf6c0e-72b9-4ca5-9f75-2f93f1b4077e"
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "57075-4"
+                }
+              ]
+            },
+            "entry": [
+              {
+                "reference": "urn:uuid:db11ecdc-dd95-4104-8569-2452a140eef3"
+              },
+              {
+                "reference": "urn:uuid:a1c0babf-8586-45ef-976f-eda61fb43968"
+              },
+              {
+                "reference": "urn:uuid:9e90f2f7-9d78-4ee0-97d0-98fd64f8954d"
+              },
+              {
+                "reference": "urn:uuid:e74183b2-b264-4149-b037-5b876658797d"
+              },
+              {
+                "reference": "urn:uuid:c0a7e32a-d679-4dc5-8b4b-e04db56d06bf"
+              },
+              {
+                "reference": "urn:uuid:2483cd10-95ee-4d5b-b22e-24751c19951d"
+              },
+              {
+                "reference": "urn:uuid:60e8faec-ab55-41cd-a2f8-e4e7ca6accbf"
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "11884-4"
+                }
+              ]
+            },
+            "entry": [
+              {
+                "reference": "urn:uuid:758e1fc7-c80e-4c72-9a0f-a8ec002ed600"
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "73756-9"
+                }
+              ]
+            },
+            "entry": [
+              {
+                "reference": "urn:uuid:ddcf6d85-d40b-4c51-8f2b-60260fdcabff"
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "emergingIssues"
+                }
+              ]
+            },
+            "entry": [
+              {
+                "reference": "urn:uuid:262009ee-ad6d-4e66-94b7-7bc473d85217"
+              },
+              {
+                "reference": "urn:uuid:a15938c6-42b0-4ea8-baaf-76fb8f3e8cdc"
+              },
+              {
+                "reference": "urn:uuid:d24bcd88-ea19-4b67-af32-d87f98373dfe"
+              },
+              {
+                "reference": "urn:uuid:0157c7e9-a389-459f-a261-538b9b18f489"
+              },
+              {
+                "reference": "urn:uuid:7d9bde93-f16c-4218-8ec7-9743a17e1c2c"
+              },
+              {
+                "reference": "urn:uuid:904cfc63-01d5-4ab9-af70-280b6fe18626"
+              },
+              {
+                "reference": "urn:uuid:864fe685-3a9d-4339-a191-31c2fe637874"
+              },
+              {
+                "reference": "urn:uuid:e0935dc2-698f-41ee-af70-5b22e8264838"
+              },
+              {
+                "reference": "urn:uuid:2112d80f-c3e9-4f28-baf5-656d428489f8"
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "MTH"
+                }
+              ]
+            },
+            "entry": [
+              {
+                "reference": "urn:uuid:f93781ec-16fe-4d43-86f2-d2af19235cf3"
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "NFTH"
+                }
+              ]
+            },
+            "entry": [
+              {
+                "reference": "urn:uuid:85c8aa4f-d4f3-49ef-a30b-310bf580aa52"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:3fc3ab9c-dc49-40f9-80b7-098cb5b607db",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "3fc3ab9c-dc49-40f9-80b7-098cb5b607db",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Patient-child-vr"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
+            "valueCode": "F"
+          },
+          {
             "extension": [
               {
-                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
+                "url": "motherOrFather",
                 "valueCodeableConcept": {
                   "coding": [
                     {
-                      "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
-                      "code": "0"
+                      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+                      "code": "MTH"
                     }
-                  ]
+                  ],
+                  "text": "mother"
+                }
+              },
+              {
+                "url": "reportedAge",
+                "valueQuantity": {
+                  "value": -1,
+                  "unit": "a",
+                  "system": "http://unitsofmeasure.org",
+                  "code": "a"
                 }
               }
-            ]
+            ],
+            "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-reported-parent-age-at-delivery-vr"
           },
-          "address": [
-            {
-              "use": "billing",
-              "line": [
-                "9999 NORTH PRIEST RD236"
-              ],
-              "city": "MESA",
-              "state": "AZ",
-              "_state": {
-                "extension": [
-                  {
-                    "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-jurisdiction-id-vr",
-                    "valueString": "AZ"
-                  }
-                ]
+          {
+            "extension": [
+              {
+                "url": "motherOrFather",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+                      "code": "FTH"
+                    }
+                  ],
+                  "text": "father"
+                }
               },
-              "postalCode": "85489",
-              "country": "US"
-            },
-            {
-              "use": "home",
-              "line": [
-                "6666 NORTH ORACLE ROAD100"
-              ],
+              {
+                "url": "reportedAge",
+                "valueQuantity": {
+                  "value": -1,
+                  "unit": "a",
+                  "system": "http://unitsofmeasure.org",
+                  "code": "a"
+                }
+              }
+            ],
+            "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-reported-parent-age-at-delivery-vr"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/patient-birthPlace",
+            "valueAddress": {
               "city": "TUCSON",
-              "_city": {
-                "extension": [
-                  {
-                    "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/CityCode",
-                    "valuePositiveInt": 77000
-                  }
-                ]
-              },
               "district": "PIMA",
               "_district": {
                 "extension": [
@@ -696,2570 +503,2743 @@
                     "valueString": "AZ"
                   }
                 ]
-              },
-              "postalCode": "85705",
-              "country": "US"
+              }
+            }
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "MR",
+                  "display": "Medical Record Number"
+                }
+              ]
+            },
+            "value": "1393674"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "CARDENAS ROMERO",
+            "given": [
+              "YYTRF",
+              "XMIDDLEXX"
+            ]
+          }
+        ],
+        "birthDate": "2002-01-01",
+        "_birthDate": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/patient-birthTime",
+              "valueDateTime": "2002-01-01T10:31:00"
+            }
+          ]
+        },
+        "_multipleBirthInteger": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+              "valueCode": "unknown"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/patient-multipleBirthTotal",
+              "valuePositiveInt": 1
+            },
+            {
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
+                    "code": "0off",
+                    "display": "Off"
+                  }
+                ]
+              }
             }
           ]
         }
-      },
-      {
-        "fullUrl": "urn:uuid:763c0fb0-3118-469a-a985-b053727e1fe7",
-        "resource": {
-          "resourceType": "RelatedPerson",
-          "id": "763c0fb0-3118-469a-a985-b053727e1fe7",
-          "meta": {
-            "profile": [
-              "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/RelatedPerson-father-natural-vr"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:dd01d442-6c71-4b1f-9eba-605d08422c91",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "dd01d442-6c71-4b1f-9eba-605d08422c91",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Patient-mother-vr"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/patient-birthPlace",
+            "valueAddress": {
+              "country": "MX"
+            }
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "SS",
+                  "display": "Social Security Number"
+                }
+              ]
+            },
+            "value": "888888888"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "MR",
+                  "display": "Medical Record Number"
+                }
+              ]
+            },
+            "value": "1393655"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "ROMERO LEON",
+            "given": [
+              "ALEJANDRA"
             ]
           },
+          {
+            "use": "maiden",
+            "family": "ROMERO LEON"
+          }
+        ],
+        "birthDate": "1992-10-13",
+        "_birthDate": {
           "extension": [
             {
-              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-relatedperson-birthplace-vr",
-              "valueAddress": {
-                "state": "ZZ",
-                "_state": {
-                  "extension": [
-                    {
-                      "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-jurisdiction-id-vr",
-                      "valueString": "ZZ"
-                    }
-                  ]
-                },
-                "country": "MX"
-              }
-            }
-          ],
-          "identifier": [
-            {
-              "type": {
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
+              "valueCodeableConcept": {
                 "coding": [
                   {
-                    "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
-                    "code": "SS",
-                    "display": "Social Security Number"
+                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
+                    "code": "0"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "address": [
+          {
+            "use": "billing",
+            "line": [
+              "9999 NORTH PRIEST RD236"
+            ],
+            "city": "MESA",
+            "state": "AZ",
+            "_state": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-jurisdiction-id-vr",
+                  "valueString": "AZ"
+                }
+              ]
+            },
+            "postalCode": "85489",
+            "country": "US"
+          },
+          {
+            "use": "home",
+            "line": [
+              "6666 NORTH ORACLE ROAD100"
+            ],
+            "city": "TUCSON",
+            "_city": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/CityCode",
+                  "valuePositiveInt": 77000
+                }
+              ]
+            },
+            "district": "PIMA",
+            "_district": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/DistrictCode",
+                  "valuePositiveInt": 19
+                }
+              ]
+            },
+            "state": "AZ",
+            "_state": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-jurisdiction-id-vr",
+                  "valueString": "AZ"
+                }
+              ]
+            },
+            "postalCode": "85705",
+            "country": "US"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:ee3e752b-afe2-4eff-869a-b6cc38a81879",
+      "resource": {
+        "resourceType": "RelatedPerson",
+        "id": "ee3e752b-afe2-4eff-869a-b6cc38a81879",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/RelatedPerson-father-natural-vr"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-relatedperson-birthplace-vr",
+            "valueAddress": {
+              "state": "ZZ",
+              "_state": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-jurisdiction-id-vr",
+                    "valueString": "ZZ"
                   }
                 ]
               },
-              "value": "888888888"
+              "country": "MX"
             }
-          ],
-          "relationship": [
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "SS",
+                  "display": "Social Security Number"
+                }
+              ]
+            },
+            "value": "888888888"
+          }
+        ],
+        "relationship": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+                "code": "NFTH"
+              }
+            ]
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "CARDENAS OTERO",
+            "given": [
+              "RAMON",
+              "FELIPE"
+            ]
+          }
+        ],
+        "birthDate": "1991-12-19",
+        "_birthDate": {
+          "extension": [
             {
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
+                    "code": "0",
+                    "display": "Edit Passed"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:573b5b79-9c50-4950-b164-015a90e9a675",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "573b5b79-9c50-4950-b164-015a90e9a675",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/bfdr/StructureDefinition/Practitioner-birth-certifier"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/bfdr/StructureDefinition/Extension-role",
+            "valueCode": "certifier"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:61938d9c-3b4a-4ce9-bc69-941d4ea25739",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "61938d9c-3b4a-4ce9-bc69-941d4ea25739",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/bfdr/StructureDefinition/Practitioner-birth-attendant"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/bfdr/StructureDefinition/Extension-role",
+            "valueCode": "attendant"
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI",
+                  "display": "National Provider Identifier"
+                }
+              ]
+            },
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "1932304839"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "text": "HEATHERSTEVENS"
+          }
+        ],
+        "qualification": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "309343006",
+                  "display": "Medical Doctor"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:9ad7d302-b6fd-4ed4-87a5-f424acb1bddb",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "9ad7d302-b6fd-4ed4-87a5-f424acb1bddb",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/bfdr/StructureDefinition/Encounter-maternity"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/bfdr/StructureDefinition/Extension-role",
+            "valueCodeableConcept": {
               "coding": [
                 {
                   "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
-                  "code": "NFTH"
+                  "code": "MTH"
                 }
               ]
             }
-          ],
-          "name": [
-            {
-              "use": "official",
-              "family": "CARDENAS OTERO",
-              "given": [
-                "RAMON",
-                "FELIPE"
+          }
+        ],
+        "participant": [
+          {
+            "type": [
+              {
+                "coding": [
+                  {
+                    "system": "http://loinc.org",
+                    "code": "87287-9"
+                  }
+                ]
+              }
+            ],
+            "individual": {
+              "reference": "urn:uuid:573b5b79-9c50-4950-b164-015a90e9a675"
+            }
+          }
+        ],
+        "hospitalization": {
+          "admitSource": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/admit-source",
+                "code": "other",
+                "display": "Other"
+              }
+            ],
+            "text": "Did not transfer"
+          }
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:ab646851-0232-465b-89e5-cf61a535ec25",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "ab646851-0232-465b-89e5-cf61a535ec25",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/bfdr/StructureDefinition/Encounter-birth"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/bfdr/StructureDefinition/Extension-role",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+                  "code": "CHILD"
+                }
               ]
             }
-          ],
-          "birthDate": "1991-12-19",
-          "_birthDate": {
+          }
+        ],
+        "hospitalization": {
+          "dischargeDisposition": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/discharge-disposition",
+                "code": "other-hcf",
+                "display": "Other healthcare facility"
+              }
+            ],
+            "text": "The patient was transferred to another healthcare facility."
+          }
+        },
+        "location": [
+          {
+            "physicalType": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "22232009",
+                  "display": "Hospital"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:7a1dbfa7-2fed-4182-bcd4-b005ef11893e",
+      "resource": {
+        "resourceType": "Location",
+        "id": "7a1dbfa7-2fed-4182-bcd4-b005ef11893e",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/bfdr/StructureDefinition/Location-bfdr"
+          ]
+        },
+        "identifier": [
+          {
             "extension": [
               {
-                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
-                "valueCodeableConcept": {
-                  "coding": [
-                    {
-                      "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
-                      "code": "0",
-                      "display": "Edit Passed"
-                    }
-                  ]
-                }
+                "url": "http://hl7.org/fhir/us/bfdr/StructureDefinition/Extension-jurisdictional-facility-identifier",
+                "valueString": "1101"
+              }
+            ],
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "1487607784"
+          }
+        ],
+        "name": "NORTHWEST MEDICAL CENTER",
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/us/bfdr/CodeSystem/CodeSystem-local-bfdr-codes",
+                "code": "loc_birth"
               }
             ]
           }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:ce3525e9-f660-4aeb-a35c-39d1c8aeaeef",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "ce3525e9-f660-4aeb-a35c-39d1c8aeaeef",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-mother-married-during-pregnancy"
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "87301-8",
+              "display": "Mother married during pregnancy"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:dd01d442-6c71-4b1f-9eba-605d08422c91"
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-NullFlavor",
+              "code": "UNK",
+              "display": "unknown"
+            }
+          ]
         }
-      },
-      {
-        "fullUrl": "urn:uuid:095f6888-d79c-4db5-88e5-cc43116d4c7a",
-        "resource": {
-          "resourceType": "Practitioner",
-          "id": "095f6888-d79c-4db5-88e5-cc43116d4c7a",
-          "meta": {
-            "profile": [
-              "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Practitioner-vr"
-            ]
-          },
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:43e7fa1b-4a74-4f50-8dda-9650588eb1d8",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "43e7fa1b-4a74-4f50-8dda-9650588eb1d8",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-paternity-acknowledgement-signed"
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "87302-6",
+              "display": "Paternity acknowledgement signed"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:dd01d442-6c71-4b1f-9eba-605d08422c91"
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-NullFlavor",
+              "code": "UNK",
+              "display": "unknown"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:6c451f7b-3d13-445f-a4b0-4018dd0a3263",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "6c451f7b-3d13-445f-a4b0-4018dd0a3263",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Observation-education-level-vr"
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "57712-2",
+              "display": "Highest level of education Mother"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:3fc3ab9c-dc49-40f9-80b7-098cb5b607db"
+        },
+        "valueCodeableConcept": {
           "extension": [
             {
-              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-role-vr",
-              "valueCode": "certifier"
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
+                    "code": "0",
+                    "display": "Edit Passed"
+                  }
+                ]
+              }
+            }
+          ],
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-EducationLevel",
+              "code": "HS",
+              "display": "High School or secondary school degree complete"
             }
           ]
         }
-      },
-      {
-        "fullUrl": "urn:uuid:2a47ace0-e805-4451-b601-769739f5bc6a",
-        "resource": {
-          "resourceType": "Practitioner",
-          "id": "2a47ace0-e805-4451-b601-769739f5bc6a",
-          "meta": {
-            "profile": [
-              "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Practitioner-vr"
-            ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:d12fbcff-da3f-4fe6-9326-b69e693ae71f",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "d12fbcff-da3f-4fe6-9326-b69e693ae71f",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/input-race-and-ethnicity-vr"
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-local-observation-codes-vr",
+              "code": "inputraceandethnicityMother",
+              "display": "Input Race and Ethnicity Person"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:3fc3ab9c-dc49-40f9-80b7-098cb5b607db"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
+                  "code": "HispanicMexican",
+                  "display": "Hispanic Mexican"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                  "code": "Y",
+                  "display": "Yes"
+                }
+              ]
+            }
           },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
+                  "code": "HispanicPuertoRican",
+                  "display": "Hispanic Puerto Rican"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                  "code": "N",
+                  "display": "No"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
+                  "code": "HispanicCuban",
+                  "display": "Hispanic Cuban"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                  "code": "N",
+                  "display": "No"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
+                  "code": "HispanicOther",
+                  "display": "Hispanic Other"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                  "code": "N",
+                  "display": "No"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
+                  "code": "White",
+                  "display": "White"
+                }
+              ]
+            },
+            "valueBoolean": true
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
+                  "code": "BlackOrAfricanAmerican",
+                  "display": "Black Or African American"
+                }
+              ]
+            },
+            "valueBoolean": false
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
+                  "code": "AmericanIndianOrAlaskanNative",
+                  "display": "American Indian Or Alaskan Native"
+                }
+              ]
+            },
+            "valueBoolean": false
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
+                  "code": "AsianIndian",
+                  "display": "Asian Indian"
+                }
+              ]
+            },
+            "valueBoolean": false
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
+                  "code": "Chinese",
+                  "display": "Chinese"
+                }
+              ]
+            },
+            "valueBoolean": false
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
+                  "code": "Filipino",
+                  "display": "Filipino"
+                }
+              ]
+            },
+            "valueBoolean": false
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
+                  "code": "Japanese",
+                  "display": "Japanese"
+                }
+              ]
+            },
+            "valueBoolean": false
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
+                  "code": "Korean",
+                  "display": "Korean"
+                }
+              ]
+            },
+            "valueBoolean": false
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
+                  "code": "Vietnamese",
+                  "display": "Vietnamese"
+                }
+              ]
+            },
+            "valueBoolean": false
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
+                  "code": "OtherAsian",
+                  "display": "Other Asian"
+                }
+              ]
+            },
+            "valueBoolean": false
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
+                  "code": "NativeHawaiian",
+                  "display": "Native Hawaiian"
+                }
+              ]
+            },
+            "valueBoolean": false
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
+                  "code": "GuamanianOrChamorro",
+                  "display": "Guamanian Or Chamorro"
+                }
+              ]
+            },
+            "valueBoolean": false
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
+                  "code": "Samoan",
+                  "display": "Samoan"
+                }
+              ]
+            },
+            "valueBoolean": false
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
+                  "code": "OtherPacificIslander",
+                  "display": "Other Pacific Islander"
+                }
+              ]
+            },
+            "valueBoolean": false
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
+                  "code": "OtherRace",
+                  "display": "Other Race"
+                }
+              ]
+            },
+            "valueBoolean": false
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:718e958a-754d-4ca4-97e1-9760fdd04b2b",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "718e958a-754d-4ca4-97e1-9760fdd04b2b",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Observation-education-level-vr"
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "87300-0",
+              "display": "Highest level of education Father"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:dd01d442-6c71-4b1f-9eba-605d08422c91"
+        },
+        "valueCodeableConcept": {
           "extension": [
             {
-              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-role-vr",
-              "valueCode": "attendant"
-            }
-          ],
-          "identifier": [
-            {
-              "type": {
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
+              "valueCodeableConcept": {
                 "coding": [
                   {
-                    "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
-                    "code": "NPI",
-                    "display": "National Provider Identifier"
-                  }
-                ]
-              },
-              "system": "http://hl7.org/fhir/sid/us-npi",
-              "value": "1932304839"
-            }
-          ],
-          "name": [
-            {
-              "use": "official",
-              "text": "HEATHERSTEVENS"
-            }
-          ],
-          "qualification": [
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://snomed.info/sct",
-                    "code": "112247003",
-                    "display": "Medical Doctor"
+                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
+                    "code": "0",
+                    "display": "Edit Passed"
                   }
                 ]
               }
+            }
+          ],
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-EducationLevel",
+              "code": "HS",
+              "display": "High School or secondary school degree complete"
             }
           ]
         }
-      },
-      {
-        "fullUrl": "urn:uuid:51858982-92fb-4adc-96db-38e45647db6f",
-        "resource": {
-          "resourceType": "Location",
-          "id": "51858982-92fb-4adc-96db-38e45647db6f",
-          "meta": {
-            "profile": [
-              "http://hl7.org/fhir/us/bfdr/StructureDefinition/Location-bfdr"
-            ]
-          },
-          "identifier": [
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1b65d1ba-d86a-4a9c-af33-a0b15456cc6a",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1b65d1ba-d86a-4a9c-af33-a0b15456cc6a",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/input-race-and-ethnicity-vr"
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
             {
-              "extension": [
-                {
-                  "url": "http://hl7.org/fhir/us/bfdr/StructureDefinition/Extension-jurisdictional-facility-identifier",
-                  "valueString": "1101"
-                }
-              ],
-              "system": "http://hl7.org/fhir/sid/us-npi",
-              "value": "1487607784"
-            }
-          ],
-          "name": "NORTHWEST MEDICAL CENTER",
-          "type": [
-            {
-              "coding": [
-                {
-                  "system": "http://hl7.org/fhir/us/bfdr/CodeSystem/CodeSystem-local-bfdr-codes",
-                  "code": "loc_birth"
-                }
-              ]
+              "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-local-observation-codes-vr",
+              "code": "inputraceandethnicityFather",
+              "display": "Input Race and Ethnicity Person"
             }
           ]
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:363a7d77-aaa3-43e2-9832-5b8dc761de63",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "363a7d77-aaa3-43e2-9832-5b8dc761de63",
-          "meta": {
-            "profile": [
-              "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-mother-married-during-pregnancy"
-            ]
-          },
-          "status": "final",
-          "code": {
-            "coding": [
-              {
-                "system": "http://loinc.org",
-                "code": "87301-8",
-                "display": "Mother married during pregnancy"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:076aeec1-72b8-4cff-a197-76c16e48dd29"
-          },
-          "valueCodeableConcept": {
-            "coding": [
-              {
-                "system": "http://terminology.hl7.org/CodeSystem/v3-NullFlavor",
-                "code": "UNK",
-                "display": "unknown"
-              }
-            ]
-          }
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:fbf1d684-0133-40d1-8dbf-9e6d7819b0ea",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "fbf1d684-0133-40d1-8dbf-9e6d7819b0ea",
-          "meta": {
-            "profile": [
-              "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-paternity-acknowledgement-signed"
-            ]
-          },
-          "status": "final",
-          "code": {
-            "coding": [
-              {
-                "system": "http://loinc.org",
-                "code": "87302-6",
-                "display": "Paternity acknowledgement signed"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:076aeec1-72b8-4cff-a197-76c16e48dd29"
-          },
-          "valueCodeableConcept": {
-            "coding": [
-              {
-                "system": "http://terminology.hl7.org/CodeSystem/v3-NullFlavor",
-                "code": "NA",
-                "display": "not applicable"
-              }
-            ]
-          }
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:2719bb32-d7d3-433b-80f4-2f3005032fca",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "2719bb32-d7d3-433b-80f4-2f3005032fca",
-          "meta": {
-            "profile": [
-              "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Observation-education-level-vr"
-            ]
-          },
-          "status": "final",
-          "code": {
-            "coding": [
-              {
-                "system": "http://loinc.org",
-                "code": "57712-2",
-                "display": "Highest level of education Mother"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:fb2bcecb-efee-4289-ac01-52b879295b21"
-          },
-          "valueCodeableConcept": {
-            "extension": [
-              {
-                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
-                "valueCodeableConcept": {
-                  "coding": [
-                    {
-                      "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
-                      "code": "0",
-                      "display": "Edit Passed"
-                    }
-                  ]
+        },
+        "subject": {
+          "reference": "urn:uuid:3fc3ab9c-dc49-40f9-80b7-098cb5b607db"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
+                  "code": "HispanicMexican",
+                  "display": "Hispanic Mexican"
                 }
-              }
-            ],
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                  "code": "Y",
+                  "display": "Yes"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
+                  "code": "HispanicPuertoRican",
+                  "display": "Hispanic Puerto Rican"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                  "code": "N",
+                  "display": "No"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
+                  "code": "HispanicCuban",
+                  "display": "Hispanic Cuban"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                  "code": "N",
+                  "display": "No"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
+                  "code": "HispanicOther",
+                  "display": "Hispanic Other"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                  "code": "N",
+                  "display": "No"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
+                  "code": "White",
+                  "display": "White"
+                }
+              ]
+            },
+            "valueBoolean": true
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
+                  "code": "BlackOrAfricanAmerican",
+                  "display": "Black Or African American"
+                }
+              ]
+            },
+            "valueBoolean": false
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
+                  "code": "AmericanIndianOrAlaskanNative",
+                  "display": "American Indian Or Alaskan Native"
+                }
+              ]
+            },
+            "valueBoolean": false
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
+                  "code": "AsianIndian",
+                  "display": "Asian Indian"
+                }
+              ]
+            },
+            "valueBoolean": false
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
+                  "code": "Chinese",
+                  "display": "Chinese"
+                }
+              ]
+            },
+            "valueBoolean": false
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
+                  "code": "Filipino",
+                  "display": "Filipino"
+                }
+              ]
+            },
+            "valueBoolean": false
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
+                  "code": "Japanese",
+                  "display": "Japanese"
+                }
+              ]
+            },
+            "valueBoolean": false
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
+                  "code": "Korean",
+                  "display": "Korean"
+                }
+              ]
+            },
+            "valueBoolean": false
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
+                  "code": "Vietnamese",
+                  "display": "Vietnamese"
+                }
+              ]
+            },
+            "valueBoolean": false
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
+                  "code": "OtherAsian",
+                  "display": "Other Asian"
+                }
+              ]
+            },
+            "valueBoolean": false
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
+                  "code": "NativeHawaiian",
+                  "display": "Native Hawaiian"
+                }
+              ]
+            },
+            "valueBoolean": false
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
+                  "code": "GuamanianOrChamorro",
+                  "display": "Guamanian Or Chamorro"
+                }
+              ]
+            },
+            "valueBoolean": false
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
+                  "code": "Samoan",
+                  "display": "Samoan"
+                }
+              ]
+            },
+            "valueBoolean": false
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
+                  "code": "OtherPacificIslander",
+                  "display": "Other Pacific Islander"
+                }
+              ]
+            },
+            "valueBoolean": false
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
+                  "code": "OtherRace",
+                  "display": "Other Race"
+                }
+              ]
+            },
+            "valueBoolean": false
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:71642a8e-f4a8-4e97-a340-12513c526012",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "71642a8e-f4a8-4e97-a340-12513c526012",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-number-prenatal-visits"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
             "coding": [
               {
-                "system": "http://terminology.hl7.org/CodeSystem/v3-EducationLevel",
-                "code": "HS",
-                "display": "High School or secondary school degree complete"
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
               }
             ]
           }
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:cf33a6f7-2fa7-4271-a65c-352e2e9bda90",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "cf33a6f7-2fa7-4271-a65c-352e2e9bda90",
-          "meta": {
-            "profile": [
-              "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/input-race-and-ethnicity-vr"
-            ]
-          },
-          "status": "final",
-          "code": {
-            "coding": [
-              {
-                "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-local-observation-codes-vr",
-                "code": "inputraceandethnicityMother",
-                "display": "Input Race and Ethnicity Person"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:fb2bcecb-efee-4289-ac01-52b879295b21"
-          },
-          "component": [
+        ],
+        "code": {
+          "coding": [
             {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
-                    "code": "HispanicMexican",
-                    "display": "Hispanic Mexican"
-                  }
-                ]
-              },
-              "valueCodeableConcept": {
-                "coding": [
-                  {
-                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
-                    "code": "Y",
-                    "display": "Yes"
-                  }
-                ]
-              }
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
-                    "code": "HispanicPuertoRican",
-                    "display": "Hispanic Puerto Rican"
-                  }
-                ]
-              },
-              "valueCodeableConcept": {
-                "coding": [
-                  {
-                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
-                    "code": "N",
-                    "display": "No"
-                  }
-                ]
-              }
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
-                    "code": "HispanicCuban",
-                    "display": "Hispanic Cuban"
-                  }
-                ]
-              },
-              "valueCodeableConcept": {
-                "coding": [
-                  {
-                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
-                    "code": "N",
-                    "display": "No"
-                  }
-                ]
-              }
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
-                    "code": "HispanicOther",
-                    "display": "Hispanic Other"
-                  }
-                ]
-              },
-              "valueCodeableConcept": {
-                "coding": [
-                  {
-                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
-                    "code": "N",
-                    "display": "No"
-                  }
-                ]
-              }
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
-                    "code": "White",
-                    "display": "White"
-                  }
-                ]
-              },
-              "valueBoolean": true
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
-                    "code": "BlackOrAfricanAmerican",
-                    "display": "Black Or African American"
-                  }
-                ]
-              },
-              "valueBoolean": false
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
-                    "code": "AmericanIndianOrAlaskanNative",
-                    "display": "American Indian Or Alaskan Native"
-                  }
-                ]
-              },
-              "valueBoolean": false
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
-                    "code": "AsianIndian",
-                    "display": "Asian Indian"
-                  }
-                ]
-              },
-              "valueBoolean": false
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
-                    "code": "Chinese",
-                    "display": "Chinese"
-                  }
-                ]
-              },
-              "valueBoolean": false
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
-                    "code": "Filipino",
-                    "display": "Filipino"
-                  }
-                ]
-              },
-              "valueBoolean": false
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
-                    "code": "Japanese",
-                    "display": "Japanese"
-                  }
-                ]
-              },
-              "valueBoolean": false
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
-                    "code": "Korean",
-                    "display": "Korean"
-                  }
-                ]
-              },
-              "valueBoolean": false
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
-                    "code": "Vietnamese",
-                    "display": "Vietnamese"
-                  }
-                ]
-              },
-              "valueBoolean": false
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
-                    "code": "OtherAsian",
-                    "display": "Other Asian"
-                  }
-                ]
-              },
-              "valueBoolean": false
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
-                    "code": "NativeHawaiian",
-                    "display": "Native Hawaiian"
-                  }
-                ]
-              },
-              "valueBoolean": false
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
-                    "code": "GuamanianOrChamorro",
-                    "display": "Guamanian Or Chamorro"
-                  }
-                ]
-              },
-              "valueBoolean": false
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
-                    "code": "Samoan",
-                    "display": "Samoan"
-                  }
-                ]
-              },
-              "valueBoolean": false
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
-                    "code": "OtherPacificIslander",
-                    "display": "Other Pacific Islander"
-                  }
-                ]
-              },
-              "valueBoolean": false
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
-                    "code": "OtherRace",
-                    "display": "Other Race"
-                  }
-                ]
-              },
-              "valueBoolean": false
+              "system": "http://loinc.org",
+              "code": "68493-6",
+              "display": "http://loinc.org"
             }
           ]
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:480f051d-cf85-458d-841a-838b869e326c",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "480f051d-cf85-458d-841a-838b869e326c",
-          "meta": {
-            "profile": [
-              "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Observation-education-level-vr"
-            ]
-          },
-          "status": "final",
-          "code": {
-            "coding": [
-              {
-                "system": "http://loinc.org",
-                "code": "87300-0",
-                "display": "Highest level of education Father"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:076aeec1-72b8-4cff-a197-76c16e48dd29"
-          },
-          "valueCodeableConcept": {
-            "extension": [
-              {
-                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
-                "valueCodeableConcept": {
-                  "coding": [
-                    {
-                      "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
-                      "code": "0",
-                      "display": "Edit Passed"
-                    }
-                  ]
-                }
-              }
-            ],
-            "coding": [
-              {
-                "system": "http://terminology.hl7.org/CodeSystem/v3-EducationLevel",
-                "code": "HS",
-                "display": "High School or secondary school degree complete"
-              }
-            ]
-          }
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:87579d95-fe16-42b0-8f49-4165a7672701",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "87579d95-fe16-42b0-8f49-4165a7672701",
-          "meta": {
-            "profile": [
-              "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/input-race-and-ethnicity-vr"
-            ]
-          },
-          "status": "final",
-          "code": {
-            "coding": [
-              {
-                "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-local-observation-codes-vr",
-                "code": "inputraceandethnicityFather",
-                "display": "Input Race and Ethnicity Person"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:fb2bcecb-efee-4289-ac01-52b879295b21"
-          },
-          "component": [
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
-                    "code": "HispanicMexican",
-                    "display": "Hispanic Mexican"
-                  }
-                ]
-              },
-              "valueCodeableConcept": {
-                "coding": [
-                  {
-                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
-                    "code": "Y",
-                    "display": "Yes"
-                  }
-                ]
-              }
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
-                    "code": "HispanicPuertoRican",
-                    "display": "Hispanic Puerto Rican"
-                  }
-                ]
-              },
-              "valueCodeableConcept": {
-                "coding": [
-                  {
-                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
-                    "code": "N",
-                    "display": "No"
-                  }
-                ]
-              }
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
-                    "code": "HispanicCuban",
-                    "display": "Hispanic Cuban"
-                  }
-                ]
-              },
-              "valueCodeableConcept": {
-                "coding": [
-                  {
-                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
-                    "code": "N",
-                    "display": "No"
-                  }
-                ]
-              }
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
-                    "code": "HispanicOther",
-                    "display": "Hispanic Other"
-                  }
-                ]
-              },
-              "valueCodeableConcept": {
-                "coding": [
-                  {
-                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
-                    "code": "N",
-                    "display": "No"
-                  }
-                ]
-              }
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
-                    "code": "White",
-                    "display": "White"
-                  }
-                ]
-              },
-              "valueBoolean": true
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
-                    "code": "BlackOrAfricanAmerican",
-                    "display": "Black Or African American"
-                  }
-                ]
-              },
-              "valueBoolean": false
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
-                    "code": "AmericanIndianOrAlaskanNative",
-                    "display": "American Indian Or Alaskan Native"
-                  }
-                ]
-              },
-              "valueBoolean": false
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
-                    "code": "AsianIndian",
-                    "display": "Asian Indian"
-                  }
-                ]
-              },
-              "valueBoolean": false
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
-                    "code": "Chinese",
-                    "display": "Chinese"
-                  }
-                ]
-              },
-              "valueBoolean": false
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
-                    "code": "Filipino",
-                    "display": "Filipino"
-                  }
-                ]
-              },
-              "valueBoolean": false
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
-                    "code": "Japanese",
-                    "display": "Japanese"
-                  }
-                ]
-              },
-              "valueBoolean": false
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
-                    "code": "Korean",
-                    "display": "Korean"
-                  }
-                ]
-              },
-              "valueBoolean": false
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
-                    "code": "Vietnamese",
-                    "display": "Vietnamese"
-                  }
-                ]
-              },
-              "valueBoolean": false
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
-                    "code": "OtherAsian",
-                    "display": "Other Asian"
-                  }
-                ]
-              },
-              "valueBoolean": false
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
-                    "code": "NativeHawaiian",
-                    "display": "Native Hawaiian"
-                  }
-                ]
-              },
-              "valueBoolean": false
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
-                    "code": "GuamanianOrChamorro",
-                    "display": "Guamanian Or Chamorro"
-                  }
-                ]
-              },
-              "valueBoolean": false
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
-                    "code": "Samoan",
-                    "display": "Samoan"
-                  }
-                ]
-              },
-              "valueBoolean": false
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
-                    "code": "OtherPacificIslander",
-                    "display": "Other Pacific Islander"
-                  }
-                ]
-              },
-              "valueBoolean": false
-            },
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
-                    "code": "OtherRace",
-                    "display": "Other Race"
-                  }
-                ]
-              },
-              "valueBoolean": false
-            }
-          ]
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:cc66468a-b41c-4770-bfca-e5294f35c290",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "cc66468a-b41c-4770-bfca-e5294f35c290",
-          "meta": {
-            "profile": [
-              "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-number-prenatal-visits"
-            ]
-          },
-          "status": "final",
-          "category": [
-            {
-              "coding": [
-                {
-                  "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                  "code": "vital-signs"
-                }
-              ]
-            }
-          ],
-          "code": {
-            "coding": [
-              {
-                "system": "http://loinc.org",
-                "code": "68493-6",
-                "display": "http://loinc.org"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:076aeec1-72b8-4cff-a197-76c16e48dd29"
-          },
-          "valueInteger": 0,
-          "_valueInteger": {
-            "extension": [
-              {
-                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
-                "valueCodeableConcept": {
-                  "coding": [
-                    {
-                      "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
-                      "code": "0",
-                      "display": "Edit Passed"
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:26a36236-cf14-476e-9496-26d66cfe5c65",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "26a36236-cf14-476e-9496-26d66cfe5c65",
-          "meta": {
-            "profile": [
-              "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-mother-height"
-            ]
-          },
-          "status": "final",
-          "category": [
-            {
-              "coding": [
-                {
-                  "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                  "code": "vital-signs"
-                }
-              ]
-            },
-            {
-              "coding": [
-                {
-                  "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                  "code": "vital-signs"
-                }
-              ]
-            },
-            {
-              "coding": [
-                {
-                  "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                  "code": "vital-signs"
-                }
-              ]
-            }
-          ],
-          "code": {
-            "coding": [
-              {
-                "system": "http://loinc.org",
-                "code": "8302-2",
-                "display": "Mother height"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:076aeec1-72b8-4cff-a197-76c16e48dd29"
-          },
-          "focus": [
-            {
-              "reference": "urn:uuid:076aeec1-72b8-4cff-a197-76c16e48dd29"
-            }
-          ],
-          "valueQuantity": {
-            "extension": [
-              {
-                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
-                "valueCodeableConcept": {
-                  "coding": [
-                    {
-                      "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
-                      "code": "0",
-                      "display": "Edit Passed"
-                    }
-                  ]
-                }
-              }
-            ],
-            "value": 61,
-            "unit": "in_i",
-            "code": "in_i"
-          }
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:a2716847-4446-4eed-852a-79cbfd039ddb",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "a2716847-4446-4eed-852a-79cbfd039ddb",
-          "category": [
-            {
-              "coding": [
-                {
-                  "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                  "code": "vital-signs"
-                }
-              ]
-            }
-          ],
-          "code": {
-            "coding": [
-              {
-                "system": "http://loinc.org",
-                "code": "56077-1"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:076aeec1-72b8-4cff-a197-76c16e48dd29"
-          },
-          "valueQuantity": {
-            "extension": [
-              {
-                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
-                "valueCodeableConcept": {
-                  "coding": [
-                    {
-                      "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
-                      "code": "0",
-                      "display": "Edit Passed"
-                    }
-                  ]
-                }
-              }
-            ],
-            "value": 100,
-            "unit": "lb_av",
-            "code": "lb_av"
-          }
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:740126d0-5975-406b-9516-0a08b8a4f80a",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "740126d0-5975-406b-9516-0a08b8a4f80a",
-          "category": [
-            {
-              "coding": [
-                {
-                  "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                  "code": "vital-signs"
-                }
-              ]
-            }
-          ],
-          "code": {
-            "coding": [
-              {
-                "system": "http://loinc.org",
-                "code": "69461-2"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:076aeec1-72b8-4cff-a197-76c16e48dd29"
-          },
-          "valueQuantity": {
-            "extension": [
-              {
-                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
-                "valueCodeableConcept": {
-                  "coding": [
-                    {
-                      "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
-                      "code": "0",
-                      "display": "Edit Passed"
-                    }
-                  ]
-                }
-              }
-            ],
-            "value": 127,
-            "unit": "lb_av",
-            "code": "lb_av"
-          }
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:8ce95e7d-7960-447f-b5ca-62c66d7217ad",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "8ce95e7d-7960-447f-b5ca-62c66d7217ad",
-          "meta": {
-            "profile": [
-              "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-mother-received-wic-food"
-            ]
-          },
-          "status": "final",
-          "code": {
-            "coding": [
-              {
-                "system": "http://loinc.org",
-                "code": "87303-4",
-                "display": "Mother received WIC food"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:076aeec1-72b8-4cff-a197-76c16e48dd29"
-          },
-          "focus": [
-            {
-              "reference": "urn:uuid:076aeec1-72b8-4cff-a197-76c16e48dd29"
-            }
-          ],
-          "valueCodeableConcept": {
-            "coding": [
-              {
-                "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
-                "code": "N",
-                "display": "No"
-              }
-            ]
-          }
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:80e428a6-23f2-4dc1-a57b-5966606efb2b",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "80e428a6-23f2-4dc1-a57b-5966606efb2b",
-          "meta": {
-            "profile": [
-              "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-number-births-now-living"
-            ]
-          },
-          "status": "final",
-          "code": {
-            "coding": [
-              {
-                "system": "http://loinc.org",
-                "code": "11638-4",
-                "display": "Number of births now living"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:076aeec1-72b8-4cff-a197-76c16e48dd29"
-          },
-          "focus": [
-            {
-              "reference": "urn:uuid:076aeec1-72b8-4cff-a197-76c16e48dd29"
-            }
-          ],
-          "valueInteger": 3
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:b1d835c6-c26d-4265-bbe2-664228f4f4ac",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "b1d835c6-c26d-4265-bbe2-664228f4f4ac",
-          "meta": {
-            "profile": [
-              "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-number-births-now-dead"
-            ]
-          },
-          "status": "final",
-          "category": [
-            {
-              "coding": [
-                {
-                  "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                  "code": "vital-signs"
-                }
-              ]
-            }
-          ],
-          "code": {
-            "coding": [
-              {
-                "system": "http://loinc.org",
-                "code": "68496-9",
-                "display": "http://loinc.org"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:076aeec1-72b8-4cff-a197-76c16e48dd29"
-          },
-          "valueInteger": 0
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:7ee68b1d-f249-4f71-8205-bc314c66d570",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "7ee68b1d-f249-4f71-8205-bc314c66d570",
-          "meta": {
-            "profile": [
-              "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-number-other-pregnancy-outcomes"
-            ]
-          },
-          "status": "final",
-          "category": [
-            {
-              "coding": [
-                {
-                  "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                  "code": "vital-signs"
-                }
-              ]
-            }
-          ],
-          "code": {
-            "coding": [
-              {
-                "system": "http://loinc.org",
-                "code": "69043-8",
-                "display": "http://loinc.org"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:076aeec1-72b8-4cff-a197-76c16e48dd29"
-          },
-          "valueInteger": 0
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:b16fc058-e53c-4b81-b6f8-4158b7e00233",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "b16fc058-e53c-4b81-b6f8-4158b7e00233",
-          "meta": {
-            "profile": [
-              "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-date-of-last-live-birth"
-            ]
-          },
+        },
+        "subject": {
+          "reference": "urn:uuid:dd01d442-6c71-4b1f-9eba-605d08422c91"
+        },
+        "valueInteger": 0,
+        "_valueInteger": {
           "extension": [
             {
-              "extension": [
-                {
-                  "extension": [
-                    {
-                      "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
-                      "valueCode": "temp-unknown"
-                    }
-                  ],
-                  "url": "year"
-                },
-                {
-                  "extension": [
-                    {
-                      "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
-                      "valueCode": "temp-unknown"
-                    }
-                  ],
-                  "url": "month"
-                },
-                {
-                  "extension": [
-                    {
-                      "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
-                      "valueCode": "temp-unknown"
-                    }
-                  ],
-                  "url": "day"
-                }
-              ],
-              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-partial-date-vr"
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
+                    "code": "0",
+                    "display": "Edit Passed"
+                  }
+                ]
+              }
             }
-          ],
-          "status": "final",
-          "code": {
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:0d6df8b5-e84a-4516-8258-84280a51c079",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "0d6df8b5-e84a-4516-8258-84280a51c079",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-mother-height"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
             "coding": [
               {
-                "system": "http://loinc.org",
-                "code": "68499-3",
-                "display": "Date of last live birth"
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
               }
             ]
           },
-          "subject": {
-            "reference": "urn:uuid:076aeec1-72b8-4cff-a197-76c16e48dd29"
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
           },
-          "focus": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
             {
-              "reference": "urn:uuid:076aeec1-72b8-4cff-a197-76c16e48dd29"
+              "system": "http://loinc.org",
+              "code": "8302-2",
+              "display": "Mother height"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:dd01d442-6c71-4b1f-9eba-605d08422c91"
+        },
+        "focus": [
+          {
+            "reference": "urn:uuid:dd01d442-6c71-4b1f-9eba-605d08422c91"
+          }
+        ],
+        "valueQuantity": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
+                    "code": "0",
+                    "display": "Edit Passed"
+                  }
+                ]
+              }
             }
           ],
-          "valueDateTime": "2015-06",
-          "_valueDateTime": {
+          "value": 61,
+          "unit": "in_i",
+          "code": "in_i"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:bdc3a91d-b4e8-411c-8521-5ee9771ab6aa",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "bdc3a91d-b4e8-411c-8521-5ee9771ab6aa",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "56077-1"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:dd01d442-6c71-4b1f-9eba-605d08422c91"
+        },
+        "valueQuantity": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
+                    "code": "0",
+                    "display": "Edit Passed"
+                  }
+                ]
+              }
+            }
+          ],
+          "value": 100,
+          "unit": "lb_av",
+          "code": "lb_av"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:e060aad7-1bf4-42d5-8f39-384607202851",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "e060aad7-1bf4-42d5-8f39-384607202851",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "69461-2"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:dd01d442-6c71-4b1f-9eba-605d08422c91"
+        },
+        "valueQuantity": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
+                    "code": "0",
+                    "display": "Edit Passed"
+                  }
+                ]
+              }
+            }
+          ],
+          "value": 127,
+          "unit": "lb_av",
+          "code": "lb_av"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:58cccf01-58c8-4196-808d-63c0e1bf2ee5",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "58cccf01-58c8-4196-808d-63c0e1bf2ee5",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-mother-received-wic-food"
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "87303-4",
+              "display": "Mother received WIC food"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:dd01d442-6c71-4b1f-9eba-605d08422c91"
+        },
+        "focus": [
+          {
+            "reference": "urn:uuid:dd01d442-6c71-4b1f-9eba-605d08422c91"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+              "code": "N",
+              "display": "No"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:6e40b433-b74b-4eb6-b1b8-72f7b1821339",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "6e40b433-b74b-4eb6-b1b8-72f7b1821339",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-number-births-now-living"
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "11638-4",
+              "display": "Number of births now living"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:dd01d442-6c71-4b1f-9eba-605d08422c91"
+        },
+        "focus": [
+          {
+            "reference": "urn:uuid:dd01d442-6c71-4b1f-9eba-605d08422c91"
+          }
+        ],
+        "valueInteger": 3
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:8264c25e-dc23-452b-ba3e-30185031f9d4",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "8264c25e-dc23-452b-ba3e-30185031f9d4",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-number-births-now-dead"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "68496-9",
+              "display": "http://loinc.org"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:dd01d442-6c71-4b1f-9eba-605d08422c91"
+        },
+        "valueInteger": 0
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:9cda84a6-163a-4f51-aeb9-05d97f4bb1a3",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "9cda84a6-163a-4f51-aeb9-05d97f4bb1a3",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-number-other-pregnancy-outcomes"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "69043-8",
+              "display": "http://loinc.org"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:dd01d442-6c71-4b1f-9eba-605d08422c91"
+        },
+        "valueInteger": 0
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:4a4c81af-e3c0-4c92-9d50-c02a9c2c5d87",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "4a4c81af-e3c0-4c92-9d50-c02a9c2c5d87",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-date-of-last-live-birth"
+          ]
+        },
+        "extension": [
+          {
             "extension": [
               {
                 "extension": [
                   {
-                    "extension": [
-                      {
-                        "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
-                        "valueCode": "temp-unknown"
-                      }
-                    ],
-                    "url": "day"
-                  },
-                  {
-                    "extension": [
-                      {
-                        "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
-                        "valueCode": "temp-unknown"
-                      }
-                    ],
-                    "url": "month"
-                  },
-                  {
-                    "extension": [
-                      {
-                        "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
-                        "valueCode": "temp-unknown"
-                      }
-                    ],
-                    "url": "year"
-                  },
-                  {
-                    "extension": [
-                      {
-                        "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
-                        "valueCode": "temp-unknown"
-                      }
-                    ],
-                    "url": "time"
+                    "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                    "valueCode": "temp-unknown"
                   }
                 ],
-                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-partial-date-time-vr"
-              }
-            ]
-          }
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:25eeea1d-2470-4c81-b486-67a17b73d467",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "25eeea1d-2470-4c81-b486-67a17b73d467",
-          "code": {
-            "coding": [
+                "url": "year"
+              },
               {
-                "system": "http://loinc.org",
-                "code": "64794-1"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:076aeec1-72b8-4cff-a197-76c16e48dd29"
-          },
-          "focus": [
-            {
-              "reference": "urn:uuid:fb2bcecb-efee-4289-ac01-52b879295b21"
-            }
-          ],
-          "valueInteger": 0
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:e35f384d-b066-4740-80f9-1229f8e8f4a8",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "e35f384d-b066-4740-80f9-1229f8e8f4a8",
-          "code": {
-            "coding": [
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                    "valueCode": "temp-unknown"
+                  }
+                ],
+                "url": "month"
+              },
               {
-                "system": "http://loinc.org",
-                "code": "87298-6"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:076aeec1-72b8-4cff-a197-76c16e48dd29"
-          },
-          "focus": [
-            {
-              "reference": "urn:uuid:fb2bcecb-efee-4289-ac01-52b879295b21"
-            }
-          ],
-          "valueInteger": 0
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:09c67e23-8a83-44be-ab7e-190a5c1b7a22",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "09c67e23-8a83-44be-ab7e-190a5c1b7a22",
-          "code": {
-            "coding": [
-              {
-                "system": "http://loinc.org",
-                "code": "87299-4"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:076aeec1-72b8-4cff-a197-76c16e48dd29"
-          },
-          "focus": [
-            {
-              "reference": "urn:uuid:fb2bcecb-efee-4289-ac01-52b879295b21"
-            }
-          ],
-          "valueInteger": 0
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:1e2b6500-e6d5-4196-87b8-a92b61068f26",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "1e2b6500-e6d5-4196-87b8-a92b61068f26",
-          "code": {
-            "coding": [
-              {
-                "system": "http://loinc.org",
-                "code": "64795-8"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:076aeec1-72b8-4cff-a197-76c16e48dd29"
-          },
-          "focus": [
-            {
-              "reference": "urn:uuid:fb2bcecb-efee-4289-ac01-52b879295b21"
-            }
-          ],
-          "valueInteger": 0
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:669b0644-19b3-44c4-8657-2bdc24e1567d",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "669b0644-19b3-44c4-8657-2bdc24e1567d",
-          "meta": {
-            "profile": [
-              "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-last-menstrual-period"
-            ]
-          },
-          "status": "final",
-          "code": {
-            "coding": [
-              {
-                "system": "http://loinc.org",
-                "code": "8665-2",
-                "display": "Mother Prenatal"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:076aeec1-72b8-4cff-a197-76c16e48dd29"
-          },
-          "valueDateTime": "2019-07-31"
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:db08120a-6a42-47d2-94d4-64ab3206df81",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "db08120a-6a42-47d2-94d4-64ab3206df81",
-          "code": {
-            "coding": [
-              {
-                "system": "http://loinc.org",
-                "code": "73775-9"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:076aeec1-72b8-4cff-a197-76c16e48dd29"
-          },
-          "valueCodeableConcept": {
-            "coding": [
-              {
-                "system": "http://snomed.info/sct",
-                "code": "260413007"
-              }
-            ]
-          }
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:cd6681ab-c8cb-4e5d-b849-b404df10f525",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "cd6681ab-c8cb-4e5d-b849-b404df10f525",
-          "meta": {
-            "profile": [
-              "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-number-previous-cesareans"
-            ]
-          },
-          "status": "final",
-          "code": {
-            "coding": [
-              {
-                "system": "http://loinc.org",
-                "code": "68497-7",
-                "display": "Number of Previous Cesareans"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:076aeec1-72b8-4cff-a197-76c16e48dd29"
-          },
-          "focus": [
-            {
-              "reference": "urn:uuid:076aeec1-72b8-4cff-a197-76c16e48dd29"
-            }
-          ],
-          "valueInteger": 0,
-          "_valueInteger": {
-            "extension": [
-              {
-                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
-                "valueCodeableConcept": {
-                  "coding": [
-                    {
-                      "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
-                      "code": "0",
-                      "display": "Edit Passed"
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:6666a08c-e9e4-470a-a066-e196be223287",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "6666a08c-e9e4-470a-a066-e196be223287",
-          "code": {
-            "coding": [
-              {
-                "system": "http://loinc.org",
-                "code": "72519-2"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:076aeec1-72b8-4cff-a197-76c16e48dd29"
-          },
-          "valueCodeableConcept": {
-            "coding": [
-              {
-                "system": "http://snomed.info/sct",
-                "code": "260413007"
-              }
-            ]
-          }
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:d33c043a-2e95-4a29-b0de-7d7893521c82",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "d33c043a-2e95-4a29-b0de-7d7893521c82",
-          "code": {
-            "coding": [
-              {
-                "system": "http://loinc.org",
-                "code": "73814-6"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:076aeec1-72b8-4cff-a197-76c16e48dd29"
-          },
-          "valueCodeableConcept": {
-            "coding": [
-              {
-                "system": "http://snomed.info/sct",
-                "code": "260413007"
-              }
-            ]
-          }
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:2f5959cf-65a6-4b5e-8d8a-00e24ab071dd",
-        "resource": {
-          "resourceType": "Procedure",
-          "id": "2f5959cf-65a6-4b5e-8d8a-00e24ab071dd",
-          "category": {
-            "coding": [
-              {
-                "system": "http://loinc.org",
-                "code": "73813-8"
-              }
-            ]
-          },
-          "code": {
-            "coding": [
-              {
-                "system": "http://snomed.info/sct",
-                "code": "18946005"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:076aeec1-72b8-4cff-a197-76c16e48dd29"
-          }
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:da3c0606-18f1-413f-ad90-fde3db15bbcf",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "da3c0606-18f1-413f-ad90-fde3db15bbcf",
-          "meta": {
-            "profile": [
-              "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-fetal-presentation"
-            ]
-          },
-          "status": "final",
-          "code": {
-            "coding": [
-              {
-                "system": "http://loinc.org",
-                "code": "73761-9",
-                "display": "Fetal Presentation"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:076aeec1-72b8-4cff-a197-76c16e48dd29"
-          },
-          "valueCodeableConcept": {
-            "coding": [
-              {
-                "system": "http://snomed.info/sct",
-                "code": "6096002",
-                "display": "Breech presentation (finding)"
-              }
-            ]
-          }
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:648b472b-81fe-44d9-93d7-563a5eae0fe6",
-        "resource": {
-          "resourceType": "Procedure",
-          "id": "648b472b-81fe-44d9-93d7-563a5eae0fe6",
-          "category": {
-            "coding": [
-              {
-                "system": "http://loinc.org",
-                "code": "73762-7"
-              }
-            ]
-          },
-          "code": {
-            "coding": [
-              {
-                "system": "http://snomed.info/sct",
-                "code": "700000006",
-                "display": "Vaginal delivery of fetus (procedure)"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:076aeec1-72b8-4cff-a197-76c16e48dd29"
-          }
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:b42ab91c-ac7f-46ce-a6cd-2024bf0d6746",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "b42ab91c-ac7f-46ce-a6cd-2024bf0d6746",
-          "code": {
-            "coding": [
-              {
-                "system": "http://loinc.org",
-                "code": "73781-7"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:076aeec1-72b8-4cff-a197-76c16e48dd29"
-          },
-          "valueCodeableConcept": {
-            "coding": [
-              {
-                "system": "http://snomed.info/sct",
-                "code": "260413007"
-              }
-            ]
-          }
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:a8ef5601-086f-4002-a9da-23984c1d96ce",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "a8ef5601-086f-4002-a9da-23984c1d96ce",
-          "category": [
-            {
-              "coding": [
-                {
-                  "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                  "code": "vital-signs"
-                }
-              ]
-            }
-          ],
-          "code": {
-            "coding": [
-              {
-                "system": "http://loinc.org",
-                "code": "8339-4"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:fb2bcecb-efee-4289-ac01-52b879295b21"
-          },
-          "valueQuantity": {
-            "value": 539,
-            "unit": "g",
-            "code": "g"
-          }
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:1d72e8a4-ca15-489c-8da4-abae23b204d3",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "1d72e8a4-ca15-489c-8da4-abae23b204d3",
-          "meta": {
-            "profile": [
-              "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-gestational-age-at-delivery"
-            ]
-          },
-          "status": "final",
-          "code": {
-            "coding": [
-              {
-                "system": "http://loinc.org",
-                "code": "11884-4",
-                "display": "Gestational age at delivery"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:076aeec1-72b8-4cff-a197-76c16e48dd29"
-          },
-          "focus": [
-            {
-              "reference": "urn:uuid:076aeec1-72b8-4cff-a197-76c16e48dd29"
-            }
-          ],
-          "valueQuantity": {
-            "extension": [
-              {
-                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
-                "valueCodeableConcept": {
-                  "coding": [
-                    {
-                      "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
-                      "code": "0off",
-                      "display": "Off"
-                    }
-                  ]
-                }
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                    "valueCode": "temp-unknown"
+                  }
+                ],
+                "url": "day"
               }
             ],
-            "value": 21,
-            "system": "http://unitsofmeasure.org",
-            "code": "wk"
+            "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-partial-date-vr"
           }
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:00652b86-2ae0-43fb-8239-308a1d71b655",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "00652b86-2ae0-43fb-8239-308a1d71b655",
-          "meta": {
-            "profile": [
-              "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-apgar-score"
-            ]
-          },
-          "status": "final",
-          "category": [
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
             {
-              "coding": [
-                {
-                  "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                  "code": "vital-signs"
-                }
-              ]
+              "system": "http://loinc.org",
+              "code": "68499-3",
+              "display": "Date of last live birth"
             }
-          ],
-          "code": {
-            "coding": [
-              {
-                "system": "http://loinc.org",
-                "code": "9274-2",
-                "display": "5 minute Apgar Score"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:fb2bcecb-efee-4289-ac01-52b879295b21"
-          },
-          "valueInteger": 1
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:6e4d0fde-a573-49d2-b246-0759cf6f8275",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "6e4d0fde-a573-49d2-b246-0759cf6f8275",
-          "meta": {
-            "profile": [
-              "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-apgar-score"
-            ]
-          },
-          "status": "final",
-          "category": [
-            {
-              "coding": [
-                {
-                  "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                  "code": "vital-signs"
-                }
-              ]
-            }
-          ],
-          "code": {
-            "coding": [
-              {
-                "system": "http://loinc.org",
-                "code": "9271-8",
-                "display": "10 minute Apgar Score"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:fb2bcecb-efee-4289-ac01-52b879295b21"
-          },
-          "valueInteger": 4
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:6e2fe11e-ef51-43be-8705-429c385808cc",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "6e2fe11e-ef51-43be-8705-429c385808cc",
-          "meta": {
-            "profile": [
-              "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-number-live-births-this-delivery"
-            ]
-          },
-          "status": "final",
-          "code": {
-            "coding": [
-              {
-                "system": "http://loinc.org",
-                "code": "73773-4",
-                "display": "Number live born"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:076aeec1-72b8-4cff-a197-76c16e48dd29"
-          },
-          "valueInteger": -1
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:00626801-ed84-4b7e-bfe8-3a127a5f6381",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "00626801-ed84-4b7e-bfe8-3a127a5f6381",
-          "code": {
-            "coding": [
-              {
-                "system": "http://loinc.org",
-                "code": "73812-0"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:fb2bcecb-efee-4289-ac01-52b879295b21"
-          },
-          "valueCodeableConcept": {
-            "coding": [
-              {
-                "system": "http://snomed.info/sct",
-                "code": "260413007"
-              }
-            ]
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:dd01d442-6c71-4b1f-9eba-605d08422c91"
+        },
+        "focus": [
+          {
+            "reference": "urn:uuid:dd01d442-6c71-4b1f-9eba-605d08422c91"
           }
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:acf8a7b2-4496-4f46-a871-922b7cb841ad",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "acf8a7b2-4496-4f46-a871-922b7cb841ad",
-          "code": {
-            "coding": [
-              {
-                "system": "http://loinc.org",
-                "code": "73780-9"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:fb2bcecb-efee-4289-ac01-52b879295b21"
-          },
-          "valueCodeableConcept": {
-            "coding": [
-              {
-                "system": "http://snomed.info/sct",
-                "code": "260413007"
-              }
-            ]
+        ],
+        "valueDateTime": "2015-06"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:b0c6ab4f-cd7b-40d3-a4e8-c8386ab4a17b",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "b0c6ab4f-cd7b-40d3-a4e8-c8386ab4a17b",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "64794-1"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:dd01d442-6c71-4b1f-9eba-605d08422c91"
+        },
+        "focus": [
+          {
+            "reference": "urn:uuid:3fc3ab9c-dc49-40f9-80b7-098cb5b607db"
           }
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:c4a7b60d-14ed-4103-8ae4-fc0bb416629b",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "c4a7b60d-14ed-4103-8ae4-fc0bb416629b",
-          "meta": {
-            "profile": [
-              "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-infant-living"
-            ]
-          },
-          "status": "final",
-          "code": {
-            "coding": [
-              {
-                "system": "http://loinc.org",
-                "code": "73757-7",
-                "display": "Infant living"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:fb2bcecb-efee-4289-ac01-52b879295b21"
-          },
-          "valueBoolean": true
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:617b4661-5393-4980-8d49-2405505d8127",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "617b4661-5393-4980-8d49-2405505d8127",
-          "meta": {
-            "profile": [
-              "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-infant-breastfed-at-discharge"
-            ]
-          },
-          "status": "final",
-          "code": {
-            "coding": [
-              {
-                "system": "http://loinc.org",
-                "code": "73756-9",
-                "display": "Infant breastfed at discharge"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:076aeec1-72b8-4cff-a197-76c16e48dd29"
-          },
-          "focus": [
+        ],
+        "valueInteger": 0
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:e363a700-f798-45ab-a2e5-78e7e6f57619",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "e363a700-f798-45ab-a2e5-78e7e6f57619",
+        "code": {
+          "coding": [
             {
-              "reference": "urn:uuid:076aeec1-72b8-4cff-a197-76c16e48dd29"
-            }
-          ],
-          "valueBoolean": false
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:21683828-6b26-4337-a18e-5d36f8de1448",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "21683828-6b26-4337-a18e-5d36f8de1448",
-          "extension": [
-            {
-              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-role-vr",
-              "valueCodeableConcept": {
-                "coding": [
-                  {
-                    "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
-                    "code": "MTH"
-                  }
-                ]
-              }
-            }
-          ],
-          "code": {
-            "coding": [
-              {
-                "system": "http://loinc.org",
-                "code": "21843-8"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:076aeec1-72b8-4cff-a197-76c16e48dd29"
-          },
-          "focus": [
-            {
-              "reference": "urn:uuid:fb2bcecb-efee-4289-ac01-52b879295b21"
+              "system": "http://loinc.org",
+              "code": "87298-6"
             }
           ]
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:0a299946-735b-4d2c-a429-faaf49766b45",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "0a299946-735b-4d2c-a429-faaf49766b45",
-          "extension": [
-            {
-              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-role-vr",
-              "valueCodeableConcept": {
-                "coding": [
-                  {
-                    "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
-                    "code": "FTH"
-                  }
-                ]
-              }
-            }
-          ],
-          "code": {
-            "coding": [
-              {
-                "system": "http://loinc.org",
-                "code": "21843-8"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:763c0fb0-3118-469a-a985-b053727e1fe7"
-          },
-          "focus": [
-            {
-              "reference": "urn:uuid:fb2bcecb-efee-4289-ac01-52b879295b21"
-            }
-          ]
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:16cdbb44-22e2-404f-b10b-c317843bfb63",
-        "resource": {
-          "resourceType": "Location",
-          "id": "16cdbb44-22e2-404f-b10b-c317843bfb63",
-          "meta": {
-            "profile": [
-              "http://hl7.org/fhir/us/bfdr/StructureDefinition/Location-bfdr"
-            ]
-          },
-          "name": "BANNER UNIVERSITY MEDICAL CENTER - TUCSON",
-          "type": [
-            {
-              "coding": [
-                {
-                  "system": "http://hl7.org/fhir/us/bfdr/CodeSystem/CodeSystem-local-bfdr-codes",
-                  "code": "loc_transfer-to"
-                }
-              ]
-            }
-          ]
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:45d0c001-c980-4718-8da1-e4d77022ac9e",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "45d0c001-c980-4718-8da1-e4d77022ac9e",
-          "meta": {
-            "profile": [
-              "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-ssn-requested-for-child"
-            ]
-          },
-          "status": "final",
-          "code": {
-            "coding": [
-              {
-                "system": "http://loinc.org",
-                "code": "87295-2",
-                "display": "SSN requested"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:fb2bcecb-efee-4289-ac01-52b879295b21"
-          },
-          "valueBoolean": true
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:59f4cfbb-e6ae-4e6a-b352-1c83bc25e460",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "59f4cfbb-e6ae-4e6a-b352-1c83bc25e460",
-          "meta": {
-            "profile": [
-              "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Observation-emerging-issues-vr.html"
-            ]
-          },
-          "status": "final",
-          "code": {
-            "coding": [
-              {
-                "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs",
-                "code": "EmergingIssue1_1",
-                "display": "NCHS-required Parameter Slots for Emerging Issues"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:fb2bcecb-efee-4289-ac01-52b879295b21"
-          },
-          "component": [
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
-                    "code": "EmergingIssue1_1"
-                  }
-                ]
-              },
-              "valueString": "X"
-            }
-          ]
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:eebccf7f-aeb3-4ac9-ad17-6f730cbb7f46",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "eebccf7f-aeb3-4ac9-ad17-6f730cbb7f46",
-          "meta": {
-            "profile": [
-              "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Observation-emerging-issues-vr.html"
-            ]
-          },
-          "status": "final",
-          "code": {
-            "coding": [
-              {
-                "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs",
-                "code": "EmergingIssue1_2",
-                "display": "NCHS-required Parameter Slots for Emerging Issues"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:fb2bcecb-efee-4289-ac01-52b879295b21"
-          },
-          "component": [
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
-                    "code": "EmergingIssue1_2"
-                  }
-                ]
-              },
-              "valueString": "X"
-            }
-          ]
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:3d1f9e1a-1b56-41d7-99dd-b953515cdfc7",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "3d1f9e1a-1b56-41d7-99dd-b953515cdfc7",
-          "meta": {
-            "profile": [
-              "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Observation-emerging-issues-vr.html"
-            ]
-          },
-          "status": "final",
-          "code": {
-            "coding": [
-              {
-                "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs",
-                "code": "EmergingIssue1_3",
-                "display": "NCHS-required Parameter Slots for Emerging Issues"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:fb2bcecb-efee-4289-ac01-52b879295b21"
-          },
-          "component": [
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
-                    "code": "EmergingIssue1_3"
-                  }
-                ]
-              },
-              "valueString": "X"
-            }
-          ]
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:579f70f9-c1af-4e1d-af0c-cc2822ff6be8",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "579f70f9-c1af-4e1d-af0c-cc2822ff6be8",
-          "meta": {
-            "profile": [
-              "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Observation-emerging-issues-vr.html"
-            ]
-          },
-          "status": "final",
-          "code": {
-            "coding": [
-              {
-                "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs",
-                "code": "EmergingIssue1_4",
-                "display": "NCHS-required Parameter Slots for Emerging Issues"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:fb2bcecb-efee-4289-ac01-52b879295b21"
-          },
-          "component": [
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
-                    "code": "EmergingIssue1_4"
-                  }
-                ]
-              },
-              "valueString": "X"
-            }
-          ]
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:62ecee9d-2138-4927-a03c-fc053dc9db98",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "62ecee9d-2138-4927-a03c-fc053dc9db98",
-          "meta": {
-            "profile": [
-              "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Observation-emerging-issues-vr.html"
-            ]
-          },
-          "status": "final",
-          "code": {
-            "coding": [
-              {
-                "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs",
-                "code": "EmergingIssue1_5",
-                "display": "NCHS-required Parameter Slots for Emerging Issues"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:fb2bcecb-efee-4289-ac01-52b879295b21"
-          },
-          "component": [
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
-                    "code": "EmergingIssue1_5"
-                  }
-                ]
-              },
-              "valueString": "X"
-            }
-          ]
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:07c391ed-a0b3-48a3-9235-f9c87f72cc0a",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "07c391ed-a0b3-48a3-9235-f9c87f72cc0a",
-          "meta": {
-            "profile": [
-              "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Observation-emerging-issues-vr.html"
-            ]
-          },
-          "status": "final",
-          "code": {
-            "coding": [
-              {
-                "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs",
-                "code": "EmergingIssue1_6",
-                "display": "NCHS-required Parameter Slots for Emerging Issues"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:fb2bcecb-efee-4289-ac01-52b879295b21"
-          },
-          "component": [
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
-                    "code": "EmergingIssue1_6"
-                  }
-                ]
-              },
-              "valueString": "X"
-            }
-          ]
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:8cdc0e87-34ba-4213-8a0f-85510a5b9b84",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "8cdc0e87-34ba-4213-8a0f-85510a5b9b84",
-          "meta": {
-            "profile": [
-              "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Observation-emerging-issues-vr.html"
-            ]
-          },
-          "status": "final",
-          "code": {
-            "coding": [
-              {
-                "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs",
-                "code": "EmergingIssue8_1",
-                "display": "NCHS-required Parameter Slots for Emerging Issues"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:fb2bcecb-efee-4289-ac01-52b879295b21"
-          },
-          "component": [
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
-                    "code": "EmergingIssue8_1"
-                  }
-                ]
-              },
-              "valueString": "XXXXXXXX"
-            }
-          ]
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:1f151d01-644d-4b19-952c-bfb60ed0fd7b",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "1f151d01-644d-4b19-952c-bfb60ed0fd7b",
-          "meta": {
-            "profile": [
-              "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Observation-emerging-issues-vr.html"
-            ]
-          },
-          "status": "final",
-          "code": {
-            "coding": [
-              {
-                "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs",
-                "code": "EmergingIssue8_2",
-                "display": "NCHS-required Parameter Slots for Emerging Issues"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:fb2bcecb-efee-4289-ac01-52b879295b21"
-          },
-          "component": [
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
-                    "code": "EmergingIssue8_2"
-                  }
-                ]
-              },
-              "valueString": "XXXXXXXX"
-            }
-          ]
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:975e6e64-76de-48d8-a417-e1386185a6e4",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "975e6e64-76de-48d8-a417-e1386185a6e4",
-          "meta": {
-            "profile": [
-              "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Observation-emerging-issues-vr.html"
-            ]
-          },
-          "status": "final",
-          "code": {
-            "coding": [
-              {
-                "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs",
-                "code": "EmergingIssue8_3",
-                "display": "NCHS-required Parameter Slots for Emerging Issues"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:fb2bcecb-efee-4289-ac01-52b879295b21"
-          },
-          "component": [
-            {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
-                    "code": "EmergingIssue8_3"
-                  }
-                ]
-              },
-              "valueString": "XXXXXXXX"
-            }
-          ]
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:7a230837-71d1-40f1-a94a-946f98ae770c",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "7a230837-71d1-40f1-a94a-946f98ae770c",
-          "meta": {
-            "profile": [
-              "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/coded-race-and-ethnicity-vr"
-            ]
-          },
-          "status": "final",
-          "code": {
-            "coding": [
-              {
-                "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-local-observation-codes-vr",
-                "code": "codedraceandethnicityMother",
-                "display": "Coded Race and Ethnicity Person"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:fb2bcecb-efee-4289-ac01-52b879295b21"
+        },
+        "subject": {
+          "reference": "urn:uuid:dd01d442-6c71-4b1f-9eba-605d08422c91"
+        },
+        "focus": [
+          {
+            "reference": "urn:uuid:3fc3ab9c-dc49-40f9-80b7-098cb5b607db"
           }
-        }
-      },
-      {
-        "fullUrl": "urn:uuid:fbc56789-e5c6-4069-9526-b46100376c4f",
-        "resource": {
-          "resourceType": "Observation",
-          "id": "fbc56789-e5c6-4069-9526-b46100376c4f",
-          "meta": {
-            "profile": [
-              "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/coded-race-and-ethnicity-vr"
-            ]
-          },
-          "status": "final",
-          "code": {
-            "coding": [
-              {
-                "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-local-observation-codes-vr",
-                "code": "codedraceandethnicityFather",
-                "display": "Coded Race and Ethnicity Person"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:fb2bcecb-efee-4289-ac01-52b879295b21"
+        ],
+        "valueInteger": 0
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:a1d8edde-17a1-4be7-b01b-1cde1357b351",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "a1d8edde-17a1-4be7-b01b-1cde1357b351",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "87299-4"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:dd01d442-6c71-4b1f-9eba-605d08422c91"
+        },
+        "focus": [
+          {
+            "reference": "urn:uuid:3fc3ab9c-dc49-40f9-80b7-098cb5b607db"
           }
+        ],
+        "valueInteger": 0
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:39f655ed-22e9-4371-b202-efea1fd0268f",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "39f655ed-22e9-4371-b202-efea1fd0268f",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "64795-8"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:dd01d442-6c71-4b1f-9eba-605d08422c91"
+        },
+        "focus": [
+          {
+            "reference": "urn:uuid:3fc3ab9c-dc49-40f9-80b7-098cb5b607db"
+          }
+        ],
+        "valueInteger": 0
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:58982128-6c89-48bb-afab-97a213945a78",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "58982128-6c89-48bb-afab-97a213945a78",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-last-menstrual-period"
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8665-2",
+              "display": "Mother Prenatal"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:dd01d442-6c71-4b1f-9eba-605d08422c91"
+        },
+        "valueDateTime": "2019-07-31"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:818aa1cf-5f84-4ef3-b9c0-3c0419aba2ff",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "818aa1cf-5f84-4ef3-b9c0-3c0419aba2ff",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "73775-9"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:dd01d442-6c71-4b1f-9eba-605d08422c91"
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "260413007"
+            }
+          ]
         }
       }
-    ]
-  }
+    },
+    {
+      "fullUrl": "urn:uuid:8910955b-005f-4b0a-9fc9-f2e8f7317508",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "8910955b-005f-4b0a-9fc9-f2e8f7317508",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-number-previous-cesareans"
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "68497-7",
+              "display": "Number of Previous Cesareans"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:dd01d442-6c71-4b1f-9eba-605d08422c91"
+        },
+        "focus": [
+          {
+            "reference": "urn:uuid:dd01d442-6c71-4b1f-9eba-605d08422c91"
+          }
+        ],
+        "valueInteger": 0,
+        "_valueInteger": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
+                    "code": "0",
+                    "display": "Edit Passed"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:f0702d11-8a47-406c-8c95-5d0b03eaa3b5",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "f0702d11-8a47-406c-8c95-5d0b03eaa3b5",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "72519-2"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:dd01d442-6c71-4b1f-9eba-605d08422c91"
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "260413007"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:278146a1-2289-4994-9e75-48b1927476ae",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "278146a1-2289-4994-9e75-48b1927476ae",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "73814-6"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:dd01d442-6c71-4b1f-9eba-605d08422c91"
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "260413007"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:cfdb2d03-52f6-433e-8a60-daed72958b0c",
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "cfdb2d03-52f6-433e-8a60-daed72958b0c",
+        "category": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "73813-8"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "18946005"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:dd01d442-6c71-4b1f-9eba-605d08422c91"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1142f351-55d0-424b-9803-8d2a0f06f6c3",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1142f351-55d0-424b-9803-8d2a0f06f6c3",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-fetal-presentation"
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "73761-9",
+              "display": "Fetal Presentation"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:dd01d442-6c71-4b1f-9eba-605d08422c91"
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "6096002",
+              "display": "Breech presentation (finding)"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:b6b38602-ac2b-4d3d-9c54-c00357aeb1dc",
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "b6b38602-ac2b-4d3d-9c54-c00357aeb1dc",
+        "category": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "73762-7"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "700000006",
+              "display": "Vaginal delivery of fetus (procedure)"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:dd01d442-6c71-4b1f-9eba-605d08422c91"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:cecf6c0e-72b9-4ca5-9f75-2f93f1b4077e",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "cecf6c0e-72b9-4ca5-9f75-2f93f1b4077e",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "73781-7"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:dd01d442-6c71-4b1f-9eba-605d08422c91"
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "260413007"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:db11ecdc-dd95-4104-8569-2452a140eef3",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "db11ecdc-dd95-4104-8569-2452a140eef3",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8339-4"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:3fc3ab9c-dc49-40f9-80b7-098cb5b607db"
+        },
+        "valueQuantity": {
+          "value": 539,
+          "unit": "g",
+          "code": "g"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:758e1fc7-c80e-4c72-9a0f-a8ec002ed600",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "758e1fc7-c80e-4c72-9a0f-a8ec002ed600",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-gestational-age-at-delivery"
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "11884-4",
+              "display": "Gestational age at delivery"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:dd01d442-6c71-4b1f-9eba-605d08422c91"
+        },
+        "focus": [
+          {
+            "reference": "urn:uuid:dd01d442-6c71-4b1f-9eba-605d08422c91"
+          }
+        ],
+        "valueQuantity": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
+                    "code": "0off",
+                    "display": "Off"
+                  }
+                ]
+              }
+            }
+          ],
+          "value": 21,
+          "system": "http://unitsofmeasure.org",
+          "code": "wk"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:a1c0babf-8586-45ef-976f-eda61fb43968",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "a1c0babf-8586-45ef-976f-eda61fb43968",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-apgar-score"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "9274-2",
+              "display": "5 minute Apgar Score"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:3fc3ab9c-dc49-40f9-80b7-098cb5b607db"
+        },
+        "valueInteger": 1
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:9e90f2f7-9d78-4ee0-97d0-98fd64f8954d",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "9e90f2f7-9d78-4ee0-97d0-98fd64f8954d",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-apgar-score"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "9271-8",
+              "display": "10 minute Apgar Score"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:3fc3ab9c-dc49-40f9-80b7-098cb5b607db"
+        },
+        "valueInteger": 4
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:bfd40581-2856-4646-a7b1-08e4dc0c4b76",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "bfd40581-2856-4646-a7b1-08e4dc0c4b76",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-number-live-births-this-delivery"
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "73773-4",
+              "display": "Number live born"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:dd01d442-6c71-4b1f-9eba-605d08422c91"
+        },
+        "valueInteger": -1
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:e74183b2-b264-4149-b037-5b876658797d",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "e74183b2-b264-4149-b037-5b876658797d",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "73812-0"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:3fc3ab9c-dc49-40f9-80b7-098cb5b607db"
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "260413007"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:c0a7e32a-d679-4dc5-8b4b-e04db56d06bf",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "c0a7e32a-d679-4dc5-8b4b-e04db56d06bf",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "73780-9"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:3fc3ab9c-dc49-40f9-80b7-098cb5b607db"
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "260413007"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:2483cd10-95ee-4d5b-b22e-24751c19951d",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "2483cd10-95ee-4d5b-b22e-24751c19951d",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-infant-living"
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "73757-7",
+              "display": "Infant living"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:3fc3ab9c-dc49-40f9-80b7-098cb5b607db"
+        },
+        "valueBoolean": true
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:ddcf6d85-d40b-4c51-8f2b-60260fdcabff",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "ddcf6d85-d40b-4c51-8f2b-60260fdcabff",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-infant-breastfed-at-discharge"
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "73756-9",
+              "display": "Infant breastfed at discharge"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:dd01d442-6c71-4b1f-9eba-605d08422c91"
+        },
+        "focus": [
+          {
+            "reference": "urn:uuid:dd01d442-6c71-4b1f-9eba-605d08422c91"
+          }
+        ],
+        "valueBoolean": false
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:53dba1e4-8fdd-49ef-aeff-4df8a313bc90",
+      "resource": {
+        "resourceType": "Location",
+        "id": "53dba1e4-8fdd-49ef-aeff-4df8a313bc90",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/bfdr/StructureDefinition/Location-bfdr"
+          ]
+        },
+        "name": "BANNER UNIVERSITY MEDICAL CENTER - TUCSON",
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/us/bfdr/CodeSystem/CodeSystem-local-bfdr-codes",
+                "code": "loc_transfer-to"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:60e8faec-ab55-41cd-a2f8-e4e7ca6accbf",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "60e8faec-ab55-41cd-a2f8-e4e7ca6accbf",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-ssn-requested-for-child"
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "87295-2",
+              "display": "SSN requested"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:3fc3ab9c-dc49-40f9-80b7-098cb5b607db"
+        },
+        "valueBoolean": true
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:262009ee-ad6d-4e66-94b7-7bc473d85217",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "262009ee-ad6d-4e66-94b7-7bc473d85217",
+        "meta": {
+          "profile": [
+            "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Observation-emerging-issues-vr.html"
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs",
+              "code": "EmergingIssue1_1",
+              "display": "NCHS-required Parameter Slots for Emerging Issues"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:3fc3ab9c-dc49-40f9-80b7-098cb5b607db"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
+                  "code": "EmergingIssue1_1"
+                }
+              ]
+            },
+            "valueString": "X"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:a15938c6-42b0-4ea8-baaf-76fb8f3e8cdc",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "a15938c6-42b0-4ea8-baaf-76fb8f3e8cdc",
+        "meta": {
+          "profile": [
+            "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Observation-emerging-issues-vr.html"
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs",
+              "code": "EmergingIssue1_2",
+              "display": "NCHS-required Parameter Slots for Emerging Issues"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:3fc3ab9c-dc49-40f9-80b7-098cb5b607db"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
+                  "code": "EmergingIssue1_2"
+                }
+              ]
+            },
+            "valueString": "X"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:d24bcd88-ea19-4b67-af32-d87f98373dfe",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "d24bcd88-ea19-4b67-af32-d87f98373dfe",
+        "meta": {
+          "profile": [
+            "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Observation-emerging-issues-vr.html"
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs",
+              "code": "EmergingIssue1_3",
+              "display": "NCHS-required Parameter Slots for Emerging Issues"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:3fc3ab9c-dc49-40f9-80b7-098cb5b607db"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
+                  "code": "EmergingIssue1_3"
+                }
+              ]
+            },
+            "valueString": "X"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:0157c7e9-a389-459f-a261-538b9b18f489",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "0157c7e9-a389-459f-a261-538b9b18f489",
+        "meta": {
+          "profile": [
+            "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Observation-emerging-issues-vr.html"
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs",
+              "code": "EmergingIssue1_4",
+              "display": "NCHS-required Parameter Slots for Emerging Issues"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:3fc3ab9c-dc49-40f9-80b7-098cb5b607db"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
+                  "code": "EmergingIssue1_4"
+                }
+              ]
+            },
+            "valueString": "X"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:7d9bde93-f16c-4218-8ec7-9743a17e1c2c",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "7d9bde93-f16c-4218-8ec7-9743a17e1c2c",
+        "meta": {
+          "profile": [
+            "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Observation-emerging-issues-vr.html"
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs",
+              "code": "EmergingIssue1_5",
+              "display": "NCHS-required Parameter Slots for Emerging Issues"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:3fc3ab9c-dc49-40f9-80b7-098cb5b607db"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
+                  "code": "EmergingIssue1_5"
+                }
+              ]
+            },
+            "valueString": "X"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:904cfc63-01d5-4ab9-af70-280b6fe18626",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "904cfc63-01d5-4ab9-af70-280b6fe18626",
+        "meta": {
+          "profile": [
+            "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Observation-emerging-issues-vr.html"
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs",
+              "code": "EmergingIssue1_6",
+              "display": "NCHS-required Parameter Slots for Emerging Issues"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:3fc3ab9c-dc49-40f9-80b7-098cb5b607db"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
+                  "code": "EmergingIssue1_6"
+                }
+              ]
+            },
+            "valueString": "X"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:864fe685-3a9d-4339-a191-31c2fe637874",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "864fe685-3a9d-4339-a191-31c2fe637874",
+        "meta": {
+          "profile": [
+            "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Observation-emerging-issues-vr.html"
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs",
+              "code": "EmergingIssue8_1",
+              "display": "NCHS-required Parameter Slots for Emerging Issues"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:3fc3ab9c-dc49-40f9-80b7-098cb5b607db"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
+                  "code": "EmergingIssue8_1"
+                }
+              ]
+            },
+            "valueString": "XXXXXXXX"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:e0935dc2-698f-41ee-af70-5b22e8264838",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "e0935dc2-698f-41ee-af70-5b22e8264838",
+        "meta": {
+          "profile": [
+            "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Observation-emerging-issues-vr.html"
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs",
+              "code": "EmergingIssue8_2",
+              "display": "NCHS-required Parameter Slots for Emerging Issues"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:3fc3ab9c-dc49-40f9-80b7-098cb5b607db"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
+                  "code": "EmergingIssue8_2"
+                }
+              ]
+            },
+            "valueString": "XXXXXXXX"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:2112d80f-c3e9-4f28-baf5-656d428489f8",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "2112d80f-c3e9-4f28-baf5-656d428489f8",
+        "meta": {
+          "profile": [
+            "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Observation-emerging-issues-vr.html"
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs",
+              "code": "EmergingIssue8_3",
+              "display": "NCHS-required Parameter Slots for Emerging Issues"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:3fc3ab9c-dc49-40f9-80b7-098cb5b607db"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
+                  "code": "EmergingIssue8_3"
+                }
+              ]
+            },
+            "valueString": "XXXXXXXX"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:f93781ec-16fe-4d43-86f2-d2af19235cf3",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "f93781ec-16fe-4d43-86f2-d2af19235cf3",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/coded-race-and-ethnicity-vr"
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-local-observation-codes-vr",
+              "code": "codedraceandethnicityMother",
+              "display": "Coded Race and Ethnicity Person"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:3fc3ab9c-dc49-40f9-80b7-098cb5b607db"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:85c8aa4f-d4f3-49ef-a30b-310bf580aa52",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "85c8aa4f-d4f3-49ef-a30b-310bf580aa52",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/coded-race-and-ethnicity-vr"
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-local-observation-codes-vr",
+              "code": "codedraceandethnicityFather",
+              "display": "Coded Race and Ethnicity Person"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:3fc3ab9c-dc49-40f9-80b7-098cb5b607db"
+        }
+      }
+    }
+  ]
+}
