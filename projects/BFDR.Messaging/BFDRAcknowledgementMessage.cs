@@ -60,10 +60,6 @@ namespace BFDR
     /// <summary>Class <c>BFDRAcknowledgementMessage</c> supports the acknowledgment of other messages.</summary>
     public abstract class BFDRAcknowledgementMessage : BFDRBaseMessage
     {
-        /// <summary>
-        /// The Event URI for BFDRAcknowledgementMessage
-        /// </summary>
-        public new const string MESSAGE_TYPE = "http://nchs.cdc.gov/bfdr_acknowledgement";
 
         /// <summary>Constructor that creates an acknowledgement for the specified message.</summary>
         /// <param name="messageToAck">the message to create an acknowledgement for.</param>

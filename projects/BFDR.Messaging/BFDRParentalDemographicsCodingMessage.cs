@@ -150,10 +150,6 @@ namespace BFDR
     /// </summary>
     public abstract class BFDRParentalDemographicsCodingMessage : BFDRBaseMessage
     {
-        /// <summary>
-        /// The event URI for BFDRDemographicsCodingMessage.
-        /// </summary>
-        public new const String MESSAGE_TYPE = "http://nchs.cdc.gov/bfdr_demographics_coding";
 
         /// <summary>Bundle that contains the message payload.</summary>
         private NatalityRecord natalityRecord; // this is natality record to  be inclusive of birth or fetal death response codes
@@ -269,10 +265,6 @@ namespace BFDR
     /// <summary>Class <c>BFDRParentalDemographicsCodingUpdateMessage</c> conveys an updated coded demographics of a decedent.</summary>
     public abstract class BFDRParentalDemographicsCodingUpdateMessage : BFDRParentalDemographicsCodingMessage
     {
-        /// <summary>
-        /// The event URI for BFDRParentalDemographicsCodingUpdateMessage.
-        /// </summary>
-        public new const string MESSAGE_TYPE = "http://nchs.cdc.gov/bfdr_demographics_coding_update";
 
         /// <summary>
         /// Construct a BFDRParentalDemographicsCodingUpdateMessage from a record containing demographics coded content.

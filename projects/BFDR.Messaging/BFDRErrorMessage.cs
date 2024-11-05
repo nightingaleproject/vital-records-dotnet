@@ -72,11 +72,6 @@ namespace BFDR
     /// <summary>Class <c>BFDRErrorMessage</c> is used to communicate that initial processing of a BFDR message failed.</summary>
     public abstract class BFDRErrorMessage : BFDRBaseMessage
     {
-        /// <summary>
-        /// The Event URI for BFDRErrorMessage
-        /// </summary>
-        public new const string MESSAGE_TYPE = "http://nchs.cdc.gov/bfdr_extraction_error";
-
         private OperationOutcome details;
 
         /// <summary>Constructor that creates an extraction error for the specified message.</summary>

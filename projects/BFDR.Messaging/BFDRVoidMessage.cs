@@ -65,10 +65,6 @@ namespace BFDR
     /// <summary>Class <c>BFDRVoidMessage</c> indicates that a previously submitted BirthRecordSubmissionMessage or FetalDeathRecordSubmissionMessageshould be voided.</summary>
     public abstract class BFDRVoidMessage : BFDRBaseMessage
     {
-        /// <summary>
-        /// The Event URI for BFDRVoidMessage
-        /// </summary>
-        public new const string MESSAGE_TYPE = "http://nchs.cdc.gov/bfdr_submission_void";
 
         /// <summary>Default constructor that creates a new, empty BFDRVoidMessage.</summary>
         public BFDRVoidMessage() : base(MESSAGE_TYPE)
