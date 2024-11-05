@@ -1924,9 +1924,9 @@ namespace BFDR
             get
             {
                 var ret = record.AttendantTitleHelper;
-                if (ret != null && Mappings.BirthAttendantTitles.FHIRToIJE.ContainsKey(ret))
+                if (ret != null && VR.Mappings.BirthAttendantTitles.FHIRToIJE.ContainsKey(ret))
                 {
-                    return Get_MappingFHIRToIJE(Mappings.BirthAttendantTitles.FHIRToIJE, "AttendantTitle", "ATTEND");
+                    return Get_MappingFHIRToIJE(VR.Mappings.BirthAttendantTitles.FHIRToIJE, "AttendantTitle", "ATTEND");
                 }
                 else  // If the return value is not a code, it is just an arbitrary string, so return it.
                 {
@@ -1935,9 +1935,9 @@ namespace BFDR
             }
             set
             {
-                if (Mappings.BirthAttendantTitles.IJEToFHIR.ContainsKey(value.Split(' ')[0]))
+                if (VR.Mappings.BirthAttendantTitles.IJEToFHIR.ContainsKey(value.Split(' ')[0]))
                 {
-                    Set_MappingIJEToFHIR(Mappings.BirthAttendantTitles.IJEToFHIR, "ATTEND", "AttendantTitle", value.Trim());
+                    Set_MappingIJEToFHIR(VR.Mappings.BirthAttendantTitles.IJEToFHIR, "ATTEND", "AttendantTitle", value.Trim());
                 }
                 else  // If the value is not a valid code, it is just an arbitrary string.  The helper will deal with it.
                 {

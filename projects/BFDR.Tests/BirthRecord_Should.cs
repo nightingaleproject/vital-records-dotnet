@@ -1683,11 +1683,11 @@ namespace BFDR.Tests
       Assert.Equal("123456789011", SetterBirthRecord.AttendantNPI);
       // Attendant's Title
       Dictionary<string, string> AttendantTitle = new Dictionary<string, string>();
-      AttendantTitle.Add("code", "112247003");
+      AttendantTitle.Add("code", "309343006");
       AttendantTitle.Add("system", CodeSystems.SCT);
       AttendantTitle.Add("display", "Medical Doctor");
       SetterBirthRecord.AttendantTitle = AttendantTitle;
-      Assert.Equal("112247003", SetterBirthRecord.AttendantTitle["code"]);
+      Assert.Equal("309343006", SetterBirthRecord.AttendantTitle["code"]);
       Assert.Equal(CodeSystems.SCT, SetterBirthRecord.AttendantTitle["system"]);
       Assert.Equal("Medical Doctor", SetterBirthRecord.AttendantTitle["display"]);
       // test setting other Attendant Title
