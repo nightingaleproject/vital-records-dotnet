@@ -17,17 +17,11 @@ namespace VR
         /// <summary>URL for Location</summary>
         public const string Location = "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Location-vr";
 
-        /// <summary>URL for AutopsyPerformedIndicator</summary>
-        public const string AutopsyPerformedIndicator = "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Observation-autopsy-performed-indicator-vr";
-
         /// <summary>URL for EducationLevel</summary>
         public const string EducationLevel = "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Observation-education-level-vr";
 
         /// <summary>URL for EmergingIssues</summary>
         public const string EmergingIssues = "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Observation-emerging-issues-vr";
-
-        /// <summary>URL for UsualWork</summary>
-        public const string UsualWork = "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Observation-usual-work-vr";
 
         /// <summary>URL for Child</summary>
         public const string Child = "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Patient-child-vr";
@@ -115,9 +109,6 @@ namespace VR
         /// <summary>URL for ReportedParentAgeAtDelivery</summary>
         public string ReportedParentAgeAtDelivery => Trim($"{_prefix}/StructureDefinition/Extension-reported-parent-age-at-delivery-vr");
 
-        /// <summary>URL for Role</summary>
-        public string Role => Trim($"{_prefix}/StructureDefinition/Extension-role-vr");
-
         /// <summary>URL for WithinCityLimitsIndicator</summary>
         public string WithinCityLimitsIndicator => Trim($"{_prefix}/StructureDefinition/Extension-within-city-limits-indicator-vr");
 
@@ -152,10 +143,10 @@ namespace VR
         public string DateTime => $"{_prefix}/StructureDefinition/Date-Time";
 
         /// <summary>URL for PatientBirthTime as defined in the VitalRecords IG</summary>
-        public const string PatientBirthTime = "http://hl7.org/fhir/StructureDefinition/patient-birthTime";  
+        public const string PatientBirthTime = "http://hl7.org/fhir/StructureDefinition/patient-birthTime";
 
         /// <summary>URL for PartialDateTime Day as defined in the VitalRecords IG</summary>
-        public const string PartialDateTimeDayVR = "day";     
+        public const string PartialDateTimeDayVR = "day";
 
         /// <summary>URL for PartialDateTime Month as defined in the VitalRecords IG</summary>
         public const string PartialDateTimeMonthVR = "month";
@@ -207,26 +198,17 @@ namespace VR
         /// <summary>URL for ReportedParentAgeAtDelivery</summary>
         public const string ReportedParentAgeAtDelivery = "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Extension-reported-parent-age-at-delivery-vr.html";
 
-        /// <summary>URL for Role</summary>
-        public const string Role = "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Extension-role-vr.html";
-
         /// <summary>URL for WithinCityLimitsIndicator</summary>
         public const string WithinCityLimitsIndicator = "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Extension-within-city-limits-indicator-vr.html";
 
         /// <summary>URL for Location</summary>
         public const string Location = "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Location-vr.html";
 
-        /// <summary>URL for AutopsyPerformedIndicator</summary>
-        public const string AutopsyPerformedIndicator = "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Observation-autopsy-performed-indicator-vr.html";
-
         /// <summary>URL for EducationLevel</summary>
         public const string EducationLevel = "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Observation-education-level-vr.html";
 
         /// <summary>URL for EmergingIssues</summary>
         public const string EmergingIssues = "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Observation-emerging-issues-vr.html";
-
-        /// <summary>URL for UsualWork</summary>
-        public const string UsualWork = "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Observation-usual-work-vr.html";
 
         /// <summary>URL for Child</summary>
         public const string Child = "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Patient-child-vr.html";

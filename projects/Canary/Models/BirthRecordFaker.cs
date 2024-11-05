@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Bogus.Extensions.UnitedStates;
-using VRDR;
-using VR;
 using BFDR;
 
 namespace canary.Models

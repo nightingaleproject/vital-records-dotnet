@@ -9,7 +9,7 @@
       "resource": {
         "resourceType": "MessageHeader",
         "id": "6daf35b5-689e-4d9f-9d77-75447ab1ee37",
-        "eventUri": "http://nchs.cdc.gov/bfdr_submission_update",
+        "eventUri": "http://nchs.cdc.gov/birth_submission_update",
         "destination": [
           {
             "endpoint": "http://nchs.cdc.gov/bfdr_submission"
@@ -40,7 +40,7 @@
             "valueString": "000000000042"
           },
           {
-            "name": "birth_year",
+            "name": "event_year",
             "valueUnsignedInt": 2019
           },
           {
@@ -61,13 +61,13 @@
         "id": "f731ac90-1e21-4744-9a02-f996c7a967b5",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/bfdr/StructureDefinition/bfdr-birth-certificate-document"
+            "http://hl7.org/fhir/us/bfdr/StructureDefinition/Bundle-document-birth-report"
           ]
         },
         "identifier": {
           "extension": [
             {
-              "url": "http://hl7.org/fhir/us/bfdr/StructureDefinition/CertificateNumber",
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/CertificateNumber",
               "valueString": "48858"
             },
             {
@@ -88,7 +88,7 @@
               "id": "2b03f731-a589-4190-b907-6fe6eddcec60",
               "meta": {
                 "profile": [
-                  "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-bfdr-birth-certificate.html"
+                  "http://hl7.org/fhir/us/bfdr/StructureDefinition/Composition-jurisdiction-live-birth-report"
                 ]
               },
               "status": "final",
@@ -148,7 +148,7 @@
             "fullUrl": "urn:uuid:9b0abc88-167d-460e-9a02-af7524198930",
             "resource": {
               "resourceType": "Patient",
-              "id": "patient-child-babyg-quinn",
+              "id": "urn:uuid:9b0abc88-167d-460e-9a02-af7524198930",
               "meta": {
                 "profile": [
                   "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Patient-child-vr"

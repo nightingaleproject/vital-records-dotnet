@@ -9,6 +9,213 @@
             that follow the HL7 FHIR Vital Records Birth Reporting Implementation Guide, as described at:
             http://hl7.org/fhir/us/bfdr and https://github.com/hl7/bfdr.
             </summary>
+            <summary>Class <c>BirthRecord</c> is a class designed to help consume and produce birth records
+            that follow the HL7 FHIR Vital Records Birth Reporting Implementation Guide, as described at:
+            http://hl7.org/fhir/us/bfdr and https://github.com/hl7/bfdr.
+            </summary>
+        </member>
+        <member name="P:BFDR.BirthRecord.BirthPhysicalLocation">
+            <summary>Child's Place Of Birth Type.</summary>
+            <value>Place Where Birth Occurred, type of place or institution. A Dictionary representing a codeable concept of the physical location type:
+            <para>"code" - The code used to describe this concept.</para>
+            <para>"system" - The relevant code system.</para>
+            <para>"display" - The human readable version of this code.</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; locationType = new Dictionary&lt;string, string&gt;();</para>
+            <para>locationType.Add("code", "22232009");</para>
+            <para>locationType.Add("system", "http://snomed.info/sct");</para>
+            <para>locationType.Add("display", "Hospital");</para>
+            <para>ExampleBirthRecord.BirthPhysicalLocation = locationType;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"The place type the child was born: {ExampleBirthRecord.BirthPhysicalLocation["code"]}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.BirthPhysicalLocationHelper">
+            <summary>Child's Place Of Birth Type Helper</summary>
+            <value>Child's Place Of Birth Type Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.BirthPhysicalLocationHelper = "Hospital";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Child's Place Of Birth Type: {ExampleBirthRecord.BirthPhysicalLocationHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.MotherWeightAtDelivery">
+            <summary>Mother's Weight at Delivery.</summary>
+            <value>the mother's weight at delivery in whole pounds, or -1 if explicitly unknown, or null if never specified</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherWeightAtDelivery = 120;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's Weight at Delivery: {ExampleBirthRecord.MotherWeightAtDelivery}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.BirthYear">
+            <summary>Child's Year of Birth.</summary>
+            <value>the child's year of birth, or -1 if explicitly unknown, or null if never specified</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.BirthYear = 1928;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Child Year of Birth: {ExampleBirthRecord.BirthYear}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.BirthMonth">
+            <summary>Child's Month of Birth.</summary>
+            <value>the child's month of birth, or -1 if explicitly unknown, or null if never specified</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.BirthMonth = 11;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Child Month of Birth: {ExampleBirthRecord.BirthMonth}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.BirthDay">
+            <summary>Child's Day of Birth.</summary>
+            <value>the child's day of birth, or -1 if explicitly unknown, or null if never specified</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.BirthDay = 11;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Child Day of Birth: {ExampleBirthRecord.BirthDay}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.BirthTime">
+            <summary>Child's Time of Birth.</summary>
+            <value>the child's time of birth.</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.BirthTime = 11;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Child Time of Birth: {ExampleBirthRecord.BirthTime}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.BirthSex">
+            <summary>Child's BirthSex at Birth.</summary>
+            <value>The child's BirthSex at time of birth</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.BirthSex = "female;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Sex at Time of Birth: {ExampleBirthRecord.BirthSex}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.BirthSexHelper">
+            <summary>Child's Sex at Birth Helper.</summary>
+            <value>The child's sex at time of birth</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.BirthSexHelper = "female;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Sex at Time of Birth: {ExampleBirthRecord.BirthSexHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.SetOrder">
+            <summary>Multiple birth set order</summary>
+            <value>The order that the child was born if a multiple birth or null if it was a single birth</value>
+            <example>
+            <para>ExampleBirthRecord.SetOrder = null; // single birth</para>
+            <para>ExampleBirthRecord.SetOrder = -1; // unknow whether single or multiple birth</para>
+            <para>ExampleBirthRecord.SetOrder = 1; // multiple birth, born first</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.PluralityEditFlag">
+            <summary>Multiple birth set order edit flag</summary>
+            <value>the multiple birth set order edit flag</value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; route = new Dictionary&lt;string, string&gt;();</para>
+            <para>route.Add("code", "queriedCorrect");</para>
+            <para>route.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");</para>
+            <para>route.Add("display", "Queried, and Correct");</para>
+            <para>ExampleBirthRecord.PluralityEditFlag = route;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Multiple birth set order edit flag: {ExampleBirthRecord.PluralityEditFlag}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.PluralityEditFlagHelper">
+            <summary>Multiple birth set order edit flag helper</summary>
+            <value>the multiple birth set order edit flag</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.PluralityEditFlagHelper = "queriedCorrect";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Multiple birth set order edit flag: {ExampleBirthRecord.PluralityEditFlagHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.Plurality">
+            <summary>Multiple birth plurality</summary>
+            <value>Where a patient is a part of a multiple birth, this is the total number of births that occurred in this pregnancy.</value>
+            <example>
+            <para>ExampleBirthRecord.Plurality = null; // single birth</para>
+            <para>ExampleBirthRecord.Plurality = -1; // unknown number of births birth</para>
+            <para>ExampleBirthRecord.Plurality = 2; // two births for this pregnancy</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.CertificationDate">
+            <summary>Date of Certification.</summary>
+            <value>the date of certification</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.CertifiedDate = "2023-02-19";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Date of birth certification: {ExampleBirthRecord.CertificationDate}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.CertifiedYear">
+            <summary>Certified Year</summary>
+            <value>year of certification</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.CertifiedYear = 2023;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Certified Year: {ExampleBirthRecord.CertifiedYear}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.CertifiedMonth">
+            <summary>Certified Month</summary>
+            <value>month of certification</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.CertifiedMonth = 10;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Certified Month: {ExampleBirthRecord.CertifiedMonth}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.CertifiedDay">
+            <summary>Certified Day</summary>
+            <value>day of certification</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.CertifiedDay = 23;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Certified Day: {ExampleBirthRecord.CertifiedDay}");</para>
+            </example> 
+        </member>
+        <member name="P:BFDR.BirthRecord.InfantTransferred">
+            <summary>Infant Transferred</summary>
+            <value>Infant transferred</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.InfantTransferred = "hosp-trans";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Infant transferred: {ExampleBirthRecord.InfantTransferred}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.InfantTransferredHelper">
+            <summary>Infant Transferred Helper</summary>
+            <value>Infant transferred helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.InfantTransferredHelper = "hosp-trans";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Infant transferred helper: {ExampleBirthRecord.InfantTransferredHelper}");</para>
+            </example>
+        </member>
+        <member name="F:BFDR.BirthRecord.EncounterBirth">
+            <summary>The encounter of the birth.</summary>
         </member>
         <member name="M:BFDR.BirthRecord.#ctor">
             <summary>Default constructor that creates a new, empty BirthRecord.</summary>
@@ -26,6 +233,15 @@
         </member>
         <member name="M:BFDR.BirthRecord.GetYear">
             <summary>Return the birth year for this record to be used in the identifier</summary>
+        </member>
+        <member name="M:BFDR.BirthRecord.RestoreReferences">
+            <inheritdoc/>
+        </member>
+        <member name="M:BFDR.BirthRecord.InitializeCompositionAndSubject">
+            <inheritdoc/>
+        </member>
+        <member name="M:BFDR.BirthRecord.CreateBirthEncounter">
+            <summary>Create Birth Encounter.</summary>
         </member>
         <member name="T:BFDR.Connectathon">
             <summary>Class <c>Connectathon</c> provides static methods for generating records used in Connectathon testing, used in Canary and in the CLI tool</summary>
@@ -47,6 +263,644 @@
         </member>
         <member name="M:BFDR.Connectathon.WriteRecordAsXml(BFDR.BirthRecord,System.String)">
             <summary>Of historical interest for writing a record to a file</summary>
+        </member>
+        <member name="T:BFDR.FetalDeathRecord">
+            <summary>Class <c>FetalDeathRecord</c> is a class designed to help consume and produce fetal death
+            records that follow the HL7 FHIR Vital Records FetalDeath Reporting Implementation Guide, as described
+            at: http://hl7.org/fhir/us/bfdr and https://github.com/hl7/bfdr.
+            </summary>
+            <summary>Class <c>FetalDeathRecord</c> is a class designed to help consume and produce fetal death
+            records that follow the HL7 FHIR Vital Records FetalDeath Reporting Implementation Guide, as described
+            at: http://hl7.org/fhir/us/bfdr and https://github.com/hl7/bfdr.
+            </summary>
+            <summary>Class <c>FetalDeathRecord</c> models a FHIR Birth and Fetal Death Records Reporting (BFDR) Fetal Death
+            Record. This class was designed to help consume and produce fetal death records that follow the
+            HL7 FHIR Vital Records Birth and Fetal Death Reporting Implementation Guide, as described at:
+            http://hl7.org/fhir/us/bfdr and https://github.com/hl7/bfdr.
+            </summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.CertificationDate">
+            <summary>Date of Certification.</summary>
+            <value>the date of certification</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.CertifiedDate = "2023-02-19";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Date of Fetal Death certification: {ExampleFetalDeathRecord.CertificationDate}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.CertifiedYear">
+            <summary>Certified Year</summary>
+            <value>year of certification</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.CertifiedYear = 2023;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Certified Year: {ExampleFetalDeathRecord.CertifiedYear}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.CertifiedMonth">
+            <summary>Certified Month</summary>
+            <value>month of certification</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.CertifiedMonth = 10;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Certified Month: {ExampleFetalDeathRecord.CertifiedMonth}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.CertifiedDay">
+            <summary>Certified Day</summary>
+            <value>day of certification</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.CertifiedDay = 23;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Certified Day: {ExampleFetalDeathRecord.CertifiedDay}");</para>
+            </example> 
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.FetusGivenNames">
+            <summary>Fetus Legal Name - Given. Middle name should be the last entry.</summary>
+            <value>the fetus' name (first, etc., middle)</value>
+            <example>
+            <para>// Setter:</para>
+            <para>string[] names = { "Example", "Something", "Middle" };</para>
+            <para>ExampleFetalDeathRecord.FetusGivenNames = names;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Fetus Given Name(s): {string.Join(", ", ExampleFetalDeath.FetusGivenNames)}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.FetusFamilyName">
+            <summary>Fetus' Legal Name - Last.</summary>
+            <value>the fetus' last name</value>
+            <example>
+            <para>// Setter:</para>
+            <para>string lastName = "Quinn";</para>
+            <para>ExampleFetalDeathRecord.FetusFamilyName = lastName;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Fetus Family Name(s): {string.Join(", ", ExampleFetalDeathRecord.FetusFamilyName)}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.FetusSuffix">
+            <summary>Fetus' Suffix.</summary>
+            <value>the fetus' suffix</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.FetusSuffix = "Jr.";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Fetus Suffix: {ExampleFetusDeathRecord.FetusSuffix}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.DeliveryPhysicalLocation">
+            <summary>The place of delivery Type.</summary>
+            <value>Place Where delivery Occurred, type of place or institution. A Dictionary representing a codeable concept of the physical location type:
+            <para>"code" - The code used to describe this concept.</para>
+            <para>"system" - The relevant code system.</para>
+            <para>"display" - The human readable version of this code.</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; locationType = new Dictionary&lt;string, string&gt;();</para>
+            <para>locationType.Add("code", "22232009");</para>
+            <para>locationType.Add("system", "http://snomed.info/sct");</para>
+            <para>locationType.Add("display", "Hospital");</para>
+            <para>ExampleFetalDeathRecord.DeliveryPhysicalLocation = locationType;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"The place type the child was born: {ExampleFetalDeathRecord.DeliveryPhysicalLocation["code"]}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.DeliveryPhysicalLocationHelper">
+            <summary>Child's Place Of Birth Type Helper</summary>
+            <value>Child's Place Of Birth Type Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.DeliveryPhysicalLocationHelper = "Hospital";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Child's Place Of Birth Type: {ExampleFetalDeathRecord.DeliveryPhysicalLocationHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.TimeOfFetalDeath">
+            <summary>Estimated time of fetal death.</summary>
+            <value>Estimated time of fetal death</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.TimeOfFetalDeath = ;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Sex at Time of Birth: {ExampleFetalDeathRecord.TimeOfFetalDeath}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.TimeOfFetalDeathHelper">
+            <summary>Estimated time of fetal death Helper.</summary>
+            <value>Estimated time of fetal death</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.TimeOfFetalDeathHelper = "434681000124104";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Time of Fetal Death: {ExampleFetalDeathRecord.TimeOfFetalDeathHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.PrematureRuptureOfMembranes">
+            <summary>Initiating cause/condition, Rupture of membranes prior to onset of labor.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.AbruptioPlacenta">
+            <summary>Initiating cause/condition, Abruptio placenta.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.PlacentalInsufficiency">
+            <summary>Initiating cause/condition, Placental insufficiency.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.ProlapsedCord">
+            <summary>Initiating cause/condition, Prolapsed cord.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.ChorioamnionitisCOD">
+            <summary>Initiating cause/condition, Chorioamnionitis.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OtherComplicationsOfPlacentaCordOrMembranes">
+            <summary>Initiating cause/condition, Other complications of placenta, cord, or membranes.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.InitiatingCauseOrConditionUnknown">
+            <summary>Initiating cause/condition, Unknown.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.MaternalConditionsDiseasesLiteral">
+            <summary>Initiating cause/condition, Maternal conditions/diseases literal.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.AutopsyorHistologicalExamResultsUsed">
+            <summary>Were Autopsy or Histological Placental Examination Results Used in Determining the Cause of Fetal Death?</summary>
+            <value>Were Autopsy or Histological Placental Examination Results Used in Determining the Cause of Fetal Death?</value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; autopf = new Dictionary&lt;string, string&gt;();</para>
+            <para>autopf.Add("code", "Y");</para>
+            <para>autopf.Add("system", VR.ValueSets.YesNoNotApplicable.Codes);</para>
+            <para>autopf.Add("display", "Yes");</para>
+            <para>ExampleFetalDeathRecord.AutopsyorHistologicalExamResultsUsed = autopf;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Were autopsy results used: {ExampleFetalDeathRecord.AutopsyorHistologicalExamResultsUsed}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.AutopsyorHistologicalExamResultsUsedHelper">
+            <summary>Autopsy or Histological Placental Results Used Helper</summary>
+            <value>PAutopsy or Histological Placental Results Used Helper</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.AutopsyorHistologicalExamResultsUsedHelper = "yes";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Were autopsy results used: {ExampleFetalDeathRecord.AutopsyorHistologicalExamResultsUsedHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.NumberOfFetalDeathsThisDelivery">
+            <summary>NumberOfFetalDeathsThisDelivery.</summary>
+            <value>NumberOfFetalDeathsThisDelivery</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.NumberOfFetalDeathsThisDelivery = 1;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"NumberOfFetalDeathsThisDelivery: {ExampleFetalDeathRecord.NumberOfFetalDeathsThisDelivery}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.AutopsyPerformedIndicator">
+            <summary>Autopsy Performed Indicator.</summary>
+            <value>autopsy performed indicator. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; code = new Dictionary&lt;string, string&gt;();</para>
+            <para>code.Add("code", "Y");</para>
+            <para>code.Add("system", CodeSystems.PH_YesNo_HL7_2x);</para>
+            <para>code.Add("display", "Yes");</para>
+            <para>ExampleFetalDeathRecord.AutopsyPerformedIndicator = code;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Autopsy Performed Indicator: {ExampleFetalDeathRecord.AutopsyPerformedIndicator['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.AutopsyPerformedIndicatorHelper">
+            <summary>Autopsy Performed Indicator Helper. This is a helper method, to access the code use the AutopsyPerformedIndicator property.</summary>
+            <value>autopsy performed indicator. A null value indicates "not applicable".</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.AutopsyPerformedIndicatorHelper = "Y";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Autopsy Performed Indicator: {ExampleDFetaleathRecord.AutopsyPerformedIndicatorBoolean}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.HistologicalPlacentalExaminationPerformed">
+            <summary>Histological Placental Exam Performed.</summary>
+            <value>Histological Placental Exam Performed. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; code = new Dictionary&lt;string, string&gt;();</para>
+            <para>code.Add("code", "398166005");</para>
+            <para>code.Add("system", CodeSystems.SCT);</para>
+            <para>code.Add("display", "Performed");</para>
+            <para>ExampleFetalDeathRecord.HistologicalPlacentalExamPerformed = code;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Histological Placental Exam Performed: {ExampleFetalDeathRecord.HistologicalPlacentalExamPerformed['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.HistologicalPlacentalExaminationPerformedHelper">
+            <summary>Histological Placental Exam Performed Helper. This is a helper method, to access the code use the HistologicalPlacentalExamPerformed property.</summary>
+            <value>Histological Placental Exam Performed.</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.HistologicalPlacentalExamPerformedHelper = "398166005";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Histological Placental Exam Performed: {ExampleFetalDeathRecord.HistologicalPlacentalExamPerformed}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.FetalRemainsDispositionMethod">
+            <summary>Fetal Remains Disposition Method.</summary>
+            <value>Fetal Remains Disposition Method. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; code = new Dictionary&lt;string, string&gt;();</para>
+            <para>code.Add("code", "449971000124106");</para>
+            <para>code.Add("system", CodeSystems.SCT);</para>
+            <para>code.Add("display", "Burial");</para>
+            <para>ExampleFetalDeathRecord.FetalRemainsDispositionMethod = code;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Fetal Remains Disposition Method: {ExampleFetalDeathRecord.FetalRemainsDispositionMethod['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.FetalRemainsDispositionMethodHelper">
+            <summary>Fetal Remains Disposition Method Helper. This is a helper method, to access the code use the FetalRemainsDispositionMethod property.</summary>
+            <value>Fetal Remains Disposition Method.</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.FetalRemainsDispositionMethodHelper = "449971000124106";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Fetal Remains Disposition Method: {ExampleFetalDeathRecord.FetalRemainsDispositionMethodHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.BirthWeight">
+            <summary>Birth Weight.</summary>
+            <value>The weight of the infant/fetus at birth/delivery.</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.BirthWeight = 3000.0;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Birth Weight: {xampleFetalDeathRecord.BirthWeight}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.BirthWeightEditFlag">
+            <summary>Birth Weight Edit Flag.</summary>
+            <value>the fetus's birth weight edit flag. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; weight = new Dictionary&lt;string, string&gt;();</para>
+            <para>weight.Add("code", "0");</para>
+            <para>weight.Add("system", CodeSystems.BypassEditFlag);</para>
+            <para>weight.Add("display", "Edit Passed");</para>
+            <para>ExampleFetalDeathRecord.BirthWeightEditFlag = height;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Birth Weight: {ExampleFetalDeathRecord.BirthWeightEditFlag['display']}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.BirthWeightEditFlagHelper">
+            <summary>Birth Weight Edit Flag Helper</summary>
+            <value>Birth Weight Edit Flag.</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.BirthWeightEditFlagHelper = "0";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Birth Weight Edit Flag: {ExampleFetalDeathRecord.BirthWeightHelperEditFlag}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OtherComplicationsOfPlacentaCordMembranesLiteral">
+            <summary>Initiating cause/condition, Other complications of placenta, cord, or membranes literal.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OtherObstetricalOrPregnancyComplicationsLiteral">
+            <summary>Initiating cause/condition, Other obstetrical or pregnancy complications literal.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.FetalAnomalyLiteral">
+            <summary>Initiating cause/condition, Fetal anomaly literal.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.FetalInjuryLiteral">
+            <summary>Initiating cause/condition, Fetal injury literal.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.FetalInfectionLiteral">
+            <summary>Initiating cause/condition, Fetal infection literal.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OtherFetalConditionsDisordersLiteral">
+            <summary>Initiating cause/condition, Other fetal conditions/disorders literal.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OtherCOD_PrematureRuptureOfMembranes">
+            <summary>Other significant causes or conditions, Rupture of membranes prior to onset of labor.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OtherCOD_AbruptioPlacenta">
+            <summary>Other significant causes or conditions, Abruptio placenta.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OtherCOD_PlacentalInsufficiency">
+            <summary>Other significant causes or conditions, Placental insufficiency.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OtherCOD_ProlapsedCord">
+            <summary>Other significant causes or conditions, Prolapsed cord.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OtherCOD_ChorioamnionitisCOD">
+            <summary>Other significant causes or conditions, Chorioamnionitis.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OtherCOD_OtherComplicationsOfPlacentaCordOrMembranes">
+            <summary>Other significant causes or conditions, Other complications of placenta, cord, or membranes.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OtherCOD_OtherCauseOrConditionUnknown">
+            <summary>Other significant causes or conditions, Unknown.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OtherCOD_MaternalConditionsDiseasesLiteral">
+            <summary>Other significant causes or conditions, Maternal conditions/diseases literal.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OtherCOD_OtherComplicationsOfPlacentaCordMembranesLiteral">
+            <summary>Other significant causes or conditions, Other complications of placenta, cord, or membranes literal.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OtherCOD_OtherObstetricalOrPregnancyComplicationsLiteral">
+            <summary>Other significant causes or conditions, Other obstetrical or pregnancy complications literal.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OtherCOD_FetalAnomalyLiteral">
+            <summary>Other significant causes or conditions, Fetal anomaly literal.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OtherCOD_FetalInjuryLiteral">
+            <summary>Other significant causes or conditions, Fetal injury literal.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OtherCOD_FetalInfectionLiteral">
+            <summary>Other significant causes or conditions, Fetal infection literal.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OtherCOD_OtherFetalConditionsDisordersLiteral">
+            <summary>Other significant causes or conditions, Other fetal conditions/disorders literal.</summary>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.PlaceOfDelivery">
+            <summary>Place of Delivery.</summary>
+            <value>Place of Delivery. A Dictionary representing place of delivery address, containing the following key/value pairs:
+            <para>"addressLine1" - address, line one</para>
+            <para>"addressLine2" - address, line two</para>
+            <para>"addressCity" - address, city</para>
+            <para>"addressCounty" - address, county</para>
+            <para>"addressState" - address, state</para>
+            <para>"addressZip" - address, zip</para>
+            <para>"addressCountry" - address, country</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; address = new Dictionary&lt;string, string&gt;();</para>
+            <para>address.Add("addressLine1", "123 Test Street");</para>
+            <para>address.Add("addressLine2", "Unit 3");</para>
+            <para>address.Add("addressCity", "Boston");</para>
+            <para>address.Add("addressCounty", "Suffolk");</para>
+            <para>address.Add("addressState", "MA");</para>
+            <para>address.Add("addressZip", "12345");</para>
+            <para>address.Add("addressCountry", "US");</para>
+            <para>ExampleFetalDeathRecord.PlaceOfDelivery = address;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"State where baby was delivered: {ExampleFetalDeathRecord.PlaceOfDelivery["addressState"]}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.DateOfDelivery">
+            <summary>Decedent Fetus's Date of Delivery.</summary>
+            <value>the decedent fetus's date of delivery</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.DateOfDelivery = "1940-02-19";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Decedent Fetus Date of Delivery: {ExampleFetalDeathRecord.DateOfBirth}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.DeliveryYear">
+            <summary>Decedent Fetus's Year of Delivery.</summary>
+            <value>the decedent fetus's year of delivery, or -1 if explicitly unknown, or null if never specified</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.DeliveryYear = 1928;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Decedent Fetus' Year of Delivery: {ExampleFetalDeathRecord.DeliveryYear}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.DeliveryMonth">
+            <summary>Decedent Fetus's Month of Delivery.</summary>
+            <value>the decedent fetus's month of delivery, or -1 if explicitly unknown, or null if never specified</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.DeliveryMonth = 11;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Child Month of Birth: {ExampleFetalDeathRecord.DeliveryMonth}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.DeliveryDay">
+            <summary>Decedent Fetus's Day of Delivery.</summary>
+            <value>the decedent fetus's day of delivery, or -1 if explicitly unknown, or null if never specified</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.DeliveryDay = 11;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Decedent Fetus' Day of Birth: {ExampleFetalDeathRecord.DeliveryDay}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.DeliveryTime">
+            <summary>Decedent Fetus's Time of Delivery.</summary>
+            <value>the decedent fetus's time of delivery.</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.DeliveryTime = 11;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Decedent Fetus Time of Birth: {ExampleFetalDeathRecord.DeliveryTime}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.FetalDeathSex">
+            <summary>Decedent Fetus's BirthSex at fetal death.</summary>
+            <value>The decedent fetus's BirthSex at time of fetal death</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.FetalDeathSex = "female;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Sex at Time of Fetal Death: {ExampleFetalDeathRecord.FetalDeathSex}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.FetalDeathSexHelper">
+            <summary>Decedent Fetus's Sex at Fetal Death Helper.</summary>
+            <value>The decedent fetus's sex at time of fetal death</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.FetalDeathSexHelper = "female;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Sex at Time of Fetal Death: {ExampleFetalDeathRecord.FetalDeathSexHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.FetalDeathSetOrder">
+            <summary>Multiple birth set order</summary>
+            <value>The order that the decedent fetus was born if a multiple birth or null if it was a single birth</value>
+            <example>
+            <para>ExampleFetalDeathRecord.FetalDeathSetOrder = null; // single birth</para>
+            <para>ExampleFetalDeathRecord.FetalDeathSetOrder = -1; // unknow whether single or multiple birth</para>
+            <para>ExampleFetalDeathRecord.FetalDeathSetOrder = 1; // multiple birth, born first</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.FetalDeathPluralityEditFlag">
+            <summary>Multiple birth set order edit flag</summary>
+            <value>the multiple birth set order edit flag</value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; route = new Dictionary&lt;string, string&gt;();</para>
+            <para>route.Add("code", "queriedCorrect");</para>
+            <para>route.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");</para>
+            <para>route.Add("display", "Queried, and Correct");</para>
+            <para>ExampleFetalDeathRecord.FetalDeathPluralityEditFlag = route;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Multiple birth set order edit flag: {ExampleFetalDeathRecord.FetalDeathPluralityEditFlag}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.FetalDeathPluralityEditFlagHelper">
+            <summary>Multiple birth set order edit flag helper</summary>
+            <value>the multiple birth set order edit flag</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.FetalDeathPluralityEditFlagHelper = "queriedCorrect";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Multiple birth set order edit flag: {ExampleFetalDeathRecord.FetalDeathPluralityEditFlagHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.FetalDeathPlurality">
+            <summary>Multiple birth plurality</summary>
+            <value>Where a patient is a part of a multiple birth, this is the total number of births that occurred in this pregnancy.</value>
+            <example>
+            <para>ExampleFetalDeathRecord.FetalDeathPlurality = null; // single birth</para>
+            <para>ExampleFetalDeathRecord.FetalDeathPlurality = -1; // unknown number of births birth</para>
+            <para>ExampleFetalDeathRecord.FetalDeathPlurality = 2; // two births for this pregnancy</para>
+            </example>
+        </member>
+        <member name="M:BFDR.FetalDeathRecord.#ctor">
+            <summary>Default constructor that creates a new, empty FetalDeathRecord.</summary>
+        </member>
+        <member name="M:BFDR.FetalDeathRecord.#ctor(System.String,System.Boolean)">
+            <summary>Constructor that takes a string that represents a FHIR FetalDeath Record in either XML or JSON format.</summary>
+            <param name="record">represents a FHIR FetalDeath Record in either XML or JSON format.</param>
+            <param name="permissive">if the parser should be permissive when parsing the given string</param>
+            <exception cref="T:System.ArgumentException">Record is neither valid XML nor JSON.</exception>
+        </member>
+        <member name="M:BFDR.FetalDeathRecord.#ctor(Hl7.Fhir.Model.Bundle)">
+            <summary>Constructor that takes a FHIR Bundle that represents a FHIR FetalDeath Record.</summary>
+            <param name="bundle">represents a FHIR Bundle.</param>
+            <exception cref="T:System.ArgumentException">Record is invalid.</exception>
+        </member>
+        <member name="M:BFDR.FetalDeathRecord.GetYear">
+            <summary>Return the birth year for this record to be used in the identifier</summary>
+        </member>
+        <member name="M:BFDR.FetalDeathRecord.RestoreReferences">
+            <inheritdoc/>
+        </member>
+        <member name="M:BFDR.FetalDeathRecord.InitializeCompositionAndSubject">
+            <inheritdoc/>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.CodedInitiatingFetalCOD">
+            <summary>Decedent Fetus's Coded Initiating Fetal Death Cause or Condition</summary>
+            <value>Decedent Fetus's Coded Initiating Fetal Death Cause or Condition.</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.CodedInitiatingFetalCOD = "I13.1";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Decedent Fetus's Coded Initiating Fetal Death Cause or Condition: {ExampleFetalDeathRecord.CodedInitiatingFetalCOD}");</para>
+            </example>
+        </member>
+        <member name="M:BFDR.FetalDeathRecord.GetorCreateCodedOtherCODObservation(System.Int32)">
+            <summary>Helper to get or create a coded other significant fetal death cause or condition observation.</summary>
+            <param name="position">the integer to specify the position, or order of mention</param>
+        </member>
+        <member name="M:BFDR.FetalDeathRecord.GetCodedOtherCOD(Hl7.Fhir.Model.Observation)">
+            <summary>Get a coded fetal death other significant cause or condition.
+            <para>
+            This helper returns the code of the the other significant fetal death cause or condition based on position.
+            </para>
+            </summary>
+            <param name="obs">represents a coded other significant fetal death cause or condition observation</param>
+        </member>
+        <member name="M:BFDR.FetalDeathRecord.SetCodedOtherCOD(Hl7.Fhir.Model.Observation,System.String,System.Int32)">
+            <summary>Set a coded fetal death other significant cause or condition.
+            <para>
+            This helper sets the code of the the other significant fetal death cause or condition based on position.
+            </para>
+            </summary>
+            <param name="obs">represents a coded other significant fetal death cause or condition observation</param>
+            <param name="value">the code of the other significant fetal death cause or condition</param>
+            <param name="position">the integer to specify the position, or order of mention</param>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OCOD1">
+            <summary>Coded Fetal Other Cause of Death, First Mentioned.</summary>
+            <value>the coded other significant cause or conditions of death</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.OCOD1 = "P02.1";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Cause: {ExampleFetalDeathRecord.OCOD1}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OCOD2">
+            <summary>Coded Fetal Other Cause of Death, Second Mentioned.</summary>
+            <value>the coded other significant cause or conditions of death</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.OCOD2 = "P02.1";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Cause: {ExampleFetalDeathRecord.OCOD2}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OCOD3">
+            <summary>Coded Fetal Other Cause of Death, Third Mentioned.</summary>
+            <value>the coded other significant cause or conditions of death</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.OCOD3 = "P02.1";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Cause: {ExampleFetalDeathRecord.OCOD3}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OCOD4">
+            <summary>Coded Fetal Other Cause of Death, Fourth Mentioned.</summary>
+            <value>the coded other significant cause or conditions of death</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.OCOD4 = "P02.1";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Cause: {ExampleFetalDeathRecord.OCOD4}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OCOD5">
+            <summary>Coded Fetal Other Cause of Death, Fifth Mentioned.</summary>
+            <value>the coded other significant cause or conditions of death</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.OCOD5 = "P02.1";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Cause: {ExampleFetalDeathRecord.OCOD5}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OCOD6">
+            <summary>Coded Fetal Other Cause of Death, Sixth Mentioned.</summary>
+            <value>the coded other significant cause or conditions of death</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.OCOD6 = "P02.1";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Cause: {ExampleFetalDeathRecord.OCOD6}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.FetalDeathRecord.OCOD7">
+            <summary>Coded Fetal Other Cause of Death, Seventh Mentioned.</summary>
+            <value>the coded other significant cause or conditions of death</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleFetalDeathRecord.OCOD7 = "P02.1";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Cause: {ExampleFetalDeathRecord.OCOD7}");</para>
+            </example>
         </member>
         <member name="T:BFDR.IJEBirth">
             <summary>A "wrapper" class to convert between a FHIR based <c>BirthRecord</c> and
@@ -71,37 +925,16 @@
         <member name="P:BFDR.IJEBirth.Record">
             <summary>FHIR based vital record.</summary>
         </member>
+        <member name="P:BFDR.IJEBirth.NatalityRecord">
+            <summary>FHIR based natality record.</summary>
+        </member>
         <member name="M:BFDR.IJEBirth.ToBirthRecord">
             <summary>FHIR based vital record.</summary>
             Redundant due to ToRecord(), but kept for compatibility with IJEMortality which has this method for backwards compatibility.
         </member>
         <member name="M:BFDR.IJEBirth.ToRecord">
             <summary>FHIR based vital record.</summary>
-            Hides the IJE ToRecord method that returns a VitalRecord instead of a DeathRecord
-        </member>
-        <member name="M:BFDR.IJEBirth.PresenceToIJE(System.Boolean,System.Boolean)">
-            <summary>Converts the FHIR representation of presence-only fields to the IJE equivalent.</summary>
-            <param name="fieldValue">the value of the field</param>
-            <param name="noneOfTheAboveValue">the value of the corresponding none-of-the-above field</param>
-            <returns>Y (yes), N (no), or U (unknown)</returns>
-        </member>
-        <member name="M:BFDR.IJEBirth.IJEToPresence(System.String,System.Func{System.Boolean,System.Boolean},System.Func{System.Boolean,System.Boolean})">
-            <summary>Converts the IJE representation of presence-only fields to the FHIR equivalent.</summary>
-            <param name="value">Y (yes), N (no), or U (unknown)</param>
-            <param name="field">a function that will set a field in the FHIR record</param>
-            <param name="noneOfTheAboveField">a function that will set the corresponding none-of-the-above field in the FHIR record</param>
-        </member>
-        <member name="M:BFDR.IJEBirth.Get_MotherRace(System.String)">
-            <summary>Checks if the given race exists in the record for Mother.</summary>
-        </member>
-        <member name="M:BFDR.IJEBirth.Set_MotherRace(System.String,System.String)">
-            <summary>Adds the given race to the record for Mother.</summary>
-        </member>
-        <member name="M:BFDR.IJEBirth.Get_FatherRace(System.String)">
-            <summary>Checks if the given race exists in the record for Father.</summary>
-        </member>
-        <member name="M:BFDR.IJEBirth.Set_FatherRace(System.String,System.String)">
-            <summary>Adds the given race to the record for Father.</summary>
+            Hides the IJE ToRecord method that returns a VitalRecord instead of a BirthRecord
         </member>
         <member name="P:BFDR.IJEBirth.IDOB_YR">
             <summary>Date of Birth (Infant)--Year</summary>
@@ -173,6 +1006,7 @@
             <summary>Residence of Mother--Country</summary>
         </member>
         <member name="P:BFDR.IJEBirth.LIMITS">
+            NOTE: this field must be set after other residence fields have been set
             <summary>Residence of Mother--Inside City Limits</summary>
         </member>
         <member name="P:BFDR.IJEBirth.FDOB_YR">
@@ -1162,6 +1996,1182 @@
         <member name="P:BFDR.IJEBirth.BLANK2">
             <summary>Blank for Jurisdictional Use Only</summary>
         </member>
+        <member name="T:BFDR.IJEFetalDeath">
+            <summary>A "wrapper" class to convert between a FHIR based <c>FetalDeathRecord</c> and
+            a record in IJE FetalDeath format. Each property of this class corresponds exactly
+            with a field in the IJE FetalDeath format. The getters convert from the embedded
+            FHIR based <c>FetalDeathRecord</c> to the IJE format for a specific field, and
+            the setters convert from IJE format for a specific field and set that value
+            on the embedded FHIR based <c>FetalDeathRecord</c>.</summary>
+        </member>
+        <member name="M:BFDR.IJEFetalDeath.#ctor(BFDR.FetalDeathRecord,System.Boolean)">
+            <summary>Constructor that takes a <c>FetalDeathRecord</c>.</summary>
+        </member>
+        <member name="M:BFDR.IJEFetalDeath.#ctor(System.String,System.Boolean)">
+            <summary>Constructor that takes an IJE string and builds a corresponding internal <c>FetalDeathRecord</c>.</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.IJELength">
+            <summary>Get the length of the IJE string.</summary>
+        </member>
+        <member name="M:BFDR.IJEFetalDeath.#ctor">
+            <summary>Constructor that creates an empty record for constructing records using the IJE properties.</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.Record">
+            <summary>FHIR based vital record.</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.NatalityRecord">
+            <summary>FHIR based natality record.</summary>
+        </member>
+        <member name="M:BFDR.IJEFetalDeath.ToFetalDeathRecord">
+            <summary>FHIR based vital record.</summary>
+            Redundant due to ToRecord(), but kept for compatibility with IJEMortality which has this method for backwards compatibility.
+        </member>
+        <member name="M:BFDR.IJEFetalDeath.ToRecord">
+            <summary>FHIR based vital record.</summary>
+            Hides the IJE ToRecord method that returns a VitalRecord instead of a DeathRecord
+        </member>
+        <member name="M:BFDR.IJEFetalDeath.YesNo_PresenceToIJE(System.Boolean)">
+            <summary>Converts the FHIR representation of presence-only fields to the IJE equivalent.</summary>
+            <param name="fieldValue">the value of the field</param>
+            <returns>Y (yes), N (no)</returns>
+        </member>
+        <member name="M:BFDR.IJEFetalDeath.YesNo_IJEToPresence(System.String,System.Func{System.Boolean,System.Boolean})">
+            <summary>Converts the IJE representation of presence-only fields to the FHIR equivalent.</summary>
+            <param name="value">Y (yes), N (no)</param>
+            <param name="field">a function that will set a field in the FHIR record</param>
+        </member>
+        <member name="M:BFDR.IJEFetalDeath.NCHSICD10toActualICD10(System.String)">
+            <summary>NCHS ICD10 to actual ICD10 </summary>
+        </member>
+        <member name="M:BFDR.IJEFetalDeath.ActualICD10toNCHSICD10(System.String)">
+            <summary>Actual ICD10 to NCHS ICD10 </summary>
+        </member>
+        <member name="M:BFDR.IJEFetalDeath.ValidNCHSICD10(System.String)">
+            <summary>Actual ICD10 to NCHS ICD10 </summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FDOD_YR">
+            <summary>Date of Delivery (Fetus)--Year</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DSTATE">
+            <summary>State, U.S. Territory or Canadian Province of Place of Delivery - code</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FILENO">
+            <summary>Certificate Number</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.VOID">
+            <summary>Void flag</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.AUXNO">
+            <summary>Auxiliary State file number</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.TD">
+            <summary>Time of Delivery</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FSEX">
+            <summary>Sex</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FDOD_MO">
+            <summary>Date of Delivery (Fetus)--Month</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FDOD_DY">
+            <summary>Date of Delivery (Fetus)--Day</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.CNTYO">
+            <summary>County of Delivery</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DPLACE">
+            <summary>Place Where Delivery Occurred</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FNPI">
+            <summary>Facility ID (NPI) - If available</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.SFN">
+            <summary>Facility ID (State-Assigned)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MDOB_YR">
+            <summary>Date of Birth (Mother)--Year</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MDOB_MO">
+            <summary>Date of Birth (Mother)--Month</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MDOB_DY">
+            <summary>Date of Birth (Mother)--Day</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MAGE_BYPASS">
+            <summary>Date of Birth (Mother)--Edit Flag</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.BPLACEC_ST_TER">
+            <summary>State, U.S. Territory or Canadian Province of Birth (Mother) - code</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.BPLACEC_CNT">
+            <summary>Mother's Birthplace--Country</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.CITYC">
+            <summary>Residence of Mother--City/Town</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COUNTYC">
+            <summary>Residence of Mother--County</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.STATEC">
+            <summary>State, U.S. Territory or Canadian Province of Residence (Mother) - code</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COUNTRYC">
+            <summary>Residence of Mother--Country</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.LIMITS">
+            NOTE: this field must be set after other residence fields have been set
+            <summary>Residence of Mother--Inside City/Town Limits</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FDOB_YR">
+            <summary>Date of Birth (Father)--Year</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FDOB_MO">
+            <summary>Date of Birth (Father)--Month</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FDOB_DY">
+            <summary>Date of Birth (Father)--Day</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FAGE_BYPASS">
+            <summary>Date of Birth (Father)--Edit Flag</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MARE">
+            <summary>Mother Married?--Ever(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MARN">
+            <summary>Mother Married?-- At Conception, at Delivery or any Time in Between(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MEDUC">
+            <summary>Mother's Education</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MEDUC_BYPASS">
+            <summary>Mother's Education--Edit Flag</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.METHNIC1">
+            <summary>Mother of Hispanic Origin?--Mexican</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.METHNIC2">
+            <summary>Mother of Hispanic Origin?--Puerto Rican</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.METHNIC3">
+            <summary>Mother of Hispanic Origin?--Cuban</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.METHNIC4">
+            <summary>Mother of Hispanic Origin?--Other</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.METHNIC5">
+            <summary>Mother of Hispanic Origin?--Other Literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE1">
+            <summary>Mother's Race--White</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE2">
+            <summary>Mother's Race--Black or African American</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE3">
+            <summary>Mother's Race--American Indian or Alaska Native</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE4">
+            <summary>Mother's Race--Asian Indian</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE5">
+            <summary>Mother's Race--Chinese</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE6">
+            <summary>Mother's Race--Filipino</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE7">
+            <summary>Mother's Race--Japanese</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE8">
+            <summary>Mother's Race--Korean</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE9">
+            <summary>Mother's Race--Vietnamese</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE10">
+            <summary>Mother's Race--Other Asian</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE11">
+            <summary>Mother's Race--Native Hawaiian</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE12">
+            <summary>Mother's Race--Guamanian or Chamorro</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE13">
+            <summary>Mother's Race--Samoan</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE14">
+            <summary>Mother's Race--Other Pacific Islander</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE15">
+            <summary>Mother's Race--Other</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE16">
+            <summary>Mother's Race--First American Indian or Alaska Native Literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE17">
+            <summary>Mother's Race--Second American Indian or Alaska Native Literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE18">
+            <summary>Mother's Race--First Other Asian Literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE19">
+            <summary>Mother's Race--Second Other Asian Literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE20">
+            <summary>Mother's Race--First Other Pacific Islander Literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE21">
+            <summary>Mother's Race--Second Other Pacific Islander Literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE22">
+            <summary>Mother's Race--First Other Literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE23">
+            <summary>Mother's Race--Second Other Literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE1E">
+            <summary>Mother's Race Tabulation Variable 1E</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE2E">
+            <summary>Mother's Race Tabulation Variable 2E</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE3E">
+            <summary>Mother's Race Tabulation Variable 3E</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE4E">
+            <summary>Mother's Race Tabulation Variable 4E</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE5E">
+            <summary>Mother's Race Tabulation Variable 5E</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE6E">
+            <summary>Mother's Race Tabulation Variable 6E</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE7E">
+            <summary>Mother's Race Tabulation Variable 7E</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE8E">
+            <summary>Mother's Race Tabulation Variable 8E</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE16C">
+            <summary>Mother's Race Tabulation Variable 16C</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE17C">
+            <summary>Mother's Race Tabulation Variable 17C</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE18C">
+            <summary>Mother's Race Tabulation Variable 18C</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE19C">
+            <summary>Mother's Race Tabulation Variable 19C</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE20C">
+            <summary>Mother's Race Tabulation Variable 20C</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE21C">
+            <summary>Mother's Race Tabulation Variable 21C</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE22C">
+            <summary>Mother's Race Tabulation Variable 22C</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE23C">
+            <summary>Mother's Race Tabulation Variable 23C</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.ATTEND">
+            <summary>Attendant</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.TRAN">
+            <summary>Mother Transferred?(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DOFP_MO">
+            <summary>Date of First Prenatal Care Visit--Month</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DOFP_DY">
+            <summary>Date of First Prenatal Care Visit--Day</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DOFP_YR">
+            <summary>Date of First Prenatal Care Visit--Year</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DOLP_MO">
+            <summary>Date of Last Prenatal Care Visit--Month(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DOLP_DY">
+            <summary>Date of Last Prenatal Care Visit--Day(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DOLP_YR">
+            <summary>Date of Last Prenatal Care Visit--Year(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.NPREV">
+            <summary>Total Number of Prenatal Care Visits(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.NPREV_BYPASS">
+            <summary>Total Number of Prenatal Care Visits--Edit Flag(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.HFT">
+            <summary>Mother's Height--Feet</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.HIN">
+            <summary>Mother's Height--Inches</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.HGT_BYPASS">
+            <summary>Mother's Height--Edit Flag</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PWGT">
+            <summary>Mother's Prepregnancy Weight</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PWGT_BYPASS">
+            <summary>Mother's Prepregnancy Weight--Edit Flag</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.WIC">
+            <summary>Did Mother get WIC Food for Herself?</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PLBL">
+            <summary>Previous Live Births Now Living</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PLBD">
+            <summary>Previous Live Births Now Dead</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.POPO">
+            <summary>Previous Other Pregnancy Outcomes(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MLLB">
+            <summary>Date of Last Live Birth--Month</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.YLLB">
+            <summary>Date of Last Live Birth--Year</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MOPO">
+            <summary>Date of Last Other Pregnancy Outcome--Month(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.YOPO">
+            <summary>Date of Last Other Pregnancy Outcome--Year(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.CIGPN">
+            <summary>Number of Cigarettes Smoked in 3 months prior to Pregnancy</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.CIGFN">
+            <summary>Number of Cigarettes Smoked in 1st 3 months</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.CIGSN">
+            <summary>Number of Cigarettes Smoked in 2nd 3 months</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.CIGLN">
+            <summary>Number of Cigarettes Smoked in third trimester</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DLMP_YR">
+            <summary>Date Last Normal Menses Began--Year</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DLMP_MO">
+            <summary>Date Last Normal Menses Began--Month</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DLMP_DY">
+            <summary>Date Last Normal Menses Began--Day</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PDIAB">
+            <summary>Risk Factors--Prepregnancy Diabetes  (NOTE: SEE INSERTED NOTES FOR RISK FACTOR LOCATIONS 490-501 AND 573-575 TO REFLECT 2004 CHANGES)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.GDIAB">
+            <summary>Risk Factors--Gestational Diabetes</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PHYPE">
+            <summary>Risk Factors--Hypertension Prepregnancy</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.GHYPE">
+            <summary><html>Risk Factors--Hypertension Gestational <b> (SEE ADDITIONAL HYPERTENSION CATEGORY IN LOCATION 573)</b></html></summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PPB">
+            <summary>Risk Factors--Previous Preterm Births(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PPO">
+            <summary>Risk Factors--Poor Pregnancy Outcomes(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.VB">
+            <summary><html>Risk Factors--Vaginal Bleeding <b><i> (NCHS DELETED THIS ITEM EFFECTIVE 2011)</i></b></html></summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.INFT">
+            <summary><html>Risk Factors--Infertility Treatment  <b>(SEE ADDITIONAL SUBCATEGORIES IN LOCATIONS 574-575)</b></html></summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PCES">
+            <summary>Risk Factors--Previous Cesarean</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.NPCES">
+            <summary>Risk Factors--Number Previous Cesareans</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.NPCES_BYPASS">
+            <summary>Risk Factors--Number Previous Cesareans--Edit Flag</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.GON">
+            <summary>Infections Present--Gonorrhea(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.SYPH">
+            <summary>Infections Present--Syphilis(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.HSV">
+            <summary><html>Infections Present--Herpes Simplex (HSV) <b><i>(NCHS DELETED THIS ITEM EFFECTIVE 2011)</i></b></html></summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.CHAM">
+            <summary>Infections Present--Chlamydia(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.LM">
+            <summary>Infections Present--Listeria(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.GBS">
+            <summary>Infections Present--Group B streptococcus(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.CMV">
+            <summary>Infections Present--Cytomeglovirus(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.B19">
+            <summary>Infections Present--Parvo virus(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.TOXO">
+            <summary>Infections Present--Toxoplasmosis(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.OTHERI">
+            <summary>Infections Present--Other(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.ATTF">
+            <summary><html>Method of Delivery--Attempted Forceps<b><i> (NCHS DELETED THIS ITEM EFFECTIVE 2011)</i></b></html></summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.ATTV">
+            <summary><html>Method of Delivery--Attempted Vacuum <b><i>(NCHS DELETED THIS ITEM EFFECTIVE 2011)</i></b></html></summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PRES">
+            <summary>Method of Delivery--Fetal Presentation</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.ROUT">
+            <summary>Method of Delivery--Route and Method of Delivery</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.TLAB">
+            <summary>Method of Delivery--Trial of Labor Attempted</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.HYST">
+            <summary>Method of Delivery--Hysterotomy/Hysterectomy(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MTR">
+            <summary>Maternal Morbidity--Maternal Transfusion(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PLAC">
+            <summary>Maternal Morbidity--Perineal Laceration(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.RUT">
+            <summary>Maternal Morbidity--Ruptured Uterus</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.UHYS">
+            <summary>Maternal Morbidity--Unplanned Hysterectomy(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.AINT">
+            <summary>Maternal Morbidity--Admit to Intensive Care</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.UOPR">
+            <summary>Maternal Morbidity--Unplanned Operation(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FWG">
+            <summary>Weight of Fetus</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FW_BYPASS">
+            <summary>Weight of Fetus--Edit Flag</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.OWGEST">
+            <summary>Obstetric Estimation of Gestation</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.OWGEST_BYPASS">
+            <summary>Obstetric Estimation of Gestation--Edit Flag</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.ETIME">
+            <summary>Estimated time of fetal death</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.AUTOP">
+            <summary>Was an Autopsy Performed?</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.HISTOP">
+            <summary>Was a Histological Placental Examination Performed?</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.AUTOPF">
+            <summary>Were Autopsy or Histological Placental Examination Results Used in Determining the Cause of Fetal Death?</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PLUR">
+            <summary>Plurality</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.SORD">
+            <summary>Set Order</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FDTH">
+            <summary>Number of Fetal Deaths</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MATCH">
+            <summary>Matching Number</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PLUR_BYPASS">
+            <summary>Plurality--Edit Flag</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.ANEN">
+            <summary>Congenital Anomalies of the Fetus--Anencephaly(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MNSB">
+            <summary>Congenital Anomalies of the Fetus--Meningomyelocele/Spina Bifida(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.CCHD">
+            <summary>Congenital Anomalies of the Fetus--Cyanotic congenital heart disease(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.CDH">
+            <summary>Congenital Anomalies of the Fetus--Congenital diaphragmatic hernia(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.OMPH">
+            <summary>Congenital Anomalies of the Fetus--Omphalocele(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.GAST">
+            <summary>Congenital Anomalies of the Fetus--Gastroschisis(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.LIMB">
+            <summary>Congenital Anomalies of the Fetus--Limb Reduction Defect(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.CL">
+            <summary>Congenital Anomalies of the Fetus--Cleft Lip with or without Cleft Palate(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.CP">
+            <summary>Congenital Anomalies of the Fetus--Cleft Palate Alone(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DOWT">
+            <summary>Congenital Anomalies of the Fetus--Down Syndrome(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.CDIT">
+            <summary>Congenital Anomalies of the Fetus--Suspected Chromosomal disorder(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.HYPO">
+            <summary>Congenital Anomalies of the Fetus--Hypospadias(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.R_YR">
+            <summary>NCHS USE ONLY: Receipt date -- Year</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.R_MO">
+            <summary>NCHS USE ONLY: Receipt date -- Month</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.R_DY">
+            <summary>NCHS USE ONLY: Receipt date -- Day</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MAGER">
+            <summary>Mother's Reported Age</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FAGER">
+            <summary>Father's Reported Age</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.EHYPE">
+            <summary>Risk Factors--Hypertension Eclampsia (added after 2004)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.INFT_DRG">
+            <summary>Risk Factors--Infertility: Fertility Enhancing Drugs (added after 2004)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.INFT_ART">
+            <summary>Risk Factors--Infertility: Asst. Rep. Technology (added after 2004)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DOR_YR">
+            <summary>Date of Registration--Year</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DOR_MO">
+            <summary>Date of Registration--Month</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DOR_DY">
+            <summary>Date of Registration--Day</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18a1">
+            <summary>Initiating cause/condition - Rupture of membranes prior to onset of labor</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18a2">
+            <summary>Initiating cause/condition - Abruptio placenta</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18a3">
+            <summary>Initiating cause/condition - Placental insufficiency</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18a4">
+            <summary>Initiating cause/condition - Prolapsed cord</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18a5">
+            <summary>Initiating cause/condition - Chorioamnionitis</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18a6">
+            <summary>Initiating cause/condition - Other complications of placenta, cord, or membranes</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18a7">
+            <summary>Initiating cause/condition - Unknown</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18a8">
+            <summary>Initiating cause/condition - Maternal conditions/diseases literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18a9">
+            <summary>Initiating cause/condition - Other complications of placenta, cord, or membranes literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18a10">
+            <summary>Initiating cause/condition - Other obstetrical or pregnancy complications literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18a11">
+            <summary>Initiating cause/condition - Fetal anomaly literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18a12">
+            <summary>Initiating cause/condition - Fetal injury literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18a13">
+            <summary>Initiating cause/condition - Fetal infection literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18a14">
+            <summary>Initiating cause/condition - Other fetal conditions/disorders literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18b1">
+            <summary>Other significant causes or conditions - Rupture of membranes prior to onset of labor</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18b2">
+            <summary>Other significant causes or conditions - Abruptio placenta</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18b3">
+            <summary>Other significant causes or conditions  - Placental insufficiency</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18b4">
+            <summary>Other significant causes or conditions - Prolapsed cord</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18b5">
+            <summary>Other significant causes or conditions - Chorioamnionitis</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18b6">
+            <summary>Other significant causes or conditions - Other complications of placenta, cord, or membranes</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18b7">
+            <summary>Other significant causes or conditions - Unknown</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18b8">
+            <summary>Other significant causes or conditions - Maternal conditions/diseases literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18b9">
+            <summary>Other significant causes or conditions - Other complications of placenta, cord, or membranes literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18b10">
+            <summary>Other significant causes or conditions - Other obstetrical or pregnancy complications literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18b11">
+            <summary>Other significant causes or conditions - Fetal anomaly literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18b12">
+            <summary>Other significant causes or conditions - Fetal injury literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18b13">
+            <summary>Other significant causes or conditions - Fetal infection literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COD18b14">
+            <summary>Other significant causes or conditions - Other fetal conditions/disorders literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.ICOD">
+            <summary>Coded initiating cause/condition</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.OCOD1">
+            <summary>Coded other significant causes or conditions- first mentioned</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.OCOD2">
+            <summary>Coded other significant causes or conditions- second mentioned</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.OCOD3">
+            <summary>Coded other significant causes or conditions- third mentioned</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.OCOD4">
+            <summary>Coded other significant causes or conditions- fourth mentioned</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.OCOD5">
+            <summary>Coded other significant causes or conditions- fifth mentioned</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.OCOD6">
+            <summary>Coded other significant causes or conditions- sixth mentioned</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.OCOD7">
+            <summary>Coded other significant causes or conditions- seventh mentioned</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.HSV1">
+            <summary><html>Infections Present--Genital Herpes <b><i>(Subcategory in position 504)</i></b></html></summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.HIV">
+            <summary>Infections Present--HIV</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.ALCOHOL">
+            <summary>Alcohol Used?</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FETFNAME">
+            <summary>Fetus First Name</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FETMNAME">
+            <summary>Fetus Middle Name</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FETLNAME">
+            <summary>Fetus Last Name</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.SUFFIX">
+            <summary>Fetus Surname Suffix</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.ALIAS">
+            <summary>Fetus Legal Name--Alias</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.HOSP_D">
+            <summary>Name of Delivery Facility</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.STNUM_D">
+            <summary>Place of Delivery Street number</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PREDIR_D">
+            <summary>Place of Delivery Pre Directional</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.STNAME_D">
+            <summary>Place of Delivery Street name</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.STDESIG_D">
+            <summary>Place of Delivery Street designator</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.POSTDIR_D">
+            <summary>Place of Delivery Post Directional</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.APTNUMB_D">
+            <summary>Place of Delivery Unit or Apartment Number</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.ADDRESS_D">
+            <summary>Place of Delivery Street Address</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.ZIPCODE_D">
+            <summary>Place of Delivery Zip code and Zip+4</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.CNTY_D">
+            <summary>Place of Delivery County (literal)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.CITY_D">
+            <summary>Place of Delivery City/Town/Place (literal)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.STATE_D">
+            <summary>State, U.S. Territory or Canadian Province of Place of Delivery - literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COUNTRY_D">
+            <summary>Place of Delivery Country (literal)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.LONG_D">
+            <summary>Place of Delivery Longitude</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.LAT_D">
+            <summary>Place of Delivery Latitude</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MOMFNAME">
+            <summary>Mother's Legal First Name</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MOMMNAME">
+            <summary>Mother's Legal Middle Name</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MOMLNAME">
+            <summary>Mother's Legal Last Name</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MOMSUFFIX">
+            <summary>Mother's Legal Surname Suffix</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MOMFMNME">
+            <summary>Mother's First Maiden Name</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MOMMMID">
+            <summary>Mother's Middle Maiden Name</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MOMMAIDN">
+            <summary>Mother's Last Maiden Name</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MOMMSUFFIX">
+            <summary>Mother's Maiden Surname Suffix</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.STNUM">
+            <summary>Mother's Residence Street number</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PREDIR">
+            <summary>Mother's Residence Pre Directional</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.STNAME">
+            <summary>Mother's Residence Street name</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.STDESIG">
+            <summary>Mother's Residence Street designator</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.POSTDIR">
+            <summary>Mother's Residence Post Directional</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.APTNUMB">
+            <summary>Mother's Residence Unit or Apartment Number</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.ADDRESS">
+            <summary>Mother's Residence Street Address</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.ZIPCODE">
+            <summary>Mother's Residence Zip code and Zip+4</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.COUNTYTXT">
+            <summary>Mother's Residence County (literal)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.CITYTXT">
+            <summary>Mother's Residence City/Town/Place (literal)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.STATETXT">
+            <summary>State, U.S. Territory or Canadian Province of Residence (Mother) - literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.CNTRYTXT">
+            <summary>Mother's Residence Country (literal)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.LONG">
+            <summary>Mother's Residence Longitude</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.LAT">
+            <summary>Mother's Residence Latitude</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DADFNAME">
+            <summary>Father's Legal First Name</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DADMNAME">
+            <summary>Father's Legal Middle Name</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DADLNAME">
+            <summary>Father's Legal Last Name</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DADSUFFIX">
+            <summary>Father's Legal Surname Suffix</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MOM_SSN">
+            <summary>Mother's Social Security Number</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DAD_SSN">
+            <summary>Father's Social Security Number</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MAGE_CALC">
+            <summary>Mother's Age (Calculated)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FAGE_CALC">
+            <summary>Father's Age (Calculated)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MOM_OC_T">
+            <summary>Occupation of Mother</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MOM_OC_C">
+            <summary>Occupation of Mother (coded)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DAD_OC_T">
+            <summary>Occupation of Father</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DAD_OC_C">
+            <summary>Occupation of Father (coded)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MOM_IN_T">
+            <summary>Industry of Mother</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MOM_IN_C">
+            <summary>Industry of Mother (coded)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DAD_IN_T">
+            <summary>Industry of Father</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.DAD_IN_C">
+            <summary>Industry of Father (coded)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FBPLACD_ST_TER_C">
+            <summary>State, U.S. Territory or Canadian Province of Birth (Father) - code</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FBPLACE_CNT_C">
+            <summary>Father's Country of Birth (Code)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MBPLACE_ST_TER_TXT">
+            <summary>State, U.S. Territory or Canadian Province of Birth (Mother) - literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MBPLACE_CNTRY_TXT">
+            <summary>Mother's Country of Birth (Literal)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FBPLACE_ST_TER_TXT">
+            <summary>State, U.S. Territory or Canadian Province of Birth (Father) - literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FBPLACE_CNTRY_TXT">
+            <summary>Father's Country of Birth (Literal)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FEDUC">
+            <summary>Father's Education</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FEDUC_BYPASS">
+            <summary>Father's Education--Edit Flag</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FETHNIC1">
+            <summary>Father of Hispanic Origin?--Mexican</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FETHNIC2">
+            <summary>Father of Hispanic Origin?--Puerto Rican</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FETHNIC3">
+            <summary>Father of Hispanic Origin?--Cuban</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FETHNIC4">
+            <summary>Father of Hispanic Origin?--Other</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FETHNIC5">
+            <summary>Father of Hispanic Origin?--Other Literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE1">
+            <summary>Father's Race--White</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE2">
+            <summary>Father's Race--Black or African American</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE3">
+            <summary>Father's Race--American Indian or Alaska Native</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE4">
+            <summary>Father's Race--Asian Indian</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE5">
+            <summary>Father's Race--Chinese</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE6">
+            <summary>Father's Race--Filipino</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE7">
+            <summary>Father's Race--Japanese</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE8">
+            <summary>Father's Race--Korean</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE9">
+            <summary>Father's Race--Vietnamese</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE10">
+            <summary>Father's Race--Other Asian</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE11">
+            <summary>Father's Race--Native Hawaiian</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE12">
+            <summary>Father's Race--Guamanian or Chamorro</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE13">
+            <summary>Father's Race--Samoan</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE14">
+            <summary>Father's Race--Other Pacific Islander</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE15">
+            <summary>Father's Race--Other</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE16">
+            <summary>Father's Race--First American Indian or Alaska Native Literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE17">
+            <summary>Father's Race--Second American Indian or Alaska Native Literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE18">
+            <summary>Father's Race--First Other Asian Literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE19">
+            <summary>Father's Race--Second Other Asian Literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE20">
+            <summary>Father's Race--First Other Pacific Islander Literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE21">
+            <summary>Father's Race--Second Other Pacific Islander Literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE22">
+            <summary>Father's Race--First Other Literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE23">
+            <summary>Father's Race--Second Other Literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE1E">
+            <summary>Father's Race Tabulation Variable 1E</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE2E">
+            <summary>Father's Race Tabulation Variable 2E</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE3E">
+            <summary>Father's Race Tabulation Variable 3E</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE4E">
+            <summary>Father's Race Tabulation Variable 4E</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE5E">
+            <summary>Father's Race Tabulation Variable 5E</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE6E">
+            <summary>Father's Race Tabulation Variable 6E</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE7E">
+            <summary>Father's Race Tabulation Variable 7E</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE8E">
+            <summary>Father's Race Tabulation Variable 8E</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE16C">
+            <summary>Father's Race Tabulation Variable 16C</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE17C">
+            <summary>Father's Race Tabulation Variable 17C</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE18C">
+            <summary>Father's Race Tabulation Variable 18C</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE19C">
+            <summary>Father's Race Tabulation Variable 19C</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE20C">
+            <summary>Father's Race Tabulation Variable 20C</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE21C">
+            <summary>Father's Race Tabulation Variable 21C</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE22C">
+            <summary>Father's Race Tabulation Variable 22C</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE23C">
+            <summary>Father's Race Tabulation Variable 23C</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.METHNIC5C">
+            <summary>Mother's Hispanic Code for Literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.METHNICE">
+            <summary>Mother's Edited Hispanic Origin Code</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACEBG_C">
+            <summary>Mother's Bridged Race - NCHS Code</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FETHNIC5C">
+            <summary>Father's Hispanic Code for Literal</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FETHNICE">
+            <summary>Father's Edited Hispanic Origin Code</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACEBG_C">
+            <summary>Father's Bridged Race - NCHS Code</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.METHNIC_T">
+            <summary>Mother's Hispanic Origin - Specify</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.MRACE_T">
+            <summary>Mother's Race - Specify</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FETHNIC_T">
+            <summary>Father's Hispanic Origin - Specify</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.FRACE_T">
+            <summary>Father's Race - Specify</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.HOSPFROM">
+            <summary>Facility Mother Moved From (if transferred)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.ATTEND_NAME">
+            <summary>Attendant's Name</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.ATTEND_NPI">
+            <summary>Attendant's NPI</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.ATTEND_OTH_TXT">
+            <summary>Attendant ("Other" specified text)</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.INFORMFST">
+            <summary>Informant's First Name</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.INFORMMID">
+            <summary>Informant's Middle Name</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.INFORMLST">
+            <summary>Informant's Last Name</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.INFORMRELATE">
+            <summary>Informant's Relationship to Fetus</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.CERTIFIED_YR">
+            <summary>Date Signed by Certifier--Year</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.CERTIFIED_MO">
+            <summary>Date Signed by Certifier--Month</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.CERTIFIED_DY">
+            <summary>Date Signed by Certifier--Day</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.REGISTER_YR">
+            <summary>Date Filed by Registrar--Year</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.REGISTER_MO">
+            <summary>Date Filed by Registrar--Month</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.REGISTER_DY">
+            <summary>Date Filed by Registrar--Day</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.REPLACE">
+            <summary>Replacement (amended) Record</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PLACE1_1">
+            <summary>Blank for One-Byte Field 1</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PLACE1_2">
+            <summary>Blank for One-Byte Field 2</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PLACE1_3">
+            <summary>Blank for One-Byte Field 3</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PLACE1_4">
+            <summary>Blank for One-Byte Field 4</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PLACE1_5">
+            <summary>Blank for One-Byte Field 5</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PLACE1_6">
+            <summary>Blank for One-Byte Field 6</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PLACE8_1">
+            <summary>Blank for Eight-Byte Field 1</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PLACE8_2">
+            <summary>Blank for Eight-Byte Field 2</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PLACE8_3">
+            <summary>Blank for Eight-Byte Field 3</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.PLACE20">
+            <summary>Blank for Twenty-Byte Field</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.BLANK">
+            <summary>Blank for future expansion</summary>
+        </member>
+        <member name="P:BFDR.IJEFetalDeath.BLANK2">
+            <summary>Blank for Jurisdictional Use Only</summary>
+        </member>
+        <member name="T:BFDR.IJENatality">
+            <summary>Base class for all natality IJE converter classes</summary>
+        </member>
+        <member name="M:BFDR.IJENatality.#ctor">
+            <summary>Default constructor</summary>
+        </member>
+        <member name="M:BFDR.IJENatality.#ctor(BFDR.NatalityRecord,System.Boolean)">
+            <summary>Constructor that takes a <c>NatalityRecord</c>.</summary>
+        </member>
+        <member name="M:BFDR.IJENatality.#ctor(System.String,System.Boolean)">
+            <summary>Constructor that takes an IJE string</summary>
+        </member>
+        <member name="P:BFDR.IJENatality.NatalityRecord">
+            <summary>FHIR based natality record.</summary>
+        </member>
+        <member name="M:BFDR.IJENatality.Update_FirstName(System.String,System.String[])">
+            
+             <summary>Sets FirstName.</summary>
+             
+        </member>
+        <member name="M:BFDR.IJENatality.Update_MiddleName(System.String,System.String[],System.String)">
+            
+             <summary>Sets Middle Name.</summary>
+             
+        </member>
+        <member name="M:BFDR.IJENatality.Get_MotherRace(System.String)">
+            
+             <summary>Checks if the given race exists in the record for Mother.</summary>
+             
+        </member>
+        <member name="M:BFDR.IJENatality.Set_MotherRace(System.String,System.String)">
+            <summary>Adds the given race to the record for Mother.</summary>
+        </member>
+        <member name="M:BFDR.IJENatality.Get_FatherRace(System.String)">
+            <summary>Checks if the given race exists in the record for Father.</summary>
+        </member>
+        <member name="M:BFDR.IJENatality.Set_FatherRace(System.String,System.String)">
+            <summary>Adds the given race to the record for Father.</summary>
+        </member>
         <member name="T:BFDR.Mappings">
             <summary>Mappings between IJE and FHIR value sets</summary>
         </member>
@@ -1246,15 +3256,6 @@
         <member name="F:BFDR.Mappings.FetalPresentation.FHIRToIJE">
             <summary>FHIR -> IJE Mapping for FetalPresentation</summary>
         </member>
-        <member name="T:BFDR.Mappings.HistologicalPlacentalExamination">
-            <summary>Mappings for HistologicalPlacentalExamination</summary>
-        </member>
-        <member name="F:BFDR.Mappings.HistologicalPlacentalExamination.IJEToFHIR">
-            <summary>IJE -> FHIR Mapping for HistologicalPlacentalExamination</summary>
-        </member>
-        <member name="F:BFDR.Mappings.HistologicalPlacentalExamination.FHIRToIJE">
-            <summary>FHIR -> IJE Mapping for HistologicalPlacentalExamination</summary>
-        </member>
         <member name="T:BFDR.Mappings.InfectionsDuringPregnancyLiveBirth">
             <summary>Mappings for InfectionsDuringPregnancyLiveBirth</summary>
         </member>
@@ -1281,6 +3282,15 @@
         </member>
         <member name="F:BFDR.Mappings.NumberPreviousCesareansEditFlags.FHIRToIJE">
             <summary>FHIR -> IJE Mapping for NumberPreviousCesareansEditFlags</summary>
+        </member>
+        <member name="T:BFDR.Mappings.PerformedNotPerformedPlanned">
+            <summary>Mappings for PerformedNotPerformedPlanned</summary>
+        </member>
+        <member name="F:BFDR.Mappings.PerformedNotPerformedPlanned.IJEToFHIR">
+            <summary>IJE -> FHIR Mapping for PerformedNotPerformedPlanned</summary>
+        </member>
+        <member name="F:BFDR.Mappings.PerformedNotPerformedPlanned.FHIRToIJE">
+            <summary>FHIR -> IJE Mapping for PerformedNotPerformedPlanned</summary>
         </member>
         <member name="T:BFDR.Mappings.PregnancyReportEditFlags">
             <summary>Mappings for PregnancyReportEditFlags</summary>
@@ -1313,7 +3323,7 @@
             TODO BFDR STU2 supports usual work and role extension
             </summary>
         </member>
-        <member name="M:BFDR.NatalityRecord.#ctor">
+        <member name="M:BFDR.NatalityRecord.#ctor(System.String)">
             <summary>Default constructor that creates a new, empty NatalityRecord.</summary>
         </member>
         <member name="M:BFDR.NatalityRecord.#ctor(System.String,System.Boolean)">
@@ -1337,11 +3347,11 @@
             <summary>Helper method to return the subset of this record that makes up a DemographicCodedContent bundle.</summary>
             <returns>a new FHIR Bundle</returns>
         </member>
-        <member name="M:BFDR.NatalityRecord.RestoreReferences">
+        <member name="M:BFDR.NatalityRecord.RestoreReferences(System.String,System.String[],System.String)">
             <summary>Restores class references from a newly parsed record.</summary>
         </member>
-        <member name="F:BFDR.NatalityRecord.Child">
-            <summary>The Child.</summary>
+        <member name="F:BFDR.NatalityRecord.Subject">
+            <summary>The Natality Subject - eithr a Child or a DecedentFetus.</summary>
         </member>
         <member name="F:BFDR.NatalityRecord.Mother">
             <summary>The Mother.</summary>
@@ -1354,9 +3364,6 @@
         </member>
         <member name="F:BFDR.NatalityRecord.Certifier">
             <summary>The Certifier.</summary>
-        </member>
-        <member name="F:BFDR.NatalityRecord.EncounterBirth">
-            <summary>The encounter of the birth.</summary>
         </member>
         <member name="F:BFDR.NatalityRecord.Coverage">
             <summary>The coverage associated with the birth.</summary>
@@ -1391,22 +3398,22 @@
         <member name="M:BFDR.NatalityRecord.CreateAndSetLocationBirth(System.String)">
             <summary>Create and set Birth Location.</summary>
         </member>
-        <member name="M:BFDR.NatalityRecord.CreateBirthEncounter">
-            <summary>Create Birth Encounter.</summary>
+        <member name="M:BFDR.NatalityRecord.CreateMaternityEncounter">
+            <summary>Create Maternity Encounter.</summary>
         </member>
         <member name="P:BFDR.NatalityRecord.CertificateNumber">
-            <summary>Birth Certificate Number.</summary>
+            <summary>Certificate Number.</summary>
             <value>a record identification string.</value>
             <example>
             <para>// Setter:</para>
             <para>ExampleBirthRecord.Identifier = "42";</para>
             <para>// Getter:</para>
-            <para>Console.WriteLine($"Birth Certificate Number: {ExampleBirthRecord.Identifier}");</para>
+            <para>Console.WriteLine($"Certificate Number: {ExampleBirthRecord.Identifier}");</para>
             </example>
         </member>
         <member name="P:BFDR.NatalityRecord.RecordIdentifier">
-            <summary>Birth Record Bundle Identifier, NCHS identifier.</summary>
-            <value>a record bundle identification string, e.g., 2022MA000100, derived from year of birth, jurisdiction of birth, and certificate number</value>
+            <summary>Record Bundle Identifier, NCHS identifier.</summary>
+            <value>a record bundle identification string, e.g., 2022MA000100, derived from year of birth/death, jurisdiction of birth/death, and certificate number</value>
             <example>
             <para>// Getter:</para>
             <para>Console.WriteLine($"NCHS identifier: {ExampleBirthRecord.BirthRecordIdentifier}");</para>
@@ -1422,15 +3429,16 @@
             <para>Console.WriteLine($"State local identifier: {ExampleBirthRecord.StateLocalIdentifier1}");</para>
             </example>
         </member>
-        <member name="P:BFDR.NatalityRecord.BirthYear">
-            <summary>Child's Year of Birth.</summary>
-            <value>the child's year of birth, or -1 if explicitly unknown, or null if never specified</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.BirthYear = 1928;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Child Year of Birth: {ExampleBirthRecord.BirthYear}");</para>
-            </example>
+        <member name="M:BFDR.NatalityRecord.GetBirthYear">
+            <summary>
+             Getter method for child or decedent fetus birth/delivery year.
+            </summary>
+        </member>
+        <member name="M:BFDR.NatalityRecord.SetBirthYear(System.Nullable{System.Int32})">
+            <summary>
+             Setter method for child or decedent fetus birth/delivery year.
+            </summary>
+            <param name="value">The birth year.</param>
         </member>
         <member name="P:BFDR.NatalityRecord.PartialDateYearUrl">
             <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Year</summary>x
@@ -1450,35 +3458,38 @@
         <member name="P:BFDR.NatalityRecord.PartialDateUrl">
             <summary>Overrideable method that dictates which Extension URL to use for PartialDate</summary>
         </member>
-        <member name="P:BFDR.NatalityRecord.BirthMonth">
-            <summary>Child's Month of Birth.</summary>
-            <value>the child's month of birth, or -1 if explicitly unknown, or null if never specified</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.BirthMonth = 11;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Child Month of Birth: {ExampleBirthRecord.BirthMonth}");</para>
-            </example>
+        <member name="M:BFDR.NatalityRecord.GetBirthMonth">
+            <summary>
+             Getter method for child or decedent fetus birth/delivery month.
+            </summary>
         </member>
-        <member name="P:BFDR.NatalityRecord.BirthDay">
-            <summary>Child's Day of Birth.</summary>
-            <value>the child's day of birth, or -1 if explicitly unknown, or null if never specified</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.BirthDay = 11;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Child Day of Birth: {ExampleBirthRecord.BirthDay}");</para>
-            </example>
+        <member name="M:BFDR.NatalityRecord.SetBirthMonth(System.Nullable{System.Int32})">
+            <summary>
+             Setter method for child or decedent fetus birth/delivery month.
+            </summary>
+            <param name="value">The birth month.</param>
         </member>
-        <member name="P:BFDR.NatalityRecord.BirthTime">
-            <summary>Child's Time of Birth.</summary>
-            <value>the child's time of birth.</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.BirthTime = 11;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Child Time of Birth: {ExampleBirthRecord.BirthTime}");</para>
-            </example>
+        <member name="M:BFDR.NatalityRecord.GetBirthDay">
+            <summary>
+             Getter method for child or decedent fetus birth/delivery day.
+            </summary>
+        </member>
+        <member name="M:BFDR.NatalityRecord.SetBirthDay(System.Nullable{System.Int32})">
+            <summary>
+             Setter method for child or decedent fetus birth/delivery day.
+            </summary>
+            <param name="value">The birth day.</param>
+        </member>
+        <member name="M:BFDR.NatalityRecord.GetBirthTime">
+            <summary>
+             Getter method for child or decedent fetus birth/delivery time.
+            </summary>
+        </member>
+        <member name="M:BFDR.NatalityRecord.SetBirthTime(System.String)">
+            <summary>
+            Set method fir BirthTime 
+            </summary>
+            <param name="value"></param>
         </member>
         <member name="M:BFDR.NatalityRecord.DateIsComplete(System.String)">
             <summary>
@@ -1497,18 +3508,17 @@
             <para>Console.WriteLine($"Child Date of Birth: {ExampleBirthRecord.DateOfBirth}");</para>
             </example>
         </member>
-        <member name="P:BFDR.NatalityRecord.BirthSex">
-            <summary>Child's BirthSex at Birth.</summary>
-            <value>The child's BirthSex at time of birth</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.BirthSex = "female;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Sex at Time of Birth: {ExampleBirthRecord.BirthSex}");</para>
-            </example>
+        <member name="M:BFDR.NatalityRecord.GetBirthSex">
+            <summary>
+             Getter method for child or decedent fetus birth/delivery sex.
+            </summary>
+            <returns>BirthSex codeable concept as dictionary</returns>
         </member>
-        <member name="P:BFDR.NatalityRecord.BirthSexHelper">
-            <summary>Child's BirthSex at Birth. This a duplicate of BirthSex and is kept to maintain consistency for the IJE to FHIR mapper to work.</summary>
+        <member name="M:BFDR.NatalityRecord.SetBirthSex(System.String)">
+            <summary>
+             Setter method for child or decedent fetus birth/delivery sex.
+            </summary>
+            <param name="value">The birth/delivery sex.</param>
         </member>
         <member name="P:BFDR.NatalityRecord.ChildGivenNames">
             <summary>Child's Legal Name - Given. Middle name should be the last entry.</summary>
@@ -1586,6 +3596,12 @@
             <para>// Getter:</para>
             <para>Console.WriteLine($"Father Family Name(s): {string.Join(", ", ExampleBirthRecord.FatherFamilyName)}");</para>
             </example>
+        </member>
+        <member name="M:BFDR.NatalityRecord.GetFamilyNameAbsentDataReason">
+            <summary>
+             Helper method that gets the child or decedent fetus data absent reason code
+            </summary>
+            <returns>data absent reason code for last name</returns>
         </member>
         <member name="P:BFDR.NatalityRecord.MotherMaidenFamilyName">
             <summary>Mother's Maiden Name - Last.</summary>
@@ -1672,34 +3688,6 @@
             <para>ExampleBirthRecord.PlaceOfBirth = address;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"State where child was born: {ExampleBirthRecord.PlaceOfBirth["placeOfBirthState"]}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.NatalityRecord.BirthPhysicalLocation">
-            <summary>Child's Place Of Birth Type.</summary>
-            <value>Place Where Birth Occurred, type of place or institution. A Dictionary representing a codeable concept of the physical location type:
-            <para>"code" - The code used to describe this concept.</para>
-            <para>"system" - The relevant code system.</para>
-            <para>"display" - The human readable version of this code.</para>
-            </value>
-            <example>
-            <para>// Setter:</para>
-            <para>Dictionary&lt;string, string&gt; locationType = new Dictionary&lt;string, string&gt;();</para>
-            <para>locationType.Add("code", "22232009");</para>
-            <para>locationType.Add("system", "http://snomed.info/sct");</para>
-            <para>locationType.Add("display", "Hospital");</para>
-            <para>ExampleBirthRecord.BirthPhysicalLocation = locationType;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"The place type the child was born: {ExampleBirthRecord.BirthPhysicalLocation["code"]}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.NatalityRecord.BirthPhysicalLocationHelper">
-            <summary>Child's Place Of Birth Type Helper</summary>
-            <value>Child's Place Of Birth Type Helper</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.BirthPhysicalLocationHelper = "Hospital";</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Child's Place Of Birth Type: {ExampleBirthRecord.BirthPhysicalLocationHelper}");</para>
             </example>
         </member>
         <member name="P:BFDR.NatalityRecord.MotherPlaceOfBirth">
@@ -1873,46 +3861,62 @@
             <para>Console.WriteLine($"Father's SocialSecurityNumber: {ExampleBirthRecord.FatherSocialSecurityNumber}");</para>
             </example>
         </member>
-        <member name="P:BFDR.NatalityRecord.SetOrder">
-            <summary>Multiple birth set order</summary>
-            <value>The order that the child was born if a multiple birth or null if it was a single birth</value>
-            <example>
-            <para>ExampleBirthRecord.SetOrder = null; // single birth</para>
-            <para>ExampleBirthRecord.SetOrder = -1; // unknow whether single or multiple birth</para>
-            <para>ExampleBirthRecord.SetOrder = 1; // multiple birth, born first</para>
-            </example>
+        <member name="M:BFDR.NatalityRecord.GetSetOrder">
+            <summary>
+             Getter method for child or decedent fetus set order.
+            </summary>
+            <returns>Integer representing set order or -1 if dataAbsent</returns>
         </member>
-        <member name="P:BFDR.NatalityRecord.PluralityEditFlag">
-            <summary>Multiple birth set order edit flag</summary>
-            <value>the multiple birth set order edit flag</value>
+        <member name="M:BFDR.NatalityRecord.SetSetOrder(System.Nullable{System.Int32})">
+            <summary>
+             Setter method for child or decedent fetus set order.
+            </summary>
+            <param name="value">The birth year.</param>        
+        </member>
+        <member name="M:BFDR.NatalityRecord.GetPluralityEditFlag">
+            <summary>
+             Getter method for child or decedent fetus plurality edit flag.
+            </summary>   
+            <returns>Plurality edit flag codeable concept as Dictionary</returns>
+        </member>
+        <member name="M:BFDR.NatalityRecord.SetPluralityEditFlag(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+             Setter method for child or decedent fetus plurality edit flag.
+            </summary>
+            <param name="value">The birth year.</param> 
+        </member>
+        <member name="M:BFDR.NatalityRecord.GetPluralityEditFlagHelper">
+            <summary>
+             Helper method for getting child or decedent fetus plurality edit flag.
+            </summary>    
+            <returns>Plurality edit flag code as string</returns>
+        </member>
+        <member name="M:BFDR.NatalityRecord.SetPluralityEditFlagHelper(System.String)">
+            <summary>
+             Helper method for setting child or decedent fetus plurality edit flag.
+            </summary>
+            <param name="value">The birth year.</param>         
+        </member>
+        <member name="M:BFDR.NatalityRecord.GetPlurality">
+            <summary>
+             Gettter method for child or decedent fetus plurality.
+            </summary>     
+            <returns>Integer representing Plurality or -1 if dataAbsent</returns>
+        </member>
+        <member name="M:BFDR.NatalityRecord.SetPlurality(System.Nullable{System.Int32})">
+            <summary>
+             Setter method for child or decedent fetus plurality.
+            </summary>
+            <param name="value">The birth year.</param>   
+        </member>
+        <member name="P:BFDR.NatalityRecord.PatientFetalDeath">
+            <summary>Patient Fetal Death</summary>
+            <value></value>
             <example>
             <para>// Setter:</para>
-            <para>Dictionary&lt;string, string&gt; route = new Dictionary&lt;string, string&gt;();</para>
-            <para>route.Add("code", "queriedCorrect");</para>
-            <para>route.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");</para>
-            <para>route.Add("display", "Queried, and Correct");</para>
-            <para>ExampleBirthRecord.PluralityEditFlag = route;</para>
+            <para>ExampleFetalDeathRecord.PatientFetalDeath = true;</para>
             <para>// Getter:</para>
-            <para>Console.WriteLine($"Multiple birth set order edit flag: {ExampleBirthRecord.PluralityEditFlag}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.NatalityRecord.PluralityEditFlagHelper">
-            <summary>Multiple birth set order edit flag helper</summary>
-            <value>the multiple birth set order edit flag</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.PluralityEditFlagHelper = "queriedCorrect";</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Multiple birth set order edit flag: {ExampleBirthRecord.PluralityEditFlagHelper}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.NatalityRecord.Plurality">
-            <summary>Multiple birth plurality</summary>
-            <value>Where a patient is a part of a multiple birth, this is the total number of births that occurred in this pregnancy.</value>
-            <example>
-            <para>ExampleBirthRecord.Plurality = null; // single birth</para>
-            <para>ExampleBirthRecord.Plurality = -1; // unknown number of births birth</para>
-            <para>ExampleBirthRecord.Plurality = 2; // two births for this pregnancy</para>
+            <para>Console.WriteLine($"Patient Fetal Death: {ExampleFetalDeathRecord.PatientFetalDeath}");</para>
             </example>
         </member>
         <member name="P:BFDR.NatalityRecord.NoCongenitalAnomaliesOfTheNewborn">
@@ -2059,11 +4063,11 @@
         <member name="P:BFDR.NatalityRecord.PreviousPretermBirth">
             <summary>Previous Preterm Birth.</summary>
         </member>
-        <member name="P:BFDR.NatalityRecord.ArtificialInsemination">
-            <summary>Artificial Insemination.</summary>
+        <member name="P:BFDR.NatalityRecord.FertilityEnhancingDrugTherapyArtificialIntrauterineInsemination">
+            <summary>Fertility Enhancing Drug Therapy, Artificial or Intrauterine Insemination.</summary>
         </member>
-        <member name="P:BFDR.NatalityRecord.AssistedFertilization">
-            <summary>Assisted Fertilization.</summary>
+        <member name="P:BFDR.NatalityRecord.AssistedReproductiveTechnology">
+            <summary>Assisted Reproductive Technology.</summary>
         </member>
         <member name="P:BFDR.NatalityRecord.InfertilityTreatment">
             <summary>Infertility Treatment.</summary>
@@ -3819,16 +5823,6 @@
             <para>Console.WriteLine($"Mother's Prepregancy Weight: {ExampleBirthRecord.MotherPrepregnancyWeight}");</para>
             </example>
         </member>
-        <member name="P:BFDR.NatalityRecord.MotherWeightAtDelivery">
-            <summary>Mother's Weight at Delivery.</summary>
-            <value>the mother's weight at delivery in whole pounds, or -1 if explicitly unknown, or null if never specified</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.MotherWeightAtDelivery = 120;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Mother's Weight at Delivery: {ExampleBirthRecord.MotherWeightAtDelivery}");</para>
-            </example>
-        </member>
         <member name="P:BFDR.NatalityRecord.BirthWeight">
             <summary>Birth Weight.</summary>
             <value>the birth weight in grams, or -1 if explicitly unknown, or null if never specified</value>
@@ -4076,7 +6070,8 @@
         </member>
         <member name="P:BFDR.NatalityRecord.MotherHeightEditFlag">
             <summary>Mother Height Edit Flag.</summary>
-            <value>the mother's height edit flag. A Dictionary representing a code, containing the following key/value pairs:        /// <para>"code" - the code</para>
+            <value>the mother's height edit flag. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
             <para>"system" - the code system this code belongs to</para>
             <para>"display" - a human readable meaning of the code</para>
             </value>
@@ -4258,6 +6253,9 @@
             <para>Console.WriteLine($"Facility Mother Transferred From: {ExampleBirthRecord.FacilityInfantTransferredTo}");</para>
             </example>
         </member>
+        <member name="M:BFDR.NatalityRecord.GetFacilityLocation(System.String)">
+            <summary>Helper method to return birth/delivery or transfer facility location.</summary>
+        </member>
         <member name="P:BFDR.NatalityRecord.LastMenstrualPeriod">
             <summary>Last Menstrual Period.</summary>
             <value>the date that the last normal menstrual period began</value>
@@ -4360,7 +6358,7 @@
         </member>
         <member name="P:BFDR.NatalityRecord.RegistrationDate">
             <summary>Date of Registration.</summary>
-            <value>the date that the birth was registered</value>
+            <value>the date that the birth/fetal death was registered</value>
             <example>
             <para>// Setter:</para>
             <para>ExampleBirthRecord.RegistrationDate = "2023-02-19";</para>
@@ -4370,7 +6368,7 @@
         </member>
         <member name="P:BFDR.NatalityRecord.RegistrationDateYear">
             <summary>Year of Registration.</summary>
-            <value>the year that the birth was registered</value>
+            <value>the year that the birth/fetal death was registered</value>
             <example>
             <para>// Setter:</para>
             <para>ExampleBirthRecord.RegistrationDateYear = 2023;</para>
@@ -4380,7 +6378,7 @@
         </member>
         <member name="P:BFDR.NatalityRecord.RegistrationDateMonth">
             <summary>Month of Registration.</summary>
-            <value>the month that the birth was registered</value>
+            <value>the month that the birth/fetal death was registered</value>
             <example>
             <para>// Setter:</para>
             <para>ExampleBirthRecord.RegistrationDateMonth = 10;</para>
@@ -4390,7 +6388,7 @@
         </member>
         <member name="P:BFDR.NatalityRecord.RegistrationDateDay">
             <summary>Day of Registration.</summary>
-            <value>the day that the birth was registered</value>
+            <value>the day that the birth/fetal death was registered</value>
             <example>
             <para>// Setter:</para>
             <para>ExampleBirthRecord.RegistrationDateDay = 23;</para>
@@ -4484,26 +6482,6 @@
             <para>ExampleBirthRecord.InfantLiving = true;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Mother transferred: {ExampleBirthRecord.MotherTransferred}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.NatalityRecord.InfantTransferred">
-            <summary>Infant Transferred</summary>
-            <value>Infant transferred</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.InfantTransferred = "hosp-trans";</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Infant transferred: {ExampleBirthRecord.InfantTransferred}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.NatalityRecord.InfantTransferredHelper">
-            <summary>Infant Transferred Helper</summary>
-            <value>Infant transferred helper</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.InfantTransferredHelper = "hosp-trans";</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Infant transferred helper: {ExampleBirthRecord.InfantTransferredHelper}");</para>
             </example>
         </member>
         <member name="P:BFDR.NatalityRecord.NumberLiveBorn">
@@ -4607,46 +6585,6 @@
             <para>// Getter:</para>
             <para>Console.WriteLine($"Certifier Other: {ExampleBirthRecord.CertifierOtherHelper}");</para>
             </example>
-        </member>
-        <member name="P:BFDR.NatalityRecord.CertificationDate">
-            <summary>Date of Certification.</summary>
-            <value>the date of certification</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.CertifiedDate = "2023-02-19";</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Date of birth certification: {ExampleBirthRecord.CertificationDate}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.NatalityRecord.CertifiedYear">
-            <summary>Certified Year</summary>
-            <value>year of certification</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.CertifiedYear = 2023;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Certified Year: {ExampleBirthRecord.CertifiedYear}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.NatalityRecord.CertifiedMonth">
-            <summary>Certified Month</summary>
-            <value>month of certification</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.CertifiedMonth = 10;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Certified Month: {ExampleBirthRecord.CertifiedMonth}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.NatalityRecord.CertifiedDay">
-            <summary>Certified Day</summary>
-            <value>day of certification</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.CertifiedDay = 23;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Certified Day: {ExampleBirthRecord.CertifiedDay}");</para>
-            </example> 
         </member>
         <member name="M:BFDR.NatalityRecord.SetEmergingIssue(System.String,System.String)">
             <summary>Set an emerging issue value, creating an empty EmergingIssues Observation as needed.</summary>
@@ -4766,6 +6704,9 @@
         <member name="F:BFDR.FHIRSubject.Subject.Newborn">
             <summary>The newborn</summary>
         </member>
+        <member name="F:BFDR.FHIRSubject.Subject.DecedentFetus">
+            <summary>The decedent fetus</summary>
+        </member>
         <member name="F:BFDR.FHIRSubject.subject">
             <summary>The subject of the field</summary>
         </member>
@@ -4781,6 +6722,9 @@
         <member name="F:BFDR.ProfileURL.BundleDocumentCodedCauseOfFetalDeath">
             <summary>URL for BundleDocumentCodedCauseOfFetalDeath</summary>
         </member>
+        <member name="F:BFDR.ProfileURL.BundleDocumentCodedIndustryOccupation">
+            <summary>URL for BundleDocumentCodedIndustryOccupation</summary>
+        </member>
         <member name="F:BFDR.ProfileURL.BundleDocumentDemographicCodedContent">
             <summary>URL for BundleDocumentDemographicCodedContent</summary>
         </member>
@@ -4789,6 +6733,9 @@
         </member>
         <member name="F:BFDR.ProfileURL.CompositionCodedCauseOfFetalDeath">
             <summary>URL for CompositionCodedCauseOfFetalDeath</summary>
+        </member>
+        <member name="F:BFDR.ProfileURL.CompositionCodedIndustryAndOccupation">
+            <summary>URL for CompositionCodedIndustryAndOccupation</summary>
         </member>
         <member name="F:BFDR.ProfileURL.CompositionCodedRaceAndEthnicity">
             <summary>URL for CompositionCodedRaceAndEthnicity</summary>
@@ -4814,8 +6761,8 @@
         <member name="F:BFDR.ProfileURL.ConditionEclampsiaHypertension">
             <summary>URL for ConditionEclampsiaHypertension</summary>
         </member>
-        <member name="F:BFDR.ProfileURL.ConditionFetalDeathCauseOrCondition">
-            <summary>URL for ConditionFetalDeathCauseOrCondition</summary>
+        <member name="F:BFDR.ProfileURL.ConditionFetalDeathInitiatingCauseOrCondition">
+            <summary>URL for ConditionFetalDeathInitiatingCauseOrCondition</summary>
         </member>
         <member name="F:BFDR.ProfileURL.ConditionFetalDeathOtherCauseOrCondition">
             <summary>URL for ConditionFetalDeathOtherCauseOrCondition</summary>
@@ -4853,9 +6800,6 @@
         <member name="F:BFDR.ProfileURL.EncounterMaternity">
             <summary>URL for EncounterMaternity</summary>
         </member>
-        <member name="F:BFDR.ProfileURL.ObservationNoneOfSpecifiedCongenitalAnomoliesOfTheNewborn">
-            <summary>URL for ObservationNoneOfSpecifiedCongenitalAnomoliesOfTheNewborn</summary>
-        </member>
         <member name="F:BFDR.ProfileURL.ObservationAntibioticsAdministeredDuringLabor">
             <summary>URL for ObservationAntibioticsAdministeredDuringLabor</summary>
         </member>
@@ -4864,6 +6808,9 @@
         </member>
         <member name="F:BFDR.ProfileURL.ObservationAutopsyHistologicalExamResultsUsed">
             <summary>URL for ObservationAutopsyHistologicalExamResultsUsed</summary>
+        </member>
+        <member name="F:BFDR.ProfileURL.ObservationAutopsyPerformedIndicator">
+            <summary>URL for ObservationAutopsyPerformedIndicator</summary>
         </member>
         <member name="F:BFDR.ProfileURL.ObservationBirthPluralityOfPregnancy">
             <summary>URL for ObservationBirthPluralityOfPregnancy</summary>
@@ -4940,6 +6887,9 @@
         <member name="F:BFDR.ProfileURL.ObservationNoneOfSpecifiedInfectionsPresentDuringPregnancy">
             <summary>URL for ObservationNoneOfSpecifiedInfectionsPresentDuringPregnancy</summary>
         </member>
+        <member name="F:BFDR.ProfileURL.ObservationNoneOfSpecifiedCongenitalAnomoliesOfTheNewborn">
+            <summary>URL for ObservationNoneOfSpecifiedCongenitalAnomoliesOfTheNewborn</summary>
+        </member>
         <member name="F:BFDR.ProfileURL.ObservationNoneOfSpecifiedAbnormalConditionsOfNewborn">
             <summary>URL for ObservationNoneOfSpecifiedAbnormalConditionsOfNewborn</summary>
         </member>
@@ -4982,6 +6932,9 @@
         <member name="F:BFDR.ProfileURL.ObservationPlannedToDeliverAtHome">
             <summary>URL for ObservationPlannedToDeliverAtHome</summary>
         </member>
+        <member name="F:BFDR.ProfileURL.ObservationPresentJob">
+            <summary>URL for ObservationPresentJob</summary>
+        </member>
         <member name="F:BFDR.ProfileURL.ObservationPreviousCesarean">
             <summary>URL for ObservationPreviousCesarean</summary>
         </member>
@@ -5003,11 +6956,8 @@
         <member name="F:BFDR.ProfileURL.ProcedureAntibioticSuspectedNeonatalSepsis">
             <summary>URL for ProcedureAntibioticSuspectedNeonatalSepsis</summary>
         </member>
-        <member name="F:BFDR.ProfileURL.ProcedureArtificialInsemination">
-            <summary>URL for ProcedureArtificialInsemination</summary>
-        </member>
-        <member name="F:BFDR.ProfileURL.ProcedureAssistedFertilization">
-            <summary>URL for ProcedureAssistedFertilization</summary>
+        <member name="F:BFDR.ProfileURL.ProcedureAssistedReproductiveTechnology">
+            <summary>URL for ProcedureAssistedReproductiveTechnology</summary>
         </member>
         <member name="F:BFDR.ProfileURL.ProcedureAssistedVentilationFollowingDelivery">
             <summary>URL for ProcedureAssistedVentilationFollowingDelivery</summary>
@@ -5023,6 +6973,9 @@
         </member>
         <member name="F:BFDR.ProfileURL.ProcedureEpiduralOrSpinalAnesthesia">
             <summary>URL for ProcedureEpiduralOrSpinalAnesthesia</summary>
+        </member>
+        <member name="F:BFDR.ProfileURL.ProcedureFertilityEnhancingDrugTherapyArtificialInsemination">
+            <summary>URL for ProcedureFertilityEnhancingDrugTherapyArtificialInsemination</summary>
         </member>
         <member name="F:BFDR.ProfileURL.ProcedureFinalRouteMethodDelivery">
             <summary>URL for ProcedureFinalRouteMethodDelivery</summary>
@@ -5050,6 +7003,9 @@
         </member>
         <member name="F:BFDR.ExtensionURL.JurisdictionalFacilityIdentifier">
             <summary>URL for JurisdictionalFacilityIdentifier</summary>
+        </member>
+        <member name="F:BFDR.ExtensionURL.ExtensionRole">
+            <summary>URL for ExtensionRole</summary>
         </member>
         <member name="F:BFDR.ExtensionURL.LocationBFDR">
             <summary>URL for LocationBFDR</summary>
@@ -5084,6 +7040,9 @@
         <member name="F:BFDR.IGURL.BundleDocumentCodedCauseOfFetalDeath">
             <summary>URL for BundleDocumentCodedCauseOfFetalDeath</summary>
         </member>
+        <member name="F:BFDR.IGURL.BundleDocumentCodedIndustryOccupation">
+            <summary>URL for BundleDocumentCodedIndustryOccupation</summary>
+        </member>
         <member name="F:BFDR.IGURL.BundleDocumentDemographicCodedContent">
             <summary>URL for BundleDocumentDemographicCodedContent</summary>
         </member>
@@ -5092,6 +7051,9 @@
         </member>
         <member name="F:BFDR.IGURL.CompositionCodedCauseOfFetalDeath">
             <summary>URL for CompositionCodedCauseOfFetalDeath</summary>
+        </member>
+        <member name="F:BFDR.IGURL.CompositionCodedIndustryAndOccupation">
+            <summary>URL for CompositionCodedIndustryAndOccupation</summary>
         </member>
         <member name="F:BFDR.IGURL.CompositionCodedRaceAndEthnicity">
             <summary>URL for CompositionCodedRaceAndEthnicity</summary>
@@ -5117,8 +7079,8 @@
         <member name="F:BFDR.IGURL.ConditionEclampsiaHypertension">
             <summary>URL for ConditionEclampsiaHypertension</summary>
         </member>
-        <member name="F:BFDR.IGURL.ConditionFetalDeathCauseOrCondition">
-            <summary>URL for ConditionFetalDeathCauseOrCondition</summary>
+        <member name="F:BFDR.IGURL.ConditionFetalDeathInitiatingCauseOrCondition">
+            <summary>URL for ConditionFetalDeathInitiatingCauseOrCondition</summary>
         </member>
         <member name="F:BFDR.IGURL.ConditionFetalDeathOtherCauseOrCondition">
             <summary>URL for ConditionFetalDeathOtherCauseOrCondition</summary>
@@ -5162,11 +7124,11 @@
         <member name="F:BFDR.IGURL.JurisdictionalFacilityIdentifier">
             <summary>URL for JurisdictionalFacilityIdentifier</summary>
         </member>
+        <member name="F:BFDR.IGURL.ExtensionRole">
+            <summary>URL for ExtensionRole</summary>
+        </member>
         <member name="F:BFDR.IGURL.LocationBFDR">
             <summary>URL for LocationBFDR</summary>
-        </member>
-        <member name="F:BFDR.IGURL.ObservationNoneOfSpecifiedCongenitalAnomoliesOfTheNewborn">
-            <summary>URL for ObservationNoneOfSpecifiedCongenitalAnomoliesOfTheNewborn</summary>
         </member>
         <member name="F:BFDR.IGURL.ObservationAntibioticsAdministeredDuringLabor">
             <summary>URL for ObservationAntibioticsAdministeredDuringLabor</summary>
@@ -5176,6 +7138,9 @@
         </member>
         <member name="F:BFDR.IGURL.ObservationAutopsyHistologicalExamResultsUsed">
             <summary>URL for ObservationAutopsyHistologicalExamResultsUsed</summary>
+        </member>
+        <member name="F:BFDR.IGURL.ObservationAutopsyPerformedIndicator">
+            <summary>URL for ObservationAutopsyPerformedIndicator</summary>
         </member>
         <member name="F:BFDR.IGURL.ObservationBirthPluralityOfPregnancy">
             <summary>URL for ObservationBirthPluralityOfPregnancy</summary>
@@ -5252,6 +7217,9 @@
         <member name="F:BFDR.IGURL.ObservationNoneOfSpecifiedInfectionsPresentDuringPregnancy">
             <summary>URL for ObservationNoneOfSpecifiedInfectionsPresentDuringPregnancy</summary>
         </member>
+        <member name="F:BFDR.IGURL.ObservationNoneOfSpecifiedCongenitalAnomoliesOfTheNewborn">
+            <summary>URL for ObservationNoneOfSpecifiedCongenitalAnomoliesOfTheNewborn</summary>
+        </member>
         <member name="F:BFDR.IGURL.ObservationNoneOfSpecifiedAbnormalConditionsOfNewborn">
             <summary>URL for ObservationNoneOfSpecifiedAbnormalConditionsOfNewborn</summary>
         </member>
@@ -5294,6 +7262,9 @@
         <member name="F:BFDR.IGURL.ObservationPlannedToDeliverAtHome">
             <summary>URL for ObservationPlannedToDeliverAtHome</summary>
         </member>
+        <member name="F:BFDR.IGURL.ObservationPresentJob">
+            <summary>URL for ObservationPresentJob</summary>
+        </member>
         <member name="F:BFDR.IGURL.ObservationPreviousCesarean">
             <summary>URL for ObservationPreviousCesarean</summary>
         </member>
@@ -5321,11 +7292,8 @@
         <member name="F:BFDR.IGURL.ProcedureAntibioticSuspectedNeonatalSepsis">
             <summary>URL for ProcedureAntibioticSuspectedNeonatalSepsis</summary>
         </member>
-        <member name="F:BFDR.IGURL.ProcedureArtificialInsemination">
-            <summary>URL for ProcedureArtificialInsemination</summary>
-        </member>
-        <member name="F:BFDR.IGURL.ProcedureAssistedFertilization">
-            <summary>URL for ProcedureAssistedFertilization</summary>
+        <member name="F:BFDR.IGURL.ProcedureAssistedReproductiveTechnology">
+            <summary>URL for ProcedureAssistedReproductiveTechnology</summary>
         </member>
         <member name="F:BFDR.IGURL.ProcedureAssistedVentilationFollowingDelivery">
             <summary>URL for ProcedureAssistedVentilationFollowingDelivery</summary>
@@ -5341,6 +7309,9 @@
         </member>
         <member name="F:BFDR.IGURL.ProcedureEpiduralOrSpinalAnesthesia">
             <summary>URL for ProcedureEpiduralOrSpinalAnesthesia</summary>
+        </member>
+        <member name="F:BFDR.IGURL.ProcedureFertilityEnhancingDrugTherapyArtificialInsemination">
+            <summary>URL for ProcedureFertilityEnhancingDrugTherapyArtificialInsemination</summary>
         </member>
         <member name="F:BFDR.IGURL.ProcedureFinalRouteMethodDelivery">
             <summary>URL for ProcedureFinalRouteMethodDelivery</summary>
@@ -5369,8 +7340,8 @@
         <member name="T:BFDR.CodeSystemURL">
             <summary>BFDR Custom Code System URLs</summary>
         </member>
-        <member name="F:BFDR.CodeSystemURL.AbnormalConditionsNewborn">
-            <summary>URL for Abnormal Conditions of the Newborn Code System</summary>
+        <member name="F:BFDR.CodeSystemURL.LocalBFDRCodes">
+            <summary> Local BFDR Codes </summary>
         </member>
         <member name="T:BFDR.ValueSets">
             <summary> ValueSet Helpers </summary>
@@ -5525,6 +7496,21 @@
         <member name="F:BFDR.ValueSets.EstimateOfGestationEditFlags.Queried_Data_Correct_Out_Of_Range">
             <summary> Queried_Data_Correct_Out_Of_Range </summary>
         </member>
+        <member name="T:BFDR.ValueSets.FertilityEnhancingDrugTherapyArtificialInsem">
+            <summary> FertilityEnhancingDrugTherapyArtificialInsem </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.FertilityEnhancingDrugTherapyArtificialInsem.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.FertilityEnhancingDrugTherapyArtificialInsem.Artificial_Insemination_Procedure">
+            <summary> Artificial_Insemination_Procedure </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.FertilityEnhancingDrugTherapyArtificialInsem.Intrauterine_Artificial_Insemination_Procedure">
+            <summary> Intrauterine_Artificial_Insemination_Procedure </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.FertilityEnhancingDrugTherapyArtificialInsem.Fertility_Enhancing_Drug_Therapy_Procedure_Procedure">
+            <summary> Fertility_Enhancing_Drug_Therapy_Procedure_Procedure </summary>
+        </member>
         <member name="T:BFDR.ValueSets.FetalDeathCauseOrCondition">
             <summary> FetalDeathCauseOrCondition </summary>
         </member>
@@ -5600,11 +7586,11 @@
         <member name="F:BFDR.ValueSets.FetalPresentations.Breech_Presentation_Finding">
             <summary> Breech_Presentation_Finding </summary>
         </member>
-        <member name="F:BFDR.ValueSets.FetalPresentations.On_Examination_Fetal_Presentation_Unsure_Unknown_Fetal_Presentation_Finding">
-            <summary> On_Examination_Fetal_Presentation_Unsure_Unknown_Fetal_Presentation_Finding </summary>
-        </member>
         <member name="F:BFDR.ValueSets.FetalPresentations.Other">
             <summary> Other </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.FetalPresentations.Unknown">
+            <summary> Unknown </summary>
         </member>
         <member name="T:BFDR.ValueSets.FetalRemainsDispositionMethod">
             <summary> FetalRemainsDispositionMethod </summary>
@@ -5632,21 +7618,6 @@
         </member>
         <member name="F:BFDR.ValueSets.FetalRemainsDispositionMethod.Unknown">
             <summary> Unknown </summary>
-        </member>
-        <member name="T:BFDR.ValueSets.HistologicalPlacentalExamination">
-            <summary> HistologicalPlacentalExamination </summary>
-        </member>
-        <member name="F:BFDR.ValueSets.HistologicalPlacentalExamination.Codes">
-            <summary> Codes </summary>
-        </member>
-        <member name="F:BFDR.ValueSets.HistologicalPlacentalExamination.Performed">
-            <summary> Performed </summary>
-        </member>
-        <member name="F:BFDR.ValueSets.HistologicalPlacentalExamination.Not_Performed">
-            <summary> Not_Performed </summary>
-        </member>
-        <member name="F:BFDR.ValueSets.HistologicalPlacentalExamination.Planned">
-            <summary> Planned </summary>
         </member>
         <member name="T:BFDR.ValueSets.InfectionsDuringPregnancyLiveBirth">
             <summary> InfectionsDuringPregnancyLiveBirth </summary>
@@ -5776,6 +7747,21 @@
         </member>
         <member name="F:BFDR.ValueSets.ObstetricProcedureOutcome.Unsuccessful_Qualifier_Value">
             <summary> Unsuccessful_Qualifier_Value </summary>
+        </member>
+        <member name="T:BFDR.ValueSets.PerformedNotPerformedPlanned">
+            <summary> PerformedNotPerformedPlanned </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PerformedNotPerformedPlanned.Codes">
+            <summary> Codes </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PerformedNotPerformedPlanned.Performed">
+            <summary> Performed </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PerformedNotPerformedPlanned.Not_Performed">
+            <summary> Not_Performed </summary>
+        </member>
+        <member name="F:BFDR.ValueSets.PerformedNotPerformedPlanned.Planned">
+            <summary> Planned </summary>
         </member>
         <member name="T:BFDR.ValueSets.PregnancyReportEditFlags">
             <summary> PregnancyReportEditFlags </summary>

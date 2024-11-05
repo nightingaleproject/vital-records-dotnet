@@ -41,7 +41,7 @@
 # To generate the value set lookup file for the common VitalRecord library, first checkout the VR Common IG
 #
 #     git clone https://github.com/HL7/vr-common-library.git
-#     cd vrdr
+#     cd vr-common-library
 #     sushi
 #
 # The value set JSON files will be built in vr-common-library/fsh-generated/resources/. To generate the value
@@ -105,22 +105,35 @@ value_set_files.each do |filename|
   valuesets[classname] = JSON.parse(File.read(filename))
 end
 
+# There is a special case where the ResidenceCountry value set is defined by including all codes in the CountryCode codesystem
+# while also excluding specific codes
+if valuesets['ResidenceCountry']
+  countryCode = JSON.parse(File.read("#{path_to_value_sets}/resources/CodeSystem-CodeSystem-country-code-vr.json"))
+  valuesets['ResidenceCountry']['compose']['include'][0]['concept'] = []
+  countryCode["concept"].each do |concept|
+    valuesets['ResidenceCountry']['compose']['include'][0]['concept'] << {
+      'code' => concept['code'],
+      'display' => concept['display']
+    }
+  end
+end
+
 # There is a special case where the SexAssignedAtBirth value set refers to VSAC, which we can't easily
 # process, so we populate it here
 # TODO: Reconsider this workaround if the SexAssignedAtBirth value set is updated
-if valuesets['SexAssignedAtBirth']
-  if valuesets['SexAssignedAtBirth']['compose']['include'].any? { |include| include&.[]('concept')&.any? { |concept| concept['code'] == 'F' } }
-    raise "Workaround for SexAssignedAtBirth value set no longer needed"
-  end
-  valuesets['SexAssignedAtBirth']['compose']['include'] << {
-    'system' => 'http://terminology.hl7.org/CodeSystem/v3-AdministrativeGender',
-    'concept' => [ { 'code' => 'F', 'display' => 'Female' }, { 'code' => 'M', 'display' => 'Male' } ]
-  }     
-  valuesets['SexAssignedAtBirth']['compose']['include'] << {
-    'system' => "http://terminology.hl7.org/CodeSystem/v3-NullFlavor",
-    'concept' => [ { 'code' => 'UNK', 'display' => 'unknown' } ]
-  }
-end
+# if valuesets['SexAssignedAtBirth']
+#   if valuesets['SexAssignedAtBirth']['compose']['include'].any? { |include| include&.[]('concept')&.any? { |concept| concept['code'] == 'F' } }
+#     raise "Workaround for SexAssignedAtBirth value set no longer needed"
+#   end
+#   valuesets['SexAssignedAtBirth']['compose']['include'] << {
+#     'system' => 'http://terminology.hl7.org/CodeSystem/v3-AdministrativeGender',
+#     'concept' => [ { 'code' => 'F', 'display' => 'Female' }, { 'code' => 'M', 'display' => 'Male' } ]
+#   }     
+#   valuesets['SexAssignedAtBirth']['compose']['include'] << {
+#     'system' => "http://terminology.hl7.org/CodeSystem/v3-NullFlavor",
+#     'concept' => [ { 'code' => 'UNK', 'display' => 'unknown' } ]
+#   }
+# end
 
 # The PregnancyStatus value set doesn't have a display value for N/A, so we add it here
 # TODO: Remove this workaround if PregnancyStatus is updated
@@ -177,11 +190,15 @@ namespace <%= namespace %>
             /// <summary> Codes </summary>
             public static string[,] Codes = {
 <% groups = value_set_data['compose']['include'] -%>
+<% excluded_codes = (value_set_data['compose']['exclude'] || []).flat_map do |exclude_entry| -%>
+  <% exclude_entry['concept'].map { |concept| concept['code'] } -%>
+<% end -%>
 <% groups.each do | group | -%>
 <% next unless group['concept'] -%>
 <% system = codesystems[group['system']] || group['system'] -%>
 <% systems_without_constants << group['system'] unless codesystems[group['system']] -%>
 <% group['concept'].each_with_index do |concept, index| -%>
+<% next unless !excluded_codes.include?(concept['code']) -%>
                 { "<%= concept['code'] %>", "<%= concept['display'] %>", VR.CodeSystems.<%= system %> },
 <% end -%>
 <% end -%>
@@ -191,6 +208,7 @@ namespace <%= namespace %>
 <% next unless group['concept'] -%>
 <% system = codesystems[group['system']] || group['system'] -%>
 <% group['concept'].each do |concept| -%>
+<% next unless !excluded_codes.include?(concept['code']) -%>
 <% raise 'Concept ' + concept.inspect + ' in ' + classname + ' found without a display value' unless concept['display'] -%>
 <% display = concept['display'].gsub("'", '').split(/[^a-z0-9]+/i).map(&:capitalize).join('_') -%>
 <% display = "_" + display if display.match(/^\\d/) -%>

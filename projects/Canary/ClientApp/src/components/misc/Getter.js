@@ -85,13 +85,20 @@ export class Getter extends Component {
       if (!!this.props.ijeOnly && (data[0] === '<' || data[0] === '{')) {
         data = 'bogus'; // The IJE catch in the back end will not like this, and will thus throw an error.
       }
+      const isJSON = data && data.startsWith("{");
+      const headers = {
+        "Content-type": isJSON ? "application/json" : "text/plain"
+      }
+      if (isJSON) {
+        data = JSON.parse(data);
+      }
       var endpoint = '';
       if (this.props.returnType) {
         endpoint = `/records/${this.props.recordType}/return/new`;
       } else if(this.props.messageValidation) {
         endpoint = `/messages/${this.props.recordType}/new`
       } else if (this.props.messageInspector) {
-        endpoint = `/messages/${this.props.recordType}/InspectWithFsh`;
+        endpoint = `/messages/${this.props.recordType}/inspect`;
       } else if (this.props.source == 'FshSushiInspector') {
         endpoint = `/messages/sushi/inspect`;
       } else if (this.props.source == 'MessageFshConverter') {
@@ -100,7 +107,7 @@ export class Getter extends Component {
         endpoint = `/records/${this.props.recordType}/new`;
       }
       axios
-        .post(window.API_URL + endpoint + (!!this.props.strict ? '?strict=yes' : '?strict=no'), data)
+        .post(window.API_URL + endpoint + (!!this.props.strict ? '?strict=yes' : '?strict=no'), data, {headers: headers})
         .then(function(response) {
           self.setState({ loading: false }, () => {
             var record = response.data.item1;

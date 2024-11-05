@@ -84,6 +84,12 @@ namespace VRDR
         //
         /////////////////////////////////////////////////////////////////////////////////
 
+        /// <summary>Override GetYear method to be implemented differently by VRDR for backwards compatibility</summary>
+        public override uint? GetYear()
+        {
+            return DeathYear;
+        }
+
         /// <summary>The year in which the death occurred</summary>
         public uint? DeathYear
         {
@@ -96,24 +102,12 @@ namespace VRDR
                 Record.Remove("death_year");
                 if (value != null)
                 {
-                    if (value < 1000 || value > 9999) {
+                    if (value < 1000 || value > 9999)
+                    {
                         throw new ArgumentException("Year of death must be specified using four digits");
                     }
                     Record.Add("death_year", new UnsignedInt((int)value));
                 }
-            }
-        }
-
-        /// <summary>NCHS identifier. Format is 4-digit year, two character jurisdiction id, six character/digit certificate id.</summary>
-        public string NCHSIdentifier
-        {
-            get
-            {
-                if (DeathYear == null || JurisdictionId == null || CertNo == null)
-                {
-                    return null;
-                }
-                return DeathYear.Value.ToString("D4") + JurisdictionId + CertNo.Value.ToString("D6");
             }
         }
 
@@ -126,7 +120,7 @@ namespace VRDR
         /// <param name="permissive">if the parser should be permissive when parsing the given string</param>
         /// <returns>The deserialized message object</returns>
         /// <exception cref="MessageParseException">Thrown when source does not represent the same or a subtype of the type parameter.</exception>
-        public static T Parse<T>(StreamReader source, bool permissive = false) where T: BaseMessage
+        public static T Parse<T>(StreamReader source, bool permissive = false) where T : BaseMessage
         {
             BaseMessage typedMessage = Parse(source, permissive);
             if (!typeof(T).IsInstanceOfType(typedMessage))
@@ -144,7 +138,7 @@ namespace VRDR
         /// <param name="bundle">A FHIR Bundle</param>
         /// <returns>The message object of the appropriate message type</returns>
         /// <exception cref="MessageParseException">Thrown when source does not represent the same or a subtype of the type parameter.</exception>
-        public static T Parse<T>(Bundle bundle) where T: BaseMessage
+        public static T Parse<T>(Bundle bundle) where T : BaseMessage
         {
             BaseMessage typedMessage = Parse(bundle);
             if (!typeof(T).IsInstanceOfType(typedMessage))
@@ -163,7 +157,7 @@ namespace VRDR
         /// <param name="permissive">if the parser should be permissive when parsing the given string</param>
         /// <returns>the deserialized message object</returns>
         /// <exception cref="MessageParseException">thrown when source does not represent the same or a subtype of the type parameter.</exception>
-        public static T Parse<T>(string source, bool permissive = false) where T: BaseMessage
+        public static T Parse<T>(string source, bool permissive = false) where T : BaseMessage
         {
             BaseMessage typedMessage = Parse(source, permissive);
             if (!typeof(T).IsInstanceOfType(typedMessage))
@@ -270,7 +264,7 @@ namespace VRDR
         /// <returns>The death record inside the base message</returns>
         public static DeathRecord GetDeathRecordFromMessage(BaseMessage message)
         {
-                
+
             Type messageType = message.GetType();
 
             DeathRecord dr = null;
@@ -278,41 +272,41 @@ namespace VRDR
             switch (messageType.Name)
             {
                 case "DeathRecordSubmissionMessage":
-                {
-                    var drsm = message as DeathRecordSubmissionMessage;
-                    dr = drsm?.DeathRecord;
-                    break;
-                }
+                    {
+                        var drsm = message as DeathRecordSubmissionMessage;
+                        dr = drsm?.DeathRecord;
+                        break;
+                    }
                 case "DeathRecordUpdateMessage":
-                {
-                    var drsm = message as DeathRecordUpdateMessage;
-                    dr = drsm?.DeathRecord;
-                    break;
-                }
+                    {
+                        var drsm = message as DeathRecordUpdateMessage;
+                        dr = drsm?.DeathRecord;
+                        break;
+                    }
                 case "CauseOfDeathCodingMessage":
-                {
-                    var drsm = message as CauseOfDeathCodingMessage;
-                    dr = drsm?.DeathRecord;
-                    break;
-                }
+                    {
+                        var drsm = message as CauseOfDeathCodingMessage;
+                        dr = drsm?.DeathRecord;
+                        break;
+                    }
                 case "CauseOfDeathCodingUpdateMessage":
-                {
-                    var drsm = message as CauseOfDeathCodingUpdateMessage;
-                    dr = drsm?.DeathRecord;
-                    break;
-                }
+                    {
+                        var drsm = message as CauseOfDeathCodingUpdateMessage;
+                        dr = drsm?.DeathRecord;
+                        break;
+                    }
                 case "DemographicsCodingMessage":
-                {
-                    var drsm = message as DemographicsCodingMessage;
-                    dr = drsm?.DeathRecord;
-                    break;
-                }
+                    {
+                        var drsm = message as DemographicsCodingMessage;
+                        dr = drsm?.DeathRecord;
+                        break;
+                    }
                 case "DemographicsCodingUpdateMessage":
-                {
-                    var drsm = message as DemographicsCodingUpdateMessage;
-                    dr = drsm?.DeathRecord;
-                    break;
-                }
+                    {
+                        var drsm = message as DemographicsCodingUpdateMessage;
+                        dr = drsm?.DeathRecord;
+                        break;
+                    }
             }
 
             return dr;

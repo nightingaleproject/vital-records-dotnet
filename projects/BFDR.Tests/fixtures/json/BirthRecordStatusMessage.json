@@ -18,7 +18,7 @@
             "http://cdc.gov/nchs/nvss/fhir/vital-records-messaging/StructureDefinition/VRM-StatusHeader"
           ]
         },
-        "eventUri": "http://nchs.cdc.gov/bfdr_status",
+        "eventUri": "http://nchs.cdc.gov/birth_status",
         "destination": [
           {
             "endpoint": "https://sos.nh.gov/vitalrecords"
@@ -58,7 +58,7 @@
             "valueUnsignedInt": 123456
           },
           {
-            "name": "birth_year",
+            "name": "event_year",
             "valueUnsignedInt": 2018
           },
           {

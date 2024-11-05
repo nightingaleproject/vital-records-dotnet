@@ -4,12 +4,12 @@ using Hl7.Fhir.Model;
 namespace BFDR
 {
     /// <summary>Class <c>BirthRecordSubmission</c> supports the submission of BFDR records.</summary>
-    public class BirthRecordSubmissionMessage : BirthRecordBaseMessage
+    public class BirthRecordSubmissionMessage : BFDRBaseMessage
     {
         /// <summary>
         /// The event URI for BirthRecordSubmission.
         /// </summary>
-        public const String MESSAGE_TYPE = "http://nchs.cdc.gov/bfdr_submission";
+        public new const String MESSAGE_TYPE = "http://nchs.cdc.gov/birth_submission";
 
         /// <summary>Bundle that contains the message payload.</summary>
         private BirthRecord birthRecord;
@@ -31,8 +31,8 @@ namespace BFDR
         /// Construct a BirthRecordSubmission from a FHIR Bundle.
         /// </summary>
         /// <param name="messageBundle">a FHIR Bundle that will be used to initialize the BirthRecordSubmission</param>
-        /// <param name="baseMessage">the BirthRecordBaseMessage instance that was constructed during parsing that can be used in a MessageParseException if needed</param>
-        internal BirthRecordSubmissionMessage(Bundle messageBundle, BirthRecordBaseMessage baseMessage) : base(messageBundle)
+        /// <param name="baseMessage">the BFDRBaseMessage instance that was constructed during parsing that can be used in a MessageParseException if needed</param>
+        internal BirthRecordSubmissionMessage(Bundle messageBundle, BFDRBaseMessage baseMessage) : base(messageBundle)
         {
             try
             {
@@ -76,7 +76,7 @@ namespace BFDR
         /// <summary>
         /// The event URI for BirthRecordUpdateMessage.
         /// </summary>
-        public new const String MESSAGE_TYPE = "http://nchs.cdc.gov/bfdr_submission_update";
+        public new const String MESSAGE_TYPE = "http://nchs.cdc.gov/birth_submission_update";
 
         /// <summary>Default constructor that creates a new, empty BirthRecordUpdateMessage.</summary>
         public BirthRecordUpdateMessage() : base()
@@ -95,8 +95,8 @@ namespace BFDR
         /// Construct a BirthRecordUpdateMessage from a FHIR Bundle.
         /// </summary>
         /// <param name="messageBundle">a FHIR Bundle that will be used to initialize the BirthRecordUpdateMessage</param>
-        /// <param name="baseMessage">the BirthRecordBaseMessage instance that was constructed during parsing that can be used in a MessageParseException if needed</param>
-        internal BirthRecordUpdateMessage(Bundle messageBundle, BirthRecordBaseMessage baseMessage) : base(messageBundle, baseMessage)
+        /// <param name="baseMessage">the BFDRBaseMessage instance that was constructed during parsing that can be used in a MessageParseException if needed</param>
+        internal BirthRecordUpdateMessage(Bundle messageBundle, BFDRBaseMessage baseMessage) : base(messageBundle, baseMessage)
         {
         }
     }

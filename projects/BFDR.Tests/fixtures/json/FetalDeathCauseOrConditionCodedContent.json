@@ -1,0 +1,140 @@
+{
+    "resourceType" : "Bundle",
+    "id" : "bundle-coded-cause-of-fetal-death-not-named",
+    "meta" : {
+      "profile" : ["http://hl7.org/fhir/us/bfdr/StructureDefinition/Bundle-document-coded-cause-of-fetal-death"]
+    },
+    "identifier" : {
+      "extension" : [{
+        "url" : "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/CertificateNumber",
+        "valueString" : "9876"
+      },
+      {
+        "url" : "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/AuxiliaryStateIdentifier1",
+        "valueString" : "11111-11111"
+      }],
+      "system" : "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-ije-vr",
+      "value" : "2019NJ009876"
+    },
+    "type" : "document",
+    "timestamp" : "2019-10-15T08:51:14.637+00:00",
+    "entry" : [{
+      "fullUrl" : "http://www.example.org/fhir/Composition/composition-coded-cause-of-fetal-death-not-named",
+      "resource" : {
+        "resourceType" : "Composition",
+        "id" : "composition-coded-cause-of-fetal-death-not-named",
+        "meta" : {
+          "profile" : ["http://hl7.org/fhir/us/bfdr/StructureDefinition/Composition-coded-cause-of-fetal-death"]
+        },
+        "text" : {
+          "status" : "generated",
+          "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Composition_composition-coded-cause-of-fetal-death-not-named\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Composition composition-coded-cause-of-fetal-death-not-named</b></p><a name=\"composition-coded-cause-of-fetal-death-not-named\"> </a><a name=\"hccomposition-coded-cause-of-fetal-death-not-named\"> </a><a name=\"composition-coded-cause-of-fetal-death-not-named-en-US\"> </a><p><b>status</b>: Final</p><p><b>type</b>: <span title=\"Codes:{http://loinc.org 86804-2}\">Cause of death classification and related information Document</span></p><p><b>date</b>: 2019-01-09</p><p><b>author</b>: National Center for Health Statistics</p><p><b>title</b>: Coded Cause of Fetal Death</p></div>"
+        },
+        "status" : "final",
+        "type" : {
+          "coding" : [{
+            "system" : "http://loinc.org",
+            "code" : "86804-2",
+            "display" : "Cause of death classification and related information Document"
+          }]
+        },
+        "subject" : {
+          "display" : "Patient - Decedent Fetus (Fetus Not Named)"
+        },
+        "date" : "2019-01-09",
+        "author" : [{
+          "display" : "National Center for Health Statistics"
+        }],
+        "title" : "Coded Cause of Fetal Death",
+        "section" : [{
+          "title" : "Coded Initiating Cause of Fetal Death",
+          "code" : {
+            "coding" : [{
+              "system" : "http://loinc.org",
+              "code" : "86804-2"
+            }]
+          },
+          "entry" : [{
+            "reference" : "Observation/observation-coded-initiating-fetal-death-cause-or-condition"
+          },
+          {
+            "reference" : "Observation/observation-coded-other-fetal-death-cause-or-condition-not-named"
+          }]
+        }]
+      }
+    },
+    {
+      "fullUrl" : "http://www.example.org/fhir/Observation/observation-coded-initiating-fetal-death-cause-or-condition",
+      "resource" : {
+        "resourceType" : "Observation",
+        "id" : "observation-coded-initiating-fetal-death-cause-or-condition",
+        "meta" : {
+          "profile" : ["http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-coded-initiating-fetal-death-cause-or-condition"]
+        },
+        "text" : {
+          "status" : "generated",
+          "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Observation_observation-coded-initiating-fetal-death-cause-or-condition\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Observation observation-coded-initiating-fetal-death-cause-or-condition</b></p><a name=\"observation-coded-initiating-fetal-death-cause-or-condition\"> </a><a name=\"hcobservation-coded-initiating-fetal-death-cause-or-condition\"> </a><a name=\"observation-coded-initiating-fetal-death-cause-or-condition-en-US\"> </a><p><b>status</b>: Final</p><p><b>code</b>: <span title=\"Codes:{http://loinc.org 92022-3}\">Coded initiating cause or condition of fetal death</span></p><p><b>subject</b>: Patient - Decedent Fetus (Fetus Not Named)</p><p><b>value</b>: <span title=\"Codes:{http://hl7.org/fhir/sid/icd-10 P01.1}\">Fetus and newborn affected by premature rupture of membranes</span></p></div>"
+        },
+        "status" : "final",
+        "code" : {
+          "coding" : [{
+            "system" : "http://loinc.org",
+            "code" : "92022-3",
+            "display" : "Coded initiating cause or condition of fetal death"
+          }]
+        },
+        "subject" : {
+          "display" : "Patient - Decedent Fetus (Fetus Not Named)"
+        },
+        "valueCodeableConcept" : {
+          "coding" : [{
+            "system" : "http://hl7.org/fhir/sid/icd-10",
+            "code" : "P01.1",
+            "display" : "Fetus and newborn affected by premature rupture of membranes"
+          }]
+        }
+      }
+    },
+    {
+      "fullUrl" : "http://www.example.org/fhir/Observation/observation-coded-other-fetal-death-cause-or-condition-not-named",
+      "resource" : {
+        "resourceType" : "Observation",
+        "id" : "observation-coded-other-fetal-death-cause-or-condition-not-named",
+        "meta" : {
+          "profile" : ["http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-coded-other-fetal-death-cause-or-condition"]
+        },
+        "text" : {
+          "status" : "generated",
+          "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Observation_observation-coded-other-fetal-death-cause-or-condition-not-named\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Observation observation-coded-other-fetal-death-cause-or-condition-not-named</b></p><a name=\"observation-coded-other-fetal-death-cause-or-condition-not-named\"> </a><a name=\"hcobservation-coded-other-fetal-death-cause-or-condition-not-named\"> </a><a name=\"observation-coded-other-fetal-death-cause-or-condition-not-named-en-US\"> </a><p><b>status</b>: Final</p><p><b>code</b>: <span title=\"Codes:{http://loinc.org 92023-1}\">Coded other significant causes or conditions of fetal death</span></p><p><b>subject</b>: Patient - Decedent Fetus (Fetus Not Named)</p><p><b>value</b>: <span title=\"Codes:{http://hl7.org/fhir/sid/icd-10 P02.1}\">Fetus and newborn affected by other forms of placental separation and haemorrhage</span></p><h3>Components</h3><table class=\"grid\"><tr><td style=\"display: none\">-</td><td><b>Code</b></td><td><b>Value[x]</b></td></tr><tr><td style=\"display: none\">*</td><td><span title=\"Codes:{http://snomed.info/sct 246268007}\">Position (attribute)</span></td><td>1</td></tr></table></div>"
+        },
+        "status" : "final",
+        "code" : {
+          "coding" : [{
+            "system" : "http://loinc.org",
+            "code" : "92023-1",
+            "display" : "Coded other significant causes or conditions of fetal death"
+          }]
+        },
+        "subject" : {
+          "display" : "Patient - Decedent Fetus (Fetus Not Named)"
+        },
+        "valueCodeableConcept" : {
+          "coding" : [{
+            "system" : "http://hl7.org/fhir/sid/icd-10",
+            "code" : "P02.1",
+            "display" : "Fetus and newborn affected by other forms of placental separation and haemorrhage"
+          }]
+        },
+        "component" : [{
+          "code" : {
+            "coding" : [{
+              "system" : "http://snomed.info/sct",
+              "code" : "246268007",
+              "display" : "Position (attribute)"
+            }]
+          },
+          "valueInteger" : 1
+        }]
+      }
+    }]
+  }

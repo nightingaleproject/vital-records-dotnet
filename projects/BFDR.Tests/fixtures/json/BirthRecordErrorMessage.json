@@ -9,7 +9,7 @@
       "resource": {
         "resourceType": "MessageHeader",
         "id": "b27d6803-86bc-4ec5-bd43-173951ce362b",
-        "eventUri": "http://nchs.cdc.gov/bfdr_extraction_error",
+        "eventUri": "http://nchs.cdc.gov/birth_extraction_error",
         "destination": [
           {
             "endpoint": "nightingale"
@@ -47,7 +47,7 @@
             "valueString": "42"
           },
           {
-            "name": "birth_year",
+            "name": "event_year",
             "valueUnsignedInt": 2018
           },
           {
