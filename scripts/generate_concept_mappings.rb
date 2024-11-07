@@ -1,7 +1,7 @@
 # This script takes the concept map JSON files that are generated as part of the VRDR, BFDR, and VR Common IGs
 # and creates output files with mapping dictionaries used for IJE <-> FHIR value set translation
 #
-# Usage: ruby tools/generate_concept_mappings.rb <path-to-concept-maps> > <path-to-source-file>
+# Usage: ruby scripts/generate_concept_mappings.rb <path-to-concept-maps> > <path-to-source-file>
 #
 # If you need to generate the concept map JSON files, first install sushi (https://github.com/FHIR/sushi).
 # Then, to generate the mapping file for VRDR, first checkout the VRDR IG
