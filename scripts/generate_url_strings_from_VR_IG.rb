@@ -1,7 +1,7 @@
 # This script takes the JSON files that are generated as part of the VR IG and creates an output
 # file with static URL strings for each StructureDefinition, Extension, and IG HTML page
 #
-# Usage: ruby tools/generate_url_strings_from_VR_IG.rb <path-to-json-files> > VR/URLs.cs
+# Usage: ruby scripts/generate_url_strings_from_VR_IG.rb <path-to-json-files> > projects/VitalRecord/URLs.cs
 #
 # If you need to generate the concept map JSON files, first install sushi (https://github.com/FHIR/sushi) then
 #
@@ -39,7 +39,7 @@ end
 def structure_definition_url_to_ig_url(url)
   # Transform this: http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Patient-mother-vr
   # Into this:      http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Patient-mother-vr.html
-  url.gsub('http://hl7.org/fhir/us/vr-common-library/StructureDefinition/', 'http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-') + '.html'
+  url.gsub('http://hl7.org/fhir/us/vr-common-library/StructureDefinition/', 'https://hl7.org/fhir/us/vr-common-library/StructureDefinition-') + '.html'
 end
 
 # Helper method to transform a StructureDefinition URL into a relative extension URL

@@ -1,7 +1,7 @@
 # This script takes the JSON files that are generated as part of the VRDR IG and creates an output
 # file with static URL strings for each StructureDefinition, Extension, and IG HTML page
 #
-# Usage: ruby tools/generate_url_strings_from_VRDR_IG.rb <path-to-json-files> > VRDR/URLs.cs
+# Usage: ruby scripts/generate_url_strings_from_VRDR_IG.rb <path-to-json-files> > projects/VRDR/URLs.cs
 #
 # If you need to generate the concept map JSON files, first install sushi (https://github.com/FHIR/sushi) then
 #
@@ -37,7 +37,7 @@ end
 def structure_definition_url_to_ig_url(url)
   # Transform this: http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-decedent-education-level
   # Into this:      http://build.fhir.org/ig/HL7/vrdr/StructureDefinition-vrdr-decedent-education-level.html
-  url.gsub('http://hl7.org/fhir/us/vrdr/StructureDefinition/', 'http://build.fhir.org/ig/HL7/vrdr/StructureDefinition-') + '.html'
+  url.gsub('http://hl7.org/fhir/us/vrdr/StructureDefinition/', 'https://hl7.org/fhir/us/vrdr/StructureDefinition-') + '.html'
 end
 
 # Helper method to determine whether a URL is an Extension or a Profile
