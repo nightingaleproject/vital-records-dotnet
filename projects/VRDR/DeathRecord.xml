@@ -4454,110 +4454,80 @@
         <member name="T:VRDR.ProfileURL">
             <summary>Profile URLs</summary>
         </member>
-        <member name="F:VRDR.ProfileURL.DeathDate">
-            <summary>URL for DeathDate</summary>
-        </member>
-        <member name="F:VRDR.ProfileURL.BirthRecordIdentifier">
-            <summary>URL for BirthRecordIdentifier</summary>
-        </member>
-        <member name="F:VRDR.ProfileURL.DecedentMilitaryService">
-            <summary>URL for DecedentMilitaryService</summary>
-        </member>
-        <member name="F:VRDR.ProfileURL.TobaccoUseContributedToDeath">
-            <summary>URL for TobaccoUseContributedToDeath</summary>
-        </member>
-        <member name="F:VRDR.ProfileURL.DecedentAge">
-            <summary>URL for DecedentAge</summary>
-        </member>
-        <member name="F:VRDR.ProfileURL.MannerOfDeath">
-            <summary>URL for MannerOfDeath</summary>
-        </member>
-        <member name="F:VRDR.ProfileURL.InputRaceAndEthnicity">
-            <summary>URL for InputRaceAndEthnicity</summary>
-        </member>
-        <member name="F:VRDR.ProfileURL.CauseOfDeathPart2">
-            <summary>URL for CauseOfDeathPart2</summary>
-        </member>
-        <member name="F:VRDR.ProfileURL.DecedentFather">
-            <summary>URL for DecedentFather</summary>
-        </member>
-        <member name="F:VRDR.ProfileURL.DecedentEducationLevel">
-            <summary>URL for DecedentEducationLevel</summary>
-        </member>
-        <member name="F:VRDR.ProfileURL.SurgeryDate">
-            <summary>URL for SurgeryDate</summary>
-        </member>
-        <member name="F:VRDR.ProfileURL.EmergingIssues">
-            <summary>URL for EmergingIssues</summary>
-        </member>
-        <member name="F:VRDR.ProfileURL.ExaminerContacted">
-            <summary>URL for ExaminerContacted</summary>
-        </member>
-        <member name="F:VRDR.ProfileURL.CodingStatusValues">
-            <summary>URL for CodingStatusValues</summary>
-        </member>
-        <member name="F:VRDR.ProfileURL.DecedentDispositionMethod">
-            <summary>URL for DecedentDispositionMethod</summary>
-        </member>
-        <member name="F:VRDR.ProfileURL.Decedent">
-            <summary>URL for Decedent</summary>
-        </member>
-        <member name="F:VRDR.ProfileURL.PlaceOfInjury">
-            <summary>URL for PlaceOfInjury</summary>
-        </member>
-        <member name="F:VRDR.ProfileURL.CauseOfDeathCodedContentBundle">
-            <summary>URL for CauseOfDeathCodedContentBundle</summary>
-        </member>
-        <member name="F:VRDR.ProfileURL.EntityAxisCauseOfDeath">
-            <summary>URL for EntityAxisCauseOfDeath</summary>
-        </member>
-        <member name="F:VRDR.ProfileURL.DeathLocation">
-            <summary>URL for DeathLocation</summary>
-        </member>
-        <member name="F:VRDR.ProfileURL.ManualUnderlyingCauseOfDeath">
-            <summary>URL for ManualUnderlyingCauseOfDeath</summary>
-        </member>
-        <member name="F:VRDR.ProfileURL.FuneralHome">
-            <summary>URL for FuneralHome</summary>
-        </member>
-        <member name="F:VRDR.ProfileURL.DeathCertificate">
-            <summary>URL for DeathCertificate</summary>
-        </member>
-        <member name="F:VRDR.ProfileURL.DecedentSpouse">
-            <summary>URL for DecedentSpouse</summary>
-        </member>
-        <member name="F:VRDR.ProfileURL.CauseOfDeathPart1">
-            <summary>URL for CauseOfDeathPart1</summary>
-        </member>
-        <member name="F:VRDR.ProfileURL.DecedentMother">
-            <summary>URL for DecedentMother</summary>
-        </member>
-        <member name="F:VRDR.ProfileURL.InjuryIncident">
-            <summary>URL for InjuryIncident</summary>
-        </member>
-        <member name="F:VRDR.ProfileURL.DeathCertificateDocument">
-            <summary>URL for DeathCertificateDocument</summary>
-        </member>
-        <member name="F:VRDR.ProfileURL.InjuryLocation">
-            <summary>URL for InjuryLocation</summary>
-        </member>
-        <member name="F:VRDR.ProfileURL.DeathCertification">
-            <summary>URL for DeathCertification</summary>
-        </member>
-        <member name="F:VRDR.ProfileURL.AutopsyPerformedIndicator">
-            <summary>URL for AutopsyPerformedIndicator</summary>
-        </member>
-        <member name="F:VRDR.ProfileURL.CodedRaceAndEthnicity">
-            <summary>URL for CodedRaceAndEthnicity</summary>
+        <member name="F:VRDR.ProfileURL.ActivityAtTimeOfDeath">
+            <summary>URL for ActivityAtTimeOfDeath</summary>
         </member>
         <member name="F:VRDR.ProfileURL.AutomatedUnderlyingCauseOfDeath">
             <summary>URL for AutomatedUnderlyingCauseOfDeath</summary>
         </member>
+        <member name="F:VRDR.ProfileURL.AutopsyPerformedIndicator">
+            <summary>URL for AutopsyPerformedIndicator</summary>
+        </member>
+        <member name="F:VRDR.ProfileURL.BirthRecordIdentifier">
+            <summary>URL for BirthRecordIdentifier</summary>
+        </member>
+        <member name="F:VRDR.ProfileURL.CauseOfDeathCodedContentBundle">
+            <summary>URL for CauseOfDeathCodedContentBundle</summary>
+        </member>
+        <member name="F:VRDR.ProfileURL.CauseOfDeathPart1">
+            <summary>URL for CauseOfDeathPart1</summary>
+        </member>
+        <member name="F:VRDR.ProfileURL.CauseOfDeathPart2">
+            <summary>URL for CauseOfDeathPart2</summary>
+        </member>
+        <member name="F:VRDR.ProfileURL.Certifier">
+            <summary>URL for Certifier</summary>
+        </member>
+        <member name="F:VRDR.ProfileURL.CodedRaceAndEthnicity">
+            <summary>URL for CodedRaceAndEthnicity</summary>
+        </member>
+        <member name="F:VRDR.ProfileURL.CodingStatusValues">
+            <summary>URL for CodingStatusValues</summary>
+        </member>
+        <member name="F:VRDR.ProfileURL.DeathCertificateDocument">
+            <summary>URL for DeathCertificateDocument</summary>
+        </member>
+        <member name="F:VRDR.ProfileURL.DeathCertificate">
+            <summary>URL for DeathCertificate</summary>
+        </member>
+        <member name="F:VRDR.ProfileURL.DeathCertification">
+            <summary>URL for DeathCertification</summary>
+        </member>
+        <member name="F:VRDR.ProfileURL.DeathDate">
+            <summary>URL for DeathDate</summary>
+        </member>
+        <member name="F:VRDR.ProfileURL.DeathLocation">
+            <summary>URL for DeathLocation</summary>
+        </member>
+        <member name="F:VRDR.ProfileURL.DecedentAge">
+            <summary>URL for DecedentAge</summary>
+        </member>
+        <member name="F:VRDR.ProfileURL.DecedentDispositionMethod">
+            <summary>URL for DecedentDispositionMethod</summary>
+        </member>
+        <member name="F:VRDR.ProfileURL.DecedentEducationLevel">
+            <summary>URL for DecedentEducationLevel</summary>
+        </member>
+        <member name="F:VRDR.ProfileURL.DecedentFather">
+            <summary>URL for DecedentFather</summary>
+        </member>
+        <member name="F:VRDR.ProfileURL.DecedentMilitaryService">
+            <summary>URL for DecedentMilitaryService</summary>
+        </member>
+        <member name="F:VRDR.ProfileURL.DecedentMother">
+            <summary>URL for DecedentMother</summary>
+        </member>
         <member name="F:VRDR.ProfileURL.DecedentPregnancyStatus">
             <summary>URL for DecedentPregnancyStatus</summary>
         </member>
+        <member name="F:VRDR.ProfileURL.DecedentSpouse">
+            <summary>URL for DecedentSpouse</summary>
+        </member>
         <member name="F:VRDR.ProfileURL.DecedentUsualWork">
             <summary>URL for DecedentUsualWork</summary>
+        </member>
+        <member name="F:VRDR.ProfileURL.Decedent">
+            <summary>URL for Decedent</summary>
         </member>
         <member name="F:VRDR.ProfileURL.DemographicCodedContentBundle">
             <summary>URL for DemographicCodedContentBundle</summary>
@@ -4565,281 +4535,284 @@
         <member name="F:VRDR.ProfileURL.DispositionLocation">
             <summary>URL for DispositionLocation</summary>
         </member>
-        <member name="F:VRDR.ProfileURL.Certifier">
-            <summary>URL for Certifier</summary>
+        <member name="F:VRDR.ProfileURL.EmergingIssues">
+            <summary>URL for EmergingIssues</summary>
         </member>
-        <member name="F:VRDR.ProfileURL.ActivityAtTimeOfDeath">
-            <summary>URL for ActivityAtTimeOfDeath</summary>
+        <member name="F:VRDR.ProfileURL.EntityAxisCauseOfDeath">
+            <summary>URL for EntityAxisCauseOfDeath</summary>
+        </member>
+        <member name="F:VRDR.ProfileURL.ExaminerContacted">
+            <summary>URL for ExaminerContacted</summary>
+        </member>
+        <member name="F:VRDR.ProfileURL.FuneralHome">
+            <summary>URL for FuneralHome</summary>
+        </member>
+        <member name="F:VRDR.ProfileURL.InjuryIncident">
+            <summary>URL for InjuryIncident</summary>
+        </member>
+        <member name="F:VRDR.ProfileURL.InjuryLocation">
+            <summary>URL for InjuryLocation</summary>
+        </member>
+        <member name="F:VRDR.ProfileURL.InputRaceAndEthnicity">
+            <summary>URL for InputRaceAndEthnicity</summary>
+        </member>
+        <member name="F:VRDR.ProfileURL.MannerOfDeath">
+            <summary>URL for MannerOfDeath</summary>
+        </member>
+        <member name="F:VRDR.ProfileURL.ManualUnderlyingCauseOfDeath">
+            <summary>URL for ManualUnderlyingCauseOfDeath</summary>
+        </member>
+        <member name="F:VRDR.ProfileURL.MortalityRosterBundle">
+            <summary>URL for MortalityRosterBundle</summary>
+        </member>
+        <member name="F:VRDR.ProfileURL.PlaceOfInjury">
+            <summary>URL for PlaceOfInjury</summary>
         </member>
         <member name="F:VRDR.ProfileURL.RecordAxisCauseOfDeath">
             <summary>URL for RecordAxisCauseOfDeath</summary>
         </member>
-        <member name="F:VRDR.ProfileURL.MortalityRosterBundle">
-            <summary>URL for MortalityRosterBundle </summary>
+        <member name="F:VRDR.ProfileURL.SurgeryDate">
+            <summary>URL for SurgeryDate</summary>
+        </member>
+        <member name="F:VRDR.ProfileURL.TobaccoUseContributedToDeath">
+            <summary>URL for TobaccoUseContributedToDeath</summary>
         </member>
         <member name="T:VRDR.ExtensionURL">
             <summary>Extension URLs</summary>
         </member>
-        <member name="F:VRDR.ExtensionURL.UnitOrAptNumber">
-            <summary>URL for UnitOrAptNumber</summary>
-        </member>
-        <member name="F:VRDR.ExtensionURL.StreetDesignator">
-            <summary>URL for StreetDesignator</summary>
-        </member>
-        <member name="F:VRDR.ExtensionURL.BypassEditFlag">
-            <summary>URL for BypassEditFlag</summary>
-        </member>
-        <member name="F:VRDR.ExtensionURL.PartialDateTime">
-            <summary>URL for PartialDateTime</summary>
-        </member>
-        <member name="F:VRDR.ExtensionURL.NVSSSexAtDeath">
-            <summary>URL for NVSSSexAtDeath</summary>
-        </member>
-        <member name="F:VRDR.ExtensionURL.DateYear">
-            <summary>URL for DateYear</summary>
-        </member>
-        <member name="F:VRDR.ExtensionURL.PreDirectional">
-            <summary>URL for PreDirectional</summary>
+        <member name="F:VRDR.ExtensionURL.AliasStatus">
+            <summary>URL for AliasStatus</summary>
         </member>
         <member name="F:VRDR.ExtensionURL.AuxiliaryStateIdentifier1">
             <summary>URL for AuxiliaryStateIdentifier1</summary>
         </member>
-        <member name="F:VRDR.ExtensionURL.WithinCityLimitsIndicator">
-            <summary>URL for WithinCityLimitsIndicator</summary>
-        </member>
-        <member name="F:VRDR.ExtensionURL.DistrictCode">
-            <summary>URL for DistrictCode</summary>
-        </member>
-        <member name="F:VRDR.ExtensionURL.DateDay">
-            <summary>URL for DateDay</summary>
-        </member>
-        <member name="F:VRDR.ExtensionURL.PartialDate">
-            <summary>URL for PartialDate</summary>
-        </member>
-        <member name="F:VRDR.ExtensionURL.SpouseAlive">
-            <summary>URL for SpouseAlive</summary>
-        </member>
-        <member name="F:VRDR.ExtensionURL.FilingFormat">
-            <summary>URL for FilingFormat</summary>
-        </member>
-        <member name="F:VRDR.ExtensionURL.DateTime">
-            <summary>URL for DateTime</summary>
-        </member>
-        <member name="F:VRDR.ExtensionURL.PostDirectional">
-            <summary>URL for PostDirectional</summary>
-        </member>
-        <member name="F:VRDR.ExtensionURL.StateSpecificField">
-            <summary>URL for StateSpecificField</summary>
-        </member>
         <member name="F:VRDR.ExtensionURL.AuxiliaryStateIdentifier2">
             <summary>URL for AuxiliaryStateIdentifier2</summary>
         </member>
-        <member name="F:VRDR.ExtensionURL.CityCode">
-            <summary>URL for CityCode</summary>
-        </member>
-        <member name="F:VRDR.ExtensionURL.StreetName">
-            <summary>URL for StreetName</summary>
+        <member name="F:VRDR.ExtensionURL.BypassEditFlag">
+            <summary>URL for BypassEditFlag</summary>
         </member>
         <member name="F:VRDR.ExtensionURL.CertificateNumber">
             <summary>URL for CertificateNumber</summary>
         </member>
-        <member name="F:VRDR.ExtensionURL.LocationJurisdictionId">
-            <summary>URL for LocationJurisdictionId</summary>
+        <member name="F:VRDR.ExtensionURL.CityCode">
+            <summary>URL for CityCode</summary>
         </member>
-        <member name="F:VRDR.ExtensionURL.ReplaceStatus">
-            <summary>URL for ReplaceStatus</summary>
-        </member>
-        <member name="F:VRDR.ExtensionURL.AliasStatus">
-            <summary>URL for AliasStatus</summary>
-        </member>
-        <member name="F:VRDR.ExtensionURL.StreetNumber">
-            <summary>URL for StreetNumber</summary>
+        <member name="F:VRDR.ExtensionURL.DateDay">
+            <summary>URL for DateDay</summary>
         </member>
         <member name="F:VRDR.ExtensionURL.DateMonth">
             <summary>URL for DateMonth</summary>
         </member>
+        <member name="F:VRDR.ExtensionURL.DateTime">
+            <summary>URL for DateTime</summary>
+        </member>
+        <member name="F:VRDR.ExtensionURL.DateYear">
+            <summary>URL for DateYear</summary>
+        </member>
+        <member name="F:VRDR.ExtensionURL.DistrictCode">
+            <summary>URL for DistrictCode</summary>
+        </member>
+        <member name="F:VRDR.ExtensionURL.FilingFormat">
+            <summary>URL for FilingFormat</summary>
+        </member>
+        <member name="F:VRDR.ExtensionURL.LocationJurisdictionId">
+            <summary>URL for LocationJurisdictionId</summary>
+        </member>
+        <member name="F:VRDR.ExtensionURL.NVSSSexAtDeath">
+            <summary>URL for NVSSSexAtDeath</summary>
+        </member>
+        <member name="F:VRDR.ExtensionURL.PartialDate">
+            <summary>URL for PartialDate</summary>
+        </member>
+        <member name="F:VRDR.ExtensionURL.PartialDateTime">
+            <summary>URL for PartialDateTime</summary>
+        </member>
+        <member name="F:VRDR.ExtensionURL.PostDirectional">
+            <summary>URL for PostDirectional</summary>
+        </member>
+        <member name="F:VRDR.ExtensionURL.PreDirectional">
+            <summary>URL for PreDirectional</summary>
+        </member>
+        <member name="F:VRDR.ExtensionURL.ReplaceStatus">
+            <summary>URL for ReplaceStatus</summary>
+        </member>
+        <member name="F:VRDR.ExtensionURL.SpouseAlive">
+            <summary>URL for SpouseAlive</summary>
+        </member>
+        <member name="F:VRDR.ExtensionURL.StateSpecificField">
+            <summary>URL for StateSpecificField</summary>
+        </member>
+        <member name="F:VRDR.ExtensionURL.StreetDesignator">
+            <summary>URL for StreetDesignator</summary>
+        </member>
+        <member name="F:VRDR.ExtensionURL.StreetName">
+            <summary>URL for StreetName</summary>
+        </member>
+        <member name="F:VRDR.ExtensionURL.StreetNumber">
+            <summary>URL for StreetNumber</summary>
+        </member>
+        <member name="F:VRDR.ExtensionURL.UnitOrAptNumber">
+            <summary>URL for UnitOrAptNumber</summary>
+        </member>
+        <member name="F:VRDR.ExtensionURL.WithinCityLimitsIndicator">
+            <summary>URL for WithinCityLimitsIndicator</summary>
+        </member>
         <member name="T:VRDR.IGURL">
             <summary>IG URLs</summary>
         </member>
-        <member name="F:VRDR.IGURL.DeathDate">
-            <summary>URL for DeathDate</summary>
-        </member>
-        <member name="F:VRDR.IGURL.BirthRecordIdentifier">
-            <summary>URL for BirthRecordIdentifier</summary>
-        </member>
-        <member name="F:VRDR.IGURL.UnitOrAptNumber">
-            <summary>URL for UnitOrAptNumber</summary>
-        </member>
-        <member name="F:VRDR.IGURL.DecedentMilitaryService">
-            <summary>URL for DecedentMilitaryService</summary>
-        </member>
-        <member name="F:VRDR.IGURL.CauseOfDeathPathway">
-            <summary>URL for CauseOfDeathPathway</summary>
-        </member>
-        <member name="F:VRDR.IGURL.StreetDesignator">
-            <summary>URL for StreetDesignator</summary>
-        </member>
-        <member name="F:VRDR.IGURL.TobaccoUseContributedToDeath">
-            <summary>URL for TobaccoUseContributedToDeath</summary>
-        </member>
-        <member name="F:VRDR.IGURL.DecedentAge">
-            <summary>URL for DecedentAge</summary>
-        </member>
-        <member name="F:VRDR.IGURL.BypassEditFlag">
-            <summary>URL for BypassEditFlag</summary>
-        </member>
-        <member name="F:VRDR.IGURL.PartialDateTime">
-            <summary>URL for PartialDateTime</summary>
-        </member>
-        <member name="F:VRDR.IGURL.NVSSSexAtDeath">
-            <summary>URL for NVSSSexAtDeath</summary>
-        </member>
-        <member name="F:VRDR.IGURL.MannerOfDeath">
-            <summary>URL for MannerOfDeath</summary>
-        </member>
-        <member name="F:VRDR.IGURL.InputRaceAndEthnicity">
-            <summary>URL for InputRaceAndEthnicity</summary>
-        </member>
-        <member name="F:VRDR.IGURL.CauseOfDeathPart2">
-            <summary>URL for CauseOfDeathPart2</summary>
-        </member>
-        <member name="F:VRDR.IGURL.DateYear">
-            <summary>URL for DateYear</summary>
-        </member>
-        <member name="F:VRDR.IGURL.PreDirectional">
-            <summary>URL for PreDirectional</summary>
-        </member>
-        <member name="F:VRDR.IGURL.DecedentFather">
-            <summary>URL for DecedentFather</summary>
-        </member>
-        <member name="F:VRDR.IGURL.DecedentEducationLevel">
-            <summary>URL for DecedentEducationLevel</summary>
+        <member name="F:VRDR.IGURL.AliasStatus">
+            <summary>URL for AliasStatus</summary>
         </member>
         <member name="F:VRDR.IGURL.AuxiliaryStateIdentifier1">
             <summary>URL for AuxiliaryStateIdentifier1</summary>
         </member>
-        <member name="F:VRDR.IGURL.SurgeryDate">
-            <summary>URL for SurgeryDate</summary>
-        </member>
-        <member name="F:VRDR.IGURL.EmergingIssues">
-            <summary>URL for EmergingIssues</summary>
-        </member>
-        <member name="F:VRDR.IGURL.ExaminerContacted">
-            <summary>URL for ExaminerContacted</summary>
-        </member>
-        <member name="F:VRDR.IGURL.CodingStatusValues">
-            <summary>URL for CodingStatusValues</summary>
-        </member>
-        <member name="F:VRDR.IGURL.WithinCityLimitsIndicator">
-            <summary>URL for WithinCityLimitsIndicator</summary>
-        </member>
-        <member name="F:VRDR.IGURL.DecedentDispositionMethod">
-            <summary>URL for DecedentDispositionMethod</summary>
-        </member>
-        <member name="F:VRDR.IGURL.Decedent">
-            <summary>URL for Decedent</summary>
-        </member>
-        <member name="F:VRDR.IGURL.PlaceOfInjury">
-            <summary>URL for PlaceOfInjury</summary>
-        </member>
-        <member name="F:VRDR.IGURL.CauseOfDeathCodedContentBundle">
-            <summary>URL for CauseOfDeathCodedContentBundle</summary>
-        </member>
-        <member name="F:VRDR.IGURL.DistrictCode">
-            <summary>URL for DistrictCode</summary>
-        </member>
-        <member name="F:VRDR.IGURL.EntityAxisCauseOfDeath">
-            <summary>URL for EntityAxisCauseOfDeath</summary>
-        </member>
-        <member name="F:VRDR.IGURL.DeathLocation">
-            <summary>URL for DeathLocation</summary>
-        </member>
-        <member name="F:VRDR.IGURL.DateDay">
-            <summary>URL for DateDay</summary>
-        </member>
-        <member name="F:VRDR.IGURL.PartialDate">
-            <summary>URL for PartialDate</summary>
-        </member>
-        <member name="F:VRDR.IGURL.ManualUnderlyingCauseOfDeath">
-            <summary>URL for ManualUnderlyingCauseOfDeath</summary>
-        </member>
-        <member name="F:VRDR.IGURL.FuneralHome">
-            <summary>URL for FuneralHome</summary>
-        </member>
-        <member name="F:VRDR.IGURL.SpouseAlive">
-            <summary>URL for SpouseAlive</summary>
-        </member>
-        <member name="F:VRDR.IGURL.DeathCertificate">
-            <summary>URL for DeathCertificate</summary>
-        </member>
-        <member name="F:VRDR.IGURL.FilingFormat">
-            <summary>URL for FilingFormat</summary>
-        </member>
-        <member name="F:VRDR.IGURL.DateTime">
-            <summary>URL for DateTime</summary>
-        </member>
-        <member name="F:VRDR.IGURL.DecedentSpouse">
-            <summary>URL for DecedentSpouse</summary>
-        </member>
-        <member name="F:VRDR.IGURL.PostDirectional">
-            <summary>URL for PostDirectional</summary>
-        </member>
-        <member name="F:VRDR.IGURL.CauseOfDeathPart1">
-            <summary>URL for CauseOfDeathPart1</summary>
-        </member>
-        <member name="F:VRDR.IGURL.DecedentMother">
-            <summary>URL for DecedentMother</summary>
-        </member>
-        <member name="F:VRDR.IGURL.StateSpecificField">
-            <summary>URL for StateSpecificField</summary>
-        </member>
         <member name="F:VRDR.IGURL.AuxiliaryStateIdentifier2">
             <summary>URL for AuxiliaryStateIdentifier2</summary>
         </member>
-        <member name="F:VRDR.IGURL.CityCode">
-            <summary>URL for CityCode</summary>
-        </member>
-        <member name="F:VRDR.IGURL.StreetName">
-            <summary>URL for StreetName</summary>
-        </member>
-        <member name="F:VRDR.IGURL.InjuryIncident">
-            <summary>URL for InjuryIncident</summary>
-        </member>
-        <member name="F:VRDR.IGURL.DeathCertificateDocument">
-            <summary>URL for DeathCertificateDocument</summary>
-        </member>
-        <member name="F:VRDR.IGURL.InjuryLocation">
-            <summary>URL for InjuryLocation</summary>
-        </member>
-        <member name="F:VRDR.IGURL.DeathCertification">
-            <summary>URL for DeathCertification</summary>
+        <member name="F:VRDR.IGURL.BypassEditFlag">
+            <summary>URL for BypassEditFlag</summary>
         </member>
         <member name="F:VRDR.IGURL.CertificateNumber">
             <summary>URL for CertificateNumber</summary>
         </member>
+        <member name="F:VRDR.IGURL.CityCode">
+            <summary>URL for CityCode</summary>
+        </member>
+        <member name="F:VRDR.IGURL.DateDay">
+            <summary>URL for DateDay</summary>
+        </member>
+        <member name="F:VRDR.IGURL.DateMonth">
+            <summary>URL for DateMonth</summary>
+        </member>
+        <member name="F:VRDR.IGURL.DateTime">
+            <summary>URL for DateTime</summary>
+        </member>
+        <member name="F:VRDR.IGURL.DateYear">
+            <summary>URL for DateYear</summary>
+        </member>
+        <member name="F:VRDR.IGURL.DistrictCode">
+            <summary>URL for DistrictCode</summary>
+        </member>
+        <member name="F:VRDR.IGURL.FilingFormat">
+            <summary>URL for FilingFormat</summary>
+        </member>
         <member name="F:VRDR.IGURL.LocationJurisdictionId">
             <summary>URL for LocationJurisdictionId</summary>
         </member>
-        <member name="F:VRDR.IGURL.AutopsyPerformedIndicator">
-            <summary>URL for AutopsyPerformedIndicator</summary>
+        <member name="F:VRDR.IGURL.NVSSSexAtDeath">
+            <summary>URL for NVSSSexAtDeath</summary>
         </member>
-        <member name="F:VRDR.IGURL.CodedRaceAndEthnicity">
-            <summary>URL for CodedRaceAndEthnicity</summary>
+        <member name="F:VRDR.IGURL.PartialDate">
+            <summary>URL for PartialDate</summary>
+        </member>
+        <member name="F:VRDR.IGURL.PartialDateTime">
+            <summary>URL for PartialDateTime</summary>
+        </member>
+        <member name="F:VRDR.IGURL.PostDirectional">
+            <summary>URL for PostDirectional</summary>
+        </member>
+        <member name="F:VRDR.IGURL.PreDirectional">
+            <summary>URL for PreDirectional</summary>
         </member>
         <member name="F:VRDR.IGURL.ReplaceStatus">
             <summary>URL for ReplaceStatus</summary>
         </member>
-        <member name="F:VRDR.IGURL.AutomatedUnderlyingCauseOfDeath">
-            <summary>URL for AutomatedUnderlyingCauseOfDeath</summary>
+        <member name="F:VRDR.IGURL.SpouseAlive">
+            <summary>URL for SpouseAlive</summary>
+        </member>
+        <member name="F:VRDR.IGURL.StateSpecificField">
+            <summary>URL for StateSpecificField</summary>
+        </member>
+        <member name="F:VRDR.IGURL.StreetDesignator">
+            <summary>URL for StreetDesignator</summary>
+        </member>
+        <member name="F:VRDR.IGURL.StreetName">
+            <summary>URL for StreetName</summary>
         </member>
         <member name="F:VRDR.IGURL.StreetNumber">
             <summary>URL for StreetNumber</summary>
         </member>
+        <member name="F:VRDR.IGURL.UnitOrAptNumber">
+            <summary>URL for UnitOrAptNumber</summary>
+        </member>
+        <member name="F:VRDR.IGURL.WithinCityLimitsIndicator">
+            <summary>URL for WithinCityLimitsIndicator</summary>
+        </member>
+        <member name="F:VRDR.IGURL.ActivityAtTimeOfDeath">
+            <summary>URL for ActivityAtTimeOfDeath</summary>
+        </member>
+        <member name="F:VRDR.IGURL.AutomatedUnderlyingCauseOfDeath">
+            <summary>URL for AutomatedUnderlyingCauseOfDeath</summary>
+        </member>
+        <member name="F:VRDR.IGURL.AutopsyPerformedIndicator">
+            <summary>URL for AutopsyPerformedIndicator</summary>
+        </member>
+        <member name="F:VRDR.IGURL.BirthRecordIdentifier">
+            <summary>URL for BirthRecordIdentifier</summary>
+        </member>
+        <member name="F:VRDR.IGURL.CauseOfDeathCodedContentBundle">
+            <summary>URL for CauseOfDeathCodedContentBundle</summary>
+        </member>
+        <member name="F:VRDR.IGURL.CauseOfDeathPart1">
+            <summary>URL for CauseOfDeathPart1</summary>
+        </member>
+        <member name="F:VRDR.IGURL.CauseOfDeathPart2">
+            <summary>URL for CauseOfDeathPart2</summary>
+        </member>
+        <member name="F:VRDR.IGURL.Certifier">
+            <summary>URL for Certifier</summary>
+        </member>
+        <member name="F:VRDR.IGURL.CodedRaceAndEthnicity">
+            <summary>URL for CodedRaceAndEthnicity</summary>
+        </member>
+        <member name="F:VRDR.IGURL.CodingStatusValues">
+            <summary>URL for CodingStatusValues</summary>
+        </member>
+        <member name="F:VRDR.IGURL.DeathCertificateDocument">
+            <summary>URL for DeathCertificateDocument</summary>
+        </member>
+        <member name="F:VRDR.IGURL.DeathCertificate">
+            <summary>URL for DeathCertificate</summary>
+        </member>
+        <member name="F:VRDR.IGURL.DeathCertification">
+            <summary>URL for DeathCertification</summary>
+        </member>
+        <member name="F:VRDR.IGURL.DeathDate">
+            <summary>URL for DeathDate</summary>
+        </member>
+        <member name="F:VRDR.IGURL.DeathLocation">
+            <summary>URL for DeathLocation</summary>
+        </member>
+        <member name="F:VRDR.IGURL.DecedentAge">
+            <summary>URL for DecedentAge</summary>
+        </member>
+        <member name="F:VRDR.IGURL.DecedentDispositionMethod">
+            <summary>URL for DecedentDispositionMethod</summary>
+        </member>
+        <member name="F:VRDR.IGURL.DecedentEducationLevel">
+            <summary>URL for DecedentEducationLevel</summary>
+        </member>
+        <member name="F:VRDR.IGURL.DecedentFather">
+            <summary>URL for DecedentFather</summary>
+        </member>
+        <member name="F:VRDR.IGURL.DecedentMilitaryService">
+            <summary>URL for DecedentMilitaryService</summary>
+        </member>
+        <member name="F:VRDR.IGURL.DecedentMother">
+            <summary>URL for DecedentMother</summary>
+        </member>
         <member name="F:VRDR.IGURL.DecedentPregnancyStatus">
             <summary>URL for DecedentPregnancyStatus</summary>
         </member>
+        <member name="F:VRDR.IGURL.DecedentSpouse">
+            <summary>URL for DecedentSpouse</summary>
+        </member>
         <member name="F:VRDR.IGURL.DecedentUsualWork">
             <summary>URL for DecedentUsualWork</summary>
+        </member>
+        <member name="F:VRDR.IGURL.Decedent">
+            <summary>URL for Decedent</summary>
         </member>
         <member name="F:VRDR.IGURL.DemographicCodedContentBundle">
             <summary>URL for DemographicCodedContentBundle</summary>
@@ -4847,20 +4820,47 @@
         <member name="F:VRDR.IGURL.DispositionLocation">
             <summary>URL for DispositionLocation</summary>
         </member>
-        <member name="F:VRDR.IGURL.DateMonth">
-            <summary>URL for DateMonth</summary>
+        <member name="F:VRDR.IGURL.EmergingIssues">
+            <summary>URL for EmergingIssues</summary>
         </member>
-        <member name="F:VRDR.IGURL.Certifier">
-            <summary>URL for Certifier</summary>
+        <member name="F:VRDR.IGURL.EntityAxisCauseOfDeath">
+            <summary>URL for EntityAxisCauseOfDeath</summary>
         </member>
-        <member name="F:VRDR.IGURL.ActivityAtTimeOfDeath">
-            <summary>URL for ActivityAtTimeOfDeath</summary>
+        <member name="F:VRDR.IGURL.ExaminerContacted">
+            <summary>URL for ExaminerContacted</summary>
+        </member>
+        <member name="F:VRDR.IGURL.FuneralHome">
+            <summary>URL for FuneralHome</summary>
+        </member>
+        <member name="F:VRDR.IGURL.InjuryIncident">
+            <summary>URL for InjuryIncident</summary>
+        </member>
+        <member name="F:VRDR.IGURL.InjuryLocation">
+            <summary>URL for InjuryLocation</summary>
+        </member>
+        <member name="F:VRDR.IGURL.InputRaceAndEthnicity">
+            <summary>URL for InputRaceAndEthnicity</summary>
+        </member>
+        <member name="F:VRDR.IGURL.MannerOfDeath">
+            <summary>URL for MannerOfDeath</summary>
+        </member>
+        <member name="F:VRDR.IGURL.ManualUnderlyingCauseOfDeath">
+            <summary>URL for ManualUnderlyingCauseOfDeath</summary>
+        </member>
+        <member name="F:VRDR.IGURL.MortalityRosterBundle">
+            <summary>URL for MortalityRosterBundle</summary>
+        </member>
+        <member name="F:VRDR.IGURL.PlaceOfInjury">
+            <summary>URL for PlaceOfInjury</summary>
         </member>
         <member name="F:VRDR.IGURL.RecordAxisCauseOfDeath">
             <summary>URL for RecordAxisCauseOfDeath</summary>
         </member>
-        <member name="F:VRDR.IGURL.MortalityRosterBundle">
-            <summary>URL for MortalityRosterBundle </summary>
+        <member name="F:VRDR.IGURL.SurgeryDate">
+            <summary>URL for SurgeryDate</summary>
+        </member>
+        <member name="F:VRDR.IGURL.TobaccoUseContributedToDeath">
+            <summary>URL for TobaccoUseContributedToDeath</summary>
         </member>
         <member name="T:VRDR.ValueSets">
             <summary> ValueSet Helpers </summary>
