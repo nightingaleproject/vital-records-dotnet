@@ -832,7 +832,7 @@ namespace VRDR
             {
                 // Pull code from coded unit.   "code" field is not required by VRDR IG
                 string code = Dictionary_Get_Full("AGETYPE", "AgeAtDeath", "code") ?? "";
-                Mappings.UnitsOfAge.FHIRToIJE.TryGetValue(code, out string ijeValue);
+                VR.Mappings.UnitsOfAge.FHIRToIJE.TryGetValue(code, out string ijeValue);
                 return ijeValue ?? "9";
             }
             set
@@ -842,7 +842,7 @@ namespace VRDR
                     return;  // nothing to do
                 }
                 // If we have an IJE value map it to FHIR and set the unit, code and system appropriately, otherwise set to unknown
-                if (!Mappings.UnitsOfAge.IJEToFHIR.TryGetValue(value, out string fhirValue))
+                if (!VR.Mappings.UnitsOfAge.IJEToFHIR.TryGetValue(value, out string fhirValue))
                 {
                     // We have an invalid code, map it to unknown
                     fhirValue = ValueSets.UnitsOfAge.Unknown;
@@ -1053,13 +1053,13 @@ namespace VRDR
         {
             get
             {
-                return Get_MappingFHIRToIJE(Mappings.YesNoUnknown.FHIRToIJE, "ResidenceWithinCityLimits", "LIMITS");
+                return Get_MappingFHIRToIJE(VR.Mappings.YesNoUnknown.FHIRToIJE, "ResidenceWithinCityLimits", "LIMITS");
             }
             set
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Set_MappingIJEToFHIR(Mappings.YesNoUnknown.IJEToFHIR, "LIMITS", "ResidenceWithinCityLimits", value);
+                    Set_MappingIJEToFHIR(VR.Mappings.YesNoUnknown.IJEToFHIR, "LIMITS", "ResidenceWithinCityLimits", value);
                 }
             }
         }
@@ -1245,7 +1245,7 @@ namespace VRDR
         {
             get
             {
-                string code = Get_MappingFHIRToIJE(Mappings.YesNoUnknown.FHIRToIJE, "Ethnicity1", "DETHNIC1");
+                string code = Get_MappingFHIRToIJE(VR.Mappings.YesNoUnknown.FHIRToIJE, "Ethnicity1", "DETHNIC1");
                 if (code == "Y")
                 {
                     code = "H";
@@ -1264,7 +1264,7 @@ namespace VRDR
                     {
                         value = "Y";
                     }
-                    Set_MappingIJEToFHIR(Mappings.YesNoUnknown.IJEToFHIR, "DETHNIC1", "Ethnicity1", value);
+                    Set_MappingIJEToFHIR(VR.Mappings.YesNoUnknown.IJEToFHIR, "DETHNIC1", "Ethnicity1", value);
                 }
             }
         }
@@ -1275,7 +1275,7 @@ namespace VRDR
         {
             get
             {
-                string code = Get_MappingFHIRToIJE(Mappings.YesNoUnknown.FHIRToIJE, "Ethnicity2", "DETHNIC2");
+                string code = Get_MappingFHIRToIJE(VR.Mappings.YesNoUnknown.FHIRToIJE, "Ethnicity2", "DETHNIC2");
                 if (code == "Y")
                 {
                     code = "H";
@@ -1294,7 +1294,7 @@ namespace VRDR
                     {
                         value = "Y";
                     }
-                    Set_MappingIJEToFHIR(Mappings.YesNoUnknown.IJEToFHIR, "DETHNIC2", "Ethnicity2", value);
+                    Set_MappingIJEToFHIR(VR.Mappings.YesNoUnknown.IJEToFHIR, "DETHNIC2", "Ethnicity2", value);
                 }
             }
         }
@@ -1305,7 +1305,7 @@ namespace VRDR
         {
             get
             {
-                string code = Get_MappingFHIRToIJE(Mappings.YesNoUnknown.FHIRToIJE, "Ethnicity3", "DETHNIC3");
+                string code = Get_MappingFHIRToIJE(VR.Mappings.YesNoUnknown.FHIRToIJE, "Ethnicity3", "DETHNIC3");
                 if (code == "Y")
                 {
                     code = "H";
@@ -1324,7 +1324,7 @@ namespace VRDR
                     {
                         value = "Y";
                     }
-                    Set_MappingIJEToFHIR(Mappings.YesNoUnknown.IJEToFHIR, "DETHNIC3", "Ethnicity3", value);
+                    Set_MappingIJEToFHIR(VR.Mappings.YesNoUnknown.IJEToFHIR, "DETHNIC3", "Ethnicity3", value);
                 }
             }
         }
@@ -1335,7 +1335,7 @@ namespace VRDR
         {
             get
             {
-                string code = Get_MappingFHIRToIJE(Mappings.YesNoUnknown.FHIRToIJE, "Ethnicity4", "DETHNIC4");
+                string code = Get_MappingFHIRToIJE(VR.Mappings.YesNoUnknown.FHIRToIJE, "Ethnicity4", "DETHNIC4");
                 if (code == "Y")
                 {
                     code = "H";
@@ -1354,7 +1354,7 @@ namespace VRDR
                     {
                         value = "Y";
                     }
-                    Set_MappingIJEToFHIR(Mappings.YesNoUnknown.IJEToFHIR, "DETHNIC4", "Ethnicity4", value);
+                    Set_MappingIJEToFHIR(VR.Mappings.YesNoUnknown.IJEToFHIR, "DETHNIC4", "Ethnicity4", value);
                 }
             }
         }
@@ -1782,11 +1782,11 @@ namespace VRDR
         {
             get
             {
-                return Get_MappingFHIRToIJE(Mappings.RaceCode.FHIRToIJE, "FirstEditedRaceCode", "RACE1E");
+                return Get_MappingFHIRToIJE(VR.Mappings.RaceCode.FHIRToIJE, "FirstEditedRaceCode", "RACE1E");
             }
             set
             {
-                Set_MappingIJEToFHIR(Mappings.RaceCode.IJEToFHIR, "RACE1E", "FirstEditedRaceCode", value);
+                Set_MappingIJEToFHIR(VR.Mappings.RaceCode.IJEToFHIR, "RACE1E", "FirstEditedRaceCode", value);
             }
         }
 
@@ -1796,11 +1796,11 @@ namespace VRDR
         {
             get
             {
-                return Get_MappingFHIRToIJE(Mappings.RaceCode.FHIRToIJE, "SecondEditedRaceCode", "RACE2E");
+                return Get_MappingFHIRToIJE(VR.Mappings.RaceCode.FHIRToIJE, "SecondEditedRaceCode", "RACE2E");
             }
             set
             {
-                Set_MappingIJEToFHIR(Mappings.RaceCode.IJEToFHIR, "RACE2E", "SecondEditedRaceCode", value);
+                Set_MappingIJEToFHIR(VR.Mappings.RaceCode.IJEToFHIR, "RACE2E", "SecondEditedRaceCode", value);
             }
         }
 
@@ -1810,11 +1810,11 @@ namespace VRDR
         {
             get
             {
-                return Get_MappingFHIRToIJE(Mappings.RaceCode.FHIRToIJE, "ThirdEditedRaceCode", "RACE3E");
+                return Get_MappingFHIRToIJE(VR.Mappings.RaceCode.FHIRToIJE, "ThirdEditedRaceCode", "RACE3E");
             }
             set
             {
-                Set_MappingIJEToFHIR(Mappings.RaceCode.IJEToFHIR, "RACE3E", "ThirdEditedRaceCode", value);
+                Set_MappingIJEToFHIR(VR.Mappings.RaceCode.IJEToFHIR, "RACE3E", "ThirdEditedRaceCode", value);
             }
         }
 
@@ -1824,11 +1824,11 @@ namespace VRDR
         {
             get
             {
-                return Get_MappingFHIRToIJE(Mappings.RaceCode.FHIRToIJE, "FourthEditedRaceCode", "RACE4E");
+                return Get_MappingFHIRToIJE(VR.Mappings.RaceCode.FHIRToIJE, "FourthEditedRaceCode", "RACE4E");
             }
             set
             {
-                Set_MappingIJEToFHIR(Mappings.RaceCode.IJEToFHIR, "RACE4E", "FourthEditedRaceCode", value);
+                Set_MappingIJEToFHIR(VR.Mappings.RaceCode.IJEToFHIR, "RACE4E", "FourthEditedRaceCode", value);
             }
         }
 
@@ -1838,11 +1838,11 @@ namespace VRDR
         {
             get
             {
-                return Get_MappingFHIRToIJE(Mappings.RaceCode.FHIRToIJE, "FifthEditedRaceCode", "RACE5E");
+                return Get_MappingFHIRToIJE(VR.Mappings.RaceCode.FHIRToIJE, "FifthEditedRaceCode", "RACE5E");
             }
             set
             {
-                Set_MappingIJEToFHIR(Mappings.RaceCode.IJEToFHIR, "RACE5E", "FifthEditedRaceCode", value);
+                Set_MappingIJEToFHIR(VR.Mappings.RaceCode.IJEToFHIR, "RACE5E", "FifthEditedRaceCode", value);
             }
         }
 
@@ -1852,11 +1852,11 @@ namespace VRDR
         {
             get
             {
-                return Get_MappingFHIRToIJE(Mappings.RaceCode.FHIRToIJE, "SixthEditedRaceCode", "RACE6E");
+                return Get_MappingFHIRToIJE(VR.Mappings.RaceCode.FHIRToIJE, "SixthEditedRaceCode", "RACE6E");
             }
             set
             {
-                Set_MappingIJEToFHIR(Mappings.RaceCode.IJEToFHIR, "RACE6E", "SixthEditedRaceCode", value);
+                Set_MappingIJEToFHIR(VR.Mappings.RaceCode.IJEToFHIR, "RACE6E", "SixthEditedRaceCode", value);
             }
         }
 
@@ -1866,11 +1866,11 @@ namespace VRDR
         {
             get
             {
-                return Get_MappingFHIRToIJE(Mappings.RaceCode.FHIRToIJE, "SeventhEditedRaceCode", "RACE7E");
+                return Get_MappingFHIRToIJE(VR.Mappings.RaceCode.FHIRToIJE, "SeventhEditedRaceCode", "RACE7E");
             }
             set
             {
-                Set_MappingIJEToFHIR(Mappings.RaceCode.IJEToFHIR, "RACE7E", "SeventhEditedRaceCode", value);
+                Set_MappingIJEToFHIR(VR.Mappings.RaceCode.IJEToFHIR, "RACE7E", "SeventhEditedRaceCode", value);
             }
         }
 
@@ -1880,11 +1880,11 @@ namespace VRDR
         {
             get
             {
-                return Get_MappingFHIRToIJE(Mappings.RaceCode.FHIRToIJE, "EighthEditedRaceCode", "RACE8E");
+                return Get_MappingFHIRToIJE(VR.Mappings.RaceCode.FHIRToIJE, "EighthEditedRaceCode", "RACE8E");
             }
             set
             {
-                Set_MappingIJEToFHIR(Mappings.RaceCode.IJEToFHIR, "RACE8E", "EighthEditedRaceCode", value);
+                Set_MappingIJEToFHIR(VR.Mappings.RaceCode.IJEToFHIR, "RACE8E", "EighthEditedRaceCode", value);
             }
         }
 
@@ -1894,11 +1894,11 @@ namespace VRDR
         {
             get
             {
-                return Get_MappingFHIRToIJE(Mappings.RaceCode.FHIRToIJE, "FirstAmericanIndianRaceCode", "RACE16C");
+                return Get_MappingFHIRToIJE(VR.Mappings.RaceCode.FHIRToIJE, "FirstAmericanIndianRaceCode", "RACE16C");
             }
             set
             {
-                Set_MappingIJEToFHIR(Mappings.RaceCode.IJEToFHIR, "RACE16C", "FirstAmericanIndianRaceCode", value);
+                Set_MappingIJEToFHIR(VR.Mappings.RaceCode.IJEToFHIR, "RACE16C", "FirstAmericanIndianRaceCode", value);
             }
         }
 
@@ -1908,11 +1908,11 @@ namespace VRDR
         {
             get
             {
-                return Get_MappingFHIRToIJE(Mappings.RaceCode.FHIRToIJE, "SecondAmericanIndianRaceCode", "RACE17C");
+                return Get_MappingFHIRToIJE(VR.Mappings.RaceCode.FHIRToIJE, "SecondAmericanIndianRaceCode", "RACE17C");
             }
             set
             {
-                Set_MappingIJEToFHIR(Mappings.RaceCode.IJEToFHIR, "RACE17C", "SecondAmericanIndianRaceCode", value);
+                Set_MappingIJEToFHIR(VR.Mappings.RaceCode.IJEToFHIR, "RACE17C", "SecondAmericanIndianRaceCode", value);
             }
         }
 
@@ -1922,11 +1922,11 @@ namespace VRDR
         {
             get
             {
-                return Get_MappingFHIRToIJE(Mappings.RaceCode.FHIRToIJE, "FirstOtherAsianRaceCode", "RACE18C");
+                return Get_MappingFHIRToIJE(VR.Mappings.RaceCode.FHIRToIJE, "FirstOtherAsianRaceCode", "RACE18C");
             }
             set
             {
-                Set_MappingIJEToFHIR(Mappings.RaceCode.IJEToFHIR, "RACE18C", "FirstOtherAsianRaceCode", value);
+                Set_MappingIJEToFHIR(VR.Mappings.RaceCode.IJEToFHIR, "RACE18C", "FirstOtherAsianRaceCode", value);
             }
         }
 
@@ -1936,11 +1936,11 @@ namespace VRDR
         {
             get
             {
-                return Get_MappingFHIRToIJE(Mappings.RaceCode.FHIRToIJE, "SecondOtherAsianRaceCode", "RACE19C");
+                return Get_MappingFHIRToIJE(VR.Mappings.RaceCode.FHIRToIJE, "SecondOtherAsianRaceCode", "RACE19C");
             }
             set
             {
-                Set_MappingIJEToFHIR(Mappings.RaceCode.IJEToFHIR, "RACE19C", "SecondOtherAsianRaceCode", value);
+                Set_MappingIJEToFHIR(VR.Mappings.RaceCode.IJEToFHIR, "RACE19C", "SecondOtherAsianRaceCode", value);
             }
         }
 
@@ -1950,11 +1950,11 @@ namespace VRDR
         {
             get
             {
-                return Get_MappingFHIRToIJE(Mappings.RaceCode.FHIRToIJE, "FirstOtherPacificIslanderRaceCode", "RACE20C");
+                return Get_MappingFHIRToIJE(VR.Mappings.RaceCode.FHIRToIJE, "FirstOtherPacificIslanderRaceCode", "RACE20C");
             }
             set
             {
-                Set_MappingIJEToFHIR(Mappings.RaceCode.IJEToFHIR, "RACE20C", "FirstOtherPacificIslanderRaceCode", value);
+                Set_MappingIJEToFHIR(VR.Mappings.RaceCode.IJEToFHIR, "RACE20C", "FirstOtherPacificIslanderRaceCode", value);
             }
         }
 
@@ -1964,11 +1964,11 @@ namespace VRDR
         {
             get
             {
-                return Get_MappingFHIRToIJE(Mappings.RaceCode.FHIRToIJE, "SecondOtherPacificIslanderRaceCode", "RACE21C");
+                return Get_MappingFHIRToIJE(VR.Mappings.RaceCode.FHIRToIJE, "SecondOtherPacificIslanderRaceCode", "RACE21C");
             }
             set
             {
-                Set_MappingIJEToFHIR(Mappings.RaceCode.IJEToFHIR, "RACE21C", "SecondOtherPacificIslanderRaceCode", value);
+                Set_MappingIJEToFHIR(VR.Mappings.RaceCode.IJEToFHIR, "RACE21C", "SecondOtherPacificIslanderRaceCode", value);
             }
         }
 
@@ -1978,11 +1978,11 @@ namespace VRDR
         {
             get
             {
-                return Get_MappingFHIRToIJE(Mappings.RaceCode.FHIRToIJE, "FirstOtherRaceCode", "RACE22C");
+                return Get_MappingFHIRToIJE(VR.Mappings.RaceCode.FHIRToIJE, "FirstOtherRaceCode", "RACE22C");
             }
             set
             {
-                Set_MappingIJEToFHIR(Mappings.RaceCode.IJEToFHIR, "RACE22C", "FirstOtherRaceCode", value);
+                Set_MappingIJEToFHIR(VR.Mappings.RaceCode.IJEToFHIR, "RACE22C", "FirstOtherRaceCode", value);
             }
         }
 
@@ -1992,11 +1992,11 @@ namespace VRDR
         {
             get
             {
-                return Get_MappingFHIRToIJE(Mappings.RaceCode.FHIRToIJE, "SecondOtherRaceCode", "RACE23C");
+                return Get_MappingFHIRToIJE(VR.Mappings.RaceCode.FHIRToIJE, "SecondOtherRaceCode", "RACE23C");
             }
             set
             {
-                Set_MappingIJEToFHIR(Mappings.RaceCode.IJEToFHIR, "RACE23C", "SecondOtherRaceCode", value);
+                Set_MappingIJEToFHIR(VR.Mappings.RaceCode.IJEToFHIR, "RACE23C", "SecondOtherRaceCode", value);
             }
         }
 
@@ -2461,11 +2461,11 @@ namespace VRDR
         {
             get
             {
-                return Get_MappingFHIRToIJE(Mappings.YesNoUnknown.FHIRToIJE, "AutopsyPerformedIndicator", "AUTOP");
+                return Get_MappingFHIRToIJE(VR.Mappings.YesNoUnknown.FHIRToIJE, "AutopsyPerformedIndicator", "AUTOP");
             }
             set
             {
-                Set_MappingIJEToFHIR(Mappings.YesNoUnknown.IJEToFHIR, "AUTOP", "AutopsyPerformedIndicator", value);
+                Set_MappingIJEToFHIR(VR.Mappings.YesNoUnknown.IJEToFHIR, "AUTOP", "AutopsyPerformedIndicator", value);
             }
         }
 
@@ -2475,11 +2475,11 @@ namespace VRDR
         {
             get
             {
-                return Get_MappingFHIRToIJE(Mappings.YesNoUnknownNotApplicable.FHIRToIJE, "AutopsyResultsAvailable", "AUTOPF");
+                return Get_MappingFHIRToIJE(VR.Mappings.YesNoUnknownNotApplicable.FHIRToIJE, "AutopsyResultsAvailable", "AUTOPF");
             }
             set
             {
-                Set_MappingIJEToFHIR(Mappings.YesNoUnknownNotApplicable.IJEToFHIR, "AUTOPF", "AutopsyResultsAvailable", value);
+                Set_MappingIJEToFHIR(VR.Mappings.YesNoUnknownNotApplicable.IJEToFHIR, "AUTOPF", "AutopsyResultsAvailable", value);
             }
         }
 
@@ -2587,11 +2587,11 @@ namespace VRDR
         {
             get
             {
-                return Get_MappingFHIRToIJE(Mappings.YesNoUnknownNotApplicable.FHIRToIJE, "InjuryAtWork", "WORKINJ");
+                return Get_MappingFHIRToIJE(VR.Mappings.YesNoUnknownNotApplicable.FHIRToIJE, "InjuryAtWork", "WORKINJ");
             }
             set
             {
-                Set_MappingIJEToFHIR(Mappings.YesNoUnknownNotApplicable.IJEToFHIR, "WORKINJ", "InjuryAtWork", value);
+                Set_MappingIJEToFHIR(VR.Mappings.YesNoUnknownNotApplicable.IJEToFHIR, "WORKINJ", "InjuryAtWork", value);
             }
         }
 
@@ -2777,13 +2777,13 @@ namespace VRDR
         {
             get
             {
-                return Get_MappingFHIRToIJE(Mappings.YesNoUnknown.FHIRToIJE, "MilitaryService", "ARMEDF");
+                return Get_MappingFHIRToIJE(VR.Mappings.YesNoUnknown.FHIRToIJE, "MilitaryService", "ARMEDF");
             }
             set
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Set_MappingIJEToFHIR(Mappings.YesNoUnknown.IJEToFHIR, "ARMEDF", "MilitaryService", value);
+                    Set_MappingIJEToFHIR(VR.Mappings.YesNoUnknown.IJEToFHIR, "ARMEDF", "MilitaryService", value);
                 }
             }
 
@@ -3581,13 +3581,13 @@ namespace VRDR
         {
             get
             {
-                return Get_MappingFHIRToIJE(Mappings.YesNoUnknown.FHIRToIJE, "ExaminerContacted", "REFERRED");
+                return Get_MappingFHIRToIJE(VR.Mappings.YesNoUnknown.FHIRToIJE, "ExaminerContacted", "REFERRED");
             }
             set
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Set_MappingIJEToFHIR(Mappings.YesNoUnknown.IJEToFHIR, "REFERRED", "ExaminerContacted", value);
+                    Set_MappingIJEToFHIR(VR.Mappings.YesNoUnknown.IJEToFHIR, "REFERRED", "ExaminerContacted", value);
                 }
             }
         }
