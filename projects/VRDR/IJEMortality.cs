@@ -1087,13 +1087,13 @@ namespace VRDR
         {
             get
             {
-                return Get_MappingFHIRToIJE(VR.Mappings.EditBypass0124.FHIRToIJE, "MaritalStatusEditFlag", "MARITAL_BYPASS");
+                return Get_MappingFHIRToIJE(Mappings.EditBypass0124.FHIRToIJE, "MaritalStatusEditFlag", "MARITAL_BYPASS");
             }
             set
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Set_MappingIJEToFHIR(VR.Mappings.EditBypass0124.IJEToFHIR, "MARITAL_BYPASS", "MaritalStatusEditFlag", value);
+                    Set_MappingIJEToFHIR(Mappings.EditBypass0124.IJEToFHIR, "MARITAL_BYPASS", "MaritalStatusEditFlag", value);
                 }
             }
         }
