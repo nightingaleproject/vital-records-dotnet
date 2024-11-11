@@ -1966,7 +1966,7 @@ namespace VRDR
             get
             {
                 Date date = CodingStatusValues?.GetSingleValue<Date>("receiptDate");
-                return GetDateFragmentOrPartialDate(date, ExtensionURL.DateYear);
+                return GetDateFragmentOrPartialDate(date, VR.ExtensionURL.DateYear);
             }
             set
             {
@@ -1975,7 +1975,7 @@ namespace VRDR
                     CreateCodingStatusValues();
                 }
                 Date date = CodingStatusValues?.GetSingleValue<Date>("receiptDate");
-                SetPartialDate(date.Extension.Find(ext => ext.Url == ExtensionURL.PartialDate), ExtensionURL.DateYear, value);
+                SetPartialDate(date.Extension.Find(ext => ext.Url == VR.ExtensionURL.PartialDate), VR.ExtensionURL.DateYear, value);
             }
         }
 
@@ -1997,7 +1997,7 @@ namespace VRDR
             get
             {
                 Date date = CodingStatusValues?.GetSingleValue<Date>("receiptDate");
-                return GetDateFragmentOrPartialDate(date, ExtensionURL.DateMonth);
+                return GetDateFragmentOrPartialDate(date, VR.ExtensionURL.DateMonth);
             }
             set
             {
@@ -2006,7 +2006,7 @@ namespace VRDR
                     CreateCodingStatusValues();
                 }
                 Date date = CodingStatusValues?.GetSingleValue<Date>("receiptDate");
-                SetPartialDate(date.Extension.Find(ext => ext.Url == ExtensionURL.PartialDate), ExtensionURL.DateMonth, value);
+                SetPartialDate(date.Extension.Find(ext => ext.Url == VR.ExtensionURL.PartialDate), VR.ExtensionURL.DateMonth, value);
             }
         }
 
@@ -2025,7 +2025,7 @@ namespace VRDR
             get
             {
                 Date date = CodingStatusValues?.GetSingleValue<Date>("receiptDate");
-                return GetDateFragmentOrPartialDate(date, ExtensionURL.DateDay);
+                return GetDateFragmentOrPartialDate(date, VR.ExtensionURL.DateDay);
             }
             set
             {
@@ -2034,7 +2034,7 @@ namespace VRDR
                     CreateCodingStatusValues();
                 }
                 Date date = CodingStatusValues?.GetSingleValue<Date>("receiptDate");
-                SetPartialDate(date.Extension.Find(ext => ext.Url == ExtensionURL.PartialDate), ExtensionURL.DateDay, value);
+                SetPartialDate(date.Extension.Find(ext => ext.Url == VR.ExtensionURL.PartialDate), VR.ExtensionURL.DateDay, value);
             }
         }
 
