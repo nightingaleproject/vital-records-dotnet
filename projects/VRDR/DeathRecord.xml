@@ -4583,44 +4583,11 @@
         <member name="F:VRDR.ExtensionURL.AliasStatus">
             <summary>URL for AliasStatus</summary>
         </member>
-        <member name="F:VRDR.ExtensionURL.AuxiliaryStateIdentifier1">
-            <summary>URL for AuxiliaryStateIdentifier1</summary>
-        </member>
-        <member name="F:VRDR.ExtensionURL.AuxiliaryStateIdentifier2">
-            <summary>URL for AuxiliaryStateIdentifier2</summary>
-        </member>
-        <member name="F:VRDR.ExtensionURL.BypassEditFlag">
-            <summary>URL for BypassEditFlag</summary>
-        </member>
-        <member name="F:VRDR.ExtensionURL.CertificateNumber">
-            <summary>URL for CertificateNumber</summary>
-        </member>
-        <member name="F:VRDR.ExtensionURL.CityCode">
-            <summary>URL for CityCode</summary>
-        </member>
-        <member name="F:VRDR.ExtensionURL.DistrictCode">
-            <summary>URL for DistrictCode</summary>
-        </member>
         <member name="F:VRDR.ExtensionURL.FilingFormat">
             <summary>URL for FilingFormat</summary>
         </member>
-        <member name="F:VRDR.ExtensionURL.LocationJurisdictionId">
-            <summary>URL for LocationJurisdictionId</summary>
-        </member>
         <member name="F:VRDR.ExtensionURL.NVSSSexAtDeath">
             <summary>URL for NVSSSexAtDeath</summary>
-        </member>
-        <member name="F:VRDR.ExtensionURL.PartialDate">
-            <summary>URL for PartialDate</summary>
-        </member>
-        <member name="F:VRDR.ExtensionURL.PartialDateTime">
-            <summary>URL for PartialDateTime</summary>
-        </member>
-        <member name="F:VRDR.ExtensionURL.PostDirectional">
-            <summary>URL for PostDirectional</summary>
-        </member>
-        <member name="F:VRDR.ExtensionURL.PreDirectional">
-            <summary>URL for PreDirectional</summary>
         </member>
         <member name="F:VRDR.ExtensionURL.ReplaceStatus">
             <summary>URL for ReplaceStatus</summary>
@@ -4630,21 +4597,6 @@
         </member>
         <member name="F:VRDR.ExtensionURL.StateSpecificField">
             <summary>URL for StateSpecificField</summary>
-        </member>
-        <member name="F:VRDR.ExtensionURL.StreetDesignator">
-            <summary>URL for StreetDesignator</summary>
-        </member>
-        <member name="F:VRDR.ExtensionURL.StreetName">
-            <summary>URL for StreetName</summary>
-        </member>
-        <member name="F:VRDR.ExtensionURL.StreetNumber">
-            <summary>URL for StreetNumber</summary>
-        </member>
-        <member name="F:VRDR.ExtensionURL.UnitOrAptNumber">
-            <summary>URL for UnitOrAptNumber</summary>
-        </member>
-        <member name="F:VRDR.ExtensionURL.WithinCityLimitsIndicator">
-            <summary>URL for WithinCityLimitsIndicator</summary>
         </member>
         <member name="T:VRDR.IGURL">
             <summary>IG URLs</summary>
