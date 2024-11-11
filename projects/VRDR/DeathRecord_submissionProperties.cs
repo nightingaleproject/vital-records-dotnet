@@ -127,7 +127,7 @@ namespace VRDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"State local identifier: {ExampleDeathRecord.StateLocalIdentifier1}");</para>
         /// </example>
-        [Property("State Local Identifier1", Property.Types.String, "Death Certification", "State Local Identifier.", true, ProfileURL.Decedent.DeathCertificate, true, 5)]
+        [Property("State Local Identifier1", Property.Types.String, "Death Certification", "State Local Identifier.", true, ProfileURL.DeathCertificate, true, 5)]
         [FHIRPath("Bundle", "identifier")]
         public string StateLocalIdentifier1
         {
@@ -162,7 +162,7 @@ namespace VRDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"State local identifier: {ExampleDeathRecord.StateLocalIdentifier1}");</para>
         /// </example>
-        [Property("State Local Identifier2", Property.Types.String, "Death Certification", "State Local Identifier.", true, ProfileURL.Decedent.DeathCertificate, true, 5)]
+        [Property("State Local Identifier2", Property.Types.String, "Death Certification", "State Local Identifier.", true, ProfileURL.DeathCertificate, true, 5)]
         [FHIRPath("Bundle", "identifier")]
         public string StateLocalIdentifier2
         {
