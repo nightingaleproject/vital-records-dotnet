@@ -135,7 +135,7 @@ namespace VRDR
             {
                 if (Bundle?.Identifier?.Extension != null)
                 {
-                    Extension ext = Bundle.Identifier.Extension.Find(ex => ex.Url ==  VR.ProfileURL.AuxiliaryStateIdentifier1);
+                    Extension ext = Bundle.Identifier.Extension.Find(ex => ex.Url ==  VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords);
                     if (ext?.Value != null)
                     {
                         return Convert.ToString(ext.Value);
@@ -145,10 +145,10 @@ namespace VRDR
             }
             set
             {
-                Bundle.Identifier.Extension.RemoveAll(ex => ex.Url ==  VR.ProfileURL.AuxiliaryStateIdentifier1);
+                Bundle.Identifier.Extension.RemoveAll(ex => ex.Url ==  VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords);
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Extension ext = new Extension( VR.ProfileURL.AuxiliaryStateIdentifier1, new FhirString(value));
+                    Extension ext = new Extension( VR.ProfileURL.AuxiliaryStateIdentifier1VitalRecords, new FhirString(value));
                     Bundle.Identifier.Extension.Add(ext);
                 }
             }
@@ -170,7 +170,7 @@ namespace VRDR
             {
                 if (Bundle?.Identifier?.Extension != null)
                 {
-                    Extension ext = Bundle.Identifier.Extension.Find(ex => ex.Url ==  VR.ProfileURL.AuxiliaryStateIdentifier2);
+                    Extension ext = Bundle.Identifier.Extension.Find(ex => ex.Url ==  VR.ProfileURL.AuxiliaryStateIdentifier2VitalRecords);
                     if (ext?.Value != null)
                     {
                         return Convert.ToString(ext.Value);
@@ -180,10 +180,10 @@ namespace VRDR
             }
             set
             {
-                Bundle.Identifier.Extension.RemoveAll(ex => ex.Url ==  VR.ProfileURL.AuxiliaryStateIdentifier2);
+                Bundle.Identifier.Extension.RemoveAll(ex => ex.Url ==  VR.ProfileURL.AuxiliaryStateIdentifier2VitalRecords);
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Extension ext = new Extension( VR.ProfileURL.AuxiliaryStateIdentifier2, new FhirString(value));
+                    Extension ext = new Extension( VR.ProfileURL.AuxiliaryStateIdentifier2VitalRecords, new FhirString(value));
                     Bundle.Identifier.Extension.Add(ext);
                 }
             }
@@ -1930,25 +1930,25 @@ namespace VRDR
         }
 
         /// <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Year</summary>
-        protected override string PartialDateYearUrl =>VR.ExtensionURL.DateYear;
+        protected override string PartialDateYearUrl => VR.ExtensionURL.DateYear;
 
         /// <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Month</summary>
-        protected override string PartialDateMonthUrl =>VR.ExtensionURL.DateMonth;
+        protected override string PartialDateMonthUrl => VR.ExtensionURL.DateMonth;
 
         /// <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Day</summary>
-        protected override string PartialDateDayUrl =>VR.ExtensionURL.DateDay;
+        protected override string PartialDateDayUrl => VR.ExtensionURL.DateDay;
 
         /// <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Time</summary>
-        protected override string PartialDateTimeTimeUrl =>VR.ExtensionURL.DateTime;
+        protected override string PartialDateTimeTimeUrl => VR.ExtensionURL.DateTime;
 
         /// <summary>Overriden method that dictates which Extension URL to use for PartialDate</summary>
-        protected override string PartialDateUrl =>VR.ExtensionURL.PartialDate;
+        protected override string PartialDateUrl => VR.ExtensionURL.PartialDate;
 
         /// <summary>Overriden method that dictates which Extension URL to use for PartialDateTime</summary>
-        protected override string PartialDateTimeUrl =>VR.ExtensionURL.PartialDateTime;
+        protected override string PartialDateTimeUrl => VR.ExtensionURL.PartialDateTime;
 
         /// <summary>Overriden method that dictates which Extension URL to use for LocationJurisdictionId</summary>
-        protected override string LocationJurisdictionIdUrl => ExtensionURL.LocationJurisdictionId;
+        protected override string LocationJurisdictionIdUrl => VR.ExtensionURL.LocationJurisdictionId;
 
         /// <summary>Decedent's Month of Birth.</summary>
         /// <value>the decedent's month of birth, or -1 if explicitly unknown, or null if never specified</value>
@@ -4475,7 +4475,7 @@ namespace VRDR
                     DispositionMethod = new Observation();
                     DispositionMethod.Id = Guid.NewGuid().ToString();
                     DispositionMethod.Meta = new Meta();
-                    string[] dispositionmethod_profile = { ProfileURL.ProfileURL.DecedentDispositionMethod };
+                    string[] dispositionmethod_profile = { ProfileURL.DecedentDispositionMethod };
                     DispositionMethod.Meta.Profile = dispositionmethod_profile;
                     DispositionMethod.Status = ObservationStatus.Final;
                     DispositionMethod.Code = new CodeableConcept(CodeSystems.LOINC, "80905-3", "Body disposition method", null);
@@ -6402,7 +6402,7 @@ namespace VRDR
                 EmergingIssues = new Observation();
                 EmergingIssues.Id = Guid.NewGuid().ToString();
                 EmergingIssues.Meta = new Meta();
-                string[] tb_profile = { ProfileURL.EmergingIssues };
+                string[] tb_profile = { VR.ProfileURL.EmergingIssues };
                 EmergingIssues.Meta.Profile = tb_profile;
                 EmergingIssues.Status = ObservationStatus.Final;
                 EmergingIssues.Code = new CodeableConcept(CodeSystems.ObservationCode, "emergingissues", "NCHS-required Parameter Slots for Emerging Issues", null);
@@ -7230,7 +7230,7 @@ namespace VRDR
                     TobaccoUseObs = new Observation();
                     TobaccoUseObs.Id = Guid.NewGuid().ToString();
                     TobaccoUseObs.Meta = new Meta();
-                    string[] tb_profile = { ProfileURL.Decedent.TobaccoUseContributedToDeath };
+                    string[] tb_profile = { ProfileURL.TobaccoUseContributedToDeath };
                     TobaccoUseObs.Meta.Profile = tb_profile;
                     TobaccoUseObs.Status = ObservationStatus.Final;
                     TobaccoUseObs.Code = new CodeableConcept(CodeSystems.LOINC, "69443-0", "Did tobacco use contribute to death", null);
