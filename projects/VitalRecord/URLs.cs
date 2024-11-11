@@ -81,7 +81,7 @@ namespace VR
             }
             return url;
         }
-    
+
         /// <summary>URL for BypassEditFlag</summary>
         public string BypassEditFlag => Trim($"{_prefix}/StructureDefinition/BypassEditFlag");
 
@@ -146,16 +146,16 @@ namespace VR
         public const string PatientBirthTime = "http://hl7.org/fhir/StructureDefinition/patient-birthTime";  
 
         /// <summary>URL for PartialDateTime Day as defined in the VitalRecords IG</summary>
-        public const string PartialDateDayVR = "day";     
+        public const string PartialDateTimeDayVR = "day";     
 
         /// <summary>URL for PartialDateTime Month as defined in the VitalRecords IG</summary>
-        public const string PartialDateMonthVR = "month";
+        public const string PartialDateTimeMonthVR = "month";
 
         /// <summary>URL for PartialDateTime Year as defined in the VitalRecords IG</summary>
-        public const string PartialDateYearVR = "year";
+        public const string PartialDateTimeYearVR = "year";
 
         /// <summary>URL for PartialDateTime Time as defined in the VitalRecords IG</summary>
-        public const string PartialDateTimeVR = "time";
+        public const string PartialDateTimeTimeVR = "time";
 
     }
 
