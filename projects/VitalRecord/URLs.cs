@@ -130,32 +130,21 @@ namespace VR
         /// <summary>URL for UnitOrAptNumber</summary>
         public string UnitOrAptNumber => Trim($"{_prefix}/StructureDefinition/UnitOrAptNumber");
 
-        /// <summary>URL for DateDay</summary>
-        ///public string DateDay => $"{_prefix}/StructureDefinition/Date-Day";
-
-        /// <summary>URL for DateYear</summary>
-        ///public string DateYear => $"{_prefix}/StructureDefinition/Date-Year";
-
-        /// <summary>URL for DateMonth</summary>
-        ///public string DateMonth => $"{_prefix}/StructureDefinition/Date-Month";
-
-        /// <summary>URL for DateTime</summary>
-        ///public string DateTime => $"{_prefix}/StructureDefinition/Date-Time";
 
         /// <summary>URL for PatientBirthTime as defined in the VitalRecords IG</summary>
         public const string PatientBirthTime = "http://hl7.org/fhir/StructureDefinition/patient-birthTime";  
 
-        /// <summary>URL for PartialDateTime Day as defined in the VitalRecords IG</summary>
-        public const string PartialDateTimeDayVR = "day";     
+        /// <summary>URL for PartialDate Day as defined in the VitalRecords IG</summary>
+        public const string PartialDateDayVR = "day";     
 
-        /// <summary>URL for PartialDateTime Month as defined in the VitalRecords IG</summary>
-        public const string PartialDateTimeMonthVR = "month";
+        /// <summary>URL for PartialDate Month as defined in the VitalRecords IG</summary>
+        public const string PartialDateMonthVR = "month";
 
         /// <summary>URL for PartialDateTime Year as defined in the VitalRecords IG</summary>
-        public const string PartialDateTimeYearVR = "year";
+        public const string PartialDateYearVR = "year";
 
         /// <summary>URL for PartialDateTime Time as defined in the VitalRecords IG</summary>
-        public const string PartialDateTimeTimeVR = "time";
+        public const string PartialDateTimeVR = "time";
 
     }
 
