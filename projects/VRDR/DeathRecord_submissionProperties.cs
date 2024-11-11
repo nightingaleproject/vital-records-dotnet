@@ -39,7 +39,7 @@ namespace VRDR
             {
                 if (Bundle?.Identifier?.Extension != null)
                 {
-                    Extension ext = Bundle.Identifier.Extension.Find(ex => ex.Url == ExtensionURL.CertificateNumber);
+                    Extension ext = Bundle.Identifier.Extension.Find(ex => ex.Url == VR. VR.ExtensionURL.CertificateNumber);
                     if (ext?.Value != null)
                     {
                         return Convert.ToString(ext.Value);
@@ -49,10 +49,10 @@ namespace VRDR
             }
             set
             {
-                Bundle.Identifier.Extension.RemoveAll(ex => ex.Url == ExtensionURL.CertificateNumber);
+                Bundle.Identifier.Extension.RemoveAll(ex => ex.Url ==  VR.ExtensionURL.CertificateNumber);
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Extension ext = new Extension(ExtensionURL.CertificateNumber, new FhirString(value));
+                    Extension ext = new Extension( VR.ExtensionURL.CertificateNumber, new FhirString(value));
                     Bundle.Identifier.Extension.Add(ext);
                     UpdateDeathRecordIdentifier();
                 }
@@ -135,7 +135,7 @@ namespace VRDR
             {
                 if (Bundle?.Identifier?.Extension != null)
                 {
-                    Extension ext = Bundle.Identifier.Extension.Find(ex => ex.Url == ExtensionURL.AuxiliaryStateIdentifier1);
+                    Extension ext = Bundle.Identifier.Extension.Find(ex => ex.Url ==  VR.ExtensionURL.AuxiliaryStateIdentifier1);
                     if (ext?.Value != null)
                     {
                         return Convert.ToString(ext.Value);
@@ -145,10 +145,10 @@ namespace VRDR
             }
             set
             {
-                Bundle.Identifier.Extension.RemoveAll(ex => ex.Url == ExtensionURL.AuxiliaryStateIdentifier1);
+                Bundle.Identifier.Extension.RemoveAll(ex => ex.Url ==  VR.ExtensionURL.AuxiliaryStateIdentifier1);
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Extension ext = new Extension(ExtensionURL.AuxiliaryStateIdentifier1, new FhirString(value));
+                    Extension ext = new Extension( VR.ExtensionURL.AuxiliaryStateIdentifier1, new FhirString(value));
                     Bundle.Identifier.Extension.Add(ext);
                 }
             }
@@ -170,7 +170,7 @@ namespace VRDR
             {
                 if (Bundle?.Identifier?.Extension != null)
                 {
-                    Extension ext = Bundle.Identifier.Extension.Find(ex => ex.Url == ExtensionURL.AuxiliaryStateIdentifier2);
+                    Extension ext = Bundle.Identifier.Extension.Find(ex => ex.Url ==  VR.ExtensionURL.AuxiliaryStateIdentifier2);
                     if (ext?.Value != null)
                     {
                         return Convert.ToString(ext.Value);
@@ -180,10 +180,10 @@ namespace VRDR
             }
             set
             {
-                Bundle.Identifier.Extension.RemoveAll(ex => ex.Url == ExtensionURL.AuxiliaryStateIdentifier2);
+                Bundle.Identifier.Extension.RemoveAll(ex => ex.Url ==  VR.ExtensionURL.AuxiliaryStateIdentifier2);
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Extension ext = new Extension(ExtensionURL.AuxiliaryStateIdentifier2, new FhirString(value));
+                    Extension ext = new Extension( VR.ExtensionURL.AuxiliaryStateIdentifier2, new FhirString(value));
                     Bundle.Identifier.Extension.Add(ext);
                 }
             }
@@ -594,7 +594,7 @@ namespace VRDR
                     MannerOfDeath = new Observation();
                     MannerOfDeath.Id = Guid.NewGuid().ToString();
                     MannerOfDeath.Meta = new Meta();
-                    string[] mannerofdeath_profile = { ProfileURL.Decedent.MannerOfDeath };
+                    string[] mannerofdeath_profile = { ProfileURL.MannerOfDeath };
                     MannerOfDeath.Meta.Profile = mannerofdeath_profile;
                     MannerOfDeath.Status = ObservationStatus.Final;
                     MannerOfDeath.Code = new CodeableConcept(CodeSystems.LOINC, "69449-7", "Manner of death", null);
@@ -961,7 +961,7 @@ namespace VRDR
                     ConditionContributingToDeath.Subject = new ResourceReference("urn:uuid:" + Decedent.Id);
                     ConditionContributingToDeath.Performer.Add(new ResourceReference("urn:uuid:" + Certifier.Id));
                     ConditionContributingToDeath.Meta = new Meta();
-                    string[] condition_profile = { ProfileURL.Decedent.CauseOfDeathPart2 };
+                    string[] condition_profile = { ProfileURL.CauseOfDeathPart2 };
                     ConditionContributingToDeath.Meta.Profile = condition_profile;
                     ConditionContributingToDeath.Status = ObservationStatus.Final;
                     ConditionContributingToDeath.Code = (new CodeableConcept(CodeSystems.LOINC, "69441-4", "Other significant causes or conditions of death", null));

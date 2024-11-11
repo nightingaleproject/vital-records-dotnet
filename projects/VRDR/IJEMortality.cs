@@ -1070,13 +1070,13 @@ namespace VRDR
         {
             get
             {
-                return Get_MappingFHIRToIJE(Mappings.MaritalStatus.FHIRToIJE, "MaritalStatus", "MARITAL");
+                return Get_MappingFHIRToIJE(VR.Mappings.MaritalStatus.FHIRToIJE, "MaritalStatus", "MARITAL");
             }
             set
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Set_MappingIJEToFHIR(Mappings.MaritalStatus.IJEToFHIR, "MARITAL", "MaritalStatus", value);
+                    Set_MappingIJEToFHIR(VR.Mappings.MaritalStatus.IJEToFHIR, "MARITAL", "MaritalStatus", value);
                 }
             }
         }
@@ -1087,13 +1087,13 @@ namespace VRDR
         {
             get
             {
-                return Get_MappingFHIRToIJE(Mappings.EditBypass0124.FHIRToIJE, "MaritalStatusEditFlag", "MARITAL_BYPASS");
+                return Get_MappingFHIRToIJE(VR.Mappings.EditBypass0124FHIRToIJE, "MaritalStatusEditFlag", "MARITAL_BYPASS");
             }
             set
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Set_MappingIJEToFHIR(Mappings.EditBypass0124.IJEToFHIR, "MARITAL_BYPASS", "MaritalStatusEditFlag", value);
+                    Set_MappingIJEToFHIR(VR.Mappings.EditBypass0124IJEToFHIR, "MARITAL_BYPASS", "MaritalStatusEditFlag", value);
                 }
             }
         }
@@ -1206,13 +1206,13 @@ namespace VRDR
         {
             get
             {
-                return Get_MappingFHIRToIJE(Mappings.EducationLevel.FHIRToIJE, "EducationLevel", "DEDUC");
+                return Get_MappingFHIRToIJE(VR.Mappings.EducationLevel.FHIRToIJE, "EducationLevel", "DEDUC");
             }
             set
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Set_MappingIJEToFHIR(Mappings.EducationLevel.IJEToFHIR, "DEDUC", "EducationLevel", value);
+                    Set_MappingIJEToFHIR(VR.Mappings.EducationLevel.IJEToFHIR, "DEDUC", "EducationLevel", value);
                 }
             }
         }
@@ -1223,13 +1223,13 @@ namespace VRDR
         {
             get
             {
-                return Get_MappingFHIRToIJE(Mappings.EditBypass01234.FHIRToIJE, "EducationLevelEditFlag", "DEDUC_BYPASS");
+                return Get_MappingFHIRToIJE(VR.Mappings.EditBypass01234.FHIRToIJE, "EducationLevelEditFlag", "DEDUC_BYPASS");
             }
             set
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Set_MappingIJEToFHIR(Mappings.EditBypass01234.IJEToFHIR, "DEDUC_BYPASS", "EducationLevelEditFlag", value);
+                    Set_MappingIJEToFHIR(VR.Mappings.EditBypass01234.IJEToFHIR, "DEDUC_BYPASS", "EducationLevelEditFlag", value);
                 }
             }
         }
@@ -2006,11 +2006,11 @@ namespace VRDR
         {
             get
             {
-                return Get_MappingFHIRToIJE(Mappings.RaceMissingValueReason.FHIRToIJE, "RaceMissingValueReason", "RACE_MVR");
+                return Get_MappingFHIRToIJE(VR.Mappings.RaceMissingValueReason.FHIRToIJE, "RaceMissingValueReason", "RACE_MVR");
             }
             set
             {
-                Set_MappingIJEToFHIR(Mappings.RaceMissingValueReason.IJEToFHIR, "RACE_MVR", "RaceMissingValueReason", value);
+                Set_MappingIJEToFHIR(VR.Mappings.RaceMissingValueReason.IJEToFHIR, "RACE_MVR", "RaceMissingValueReason", value);
             }
         }
 
@@ -2503,11 +2503,11 @@ namespace VRDR
         {
             get
             {
-                return Get_MappingFHIRToIJE(Mappings.PregnancyStatus.FHIRToIJE, "PregnancyStatus", "PREG");
+                return Get_MappingFHIRToIJE(VR.Mappings.PregnancyStatus.FHIRToIJE, "PregnancyStatus", "PREG");
             }
             set
             {
-                Set_MappingIJEToFHIR(Mappings.PregnancyStatus.IJEToFHIR, "PREG", "PregnancyStatus", value);
+                Set_MappingIJEToFHIR(VR.Mappings.PregnancyStatus.IJEToFHIR, "PREG", "PregnancyStatus", value);
             }
         }
 
@@ -3342,13 +3342,13 @@ namespace VRDR
         {
             get
             {
-                return Get_MappingFHIRToIJE(Mappings.HispanicOrigin.FHIRToIJE, "HispanicCode", "DETHNICE");
+                return Get_MappingFHIRToIJE(VR.Mappings.HispanicOrigin.FHIRToIJE, "HispanicCode", "DETHNICE");
             }
             set
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Set_MappingIJEToFHIR(Mappings.HispanicOrigin.IJEToFHIR, "DETHNICE", "HispanicCode", value);
+                    Set_MappingIJEToFHIR(VR.Mappings.HispanicOrigin.IJEToFHIR, "DETHNICE", "HispanicCode", value);
                 }
             }
         }
@@ -4961,11 +4961,11 @@ namespace VRDR
         {
             get
             {
-                return Get_MappingFHIRToIJE(Mappings.HispanicOrigin.FHIRToIJE, "HispanicCodeForLiteral", "DETHNIC5C");
+                return Get_MappingFHIRToIJE(VR.Mappings.HispanicOrigin.FHIRToIJE, "HispanicCodeForLiteral", "DETHNIC5C");
             }
             set
             {
-                Set_MappingIJEToFHIR(Mappings.HispanicOrigin.IJEToFHIR, "DETHNIC5C", "HispanicCodeForLiteral", value);
+                Set_MappingIJEToFHIR(VR.Mappings.HispanicOrigin.IJEToFHIR, "DETHNIC5C", "HispanicCodeForLiteral", value);
             }
         }
 
