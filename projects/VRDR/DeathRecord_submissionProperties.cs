@@ -1915,7 +1915,7 @@ namespace VRDR
             {
                 if (Decedent != null && Decedent.BirthDateElement != null)
                 {
-                    return GetDateFragmentOrPartialDate(Decedent.BirthDateElement,VR.ExtensionURL.DateYear);
+                    return GetDateFragmentOrPartialDate(Decedent.BirthDateElement,PartialDateYearUrl); // VR.ExtensionURL.DateYear);
                 }
                 return null;
             }
@@ -1966,7 +1966,7 @@ namespace VRDR
             {
                 if (Decedent != null && Decedent.BirthDateElement != null)
                 {
-                    return GetDateFragmentOrPartialDate(Decedent.BirthDateElement,VR.ExtensionURL.DateMonth);
+                    return GetDateFragmentOrPartialDate(Decedent.BirthDateElement,PartialDateMonthUrl); //VR.ExtensionURL.DateMonth);
                 }
                 return null;
             }
