@@ -4598,18 +4598,6 @@
         <member name="F:VRDR.ExtensionURL.CityCode">
             <summary>URL for CityCode</summary>
         </member>
-        <member name="F:VRDR.ExtensionURL.DateDay">
-            <summary>URL for DateDay</summary>
-        </member>
-        <member name="F:VRDR.ExtensionURL.DateMonth">
-            <summary>URL for DateMonth</summary>
-        </member>
-        <member name="F:VRDR.ExtensionURL.DateTime">
-            <summary>URL for DateTime</summary>
-        </member>
-        <member name="F:VRDR.ExtensionURL.DateYear">
-            <summary>URL for DateYear</summary>
-        </member>
         <member name="F:VRDR.ExtensionURL.DistrictCode">
             <summary>URL for DistrictCode</summary>
         </member>

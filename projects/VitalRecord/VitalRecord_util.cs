@@ -890,6 +890,22 @@ namespace VR
             return null;
         }
 
+        /// <summary>Returns a Fhir DateTime object parsed from the given Date.</summary>
+        protected static FhirDateTime ConvertDateToFhirDateTime(Date date)
+        {
+            FhirDateTime dt = ConvertToDateTime(date?.Value) ?? new FhirDateTime();
+            dt.Extension = date?.Extension;
+            return dt;
+        }
+
+         /// <summary>Returns a Date object parsed from the given FhirDateTime.</summary>
+        protected static Date ConvertFhirDateTimeToDate(FhirDateTime dateTime)
+        {
+            Date newDate = ConvertToDate(dateTime?.Value) ?? new Date();
+            newDate.Extension = dateTime?.Extension;
+            return newDate;
+        }
+
         /// <summary>Gets the specified date element based on the partialDateUrl from the given
         /// FhirDate, checking in the value and PartialDate extension, and assuming there
         /// is no time data to consider.</summary>
