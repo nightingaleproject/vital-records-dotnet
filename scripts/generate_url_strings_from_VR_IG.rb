@@ -118,16 +118,16 @@ namespace VR
 
 <% end -%>
         /// <summary>URL for DateDay</summary>
-        public string DateDay => $"{_prefix}/StructureDefinition/Date-Day";
+        ///public string DateDay => $"{_prefix}/StructureDefinition/Date-Day";
 
         /// <summary>URL for DateYear</summary>
-        public string DateYear => $"{_prefix}/StructureDefinition/Date-Year";
+        ///public string DateYear => $"{_prefix}/StructureDefinition/Date-Year";
 
         /// <summary>URL for DateMonth</summary>
-        public string DateMonth => $"{_prefix}/StructureDefinition/Date-Month";
+        ///public string DateMonth => $"{_prefix}/StructureDefinition/Date-Month";
 
         /// <summary>URL for DateTime</summary>
-        public string DateTime => $"{_prefix}/StructureDefinition/Date-Time";
+        ///public string DateTime => $"{_prefix}/StructureDefinition/Date-Time";
 
         /// <summary>URL for PatientBirthTime as defined in the VitalRecords IG</summary>
         public const string PatientBirthTime = "http://hl7.org/fhir/StructureDefinition/patient-birthTime";  
