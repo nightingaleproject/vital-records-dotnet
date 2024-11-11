@@ -1271,16 +1271,16 @@ namespace VR
         }
 
         /// <summary>Overrideable method that dictates which Extension URL to use for PartialDateTime Year</summary>
-        protected virtual string PartialDateYearUrl => VRExtensionURLs.DateYear;
+        protected virtual string PartialDateYearUrl => ExtensionURL.PartialDateYearVR;
 
         /// <summary>Overrideable method that dictates which Extension URL to use for PartialDateTime Month</summary>
-        protected virtual string PartialDateMonthUrl => VRExtensionURLs.DateMonth;
+        protected virtual string PartialDateMonthUrl => ExtensionURL.PartialDateMonthVR;
 
         /// <summary>Overrideable method that dictates which Extension URL to use for PartialDateTime Day</summary>
-        protected virtual string PartialDateDayUrl => VRExtensionURLs.DateDay;
+        protected virtual string PartialDateDayUrl => ExtensionURL.PartialDateDayVR;
 
         /// <summary>Overrideable method that dictates which Extension URL to use for PartialDateTime Time</summary>
-        protected virtual string PartialDateTimeTimeUrl => VRExtensionURLs.DateTime;
+        protected virtual string PartialDateTimeTimeUrl => ExtensionURL.PartialDateTimeVR;
 
         /// <summary>Overrideable method that dictates which Extension URL to use for PartialDateTime</summary>
         protected virtual string PartialDateTimeUrl => VRExtensionURLs.PartialDateTime;
