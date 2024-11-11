@@ -59,7 +59,7 @@ namespace VRDR
             InputRaceAndEthnicityObs = new Observation();
             InputRaceAndEthnicityObs.Id = Guid.NewGuid().ToString();
             InputRaceAndEthnicityObs.Meta = new Meta();
-            string[] raceethnicity_profile = { ProfileURL.InputRaceAndEthnicity };
+            string[] raceethnicity_profile = { VR.ProfileURL.InputRaceAndEthnicity };
             InputRaceAndEthnicityObs.Meta.Profile = raceethnicity_profile;
             InputRaceAndEthnicityObs.Status = ObservationStatus.Final;
             InputRaceAndEthnicityObs.Code = new CodeableConcept(CodeSystems.ObservationCode, "inputraceandethnicity", "Input Race and Ethnicity", null);
@@ -573,7 +573,7 @@ namespace VRDR
             CodedRaceAndEthnicityObs = new Observation();
             CodedRaceAndEthnicityObs.Id = Guid.NewGuid().ToString();
             CodedRaceAndEthnicityObs.Meta = new Meta();
-            string[] profile = { ProfileURL.CodedRaceAndEthnicity };
+            string[] profile = { VR.ProfileURL.CodedRaceAndEthnicity };
             CodedRaceAndEthnicityObs.Meta.Profile = profile;
             CodedRaceAndEthnicityObs.Status = ObservationStatus.Final;
             CodedRaceAndEthnicityObs.Code = new CodeableConcept(CodeSystems.ObservationCode, "codedraceandethnicity", "Coded Race and Ethnicity", null);
