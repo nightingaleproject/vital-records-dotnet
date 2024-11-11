@@ -882,6 +882,7 @@ namespace VR
             return null;
         }
 
+        /// <summary>Returns a Fhir DateTime object parsed from the given Date.</summary>
         protected static FhirDateTime ConvertDateToFhirDateTime(Date date)
         {
             FhirDateTime dt = ConvertToDateTime(date?.Value) ?? new FhirDateTime();
@@ -889,6 +890,7 @@ namespace VR
             return dt;
         }
 
+         /// <summary>Returns a Date object parsed from the given FhirDateTime.</summary>
         protected static Date ConvertFhirDateTimeToDate(FhirDateTime dateTime)
         {
             Date newDate = ConvertToDate(dateTime?.Value) ?? new Date();
