@@ -39,7 +39,7 @@ namespace VRDR
             {
                 if (Bundle?.Identifier?.Extension != null)
                 {
-                    Extension ext = Bundle.Identifier.Extension.Find(ex => ex.Url == VR. VR.ExtensionURL.CertificateNumber);
+                    Extension ext = Bundle.Identifier.Extension.Find(ex => ex.Url == VR.ProfileURL.CertificateNumber);
                     if (ext?.Value != null)
                     {
                         return Convert.ToString(ext.Value);
@@ -49,10 +49,10 @@ namespace VRDR
             }
             set
             {
-                Bundle.Identifier.Extension.RemoveAll(ex => ex.Url ==  VR.ExtensionURL.CertificateNumber);
+                Bundle.Identifier.Extension.RemoveAll(ex => ex.Url ==  VR.ProfileURL.CertificateNumber);
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Extension ext = new Extension( VR.ExtensionURL.CertificateNumber, new FhirString(value));
+                    Extension ext = new Extension( VR.ProfileURL.CertificateNumber, new FhirString(value));
                     Bundle.Identifier.Extension.Add(ext);
                     UpdateDeathRecordIdentifier();
                 }
@@ -135,7 +135,7 @@ namespace VRDR
             {
                 if (Bundle?.Identifier?.Extension != null)
                 {
-                    Extension ext = Bundle.Identifier.Extension.Find(ex => ex.Url ==  VR.ExtensionURL.AuxiliaryStateIdentifier1);
+                    Extension ext = Bundle.Identifier.Extension.Find(ex => ex.Url ==  VR.ProfileURL.AuxiliaryStateIdentifier1);
                     if (ext?.Value != null)
                     {
                         return Convert.ToString(ext.Value);
@@ -145,10 +145,10 @@ namespace VRDR
             }
             set
             {
-                Bundle.Identifier.Extension.RemoveAll(ex => ex.Url ==  VR.ExtensionURL.AuxiliaryStateIdentifier1);
+                Bundle.Identifier.Extension.RemoveAll(ex => ex.Url ==  VR.ProfileURL.AuxiliaryStateIdentifier1);
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Extension ext = new Extension( VR.ExtensionURL.AuxiliaryStateIdentifier1, new FhirString(value));
+                    Extension ext = new Extension( VR.ProfileURL.AuxiliaryStateIdentifier1, new FhirString(value));
                     Bundle.Identifier.Extension.Add(ext);
                 }
             }
@@ -170,7 +170,7 @@ namespace VRDR
             {
                 if (Bundle?.Identifier?.Extension != null)
                 {
-                    Extension ext = Bundle.Identifier.Extension.Find(ex => ex.Url ==  VR.ExtensionURL.AuxiliaryStateIdentifier2);
+                    Extension ext = Bundle.Identifier.Extension.Find(ex => ex.Url ==  VR.ProfileURL.AuxiliaryStateIdentifier2);
                     if (ext?.Value != null)
                     {
                         return Convert.ToString(ext.Value);
@@ -180,10 +180,10 @@ namespace VRDR
             }
             set
             {
-                Bundle.Identifier.Extension.RemoveAll(ex => ex.Url ==  VR.ExtensionURL.AuxiliaryStateIdentifier2);
+                Bundle.Identifier.Extension.RemoveAll(ex => ex.Url ==  VR.ProfileURL.AuxiliaryStateIdentifier2);
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Extension ext = new Extension( VR.ExtensionURL.AuxiliaryStateIdentifier2, new FhirString(value));
+                    Extension ext = new Extension( VR.ProfileURL.AuxiliaryStateIdentifier2, new FhirString(value));
                     Bundle.Identifier.Extension.Add(ext);
                 }
             }
@@ -1806,7 +1806,7 @@ namespace VRDR
             {
                 if (Decedent != null)
                 {
-                    Extension sex = Decedent.Extension.Find(ext => ext.Url == VR.ExtensionURL.NVSSSexAtDeath);
+                    Extension sex = Decedent.Extension.Find(ext => ext.Url == ExtensionURL.NVSSSexAtDeath);
                     if (sex != null && sex.Value != null && sex.Value as CodeableConcept != null)
                     {
                         return CodeableConceptToDict((CodeableConcept)sex.Value);
@@ -1816,13 +1816,13 @@ namespace VRDR
             }
             set
             {
-                Decedent.Extension.RemoveAll(ext => ext.Url == VR.ExtensionURL.NVSSSexAtDeath);
+                Decedent.Extension.RemoveAll(ext => ext.Url == ExtensionURL.NVSSSexAtDeath);
                 if (IsDictEmptyOrDefault(value) && Decedent.Extension == null)
                 {
                     return;
                 }
                 Extension sex = new Extension();
-                sex.Url = VR.ExtensionURL.NVSSSexAtDeath;
+                sex.Url = ExtensionURL.NVSSSexAtDeath;
                 sex.Value = DictToCodeableConcept(value);
                 Decedent.Extension.Add(sex);
             }
@@ -3963,7 +3963,7 @@ namespace VRDR
                     MilitaryServiceObs = new Observation();
                     MilitaryServiceObs.Id = Guid.NewGuid().ToString();
                     MilitaryServiceObs.Meta = new Meta();
-                    string[] militaryhistory_profile = { ProfileURL.Decedent.DecedentMilitaryService };
+                    string[] militaryhistory_profile = { ProfileURL.DecedentMilitaryService };
                     MilitaryServiceObs.Meta.Profile = militaryhistory_profile;
                     MilitaryServiceObs.Status = ObservationStatus.Final;
                     MilitaryServiceObs.Code = new CodeableConcept(CodeSystems.LOINC, "55280-2", "Military service Narrative", null);
@@ -4475,7 +4475,7 @@ namespace VRDR
                     DispositionMethod = new Observation();
                     DispositionMethod.Id = Guid.NewGuid().ToString();
                     DispositionMethod.Meta = new Meta();
-                    string[] dispositionmethod_profile = { ProfileURL.Decedent.DecedentDispositionMethod };
+                    string[] dispositionmethod_profile = { ProfileURL.ProfileURL.DecedentDispositionMethod };
                     DispositionMethod.Meta.Profile = dispositionmethod_profile;
                     DispositionMethod.Status = ObservationStatus.Final;
                     DispositionMethod.Code = new CodeableConcept(CodeSystems.LOINC, "80905-3", "Body disposition method", null);
@@ -5573,7 +5573,7 @@ namespace VRDR
                     DeathLocationLoc = new Location();
                     DeathLocationLoc.Id = Guid.NewGuid().ToString();
                     DeathLocationLoc.Meta = new Meta();
-                    string[] deathlocation_profile = { ProfileURL.Decedent.DeathLocation };
+                    string[] deathlocation_profile = { ProfileURL.DeathLocation };
                     DeathLocationLoc.Meta.Profile = deathlocation_profile;
                     DeathLocationLoc.Description = value;
                     DeathLocationLoc.Type.Add(new CodeableConcept(CodeSystems.LocationType, "death", "death location", null));
@@ -6155,7 +6155,7 @@ namespace VRDR
                     ExaminerContactedObs = new Observation();
                     ExaminerContactedObs.Id = Guid.NewGuid().ToString();
                     ExaminerContactedObs.Meta = new Meta();
-                    string[] ec_profile = { ProfileURL.Decedent.ExaminerContacted };
+                    string[] ec_profile = { ProfileURL.ExaminerContacted };
                     ExaminerContactedObs.Meta.Profile = ec_profile;
                     ExaminerContactedObs.Status = ObservationStatus.Final;
                     ExaminerContactedObs.Code = new CodeableConcept(CodeSystems.LOINC, "74497-9", "Medical examiner or coroner was contacted [US Standard Certificate of Death]", null);
@@ -6402,7 +6402,7 @@ namespace VRDR
                 EmergingIssues = new Observation();
                 EmergingIssues.Id = Guid.NewGuid().ToString();
                 EmergingIssues.Meta = new Meta();
-                string[] tb_profile = { ProfileURL.Decedent.EmergingIssues };
+                string[] tb_profile = { ProfileURL.EmergingIssues };
                 EmergingIssues.Meta.Profile = tb_profile;
                 EmergingIssues.Status = ObservationStatus.Final;
                 EmergingIssues.Code = new CodeableConcept(CodeSystems.ObservationCode, "emergingissues", "NCHS-required Parameter Slots for Emerging Issues", null);
