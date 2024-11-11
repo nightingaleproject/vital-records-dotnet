@@ -913,13 +913,13 @@ namespace VR
             {
                 switch (partialDateUrl)
                 {
-                    case VR.ExtensionURL.PartialDateTimeYearVR:
+                    case VR.ExtensionURL.PartialDateYearVR:
                         if (year != null) return year;
                         break;
-                    case VR.ExtensionURL.PartialDateTimeMonthVR:
+                    case VR.ExtensionURL.PartialDateMonthVR:
                         if (month != null) return month;
                         break;
-                    case VR.ExtensionURL.PartialDateTimeDayVR:
+                    case VR.ExtensionURL.PartialDateDayVR:
                         if (day != null) return day;
                         break;
                     default:
@@ -976,23 +976,23 @@ namespace VR
             ParseDateElements(dateElement.Value, out int? parsedYear, out int? parsedMonth, out int? parsedDay);
             // Get the most valid date elements, giving priority to the parsed date elements. If the partial date is used, it will include any -1 values. If there is no valid date elemnts in either, it will be null.
             Extension pdtExt = dateElement.GetExtension(PartialDateTimeUrl);
-            int? yearValue = parsedYear ?? GetPartialDate(pdtExt, VR.ExtensionURL.PartialDateTimeYearVR);
-            int? monthValue = parsedMonth ?? GetPartialDate(pdtExt, VR.ExtensionURL.PartialDateTimeMonthVR);
-            int? dayValue = parsedDay ?? GetPartialDate(pdtExt, VR.ExtensionURL.PartialDateTimeDayVR);
+            int? yearValue = parsedYear ?? GetPartialDate(pdtExt, VR.ExtensionURL.PartialDateYearVR);
+            int? monthValue = parsedMonth ?? GetPartialDate(pdtExt, VR.ExtensionURL.PartialDateMonthVR);
+            int? dayValue = parsedDay ?? GetPartialDate(pdtExt, VR.ExtensionURL.PartialDateDayVR);
             string pbt = useBirthTime ? GetTimeFragment(dateElement.GetExtension(ExtensionURL.PatientBirthTime)?.Value) : null;
             string timeValue = pbt
-                    ?? ((Time)pdtExt?.GetExtension(ExtensionURL.PartialDateTimeTimeVR)?.Value)?.Value
+                    ?? ((Time)pdtExt?.GetExtension(ExtensionURL.PartialDateTimeVR)?.Value)?.Value
                     ?? GetPartialTime(dateElement.GetExtension(PartialDateTimeUrl));
             // Set whichever date element we're updating to the given value.
             switch(partialDateUrl)
             {
-                case VR.ExtensionURL.PartialDateTimeYearVR:
+                case VR.ExtensionURL.PartialDateYearVR:
                     yearValue = value;
                     break;
-                case VR.ExtensionURL.PartialDateTimeMonthVR:
+                case VR.ExtensionURL.PartialDateMonthVR:
                     monthValue = value;
                     break;
-                case VR.ExtensionURL.PartialDateTimeDayVR:
+                case VR.ExtensionURL.PartialDateDayVR:
                     dayValue = value;
                     break;
                 default:
@@ -1053,10 +1053,10 @@ namespace VR
                 // Don't reset the dateElement.Value since it's assumed to have already been set correctly.
                 dateElement = SetPartialDateExtensions(dateElement, yearValue, monthValue, dayValue);
                 dateElement.RemoveExtension(VR.ExtensionURL.PatientBirthTime);
-                dateElement.GetExtension(PartialDateTimeUrl).RemoveExtension(VR.ExtensionURL.PartialDateTimeTimeVR);
+                dateElement.GetExtension(PartialDateTimeUrl).RemoveExtension(VR.ExtensionURL.PartialDateTimeVR);
                 Extension dataAbsentExtension = timeValue == "temp-unknown"
-                        ? BuildTempUnknownPartialDateTime(VR.ExtensionURL.PartialDateTimeTimeVR)
-                        : BuildUnknownPartialDateTime(VR.ExtensionURL.PartialDateTimeTimeVR);
+                        ? BuildTempUnknownPartialDateTime(VR.ExtensionURL.PartialDateTimeVR)
+                        : BuildUnknownPartialDateTime(VR.ExtensionURL.PartialDateTimeVR);
                 dateElement.GetExtension(PartialDateTimeUrl).Extension.Add(dataAbsentExtension);
             }
             else if (timeValue != null)
@@ -1065,7 +1065,7 @@ namespace VR
                 {
                     dateElement.RemoveExtension(VR.ExtensionURL.PatientBirthTime);
                     dateElement = SetPartialDateExtensions(dateElement, yearValue, monthValue, dayValue);
-                    dateElement.GetExtension(PartialDateTimeUrl).SetExtension(PartialDateTimeTimeUrl, new Time(timeValue));
+                    dateElement.GetExtension(PartialDateTimeUrl).SetExtension(PartialDateTimeUrl, new Time(timeValue));
                 }
                 else
                 {
@@ -1080,9 +1080,9 @@ namespace VR
             dateElement.SetExtension(PartialDateTimeUrl, new Extension());
             List<(int? val, string url)> dateElements = new List<(int? val, string url)>
             {
-                (dayValue, VR.ExtensionURL.PartialDateTimeDayVR),
-                (monthValue, VR.ExtensionURL.PartialDateTimeMonthVR),
-                (yearValue, VR.ExtensionURL.PartialDateTimeYearVR)
+                (dayValue, VR.ExtensionURL.PartialDateDayVR),
+                (monthValue, VR.ExtensionURL.PartialDateMonthVR),
+                (yearValue, VR.ExtensionURL.PartialDateYearVR)
             };
             foreach ((int? val, string url) in dateElements)
             {
@@ -1126,16 +1126,16 @@ namespace VR
         protected virtual string PartialDateDayUrl => ExtensionURL.PartialDateDayVR;
 
         /// <summary>Overrideable method that dictates which Extension URL to use for PartialDateTime Time</summary>
-        protected virtual string PartialDateTimeTimeUrl => ExtensionURL.PartialDateTimeVR;
+        protected virtual string PartialDateTimeTimeUrl => VR.ExtensionURL.PartialDateTimeVR;
 
         /// <summary>Overrideable method that dictates which Extension URL to use for PartialDateTime</summary>
-        protected virtual string PartialDateTimeUrl => VRExtensionURLs.PartialDateTime;
+        protected virtual string PartialDateTimeUrl => VR.ExtensionURL.PartialDateTime;
 
         /// <summary>Overrideable method that dictates which Extension URL to use for PartialDate</summary>
-        protected virtual string PartialDateUrl => VRExtensionURLs.PartialDate;
+        protected virtual string PartialDateUrl => VR.ExtensionURL.PartialDate;
 
         /// <summary>Overrideable method that dictates which Extension URL to use for LocationJurisdictionId</summary>
-        protected virtual string LocationJurisdictionIdUrl => VRExtensionURLs.LocationJurisdictionId;
+        protected virtual string LocationJurisdictionIdUrl => VR.ExtensionURL.LocationJurisdictionId;
 
         /// <summary>Getter helper for anything that can have a regular FHIR date/time or a PartialDateTime extension, allowing a particular date
         /// field (year, month, or day) to be read from either the value or the extension</summary>

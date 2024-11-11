@@ -1915,7 +1915,7 @@ namespace VRDR
             {
                 if (Decedent != null && Decedent.BirthDateElement != null)
                 {
-                    return GetDateFragmentOrPartialDate(Decedent.BirthDateElement,PartialDateYearUrl); // VR.ExtensionURL.DateYear);
+                    return GetDateFragmentOrPartialDate(Decedent.BirthDateElement,PartialDateYearUrl); // VR.ExtensionURL.PartialDateYearVR);
                 }
                 return null;
             }
@@ -1925,27 +1925,27 @@ namespace VRDR
                 {
                     AddBirthDateToDecedent();
                 }
-                SetPartialDate(Decedent.BirthDateElement.Extension.Find(ext => ext.Url == PartialDateUrl),VR.ExtensionURL.DateYear, value);
+                SetPartialDate(Decedent.BirthDateElement.Extension.Find(ext => ext.Url == PartialDateUrl),VR.ExtensionURL.PartialDateYearVR, value);
             }
         }
 
         /// <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Year</summary>
-        protected override string PartialDateYearUrl => VR.ExtensionURL.DateYear;
+        protected override string PartialDateYearUrl => VR.ExtensionURL.PartialDateYearVR;
 
         /// <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Month</summary>
-        protected override string PartialDateMonthUrl => VR.ExtensionURL.DateMonth;
+        protected override string PartialDateMonthUrl => VR.ExtensionURL.PartialDateMonthVR;
 
         /// <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Day</summary>
-        protected override string PartialDateDayUrl => VR.ExtensionURL.DateDay;
+        protected override string PartialDateDayUrl => VR.ExtensionURL.PartialDateDayVR;
 
         /// <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Time</summary>
-        protected override string PartialDateTimeTimeUrl => VR.ExtensionURL.DateTime;
+        protected override string PartialDateTimeUrl => VR.ExtensionURL.PartialDateTimeVR;
 
         /// <summary>Overriden method that dictates which Extension URL to use for PartialDate</summary>
         protected override string PartialDateUrl => VR.ExtensionURL.PartialDate;
 
         /// <summary>Overriden method that dictates which Extension URL to use for PartialDateTime</summary>
-        protected override string PartialDateTimeUrl => VR.ExtensionURL.PartialDateTime;
+       /// protected override string PartialDateTimeUrl => VR.ExtensionURL.PartialDateTime;
 
         /// <summary>Overriden method that dictates which Extension URL to use for LocationJurisdictionId</summary>
         protected override string LocationJurisdictionIdUrl => VR.ExtensionURL.LocationJurisdictionId;
@@ -1966,7 +1966,7 @@ namespace VRDR
             {
                 if (Decedent != null && Decedent.BirthDateElement != null)
                 {
-                    return GetDateFragmentOrPartialDate(Decedent.BirthDateElement,PartialDateMonthUrl); //VR.ExtensionURL.DateMonth);
+                    return GetDateFragmentOrPartialDate(Decedent.BirthDateElement,PartialDateMonthUrl); //VR.ExtensionURL.PartialDateMonthVR);
                 }
                 return null;
             }
@@ -1976,7 +1976,7 @@ namespace VRDR
                 {
                     AddBirthDateToDecedent();
                 }
-                SetPartialDate(Decedent.BirthDateElement.Extension.Find(ext => ext.Url == PartialDateUrl),VR.ExtensionURL.DateMonth, value);
+                SetPartialDate(Decedent.BirthDateElement.Extension.Find(ext => ext.Url == VRDR.ExtensionURL.PartialDate),VR.ExtensionURL.PartialDateMonthVR, value);
             }
         }
 
@@ -1996,7 +1996,7 @@ namespace VRDR
             {
                 if (Decedent != null && Decedent.BirthDateElement != null)
                 {
-                    return GetDateFragmentOrPartialDate(Decedent.BirthDateElement,VR.ExtensionURL.DateDay);
+                    return GetDateFragmentOrPartialDate(Decedent.BirthDateElement,VR.ExtensionURL.PartialDateDayVR);
                 }
                 return null;
             }
@@ -2006,7 +2006,7 @@ namespace VRDR
                 {
                     AddBirthDateToDecedent();
                 }
-                SetPartialDate(Decedent.BirthDateElement.Extension.Find(ext => ext.Url == PartialDateUrl),VR.ExtensionURL.DateDay, value);
+                SetPartialDate(Decedent.BirthDateElement.Extension.Find(ext => ext.Url == PartialDateUrl),VR.ExtensionURL.PartialDateDayVR, value);
             }
         }
 
@@ -2930,7 +2930,7 @@ namespace VRDR
             {
                 if (Decedent != null && Decedent.MaritalStatus != null && Decedent.MaritalStatus.Extension.FirstOrDefault() != null)
                 {
-                    Extension addressExt = Decedent.MaritalStatus.Extension.FirstOrDefault(extension => extension.Url == ExtensionURL.BypassEditFlag);
+                    Extension addressExt = Decedent.MaritalStatus.Extension.FirstOrDefault(extension => extension.Url == VR.ExtensionURL.BypassEditFlag);
                     if (addressExt != null && addressExt.Value != null && addressExt.Value as CodeableConcept != null)
                     {
                         return CodeableConceptToDict((CodeableConcept)addressExt.Value);
@@ -2944,8 +2944,8 @@ namespace VRDR
                 {
                     Decedent.MaritalStatus = new CodeableConcept();
                 }
-                Decedent.MaritalStatus.Extension.RemoveAll(ext => ext.Url == ExtensionURL.BypassEditFlag);
-                Decedent.MaritalStatus.Extension.Add(new Extension(ExtensionURL.BypassEditFlag, DictToCodeableConcept(value)));
+                Decedent.MaritalStatus.Extension.RemoveAll(ext => ext.Url == VR.ExtensionURL.BypassEditFlag);
+                Decedent.MaritalStatus.Extension.Add(new Extension(VR.ExtensionURL.BypassEditFlag, DictToCodeableConcept(value)));
             }
         }
 
@@ -3617,7 +3617,7 @@ namespace VRDR
         {
             get
             {
-                Extension editFlag = DecedentEducationLevel?.Value?.Extension.FirstOrDefault(ext => ext.Url == ExtensionURL.BypassEditFlag);
+                Extension editFlag = DecedentEducationLevel?.Value?.Extension.FirstOrDefault(ext => ext.Url == VR.ExtensionURL.BypassEditFlag);
                 if (editFlag != null && editFlag.Value != null && editFlag.Value.GetType() == typeof(CodeableConcept))
                 {
                     return CodeableConceptToDict((CodeableConcept)editFlag.Value);
@@ -3636,13 +3636,13 @@ namespace VRDR
                 }
                 if (DecedentEducationLevel.Value != null && DecedentEducationLevel.Value.Extension != null)
                 {
-                    DecedentEducationLevel.Value.Extension.RemoveAll(ext => ext.Url == ExtensionURL.BypassEditFlag);
+                    DecedentEducationLevel.Value.Extension.RemoveAll(ext => ext.Url == VR.ExtensionURL.BypassEditFlag);
                 }
                 if (DecedentEducationLevel.Value == null)
                 {
                     DecedentEducationLevel.Value = new CodeableConcept();
                 }
-                Extension editFlag = new Extension(ExtensionURL.BypassEditFlag, DictToCodeableConcept(value));
+                Extension editFlag = new Extension(VR.ExtensionURL.BypassEditFlag, DictToCodeableConcept(value));
                 DecedentEducationLevel.Value.Extension.Add(editFlag);
             }
         }
@@ -4626,7 +4626,7 @@ namespace VRDR
             {
                 if (DeathDateObs != null && DeathDateObs.Value != null)
                 {
-                    return GetDateFragmentOrPartialDate(DeathDateObs.Value,VR.ExtensionURL.DateYear);
+                    return GetDateFragmentOrPartialDate(DeathDateObs.Value,VR.ExtensionURL.PartialDateYearVR);
                 }
                 return null;
             }
@@ -4636,7 +4636,7 @@ namespace VRDR
                 {
                     CreateDeathDateObs();
                 }
-                SetPartialDate(DeathDateObs.Value.Extension.Find(ext => ext.Url ==VR.ExtensionURL.PartialDateTime),VR.ExtensionURL.DateYear, value);
+                SetPartialDate(DeathDateObs.Value.Extension.Find(ext => ext.Url ==VR.ExtensionURL.PartialDateTime),VR.ExtensionURL.PartialDateYearVR, value);
                 UpdateDeathRecordIdentifier();
             }
         }
@@ -4657,7 +4657,7 @@ namespace VRDR
             {
                 if (DeathDateObs != null && DeathDateObs.Value != null)
                 {
-                    return GetDateFragmentOrPartialDate(DeathDateObs.Value,VR.ExtensionURL.DateMonth);
+                    return GetDateFragmentOrPartialDate(DeathDateObs.Value,VR.ExtensionURL.PartialDateMonthVR);
                 }
                 return null;
             }
@@ -4667,7 +4667,7 @@ namespace VRDR
                 {
                     CreateDeathDateObs();
                 }
-                SetPartialDate(DeathDateObs.Value.Extension.Find(ext => ext.Url ==VR.ExtensionURL.PartialDateTime),VR.ExtensionURL.DateMonth, value);
+                SetPartialDate(DeathDateObs.Value.Extension.Find(ext => ext.Url ==VR.ExtensionURL.PartialDateTime),VR.ExtensionURL.PartialDateMonthVR, value);
             }
         }
 
@@ -4687,7 +4687,7 @@ namespace VRDR
             {
                 if (DeathDateObs != null && DeathDateObs.Value != null)
                 {
-                    return GetDateFragmentOrPartialDate(DeathDateObs.Value,VR.ExtensionURL.DateDay);
+                    return GetDateFragmentOrPartialDate(DeathDateObs.Value,VR.ExtensionURL.PartialDateDayVR);
                 }
                 return null;
             }
@@ -4697,7 +4697,7 @@ namespace VRDR
                 {
                     CreateDeathDateObs();
                 }
-                SetPartialDate(DeathDateObs.Value.Extension.Find(ext => ext.Url ==VR.ExtensionURL.PartialDateTime),VR.ExtensionURL.DateDay, value);
+                SetPartialDate(DeathDateObs.Value.Extension.Find(ext => ext.Url ==VR.ExtensionURL.PartialDateTime),VR.ExtensionURL.PartialDateDayVR, value);
             }
         }
         /// <summary>Decedent's Time of Death.</summary>
@@ -4751,7 +4751,7 @@ namespace VRDR
                 Observation.ComponentComponent pronouncementDateObs = GetDateOfDeathPronouncementObs();
                 if (pronouncementDateObs != null && pronouncementDateObs.Value != null && pronouncementDateObs.Value is FhirDateTime)
                 {
-                    return GetDateFragment(pronouncementDateObs.Value,VR.ExtensionURL.DateYear);
+                    return GetDateFragment(pronouncementDateObs.Value,VR.ExtensionURL.PartialDateYearVR);
                 }
                 return null;
             }
@@ -4802,7 +4802,7 @@ namespace VRDR
                 Observation.ComponentComponent pronouncementDateObs = GetDateOfDeathPronouncementObs();
                 if (pronouncementDateObs != null && pronouncementDateObs.Value != null && pronouncementDateObs.Value is FhirDateTime)
                 {
-                    return GetDateFragment(pronouncementDateObs.Value,VR.ExtensionURL.DateMonth);
+                    return GetDateFragment(pronouncementDateObs.Value,VR.ExtensionURL.PartialDateMonthVR);
                 }
                 return null;
             }
@@ -4854,7 +4854,7 @@ namespace VRDR
                 Observation.ComponentComponent pronouncementDateObs = GetDateOfDeathPronouncementObs();
                 if (pronouncementDateObs != null && pronouncementDateObs.Value != null && pronouncementDateObs.Value is FhirDateTime)
                 {
-                    return GetDateFragment(pronouncementDateObs.Value,VR.ExtensionURL.DateDay);
+                    return GetDateFragment(pronouncementDateObs.Value,VR.ExtensionURL.PartialDateDayVR);
                 }
                 return null;
 
@@ -5132,7 +5132,7 @@ namespace VRDR
             {
                 if (SurgeryDateObs != null && SurgeryDateObs.Value != null)
                 {
-                    return GetDateFragmentOrPartialDate(SurgeryDateObs.Value,VR.ExtensionURL.DateYear);
+                    return GetDateFragmentOrPartialDate(SurgeryDateObs.Value,VR.ExtensionURL.PartialDateYearVR);
                 }
                 return null;
             }
@@ -5142,7 +5142,7 @@ namespace VRDR
                 {
                     CreateSurgeryDateObs();
                 }
-                SetPartialDate(SurgeryDateObs.Value.Extension.Find(ext => ext.Url == PartialDateUrl),VR.ExtensionURL.DateYear, value);
+                SetPartialDate(SurgeryDateObs.Value.Extension.Find(ext => ext.Url == PartialDateUrl),VR.ExtensionURL.PartialDateYearVR, value);
             }
         }
 
@@ -5162,7 +5162,7 @@ namespace VRDR
             {
                 if (SurgeryDateObs != null && SurgeryDateObs.Value != null)
                 {
-                    return GetDateFragmentOrPartialDate(SurgeryDateObs.Value,VR.ExtensionURL.DateMonth);
+                    return GetDateFragmentOrPartialDate(SurgeryDateObs.Value,VR.ExtensionURL.PartialDateMonthVR);
                 }
                 return null;
             }
@@ -5172,7 +5172,7 @@ namespace VRDR
                 {
                     CreateSurgeryDateObs();
                 }
-                SetPartialDate(SurgeryDateObs.Value.Extension.Find(ext => ext.Url == PartialDateUrl),VR.ExtensionURL.DateMonth, value);
+                SetPartialDate(SurgeryDateObs.Value.Extension.Find(ext => ext.Url == PartialDateUrl),VR.ExtensionURL.PartialDateMonthVR, value);
             }
         }
 
@@ -5192,7 +5192,7 @@ namespace VRDR
             {
                 if (SurgeryDateObs != null && SurgeryDateObs.Value != null)
                 {
-                    return GetDateFragmentOrPartialDate(SurgeryDateObs.Value,VR.ExtensionURL.DateDay);
+                    return GetDateFragmentOrPartialDate(SurgeryDateObs.Value,VR.ExtensionURL.PartialDateDayVR);
                 }
                 return null;
             }
@@ -5202,7 +5202,7 @@ namespace VRDR
                 {
                     CreateSurgeryDateObs();
                 }
-                SetPartialDate(SurgeryDateObs.Value.Extension.Find(ext => ext.Url == PartialDateUrl),VR.ExtensionURL.DateDay, value);
+                SetPartialDate(SurgeryDateObs.Value.Extension.Find(ext => ext.Url == PartialDateUrl),VR.ExtensionURL.PartialDateDayVR, value);
             }
         }
 
@@ -5894,7 +5894,7 @@ namespace VRDR
         {
             get
             {
-                Extension editFlag = AgeAtDeathObs?.Value?.Extension.FirstOrDefault(ext => ext.Url == ExtensionURL.BypassEditFlag);
+                Extension editFlag = AgeAtDeathObs?.Value?.Extension.FirstOrDefault(ext => ext.Url == VR.ExtensionURL.BypassEditFlag);
                 if (editFlag != null && editFlag.Value != null && editFlag.Value.GetType() == typeof(CodeableConcept))
                 {
                     return CodeableConceptToDict((CodeableConcept)editFlag.Value);
@@ -5911,12 +5911,12 @@ namespace VRDR
                 {
                     CreateAgeAtDeathObs();
                 }
-                AgeAtDeathObs.Value.Extension.RemoveAll(ext => ext.Url == ExtensionURL.BypassEditFlag);
+                AgeAtDeathObs.Value.Extension.RemoveAll(ext => ext.Url == VR.ExtensionURL.BypassEditFlag);
                 if (IsDictEmptyOrDefault(value))
                 {
                     return;
                 }
-                Extension editFlag = new Extension(ExtensionURL.BypassEditFlag, DictToCodeableConcept(value));
+                Extension editFlag = new Extension(VR.ExtensionURL.BypassEditFlag, DictToCodeableConcept(value));
                 AgeAtDeathObs.Value.Extension.Add(editFlag);
             }
         }
@@ -6053,7 +6053,7 @@ namespace VRDR
             {
                 if (PregnancyObs != null && PregnancyObs.Value != null && PregnancyObs.Value.Extension != null)
                 {
-                    Extension editFlag = PregnancyObs.Value.Extension.FirstOrDefault(extension => extension.Url == ExtensionURL.BypassEditFlag);
+                    Extension editFlag = PregnancyObs.Value.Extension.FirstOrDefault(extension => extension.Url == VR.ExtensionURL.BypassEditFlag);
                     if (editFlag != null)
                     {
                         return CodeableConceptToDict((CodeableConcept)editFlag.Value);
@@ -6073,13 +6073,13 @@ namespace VRDR
                 }
                 if (PregnancyObs.Value != null && PregnancyObs.Value.Extension != null)
                 {
-                    PregnancyObs.Value.Extension.RemoveAll(ext => ext.Url == ExtensionURL.BypassEditFlag);
+                    PregnancyObs.Value.Extension.RemoveAll(ext => ext.Url == VR.ExtensionURL.BypassEditFlag);
                 }
                 if (PregnancyObs.Value == null)
                 {
                     PregnancyObs.Value = new CodeableConcept();
                 }
-                Extension editFlag = new Extension(ExtensionURL.BypassEditFlag, DictToCodeableConcept(value));
+                Extension editFlag = new Extension(VR.ExtensionURL.BypassEditFlag, DictToCodeableConcept(value));
                 PregnancyObs.Value.Extension.Add(editFlag);
             }
         }
@@ -6710,7 +6710,7 @@ namespace VRDR
             {
                 if (InjuryIncidentObs != null && InjuryIncidentObs.Effective != null)
                 {
-                    return GetDateFragmentOrPartialDate(InjuryIncidentObs.Effective,VR.ExtensionURL.DateYear);
+                    return GetDateFragmentOrPartialDate(InjuryIncidentObs.Effective,VR.ExtensionURL.PartialDateYearVR);
                 }
                 return null;
             }
@@ -6724,7 +6724,7 @@ namespace VRDR
                 {
                     CreateInjuryIncidentObs();
                 }
-                SetPartialDate(InjuryIncidentObs.Effective.Extension.Find(ext => ext.Url ==VR.ExtensionURL.PartialDateTime),VR.ExtensionURL.DateYear, value);
+                SetPartialDate(InjuryIncidentObs.Effective.Extension.Find(ext => ext.Url ==VR.ExtensionURL.PartialDateTime),VR.ExtensionURL.PartialDateYearVR, value);
             }
         }
 
@@ -6744,7 +6744,7 @@ namespace VRDR
             {
                 if (InjuryIncidentObs != null && InjuryIncidentObs.Effective != null)
                 {
-                    return GetDateFragmentOrPartialDate(InjuryIncidentObs.Effective,VR.ExtensionURL.DateMonth);
+                    return GetDateFragmentOrPartialDate(InjuryIncidentObs.Effective,VR.ExtensionURL.PartialDateMonthVR);
                 }
                 return null;
             }
@@ -6758,7 +6758,7 @@ namespace VRDR
                 {
                     CreateInjuryIncidentObs();
                 }
-                SetPartialDate(InjuryIncidentObs.Effective.Extension.Find(ext => ext.Url ==VR.ExtensionURL.PartialDateTime),VR.ExtensionURL.DateMonth, value);
+                SetPartialDate(InjuryIncidentObs.Effective.Extension.Find(ext => ext.Url ==VR.ExtensionURL.PartialDateTime),VR.ExtensionURL.PartialDateMonthVR, value);
             }
         }
 
@@ -6778,7 +6778,7 @@ namespace VRDR
             {
                 if (InjuryIncidentObs != null && InjuryIncidentObs.Effective != null)
                 {
-                    return GetDateFragmentOrPartialDate(InjuryIncidentObs.Effective,VR.ExtensionURL.DateDay);
+                    return GetDateFragmentOrPartialDate(InjuryIncidentObs.Effective,VR.ExtensionURL.PartialDateDayVR);
                 }
                 return null;
             }
@@ -6792,7 +6792,7 @@ namespace VRDR
                 {
                     CreateInjuryIncidentObs();
                 }
-                SetPartialDate(InjuryIncidentObs.Effective.Extension.Find(ext => ext.Url ==VR.ExtensionURL.PartialDateTime),VR.ExtensionURL.DateDay, value);
+                SetPartialDate(InjuryIncidentObs.Effective.Extension.Find(ext => ext.Url ==VR.ExtensionURL.PartialDateTime),VR.ExtensionURL.PartialDateDayVR, value);
             }
         }
 
