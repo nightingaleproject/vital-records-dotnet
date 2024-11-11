@@ -921,13 +921,13 @@ namespace VR
             {
                 switch (partialDateUrl)
                 {
-                    case VR.ExtensionURL.PartialDateTimeYearVR:
+                    case VR.ExtensionURL.PartialDateYearVR:
                         if (year != null) return year;
                         break;
-                    case VR.ExtensionURL.PartialDateTimeMonthVR:
+                    case VR.ExtensionURL.PartialDateMonthVR:
                         if (month != null) return month;
                         break;
-                    case VR.ExtensionURL.PartialDateTimeDayVR:
+                    case VR.ExtensionURL.PartialDateDayVR:
                         if (day != null) return day;
                         break;
                     default:
@@ -1222,9 +1222,9 @@ namespace VR
             dateElement.SetExtension(PartialDateTimeUrl, new Extension());
             List<(int? val, string url)> dateElements = new List<(int? val, string url)>
             {
-                (dayValue, VR.ExtensionURL.PartialDateTimeDayVR),
-                (monthValue, VR.ExtensionURL.PartialDateTimeMonthVR),
-                (yearValue, VR.ExtensionURL.PartialDateTimeYearVR)
+                (dayValue, VR.ExtensionURL.PartialDateDayVR),
+                (monthValue, VR.ExtensionURL.PartialDateMonthVR),
+                (yearValue, VR.ExtensionURL.PartialDateYearVR)
             };
             foreach ((int? val, string url) in dateElements)
             {
@@ -1280,16 +1280,16 @@ namespace VR
         protected virtual string PartialDateDayUrl => ExtensionURL.PartialDateDayVR;
 
         /// <summary>Overrideable method that dictates which Extension URL to use for PartialDateTime Time</summary>
-        protected virtual string PartialDateTimeTimeUrl => ExtensionURL.PartialDateTimeVR;
+        protected virtual string PartialDateTimeTimeUrl => VR.ExtensionURL.PartialDateTimeVR;
 
         /// <summary>Overrideable method that dictates which Extension URL to use for PartialDateTime</summary>
-        protected virtual string PartialDateTimeUrl => VRExtensionURLs.PartialDateTime;
+        protected virtual string PartialDateTimeUrl => VR.ExtensionURL.PartialDateTime;
 
         /// <summary>Overrideable method that dictates which Extension URL to use for PartialDate</summary>
-        protected virtual string PartialDateUrl => VRExtensionURLs.PartialDate;
+        protected virtual string PartialDateUrl => VR.ExtensionURL.PartialDate;
 
         /// <summary>Overrideable method that dictates which Extension URL to use for LocationJurisdictionId</summary>
-        protected virtual string LocationJurisdictionIdUrl => VRExtensionURLs.LocationJurisdictionId;
+        protected virtual string LocationJurisdictionIdUrl => VR.ExtensionURL.LocationJurisdictionId;
 
         /// <summary>Getter helper for anything that can have a regular FHIR date/time or a PartialDateTime extension, allowing a particular date
         /// field (year, month, or day) to be read from either the value or the extension</summary>
