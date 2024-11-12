@@ -1915,7 +1915,7 @@ namespace VRDR
             {
                 if (Decedent != null && Decedent.BirthDateElement != null)
                 {
-                    return GetDateFragmentOrPartialDate(Decedent.BirthDateElement,PartialDateYearUrl); // VR.ExtensionURL.PartialDateYearVR);
+                    return GetDateFragmentOrPartialDate(Decedent.BirthDateElement,VR.ExtensionURL.PartialDateYearVR); 
                 }
                 return null;
             }
@@ -1925,30 +1925,30 @@ namespace VRDR
                 {
                     AddBirthDateToDecedent();
                 }
-                SetPartialDate(Decedent.BirthDateElement.Extension.Find(ext => ext.Url == PartialDateUrl),VR.ExtensionURL.PartialDateYearVR, value);
+                SetPartialDate(Decedent.BirthDateElement.Extension.Find(ext => ext.Url == VR.ExtensionURL.PartialDate),VR.ExtensionURL.PartialDateYearVR, value);
             }
         }
 
-        /// <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Year</summary>
-        protected override string PartialDateYearUrl => VR.ExtensionURL.PartialDateYearVR;
+    //     /// <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Year</summary>
+    //     protected override string PartialDateYearUrl => VR.ExtensionURL.PartialDateYearVR;
 
-        /// <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Month</summary>
-        protected override string PartialDateMonthUrl => VR.ExtensionURL.PartialDateMonthVR;
+    //     /// <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Month</summary>
+    //     protected override string PartialDateMonthUrl => VR.ExtensionURL.PartialDateMonthVR;
 
-        /// <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Day</summary>
-        protected override string PartialDateDayUrl => VR.ExtensionURL.PartialDateDayVR;
+    //     /// <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Day</summary>
+    //     protected override string PartialDateDayUrl => VR.ExtensionURL.PartialDateDayVR;
 
-        /// <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Time</summary>
-        protected override string PartialDateTimeUrl => VR.ExtensionURL.PartialDateTimeVR;
+    //     /// <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Time</summary>
+    //     protected override string PartialDateTimeUrl => VR.ExtensionURL.PartialDateTimeVR;
 
-        /// <summary>Overriden method that dictates which Extension URL to use for PartialDate</summary>
-        protected override string PartialDateUrl => VR.ExtensionURL.PartialDate;
+    //     /// <summary>Overriden method that dictates which Extension URL to use for PartialDate</summary>
+    //     protected override string PartialDateUrl => VR.ExtensionURL.PartialDate;
 
-        /// <summary>Overriden method that dictates which Extension URL to use for PartialDateTime</summary>
-       /// protected override string PartialDateTimeUrl => VR.ExtensionURL.PartialDateTime;
+    //     /// <summary>Overriden method that dictates which Extension URL to use for PartialDateTime</summary>
+    //    /// protected override string PartialDateTimeUrl => VR.ExtensionURL.PartialDateTime;
 
-        /// <summary>Overriden method that dictates which Extension URL to use for LocationJurisdictionId</summary>
-        protected override string LocationJurisdictionIdUrl => VR.ExtensionURL.LocationJurisdictionId;
+    //     /// <summary>Overriden method that dictates which Extension URL to use for LocationJurisdictionId</summary>
+    //     protected override string LocationJurisdictionIdUrl => VR.ExtensionURL.LocationJurisdictionId;
 
         /// <summary>Decedent's Month of Birth.</summary>
         /// <value>the decedent's month of birth, or -1 if explicitly unknown, or null if never specified</value>
@@ -1966,7 +1966,7 @@ namespace VRDR
             {
                 if (Decedent != null && Decedent.BirthDateElement != null)
                 {
-                    return GetDateFragmentOrPartialDate(Decedent.BirthDateElement,PartialDateMonthUrl); //VR.ExtensionURL.PartialDateMonthVR);
+                    return GetDateFragmentOrPartialDate(Decedent.BirthDateElement,VR.ExtensionURL.PartialDateMonthVR); 
                 }
                 return null;
             }
@@ -1976,7 +1976,7 @@ namespace VRDR
                 {
                     AddBirthDateToDecedent();
                 }
-                SetPartialDate(Decedent.BirthDateElement.Extension.Find(ext => ext.Url == VRDR.ExtensionURL.PartialDate),VR.ExtensionURL.PartialDateMonthVR, value);
+                SetPartialDate(Decedent.BirthDateElement.Extension.Find(ext => ext.Url == VR.ExtensionURL.PartialDate),VR.ExtensionURL.PartialDateMonthVR, value);
             }
         }
 
@@ -2006,7 +2006,7 @@ namespace VRDR
                 {
                     AddBirthDateToDecedent();
                 }
-                SetPartialDate(Decedent.BirthDateElement.Extension.Find(ext => ext.Url == PartialDateUrl),VR.ExtensionURL.PartialDateDayVR, value);
+                SetPartialDate(Decedent.BirthDateElement.Extension.Find(ext => ext.Url == VR.ExtensionURL.PartialDate),VR.ExtensionURL.PartialDateDayVR, value);
             }
         }
 
@@ -5142,7 +5142,7 @@ namespace VRDR
                 {
                     CreateSurgeryDateObs();
                 }
-                SetPartialDate(SurgeryDateObs.Value.Extension.Find(ext => ext.Url == PartialDateUrl),VR.ExtensionURL.PartialDateYearVR, value);
+                SetPartialDate(SurgeryDateObs.Value.Extension.Find(ext => ext.Url == VR.ExtensionURL.PartialDate),VR.ExtensionURL.PartialDateYearVR, value);
             }
         }
 
@@ -5172,7 +5172,7 @@ namespace VRDR
                 {
                     CreateSurgeryDateObs();
                 }
-                SetPartialDate(SurgeryDateObs.Value.Extension.Find(ext => ext.Url == PartialDateUrl),VR.ExtensionURL.PartialDateMonthVR, value);
+                SetPartialDate(SurgeryDateObs.Value.Extension.Find(ext => ext.Url == VR.ExtensionURL.PartialDate),VR.ExtensionURL.PartialDateMonthVR, value);
             }
         }
 
@@ -5202,7 +5202,7 @@ namespace VRDR
                 {
                     CreateSurgeryDateObs();
                 }
-                SetPartialDate(SurgeryDateObs.Value.Extension.Find(ext => ext.Url == PartialDateUrl),VR.ExtensionURL.PartialDateDayVR, value);
+                SetPartialDate(SurgeryDateObs.Value.Extension.Find(ext => ext.Url == VR.ExtensionURL.PartialDate),VR.ExtensionURL.PartialDateDayVR, value);
             }
         }
 

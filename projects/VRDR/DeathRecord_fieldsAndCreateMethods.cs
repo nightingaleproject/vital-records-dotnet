@@ -27,9 +27,8 @@ namespace VRDR
     /// </summary>
     public partial class DeathRecord
     {  
-        private static VR.ExtensionURL extensions = new VR.ExtensionURL("http://hl7.org/fhir/us/vrdr");
+        private static VR.ExtensionURL extensions = new VR.ExtensionURL();
         /// <summary>Overide the extension URL prefix used by the VR library</summary>
-        protected override VR.ExtensionURL VRExtensionURLs => extensions;
 
         /// <summary>String to represent a blank value when an empty string is not allowed</summary>
         public static string BlankPlaceholder = "BLANK";

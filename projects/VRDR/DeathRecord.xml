@@ -92,10 +92,8 @@
         <member name="M:VRDR.DeathRecord.RestoreReferences">
             <summary>Restores class references from a newly parsed record.</summary>
         </member>
-        <member name="P:VRDR.DeathRecord.VRExtensionURLs">
-            <summary>Overide the extension URL prefix used by the VR library</summary>
-        </member>
         <member name="F:VRDR.DeathRecord.BlankPlaceholder">
+            <summary>Overide the extension URL prefix used by the VR library</summary>
             <summary>String to represent a blank value when an empty string is not allowed</summary>
         </member>
         <member name="F:VRDR.DeathRecord.MortalityData">
@@ -1550,27 +1548,6 @@
             <para>// Getter:</para>
             <para>Console.WriteLine($"Decedent Year of Birth: {ExampleDeathRecord.BirthYear}");</para>
             </example>
-        </member>
-        <member name="P:VRDR.DeathRecord.PartialDateYearUrl">
-            <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Year</summary>
-        </member>
-        <member name="P:VRDR.DeathRecord.PartialDateMonthUrl">
-            <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Month</summary>
-        </member>
-        <member name="P:VRDR.DeathRecord.PartialDateDayUrl">
-            <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Day</summary>
-        </member>
-        <member name="P:VRDR.DeathRecord.PartialDateTimeTimeUrl">
-            <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Time</summary>
-        </member>
-        <member name="P:VRDR.DeathRecord.PartialDateUrl">
-            <summary>Overriden method that dictates which Extension URL to use for PartialDate</summary>
-        </member>
-        <member name="P:VRDR.DeathRecord.PartialDateTimeUrl">
-            <summary>Overriden method that dictates which Extension URL to use for PartialDateTime</summary>
-        </member>
-        <member name="P:VRDR.DeathRecord.LocationJurisdictionIdUrl">
-            <summary>Overriden method that dictates which Extension URL to use for LocationJurisdictionId</summary>
         </member>
         <member name="P:VRDR.DeathRecord.BirthMonth">
             <summary>Decedent's Month of Birth.</summary>
@@ -4073,14 +4050,14 @@
         <member name="F:VRDR.Mappings.ContributoryTobaccoUse.FHIRToIJE">
             <summary>FHIR -> IJE Mapping for ContributoryTobaccoUse</summary>
         </member>
-        <member name="T:VRDR.Mappings.EditBypass01234">
-            <summary>Mappings for EditBypass01234</summary>
+        <member name="T:VRDR.Mappings.DeathPregnancyStatus">
+            <summary>Mappings for DeathPregnancyStatus</summary>
         </member>
-        <member name="F:VRDR.Mappings.EditBypass01234.IJEToFHIR">
-            <summary>IJE -> FHIR Mapping for EditBypass01234</summary>
+        <member name="F:VRDR.Mappings.DeathPregnancyStatus.IJEToFHIR">
+            <summary>IJE -> FHIR Mapping for DeathPregnancyStatus</summary>
         </member>
-        <member name="F:VRDR.Mappings.EditBypass01234.FHIRToIJE">
-            <summary>FHIR -> IJE Mapping for EditBypass01234</summary>
+        <member name="F:VRDR.Mappings.DeathPregnancyStatus.FHIRToIJE">
+            <summary>FHIR -> IJE Mapping for DeathPregnancyStatus</summary>
         </member>
         <member name="T:VRDR.Mappings.EditBypass0124">
             <summary>Mappings for EditBypass0124</summary>
@@ -4109,15 +4086,6 @@
         <member name="F:VRDR.Mappings.EditBypass01.FHIRToIJE">
             <summary>FHIR -> IJE Mapping for EditBypass01</summary>
         </member>
-        <member name="T:VRDR.Mappings.EducationLevel">
-            <summary>Mappings for EducationLevel</summary>
-        </member>
-        <member name="F:VRDR.Mappings.EducationLevel.IJEToFHIR">
-            <summary>IJE -> FHIR Mapping for EducationLevel</summary>
-        </member>
-        <member name="F:VRDR.Mappings.EducationLevel.FHIRToIJE">
-            <summary>FHIR -> IJE Mapping for EducationLevel</summary>
-        </member>
         <member name="T:VRDR.Mappings.FilingFormat">
             <summary>Mappings for FilingFormat</summary>
         </member>
@@ -4126,24 +4094,6 @@
         </member>
         <member name="F:VRDR.Mappings.FilingFormat.FHIRToIJE">
             <summary>FHIR -> IJE Mapping for FilingFormat</summary>
-        </member>
-        <member name="T:VRDR.Mappings.HispanicNoUnknown">
-            <summary>Mappings for HispanicNoUnknown</summary>
-        </member>
-        <member name="F:VRDR.Mappings.HispanicNoUnknown.IJEToFHIR">
-            <summary>IJE -> FHIR Mapping for HispanicNoUnknown</summary>
-        </member>
-        <member name="F:VRDR.Mappings.HispanicNoUnknown.FHIRToIJE">
-            <summary>FHIR -> IJE Mapping for HispanicNoUnknown</summary>
-        </member>
-        <member name="T:VRDR.Mappings.HispanicOrigin">
-            <summary>Mappings for HispanicOrigin</summary>
-        </member>
-        <member name="F:VRDR.Mappings.HispanicOrigin.IJEToFHIR">
-            <summary>IJE -> FHIR Mapping for HispanicOrigin</summary>
-        </member>
-        <member name="F:VRDR.Mappings.HispanicOrigin.FHIRToIJE">
-            <summary>FHIR -> IJE Mapping for HispanicOrigin</summary>
         </member>
         <member name="T:VRDR.Mappings.IntentionalReject">
             <summary>Mappings for IntentionalReject</summary>
@@ -4162,15 +4112,6 @@
         </member>
         <member name="F:VRDR.Mappings.MannerOfDeath.FHIRToIJE">
             <summary>FHIR -> IJE Mapping for MannerOfDeath</summary>
-        </member>
-        <member name="T:VRDR.Mappings.MaritalStatus">
-            <summary>Mappings for MaritalStatus</summary>
-        </member>
-        <member name="F:VRDR.Mappings.MaritalStatus.IJEToFHIR">
-            <summary>IJE -> FHIR Mapping for MaritalStatus</summary>
-        </member>
-        <member name="F:VRDR.Mappings.MaritalStatus.FHIRToIJE">
-            <summary>FHIR -> IJE Mapping for MaritalStatus</summary>
         </member>
         <member name="T:VRDR.Mappings.MethodOfDisposition">
             <summary>Mappings for MethodOfDisposition</summary>
@@ -4198,42 +4139,6 @@
         </member>
         <member name="F:VRDR.Mappings.PlaceOfInjury.FHIRToIJE">
             <summary>FHIR -> IJE Mapping for PlaceOfInjury</summary>
-        </member>
-        <member name="T:VRDR.Mappings.PregnancyStatus">
-            <summary>Mappings for PregnancyStatus</summary>
-        </member>
-        <member name="F:VRDR.Mappings.PregnancyStatus.IJEToFHIR">
-            <summary>IJE -> FHIR Mapping for PregnancyStatus</summary>
-        </member>
-        <member name="F:VRDR.Mappings.PregnancyStatus.FHIRToIJE">
-            <summary>FHIR -> IJE Mapping for PregnancyStatus</summary>
-        </member>
-        <member name="T:VRDR.Mappings.RaceCode">
-            <summary>Mappings for RaceCode</summary>
-        </member>
-        <member name="F:VRDR.Mappings.RaceCode.IJEToFHIR">
-            <summary>IJE -> FHIR Mapping for RaceCode</summary>
-        </member>
-        <member name="F:VRDR.Mappings.RaceCode.FHIRToIJE">
-            <summary>FHIR -> IJE Mapping for RaceCode</summary>
-        </member>
-        <member name="T:VRDR.Mappings.RaceMissingValueReason">
-            <summary>Mappings for RaceMissingValueReason</summary>
-        </member>
-        <member name="F:VRDR.Mappings.RaceMissingValueReason.IJEToFHIR">
-            <summary>IJE -> FHIR Mapping for RaceMissingValueReason</summary>
-        </member>
-        <member name="F:VRDR.Mappings.RaceMissingValueReason.FHIRToIJE">
-            <summary>FHIR -> IJE Mapping for RaceMissingValueReason</summary>
-        </member>
-        <member name="T:VRDR.Mappings.RaceRecode40">
-            <summary>Mappings for RaceRecode40</summary>
-        </member>
-        <member name="F:VRDR.Mappings.RaceRecode40.IJEToFHIR">
-            <summary>IJE -> FHIR Mapping for RaceRecode40</summary>
-        </member>
-        <member name="F:VRDR.Mappings.RaceRecode40.FHIRToIJE">
-            <summary>FHIR -> IJE Mapping for RaceRecode40</summary>
         </member>
         <member name="T:VRDR.Mappings.ReplaceStatus">
             <summary>Mappings for ReplaceStatus</summary>
@@ -4279,33 +4184,6 @@
         </member>
         <member name="F:VRDR.Mappings.TransportationIncidentRole.FHIRToIJE">
             <summary>FHIR -> IJE Mapping for TransportationIncidentRole</summary>
-        </member>
-        <member name="T:VRDR.Mappings.UnitsOfAge">
-            <summary>Mappings for UnitsOfAge</summary>
-        </member>
-        <member name="F:VRDR.Mappings.UnitsOfAge.IJEToFHIR">
-            <summary>IJE -> FHIR Mapping for UnitsOfAge</summary>
-        </member>
-        <member name="F:VRDR.Mappings.UnitsOfAge.FHIRToIJE">
-            <summary>FHIR -> IJE Mapping for UnitsOfAge</summary>
-        </member>
-        <member name="T:VRDR.Mappings.YesNoUnknown">
-            <summary>Mappings for YesNoUnknown</summary>
-        </member>
-        <member name="F:VRDR.Mappings.YesNoUnknown.IJEToFHIR">
-            <summary>IJE -> FHIR Mapping for YesNoUnknown</summary>
-        </member>
-        <member name="F:VRDR.Mappings.YesNoUnknown.FHIRToIJE">
-            <summary>FHIR -> IJE Mapping for YesNoUnknown</summary>
-        </member>
-        <member name="T:VRDR.Mappings.YesNoUnknownNotApplicable">
-            <summary>Mappings for YesNoUnknownNotApplicable</summary>
-        </member>
-        <member name="F:VRDR.Mappings.YesNoUnknownNotApplicable.IJEToFHIR">
-            <summary>IJE -> FHIR Mapping for YesNoUnknownNotApplicable</summary>
-        </member>
-        <member name="F:VRDR.Mappings.YesNoUnknownNotApplicable.FHIRToIJE">
-            <summary>FHIR -> IJE Mapping for YesNoUnknownNotApplicable</summary>
         </member>
         <member name="T:VRDR.PlaceCode">
             <summary>Helper class providing more descriptive definitions for each PlaceCode field</summary>
@@ -4463,6 +4341,9 @@
         <member name="F:VRDR.ProfileURL.AutopsyPerformedIndicator">
             <summary>URL for AutopsyPerformedIndicator</summary>
         </member>
+        <member name="F:VRDR.ProfileURL.BirthRecordIdentifierChild">
+            <summary>URL for BirthRecordIdentifierChild</summary>
+        </member>
         <member name="F:VRDR.ProfileURL.BirthRecordIdentifier">
             <summary>URL for BirthRecordIdentifier</summary>
         </member>
@@ -4477,9 +4358,6 @@
         </member>
         <member name="F:VRDR.ProfileURL.Certifier">
             <summary>URL for Certifier</summary>
-        </member>
-        <member name="F:VRDR.ProfileURL.CodedRaceAndEthnicity">
-            <summary>URL for CodedRaceAndEthnicity</summary>
         </member>
         <member name="F:VRDR.ProfileURL.CodingStatusValues">
             <summary>URL for CodingStatusValues</summary>
@@ -4535,14 +4413,14 @@
         <member name="F:VRDR.ProfileURL.DispositionLocation">
             <summary>URL for DispositionLocation</summary>
         </member>
-        <member name="F:VRDR.ProfileURL.EmergingIssues">
-            <summary>URL for EmergingIssues</summary>
-        </member>
         <member name="F:VRDR.ProfileURL.EntityAxisCauseOfDeath">
             <summary>URL for EntityAxisCauseOfDeath</summary>
         </member>
         <member name="F:VRDR.ProfileURL.ExaminerContacted">
             <summary>URL for ExaminerContacted</summary>
+        </member>
+        <member name="F:VRDR.ProfileURL.FetalDeathRecordIdentifier">
+            <summary>URL for FetalDeathRecordIdentifier</summary>
         </member>
         <member name="F:VRDR.ProfileURL.FuneralHome">
             <summary>URL for FuneralHome</summary>
@@ -4553,9 +4431,6 @@
         <member name="F:VRDR.ProfileURL.InjuryLocation">
             <summary>URL for InjuryLocation</summary>
         </member>
-        <member name="F:VRDR.ProfileURL.InputRaceAndEthnicity">
-            <summary>URL for InputRaceAndEthnicity</summary>
-        </member>
         <member name="F:VRDR.ProfileURL.MannerOfDeath">
             <summary>URL for MannerOfDeath</summary>
         </member>
@@ -4564,6 +4439,9 @@
         </member>
         <member name="F:VRDR.ProfileURL.MortalityRosterBundle">
             <summary>URL for MortalityRosterBundle</summary>
+        </member>
+        <member name="F:VRDR.ProfileURL.Mortician">
+            <summary>URL for Mortician</summary>
         </member>
         <member name="F:VRDR.ProfileURL.PlaceOfInjury">
             <summary>URL for PlaceOfInjury</summary>
@@ -4598,62 +4476,23 @@
         <member name="F:VRDR.ExtensionURL.StateSpecificField">
             <summary>URL for StateSpecificField</summary>
         </member>
+        <member name="F:VRDR.ExtensionURL.IndustryOccupationCodedContentBundle">
+            <summary>URL for IndustryOccupationCodedContentBundle</summary>
+        </member>
+        <member name="F:VRDR.ExtensionURL.PractitionerRole">
+            <summary>URL for PractitionerRole</summary>
+        </member>
         <member name="T:VRDR.IGURL">
             <summary>IG URLs</summary>
         </member>
         <member name="F:VRDR.IGURL.AliasStatus">
             <summary>URL for AliasStatus</summary>
         </member>
-        <member name="F:VRDR.IGURL.AuxiliaryStateIdentifier1">
-            <summary>URL for AuxiliaryStateIdentifier1</summary>
-        </member>
-        <member name="F:VRDR.IGURL.AuxiliaryStateIdentifier2">
-            <summary>URL for AuxiliaryStateIdentifier2</summary>
-        </member>
-        <member name="F:VRDR.IGURL.BypassEditFlag">
-            <summary>URL for BypassEditFlag</summary>
-        </member>
-        <member name="F:VRDR.IGURL.CertificateNumber">
-            <summary>URL for CertificateNumber</summary>
-        </member>
-        <member name="F:VRDR.IGURL.CityCode">
-            <summary>URL for CityCode</summary>
-        </member>
-        <member name="F:VRDR.IGURL.DateDay">
-            <summary>URL for DateDay</summary>
-        </member>
-        <member name="F:VRDR.IGURL.DateMonth">
-            <summary>URL for DateMonth</summary>
-        </member>
-        <member name="F:VRDR.IGURL.DateTime">
-            <summary>URL for DateTime</summary>
-        </member>
-        <member name="F:VRDR.IGURL.DateYear">
-            <summary>URL for DateYear</summary>
-        </member>
-        <member name="F:VRDR.IGURL.DistrictCode">
-            <summary>URL for DistrictCode</summary>
-        </member>
         <member name="F:VRDR.IGURL.FilingFormat">
             <summary>URL for FilingFormat</summary>
         </member>
-        <member name="F:VRDR.IGURL.LocationJurisdictionId">
-            <summary>URL for LocationJurisdictionId</summary>
-        </member>
         <member name="F:VRDR.IGURL.NVSSSexAtDeath">
             <summary>URL for NVSSSexAtDeath</summary>
-        </member>
-        <member name="F:VRDR.IGURL.PartialDate">
-            <summary>URL for PartialDate</summary>
-        </member>
-        <member name="F:VRDR.IGURL.PartialDateTime">
-            <summary>URL for PartialDateTime</summary>
-        </member>
-        <member name="F:VRDR.IGURL.PostDirectional">
-            <summary>URL for PostDirectional</summary>
-        </member>
-        <member name="F:VRDR.IGURL.PreDirectional">
-            <summary>URL for PreDirectional</summary>
         </member>
         <member name="F:VRDR.IGURL.ReplaceStatus">
             <summary>URL for ReplaceStatus</summary>
@@ -4664,20 +4503,11 @@
         <member name="F:VRDR.IGURL.StateSpecificField">
             <summary>URL for StateSpecificField</summary>
         </member>
-        <member name="F:VRDR.IGURL.StreetDesignator">
-            <summary>URL for StreetDesignator</summary>
+        <member name="F:VRDR.IGURL.IndustryOccupationCodedContentBundle">
+            <summary>URL for IndustryOccupationCodedContentBundle</summary>
         </member>
-        <member name="F:VRDR.IGURL.StreetName">
-            <summary>URL for StreetName</summary>
-        </member>
-        <member name="F:VRDR.IGURL.StreetNumber">
-            <summary>URL for StreetNumber</summary>
-        </member>
-        <member name="F:VRDR.IGURL.UnitOrAptNumber">
-            <summary>URL for UnitOrAptNumber</summary>
-        </member>
-        <member name="F:VRDR.IGURL.WithinCityLimitsIndicator">
-            <summary>URL for WithinCityLimitsIndicator</summary>
+        <member name="F:VRDR.IGURL.PractitionerRole">
+            <summary>URL for PractitionerRole</summary>
         </member>
         <member name="F:VRDR.IGURL.ActivityAtTimeOfDeath">
             <summary>URL for ActivityAtTimeOfDeath</summary>
@@ -4687,6 +4517,9 @@
         </member>
         <member name="F:VRDR.IGURL.AutopsyPerformedIndicator">
             <summary>URL for AutopsyPerformedIndicator</summary>
+        </member>
+        <member name="F:VRDR.IGURL.BirthRecordIdentifierChild">
+            <summary>URL for BirthRecordIdentifierChild</summary>
         </member>
         <member name="F:VRDR.IGURL.BirthRecordIdentifier">
             <summary>URL for BirthRecordIdentifier</summary>
@@ -4702,9 +4535,6 @@
         </member>
         <member name="F:VRDR.IGURL.Certifier">
             <summary>URL for Certifier</summary>
-        </member>
-        <member name="F:VRDR.IGURL.CodedRaceAndEthnicity">
-            <summary>URL for CodedRaceAndEthnicity</summary>
         </member>
         <member name="F:VRDR.IGURL.CodingStatusValues">
             <summary>URL for CodingStatusValues</summary>
@@ -4760,14 +4590,14 @@
         <member name="F:VRDR.IGURL.DispositionLocation">
             <summary>URL for DispositionLocation</summary>
         </member>
-        <member name="F:VRDR.IGURL.EmergingIssues">
-            <summary>URL for EmergingIssues</summary>
-        </member>
         <member name="F:VRDR.IGURL.EntityAxisCauseOfDeath">
             <summary>URL for EntityAxisCauseOfDeath</summary>
         </member>
         <member name="F:VRDR.IGURL.ExaminerContacted">
             <summary>URL for ExaminerContacted</summary>
+        </member>
+        <member name="F:VRDR.IGURL.FetalDeathRecordIdentifier">
+            <summary>URL for FetalDeathRecordIdentifier</summary>
         </member>
         <member name="F:VRDR.IGURL.FuneralHome">
             <summary>URL for FuneralHome</summary>
@@ -4778,9 +4608,6 @@
         <member name="F:VRDR.IGURL.InjuryLocation">
             <summary>URL for InjuryLocation</summary>
         </member>
-        <member name="F:VRDR.IGURL.InputRaceAndEthnicity">
-            <summary>URL for InputRaceAndEthnicity</summary>
-        </member>
         <member name="F:VRDR.IGURL.MannerOfDeath">
             <summary>URL for MannerOfDeath</summary>
         </member>
@@ -4789,6 +4616,9 @@
         </member>
         <member name="F:VRDR.IGURL.MortalityRosterBundle">
             <summary>URL for MortalityRosterBundle</summary>
+        </member>
+        <member name="F:VRDR.IGURL.Mortician">
+            <summary>URL for Mortician</summary>
         </member>
         <member name="F:VRDR.IGURL.PlaceOfInjury">
             <summary>URL for PlaceOfInjury</summary>
