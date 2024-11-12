@@ -2,8 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+<a name="1.0.0-preview.9"></a>
+## [1.0.0-preview.9](https://github.com/nightingaleproject/vital-records-dotnet/commit/ba4cd43e081ede28959f0e9d3070b59644943953) (2024-11-05)
+
+### Features
+* Add FetalDeathRecord to the BFDR library
+* IJE to FHIR and FHIR to IJE translation for fetal death records
+* FHIR messaging support for fetal death messaging types
+* Alignment with BFDR STU 2.0 IG
+
 <a name="1.0.0-preview.8"></a>
-## [1.0.0-preview.7](https://github.com/nightingaleproject/vital-records-dotnet/commit/73693cc824b0a8e5b666743204978d42b3de4bd9) (2024-10-08)
+## [1.0.0-preview.8](https://github.com/nightingaleproject/vital-records-dotnet/commit/73693cc824b0a8e5b666743204978d42b3de4bd9) (2024-10-08)
 
 ### Features
 * Add IG version to FHIR message header 
