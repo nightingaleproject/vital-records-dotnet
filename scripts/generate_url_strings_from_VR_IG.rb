@@ -88,33 +88,10 @@ namespace VR
     /// <summary>Extension URLs</summary>
     public class ExtensionURL
     {
-        private string _prefix;
-        private const string DefaultURLPrefix = "http://hl7.org/fhir/us/vr-common-library";
-
-        /// <summary>Constructor</summary>
-        /// <param name="prefix">the prefix to use for extension URLs</param>
-        public ExtensionURL(string prefix = DefaultURLPrefix)
-        {
-            _prefix = prefix;
-        }
-
-        // Special case processing for three extension URLs that are different between VR and VRDR
-        private string Trim(string url)
-        {
-            if (_prefix.Equals(DefaultURLPrefix))
-            {
-                return url;
-            }
-            if (url.Contains("DatePartAbsentReason") || url.Contains("PartialDate"))
-            {
-                return url.Replace("Extension","").Replace("VitalRecords","");
-            }
-            return url;
-        }
 
 <% structure_definition_hash.select { |name, url| url_type(name) == 'extension' }.each do |name, url| -%>
         /// <summary>URL for <%= short_name(name) %></summary>
-        public string <%= short_name(name) %> => Trim($"{_prefix}/<%= structure_definition_url_to_ext_url(url) %>");
+        public const string <%= short_name(name) %> = "http://hl7.org/fhir/us/vr-common-library/<%= structure_definition_url_to_ext_url(url) %>";
 
 <% end -%>
 

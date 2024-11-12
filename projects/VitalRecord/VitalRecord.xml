@@ -823,74 +823,62 @@
         <member name="T:VR.ExtensionURL">
             <summary>Extension URLs</summary>
         </member>
-        <member name="M:VR.ExtensionURL.#ctor(System.String)">
-            <summary>Constructor</summary>
-            <param name="prefix">the prefix to use for extension URLs</param>
-        </member>
-        <member name="P:VR.ExtensionURL.BypassEditFlag">
+        <member name="F:VR.ExtensionURL.BypassEditFlag">
             <summary>URL for BypassEditFlag</summary>
         </member>
-        <member name="P:VR.ExtensionURL.CityCode">
+        <member name="F:VR.ExtensionURL.CityCode">
             <summary>URL for CityCode</summary>
         </member>
-        <member name="P:VR.ExtensionURL.DistrictCode">
+        <member name="F:VR.ExtensionURL.DistrictCode">
             <summary>URL for DistrictCode</summary>
         </member>
-        <member name="P:VR.ExtensionURL.LocationJurisdictionId">
+        <member name="F:VR.ExtensionURL.LocationJurisdictionId">
             <summary>URL for LocationJurisdictionId</summary>
         </member>
-        <member name="P:VR.ExtensionURL.PartialDateTime">
+        <member name="F:VR.ExtensionURL.PartialDateTime">
             <summary>URL for PartialDateTime</summary>
         </member>
-        <member name="P:VR.ExtensionURL.PartialDate">
+        <member name="F:VR.ExtensionURL.PartialDate">
             <summary>URL for PartialDate</summary>
         </member>
-        <member name="P:VR.ExtensionURL.PatientFetalDeath">
+        <member name="F:VR.ExtensionURL.PatientFetalDeath">
             <summary>URL for PatientFetalDeath</summary>
         </member>
-        <member name="P:VR.ExtensionURL.RelatedpersonBirthplace">
+        <member name="F:VR.ExtensionURL.RelatedpersonBirthplace">
             <summary>URL for RelatedpersonBirthplace</summary>
         </member>
-        <member name="P:VR.ExtensionURL.ReportedParentAgeAtDelivery">
+        <member name="F:VR.ExtensionURL.ReportedParentAgeAtDelivery">
             <summary>URL for ReportedParentAgeAtDelivery</summary>
         </member>
-        <member name="P:VR.ExtensionURL.WithinCityLimitsIndicator">
+        <member name="F:VR.ExtensionURL.WithinCityLimitsIndicator">
             <summary>URL for WithinCityLimitsIndicator</summary>
         </member>
-        <member name="P:VR.ExtensionURL.PostDirectional">
+        <member name="F:VR.ExtensionURL.PostDirectional">
             <summary>URL for PostDirectional</summary>
         </member>
-        <member name="P:VR.ExtensionURL.PreDirectional">
+        <member name="F:VR.ExtensionURL.PreDirectional">
             <summary>URL for PreDirectional</summary>
         </member>
-        <member name="P:VR.ExtensionURL.StreetDesignator">
+        <member name="F:VR.ExtensionURL.StreetDesignator">
             <summary>URL for StreetDesignator</summary>
         </member>
-        <member name="P:VR.ExtensionURL.StreetName">
+        <member name="F:VR.ExtensionURL.StreetName">
             <summary>URL for StreetName</summary>
         </member>
-        <member name="P:VR.ExtensionURL.StreetNumber">
+        <member name="F:VR.ExtensionURL.StreetNumber">
             <summary>URL for StreetNumber</summary>
         </member>
-        <member name="P:VR.ExtensionURL.UnitOrAptNumber">
+        <member name="F:VR.ExtensionURL.UnitOrAptNumber">
             <summary>URL for UnitOrAptNumber</summary>
         </member>
         <member name="F:VR.ExtensionURL.PatientBirthTime">
-             <summary>URL for DateDay</summary>
-            public string DateDay => $"{_prefix}/StructureDefinition/Date-Day";
-             <summary>URL for DateYear</summary>
-            public string DateYear => $"{_prefix}/StructureDefinition/Date-Year";
-             <summary>URL for DateMonth</summary>
-            public string DateMonth => $"{_prefix}/StructureDefinition/Date-Month";
-             <summary>URL for DateTime</summary>
-            public string DateTime => $"{_prefix}/StructureDefinition/Date-Time";
             <summary>URL for PatientBirthTime as defined in the VitalRecords IG</summary>
         </member>
         <member name="F:VR.ExtensionURL.PartialDateDayVR">
-            <summary>URL for PartialDateTime Day as defined in the VitalRecords IG</summary>
+            <summary>URL for PartialDate Day as defined in the VitalRecords IG</summary>
         </member>
         <member name="F:VR.ExtensionURL.PartialDateMonthVR">
-            <summary>URL for PartialDateTime Month as defined in the VitalRecords IG</summary>
+            <summary>URL for PartialDate Month as defined in the VitalRecords IG</summary>
         </member>
         <member name="F:VR.ExtensionURL.PartialDateYearVR">
             <summary>URL for PartialDateTime Year as defined in the VitalRecords IG</summary>
@@ -7020,7 +7008,7 @@
             <summary>Returns a Date object parsed from the given FhirDateTime.</summary>
         </member>
         <member name="M:VR.VitalRecord.GetDateElement(Hl7.Fhir.Model.Date,System.String)">
-            <summary>Gets the specified date element based on the partialDateUrl from the given
+            <summary>Gets the specified date element based on the ExtensionURL.PartialDate from the given
             FhirDate, checking in the value and PartialDate extension, and assuming there
             is no time data to consider.</summary>
         </member>
@@ -7036,7 +7024,7 @@
             </summary>
             <param name="dateElement"></param>
             <param name="value"></param>
-            <param name="partialDateUrl"></param>
+            <param name="ExtensionURL.PartialDate.PartialDate"></param>
             <param name="useBirthTime"></param>
             <returns></returns>
             <exception cref="T:System.Exception"></exception>
@@ -7052,27 +7040,6 @@
             <param name="timeValue"></param>
             <param name="useBirthTime"></param>
             <returns></returns>
-        </member>
-        <member name="P:VR.VitalRecord.PartialDateYearUrl">
-            <summary>Overrideable method that dictates which Extension URL to use for PartialDateTime Year</summary>
-        </member>
-        <member name="P:VR.VitalRecord.PartialDateMonthUrl">
-            <summary>Overrideable method that dictates which Extension URL to use for PartialDateTime Month</summary>
-        </member>
-        <member name="P:VR.VitalRecord.PartialDateDayUrl">
-            <summary>Overrideable method that dictates which Extension URL to use for PartialDateTime Day</summary>
-        </member>
-        <member name="P:VR.VitalRecord.PartialDateTimeTimeUrl">
-            <summary>Overrideable method that dictates which Extension URL to use for PartialDateTime Time</summary>
-        </member>
-        <member name="P:VR.VitalRecord.PartialDateTimeUrl">
-            <summary>Overrideable method that dictates which Extension URL to use for PartialDateTime</summary>
-        </member>
-        <member name="P:VR.VitalRecord.PartialDateUrl">
-            <summary>Overrideable method that dictates which Extension URL to use for PartialDate</summary>
-        </member>
-        <member name="P:VR.VitalRecord.LocationJurisdictionIdUrl">
-            <summary>Overrideable method that dictates which Extension URL to use for LocationJurisdictionId</summary>
         </member>
         <member name="M:VR.VitalRecord.GetDateFragmentOrPartialDate(Hl7.Fhir.Model.Element,System.String)">
             <summary>Getter helper for anything that can have a regular FHIR date/time or a PartialDateTime extension, allowing a particular date

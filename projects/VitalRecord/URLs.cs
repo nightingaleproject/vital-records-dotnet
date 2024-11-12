@@ -58,77 +58,54 @@ namespace VR
     /// <summary>Extension URLs</summary>
     public class ExtensionURL
     {
-        private string _prefix;
-        private const string DefaultURLPrefix = "http://hl7.org/fhir/us/vr-common-library";
-
-        /// <summary>Constructor</summary>
-        /// <param name="prefix">the prefix to use for extension URLs</param>
-        public ExtensionURL(string prefix = DefaultURLPrefix)
-        {
-            _prefix = prefix;
-        }
-
-        // Special case processing for three extension URLs that are different between VR and VRDR
-        private string Trim(string url)
-        {
-            if (_prefix.Equals(DefaultURLPrefix))
-            {
-                return url;
-            }
-            if (url.Contains("DatePartAbsentReason") || url.Contains("PartialDate"))
-            {
-                return url.Replace("Extension","").Replace("VitalRecords","");
-            }
-            return url;
-        }
 
         /// <summary>URL for BypassEditFlag</summary>
-        public string BypassEditFlag => Trim($"{_prefix}/StructureDefinition/BypassEditFlag");
+        public const string BypassEditFlag = "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag";
 
         /// <summary>URL for CityCode</summary>
-        public string CityCode => Trim($"{_prefix}/StructureDefinition/CityCode");
+        public const string CityCode = "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/CityCode";
 
         /// <summary>URL for DistrictCode</summary>
-        public string DistrictCode => Trim($"{_prefix}/StructureDefinition/DistrictCode");
+        public const string DistrictCode = "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/DistrictCode";
 
         /// <summary>URL for LocationJurisdictionId</summary>
-        public string LocationJurisdictionId => Trim($"{_prefix}/StructureDefinition/Extension-jurisdiction-id-vr");
+        public const string LocationJurisdictionId = "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-jurisdiction-id-vr";
 
         /// <summary>URL for PartialDateTime</summary>
-        public string PartialDateTime => Trim($"{_prefix}/StructureDefinition/Extension-partial-date-time-vr");
+        public const string PartialDateTime = "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-partial-date-time-vr";
 
         /// <summary>URL for PartialDate</summary>
-        public string PartialDate => Trim($"{_prefix}/StructureDefinition/Extension-partial-date-vr");
+        public const string PartialDate = "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-partial-date-vr";
 
         /// <summary>URL for PatientFetalDeath</summary>
-        public string PatientFetalDeath => Trim($"{_prefix}/StructureDefinition/Extension-patient-fetal-death-vr");
+        public const string PatientFetalDeath = "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-patient-fetal-death-vr";
 
         /// <summary>URL for RelatedpersonBirthplace</summary>
-        public string RelatedpersonBirthplace => Trim($"{_prefix}/StructureDefinition/Extension-relatedperson-birthplace-vr");
+        public const string RelatedpersonBirthplace = "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-relatedperson-birthplace-vr";
 
         /// <summary>URL for ReportedParentAgeAtDelivery</summary>
-        public string ReportedParentAgeAtDelivery => Trim($"{_prefix}/StructureDefinition/Extension-reported-parent-age-at-delivery-vr");
+        public const string ReportedParentAgeAtDelivery = "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-reported-parent-age-at-delivery-vr";
 
         /// <summary>URL for WithinCityLimitsIndicator</summary>
-        public string WithinCityLimitsIndicator => Trim($"{_prefix}/StructureDefinition/Extension-within-city-limits-indicator-vr");
+        public const string WithinCityLimitsIndicator = "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-within-city-limits-indicator-vr";
 
         /// <summary>URL for PostDirectional</summary>
-        public string PostDirectional => Trim($"{_prefix}/StructureDefinition/PostDirectional");
+        public const string PostDirectional = "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/PostDirectional";
 
         /// <summary>URL for PreDirectional</summary>
-        public string PreDirectional => Trim($"{_prefix}/StructureDefinition/PreDirectional");
+        public const string PreDirectional = "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/PreDirectional";
 
         /// <summary>URL for StreetDesignator</summary>
-        public string StreetDesignator => Trim($"{_prefix}/StructureDefinition/StreetDesignator");
+        public const string StreetDesignator = "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/StreetDesignator";
 
         /// <summary>URL for StreetName</summary>
-        public string StreetName => Trim($"{_prefix}/StructureDefinition/StreetName");
+        public const string StreetName = "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/StreetName";
 
         /// <summary>URL for StreetNumber</summary>
-        public string StreetNumber => Trim($"{_prefix}/StructureDefinition/StreetNumber");
+        public const string StreetNumber = "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/StreetNumber";
 
         /// <summary>URL for UnitOrAptNumber</summary>
-        public string UnitOrAptNumber => Trim($"{_prefix}/StructureDefinition/UnitOrAptNumber");
+        public const string UnitOrAptNumber = "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/UnitOrAptNumber";
 
 
         /// <summary>URL for PatientBirthTime as defined in the VitalRecords IG</summary>
