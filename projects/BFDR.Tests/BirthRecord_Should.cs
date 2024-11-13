@@ -1243,7 +1243,7 @@ namespace BFDR.Tests
     public void TestComplexPartialDates()
     {
       // Tests source: https://github.com/HL7/vr-common-library/blob/fixPartialDateTime/input/pagecontent/usage.md#partial-dates-and-times
-      string pdtUrl = "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-partial-date-time-vr";
+      string pdtUrl = VR.ExtensionURL.PartialDateTime ; // "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-partial-date-time-vr";
       BirthRecord br = new();
       // 2023
       br.BirthYear = 2023;
