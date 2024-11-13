@@ -40,8 +40,8 @@ namespace BFDR
         [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(extension.value.coding.code='CHILD')", "")]
         public int? CertifiedYear
         {
-            get => GetCertifiedDateElement(EncounterMaternity, ExtensionURL.PartialDateYearVR);
-            set => SetCertifiedDateElement(EncounterMaternity ?? CreateMaternityEncounter(), ExtensionURL.PartialDateYearVR, value);
+            get => GetCertifiedDateElement(EncounterMaternity, VR.ExtensionURL.PartialDateYearVR);
+            set => SetCertifiedDateElement(EncounterMaternity ?? CreateMaternityEncounter(), VR.ExtensionURL.PartialDateYearVR, value);
         }
 
         /// <summary>Certified Month</summary>
@@ -56,8 +56,8 @@ namespace BFDR
         [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(extension.value.coding.code='CHILD')", "")]
         public int? CertifiedMonth
         {
-            get => GetCertifiedDateElement(EncounterMaternity, ExtensionURL.PartialDateMonthVR);
-            set => SetCertifiedDateElement(EncounterMaternity ?? CreateMaternityEncounter(), ExtensionURL.PartialDateMonthVR, value);
+            get => GetCertifiedDateElement(EncounterMaternity, VR.ExtensionURL.PartialDateMonthVR);
+            set => SetCertifiedDateElement(EncounterMaternity ?? CreateMaternityEncounter(), VR.ExtensionURL.PartialDateMonthVR, value);
         }
 
         /// <summary>Certified Day</summary>
@@ -72,8 +72,8 @@ namespace BFDR
         [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(extension.value.coding.code='CHILD')", "")]
         public int? CertifiedDay
         {
-            get => GetCertifiedDateElement(EncounterMaternity, ExtensionURL.PartialDateDayVR);
-            set => SetCertifiedDateElement(EncounterMaternity ?? CreateMaternityEncounter(), ExtensionURL.PartialDateDayVR, value);
+            get => GetCertifiedDateElement(EncounterMaternity, VR.ExtensionURL.PartialDateDayVR);
+            set => SetCertifiedDateElement(EncounterMaternity ?? CreateMaternityEncounter(), VR.ExtensionURL.PartialDateDayVR, value);
         }
 
         /// <summary>Fetus Legal Name - Given. Middle name should be the last entry.</summary>
