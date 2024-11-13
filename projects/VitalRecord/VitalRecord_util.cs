@@ -971,7 +971,7 @@ namespace VR
         /// </summary>
         /// <param name="dateElement"></param>
         /// <param name="value"></param>
-        /// <param name="ExtensionURL.PartialDate"></param>
+        /// <param name="partialDateURL"></param>
         /// <param name="useBirthTime"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>

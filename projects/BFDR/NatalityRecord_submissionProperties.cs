@@ -184,7 +184,7 @@ namespace BFDR
         /// </summary>
         protected int? GetBirthMonth()
         {
-            return GetDateElement(Subject?.BirthDateElement, VR.ExtensionURL.PartialDateTimeMonthVR);
+            return GetDateElement(Subject?.BirthDateElement, VR.ExtensionURL.PartialDateMonthVR);
         }
 
         /// <summary>
@@ -209,7 +209,7 @@ namespace BFDR
         /// </summary>
         protected int? GetBirthDay()
         {
-            return GetDateElement(Subject?.BirthDateElement, VR.ExtensionURL.PartialDateTimeDayVR);
+            return GetDateElement(Subject?.BirthDateElement, VR.ExtensionURL.PartialDateDayVR);
         }
 
         /// <summary>
@@ -977,7 +977,7 @@ namespace BFDR
                 Address residence = Mother?.Address.Find(addr => addr.Use == Address.AddressUse.Home);
                 if (residence != null)
                 {
-                    Extension cityLimits = residence.Extension.Where(ext => ext.Url == VRExtensionURLs.WithinCityLimitsIndicator).FirstOrDefault();
+                    Extension cityLimits = residence.Extension.Where(ext => ext.Url == VR.ExtensionURL.WithinCityLimitsIndicator).FirstOrDefault();
                     if (cityLimits != null && cityLimits.Value != null && cityLimits.Value as Coding != null)
                     {
                         return CodingToDict((Coding)cityLimits.Value);
@@ -998,10 +998,10 @@ namespace BFDR
                         };
                         Mother.Address.Add(residence);
                     }
-                    residence.Extension.RemoveAll(ext => ext.Url == VRExtensionURLs.WithinCityLimitsIndicator);
+                    residence.Extension.RemoveAll(ext => ext.Url == VR.ExtensionURL.WithinCityLimitsIndicator);
                     Extension withinCityLimits = new Extension
                     {
-                        Url = VRExtensionURLs.WithinCityLimitsIndicator,
+                        Url = VR.ExtensionURL.WithinCityLimitsIndicator,
                         Value = DictToCoding(value)
                     };
                     residence.Extension.Add(withinCityLimits);
@@ -1254,7 +1254,7 @@ namespace BFDR
         {
             if (Subject != null && Subject.MultipleBirth != null)
             {
-                Extension pluralityEditFlag = Subject.MultipleBirth.Extension.Find(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
+                Extension pluralityEditFlag = Subject.MultipleBirth.Extension.Find(ext => ext.Url == VR.ExtensionURL.BypassEditFlag);
                 if (pluralityEditFlag != null && pluralityEditFlag.Value != null && pluralityEditFlag.Value as CodeableConcept != null)
                 {
                     return CodeableConceptToDict((CodeableConcept)pluralityEditFlag.Value);
@@ -1273,8 +1273,8 @@ namespace BFDR
             {
                 Subject.MultipleBirth = new FhirBoolean(false);
             }
-            Subject.MultipleBirth.Extension.RemoveAll(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
-            Subject.MultipleBirth.Extension.Add(new Extension(VRExtensionURLs.BypassEditFlag, DictToCodeableConcept(value)));
+            Subject.MultipleBirth.Extension.RemoveAll(ext => ext.Url == VR.ExtensionURL.BypassEditFlag);
+            Subject.MultipleBirth.Extension.Add(new Extension(VR.ExtensionURL.BypassEditFlag, DictToCodeableConcept(value)));
         }
         /// <summary>
         ///  Helper method for getting child or decedent fetus plurality edit flag.
@@ -2211,7 +2211,7 @@ namespace BFDR
             get
             {
                 Observation obs = GetObservation("68497-7");
-                Extension editFlag = obs?.Value?.Extension.FirstOrDefault(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
+                Extension editFlag = obs?.Value?.Extension.FirstOrDefault(ext => ext.Url == VR.ExtensionURL.BypassEditFlag);
                 if (editFlag != null && editFlag.Value != null && editFlag.Value.GetType() == typeof(CodeableConcept))
                 {
                     return CodeableConceptToDict((CodeableConcept)editFlag.Value);
@@ -2230,8 +2230,8 @@ namespace BFDR
                     obs = GetOrCreateObservation("68497-7", CodeSystems.LOINC, "Number of previous cesareans", BFDR.ProfileURL.ObservationNumberPreviousCesareans, MEDICAL_INFORMATION_SECTION, Mother.Id);
                     obs.Value = new UnsignedInt();
                 }
-                obs.Value?.Extension.RemoveAll(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
-                Extension editFlag = new Extension(VRExtensionURLs.BypassEditFlag, DictToCodeableConcept(value));
+                obs.Value?.Extension.RemoveAll(ext => ext.Url == VR.ExtensionURL.BypassEditFlag);
+                Extension editFlag = new Extension(VR.ExtensionURL.BypassEditFlag, DictToCodeableConcept(value));
                 obs.Value.Extension.Add(editFlag);
             }
         }
@@ -2395,7 +2395,7 @@ namespace BFDR
         {
             get
             {
-                return GetDateElement(Mother?.BirthDateElement, VR.ExtensionURL.PartialDateTimeDayVR);
+                return GetDateElement(Mother?.BirthDateElement, VR.ExtensionURL.PartialDateDayVR);
             }
             set
             {
@@ -2425,7 +2425,7 @@ namespace BFDR
         {
             get
             {
-                return GetDateElement(Mother?.BirthDateElement, VR.ExtensionURL.PartialDateTimeMonthVR);
+                return GetDateElement(Mother?.BirthDateElement, VR.ExtensionURL.PartialDateMonthVR);
             }
             set
             {
@@ -2633,7 +2633,7 @@ namespace BFDR
             {
                 if (Mother != null)
                 {
-                    Extension editFlag = Mother.BirthDateElement?.Extension.Find(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
+                    Extension editFlag = Mother.BirthDateElement?.Extension.Find(ext => ext.Url == VR.ExtensionURL.BypassEditFlag);
                     if (editFlag != null && editFlag.Value != null && editFlag.Value as CodeableConcept != null)
                     {
                         return CodeableConceptToDict((CodeableConcept)editFlag.Value);
@@ -2643,12 +2643,12 @@ namespace BFDR
             }
             set
             {
-                Mother.BirthDateElement?.Extension.RemoveAll(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
+                Mother.BirthDateElement?.Extension.RemoveAll(ext => ext.Url == VR.ExtensionURL.BypassEditFlag);
                 if (Mother.BirthDateElement == null)
                 {
                     Mother.BirthDateElement = new Date();
                 }
-                Mother.BirthDateElement.Extension.Add(new Extension(VRExtensionURLs.BypassEditFlag, DictToCodeableConcept(value)));
+                Mother.BirthDateElement.Extension.Add(new Extension(VR.ExtensionURL.BypassEditFlag, DictToCodeableConcept(value)));
             }
         }
 
@@ -2704,7 +2704,7 @@ namespace BFDR
         {
             get
             {
-                return GetDateElement(Father?.BirthDateElement, VR.ExtensionURL.PartialDateTimeDayVR);
+                return GetDateElement(Father?.BirthDateElement, VR.ExtensionURL.PartialDateDayVR);
             }
             set
             {
@@ -2735,7 +2735,7 @@ namespace BFDR
         {
             get
             {
-                return GetDateElement(Father?.BirthDateElement, VR.ExtensionURL.PartialDateTimeMonthVR);
+                return GetDateElement(Father?.BirthDateElement, VR.ExtensionURL.PartialDateMonthVR);
             }
             set
             {
@@ -2850,7 +2850,7 @@ namespace BFDR
             {
                 if (Father != null)
                 {
-                    Extension editFlag = Father.BirthDateElement?.Extension.Find(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
+                    Extension editFlag = Father.BirthDateElement?.Extension.Find(ext => ext.Url == VR.ExtensionURL.BypassEditFlag);
                     if (editFlag != null && editFlag.Value != null && editFlag.Value as CodeableConcept != null)
                     {
                         return CodeableConceptToDict((CodeableConcept)editFlag.Value);
@@ -2860,12 +2860,12 @@ namespace BFDR
             }
             set
             {
-                Father.BirthDateElement?.Extension.RemoveAll(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
+                Father.BirthDateElement?.Extension.RemoveAll(ext => ext.Url == VR.ExtensionURL.BypassEditFlag);
                 if (Father.BirthDateElement == null)
                 {
                     Father.BirthDateElement = new Date();
                 }
-                Father.BirthDateElement.Extension.Add(new Extension(VRExtensionURLs.BypassEditFlag, DictToCodeableConcept(value)));
+                Father.BirthDateElement.Extension.Add(new Extension(VR.ExtensionURL.BypassEditFlag, DictToCodeableConcept(value)));
             }
         }
 
@@ -5988,7 +5988,7 @@ namespace BFDR
                 Observation obs = GetObservation("68499-3");
                 if (obs != null)
                 {
-                    return GetDateFragmentOrPartialDate(obs.Value, VR.ExtensionURL.PartialDateTimeDayVR);
+                    return GetDateFragmentOrPartialDate(obs.Value, VR.ExtensionURL.PartialDateDayVR);
                 }
                 return null;
             }
@@ -6135,7 +6135,7 @@ namespace BFDR
                 Observation obs = GetObservation("68500-8");
                 if (obs != null)
                 {
-                    return GetDateFragmentOrPartialDate(obs.Value, VR.ExtensionURL.PartialDateTimeDayVR);
+                    return GetDateFragmentOrPartialDate(obs.Value, VR.ExtensionURL.PartialDateDayVR);
                 }
                 return null;
             }
@@ -6174,7 +6174,7 @@ namespace BFDR
                 Observation obs = GetObservation("68500-8");
                 if (obs != null)
                 {
-                    return GetDateFragmentOrPartialDate(obs.Value, VR.ExtensionURL.PartialDateTimeMonthVR);
+                    return GetDateFragmentOrPartialDate(obs.Value, VR.ExtensionURL.PartialDateMonthVR);
                 }
                 return null;
             }
@@ -6295,7 +6295,7 @@ namespace BFDR
             get
             {
                 Observation obs = GetObservation("68493-6");
-                Extension editFlag = obs?.Value?.Extension.FirstOrDefault(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
+                Extension editFlag = obs?.Value?.Extension.FirstOrDefault(ext => ext.Url == VR.ExtensionURL.BypassEditFlag);
                 if (editFlag != null && editFlag.Value != null && editFlag.Value.GetType() == typeof(CodeableConcept))
                 {
                     return CodeableConceptToDict((CodeableConcept)editFlag.Value);
@@ -6314,8 +6314,8 @@ namespace BFDR
                     obs = GetOrCreateObservation("68493-6", CodeSystems.LOINC, "Number of prenatal visits", BFDR.ProfileURL.ObservationNumberPrenatalVisits, NUMBER_OF_PRENATAL_VISITS, Mother.Id);
                     obs.Value = new UnsignedInt();
                 }
-                obs.Value?.Extension.RemoveAll(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
-                Extension editFlag = new Extension(VRExtensionURLs.BypassEditFlag, DictToCodeableConcept(value));
+                obs.Value?.Extension.RemoveAll(ext => ext.Url == VR.ExtensionURL.BypassEditFlag);
+                Extension editFlag = new Extension(VR.ExtensionURL.BypassEditFlag, DictToCodeableConcept(value));
                 obs.Value.Extension.Add(editFlag);
             }
         }
@@ -6441,7 +6441,7 @@ namespace BFDR
             get
             {
                 Observation obs = GetObservation("11884-4");
-                Extension editFlag = obs?.Value?.Extension.FirstOrDefault(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
+                Extension editFlag = obs?.Value?.Extension.FirstOrDefault(ext => ext.Url == VR.ExtensionURL.BypassEditFlag);
                 if (editFlag != null && editFlag.Value != null && editFlag.Value.GetType() == typeof(CodeableConcept))
                 {
                     return CodeableConceptToDict((CodeableConcept)editFlag.Value);
@@ -6459,8 +6459,8 @@ namespace BFDR
                 {
                     obs.Value = new CodeableConcept();
                 }
-                obs.Value?.Extension.RemoveAll(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
-                Extension editFlag = new Extension(VRExtensionURLs.BypassEditFlag, DictToCodeableConcept(value));
+                obs.Value?.Extension.RemoveAll(ext => ext.Url == VR.ExtensionURL.BypassEditFlag);
+                Extension editFlag = new Extension(VR.ExtensionURL.BypassEditFlag, DictToCodeableConcept(value));
                 obs.Value.Extension.Add(editFlag);
             }
         }
@@ -6744,7 +6744,7 @@ namespace BFDR
             if (entry != null)
             {
                 Observation observation = (Observation)entry.Resource;
-                Extension extension = observation?.Value?.Extension.FirstOrDefault(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
+                Extension extension = observation?.Value?.Extension.FirstOrDefault(ext => ext.Url == VR.ExtensionURL.BypassEditFlag);
                 if (extension != null && extension.Value != null && extension.Value.GetType() == typeof(CodeableConcept))
                 {
                     return CodeableConceptToDict((CodeableConcept)extension.Value);
@@ -6779,7 +6779,7 @@ namespace BFDR
                     int? weight = GetWeight(code);
                     currObs = SetWeight(code, weight, "", section, subjectId);
                 }
-                currObs.Value.Extension.RemoveAll(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
+                currObs.Value.Extension.RemoveAll(ext => ext.Url == VR.ExtensionURL.BypassEditFlag);
                 return;
             }
             if (!(entry?.Resource is Observation obs))
@@ -6794,9 +6794,9 @@ namespace BFDR
             }
             else
             {
-                obs.Value.Extension.RemoveAll(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
+                obs.Value.Extension.RemoveAll(ext => ext.Url == VR.ExtensionURL.BypassEditFlag);
             }
-            Extension extension = new Extension(VRExtensionURLs.BypassEditFlag, DictToCodeableConcept(value));
+            Extension extension = new Extension(VR.ExtensionURL.BypassEditFlag, DictToCodeableConcept(value));
             obs.Value.Extension.Add(extension);
         }
 
@@ -7549,7 +7549,7 @@ namespace BFDR
             get
             {
                 Observation observation = GetObservation("8302-2");
-                Extension extension = observation?.Value?.Extension.FirstOrDefault(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
+                Extension extension = observation?.Value?.Extension.FirstOrDefault(ext => ext.Url == VR.ExtensionURL.BypassEditFlag);
                 if (extension != null && extension.Value != null && extension.Value.GetType() == typeof(CodeableConcept))
                 {
                     return CodeableConceptToDict((CodeableConcept)extension.Value);
@@ -7565,8 +7565,8 @@ namespace BFDR
                 {
                     obs.Value = new Hl7.Fhir.Model.Quantity();
                 }
-                obs.Value.Extension.RemoveAll(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
-                obs.Value.Extension.Add(new Extension(VRExtensionURLs.BypassEditFlag, DictToCodeableConcept(value)));
+                obs.Value.Extension.RemoveAll(ext => ext.Url == VR.ExtensionURL.BypassEditFlag);
+                obs.Value.Extension.Add(new Extension(VR.ExtensionURL.BypassEditFlag, DictToCodeableConcept(value)));
             }
         }
 
@@ -7603,11 +7603,11 @@ namespace BFDR
                 {
                     obs.Value = new FhirString();
                 }
-                obs.Value.Extension.RemoveAll(ext => ext.Url == VRExtensionURLs.BypassEditFlag);
+                obs.Value.Extension.RemoveAll(ext => ext.Url == VR.ExtensionURL.BypassEditFlag);
 
                 if (String.IsNullOrEmpty(value))
                 {
-                    obs.Value.Extension.Add(new Extension(VRExtensionURLs.BypassEditFlag, DictToCodeableConcept(EmptyCodeDict())));
+                    obs.Value.Extension.Add(new Extension(VR.ExtensionURL.BypassEditFlag, DictToCodeableConcept(EmptyCodeDict())));
                     return;
                 }
 
@@ -7623,7 +7623,7 @@ namespace BFDR
                         dict.Add("code", value);
                         dict.Add("display", options[i, 1]);
                         dict.Add("system", options[i, 2]);
-                        obs.Value.Extension.Add(new Extension(VRExtensionURLs.BypassEditFlag, DictToCodeableConcept(dict)));
+                        obs.Value.Extension.Add(new Extension(VR.ExtensionURL.BypassEditFlag, DictToCodeableConcept(dict)));
                     }
                 }
             }
@@ -7691,7 +7691,7 @@ namespace BFDR
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='57712-2')", "")]
         public Dictionary<string, string> MotherEducationLevelEditFlag
         {
-            get => GetObservationValue("57712-2", VRExtensionURLs.BypassEditFlag);
+            get => GetObservationValue("57712-2", VR.ExtensionURL.BypassEditFlag);
             set => SetObservationValue(value, "57712-2", CodeSystems.LOINC, "Highest level of education Mother", VR.ProfileURL.EducationLevel, MOTHER_INFORMATION_SECTION, "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag");
         }
 
@@ -7779,7 +7779,7 @@ namespace BFDR
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87300-0')", "")]
         public Dictionary<string, string> FatherEducationLevelEditFlag
         {
-            get => GetObservationValue("87300-0", VRExtensionURLs.BypassEditFlag);
+            get => GetObservationValue("87300-0", VR.ExtensionURL.BypassEditFlag);
             set => SetObservationValue(value, "87300-0", CodeSystems.LOINC, "Highest level of education Father", VR.ProfileURL.EducationLevel, FATHER_INFORMATION_SECTION, "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag");
         }
 
@@ -8000,7 +8000,7 @@ namespace BFDR
             get
             {
                 Observation obs = GetObservation("8665-2");
-                return GetDateFragmentOrPartialDate(obs?.Value as Hl7.Fhir.Model.FhirDateTime, VR.ExtensionURL.PartialDateTimeMonthVR);
+                return GetDateFragmentOrPartialDate(obs?.Value as Hl7.Fhir.Model.FhirDateTime, VR.ExtensionURL.PartialDateMonthVR);
             }
             set
             {
@@ -8033,7 +8033,7 @@ namespace BFDR
             get
             {
                 Observation obs = GetObservation("8665-2");
-                return GetDateFragmentOrPartialDate(obs?.Value as Hl7.Fhir.Model.FhirDateTime, VR.ExtensionURL.PartialDateTimeDayVR);
+                return GetDateFragmentOrPartialDate(obs?.Value as Hl7.Fhir.Model.FhirDateTime, VR.ExtensionURL.PartialDateDayVR);
             }
             set
             {
@@ -8175,7 +8175,7 @@ namespace BFDR
             get
             {
                 Observation obs = GetObservation("69044-6");
-                return GetDateFragmentOrPartialDate(obs?.Value as Hl7.Fhir.Model.FhirDateTime, VR.ExtensionURL.PartialDateTimeMonthVR);
+                return GetDateFragmentOrPartialDate(obs?.Value as Hl7.Fhir.Model.FhirDateTime, VR.ExtensionURL.PartialDateMonthVR);
             }
             set
             {
@@ -8208,7 +8208,7 @@ namespace BFDR
             get
             {
                 Observation obs = GetObservation("69044-6");
-                return GetDateFragmentOrPartialDate(obs?.Value as Hl7.Fhir.Model.FhirDateTime, VR.ExtensionURL.PartialDateTimeDayVR);
+                return GetDateFragmentOrPartialDate(obs?.Value as Hl7.Fhir.Model.FhirDateTime, VR.ExtensionURL.PartialDateDayVR);
             }
             set
             {
@@ -8303,7 +8303,7 @@ namespace BFDR
                 {
                     return month;
                 }
-                return GetDateFragmentOrPartialDate(this.Composition?.DateElement, VR.ExtensionURL.PartialDateTimeMonthVR);
+                return GetDateFragmentOrPartialDate(this.Composition?.DateElement, VR.ExtensionURL.PartialDateMonthVR);
             }
             set
             {
@@ -8339,7 +8339,7 @@ namespace BFDR
                 {
                     return day;
                 }
-                return GetDateFragmentOrPartialDate(this.Composition?.DateElement, VR.ExtensionURL.PartialDateTimeDayVR);
+                return GetDateFragmentOrPartialDate(this.Composition?.DateElement, VR.ExtensionURL.PartialDateDayVR);
             }
             set
             {
