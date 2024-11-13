@@ -271,8 +271,8 @@ namespace BFDR
         [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(extension.value.coding.code='CHILD')", "")]
         public int? CertifiedYear
         {
-            get => GetCertifiedDateElement(EncounterBirth, PartialDateYearUrl);
-            set => SetCertifiedDateElement(EncounterBirth ?? CreateBirthEncounter(), PartialDateYearUrl, value);
+            get => GetCertifiedDateElement(EncounterBirth, VR.ExtensionURL.PartialDateYearVR);
+            set => SetCertifiedDateElement(EncounterBirth ?? CreateBirthEncounter(), VR.ExtensionURL.PartialDateYearVR, value);
         }
 
         /// <summary>Certified Month</summary>
@@ -287,8 +287,8 @@ namespace BFDR
         [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(extension.value.coding.code='CHILD')", "")]
         public int? CertifiedMonth
         {
-            get => GetCertifiedDateElement(EncounterBirth, PartialDateMonthUrl);
-            set => SetCertifiedDateElement(EncounterBirth ?? CreateBirthEncounter(), PartialDateMonthUrl, value);
+            get => GetCertifiedDateElement(EncounterBirth, VR.ExtensionURL.PartialDateMonthVR);
+            set => SetCertifiedDateElement(EncounterBirth ?? CreateBirthEncounter(), VR.ExtensionURL.PartialDateMonthVR, value);
         }
 
         /// <summary>Certified Day</summary>
@@ -303,8 +303,8 @@ namespace BFDR
         [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(extension.value.coding.code='CHILD')", "")]
         public int? CertifiedDay
         {
-            get => GetCertifiedDateElement(EncounterBirth, PartialDateDayUrl);
-            set => SetCertifiedDateElement(EncounterBirth ?? CreateBirthEncounter(), PartialDateDayUrl, value);
+            get => GetCertifiedDateElement(EncounterBirth, VR.ExtensionURL.PartialDateDayVR);
+            set => SetCertifiedDateElement(EncounterBirth ?? CreateBirthEncounter(), VR.ExtensionURL.PartialDateDayVR, value);
         }
 
         /// <summary>Infant Transferred</summary>
