@@ -161,24 +161,6 @@ namespace BFDR
             }
         }
 
-        /// <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Year</summary>x
-        //protected override string PartialDateYearUrl => VR.ExtensionURL.PartialDateTimeYearVR;
-
-        /// <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Month</summary>
-        //protected override string PartialDateMonthUrl => VR.ExtensionURL.PartialDateTimeMonthVR;
-
-        /// <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Day</summary>
-        //protected override string PartialDateDayUrl => VR.ExtensionURL.PartialDateTimeDayVR;
-
-        /// <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Time</summary>
-        //protected override string PartialDateTimeTimeUrl => VR.ExtensionURL.PartialDateTimeTimeVR;
-
-        /// <summary>Overriden method that dictates which Extension URL to use for PartialDateTime</summary>
-        //protected override string PartialDateTimeUrl => VRExtensionURLs.PartialDateTime;
-
-        /// <summary>Overrideable method that dictates which Extension URL to use for PartialDate</summary>
-        //protected override string PartialDateUrl => VRExtensionURLs.PartialDate;
-
         /// <summary>
         ///  Getter method for child or decedent fetus birth/delivery month.
         /// </summary>
