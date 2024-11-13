@@ -2,7 +2,7 @@ name: Canary - Create and Publish Docker Image
 
 on:
   push:
-    branches: [ "canary-di" ]
+    branches: [ "main" ]
     tags:
       - '*'
 
@@ -41,7 +41,7 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
-            type=edge,branch=canary-di
+            type=edge,branch=main
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}
             type=raw,value=release,enable=${{ github.event_name == 'release' }}
