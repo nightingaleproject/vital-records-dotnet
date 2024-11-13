@@ -222,7 +222,7 @@ namespace BFDR
             {
                 AddBirthDateToPatient(Subject, false);
             }
-            Date newDate = UpdateFhirDate(Subject.BirthDateElement, value, ExtensionURL.PartialDateDayVR, true);
+            Date newDate = UpdateFhirDate(Subject.BirthDateElement, value, VR.ExtensionURL.PartialDateDayVR, true);
             if (newDate != null)
             {
                 Subject.BirthDateElement = newDate;
@@ -2469,7 +2469,7 @@ namespace BFDR
                 {
                     AddBirthDateToPatient(Mother, false);
                 }
-                Date newDate = UpdateFhirDate(Mother.BirthDateElement, value, ExtensionURL.PartialDateDayVR);
+                Date newDate = UpdateFhirDate(Mother.BirthDateElement, value, VR.ExtensionURL.PartialDateDayVR);
                 if (newDate != null)
                 {
                     Mother.BirthDateElement = newDate;
@@ -2779,7 +2779,7 @@ namespace BFDR
                     Father.BirthDateElement = new Date();
                     Father.BirthDateElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                Date newDate = UpdateFhirDate(Father.BirthDateElement, value, ExtensionURL.PartialDateDayVR);
+                Date newDate = UpdateFhirDate(Father.BirthDateElement, value, VR.ExtensionURL.PartialDateDayVR);
                 if (newDate != null)
                 {
                     Father.BirthDateElement = newDate;
@@ -6066,7 +6066,7 @@ namespace BFDR
                     obs.Value = new FhirDateTime();
                     obs.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                FhirDateTime newDate = ConvertDateToFhirDateTime(UpdateFhirDate(ConvertFhirDateTimeToDate(obs.Value as FhirDateTime), value, ExtensionURL.PartialDateDayVR));
+                FhirDateTime newDate = ConvertDateToFhirDateTime(UpdateFhirDate(ConvertFhirDateTimeToDate(obs.Value as FhirDateTime), value, VR.ExtensionURL.PartialDateDayVR));
                 if (newDate != null)
                 {
                     obs.Value = newDate;
@@ -6105,7 +6105,7 @@ namespace BFDR
                     obs.Value = new FhirDateTime();
                     obs.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                FhirDateTime newDate = ConvertDateToFhirDateTime(UpdateFhirDate(ConvertFhirDateTimeToDate(obs.Value as FhirDateTime), value, PartialDateMonthUrl));
+                FhirDateTime newDate = ConvertDateToFhirDateTime(UpdateFhirDate(ConvertFhirDateTimeToDate(obs.Value as FhirDateTime), value, VR.ExtensionURL.PartialDateMontVR));
                 if (newDate != null)
                 {
                     obs.Value = newDate;
@@ -6213,7 +6213,7 @@ namespace BFDR
                     obs.Value = new FhirDateTime();
                     obs.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                FhirDateTime newDate = ConvertDateToFhirDateTime(UpdateFhirDate(ConvertFhirDateTimeToDate(obs.Value as FhirDateTime), value, ExtensionURL.PartialDateDayVR));
+                FhirDateTime newDate = ConvertDateToFhirDateTime(UpdateFhirDate(ConvertFhirDateTimeToDate(obs.Value as FhirDateTime), value, VR.ExtensionURL.PartialDateDayVR));
                 if (newDate != null)
                 {
                     obs.Value = newDate;
@@ -6252,7 +6252,7 @@ namespace BFDR
                     obs.Value = new FhirDateTime();
                     obs.Value.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                FhirDateTime newDate = ConvertDateToFhirDateTime(UpdateFhirDate(ConvertFhirDateTimeToDate(obs.Value as FhirDateTime), value, PartialDateMonthUrl));
+                FhirDateTime newDate = ConvertDateToFhirDateTime(UpdateFhirDate(ConvertFhirDateTimeToDate(obs.Value as FhirDateTime), valueVR.ExtensionURL.PartialDateMonthVR));
                 if (newDate != null)
                 {
                     obs.Value = newDate;
@@ -8062,7 +8062,7 @@ namespace BFDR
                     obs.Value = new FhirDateTime();
                     obs.Value.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                FhirDateTime newDate = ConvertDateToFhirDateTime(UpdateFhirDate(ConvertFhirDateTimeToDate(obs.Value as FhirDateTime), value, PartialDateMonthUrl));
+                FhirDateTime newDate = ConvertDateToFhirDateTime(UpdateFhirDate(ConvertFhirDateTimeToDate(obs.Value as FhirDateTime), valueVR.ExtensionURL.PartialDateMonthVR));
                 if (newDate != null)
                 {
                     obs.Value = newDate;
@@ -8096,7 +8096,7 @@ namespace BFDR
                     obs.Value = new FhirDateTime();
                     obs.Value.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                FhirDateTime newDate = ConvertDateToFhirDateTime(UpdateFhirDate(ConvertFhirDateTimeToDate(obs.Value as FhirDateTime), value, ExtensionURL.PartialDateDayVR));
+                FhirDateTime newDate = ConvertDateToFhirDateTime(UpdateFhirDate(ConvertFhirDateTimeToDate(obs.Value as FhirDateTime), value, VR.ExtensionURL.PartialDateDayVR));
                 if (newDate != null)
                 {
                     obs.Value = newDate;
@@ -8237,7 +8237,7 @@ namespace BFDR
                     obs.Value = new FhirDateTime();
                     obs.Value.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                FhirDateTime newDate = ConvertDateToFhirDateTime(UpdateFhirDate(ConvertFhirDateTimeToDate(obs.Value as FhirDateTime), value, PartialDateMonthUrl));
+                FhirDateTime newDate = ConvertDateToFhirDateTime(UpdateFhirDate(ConvertFhirDateTimeToDate(obs.Value as FhirDateTime), valueVR.ExtensionURL.PartialDateMonthVR));
                 if (newDate != null)
                 {
                     obs.Value = newDate;
@@ -8270,7 +8270,7 @@ namespace BFDR
                     obs.Value = new FhirDateTime();
                     obs.Value.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                FhirDateTime newDate = ConvertDateToFhirDateTime(UpdateFhirDate(ConvertFhirDateTimeToDate(obs.Value as FhirDateTime), value, ExtensionURL.PartialDateDayVR));
+                FhirDateTime newDate = ConvertDateToFhirDateTime(UpdateFhirDate(ConvertFhirDateTimeToDate(obs.Value as FhirDateTime), value, VR.ExtensionURL.PartialDateDayVR));
                 if (newDate != null)
                 {
                     obs.Value = newDate;
@@ -8400,7 +8400,7 @@ namespace BFDR
                     this.Composition.DateElement = new FhirDateTime();
                     this.Composition.DateElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 }
-                FhirDateTime newDate = ConvertDateToFhirDateTime(UpdateFhirDate(ConvertFhirDateTimeToDate(this.Composition.DateElement), value, ExtensionURL.PartialDateDayVR));
+                FhirDateTime newDate = ConvertDateToFhirDateTime(UpdateFhirDate(ConvertFhirDateTimeToDate(this.Composition.DateElement), value, VR.ExtensionURL.PartialDateDayVR));
                 if (newDate != null)
                 {
                     this.Composition.DateElement = newDate;
