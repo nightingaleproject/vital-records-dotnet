@@ -31,7 +31,7 @@ export class HomeScreen extends Component {
           <CanaryCard
             title='Vital Records Death Reporting'
             subtitle='VRDR STU2'
-            link='https://canary-v4.fhir.nvss.cdc.gov'
+            link='/vrdr'
           />
           <CanaryCard 
             title='BFDR Birth Reporting'
