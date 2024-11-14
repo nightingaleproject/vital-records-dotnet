@@ -1100,7 +1100,7 @@ namespace BFDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Set_MotherRace(NvssRace.FirstOtherRaceLiteral, value);
+                    Set_MotherRace(NvssRace.FirstOtherRaceLiteral, value.Trim());
                 }
             }
         }
@@ -1117,7 +1117,7 @@ namespace BFDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Set_MotherRace(NvssRace.SecondOtherRaceLiteral, value);
+                    Set_MotherRace(NvssRace.SecondOtherRaceLiteral, value.Trim());
                 }
             }
         }
@@ -1767,7 +1767,7 @@ namespace BFDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Set_FatherRace(NvssRace.FirstOtherRaceLiteral, value);
+                    Set_FatherRace(NvssRace.FirstOtherRaceLiteral, value.Trim());
                 }
             }
         }
@@ -1784,7 +1784,7 @@ namespace BFDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Set_FatherRace(NvssRace.SecondOtherRaceLiteral, value);
+                    Set_FatherRace(NvssRace.SecondOtherRaceLiteral, value.Trim());
                 }
             }
         }

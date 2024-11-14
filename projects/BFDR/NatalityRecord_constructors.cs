@@ -105,6 +105,7 @@ namespace BFDR
             Bundle.AddResourceEntry(Certifier, "urn:uuid:" + Certifier.Id);
             Bundle.AddResourceEntry(Attendant, "urn:uuid:" + Attendant.Id);
             Bundle.AddResourceEntry(EncounterMaternity, "urn:uuid:" + EncounterMaternity.Id);
+            Bundle.AddResourceEntry(Coverage, "urn:uuid:" + Coverage.Id);
             // AddReferenceToComposition(BirthCertification.Id, "BirthCertification");
             // Bundle.AddResourceEntry(BirthCertification, "urn:uuid:" + BirthCertification.Id);
 
