@@ -277,7 +277,7 @@
                             "url": "day"
                           }
                         ],
-                        "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/ExtensionPartialDateVitalRecords"
+                        "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-partial-date-vr"
                       }
                     ]
                   }

@@ -288,7 +288,7 @@
                   "valueUnsignedInt": 1
                 }
               ],
-              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/ExtensionPartialDateVitalRecords"
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-partial-date-vr"
             }
           ]
         },
@@ -296,7 +296,7 @@
           {
             "extension": [
               {
-                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-within-city-limits-indicator-vr",
+                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/StructureDefinition/Extension-within-city-limits-indicator-vr",
                 "valueCoding": {
                   "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
                   "code": "U",
@@ -601,7 +601,7 @@
                   "url": "time"
                 }
               ],
-              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/ExtensionPartialDateTimeVitalRecords"
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-partial-date-time-vr"
             }
           ]
         },
@@ -786,7 +786,7 @@
                   "url": "time"
                 }
               ],
-              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/ExtensionPartialDateTimeVitalRecords"
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-partial-date-time-vr"
             }
           ]
         },
