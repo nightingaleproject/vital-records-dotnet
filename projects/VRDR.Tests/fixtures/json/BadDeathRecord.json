@@ -377,7 +377,7 @@
         "maritalStatus" : {
           "extension" : [
             {
-              "url" : "http://hl7.org/fhir/us/vrdr/StructureDefinition/BypassEditFlag",
+              "url" : "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
               "valueCodeableConcept" : {
                 "coding" : [
                   {
@@ -1356,7 +1356,7 @@
           ],
           "extension": [
             {
-              "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/BypassEditFlag",
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
               "valueCodeableConcept": {
                 "coding": [
                   {
@@ -1672,7 +1672,7 @@
           ],
           "extension": [
             {
-              "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/BypassEditFlag",
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
               "valueCodeableConcept": {
                 "coding": [
                   {

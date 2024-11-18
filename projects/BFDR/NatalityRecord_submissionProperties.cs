@@ -227,7 +227,7 @@ namespace BFDR
                     return GetTimeFragment(dateTime);
                 }
                 // If it's not there, check for a PartialDateTime.
-                return this.GetPartialTime(this.Subject.BirthDateElement.GetExtension(VR.ExtensionURL.PartialDateTimeVR));
+                return this.GetPartialTime(this.Subject.BirthDateElement.GetExtension(VR.ExtensionURL.PartialDateTime));
         }
 
         /// <summary>
@@ -6697,7 +6697,8 @@ namespace BFDR
             }
         }
 
-        protected int? GetWeight(string code)
+      /// <summary>GetWeight</summary>
+      protected int? GetWeight(string code)
         {
             var entry = Bundle.Entry.Where(e => e.Resource is Observation obs && CodeableConceptToDict(obs.Code)["code"] == code).FirstOrDefault();
             if (entry != null)
@@ -6708,6 +6709,8 @@ namespace BFDR
             return null;
         }
 
+        
+        /// <summary>SetWeight</summary>
         protected Observation SetWeight(string code, int? value, string unit, string section, string subjectId)
         {
             var entry = Bundle.Entry.Where(e => e.Resource is Observation o && CodeableConceptToDict(o.Code)["code"] == code).FirstOrDefault();
