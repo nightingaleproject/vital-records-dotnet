@@ -653,7 +653,7 @@ namespace VR
             partialDateTime.Extension.Add(day);
             if (includeTime)
             {
-                Extension time = new Extension(ExtensionURL.PartialDateTime, null);
+                Extension time = new Extension(ExtensionURL.PartialDateTimeVR, null);
                 time.Extension.Add(new Extension(OtherExtensionURL.DataAbsentReason, new Code(dataAbsentReason)));
                 partialDateTime.Extension.Add(time);
             }
@@ -1219,7 +1219,7 @@ namespace VR
 
         private Date SetPartialDateExtensions(Date dateElement, int? yearValue, int? monthValue, int? dayValue, string timeValue)
         {
-            dateElement.SetExtension(ExtensionURL.PartialDateTimeVR, new Extension());
+            dateElement.SetExtension(VR.ExtensionURL.PartialDateTime, new Extension());
             List<(int? val, string url)> dateElements = new List<(int? val, string url)>
             {
                 (dayValue, VR.ExtensionURL.PartialDateDayVR),
@@ -1231,13 +1231,13 @@ namespace VR
                 switch (val)
                 {
                     case -1:
-                        dateElement.GetExtension(ExtensionURL.PartialDateTimeVR).Extension.Add(BuildUnknownPartialDateTime(url));
+                        dateElement.GetExtension(ExtensionURL.PartialDateTime).Extension.Add(BuildUnknownPartialDateTime(url));
                         break;
                     case null:
-                        dateElement.GetExtension(ExtensionURL.PartialDateTimeVR).Extension.Add(BuildTempUnknownPartialDateTime(url));
+                        dateElement.GetExtension(ExtensionURL.PartialDateTime).Extension.Add(BuildTempUnknownPartialDateTime(url));
                         break;
                     default:
-                        dateElement.GetExtension(ExtensionURL.PartialDateTimeVR).SetExtension(url, new Integer(val));
+                        dateElement.GetExtension(ExtensionURL.PartialDateTime).SetExtension(url, new Integer(val));
                         break;
                 }
             }
@@ -1305,7 +1305,7 @@ namespace VR
                 return dateFragment;
             }
             // Look for either PartialDate or PartialDateTime
-            Extension extension = value.Extension.Find(ext => ext.Url == ExtensionURL.PartialDateTimeVR);
+            Extension extension = value.Extension.Find(ext => ext.Url == ExtensionURL.PartialDateTime);
             if (extension == null)
             {
                 extension = value.Extension.Find(ext => ext.Url == ExtensionURL.PartialDate);

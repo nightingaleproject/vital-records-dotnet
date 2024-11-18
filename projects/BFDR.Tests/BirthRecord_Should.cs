@@ -1333,6 +1333,8 @@ namespace BFDR.Tests
       Assert.Equal("2023-12-23", fhirBirth.Value);
       Assert.Equal("-1", br.BirthTime);
       Assert.Null(fhirBirth.GetExtension(VR.ExtensionURL.PatientBirthTime));
+      Assert.NotNull(pdt);
+      Assert.NotNull(pdt.GetExtension(VR.ExtensionURL.PartialDateYearVR));
       Assert.Equal(2023, ((Integer)pdt.GetExtension(VR.ExtensionURL.PartialDateYearVR).Value).Value);
       Assert.Equal(12, ((Integer)pdt.GetExtension(VR.ExtensionURL.PartialDateMonthVR).Value).Value);
       Assert.Equal(23, ((Integer)pdt.GetExtension(VR.ExtensionURL.PartialDateDayVR).Value).Value);

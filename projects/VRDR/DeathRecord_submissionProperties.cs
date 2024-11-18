@@ -4730,7 +4730,7 @@ namespace VRDR
                     CreateDeathDateObs();
                 }
                 SetPartialTime(DeathDateObs.Value.Extension.Find(ext => ext.Url ==VR.ExtensionURL.PartialDateTime), value);
-            }
+            }   
         }
 
         /* START datetimePronouncedDead */
