@@ -546,7 +546,7 @@
                             "valueUnsignedInt": 1
                           }
                         ],
-                        "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/ExtensionPartialDateVitalRecords"
+                        "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-partial-date-vr"
                       }
                     ]
                   }
@@ -779,7 +779,7 @@
                         "url": "time"
                       }
                     ],
-                    "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/ExtensionPartialDateTimeVitalRecords"
+                    "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-partial-date-time-vr"
                   }
                 ]
               }
@@ -908,7 +908,7 @@
                         "url": "day"
                       }
                     ],
-                    "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/ExtensionPartialDateVitalRecords"
+                    "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-partial-date-vr"
                   }
                 ]
               }

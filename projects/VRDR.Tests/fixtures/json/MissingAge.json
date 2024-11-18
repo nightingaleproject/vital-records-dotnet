@@ -285,7 +285,7 @@
           {
             "extension": [
               {
-                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-within-city-limits-indicator-vr",
+                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/StructureDefinition/Extension-within-city-limits-indicator-vr",
                 "valueCoding": {
                   "system": "urn:oid:2.16.840.1.113883.12.136",
                   "code": "N",

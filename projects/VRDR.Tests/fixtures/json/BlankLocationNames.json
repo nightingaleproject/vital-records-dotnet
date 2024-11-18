@@ -300,7 +300,7 @@
           {
             "extension": [
               {
-                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-within-city-limits-indicator-vr",
+                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/StructureDefinition/Extension-within-city-limits-indicator-vr",
                 "valueCoding": {
                   "code": "Y",
                   "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
@@ -414,7 +414,7 @@
                   "valueUnsignedInt": 11
                 }
               ],
-              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/ExtensionPartialDateVitalRecords"
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-partial-date-vr"
             }
           ]
         }
@@ -1253,7 +1253,7 @@
                   }
                 }
               ],
-              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/ExtensionPartialDateTimeVitalRecords"
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-partial-date-time-vr"
             }
           ]
         }

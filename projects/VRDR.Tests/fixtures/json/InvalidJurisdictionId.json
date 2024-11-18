@@ -268,7 +268,7 @@
           {
             "extension": [
               {
-                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-within-city-limits-indicator-vr",
+                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/StructureDefinition/Extension-within-city-limits-indicator-vr",
                 "valueCoding": {
                   "system": "Y",
                   "code": "PHVS_YesNoUnknown_CDC",
