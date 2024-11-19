@@ -77,6 +77,7 @@ namespace BFDR
         /// <summary>Adds the given race to the record for Mother.</summary>
         protected void Set_MotherRace(string name, string value)
         {
+            value = value.Trim();
             List<Tuple<string, string>> raceStatus = NatalityRecord.MotherRace.ToList();
             raceStatus.Add(Tuple.Create(name, value));
             NatalityRecord.MotherRace = raceStatus.Distinct().ToArray();
@@ -98,6 +99,7 @@ namespace BFDR
         /// <summary>Adds the given race to the record for Father.</summary>
         protected void Set_FatherRace(string name, string value)
         {
+            value = value.Trim();
             List<Tuple<string, string>> raceStatus = NatalityRecord.FatherRace.ToList();
             raceStatus.Add(Tuple.Create(name, value));
             NatalityRecord.FatherRace = raceStatus.Distinct().ToArray();
