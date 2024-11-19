@@ -1,5 +1,8 @@
 require 'pp'
 require 'json'
+require 'rexml/document'
+require 'rexml/formatters/pretty'
+
 
 #ruby tools/convertTestInstancesToSTU2.rb 
 
@@ -11,7 +14,6 @@ urisSTU3toSTU2 = {
 'http://hl7.org/fhir/us/vr-common-library/StructureDefinition/CertificateNumber' => 'http://hl7.org/fhir/us/vrdr/StructureDefinition/CertificateNumber', #extension
 'http://hl7.org/fhir/us/vr-common-library/StructureDefinition/input-race-and-ethnicity-vr' => 'http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-input-race-and-ethnicity', #profile
 'http://hl7.org/fhir/us/vr-common-library/StructureDefinition/coded-race-and-ethnicity-vr' => 'http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-coded-race-and-ethnicity', #profile
-'http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Observation-usual-work-vr' => 'http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-decedent-usual-work', #profile
 'http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Observation-emerging-issues-vr' => 'http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-emerging-issues', #profile
 'http://hl7.org/fhir/us/vr-common-library/StructureDefinition/CityCode' => 'http://hl7.org/fhir/us/vrdr/StructureDefinition/CityCode', #extension
 'http://hl7.org/fhir/us/vr-common-library/StructureDefinition/DistrictCode' => 'http://hl7.org/fhir/us/vrdr/StructureDefinition/DistrictCode', #extension
@@ -68,8 +70,8 @@ end
 #     return pOutputFile
 # end
 
-#global substitute 
-def exchangeURLs(pOutputFile, pInputFile, uris)
+#global substitute json
+def exchangeURLsJSON(pOutputFile, pInputFile, uris)
     content = File.read(pInputFile)
     uris.each{|key, value|
         content=content.gsub(key,value)}
@@ -78,6 +80,22 @@ def exchangeURLs(pOutputFile, pInputFile, uris)
     File.open(pOutputFile, 'w') { |file| file.puts(pretty_json) }
     return pOutputFile
 end
+
+
+
+
+
+#global substitute xml
+def exchangeURLsXML(pOutputFile, pInputFile, uris)
+  formatter = REXML::Formatters::Pretty.new(2) # Set indentation level
+  xml_content = File.read(pInputFile)
+  uris.each{|key, value|
+      xml_content=xml_content.gsub(key,value)}
+  doc = REXML::Document.new(xml_content)
+  File.open(pOutputFile, 'w') { |file| formatter.write(doc, file)  }
+  return pOutputFile
+end
+
 
 urisSTU2toSTU3 = createSTU2toSTU3Mapping(urisSTU3toSTU2)
 
@@ -96,5 +114,23 @@ Dir.foreach(Dir.pwd + '/' + testInstancesBeforeConvertingFolder) do |filename|
     # if filename.include? "Bundle-DeathCertificateDocument-Example" or filename.include? "Bundle-MortalityRosterBundle-Example"
     #     vInputFile = exchangeFirstURL(vOutputFile, vInputFile, decedentOnlyUris) #exchange Decedent birthdate url in bundles
     # end
-    exchangeURLs(vOutputFile, vInputFile, urisSTU2toSTU3)
+    exchangeURLsJSON(vOutputFile, vInputFile, urisSTU2toSTU3)
+end
+
+testInstancesBeforeConvertingFolder = 'projects/VRDR.Tests/fixtures/xml/old/'
+testInstancesAfterConvertingFolder = 'projects/VRDR.Tests/fixtures/xml/'
+Dir.foreach(Dir.pwd + '/' + testInstancesBeforeConvertingFolder) do |filename|
+    next if filename == '.' or filename == '..'
+    print "'" + filename + "'" + "\n"
+    rpath = Dir.pwd +  '/' + testInstancesBeforeConvertingFolder + filename
+    next if File.directory?(rpath)
+    vOutputFile = File.open(Dir.pwd +  '/' + testInstancesAfterConvertingFolder + filename, "w")
+    vInputFile = File.open(rpath)
+    # if filename.include? "Patient-Decedent-Example" 
+    #     vInputFile = exchangeURLs(vOutputFile, vInputFile, decedentOnlyUris) #exchange birthdate url in Decedent examples
+    # end
+    # if filename.include? "Bundle-DeathCertificateDocument-Example" or filename.include? "Bundle-MortalityRosterBundle-Example"
+    #     vInputFile = exchangeFirstURL(vOutputFile, vInputFile, decedentOnlyUris) #exchange Decedent birthdate url in bundles
+    # end
+    exchangeURLsXML(vOutputFile, vInputFile, urisSTU2toSTU3)
 end
