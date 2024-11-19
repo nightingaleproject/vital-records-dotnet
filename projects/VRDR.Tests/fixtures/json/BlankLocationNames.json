@@ -989,7 +989,7 @@
         "id": "DecedentUsualWork-Example1",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Observation-usual-work-vr"
+            "http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-decedent-usual-work"
           ]
         },
         "code": {

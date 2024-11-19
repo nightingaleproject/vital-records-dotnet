@@ -695,7 +695,7 @@
         "id": "4340fd03-06b7-43cc-9e93-83689dace401",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Observation-usual-work-vr"
+            "http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-decedent-usual-work"
           ]
         },
         "status": "final",
