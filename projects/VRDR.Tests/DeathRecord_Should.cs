@@ -4298,10 +4298,10 @@ namespace VRDR.Tests
             dr.DeathTime = "-1";
             var fhir = dr.ToJson();
             Assert.Null(dr.DateOfDeath);
-            Assert.Matches(@"\{\s*""url"":\s*""http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Year"",\s*""_valueUnsignedInt"":\s*\{\s*""extension"":\s*\[\s*\{\s*""url"":\s*""http://hl7.org/fhir/StructureDefinition/data-absent-reason"",\s*""valueCode"":\s*""unknown""\s*\}\s*\]\s*\}\s*\}", fhir);
-            Assert.Matches(@"\{\s*""url"":\s*""http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Month"",\s*""_valueUnsignedInt"":\s*\{\s*""extension"":\s*\[\s*\{\s*""url"":\s*""http://hl7.org/fhir/StructureDefinition/data-absent-reason"",\s*""valueCode"":\s*""unknown""\s*\}\s*\]\s*\}\s*\}", fhir);
-            Assert.Matches(@"\{\s*""url"":\s*""http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Day"",\s*""_valueUnsignedInt"":\s*\{\s*""extension"":\s*\[\s*\{\s*""url"":\s*""http://hl7.org/fhir/StructureDefinition/data-absent-reason"",\s*""valueCode"":\s*""unknown""\s*\}\s*\]\s*\}\s*\}", fhir);
-            Assert.Matches(@"\{\s*""url"":\s*""http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Time"",\s*""_valueTime"":\s*\{\s*""extension"":\s*\[\s*\{\s*""url"":\s*""http://hl7.org/fhir/StructureDefinition/data-absent-reason"",\s*""valueCode"":\s*""unknown""\s*\}\s*\]\s*\}\s*\}", fhir);
+            Assert.Matches(@"\{\s*""url"":\s*""year"",\s*""_valueUnsignedInt"":\s*\{\s*""extension"":\s*\[\s*\{\s*""url"":\s*""http://hl7.org/fhir/StructureDefinition/data-absent-reason"",\s*""valueCode"":\s*""unknown""\s*\}\s*\]\s*\}\s*\}", fhir);
+            Assert.Matches(@"\{\s*""url"":\s*""month"",\s*""_valueUnsignedInt"":\s*\{\s*""extension"":\s*\[\s*\{\s*""url"":\s*""http://hl7.org/fhir/StructureDefinition/data-absent-reason"",\s*""valueCode"":\s*""unknown""\s*\}\s*\]\s*\}\s*\}", fhir);
+            Assert.Matches(@"\{\s*""url"":\s*""day"",\s*""_valueUnsignedInt"":\s*\{\s*""extension"":\s*\[\s*\{\s*""url"":\s*""http://hl7.org/fhir/StructureDefinition/data-absent-reason"",\s*""valueCode"":\s*""unknown""\s*\}\s*\]\s*\}\s*\}", fhir);
+            Assert.Matches(@"\{\s*""url"":\s*""time"",\s*""_valueTime"":\s*\{\s*""extension"":\s*\[\s*\{\s*""url"":\s*""http://hl7.org/fhir/StructureDefinition/data-absent-reason"",\s*""valueCode"":\s*""unknown""\s*\}\s*\]\s*\}\s*\}", fhir);
         }
 
         [Fact]
@@ -4314,10 +4314,10 @@ namespace VRDR.Tests
             dr.InjuryTime = "-1";
             var fhir = dr.ToJson();
             Assert.Null(dr.InjuryDate);
-            Assert.Matches(@"\{\s*""url"":\s*""http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Year"",\s*""_valueUnsignedInt"":\s*\{\s*""extension"":\s*\[\s*\{\s*""url"":\s*""http://hl7.org/fhir/StructureDefinition/data-absent-reason"",\s*""valueCode"":\s*""unknown""\s*\}\s*\]\s*\}\s*\}", fhir);
-            Assert.Matches(@"\{\s*""url"":\s*""http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Month"",\s*""_valueUnsignedInt"":\s*\{\s*""extension"":\s*\[\s*\{\s*""url"":\s*""http://hl7.org/fhir/StructureDefinition/data-absent-reason"",\s*""valueCode"":\s*""unknown""\s*\}\s*\]\s*\}\s*\}", fhir);
-            Assert.Matches(@"\{\s*""url"":\s*""http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Day"",\s*""_valueUnsignedInt"":\s*\{\s*""extension"":\s*\[\s*\{\s*""url"":\s*""http://hl7.org/fhir/StructureDefinition/data-absent-reason"",\s*""valueCode"":\s*""unknown""\s*\}\s*\]\s*\}\s*\}", fhir);
-            Assert.Matches(@"\{\s*""url"":\s*""http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Time"",\s*""_valueTime"":\s*\{\s*""extension"":\s*\[\s*\{\s*""url"":\s*""http://hl7.org/fhir/StructureDefinition/data-absent-reason"",\s*""valueCode"":\s*""unknown""\s*\}\s*\]\s*\}\s*\}", fhir);
+            Assert.Matches(@"\{\s*""url"":\s*""year"",\s*""_valueUnsignedInt"":\s*\{\s*""extension"":\s*\[\s*\{\s*""url"":\s*""http://hl7.org/fhir/StructureDefinition/data-absent-reason"",\s*""valueCode"":\s*""unknown""\s*\}\s*\]\s*\}\s*\}", fhir);
+            Assert.Matches(@"\{\s*""url"":\s*""month"",\s*""_valueUnsignedInt"":\s*\{\s*""extension"":\s*\[\s*\{\s*""url"":\s*""http://hl7.org/fhir/StructureDefinition/data-absent-reason"",\s*""valueCode"":\s*""unknown""\s*\}\s*\]\s*\}\s*\}", fhir);
+            Assert.Matches(@"\{\s*""url"":\s*""day"",\s*""_valueUnsignedInt"":\s*\{\s*""extension"":\s*\[\s*\{\s*""url"":\s*""http://hl7.org/fhir/StructureDefinition/data-absent-reason"",\s*""valueCode"":\s*""unknown""\s*\}\s*\]\s*\}\s*\}", fhir);
+            Assert.Matches(@"\{\s*""url"":\s*""time"",\s*""_valueTime"":\s*\{\s*""extension"":\s*\[\s*\{\s*""url"":\s*""http://hl7.org/fhir/StructureDefinition/data-absent-reason"",\s*""valueCode"":\s*""unknown""\s*\}\s*\]\s*\}\s*\}", fhir);
         }
 
         [Fact]
@@ -4354,30 +4354,31 @@ namespace VRDR.Tests
             record = ije.ToDeathRecord();
             Assert.Null(record.FamilyName);
         }
+     // Testing for PartialDateTime now happens in VR.Test.  This test is obsolete
+        // [Fact]
+        // public void TestBadPartialDate()
+        // {
+        //     Exception ex = Assert.Throws<System.ArgumentException>(() => new DeathRecord(File.ReadAllText(FixturePath("fixtures/json/DeathRecordBadPartialDate.json"))));
+        //     System.Text.StringBuilder errorMsg = new System.Text.StringBuilder();
+        //     errorMsg.Append("Missing 'Date-Month' of [http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDate] for resource [f384e3f6-2438-4e07-9df2-44e27e3aa72d].");
+        //     errorMsg.AppendLine();
+        //     errorMsg.Append("[http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDate] component contains extra invalid fields [http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Monh] for resource [f384e3f6-2438-4e07-9df2-44e27e3aa72d].");
+        //     errorMsg.AppendLine();
+        //     Assert.Equal(errorMsg.ToString(), ex.Message);
+        //     }
 
-        [Fact]
-        public void TestBadPartialDate()
-        {
-            Exception ex = Assert.Throws<System.ArgumentException>(() => new DeathRecord(File.ReadAllText(FixturePath("fixtures/json/DeathRecordBadPartialDate.json"))));
-            System.Text.StringBuilder errorMsg = new System.Text.StringBuilder();
-            errorMsg.Append("Missing 'Date-Month' of [http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDate] for resource [f384e3f6-2438-4e07-9df2-44e27e3aa72d].");
-            errorMsg.AppendLine();
-            errorMsg.Append("[http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDate] component contains extra invalid fields [http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Monh] for resource [f384e3f6-2438-4e07-9df2-44e27e3aa72d].");
-            errorMsg.AppendLine();
-            Assert.Equal(errorMsg.ToString(), ex.Message);
-            }
-
-        [Fact]
-        public void TestBadPartialDateTime()
-        {
-            Exception ex = Assert.Throws<System.ArgumentException>(() => new DeathRecord(File.ReadAllText(FixturePath("fixtures/json/DeathRecordBadPartialDateTime.json"))));
-            System.Text.StringBuilder errorMsg = new System.Text.StringBuilder();
-            errorMsg.Append("Missing 'Date-Time' of [http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDateTime] for resource [81899bd9-0441-45f0-9b89-9d91daa08983].");
-            errorMsg.AppendLine();
-            errorMsg.Append("[http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDateTime] component contains extra invalid fields [http://hl7.org/fhir/us/vrdr/StructureDefinition/Invalid, http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Tme] for resource [81899bd9-0441-45f0-9b89-9d91daa08983].");
-            errorMsg.AppendLine();
-            Assert.Equal(errorMsg.ToString(), ex.Message);
-        }
+        // Testing for PartialDateTime now happens in VR.Test.  This test is obsolete
+        // [Fact]
+        // public void TestBadPartialDateTime()
+        // {
+        //     Exception ex = Assert.Throws<System.ArgumentException>(() => new DeathRecord(File.ReadAllText(FixturePath("fixtures/json/DeathRecordBadPartialDateTime.json"))));
+        //     System.Text.StringBuilder errorMsg = new System.Text.StringBuilder();
+        //     errorMsg.Append("Missing 'Date-Time' of [http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDateTime] for resource [81899bd9-0441-45f0-9b89-9d91daa08983].");
+        //     errorMsg.AppendLine();
+        //     errorMsg.Append("[http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDateTime] component contains extra invalid fields [http://hl7.org/fhir/us/vrdr/StructureDefinition/Invalid, http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Tme] for resource [81899bd9-0441-45f0-9b89-9d91daa08983].");
+        //     errorMsg.AppendLine();
+        //     Assert.Equal(errorMsg.ToString(), ex.Message);
+        // }
 
         private string FixturePath(string filePath)
         {

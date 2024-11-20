@@ -1387,7 +1387,7 @@ namespace VR
             {
                 return time;
             }
-            return GetPartialTime(value.Extension.Find(ext => ext.Url == ExtensionURL.PartialDateTimeVR));
+            return GetPartialTime(value.Extension.Find(ext => ext.Url == ExtensionURL.PartialDateTime));
         }
 
         /// <summary>Helper function to set a codeable value based on a code and the set of allowed codes.</summary>
