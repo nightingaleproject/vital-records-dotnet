@@ -615,10 +615,10 @@ namespace VRDR.Tests
             Assert.Equal(2022, (int)message.DeathRecord.InjuryYear);
             Assert.Equal(1, (int)message.DeathRecord.InjuryMonth);
             Assert.Equal(15, (int)message.DeathRecord.InjuryDay);
-            Assert.Equal(ValueSets.YesNoUnknown.Yes, message.DeathRecord.AutopsyPerformedIndicatorHelper);
-            Assert.Equal(ValueSets.YesNoUnknown.Yes, message.DeathRecord.AutopsyResultsAvailableHelper);
+            Assert.Equal(VR.ValueSets.YesNoUnknown.Yes, message.DeathRecord.AutopsyPerformedIndicatorHelper);
+            Assert.Equal(VR.ValueSets.YesNoUnknown.Yes, message.DeathRecord.AutopsyResultsAvailableHelper);
             Assert.Equal(ValueSets.ContributoryTobaccoUse.Yes, message.DeathRecord.TobaccoUseHelper);
-            Assert.Equal(ValueSets.PregnancyStatus.Not_Pregnant_Within_Past_Year, message.DeathRecord.PregnancyStatusHelper);
+            Assert.Equal(VRDR.ValueSets.DeathPregnancyStatus.Not_Pregnant_Within_Past_Year, message.DeathRecord.PregnancyStatusHelper);
         }
 
         [Fact]
@@ -689,10 +689,10 @@ namespace VRDR.Tests
             Assert.Equal(2022, (int)message.DeathRecord.InjuryYear);
             Assert.Equal(1, (int)message.DeathRecord.InjuryMonth);
             Assert.Equal(15, (int)message.DeathRecord.InjuryDay);
-            Assert.Equal(ValueSets.YesNoUnknown.Yes, message.DeathRecord.AutopsyPerformedIndicatorHelper);
-            Assert.Equal(ValueSets.YesNoUnknown.Yes, message.DeathRecord.AutopsyResultsAvailableHelper);
+            Assert.Equal(VR.ValueSets.YesNoUnknown.Yes, message.DeathRecord.AutopsyPerformedIndicatorHelper);
+            Assert.Equal(VR.ValueSets.YesNoUnknown.Yes, message.DeathRecord.AutopsyResultsAvailableHelper);
             Assert.Equal(ValueSets.ContributoryTobaccoUse.Yes, message.DeathRecord.TobaccoUseHelper);
-            Assert.Equal(ValueSets.PregnancyStatus.Not_Pregnant_Within_Past_Year, message.DeathRecord.PregnancyStatusHelper);
+            Assert.Equal(VRDR.ValueSets.DeathPregnancyStatus.Not_Pregnant_Within_Past_Year, message.DeathRecord.PregnancyStatusHelper);
         }
 
         [Fact]
@@ -752,8 +752,8 @@ namespace VRDR.Tests
             Assert.Equal("000000000500", message.StateAuxiliaryId);
             Assert.Equal("2022YC000123", message.NCHSIdentifier);
             Assert.Equal("VRDR_STU3_0", message.PayloadVersionId);
-            Assert.Equal(ValueSets.YesNoUnknown.Yes, message.DeathRecord.Ethnicity1Helper);
-            Assert.Equal(ValueSets.YesNoUnknown.No, message.DeathRecord.Ethnicity2Helper);
+            Assert.Equal(VR.ValueSets.YesNoUnknown.Yes, message.DeathRecord.Ethnicity1Helper);
+            Assert.Equal(VR.ValueSets.YesNoUnknown.No, message.DeathRecord.Ethnicity2Helper);
             Assert.Equal(NvssRace.White, message.DeathRecord.Race[0].Item1);
             Assert.Equal("Y", message.DeathRecord.Race[0].Item2);
             Assert.Equal(NvssRace.BlackOrAfricanAmerican, message.DeathRecord.Race[1].Item1);
@@ -789,8 +789,8 @@ namespace VRDR.Tests
             Assert.Equal("000000000500", message.StateAuxiliaryId);
             Assert.Equal("2022YC000123", message.NCHSIdentifier);
             Assert.Equal("VRDR_STU3_0", message.PayloadVersionId);
-            Assert.Equal(ValueSets.YesNoUnknown.Yes, message.DeathRecord.Ethnicity1Helper);
-            Assert.Equal(ValueSets.YesNoUnknown.No, message.DeathRecord.Ethnicity2Helper);
+            Assert.Equal(VR.ValueSets.YesNoUnknown.Yes, message.DeathRecord.Ethnicity1Helper);
+            Assert.Equal(VR.ValueSets.YesNoUnknown.No, message.DeathRecord.Ethnicity2Helper);
             Assert.Equal(NvssRace.White, message.DeathRecord.Race[0].Item1);
             Assert.Equal("Y", message.DeathRecord.Race[0].Item2);
             Assert.Equal(NvssRace.BlackOrAfricanAmerican, message.DeathRecord.Race[1].Item1);

@@ -1245,11 +1245,11 @@ namespace VRDR.Tests
         [Fact]
         public void Get_ResidenceWithinCityLimits()
         {
-            SetterDeathRecord.ResidenceWithinCityLimitsHelper = ValueSets.YesNoUnknown.No;
+            SetterDeathRecord.ResidenceWithinCityLimitsHelper = VR.ValueSets.YesNoUnknown.No;
             Assert.Equal("N", SetterDeathRecord.ResidenceWithinCityLimits["code"]);
-            SetterDeathRecord.ResidenceWithinCityLimitsHelper = ValueSets.YesNoUnknown.Yes;
+            SetterDeathRecord.ResidenceWithinCityLimitsHelper = VR.ValueSets.YesNoUnknown.Yes;
             Assert.Equal("Y", SetterDeathRecord.ResidenceWithinCityLimits["code"]);
-            SetterDeathRecord.ResidenceWithinCityLimitsHelper = ValueSets.YesNoUnknown.Unknown;
+            SetterDeathRecord.ResidenceWithinCityLimitsHelper = VR.ValueSets.YesNoUnknown.Unknown;
             Assert.Equal("UNK", SetterDeathRecord.ResidenceWithinCityLimits["code"]);
         }
 
@@ -1428,8 +1428,8 @@ namespace VRDR.Tests
         [Fact]
         public void Set_MaritalStatus()
         {
-            SetterDeathRecord.MaritalStatusHelper = ValueSets.MaritalStatus.Never_Married;
-            Assert.Equal(ValueSets.MaritalStatus.Never_Married, SetterDeathRecord.MaritalStatus["code"]);
+            SetterDeathRecord.MaritalStatusHelper = VR.ValueSets.MaritalStatus.Never_Married;
+            Assert.Equal(VR.ValueSets.MaritalStatus.Never_Married, SetterDeathRecord.MaritalStatus["code"]);
             Assert.Equal(VR.CodeSystems.PH_MaritalStatus_HL7_2x, SetterDeathRecord.MaritalStatus["system"]);
             Assert.Equal("Never Married", SetterDeathRecord.MaritalStatus["display"]);
         }
@@ -1437,10 +1437,10 @@ namespace VRDR.Tests
         [Fact]
         public void Get_MaritalStatus()
         {
-            Assert.Equal(ValueSets.MaritalStatus.Never_Married, DeathRecord1_JSON.MaritalStatus["code"]);
+            Assert.Equal(VR.ValueSets.MaritalStatus.Never_Married, DeathRecord1_JSON.MaritalStatus["code"]);
             Assert.Equal(VR.CodeSystems.PH_MaritalStatus_HL7_2x, DeathRecord1_JSON.MaritalStatus["system"]);
             Assert.Equal("Never Married", DeathRecord1_JSON.MaritalStatus["display"]);
-            Assert.Equal(ValueSets.MaritalStatus.Never_Married, DeathRecord1_XML.MaritalStatus["code"]);
+            Assert.Equal(VR.ValueSets.MaritalStatus.Never_Married, DeathRecord1_XML.MaritalStatus["code"]);
             Assert.Equal(VR.CodeSystems.PH_MaritalStatus_HL7_2x, DeathRecord1_XML.MaritalStatus["system"]);
             Assert.Equal("Never Married", DeathRecord1_XML.MaritalStatus["display"]);
         }
@@ -1450,7 +1450,7 @@ namespace VRDR.Tests
         {
             SetterDeathRecord.MaritalStatusEditFlagHelper = ValueSets.EditBypass0124.Edit_Passed;
             Assert.Equal(ValueSets.EditBypass0124.Edit_Passed, SetterDeathRecord.MaritalStatusEditFlag["code"]);
-            Assert.Equal(VR.CodeSystems.BypassEditFlag, SetterDeathRecord.MaritalStatusEditFlag["system"]);
+            Assert.Equal(VR.CodeSystemURL.EditFlags, SetterDeathRecord.MaritalStatusEditFlag["system"]);
             Assert.Equal("Edit Passed", SetterDeathRecord.MaritalStatusEditFlag["display"]);
         }
 
@@ -1458,10 +1458,10 @@ namespace VRDR.Tests
         public void Get_MaritalStatusEditFlag()
         {
             Assert.Equal(ValueSets.EditBypass0124.Edit_Passed, DeathRecord1_JSON.MaritalStatusEditFlag["code"]);
-            Assert.Equal(VR.CodeSystems.BypassEditFlag, DeathRecord1_JSON.MaritalStatusEditFlag["system"]);
+            Assert.Equal(VR.CodeSystemURL.EditFlags, DeathRecord1_JSON.MaritalStatusEditFlag["system"]);
             Assert.Equal("Edit Passed", DeathRecord1_JSON.MaritalStatusEditFlag["display"]);
             Assert.Equal(ValueSets.EditBypass0124.Edit_Passed, DeathRecord1_XML.MaritalStatusEditFlag["code"]);
-            Assert.Equal(VR.CodeSystems.BypassEditFlag, DeathRecord1_XML.MaritalStatusEditFlag["system"]);
+            Assert.Equal(VR.CodeSystemURL.EditFlags, DeathRecord1_XML.MaritalStatusEditFlag["system"]);
             Assert.Equal("Edit Passed", DeathRecord1_XML.MaritalStatusEditFlag["display"]);
         }
 
@@ -1475,10 +1475,10 @@ namespace VRDR.Tests
         [Fact]
         public void Get_MaritalStatusAndBypass()
         {
-            SetterDeathRecord.MaritalStatusHelper = ValueSets.MaritalStatus.Never_Married;
+            SetterDeathRecord.MaritalStatusHelper = VR.ValueSets.MaritalStatus.Never_Married;
             SetterDeathRecord.MaritalStatusEditFlagHelper = ValueSets.EditBypass0124.Edit_Passed;
 
-            Assert.Equal(ValueSets.MaritalStatus.Never_Married, SetterDeathRecord.MaritalStatus["code"]);
+            Assert.Equal(VR.ValueSets.MaritalStatus.Never_Married, SetterDeathRecord.MaritalStatus["code"]);
             Assert.Equal(VR.CodeSystems.PH_MaritalStatus_HL7_2x, SetterDeathRecord.MaritalStatus["system"]);
             Assert.Equal("Never Married", SetterDeathRecord.MaritalStatus["display"]);
             Assert.Equal(ValueSets.EditBypass0124.Edit_Passed, SetterDeathRecord.MaritalStatusEditFlagHelper);
@@ -1609,8 +1609,8 @@ namespace VRDR.Tests
         [Fact]
         public void Set_SpouseLiving()
         {
-            SetterDeathRecord.SpouseAliveHelper = ValueSets.YesNoUnknownNotApplicable.Yes;
-            Assert.Equal(ValueSets.YesNoUnknownNotApplicable.Yes, SetterDeathRecord.SpouseAlive["code"]);
+            SetterDeathRecord.SpouseAliveHelper = VR.ValueSets.YesNoUnknownNotApplicable.Yes;
+            Assert.Equal(VR.ValueSets.YesNoUnknownNotApplicable.Yes, SetterDeathRecord.SpouseAlive["code"]);
             Assert.Equal(VR.CodeSystems.YesNo, SetterDeathRecord.SpouseAlive["system"]);
             Assert.Equal("Yes", SetterDeathRecord.SpouseAlive["display"]);
         }
@@ -1618,10 +1618,10 @@ namespace VRDR.Tests
         [Fact]
         public void Get_SpouseLiving()
         {
-            Assert.Equal(ValueSets.YesNoUnknownNotApplicable.Yes, DeathRecord1_JSON.SpouseAlive["code"]);
+            Assert.Equal(VR.ValueSets.YesNoUnknownNotApplicable.Yes, DeathRecord1_JSON.SpouseAlive["code"]);
             Assert.Equal(VR.CodeSystems.YesNo, DeathRecord1_JSON.SpouseAlive["system"]);
             Assert.Equal("Yes", DeathRecord1_JSON.SpouseAlive["display"]);
-            Assert.Equal(ValueSets.YesNoUnknownNotApplicable.Yes, DeathRecord1_XML.SpouseAlive["code"]);
+            Assert.Equal(VR.ValueSets.YesNoUnknownNotApplicable.Yes, DeathRecord1_XML.SpouseAlive["code"]);
             Assert.Equal(VR.CodeSystems.YesNo, DeathRecord1_XML.SpouseAlive["system"]);
             Assert.Equal("Yes", DeathRecord1_XML.SpouseAlive["display"]);
         }
@@ -1688,22 +1688,22 @@ namespace VRDR.Tests
         [Fact]
         public void Set_EducationLevel()
         {
-            SetterDeathRecord.EducationLevelHelper = VRDR.ValueSets.EducationLevel.Bachelors_Degree;
-            Assert.Equal(VRDR.ValueSets.EducationLevel.Bachelors_Degree, SetterDeathRecord.EducationLevel["code"]);
+            SetterDeathRecord.EducationLevelHelper = VR.ValueSets.EducationLevel.Bachelors_Degree;
+            Assert.Equal(VR.ValueSets.EducationLevel.Bachelors_Degree, SetterDeathRecord.EducationLevel["code"]);
             Assert.Equal(VR.CodeSystems.DegreeLicenceAndCertificate, SetterDeathRecord.EducationLevel["system"]);
             Assert.Equal("Bachelor's degree", SetterDeathRecord.EducationLevel["display"]);
-            SetterDeathRecord.EducationLevelHelper = VRDR.ValueSets.EducationLevel.Associates_Or_Technical_Degree_Complete;
-            Assert.Equal(VRDR.ValueSets.EducationLevel.Associates_Or_Technical_Degree_Complete, SetterDeathRecord.EducationLevelHelper);
+            SetterDeathRecord.EducationLevelHelper = VR.ValueSets.EducationLevel.Associates_Or_Technical_Degree_Complete;
+            Assert.Equal(VR.ValueSets.EducationLevel.Associates_Or_Technical_Degree_Complete, SetterDeathRecord.EducationLevelHelper);
 
         }
 
         [Fact]
         public void Get_EducationLevel()
         {
-            Assert.Equal(VRDR.ValueSets.EducationLevel.Bachelors_Degree, DeathRecord1_JSON.EducationLevelHelper);
+            Assert.Equal(VR.ValueSets.EducationLevel.Bachelors_Degree, DeathRecord1_JSON.EducationLevelHelper);
             Assert.Equal(VR.CodeSystems.DegreeLicenceAndCertificate, DeathRecord1_JSON.EducationLevel["system"]);
             Assert.Equal("Bachelor's Degree", DeathRecord1_JSON.EducationLevel["display"]);
-            Assert.Equal(VRDR.ValueSets.EducationLevel.Bachelors_Degree, DeathRecord1_XML.EducationLevelHelper);
+            Assert.Equal(VR.ValueSets.EducationLevel.Bachelors_Degree, DeathRecord1_XML.EducationLevelHelper);
             Assert.Equal(VR.CodeSystems.DegreeLicenceAndCertificate, DeathRecord1_XML.EducationLevel["system"]);
             Assert.Equal("Bachelor's Degree", DeathRecord1_XML.EducationLevel["display"]);
         }
@@ -1712,27 +1712,27 @@ namespace VRDR.Tests
         public void Set_EducationLevelEditFlag()
         {
             Dictionary<string, string> elef = new Dictionary<string, string>();
-            elef.Add("code", VRDR.ValueSets.EditBypass01234.Edit_Failed_Data_Queried_And_Verified);
-            elef.Add("system", VR.CodeSystems.BypassEditFlag);
+            elef.Add("code", VR.ValueSets.EditBypass01234.Edit_Failed_Data_Queried_And_Verified);
+            elef.Add("system", VR.CodeSystemURL.EditFlags);
             elef.Add("display", "Edit Failed, Data Queried, and Verified");
             SetterDeathRecord.EducationLevelEditFlag = elef;
-            Assert.Equal(VRDR.ValueSets.EditBypass01234.Edit_Failed_Data_Queried_And_Verified, SetterDeathRecord.EducationLevelEditFlag["code"]);
-            Assert.Equal(VR.CodeSystems.BypassEditFlag, SetterDeathRecord.EducationLevelEditFlag["system"]);
+            Assert.Equal(VR.ValueSets.EditBypass01234.Edit_Failed_Data_Queried_And_Verified, SetterDeathRecord.EducationLevelEditFlag["code"]);
+            Assert.Equal(VR.CodeSystemURL.EditFlags, SetterDeathRecord.EducationLevelEditFlag["system"]);
             Assert.Equal("Edit Failed, Data Queried, and Verified", SetterDeathRecord.EducationLevelEditFlag["display"]);
-            SetterDeathRecord.EducationLevelEditFlagHelper = VRDR.ValueSets.EditBypass01234.Edit_Passed;
-            Assert.Equal(VRDR.ValueSets.EditBypass01234.Edit_Passed, SetterDeathRecord.EducationLevelEditFlagHelper);
-            Assert.Equal(VR.CodeSystems.BypassEditFlag, SetterDeathRecord.EducationLevelEditFlag["system"]);
+            SetterDeathRecord.EducationLevelEditFlagHelper = VR.ValueSets.EditBypass01234.Edit_Passed;
+            Assert.Equal(VR.ValueSets.EditBypass01234.Edit_Passed, SetterDeathRecord.EducationLevelEditFlagHelper);
+            Assert.Equal(VR.CodeSystemURL.EditFlags, SetterDeathRecord.EducationLevelEditFlag["system"]);
             Assert.Equal("Edit Passed", SetterDeathRecord.EducationLevelEditFlag["display"]);
         }
 
         [Fact]
         public void Get_EducationLevelEditFlag()
         {
-            Assert.Equal(VRDR.ValueSets.EditBypass01234.Edit_Passed, DeathRecord1_JSON.EducationLevelEditFlagHelper);
-            Assert.Equal(VR.CodeSystems.BypassEditFlag, DeathRecord1_JSON.EducationLevelEditFlag["system"]);
+            Assert.Equal(VR.ValueSets.EditBypass01234.Edit_Passed, DeathRecord1_JSON.EducationLevelEditFlagHelper);
+            Assert.Equal(VR.CodeSystemURL.EditFlags, DeathRecord1_JSON.EducationLevelEditFlag["system"]);
             Assert.Equal("Edit Passed", DeathRecord1_JSON.EducationLevelEditFlag["display"]);
-            Assert.Equal(VRDR.ValueSets.EditBypass01234.Edit_Passed, DeathRecord1_XML.EducationLevelEditFlagHelper);
-            Assert.Equal(VR.CodeSystems.BypassEditFlag, DeathRecord1_XML.EducationLevelEditFlag["system"]);
+            Assert.Equal(VR.ValueSets.EditBypass01234.Edit_Passed, DeathRecord1_XML.EducationLevelEditFlagHelper);
+            Assert.Equal(VR.CodeSystemURL.EditFlags, DeathRecord1_XML.EducationLevelEditFlag["system"]);
             Assert.Equal("Edit Passed", DeathRecord1_XML.EducationLevelEditFlag["display"]);
         }
 
@@ -1807,53 +1807,53 @@ namespace VRDR.Tests
         [Fact]
         public void Set_EditedRaceCodes()
         {
-            SetterDeathRecord.FirstEditedRaceCodeHelper = ValueSets.RaceCode.African;
-            SetterDeathRecord.SecondEditedRaceCodeHelper = ValueSets.RaceCode.Asian;
-            SetterDeathRecord.ThirdEditedRaceCodeHelper = ValueSets.RaceCode.Blackfeet;
-            SetterDeathRecord.FourthEditedRaceCodeHelper = ValueSets.RaceCode.Jamestown_Sklallam;
-            SetterDeathRecord.FifthEditedRaceCodeHelper = ValueSets.RaceCode.Kaw;
-            SetterDeathRecord.SixthEditedRaceCodeHelper = ValueSets.RaceCode.Madagascar;
-            SetterDeathRecord.SeventhEditedRaceCodeHelper = ValueSets.RaceCode.Okinawan;
-            SetterDeathRecord.EighthEditedRaceCodeHelper = ValueSets.RaceCode.Zaire;
-            SetterDeathRecord.FirstAmericanIndianRaceCodeHelper = ValueSets.RaceCode.Navajo;
-            SetterDeathRecord.SecondAmericanIndianRaceCodeHelper = ValueSets.RaceCode.Stockbridgemunsee_Community_Of_Mohican_Indians_Of_Wisconsin;
-            SetterDeathRecord.FirstOtherAsianRaceCodeHelper = ValueSets.RaceCode.Malaysian;
-            SetterDeathRecord.SecondOtherAsianRaceCodeHelper = ValueSets.RaceCode.Burmese;
-            SetterDeathRecord.FirstOtherPacificIslanderRaceCodeHelper = ValueSets.RaceCode.Taiwanese;
-            SetterDeathRecord.SecondOtherPacificIslanderRaceCodeHelper = ValueSets.RaceCode.New_Hebrides;
-            SetterDeathRecord.FirstOtherRaceCodeHelper = ValueSets.RaceCode.Lebanese;
-            SetterDeathRecord.SecondOtherRaceCodeHelper = ValueSets.RaceCode.Palestinian;
-            SetterDeathRecord.HispanicCodeForLiteralHelper = ValueSets.HispanicOrigin.Canal_Zone;
-            SetterDeathRecord.HispanicCodeHelper = ValueSets.HispanicOrigin.Non_Hispanic; // test code 100...
-            SetterDeathRecord.HispanicCodeHelper = ValueSets.HispanicOrigin.Cuban;
-            SetterDeathRecord.RaceRecode40Helper = ValueSets.RaceRecode40.Aian_And_Asian;
-            Assert.Equal(ValueSets.RaceCode.African, SetterDeathRecord.FirstEditedRaceCodeHelper);
-            Assert.Equal(ValueSets.RaceCode.Asian, SetterDeathRecord.SecondEditedRaceCodeHelper);
-            Assert.Equal(ValueSets.RaceCode.Blackfeet, SetterDeathRecord.ThirdEditedRaceCodeHelper);
-            Assert.Equal(ValueSets.RaceCode.Jamestown_Sklallam, SetterDeathRecord.FourthEditedRaceCodeHelper);
-            Assert.Equal(ValueSets.RaceCode.Kaw, SetterDeathRecord.FifthEditedRaceCodeHelper);
-            Assert.Equal(ValueSets.RaceCode.Madagascar, SetterDeathRecord.SixthEditedRaceCodeHelper);
-            Assert.Equal(ValueSets.RaceCode.Okinawan, SetterDeathRecord.SeventhEditedRaceCodeHelper);
-            Assert.Equal(ValueSets.RaceCode.Zaire, SetterDeathRecord.EighthEditedRaceCodeHelper);
-            Assert.Equal(ValueSets.RaceCode.Navajo, SetterDeathRecord.FirstAmericanIndianRaceCodeHelper);
-            Assert.Equal(ValueSets.RaceCode.Stockbridgemunsee_Community_Of_Mohican_Indians_Of_Wisconsin, SetterDeathRecord.SecondAmericanIndianRaceCodeHelper);
-            Assert.Equal(ValueSets.RaceCode.Malaysian, SetterDeathRecord.FirstOtherAsianRaceCodeHelper);
-            Assert.Equal(ValueSets.RaceCode.Burmese, SetterDeathRecord.SecondOtherAsianRaceCodeHelper);
-            Assert.Equal(ValueSets.RaceCode.Taiwanese, SetterDeathRecord.FirstOtherPacificIslanderRaceCodeHelper);
-            Assert.Equal(ValueSets.RaceCode.New_Hebrides, SetterDeathRecord.SecondOtherPacificIslanderRaceCodeHelper);
-            Assert.Equal(ValueSets.RaceCode.Lebanese, SetterDeathRecord.FirstOtherRaceCodeHelper);
-            Assert.Equal(ValueSets.RaceCode.Palestinian, SetterDeathRecord.SecondOtherRaceCodeHelper);
-            Assert.Equal(ValueSets.HispanicOrigin.Canal_Zone, SetterDeathRecord.HispanicCodeForLiteralHelper);
-            Assert.Equal(ValueSets.HispanicOrigin.Cuban, SetterDeathRecord.HispanicCodeHelper);
-            Assert.Equal(ValueSets.RaceRecode40.Aian_And_Asian, SetterDeathRecord.RaceRecode40Helper);
+            SetterDeathRecord.FirstEditedRaceCodeHelper = VR.ValueSets.RaceCode.African;
+            SetterDeathRecord.SecondEditedRaceCodeHelper = VR.ValueSets.RaceCode.Asian;
+            SetterDeathRecord.ThirdEditedRaceCodeHelper = VR.ValueSets.RaceCode.Blackfeet;
+            SetterDeathRecord.FourthEditedRaceCodeHelper = VR.ValueSets.RaceCode.Jamestown_Sklallam;
+            SetterDeathRecord.FifthEditedRaceCodeHelper = VR.ValueSets.RaceCode.Kaw;
+            SetterDeathRecord.SixthEditedRaceCodeHelper = VR.ValueSets.RaceCode.Madagascar;
+            SetterDeathRecord.SeventhEditedRaceCodeHelper = VR.ValueSets.RaceCode.Okinawan;
+            SetterDeathRecord.EighthEditedRaceCodeHelper = VR.ValueSets.RaceCode.Zaire;
+            SetterDeathRecord.FirstAmericanIndianRaceCodeHelper = VR.ValueSets.RaceCode.Navajo;
+            SetterDeathRecord.SecondAmericanIndianRaceCodeHelper = VR.ValueSets.RaceCode.Stockbridgemunsee_Community_Of_Mohican_Indians_Of_Wisconsin;
+            SetterDeathRecord.FirstOtherAsianRaceCodeHelper = VR.ValueSets.RaceCode.Malaysian;
+            SetterDeathRecord.SecondOtherAsianRaceCodeHelper = VR.ValueSets.RaceCode.Burmese;
+            SetterDeathRecord.FirstOtherPacificIslanderRaceCodeHelper = VR.ValueSets.RaceCode.Taiwanese;
+            SetterDeathRecord.SecondOtherPacificIslanderRaceCodeHelper = VR.ValueSets.RaceCode.New_Hebrides;
+            SetterDeathRecord.FirstOtherRaceCodeHelper = VR.ValueSets.RaceCode.Lebanese;
+            SetterDeathRecord.SecondOtherRaceCodeHelper = VR.ValueSets.RaceCode.Palestinian;
+            SetterDeathRecord.HispanicCodeForLiteralHelper = VR.ValueSets.HispanicOrigin.Canal_Zone;
+            SetterDeathRecord.HispanicCodeHelper = VR.ValueSets.HispanicOrigin.Non_Hispanic; // test code 100...
+            SetterDeathRecord.HispanicCodeHelper = VR.ValueSets.HispanicOrigin.Cuban;
+            SetterDeathRecord.RaceRecode40Helper = VR.ValueSets.RaceRecode40.Aian_And_Asian;
+            Assert.Equal(VR.ValueSets.RaceCode.African, SetterDeathRecord.FirstEditedRaceCodeHelper);
+            Assert.Equal(VR.ValueSets.RaceCode.Asian, SetterDeathRecord.SecondEditedRaceCodeHelper);
+            Assert.Equal(VR.ValueSets.RaceCode.Blackfeet, SetterDeathRecord.ThirdEditedRaceCodeHelper);
+            Assert.Equal(VR.ValueSets.RaceCode.Jamestown_Sklallam, SetterDeathRecord.FourthEditedRaceCodeHelper);
+            Assert.Equal(VR.ValueSets.RaceCode.Kaw, SetterDeathRecord.FifthEditedRaceCodeHelper);
+            Assert.Equal(VR.ValueSets.RaceCode.Madagascar, SetterDeathRecord.SixthEditedRaceCodeHelper);
+            Assert.Equal(VR.ValueSets.RaceCode.Okinawan, SetterDeathRecord.SeventhEditedRaceCodeHelper);
+            Assert.Equal(VR.ValueSets.RaceCode.Zaire, SetterDeathRecord.EighthEditedRaceCodeHelper);
+            Assert.Equal(VR.ValueSets.RaceCode.Navajo, SetterDeathRecord.FirstAmericanIndianRaceCodeHelper);
+            Assert.Equal(VR.ValueSets.RaceCode.Stockbridgemunsee_Community_Of_Mohican_Indians_Of_Wisconsin, SetterDeathRecord.SecondAmericanIndianRaceCodeHelper);
+            Assert.Equal(VR.ValueSets.RaceCode.Malaysian, SetterDeathRecord.FirstOtherAsianRaceCodeHelper);
+            Assert.Equal(VR.ValueSets.RaceCode.Burmese, SetterDeathRecord.SecondOtherAsianRaceCodeHelper);
+            Assert.Equal(VR.ValueSets.RaceCode.Taiwanese, SetterDeathRecord.FirstOtherPacificIslanderRaceCodeHelper);
+            Assert.Equal(VR.ValueSets.RaceCode.New_Hebrides, SetterDeathRecord.SecondOtherPacificIslanderRaceCodeHelper);
+            Assert.Equal(VR.ValueSets.RaceCode.Lebanese, SetterDeathRecord.FirstOtherRaceCodeHelper);
+            Assert.Equal(VR.ValueSets.RaceCode.Palestinian, SetterDeathRecord.SecondOtherRaceCodeHelper);
+            Assert.Equal(VR.ValueSets.HispanicOrigin.Canal_Zone, SetterDeathRecord.HispanicCodeForLiteralHelper);
+            Assert.Equal(VR.ValueSets.HispanicOrigin.Cuban, SetterDeathRecord.HispanicCodeHelper);
+            Assert.Equal(VR.ValueSets.RaceRecode40.Aian_And_Asian, SetterDeathRecord.RaceRecode40Helper);
         }
         [Fact]
         public void Get_EditedRaceCodes()
         {
-            Assert.Equal(ValueSets.RaceCode.White, DeathCertificateDocument2_JSON.FirstEditedRaceCodeHelper);
-            Assert.Equal(ValueSets.RaceCode.Israeli, DeathCertificateDocument2_JSON.SecondEditedRaceCodeHelper);
-            Assert.Equal(ValueSets.HispanicOrigin.Chilean, DeathCertificateDocument2_JSON.HispanicCodeHelper);
-            Assert.Equal(ValueSets.RaceRecode40.Aian_And_Asian, DeathCertificateDocument2_JSON.RaceRecode40Helper);
+            Assert.Equal(VR.ValueSets.RaceCode.White, DeathCertificateDocument2_JSON.FirstEditedRaceCodeHelper);
+            Assert.Equal(VR.ValueSets.RaceCode.Israeli, DeathCertificateDocument2_JSON.SecondEditedRaceCodeHelper);
+            Assert.Equal(VR.ValueSets.HispanicOrigin.Chilean, DeathCertificateDocument2_JSON.HispanicCodeHelper);
+            Assert.Equal(VR.ValueSets.RaceRecode40.Aian_And_Asian, DeathCertificateDocument2_JSON.RaceRecode40Helper);
         }
 
 
@@ -1975,16 +1975,16 @@ namespace VRDR.Tests
         [Fact]
         public void Set_MilitaryService()
         {
-            SetterDeathRecord.MilitaryServiceHelper = VRDR.ValueSets.YesNoUnknown.Yes;
-            Assert.Equal(VRDR.ValueSets.YesNoUnknown.Yes, SetterDeathRecord.MilitaryServiceHelper);
+            SetterDeathRecord.MilitaryServiceHelper = VR.ValueSets.YesNoUnknown.Yes;
+            Assert.Equal(VR.ValueSets.YesNoUnknown.Yes, SetterDeathRecord.MilitaryServiceHelper);
         }
 
         [Fact]
         public void Get_MilitaryService()
         {
-            Assert.Equal(VRDR.ValueSets.YesNoUnknown.Yes, DeathRecord1_JSON.MilitaryServiceHelper);
-            Assert.Equal(VRDR.ValueSets.YesNoUnknown.Yes, DeathCertificateDocument2_JSON.MilitaryServiceHelper);
-            Assert.Equal(VRDR.ValueSets.YesNoUnknown.Yes, DeathRecord1_XML.MilitaryServiceHelper);
+            Assert.Equal(VR.ValueSets.YesNoUnknown.Yes, DeathRecord1_JSON.MilitaryServiceHelper);
+            Assert.Equal(VR.ValueSets.YesNoUnknown.Yes, DeathCertificateDocument2_JSON.MilitaryServiceHelper);
+            Assert.Equal(VR.ValueSets.YesNoUnknown.Yes, DeathRecord1_XML.MilitaryServiceHelper);
         }
 
         // [Fact]
@@ -2289,7 +2289,7 @@ namespace VRDR.Tests
         [Fact]
         public void Get_AutopsyPerformedIndicator()
         {
-            Assert.Equal(ValueSets.YesNoUnknown.Yes, DeathCertificateDocument2_JSON.AutopsyPerformedIndicatorHelper);
+            Assert.Equal(VR.ValueSets.YesNoUnknown.Yes, DeathCertificateDocument2_JSON.AutopsyPerformedIndicatorHelper);
             Assert.Equal("Y", DeathRecord1_JSON.AutopsyPerformedIndicator["code"]);
             Assert.Equal(VR.CodeSystems.YesNo, DeathRecord1_JSON.AutopsyPerformedIndicator["system"]);
             Assert.Equal("Yes", DeathRecord1_JSON.AutopsyPerformedIndicator["display"]);
@@ -2303,7 +2303,7 @@ namespace VRDR.Tests
         [Fact]
         public void Set_AutopsyResultsAvailable()
         {
-            SetterDeathRecord.AutopsyResultsAvailableHelper = VRDR.ValueSets.YesNoUnknown.Yes;
+            SetterDeathRecord.AutopsyResultsAvailableHelper = VR.ValueSets.YesNoUnknown.Yes;
             Assert.Equal("Y", SetterDeathRecord.AutopsyResultsAvailableHelper);
             SetterDeathRecord.AutopsyResultsAvailableHelper = "N";
             Assert.Equal("N", SetterDeathRecord.AutopsyResultsAvailableHelper);
@@ -2317,7 +2317,7 @@ namespace VRDR.Tests
         [Fact]
         public void Get_AutopsyResultsAvailable()
         {
-            Assert.Equal(ValueSets.YesNoUnknown.Yes, DeathCertificateDocument2_JSON.AutopsyResultsAvailableHelper);
+            Assert.Equal(VR.ValueSets.YesNoUnknown.Yes, DeathCertificateDocument2_JSON.AutopsyResultsAvailableHelper);
             Assert.Equal("Y", DeathRecord1_JSON.AutopsyResultsAvailable["code"]);
             Assert.Equal(VR.CodeSystems.YesNo, DeathRecord1_JSON.AutopsyResultsAvailable["system"]);
             Assert.Equal("Yes", DeathRecord1_JSON.AutopsyResultsAvailable["display"]);
@@ -2492,20 +2492,20 @@ namespace VRDR.Tests
         public void AgeAtDeath_EditFlag()
         {
             Dictionary<string, string> flag = new Dictionary<string, string>();
-            flag.Add("system", CodeSystems.BypassEditFlag);
+            flag.Add("system", VR.CodeSystemURL.EditFlags);
             flag.Add("code", "0");
             flag.Add("display", "Edit Passed");
             SetterDeathRecord.AgeAtDeathEditFlag = flag;
-            Assert.Equal(CodeSystems.BypassEditFlag, SetterDeathRecord.AgeAtDeathEditFlag["system"]);
+            Assert.Equal(VR.CodeSystemURL.EditFlags, SetterDeathRecord.AgeAtDeathEditFlag["system"]);
             Assert.Equal("0", SetterDeathRecord.AgeAtDeathEditFlag["code"]);
             Assert.Equal("Edit Passed", SetterDeathRecord.AgeAtDeathEditFlag["display"]);
 
             flag = new Dictionary<string, string>();
-            flag.Add("system", CodeSystems.BypassEditFlag);
+            flag.Add("system", VR.CodeSystemURL.EditFlags);
             flag.Add("code", "1");
             flag.Add("display", "Edit Failed, Data Queried, and Verified");
             SetterDeathRecord.AgeAtDeathEditFlag = flag;
-            Assert.Equal(CodeSystems.BypassEditFlag, SetterDeathRecord.AgeAtDeathEditFlag["system"]);
+            Assert.Equal(VR.CodeSystemURL.EditFlags, SetterDeathRecord.AgeAtDeathEditFlag["system"]);
             Assert.Equal("1", SetterDeathRecord.AgeAtDeathEditFlag["code"]);
             Assert.Equal("Edit Failed, Data Queried, and Verified", SetterDeathRecord.AgeAtDeathEditFlag["display"]);
         }
@@ -2515,7 +2515,7 @@ namespace VRDR.Tests
         {
             DeathRecord dr = new DeathRecord(File.ReadAllText(FixturePath("fixtures/json/MissingAge.json")));
             Dictionary<string, string> flag = new Dictionary<string, string>();
-            flag.Add("system", CodeSystems.BypassEditFlag);
+            flag.Add("system", VR.CodeSystemURL.EditFlags);
             flag.Add("code", "0");
             flag.Add("display", "Edit Passed");
             dr.AgeAtDeathEditFlag = flag;
@@ -2525,7 +2525,7 @@ namespace VRDR.Tests
             Assert.Equal("9", ije.AGETYPE);
             Assert.Equal("0", ije.AGE_BYPASS);
             DeathRecord dr2 = ije.ToRecord();
-            Assert.Equal(CodeSystems.BypassEditFlag, dr2.AgeAtDeathEditFlag["system"]);
+            Assert.Equal(VR.CodeSystemURL.EditFlags, dr2.AgeAtDeathEditFlag["system"]);
             Assert.Equal("0", dr2.AgeAtDeathEditFlag["code"]);
             Assert.Equal("Edit Passed", dr2.AgeAtDeathEditFlag["display"]);
         }
@@ -2549,7 +2549,7 @@ namespace VRDR.Tests
             Assert.Equal("1", DeathRecord1_JSON.PregnancyStatus["code"]);
             Assert.Equal(VR.CodeSystems.PregnancyStatus, DeathRecord1_JSON.PregnancyStatus["system"]);
             Assert.Equal("Not pregnant within past year", DeathRecord1_JSON.PregnancyStatus["display"]);
-            Assert.Equal(ValueSets.PregnancyStatus.Pregnant_At_Time_Of_Death, DeathCertificateDocument2_JSON.PregnancyStatusHelper);
+            Assert.Equal(ValueSets.DeathPregnancyStatus.Pregnant_At_Time_Of_Death, DeathCertificateDocument2_JSON.PregnancyStatusHelper);
             Assert.Equal("1", DeathRecord1_XML.PregnancyStatus["code"]);
             Assert.Equal(VR.CodeSystems.PregnancyStatus, DeathRecord1_XML.PregnancyStatus["system"]);
             Assert.Equal("Not pregnant within past year", DeathRecord1_XML.PregnancyStatus["display"]);
@@ -2560,15 +2560,15 @@ namespace VRDR.Tests
         {
             Dictionary<string, string> elef = new Dictionary<string, string>();
             elef.Add("code", VRDR.ValueSets.EditBypass012.Edit_Failed_Data_Queried_And_Verified);
-            elef.Add("system", VR.CodeSystems.BypassEditFlag);
+            elef.Add("system", VR.CodeSystemURL.EditFlags);
             elef.Add("display", "Edit Failed Data Queried And Verified");
             SetterDeathRecord.PregnancyStatusEditFlag = elef;
             Assert.Equal(VRDR.ValueSets.EditBypass012.Edit_Failed_Data_Queried_And_Verified, SetterDeathRecord.PregnancyStatusEditFlag["code"]);
-            Assert.Equal(VR.CodeSystems.BypassEditFlag, SetterDeathRecord.PregnancyStatusEditFlag["system"]);
+            Assert.Equal(VR.CodeSystemURL.EditFlags, SetterDeathRecord.PregnancyStatusEditFlag["system"]);
             Assert.Equal("Edit Failed Data Queried And Verified", SetterDeathRecord.PregnancyStatusEditFlag["display"]);
             SetterDeathRecord.PregnancyStatusEditFlagHelper = VRDR.ValueSets.EditBypass012.Edit_Passed;
             Assert.Equal(VRDR.ValueSets.EditBypass012.Edit_Passed, SetterDeathRecord.PregnancyStatusEditFlagHelper);
-            Assert.Equal(VR.CodeSystems.BypassEditFlag, SetterDeathRecord.PregnancyStatusEditFlag["system"]);
+            Assert.Equal(VR.CodeSystemURL.EditFlags, SetterDeathRecord.PregnancyStatusEditFlag["system"]);
             Assert.Equal("Edit Passed", SetterDeathRecord.PregnancyStatusEditFlag["display"]);
         }
 
@@ -2577,10 +2577,10 @@ namespace VRDR.Tests
         {
             Assert.Equal(VRDR.ValueSets.EditBypass012.Edit_Failed_Data_Queried_But_Not_Verified, DeathCertificateDocument2_JSON.PregnancyStatusEditFlagHelper);
             Assert.Equal(VRDR.ValueSets.EditBypass012.Edit_Passed, DeathRecord1_JSON.PregnancyStatusEditFlagHelper);
-            Assert.Equal(VR.CodeSystems.BypassEditFlag, DeathRecord1_JSON.PregnancyStatusEditFlag["system"]);
+            Assert.Equal(VR.CodeSystemURL.EditFlags, DeathRecord1_JSON.PregnancyStatusEditFlag["system"]);
             Assert.Equal("Edit Passed", DeathRecord1_JSON.PregnancyStatusEditFlag["display"]);
             Assert.Equal(VRDR.ValueSets.EditBypass012.Edit_Passed, DeathRecord1_XML.PregnancyStatusEditFlagHelper);
-            Assert.Equal(VR.CodeSystems.BypassEditFlag, DeathRecord1_XML.PregnancyStatusEditFlag["system"]);
+            Assert.Equal(VR.CodeSystemURL.EditFlags, DeathRecord1_XML.PregnancyStatusEditFlag["system"]);
             Assert.Equal("Edit Passed", DeathRecord1_XML.PregnancyStatusEditFlag["display"]);
         }
 
@@ -2878,7 +2878,7 @@ namespace VRDR.Tests
             Assert.Equal(VR.CodeSystems.YesNo_0136HL7_V2, DeathRecord1_JSON.InjuryAtWork["system"]);
             Assert.Equal("No", DeathRecord1_JSON.InjuryAtWork["display"]);
             Assert.Equal("N", DeathRecord1_JSON.InjuryAtWorkHelper);
-            Assert.Equal(VRDR.ValueSets.YesNoUnknown.No, DeathCertificateDocument2_JSON.InjuryAtWorkHelper);
+            Assert.Equal(VR.ValueSets.YesNoUnknown.No, DeathCertificateDocument2_JSON.InjuryAtWorkHelper);
             Assert.Equal("N", DeathRecord1_XML.InjuryAtWork["code"]);
             Assert.Equal(VR.CodeSystems.YesNo_0136HL7_V2, DeathRecord1_XML.InjuryAtWork["system"]);
             Assert.Equal("No", DeathRecord1_XML.InjuryAtWork["display"]);

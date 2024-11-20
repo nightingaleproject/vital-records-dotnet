@@ -272,7 +272,7 @@
           </extension>
         </birthDate>
         <address>
-          <extension url='http://hl7.org/fhir/us/vr-common-library/StructureDefinition/StructureDefinition/Extension-within-city-limits-indicator-vr'>
+          <extension url='http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-within-city-limits-indicator-vr'>
             <valueCoding>
               <system value='http://terminology.hl7.org/CodeSystem/v2-0136'/>
               <code value='Y'/>
@@ -840,7 +840,7 @@
             </valueCodeableConcept>
           </extension>
           <coding>
-            <system value='http://hl7.org/fhir/us/vrsandbox/CodeSystem/CodeSystem-death-pregnancy-status'/>
+            <system value='http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-pregnancy-status-cs'/>
             <code value='2'/>
             <display value='Pregnant at time of death'/>
           </coding>

@@ -109,23 +109,11 @@
         <member name="F:VR.CodeSystems.ComponentCodeVR">
             <summary> Component </summary>
         </member>
-        <member name="F:VR.CodeSystems.HispanicOrigin">
-            <summary> Hispanic Origin </summary>
+        <member name="F:VR.CodeSystems.ActivityAtTimeOfDeath">
+            <summary> Activity at Time of Death </summary>
         </member>
-        <member name="F:VR.CodeSystems.Jurisdictions">
-            <summary> Jurisdictions </summary>
-        </member>
-        <member name="F:VR.CodeSystems.RaceCode">
-            <summary> Race Code </summary>
-        </member>
-        <member name="F:VR.CodeSystems.MissingValueReason">
-            <summary> Missing Value Reason </summary>
-        </member>
-        <member name="F:VR.CodeSystems.RaceRecode40">
-            <summary> Race Recode 40 </summary>
-        </member>
-        <member name="F:VR.CodeSystems.BypassEditFlag">
-            <summary> Bypass Edit Flag </summary>
+        <member name="F:VR.CodeSystems.PlaceOfInjury">
+            <summary> Place of Injury </summary>
         </member>
         <member name="F:VR.CodeSystems.PregnancyStatus">
             <summary> Pregnancy Status </summary>
@@ -144,9 +132,6 @@
         </member>
         <member name="F:VR.CodeSystems.OrganizationType">
             <summary> Organization Type </summary>
-        </member>
-        <member name="F:VR.CodeSystems.ActivityAtTimeOfDeath">
-            <summary> Activity at Time of Death </summary>
         </member>
         <member name="F:VR.CodeSystems.IntentionalReject">
             <summary> Intentional Reject </summary>
@@ -898,6 +883,39 @@
         <member name="F:VR.ExtensionURL.PartialDateTimeTimeVR">
             <summary>URL for PartialDateTime Time as defined in the VitalRecords IG</summary>
         </member>
+        <member name="T:VR.CodeSystemURL">
+            <summary>Extension URLs</summary>
+        </member>
+        <member name="F:VR.CodeSystemURL.CountryCode">
+            <summary>URL for CountryCode</summary>
+        </member>
+        <member name="F:VR.CodeSystemURL.HispanicOrigin">
+            <summary>URL for HispanicOrigin</summary>
+        </member>
+        <member name="F:VR.CodeSystemURL.Jurisdictions">
+            <summary>URL for Jurisdictions</summary>
+        </member>
+        <member name="F:VR.CodeSystemURL.LocalObservationsCodes">
+            <summary>URL for LocalObservationsCodes</summary>
+        </member>
+        <member name="F:VR.CodeSystemURL.RaceCode">
+            <summary>URL for RaceCode</summary>
+        </member>
+        <member name="F:VR.CodeSystemURL.CodeSystemRaceRecode40VitalRecords">
+            <summary>URL for CodeSystemRaceRecode40VitalRecords</summary>
+        </member>
+        <member name="F:VR.CodeSystemURL.USStatesTerritories">
+            <summary>URL for USStatesTerritories</summary>
+        </member>
+        <member name="F:VR.CodeSystemURL.EditFlags">
+            <summary>URL for EditFlags</summary>
+        </member>
+        <member name="F:VR.CodeSystemURL.IJE">
+            <summary>URL for IJE</summary>
+        </member>
+        <member name="F:VR.CodeSystemURL.Component">
+            <summary>URL for Component</summary>
+        </member>
         <member name="T:VR.IGURL">
             <summary>IG URLs</summary>
         </member>
@@ -996,6 +1014,40 @@
         </member>
         <member name="F:VR.IGURL.InputRaceAndEthnicity">
             <summary>URL for InputRaceAndEthnicity</summary>
+        </member>
+        <member name="T:VR.IGCodeSystemURL">
+            <summary>Vital Records Custom Code System URLs</summary>
+        </member>
+        <member name="F:VR.IGCodeSystemURL.CountryCode">
+            <summary>URL for Component</summary>
+            <summary>URL for CountryCode</summary>
+        </member>
+        <member name="F:VR.IGCodeSystemURL.HispanicOrigin">
+            <summary>URL for HispanicOrigin</summary>
+        </member>
+        <member name="F:VR.IGCodeSystemURL.Jurisdictions">
+            <summary>URL for Jurisdictions</summary>
+        </member>
+        <member name="F:VR.IGCodeSystemURL.LocalObservationsCodes">
+            <summary>URL for LocalObservationsCodes</summary>
+        </member>
+        <member name="F:VR.IGCodeSystemURL.RaceCode">
+            <summary>URL for RaceCode</summary>
+        </member>
+        <member name="F:VR.IGCodeSystemURL.CodeSystemRaceRecode40VitalRecords">
+            <summary>URL for CodeSystemRaceRecode40VitalRecords</summary>
+        </member>
+        <member name="F:VR.IGCodeSystemURL.USStatesTerritories">
+            <summary>URL for USStatesTerritories</summary>
+        </member>
+        <member name="F:VR.IGCodeSystemURL.EditFlags">
+            <summary>URL for EditFlags</summary>
+        </member>
+        <member name="F:VR.IGCodeSystemURL.IJE">
+            <summary>URL for IJE</summary>
+        </member>
+        <member name="F:VR.IGCodeSystemURL.Component">
+            <summary>URL for Component</summary>
         </member>
         <member name="T:VR.ValueSets">
             <summary> ValueSet Helpers </summary>

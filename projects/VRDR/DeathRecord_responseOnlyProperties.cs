@@ -301,7 +301,7 @@ namespace VRDR
         /// <value>First Edited Race Code Helper.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.FirstEditedRaceCodeHelper = VRDR.ValueSets.RaceCode.African ;</para>
+        /// <para>ExampleDeathRecord.FirstEditedRaceCodeHelper = VR.ValueSets.RaceCode.African ;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"First Edited Race Code: {ExampleDeathRecord.FirstEditedRaceCodeHelper}");</para>
         /// </example>
@@ -322,7 +322,7 @@ namespace VRDR
             {
                 if(!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("FirstEditedRaceCode", value, VRDR.ValueSets.RaceCode.Codes);
+                    SetCodeValue("FirstEditedRaceCode", value, VR.ValueSets.RaceCode.Codes);
                 }
             }
         }
@@ -380,7 +380,7 @@ namespace VRDR
         /// <value>Second Edited Race Code Helper.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.SecondEditedRaceCodeHelper = VRDR.ValueSets.RaceCode.African ;</para>
+        /// <para>ExampleDeathRecord.SecondEditedRaceCodeHelper = VR.ValueSets.RaceCode.African ;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Second Edited Race Code: {ExampleDeathRecord.SecondEditedRaceCodeHelper}");</para>
         /// </example>
@@ -401,7 +401,7 @@ namespace VRDR
             {
                 if(!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("SecondEditedRaceCode", value, VRDR.ValueSets.RaceCode.Codes);
+                    SetCodeValue("SecondEditedRaceCode", value, VR.ValueSets.RaceCode.Codes);
                 }
             }
         }
@@ -459,7 +459,7 @@ namespace VRDR
         /// <value>Third Edited Race Code Helper.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.ThirdEditedRaceCodeHelper = VRDR.ValueSets.RaceCode.African ;</para>
+        /// <para>ExampleDeathRecord.ThirdEditedRaceCodeHelper = VR.ValueSets.RaceCode.African ;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Third Edited Race Code: {ExampleDeathRecord.ThirdEditedRaceCodeHelper}");</para>
         /// </example>
@@ -480,7 +480,7 @@ namespace VRDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("ThirdEditedRaceCode", value, VRDR.ValueSets.RaceCode.Codes);
+                    SetCodeValue("ThirdEditedRaceCode", value, VR.ValueSets.RaceCode.Codes);
                 }
             }
         }
@@ -538,7 +538,7 @@ namespace VRDR
         /// <value>Fourth Edited Race Code Helper.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.FourthEditedRaceCodeHelper = VRDR.ValueSets.RaceCode.African ;</para>
+        /// <para>ExampleDeathRecord.FourthEditedRaceCodeHelper = VR.ValueSets.RaceCode.African ;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Fourth Edited Race Code: {ExampleDeathRecord.FourthEditedRaceCodeHelper}");</para>
         /// </example>
@@ -559,7 +559,7 @@ namespace VRDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("FourthEditedRaceCode", value, VRDR.ValueSets.RaceCode.Codes);
+                    SetCodeValue("FourthEditedRaceCode", value, VR.ValueSets.RaceCode.Codes);
                 }
             }
         }
@@ -617,7 +617,7 @@ namespace VRDR
         /// <value>Fifth Edited Race Code Helper.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.FifthEditedRaceCodeHelper = VRDR.ValueSets.RaceCode.African ;</para>
+        /// <para>ExampleDeathRecord.FifthEditedRaceCodeHelper = VR.ValueSets.RaceCode.African ;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Fifth Edited Race Code: {ExampleDeathRecord.FifthEditedRaceCodeHelper}");</para>
         /// </example>
@@ -638,7 +638,7 @@ namespace VRDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("FifthEditedRaceCode", value, VRDR.ValueSets.RaceCode.Codes);
+                    SetCodeValue("FifthEditedRaceCode", value, VR.ValueSets.RaceCode.Codes);
                 }
             }
         }
@@ -696,7 +696,7 @@ namespace VRDR
         /// <value>Sixth Edited Race Code Helper.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.SixthEditedRaceCodeHelper = VRDR.ValueSets.RaceCode.African ;</para>
+        /// <para>ExampleDeathRecord.SixthEditedRaceCodeHelper = VR.ValueSets.RaceCode.African ;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Sixth Edited Race Code: {ExampleDeathRecord.SixthEditedRaceCodeHelper}");</para>
         /// </example>
@@ -717,7 +717,7 @@ namespace VRDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("SixthEditedRaceCode", value, VRDR.ValueSets.RaceCode.Codes);
+                    SetCodeValue("SixthEditedRaceCode", value, VR.ValueSets.RaceCode.Codes);
                 }
             }
         }
@@ -775,7 +775,7 @@ namespace VRDR
         /// <value>Seventh Edited Race Code Helper.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.SeventhEditedRaceCodeHelper = VRDR.ValueSets.RaceCode.African ;</para>
+        /// <para>ExampleDeathRecord.SeventhEditedRaceCodeHelper = VR.ValueSets.RaceCode.African ;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Seventh Edited Race Code: {ExampleDeathRecord.SeventhEditedRaceCodeHelper}");</para>
         /// </example>
@@ -796,7 +796,7 @@ namespace VRDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("SeventhEditedRaceCode", value, VRDR.ValueSets.RaceCode.Codes);
+                    SetCodeValue("SeventhEditedRaceCode", value, VR.ValueSets.RaceCode.Codes);
                 }
             }
         }
@@ -854,7 +854,7 @@ namespace VRDR
         /// <value>Eighth Edited Race Code Helper.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.EighthEditedRaceCodeHelper = VRDR.ValueSets.RaceCode.African ;</para>
+        /// <para>ExampleDeathRecord.EighthEditedRaceCodeHelper = VR.ValueSets.RaceCode.African ;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Eighth Edited Race Code: {ExampleDeathRecord.EighthEditedRaceCodeHelper}");</para>
         /// </example>
@@ -875,7 +875,7 @@ namespace VRDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("EighthEditedRaceCode", value, VRDR.ValueSets.RaceCode.Codes);
+                    SetCodeValue("EighthEditedRaceCode", value, VR.ValueSets.RaceCode.Codes);
                 }
             }
         }
@@ -933,7 +933,7 @@ namespace VRDR
         /// <value>First American Indian Race Code Helper.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.FirstAmericanIndianRaceCodeHelper = VRDR.ValueSets.RaceCode.African ;</para>
+        /// <para>ExampleDeathRecord.FirstAmericanIndianRaceCodeHelper = VR.ValueSets.RaceCode.African ;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"First American Indian Race Code: {ExampleDeathRecord.FirstAmericanIndianRaceCodeHelper}");</para>
         /// </example>
@@ -954,7 +954,7 @@ namespace VRDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("FirstAmericanIndianRaceCode", value, VRDR.ValueSets.RaceCode.Codes);
+                    SetCodeValue("FirstAmericanIndianRaceCode", value, VR.ValueSets.RaceCode.Codes);
                 }
             }
         }
@@ -1012,7 +1012,7 @@ namespace VRDR
         /// <value>Second American Indian Race Code Helper.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.SecondAmericanIndianRaceCodeHelper = VRDR.ValueSets.RaceCode.African ;</para>
+        /// <para>ExampleDeathRecord.SecondAmericanIndianRaceCodeHelper = VR.ValueSets.RaceCode.African ;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Second American Indian Race Code: {ExampleDeathRecord.SecondAmericanIndianRaceCodeHelper}");</para>
         /// </example>
@@ -1033,7 +1033,7 @@ namespace VRDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("SecondAmericanIndianRaceCode", value, VRDR.ValueSets.RaceCode.Codes);
+                    SetCodeValue("SecondAmericanIndianRaceCode", value, VR.ValueSets.RaceCode.Codes);
                 }
             }
         }
@@ -1091,7 +1091,7 @@ namespace VRDR
         /// <value>First Other Asian Race Code Helper.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.FirstOtherAsianRaceCodeHelper = VRDR.ValueSets.RaceCode.African ;</para>
+        /// <para>ExampleDeathRecord.FirstOtherAsianRaceCodeHelper = VR.ValueSets.RaceCode.African ;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"First Other Asian Race Code: {ExampleDeathRecord.FirstOtherAsianRaceCodeHelper}");</para>
         /// </example>
@@ -1112,7 +1112,7 @@ namespace VRDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("FirstOtherAsianRaceCode", value, VRDR.ValueSets.RaceCode.Codes);
+                    SetCodeValue("FirstOtherAsianRaceCode", value, VR.ValueSets.RaceCode.Codes);
                 }
             }
         }
@@ -1170,7 +1170,7 @@ namespace VRDR
         /// <value>Second Other Asian Race Code Helper.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.SecondOtherAsianRaceCodeHelper = VRDR.ValueSets.RaceCode.African ;</para>
+        /// <para>ExampleDeathRecord.SecondOtherAsianRaceCodeHelper = VR.ValueSets.RaceCode.African ;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Second Other Asian Race Code: {ExampleDeathRecord.SecondOtherAsianRaceCodeHelper}");</para>
         /// </example>
@@ -1191,7 +1191,7 @@ namespace VRDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("SecondOtherAsianRaceCode", value, VRDR.ValueSets.RaceCode.Codes);
+                    SetCodeValue("SecondOtherAsianRaceCode", value, VR.ValueSets.RaceCode.Codes);
                 }
             }
         }
@@ -1249,7 +1249,7 @@ namespace VRDR
         /// <value>First Other Pacific Islander Race Code Helper.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.FirstOtherPacificIslanderRaceCodeHelper = VRDR.ValueSets.RaceCode.African ;</para>
+        /// <para>ExampleDeathRecord.FirstOtherPacificIslanderRaceCodeHelper = VR.ValueSets.RaceCode.African ;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"First Other Pacific Islander Race Code: {ExampleDeathRecord.FirstOtherPacificIslanderRaceCodeHelper}");</para>
         /// </example>
@@ -1270,7 +1270,7 @@ namespace VRDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("FirstOtherPacificIslanderRaceCode", value, VRDR.ValueSets.RaceCode.Codes);
+                    SetCodeValue("FirstOtherPacificIslanderRaceCode", value, VR.ValueSets.RaceCode.Codes);
                 }
             }
         }
@@ -1328,7 +1328,7 @@ namespace VRDR
         /// <value>Second Other Pacific Islander Race Code Helper.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.SecondOtherPacificIslanderRaceCodeHelper = VRDR.ValueSets.RaceCode.African ;</para>
+        /// <para>ExampleDeathRecord.SecondOtherPacificIslanderRaceCodeHelper = VR.ValueSets.RaceCode.African ;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Second Other Pacific Islander Race Code: {ExampleDeathRecord.SecondOtherPacificIslanderRaceCodeHelper}");</para>
         /// </example>
@@ -1349,7 +1349,7 @@ namespace VRDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("SecondOtherPacificIslanderRaceCode", value, VRDR.ValueSets.RaceCode.Codes);
+                    SetCodeValue("SecondOtherPacificIslanderRaceCode", value, VR.ValueSets.RaceCode.Codes);
                 }
             }
         }
@@ -1407,7 +1407,7 @@ namespace VRDR
         /// <value>First Other Race Code Helper.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.FirstOtherRaceCodeHelper = VRDR.ValueSets.RaceCode.African ;</para>
+        /// <para>ExampleDeathRecord.FirstOtherRaceCodeHelper = VR.ValueSets.RaceCode.African ;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"First Other Race Code: {ExampleDeathRecord.FirstOtherRaceCodeHelper}");</para>
         /// </example>
@@ -1428,7 +1428,7 @@ namespace VRDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("FirstOtherRaceCode", value, VRDR.ValueSets.RaceCode.Codes);
+                    SetCodeValue("FirstOtherRaceCode", value, VR.ValueSets.RaceCode.Codes);
                 }
             }
         }
@@ -1486,7 +1486,7 @@ namespace VRDR
         /// <value>Second Other Race Code Helper.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.SecondOtherRaceCodeHelper = VRDR.ValueSets.RaceCode.African ;</para>
+        /// <para>ExampleDeathRecord.SecondOtherRaceCodeHelper = VR.ValueSets.RaceCode.African ;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Second Other Race Code: {ExampleDeathRecord.SecondOtherRaceCodeHelper}");</para>
         /// </example>
@@ -1507,7 +1507,7 @@ namespace VRDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("SecondOtherRaceCode", value, VRDR.ValueSets.RaceCode.Codes);
+                    SetCodeValue("SecondOtherRaceCode", value, VR.ValueSets.RaceCode.Codes);
                 }
             }
         }
@@ -1565,7 +1565,7 @@ namespace VRDR
         /// <value>Hispanic Code Helper.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.HispanicCodeHelper = VRDR.ValueSets.RaceCode.African ;</para>
+        /// <para>ExampleDeathRecord.HispanicCodeHelper = VR.ValueSets.RaceCode.African ;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Hispanic Code: {ExampleDeathRecord.HispanicCodeHelper}");</para>
         /// </example>
@@ -1586,7 +1586,7 @@ namespace VRDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("HispanicCode", value, VRDR.ValueSets.HispanicOrigin.Codes);
+                    SetCodeValue("HispanicCode", value, VR.ValueSets.HispanicOrigin.Codes);
                 }
             }
         }
@@ -1644,7 +1644,7 @@ namespace VRDR
         /// <value>Hispanic Code For Literal Helper.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.HispanicCodeForLiteralHelper = VRDR.ValueSets.RaceCode.African ;</para>
+        /// <para>ExampleDeathRecord.HispanicCodeForLiteralHelper = VR.ValueSets.RaceCode.African ;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Hispanic Code For Literal: {ExampleDeathRecord.HispanicCodeForLiteralHelper}");</para>
         /// </example>
@@ -1665,7 +1665,7 @@ namespace VRDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("HispanicCodeForLiteral", value, VRDR.ValueSets.HispanicOrigin.Codes);
+                    SetCodeValue("HispanicCodeForLiteral", value, VR.ValueSets.HispanicOrigin.Codes);
                 }
             }
         }
@@ -1723,7 +1723,7 @@ namespace VRDR
         /// <value>Race Recode 40 Helper.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.RaceRecode40Helper = VRDR.ValueSets.RaceRecode40.AIAN ;</para>
+        /// <para>ExampleDeathRecord.RaceRecode40Helper = VR.ValueSets.RaceRecode40.AIAN ;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Race Recode 40: {ExampleDeathRecord.RaceRecode40Helper}");</para>
         /// </example>
@@ -1744,7 +1744,7 @@ namespace VRDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("RaceRecode40", value, VRDR.ValueSets.RaceRecode40.Codes);
+                    SetCodeValue("RaceRecode40", value, VR.ValueSets.RaceRecode40.Codes);
                 }
             }
         }

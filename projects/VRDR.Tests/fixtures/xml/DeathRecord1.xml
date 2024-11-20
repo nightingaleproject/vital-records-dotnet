@@ -267,7 +267,7 @@
         <gender value='female'/>
         <birthDate value='1940-02-19'/>
         <address>
-          <extension url='http://hl7.org/fhir/us/vr-common-library/StructureDefinition/StructureDefinition/Extension-within-city-limits-indicator-vr'>
+          <extension url='http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-within-city-limits-indicator-vr'>
             <valueCoding>
               <system value='http://terminology.hl7.org/CodeSystem/v2-0136'/>
               <code value='Y'/>
@@ -1366,7 +1366,7 @@
             </valueCodeableConcept>
           </extension>
           <coding>
-            <system value='http://hl7.org/fhir/us/vrsandbox/CodeSystem/CodeSystem-death-pregnancy-status'/>
+            <system value='http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-pregnancy-status-cs'/>
             <code value='1'/>
             <display value='Not pregnant within past year'/>
           </coding>
@@ -1582,7 +1582,7 @@
             </extension>
           </district>
           <state value='NY'>
-            <extension url='http://hl7.org/fhir/us/vrdr/StructureDefinition/Location-Jurisdiction-Id'>
+            <extension url='http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-jurisdiction-id-vr'>
               <valueString value='YC'/>
             </extension>
           </state>
