@@ -23,8 +23,13 @@ raise "Please provide a path to the IG JSON files" unless path_to_ig
 structure_definition_files = Dir.glob("#{path_to_ig}/**/StructureDefinition*.json")
 raise "No Structure Definitions Found" unless structure_definition_files.size > 0
 
+# Load the CodeSystem Definitions from the provided directory
+code_system_files = Dir.glob("#{path_to_ig}/**/CodeSystem*.json")
+raise "No CodeSystem Definitions Found" unless code_system_files.size > 0
+
 # Iterate through each file and populate a hash of name => url
 structure_definition_hash = {}
+name = "blank"
 structure_definitions = structure_definition_files.each do |structure_definition_file|
   # Load and parse the JSON
   structure_definition = JSON.parse(File.read(structure_definition_file))
@@ -34,30 +39,35 @@ structure_definitions = structure_definition_files.each do |structure_definition
   structure_definition_hash[name] = url
 end
 
-# Helper method to transform a StructureDefinition URL into a human-visitable link
-# Note: Will need to be updated as IG moves through different publishing stages
-def structure_definition_url_to_ig_url(url)
-  # Transform this: http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Patient-mother-vr
-  # Into this:      http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Patient-mother-vr.html
-  url.gsub('http://hl7.org/fhir/us/vr-common-library/StructureDefinition/', 'https://hl7.org/fhir/us/vr-common-library/StructureDefinition-') + '.html'
+# Iterate through each file and populate a hash of name => url
+code_system_hash = {}
+code_systems = code_system_files.each do |code_system_file|
+  # Load and parse the JSON
+  code_system = JSON.parse(File.read(code_system_file))
+  # Grab the name and URL and populate the hash
+  name = code_system['name']
+  url = code_system['url']
+  code_system_hash[name] = url
 end
 
-# Helper method to transform a StructureDefinition URL into a relative extension URL
-# Note: Will need to be updated as IG moves through different publishing stages
-def structure_definition_url_to_ext_url(url)
-  # Transform this: http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Patient-mother-vr
-  # Into this:      /StructureDefinition/Patient-mother-vr
+# Helper method to transform a StructureDefinition or Codesystem URL into a relative extension URL
+def structure_definition_url_to_ig_url(url) 
   url = url.gsub('http://hl7.org/fhir/us/vr-common-library/', '')
 end
 
 # Helper method to determine whether a definition is an Extension or a Profile
 def url_type(name)
-  if name.include?('Extension') then 'extension' else 'profile' end
+  if name.include?('Extension') then 'extension' 
+  elsif name.include?('CodeSystem') then 'codesystem' 
+  else 'profile' 
+  end
 end
 
 # Helper method to extract a short name from an extension named according to conventions
 def short_name(name)
   if /Extension(?<shortname>[a-zA-Z]+)VitalRecords/ =~ name
+    shortname
+  elsif /CodeSystem(?<shortname>[a-zA-Z]+)VitalRecords/ =~ name
     shortname
   elsif /(Observation|Patient|Practitioner)(?<shortname>[a-zA-Z]+)VitalRecords/ =~ name
     shortname
@@ -91,7 +101,7 @@ namespace VR
 
 <% structure_definition_hash.select { |name, url| url_type(name) == 'extension' }.each do |name, url| -%>
         /// <summary>URL for <%= short_name(name) %></summary>
-        public const string <%= short_name(name) %> = "http://hl7.org/fhir/us/vr-common-library/<%= structure_definition_url_to_ext_url(url) %>";
+        public const string <%= short_name(name) %> = "http://hl7.org/fhir/us/vr-common-library/<%= structure_definition_url_to_ig_url(url) %>";
 
 <% end -%>
 
@@ -111,7 +121,16 @@ namespace VR
         public const string PartialDateTimeVR = "time";
 
     }
+            /// <summary>Extension URLs</summary>
+    public class CodeSystemURL
+    {
 
+<% code_system_hash.select { |name, url| url_type(name) == 'codesystem' }.each do |name, url| -%>
+        /// <summary>URL for <%= short_name(name) %></summary>
+        public const string <%= short_name(name) %> = "http://hl7.org/fhir/us/vr-common-library/<%= structure_definition_url_to_ig_url(url) %>";
+
+<% end -%>
+    }
     /// <summary>IG URLs</summary>
     public static class IGURL
     {
@@ -119,6 +138,15 @@ namespace VR
         /// <summary>URL for <%= short_name(name) %></summary>
         public const string <%= short_name(name) %> = "<%= structure_definition_url_to_ig_url(url) %>";
 
+<% end -%>
+    }
+    /// <summary>Vital Records Custom Code System URLs</summary>
+    public static class IGCodeSystemURL
+    {
+        /// <summary>URL for <%= short_name(name) %></summary>
+<% code_system_hash.each do |name, url| -%>
+        /// <summary>URL for <%= short_name(name) %></summary>
+        public const string <%= short_name(name) %> = "<%= structure_definition_url_to_ig_url(url) %>";
 <% end -%>
     }
 }

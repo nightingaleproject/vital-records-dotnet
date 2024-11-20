@@ -845,21 +845,21 @@ namespace VRDR
                 if (!VR.Mappings.UnitsOfAge.IJEToFHIR.TryGetValue(value, out string fhirValue))
                 {
                     // We have an invalid code, map it to unknown
-                    fhirValue = ValueSets.UnitsOfAge.Unknown;
+                    fhirValue = VR.ValueSets.UnitsOfAge.Unknown;
                 }
                 // We have the code, now we need the corresponding unit and system
                 // Iterate over the allowed options and see if the code supplies is one of them
-                int length = ValueSets.UnitsOfAge.Codes.Length;
+                int length = VR.ValueSets.UnitsOfAge.Codes.Length;
                 for (int i = 0; i < length; i += 1)
                 {
-                    if (ValueSets.UnitsOfAge.Codes[i, 0] == fhirValue)
+                    if (VR.ValueSets.UnitsOfAge.Codes[i, 0] == fhirValue)
                     {
                         // Found it, so call the supplied setter with the appropriate dictionary built based on the code
                         // using the supplied options and return
                         Dictionary<string, string> dict = new Dictionary<string, string>();
                         dict.Add("code", fhirValue);
-                        dict.Add("unit", ValueSets.UnitsOfAge.Codes[i, 1]);
-                        dict.Add("system", ValueSets.UnitsOfAge.Codes[i, 2]);
+                        dict.Add("unit", VR.ValueSets.UnitsOfAge.Codes[i, 1]);
+                        dict.Add("system", VR.ValueSets.UnitsOfAge.Codes[i, 2]);
                         typeof(DeathRecord).GetProperty("AgeAtDeath").SetValue(this.record, dict);
                         return;
                     }

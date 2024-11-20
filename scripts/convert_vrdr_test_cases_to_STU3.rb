@@ -8,9 +8,11 @@ require 'rexml/formatters/pretty'
 
 #create hash for mapping of links 
 urisSTU3toSTU2 = {
+'http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag' => 'http://hl7.org/fhir/us/vrdr/StructureDefinition/BypassEditFlag', # profile
+'http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags' => 'http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-bypass-edit-flag-cs', #codesystem
+'http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-jurisdiction-id-vr' => 'http://hl7.org/fhir/us/vrdr/StructureDefinition/Location-Jurisdiction-Id', #extension
 'http://hl7.org/fhir/us/vr-common-library/StructureDefinition/AuxiliaryStateIdentifier1' => 'http://hl7.org/fhir/us/vrdr/StructureDefinition/AuxiliaryStateIdentifier1', #extension
 'http://hl7.org/fhir/us/vr-common-library/StructureDefinition/AuxiliaryStateIdentifier2' => 'http://hl7.org/fhir/us/vrdr/StructureDefinition/AuxiliaryStateIdentifier2', #extension
-'http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag' => 'http://hl7.org/fhir/us/vrdr/StructureDefinition/BypassEditFlag', #profile
 'http://hl7.org/fhir/us/vr-common-library/StructureDefinition/CertificateNumber' => 'http://hl7.org/fhir/us/vrdr/StructureDefinition/CertificateNumber', #extension
 'http://hl7.org/fhir/us/vr-common-library/StructureDefinition/input-race-and-ethnicity-vr' => 'http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-input-race-and-ethnicity', #profile
 'http://hl7.org/fhir/us/vr-common-library/StructureDefinition/coded-race-and-ethnicity-vr' => 'http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-coded-race-and-ethnicity', #profile
@@ -25,18 +27,16 @@ urisSTU3toSTU2 = {
 'http://hl7.org/fhir/us/vr-common-library/StructureDefinition/UnitOrAptNumber' => 'http://hl7.org/fhir/us/vrdr/StructureDefinition/UnitOrAptNumber', #extension
 'http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-partial-date-time-vr' => 'http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDateTime', #extension
 'http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-partial-date-vr' => 'http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDate', #extension
-'http://hl7.org/fhir/us/vr-common-library/StructureDefinition/StructureDefinition/Extension-within-city-limits-indicator-vr' => 'http://hl7.org/fhir/us/vrdr/StructureDefinition/WithinCityLimitsIndicator', #extension
+'http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-within-city-limits-indicator-vr' => 'http://hl7.org/fhir/us/vrdr/StructureDefinition/WithinCityLimitsIndicator', #extension
 'day' => 'http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Day', #extension 
 'month' => 'http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Month', #extension 
 'year' => 'http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Year', #extension
 'time' => 'http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Time', #extension
-'http://hl7.org/fhir/us/vrsandbox/CodeSystem/CodeSystem-death-pregnancy-status' => 'http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-pregnancy-status-cs', #codesystem
 'http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-local-observation-codes-vr' => 'http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs' , #codesystem
 'http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component' => 'http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs', #codesystem
 'http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-race-code-vr' => 'http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-race-code-cs', #codesystem
 'http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-race-recode-40-vr' => 'http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-race-recode-40-cs', #codesystem
 'http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-hispanic-origin-vr' => 'http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-hispanic-origin-cs', #codesystem
-'http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags' => 'http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-bypass-edit-flag-cs', #codesystem
 'http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-country-code-vr' => 'http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-country-code-cs', #codesystem
 'http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-jurisdictions-vr' => 'http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-jurisdictions-cs', #codesystem
 }

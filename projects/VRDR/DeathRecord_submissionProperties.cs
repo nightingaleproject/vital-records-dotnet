@@ -2166,7 +2166,7 @@ namespace VRDR
         /// <value>Residence Within City Limits.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.ResidenceWithinCityLimitsHelper = VRDR.ValueSets.YesNoUnknown.Y;</para>
+        /// <para>ExampleDeathRecord.ResidenceWithinCityLimitsHelper = VR.ValueSets.YesNoUnknown.Y;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Decedent's Residence within city limits: {ExampleDeathRecord.ResidenceWithinCityLimitsHelper}");</para>
         /// </example>
@@ -2187,7 +2187,7 @@ namespace VRDR
             {
                 if(!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("ResidenceWithinCityLimits", value, VRDR.ValueSets.YesNoUnknown.Codes);
+                    SetCodeValue("ResidenceWithinCityLimits", value, VR.ValueSets.YesNoUnknown.Codes);
                 }
             }
         }
@@ -2276,7 +2276,7 @@ namespace VRDR
         /// <value>Decedent's Ethnicity 1.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.EthnicityLevel = VRDR.ValueSets.YesNoUnknown.Yes;</para>
+        /// <para>ExampleDeathRecord.EthnicityLevel = VR.ValueSets.YesNoUnknown.Yes;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Decedent's Ethnicity: {ExampleDeathRecord.Ethnicity1Helper}");</para>
         /// </example>
@@ -2297,7 +2297,7 @@ namespace VRDR
             {
                 if(!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("Ethnicity1", value, VRDR.ValueSets.HispanicNoUnknown.Codes);
+                    SetCodeValue("Ethnicity1", value, VR.ValueSets.YesNoUnknown.Codes);
                 }
             }
         }
@@ -2376,7 +2376,7 @@ namespace VRDR
             {
                 if(!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("Ethnicity2", value, VRDR.ValueSets.HispanicNoUnknown.Codes);
+                    SetCodeValue("Ethnicity2", value, VR.ValueSets.YesNoUnknown.Codes);
                 }
             }
         }
@@ -2455,7 +2455,7 @@ namespace VRDR
             {
                 if(!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("Ethnicity3", value, VRDR.ValueSets.HispanicNoUnknown.Codes);
+                    SetCodeValue("Ethnicity3", value, VR.ValueSets.YesNoUnknown.Codes);
                 }
             }
         }
@@ -2534,7 +2534,7 @@ namespace VRDR
             {
                 if(!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("Ethnicity4", value, VRDR.ValueSets.HispanicNoUnknown.Codes);
+                    SetCodeValue("Ethnicity4", value, VR.ValueSets.YesNoUnknown.Codes);
                 }
             }
         }
@@ -2747,7 +2747,7 @@ namespace VRDR
         /// <value>Decedent's RaceMissingValueReason.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.RaceMissingValueReasonHelper = VRDR.ValueSets.RaceMissingValueReason.R;</para>
+        /// <para>ExampleDeathRecord.RaceMissingValueReasonHelper = VR.ValueSets.RaceMissingValueReason.R;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Decedent's RaceMissingValueReason: {ExampleDeathRecord.RaceMissingValueReasonHelper}");</para>
         /// </example>
@@ -2767,7 +2767,7 @@ namespace VRDR
             {
                 if(!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("RaceMissingValueReason", value, VRDR.ValueSets.RaceMissingValueReason.Codes);
+                    SetCodeValue("RaceMissingValueReason", value, VR.ValueSets.RaceMissingValueReason.Codes);
                 }
             }
         }
@@ -2976,7 +2976,7 @@ namespace VRDR
             {
                 if(!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("MaritalStatus", value, VRDR.ValueSets.MaritalStatus.Codes);
+                    SetCodeValue("MaritalStatus", value, VR.ValueSets.MaritalStatus.Codes);
                 }
             }
         }
@@ -3484,7 +3484,7 @@ namespace VRDR
         /// <value>Decedent's SpouseAlive.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.SpouseAliveHelper = VRDR.ValueSets.YesNoUnknownNotApplicable.Y;</para>
+        /// <para>ExampleDeathRecord.SpouseAliveHelper = VR.ValueSets.YesNoUnknownNotApplicable.Y;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Decedent's Spouse Alive: {ExampleDeathRecord.SpouseAliveHelper}");</para>
         /// </example>
@@ -3566,7 +3566,7 @@ namespace VRDR
         /// <value>Decedent's Education Level.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.DecedentEducationLevel = VRDR.ValueSets.EducationLevel.Bachelors_Degree;</para>
+        /// <para>ExampleDeathRecord.DecedentEducationLevel = VR.ValueSets.EducationLevel.Bachelors_Degree;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Decedent's Education Level: {ExampleDeathRecord.EducationLevelHelper}");</para>
         /// </example>
@@ -3587,7 +3587,7 @@ namespace VRDR
             {
                 if(!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("EducationLevel", value, VRDR.ValueSets.EducationLevel.Codes);
+                    SetCodeValue("EducationLevel", value, VR.ValueSets.EducationLevel.Codes);
                 }
             }
         }
@@ -3651,7 +3651,7 @@ namespace VRDR
         /// <value>Decedent's Education Level Edit Flag.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.DecedentEducationLevelEditFlag = VRDR.ValueSets.EditBypass01234.EditPassed;</para>
+        /// <para>ExampleDeathRecord.DecedentEducationLevelEditFlag = VR.ValueSets.EditBypass01234.EditPassed;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Decedent's Education Level Edit Flag: {ExampleDeathRecord.EducationLevelHelperEditFlag}");</para>
         /// </example>
@@ -3672,7 +3672,7 @@ namespace VRDR
             {
                 if(!String.IsNullOrWhiteSpace(value))
                 {
-                   SetCodeValue("EducationLevelEditFlag", value, VRDR.ValueSets.EditBypass01234.Codes);
+                   SetCodeValue("EducationLevelEditFlag", value, VR.ValueSets.EditBypass01234.Codes);
                 }
             }
         }
@@ -4003,7 +4003,7 @@ namespace VRDR
             {
                 if(!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("MilitaryService", value, VRDR.ValueSets.YesNoUnknown.Codes);
+                    SetCodeValue("MilitaryService", value, VR.ValueSets.YesNoUnknown.Codes);
                 }
             }
         }
@@ -4600,7 +4600,7 @@ namespace VRDR
             {
                 if(!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("AutopsyPerformedIndicator", value, VRDR.ValueSets.YesNoUnknown.Codes);
+                    SetCodeValue("AutopsyPerformedIndicator", value, VR.ValueSets.YesNoUnknown.Codes);
                 }
             }
         }
@@ -5320,7 +5320,7 @@ namespace VRDR
             {
                 if(!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("AutopsyResultsAvailable", value, VRDR.ValueSets.YesNoUnknownNotApplicable.Codes);
+                    SetCodeValue("AutopsyResultsAvailable", value, VR.ValueSets.YesNoUnknownNotApplicable.Codes);
                 }
             }
         }
@@ -5953,7 +5953,7 @@ namespace VRDR
         /// <para>// Setter:</para>
         /// <para>Dictionary&lt;string, string&gt; code = new Dictionary&lt;string, string&gt;();</para>
         /// <para>code.Add("code", "1");</para>
-        /// <para>code.Add("system", VRDR.CodeSystems.PregnancyStatus);</para>
+        /// <para>code.Add("system", VRDR.CodeSystems.DeathPregnancyStatus);</para>
         /// <para>code.Add("display", "Not pregnant within past year");</para>
         /// <para>ExampleDeathRecord.PregnancyObs = code;</para>
         /// <para>// Getter:</para>
@@ -6001,7 +6001,7 @@ namespace VRDR
         /// </value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.PregnancyStatusHelper = ValueSets.PregnancyStatus.Not_Pregnant_Within_Past_Year;</para>
+        /// <para>ExampleDeathRecord.PregnancyStatusHelper = ValueSets.DeathPregnancyStatus.Not_Pregnant_Within_Past_Year;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Pregnancy Status: {ExampleDeathRecord.PregnancyStatusHelper}");</para>
         /// </example>
@@ -6022,7 +6022,7 @@ namespace VRDR
             {
                 if(!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("PregnancyStatus", value, VRDR.ValueSets.PregnancyStatus.Codes);
+                    SetCodeValue("PregnancyStatus", value, VRDR.ValueSets.DeathPregnancyStatus.Codes);
                 }
             }
         }
@@ -6195,7 +6195,7 @@ namespace VRDR
             {
                 if(!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("ExaminerContacted", value, VRDR.ValueSets.YesNoUnknown.Codes);
+                    SetCodeValue("ExaminerContacted", value, VR.ValueSets.YesNoUnknown.Codes);
                 }
             }
         }
@@ -7058,7 +7058,7 @@ namespace VRDR
             {
                 if(!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("InjuryAtWork", value, VRDR.ValueSets.YesNoUnknownNotApplicable.Codes);
+                    SetCodeValue("InjuryAtWork", value, VR.ValueSets.YesNoUnknownNotApplicable.Codes);
                 }
             }
         }

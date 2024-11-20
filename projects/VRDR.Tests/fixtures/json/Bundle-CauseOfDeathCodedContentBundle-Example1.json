@@ -542,7 +542,7 @@
           "coding": [
             {
               "code": "2",
-              "system": "http://hl7.org/fhir/us/vrsandbox/CodeSystem/CodeSystem-death-pregnancy-status",
+              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-pregnancy-status-cs",
               "display": "Pregnant at time of death"
             }
           ]

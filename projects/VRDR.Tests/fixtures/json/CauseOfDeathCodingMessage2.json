@@ -512,7 +512,7 @@
                 ],
                 "coding": [
                   {
-                    "system": "http://hl7.org/fhir/us/vrsandbox/CodeSystem/CodeSystem-death-pregnancy-status",
+                    "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-pregnancy-status-cs",
                     "code": "1",
                     "display": "Not pregnant within past year"
                   }
