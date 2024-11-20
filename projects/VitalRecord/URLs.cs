@@ -163,100 +163,100 @@ namespace VR
     public static class IGURL
     {
         /// <summary>URL for AuxiliaryStateIdentifier1VitalRecords</summary>
-        public const string AuxiliaryStateIdentifier1VitalRecords = "StructureDefinition/AuxiliaryStateIdentifier1";
+        public const string AuxiliaryStateIdentifier1VitalRecords = "https://hl7.org/fhir/us/vr-common-library/StructureDefinition-AuxiliaryStateIdentifier1.html";
 
         /// <summary>URL for AuxiliaryStateIdentifier2VitalRecords</summary>
-        public const string AuxiliaryStateIdentifier2VitalRecords = "StructureDefinition/AuxiliaryStateIdentifier2";
+        public const string AuxiliaryStateIdentifier2VitalRecords = "https://hl7.org/fhir/us/vr-common-library/StructureDefinition-AuxiliaryStateIdentifier2.html";
 
         /// <summary>URL for BypassEditFlag</summary>
-        public const string BypassEditFlag = "StructureDefinition/BypassEditFlag";
+        public const string BypassEditFlag = "https://hl7.org/fhir/us/vr-common-library/StructureDefinition-BypassEditFlag.html";
 
         /// <summary>URL for CertificateNumber</summary>
-        public const string CertificateNumber = "StructureDefinition/CertificateNumber";
+        public const string CertificateNumber = "https://hl7.org/fhir/us/vr-common-library/StructureDefinition-CertificateNumber.html";
 
         /// <summary>URL for CityCode</summary>
-        public const string CityCode = "StructureDefinition/CityCode";
+        public const string CityCode = "https://hl7.org/fhir/us/vr-common-library/StructureDefinition-CityCode.html";
 
         /// <summary>URL for DistrictCode</summary>
-        public const string DistrictCode = "StructureDefinition/DistrictCode";
+        public const string DistrictCode = "https://hl7.org/fhir/us/vr-common-library/StructureDefinition-DistrictCode.html";
 
         /// <summary>URL for LocationJurisdictionId</summary>
-        public const string LocationJurisdictionId = "StructureDefinition/Extension-jurisdiction-id-vr";
+        public const string LocationJurisdictionId = "https://hl7.org/fhir/us/vr-common-library/StructureDefinition-Extension-jurisdiction-id-vr.html";
 
         /// <summary>URL for PartialDateTime</summary>
-        public const string PartialDateTime = "StructureDefinition/Extension-partial-date-time-vr";
+        public const string PartialDateTime = "https://hl7.org/fhir/us/vr-common-library/StructureDefinition-Extension-partial-date-time-vr.html";
 
         /// <summary>URL for PartialDate</summary>
-        public const string PartialDate = "StructureDefinition/Extension-partial-date-vr";
+        public const string PartialDate = "https://hl7.org/fhir/us/vr-common-library/StructureDefinition-Extension-partial-date-vr.html";
 
         /// <summary>URL for PatientFetalDeath</summary>
-        public const string PatientFetalDeath = "StructureDefinition/Extension-patient-fetal-death-vr";
+        public const string PatientFetalDeath = "https://hl7.org/fhir/us/vr-common-library/StructureDefinition-Extension-patient-fetal-death-vr.html";
 
         /// <summary>URL for RelatedpersonBirthplace</summary>
-        public const string RelatedpersonBirthplace = "StructureDefinition/Extension-relatedperson-birthplace-vr";
+        public const string RelatedpersonBirthplace = "https://hl7.org/fhir/us/vr-common-library/StructureDefinition-Extension-relatedperson-birthplace-vr.html";
 
         /// <summary>URL for ReportedParentAgeAtDelivery</summary>
-        public const string ReportedParentAgeAtDelivery = "StructureDefinition/Extension-reported-parent-age-at-delivery-vr";
+        public const string ReportedParentAgeAtDelivery = "https://hl7.org/fhir/us/vr-common-library/StructureDefinition-Extension-reported-parent-age-at-delivery-vr.html";
 
         /// <summary>URL for WithinCityLimitsIndicator</summary>
-        public const string WithinCityLimitsIndicator = "StructureDefinition/Extension-within-city-limits-indicator-vr";
+        public const string WithinCityLimitsIndicator = "https://hl7.org/fhir/us/vr-common-library/StructureDefinition-Extension-within-city-limits-indicator-vr.html";
 
         /// <summary>URL for Location</summary>
-        public const string Location = "StructureDefinition/Location-vr";
+        public const string Location = "https://hl7.org/fhir/us/vr-common-library/StructureDefinition-Location-vr.html";
 
         /// <summary>URL for EducationLevel</summary>
-        public const string EducationLevel = "StructureDefinition/Observation-education-level-vr";
+        public const string EducationLevel = "https://hl7.org/fhir/us/vr-common-library/StructureDefinition-Observation-education-level-vr.html";
 
         /// <summary>URL for EmergingIssues</summary>
-        public const string EmergingIssues = "StructureDefinition/Observation-emerging-issues-vr";
+        public const string EmergingIssues = "https://hl7.org/fhir/us/vr-common-library/StructureDefinition-Observation-emerging-issues-vr.html";
 
         /// <summary>URL for Child</summary>
-        public const string Child = "StructureDefinition/Patient-child-vr";
+        public const string Child = "https://hl7.org/fhir/us/vr-common-library/StructureDefinition-Patient-child-vr.html";
 
         /// <summary>URL for Mother</summary>
-        public const string Mother = "StructureDefinition/Patient-mother-vr";
+        public const string Mother = "https://hl7.org/fhir/us/vr-common-library/StructureDefinition-Patient-mother-vr.html";
 
         /// <summary>URL for Patient</summary>
-        public const string Patient = "StructureDefinition/Patient-vr";
+        public const string Patient = "https://hl7.org/fhir/us/vr-common-library/StructureDefinition-Patient-vr.html";
 
         /// <summary>URL for PostDirectional</summary>
-        public const string PostDirectional = "StructureDefinition/PostDirectional";
+        public const string PostDirectional = "https://hl7.org/fhir/us/vr-common-library/StructureDefinition-PostDirectional.html";
 
         /// <summary>URL for Practitioner</summary>
-        public const string Practitioner = "StructureDefinition/Practitioner-vr";
+        public const string Practitioner = "https://hl7.org/fhir/us/vr-common-library/StructureDefinition-Practitioner-vr.html";
 
         /// <summary>URL for PreDirectional</summary>
-        public const string PreDirectional = "StructureDefinition/PreDirectional";
+        public const string PreDirectional = "https://hl7.org/fhir/us/vr-common-library/StructureDefinition-PreDirectional.html";
 
         /// <summary>URL for RelatedPersonFatherNatural</summary>
-        public const string RelatedPersonFatherNatural = "StructureDefinition/RelatedPerson-father-natural-vr";
+        public const string RelatedPersonFatherNatural = "https://hl7.org/fhir/us/vr-common-library/StructureDefinition-RelatedPerson-father-natural-vr.html";
 
         /// <summary>URL for RelatedPersonFather</summary>
-        public const string RelatedPersonFather = "StructureDefinition/RelatedPerson-father-vr";
+        public const string RelatedPersonFather = "https://hl7.org/fhir/us/vr-common-library/StructureDefinition-RelatedPerson-father-vr.html";
 
         /// <summary>URL for RelatedPersonMother</summary>
-        public const string RelatedPersonMother = "StructureDefinition/RelatedPerson-mother-vr";
+        public const string RelatedPersonMother = "https://hl7.org/fhir/us/vr-common-library/StructureDefinition-RelatedPerson-mother-vr.html";
 
         /// <summary>URL for RelatedPersonParent</summary>
-        public const string RelatedPersonParent = "StructureDefinition/RelatedPerson-parent-vr";
+        public const string RelatedPersonParent = "https://hl7.org/fhir/us/vr-common-library/StructureDefinition-RelatedPerson-parent-vr.html";
 
         /// <summary>URL for StreetDesignator</summary>
-        public const string StreetDesignator = "StructureDefinition/StreetDesignator";
+        public const string StreetDesignator = "https://hl7.org/fhir/us/vr-common-library/StructureDefinition-StreetDesignator.html";
 
         /// <summary>URL for StreetName</summary>
-        public const string StreetName = "StructureDefinition/StreetName";
+        public const string StreetName = "https://hl7.org/fhir/us/vr-common-library/StructureDefinition-StreetName.html";
 
         /// <summary>URL for StreetNumber</summary>
-        public const string StreetNumber = "StructureDefinition/StreetNumber";
+        public const string StreetNumber = "https://hl7.org/fhir/us/vr-common-library/StructureDefinition-StreetNumber.html";
 
         /// <summary>URL for UnitOrAptNumber</summary>
-        public const string UnitOrAptNumber = "StructureDefinition/UnitOrAptNumber";
+        public const string UnitOrAptNumber = "https://hl7.org/fhir/us/vr-common-library/StructureDefinition-UnitOrAptNumber.html";
 
         /// <summary>URL for CodedRaceAndEthnicity</summary>
-        public const string CodedRaceAndEthnicity = "StructureDefinition/coded-race-and-ethnicity-vr";
+        public const string CodedRaceAndEthnicity = "https://hl7.org/fhir/us/vr-common-library/StructureDefinition-coded-race-and-ethnicity-vr.html";
 
         /// <summary>URL for InputRaceAndEthnicity</summary>
-        public const string InputRaceAndEthnicity = "StructureDefinition/input-race-and-ethnicity-vr";
+        public const string InputRaceAndEthnicity = "https://hl7.org/fhir/us/vr-common-library/StructureDefinition-input-race-and-ethnicity-vr.html";
 
     }
     /// <summary>Vital Records Custom Code System URLs</summary>
@@ -264,24 +264,24 @@ namespace VR
     {
         /// <summary>URL for Component</summary>
         /// <summary>URL for CountryCode</summary>
-        public const string CountryCode = "CodeSystem/CodeSystem-country-code-vr";
+        public const string CountryCode = "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-country-code-vr.html";
         /// <summary>URL for HispanicOrigin</summary>
-        public const string HispanicOrigin = "CodeSystem/CodeSystem-hispanic-origin-vr";
+        public const string HispanicOrigin = "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-hispanic-origin-vr.html";
         /// <summary>URL for Jurisdictions</summary>
-        public const string Jurisdictions = "CodeSystem/CodeSystem-jurisdictions-vr";
+        public const string Jurisdictions = "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-jurisdictions-vr.html";
         /// <summary>URL for LocalObservationsCodes</summary>
-        public const string LocalObservationsCodes = "CodeSystem/CodeSystem-local-observation-codes-vr";
+        public const string LocalObservationsCodes = "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-local-observation-codes-vr.html";
         /// <summary>URL for RaceCode</summary>
-        public const string RaceCode = "CodeSystem/CodeSystem-race-code-vr";
+        public const string RaceCode = "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-race-code-vr.html";
         /// <summary>URL for CodeSystemRaceRecode40VitalRecords</summary>
-        public const string CodeSystemRaceRecode40VitalRecords = "CodeSystem/CodeSystem-race-recode-40-vr";
+        public const string CodeSystemRaceRecode40VitalRecords = "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-race-recode-40-vr.html";
         /// <summary>URL for USStatesTerritories</summary>
-        public const string USStatesTerritories = "CodeSystem/CodeSystem-us-states-territories-vr";
+        public const string USStatesTerritories = "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-us-states-territories-vr.html";
         /// <summary>URL for EditFlags</summary>
-        public const string EditFlags = "CodeSystem/CodeSystem-vr-edit-flags";
+        public const string EditFlags = "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags.html";
         /// <summary>URL for IJE</summary>
-        public const string IJE = "CodeSystem/codesystem-ije-vr";
+        public const string IJE = "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-ije-vr.html";
         /// <summary>URL for Component</summary>
-        public const string Component = "CodeSystem/codesystem-vr-component";
+        public const string Component = "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component.html";
     }
 }

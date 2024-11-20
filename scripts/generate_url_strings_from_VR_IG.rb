@@ -51,10 +51,11 @@ code_systems = code_system_files.each do |code_system_file|
 end
 
 # Helper method to transform a StructureDefinition or Codesystem URL into a relative extension URL
-def structure_definition_url_to_ig_url(url) 
-  url = url.gsub('http://hl7.org/fhir/us/vr-common-library/', '')
+def structure_definition_url_to_ig_url(url)
+  # Transform this: http://hl7.org/fhir/us/vr-common-library/StructureDefinition/vrdr-decedent-education-level
+  # Into this:      https://hl7.org/fhir/us/vr-common-library/StructureDefinition-vrdr-decedent-education-level.html
+  url.gsub('http://hl7.org/fhir/us/vr-common-library/StructureDefinition/', 'https://hl7.org/fhir/us/vr-common-library/StructureDefinition-') + '.html'
 end
-
 # Helper method to determine whether a definition is an Extension or a Profile
 def url_type(name)
   if name.include?('Extension') then 'extension' 
@@ -101,7 +102,7 @@ namespace VR
 
 <% structure_definition_hash.select { |name, url| url_type(name) == 'extension' }.each do |name, url| -%>
         /// <summary>URL for <%= short_name(name) %></summary>
-        public const string <%= short_name(name) %> = "http://hl7.org/fhir/us/vr-common-library/<%= structure_definition_url_to_ig_url(url) %>";
+        public const string <%= short_name(name) %> = "<%= url %>";
 
 <% end -%>
 
@@ -127,7 +128,7 @@ namespace VR
 
 <% code_system_hash.select { |name, url| url_type(name) == 'codesystem' }.each do |name, url| -%>
         /// <summary>URL for <%= short_name(name) %></summary>
-        public const string <%= short_name(name) %> = "http://hl7.org/fhir/us/vr-common-library/<%= structure_definition_url_to_ig_url(url) %>";
+        public const string <%= short_name(name) %> = "<%= url %>";
 
 <% end -%>
     }
