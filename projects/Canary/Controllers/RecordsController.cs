@@ -100,14 +100,20 @@ namespace canary.Controllers
                 {
                     try // IJE?
                     {
-                        // If input.Length != 5000, truncate/pad according to force it to 5000.
-                        if (input.Length > 5000)
-                        {
-                            input = input.Substring(0, 5000);
+                        int ijeLength = 5000;
+                        if (recordType == ControllerMappers.BFDR_BIRTH) {
+                            ijeLength = 4000;
+                        } else if (recordType == ControllerMappers.BFDR_FETALDEATH) {
+                            ijeLength = 6000;
                         }
-                        else if (input.Length < 5000)
+                        // If input.Length != 5000, truncate/pad according to force it to 5000.
+                        if (input.Length > ijeLength)
                         {
-                            input = input.PadRight(5000, ' ');
+                            input = input.Substring(0, ijeLength);
+                        }
+                        else if (input.Length < ijeLength)
+                        {
+                            input = input.PadRight(ijeLength, ' ');
                         }
                         return ControllerMappers.createRecordFromIJE[recordType](input);
                     }
