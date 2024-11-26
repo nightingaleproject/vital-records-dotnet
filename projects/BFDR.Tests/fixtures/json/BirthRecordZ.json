@@ -1,6 +1,6 @@
 {
   "resourceType": "Bundle",
-  "id": "d2246ed2-fb28-4267-b2ed-5bf255e11ed1",
+  "id": "f518b966-f7b9-4063-ba37-ea5317b19ebb",
   "meta": {
     "profile": [
       "http://hl7.org/fhir/us/bfdr/StructureDefinition/Bundle-document-birth-report"
@@ -14,16 +14,16 @@
       }
     ],
     "system": "http://nchs.cdc.gov/bfdr_id",
-    "value": "2002AZ009999"
+    "value": "2002XX009999"
   },
   "type": "document",
-  "timestamp": "2024-11-05T14:16:59.170598-05:00",
+  "timestamp": "2024-11-14T13:27:05.132561-05:00",
   "entry": [
     {
-      "fullUrl": "urn:uuid:1321e6a0-2450-491f-9531-630165fb0d3a",
+      "fullUrl": "urn:uuid:195ae44e-b7dd-438f-974f-c1d2a15e6d7a",
       "resource": {
         "resourceType": "Composition",
-        "id": "1321e6a0-2450-491f-9531-630165fb0d3a",
+        "id": "195ae44e-b7dd-438f-974f-c1d2a15e6d7a",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Composition-jurisdiction-live-birth-report"
@@ -40,18 +40,18 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:c23f7bfa-63fc-476a-a238-f325f21af1d3"
+          "reference": "urn:uuid:6d02c6e3-3290-46b1-8682-f64859ace998"
         },
         "encounter": {
           "extension": [
             {
               "url": "http://hl7.org/fhir/us/bfdr/StructureDefinition/Extension-encounter-maternity-reference",
               "valueReference": {
-                "reference": "urn:uuid:46252e0e-f533-404d-88e1-800a53e47d68"
+                "reference": "urn:uuid:214d66b0-26de-4862-9db1-67271e6c71f0"
               }
             }
           ],
-          "reference": "urn:uuid:33eef91f-8d33-4727-b5a3-a146fd2a1d73"
+          "reference": "urn:uuid:8a330180-a4dc-4049-b6cd-5a1ae863cc9b"
         },
         "date": "2019-01-02",
         "title": "Birth Certificate",
@@ -87,13 +87,13 @@
             },
             "entry": [
               {
-                "reference": "urn:uuid:e04282f1-f614-475b-955d-4e4abba04001"
+                "reference": "urn:uuid:0d5a9eb8-4d02-421a-b6c8-979b1e13f322"
               },
               {
-                "reference": "urn:uuid:e660260d-3589-4797-bcf6-6ae642cf9024"
+                "reference": "urn:uuid:9845e429-3849-4c7e-ba7b-6e5de6c5bbba"
               },
               {
-                "reference": "urn:uuid:62cf06ef-58a8-4b63-a972-49dbb866761e"
+                "reference": "urn:uuid:bc743787-2b64-4057-b95f-524b86ddc067"
               }
             ]
           },
@@ -108,10 +108,10 @@
             },
             "entry": [
               {
-                "reference": "urn:uuid:b21759bc-a914-4f7a-a7b4-8ef60a5e8838"
+                "reference": "urn:uuid:ef3d3551-f3c7-4b00-9345-7305d8754994"
               },
               {
-                "reference": "urn:uuid:7385138b-22dc-4a46-82ed-47c17c72d650"
+                "reference": "urn:uuid:5d187a77-0e57-45df-8cf7-c8af63ae43bc"
               }
             ]
           },
@@ -126,31 +126,31 @@
             },
             "entry": [
               {
-                "reference": "urn:uuid:c4e2034e-850a-43a9-bd73-e7f7bcfa82d3"
+                "reference": "urn:uuid:45120471-4139-43cd-951e-0e2e6c8322ae"
               },
               {
-                "reference": "urn:uuid:b3307895-31a3-4660-9a5e-efaa363c604c"
+                "reference": "urn:uuid:5ddf84e6-59b7-42c5-910d-5ebcb9cd5853"
               },
               {
-                "reference": "urn:uuid:14e98328-c5d3-4170-b07b-0982928d4b7e"
+                "reference": "urn:uuid:4f13cc37-7efc-473e-a8ce-2b207a7c79f6"
               },
               {
-                "reference": "urn:uuid:92b68241-1068-4ab8-93a6-9effaf9dc509"
+                "reference": "urn:uuid:914c0d70-d1bc-4d9f-8c54-39d56c947fa3"
               },
               {
-                "reference": "urn:uuid:aa9bdd77-f60b-4d46-be93-22048cc99ca1"
+                "reference": "urn:uuid:6194e6d5-386e-45e3-9464-9688274b8ba3"
               },
               {
-                "reference": "urn:uuid:964ffb65-cecf-481d-834d-b25f9774508e"
+                "reference": "urn:uuid:41b6c7a4-9e7c-4e99-aaed-2d7c1f35e3d7"
               },
               {
-                "reference": "urn:uuid:3267c987-7601-4a01-ac47-afd9fbf7da92"
+                "reference": "urn:uuid:25da0a85-89e9-4bf1-8a4f-ec3aefacf808"
               },
               {
-                "reference": "urn:uuid:6c3d20a8-7347-45dd-b98d-b9209358e383"
+                "reference": "urn:uuid:be79cbe6-c83c-48ea-9b42-6d8338e5b84e"
               },
               {
-                "reference": "urn:uuid:fcff851c-3884-428e-bef4-74f4f09f696a"
+                "reference": "urn:uuid:d483e96a-4937-40b7-94f5-e6fbd8407cbb"
               }
             ]
           },
@@ -165,7 +165,7 @@
             },
             "entry": [
               {
-                "reference": "urn:uuid:239db3bc-29d8-4df2-82c1-d56e8d54b770"
+                "reference": "urn:uuid:d346d2d2-d201-4642-a65e-fc8e94679d3c"
               }
             ]
           },
@@ -180,7 +180,7 @@
             },
             "entry": [
               {
-                "reference": "urn:uuid:a733e7cb-f0c0-40f5-8fd6-377ab2e79b3e"
+                "reference": "urn:uuid:8bfeea36-b716-4e03-a924-0bd9fcee1b64"
               }
             ]
           },
@@ -195,7 +195,7 @@
             },
             "entry": [
               {
-                "reference": "urn:uuid:c357d538-6ee7-4b1f-a288-7a293f2a7e49"
+                "reference": "urn:uuid:d9e410c5-a254-4667-9ce6-fdc453cb108d"
               }
             ]
           },
@@ -210,7 +210,7 @@
             },
             "entry": [
               {
-                "reference": "urn:uuid:5f9898ef-a0c7-4d80-91b7-68e712925864"
+                "reference": "urn:uuid:42a068ed-72fd-47cd-a24e-e1f4bbdcde4c"
               }
             ]
           },
@@ -225,7 +225,7 @@
             },
             "entry": [
               {
-                "reference": "urn:uuid:1ff338b8-4516-4c19-8baf-627eaad9d3c1"
+                "reference": "urn:uuid:580ff5f6-e269-4c69-ae22-a52152f247e6"
               }
             ]
           },
@@ -240,7 +240,7 @@
             },
             "entry": [
               {
-                "reference": "urn:uuid:2351ba5a-699b-40e4-9a8b-c393947f91e4"
+                "reference": "urn:uuid:bd0b8f60-83e6-46a6-9710-9f6f5f63fc72"
               }
             ]
           },
@@ -254,35 +254,35 @@
               ]
             },
             "focus": {
-              "reference": "urn:uuid:109ab2cf-0522-429c-a640-ddfcf0069b1c"
+              "reference": "urn:uuid:84c0aec1-343e-42ff-8fca-fa306668e7b4"
             },
             "entry": [
               {
-                "reference": "urn:uuid:aae0491e-8c2b-40c0-b4ac-d3f167fd14d4"
+                "reference": "urn:uuid:b0649452-584a-4460-af82-bd82685c6a36"
               },
               {
-                "reference": "urn:uuid:e8908ae6-ad83-43e1-bf90-a69e28f05ca9"
+                "reference": "urn:uuid:48de2972-7fce-4f57-8697-a7988430bf6c"
               },
               {
-                "reference": "urn:uuid:628f1b76-37be-406e-a2fe-15b852d3b6b8"
+                "reference": "urn:uuid:3c0c552f-8c03-402e-a8e1-583e6f7743bb"
               },
               {
-                "reference": "urn:uuid:485e92b4-077c-4c32-a70c-2f92aaa0319e"
+                "reference": "urn:uuid:d7339c44-d748-45da-9674-e1e05d1744e4"
               },
               {
-                "reference": "urn:uuid:9f7cef98-12ce-47c5-8646-69a8f3ec6888"
+                "reference": "urn:uuid:0b8cc9c9-eb4d-4261-8750-f95f8e601346"
               },
               {
-                "reference": "urn:uuid:6f349b62-d116-49cc-8d21-9fbd79dbb9ce"
+                "reference": "urn:uuid:920e7c42-4d42-4558-8a29-eba0f96a5a3b"
               },
               {
-                "reference": "urn:uuid:184cf4bd-d6ce-4afd-9dbd-c3654cd74525"
+                "reference": "urn:uuid:7a97030e-304b-499f-be70-18fb4af97067"
               },
               {
-                "reference": "urn:uuid:0c932031-d580-417b-9246-7b16e5d50f3d"
+                "reference": "urn:uuid:84d87940-9829-45d0-b225-45e566e553c4"
               },
               {
-                "reference": "urn:uuid:3dc831a3-6e49-4bb2-b69a-40e1fd8e4980"
+                "reference": "urn:uuid:44152c26-fe6c-41ed-a542-6f9e5ac630f4"
               }
             ]
           },
@@ -297,22 +297,22 @@
             },
             "entry": [
               {
-                "reference": "urn:uuid:afa55e1b-3a9d-44ac-9361-e04c26b0f3b0"
+                "reference": "urn:uuid:639fd1f2-c2ac-4991-81a6-9114346c2fa6"
               },
               {
-                "reference": "urn:uuid:cfd6886c-0679-4681-90d5-bfc665556d75"
+                "reference": "urn:uuid:0c361838-be03-4228-9522-81e9a13c8888"
               },
               {
-                "reference": "urn:uuid:e13fc2c0-9268-4d96-940d-1e754c19fd11"
+                "reference": "urn:uuid:5deb947a-077d-428b-9541-b04df604946d"
               },
               {
-                "reference": "urn:uuid:7c095298-9552-4170-a316-43cf8bd69d64"
+                "reference": "urn:uuid:18553fea-f6a8-453f-8f51-544d4bb2d73e"
               },
               {
-                "reference": "urn:uuid:ea96e0d5-b4f9-465e-aa6f-5893eddaac65"
+                "reference": "urn:uuid:56d6e8c1-6db8-4c06-ac4e-83664f856312"
               },
               {
-                "reference": "urn:uuid:65bd46a4-ff6c-4fa6-920f-d22924358ffd"
+                "reference": "urn:uuid:64c7ba66-2b00-459f-87d8-d727bc26ba07"
               }
             ]
           },
@@ -327,7 +327,7 @@
             },
             "entry": [
               {
-                "reference": "urn:uuid:12560436-45a2-4fe7-911c-5264b8226e26"
+                "reference": "urn:uuid:6123a8c7-2f65-4c9c-9338-dac1baea8133"
               }
             ]
           },
@@ -342,7 +342,7 @@
             },
             "entry": [
               {
-                "reference": "urn:uuid:71db2d7a-8485-466e-b00e-de75fe539be4"
+                "reference": "urn:uuid:c54eabaa-89a3-401f-adff-e6330d74ddcd"
               }
             ]
           },
@@ -357,31 +357,31 @@
             },
             "entry": [
               {
-                "reference": "urn:uuid:912f07c4-4e49-4c5f-a7c6-6bb86bbd26fa"
+                "reference": "urn:uuid:c65932be-7749-43f0-8337-2ebaedb4ab27"
               },
               {
-                "reference": "urn:uuid:b7990ee4-21e4-461f-b48b-e4456e53ffd8"
+                "reference": "urn:uuid:18b0d295-a016-4081-a499-62da5dc29708"
               },
               {
-                "reference": "urn:uuid:74bee479-95af-4e66-ad51-88dfd00a96cc"
+                "reference": "urn:uuid:cc311688-c38b-4b4c-bcd3-98c666b1da7c"
               },
               {
-                "reference": "urn:uuid:f2c51665-1a91-40f6-bff4-82ce3fc6d0c8"
+                "reference": "urn:uuid:cd4ed9c6-acb3-4964-b297-5d28bc211f05"
               },
               {
-                "reference": "urn:uuid:99875d37-9302-4bc6-a81c-4d1c328c62ac"
+                "reference": "urn:uuid:62b7a274-05a1-4861-a859-2d428dc02981"
               },
               {
-                "reference": "urn:uuid:fdc82459-39be-4884-bc58-6fabcc38aa61"
+                "reference": "urn:uuid:d7628ea8-997e-42ea-8ada-47078034537f"
               },
               {
-                "reference": "urn:uuid:6e3078ef-7875-4442-96c7-608d84499957"
+                "reference": "urn:uuid:0feddf73-a170-469a-b90f-1df08213b405"
               },
               {
-                "reference": "urn:uuid:f329edb7-8086-4c56-86c7-558eb2507679"
+                "reference": "urn:uuid:322197c7-4722-42da-803f-27d7fc140a0b"
               },
               {
-                "reference": "urn:uuid:ea06e0ed-41f0-441f-a07c-094ae94852d6"
+                "reference": "urn:uuid:fc1bb55e-0f1a-4668-8a30-548e1ae283c4"
               }
             ]
           },
@@ -396,7 +396,7 @@
             },
             "entry": [
               {
-                "reference": "urn:uuid:c58f1e57-4461-4670-9127-4f34783edb79"
+                "reference": "urn:uuid:f698a400-d27e-4a40-b623-b81efd30a05d"
               }
             ]
           },
@@ -411,7 +411,7 @@
             },
             "entry": [
               {
-                "reference": "urn:uuid:a1e080bd-04ea-407a-8feb-14761a02b813"
+                "reference": "urn:uuid:b65b8773-20c2-4123-9c64-cd9e3645c05b"
               }
             ]
           }
@@ -419,10 +419,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:c23f7bfa-63fc-476a-a238-f325f21af1d3",
+      "fullUrl": "urn:uuid:6d02c6e3-3290-46b1-8682-f64859ace998",
       "resource": {
         "resourceType": "Patient",
-        "id": "c23f7bfa-63fc-476a-a238-f325f21af1d3",
+        "id": "6d02c6e3-3290-46b1-8682-f64859ace998",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Patient-child-vr"
@@ -497,15 +497,6 @@
                     "valuePositiveInt": 13
                   }
                 ]
-              },
-              "state": "AZ",
-              "_state": {
-                "extension": [
-                  {
-                    "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-jurisdiction-id-vr",
-                    "valueString": "AZ"
-                  }
-                ]
               }
             }
           }
@@ -567,10 +558,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:109ab2cf-0522-429c-a640-ddfcf0069b1c",
+      "fullUrl": "urn:uuid:84c0aec1-343e-42ff-8fca-fa306668e7b4",
       "resource": {
         "resourceType": "Patient",
-        "id": "109ab2cf-0522-429c-a640-ddfcf0069b1c",
+        "id": "84c0aec1-343e-42ff-8fca-fa306668e7b4",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Patient-mother-vr"
@@ -698,10 +689,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:c55e13d4-5f19-46ce-8687-52bca11a0102",
+      "fullUrl": "urn:uuid:5c87b0bf-e2dd-44ca-bc1c-115b67134cc0",
       "resource": {
         "resourceType": "RelatedPerson",
-        "id": "c55e13d4-5f19-46ce-8687-52bca11a0102",
+        "id": "5c87b0bf-e2dd-44ca-bc1c-115b67134cc0",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/RelatedPerson-father-natural-vr"
@@ -778,10 +769,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:b09d91e6-b0e7-4e7f-9967-ce111e054118",
+      "fullUrl": "urn:uuid:38b3f230-f3ea-495b-8489-d68772e6fe0f",
       "resource": {
         "resourceType": "Practitioner",
-        "id": "b09d91e6-b0e7-4e7f-9967-ce111e054118",
+        "id": "38b3f230-f3ea-495b-8489-d68772e6fe0f",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Practitioner-birth-certifier"
@@ -796,10 +787,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:cb3df5e5-1b2e-43f0-ad32-c8324f621dc8",
+      "fullUrl": "urn:uuid:a74f5373-2ee1-4d36-b140-3548b2862082",
       "resource": {
         "resourceType": "Practitioner",
-        "id": "cb3df5e5-1b2e-43f0-ad32-c8324f621dc8",
+        "id": "a74f5373-2ee1-4d36-b140-3548b2862082",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Practitioner-birth-attendant"
@@ -848,10 +839,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:46252e0e-f533-404d-88e1-800a53e47d68",
+      "fullUrl": "urn:uuid:214d66b0-26de-4862-9db1-67271e6c71f0",
       "resource": {
         "resourceType": "Encounter",
-        "id": "46252e0e-f533-404d-88e1-800a53e47d68",
+        "id": "214d66b0-26de-4862-9db1-67271e6c71f0",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Encounter-maternity"
@@ -883,7 +874,7 @@
               }
             ],
             "individual": {
-              "reference": "urn:uuid:b09d91e6-b0e7-4e7f-9967-ce111e054118"
+              "reference": "urn:uuid:38b3f230-f3ea-495b-8489-d68772e6fe0f"
             }
           }
         ],
@@ -902,10 +893,31 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:33eef91f-8d33-4727-b5a3-a146fd2a1d73",
+      "fullUrl": "urn:uuid:5105c712-dbe4-40f7-b22f-eb674073a785",
+      "resource": {
+        "resourceType": "Coverage",
+        "id": "5105c712-dbe4-40f7-b22f-eb674073a785",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/bfdr/StructureDefinition/Coverage-principal-payer-delivery"
+          ]
+        },
+        "type": {
+          "coding": [
+            {
+              "system": "https://nahdo.org/sopt",
+              "code": "5",
+              "display": "PRIVATE HEALTH INSURANCE"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:8a330180-a4dc-4049-b6cd-5a1ae863cc9b",
       "resource": {
         "resourceType": "Encounter",
-        "id": "33eef91f-8d33-4727-b5a3-a146fd2a1d73",
+        "id": "8a330180-a4dc-4049-b6cd-5a1ae863cc9b",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Encounter-birth"
@@ -952,10 +964,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:5cef4d98-9f24-46c6-bfb5-bd4d92d161c9",
+      "fullUrl": "urn:uuid:58cd7ab8-ba4e-4e86-9121-fe6f891b86dd",
       "resource": {
         "resourceType": "Location",
-        "id": "5cef4d98-9f24-46c6-bfb5-bd4d92d161c9",
+        "id": "58cd7ab8-ba4e-4e86-9121-fe6f891b86dd",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Location-bfdr"
@@ -987,10 +999,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:e04282f1-f614-475b-955d-4e4abba04001",
+      "fullUrl": "urn:uuid:0d5a9eb8-4d02-421a-b6c8-979b1e13f322",
       "resource": {
         "resourceType": "Observation",
-        "id": "e04282f1-f614-475b-955d-4e4abba04001",
+        "id": "0d5a9eb8-4d02-421a-b6c8-979b1e13f322",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-mother-married-during-pregnancy"
@@ -1007,7 +1019,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:109ab2cf-0522-429c-a640-ddfcf0069b1c"
+          "reference": "urn:uuid:84c0aec1-343e-42ff-8fca-fa306668e7b4"
         },
         "valueCodeableConcept": {
           "coding": [
@@ -1021,10 +1033,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:b21759bc-a914-4f7a-a7b4-8ef60a5e8838",
+      "fullUrl": "urn:uuid:ef3d3551-f3c7-4b00-9345-7305d8754994",
       "resource": {
         "resourceType": "Observation",
-        "id": "b21759bc-a914-4f7a-a7b4-8ef60a5e8838",
+        "id": "ef3d3551-f3c7-4b00-9345-7305d8754994",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-paternity-acknowledgement-signed"
@@ -1041,7 +1053,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:109ab2cf-0522-429c-a640-ddfcf0069b1c"
+          "reference": "urn:uuid:84c0aec1-343e-42ff-8fca-fa306668e7b4"
         },
         "valueCodeableConcept": {
           "coding": [
@@ -1055,10 +1067,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:e660260d-3589-4797-bcf6-6ae642cf9024",
+      "fullUrl": "urn:uuid:9845e429-3849-4c7e-ba7b-6e5de6c5bbba",
       "resource": {
         "resourceType": "Observation",
-        "id": "e660260d-3589-4797-bcf6-6ae642cf9024",
+        "id": "9845e429-3849-4c7e-ba7b-6e5de6c5bbba",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Observation-education-level-vr"
@@ -1075,7 +1087,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:c23f7bfa-63fc-476a-a238-f325f21af1d3"
+          "reference": "urn:uuid:6d02c6e3-3290-46b1-8682-f64859ace998"
         },
         "valueCodeableConcept": {
           "extension": [
@@ -1103,10 +1115,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:9f03b93b-2e31-475a-884a-dfb84b724591",
+      "fullUrl": "urn:uuid:7a4e9bdd-dc64-4811-b816-eed9974ab582",
       "resource": {
         "resourceType": "Observation",
-        "id": "9f03b93b-2e31-475a-884a-dfb84b724591",
+        "id": "7a4e9bdd-dc64-4811-b816-eed9974ab582",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/input-race-and-ethnicity-vr"
@@ -1123,7 +1135,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:c23f7bfa-63fc-476a-a238-f325f21af1d3"
+          "reference": "urn:uuid:6d02c6e3-3290-46b1-8682-f64859ace998"
         },
         "component": [
           {
@@ -1414,10 +1426,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:7385138b-22dc-4a46-82ed-47c17c72d650",
+      "fullUrl": "urn:uuid:5d187a77-0e57-45df-8cf7-c8af63ae43bc",
       "resource": {
         "resourceType": "Observation",
-        "id": "7385138b-22dc-4a46-82ed-47c17c72d650",
+        "id": "5d187a77-0e57-45df-8cf7-c8af63ae43bc",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Observation-education-level-vr"
@@ -1434,7 +1446,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:109ab2cf-0522-429c-a640-ddfcf0069b1c"
+          "reference": "urn:uuid:84c0aec1-343e-42ff-8fca-fa306668e7b4"
         },
         "valueCodeableConcept": {
           "extension": [
@@ -1462,10 +1474,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:c85ad87d-203b-4f90-bf44-2d35606cb761",
+      "fullUrl": "urn:uuid:cb1d50c8-6f51-4ebc-8724-830434d437b3",
       "resource": {
         "resourceType": "Observation",
-        "id": "c85ad87d-203b-4f90-bf44-2d35606cb761",
+        "id": "cb1d50c8-6f51-4ebc-8724-830434d437b3",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/input-race-and-ethnicity-vr"
@@ -1482,7 +1494,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:c23f7bfa-63fc-476a-a238-f325f21af1d3"
+          "reference": "urn:uuid:6d02c6e3-3290-46b1-8682-f64859ace998"
         },
         "component": [
           {
@@ -1773,10 +1785,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:c4e2034e-850a-43a9-bd73-e7f7bcfa82d3",
+      "fullUrl": "urn:uuid:45120471-4139-43cd-951e-0e2e6c8322ae",
       "resource": {
         "resourceType": "Observation",
-        "id": "c4e2034e-850a-43a9-bd73-e7f7bcfa82d3",
+        "id": "45120471-4139-43cd-951e-0e2e6c8322ae",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-date-of-first-prenatal-care-visit"
@@ -1793,21 +1805,21 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:109ab2cf-0522-429c-a640-ddfcf0069b1c"
+          "reference": "urn:uuid:84c0aec1-343e-42ff-8fca-fa306668e7b4"
         },
         "focus": [
           {
-            "reference": "urn:uuid:c23f7bfa-63fc-476a-a238-f325f21af1d3"
+            "reference": "urn:uuid:6d02c6e3-3290-46b1-8682-f64859ace998"
           }
         ],
         "valueDateTime": "2018-06-04"
       }
     },
     {
-      "fullUrl": "urn:uuid:239db3bc-29d8-4df2-82c1-d56e8d54b770",
+      "fullUrl": "urn:uuid:d346d2d2-d201-4642-a65e-fc8e94679d3c",
       "resource": {
         "resourceType": "Observation",
-        "id": "239db3bc-29d8-4df2-82c1-d56e8d54b770",
+        "id": "d346d2d2-d201-4642-a65e-fc8e94679d3c",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-number-prenatal-visits"
@@ -1834,7 +1846,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:109ab2cf-0522-429c-a640-ddfcf0069b1c"
+          "reference": "urn:uuid:84c0aec1-343e-42ff-8fca-fa306668e7b4"
         },
         "valueInteger": 18,
         "_valueInteger": {
@@ -1856,10 +1868,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:b3307895-31a3-4660-9a5e-efaa363c604c",
+      "fullUrl": "urn:uuid:5ddf84e6-59b7-42c5-910d-5ebcb9cd5853",
       "resource": {
         "resourceType": "Observation",
-        "id": "b3307895-31a3-4660-9a5e-efaa363c604c",
+        "id": "5ddf84e6-59b7-42c5-910d-5ebcb9cd5853",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-mother-height"
@@ -1902,11 +1914,11 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:109ab2cf-0522-429c-a640-ddfcf0069b1c"
+          "reference": "urn:uuid:84c0aec1-343e-42ff-8fca-fa306668e7b4"
         },
         "focus": [
           {
-            "reference": "urn:uuid:109ab2cf-0522-429c-a640-ddfcf0069b1c"
+            "reference": "urn:uuid:84c0aec1-343e-42ff-8fca-fa306668e7b4"
           }
         ],
         "valueQuantity": {
@@ -1931,10 +1943,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:14e98328-c5d3-4170-b07b-0982928d4b7e",
+      "fullUrl": "urn:uuid:4f13cc37-7efc-473e-a8ce-2b207a7c79f6",
       "resource": {
         "resourceType": "Observation",
-        "id": "14e98328-c5d3-4170-b07b-0982928d4b7e",
+        "id": "4f13cc37-7efc-473e-a8ce-2b207a7c79f6",
         "category": [
           {
             "coding": [
@@ -1954,7 +1966,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:109ab2cf-0522-429c-a640-ddfcf0069b1c"
+          "reference": "urn:uuid:84c0aec1-343e-42ff-8fca-fa306668e7b4"
         },
         "valueQuantity": {
           "extension": [
@@ -1978,10 +1990,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:92b68241-1068-4ab8-93a6-9effaf9dc509",
+      "fullUrl": "urn:uuid:914c0d70-d1bc-4d9f-8c54-39d56c947fa3",
       "resource": {
         "resourceType": "Observation",
-        "id": "92b68241-1068-4ab8-93a6-9effaf9dc509",
+        "id": "914c0d70-d1bc-4d9f-8c54-39d56c947fa3",
         "category": [
           {
             "coding": [
@@ -2001,7 +2013,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:109ab2cf-0522-429c-a640-ddfcf0069b1c"
+          "reference": "urn:uuid:84c0aec1-343e-42ff-8fca-fa306668e7b4"
         },
         "valueQuantity": {
           "extension": [
@@ -2025,10 +2037,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:a733e7cb-f0c0-40f5-8fd6-377ab2e79b3e",
+      "fullUrl": "urn:uuid:8bfeea36-b716-4e03-a924-0bd9fcee1b64",
       "resource": {
         "resourceType": "Observation",
-        "id": "a733e7cb-f0c0-40f5-8fd6-377ab2e79b3e",
+        "id": "8bfeea36-b716-4e03-a924-0bd9fcee1b64",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-mother-received-wic-food"
@@ -2045,11 +2057,11 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:109ab2cf-0522-429c-a640-ddfcf0069b1c"
+          "reference": "urn:uuid:84c0aec1-343e-42ff-8fca-fa306668e7b4"
         },
         "focus": [
           {
-            "reference": "urn:uuid:109ab2cf-0522-429c-a640-ddfcf0069b1c"
+            "reference": "urn:uuid:84c0aec1-343e-42ff-8fca-fa306668e7b4"
           }
         ],
         "valueCodeableConcept": {
@@ -2064,10 +2076,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:c357d538-6ee7-4b1f-a288-7a293f2a7e49",
+      "fullUrl": "urn:uuid:d9e410c5-a254-4667-9ce6-fdc453cb108d",
       "resource": {
         "resourceType": "Observation",
-        "id": "c357d538-6ee7-4b1f-a288-7a293f2a7e49",
+        "id": "d9e410c5-a254-4667-9ce6-fdc453cb108d",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-number-births-now-living"
@@ -2084,21 +2096,21 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:109ab2cf-0522-429c-a640-ddfcf0069b1c"
+          "reference": "urn:uuid:84c0aec1-343e-42ff-8fca-fa306668e7b4"
         },
         "focus": [
           {
-            "reference": "urn:uuid:109ab2cf-0522-429c-a640-ddfcf0069b1c"
+            "reference": "urn:uuid:84c0aec1-343e-42ff-8fca-fa306668e7b4"
           }
         ],
         "valueInteger": 1
       }
     },
     {
-      "fullUrl": "urn:uuid:5f9898ef-a0c7-4d80-91b7-68e712925864",
+      "fullUrl": "urn:uuid:42a068ed-72fd-47cd-a24e-e1f4bbdcde4c",
       "resource": {
         "resourceType": "Observation",
-        "id": "5f9898ef-a0c7-4d80-91b7-68e712925864",
+        "id": "42a068ed-72fd-47cd-a24e-e1f4bbdcde4c",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-number-births-now-dead"
@@ -2125,16 +2137,16 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:109ab2cf-0522-429c-a640-ddfcf0069b1c"
+          "reference": "urn:uuid:84c0aec1-343e-42ff-8fca-fa306668e7b4"
         },
         "valueInteger": 0
       }
     },
     {
-      "fullUrl": "urn:uuid:1ff338b8-4516-4c19-8baf-627eaad9d3c1",
+      "fullUrl": "urn:uuid:580ff5f6-e269-4c69-ae22-a52152f247e6",
       "resource": {
         "resourceType": "Observation",
-        "id": "1ff338b8-4516-4c19-8baf-627eaad9d3c1",
+        "id": "580ff5f6-e269-4c69-ae22-a52152f247e6",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-number-other-pregnancy-outcomes"
@@ -2161,16 +2173,16 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:109ab2cf-0522-429c-a640-ddfcf0069b1c"
+          "reference": "urn:uuid:84c0aec1-343e-42ff-8fca-fa306668e7b4"
         },
         "valueInteger": 0
       }
     },
     {
-      "fullUrl": "urn:uuid:2351ba5a-699b-40e4-9a8b-c393947f91e4",
+      "fullUrl": "urn:uuid:bd0b8f60-83e6-46a6-9710-9f6f5f63fc72",
       "resource": {
         "resourceType": "Observation",
-        "id": "2351ba5a-699b-40e4-9a8b-c393947f91e4",
+        "id": "bd0b8f60-83e6-46a6-9710-9f6f5f63fc72",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-date-of-last-live-birth"
@@ -2221,21 +2233,21 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:109ab2cf-0522-429c-a640-ddfcf0069b1c"
+          "reference": "urn:uuid:84c0aec1-343e-42ff-8fca-fa306668e7b4"
         },
         "focus": [
           {
-            "reference": "urn:uuid:109ab2cf-0522-429c-a640-ddfcf0069b1c"
+            "reference": "urn:uuid:84c0aec1-343e-42ff-8fca-fa306668e7b4"
           }
         ],
         "valueDateTime": "2019-01"
       }
     },
     {
-      "fullUrl": "urn:uuid:aa9bdd77-f60b-4d46-be93-22048cc99ca1",
+      "fullUrl": "urn:uuid:6194e6d5-386e-45e3-9464-9688274b8ba3",
       "resource": {
         "resourceType": "Observation",
-        "id": "aa9bdd77-f60b-4d46-be93-22048cc99ca1",
+        "id": "6194e6d5-386e-45e3-9464-9688274b8ba3",
         "code": {
           "coding": [
             {
@@ -2245,21 +2257,21 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:109ab2cf-0522-429c-a640-ddfcf0069b1c"
+          "reference": "urn:uuid:84c0aec1-343e-42ff-8fca-fa306668e7b4"
         },
         "focus": [
           {
-            "reference": "urn:uuid:c23f7bfa-63fc-476a-a238-f325f21af1d3"
+            "reference": "urn:uuid:6d02c6e3-3290-46b1-8682-f64859ace998"
           }
         ],
         "valueInteger": 0
       }
     },
     {
-      "fullUrl": "urn:uuid:964ffb65-cecf-481d-834d-b25f9774508e",
+      "fullUrl": "urn:uuid:41b6c7a4-9e7c-4e99-aaed-2d7c1f35e3d7",
       "resource": {
         "resourceType": "Observation",
-        "id": "964ffb65-cecf-481d-834d-b25f9774508e",
+        "id": "41b6c7a4-9e7c-4e99-aaed-2d7c1f35e3d7",
         "code": {
           "coding": [
             {
@@ -2269,21 +2281,21 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:109ab2cf-0522-429c-a640-ddfcf0069b1c"
+          "reference": "urn:uuid:84c0aec1-343e-42ff-8fca-fa306668e7b4"
         },
         "focus": [
           {
-            "reference": "urn:uuid:c23f7bfa-63fc-476a-a238-f325f21af1d3"
+            "reference": "urn:uuid:6d02c6e3-3290-46b1-8682-f64859ace998"
           }
         ],
         "valueInteger": 0
       }
     },
     {
-      "fullUrl": "urn:uuid:3267c987-7601-4a01-ac47-afd9fbf7da92",
+      "fullUrl": "urn:uuid:25da0a85-89e9-4bf1-8a4f-ec3aefacf808",
       "resource": {
         "resourceType": "Observation",
-        "id": "3267c987-7601-4a01-ac47-afd9fbf7da92",
+        "id": "25da0a85-89e9-4bf1-8a4f-ec3aefacf808",
         "code": {
           "coding": [
             {
@@ -2293,21 +2305,21 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:109ab2cf-0522-429c-a640-ddfcf0069b1c"
+          "reference": "urn:uuid:84c0aec1-343e-42ff-8fca-fa306668e7b4"
         },
         "focus": [
           {
-            "reference": "urn:uuid:c23f7bfa-63fc-476a-a238-f325f21af1d3"
+            "reference": "urn:uuid:6d02c6e3-3290-46b1-8682-f64859ace998"
           }
         ],
         "valueInteger": 0
       }
     },
     {
-      "fullUrl": "urn:uuid:6c3d20a8-7347-45dd-b98d-b9209358e383",
+      "fullUrl": "urn:uuid:be79cbe6-c83c-48ea-9b42-6d8338e5b84e",
       "resource": {
         "resourceType": "Observation",
-        "id": "6c3d20a8-7347-45dd-b98d-b9209358e383",
+        "id": "be79cbe6-c83c-48ea-9b42-6d8338e5b84e",
         "code": {
           "coding": [
             {
@@ -2317,21 +2329,21 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:109ab2cf-0522-429c-a640-ddfcf0069b1c"
+          "reference": "urn:uuid:84c0aec1-343e-42ff-8fca-fa306668e7b4"
         },
         "focus": [
           {
-            "reference": "urn:uuid:c23f7bfa-63fc-476a-a238-f325f21af1d3"
+            "reference": "urn:uuid:6d02c6e3-3290-46b1-8682-f64859ace998"
           }
         ],
         "valueInteger": 0
       }
     },
     {
-      "fullUrl": "urn:uuid:fcff851c-3884-428e-bef4-74f4f09f696a",
+      "fullUrl": "urn:uuid:d483e96a-4937-40b7-94f5-e6fbd8407cbb",
       "resource": {
         "resourceType": "Observation",
-        "id": "fcff851c-3884-428e-bef4-74f4f09f696a",
+        "id": "d483e96a-4937-40b7-94f5-e6fbd8407cbb",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-last-menstrual-period"
@@ -2348,16 +2360,16 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:109ab2cf-0522-429c-a640-ddfcf0069b1c"
+          "reference": "urn:uuid:84c0aec1-343e-42ff-8fca-fa306668e7b4"
         },
         "valueDateTime": "2018-04-18"
       }
     },
     {
-      "fullUrl": "urn:uuid:aae0491e-8c2b-40c0-b4ac-d3f167fd14d4",
+      "fullUrl": "urn:uuid:b0649452-584a-4460-af82-bd82685c6a36",
       "resource": {
         "resourceType": "Observation",
-        "id": "aae0491e-8c2b-40c0-b4ac-d3f167fd14d4",
+        "id": "b0649452-584a-4460-af82-bd82685c6a36",
         "code": {
           "coding": [
             {
@@ -2367,7 +2379,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:109ab2cf-0522-429c-a640-ddfcf0069b1c"
+          "reference": "urn:uuid:84c0aec1-343e-42ff-8fca-fa306668e7b4"
         },
         "valueCodeableConcept": {
           "coding": [
@@ -2380,10 +2392,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:e8908ae6-ad83-43e1-bf90-a69e28f05ca9",
+      "fullUrl": "urn:uuid:48de2972-7fce-4f57-8697-a7988430bf6c",
       "resource": {
         "resourceType": "Observation",
-        "id": "e8908ae6-ad83-43e1-bf90-a69e28f05ca9",
+        "id": "48de2972-7fce-4f57-8697-a7988430bf6c",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-number-previous-cesareans"
@@ -2400,11 +2412,11 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:109ab2cf-0522-429c-a640-ddfcf0069b1c"
+          "reference": "urn:uuid:84c0aec1-343e-42ff-8fca-fa306668e7b4"
         },
         "focus": [
           {
-            "reference": "urn:uuid:109ab2cf-0522-429c-a640-ddfcf0069b1c"
+            "reference": "urn:uuid:84c0aec1-343e-42ff-8fca-fa306668e7b4"
           }
         ],
         "valueInteger": 0,
@@ -2427,10 +2439,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:628f1b76-37be-406e-a2fe-15b852d3b6b8",
+      "fullUrl": "urn:uuid:3c0c552f-8c03-402e-a8e1-583e6f7743bb",
       "resource": {
         "resourceType": "Observation",
-        "id": "628f1b76-37be-406e-a2fe-15b852d3b6b8",
+        "id": "3c0c552f-8c03-402e-a8e1-583e6f7743bb",
         "code": {
           "coding": [
             {
@@ -2440,7 +2452,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:109ab2cf-0522-429c-a640-ddfcf0069b1c"
+          "reference": "urn:uuid:84c0aec1-343e-42ff-8fca-fa306668e7b4"
         },
         "valueCodeableConcept": {
           "coding": [
@@ -2453,10 +2465,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:485e92b4-077c-4c32-a70c-2f92aaa0319e",
+      "fullUrl": "urn:uuid:d7339c44-d748-45da-9674-e1e05d1744e4",
       "resource": {
         "resourceType": "Observation",
-        "id": "485e92b4-077c-4c32-a70c-2f92aaa0319e",
+        "id": "d7339c44-d748-45da-9674-e1e05d1744e4",
         "code": {
           "coding": [
             {
@@ -2466,7 +2478,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:109ab2cf-0522-429c-a640-ddfcf0069b1c"
+          "reference": "urn:uuid:84c0aec1-343e-42ff-8fca-fa306668e7b4"
         },
         "valueCodeableConcept": {
           "coding": [
@@ -2479,10 +2491,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:9f7cef98-12ce-47c5-8646-69a8f3ec6888",
+      "fullUrl": "urn:uuid:0b8cc9c9-eb4d-4261-8750-f95f8e601346",
       "resource": {
         "resourceType": "Procedure",
-        "id": "9f7cef98-12ce-47c5-8646-69a8f3ec6888",
+        "id": "0b8cc9c9-eb4d-4261-8750-f95f8e601346",
         "category": {
           "coding": [
             {
@@ -2500,15 +2512,15 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:109ab2cf-0522-429c-a640-ddfcf0069b1c"
+          "reference": "urn:uuid:84c0aec1-343e-42ff-8fca-fa306668e7b4"
         }
       }
     },
     {
-      "fullUrl": "urn:uuid:6f349b62-d116-49cc-8d21-9fbd79dbb9ce",
+      "fullUrl": "urn:uuid:920e7c42-4d42-4558-8a29-eba0f96a5a3b",
       "resource": {
         "resourceType": "Observation",
-        "id": "6f349b62-d116-49cc-8d21-9fbd79dbb9ce",
+        "id": "920e7c42-4d42-4558-8a29-eba0f96a5a3b",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-fetal-presentation"
@@ -2525,7 +2537,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:109ab2cf-0522-429c-a640-ddfcf0069b1c"
+          "reference": "urn:uuid:84c0aec1-343e-42ff-8fca-fa306668e7b4"
         },
         "valueCodeableConcept": {
           "coding": [
@@ -2539,10 +2551,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:184cf4bd-d6ce-4afd-9dbd-c3654cd74525",
+      "fullUrl": "urn:uuid:7a97030e-304b-499f-be70-18fb4af97067",
       "resource": {
         "resourceType": "Procedure",
-        "id": "184cf4bd-d6ce-4afd-9dbd-c3654cd74525",
+        "id": "7a97030e-304b-499f-be70-18fb4af97067",
         "category": {
           "coding": [
             {
@@ -2561,15 +2573,15 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:109ab2cf-0522-429c-a640-ddfcf0069b1c"
+          "reference": "urn:uuid:84c0aec1-343e-42ff-8fca-fa306668e7b4"
         }
       }
     },
     {
-      "fullUrl": "urn:uuid:0c932031-d580-417b-9246-7b16e5d50f3d",
+      "fullUrl": "urn:uuid:84d87940-9829-45d0-b225-45e566e553c4",
       "resource": {
         "resourceType": "Observation",
-        "id": "0c932031-d580-417b-9246-7b16e5d50f3d",
+        "id": "84d87940-9829-45d0-b225-45e566e553c4",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-labor-trial-attempted"
@@ -2586,16 +2598,16 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:109ab2cf-0522-429c-a640-ddfcf0069b1c"
+          "reference": "urn:uuid:84c0aec1-343e-42ff-8fca-fa306668e7b4"
         },
         "valueBoolean": false
       }
     },
     {
-      "fullUrl": "urn:uuid:3dc831a3-6e49-4bb2-b69a-40e1fd8e4980",
+      "fullUrl": "urn:uuid:44152c26-fe6c-41ed-a542-6f9e5ac630f4",
       "resource": {
         "resourceType": "Observation",
-        "id": "3dc831a3-6e49-4bb2-b69a-40e1fd8e4980",
+        "id": "44152c26-fe6c-41ed-a542-6f9e5ac630f4",
         "code": {
           "coding": [
             {
@@ -2605,7 +2617,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:109ab2cf-0522-429c-a640-ddfcf0069b1c"
+          "reference": "urn:uuid:84c0aec1-343e-42ff-8fca-fa306668e7b4"
         },
         "valueCodeableConcept": {
           "coding": [
@@ -2618,10 +2630,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:afa55e1b-3a9d-44ac-9361-e04c26b0f3b0",
+      "fullUrl": "urn:uuid:639fd1f2-c2ac-4991-81a6-9114346c2fa6",
       "resource": {
         "resourceType": "Observation",
-        "id": "afa55e1b-3a9d-44ac-9361-e04c26b0f3b0",
+        "id": "639fd1f2-c2ac-4991-81a6-9114346c2fa6",
         "category": [
           {
             "coding": [
@@ -2641,7 +2653,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:c23f7bfa-63fc-476a-a238-f325f21af1d3"
+          "reference": "urn:uuid:6d02c6e3-3290-46b1-8682-f64859ace998"
         },
         "valueQuantity": {
           "value": 2277,
@@ -2651,10 +2663,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:12560436-45a2-4fe7-911c-5264b8226e26",
+      "fullUrl": "urn:uuid:6123a8c7-2f65-4c9c-9338-dac1baea8133",
       "resource": {
         "resourceType": "Observation",
-        "id": "12560436-45a2-4fe7-911c-5264b8226e26",
+        "id": "6123a8c7-2f65-4c9c-9338-dac1baea8133",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-gestational-age-at-delivery"
@@ -2671,11 +2683,11 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:109ab2cf-0522-429c-a640-ddfcf0069b1c"
+          "reference": "urn:uuid:84c0aec1-343e-42ff-8fca-fa306668e7b4"
         },
         "focus": [
           {
-            "reference": "urn:uuid:109ab2cf-0522-429c-a640-ddfcf0069b1c"
+            "reference": "urn:uuid:84c0aec1-343e-42ff-8fca-fa306668e7b4"
           }
         ],
         "valueQuantity": {
@@ -2700,10 +2712,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:cfd6886c-0679-4681-90d5-bfc665556d75",
+      "fullUrl": "urn:uuid:0c361838-be03-4228-9522-81e9a13c8888",
       "resource": {
         "resourceType": "Observation",
-        "id": "cfd6886c-0679-4681-90d5-bfc665556d75",
+        "id": "0c361838-be03-4228-9522-81e9a13c8888",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-apgar-score"
@@ -2730,16 +2742,16 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:c23f7bfa-63fc-476a-a238-f325f21af1d3"
+          "reference": "urn:uuid:6d02c6e3-3290-46b1-8682-f64859ace998"
         },
         "valueInteger": 9
       }
     },
     {
-      "fullUrl": "urn:uuid:62cf06ef-58a8-4b63-a972-49dbb866761e",
+      "fullUrl": "urn:uuid:bc743787-2b64-4057-b95f-524b86ddc067",
       "resource": {
         "resourceType": "Observation",
-        "id": "62cf06ef-58a8-4b63-a972-49dbb866761e",
+        "id": "bc743787-2b64-4057-b95f-524b86ddc067",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-number-live-births-this-delivery"
@@ -2756,16 +2768,16 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:109ab2cf-0522-429c-a640-ddfcf0069b1c"
+          "reference": "urn:uuid:84c0aec1-343e-42ff-8fca-fa306668e7b4"
         },
         "valueInteger": -1
       }
     },
     {
-      "fullUrl": "urn:uuid:e13fc2c0-9268-4d96-940d-1e754c19fd11",
+      "fullUrl": "urn:uuid:5deb947a-077d-428b-9541-b04df604946d",
       "resource": {
         "resourceType": "Observation",
-        "id": "e13fc2c0-9268-4d96-940d-1e754c19fd11",
+        "id": "5deb947a-077d-428b-9541-b04df604946d",
         "code": {
           "coding": [
             {
@@ -2775,7 +2787,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:c23f7bfa-63fc-476a-a238-f325f21af1d3"
+          "reference": "urn:uuid:6d02c6e3-3290-46b1-8682-f64859ace998"
         },
         "valueCodeableConcept": {
           "coding": [
@@ -2788,10 +2800,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:7c095298-9552-4170-a316-43cf8bd69d64",
+      "fullUrl": "urn:uuid:18553fea-f6a8-453f-8f51-544d4bb2d73e",
       "resource": {
         "resourceType": "Observation",
-        "id": "7c095298-9552-4170-a316-43cf8bd69d64",
+        "id": "18553fea-f6a8-453f-8f51-544d4bb2d73e",
         "code": {
           "coding": [
             {
@@ -2801,7 +2813,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:c23f7bfa-63fc-476a-a238-f325f21af1d3"
+          "reference": "urn:uuid:6d02c6e3-3290-46b1-8682-f64859ace998"
         },
         "valueCodeableConcept": {
           "coding": [
@@ -2814,10 +2826,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:ea96e0d5-b4f9-465e-aa6f-5893eddaac65",
+      "fullUrl": "urn:uuid:56d6e8c1-6db8-4c06-ac4e-83664f856312",
       "resource": {
         "resourceType": "Observation",
-        "id": "ea96e0d5-b4f9-465e-aa6f-5893eddaac65",
+        "id": "56d6e8c1-6db8-4c06-ac4e-83664f856312",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-infant-living"
@@ -2834,16 +2846,16 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:c23f7bfa-63fc-476a-a238-f325f21af1d3"
+          "reference": "urn:uuid:6d02c6e3-3290-46b1-8682-f64859ace998"
         },
         "valueBoolean": true
       }
     },
     {
-      "fullUrl": "urn:uuid:71db2d7a-8485-466e-b00e-de75fe539be4",
+      "fullUrl": "urn:uuid:c54eabaa-89a3-401f-adff-e6330d74ddcd",
       "resource": {
         "resourceType": "Observation",
-        "id": "71db2d7a-8485-466e-b00e-de75fe539be4",
+        "id": "c54eabaa-89a3-401f-adff-e6330d74ddcd",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-infant-breastfed-at-discharge"
@@ -2860,21 +2872,21 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:109ab2cf-0522-429c-a640-ddfcf0069b1c"
+          "reference": "urn:uuid:84c0aec1-343e-42ff-8fca-fa306668e7b4"
         },
         "focus": [
           {
-            "reference": "urn:uuid:109ab2cf-0522-429c-a640-ddfcf0069b1c"
+            "reference": "urn:uuid:84c0aec1-343e-42ff-8fca-fa306668e7b4"
           }
         ],
         "valueBoolean": true
       }
     },
     {
-      "fullUrl": "urn:uuid:65bd46a4-ff6c-4fa6-920f-d22924358ffd",
+      "fullUrl": "urn:uuid:64c7ba66-2b00-459f-87d8-d727bc26ba07",
       "resource": {
         "resourceType": "Observation",
-        "id": "65bd46a4-ff6c-4fa6-920f-d22924358ffd",
+        "id": "64c7ba66-2b00-459f-87d8-d727bc26ba07",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-ssn-requested-for-child"
@@ -2891,16 +2903,16 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:c23f7bfa-63fc-476a-a238-f325f21af1d3"
+          "reference": "urn:uuid:6d02c6e3-3290-46b1-8682-f64859ace998"
         },
         "valueBoolean": true
       }
     },
     {
-      "fullUrl": "urn:uuid:912f07c4-4e49-4c5f-a7c6-6bb86bbd26fa",
+      "fullUrl": "urn:uuid:c65932be-7749-43f0-8337-2ebaedb4ab27",
       "resource": {
         "resourceType": "Observation",
-        "id": "912f07c4-4e49-4c5f-a7c6-6bb86bbd26fa",
+        "id": "c65932be-7749-43f0-8337-2ebaedb4ab27",
         "meta": {
           "profile": [
             "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Observation-emerging-issues-vr.html"
@@ -2917,7 +2929,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:c23f7bfa-63fc-476a-a238-f325f21af1d3"
+          "reference": "urn:uuid:6d02c6e3-3290-46b1-8682-f64859ace998"
         },
         "component": [
           {
@@ -2935,10 +2947,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:b7990ee4-21e4-461f-b48b-e4456e53ffd8",
+      "fullUrl": "urn:uuid:18b0d295-a016-4081-a499-62da5dc29708",
       "resource": {
         "resourceType": "Observation",
-        "id": "b7990ee4-21e4-461f-b48b-e4456e53ffd8",
+        "id": "18b0d295-a016-4081-a499-62da5dc29708",
         "meta": {
           "profile": [
             "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Observation-emerging-issues-vr.html"
@@ -2955,7 +2967,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:c23f7bfa-63fc-476a-a238-f325f21af1d3"
+          "reference": "urn:uuid:6d02c6e3-3290-46b1-8682-f64859ace998"
         },
         "component": [
           {
@@ -2973,10 +2985,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:74bee479-95af-4e66-ad51-88dfd00a96cc",
+      "fullUrl": "urn:uuid:cc311688-c38b-4b4c-bcd3-98c666b1da7c",
       "resource": {
         "resourceType": "Observation",
-        "id": "74bee479-95af-4e66-ad51-88dfd00a96cc",
+        "id": "cc311688-c38b-4b4c-bcd3-98c666b1da7c",
         "meta": {
           "profile": [
             "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Observation-emerging-issues-vr.html"
@@ -2993,7 +3005,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:c23f7bfa-63fc-476a-a238-f325f21af1d3"
+          "reference": "urn:uuid:6d02c6e3-3290-46b1-8682-f64859ace998"
         },
         "component": [
           {
@@ -3011,10 +3023,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:f2c51665-1a91-40f6-bff4-82ce3fc6d0c8",
+      "fullUrl": "urn:uuid:cd4ed9c6-acb3-4964-b297-5d28bc211f05",
       "resource": {
         "resourceType": "Observation",
-        "id": "f2c51665-1a91-40f6-bff4-82ce3fc6d0c8",
+        "id": "cd4ed9c6-acb3-4964-b297-5d28bc211f05",
         "meta": {
           "profile": [
             "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Observation-emerging-issues-vr.html"
@@ -3031,7 +3043,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:c23f7bfa-63fc-476a-a238-f325f21af1d3"
+          "reference": "urn:uuid:6d02c6e3-3290-46b1-8682-f64859ace998"
         },
         "component": [
           {
@@ -3049,10 +3061,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:99875d37-9302-4bc6-a81c-4d1c328c62ac",
+      "fullUrl": "urn:uuid:62b7a274-05a1-4861-a859-2d428dc02981",
       "resource": {
         "resourceType": "Observation",
-        "id": "99875d37-9302-4bc6-a81c-4d1c328c62ac",
+        "id": "62b7a274-05a1-4861-a859-2d428dc02981",
         "meta": {
           "profile": [
             "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Observation-emerging-issues-vr.html"
@@ -3069,7 +3081,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:c23f7bfa-63fc-476a-a238-f325f21af1d3"
+          "reference": "urn:uuid:6d02c6e3-3290-46b1-8682-f64859ace998"
         },
         "component": [
           {
@@ -3087,10 +3099,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:fdc82459-39be-4884-bc58-6fabcc38aa61",
+      "fullUrl": "urn:uuid:d7628ea8-997e-42ea-8ada-47078034537f",
       "resource": {
         "resourceType": "Observation",
-        "id": "fdc82459-39be-4884-bc58-6fabcc38aa61",
+        "id": "d7628ea8-997e-42ea-8ada-47078034537f",
         "meta": {
           "profile": [
             "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Observation-emerging-issues-vr.html"
@@ -3107,7 +3119,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:c23f7bfa-63fc-476a-a238-f325f21af1d3"
+          "reference": "urn:uuid:6d02c6e3-3290-46b1-8682-f64859ace998"
         },
         "component": [
           {
@@ -3125,10 +3137,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:6e3078ef-7875-4442-96c7-608d84499957",
+      "fullUrl": "urn:uuid:0feddf73-a170-469a-b90f-1df08213b405",
       "resource": {
         "resourceType": "Observation",
-        "id": "6e3078ef-7875-4442-96c7-608d84499957",
+        "id": "0feddf73-a170-469a-b90f-1df08213b405",
         "meta": {
           "profile": [
             "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Observation-emerging-issues-vr.html"
@@ -3145,7 +3157,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:c23f7bfa-63fc-476a-a238-f325f21af1d3"
+          "reference": "urn:uuid:6d02c6e3-3290-46b1-8682-f64859ace998"
         },
         "component": [
           {
@@ -3163,10 +3175,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:f329edb7-8086-4c56-86c7-558eb2507679",
+      "fullUrl": "urn:uuid:322197c7-4722-42da-803f-27d7fc140a0b",
       "resource": {
         "resourceType": "Observation",
-        "id": "f329edb7-8086-4c56-86c7-558eb2507679",
+        "id": "322197c7-4722-42da-803f-27d7fc140a0b",
         "meta": {
           "profile": [
             "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Observation-emerging-issues-vr.html"
@@ -3183,7 +3195,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:c23f7bfa-63fc-476a-a238-f325f21af1d3"
+          "reference": "urn:uuid:6d02c6e3-3290-46b1-8682-f64859ace998"
         },
         "component": [
           {
@@ -3201,10 +3213,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:ea06e0ed-41f0-441f-a07c-094ae94852d6",
+      "fullUrl": "urn:uuid:fc1bb55e-0f1a-4668-8a30-548e1ae283c4",
       "resource": {
         "resourceType": "Observation",
-        "id": "ea06e0ed-41f0-441f-a07c-094ae94852d6",
+        "id": "fc1bb55e-0f1a-4668-8a30-548e1ae283c4",
         "meta": {
           "profile": [
             "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Observation-emerging-issues-vr.html"
@@ -3221,7 +3233,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:c23f7bfa-63fc-476a-a238-f325f21af1d3"
+          "reference": "urn:uuid:6d02c6e3-3290-46b1-8682-f64859ace998"
         },
         "component": [
           {
@@ -3239,10 +3251,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:c58f1e57-4461-4670-9127-4f34783edb79",
+      "fullUrl": "urn:uuid:f698a400-d27e-4a40-b623-b81efd30a05d",
       "resource": {
         "resourceType": "Observation",
-        "id": "c58f1e57-4461-4670-9127-4f34783edb79",
+        "id": "f698a400-d27e-4a40-b623-b81efd30a05d",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/coded-race-and-ethnicity-vr"
@@ -3259,15 +3271,15 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:c23f7bfa-63fc-476a-a238-f325f21af1d3"
+          "reference": "urn:uuid:6d02c6e3-3290-46b1-8682-f64859ace998"
         }
       }
     },
     {
-      "fullUrl": "urn:uuid:a1e080bd-04ea-407a-8feb-14761a02b813",
+      "fullUrl": "urn:uuid:b65b8773-20c2-4123-9c64-cd9e3645c05b",
       "resource": {
         "resourceType": "Observation",
-        "id": "a1e080bd-04ea-407a-8feb-14761a02b813",
+        "id": "b65b8773-20c2-4123-9c64-cd9e3645c05b",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/coded-race-and-ethnicity-vr"
@@ -3284,7 +3296,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:c23f7bfa-63fc-476a-a238-f325f21af1d3"
+          "reference": "urn:uuid:6d02c6e3-3290-46b1-8682-f64859ace998"
         }
       }
     }

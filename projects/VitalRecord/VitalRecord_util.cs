@@ -332,8 +332,11 @@ namespace VR
                 case FHIRPath.FhirType.Procedure:
                     func = e => e.Resource.TypeName == fhirPath.FHIRType.ToString() && ((Procedure)e.Resource).Code.Coding[0].Code == fhirPath.Code;
                     break;
+                case FHIRPath.FhirType.Coverage:
+                    func = e => e.Resource.TypeName == fhirPath.FHIRType.ToString() && ((Coverage)e.Resource).Type.Coding[0].Code == fhirPath.Code;
+                    break;
                 default:
-                    throw new ArgumentException("Invalid FHIRPath attribute, fhirType attribute must be one of Condition, Observation or Procedure");
+                    throw new ArgumentException("Invalid FHIRPath attribute, fhirType attribute must be one of Condition, Observation, Procedure, or Coverage");
             }
             foreach (var entry in Bundle.Entry.Where(func))
             {
@@ -384,8 +387,13 @@ namespace VR
                     procedure.Subject = new ResourceReference($"urn:uuid:{subjectId}");
                     resource = procedure;
                     break;
+                case FHIRPath.FhirType.Coverage:
+                    Coverage coverage = new Coverage();
+                    coverage.Type = code;
+                    resource = coverage;
+                    break;
                 default:
-                    throw new ArgumentException("Invalid FHIRPath attribute, fhirType attribute must be one of Condition, Observation or Procedure");
+                    throw new ArgumentException("Invalid FHIRPath attribute, fhirType attribute must be one of Condition, Observation, Procedure, or Coverage");
             }
 
             resource.Id = Guid.NewGuid().ToString();
@@ -2303,7 +2311,9 @@ namespace VR
             /// <summary>FHIR Procedure</summary>
             Procedure,
             /// <summary>FHIR Observation</summary>
-            Observation
+            Observation,
+            /// <summary>FHIR Coverage</summary>
+            Coverage
         }
 
         /// <summary>The relevant FHIR path.</summary>

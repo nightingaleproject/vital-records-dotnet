@@ -12,7 +12,6 @@ using System.Threading.Tasks;
 using RestSharp;
 using System.Text.RegularExpressions;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
 namespace canary.Models
 {
