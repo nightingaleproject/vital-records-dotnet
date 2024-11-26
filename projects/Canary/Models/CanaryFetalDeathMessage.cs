@@ -41,15 +41,15 @@ namespace canary.Models
             // switch (type)
             // {
             //     case "Submission":
-            //     case "http://nchs.cdc.gov/bfdr_submission":
+            //     case "http://nchs.cdc.gov/fd_submission":
             //         message = new BirthRecordSubmissionMessage(br);
             //         break;
             //     case "Update":
-            //     case "http://nchs.cdc.gov/bfdr_submission_update":
+            //     case "http://nchs.cdc.gov/fd_submission_update":
             //         message = new BirthRecordUpdateMessage(br);
             //         break;
             //     case "Void":
-            //     case "http://nchs.cdc.gov/bfdr_submission_void":
+            //     case "http://nchs.cdc.gov/fd_submission_void":
             //         message = new BirthRecordVoidMessage(br);
             //         break;
             //     default:
