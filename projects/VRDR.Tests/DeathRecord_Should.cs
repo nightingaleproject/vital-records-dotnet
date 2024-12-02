@@ -2539,7 +2539,7 @@ namespace VRDR.Tests
             ps.Add("display", "Not pregnant within past year");
             SetterDeathRecord.PregnancyStatus = ps;
             Assert.Equal("1", SetterDeathRecord.PregnancyStatus["code"]);
-            Assert.Equal(VRDR.CodeSystems.PregnancyStatus, SetterDeathRecord.PregnancyStatus["system"]);
+            Assert.Equal(VRDR.CodeSystems.DeathPregnancyStatusCS, SetterDeathRecord.PregnancyStatus["system"]);
             Assert.Equal("Not pregnant within past year", SetterDeathRecord.PregnancyStatus["display"]);
         }
 
@@ -2547,11 +2547,11 @@ namespace VRDR.Tests
         public void Get_PregnancyStatus()
         {
             Assert.Equal("1", DeathRecord1_JSON.PregnancyStatus["code"]);
-            Assert.Equal(VRDR.CodeSystems.PregnancyStatus, DeathRecord1_JSON.PregnancyStatus["system"]);
+            Assert.Equal(VRDR.CodeSystems.DeathPregnancyStatusCS, DeathRecord1_JSON.PregnancyStatus["system"]);
             Assert.Equal("Not pregnant within past year", DeathRecord1_JSON.PregnancyStatus["display"]);
             Assert.Equal(ValueSets.DeathPregnancyStatus.Pregnant_At_Time_Of_Death, DeathCertificateDocument2_JSON.PregnancyStatusHelper);
             Assert.Equal("1", DeathRecord1_XML.PregnancyStatus["code"]);
-            Assert.Equal(VRDR.CodeSystems.PregnancyStatus, DeathRecord1_XML.PregnancyStatus["system"]);
+            Assert.Equal(VRDR.CodeSystems.DeathPregnancyStatusCS, DeathRecord1_XML.PregnancyStatus["system"]);
             Assert.Equal("Not pregnant within past year", DeathRecord1_XML.PregnancyStatus["display"]);
         }
 
