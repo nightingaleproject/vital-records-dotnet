@@ -41,6 +41,7 @@ urisSTU3toSTU2 = {
 'http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-hispanic-origin-vr' => 'http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-hispanic-origin-cs', #codesystem
 'http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-country-code-vr' => 'http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-country-code-cs', #codesystem
 'http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-jurisdictions-vr' => 'http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-jurisdictions-cs', #codesystem
+'http://hl7.org/fhir/us/vrdr/CodeSystem/CodeSystem-death-pregnancy-status' => 'http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-pregnancy-status-cs', # unintentional change of Codesystem ID between STU2 and STU3.3
 }
 
 
