@@ -1179,7 +1179,7 @@
                 "coding": [
                   {
                     "code": "2",
-                    "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-pregnancy-status-cs",
+                    "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/CodeSystem-death-pregnancy-status",
                     "display": "Pregnant at time of death"
                   }
                 ]

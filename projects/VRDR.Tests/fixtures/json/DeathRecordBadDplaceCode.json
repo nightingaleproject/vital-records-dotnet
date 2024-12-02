@@ -1729,7 +1729,7 @@
         "valueCodeableConcept": {
           "coding": [
             {
-              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-pregnancy-status-cs",
+              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/CodeSystem-death-pregnancy-status",
               "code": "1",
               "display": "Not pregnant within past year"
             }
