@@ -2535,7 +2535,7 @@ namespace VRDR.Tests
         {
             Dictionary<string, string> ps = new Dictionary<string, string>();
             ps.Add("code", "1");
-            ps.Add("system", VRDR.CodeSystemURL.DeathPregnancyStatus);
+            ps.Add("system", VRDR.CodeSystemURL.DeathPregnancyStatusCS);
             ps.Add("display", "Not pregnant within past year");
             SetterDeathRecord.PregnancyStatus = ps;
             Assert.Equal("1", SetterDeathRecord.PregnancyStatus["code"]);
