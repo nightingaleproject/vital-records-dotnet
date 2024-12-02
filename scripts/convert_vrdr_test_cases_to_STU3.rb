@@ -3,6 +3,8 @@ require 'json'
 require 'rexml/document'
 require 'rexml/formatters/pretty'
 
+# Other Changes that are missing from this script:
+# The BirthRecordIdentifier profile (http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-birth-record-identifier) uses the code vrdr-observation-cs#childbirthrecordidentifier instead of http://terminology.hl7.org/CodeSystem/v2-0203#BR.
 
 #ruby tools/convertTestInstancesToSTU2.rb 
 

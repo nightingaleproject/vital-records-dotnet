@@ -365,7 +365,7 @@ namespace VRDR
                     case "55280-2":
                         MilitaryServiceObs = (Observation)obs;
                         break;
-                    case "BR":
+                    case "childbirthrecordidentifier":
                         BirthRecordIdentifier = (Observation)obs;
                         break;
                     case "emergingissues":
