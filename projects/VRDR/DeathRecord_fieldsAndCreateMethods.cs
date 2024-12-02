@@ -219,7 +219,7 @@ namespace VRDR
             string[] br_profile = { ProfileURL.BirthRecordIdentifier };
             BirthRecordIdentifier.Meta.Profile = br_profile;
             BirthRecordIdentifier.Status = ObservationStatus.Final;
-            BirthRecordIdentifier.Code = new CodeableConcept(CodeSystems.HL7_identifier_type, "BR", "Birth registry number", null);
+            BirthRecordIdentifier.Code = new CodeableConcept(VR.CodeSystems.LocalObservationCodes, "childbirthrecordidentifier", "Birth Record Identifier of Child", null);
             BirthRecordIdentifier.Subject = new ResourceReference("urn:uuid:" + Decedent.Id);
             BirthRecordIdentifier.Value = (FhirString)null;
             BirthRecordIdentifier.DataAbsentReason = new CodeableConcept(CodeSystems.Data_Absent_Reason_HL7_V3, "unknown", "Unknown", null);

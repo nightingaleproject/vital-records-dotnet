@@ -3686,7 +3686,7 @@ namespace VRDR
         /// <para>Console.WriteLine($"Birth Record identification: {ExampleDeathRecord.BirthRecordId}");</para>
         /// </example>
         [Property("Birth Record Id", Property.Types.String, "Decedent Demographics", "Birth Record Identifier (i.e. Certificate Number).", true, ProfileURL.BirthRecordIdentifier, true, 16)]
-        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='BR')", "")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='childbirthrecordidentifier')", "")]
         public string BirthRecordId
         {
             get
@@ -3730,7 +3730,7 @@ namespace VRDR
         [PropertyParam("code", "The code used to describe this concept.")]
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
-        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='BR')", "")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='childbirthrecordidentifier')", "")]
         public string BirthRecordState
         {
             get
@@ -3789,7 +3789,7 @@ namespace VRDR
         /// <para>Console.WriteLine($"Birth Record year: {ExampleDeathRecord.BirthRecordYear}");</para>
         /// </example>
         [Property("Birth Record Year", Property.Types.String, "Decedent Demographics", "Birth Record Year.", true, ProfileURL.BirthRecordIdentifier, true, 18)]
-        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='BR')", "")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='childbirthrecordidentifier')", "")]
         public string BirthRecordYear
         {
             get

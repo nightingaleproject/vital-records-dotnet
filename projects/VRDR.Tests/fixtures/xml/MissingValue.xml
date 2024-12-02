@@ -216,7 +216,7 @@
         <identifier>
           <type>
             <coding>
-              <code value='BR'/>
+              <code value='SS'/>
               <display value='Social Beneficiary Identifier'/>
             </coding>
           </type>
@@ -707,7 +707,8 @@
         <status value='final'/>
         <code>
           <coding>
-            <code value='BR'/>
+            <system value='http://terminology.hl7.org/CodeSystem/v2-0203'/>
+            <code value='childbirthrecordidentifier'/>
           </coding>
         </code>
         <subject>
