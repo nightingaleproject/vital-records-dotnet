@@ -21,6 +21,10 @@ raise "Please provide a path to the IG JSON files" unless path_to_ig
 structure_definition_files = Dir.glob("#{path_to_ig}/**/StructureDefinition*.json")
 raise "No Structure Definitions Found" unless structure_definition_files.size > 0
 
+# Load the CodeSystem Definitions from the provided directory
+code_system_files = Dir.glob("#{path_to_ig}/**/CodeSystem*.json")
+raise "No CodeSystem Definitions Found" unless code_system_files.size > 0
+
 # Iterate through each file and populate a hash of name => url
 structure_definition_hash = {}
 structure_definitions = structure_definition_files.each do |structure_definition_file|
@@ -30,6 +34,21 @@ structure_definitions = structure_definition_files.each do |structure_definition
   name = structure_definition['name']
   url = structure_definition['url']
   structure_definition_hash[name] = url
+end
+
+# Iterate through each file and populate a hash of name => url
+code_system_hash = {}
+code_systems = code_system_files.each do |code_system_file|
+  # Load and parse the JSON
+  code_system = JSON.parse(File.read(code_system_file))
+  # Grab the name and URL and populate the hash
+  name = code_system['name']
+  url = code_system['url']
+  #if url.include?('CodeSystem') then type = 'codesystem' 
+  #elsif url.include?('/vrdr-') then type = 'profile' 
+  #else type = 'extension' end
+ # print url + ":" + type + "\n"
+  code_system_hash[name] = url
 end
 
 # Helper method to transform a StructureDefinition URL into a human-visitable link
@@ -42,7 +61,26 @@ end
 
 # Helper method to determine whether a URL is an Extension or a Profile
 def url_type(url)
-  if url.include?('/vrdr-') then 'profile' else 'extension' end
+  type = 'unknown'
+  if url.include?('CodeSystem') then type = 'codesystem' 
+  elsif url.include?('/vrdr-') then type = 'profile' 
+  else type =  'extension' end
+  type 
+end
+
+# Helper method to extract a short name from an extension named according to conventions
+def short_name(name)
+  if /Extension(?<shortname>[a-zA-Z]+)VitalRecords/ =~ name
+    shortname
+  elsif /CodeSystem(?<shortname>[a-zA-Z]+)VitalRecords/ =~ name
+    shortname
+  elsif /(Observation|Patient|Practitioner)(?<shortname>[a-zA-Z]+)VitalRecords/ =~ name
+    shortname
+  elsif /(?<shortname>[a-zA-Z]+)VitalRecords/ =~ name
+    shortname
+  else
+    name
+  end
 end
 
 # Create a template for the output file
@@ -71,6 +109,15 @@ namespace VRDR
 
 <% end -%>
     }
+    public class CodeSystemURL
+    {
+
+<% code_system_hash.select { |name, url| true }.each do |name, url| -%>
+        /// <summary>URL for <%= short_name(name) %></summary>
+        public const string <%= short_name(name) %> = "<%= url %>";
+
+<% end -%>
+    }
 
     /// <summary>IG URLs</summary>
     public static class IGURL
@@ -81,6 +128,7 @@ namespace VRDR
 
 <% end -%>
     }
+
 }
 EOT
 

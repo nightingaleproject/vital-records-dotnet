@@ -158,6 +158,52 @@ namespace VRDR
         public const string PractitionerRole = "http://hl7.org/fhir/us/vrdr/StructureDefinition/practitioner-role";
 
     }
+    public class CodeSystemURL
+    {
+
+        /// <summary>URL for DeathPregnancyStatusCS</summary>
+        public const string DeathPregnancyStatusCS = "http://hl7.org/fhir/us/vrdr/CodeSystem/CodeSystem-death-pregnancy-status";
+
+        /// <summary>URL for ActivityAtTimeOfDeathCS</summary>
+        public const string ActivityAtTimeOfDeathCS = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-activity-at-time-of-death-cs";
+
+        /// <summary>URL for ComponentCS</summary>
+        public const string ComponentCS = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs";
+
+        /// <summary>URL for DateOfDeathDeterminationMethodsCS</summary>
+        public const string DateOfDeathDeterminationMethodsCS = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-date-of-death-determination-methods-cs";
+
+        /// <summary>URL for DocumentSectionCS</summary>
+        public const string DocumentSectionCS = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-document-section-cs";
+
+        /// <summary>URL for FilingFormatCS</summary>
+        public const string FilingFormatCS = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-filing-format-cs";
+
+        /// <summary>URL for IntentionalRejectCS</summary>
+        public const string IntentionalRejectCS = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-intentional-reject-cs";
+
+        /// <summary>URL for LocationTypeCS</summary>
+        public const string LocationTypeCS = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-location-type-cs";
+
+        /// <summary>URL for ObservationsCS</summary>
+        public const string ObservationsCS = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs";
+
+        /// <summary>URL for OrganizationTypeCS</summary>
+        public const string OrganizationTypeCS = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-organization-type-cs";
+
+        /// <summary>URL for ReplaceStatusCS</summary>
+        public const string ReplaceStatusCS = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-replace-status-cs";
+
+        /// <summary>URL for SuperMicarPlaceOfInjuryCS</summary>
+        public const string SuperMicarPlaceOfInjuryCS = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-system-placeofinjury-cs";
+
+        /// <summary>URL for SystemRejectCS</summary>
+        public const string SystemRejectCS = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-system-reject-cs";
+
+        /// <summary>URL for TransaxConversionCS</summary>
+        public const string TransaxConversionCS = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-transax-conversion-cs";
+
+    }
 
     /// <summary>IG URLs</summary>
     public static class IGURL
@@ -310,4 +356,5 @@ namespace VRDR
         public const string TobaccoUseContributedToDeath = "https://hl7.org/fhir/us/vrdr/StructureDefinition-vrdr-tobacco-use-contributed-to-death.html";
 
     }
+
 }
