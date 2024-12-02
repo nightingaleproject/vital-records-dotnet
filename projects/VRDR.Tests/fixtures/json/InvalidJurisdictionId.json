@@ -551,9 +551,8 @@
         "code": {
           "coding": [
             {
-              "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
-              "code": "BR",
-              "display": "Birth registry number"
+              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs",
+              "code": "childbirthrecordidentifier"
             }
           ]
         },
