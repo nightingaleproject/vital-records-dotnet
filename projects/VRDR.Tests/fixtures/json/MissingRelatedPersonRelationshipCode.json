@@ -258,7 +258,7 @@
             "type": {
               "coding": [
                 {
-                  "code": "BR",
+                  "code": "SS",
                   "display": "Social Beneficiary Identifier"
                 }
               ]
@@ -991,7 +991,8 @@
         "code": {
           "coding": [
             {
-              "code": "BR"
+              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs",
+              "code": "childbirthrecordidentifier"
             }
           ]
         },
