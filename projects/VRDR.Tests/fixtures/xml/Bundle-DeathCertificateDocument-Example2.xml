@@ -815,7 +815,7 @@
       <Observation>
         <id value='DecedentPregnancyStatus-Example1'/>
         <meta>
-          <profile value='http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-decedent-pregnancy-status'/>
+          <profile value='http://hl7.org/fhir/us/vrdr/CodeSystem/CodeSystem-death-pregnancy-status'/>
         </meta>
         <status value='final'/>
         <code>
