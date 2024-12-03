@@ -4482,6 +4482,48 @@
         <member name="F:VRDR.ExtensionURL.PractitionerRole">
             <summary>URL for PractitionerRole</summary>
         </member>
+        <member name="F:VRDR.CodeSystemURL.DeathPregnancyStatusCS">
+            <summary>URL for DeathPregnancyStatusCS</summary>
+        </member>
+        <member name="F:VRDR.CodeSystemURL.ActivityAtTimeOfDeathCS">
+            <summary>URL for ActivityAtTimeOfDeathCS</summary>
+        </member>
+        <member name="F:VRDR.CodeSystemURL.ComponentCS">
+            <summary>URL for ComponentCS</summary>
+        </member>
+        <member name="F:VRDR.CodeSystemURL.DateOfDeathDeterminationMethodsCS">
+            <summary>URL for DateOfDeathDeterminationMethodsCS</summary>
+        </member>
+        <member name="F:VRDR.CodeSystemURL.DocumentSectionCS">
+            <summary>URL for DocumentSectionCS</summary>
+        </member>
+        <member name="F:VRDR.CodeSystemURL.FilingFormatCS">
+            <summary>URL for FilingFormatCS</summary>
+        </member>
+        <member name="F:VRDR.CodeSystemURL.IntentionalRejectCS">
+            <summary>URL for IntentionalRejectCS</summary>
+        </member>
+        <member name="F:VRDR.CodeSystemURL.LocationTypeCS">
+            <summary>URL for LocationTypeCS</summary>
+        </member>
+        <member name="F:VRDR.CodeSystemURL.ObservationsCS">
+            <summary>URL for ObservationsCS</summary>
+        </member>
+        <member name="F:VRDR.CodeSystemURL.OrganizationTypeCS">
+            <summary>URL for OrganizationTypeCS</summary>
+        </member>
+        <member name="F:VRDR.CodeSystemURL.ReplaceStatusCS">
+            <summary>URL for ReplaceStatusCS</summary>
+        </member>
+        <member name="F:VRDR.CodeSystemURL.SuperMicarPlaceOfInjuryCS">
+            <summary>URL for SuperMicarPlaceOfInjuryCS</summary>
+        </member>
+        <member name="F:VRDR.CodeSystemURL.SystemRejectCS">
+            <summary>URL for SystemRejectCS</summary>
+        </member>
+        <member name="F:VRDR.CodeSystemURL.TransaxConversionCS">
+            <summary>URL for TransaxConversionCS</summary>
+        </member>
         <member name="T:VRDR.IGURL">
             <summary>IG URLs</summary>
         </member>
