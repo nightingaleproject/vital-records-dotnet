@@ -112,9 +112,6 @@
         <member name="F:VR.CodeSystems.ActivityAtTimeOfDeath">
             <summary> Activity at Time of Death </summary>
         </member>
-        <member name="F:VR.CodeSystems.PlaceOfInjury">
-            <summary> Place of Injury </summary>
-        </member>
         <member name="F:VR.CodeSystems.PregnancyStatus">
             <summary> Pregnancy Status </summary>
         </member>

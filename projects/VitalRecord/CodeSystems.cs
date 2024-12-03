@@ -125,13 +125,13 @@ namespace VR
         // /// <summary> Missing Value Reason </summary>
         // public static string MissingValueReason = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-missing-value-reason-cs";
 
-        /// <summary> Race Recode 40 </summary>
+        // / <summary> Race Recode 40 </summary>
         // public static string RaceRecode40 = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-race-recode-40-cs";
 
         // /// <summary> Bypass Edit Flag </summary>
         // public static string BypassEditFlag = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-bypass-edit-flag-cs";
 
-        /// <summary> Place of Injury </summary>
+        // <summary> Place of Injury </summary>
         public static string PlaceOfInjury = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-system-placeofinjury-cs";
 
         /// <summary> Pregnancy Status </summary>
@@ -176,7 +176,7 @@ namespace VR
         public static string DateOfDeathDeterminationMethods = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-date-of-death-determination-methods-cs";
     
         /// <summary> Death Pregnancy Status </summary>
-        public static string DeathPregnancyStatus = "http://hl7.org/fhir/us/vrdr/CodeSystem/CodeSystem-decedent-pregnancy-status";
+        public static string DeathPregnancyStatus = "http://hl7.org/fhir/us/vrdr/CodeSystem/CodeSystem-death-pregnancy-status";
 
         // Code systems defined within vital record IGs: BFDR IG
 
