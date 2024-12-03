@@ -1334,7 +1334,7 @@
         </subject>
         <valueCodeableConcept>
           <coding>
-            <system value="http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-pregnancy-status-cs" />
+            <system value="http://hl7.org/fhir/us/vrdr/CodeSystem/CodeSystem-death-pregnancy-status" />
             <code value="1" />
             <display value="Not pregnant within past year" />
           </coding>
