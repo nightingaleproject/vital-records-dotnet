@@ -365,8 +365,14 @@ namespace VRDR
                     case "55280-2":
                         MilitaryServiceObs = (Observation)obs;
                         break;
-                    case "BR":
-                        BirthRecordIdentifier = (Observation)obs;
+                    case "childbirthrecordidentifier":
+                        BirthRecordIdentifier = (Observation)obs; // decedent is infant child, link to birth certificate of decedent
+                        break;
+                    case "decedentbirthrecordidentifier": // new in STU3 -- decedent is mother, link is cert from recent delivery
+                        BirthRecordIdentifierChild = (Observation)obs;
+                        break;
+                    case "fetaldeathrecordidentifier":    // new in STU3 -- decedent is mother, link is cert from recent fetal death
+                        FetalDeathRecordIdentifier = (Observation)obs;
                         break;
                     case "emergingissues":
                         EmergingIssues = (Observation)obs;
