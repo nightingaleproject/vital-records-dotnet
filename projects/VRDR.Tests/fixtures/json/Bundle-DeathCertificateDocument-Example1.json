@@ -130,6 +130,12 @@
                 "reference": "Observation/BirthRecordIdentifier-Example1"
               },
               {
+                "reference": "Observation/BirthRecordIdentifierChild-Example1"
+              },
+              {
+                "reference": "Observation/FetalDeathRecordIdentifier-Example1"
+              },
+              {
                 "reference": "Observation/DecedentEducationLevel-Example1"
               },
               {
@@ -912,8 +918,105 @@
         },
         "valueString": "717171"
       },
-      "fullUrl": "http://www.example.org/fhir/Observation/BirthRecordIdentifier-Example1"
+      "fullUrl": "http://www.example.org/fhir/Observation/BirthRecordIdentifierChild-Example1"
     },
+    {
+
+      "resource": {
+      "resourceType": "Observation",
+      "id": "BirthRecordIdentifierChild-Example1",
+      "meta": {
+        "profile": [
+          "http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-birth-record-identifier-child"
+        ]
+      },
+      "status": "final",
+      "code": {
+        "coding": [
+          {
+            "code": "decedentbirthrecordidentifier",
+            "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs"
+          }
+        ]
+      },
+      "component": [
+        {
+          "code": {
+            "coding": [
+              {
+                "code": "21842-0",
+                "system": "http://loinc.org"
+              }
+            ]
+          },
+          "valueString": "YC"
+        },
+        {
+          "code": {
+            "coding": [
+              {
+                "code": "80904-6",
+                "system": "http://loinc.org"
+              }
+            ]
+          },
+          "valueDateTime": "1961"
+        }
+      ],
+      "subject": {
+        "reference": "Patient/Decedent-Example1"
+      },
+      "valueString": "717171"
+    }
+  },  
+  {"resource": 
+    {
+      "resourceType": "Observation",
+      "id": "FetalDeathRecordIdentifier-Example1",
+      "meta": {
+        "profile": [
+          "http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-fetal-death-record-identifier"
+        ]
+      },
+      "status": "final",
+      "code": {
+        "coding": [
+          {
+            "code": "fetaldeathrecordidentifier",
+            "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs"
+          }
+        ]
+      },
+      "component": [
+        {
+          "code": {
+            "coding": [
+              {
+                "code": "77969-4",
+                "system": "http://loinc.org"
+              }
+            ]
+          },
+          "valueString": "YC"
+        },
+        {
+          "code": {
+            "coding": [
+              {
+                "code": "81954-0",
+                "system": "http://loinc.org"
+              }
+            ]
+          },
+          "valueDateTime": "1961"
+        }
+      ],
+      "subject": {
+        "reference": "Patient/Decedent-Example1"
+      },
+      "valueString": "717171"
+    }
+    },      
     {
       "resource": {
         "resourceType": "Observation",

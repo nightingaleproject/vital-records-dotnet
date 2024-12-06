@@ -169,10 +169,22 @@
             <summary>Create an empty EducationLevel Observation, to be populated in either EducationLevel or EducationLevelEditFlag.</summary>
         </member>
         <member name="F:VRDR.DeathRecord.BirthRecordIdentifier">
-            <summary>Birth Record Identifier.</summary>
+            <summary>Child Birth Record Identifier.</summary>
+        </member>
+        <member name="F:VRDR.DeathRecord.BirthRecordIdentifierChild">
+            <summary>Decedent Birth Record Identifier.</summary>
+        </member>
+        <member name="F:VRDR.DeathRecord.FetalDeathRecordIdentifier">
+            <summary>Fetal Deach Record Identifier.</summary>
         </member>
         <member name="M:VRDR.DeathRecord.CreateBirthRecordIdentifier">
             <summary>Create an empty BirthRecordIdentifier Observation.</summary>
+        </member>
+        <member name="M:VRDR.DeathRecord.CreateBirthRecordIdentifierChild">
+            <summary>Create an empty BirthRecordIdentifierChild Observation.</summary>
+        </member>
+        <member name="M:VRDR.DeathRecord.CreateFetalDeathRecordIdentifier">
+            <summary>Create an empty FetalDeathRecordIdentifier Observation.</summary>
         </member>
         <member name="F:VRDR.DeathRecord.EmergingIssues">
             <summary>Emerging Issues.</summary>
@@ -2138,6 +2150,74 @@
             <para>ExampleDeathRecord.BirthRecordYear = "1940";</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Birth Record year: {ExampleDeathRecord.BirthRecordYear}");</para>
+            </example>
+        </member>
+        <member name="P:VRDR.DeathRecord.BirthRecordChildId">
+            <summary>Birth Record Identifier Child.</summary>
+            <value>a birth record child identification string.</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleDeathRecord.BirthRecordChildId = "4242123";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Birth Record identification: {ExampleDeathRecord.BirthRecordChildId}");</para>
+            </example>
+        </member>
+        <member name="P:VRDR.DeathRecord.BirthRecordChildState">
+            <summary>Birth Record State.</summary>
+            <value>the state of the decedent's birth certificate. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleDeathRecord.BirthRecordState = "MA";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Birth Record identification: {ExampleDeathRecord.BirthRecordState}");</para>
+            </example>
+        </member>
+        <member name="P:VRDR.DeathRecord.BirthRecordChildYear">
+            <summary>Birth Record Child Year.</summary>
+            <value>the year found on the decedent's child's birth certificate.</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleDeathRecord.BirthRecordChildYear = "1940";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Birth Record Child year: {ExampleDeathRecord.BirthRecordChildYear}");</para>
+            </example>
+        </member>
+        <member name="P:VRDR.DeathRecord.FetalDeathRecordId">
+            <summary>Fetal Death Record Identifier.</summary>
+            <value>a fetal death record identification string.</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleDeathRecord.FetalDeathRecordId = "4242123";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Fetal Death Record identification: {ExampleDeathRecord.FetalDeathRecordId}");</para>
+            </example>
+        </member>
+        <member name="P:VRDR.DeathRecord.FetalDeathRecordState">
+            <summary>Fetal Death Record State.</summary>
+            <value>the state of the decedent's associated fetal death certificate. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleDeathRecord.FetalDeathRecordState = "MA";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Fetal Death Record State: {ExampleFetalDeathRecord.FetalDeathhRecordState}");</para>
+            </example>
+        </member>
+        <member name="P:VRDR.DeathRecord.FetalDeathRecordYear">
+            <summary>Fetal Death Record Year.</summary>
+            <value>the year found on the decedent's associated fetal death record certificate.</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleDeathRecord.FetalDeathRecordYear = "1940";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Fetal Death Record year: {ExampleDeathRecord.FetalDeathRecordYear}");</para>
             </example>
         </member>
         <member name="P:VRDR.DeathRecord.UsualOccupation">
