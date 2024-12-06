@@ -995,7 +995,7 @@ namespace VRDR.Tests
                 Assert.Equal(4, comp.Section.Count);
 
                 Composition.SectionComponent demographics = comp.Section.Where(s => s.Code.Coding.First().Code == "DecedentDemographics").First();
-                Assert.Equal(13, demographics.Entry.Count);
+                Assert.Equal(15, demographics.Entry.Count);
 
                 Composition.SectionComponent investigation = comp.Section.Where(s => s.Code.Coding.First().Code == "DeathInvestigation").First();
                 Assert.Equal(8, investigation.Entry.Count);
@@ -1873,6 +1873,32 @@ namespace VRDR.Tests
         }
 
         [Fact]
+        public void Set_BirthRecordChildId()
+        {
+            SetterDeathRecord.BirthRecordChildId = "242123";
+            Assert.Equal("242123", SetterDeathRecord.BirthRecordChildId);
+        }
+
+        [Fact]
+        public void Get_BirthRecordChildId()
+        {
+            Assert.Equal("717171", DeathRecord1_JSON.BirthRecordChildId);
+            Assert.Equal("242123", DeathRecord1_XML.BirthRecordChildId);
+        }
+              [Fact]
+        public void Set_FetalDeathRecordId()
+        {
+            SetterDeathRecord.FetalDeathRecordId = "242123";
+            Assert.Equal("242123", SetterDeathRecord.FetalDeathRecordId);
+        }
+
+        [Fact]
+        public void Get_FetalDeathRecordId()
+        {
+            Assert.Equal("717171", DeathRecord1_JSON.FetalDeathRecordId);
+            Assert.Equal("242123", DeathRecord1_XML.FetalDeathRecordId);
+        }
+        [Fact]
         public void Set_BirthRecord_Absent()
         {
             SetterDeathRecord.BirthRecordId = "";
@@ -1885,6 +1911,32 @@ namespace VRDR.Tests
             DeathRecord dr = new DeathRecord(File.ReadAllText(FixturePath("fixtures/json/DeathRecordBirthRecordDataAbsent.json")));
             Assert.Null(dr.BirthRecordId);
         }
+        [Fact]
+        public void Set_BirthRecordChild_Absent()
+        {
+            SetterDeathRecord.BirthRecordChildId = "";
+            Assert.Null(SetterDeathRecord.BirthRecordChildId);
+        }
+
+        [Fact]
+        public void Get_BirthRecordChild_Absent()
+        {
+            DeathRecord dr = new DeathRecord(File.ReadAllText(FixturePath("fixtures/json/DeathRecordBirthRecordDataAbsent.json")));
+            Assert.Null(dr.BirthRecordChildId);
+        }
+         [Fact]
+        public void Set_FetalDeathRecord_Absent()
+        {
+            SetterDeathRecord.FetalDeathRecordId = "";
+            Assert.Null(SetterDeathRecord.FetalDeathRecordId);
+        }
+
+        [Fact]
+        public void Get_FetalDeathRecord_Absent()
+        {
+            DeathRecord dr = new DeathRecord(File.ReadAllText(FixturePath("fixtures/json/DeathRecordBirthRecordDataAbsent.json")));
+            Assert.Null(dr.FetalDeathRecordId);
+        }
 
         [Fact]
         public void Get_BirthRecord_Roundtrip()
@@ -1895,6 +1947,28 @@ namespace VRDR.Tests
             Assert.Equal("242123", ije1.BCNO);
             DeathRecord dr2 = ije1.ToRecord();
             Assert.Equal("242123", dr2.BirthRecordId);
+        }
+
+          [Fact]
+        public void Get_BirthRecordChild_Roundtrip()
+        {
+            DeathRecord dr = DeathRecord1_JSON;
+            Assert.Equal("717171", dr.BirthRecordChildId);
+            IJEMortality ije1 = new IJEMortality(dr);
+//            Assert.Equal("242123", ije1.BCNO);
+            DeathRecord dr2 = ije1.ToRecord();
+            Assert.Equal("717171", dr2.BirthRecordChildId);
+        }
+
+          [Fact]
+        public void Get_FetalDeathRecord_Roundtrip()
+        {
+            DeathRecord dr = DeathRecord1_JSON;
+            Assert.Equal("717171", dr.FetalDeathRecordId);
+            IJEMortality ije1 = new IJEMortality(dr);
+//
+            DeathRecord dr2 = ije1.ToRecord();
+            Assert.Equal("717171", dr2.FetalDeathRecordId);
         }
         [Fact]
         public void BirthRecord_Relic()
@@ -1920,12 +1994,46 @@ namespace VRDR.Tests
             Assert.Equal(state, SetterDeathRecord.BirthRecordState);
         }
 
+        [Theory]
+        [InlineData("MA")]
+        [InlineData("YC")]
+        public void Set_BirthRecordChildState(string state)
+        {
+            SetterDeathRecord.BirthRecordChildState = state;
+            Assert.Equal(state, SetterDeathRecord.BirthRecordChildState);
+        }
+                [Theory]
+        [InlineData("MA")]
+        [InlineData("YC")]
+        public void Set_FetalDeathRecordState(string state)
+        {
+            SetterDeathRecord.FetalDeathRecordState = state;
+            Assert.Equal(state, SetterDeathRecord.FetalDeathRecordState);
+        }
         [Fact]
         public void Get_BirthRecordState()
         {
             Assert.Equal("MA", DeathRecord1_JSON.BirthRecordState);
             Assert.Equal("MA", DeathRecord1_XML.BirthRecordState);
             Assert.Equal("YC", DeathCertificateDocument1_JSON.BirthRecordState);
+
+        }
+
+        [Fact]
+        public void Get_BirthRecordChildState()
+        {
+            Assert.Equal("YC", DeathRecord1_JSON.BirthRecordChildState);
+            Assert.Equal("MA", DeathRecord1_XML.BirthRecordChildState);
+            Assert.Equal("YC", DeathCertificateDocument1_JSON.BirthRecordChildState);
+
+        }
+
+        [Fact]
+        public void Get_FetalDeathRecordState()
+        {
+            Assert.Equal("YC", DeathRecord1_JSON.FetalDeathRecordState);
+            Assert.Equal("MA", DeathRecord1_XML.FetalDeathRecordState);
+            Assert.Equal("YC", DeathCertificateDocument1_JSON.FetalDeathRecordState);
 
         }
 
@@ -1941,6 +2049,34 @@ namespace VRDR.Tests
         {
             Assert.Equal("1940", DeathRecord1_JSON.BirthRecordYear);
             Assert.Equal("1940", DeathRecord1_XML.BirthRecordYear);
+        }
+
+        [Fact]
+        public void Set_BirthRecordChildYear()
+        {
+            SetterDeathRecord.BirthRecordChildYear = "1961";
+            Assert.Equal("1961", SetterDeathRecord.BirthRecordChildYear);
+        }
+
+        [Fact]
+        public void Get_BirthRecordChildYear()
+        {
+            Assert.Equal("1961", DeathRecord1_JSON.BirthRecordChildYear);
+            Assert.Equal("1940", DeathRecord1_XML.BirthRecordChildYear);
+        }
+
+        [Fact]
+        public void Set_FetalDeathRecordYear()
+        {
+            SetterDeathRecord.FetalDeathRecordYear = "1940";
+            Assert.Equal("1940", SetterDeathRecord.FetalDeathRecordYear);
+        }
+
+        [Fact]
+        public void Get_FetalDeathRecordYear()
+        {
+            Assert.Equal("1961", DeathRecord1_JSON.FetalDeathRecordYear);
+            Assert.Equal("1940", DeathRecord1_XML.FetalDeathRecordYear);
         }
 
         [Fact]

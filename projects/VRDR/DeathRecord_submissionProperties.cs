@@ -3837,6 +3837,326 @@ namespace VRDR
             }
         }
 
+             
+
+        /// <summary>Birth Record Identifier Child.</summary>
+        /// <value>a birth record child identification string.</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleDeathRecord.BirthRecordChildId = "4242123";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Birth Record identification: {ExampleDeathRecord.BirthRecordChildId}");</para>
+        /// </example>
+        [Property("Birth Record Child Id", Property.Types.String, "Decedent Demographics", "Birth Record Identifier (i.e. Certificate Number).", true, ProfileURL.BirthRecordIdentifierChild, true, 16)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='decedentbirthrecordidentifier')", "")]
+        public string BirthRecordChildId
+        {
+            get
+            {
+                if (BirthRecordIdentifierChild != null && BirthRecordIdentifierChild.Value != null)
+                {
+                    return Convert.ToString(BirthRecordIdentifierChild.Value);
+                }
+                return null;
+            }
+            set
+            {
+                if (BirthRecordIdentifierChild == null)
+                {
+                    CreateBirthRecordIdentifierChild();
+                }
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    BirthRecordIdentifierChild.Value = new FhirString(value);
+                }
+                else
+                {
+                    BirthRecordIdentifierChild.Value = (FhirString)null;
+                }
+            }
+        }
+
+        /// <summary>Birth Record State.</summary>
+        /// <value>the state of the decedent's birth certificate. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleDeathRecord.BirthRecordState = "MA";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Birth Record identification: {ExampleDeathRecord.BirthRecordState}");</para>
+        /// </example>
+        [Property("Birth Record Child State", Property.Types.String, "Decedent Demographics", "Birth Record Child State.", true, ProfileURL.BirthRecordIdentifierChild, true, 17)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='decedentbirthrecordidentifier')", "")]
+        public string BirthRecordChildState
+        {
+            get
+            {
+                if (BirthRecordIdentifierChild != null && BirthRecordIdentifierChild.Component.Count > 0)
+                {
+                    // Find correct component
+                    var stateComp = BirthRecordIdentifierChild.Component.FirstOrDefault(entry => ((Observation.ComponentComponent)entry).Code != null &&
+                    ((Observation.ComponentComponent)entry).Code.Coding.FirstOrDefault() != null && ((Observation.ComponentComponent)entry).Code.Coding.FirstOrDefault().Code == "21842-0");
+                    if (stateComp != null && stateComp.Value != null && stateComp.Value as FhirString != null)
+                    {
+                        return (Convert.ToString(stateComp.Value));
+                    }
+                }
+                return null;
+            }
+            set
+            {
+                if (String.IsNullOrWhiteSpace(value)) {
+                    return;
+                }
+                //    CodeableConcept state = DictToCodeableConcept(value);
+                if (BirthRecordIdentifierChild == null)
+                {
+                    CreateBirthRecordIdentifierChild();
+                    Observation.ComponentComponent component = new Observation.ComponentComponent();
+                    component.Code = new CodeableConcept(CodeSystems.LOINC, "21842-0", "Birthplace", null);
+                    component.Value = new FhirString(value);
+                    BirthRecordIdentifierChild.Component.Add(component);
+                }
+                else
+                {
+                    // Find correct component; if doesn't exist add another
+                    var stateComp = BirthRecordIdentifierChild.Component.FirstOrDefault(entry => ((Observation.ComponentComponent)entry).Code != null && ((Observation.ComponentComponent)entry).Code.Coding.FirstOrDefault() != null && ((Observation.ComponentComponent)entry).Code.Coding.FirstOrDefault().Code == "21842-0");
+                    if (stateComp != null)
+                    {
+                        ((Observation.ComponentComponent)stateComp).Value = new FhirString(value);
+                    }
+                    else
+                    {
+                        Observation.ComponentComponent component = new Observation.ComponentComponent();
+                        component.Code = new CodeableConcept(CodeSystems.LOINC, "21842-0", "Birthplace", null);
+                        component.Value = new FhirString(value);
+                        BirthRecordIdentifierChild.Component.Add(component);
+                    }
+                }
+            }
+        }
+
+        /// <summary>Birth Record Child Year.</summary>
+        /// <value>the year found on the decedent's child's birth certificate.</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleDeathRecord.BirthRecordChildYear = "1940";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Birth Record Child year: {ExampleDeathRecord.BirthRecordChildYear}");</para>
+        /// </example>
+        [Property("Birth Record Child Year", Property.Types.String, "Decedent Demographics", "Birth Record Child Year.", true, ProfileURL.BirthRecordIdentifierChild, true, 18)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='decedentbirthrecordidentifier')", "")]
+        public string BirthRecordChildYear
+        {
+            get
+            {
+                if (BirthRecordIdentifierChild != null && BirthRecordIdentifierChild.Component.Count > 0)
+                {
+                    // Find correct component
+                    var stateComp = BirthRecordIdentifierChild.Component.FirstOrDefault(entry => ((Observation.ComponentComponent)entry).Code != null && ((Observation.ComponentComponent)entry).Code.Coding.FirstOrDefault() != null && ((Observation.ComponentComponent)entry).Code.Coding.FirstOrDefault().Code == "80904-6");
+                    if (stateComp != null)
+                    {
+                        return Convert.ToString(stateComp.Value);
+                    }
+                }
+                return null;
+            }
+            set
+            {
+                if (String.IsNullOrWhiteSpace(value)) {
+                    return;
+                }
+                if (BirthRecordIdentifierChild == null)
+                {
+                    CreateBirthRecordIdentifierChild();
+                    Observation.ComponentComponent component = new Observation.ComponentComponent();
+                    component.Code = new CodeableConcept(CodeSystems.LOINC, "80904-6", "Birth year", null);
+                    component.Value = new FhirDateTime(value);
+                    BirthRecordIdentifierChild.Component.Add(component);
+                }
+                else
+                {
+                    // Find correct component; if doesn't exist add another
+                    var stateComp = BirthRecordIdentifierChild.Component.FirstOrDefault(entry => ((Observation.ComponentComponent)entry).Code != null && ((Observation.ComponentComponent)entry).Code.Coding.FirstOrDefault() != null && ((Observation.ComponentComponent)entry).Code.Coding.FirstOrDefault().Code == "80904-6");
+                    if (stateComp != null)
+                    {
+                        ((Observation.ComponentComponent)stateComp).Value = new FhirDateTime(value);
+                    }
+                    else
+                    {
+                        Observation.ComponentComponent component = new Observation.ComponentComponent();
+                        component.Code = new CodeableConcept(CodeSystems.LOINC, "80904-6", "Birth year", null);
+                        component.Value = new FhirDateTime(value);
+                        BirthRecordIdentifierChild.Component.Add(component);
+                    }
+                }
+            }
+        }
+/// <summary>Fetal Death Record Identifier.</summary>
+        /// <value>a fetal death record identification string.</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleDeathRecord.FetalDeathRecordId = "4242123";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Fetal Death Record identification: {ExampleDeathRecord.FetalDeathRecordId}");</para>
+        /// </example>
+        [Property("Birth Record Child Id", Property.Types.String, "Decedent Demographics", "Fetal Death Record Identifier (i.e. Certificate Number).", true, ProfileURL.FetalDeathRecordIdentifier, true, 16)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='fetaldeathrecordidentifier')", "")]
+        public string FetalDeathRecordId
+        {
+            get
+            {
+                if (FetalDeathRecordIdentifier != null && FetalDeathRecordIdentifier.Value != null)
+                {
+                    return Convert.ToString(FetalDeathRecordIdentifier.Value);
+                }
+                return null;
+            }
+            set
+            {
+                if (FetalDeathRecordIdentifier == null)
+                {
+                    CreateFetalDeathRecordIdentifier();
+                }
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    FetalDeathRecordIdentifier.Value = new FhirString(value);
+                }
+                else
+                {
+                    FetalDeathRecordIdentifier.Value = (FhirString)null;
+                }
+            }
+        }
+
+        /// <summary>Fetal Death Record State.</summary>
+        /// <value>the state of the decedent's associated fetal death certificate. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleDeathRecord.FetalDeathRecordState = "MA";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Fetal Death Record State: {ExampleFetalDeathRecord.FetalDeathhRecordState}");</para>
+        /// </example>
+        [Property("Fetal Death Record State", Property.Types.String, "Decedent Demographics", "Fetal Death Record State.", true, ProfileURL.FetalDeathRecordIdentifier, true, 17)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='fetaldeathrecordidentifier')", "")]
+        public string FetalDeathRecordState
+        {
+            get
+            {
+                if (FetalDeathRecordIdentifier != null && FetalDeathRecordIdentifier.Component.Count > 0)
+                {
+                    // Find correct component
+                    var stateComp = FetalDeathRecordIdentifier.Component.FirstOrDefault(entry => ((Observation.ComponentComponent)entry).Code != null &&
+                    ((Observation.ComponentComponent)entry).Code.Coding.FirstOrDefault() != null && ((Observation.ComponentComponent)entry).Code.Coding.FirstOrDefault().Code == "77969-4");
+                    if (stateComp != null && stateComp.Value != null && stateComp.Value as FhirString != null)
+                    {
+                        return (Convert.ToString(stateComp.Value));
+                    }
+                }
+                return null;
+            }
+            set
+            {
+                if (String.IsNullOrWhiteSpace(value)) {
+                    return;
+                }
+                //    CodeableConcept state = DictToCodeableConcept(value);
+                if (FetalDeathRecordIdentifier == null)
+                {
+                    CreateFetalDeathRecordIdentifier();
+                    Observation.ComponentComponent component = new Observation.ComponentComponent();
+                    component.Code = new CodeableConcept(CodeSystems.LOINC, "77969-4", "Jurisdiction code", null);
+                    component.Value = new FhirString(value);
+                    FetalDeathRecordIdentifier.Component.Add(component);
+                }
+                else
+                {
+                    // Find correct component; if doesn't exist add another
+                    var stateComp = FetalDeathRecordIdentifier.Component.FirstOrDefault(entry => ((Observation.ComponentComponent)entry).Code != null && ((Observation.ComponentComponent)entry).Code.Coding.FirstOrDefault() != null && ((Observation.ComponentComponent)entry).Code.Coding.FirstOrDefault().Code == "21842-0");
+                    if (stateComp != null)
+                    {
+                        ((Observation.ComponentComponent)stateComp).Value = new FhirString(value);
+                    }
+                    else
+                    {
+                        Observation.ComponentComponent component = new Observation.ComponentComponent();
+                        component.Code = new CodeableConcept(CodeSystems.LOINC, "77969-4", "Jurisdiction Code", null);
+                        component.Value = new FhirString(value);
+                        FetalDeathRecordIdentifier.Component.Add(component);
+                    }
+                }
+            }
+        }
+
+        /// <summary>Fetal Death Record Year.</summary>
+        /// <value>the year found on the decedent's associated fetal death record certificate.</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleDeathRecord.FetalDeathRecordYear = "1940";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Fetal Death Record year: {ExampleDeathRecord.FetalDeathRecordYear}");</para>
+        /// </example>
+        [Property("Fetal Death Record Year", Property.Types.String, "Decedent Demographics", "Fetal Death Record Year.", true, ProfileURL.FetalDeathRecordIdentifier, true, 18)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='fetaldeathrecordidentifier')", "")]
+        public string FetalDeathRecordYear
+        {
+            get
+            {
+                if (FetalDeathRecordIdentifier != null && FetalDeathRecordIdentifier.Component.Count > 0)
+                {
+                    // Find correct component
+                    var stateComp = FetalDeathRecordIdentifier.Component.FirstOrDefault(entry => ((Observation.ComponentComponent)entry).Code != null && ((Observation.ComponentComponent)entry).Code.Coding.FirstOrDefault() != null && ((Observation.ComponentComponent)entry).Code.Coding.FirstOrDefault().Code == "81954-0");
+                    if (stateComp != null)
+                    {
+                        return Convert.ToString(stateComp.Value);
+                    }
+                }
+                return null;
+            }
+            set
+            {
+                if (String.IsNullOrWhiteSpace(value)) {
+                    return;
+                }
+                if (FetalDeathRecordIdentifier == null)
+                {
+                    CreateFetalDeathRecordIdentifier();
+                    Observation.ComponentComponent component = new Observation.ComponentComponent();
+                    component.Code = new CodeableConcept(CodeSystems.LOINC, "81954-0", "Date of death", null);
+                    component.Value = new FhirDateTime(value);
+                    FetalDeathRecordIdentifier.Component.Add(component);
+                }
+                else
+                {
+                    // Find correct component; if doesn't exist add another
+                    var stateComp = FetalDeathRecordIdentifier.Component.FirstOrDefault(entry => ((Observation.ComponentComponent)entry).Code != null && ((Observation.ComponentComponent)entry).Code.Coding.FirstOrDefault() != null && ((Observation.ComponentComponent)entry).Code.Coding.FirstOrDefault().Code == "81954-0");
+                    if (stateComp != null)
+                    {
+                        ((Observation.ComponentComponent)stateComp).Value = new FhirDateTime(value);
+                    }
+                    else
+                    {
+                        Observation.ComponentComponent component = new Observation.ComponentComponent();
+                        component.Code = new CodeableConcept(CodeSystems.LOINC, "81954-0", "Date of death", null);
+                        component.Value = new FhirDateTime(value);
+                        FetalDeathRecordIdentifier.Component.Add(component);
+                    }
+                }
+            }
+        }
         /// <summary>Decedent's Usual Occupation.</summary>
         /// <value>the decedent's usual occupation.</value>
         /// <example>
