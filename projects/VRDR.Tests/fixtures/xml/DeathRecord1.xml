@@ -1265,8 +1265,10 @@
         </effectivePeriod>
         <valueCodeableConcept>
           <coding>
-            <display value='secretary'/>
-          </coding>
+              <system value='2.16.840.1.114222.4.5.336'/>
+              <code value='13-2011'/>
+              <display value='Accounting, Tax Preparation, Bookkeeping, and Payroll Services'/>
+            </coding>
           <text value='Executive secretary'/>
         </valueCodeableConcept>
         <component>
@@ -1279,7 +1281,9 @@
           </code>
           <valueCodeableConcept>
             <coding>
-              <display value='State agency'/>
+              <system value='2.16.840.1.114222.4.5.337'/>
+              <code value='54121'/>
+              <display value='Accounting, Tax Preparation, Bookkeeping, and Payroll Services'/>
             </coding>
             <text value='State department of agriculture'/>
           </valueCodeableConcept>
