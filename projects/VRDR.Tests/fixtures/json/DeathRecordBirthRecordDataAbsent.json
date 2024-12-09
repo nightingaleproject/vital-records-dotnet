@@ -310,7 +310,7 @@
           {
             "extension": [
               {
-                "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/WithinCityLimitsIndicator",
+                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-within-city-limits-indicator-vr",
                 "valueCoding": {
                   "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
                   "code": "N",
@@ -474,9 +474,11 @@
             "http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-death-certification"
           ]
         },
-        "identifier": [{
-          "value": "1"
-        }],
+        "identifier": [
+          {
+            "value": "1"
+          }
+        ],
         "status": "completed",
         "category": {
           "coding": [
@@ -708,9 +710,11 @@
         "subject": {
           "reference": "urn:uuid:949354d3-9dcf-4c96-8ec4-6be27dd4c65f"
         },
-        "performer": [{
-          "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
-        }],
+        "performer": [
+          {
+            "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
+          }
+        ],
         "code": {
           "coding": [
             {
@@ -754,9 +758,11 @@
             }
           ]
         },
-        "performer": [{
-          "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
-        }],
+        "performer": [
+          {
+            "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
+          }
+        ],
         "component": [
           {
             "code": {
@@ -773,7 +779,6 @@
             }
           }
         ]
-
       }
     },
     {
@@ -808,9 +813,11 @@
             }
           ]
         },
-        "performer": [{
-          "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
-        }],
+        "performer": [
+          {
+            "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
+          }
+        ],
         "component": [
           {
             "code": {
@@ -854,9 +861,11 @@
             }
           ]
         },
-        "performer": [{
-          "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
-        }],
+        "performer": [
+          {
+            "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
+          }
+        ],
         "component": [
           {
             "code": {
@@ -875,7 +884,7 @@
         ]
       }
     },
-     {
+    {
       "fullUrl": "urn:uuid:223eaadb-5909-458c-bbe5-604c120c3ce9",
       "resource": {
         "resourceType": "Observation",
@@ -900,9 +909,11 @@
             }
           ]
         },
-        "performer": [{
-          "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
-        }],
+        "performer": [
+          {
+            "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
+          }
+        ],
         "component": [
           {
             "code": {
@@ -934,13 +945,15 @@
         "patient": {
           "reference": "urn:uuid:949354d3-9dcf-4c96-8ec4-6be27dd4c65f"
         },
-        "relationship": [{
-          "coding": [
-            {
-              "code": "FTH"
-            }
-          ]
-        }],
+        "relationship": [
+          {
+            "coding": [
+              {
+                "code": "FTH"
+              }
+            ]
+          }
+        ],
         "name": [
           {
             "family": "Last",
@@ -968,13 +981,15 @@
         "patient": {
           "reference": "urn:uuid:949354d3-9dcf-4c96-8ec4-6be27dd4c65f"
         },
-        "relationship": [{
-          "coding": [
-            {
-              "code": "MTH"
-            }
-          ]
-        }],
+        "relationship": [
+          {
+            "coding": [
+              {
+                "code": "MTH"
+              }
+            ]
+          }
+        ],
         "name": [
           {
             "family": "Maiden",
@@ -1002,13 +1017,15 @@
         "patient": {
           "reference": "urn:uuid:949354d3-9dcf-4c96-8ec4-6be27dd4c65f"
         },
-        "relationship": [{
-          "coding": [
-            {
-              "code": "SPS"
-            }
-          ]
-        }],
+        "relationship": [
+          {
+            "coding": [
+              {
+                "code": "SPS"
+              }
+            ]
+          }
+        ],
         "name": [
           {
             "family": "Last",
@@ -1068,12 +1085,11 @@
           ]
         },
         "status": "final",
-        "code" : {
-          "coding" : [
+        "code": {
+          "coding": [
             {
-              "system" : "http://terminology.hl7.org/CodeSystem/v2-0203",
-              "code" : "BR",
-              "display" : "Birth registry number"
+              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs",
+              "code": "childbirthrecordidentifier"
             }
           ]
         },
@@ -1083,36 +1099,36 @@
         "dataAbsentReason": {
           "coding": [
             {
-            "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason",
-            "code":"asked-unknown",
-            "display":"Asked but Unknown"
+              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason",
+              "code": "asked-unknown",
+              "display": "Asked but Unknown"
             }
           ]
         },
-        "component" : [
+        "component": [
           {
-            "code" : {
-              "coding" : [
+            "code": {
+              "coding": [
                 {
-                  "system" : "http://loinc.org",
-                  "code" : "21842-0",
-                  "display" : "Birthplace"
+                  "system": "http://loinc.org",
+                  "code": "21842-0",
+                  "display": "Birthplace"
                 }
               ]
             },
-            "valueString" : "MA"
+            "valueString": "MA"
           },
           {
-            "code" : {
-              "coding" : [
+            "code": {
+              "coding": [
                 {
-                  "system" : "http://loinc.org",
-                  "code" : "80904-6",
-                  "display" : "Birth year"
+                  "system": "http://loinc.org",
+                  "code": "80904-6",
+                  "display": "Birth year"
                 }
               ]
             },
-            "valueDateTime" : "1940"
+            "valueDateTime": "1940"
           }
         ]
       }
@@ -1137,9 +1153,9 @@
             }
           ]
         },
-        "effectivePeriod" : {
-          "start" : "1965-01-01",
-          "end" : "2010-01-01"
+        "effectivePeriod": {
+          "start": "1965-01-01",
+          "end": "2010-01-01"
         },
         "valueCodeableConcept": {
           "coding": [
@@ -1367,7 +1383,7 @@
         "valueCodeableConcept": {
           "coding": [
             {
-              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-pregnancy-status-cs",
+              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/CodeSystem-death-pregnancy-status",
               "code": "1",
               "display": "Not pregnant within past year"
             }
@@ -1540,24 +1556,26 @@
             "http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-death-location"
           ]
         },
-        "type": [{
-          "coding": [
-            {
-              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-location-type-cs",
-              "code": "death",
-              "display": "death location"
-            }
-          ]
-        }],
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-location-type-cs",
+                "code": "death",
+                "display": "death location"
+              }
+            ]
+          }
+        ],
         "extension": [
           {
-            "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Location-Jurisdiction-Id",
+            "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-jurisdiction-id-vr",
             "valueCodeableConcept": {
               "coding": [
                 {
-                "system": "2.16.840.1.113883.6.92",
-                "code": "25",
-                "display": "MA"
+                  "system": "2.16.840.1.113883.6.92",
+                  "code": "25",
+                  "display": "MA"
                 }
               ]
             }
