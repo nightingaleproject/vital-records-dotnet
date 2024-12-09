@@ -2080,14 +2080,14 @@ namespace VRDR.Tests
         }
 
         [Fact]
-        public void Set_UsualOccupation()
+        public void Set_UsualOccupationText()
         {
             SetterDeathRecord.UsualOccupation = "secretary";
             Assert.Equal("secretary", SetterDeathRecord.UsualOccupation);
         }
 
         [Fact]
-        public void Get_UsualOccupation()
+        public void Get_UsualOccupationText()
         {
             Assert.Equal("Executive secretary", DeathRecord1_JSON.UsualOccupation);
             Assert.Equal("Executive secretary", DeathRecord1_XML.UsualOccupation);
@@ -2095,17 +2095,61 @@ namespace VRDR.Tests
         }
 
         [Fact]
-        public void Set_UsualIndustry()
+        public void Set_UsualIndustryText()
         {
             SetterDeathRecord.UsualIndustry = "State agency";
             Assert.Equal("State agency", SetterDeathRecord.UsualIndustry);
         }
 
         [Fact]
-        public void Get_UsualIndustry()
+        public void Get_UsualIndustryText()
         {
             Assert.Equal("State department of agriculture", DeathRecord1_JSON.UsualIndustry);
             Assert.Equal("State department of agriculture", DeathRecord1_XML.UsualIndustry);
+        }
+        /// <para>mserv.Add("code", "13-2011");</para>
+        /// <para>mserv.Add("system", VR.CodeSystems.IndustryDCCensus2018);</para>
+        /// <para>mserv.Add("display", "Accountants and Auditors");</para>
+                [Fact]
+        public void Set_UsualOccupationCode()
+        {
+            var occ = new Dictionary<string, string>();
+            occ["system"] = VR.CodeSystems.OccupationCDCSOC2018;
+            occ["code"] = "13-2011";
+            occ["display"]= "Accountants and Auditors";
+    
+            SetterDeathRecord.UsualOccupationCoded = occ;
+            Assert.Equal("13-2011", SetterDeathRecord.UsualOccupationCoded["code"]);
+            Assert.Equal(VR.CodeSystems.OccupationCDCSOC2018, SetterDeathRecord.UsualOccupationCoded["system"]);
+        }
+
+        [Fact]
+        public void Get_UsualOccupationCode()
+        {
+            Assert.Equal("13-2011", DeathRecord1_JSON.UsualOccupationCoded["code"]);
+            Assert.Equal("13-2011", DeathRecord1_XML.UsualOccupationCoded["code"]);
+
+        }
+
+        [Fact]
+        public void Set_UsualIndustryCode()
+        {
+            var ind = new Dictionary<string, string>();
+            ind["system"] = VR.CodeSystems.IndustryCDCNAICS2017;
+            ind["code"] = "54121";
+            ind["display"]= "Accounting, Tax Preparation, Bookkeeping, and Payroll Services";
+    
+            SetterDeathRecord.UsualIndustryCoded = ind;
+            Assert.Equal("54121", SetterDeathRecord.UsualIndustryCoded["code"]);
+            Assert.Equal(VR.CodeSystems.IndustryCDCNAICS2017, SetterDeathRecord.UsualIndustryCoded["system"]);
+
+        }
+
+        [Fact]
+        public void Get_UsualIndustryCode()
+        {
+            Assert.Equal("54121", DeathRecord1_JSON.UsualIndustryCoded["code"]);
+            Assert.Equal("54121", DeathRecord1_XML.UsualIndustryCoded["code"]);
         }
 
         [Fact]

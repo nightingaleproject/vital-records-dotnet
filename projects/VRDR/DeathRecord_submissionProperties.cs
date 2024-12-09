@@ -4271,7 +4271,7 @@ namespace VRDR
             }
             set
             {
-                if (IsDictEmptyOrDefault(value))
+                if (value == null || IsDictEmptyOrDefault(value))
                 {
                     return;
                 }
@@ -4318,7 +4318,7 @@ namespace VRDR
             }
             set
             {
-                if (IsDictEmptyOrDefault(value))
+                if (value == null || IsDictEmptyOrDefault(value))
                 {
                     return;
                 }

@@ -1560,7 +1560,9 @@
         "valueCodeableConcept": {
           "coding": [
             {
-              "display": "secretary"
+             "system": "2.16.840.1.114222.4.5.336",
+              "code":  "13-2011",
+              "display": "Accountants and Auditors"
             }
           ],
           "text": "Executive secretary"
@@ -1582,7 +1584,9 @@
             "valueCodeableConcept": {
               "coding": [
                 {
-                  "display": "State agency"
+                  "system": "2.16.840.1.114222.4.5.337",
+                  "code":  "54121",
+                  "display": "Accounting, Tax Preparation, Bookkeeping, and Payroll Services"
                 }
               ],
               "text": "State department of agriculture"
