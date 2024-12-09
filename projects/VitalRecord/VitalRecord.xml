@@ -7028,18 +7028,12 @@
         <member name="M:VR.VitalRecord.CreateAndSetPartialDate(Hl7.Fhir.Model.FhirDateTime,System.String,System.Nullable{System.Int32})">
             <summary>Sets the given value to the given partial date extension and creates any necessary missing extensions.</summary>
         </member>
-        <member name="M:VR.VitalRecord.UpdateFhirDate(Hl7.Fhir.Model.Date,System.Nullable{System.Int32},System.String,System.Boolean)">
+        <member name="M:VR.VitalRecord.UpdateFhirDate(System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Boolean)">
             <summary>
             Updates the Fhir Date with the given value and partial date url.
             </summary>
-            <param name="dateElement"></param>
-            <param name="value"></param>
-            <param name="partialDateUrl"></param>
-            <param name="useBirthTime"></param>
-            <returns></returns>
-            <exception cref="T:System.Exception"></exception>
         </member>
-        <member name="M:VR.VitalRecord.AddTimeToDate(Hl7.Fhir.Model.Date,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Boolean)">
+        <member name="M:VR.VitalRecord.SetPartialDateExtensions(Hl7.Fhir.Model.Date,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String)">
             <summary>
             Updates the given date element with the given time data, moving elements to the partial date time extension as needed.
             </summary>
