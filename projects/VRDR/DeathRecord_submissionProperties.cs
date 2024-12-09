@@ -4241,6 +4241,102 @@ namespace VRDR
 
         }
 
+        /// <summary>Decedent's Usual Occupation (Coded).</summary>
+        /// <value>the decedent's usual occupation. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; mserv = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>mserv.Add("code", "13-2011");</para>
+        /// <para>mserv.Add("system", VR.CodeSystems.IndustryDCCensus2018);</para>
+        /// <para>mserv.Add("display", "Accountants and Auditors");</para>
+        /// <para>ExampleDeathRecord.UsualOccupationCoded = uind;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"UsualIndustryCoded: {ExampleDeathRecord.UsualIndustryCoded['display']}");</para>
+        /// </example>
+        [Property("Usual Occupation (Coded)", Property.Types.Dictionary, "Decedent Demographics", "Decedent's Usual Occupation.", true, ProfileURL.DecedentUsualWork, true, 40)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='21843-8')", "")]
+        public Dictionary<string, string> UsualOccupationCoded
+        {
+            get
+            {
+                if (UsualWork != null && UsualWork.Value != null && UsualWork.Value as CodeableConcept != null)
+                {
+                    return CodeableConceptToDict((CodeableConcept)UsualWork.Value);
+                }
+                return EmptyCodeableDict();
+            }
+            set
+            {
+                if (IsDictEmptyOrDefault(value))
+                {
+                    return;
+                }
+                if (UsualWork == null)
+                {
+                    CreateUsualWork();
+                }
+                UsualWork.Value = DictToCodeableConcept(value);
+
+            }
+        }
+
+        /// <summary>Decedent's Usual Industry (Coded).</summary>
+        /// <value>the decedent's usual industry. A Dictionary representing a code, containing the following key/value pairs:
+        /// <para>"code" - the code</para>
+        /// <para>"system" - the code system this code belongs to</para>
+        /// <para>"display" - a human readable meaning of the code</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; mserv = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>mserv.Add("code", "54121");</para>
+        /// <para>mserv.Add("system", VR.CodeSystems.IndustryCDCNAICS2017);</para>
+        /// <para>mserv.Add("display", "Accounting, Tax Preparation, Bookkeeping, and Payroll Services");</para>
+        /// <para>ExampleDeathRecord.MilitaryService = uind;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"UsualIndustryCoded: {ExampleDeathRecord.UsualIndustryCoded['display']}");</para>
+        /// </example>
+        [Property("Usual Industry (Coded)", Property.Types.Dictionary, "Decedent Demographics", "Decedent's Usual Industry.", true, ProfileURL.DecedentUsualWork, true, 44)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='21843-8')", "")]
+         public Dictionary<string, string>  UsualIndustryCoded
+        {
+            get
+            {
+                if (UsualWork != null)
+                {
+                    Observation.ComponentComponent component = UsualWork.Component.FirstOrDefault(cmp => cmp.Code != null && cmp.Code.Coding != null && cmp.Code.Coding.Count() > 0 && cmp.Code.Coding.First().Code == "21844-6");
+                    if (component != null && component.Value != null && component.Value as CodeableConcept != null)
+                    {
+                        return CodeableConceptToDict((CodeableConcept)component.Value);
+                    }
+                }
+                return null;
+            }
+            set
+            {
+                if (IsDictEmptyOrDefault(value))
+                {
+                    return;
+                }
+                if (UsualWork == null)
+                {
+                    CreateUsualWork();
+                }
+                UsualWork.Component.RemoveAll(cmp => cmp.Code != null && cmp.Code.Coding != null && cmp.Code.Coding.Count() > 0 && cmp.Code.Coding.First().Code == "21844-6");
+
+                Observation.ComponentComponent component = new Observation.ComponentComponent();
+                component.Code = new CodeableConcept(CodeSystems.LOINC, "21844-6", "History of Usual industry", null);
+                component.Value = DictToCodeableConcept(value);
+                UsualWork.Component.Add(component);
+
+            }
+
+        }
+
         /// <summary>Decedent's Military Service.</summary>
         /// <value>the decedent's military service. A Dictionary representing a code, containing the following key/value pairs:
         /// <para>"code" - the code</para>

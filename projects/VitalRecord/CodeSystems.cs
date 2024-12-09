@@ -74,6 +74,18 @@ namespace VR
         /// <summary> ProvinceCodes </summary>
         public static string ProvinceCodes = "https://canadapost.ca/CodeSystem/ProvinceCodes";
 
+        /// <summary>IndustryCDCCensus2018.</summary>
+        public static string IndustryCDCCensus2018 = "2.16.840.1.114222.4.5.336";
+
+        /// <summary>IndustryCDCNAICS2017.</summary>
+        public static string IndustryCDCNAICS2017 = "2.16.840.1.114222.4.5.337";
+
+        /// <summary>OccupationCDCSOC2018</summary>
+        public static string OccupationCDCSOC2018 = "2.16.840.1.114222.4.5.338";
+
+        /// <summary>OccupationCDCCensus2018 </summary>
+        public static string OccupationCDCCensus2018 = "2.16.840.1.114222.4.5.339";
+
         // Code systems defined within vital record IGs: VRCL IG
 
         /// <summary> VRCL Missing Value Reason </summary>

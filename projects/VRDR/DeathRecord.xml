@@ -2240,6 +2240,42 @@
             <para>Console.WriteLine($"Usual Industry: {ExampleDeathRecord.UsualIndustry}");</para>
             </example>
         </member>
+        <member name="P:VRDR.DeathRecord.UsualOccupationCoded">
+            <summary>Decedent's Usual Occupation (Coded).</summary>
+            <value>the decedent's usual occupation. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; mserv = new Dictionary&lt;string, string&gt;();</para>
+            <para>mserv.Add("code", "13-2011");</para>
+            <para>mserv.Add("system", VR.CodeSystems.IndustryDCCensus2018);</para>
+            <para>mserv.Add("display", "Accountants and Auditors");</para>
+            <para>ExampleDeathRecord.UsualOccupationCoded = uind;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"UsualIndustryCoded: {ExampleDeathRecord.UsualIndustryCoded['display']}");</para>
+            </example>
+        </member>
+        <member name="P:VRDR.DeathRecord.UsualIndustryCoded">
+            <summary>Decedent's Usual Industry (Coded).</summary>
+            <value>the decedent's usual industry. A Dictionary representing a code, containing the following key/value pairs:
+            <para>"code" - the code</para>
+            <para>"system" - the code system this code belongs to</para>
+            <para>"display" - a human readable meaning of the code</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; mserv = new Dictionary&lt;string, string&gt;();</para>
+            <para>mserv.Add("code", "54121");</para>
+            <para>mserv.Add("system", VR.CodeSystems.IndustryCDCNAICS2017);</para>
+            <para>mserv.Add("display", "Accounting, Tax Preparation, Bookkeeping, and Payroll Services");</para>
+            <para>ExampleDeathRecord.MilitaryService = uind;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"UsualIndustryCoded: {ExampleDeathRecord.UsualIndustryCoded['display']}");</para>
+            </example>
+        </member>
         <member name="P:VRDR.DeathRecord.MilitaryService">
             <summary>Decedent's Military Service.</summary>
             <value>the decedent's military service. A Dictionary representing a code, containing the following key/value pairs:

@@ -76,6 +76,18 @@
         <member name="F:VR.CodeSystems.ProvinceCodes">
             <summary> ProvinceCodes </summary>
         </member>
+        <member name="F:VR.CodeSystems.IndustryCDCCensus2018">
+            <summary>IndustryCDCCensus2018.</summary>
+        </member>
+        <member name="F:VR.CodeSystems.IndustryCDCNAICS2017">
+            <summary>IndustryCDCNAICS2017.</summary>
+        </member>
+        <member name="F:VR.CodeSystems.OccupationCDCSOC2018">
+            <summary>OccupationCDCSOC2018</summary>
+        </member>
+        <member name="F:VR.CodeSystems.OccupationCDCCensus2018">
+            <summary>OccupationCDCCensus2018 </summary>
+        </member>
         <member name="F:VR.CodeSystems.VRCLMissingValueReason">
             <summary> VRCL Missing Value Reason </summary>
         </member>
