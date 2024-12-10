@@ -27,9 +27,8 @@ namespace VRDR
     /// </summary>
     public partial class DeathRecord
     {  
-        private static VR.ExtensionURL extensions = new VR.ExtensionURL("http://hl7.org/fhir/us/vrdr");
+        private static VR.ExtensionURL extensions = new VR.ExtensionURL();
         /// <summary>Overide the extension URL prefix used by the VR library</summary>
-        protected override VR.ExtensionURL VRExtensionURLs => extensions;
 
         /// <summary>String to represent a blank value when an empty string is not allowed</summary>
         public static string BlankPlaceholder = "BLANK";
@@ -59,7 +58,7 @@ namespace VRDR
             InputRaceAndEthnicityObs = new Observation();
             InputRaceAndEthnicityObs.Id = Guid.NewGuid().ToString();
             InputRaceAndEthnicityObs.Meta = new Meta();
-            string[] raceethnicity_profile = { ProfileURL.InputRaceAndEthnicity };
+            string[] raceethnicity_profile = { VR.ProfileURL.InputRaceAndEthnicity };
             InputRaceAndEthnicityObs.Meta.Profile = raceethnicity_profile;
             InputRaceAndEthnicityObs.Status = ObservationStatus.Final;
             InputRaceAndEthnicityObs.Code = new CodeableConcept(CodeSystems.ObservationCode, "inputraceandethnicity", "Input Race and Ethnicity", null);
@@ -208,8 +207,15 @@ namespace VRDR
             Bundle.AddResourceEntry(DecedentEducationLevel, "urn:uuid:" + DecedentEducationLevel.Id);
         }
 
-        /// <summary>Birth Record Identifier.</summary>
-        private Observation BirthRecordIdentifier;
+        /// <summary>Child Birth Record Identifier.</summary>
+        private Observation BirthRecordIdentifier; // decedent is infant child, link to birth certificate of decedent
+
+        /// <summary>Decedent Birth Record Identifier.</summary>
+        private Observation BirthRecordIdentifierChild; // new in STU3 -- decedent is mother, link is cert from recent delivery
+
+        /// <summary>Fetal Deach Record Identifier.</summary>
+        private Observation FetalDeathRecordIdentifier; // new in STU3 -- decedent is mother, link is cert from recent fetal death
+
 
         /// <summary>Create an empty BirthRecordIdentifier Observation.</summary>
         private void CreateBirthRecordIdentifier()
@@ -220,7 +226,7 @@ namespace VRDR
             string[] br_profile = { ProfileURL.BirthRecordIdentifier };
             BirthRecordIdentifier.Meta.Profile = br_profile;
             BirthRecordIdentifier.Status = ObservationStatus.Final;
-            BirthRecordIdentifier.Code = new CodeableConcept(CodeSystems.HL7_identifier_type, "BR", "Birth registry number", null);
+            BirthRecordIdentifier.Code = new CodeableConcept(VR.CodeSystems.LocalObservationCodes, "childbirthrecordidentifier", "Birth Record Identifier of Child", null);
             BirthRecordIdentifier.Subject = new ResourceReference("urn:uuid:" + Decedent.Id);
             BirthRecordIdentifier.Value = (FhirString)null;
             BirthRecordIdentifier.DataAbsentReason = new CodeableConcept(CodeSystems.Data_Absent_Reason_HL7_V3, "unknown", "Unknown", null);
@@ -228,6 +234,44 @@ namespace VRDR
             AddReferenceToComposition(BirthRecordIdentifier.Id, "DecedentDemographics");
             Bundle.AddResourceEntry(BirthRecordIdentifier, "urn:uuid:" + BirthRecordIdentifier.Id);
         }
+
+       /// <summary>Create an empty BirthRecordIdentifierChild Observation.</summary>
+        private void CreateBirthRecordIdentifierChild()
+        {
+            BirthRecordIdentifierChild = new Observation();
+            BirthRecordIdentifierChild.Id = Guid.NewGuid().ToString();
+            BirthRecordIdentifierChild.Meta = new Meta();
+            string[] br_profile = { ProfileURL.BirthRecordIdentifier };
+            BirthRecordIdentifierChild.Meta.Profile = br_profile;
+            BirthRecordIdentifierChild.Status = ObservationStatus.Final;
+            BirthRecordIdentifierChild.Code = new CodeableConcept(VR.CodeSystems.LocalObservationCodes, "decedentbirthrecordidentifier", "Birth Record Identifier of Decedent", null);
+            BirthRecordIdentifierChild.Subject = new ResourceReference("urn:uuid:" + Decedent.Id);
+            BirthRecordIdentifierChild.Value = (FhirString)null;
+            BirthRecordIdentifierChild.DataAbsentReason = new CodeableConcept(CodeSystems.Data_Absent_Reason_HL7_V3, "unknown", "Unknown", null);
+
+            AddReferenceToComposition(BirthRecordIdentifierChild.Id, "DecedentDemographics");
+            Bundle.AddResourceEntry(BirthRecordIdentifierChild, "urn:uuid:" + BirthRecordIdentifierChild.Id);
+        }
+
+
+       /// <summary>Create an empty FetalDeathRecordIdentifier Observation.</summary>
+        private void CreateFetalDeathRecordIdentifier()
+        {
+            FetalDeathRecordIdentifier = new Observation();
+            FetalDeathRecordIdentifier.Id = Guid.NewGuid().ToString();
+            FetalDeathRecordIdentifier.Meta = new Meta();
+            string[] br_profile = { ProfileURL.FetalDeathRecordIdentifier };
+            FetalDeathRecordIdentifier.Meta.Profile = br_profile;
+            FetalDeathRecordIdentifier.Status = ObservationStatus.Final;
+            FetalDeathRecordIdentifier.Code = new CodeableConcept(VR.CodeSystems.LocalObservationCodes, "fetaldeathrecordidentifier", "Fetal Death Record Identifier of Fetus", null);
+            FetalDeathRecordIdentifier.Subject = new ResourceReference("urn:uuid:" + Decedent.Id);
+            FetalDeathRecordIdentifier.Value = (FhirString)null;
+            FetalDeathRecordIdentifier.DataAbsentReason = new CodeableConcept(CodeSystems.Data_Absent_Reason_HL7_V3, "unknown", "Unknown", null);
+
+            AddReferenceToComposition(FetalDeathRecordIdentifier.Id, "DecedentDemographics");
+            Bundle.AddResourceEntry(FetalDeathRecordIdentifier, "urn:uuid:" + FetalDeathRecordIdentifier.Id);
+        }
+
 
 
         /// <summary>Emerging Issues.</summary>
@@ -573,7 +617,7 @@ namespace VRDR
             CodedRaceAndEthnicityObs = new Observation();
             CodedRaceAndEthnicityObs.Id = Guid.NewGuid().ToString();
             CodedRaceAndEthnicityObs.Meta = new Meta();
-            string[] profile = { ProfileURL.CodedRaceAndEthnicity };
+            string[] profile = { VR.ProfileURL.CodedRaceAndEthnicity };
             CodedRaceAndEthnicityObs.Meta.Profile = profile;
             CodedRaceAndEthnicityObs.Status = ObservationStatus.Final;
             CodedRaceAndEthnicityObs.Code = new CodeableConcept(CodeSystems.ObservationCode, "codedraceandethnicity", "Coded Race and Ethnicity", null);
