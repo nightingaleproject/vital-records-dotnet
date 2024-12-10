@@ -515,5 +515,71 @@ namespace VR
             CommonMessage message = new CommonMessage(bundle, true, false);
             return message;
         }
+
+        /// <summary>
+        /// Validate the fields in a CommonMessage header meet NCHS processing requirements. This
+        /// function will be used by the STEVE API and NVSS API for validation. Library users can
+        /// also use this to test their messages meet the validation requirements before submitting. The function
+        /// throws an error if there are invalid fields. Nothing is returned if the message is valid.
+        /// </summary>
+        /// <param name="message">base message</param>
+        /// <returns>void</returns>
+        public static void ValidateMessageHeader(CommonMessage message)
+        {
+            if (string.IsNullOrWhiteSpace(message.MessageSource))
+            {
+                throw new MessageRuleException("Message source endpoint cannot be null.", message);
+            }
+            if (string.IsNullOrWhiteSpace(message.MessageDestination))
+            {
+                throw new MessageRuleException("Message destination endpoint cannot be null.", message);
+            }
+            if (string.IsNullOrWhiteSpace(message.MessageId))
+            {
+                throw new MessageRuleException("Message ID cannot be null.", message);
+            }
+            if (string.IsNullOrWhiteSpace(message.GetType().Name))
+            {
+                throw new MessageRuleException("Message event type cannot be null.", message);
+            }
+            if (message.CertNo == null)
+            {
+                throw new MessageRuleException("Message certificate number cannot be null.", message);
+            }
+            if ((uint)message.CertNo.ToString().Length > 6)
+            {
+                throw new MessageRuleException("Message certificate number cannot be more than 6 digits long.", message);
+            }
+            if (string.IsNullOrWhiteSpace(message.JurisdictionId))
+            {
+                throw new MessageRuleException($"Message jurisdiction ID cannot be null.", message);
+            }
+            if (message.EventYear == null)
+            {
+                throw new MessageRuleException($"Message event year cannot be null.", message);
+            }
+            return;
+        }
+    }
+
+    /// <summary>
+    /// An exception that may be thrown during message validation. This indicates that the message failed business rule validation.
+    /// </summary>
+    public class MessageRuleException : ArgumentException
+    {
+        /// <summary>
+        /// Gets the source message that caused the problem.
+        /// </summary>
+        public readonly CommonMessage SourceMessage;
+
+        /// <summary>
+        /// Construct a new instance.
+        /// </summary>
+        /// <param name="errorMessage">A text error message describing the problem</param>
+        /// <param name="sourceMessage">The message that caused the problem</param>
+        public MessageRuleException(string errorMessage, CommonMessage sourceMessage) : base(errorMessage)
+        {
+            SourceMessage = sourceMessage;
+        }
     }
 }
