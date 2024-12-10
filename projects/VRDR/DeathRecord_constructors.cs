@@ -184,6 +184,23 @@ namespace VRDR
             AddResourceToBundleIfPresent(InputRaceAndEthnicityObs, dccBundle);
             return dccBundle;
         }
+/// <summary>Helper method to return the subset of this record that makes up a DemographicCodedContent bundle.</summary>
+        /// <returns>a new FHIR Bundle</returns>
+        public Bundle GetIndustryOccupationCodedContentBundle()
+        {
+            Bundle dccBundle = new Bundle();
+            dccBundle.Id = Guid.NewGuid().ToString();
+            dccBundle.Type = Bundle.BundleType.Collection;
+            dccBundle.Meta = new Meta();
+            string[] profile = { ProfileURL.DemographicCodedContentBundle };
+            dccBundle.Meta.Profile = profile;
+            dccBundle.Timestamp = DateTime.Now;
+            // Make sure to include the base identifiers, including certificate number and auxiliary state IDs
+            dccBundle.Identifier = Bundle.Identifier;
+            AddResourceToBundleIfPresent(CodedRaceAndEthnicityObs, dccBundle);
+            AddResourceToBundleIfPresent(InputRaceAndEthnicityObs, dccBundle);
+            return dccBundle;
+        }
         /// <summary>Helper method to return the subset of this record that makes up a Mortality Roster bundle.</summary>
         /// <returns>a new FHIR Bundle</returns>
         public Bundle GetMortalityRosterBundle(Boolean alias)
