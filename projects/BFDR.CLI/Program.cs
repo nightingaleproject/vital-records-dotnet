@@ -148,6 +148,16 @@ namespace BFDR.CLI
                 birthRecord.MotherEthnicityEditedCodeHelper = VR.ValueSets.HispanicOrigin.Colombian;
                 birthRecord.FatherEthnicityEditedCodeHelper = VR.ValueSets.HispanicOrigin.Non_Hispanic;
 
+                Dictionary<string, string> mpob = new Dictionary<string, string>{};
+                mpob["addressState"] = "NE";
+                mpob["addressCountry"] = "US";
+                birthRecord.MotherPlaceOfBirth = mpob;
+
+                Dictionary<string, string> dpob = new Dictionary<string, string>{};
+                dpob["addressState"] = "ZZ";
+                dpob["addressCountry"] = "MX";
+                birthRecord.FatherPlaceOfBirth = dpob;
+
                 // Write out the Record
                 Console.WriteLine(birthRecord.ToJSON());
 
@@ -240,6 +250,16 @@ namespace BFDR.CLI
                 fetaldeathRecord.FatherRaceTabulation1EHelper = VR.ValueSets.RaceCode.Arab;
                 fetaldeathRecord.MotherEthnicityEditedCodeHelper = VR.ValueSets.HispanicOrigin.Colombian;
                 fetaldeathRecord.FatherEthnicityEditedCodeHelper = VR.ValueSets.HispanicOrigin.Non_Hispanic;
+
+                Dictionary<string, string> mpob = new Dictionary<string, string>{};
+                mpob["addressState"] = "NE";
+                mpob["addressCountry"] = "US";
+                birthRecord.MotherPlaceOfBirth = mpob;
+
+                Dictionary<string, string> dpob = new Dictionary<string, string>{};
+                dpob["addressState"] = "ZZ";
+                dpob["addressCountry"] = "MX";
+                birthRecord.FatherPlaceOfBirth = dpob;
 
                 // Write out the Record
                 Console.WriteLine(fetaldeathRecord.ToJSON());

@@ -729,7 +729,8 @@ namespace BFDR.Tests
       {
         ["addressState"] = "NH",
         ["addressCounty"] = "Hillsboro",
-        ["addressCity"] = "Nashua"
+        ["addressCity"] = "Nashua",
+        ["addressCountry"] = "US"
       };
 
       IJEBirth ije = new(record);
@@ -749,6 +750,7 @@ namespace BFDR.Tests
       Assert.Equal("NH", record.FatherPlaceOfBirth["addressState"]);
       Assert.Equal("Hillsboro", record.FatherPlaceOfBirth["addressCounty"]);
       Assert.Equal("Nashua", record.FatherPlaceOfBirth["addressCity"]);
+      Assert.Equal("US", record.FatherPlaceOfBirth["addressCountry"]);
       Assert.Equal(ije.BPLACEC_CNT, record.MotherPlaceOfBirth["addressCountry"]);
       Assert.Equal(ije.BPLACEC_ST_TER, record.MotherPlaceOfBirth["addressState"]);
 

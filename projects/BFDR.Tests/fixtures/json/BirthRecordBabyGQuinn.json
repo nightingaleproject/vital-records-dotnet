@@ -730,7 +730,8 @@
       {
         "url" : "http://hl7.org/fhir/StructureDefinition/patient-birthPlace",
         "valueAddress" : {
-          "state" : "UT"
+          "state" : "UT",
+          "country" : "US"
         }
       }],
       "identifier" : [{
@@ -2589,7 +2590,8 @@
       "extension" : [{
         "url" : "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-relatedperson-birthplace-vr",
         "valueAddress" : {
-          "state" : "NY"
+          "state" : "NY",
+          "country" : "US"
         }
       }],
       "identifier" : [{
