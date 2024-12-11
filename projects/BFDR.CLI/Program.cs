@@ -254,12 +254,12 @@ namespace BFDR.CLI
                 Dictionary<string, string> mpob = new Dictionary<string, string>{};
                 mpob["addressState"] = "NE";
                 mpob["addressCountry"] = "US";
-                birthRecord.MotherPlaceOfBirth = mpob;
+                fetaldeathRecord.MotherPlaceOfBirth = mpob;
 
                 Dictionary<string, string> dpob = new Dictionary<string, string>{};
                 dpob["addressState"] = "ZZ";
                 dpob["addressCountry"] = "MX";
-                birthRecord.FatherPlaceOfBirth = dpob;
+                fetaldeathRecord.FatherPlaceOfBirth = dpob;
 
                 // Write out the Record
                 Console.WriteLine(fetaldeathRecord.ToJSON());
