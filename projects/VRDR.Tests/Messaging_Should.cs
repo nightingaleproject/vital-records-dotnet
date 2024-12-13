@@ -436,6 +436,36 @@ namespace VRDR.Tests
             Assert.Equal(ValueSets.MannerOfDeath.Natural_Death, message.DeathRecord.MannerOfDeathTypeHelper);
         }
 
+    //  [Fact]
+    //     public void CreateIndustryOccupationCodingResponseFromJSON()
+    //     {
+    //         // IndustryOccupationCodingMessage message = BaseMessage.Parse<IndustryOccupationCodingMessage>(FixtureStream("fixtures/json/IndustryOccupationCodingMessage.json"));
+    //         BaseMessage message = BaseMessage.Parse<BaseMessage>(FixtureStream("fixtures/json/IndustryOccupationCodingMessage.json")); //IndustryOccupationCodingMessage.json"));
+
+
+    //         Assert.Equal("http://nchs.cdc.gov/vrdr_submission", message.MessageDestination);
+    //         Assert.Equal((uint)100000, message.CertNo);
+    //         Assert.Equal((uint)2019, message.DeathYear);
+    //         Assert.Null(message.StateAuxiliaryId);
+    //         Assert.Equal("2019AK100000", message.NCHSIdentifier);
+    //         Assert.Equal("VRDRSTU30",(message.PayloadVersionId));
+
+
+    //                     switch (message)
+    //         {
+    //             // use C# pattern matching to cast message type
+    //             case IndustryOccupationCodingMessage codCodeMsg:
+    //                 Assert.NotNull(codCodeMsg);
+    //                 Assert.Null(codCodeMsg.DeathRecord.UsualOccupation);
+    //                 Assert.Null(codCodeMsg.DeathRecord.UsualIndustry);
+    //                 Assert.Equal(IndustryOccupationCodingMessage.MESSAGE_TYPE, codCodeMsg.MessageType);
+
+    //                 break;
+    //             default:
+    //                 Assert.Fail("Message was not a IndustryOccupationCodingMessage");
+    //                 break;
+    //         }
+    //     }
         [Fact]
         public void CreateCauseOfDeathCodingAcknowledgementFromJSON()
         {
@@ -798,7 +828,53 @@ namespace VRDR.Tests
             Assert.Equal("199", message.DeathRecord.FirstEditedRaceCodeHelper);
             Assert.Equal("B40", message.DeathRecord.FirstAmericanIndianRaceCodeHelper);
         }
+[Fact]
+        public void CreateIndustryOccupationCodingResponse()
+        {
+            // This test creates a response using the approach NCHS will use via IJE setters
+            IJEMortality ije = new IJEMortality();
+            ije.DOD_YR = "2022";
+            ije.DSTATE = "YC";
+            ije.FILENO = "123";
+            ije.AUXNO = "500";
+            ije.DETHNIC1 = "Y";
+            ije.DETHNIC2 = "N";
+            ije.RACE1 = "Y";
+            ije.RACE2 = "N";
+            ije.RACE16 = "Cheyenne";
+            ije.RACE1E = "199";
+            ije.RACE16C = "B40";
+            IndustryOccupationCodingMessage message = new IndustryOccupationCodingMessage(ije.ToRecord());
 
+            var occ = new Dictionary<string, string>();
+            occ["system"] = VR.CodeSystems.OccupationCDCSOC2018;
+            occ["code"] = "13-2011";
+            occ["display"]= "Accountants and Auditors";
+            message.DeathRecord.UsualOccupationCoded = occ;
+            var ind = new Dictionary<string, string>();
+            ind["system"] = VR.CodeSystems.IndustryCDCNAICS2017;
+            ind["code"] = "54121";
+            ind["display"]= "Accounting, Tax Preparation, Bookkeeping, and Payroll Services";
+            message.DeathRecord.UsualIndustryCoded = ind;
+            message.DeathRecord.UsualIndustry = "Accounting";
+            message.DeathRecord.UsualOccupation = "Accountant";
+            Assert.Equal("13-2011", message.DeathRecord.UsualOccupationCoded["code"]);
+            Assert.Equal(VR.CodeSystems.OccupationCDCSOC2018,message.DeathRecord.UsualOccupationCoded["system"]);
+            Assert.Equal("54121", message.DeathRecord.UsualIndustryCoded["code"]);
+            Assert.Equal(VR.CodeSystems.IndustryCDCNAICS2017, message.DeathRecord.UsualIndustryCoded["system"]);
+            message.MessageSource = "http://nchs.cdc.gov/vrdr_submission";
+            message.MessageDestination = "https://example.org/jurisdiction/endpoint";
+            Assert.Equal(IndustryOccupationCodingMessage.MESSAGE_TYPE, message.MessageType);
+            Assert.Equal("http://nchs.cdc.gov/vrdr_submission", message.MessageSource);
+            Assert.Equal("https://example.org/jurisdiction/endpoint", message.MessageDestination);
+            Assert.Equal((uint)123, message.CertNo);
+            Assert.Equal((uint)2022, message.DeathYear);
+            Assert.Equal("000000000500", message.StateAuxiliaryId);
+            Assert.Equal("2022YC000123", message.NCHSIdentifier);
+            Assert.Equal("VRDR_STU3_0", message.PayloadVersionId);
+            Assert.Equal("Accounting", message.DeathRecord.UsualIndustry);
+            Assert.Equal("Accountant", message.DeathRecord.UsualOccupation);
+        }
         [Fact]
         public void CreateDeathRecordVoidMessage()
         {
