@@ -50,5 +50,7 @@
     <None Update="fixtures/json/Bundle-FetalCauseOfDeathCodedContentBundle-notNamedExample.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures/json/Bundle-bundle-coded-race-and-ethnicity-baby-g-quinn.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures/json/FetalDeathCauseOrConditionCodedContent.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="fixtures/json/MessageHeaderValidation.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="fixtures/json/MessageHeaderValidationMissingYear.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>
