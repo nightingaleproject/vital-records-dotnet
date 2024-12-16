@@ -1,29 +1,52 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 using canary.Controllers;
 using System.IO;
 using Microsoft.AspNetCore.Http;
-using VRDR;
-
-using canary.Models;
+using BFDR;
+using Newtonsoft.Json;
 
 namespace canary.tests
 {
     public class RecordTests
     {
+
+        private RecordsController _recController;        
         string documentTypePayload = "";
         string messageTypePayload = "";
         string emptyTypePayload = "";
+        string romeroIje = "";
+        string romeroJson = "";
 
         public RecordTests()
         {
             documentTypePayload = File.ReadAllText(FixturePath("fixtures/json/DocumentTypePayload.json"));
             messageTypePayload = File.ReadAllText(FixturePath("fixtures/json/MessageTypePayload.json"));
             emptyTypePayload = File.ReadAllText(FixturePath("fixtures/json/EmptyTypePayload.json"));
+            romeroIje = File.ReadAllText(FixturePath("fixtures/ije/romeroIje.ije"));
+            romeroJson = File.ReadAllText(FixturePath("fixtures/json/BirthRecordR.json"));
+            _recController = new RecordsController();
+        }
+
+        [Fact]
+        public async void TestConverter()
+        {
+            var stream = new MemoryStream(Encoding.UTF8.GetBytes(romeroIje));
+            var httpContext = new DefaultHttpContext()
+            {
+                Request = { Body = stream, ContentLength = stream.Length }
+            };
+            _recController.ControllerContext.HttpContext = httpContext;
+            var response = await _recController.NewPostAsync("bfdr-birth");
+            ((BirthRecord) response.Item1.GetRecord()).BirthLocationJurisdiction = "AZ";
+            ((BirthRecord) response.Item1.GetRecord()).CertificateNumber = "99991";
+            BirthRecord br = new BirthRecord(romeroJson);
+            br.BirthLocationJurisdiction = "AZ";
+            br.CertificateNumber = "99991";
+
+            Assert.Equal(JsonConvert.SerializeObject(br), JsonConvert.SerializeObject(new BirthRecord(response.Item1.Json)));
         }
 
 
@@ -73,7 +96,7 @@ namespace canary.tests
             Assert.Contains("error", issueList.ToString()); 
         }
 
-        private string FixturePath(string filePath)
+        public static string FixturePath(string filePath)
         {
             if (Path.IsPathRooted(filePath))
             {
@@ -84,7 +107,6 @@ namespace canary.tests
                 return Path.GetRelativePath(Directory.GetCurrentDirectory(), filePath);
             }
         }
-
 
     }
 

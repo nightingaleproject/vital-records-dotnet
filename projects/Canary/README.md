@@ -38,23 +38,25 @@ Mortality data is collected, analyzed, and shared by jurisdictions across the Un
 
 ### Running
 
-A [Dockerized](https://www.docker.com/get-started) version of Canary has been published to Docker Hub. To make sure you have the most recent version of Canary:
+Note that the Canary link in the [old Canary repo](https://github.com/nightingaleproject/canary) is the cloud hosted version and is not suitable for sensitive data. If you are using any sensitive data, you must run Canary locally.
+
+A [Dockerized](https://www.docker.com/get-started) version of Canary has been published to GitHub Packages. To make sure you have the most recent version of Canary:
 
 ```
-docker pull mitre/canary:latest
+docker pull ghcr.io/nightingaleproject/vital-records-dotnet:edge
+```
+If you're using Apple Silicon and get the error `no matching manifest for linux/arm64/v8 in the manifest list entries`, then run:
+```
+docker pull --platform linux/x86_64 ghcr.io/nightingaleproject/vital-records-dotnet:edge
 ```
 
 Running Canary is as easy as:
 
 ```
-docker run --rm -p 8080:80 mitre/canary:latest
+docker run --rm -p 8080:80 ghcr.io/nightingaleproject/vital-records-dotnet:edge
 ```
 
-These commands will pull the latest version of Canary from Docker Hub, and run it. You can access it from a web browser at [http://localhost:8080](http://localhost:8080). To run a specific version, simply append the version to the `docker run` command above. You can see all versions of Canary that are available to run from DockerHub [here](https://hub.docker.com/r/mitre/canary/tags). For example:
-
-```
-docker run --rm -p 8080:80 mitre/canary:v5.1.1
-```
+These commands will pull the latest version of Canary from GitHub Packages, and run it. You can access it from a web browser at [http://localhost:8080](http://localhost:8080). To run a specific version, simply append the version to the `docker run` command above. You can see all versions of Canary that are available to run from GitHub Packages [here](https://github.com/nightingaleproject/vital-records-dotnet/pkgs/container/vital-records-dotnet/versions).
 
 If you want to build a Dockerized Canary from scratch (from source), you can do so by running (inside the project root directory):
 

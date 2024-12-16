@@ -7299,6 +7299,9 @@
         <member name="F:VR.FHIRPath.FhirType.Observation">
             <summary>FHIR Observation</summary>
         </member>
+        <member name="F:VR.FHIRPath.FhirType.Coverage">
+            <summary>FHIR Coverage</summary>
+        </member>
         <member name="F:VR.FHIRPath.Path">
             <summary>The relevant FHIR path.</summary>
         </member>
