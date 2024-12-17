@@ -310,6 +310,15 @@ namespace VRDR
             UsualWork.Category.Add(new CodeableConcept(CodeSystems.ObservationCategory, "social-history", null, null));
             UsualWork.Subject = new ResourceReference("urn:uuid:" + Decedent.Id);
             UsualWork.Effective = new Period();
+            // The ODH Usual Work Profile
+            //    - Requires the Industry (component)
+            //    = Does NOT require the Occupation (value)
+            // So we add the component with the required code, and leave the value blank.
+            Observation.ComponentComponent component = new Observation.ComponentComponent();
+            component.Code = new CodeableConcept(CodeSystems.LOINC, "21844-6", "History of Usual industry", null);
+            component.Value = new CodeableConcept(CodeSystems.NullFlavor_HL7_V3, "UNK", "unknown", "unknown");     // code is required
+            UsualWork.Component.Add(component);
+
             AddReferenceToComposition(UsualWork.Id, "DecedentDemographics");
             Bundle.AddResourceEntry(UsualWork, "urn:uuid:" + UsualWork.Id);
         }
