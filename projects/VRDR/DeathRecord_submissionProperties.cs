@@ -4189,9 +4189,14 @@ namespace VRDR
                 }
                 if (UsualWork == null)
                 {
-                    CreateUsualWork();
+                    CreateUsualWork();  // This does not initialize the value, so it will be NULL, which should be OK.
+
                 }
-                UsualWork.Value = new CodeableConcept(CodeSystems.NullFlavor_HL7_V3, "UNK", "unknown", value);     // code is required
+                // Replace Text field, leave the rest alone.
+                Dictionary<string, string>  usualOccupationDict = CodeableConceptToDict((CodeableConcept)UsualWork.Value);
+                usualOccupationDict["text"] = value;  // replace text, leave the rest alone
+                UsualWork.Value = DictToCodeableConcept(usualOccupationDict);
+
 
             }
         }
@@ -4226,17 +4231,19 @@ namespace VRDR
                 if (UsualWork == null)
                 {
                     CreateUsualWork();
+                    // CreateUsualWork initializeses the required industry component, so that code has been deleted here.
                 }
-                UsualWork.Component.RemoveAll(cmp => cmp.Code != null && cmp.Code.Coding != null && cmp.Code.Coding.Count() > 0 && cmp.Code.Coding.First().Code == "21844-6");
+                // Do not touch code.coding if just replacing text
+                // UsualWork.Component.RemoveAll(cmp => cmp.Code != null && cmp.Code.Coding != null && cmp.Code.Coding.Count() > 0 && cmp.Code.Coding.First().Code == "21844-6");
                 if ((String.IsNullOrWhiteSpace(value)))
                 {
                     return;
                 }
-                Observation.ComponentComponent component = new Observation.ComponentComponent();
-                component.Code = new CodeableConcept(CodeSystems.LOINC, "21844-6", "History of Usual industry", null);
-                component.Value = new CodeableConcept(CodeSystems.NullFlavor_HL7_V3, "UNK", "unknown", value);     // code is required
-                UsualWork.Component.Add(component);
 
+                Observation.ComponentComponent industryComponent= UsualWork.Component.FirstOrDefault(cmp => cmp.Code != null && cmp.Code.Coding != null && cmp.Code.Coding.Count() > 0 && cmp.Code.Coding.First().Code == "21844-6");
+                Dictionary<string, string>  usualIndustryDict = CodeableConceptToDict((CodeableConcept)industryComponent.Code);
+                usualIndustryDict["text"] = value;  // replace text, leave the rest alone
+                industryComponent.Code = DictToCodeableConcept(usualIndustryDict);
             }
 
         }
