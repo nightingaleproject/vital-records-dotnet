@@ -249,7 +249,7 @@
             "type": {
               "coding": [
                 {
-                  "code": "BR",
+                  "code": "SS",
                   "display": "Social Beneficiary Identifier"
                 }
               ]
@@ -590,7 +590,7 @@
         }
       }
     },
-	{
+    {
       "fullUrl": "urn:uuid:fade1bbd-5581-4463-8fa5-60163566c76b",
       "resource": {
         "resourceType": "Observation",
@@ -606,9 +606,11 @@
         "subject": {
           "reference": "urn:uuid:949354d3-9dcf-4c96-8ec4-6be27dd4c65f"
         },
-        "performer": [{
-          "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
-        }],
+        "performer": [
+          {
+            "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
+          }
+        ],
         "code": {
           "coding": [
             {
@@ -620,7 +622,7 @@
         }
       }
     },
-	{
+    {
       "fullUrl": "urn:uuid:e7ebc017-4509-444c-b2bc-51f18eec735e",
       "resource": {
         "resourceType": "Observation",
@@ -652,9 +654,11 @@
             }
           ]
         },
-        "performer": [{
-          "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
-        }],
+        "performer": [
+          {
+            "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
+          }
+        ],
         "component": [
           {
             "code": {
@@ -673,7 +677,7 @@
         ]
       }
     },
-	{
+    {
       "fullUrl": "urn:uuid:b0a11639-8fbc-48b5-8e2d-3763bd5e3395",
       "resource": {
         "resourceType": "Observation",
@@ -705,9 +709,11 @@
             }
           ]
         },
-        "performer": [{
-          "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
-        }],
+        "performer": [
+          {
+            "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
+          }
+        ],
         "component": [
           {
             "code": {
@@ -726,7 +732,7 @@
         ]
       }
     },
-	{
+    {
       "fullUrl": "urn:uuid:c8e9f0ef-3013-4e5f-93f1-f8a9c18746b8",
       "resource": {
         "resourceType": "Observation",
@@ -751,9 +757,11 @@
             }
           ]
         },
-        "performer": [{
-          "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
-        }],
+        "performer": [
+          {
+            "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
+          }
+        ],
         "component": [
           {
             "code": {
@@ -772,7 +780,7 @@
         ]
       }
     },
-	{
+    {
       "fullUrl": "urn:uuid:bb33fa44-a9e8-4787-9bdd-6c040f897237",
       "resource": {
         "resourceType": "Observation",
@@ -797,9 +805,11 @@
             }
           ]
         },
-        "performer": [{
-          "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
-        }],
+        "performer": [
+          {
+            "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
+          }
+        ],
         "component": [
           {
             "code": {
@@ -831,13 +841,15 @@
         "patient": {
           "reference": "urn:uuid:c83bc94c-cf3f-4062-aa1c-dd86894a3b31"
         },
-        "relationship": [{
-          "coding": [
-            {
-              "code": "FTH"
-            }
-          ]
-        }],
+        "relationship": [
+          {
+            "coding": [
+              {
+                "code": "FTH"
+              }
+            ]
+          }
+        ],
         "name": [
           {
             "family": "Last",
@@ -865,13 +877,15 @@
         "patient": {
           "reference": "urn:uuid:c83bc94c-cf3f-4062-aa1c-dd86894a3b31"
         },
-        "relationship": [{
-          "coding": [
-            {
-              "code": "MTH"
-            }
-          ]
-        }],
+        "relationship": [
+          {
+            "coding": [
+              {
+                "code": "MTH"
+              }
+            ]
+          }
+        ],
         "name": [
           {
             "family": "Maiden",
@@ -899,13 +913,15 @@
         "patient": {
           "reference": "urn:uuid:c83bc94c-cf3f-4062-aa1c-dd86894a3b31"
         },
-        "relationship": [{
-          "coding": [
-            {
-              "code": "SPS"
-            }
-          ]
-        }],
+        "relationship": [
+          {
+            "coding": [
+              {
+                "code": "SPS"
+              }
+            ]
+          }
+        ],
         "name": [
           {
             "family": "Last",
@@ -968,7 +984,8 @@
         "code": {
           "coding": [
             {
-              "code": "BR"
+              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs",
+              "code": "childbirthrecordidentifier"
             }
           ]
         },
@@ -998,9 +1015,9 @@
             }
           ]
         },
-        "effectivePeriod" : {
-          "start" : "1965-01-01",
-          "end" : "2010-01-01"
+        "effectivePeriod": {
+          "start": "1965-01-01",
+          "end": "2010-01-01"
         },
         "valueCodeableConcept": {
           "coding": [
@@ -1234,7 +1251,6 @@
         }
       }
     },
-
     {
       "fullUrl": "urn:uuid:c496b4ff-e65c-441e-9764-4a48becf3f9f",
       "resource": {
