@@ -4178,6 +4178,8 @@ namespace VRDR
                     {
                         return dict["text"];
                     }
+                } else if (UsualWork != null && UsualWork.Value != null && UsualWork.Value as FhirString != null)   {  
+                        return (UsualWork.Value.ToString());
                 }
                 return null;
             }
