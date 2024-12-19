@@ -4222,7 +4222,7 @@ namespace VRDR
                         && CodeableConceptToDict((CodeableConcept)component.Value).ContainsKey("text"))
                     {
                         return CodeableConceptToDict((CodeableConcept)component.Value)["text"];
-                    } else if (component.Value as FhirString != null){
+                    } else if (component != null && component.Value != null && component.Value as FhirString != null){
                         return (component.Value.ToString());
                     }
                 }
