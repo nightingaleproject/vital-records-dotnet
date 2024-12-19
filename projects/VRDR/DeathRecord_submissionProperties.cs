@@ -4241,9 +4241,11 @@ namespace VRDR
                 }
 
                 Observation.ComponentComponent industryComponent= UsualWork.Component.FirstOrDefault(cmp => cmp.Code != null && cmp.Code.Coding != null && cmp.Code.Coding.Count() > 0 && cmp.Code.Coding.First().Code == "21844-6");
-                Dictionary<string, string>  usualIndustryDict = CodeableConceptToDict((CodeableConcept)industryComponent.Code);
+                UsualWork.Component.RemoveAll(cmp => cmp.Code != null && cmp.Code.Coding != null && cmp.Code.Coding.Count() > 0 && cmp.Code.Coding.First().Code == "21844-6");
+                Dictionary<string, string>  usualIndustryDict = CodeableConceptToDict((CodeableConcept)industryComponent.Value);
                 usualIndustryDict["text"] = value;  // replace text, leave the rest alone
-                industryComponent.Code = DictToCodeableConcept(usualIndustryDict);
+                industryComponent.Value = DictToCodeableConcept(usualIndustryDict);
+                UsualWork.Component.Add(industryComponent);
             }
 
         }

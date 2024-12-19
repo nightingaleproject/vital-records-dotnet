@@ -2128,7 +2128,6 @@ namespace VRDR.Tests
         {
             Assert.Equal("13-2011", DeathRecord1_JSON.UsualOccupationCoded["code"]);
             Assert.Equal("13-2011", DeathRecord1_XML.UsualOccupationCoded["code"]);
-
         }
 
         [Fact]
