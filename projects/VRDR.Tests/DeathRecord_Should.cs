@@ -2082,8 +2082,19 @@ namespace VRDR.Tests
         [Fact]
         public void Set_UsualOccupationText()
         {
+            // Check that it doesn't overload coded part
+            var occ = new Dictionary<string, string>();
+            occ["system"] = VR.CodeSystems.OccupationCDCSOC2018;
+            occ["code"] = "13-2011";
+            occ["display"]= "Accountants and Auditors";
+    
+            SetterDeathRecord.UsualOccupationCoded = occ;
+            // Set text component
             SetterDeathRecord.UsualOccupation = "secretary";
             Assert.Equal("secretary", SetterDeathRecord.UsualOccupation);
+            Assert.Equal("13-2011", SetterDeathRecord.UsualOccupationCoded["code"]);
+            Assert.Equal(VR.CodeSystems.OccupationCDCSOC2018, SetterDeathRecord.UsualOccupationCoded["system"]);
+
         }
 
         [Fact]
@@ -2097,13 +2108,27 @@ namespace VRDR.Tests
         [Fact]
         public void Set_UsualIndustryText()
         {
+            // Make sure that it doesn't mess up the coded part 
+            var ind = new Dictionary<string, string>();
+            ind["system"] = VR.CodeSystems.IndustryCDCNAICS2017;
+            ind["code"] = "54121";
+            ind["display"]= "Accounting, Tax Preparation, Bookkeeping, and Payroll Services";
+            SetterDeathRecord.UsualIndustryCoded = ind;
+
+            // Check that the text value was set properly
             SetterDeathRecord.UsualIndustry = "State agency";
             Assert.Equal("State agency", SetterDeathRecord.UsualIndustry);
+
+            // Check that it didn't mess up the coded part
+            Assert.Equal("54121", SetterDeathRecord.UsualIndustryCoded["code"]);
+            Assert.Equal("Accounting, Tax Preparation, Bookkeeping, and Payroll Services", SetterDeathRecord.UsualIndustryCoded["display"]);
+            Assert.Equal(VR.CodeSystems.IndustryCDCNAICS2017, SetterDeathRecord.UsualIndustryCoded["system"]);
         }
 
         [Fact]
         public void Get_UsualIndustryText()
         {
+
             Assert.Equal("State department of agriculture", DeathRecord1_JSON.UsualIndustry);
             Assert.Equal("State department of agriculture", DeathRecord1_XML.UsualIndustry);
         }
@@ -2117,10 +2142,14 @@ namespace VRDR.Tests
             occ["system"] = VR.CodeSystems.OccupationCDCSOC2018;
             occ["code"] = "13-2011";
             occ["display"]= "Accountants and Auditors";
+
+            // Check that text field isn't perturbed
+            SetterDeathRecord.UsualOccupation = "Hairdresser";
     
             SetterDeathRecord.UsualOccupationCoded = occ;
             Assert.Equal("13-2011", SetterDeathRecord.UsualOccupationCoded["code"]);
             Assert.Equal(VR.CodeSystems.OccupationCDCSOC2018, SetterDeathRecord.UsualOccupationCoded["system"]);
+            Assert.Equal("Hairdresser", SetterDeathRecord.UsualOccupation);
         }
 
         [Fact]
@@ -2137,11 +2166,16 @@ namespace VRDR.Tests
             ind["system"] = VR.CodeSystems.IndustryCDCNAICS2017;
             ind["code"] = "54121";
             ind["display"]= "Accounting, Tax Preparation, Bookkeeping, and Payroll Services";
+
+            // Check that it doesn't overload the text field
+           SetterDeathRecord.UsualIndustry = "Basket weaving";
     
             SetterDeathRecord.UsualIndustryCoded = ind;
             Assert.Equal("54121", SetterDeathRecord.UsualIndustryCoded["code"]);
             Assert.Equal(VR.CodeSystems.IndustryCDCNAICS2017, SetterDeathRecord.UsualIndustryCoded["system"]);
 
+            // Check that text wasn't overwritten
+            Assert.Equal("Basket weaving", SetterDeathRecord.UsualIndustry);
         }
 
         [Fact]
