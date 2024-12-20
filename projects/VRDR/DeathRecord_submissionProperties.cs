@@ -4243,12 +4243,16 @@ namespace VRDR
                 {
                     return;
                 }
-
                 Observation.ComponentComponent industryComponent= UsualWork.Component.FirstOrDefault(cmp => cmp.Code != null && cmp.Code.Coding != null && cmp.Code.Coding.Count() > 0 && cmp.Code.Coding.First().Code == "21844-6");
-                UsualWork.Component.RemoveAll(cmp => cmp.Code != null && cmp.Code.Coding != null && cmp.Code.Coding.Count() > 0 && cmp.Code.Coding.First().Code == "21844-6");
-                Dictionary<string, string>  usualIndustryDict = CodeableConceptToDict((CodeableConcept)industryComponent.Value);
-                usualIndustryDict["text"] = value;  // replace text, leave the rest alone
+                Dictionary<string, string>  usualIndustryDict = new Dictionary<string, string>();
+                if( industryComponent.Value as CodeableConcept != null){ // Possible that it could be a valueString, which we just clobber.
+                    usualIndustryDict = CodeableConceptToDict((CodeableConcept)industryComponent.Value);
+                    usualIndustryDict["text"] = value;  // replace text, leave the rest alone
+                }
                 industryComponent.Value = DictToCodeableConcept(usualIndustryDict);
+                // Remove the original component
+                UsualWork.Component.RemoveAll(cmp => cmp.Code != null && cmp.Code.Coding != null && cmp.Code.Coding.Count() > 0 && cmp.Code.Coding.First().Code == "21844-6");
+                // Add the new component that has replaced the text field
                 UsualWork.Component.Add(industryComponent);
             }
 
@@ -4291,6 +4295,14 @@ namespace VRDR
                 if (UsualWork == null)
                 {
                     CreateUsualWork();
+                }
+                // Capture value.CodeableConcept.text or value.String if set, and add them to the dictionary unless it explicitly contains a "text" entry.
+                if(!value.ContainsKey("text")){ // only if the dictionary doesn't include the text field
+                    if (UsualWork.Value != null && UsualWork.Value as CodeableConcept != null && CodeableConceptToDict((CodeableConcept)UsualWork.Value).ContainsKey("text")){
+                        value["text"] = CodeableConceptToDict((CodeableConcept)UsualWork.Value)["text"];
+                    }else if (UsualWork.Value as FhirString != null){
+                        value["text"] = UsualWork.Value.ToString();
+                    }
                 }
                 UsualWork.Value = DictToCodeableConcept(value);
 
@@ -4339,9 +4351,19 @@ namespace VRDR
                 {
                     CreateUsualWork();
                 }
+                // If the component is present, and the valueCodeableConcept.text is present, or a valueString is present, maintain it unless the incoming dictionary includes the text field
+                Observation.ComponentComponent component = UsualWork.Component.FirstOrDefault(cmp => cmp.Code != null && cmp.Code.Coding != null && cmp.Code.Coding.Count() > 0 && cmp.Code.Coding.First().Code == "21844-6");
+                if (!value.ContainsKey("text") && component != null && component.Value != null){
+                    if (component.Value as CodeableConcept != null && CodeableConceptToDict((CodeableConcept)component.Value).ContainsKey("text")){
+                        value["text"] = CodeableConceptToDict((CodeableConcept)component.Value)["text"];
+                    }else if (component.Value as FhirString != null){
+                        value["text"] = component.Value.ToString();
+                    }
+                }
+                // Now, remove the original component, and replace with a new component that includes the set value, and possible the carryover text field
                 UsualWork.Component.RemoveAll(cmp => cmp.Code != null && cmp.Code.Coding != null && cmp.Code.Coding.Count() > 0 && cmp.Code.Coding.First().Code == "21844-6");
 
-                Observation.ComponentComponent component = new Observation.ComponentComponent();
+                component = new Observation.ComponentComponent(); // create a new component
                 component.Code = new CodeableConcept(CodeSystems.LOINC, "21844-6", "History of Usual industry", null);
                 component.Value = DictToCodeableConcept(value);
                 UsualWork.Component.Add(component);
