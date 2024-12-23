@@ -602,5 +602,49 @@ namespace BFDR.Tests
                 FetalDeathRecord fdr2 = message.FetalDeathRecord;
                 Assert.Equal("P01.1", fdr2.CodedInitiatingFetalCOD);
         }
+
+        /// <summary>
+        /// Tests the validation of the message header.
+        /// </summary>
+        /// <remarks>
+        /// This test parses a message from a JSON fixture and validates its header.
+        /// It ensures that the message is of type <see cref="BirthRecordSubmissionMessage"/>.
+        /// It also verifies that a <see cref="MessageRuleException"/> is thrown when the message header is invalid,
+        /// and checks that the exception message and source message type are correct.
+        /// </remarks>
+        /// <exception cref="MessageRuleException">
+        /// Thrown when the message header validation fails due to the certificate number being more than 6 digits long.
+        /// </exception>
+        [Fact]
+        public void ValidateMessageHeader()
+        {
+            var msg = BFDRBaseMessage.Parse(TestHelpers.FixtureStream("fixtures/json/MessageHeaderValidation.json"));
+            Assert.IsType<BirthRecordSubmissionMessage>(msg);
+            MessageRuleException ex = Assert.Throws<MessageRuleException>(() => CommonMessage.ValidateMessageHeader(msg));
+            Assert.Equal("Message certificate number cannot be more than 6 digits long.", ex.Message);
+            Assert.IsType<BirthRecordSubmissionMessage>(ex.SourceMessage);
+        }
+
+        /// <summary>
+        /// Tests the validation of the message header.
+        /// </summary>
+        /// <remarks>
+        /// This test parses a message from a JSON fixture and validates its header.
+        /// It ensures that the message is of type <see cref="BirthRecordSubmissionMessage"/>.
+        /// It also verifies that a <see cref="MessageRuleException"/> is thrown when the message header is invalid,
+        /// and checks that the exception message and source message type are correct.
+        /// </remarks>
+        /// <exception cref="MessageRuleException">
+        /// Thrown when the message header validation fails due to a missing event year.
+        /// </exception>
+        [Fact]
+        public void ValidateMessageHeaderEventYear()
+        {
+            var msg = BFDRBaseMessage.Parse(TestHelpers.FixtureStream("fixtures/json/MessageHeaderValidationMissingYear.json"));
+            Assert.IsType<BirthRecordSubmissionMessage>(msg);
+            MessageRuleException ex = Assert.Throws<MessageRuleException>(() => CommonMessage.ValidateMessageHeader(msg));
+            Assert.Equal("Message event year cannot be null.", ex.Message);
+            Assert.IsType<BirthRecordSubmissionMessage>(ex.SourceMessage);
+        }
     }
 }
