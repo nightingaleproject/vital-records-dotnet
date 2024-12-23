@@ -1444,7 +1444,7 @@ namespace BFDR.Tests
       parsedRecord.FetusSuffix = "Junior";
       Assert.Equal("Jim", parsedRecord.FetusGivenNames[0]);
       Assert.Equal("Jam", parsedRecord.FetusGivenNames[1]);
-      Assert.Equal("Jones", parsedRecord.ChildFamilyName);
+      Assert.Equal("Jones", parsedRecord.FetusFamilyName);
       Assert.Equal("Junior", parsedRecord.FetusSuffix);
 
       // to IJE
