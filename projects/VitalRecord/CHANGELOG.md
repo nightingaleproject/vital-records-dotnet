@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+<a name="1.0.0-preview.5"></a>
+## [1.0.0-preview.5](https://github.com/nightingaleproject/vital-records-dotnet/commit/e5d39978b91a26b4460d68f423a12d5159f515d0) (2024-12-23)
+
+### Features
+* Add message header validation
+
 <a name="1.0.0-preview.4"></a>
 ## [1.0.0-preview.4](https://github.com/nightingaleproject/vital-records-dotnet/commit/ba4cd43e081ede28959f0e9d3070b59644943953#diff-7b854a1e3a0d54f7ed17b2542764e52a452d596f0827084fdf95084a40fde76d) (2024-11-05)
 

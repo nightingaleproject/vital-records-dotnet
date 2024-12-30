@@ -57,7 +57,7 @@ This package will be published on NuGet, so including it is as easy as:
 ```xml
 <ItemGroup>
   ...
-  <PackageReference Include="BFDR" Version="1.0.0-preview.9" />
+  <PackageReference Include="BFDR" Version="1.0.0-preview.10" />
   ...
 </ItemGroup>
 ```
@@ -194,7 +194,7 @@ This package is published on NuGet, so including it is as easy as:
 ```xml
 <ItemGroup>
   ...
-  <PackageReference Include="BFDR.Messaging" Version="1.0.0-preview.9" />
+  <PackageReference Include="BFDR.Messaging" Version="1.0.0-preview.10" />
   ...
 </ItemGroup>
 ```
