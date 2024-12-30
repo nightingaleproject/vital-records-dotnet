@@ -93,10 +93,7 @@ namespace BFDR
             {
                 return Subject?.Name?.Find(name => name.Use == HumanName.NameUse.Official)?.Given?.ToArray() ?? new string[0];
             }
-            set
-            {
-                updateGivenHumanName(value, Subject.Name);
-            }
+            set => updateGivenHumanName(value, Subject.Name);
         }
 
         /// <summary>Fetus' Legal Name - Last.</summary>
@@ -116,10 +113,7 @@ namespace BFDR
             {
                 return Subject?.Name?.Find(name => name.Use == HumanName.NameUse.Official)?.Family;
             }
-            set
-            {
-                updateFamilyName(value, Subject.Name);
-            }
+            set => updateFamilyName(value, Subject.Name);
         }
 
         /// <summary>Fetus' Suffix.</summary>
@@ -138,10 +132,7 @@ namespace BFDR
             {
                 return Subject?.Name?.Find(name => name.Use == HumanName.NameUse.Official)?.Suffix.FirstOrDefault();
             }
-            set
-            {
-                updateSuffix(value, Subject.Name);
-            }
+            set => updateSuffix(value, Subject.Name);
         }
 
         /// <summary>The place of delivery Type.</summary>
@@ -1164,20 +1155,8 @@ namespace BFDR
         [FHIRPath("Bundle.entry.resource.where($this is Patient).birthDate", "")]
         public string DateOfDelivery
         {
-            get
-            {
-                if (this.Subject == null || this.Subject.BirthDateElement == null)
-                {
-                    return null;
-                }
-                return this.Subject.BirthDate;
-            }
-            set
-            {
-                string time = this.GetBirthTime();
-                this.Subject.BirthDateElement = ConvertToDate(value);
-                this.SetBirthTime(time);
-            }
+            get => GetDateOfDelivery();
+            set => SetDateOfDelivery(value);
         }
 
         /// <summary>Decedent Fetus's Year of Delivery.</summary>
@@ -1236,7 +1215,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Decedent Fetus Time of Birth: {ExampleFetalDeathRecord.DeliveryTime}");</para>
         /// </example>
-        [Property("BirthTime", Property.Types.String, "Fetus Demographics", "Decedent Fetus's Time of Birth.", true, BFDR.IGURL.PatientDecedentFetus, true, 14)]
+        [Property("DeliveryTime", Property.Types.String, "Fetus Demographics", "Decedent Fetus's Time of Birth.", true, BFDR.IGURL.PatientDecedentFetus, true, 14)]
         // How should FHIRPath work when the time could be in 1 of 2 different places (value in PatientBirthTime | PartialDateTime extension)
         [FHIRPath("Bundle.entry.resource.where($this is Patient).birthDate.extension.where(url='" + VR.ExtensionURL.PatientBirthTime + "')", "")]
         public string DeliveryTime

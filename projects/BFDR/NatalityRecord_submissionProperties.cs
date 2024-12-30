@@ -276,34 +276,6 @@ namespace BFDR
             return year != null && month != null && day != null;
         }
 
-        /// <summary>Child's Date of Birth.</summary>
-        /// <value>the child's date of birth</value>
-        /// <example>
-        /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.DateOfBirth = "1940-02-19";</para>
-        /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Child Date of Birth: {ExampleBirthRecord.DateOfBirth}");</para>
-        /// </example>
-        [Property("Date Of Birth", Property.Types.String, "Child Demographics", "Child's Date of Birth.", true, VR.IGURL.Child, true, 14)]
-        [FHIRPath("Bundle.entry.resource.where($this is Patient).birthDate", "")]
-        public string DateOfBirth
-        {
-            get
-            {
-                if (this.Subject == null || this.Subject.BirthDateElement == null)
-                {
-                    return null;
-                }
-                return this.Subject.BirthDate;
-            }
-            set
-            {
-                string time = this.GetBirthTime();
-                this.Subject.BirthDateElement = ConvertToDate(value);
-                this.SetBirthTime(time);
-            }
-        }
-
         // TODO: waiting to figure out how to differentiate between Encounters in the record
         // /// <summary>Certified Year</summary>
         // /// <value>year of certification</value>
@@ -376,31 +348,22 @@ namespace BFDR
             {
                 Console.WriteLine($"Failed to set BirthSex: {ex}");
             }
-
-
         }
 
-        /// <summary>Child's Legal Name - Given. Middle name should be the last entry.</summary>
-        /// <value>the child's name (first, etc., middle)</value>
-        /// <example>
-        /// <para>// Setter:</para>
-        /// <para>string[] names = { "Example", "Something", "Middle" };</para>
-        /// <para>ExampleBirthRecord.ChildGivenNames = names;</para>
-        /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Child Given Name(s): {string.Join(", ", ExampleBirthRecord.ChildGivenNames)}");</para>
-        /// </example>
-        [Property("Child Given Names", Property.Types.StringArr, "Child Demographics", "Child’s First Name.", true, VR.IGURL.Child, true, 0)]
-        [FHIRPath("Bundle.entry.resource.where($this is Patient)", "name")]
-        public string[] ChildGivenNames
+        protected string GetDateOfDelivery()
         {
-            get
+            if (this.Subject == null || this.Subject.BirthDateElement == null)
             {
-                return Subject?.Name?.Find(name => name.Use == HumanName.NameUse.Official)?.Given?.ToArray() ?? new string[0];
+                return null;
             }
-            set
-            {
-                updateGivenHumanName(value, Subject.Name);
-            }
+            return this.Subject.BirthDate;
+        }
+
+        protected void SetDateOfDelivery(string value)
+        {
+            string time = this.GetBirthTime();
+            this.Subject.BirthDateElement = ConvertToDate(value);
+            this.SetBirthTime(time);
         }
 
         /// <summary>Mother's Legal Name - Given. Middle name should be the last entry.</summary>
@@ -469,29 +432,6 @@ namespace BFDR
             set
             {
                 updateGivenHumanName(value, Mother.Name, HumanName.NameUse.Maiden);
-            }
-        }
-
-        /// <summary>Child's Legal Name - Last.</summary>
-        /// <value>the child's last name</value>
-        /// <example>
-        /// <para>// Setter:</para>
-        /// <para>string lastName = "Quinn";</para>
-        /// <para>ExampleBirthRecord.ChildFamilyName = lastName;</para>
-        /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Child Family Name(s): {string.Join(", ", ExampleBirthRecord.ChildFamilyName)}");</para>
-        /// </example>
-        [Property("Child Family Name", Property.Types.String, "Child Demographics", "Child's Last Name.", true, VR.IGURL.Child, true, 0)]
-        [FHIRPath("Bundle.entry.resource.where($this is Patient)", "name")]
-        public string ChildFamilyName
-        {
-            get
-            {
-                return Subject?.Name?.Find(name => name.Use == HumanName.NameUse.Official)?.Family;
-            }
-            set
-            {
-                updateFamilyName(value, Subject.Name);
             }
         }
 
@@ -601,28 +541,6 @@ namespace BFDR
                     };
                     Mother.Name.Add(name);
                 }
-            }
-        }
-
-        /// <summary>Child's Suffix.</summary>
-        /// <value>the child's suffix</value>
-        /// <example>
-        /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.ChildSuffix = "Jr.";</para>
-        /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Child Suffix: {ExampleBirthRecord.ChildSuffix}");</para>
-        /// </example>
-        [Property("ChildSuffix", Property.Types.String, "Child Demographics", "Child's Suffix.", true, VR.IGURL.Child, true, 6)]
-        [FHIRPath("Bundle.entry.resource.where($this is Patient)", "name")]
-        public string ChildSuffix
-        {
-            get
-            {
-                return Subject?.Name?.Find(name => name.Use == HumanName.NameUse.Official)?.Suffix.FirstOrDefault();
-            }
-            set
-            {
-                updateSuffix(value, Subject.Name);
             }
         }
 

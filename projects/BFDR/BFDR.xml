@@ -214,6 +214,48 @@
             <para>Console.WriteLine($"Infant transferred helper: {ExampleBirthRecord.InfantTransferredHelper}");</para>
             </example>
         </member>
+        <member name="P:BFDR.BirthRecord.ChildGivenNames">
+            <summary>Child's Legal Name - Given. Middle name should be the last entry.</summary>
+            <value>the child's name (first, etc., middle)</value>
+            <example>
+            <para>// Setter:</para>
+            <para>string[] names = { "Example", "Something", "Middle" };</para>
+            <para>ExampleBirthRecord.ChildGivenNames = names;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Child Given Name(s): {string.Join(", ", ExampleBirthRecord.ChildGivenNames)}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.ChildFamilyName">
+            <summary>Child's Legal Name - Last.</summary>
+            <value>the child's last name</value>
+            <example>
+            <para>// Setter:</para>
+            <para>string lastName = "Quinn";</para>
+            <para>ExampleBirthRecord.ChildFamilyName = lastName;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Child Family Name(s): {string.Join(", ", ExampleBirthRecord.ChildFamilyName)}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.ChildSuffix">
+            <summary>Child's Suffix.</summary>
+            <value>the child's suffix</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.ChildSuffix = "Jr.";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Child Suffix: {ExampleBirthRecord.ChildSuffix}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.DateOfBirth">
+            <summary>Child's Date of Birth.</summary>
+            <value>the child's date of birth</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.DateOfBirth = "1940-02-19";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Child Date of Birth: {ExampleBirthRecord.DateOfBirth}");</para>
+            </example>
+        </member>
         <member name="F:BFDR.BirthRecord.EncounterBirth">
             <summary>The encounter of the birth.</summary>
         </member>
@@ -3498,16 +3540,6 @@
             <param name="date">The date to check.</param>
             <returns>Whether the given date string is a complete date</returns>
         </member>
-        <member name="P:BFDR.NatalityRecord.DateOfBirth">
-            <summary>Child's Date of Birth.</summary>
-            <value>the child's date of birth</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.DateOfBirth = "1940-02-19";</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Child Date of Birth: {ExampleBirthRecord.DateOfBirth}");</para>
-            </example>
-        </member>
         <member name="M:BFDR.NatalityRecord.GetBirthSex">
             <summary>
              Getter method for child or decedent fetus birth/delivery sex.
@@ -3519,17 +3551,6 @@
              Setter method for child or decedent fetus birth/delivery sex.
             </summary>
             <param name="value">The birth/delivery sex.</param>
-        </member>
-        <member name="P:BFDR.NatalityRecord.ChildGivenNames">
-            <summary>Child's Legal Name - Given. Middle name should be the last entry.</summary>
-            <value>the child's name (first, etc., middle)</value>
-            <example>
-            <para>// Setter:</para>
-            <para>string[] names = { "Example", "Something", "Middle" };</para>
-            <para>ExampleBirthRecord.ChildGivenNames = names;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Child Given Name(s): {string.Join(", ", ExampleBirthRecord.ChildGivenNames)}");</para>
-            </example>
         </member>
         <member name="P:BFDR.NatalityRecord.MotherGivenNames">
             <summary>Mother's Legal Name - Given. Middle name should be the last entry.</summary>
@@ -3562,17 +3583,6 @@
             <para>ExampleBirthRecord.MotherMaidenGivenNames = names;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Mother Given Name(s): {string.Join(", ", ExampleBirthRecord.MotherMaidenGivenNames)}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.NatalityRecord.ChildFamilyName">
-            <summary>Child's Legal Name - Last.</summary>
-            <value>the child's last name</value>
-            <example>
-            <para>// Setter:</para>
-            <para>string lastName = "Quinn";</para>
-            <para>ExampleBirthRecord.ChildFamilyName = lastName;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Child Family Name(s): {string.Join(", ", ExampleBirthRecord.ChildFamilyName)}");</para>
             </example>
         </member>
         <member name="P:BFDR.NatalityRecord.MotherFamilyName">
@@ -3612,16 +3622,6 @@
             <para>ExampleBirthRecord.MotherMaidenFamilyName = lastName;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Mother Maiden Family Name(s): {string.Join(", ", ExampleBirthRecord.MotherMaidenFamilyName)}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.NatalityRecord.ChildSuffix">
-            <summary>Child's Suffix.</summary>
-            <value>the child's suffix</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.ChildSuffix = "Jr.";</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Child Suffix: {ExampleBirthRecord.ChildSuffix}");</para>
             </example>
         </member>
         <member name="P:BFDR.NatalityRecord.MotherSuffix">

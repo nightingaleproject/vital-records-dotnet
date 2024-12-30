@@ -166,11 +166,11 @@ namespace BFDR.CLI
                 fetaldeathRecord.FetalDeathSex = "M";
 
                 string[] childNames = { "Alexander", "Arlo" };
-                fetaldeathRecord.ChildGivenNames = childNames;
+                fetaldeathRecord.FetusGivenNames = childNames;
                 string[] motherName = { "Xenia" };
                 fetaldeathRecord.MotherGivenNames = motherName;
                 string lastName = "Adkins";
-                fetaldeathRecord.ChildFamilyName = lastName;
+                fetaldeathRecord.FetusFamilyName = lastName;
                 fetaldeathRecord.MotherFamilyName = lastName;
 
                 fetaldeathRecord.CertifierName = "Janet Seito";
