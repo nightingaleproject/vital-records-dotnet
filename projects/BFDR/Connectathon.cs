@@ -1,4 +1,5 @@
 using System;
+using VR;
 
 namespace BFDR
 {
@@ -6,13 +7,23 @@ namespace BFDR
     public class Connectathon
     {
         /// <summary>Retrieve all available pre-set records</summary>
-        public static BirthRecord[] Records
+        public static BirthRecord[] BirthRecords
         {
             get { 
                 return new BirthRecord[] {
                     YytrfCardenasRomero(),
                     XyugbnxZalbanaiz(),
                     NullMonroe()
+                };
+            }
+        }
+
+        /// <summary>Retrieve all available pre-set records</summary>
+        public static FetalDeathRecord[] FetalDeathRecords
+        {
+            get { 
+                return new FetalDeathRecord[] {
+                    Test1()
                 };
             }
         }
@@ -83,7 +94,7 @@ namespace BFDR
         // Writes record to a file named filename in a subdirectory of the current working directory
         // Note that you do this with docker, you will have to set a bind mount on the container
         /// <summary>Of historical interest for writing a record to a file</summary>
-        public static string WriteRecordAsXml(BirthRecord record, string filename)
+        public static string WriteRecordAsXml(VitalRecord record, string filename)
         {
             string parentPath = System.IO.Directory.GetCurrentDirectory() + "/connectathon_files";
             System.IO.Directory.CreateDirectory(parentPath);  // in case the directory does not exist
@@ -93,6 +104,44 @@ namespace BFDR
             System.IO.File.WriteAllText(@fullPath, xml);
             // Console.WriteLine(xml);
             return xml;
+        }
+
+        /// <summary>Generate a FetalDeathRecord from one of 2 pre-set records, providing an optional certificate number and state</summary>
+        public static FetalDeathRecord FetalDeathRecordFromId(int id, int? certificateNumber = null, string state = null, int? year = null)
+        {
+            FetalDeathRecord record = null;
+            switch (id)
+            {
+                case 1:
+                    record = Test1();
+                    break;
+            }
+
+            if (record != null && certificateNumber != null)
+            {
+                record.CertificateNumber = certificateNumber.ToString();
+            }
+
+            if (record != null && state != null)
+            {
+                record.BirthLocationJurisdiction = state;
+            }
+
+            if (record != null && year != null)
+            {
+                record.DeliveryYear = year;
+            }
+
+            return record;
+        }
+
+        /// <summary>Generate Monroe example record</summary>
+        public static FetalDeathRecord Test1()
+        {
+            string rawIJE = "2020TT0000080            1830M06192091            2040199801140XXFM36000209KSUSY200010200   90UUUU                    NNNNNNNNNNNNNYN                                                                                                                        CHUUK                                                                                                                                                                   2 99999999           50301820    U0200  992022      0000000099999999NNNN  NNN000  N       NN31X   N N 09990320NNYN0199999999990                    2623NXX20241213   NNNNNNNNO PRENATAL CARE                                                                                                                                                                                                                                                                           99          0                                                                                                                            NNNNNNNRECENT XXXXXXXXXXX                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              NONE IDENTIFIED                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 INTRAUTERINE FETAL DEMISE                                                                                                                                                                                                                                                                  Joe                                                                                                 Smith                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        XXXX      S         14 TH                                             ST                         XXXX S 14 TH ST                                   XXXXX    XXXXXXXXX                   xxxxxx xxxx                 xxxxxx                      UNITED STATES                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ";
+            IJEFetalDeath ije = new IJEFetalDeath(rawIJE);
+            FetalDeathRecord record = ije.ToRecord();
+            return record;
         }
 
     }

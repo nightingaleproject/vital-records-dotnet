@@ -1301,7 +1301,7 @@ namespace BFDR
         public string FetalDeathPluralityEditFlagHelper
         {
             get => GetPluralityEditFlagHelper();
-            set => SetPluralityEditFlagHelper(value);
+            set => SetPluralityEditFlagHelper("FetalDeathPluralityEditFlag", value);
         }
 
         /// <summary>Multiple birth plurality</summary>

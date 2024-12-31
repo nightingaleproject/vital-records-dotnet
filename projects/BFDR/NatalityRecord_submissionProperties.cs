@@ -1278,12 +1278,13 @@ namespace BFDR
         /// <summary>
         ///  Helper method for setting child or decedent fetus plurality edit flag.
         /// </summary>
+        /// <param name="field">The name of the field.</param>    
         /// <param name="value">The birth year.</param>         
-        protected void SetPluralityEditFlagHelper(string value)
+        protected void SetPluralityEditFlagHelper(string field, string value)
         {
             if (!String.IsNullOrEmpty(value))
             {
-                SetCodeValue("PluralityEditFlag", value, VR.ValueSets.PluralityEditFlags.Codes);
+                SetCodeValue(field, value, VR.ValueSets.PluralityEditFlags.Codes);
             }
         }
         /// <summary>
