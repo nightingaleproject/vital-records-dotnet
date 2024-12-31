@@ -29,7 +29,7 @@ namespace BFDR.CLI
   - description: prints a verbose JSON description of the record (in the format used to drive Canary) (1 argument: the path to the birth record)
   - 2ije: Read in the FHIR XML or JSON birth record and print out as IJE (1 argument: path to birth record in JSON or XML format)
   - 2ijecontent: Read in the FHIR XML or JSON birth record and dump content  in key/value IJE format (1 argument: path to birth record in JSON or XML format)
-  - ije2json: Read in the IJE birth record and print out as JSON (1 argument: path to birth record in IJE format)
+  - ije2json: Read in the IJE birth record and print out as JSON (2 arguments: path to birth record in IJE format, 'birth' or 'fetaldeath')
   - ije2json: Read in several IJE birth records and print out as JSON files to same directory they were imported from (2 or more arguments: list of paths to birth records in IJE format)
   - ije2xml: Read in the IJE birth record and print out as XML (1 argument: path to birth record in IJE format)
   - extract2ijecontent: Dump content of a submission message in key/value IJE format (1 argument: submission message)
@@ -276,10 +276,17 @@ namespace BFDR.CLI
                 }
                 return 0;
             }
-            else if (args.Length == 2 && args[0] == "ije2json")
+            else if (args.Length == 3 && args[0] == "ije2json" && args[2] == "birth")
             {
                 IJEBirth ije1 = new IJEBirth(File.ReadAllText(args[1]));
                 BirthRecord b = ije1.ToRecord();
+                Console.WriteLine(b.ToJSON());
+                return 0;
+            }
+            else if (args.Length == 3 && args[0] == "ije2json" && args[2] == "fetaldeath")
+            {
+                IJEFetalDeath ije1 = new IJEFetalDeath(File.ReadAllText(args[1]));
+                FetalDeathRecord b = ije1.ToRecord();
                 Console.WriteLine(b.ToJSON());
                 return 0;
             }

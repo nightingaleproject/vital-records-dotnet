@@ -122,5 +122,16 @@ namespace BFDR.Tests
       Assert.Equal("408838003", ije.ToRecord().DeliveryPhysicalLocationHelper);
       Assert.Equal("4", ije.DPLACE);
     }
+
+    [Fact]
+    public void ParseIJEConnectathonTestData()
+    {
+      string rawIJE = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/ConnectathonFetalDeathRecord.ije")));
+      IJEFetalDeath ije = new IJEFetalDeath(rawIJE);
+      Assert.Equal("U", ije.FETHNIC1);
+      FetalDeathRecord record = ije.ToRecord();
+      Assert.Equal(2020, record.DeliveryYear);
+      Assert.Equal("Smith", record.FetusFamilyName);
+    }
   }
 }
