@@ -1381,6 +1381,7 @@ namespace VR
         protected void SetCodeValue(string field, string code, string[,] options)
         {
             Dictionary<string, string> dict = CreateCode(code, options);
+
             if (dict != null)
             {
                 this.GetType().GetProperty(field).SetValue(this, dict);
