@@ -596,7 +596,7 @@ namespace BFDR.CLI
                 Console.WriteLine(outbr.ToJSON());
                 return 0;
             }
-            else if (args.Length == 2 && args[0] == "roundtrip-ije")
+            else if (args.Length == 3 && args[0] == "roundtrip-ije" && args[2] == "birth")
             {
                 // Console.WriteLine("Converting FHIR to IJE...\n");
                 BirthRecord b = new BirthRecord(File.ReadAllText(args[1]));
@@ -616,6 +616,44 @@ namespace BFDR.CLI
                 int issues = 0;
                 int total = 0;
                 foreach (PropertyInfo property in typeof(IJEBirth).GetProperties())
+                {
+                    string val1 = Convert.ToString(property.GetValue(ije1, null));
+                    string val2 = Convert.ToString(property.GetValue(ije2, null));
+                    string val3 = Convert.ToString(property.GetValue(ije3, null));
+
+                    IJEField info = property.GetCustomAttribute<IJEField>();
+
+                    if (val1.ToUpper() != val2.ToUpper() || val1.ToUpper() != val3.ToUpper() || val2.ToUpper() != val3.ToUpper())
+                    {
+                        issues++;
+                        Console.WriteLine($"[***** MISMATCH *****]\t{info.Name}: {info.Contents} \t\t\"{val1}\" != \"{val2}\" != \"{val3}\"");
+                    }
+                    total++;
+                }
+                Console.WriteLine($"\n{issues} issues out of {total} total fields.");
+                return issues;
+            }
+            else if (args.Length == 3 && args[0] == "roundtrip-ije" && args[2] == "fetaldeath")
+            {
+                // Console.WriteLine("Converting FHIR to IJE...\n");
+                
+                FetalDeathRecord b = new FetalDeathRecord(File.ReadAllText(args[1]));
+                IJEFetalDeath ije1, ije2, ije3;
+                try
+                {
+                    ije1 = new IJEFetalDeath(b);
+                    ije2 = new IJEFetalDeath(ije1.ToString());
+                    ije3 = new IJEFetalDeath(new FetalDeathRecord(ije2.ToRecord().ToXML()));
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.Message);
+                    return (1);
+                }
+
+                int issues = 0;
+                int total = 0;
+                foreach (PropertyInfo property in typeof(IJEFetalDeath).GetProperties())
                 {
                     string val1 = Convert.ToString(property.GetValue(ije1, null));
                     string val2 = Convert.ToString(property.GetValue(ije2, null));
