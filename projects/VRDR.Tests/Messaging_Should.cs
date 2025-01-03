@@ -436,36 +436,36 @@ namespace VRDR.Tests
             Assert.Equal(ValueSets.MannerOfDeath.Natural_Death, message.DeathRecord.MannerOfDeathTypeHelper);
         }
 
-    //  [Fact]
-    //     public void CreateIndustryOccupationCodingResponseFromJSON()
-    //     {
-    //         // IndustryOccupationCodingMessage message = BaseMessage.Parse<IndustryOccupationCodingMessage>(FixtureStream("fixtures/json/IndustryOccupationCodingMessage.json"));
-    //         BaseMessage message = BaseMessage.Parse<BaseMessage>(FixtureStream("fixtures/json/IndustryOccupationCodingMessage.json")); //IndustryOccupationCodingMessage.json"));
+     [Fact]
+        public void CreateIndustryOccupationCodingResponseFromJSON()
+        {
+            IndustryOccupationCodingMessage message = BaseMessage.Parse<IndustryOccupationCodingMessage>(FixtureStream("fixtures/json/IndustryOccupationCodingMessage.json"));
+            //BaseMessage message = BaseMessage.Parse<BaseMessage>(FixtureStream("fixtures/json/IndustryOccupationCodingMessage.json")); //IndustryOccupationCodingMessage.json"));
 
 
-    //         Assert.Equal("http://nchs.cdc.gov/vrdr_submission", message.MessageDestination);
-    //         Assert.Equal((uint)100000, message.CertNo);
-    //         Assert.Equal((uint)2019, message.DeathYear);
-    //         Assert.Null(message.StateAuxiliaryId);
-    //         Assert.Equal("2019AK100000", message.NCHSIdentifier);
-    //         Assert.Equal("VRDRSTU30",(message.PayloadVersionId));
+            Assert.Equal("https://sos.ny.gov/vitalrecords", message.MessageDestination);
+            Assert.Equal((uint)123456, message.CertNo);
+            Assert.Equal((uint)2018, message.DeathYear);
+            Assert.Equal("abcdef10",message.StateAuxiliaryId);
+            Assert.Equal("2018NY123456", message.NCHSIdentifier);
+            Assert.Equal("VRDRSTU30",(message.PayloadVersionId));
 
 
-    //                     switch (message)
-    //         {
-    //             // use C# pattern matching to cast message type
-    //             case IndustryOccupationCodingMessage codCodeMsg:
-    //                 Assert.NotNull(codCodeMsg);
-    //                 Assert.Null(codCodeMsg.DeathRecord.UsualOccupation);
-    //                 Assert.Null(codCodeMsg.DeathRecord.UsualIndustry);
-    //                 Assert.Equal(IndustryOccupationCodingMessage.MESSAGE_TYPE, codCodeMsg.MessageType);
+            switch (message)
+            {
+                // use C# pattern matching to cast message type
+                case IndustryOccupationCodingMessage codCodeMsg:
+                    Assert.NotNull(codCodeMsg);
+                    Assert.Equal("secretary", codCodeMsg.DeathRecord.UsualOccupation);
+                    Assert.Equal("State agency", codCodeMsg.DeathRecord.UsualIndustry);
+                    Assert.Equal(IndustryOccupationCodingMessage.MESSAGE_TYPE, codCodeMsg.MessageType);
 
-    //                 break;
-    //             default:
-    //                 Assert.Fail("Message was not a IndustryOccupationCodingMessage");
-    //                 break;
-    //         }
-    //     }
+                    break;
+                default:
+                    Assert.Fail("Message was not a IndustryOccupationCodingMessage");
+                    break;
+            }
+        }
         [Fact]
         public void CreateCauseOfDeathCodingAcknowledgementFromJSON()
         {

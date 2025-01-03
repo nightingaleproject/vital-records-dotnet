@@ -50,7 +50,7 @@
         "valueUnsignedInt" : 123456
       },
       {
-        "name" : "event_year",
+        "name" : "death_year",
         "valueUnsignedInt" : 2018
       },
       {
@@ -59,11 +59,12 @@
       },
       {
         "name" : "payload_version_id",
-        "valueString" : "VRDRSTU3.0"
+        "valueString" : "VRDRSTU30"
       }]
     }
   },
   {
+   "resource" : {
     "resourceType" : "Bundle",
     "id" : "http://www.example.org/fhir/IndustryOccupationCodedContentBundle-Example1",
     "meta" : {
@@ -140,5 +141,6 @@
       }
     ]
   }
+}
 ]
 }
