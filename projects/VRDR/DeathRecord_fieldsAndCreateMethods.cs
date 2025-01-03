@@ -241,7 +241,7 @@ namespace VRDR
             BirthRecordIdentifierChild = new Observation();
             BirthRecordIdentifierChild.Id = Guid.NewGuid().ToString();
             BirthRecordIdentifierChild.Meta = new Meta();
-            string[] br_profile = { ProfileURL.BirthRecordIdentifier };
+            string[] br_profile = { ProfileURL.BirthRecordIdentifierChild };
             BirthRecordIdentifierChild.Meta.Profile = br_profile;
             BirthRecordIdentifierChild.Status = ObservationStatus.Final;
             BirthRecordIdentifierChild.Code = new CodeableConcept(VR.CodeSystems.LocalObservationCodes, "decedentbirthrecordidentifier", "Birth Record Identifier of Decedent", null);
