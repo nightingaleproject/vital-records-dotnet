@@ -1955,7 +1955,6 @@ namespace VRDR.Tests
             DeathRecord dr = DeathRecord1_JSON;
             Assert.Equal("717171", dr.BirthRecordChildId);
             IJEMortality ije1 = new IJEMortality(dr);
-//            Assert.Equal("242123", ije1.BCNO);
             DeathRecord dr2 = ije1.ToRecord();
             Assert.Equal("717171", dr2.BirthRecordChildId);
         }
