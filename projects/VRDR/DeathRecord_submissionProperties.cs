@@ -3677,7 +3677,7 @@ namespace VRDR
             }
         }
 
-        /// <summary>Birth Record Identifier.</summary>
+        /// <summary>Birth Record Identifier. Decedent is infant child, link to birth certificate of decedent</summary>
         /// <value>a birth record identification string.</value>
         /// <example>
         /// <para>// Setter:</para>
@@ -3835,12 +3835,10 @@ namespace VRDR
                     }
                 }
             }
-        }
-
-             
+        }     
 
         /// <summary>Birth Record Identifier Child.</summary>
-        /// <value>a birth record child identification string.</value>
+        /// <value>a birth record child identification string. Decedent is mother, link is cert from recent delivery</value>
         /// <example>
         /// <para>// Setter:</para>
         /// <para>ExampleDeathRecord.BirthRecordChildId = "4242123";</para>
@@ -3999,7 +3997,7 @@ namespace VRDR
             }
         }
 /// <summary>Fetal Death Record Identifier.</summary>
-        /// <value>a fetal death record identification string.</value>
+        /// <value>a fetal death record identification string. Decedent is mother, link is cert from recent fetal death  </value>
         /// <example>
         /// <para>// Setter:</para>
         /// <para>ExampleDeathRecord.FetalDeathRecordId = "4242123";</para>
