@@ -207,17 +207,20 @@ namespace VRDR
             Bundle.AddResourceEntry(DecedentEducationLevel, "urn:uuid:" + DecedentEducationLevel.Id);
         }
 
+        // See https://hl7.org/fhir/us/vrdr/artifacts.html#vital-records-linkages for a full description of these linkages
+        //
         /// <summary>Child Birth Record Identifier.</summary>
-        private Observation BirthRecordIdentifier; // decedent is infant child, link to birth certificate of decedent
+        private Observation BirthRecordIdentifier; // decedent is infant child, link to birth certificate of decedent.  Code is childbirthrecordidentifier.
 
         /// <summary>Decedent Birth Record Identifier.</summary>
-        private Observation BirthRecordIdentifierChild; // new in STU3 -- decedent is mother, link is cert from recent delivery
+        private Observation BirthRecordIdentifierChild; // new in STU3 -- decedent is mother, link is cert from recent delivery. Code is decedentbirthrecordidentifier
 
         /// <summary>Fetal Deach Record Identifier.</summary>
         private Observation FetalDeathRecordIdentifier; // new in STU3 -- decedent is mother, link is cert from recent fetal death
 
 
         /// <summary>Create an empty BirthRecordIdentifier Observation.</summary>
+        // decedent is infant child, link to birth certificate of decedent.   Added in STU2.
         private void CreateBirthRecordIdentifier()
         {
             BirthRecordIdentifier = new Observation();
@@ -236,6 +239,7 @@ namespace VRDR
         }
 
        /// <summary>Create an empty BirthRecordIdentifierChild Observation.</summary>
+       // new in STU3 -- decedent is mother, link is cert from recent delivery
         private void CreateBirthRecordIdentifierChild()
         {
             BirthRecordIdentifierChild = new Observation();
@@ -255,6 +259,7 @@ namespace VRDR
 
 
        /// <summary>Create an empty FetalDeathRecordIdentifier Observation.</summary>
+       // new in STU3 -- decedent is mother, link is cert from recent fetal death       
         private void CreateFetalDeathRecordIdentifier()
         {
             FetalDeathRecordIdentifier = new Observation();
@@ -364,6 +369,20 @@ namespace VRDR
 
         /// <summary>Disposition Method.</summary>
         private Observation DispositionMethod;
+
+        /// <summary>Mortician.</summary>
+        private Practitioner Mortician;
+
+        /// <summary>Create Mortician.</summary>
+        private void CreateMortician()
+        {
+            Mortician = new Practitioner();
+            Mortician.Id = Guid.NewGuid().ToString();
+            Mortician.Meta = new Meta();
+            string[] mortician_profile = { ProfileURL.Mortician };
+            Mortician.Meta.Profile = mortician_profile;
+            // Not linked to Composition or inserted in bundle, since this is run before the composition exists.
+        }
 
         /// <summary>Autopsy Performed.</summary>
         private Observation AutopsyPerformed;

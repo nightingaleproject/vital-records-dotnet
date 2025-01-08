@@ -79,12 +79,12 @@ namespace VRDR
             Bundle.AddResourceEntry(Decedent, "urn:uuid:" + Decedent.Id);
             AddReferenceToComposition(Certifier.Id, "DeathCertification");
             Bundle.AddResourceEntry(Certifier, "urn:uuid:" + Certifier.Id);
+            // Bundle.AddResourceEntry(Mortician, "urn:uuid:" + Mortician.Id);   - Mortician is purely optional.... no resource to add by default
             AddReferenceToComposition(DeathCertification.Id, "DeathCertification");
             Bundle.AddResourceEntry(DeathCertification, "urn:uuid:" + DeathCertification.Id);
 
             // AddReferenceToComposition(Pronouncer.Id, "OBE");
             // Bundle.AddResourceEntry(Pronouncer, "urn:uuid:" + Pronouncer.Id);
-            //Bundle.AddResourceEntry(Mortician, "urn:uuid:" + Mortician.Id);
             //Bundle.AddResourceEntry(FuneralHomeDirector, "urn:uuid:" + FuneralHomeDirector.Id);
 
             // Create a Navigator for this new death record.
@@ -131,7 +131,7 @@ namespace VRDR
             string[] profile = { ProfileURL.CauseOfDeathCodedContentBundle };
             codccBundle.Meta.Profile = profile;
             codccBundle.Timestamp = DateTime.Now;
-            // Make sure to include the base identifiers, including certificate number and auxiliary state IDs
+            // Make sure to include the base identifiers, including certificate number, auxiliary state IDs, and state specific identifier
             codccBundle.Identifier = Bundle.Identifier;
             AddResourceToBundleIfPresent(ActivityAtTimeOfDeathObs, codccBundle);
             AddResourceToBundleIfPresent(AutomatedUnderlyingCauseOfDeathObs, codccBundle);
@@ -317,6 +317,20 @@ namespace VRDR
             {
                 FuneralHome = (Organization)funeralHome.Resource;
             }
+
+            // Grab Mortician -- Practicier with extension[role] = Mortician 
+            var mortician = Bundle.Entry.FirstOrDefault(entry => 
+                                                            (entry.Resource is Practitioner) && 
+                                                            (((Practitioner)entry.Resource).Extension != null) && 
+                                                            ((Practitioner)entry.Resource).Extension.FirstOrDefault(ext => 
+                                                                                (ext.Url == VRDR.ExtensionURL.PractitionerRole && 
+                                                                                ext.Value is Code code && code.Value == "Mortician")) != null );
+            if (mortician != null)
+            {
+                Mortician = (Practitioner) mortician.Resource;
+            }
+
+
             // Grab Coding Status
             var parameterEntry = Bundle.Entry.FirstOrDefault(entry => entry.Resource is Parameters);
             if (parameterEntry != null)
