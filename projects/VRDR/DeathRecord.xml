@@ -223,6 +223,12 @@
         <member name="F:VRDR.DeathRecord.DispositionMethod">
             <summary>Disposition Method.</summary>
         </member>
+        <member name="F:VRDR.DeathRecord.Mortician">
+            <summary>Mortician.</summary>
+        </member>
+        <member name="M:VRDR.DeathRecord.CreateMortician">
+            <summary>Create Mortician.</summary>
+        </member>
         <member name="F:VRDR.DeathRecord.AutopsyPerformed">
             <summary>Autopsy Performed.</summary>
         </member>
@@ -2123,7 +2129,7 @@
             </example>
         </member>
         <member name="P:VRDR.DeathRecord.BirthRecordId">
-            <summary>Birth Record Identifier.</summary>
+            <summary>Birth Record Identifier. Decedent is infant child, link to birth certificate of decedent</summary>
             <value>a birth record identification string.</value>
             <example>
             <para>// Setter:</para>
@@ -2158,7 +2164,7 @@
         </member>
         <member name="P:VRDR.DeathRecord.BirthRecordChildId">
             <summary>Birth Record Identifier Child.</summary>
-            <value>a birth record child identification string.</value>
+            <value>a birth record child identification string. Decedent is mother, link is cert from recent delivery</value>
             <example>
             <para>// Setter:</para>
             <para>ExampleDeathRecord.BirthRecordChildId = "4242123";</para>
@@ -2192,7 +2198,7 @@
         </member>
         <member name="P:VRDR.DeathRecord.FetalDeathRecordId">
             <summary>Fetal Death Record Identifier.</summary>
-            <value>a fetal death record identification string.</value>
+            <value>a fetal death record identification string. Decedent is mother, link is cert from recent fetal death  </value>
             <example>
             <para>// Setter:</para>
             <para>ExampleDeathRecord.FetalDeathRecordId = "4242123";</para>
@@ -2306,6 +2312,82 @@
             <para>ExampleDeathRecord.MilitaryServiceHelper = "Y";</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Military Service: {ExampleDeathRecord.MilitaryServiceHelper}");</para>
+            </example>
+        </member>
+        <member name="P:VRDR.DeathRecord.MorticianGivenNames">
+            <summary>Given name(s) of mortician.</summary>
+            <value>the mortician's name (first, middle, etc.)</value>
+            <example>
+            <para>// Setter:</para>
+            <para>string[] names = { "FD", "Middle" };</para>
+            <para>ExampleDeathRecord.MorticianGivenNames = names;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mortician Given Name(s): {string.Join(", ", ExampleDeathRecord.MorticianGivenNames)}");</para>
+            </example>
+        </member>
+        <member name="P:VRDR.DeathRecord.MorticianFamilyName">
+            <summary>Family name of mortician.</summary>
+            <value>the mortician's family name (i.e. last name)</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleDeathRecord.MorticianFamilyName = "Last";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mortician's Last Name: {ExampleDeathRecord.MorticianFamilyName}");</para>
+            </example>
+        </member>
+        <member name="P:VRDR.DeathRecord.MorticianSuffix">
+            <summary>Mortician's Suffix.</summary>
+            <value>the mortician's suffix</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleDeathRecord.MorticianSuffix = "Jr.";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mortician Suffix: {ExampleDeathRecord.MorticianSuffix}");</para>
+            </example>
+        </member>
+        <member name="P:VRDR.DeathRecord.MorticianIdentifier">
+            <summary>Mortician Identifier.</summary>
+            <value>the mortician identification. A Dictionary representing a system (e.g. NPI) and a value, containing the following key/value pairs:
+            <para>"system" - the identifier system, e.g. US NPI</para>
+            <para>"value" - the idetifier value, e.g. US NPI number</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; identifier = new Dictionary&lt;string, string&gt;();</para>
+            <para>identifier.Add("system", "http://hl7.org/fhir/sid/us-npi");</para>
+            <para>identifier.Add("value", "1234567890");</para>
+            <para>ExampleDeathRecord.MorticianIdentifier = identifier;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"\tMortician Identifier: {ExampleDeathRecord.MorticianIdentifier['value']}");</para>
+            </example>
+        </member>
+        <member name="P:VRDR.DeathRecord.MorticianAddress">
+            <summary>Mortician's Address.</summary>
+            <value>the mortician's address. A Dictionary representing an address, containing the following key/value pairs:
+            <para>"addressLine1" - address, line one</para>
+            <para>"addressLine2" - address, line two</para>
+            <para>"addressCity" - address, city</para>
+            <para>"addressCounty" - address, county</para>
+            <para>"addressState" - address, state</para>
+            <para>"addressZip" - address, zip</para>
+            <para>"addressCountry" - address, country</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; address = new Dictionary&lt;string, string&gt;();</para>
+            <para>address.Add("addressLine1", "123 Test Street");</para>
+            <para>address.Add("addressLine2", "Unit 3");</para>
+            <para>address.Add("addressCity", "Boston");</para>
+            <para>address.Add("addressCounty", "Suffolk");</para>
+            <para>address.Add("addressState", "MA");</para>
+            <para>address.Add("addressZip", "12345");</para>
+            <para>address.Add("addressCountry", "US");</para>
+            <para>ExampleDeathRecord.MOrticianAddress = address;</para>
+            <para>// Getter:</para>
+            <para>foreach(var pair in ExampleDeathRecord.MorticianAddress)</para>
+            <para>{</para>
+            <para>  Console.WriteLine($"\tMorticianddress key: {pair.Key}: value: {pair.Value}");</para>
+            <para>};</para>
             </example>
         </member>
         <member name="P:VRDR.DeathRecord.FuneralHomeAddress">

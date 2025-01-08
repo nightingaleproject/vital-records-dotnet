@@ -595,6 +595,55 @@ namespace VRDR.Tests
         }
 
         [Fact]
+        public void Set_MorticianGivenNames()
+        {
+            string[] cnames = { "Doctor", "Middle" };
+            SetterDeathRecord.MorticianGivenNames = cnames;
+            Assert.Equal("Doctor", SetterDeathRecord.MorticianGivenNames[0]);
+            Assert.Equal("Middle", SetterDeathRecord.MorticianGivenNames[1]);
+        }
+
+        [Fact]
+        public void Set_MorticianFamilyName()
+        {
+            SetterDeathRecord.MorticianFamilyName = "Last";
+            Assert.Equal("Last", SetterDeathRecord.MorticianFamilyName);
+        }
+
+        [Fact]
+        public void Set_MorticianAddress()
+        {
+            Dictionary<string, string> caddress = new Dictionary<string, string>();
+            caddress.Add("addressLine1", "11 Example Street");
+            caddress.Add("addressLine2", "Line 2");
+            caddress.Add("addressCity", "Bedford");
+            caddress.Add("addressCounty", "Middlesex");
+            caddress.Add("addressState", "MA");
+            caddress.Add("addressZip", "01730");
+            caddress.Add("addressCountry", "US");
+            caddress.Add("addressPredir", "W");
+            caddress.Add("addressPostdir", "E");
+            caddress.Add("addressStname", "Example");
+            caddress.Add("addressStnum", "11");
+            caddress.Add("addressStdesig", "Street");
+            caddress.Add("addressUnitnum", "3");
+            SetterDeathRecord.MorticianAddress = caddress;
+            Assert.Equal("11 Example Street", SetterDeathRecord.MorticianAddress["addressLine1"]);
+            Assert.Equal("Line 2", SetterDeathRecord.MorticianAddress["addressLine2"]);
+            Assert.Equal("Bedford", SetterDeathRecord.MorticianAddress["addressCity"]);
+            Assert.Equal("Middlesex", SetterDeathRecord.MorticianAddress["addressCounty"]);
+            Assert.Equal("MA", SetterDeathRecord.MorticianAddress["addressState"]);
+            Assert.Equal("01730", SetterDeathRecord.MorticianAddress["addressZip"]);
+            Assert.Equal("US", SetterDeathRecord.MorticianAddress["addressCountry"]);
+            Assert.Equal("W", SetterDeathRecord.MorticianAddress["addressPredir"]);
+            Assert.Equal("E", SetterDeathRecord.MorticianAddress["addressPostdir"]);
+            Assert.Equal("Example", SetterDeathRecord.MorticianAddress["addressStname"]);
+            Assert.Equal("11", SetterDeathRecord.MorticianAddress["addressStnum"]);
+            Assert.Equal("Street", SetterDeathRecord.MorticianAddress["addressStdesig"]);
+            Assert.Equal("3", SetterDeathRecord.MorticianAddress["addressUnitnum"]);
+        }
+
+        [Fact]
         public void Set_CertifierGivenNames()
         {
             string[] cnames = { "Doctor", "Middle" };
@@ -623,7 +672,12 @@ namespace VRDR.Tests
             SetterDeathRecord.CertifierFamilyName = "Last";
             Assert.Equal("Last", SetterDeathRecord.CertifierFamilyName);
         }
-
+        [Fact]
+        public void Set_MorticianSuffix()
+        {
+            SetterDeathRecord.MorticianSuffix = "Jr.";
+            Assert.Equal("Jr.", SetterDeathRecord.MorticianSuffix);
+        }
         [Fact]
         public void Get_CertifierFamilyName()
         {
