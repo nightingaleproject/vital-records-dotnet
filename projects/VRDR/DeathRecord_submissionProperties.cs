@@ -843,7 +843,7 @@ namespace VRDR
         [Property("Certifier Identifier", Property.Types.Dictionary, "Death Certification", "Certifier Identifier.", true, ProfileURL.Certifier, false, 10)]
         [PropertyParam("system", "The identifier system.")]
         [PropertyParam("value", "The identifier value.")]
-
+        [FHIRPath("Bundle.entry.resource.where($this is Practitioner).where(extension.url='http://hl7.org/fhir/us/vrdr/StructureDefinition/practitioner-role').where(extension.valueCode='Certifier')", "identifier")]
         public Dictionary<string, string> CertifierIdentifier
         {
             get
@@ -4475,7 +4475,7 @@ namespace VRDR
         /// <para>Console.WriteLine($"Mortician Given Name(s): {string.Join(", ", ExampleDeathRecord.MorticianGivenNames)}");</para>
         /// </example>
         [Property("Mortician Given Names", Property.Types.StringArr, "Decedent Disposition", "Given name(s) of mortician.", true, "http://build.fhir.org/ig/HL7/vrdr/StructureDefinition-VRDR-Mortician.html", false, 96)]
-        [FHIRPath("Bundle.entry.resource.where($this is Practitioner).where(extension.url='http://hl7.org/fhir/us/vrdr/StructureDefinition/practitioner-role').where(extension.valueCode=Mortician')", "name")]
+        [FHIRPath("Bundle.entry.resource.where($this is Practitioner).where(extension.url='http://hl7.org/fhir/us/vrdr/StructureDefinition/practitioner-role').where(extension.valueCode='Mortician')", "name")]
 //        [FHIRPath("Bundle.entry.resource.where($this is Practitioner).where(meta.profile='http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner')", "name")]
         public string[] MorticianGivenNames
         {
