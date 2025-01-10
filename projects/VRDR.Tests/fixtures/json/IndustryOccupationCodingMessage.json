@@ -120,7 +120,14 @@
             "reference" : "Patient/Decedent-Example1"
           },
           "valueCodeableConcept" : {
-            "text" : "secretary"
+            "text" : "secretary",
+            "coding": [
+              {
+                "code": "13-2011",
+                "system": "urn:oid:2.16.840.1.114222.4.5.338",
+                "display": "Accountants and Auditors"
+              }
+            ]
           },
           "component" : [
             {
@@ -133,7 +140,14 @@
                 ]
               },
               "valueCodeableConcept" : {
-                "text" : "State agency"
+                "text" : "State agency",
+                "coding": [
+                  {
+                    "code": "54121",
+                    "system": "urn:oid:2.16.840.1.114222.4.5.337",
+                    "display": "Accounting, Tax Preparation, Bookkeeping, and Payroll Services"
+                  }
+                ]  
               }
             }
           ]
