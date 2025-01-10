@@ -1,30 +1,30 @@
 {
-  "resourceType" : "Bundle",
-  "id" : "DeathCertificateDocument-Example1",
-  "identifier" : {
-    "extension" : [
+  "resourceType": "Bundle",
+  "id": "DeathCertificateDocument-Example1",
+  "identifier": {
+    "extension": [
       {
-        "url" : "http://hl7.org/fhir/us/vrdr/StructureDefinition/CertificateNumber",
-        "valueString" : "000182"
+        "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/CertificateNumber",
+        "valueString": "000182"
       },
       {
-        "url" : "http://hl7.org/fhir/us/vrdr/StructureDefinition/AuxiliaryStateIdentifier1",
-        "valueString" : "000000000042"
+        "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/AuxiliaryStateIdentifier1",
+        "valueString": "000000000042"
       },
       {
-        "url" : "http://hl7.org/fhir/us/vrdr/StructureDefinition/AuxiliaryStateIdentifier2",
-        "valueString" : "100000000001"
+        "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/AuxiliaryStateIdentifier2",
+        "valueString": "100000000001"
       }
     ],
-    "value" : "2022YC000182"
+    "value": "2022YC000182"
   },
-  "meta" : {
-    "profile" : [
+  "meta": {
+    "profile": [
       "http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-death-certificate-document"
     ]
   },
-  "type" : "document",
-  "timestamp" : "2020-10-20T14:48:35.401641-04:00",
+  "type": "document",
+  "timestamp": "2020-10-20T14:48:35.401641-04:00",
   "entry": [
     {
       "fullUrl": "urn:uuid:590aa717-4e8d-413f-a62b-89ceb143539d",
@@ -36,34 +36,34 @@
             "http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-death-certificate"
           ]
         },
-        "extension" : [
+        "extension": [
           {
-            "url" : "http://hl7.org/fhir/us/vrdr/StructureDefinition/FilingFormat",
-            "valueCodeableConcept" : {
-              "coding" : [
+            "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/FilingFormat",
+            "valueCodeableConcept": {
+              "coding": [
                 {
-                  "code" : "electronic",
-                  "display" : "Electronic",
-                  "system" : "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-filing-format-cs"
+                  "code": "electronic",
+                  "display": "Electronic",
+                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-filing-format-cs"
                 }
               ]
             }
           },
           {
-            "url" : "http://hl7.org/fhir/us/vrdr/StructureDefinition/ReplaceStatus",
-            "valueCodeableConcept" : {
-              "coding" : [
+            "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/ReplaceStatus",
+            "valueCodeableConcept": {
+              "coding": [
                 {
-                  "code" : "original",
-                  "display" : "original record",
-                  "system" : "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-replace-status-cs"
+                  "code": "original",
+                  "display": "original record",
+                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-replace-status-cs"
                 }
               ]
             }
           },
           {
-            "url" : "http://hl7.org/fhir/us/vrdr/StructureDefinition/StateSpecificField",
-            "valueString" : "State Specific Content"
+            "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/StateSpecificField",
+            "valueString": "State Specific Content"
           }
         ],
         "status": "final",
@@ -117,11 +117,11 @@
         ],
         "section": [
           {
-            "code" : {
-              "coding" : [
+            "code": {
+              "coding": [
                 {
-                  "system" : "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-document-section-cs",
-                  "code" : "DecedentDemographics"
+                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-document-section-cs",
+                  "code": "DecedentDemographics"
                 }
               ]
             },
@@ -162,11 +162,11 @@
             ]
           },
           {
-            "code" : {
-              "coding" : [
+            "code": {
+              "coding": [
                 {
-                  "system" : "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-document-section-cs",
-                  "code" : "DeathInvestigation"
+                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-document-section-cs",
+                  "code": "DeathInvestigation"
                 }
               ]
             },
@@ -198,62 +198,62 @@
             ]
           },
           {
-            "code" : {
-              "coding" : [
+            "code": {
+              "coding": [
                 {
-                  "system" : "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-document-section-cs",
-                  "code" : "DeathCertification"
+                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-document-section-cs",
+                  "code": "DeathCertification"
                 }
               ]
             },
-            "entry" : [
+            "entry": [
               {
-                "reference" : "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
+                "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
               },
               {
-                "reference" : "urn:uuid:2d71d05b-7f52-4c13-bd19-68a251e3544d"
+                "reference": "urn:uuid:2d71d05b-7f52-4c13-bd19-68a251e3544d"
               },
               {
-                "reference" : "urn:uuid:64551ae3-51ac-48e6-8d8a-41fd3ad29916"
+                "reference": "urn:uuid:64551ae3-51ac-48e6-8d8a-41fd3ad29916"
               },
               {
-                "reference" : "urn:uuid:b66d97ea-56b1-4397-8de3-fb989007485b"
+                "reference": "urn:uuid:b66d97ea-56b1-4397-8de3-fb989007485b"
               },
               {
-                "reference" : "urn:uuid:8b7a9ca6-1276-402f-a521-35155234af14"
+                "reference": "urn:uuid:8b7a9ca6-1276-402f-a521-35155234af14"
               },
               {
-                "reference" : "urn:uuid:bbae6f36-26c2-4b20-b9d3-735d9c9f6c2f"
+                "reference": "urn:uuid:bbae6f36-26c2-4b20-b9d3-735d9c9f6c2f"
               },
               {
-                "reference" : "urn:uuid:223eaadb-5909-458c-bbe5-604c120c3ce9"
+                "reference": "urn:uuid:223eaadb-5909-458c-bbe5-604c120c3ce9"
               },
               {
-                "reference" : "urn:uuid:fc27b07f-99c9-48f8-a229-6eb5d8b598f0"
+                "reference": "urn:uuid:fc27b07f-99c9-48f8-a229-6eb5d8b598f0"
               }
             ]
           },
           {
-            "code" : {
-              "coding" : [
+            "code": {
+              "coding": [
                 {
-                  "system" : "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-document-section-cs",
-                  "code" : "DecedentDisposition"
+                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-document-section-cs",
+                  "code": "DecedentDisposition"
                 }
               ]
             },
-            "entry" : [
+            "entry": [
               {
-                "reference" : "urn:uuid:fe696fc7-7683-4268-92d8-b3a7c88b1587"
+                "reference": "urn:uuid:fe696fc7-7683-4268-92d8-b3a7c88b1587"
               },
               {
-                "reference" : "urn:uuid:cffcc6e0-7324-4898-b876-9107d275eafa"
+                "reference": "urn:uuid:cffcc6e0-7324-4898-b876-9107d275eafa"
               },
               {
-                "reference" : "urn:uuid:fc9de024-0fae-4bda-bfbb-04c08c083a43"
+                "reference": "urn:uuid:fc9de024-0fae-4bda-bfbb-04c08c083a43"
               },
               {
-                "reference" : "urn:uuid:84452aa0-fc31-4f4c-848f-b8f1e5bba1c0"
+                "reference": "urn:uuid:84452aa0-fc31-4f4c-848f-b8f1e5bba1c0"
               }
             ]
           }
@@ -263,63 +263,63 @@
     {
       "fullUrl": "urn:uuid:949354d3-9dcf-4c96-8ec4-6be27dd4c65f",
       "resource": {
-        "resourceType" : "Patient",
-        "id" : "Decedent-Example1",
-        "meta" : {
-          "profile" : [
+        "resourceType": "Patient",
+        "id": "Decedent-Example1",
+        "meta": {
+          "profile": [
             "http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-decedent"
           ]
         },
-        "extension" : [
+        "extension": [
           {
-            "url" : "http://hl7.org/fhir/us/vrdr/StructureDefinition/SpouseAlive",
-            "valueCodeableConcept" : {
-              "coding" : [
+            "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/SpouseAlive",
+            "valueCodeableConcept": {
+              "coding": [
                 {
-                  "system" : "http://terminology.hl7.org/CodeSystem/v2-0136",
-                  "code" : "Y",
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                  "code": "Y",
                   "display": "Yes"
                 }
               ]
             }
           },
           {
-            "url" : "http://hl7.org/fhir/us/vrdr/StructureDefinition/NVSS-SexAtDeath",
-            "valueCodeableConcept" : {
-              "coding" : [
+            "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/NVSS-SexAtDeath",
+            "valueCodeableConcept": {
+              "coding": [
                 {
-                  "system" : "http://hl7.org/fhir/administrative-gender",
-                  "code" : "unknown",
-                  "display" : "Unknown"
+                  "system": "http://hl7.org/fhir/administrative-gender",
+                  "code": "unknown",
+                  "display": "Unknown"
                 }
               ]
             }
           },
           {
-            "url" : "http://hl7.org/fhir/StructureDefinition/patient-birthPlace",
-            "valueAddress" : {
-              "city" : "Roanoke",
-              "state" : "VA",
-              "country" : "US"
+            "url": "http://hl7.org/fhir/StructureDefinition/patient-birthPlace",
+            "valueAddress": {
+              "city": "Roanoke",
+              "state": "VA",
+              "country": "US"
             }
           }
         ],
-        "identifier" : [
+        "identifier": [
           {
-            "type" : {
-              "coding" : [
+            "type": {
+              "coding": [
                 {
-                  "system" : "http://terminology.hl7.org/CodeSystem/v2-0203",
-                  "code" : "SB",
-                  "display" : "Social Beneficiary Identifier"
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "SB",
+                  "display": "Social Beneficiary Identifier"
                 }
               ]
             },
-            "system" : "http://hl7.org/fhir/sid/us-ssn",
-            "value" : "987654321"
+            "system": "http://hl7.org/fhir/sid/us-ssn",
+            "value": "987654321"
           }
         ],
-        "name" : [
+        "name": [
           {
             "use": "official",
             "family": "Pãtêl",
@@ -327,86 +327,88 @@
               "Mædęlyñ",
               "Middle"
             ],
-            "suffix" : ["Jr."]
+            "suffix": [
+              "Jr."
+            ]
           }
         ],
-        "gender" : "female",
+        "gender": "female",
         "birthDate": "1940-02-19",
-        "address" : [
+        "address": [
           {
-            "extension" : [
+            "extension": [
               {
-                "url" : "http://hl7.org/fhir/us/vrdr/StructureDefinition/WithinCityLimitsIndicator",
-                "valueCoding" : {
-                  "system" : "http://terminology.hl7.org/CodeSystem/v2-0136",
-                  "code" : "Y",
-                  "display" : "Yes"
+                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-within-city-limits-indicator-vr",
+                "valueCoding": {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                  "code": "Y",
+                  "display": "Yes"
                 }
               },
               {
-                "url" : "http://hl7.org/fhir/us/vrdr/StructureDefinition/StreetName",
-                "valueString" : "Lockwood"
+                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/StreetName",
+                "valueString": "Lockwood"
               }
             ],
-            "line" : [
+            "line": [
               "5590 Lockwood Drive"
             ],
-            "city" : "Danville",
-            "_city" : {
-              "extension" : [
+            "city": "Danville",
+            "_city": {
+              "extension": [
                 {
-                  "url" : "http://hl7.org/fhir/us/vrdr/StructureDefinition/CityCode",
-                  "valuePositiveInt" : 1234
+                  "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/CityCode",
+                  "valuePositiveInt": 1234
                 }
               ]
             },
-            "district" : "Fairfax",
-            "_district" : {
-              "extension" : [
+            "district": "Fairfax",
+            "_district": {
+              "extension": [
                 {
-                  "url" : "http://hl7.org/fhir/us/vrdr/StructureDefinition/DistrictCode",
-                  "valuePositiveInt" : 321
+                  "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/DistrictCode",
+                  "valuePositiveInt": 321
                 }
               ]
             },
-            "state" : "VA",
-            "postalCode" : "01730",
-            "country" : "US"
+            "state": "VA",
+            "postalCode": "01730",
+            "country": "US"
           }
         ],
-        "maritalStatus" : {
-          "extension" : [
+        "maritalStatus": {
+          "extension": [
             {
-              "url" : "http://hl7.org/fhir/us/vrdr/StructureDefinition/BypassEditFlag",
-              "valueCodeableConcept" : {
-                "coding" : [
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
+              "valueCodeableConcept": {
+                "coding": [
                   {
-                    "system" : "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-bypass-edit-flag-cs",
-                    "code" : "0",
+                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
+                    "code": "0",
                     "display": "Edit Passed"
                   }
                 ]
               }
             }
           ],
-          "coding" : [
+          "coding": [
             {
-              "system" : "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus",
-              "code" : "S",
-              "display" : "Never Married"
+              "system": "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus",
+              "code": "S",
+              "display": "Never Married"
             }
           ],
-          "text":"Single"
+          "text": "Single"
         },
-        "contact" : [
+        "contact": [
           {
-            "relationship" : [
+            "relationship": [
               {
-                "text" : "Friend of family"
+                "text": "Friend of family"
               }
             ],
-            "name" : {
-              "text" : "Joe Smith"
+            "name": {
+              "text": "Joe Smith"
             }
           }
         ]
@@ -592,205 +594,205 @@
     {
       "fullUrl": "urn:uuid:17e6d6c8-deea-464b-a009-d077ceb30af1",
       "resource": {
-        "resourceType" : "Observation",
-        "id" : "InputRaceAndEthnicity-Example1",
-        "meta" : {
-          "profile" : [
-            "http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-input-race-and-ethnicity"
+        "resourceType": "Observation",
+        "id": "InputRaceAndEthnicity-Example1",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/input-race-and-ethnicity-vr"
           ]
         },
-        "status" : "final",
-        "code" : {
-          "coding" : [
+        "status": "final",
+        "code": {
+          "coding": [
             {
-              "code" : "inputraceandethnicity",
-              "display" : "Input Race and Ethnicity"
+              "code": "inputraceandethnicity",
+              "display": "Input Race and Ethnicity"
             }
           ]
         },
-        "subject" : {
-          "display" : "NCHS generated"
+        "subject": {
+          "display": "NCHS generated"
         },
-        "component" : [
+        "component": [
           {
-            "code" : {
-              "coding" : [
+            "code": {
+              "coding": [
                 {
-                  "code" : "White",
-                  "display" : "White"
+                  "code": "White",
+                  "display": "White"
                 }
               ]
             },
-            "valueBoolean" : true
+            "valueBoolean": true
           },
           {
-            "code" : {
-              "coding" : [
+            "code": {
+              "coding": [
                 {
-                  "code" : "BlackOrAfricanAmerican",
-                  "display" : "Black Or African American"
+                  "code": "BlackOrAfricanAmerican",
+                  "display": "Black Or African American"
                 }
               ]
             },
-            "valueBoolean" : false
+            "valueBoolean": false
           },
           {
-            "code" : {
-              "coding" : [
+            "code": {
+              "coding": [
                 {
-                  "code" : "AmericanIndianOrAlaskanNative",
-                  "display" : "AmericanIndianOrAlaskanNative"
+                  "code": "AmericanIndianOrAlaskanNative",
+                  "display": "AmericanIndianOrAlaskanNative"
                 }
               ]
             },
-            "valueBoolean" : false
+            "valueBoolean": false
           },
           {
-            "code" : {
-              "coding" : [
+            "code": {
+              "coding": [
                 {
-                  "code" : "AsianIndian",
-                  "display" : "Asian Indian"
+                  "code": "AsianIndian",
+                  "display": "Asian Indian"
                 }
               ]
             },
-            "valueBoolean" : false
+            "valueBoolean": false
           },
           {
-            "code" : {
-              "coding" : [
+            "code": {
+              "coding": [
                 {
-                  "code" : "Chinese",
-                  "display" : "Chinese"
+                  "code": "Chinese",
+                  "display": "Chinese"
                 }
               ]
             },
-            "valueBoolean" : false
+            "valueBoolean": false
           },
           {
-            "code" : {
-              "coding" : [
+            "code": {
+              "coding": [
                 {
-                  "code" : "Filipino",
-                  "display" : "Filipino"
+                  "code": "Filipino",
+                  "display": "Filipino"
                 }
               ]
             },
-            "valueBoolean" : false
+            "valueBoolean": false
           },
           {
-            "code" : {
-              "coding" : [
+            "code": {
+              "coding": [
                 {
-                  "code" : "Japanese",
-                  "display" : "Japanese"
+                  "code": "Japanese",
+                  "display": "Japanese"
                 }
               ]
             },
-            "valueBoolean" : false
+            "valueBoolean": false
           },
           {
-            "code" : {
-              "coding" : [
+            "code": {
+              "coding": [
                 {
-                  "code" : "Korean",
-                  "display" : "Korean"
+                  "code": "Korean",
+                  "display": "Korean"
                 }
               ]
             },
-            "valueBoolean" : false
+            "valueBoolean": false
           },
           {
-            "code" : {
-              "coding" : [
+            "code": {
+              "coding": [
                 {
-                  "code" : "Vietnamese",
-                  "display" : "Vietnamese"
+                  "code": "Vietnamese",
+                  "display": "Vietnamese"
                 }
               ]
             },
-            "valueBoolean" : false
+            "valueBoolean": false
           },
           {
-            "code" : {
-              "coding" : [
+            "code": {
+              "coding": [
                 {
-                  "code" : "OtherAsian",
-                  "display" : "Other Asian"
+                  "code": "OtherAsian",
+                  "display": "Other Asian"
                 }
               ]
             },
-            "valueBoolean" : false
+            "valueBoolean": false
           },
           {
-            "code" : {
-              "coding" : [
+            "code": {
+              "coding": [
                 {
-                  "code" : "NativeHawaiian",
-                  "display" : "Native Hawaiian"
+                  "code": "NativeHawaiian",
+                  "display": "Native Hawaiian"
                 }
               ]
             },
-            "valueBoolean" : false
+            "valueBoolean": false
           },
           {
-            "code" : {
-              "coding" : [
+            "code": {
+              "coding": [
                 {
-                  "code" : "GuamanianOrChamorro",
-                  "display" : "Guamanian Or Chamorro"
+                  "code": "GuamanianOrChamorro",
+                  "display": "Guamanian Or Chamorro"
                 }
               ]
             },
-            "valueBoolean" : false
+            "valueBoolean": false
           },
           {
-            "code" : {
-              "coding" : [
+            "code": {
+              "coding": [
                 {
-                  "code" : "Samoan",
-                  "display" : "Samoan"
+                  "code": "Samoan",
+                  "display": "Samoan"
                 }
               ]
             },
-            "valueBoolean" : false
+            "valueBoolean": false
           },
           {
-            "code" : {
-              "coding" : [
+            "code": {
+              "coding": [
                 {
-                  "code" : "OtherPacificIslander",
-                  "display" : "Other Pacific Islander"
+                  "code": "OtherPacificIslander",
+                  "display": "Other Pacific Islander"
                 }
               ]
             },
-            "valueBoolean" : false
+            "valueBoolean": false
           },
           {
-            "code" : {
-              "coding" : [
+            "code": {
+              "coding": [
                 {
-                  "code" : "OtherRace",
-                  "display" : "Other Race"
+                  "code": "OtherRace",
+                  "display": "Other Race"
                 }
               ]
             },
-            "valueBoolean" : false
+            "valueBoolean": false
           },
           {
-            "code" : {
-              "coding" : [
+            "code": {
+              "coding": [
                 {
-                  "code" : "HispanicMexican",
-                  "display" : "Hispanic Mexican"
+                  "code": "HispanicMexican",
+                  "display": "Hispanic Mexican"
                 }
               ]
             },
-            "valueCodeableConcept" : {
-              "coding" : [
+            "valueCodeableConcept": {
+              "coding": [
                 {
-                  "system" : "http://terminology.hl7.org/CodeSystem/v2-0136",
-                  "code" : "Y"
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                  "code": "Y"
                 }
               ]
             }
@@ -809,15 +811,17 @@
           ]
         },
         "active": true,
-        "type": [{
-          "coding": [
-            {
-              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-organization-type-cs",
-              "code": "funeralhome",
-              "display": "Funeral Home"
-            }
-          ]
-        }],
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-organization-type-cs",
+                "code": "funeralhome",
+                "display": "Funeral Home"
+              }
+            ]
+          }
+        ],
         "name": "Smith Funeral Home",
         "address": [
           {
@@ -868,15 +872,17 @@
             "http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-disposition-location"
           ]
         },
-        "type": [{
-          "coding": [
-            {
-              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-location-type-cs",
-              "code": "disposition",
-              "display": "disposition location"
-            }
-          ]
-        }],
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-location-type-cs",
+                "code": "disposition",
+                "display": "disposition location"
+              }
+            ]
+          }
+        ],
         "name": "Bedford Cemetery",
         "address": {
           "line": [
@@ -959,9 +965,11 @@
         "subject": {
           "reference": "urn:uuid:949354d3-9dcf-4c96-8ec4-6be27dd4c65f"
         },
-        "performer": [{
-          "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
-        }],
+        "performer": [
+          {
+            "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
+          }
+        ],
         "code": {
           "coding": [
             {
@@ -1005,9 +1013,11 @@
             }
           ]
         },
-        "performer": [{
-          "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
-        }],
+        "performer": [
+          {
+            "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
+          }
+        ],
         "component": [
           {
             "code": {
@@ -1024,7 +1034,6 @@
             }
           }
         ]
-
       }
     },
     {
@@ -1059,9 +1068,11 @@
             }
           ]
         },
-        "performer": [{
-          "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
-        }],
+        "performer": [
+          {
+            "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
+          }
+        ],
         "component": [
           {
             "code": {
@@ -1105,9 +1116,11 @@
             }
           ]
         },
-        "performer": [{
-          "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
-        }],
+        "performer": [
+          {
+            "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
+          }
+        ],
         "component": [
           {
             "code": {
@@ -1151,9 +1164,11 @@
             }
           ]
         },
-        "performer": [{
-          "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
-        }],
+        "performer": [
+          {
+            "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
+          }
+        ],
         "component": [
           {
             "code": {
@@ -1258,7 +1273,6 @@
               "Dr."
             ]
           }
-
         ]
       }
     },
@@ -1356,11 +1370,11 @@
           ],
           "extension": [
             {
-              "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/BypassEditFlag",
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
               "valueCodeableConcept": {
                 "coding": [
                   {
-                    "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-bypass-edit-flag-cs",
+                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
                     "code": "0",
                     "display": "Edit Passed"
                   }
@@ -1382,12 +1396,11 @@
           ]
         },
         "status": "final",
-        "code" : {
-          "coding" : [
+        "code": {
+          "coding": [
             {
-              "system" : "http://terminology.hl7.org/CodeSystem/v2-0203",
-              "code" : "BR",
-              "display" : "Birth registry number"
+              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs",
+              "code": "childbirthrecordidentifier"
             }
           ]
         },
@@ -1395,30 +1408,30 @@
           "reference": "urn:uuid:949354d3-9dcf-4c96-8ec4-6be27dd4c65f"
         },
         "valueString": "242123",
-        "component" : [
+        "component": [
           {
-            "code" : {
-              "coding" : [
+            "code": {
+              "coding": [
                 {
-                  "system" : "http://loinc.org",
-                  "code" : "21842-0",
-                  "display" : "Birthplace"
+                  "system": "http://loinc.org",
+                  "code": "21842-0",
+                  "display": "Birthplace"
                 }
               ]
             },
-            "valueString" : "MA"
+            "valueString": "MA"
           },
           {
-            "code" : {
-              "coding" : [
+            "code": {
+              "coding": [
                 {
-                  "system" : "http://loinc.org",
-                  "code" : "80904-6",
-                  "display" : "Birth year"
+                  "system": "http://loinc.org",
+                  "code": "80904-6",
+                  "display": "Birth year"
                 }
               ]
             },
-            "valueDateTime" : "1940"
+            "valueDateTime": "1940"
           }
         ]
       }
@@ -1665,18 +1678,18 @@
         "valueCodeableConcept": {
           "coding": [
             {
-              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-pregnancy-status-cs",
+              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/CodeSystem-death-pregnancy-status",
               "code": "1",
               "display": "Not pregnant within past year"
             }
           ],
           "extension": [
             {
-              "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/BypassEditFlag",
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
               "valueCodeableConcept": {
                 "coding": [
                   {
-                    "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-bypass-edit-flag-cs",
+                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
                     "code": "0",
                     "display": "Edit Passed"
                   }
@@ -1765,15 +1778,17 @@
             "http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-injury-location"
           ]
         },
-        "type": [{
-          "coding": [
-            {
-              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-location-type-cs",
-              "code": "injury",
-              "display": "injury location"
-            }
-          ]
-        }],
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-location-type-cs",
+                "code": "injury",
+                "display": "injury location"
+              }
+            ]
+          }
+        ],
         "name": "Example Injury Location Name",
         "description": "Example Injury Location Description",
         "address": {
@@ -1821,7 +1836,7 @@
             {
               "extension": [
                 {
-                  "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Year",
+                  "url": "year",
                   "_valueUnsignedInt": {
                     "extension": [
                       {
@@ -1832,7 +1847,7 @@
                   }
                 },
                 {
-                  "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Month",
+                  "url": "month",
                   "_valueUnsignedInt": {
                     "extension": [
                       {
@@ -1843,7 +1858,7 @@
                   }
                 },
                 {
-                  "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Day",
+                  "url": "day",
                   "_valueUnsignedInt": {
                     "extension": [
                       {
@@ -1854,7 +1869,7 @@
                   }
                 },
                 {
-                  "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Time",
+                  "url": "time",
                   "_valueTime": {
                     "extension": [
                       {
@@ -1865,7 +1880,7 @@
                   }
                 }
               ],
-              "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDateTime"
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-partial-date-time-vr"
             }
           ]
         },
@@ -1903,7 +1918,7 @@
             "valueCodeableConcept": {
               "text": "At home, in the kitchen"
             }
-	   },
+          },
           {
             "code": {
               "coding": [
@@ -1938,45 +1953,46 @@
             "http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-death-location"
           ]
         },
-        "type": [{
-          "coding": [
-            {
-              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-location-type-cs",
-              "code": "death",
-              "display": "death location"
-            }
-          ]
-        }],
-
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-location-type-cs",
+                "code": "death",
+                "display": "death location"
+              }
+            ]
+          }
+        ],
         "name": "Example Death Location Name",
         "description": "Example Death Location Description",
         "address": {
-        "extension": [
-              {
-              "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/PreDirectional",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/PreDirectional",
               "valueString": "W"
-              },
-              {
-              "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/PostDirectional",
+            },
+            {
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/PostDirectional",
               "valueString": "E"
-              },
-              {
-              "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/StreetNumber",
+            },
+            {
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/StreetNumber",
               "valueString": "671"
-              },
-              {
-              "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/StreetName",
+            },
+            {
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/StreetName",
               "valueString": "Example"
-              },
-              {
-              "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/StreetDesignator",
+            },
+            {
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/StreetDesignator",
               "valueString": "Street"
-              },
-              {
-              "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/UnitOrAptNumber",
+            },
+            {
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/UnitOrAptNumber",
               "valueString": "3"
-              }
-            ],
+            }
+          ],
           "line": [
             "671 Example Street",
             "Line 2"
@@ -1985,8 +2001,8 @@
           "_city": {
             "extension": [
               {
-              "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/CityCode",
-              "valueString": "12345"
+                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/CityCode",
+                "valueString": "12345"
               }
             ]
           },
@@ -1994,8 +2010,8 @@
           "_district": {
             "extension": [
               {
-              "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/DistrictCode",
-              "valueString": "123"
+                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/DistrictCode",
+                "valueString": "123"
               }
             ]
           },
@@ -2003,8 +2019,8 @@
           "_state": {
             "extension": [
               {
-              "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Location-Jurisdiction-Id",
-              "valueString": "YC"
+                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-jurisdiction-id-vr",
+                "valueString": "YC"
               }
             ]
           },
@@ -2056,7 +2072,7 @@
                       "valueCode": "temp-unknown"
                     }
                   ],
-                  "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Year"
+                  "url": "year"
                 },
                 {
                   "extension": [
@@ -2065,7 +2081,7 @@
                       "valueCode": "temp-unknown"
                     }
                   ],
-                  "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Month"
+                  "url": "month"
                 },
                 {
                   "extension": [
@@ -2074,10 +2090,10 @@
                       "valueCode": "temp-unknown"
                     }
                   ],
-                  "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Day"
+                  "url": "day"
                 },
                 {
-                  "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Time",
+                  "url": "time",
                   "_valueTime": {
                     "extension": [
                       {
@@ -2088,7 +2104,7 @@
                   }
                 }
               ],
-              "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDateTime"
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-partial-date-time-vr"
             }
           ]
         },
@@ -2115,11 +2131,11 @@
                 }
               ]
             },
-            "valueCodeableConcept" : {
-              "coding" : [
+            "valueCodeableConcept": {
+              "coding": [
                 {
-                  "system" : "http://snomed.info/sct",
-                  "code" : "440081000124100",
+                  "system": "http://snomed.info/sct",
+                  "code": "440081000124100",
                   "display": "Death in home"
                 }
               ]
@@ -2156,19 +2172,19 @@
             {
               "extension": [
                 {
-                  "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Year",
+                  "url": "year",
                   "valueUnsignedInt": 2017
                 },
                 {
-                  "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Month",
+                  "url": "month",
                   "valueUnsignedInt": 3
                 },
                 {
-                  "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Day",
+                  "url": "day",
                   "valueUnsignedInt": 18
                 }
               ],
-              "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDate"
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-partial-date-vr"
             }
           ]
         }
@@ -2181,117 +2197,117 @@
         "id": "c1ae4b09-e83a-4b7f-a5ca-5cf9692ff0c6",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-emerging-issues"
+            "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Observation-emerging-issues-vr"
           ]
         },
-        "status" : "final",
-        "code" : {
-          "coding" : [
+        "status": "final",
+        "code": {
+          "coding": [
             {
-              "code" : "emergingissues"
+              "code": "emergingissues"
             }
           ]
         },
-        "component" : [
+        "component": [
           {
-            "code" : {
-              "coding" : [
+            "code": {
+              "coding": [
                 {
-                  "code" : "EmergingIssue1_1"
+                  "code": "EmergingIssue1_1"
                 }
               ]
             },
-            "valueString" : "A"
+            "valueString": "A"
           },
           {
-            "code" : {
-              "coding" : [
+            "code": {
+              "coding": [
                 {
-                  "code" : "EmergingIssue1_2"
+                  "code": "EmergingIssue1_2"
                 }
               ]
             },
-            "valueString" : "B"
+            "valueString": "B"
           },
           {
-            "code" : {
-              "coding" : [
+            "code": {
+              "coding": [
                 {
-                  "code" : "EmergingIssue1_3"
+                  "code": "EmergingIssue1_3"
                 }
               ]
             },
-            "valueString" : "C"
+            "valueString": "C"
           },
           {
-            "code" : {
-              "coding" : [
+            "code": {
+              "coding": [
                 {
-                  "code" : "EmergingIssue1_4"
+                  "code": "EmergingIssue1_4"
                 }
               ]
             },
-            "valueString" : "D"
+            "valueString": "D"
           },
           {
-            "code" : {
-              "coding" : [
+            "code": {
+              "coding": [
                 {
-                  "code" : "EmergingIssue1_5"
+                  "code": "EmergingIssue1_5"
                 }
               ]
             },
-            "valueString" : "E"
+            "valueString": "E"
           },
           {
-            "code" : {
-              "coding" : [
+            "code": {
+              "coding": [
                 {
-                  "code" : "EmergingIssue1_6"
+                  "code": "EmergingIssue1_6"
                 }
               ]
             },
-            "valueString" : "F"
+            "valueString": "F"
           },
           {
-            "code" : {
-              "coding" : [
+            "code": {
+              "coding": [
                 {
-                  "code" : "EmergingIssue8_1"
+                  "code": "EmergingIssue8_1"
                 }
               ]
             },
-            "valueString" : "AAAAAAAA"
+            "valueString": "AAAAAAAA"
           },
           {
-            "code" : {
-              "coding" : [
+            "code": {
+              "coding": [
                 {
-                  "code" : "EmergingIssue8_2"
+                  "code": "EmergingIssue8_2"
                 }
               ]
             },
-            "valueString" : "BBBBBBBB"
+            "valueString": "BBBBBBBB"
           },
           {
-            "code" : {
-              "coding" : [
+            "code": {
+              "coding": [
                 {
-                  "code" : "EmergingIssue8_3"
+                  "code": "EmergingIssue8_3"
                 }
               ]
             },
-            "valueString" : "CCCCCCCC"
+            "valueString": "CCCCCCCC"
           },
           {
-            "code" : {
-              "coding" : [
+            "code": {
+              "coding": [
                 {
-                  "code" : "EmergingIssue20"
+                  "code": "EmergingIssue20"
                 }
               ]
             },
-            "valueString" : "AAAAAAAAAAAAAAAAAAAA"
+            "valueString": "AAAAAAAAAAAAAAAAAAAA"
           }
         ]
       }

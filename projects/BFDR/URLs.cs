@@ -327,307 +327,307 @@ namespace BFDR
     public static class IGURL
     {
         /// <summary>URL for BundleDocumentBirthReport</summary>
-        public const string BundleDocumentBirthReport = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Bundle-document-birth-report.html";
+        public const string BundleDocumentBirthReport = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Bundle-document-birth-report.html";
 
         /// <summary>URL for BundleDocumentCodedCauseOfFetalDeath</summary>
-        public const string BundleDocumentCodedCauseOfFetalDeath = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Bundle-document-coded-cause-of-fetal-death.html";
+        public const string BundleDocumentCodedCauseOfFetalDeath = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Bundle-document-coded-cause-of-fetal-death.html";
 
         /// <summary>URL for BundleDocumentCodedIndustryOccupation</summary>
-        public const string BundleDocumentCodedIndustryOccupation = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Bundle-document-coded-industry-occupation.html";
+        public const string BundleDocumentCodedIndustryOccupation = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Bundle-document-coded-industry-occupation.html";
 
         /// <summary>URL for BundleDocumentDemographicCodedContent</summary>
-        public const string BundleDocumentDemographicCodedContent = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Bundle-document-demographic-coded-content.html";
+        public const string BundleDocumentDemographicCodedContent = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Bundle-document-demographic-coded-content.html";
 
         /// <summary>URL for BundleDocumentFetalDeathReport</summary>
-        public const string BundleDocumentFetalDeathReport = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Bundle-document-fetal-death-report.html";
+        public const string BundleDocumentFetalDeathReport = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Bundle-document-fetal-death-report.html";
 
         /// <summary>URL for CompositionCodedCauseOfFetalDeath</summary>
-        public const string CompositionCodedCauseOfFetalDeath = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Composition-coded-cause-of-fetal-death.html";
+        public const string CompositionCodedCauseOfFetalDeath = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Composition-coded-cause-of-fetal-death.html";
 
         /// <summary>URL for CompositionCodedIndustryAndOccupation</summary>
-        public const string CompositionCodedIndustryAndOccupation = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Composition-coded-industry-and-occupation.html";
+        public const string CompositionCodedIndustryAndOccupation = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Composition-coded-industry-and-occupation.html";
 
         /// <summary>URL for CompositionCodedRaceAndEthnicity</summary>
-        public const string CompositionCodedRaceAndEthnicity = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Composition-coded-race-and-ethnicity.html";
+        public const string CompositionCodedRaceAndEthnicity = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Composition-coded-race-and-ethnicity.html";
 
         /// <summary>URL for CompositionJurisdictionFetalDeathReport</summary>
-        public const string CompositionJurisdictionFetalDeathReport = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Composition-jurisdiction-fetal-death-report.html";
+        public const string CompositionJurisdictionFetalDeathReport = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Composition-jurisdiction-fetal-death-report.html";
 
         /// <summary>URL for CompositionJurisdictionLiveBirthReport</summary>
-        public const string CompositionJurisdictionLiveBirthReport = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Composition-jurisdiction-live-birth-report.html";
+        public const string CompositionJurisdictionLiveBirthReport = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Composition-jurisdiction-live-birth-report.html";
 
         /// <summary>URL for CompositionProviderFetalDeathReport</summary>
-        public const string CompositionProviderFetalDeathReport = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Composition-provider-fetal-death-report.html";
+        public const string CompositionProviderFetalDeathReport = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Composition-provider-fetal-death-report.html";
 
         /// <summary>URL for CompositionProviderLiveBirthReport</summary>
-        public const string CompositionProviderLiveBirthReport = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Composition-provider-live-birth-report.html";
+        public const string CompositionProviderLiveBirthReport = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Composition-provider-live-birth-report.html";
 
         /// <summary>URL for ConditionChorioamnionitis</summary>
-        public const string ConditionChorioamnionitis = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Condition-chorioamnionitis.html";
+        public const string ConditionChorioamnionitis = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Condition-chorioamnionitis.html";
 
         /// <summary>URL for ConditionCongenitalAnomalyOfNewborn</summary>
-        public const string ConditionCongenitalAnomalyOfNewborn = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Condition-congenital-anomaly-of-newborn.html";
+        public const string ConditionCongenitalAnomalyOfNewborn = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Condition-congenital-anomaly-of-newborn.html";
 
         /// <summary>URL for ConditionEclampsiaHypertension</summary>
-        public const string ConditionEclampsiaHypertension = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Condition-eclampsia-hypertension.html";
+        public const string ConditionEclampsiaHypertension = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Condition-eclampsia-hypertension.html";
 
         /// <summary>URL for ConditionFetalDeathInitiatingCauseOrCondition</summary>
-        public const string ConditionFetalDeathInitiatingCauseOrCondition = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Condition-fetal-death-initiating-cause-or-condition.html";
+        public const string ConditionFetalDeathInitiatingCauseOrCondition = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Condition-fetal-death-initiating-cause-or-condition.html";
 
         /// <summary>URL for ConditionFetalDeathOtherCauseOrCondition</summary>
-        public const string ConditionFetalDeathOtherCauseOrCondition = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Condition-fetal-death-other-cause-or-condition.html";
+        public const string ConditionFetalDeathOtherCauseOrCondition = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Condition-fetal-death-other-cause-or-condition.html";
 
         /// <summary>URL for ConditionGestationalDiabetes</summary>
-        public const string ConditionGestationalDiabetes = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Condition-gestational-diabetes.html";
+        public const string ConditionGestationalDiabetes = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Condition-gestational-diabetes.html";
 
         /// <summary>URL for ConditionGestationalHypertension</summary>
-        public const string ConditionGestationalHypertension = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Condition-gestational-hypertension.html";
+        public const string ConditionGestationalHypertension = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Condition-gestational-hypertension.html";
 
         /// <summary>URL for ConditionInfectionPresentDuringPregnancy</summary>
-        public const string ConditionInfectionPresentDuringPregnancy = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Condition-infection-present-during-pregnancy.html";
+        public const string ConditionInfectionPresentDuringPregnancy = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Condition-infection-present-during-pregnancy.html";
 
         /// <summary>URL for ConditionPerinealLaceration</summary>
-        public const string ConditionPerinealLaceration = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Condition-perineal-laceration.html";
+        public const string ConditionPerinealLaceration = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Condition-perineal-laceration.html";
 
         /// <summary>URL for ConditionPrepregnancyDiabetes</summary>
-        public const string ConditionPrepregnancyDiabetes = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Condition-prepregnancy-diabetes.html";
+        public const string ConditionPrepregnancyDiabetes = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Condition-prepregnancy-diabetes.html";
 
         /// <summary>URL for ConditionPrepregnancyHypertension</summary>
-        public const string ConditionPrepregnancyHypertension = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Condition-prepregnancy-hypertension.html";
+        public const string ConditionPrepregnancyHypertension = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Condition-prepregnancy-hypertension.html";
 
         /// <summary>URL for ConditionRupturedUterus</summary>
-        public const string ConditionRupturedUterus = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Condition-ruptured-uterus.html";
+        public const string ConditionRupturedUterus = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Condition-ruptured-uterus.html";
 
         /// <summary>URL for ConditionSeizure</summary>
-        public const string ConditionSeizure = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Condition-seizure.html";
+        public const string ConditionSeizure = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Condition-seizure.html";
 
         /// <summary>URL for CoveragePrincipalPayerDelivery</summary>
-        public const string CoveragePrincipalPayerDelivery = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Coverage-principal-payer-delivery.html";
+        public const string CoveragePrincipalPayerDelivery = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Coverage-principal-payer-delivery.html";
 
         /// <summary>URL for EncounterBirth</summary>
-        public const string EncounterBirth = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Encounter-birth.html";
+        public const string EncounterBirth = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Encounter-birth.html";
 
         /// <summary>URL for EncounterMaternity</summary>
-        public const string EncounterMaternity = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Encounter-maternity.html";
+        public const string EncounterMaternity = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Encounter-maternity.html";
 
         /// <summary>URL for ExtensionEncounterMaternityReference</summary>
-        public const string ExtensionEncounterMaternityReference = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Extension-encounter-maternity-reference.html";
+        public const string ExtensionEncounterMaternityReference = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Extension-encounter-maternity-reference.html";
 
         /// <summary>URL for JurisdictionalFacilityIdentifier</summary>
-        public const string JurisdictionalFacilityIdentifier = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Extension-jurisdictional-facility-identifier.html";
+        public const string JurisdictionalFacilityIdentifier = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Extension-jurisdictional-facility-identifier.html";
 
         /// <summary>URL for ExtensionRole</summary>
-        public const string ExtensionRole = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Extension-role.html";
+        public const string ExtensionRole = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Extension-role.html";
 
         /// <summary>URL for LocationBFDR</summary>
-        public const string LocationBFDR = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Location-bfdr.html";
+        public const string LocationBFDR = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Location-bfdr.html";
 
         /// <summary>URL for ObservationAntibioticsAdministeredDuringLabor</summary>
-        public const string ObservationAntibioticsAdministeredDuringLabor = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-antibiotics-administered-during-labor.html";
+        public const string ObservationAntibioticsAdministeredDuringLabor = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-antibiotics-administered-during-labor.html";
 
         /// <summary>URL for ObservationApgarScore</summary>
-        public const string ObservationApgarScore = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-apgar-score.html";
+        public const string ObservationApgarScore = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-apgar-score.html";
 
         /// <summary>URL for ObservationAutopsyHistologicalExamResultsUsed</summary>
-        public const string ObservationAutopsyHistologicalExamResultsUsed = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-autopsy-histological-exam-results-used.html";
+        public const string ObservationAutopsyHistologicalExamResultsUsed = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-autopsy-histological-exam-results-used.html";
 
         /// <summary>URL for ObservationAutopsyPerformedIndicator</summary>
-        public const string ObservationAutopsyPerformedIndicator = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-autopsy-performed-indicator.html";
+        public const string ObservationAutopsyPerformedIndicator = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-autopsy-performed-indicator.html";
 
         /// <summary>URL for ObservationBirthPluralityOfPregnancy</summary>
-        public const string ObservationBirthPluralityOfPregnancy = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-birth-plurality-of-pregnancy.html";
+        public const string ObservationBirthPluralityOfPregnancy = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-birth-plurality-of-pregnancy.html";
 
         /// <summary>URL for ObservationBirthWeight</summary>
-        public const string ObservationBirthWeight = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-birth-weight.html";
+        public const string ObservationBirthWeight = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-birth-weight.html";
 
         /// <summary>URL for ObservationCigaretteSmokingBeforeDuringPregnancy</summary>
-        public const string ObservationCigaretteSmokingBeforeDuringPregnancy = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-cigarette-smoking-before-during-pregnancy.html";
+        public const string ObservationCigaretteSmokingBeforeDuringPregnancy = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-cigarette-smoking-before-during-pregnancy.html";
 
         /// <summary>URL for ObservationCodedInitiatingFetalDeathCauseOrCondition</summary>
-        public const string ObservationCodedInitiatingFetalDeathCauseOrCondition = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-coded-initiating-fetal-death-cause-or-condition.html";
+        public const string ObservationCodedInitiatingFetalDeathCauseOrCondition = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-coded-initiating-fetal-death-cause-or-condition.html";
 
         /// <summary>URL for ObservationCodedOtherFetalDeathCauseOrCondition</summary>
-        public const string ObservationCodedOtherFetalDeathCauseOrCondition = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-coded-other-fetal-death-cause-or-condition.html";
+        public const string ObservationCodedOtherFetalDeathCauseOrCondition = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-coded-other-fetal-death-cause-or-condition.html";
 
         /// <summary>URL for ObservationDateOfFirstPrenatalCareVisit</summary>
-        public const string ObservationDateOfFirstPrenatalCareVisit = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-date-of-first-prenatal-care-visit.html";
+        public const string ObservationDateOfFirstPrenatalCareVisit = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-date-of-first-prenatal-care-visit.html";
 
         /// <summary>URL for ObservationDateOfLastLiveBirth</summary>
-        public const string ObservationDateOfLastLiveBirth = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-date-of-last-live-birth.html";
+        public const string ObservationDateOfLastLiveBirth = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-date-of-last-live-birth.html";
 
         /// <summary>URL for ObservationDateOfLastOtherPregnancyOutcome</summary>
-        public const string ObservationDateOfLastOtherPregnancyOutcome = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-date-of-last-other-pregnancy-outcome.html";
+        public const string ObservationDateOfLastOtherPregnancyOutcome = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-date-of-last-other-pregnancy-outcome.html";
 
         /// <summary>URL for ObservationFetalDeathTimePoint</summary>
-        public const string ObservationFetalDeathTimePoint = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-fetal-death-time-point.html";
+        public const string ObservationFetalDeathTimePoint = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-fetal-death-time-point.html";
 
         /// <summary>URL for ObservationFetalPresentation</summary>
-        public const string ObservationFetalPresentation = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-fetal-presentation.html";
+        public const string ObservationFetalPresentation = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-fetal-presentation.html";
 
         /// <summary>URL for ObservationFetalRemainsDispositionMethod</summary>
-        public const string ObservationFetalRemainsDispositionMethod = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-fetal-remains-disposition-method.html";
+        public const string ObservationFetalRemainsDispositionMethod = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-fetal-remains-disposition-method.html";
 
         /// <summary>URL for ObservationGestationalAgeAtDelivery</summary>
-        public const string ObservationGestationalAgeAtDelivery = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-gestational-age-at-delivery.html";
+        public const string ObservationGestationalAgeAtDelivery = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-gestational-age-at-delivery.html";
 
         /// <summary>URL for ObservationHistologicalPlacentalExamPerformed</summary>
-        public const string ObservationHistologicalPlacentalExamPerformed = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-histological-placental-exam-performed.html";
+        public const string ObservationHistologicalPlacentalExamPerformed = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-histological-placental-exam-performed.html";
 
         /// <summary>URL for ObservationICUAdmission</summary>
-        public const string ObservationICUAdmission = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-icu-admission.html";
+        public const string ObservationICUAdmission = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-icu-admission.html";
 
         /// <summary>URL for ObservationInfantBreastfedAtDischarge</summary>
-        public const string ObservationInfantBreastfedAtDischarge = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-infant-breastfed-at-discharge.html";
+        public const string ObservationInfantBreastfedAtDischarge = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-infant-breastfed-at-discharge.html";
 
         /// <summary>URL for ObservationInfantLiving</summary>
-        public const string ObservationInfantLiving = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-infant-living.html";
+        public const string ObservationInfantLiving = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-infant-living.html";
 
         /// <summary>URL for ObservationLaborTrialAttempted</summary>
-        public const string ObservationLaborTrialAttempted = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-labor-trial-attempted.html";
+        public const string ObservationLaborTrialAttempted = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-labor-trial-attempted.html";
 
         /// <summary>URL for ObservationLastMenstrualPeriod</summary>
-        public const string ObservationLastMenstrualPeriod = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-last-menstrual-period.html";
+        public const string ObservationLastMenstrualPeriod = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-last-menstrual-period.html";
 
         /// <summary>URL for ObservationMotherDeliveryWeight</summary>
-        public const string ObservationMotherDeliveryWeight = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-mother-delivery-weight.html";
+        public const string ObservationMotherDeliveryWeight = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-mother-delivery-weight.html";
 
         /// <summary>URL for ObservationMotherHeight</summary>
-        public const string ObservationMotherHeight = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-mother-height.html";
+        public const string ObservationMotherHeight = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-mother-height.html";
 
         /// <summary>URL for ObservationMotherMarriedDuringPregnancy</summary>
-        public const string ObservationMotherMarriedDuringPregnancy = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-mother-married-during-pregnancy.html";
+        public const string ObservationMotherMarriedDuringPregnancy = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-mother-married-during-pregnancy.html";
 
         /// <summary>URL for ObservationMotherPrepregnancyWeight</summary>
-        public const string ObservationMotherPrepregnancyWeight = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-mother-prepregnancy-weight.html";
+        public const string ObservationMotherPrepregnancyWeight = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-mother-prepregnancy-weight.html";
 
         /// <summary>URL for ObservationMotherReceivedWICFood</summary>
-        public const string ObservationMotherReceivedWICFood = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-mother-received-wic-food.html";
+        public const string ObservationMotherReceivedWICFood = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-mother-received-wic-food.html";
 
         /// <summary>URL for ObservationNICUAdmission</summary>
-        public const string ObservationNICUAdmission = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-nicu-admission.html";
+        public const string ObservationNICUAdmission = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-nicu-admission.html";
 
         /// <summary>URL for ObservationNoneOfSpecifiedInfectionsPresentDuringPregnancy</summary>
-        public const string ObservationNoneOfSpecifiedInfectionsPresentDuringPregnancy = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-no-infections-present-during-pregnancy.html";
+        public const string ObservationNoneOfSpecifiedInfectionsPresentDuringPregnancy = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-no-infections-present-during-pregnancy.html";
 
         /// <summary>URL for ObservationNoneOfSpecifiedCongenitalAnomoliesOfTheNewborn</summary>
-        public const string ObservationNoneOfSpecifiedCongenitalAnomoliesOfTheNewborn = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-none-congenital-anomolies-of-the-newborn.html";
+        public const string ObservationNoneOfSpecifiedCongenitalAnomoliesOfTheNewborn = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-none-congenital-anomolies-of-the-newborn.html";
 
         /// <summary>URL for ObservationNoneOfSpecifiedAbnormalConditionsOfNewborn</summary>
-        public const string ObservationNoneOfSpecifiedAbnormalConditionsOfNewborn = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-none-of-specified-abnormal-conditions-of-newborn.html";
+        public const string ObservationNoneOfSpecifiedAbnormalConditionsOfNewborn = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-none-of-specified-abnormal-conditions-of-newborn.html";
 
         /// <summary>URL for ObservationNoneOfSpecifiedCharacteristicsOfLaborAndDelivery</summary>
-        public const string ObservationNoneOfSpecifiedCharacteristicsOfLaborAndDelivery = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-none-of-specified-characteristics-labor-delivery.html";
+        public const string ObservationNoneOfSpecifiedCharacteristicsOfLaborAndDelivery = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-none-of-specified-characteristics-labor-delivery.html";
 
         /// <summary>URL for ObservationNoneOfSpecifiedMaternalMorbidities</summary>
-        public const string ObservationNoneOfSpecifiedMaternalMorbidities = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-none-of-specified-maternal-morbidities.html";
+        public const string ObservationNoneOfSpecifiedMaternalMorbidities = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-none-of-specified-maternal-morbidities.html";
 
         /// <summary>URL for ObservationNoneOfSpecifiedObstetricProcedures</summary>
-        public const string ObservationNoneOfSpecifiedObstetricProcedures = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-none-of-specified-obstetric-procedures.html";
+        public const string ObservationNoneOfSpecifiedObstetricProcedures = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-none-of-specified-obstetric-procedures.html";
 
         /// <summary>URL for ObservationNoneOfSpecifiedPregnancyRiskFactors</summary>
-        public const string ObservationNoneOfSpecifiedPregnancyRiskFactors = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-none-of-specified-pregnancy-risk-factors.html";
+        public const string ObservationNoneOfSpecifiedPregnancyRiskFactors = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-none-of-specified-pregnancy-risk-factors.html";
 
         /// <summary>URL for ObservationNumberBirthsNowDead</summary>
-        public const string ObservationNumberBirthsNowDead = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-number-births-now-dead.html";
+        public const string ObservationNumberBirthsNowDead = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-number-births-now-dead.html";
 
         /// <summary>URL for ObservationNumberBirthsNowLiving</summary>
-        public const string ObservationNumberBirthsNowLiving = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-number-births-now-living.html";
+        public const string ObservationNumberBirthsNowLiving = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-number-births-now-living.html";
 
         /// <summary>URL for ObservationNumberFetalDeathsThisDelivery</summary>
-        public const string ObservationNumberFetalDeathsThisDelivery = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-number-fetal-deaths-this-delivery.html";
+        public const string ObservationNumberFetalDeathsThisDelivery = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-number-fetal-deaths-this-delivery.html";
 
         /// <summary>URL for ObservationNumberLiveBirthsThisDelivery</summary>
-        public const string ObservationNumberLiveBirthsThisDelivery = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-number-live-births-this-delivery.html";
+        public const string ObservationNumberLiveBirthsThisDelivery = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-number-live-births-this-delivery.html";
 
         /// <summary>URL for ObservationNumberOtherPregnancyOutcomes</summary>
-        public const string ObservationNumberOtherPregnancyOutcomes = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-number-other-pregnancy-outcomes.html";
+        public const string ObservationNumberOtherPregnancyOutcomes = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-number-other-pregnancy-outcomes.html";
 
         /// <summary>URL for ObservationNumberPrenatalVisits</summary>
-        public const string ObservationNumberPrenatalVisits = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-number-prenatal-visits.html";
+        public const string ObservationNumberPrenatalVisits = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-number-prenatal-visits.html";
 
         /// <summary>URL for ObservationNumberPreviousCesareans</summary>
-        public const string ObservationNumberPreviousCesareans = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-number-previous-cesareans.html";
+        public const string ObservationNumberPreviousCesareans = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-number-previous-cesareans.html";
 
         /// <summary>URL for ObservationPaternityAcknowledgementSigned</summary>
-        public const string ObservationPaternityAcknowledgementSigned = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-paternity-acknowledgement-signed.html";
+        public const string ObservationPaternityAcknowledgementSigned = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-paternity-acknowledgement-signed.html";
 
         /// <summary>URL for ObservationPlannedToDeliverAtHome</summary>
-        public const string ObservationPlannedToDeliverAtHome = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-planned-to-deliver-at-home.html";
+        public const string ObservationPlannedToDeliverAtHome = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-planned-to-deliver-at-home.html";
 
         /// <summary>URL for ObservationPresentJob</summary>
-        public const string ObservationPresentJob = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-present-job.html";
+        public const string ObservationPresentJob = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-present-job.html";
 
         /// <summary>URL for ObservationPreviousCesarean</summary>
-        public const string ObservationPreviousCesarean = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-previous-cesarean.html";
+        public const string ObservationPreviousCesarean = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-previous-cesarean.html";
 
         /// <summary>URL for ObservationPreviousPretermBirth</summary>
-        public const string ObservationPreviousPretermBirth = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-previous-preterm-birth.html";
+        public const string ObservationPreviousPretermBirth = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-previous-preterm-birth.html";
 
         /// <summary>URL for ObservationSSNRequestedForChild</summary>
-        public const string ObservationSSNRequestedForChild = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-ssn-requested-for-child.html";
+        public const string ObservationSSNRequestedForChild = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-ssn-requested-for-child.html";
 
         /// <summary>URL for ObservationSteroidsFetalLungMaturation</summary>
-        public const string ObservationSteroidsFetalLungMaturation = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-steroids-fetal-lung-maturation.html";
+        public const string ObservationSteroidsFetalLungMaturation = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-steroids-fetal-lung-maturation.html";
 
         /// <summary>URL for ObservationUnknownFinalRouteMethodDelivery</summary>
-        public const string ObservationUnknownFinalRouteMethodDelivery = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Observation-unknown-final-route-and-method-of-delivery.html";
+        public const string ObservationUnknownFinalRouteMethodDelivery = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-unknown-final-route-and-method-of-delivery.html";
 
         /// <summary>URL for PatientDecedentFetus</summary>
-        public const string PatientDecedentFetus = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Patient-decedent-fetus.html";
+        public const string PatientDecedentFetus = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Patient-decedent-fetus.html";
 
         /// <summary>URL for PractitionerBirthAttendant</summary>
-        public const string PractitionerBirthAttendant = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Practitioner-birth-attendant.html";
+        public const string PractitionerBirthAttendant = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Practitioner-birth-attendant.html";
 
         /// <summary>URL for PractitionerBirthCertifier</summary>
-        public const string PractitionerBirthCertifier = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Practitioner-birth-certifier.html";
+        public const string PractitionerBirthCertifier = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Practitioner-birth-certifier.html";
 
         /// <summary>URL for ProcedureAntibioticSuspectedNeonatalSepsis</summary>
-        public const string ProcedureAntibioticSuspectedNeonatalSepsis = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Procedure-antibiotic-suspected-neonatal-sepsis.html";
+        public const string ProcedureAntibioticSuspectedNeonatalSepsis = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Procedure-antibiotic-suspected-neonatal-sepsis.html";
 
         /// <summary>URL for ProcedureAssistedReproductiveTechnology</summary>
-        public const string ProcedureAssistedReproductiveTechnology = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Procedure-assisted-reproductive-technology.html";
+        public const string ProcedureAssistedReproductiveTechnology = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Procedure-assisted-reproductive-technology.html";
 
         /// <summary>URL for ProcedureAssistedVentilationFollowingDelivery</summary>
-        public const string ProcedureAssistedVentilationFollowingDelivery = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Procedure-assisted-ventilation-following-delivery.html";
+        public const string ProcedureAssistedVentilationFollowingDelivery = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Procedure-assisted-ventilation-following-delivery.html";
 
         /// <summary>URL for ProcedureAssistedVentilationMoreThanSixHours</summary>
-        public const string ProcedureAssistedVentilationMoreThanSixHours = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Procedure-assisted-ventilation-more-than-six-hours.html";
+        public const string ProcedureAssistedVentilationMoreThanSixHours = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Procedure-assisted-ventilation-more-than-six-hours.html";
 
         /// <summary>URL for ProcedureAugmentationOfLabor</summary>
-        public const string ProcedureAugmentationOfLabor = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Procedure-augmentation-of-labor.html";
+        public const string ProcedureAugmentationOfLabor = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Procedure-augmentation-of-labor.html";
 
         /// <summary>URL for ProcedureBloodTransfusion</summary>
-        public const string ProcedureBloodTransfusion = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Procedure-blood-transfusion.html";
+        public const string ProcedureBloodTransfusion = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Procedure-blood-transfusion.html";
 
         /// <summary>URL for ProcedureEpiduralOrSpinalAnesthesia</summary>
-        public const string ProcedureEpiduralOrSpinalAnesthesia = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Procedure-epidural-or-spinal-anesthesia.html";
+        public const string ProcedureEpiduralOrSpinalAnesthesia = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Procedure-epidural-or-spinal-anesthesia.html";
 
         /// <summary>URL for ProcedureFertilityEnhancingDrugTherapyArtificialInsemination</summary>
-        public const string ProcedureFertilityEnhancingDrugTherapyArtificialInsemination = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Procedure-fertility-enhancing-drug-therapy-artificial-insem.html";
+        public const string ProcedureFertilityEnhancingDrugTherapyArtificialInsemination = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Procedure-fertility-enhancing-drug-therapy-artificial-insem.html";
 
         /// <summary>URL for ProcedureFinalRouteMethodDelivery</summary>
-        public const string ProcedureFinalRouteMethodDelivery = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Procedure-final-route-method-delivery.html";
+        public const string ProcedureFinalRouteMethodDelivery = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Procedure-final-route-method-delivery.html";
 
         /// <summary>URL for ProcedureInductionOfLabor</summary>
-        public const string ProcedureInductionOfLabor = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Procedure-induction-of-labor.html";
+        public const string ProcedureInductionOfLabor = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Procedure-induction-of-labor.html";
 
         /// <summary>URL for ProcedureInfertilityTreatment</summary>
-        public const string ProcedureInfertilityTreatment = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Procedure-infertility-treatment.html";
+        public const string ProcedureInfertilityTreatment = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Procedure-infertility-treatment.html";
 
         /// <summary>URL for ProcedureObstetric</summary>
-        public const string ProcedureObstetric = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Procedure-obstetric.html";
+        public const string ProcedureObstetric = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Procedure-obstetric.html";
 
         /// <summary>URL for ProcedureSurfactantReplacementTherapy</summary>
-        public const string ProcedureSurfactantReplacementTherapy = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Procedure-surfactant-replacement-therapy.html";
+        public const string ProcedureSurfactantReplacementTherapy = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Procedure-surfactant-replacement-therapy.html";
 
         /// <summary>URL for ProcedureUnplannedHysterectomy</summary>
-        public const string ProcedureUnplannedHysterectomy = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-Procedure-unplanned-hysterectomy.html";
+        public const string ProcedureUnplannedHysterectomy = "https://hl7.org/fhir/us/bfdr/StructureDefinition-Procedure-unplanned-hysterectomy.html";
 
         /// <summary>URL for PractitionerRoleBirthAttendant</summary>
-        public const string PractitionerRoleBirthAttendant = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-practitioner-role-birth-attendant.html";
+        public const string PractitionerRoleBirthAttendant = "https://hl7.org/fhir/us/bfdr/StructureDefinition-practitioner-role-birth-attendant.html";
 
         /// <summary>URL for PractitionerRoleBirthCertifier</summary>
-        public const string PractitionerRoleBirthCertifier = "http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-practitioner-role-birth-certifier.html";
+        public const string PractitionerRoleBirthCertifier = "https://hl7.org/fhir/us/bfdr/StructureDefinition-practitioner-role-birth-certifier.html";
 
     }
 

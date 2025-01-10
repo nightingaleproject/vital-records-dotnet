@@ -37,7 +37,7 @@ end
 def structure_definition_url_to_ig_url(url)
   # Transform this: http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-decedent-education-level
   # Into this:      http://build.fhir.org/ig/HL7/vrdr/StructureDefinition-vrdr-decedent-education-level.html
-  url.gsub('http://hl7.org/fhir/us/bfdr/StructureDefinition/', 'http://build.fhir.org/ig/HL7/bfdr/StructureDefinition-') + '.html'
+  url.gsub('http://hl7.org/fhir/us/bfdr/StructureDefinition/', 'https://hl7.org/fhir/us/bfdr/StructureDefinition-') + '.html'
 end
 
 # Helper method to determine whether a definition is an Extension or a Profile
