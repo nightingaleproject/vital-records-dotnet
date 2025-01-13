@@ -30,8 +30,8 @@ namespace BFDR.Tests
         SetterFetalDeathRecord.DeliveryYear = 2020;
         // SetterFetalDeathRecord.CertificateNumber = "767676";
         // Assert.Equal("2020XX767676", SetterFetalDeathRecord.RecordIdentifier);
-        // Is the field name BirthLocationJurisdiction for Fetal Death?
-        SetterFetalDeathRecord.BirthLocationJurisdiction = "WY";
+        // Is the field name EventLocationJurisdiction for Fetal Death?
+        SetterFetalDeathRecord.EventLocationJurisdiction = "WY";
         SetterFetalDeathRecord.CertificateNumber = "898989";
         Assert.Equal("2020WY898989", SetterFetalDeathRecord.RecordIdentifier);
     }

@@ -631,14 +631,14 @@ namespace BFDR
         /// <value>the vital record jurisdiction identifier.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.BirthLocationJurisdiction = "MA";</para>
+        /// <para>ExampleBirthRecord.EventLocationJurisdiction = "MA";</para>
         /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Birth Location Jurisdiction: {ExampleBirthRecord.BirthLocationJurisdiction}");</para>
+        /// <para>Console.WriteLine($"Birth Location Jurisdiction: {ExampleBirthRecord.EventLocationJurisdiction}");</para>
         /// </example>
-        [Property("Birth Location Jurisdiction", Property.Types.String, "Birth Location", "Vital Records Jurisdiction of Birth Location (two character jurisdiction code, e.g. CA).", true, VR.IGURL.Child, false, 16)]
+        [Property("Event Location Jurisdiction", Property.Types.String, "Event Location", "Vital Records Jurisdiction of Event Location (two character jurisdiction code, e.g. CA).", true, VR.IGURL.Child, false, 16)]
         // TODO - Currently not sure where the birth location would be in the record via FHIRPath, it seems different in BFDR vs VRDR. Some of the property fields above also need updating. Is this not in PatientChildVitalRecords at all and I just can't find it? There seems to be no reference to a jurisdiction location in the IG table of contents.
         [FHIRPath("Bundle.entry.resource.where($this is Location).where(type.coding.code='birth')", "")]
-        public string BirthLocationJurisdiction
+        public string EventLocationJurisdiction
         {
             get
             {

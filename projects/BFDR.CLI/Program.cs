@@ -88,7 +88,7 @@ namespace BFDR.CLI
                 birthRecord.AttendantTitleHelper = "76231001";
                
 
-                birthRecord.BirthLocationJurisdiction = "MA";
+                birthRecord.EventLocationJurisdiction = "MA";
                 Dictionary<string, string> birthAddress = new Dictionary<string, string>();
                 birthAddress.Add("addressLine1", "123 Fake Street");
                 birthAddress.Add("addressCity", "Springfield");
@@ -181,7 +181,7 @@ namespace BFDR.CLI
                 fetaldeathRecord.AttendantTitleHelper = "76231001";
                
 
-                fetaldeathRecord.BirthLocationJurisdiction = "MA";
+                fetaldeathRecord.EventLocationJurisdiction = "MA";
                 Dictionary<string, string> birthAddress = new Dictionary<string, string>();
                 birthAddress.Add("addressLine1", "123 Fake Street");
                 birthAddress.Add("addressCity", "Springfield");

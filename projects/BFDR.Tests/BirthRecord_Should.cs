@@ -439,7 +439,7 @@ namespace BFDR.Tests
       // State of Birth
       Assert.Equal("UT", firstRecord.PlaceOfBirth["addressState"]);
       Assert.Equal(firstRecord.PlaceOfBirth["addressState"], secondRecord.PlaceOfBirth["addressState"]);
-      Assert.Equal("UT", firstRecord.BirthLocationJurisdiction); // TODO - Birth Location Jurisdiction still needs to be finalized.
+      Assert.Equal("UT", firstRecord.EventLocationJurisdiction); // TODO - Birth Location Jurisdiction still needs to be finalized.
       // Time of Birth
       Assert.Equal("13:00:00", firstRecord.BirthTime);
       Assert.Equal(firstRecord.BirthTime, secondRecord.BirthTime);
@@ -736,7 +736,7 @@ namespace BFDR.Tests
       IJEBirth ije = new(record);
 
       Assert.Equal("UT", record.PlaceOfBirth["addressState"]);
-      Assert.Equal("UT", record.BirthLocationJurisdiction); // TODO - Birth Location Jurisdiction still needs to be finalized.
+      Assert.Equal("UT", record.EventLocationJurisdiction); // TODO - Birth Location Jurisdiction still needs to be finalized.
       // County of Birth (Literal)
       Assert.Equal("Salt Lake", record.PlaceOfBirth["addressCounty"]);
       // City/town/place of birth (Literal)
@@ -976,7 +976,7 @@ namespace BFDR.Tests
       record.BirthYear = 2020;
       record.CertificateNumber = "767676";
       Assert.Equal("2020XX767676", record.RecordIdentifier);
-      record.BirthLocationJurisdiction = "WY";
+      record.EventLocationJurisdiction = "WY";
       record.CertificateNumber = "898989";
       Assert.Equal("2020WY898989", record.RecordIdentifier);
       // Infant Medical Record Number
@@ -1841,13 +1841,13 @@ namespace BFDR.Tests
     [Fact]
     public void BirthLocationPresent()
     {
-      Assert.Equal("MA", FakeBirthRecord.BirthLocationJurisdiction);
+      Assert.Equal("MA", FakeBirthRecord.EventLocationJurisdiction);
       Assert.Equal("123 Fake Street", FakeBirthRecord.PlaceOfBirth["addressLine1"]);
       Assert.Equal("MA", FakeBirthRecord.PlaceOfBirth["addressState"]);
       Assert.Equal("01101", FakeBirthRecord.PlaceOfBirth["addressZip"]);
       //set after parse
-      FakeBirthRecord.BirthLocationJurisdiction = "MN";
-      Assert.Equal("MN", FakeBirthRecord.BirthLocationJurisdiction);
+      FakeBirthRecord.EventLocationJurisdiction = "MN";
+      Assert.Equal("MN", FakeBirthRecord.EventLocationJurisdiction);
       FakeBirthRecord.PlaceOfBirth = new Dictionary<string, string>
       {
         ["addressState"] = "UT",
@@ -3357,7 +3357,7 @@ namespace BFDR.Tests
       Assert.Null(birthRecord.MotherSuffix);
       Assert.Null(birthRecord.FatherSuffix);
       Assert.Null(birthRecord.MotherMaidenSuffix);
-      Assert.Equal("UT", birthRecord.BirthLocationJurisdiction);
+      Assert.Equal("UT", birthRecord.EventLocationJurisdiction);
       tempDict = new();
       tempDict.Add("addressLine1", "");
       tempDict.Add("addressLine2", "");
@@ -3895,22 +3895,22 @@ namespace BFDR.Tests
       string zalbanaizIje = "2002TT0099990            1025M010101311568794535  1095199505150XXKU73000013AZUSY199506040YYX40NNNN                    NNNNNNNNNNNNNNY                                                                                                                                                                                    MIDDLE EASTERN                ARABIAN                                                                       60NNNN                    NNNNNNNNNNNNNNY                                                                                                                                                                                    MIDDLE EASTERN                ARABIAN                                                                       1N0604201812272018180503016501990N01000001201988888800000000220180418NNNNNN NN000NN NNNNNNNNNNNNNNYNNYYNN14NNNNNNN2277036009880202999999990NNNNNNNNNNNNNNNNNNNNYY        9999NXX                 20190102                                                 XYUGBNX                                           XMX                                               ZALBANAIZ                                                MARICOPA                 MESA                                              MOUNTAIN VISTA MEDICAL CENTER                     REEM                                              NASSER                                            ALHAMADI                                                                                                                                                     ALHAMADI                                                                                                                            999 N COLLEGE AVE5656                             85281    MARICOPA                    TEMPE                       ARIZONA                     UNITED STATES               OMAR                                              AHMED                                             ALBANAI                                                  8888888888888888882626                                                                                                                ZZKU                                                                                                                                                                                                                                                                                                      KUWAIT                                                  KUWAIT                                                                                                 888 N PRIEST AVE9999                              85429                                GLENDALE                    ARIZONA                     UNITED STATES               Y1             MANISHAAPUROHIT                                   1972721538                                                                                     1201183921     1200527124             20190102                                                  0XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ";
 
       BirthRecord romeroRawBr = new IJEBirth(romeroIje).ToRecord();
-      romeroRawBr.BirthLocationJurisdiction = "AZ";
+      romeroRawBr.EventLocationJurisdiction = "AZ";
       romeroRawBr.CertificateNumber = "8888";
       BirthRecord zalbanaizRawBr = new IJEBirth(zalbanaizIje).ToRecord();
-      zalbanaizRawBr.BirthLocationJurisdiction = "AZ";
+      zalbanaizRawBr.EventLocationJurisdiction = "AZ";
       zalbanaizRawBr.CertificateNumber = "8888";
       BirthRecord romeroConnectathonBr = Connectathon.YytrfCardenasRomero();
-      romeroConnectathonBr.BirthLocationJurisdiction = "AZ";
+      romeroConnectathonBr.EventLocationJurisdiction = "AZ";
       romeroConnectathonBr.CertificateNumber = "8888";
       BirthRecord zalbanaizConnectathonBr = Connectathon.XyugbnxZalbanaiz();
-      zalbanaizConnectathonBr.BirthLocationJurisdiction = "AZ";
+      zalbanaizConnectathonBr.EventLocationJurisdiction = "AZ";
       zalbanaizConnectathonBr.CertificateNumber = "8888";
       BirthRecord romeroImportedBr = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordR.json")));
-      romeroImportedBr.BirthLocationJurisdiction = "AZ";
+      romeroImportedBr.EventLocationJurisdiction = "AZ";
       romeroImportedBr.CertificateNumber = "8888";
       BirthRecord zalbanaizImportedBr = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordZ.json")));
-      zalbanaizImportedBr.BirthLocationJurisdiction = "AZ";
+      zalbanaizImportedBr.EventLocationJurisdiction = "AZ";
       zalbanaizImportedBr.CertificateNumber = "8888";
       Assert.Equal(JsonConvert.SerializeObject(romeroRawBr), JsonConvert.SerializeObject(romeroConnectathonBr));
       Assert.Equal(JsonConvert.SerializeObject(romeroRawBr), JsonConvert.SerializeObject(romeroImportedBr));

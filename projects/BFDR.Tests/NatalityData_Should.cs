@@ -30,7 +30,7 @@ namespace BFDR.Tests
       Assert.Equal("MA".PadRight(2), ijeImported.BSTATE);
       Assert.Equal(ijeImported.BSTATE, ijeConverted.BSTATE);
       Assert.Equal("MA", br.PlaceOfBirth["addressState"]);
-      Assert.Equal("MA", br.BirthLocationJurisdiction); // TODO - Birth Location Jurisdiction still needs to be finalized.
+      Assert.Equal("MA", br.EventLocationJurisdiction); // TODO - Birth Location Jurisdiction still needs to be finalized.
       // Time of Birth
       Assert.Equal("1230".PadRight(4), ijeImported.TB);
       Assert.Equal(ijeImported.TB, ijeConverted.TB);

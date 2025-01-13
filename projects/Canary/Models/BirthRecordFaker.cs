@@ -192,7 +192,7 @@ namespace canary.Models
                 record.FatherRace = new Tuple<string, string>[] { race1 };
                 record.MotherRace = new Tuple<string, string>[] { race2 };
             }
-            record.BirthLocationJurisdiction = state;
+            record.EventLocationJurisdiction = state;
             Dictionary<string, string> birthAddress = new Dictionary<string, string>();
             birthAddress.Add("addressLine1", $"{faker.Random.Number(999) + 1} Main Street");
             birthAddress.Add("addressCity", "Springfield");
