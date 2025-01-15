@@ -12,6 +12,7 @@
     <Authors>smacadam@mitre.org,rscalfani@mitre.org,pete@mitre.org</Authors>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <InvariantGlobalization>true</InvariantGlobalization>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Hl7.Fhir.R4" Version="4.3.0" />
