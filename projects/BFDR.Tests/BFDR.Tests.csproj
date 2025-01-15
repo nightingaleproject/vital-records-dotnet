@@ -4,6 +4,7 @@
     <RootNamespace>BFDR.Tests</RootNamespace>
     <IsPackable>false</IsPackable>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <InvariantGlobalization>true</InvariantGlobalization>
     <!-- <GenerateProgramFile>false</GenerateProgramFile> -->
   </PropertyGroup>
   <ItemGroup>
