@@ -198,17 +198,8 @@ namespace BFDR
         [IJEField(2, 5, 2, "State, U.S. Territory or Canadian Province of Place of Delivery - code", "DSTATE", 1)]
         public string DSTATE
         {
-            get
-            {
-                return Dictionary_Geo_Get("DSTATE", "PlaceOfBirth", "address", "state", true);
-            }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    Dictionary_Set("DSTATE", "PlaceOfBirth", "addressState", value);
-                }
-            }
+            get => LeftJustified_Get("DSTATE", "EventLocationJurisdiction");
+            set => LeftJustified_Set("DSTATE", "EventLocationJurisdiction", value);
         }
 
         /// <summary>Certificate Number</summary>

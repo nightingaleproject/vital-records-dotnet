@@ -283,34 +283,6 @@ namespace BFDR
             return year != null && month != null && day != null;
         }
 
-        /// <summary>Child's Date of Birth.</summary>
-        /// <value>the child's date of birth</value>
-        /// <example>
-        /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.DateOfBirth = "1940-02-19";</para>
-        /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Child Date of Birth: {ExampleBirthRecord.DateOfBirth}");</para>
-        /// </example>
-        [Property("Date Of Birth", Property.Types.String, "Child Demographics", "Child's Date of Birth.", true, VR.IGURL.Child, true, 14)]
-        [FHIRPath("Bundle.entry.resource.where($this is Patient).birthDate", "")]
-        public string DateOfBirth
-        {
-            get
-            {
-                if (this.Subject == null || this.Subject.BirthDateElement == null)
-                {
-                    return null;
-                }
-                return this.Subject.BirthDate;
-            }
-            set
-            {
-                string time = this.GetBirthTime();
-                this.Subject.BirthDateElement = ConvertToDate(value);
-                this.SetBirthTime(time);
-            }
-        }
-
         // TODO: waiting to figure out how to differentiate between Encounters in the record
         // /// <summary>Certified Year</summary>
         // /// <value>year of certification</value>
@@ -383,31 +355,31 @@ namespace BFDR
             {
                 Console.WriteLine($"Failed to set BirthSex: {ex}");
             }
-
-
         }
 
-        /// <summary>Child's Legal Name - Given. Middle name should be the last entry.</summary>
-        /// <value>the child's name (first, etc., middle)</value>
-        /// <example>
-        /// <para>// Setter:</para>
-        /// <para>string[] names = { "Example", "Something", "Middle" };</para>
-        /// <para>ExampleBirthRecord.ChildGivenNames = names;</para>
-        /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Child Given Name(s): {string.Join(", ", ExampleBirthRecord.ChildGivenNames)}");</para>
-        /// </example>
-        [Property("Child Given Names", Property.Types.StringArr, "Child Demographics", "Child’s First Name.", true, VR.IGURL.Child, true, 0)]
-        [FHIRPath("Bundle.entry.resource.where($this is Patient)", "name")]
-        public string[] ChildGivenNames
+
+        /// <summary>
+        /// Gets the date of delivery of the subject child or fetus.
+        /// </summary>
+        /// <returns>The date of delivery</returns>
+        protected string GetDateOfDelivery()
         {
-            get
+            if (this.Subject == null || this.Subject.BirthDateElement == null)
             {
-                return Subject?.Name?.Find(name => name.Use == HumanName.NameUse.Official)?.Given?.ToArray() ?? new string[0];
+                return null;
             }
-            set
-            {
-                updateGivenHumanName(value, Subject.Name);
-            }
+            return this.Subject.BirthDate;
+        }
+
+        /// <summary>
+        /// Sets the date of the delivery of the subject child or fetus.
+        /// </summary>
+        /// <param name="value"></param>
+        protected void SetDateOfDelivery(string value)
+        {
+            string time = this.GetBirthTime();
+            this.Subject.BirthDateElement = ConvertToDate(value);
+            this.SetBirthTime(time);
         }
 
         /// <summary>Mother's Legal Name - Given. Middle name should be the last entry.</summary>
@@ -476,29 +448,6 @@ namespace BFDR
             set
             {
                 updateGivenHumanName(value, Mother.Name, HumanName.NameUse.Maiden);
-            }
-        }
-
-        /// <summary>Child's Legal Name - Last.</summary>
-        /// <value>the child's last name</value>
-        /// <example>
-        /// <para>// Setter:</para>
-        /// <para>string lastName = "Quinn";</para>
-        /// <para>ExampleBirthRecord.ChildFamilyName = lastName;</para>
-        /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Child Family Name(s): {string.Join(", ", ExampleBirthRecord.ChildFamilyName)}");</para>
-        /// </example>
-        [Property("Child Family Name", Property.Types.String, "Child Demographics", "Child's Last Name.", true, VR.IGURL.Child, true, 0)]
-        [FHIRPath("Bundle.entry.resource.where($this is Patient)", "name")]
-        public string ChildFamilyName
-        {
-            get
-            {
-                return Subject?.Name?.Find(name => name.Use == HumanName.NameUse.Official)?.Family;
-            }
-            set
-            {
-                updateFamilyName(value, Subject.Name);
             }
         }
 
@@ -611,28 +560,6 @@ namespace BFDR
             }
         }
 
-        /// <summary>Child's Suffix.</summary>
-        /// <value>the child's suffix</value>
-        /// <example>
-        /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.ChildSuffix = "Jr.";</para>
-        /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Child Suffix: {ExampleBirthRecord.ChildSuffix}");</para>
-        /// </example>
-        [Property("ChildSuffix", Property.Types.String, "Child Demographics", "Child's Suffix.", true, VR.IGURL.Child, true, 6)]
-        [FHIRPath("Bundle.entry.resource.where($this is Patient)", "name")]
-        public string ChildSuffix
-        {
-            get
-            {
-                return Subject?.Name?.Find(name => name.Use == HumanName.NameUse.Official)?.Suffix.FirstOrDefault();
-            }
-            set
-            {
-                updateSuffix(value, Subject.Name);
-            }
-        }
-
         /// <summary>Mother's Suffix.</summary>
         /// <value>the mother's suffix</value>
         /// <example>
@@ -720,14 +647,14 @@ namespace BFDR
         /// <value>the vital record jurisdiction identifier.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleBirthRecord.BirthLocationJurisdiction = "MA";</para>
+        /// <para>ExampleBirthRecord.EventLocationJurisdiction = "MA";</para>
         /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Birth Location Jurisdiction: {ExampleBirthRecord.BirthLocationJurisdiction}");</para>
+        /// <para>Console.WriteLine($"Birth Location Jurisdiction: {ExampleBirthRecord.EventLocationJurisdiction}");</para>
         /// </example>
         [Property("Birth Location Jurisdiction", Property.Types.String, "Birth Location", "Vital Records Jurisdiction of Birth Location (two character jurisdiction code, e.g. CA).", true, VR.IGURL.Child, false, 16)]
         // TODO - Currently not sure where the birth location would be in the record via FHIRPath, it seems different in BFDR vs VRDR. Some of the property fields above also need updating. Is this not in PatientChildVitalRecords at all and I just can't find it? There seems to be no reference to a jurisdiction location in the IG table of contents.
         [FHIRPath("Bundle.entry.resource.where($this is Location).where(type.coding.code='birth')", "")]
-        public string BirthLocationJurisdiction
+        public string EventLocationJurisdiction
         {
             get
             {
@@ -6722,6 +6649,11 @@ namespace BFDR
             }
         }
 
+        /// <summary>
+        /// Gets the value of the observation matching the given code as a FhirQuanity.
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
         protected int? GetWeight(string code)
         {
             var entry = Bundle.Entry.Where(e => e.Resource is Observation obs && CodeableConceptToDict(obs.Code)["code"] == code).FirstOrDefault();
@@ -6733,6 +6665,15 @@ namespace BFDR
             return null;
         }
 
+        /// <summary>
+        /// Sets the vital-sign weight of the given subject id in an observation matching the given code.
+        /// </summary>
+        /// <param name="code"></param>
+        /// <param name="value"></param>
+        /// <param name="unit"></param>
+        /// <param name="section"></param>
+        /// <param name="subjectId"></param>
+        /// <returns></returns>
         protected Observation SetWeight(string code, int? value, string unit, string section, string subjectId)
         {
             var entry = Bundle.Entry.Where(e => e.Resource is Observation o && CodeableConceptToDict(o.Code)["code"] == code).FirstOrDefault();
@@ -9343,6 +9284,13 @@ namespace BFDR
             }
         }
 
+        /// <summary>
+        /// Gets the certification date element of the given encounter based on whether it's a day, month, or year element.
+        /// </summary>
+        /// <param name="encounter"></param>
+        /// <param name="dateUrl">The type of date element to extract</param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         protected int? GetCertifiedDateElement(Encounter encounter, string dateUrl)
         {
             if (encounter == null)
@@ -9371,6 +9319,12 @@ namespace BFDR
             return GetDateFragmentOrPartialDate(certifier.Period.StartElement, dateUrl);
         }
 
+        /// <summary>
+        /// Sets the certification date of the given encounter.
+        /// </summary>
+        /// <param name="encounter"></param>
+        /// <param name="dateUrl">The type of date format such as PartialDate or PartialDateTime</param>
+        /// <param name="value"></param>
         protected void SetCertifiedDateElement(Encounter encounter, string dateUrl, int? value)
         {
             if (value == null)
@@ -9424,11 +9378,22 @@ namespace BFDR
             // }
         }
 
+        /// <summary>
+        /// Gets the certification date from the given encounter.
+        /// </summary>
+        /// <param name="encounter"></param>
+        /// <returns></returns>
         protected string GetCertificationDate(Encounter encounter)
         {
             Encounter.ParticipantComponent certifier = encounter?.Participant?.FirstOrDefault(entry => ((Encounter.ParticipantComponent)entry).Type.Any(t => t.Coding.Any(c => c.Code == "87287-9")));
             return certifier?.Period?.Start;
         }
+
+        /// <summary>
+        /// Sets the certification date of the given encounter.
+        /// </summary>
+        /// <param name="encounter"></param>
+        /// <param name="value"></param>
         protected void SetCertificationDate(Encounter encounter, string value)
         {
             Encounter.ParticipantComponent certifier = encounter.Participant.FirstOrDefault(entry => ((Encounter.ParticipantComponent)entry).Type.Any(t => t.Coding.Any(c => c.Code == "87287-9")));

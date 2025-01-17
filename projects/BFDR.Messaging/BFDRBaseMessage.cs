@@ -76,7 +76,7 @@ namespace BFDR
             {
                 this.SetYear((uint)from.GetYear());
             }
-            this.JurisdictionId = from?.BirthLocationJurisdiction;
+            this.JurisdictionId = from?.EventLocationJurisdiction;
         }
 
         /////////////////////////////////////////////////////////////////////////////////
