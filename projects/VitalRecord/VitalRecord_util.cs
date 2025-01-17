@@ -1485,7 +1485,7 @@ namespace VR
         /// <summary>Convert a FHIR Coding to a "code" Dictionary</summary>
         /// <param name="coding">a FHIR Coding.</param>
         /// <returns>the corresponding Dictionary representation of the code.</returns>
-        protected Dictionary<string, string> CodingToDict(Coding coding)
+        public static Dictionary<string, string> CodingToDict(Coding coding)
         {
             Dictionary<string, string> dictionary = EmptyCodeDict();
             if (coding != null)
@@ -1509,7 +1509,7 @@ namespace VR
         /// <summary>Convert a FHIR CodableConcept to a "code" Dictionary</summary>
         /// <param name="codeableConcept">a FHIR CodeableConcept.</param>
         /// <returns>the corresponding Dictionary representation of the code.</returns>
-        protected Dictionary<string, string> CodeableConceptToDict(CodeableConcept codeableConcept)
+        public static Dictionary<string, string> CodeableConceptToDict(CodeableConcept codeableConcept)
         {
             if (codeableConcept != null && codeableConcept.Coding != null)
             {
@@ -1851,7 +1851,7 @@ namespace VR
 
         /// <summary>Returns an empty "code" Dictionary.</summary>
         /// <returns>an empty "code" Dictionary.</returns>
-        protected Dictionary<string, string> EmptyCodeDict()
+        public static Dictionary<string, string> EmptyCodeDict()
         {
             Dictionary<string, string> dictionary = new Dictionary<string, string>();
             dictionary.Add("code", "");
@@ -1862,7 +1862,7 @@ namespace VR
 
         /// <summary>Returns an empty "codeable" Dictionary.</summary>
         /// <returns>an empty "codeable" Dictionary.</returns>
-        protected Dictionary<string, string> EmptyCodeableDict()
+        public static Dictionary<string, string> EmptyCodeableDict()
         {
             Dictionary<string, string> dictionary = new Dictionary<string, string>();
             dictionary.Add("code", "");
