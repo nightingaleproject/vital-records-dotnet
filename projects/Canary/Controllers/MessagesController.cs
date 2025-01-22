@@ -74,7 +74,7 @@ namespace canary.Controllers
                     string extractedRecordString = ControllerMappers.createEmptyRecord[recordType]().ToJSON();
                     foreach (PropertyInfo property in message.GetType().GetProperties())
                     {
-                        if (property.PropertyType == typeof(VitalRecord))
+                        if (property.PropertyType.IsSubclassOf(typeof(VitalRecord)))
                         {
                             extractedRecordString = ((VitalRecord)property.GetValue(message)).ToJSON();
                         }
