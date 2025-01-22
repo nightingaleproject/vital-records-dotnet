@@ -890,20 +890,6 @@ namespace VR
             return null;
         }
 
-        protected static FhirDateTime ConvertDateToFhirDateTime(Date date)
-        {
-            FhirDateTime dt = ConvertToDateTime(date?.Value) ?? new FhirDateTime();
-            dt.Extension = date?.Extension;
-            return dt;
-        }
-
-        protected static Date ConvertFhirDateTimeToDate(FhirDateTime dateTime)
-        {
-            Date newDate = ConvertToDate(dateTime?.Value) ?? new Date();
-            newDate.Extension = dateTime?.Extension;
-            return newDate;
-        }
-
         /// <summary>Gets the specified date element based on the partialDateUrl from the given
         /// FhirDate, checking in the value and PartialDate extension, and assuming there
         /// is no time data to consider.</summary>
@@ -965,7 +951,7 @@ namespace VR
         }
 
         /// <summary>
-        /// Updates the Fhir Date with the given value and partial date url.
+        /// Updates a FhirDate's date element based on the specified URL.
         /// </summary>
         /// <param name="dateElement"></param>
         /// <param name="value"></param>
@@ -973,115 +959,249 @@ namespace VR
         /// <param name="useBirthTime"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        protected Date UpdateFhirDate(Date dateElement, int? value, string partialDateUrl, bool useBirthTime = false)
+        protected Date UpdateFhirDateElement(Date dateElement, int? value, string partialDateUrl, bool useBirthTime = false)
         {
             if (value == null)
             {
                 return null;
             }
-            ParseDateElements(dateElement.Value, out int? parsedYear, out int? parsedMonth, out int? parsedDay);
-            // Get the most valid date elements, giving priority to the parsed date elements. If the partial date is used, it will include any -1 values. If there is no valid date elemnts in either, it will be null.
-            Extension pdtExt = dateElement.GetExtension(PartialDateTimeUrl);
-            int? yearValue = parsedYear ?? GetPartialDate(pdtExt, VR.ExtensionURL.PartialDateTimeYearVR);
-            int? monthValue = parsedMonth ?? GetPartialDate(pdtExt, VR.ExtensionURL.PartialDateTimeMonthVR);
-            int? dayValue = parsedDay ?? GetPartialDate(pdtExt, VR.ExtensionURL.PartialDateTimeDayVR);
-            string pbt = useBirthTime ? GetTimeFragment(dateElement.GetExtension(ExtensionURL.PatientBirthTime)?.Value) : null;
-            string timeValue = pbt
-                    ?? ((Time)pdtExt?.GetExtension(ExtensionURL.PartialDateTimeTimeVR)?.Value)?.Value
-                    ?? GetPartialTime(dateElement.GetExtension(PartialDateTimeUrl));
+            ExtractBestDateElements(dateElement, out int? year, out int? month, out int? day, out string time);
             // Set whichever date element we're updating to the given value.
             switch(partialDateUrl)
             {
                 case VR.ExtensionURL.PartialDateTimeYearVR:
-                    yearValue = value;
+                    year = value;
                     break;
                 case VR.ExtensionURL.PartialDateTimeMonthVR:
-                    monthValue = value;
+                    month = value;
                     break;
                 case VR.ExtensionURL.PartialDateTimeDayVR:
-                    dayValue = value;
+                    day = value;
                     break;
                 default:
                     throw new Exception("Invalid partial date time URL");
             }
-
-            // If all the date elements are valid and known, build a complete FhirDateTime in the format yyyy-mm-dd. There should be no PDT extension.
-            if (yearValue != -1 && yearValue != null && monthValue != -1 && monthValue != null && dayValue != -1 && dayValue != null)
-            {
-                Date date = new Date((int)yearValue, (int)monthValue, (int)dayValue);
-                return AddTimeToDate(date, yearValue, monthValue, dayValue, timeValue, useBirthTime);
-            }
-
-            // If just the year and month date elements are valid and known, build a FhirDateTime in the format yyyy-mm.
-            if (yearValue != -1 && yearValue != null && monthValue != -1 && monthValue != null)
-            {
-                Date fdtYearMonth = new Date((int)yearValue, (int)monthValue);
-                fdtYearMonth.RemoveExtension(PartialDateTimeUrl);
-                if (dayValue == -1)
-                {
-                    fdtYearMonth = SetPartialDateExtensions(fdtYearMonth, yearValue, monthValue, dayValue);
-                }
-                return AddTimeToDate(fdtYearMonth, yearValue, monthValue, dayValue, timeValue, useBirthTime);
-            }
-
-            // If just the year date element is valid and known, build a FhirDateTime in the format yyyy.
-            if (yearValue != -1 && yearValue != null)
-            {
-                Date fdtYear = new Date((int)yearValue);
-                fdtYear.RemoveExtension(PartialDateTimeUrl);
-                if (dayValue == -1 || monthValue == -1 || (monthValue == null && dayValue > 0))
-                {
-                    fdtYear = SetPartialDateExtensions(fdtYear, yearValue, monthValue, dayValue);
-                }
-                return AddTimeToDate(fdtYear, yearValue, monthValue, dayValue, timeValue, useBirthTime);
-            }
-
-            // If the year is not valid or is unknown, build an empty FhirDateTime and store all date data in the partial date time extensions.
-            Date fdtYearUnknown = new Date();
-            fdtYearUnknown = SetPartialDateExtensions(fdtYearUnknown, yearValue, monthValue, dayValue);
-            return AddTimeToDate(fdtYearUnknown, yearValue, monthValue, dayValue, timeValue, useBirthTime);
+            return (Date)UpdateFhirDate(year, month, day, time, false, true);
         }
 
         /// <summary>
-        /// Updates the given date element with the given time data, moving elements to the partial date time extension as needed.
+        /// Updates a FhirDateTime's date element based on the specified URL.
         /// </summary>
         /// <param name="dateElement"></param>
-        /// <param name="yearValue"></param>
-        /// <param name="monthValue"></param>
-        /// <param name="dayValue"></param>
-        /// <param name="timeValue"></param>
+        /// <param name="value"></param>
+        /// <param name="partialDateUrl"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        protected FhirDateTime UpdateFhirDateTimeDateElement(FhirDateTime dateElement, int? value, string partialDateUrl)
+        {
+            if (value == null)
+            {
+                return null;
+            }
+            ExtractBestDateElements(dateElement, out int? year, out int? month, out int? day, out string time);
+            // Set whichever date element we're updating to the given value.
+            switch(partialDateUrl)
+            {
+                case VR.ExtensionURL.PartialDateTimeYearVR:
+                    year = value;
+                    break;
+                case VR.ExtensionURL.PartialDateTimeMonthVR:
+                    month = value;
+                    break;
+                case VR.ExtensionURL.PartialDateTimeDayVR:
+                    day = value;
+                    break;
+                default:
+                    throw new Exception("Invalid partial date time URL");
+            }
+            return (FhirDateTime)UpdateFhirDate(year, month, day, time, true);
+        }
+
+        /// <summary>
+        /// Updates a FhirDate's time element.
+        /// </summary>
+        /// <param name="dateElement"></param>
+        /// <param name="value"></param>
         /// <param name="useBirthTime"></param>
         /// <returns></returns>
-        protected Date AddTimeToDate(Date dateElement, int? yearValue, int? monthValue, int? dayValue, string timeValue, bool useBirthTime = false)
+        protected Date UpdateFhirDateTimeElement(Date dateElement, string value, bool useBirthTime = false)
         {
-            if (timeValue == "temp-unknown" || timeValue == "-1")
+            if (value == null)
             {
-                // Don't reset the dateElement.Value since it's assumed to have already been set correctly.
-                dateElement = SetPartialDateExtensions(dateElement, yearValue, monthValue, dayValue);
-                dateElement.RemoveExtension(VR.ExtensionURL.PatientBirthTime);
-                dateElement.GetExtension(PartialDateTimeUrl).RemoveExtension(VR.ExtensionURL.PartialDateTimeTimeVR);
-                Extension dataAbsentExtension = timeValue == "temp-unknown"
-                        ? BuildTempUnknownPartialDateTime(VR.ExtensionURL.PartialDateTimeTimeVR)
-                        : BuildUnknownPartialDateTime(VR.ExtensionURL.PartialDateTimeTimeVR);
-                dateElement.GetExtension(PartialDateTimeUrl).Extension.Add(dataAbsentExtension);
+                return null;
             }
-            else if (timeValue != null)
+            ExtractBestDateElements(dateElement, out int? year, out int? month, out int? day, out _);
+            return (Date)UpdateFhirDate(year, month, day, value, false, useBirthTime);
+        }
+
+        private void ExtractBestDateElements(PrimitiveType date, out int? year, out int? month, out int? day, out string time) {
+            // Get the most valid date elements, giving priority to the parsed date elements. If the partial date is used, it will include any -1 values. If there are no valid date elements in any of the possible places, it will be null.
+            ParseDateElements(((IValue<string>)date).Value, out int? parsedYear, out int? parsedMonth, out int? parsedDay);
+            Extension pdtExt = date.GetExtension(PartialDateTimeUrl);
+            year = parsedYear ?? GetPartialDate(pdtExt, VR.ExtensionURL.PartialDateTimeYearVR);
+            month = parsedMonth ?? GetPartialDate(pdtExt, VR.ExtensionURL.PartialDateTimeMonthVR);
+            day = parsedDay ?? GetPartialDate(pdtExt, VR.ExtensionURL.PartialDateTimeDayVR);
+            time = GetTimeFragment((FhirDateTime) date.GetExtension(ExtensionURL.PatientBirthTime)?.Value)
+                    ?? ((Time)pdtExt?.GetExtension(ExtensionURL.PartialDateTimeTimeVR)?.Value)?.Value
+                    ?? GetPartialTime(date.GetExtension(PartialDateTimeUrl));
+            if (time == "unknown")
             {
-                if (yearValue == -1 || monthValue == -1 || dayValue == -1 || yearValue == null || monthValue == null || dayValue == null || !useBirthTime)
+                time = "-1";
+            }
+            else if (time == "temp-unknown")
+            {
+                time = null;
+            }
+        }
+
+        /// <summary>
+        /// Creates either a FhirDate or FhirDateTime based on the useFhirDateTime flag using the given date element values. Builds and formats the date based on PartialDateTime rules.
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="month"></param>
+        /// <param name="day"></param>
+        /// <param name="time"></param>
+        /// <param name="useFhirDateTime">If true, creates a FhirDateTime, false creates a FhirDate.</param>
+        /// <param name="useBirthTime"></param>
+        /// <returns></returns>
+        private PrimitiveType UpdateFhirDate(int? year, int? month, int? day, string time, bool useFhirDateTime, bool useBirthTime = false)
+        {
+
+            // If all the date elements are valid and known, build a complete FhirDateTime in the format yyyy-mm-dd. There should be no PDT extension.
+            if (year != -1 && year != null && month != -1 && month != null && day != -1 && day != null && time != null && time != "-1")
+            {
+                Date date = new Date((int)year, (int)month, (int)day);
+                if (useFhirDateTime)
                 {
-                    dateElement.RemoveExtension(VR.ExtensionURL.PatientBirthTime);
-                    dateElement = SetPartialDateExtensions(dateElement, yearValue, monthValue, dayValue);
-                    dateElement.GetExtension(PartialDateTimeUrl).SetExtension(PartialDateTimeTimeUrl, new Time(timeValue));
+                    FhirDateTime fdt = new FhirDateTime(date.Value.ToString() + "T" + time);
+                    return fdt;
                 }
                 else
                 {
-                    dateElement.SetExtension(VR.ExtensionURL.PatientBirthTime, new FhirDateTime(new Date((int)yearValue, (int)monthValue, (int)dayValue).Value.ToString() + "T" + timeValue));
+                    if (useBirthTime)
+                    {
+                        date.SetExtension(VR.ExtensionURL.PatientBirthTime, new FhirDateTime(date.Value.ToString() + "T" + time));
+                    }
+                    return date;
                 }
             }
-            return dateElement;
+
+            // If all the date elements are valid and known, build a complete FhirDateTime in the format yyyy-mm-dd. There should be no PDT extension.
+            if (year != -1 && year != null && month != -1 && month != null && day != -1 && day != null)
+            {
+                Date date = new Date((int)year, (int)month, (int)day);
+                if (time == "-1")
+                {
+                    date = SetPartialDateExtensions(date, year, month, day, time);
+                }
+                if (useFhirDateTime)
+                {
+                    FhirDateTime fdt;
+                    if (time == "-1" || time == null)
+                    {
+                        fdt = new FhirDateTime(date.Value.ToString());
+                    }
+                    else
+                    {
+                        fdt = new FhirDateTime(date.Value.ToString() + "T" + time);
+                    }
+                    fdt.Extension = date.Extension;
+                    return fdt;
+                }
+                else
+                {
+                    if (time != "-1" && time != null)
+                    {
+                        // Only when we have a complete date and time should we set the patient birth time.
+                        // TODO: I kind of take issue with this. It has to be this way because FhirDateTime doesn't work with a partial date, but complete time. It seems to me like the patientBirthTime could be a Time instead of FhirDateTime? The layers of FhirDateTime OR Date OR PartialDateTime locations for date data for child birthdate is kind of a lot.
+                        date.SetExtension(VR.ExtensionURL.PatientBirthTime, new FhirDateTime(date.Value.ToString() + "T" + time));
+                    }
+                    return date;
+                }
+            }
+
+            // If just the year and month date elements are valid and known, build a FhirDateTime in the format yyyy-mm.
+            if (year != -1 && year != null && month != -1 && month != null)
+            {
+                Date date = new Date((int)year, (int)month);
+                if (day == -1 || time == "-1" || (day == null && time != null))
+                {
+                    date = SetPartialDateExtensions(date, year, month, day, time);
+                }
+                if (useFhirDateTime)
+                {
+                    FhirDateTime fdt;
+                    if (time == "-1" || time == null)
+                    {
+                        fdt = new FhirDateTime(date.Value.ToString());
+                    }
+                    else
+                    {
+                        fdt = new FhirDateTime(date.Value.ToString() + "T" + time);
+                    }
+                    fdt.Extension = date.Extension;
+                    return fdt;
+                }
+                else
+                {
+                    return date;
+                }
+            }
+
+            // If just the year date element is valid and known, build a FhirDateTime in the format yyyy.
+            if (year != -1 && year != null)
+            {
+                Date date = new Date((int)year);
+                if (day == -1 || month == -1 || time == "-1" || (month == null && (day > 0 || time != null)))
+                {
+                    date = SetPartialDateExtensions(date, year, month, day, time);
+                }
+                if (useFhirDateTime)
+                {
+                    FhirDateTime fdt;
+                    if (time == "-1" || time == null)
+                    {
+                        fdt = new FhirDateTime(date.Value.ToString());
+                    }
+                    else
+                    {
+                        fdt = new FhirDateTime(date.Value.ToString() + "T" + time);
+                    }
+                    fdt.Extension = date.Extension;
+                    return fdt;
+                }
+                else
+                {
+                    return date;
+                }
+            }
+
+            // If the year is not valid or is unknown, build an empty FhirDateTime and store all date data in the partial date time extensions.
+            {
+                Date date = new Date();
+                date = SetPartialDateExtensions(date, year, month, day, time);
+                if (useFhirDateTime)
+                {
+                    FhirDateTime fdt;
+                    if (time == "-1" || time == null)
+                    {
+                        fdt = new FhirDateTime(date.Value?.ToString());
+                    }
+                    else
+                    {
+                        fdt = new FhirDateTime(date.Value?.ToString() + "T" + time);
+                    }
+                    fdt.Extension = date.Extension;
+                    return fdt;
+                }
+                else
+                {
+                    return date;
+                }
+            }
         }
 
-        private Date SetPartialDateExtensions(Date dateElement, int? yearValue, int? monthValue, int? dayValue)
+        private Date SetPartialDateExtensions(Date dateElement, int? yearValue, int? monthValue, int? dayValue, string timeValue)
         {
             dateElement.SetExtension(PartialDateTimeUrl, new Extension());
             List<(int? val, string url)> dateElements = new List<(int? val, string url)>
@@ -1104,6 +1224,18 @@ namespace VR
                         dateElement.GetExtension(PartialDateTimeUrl).SetExtension(url, new Integer(val));
                         break;
                 }
+            }
+            if (timeValue == "-1")
+            {
+                dateElement.GetExtension(PartialDateTimeUrl).Extension.Add(BuildUnknownPartialDateTime(PartialDateTimeTimeUrl));
+            }
+            else if (timeValue == null)
+            {
+                dateElement.GetExtension(PartialDateTimeUrl).Extension.Add(BuildTempUnknownPartialDateTime(PartialDateTimeTimeUrl));
+            }
+            else
+            {
+                dateElement.GetExtension(PartialDateTimeUrl).SetExtension(PartialDateTimeTimeUrl, new Time(timeValue));
             }
             return dateElement;
         }
@@ -1384,7 +1516,7 @@ namespace VR
         /// <summary>Convert a FHIR Coding to a "code" Dictionary</summary>
         /// <param name="coding">a FHIR Coding.</param>
         /// <returns>the corresponding Dictionary representation of the code.</returns>
-        protected Dictionary<string, string> CodingToDict(Coding coding)
+        public static Dictionary<string, string> CodingToDict(Coding coding)
         {
             Dictionary<string, string> dictionary = EmptyCodeDict();
             if (coding != null)
@@ -1408,7 +1540,7 @@ namespace VR
         /// <summary>Convert a FHIR CodableConcept to a "code" Dictionary</summary>
         /// <param name="codeableConcept">a FHIR CodeableConcept.</param>
         /// <returns>the corresponding Dictionary representation of the code.</returns>
-        protected Dictionary<string, string> CodeableConceptToDict(CodeableConcept codeableConcept)
+        public static Dictionary<string, string> CodeableConceptToDict(CodeableConcept codeableConcept)
         {
             if (codeableConcept != null && codeableConcept.Coding != null)
             {
@@ -1750,7 +1882,7 @@ namespace VR
 
         /// <summary>Returns an empty "code" Dictionary.</summary>
         /// <returns>an empty "code" Dictionary.</returns>
-        protected Dictionary<string, string> EmptyCodeDict()
+        public static Dictionary<string, string> EmptyCodeDict()
         {
             Dictionary<string, string> dictionary = new Dictionary<string, string>();
             dictionary.Add("code", "");
@@ -1761,7 +1893,7 @@ namespace VR
 
         /// <summary>Returns an empty "codeable" Dictionary.</summary>
         /// <returns>an empty "codeable" Dictionary.</returns>
-        protected Dictionary<string, string> EmptyCodeableDict()
+        public static Dictionary<string, string> EmptyCodeableDict()
         {
             Dictionary<string, string> dictionary = new Dictionary<string, string>();
             dictionary.Add("code", "");
