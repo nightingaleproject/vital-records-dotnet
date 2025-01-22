@@ -52,6 +52,9 @@ jobs:
     defaults:
       run:
         working-directory: ./projects
+    strategy:
+      matrix:
+        dotnet-version: [6.0.100]
     permissions: write-all
     steps:
     - uses: actions/checkout@v4
