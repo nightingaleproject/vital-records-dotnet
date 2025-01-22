@@ -950,6 +950,15 @@ namespace VR
             SetPartialDate(dateElement.Extension.Find(ext => ext.Url == PartialDateTimeUrl), partUrl, value);
         }
 
+        /// <summary>
+        /// Updates a FhirDate's date element based on the specified URL.
+        /// </summary>
+        /// <param name="dateElement"></param>
+        /// <param name="value"></param>
+        /// <param name="partialDateUrl"></param>
+        /// <param name="useBirthTime"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         protected Date UpdateFhirDateElement(Date dateElement, int? value, string partialDateUrl, bool useBirthTime = false)
         {
             if (value == null)
@@ -975,6 +984,14 @@ namespace VR
             return (Date)UpdateFhirDate(year, month, day, time, false, true);
         }
 
+        /// <summary>
+        /// Updates a FhirDateTime's date element based on the specified URL.
+        /// </summary>
+        /// <param name="dateElement"></param>
+        /// <param name="value"></param>
+        /// <param name="partialDateUrl"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         protected FhirDateTime UpdateFhirDateTimeDateElement(FhirDateTime dateElement, int? value, string partialDateUrl)
         {
             if (value == null)
@@ -1000,6 +1017,13 @@ namespace VR
             return (FhirDateTime)UpdateFhirDate(year, month, day, time, true);
         }
 
+        /// <summary>
+        /// Updates a FhirDate's time element.
+        /// </summary>
+        /// <param name="dateElement"></param>
+        /// <param name="value"></param>
+        /// <param name="useBirthTime"></param>
+        /// <returns></returns>
         protected Date UpdateFhirDateTimeElement(Date dateElement, string value, bool useBirthTime = false)
         {
             if (value == null)
@@ -1007,7 +1031,7 @@ namespace VR
                 return null;
             }
             ExtractBestDateElements(dateElement, out int? year, out int? month, out int? day, out _);
-            return (Date)UpdateFhirDate(year, month, day, value, false, true);
+            return (Date)UpdateFhirDate(year, month, day, value, false, useBirthTime);
         }
 
         private void ExtractBestDateElements(PrimitiveType date, out int? year, out int? month, out int? day, out string time) {
@@ -1093,7 +1117,7 @@ namespace VR
             if (year != -1 && year != null && month != -1 && month != null)
             {
                 Date date = new Date((int)year, (int)month);
-                if (day == -1 || time == "-1" || (day == null && time != null) || useFhirDateTime)
+                if (day == -1 || time == "-1" || (day == null && time != null))
                 {
                     date = SetPartialDateExtensions(date, year, month, day, time);
                 }

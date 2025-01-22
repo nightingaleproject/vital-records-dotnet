@@ -1534,7 +1534,7 @@ namespace BFDR.Tests
       Assert.Equal("2023", ije.YLLB);
       Assert.Equal("  ", ije.MLLB);
 
-      // // 2023-12
+      // 2023-12
       br.DateOfLastLiveBirthYear = 2023;
       br.DateOfLastLiveBirthMonth = 12;
       observation = (Observation) br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
@@ -1547,46 +1547,63 @@ namespace BFDR.Tests
       Assert.Equal("2023-12", dateToUse.Value);
       Assert.Null(pdt);
       Assert.Equal("2023", ije.YLLB);
-      Assert.Equal("  ", ije.MLLB);
+      Assert.Equal("12", ije.MLLB);
 
-      // // 2023-12-23
-      // br.BirthYear = 2023;
-      // br.BirthMonth = 12;
-      // br.BirthDay = 23;
-      // fhirBirth = ((Patient) br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
-      // pdt = fhirBirth.GetExtension(pdtUrl);
-      // Assert.Equal(2023, br.BirthYear);
-      // Assert.Equal(12, br.BirthMonth);
-      // Assert.Equal(23, br.BirthDay);
-      // Assert.Equal("2023-12-23", br.DateOfBirth);
-      // Assert.Equal("2023-12-23", fhirBirth.Value);
-      // Assert.Null(br.BirthTime);
-      // Assert.Null(fhirBirth.GetExtension(VR.ExtensionURL.PatientBirthTime));
-      // Assert.Null(pdt);
-      // Assert.Equal("2023", ije.IDOB_YR);
-      // Assert.Equal("12", ije.IDOB_MO);
-      // Assert.Equal("23", ije.IDOB_DY);
-      // Assert.Equal("    ", ije.TB);
+      // NULL-12
+      br = new BirthRecord();
+      ije = new(br);
+      br.DateOfLastLiveBirthYear = null;
+      br.DateOfLastLiveBirthMonth = 12;
+      observation = (Observation) br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
+      dateToUse = ((FhirDateTime) observation.Value);
+      pdt = dateToUse.GetExtension(pdtUrl);
+      Assert.Null(br.DateOfLastLiveBirthYear);
+      Assert.Equal(12, br.DateOfLastLiveBirthMonth);
+      Assert.Null(br.DateOfLastLiveBirthDay);
+      Assert.Null(br.DateOfLastLiveBirth);
+      Assert.Null(dateToUse.Value);
+      Assert.Equal("temp-unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateTimeYearVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
+      Assert.Equal(12, ((Integer)pdt.GetExtension(VR.ExtensionURL.PartialDateTimeMonthVR).Value).Value);
+      Assert.Equal("temp-unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateTimeDayVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
+      Assert.Equal("temp-unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateTimeTimeVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
+      Assert.Equal("    ", ije.YLLB);
+      Assert.Equal("12", ije.MLLB);
 
-      // // 2023-12-23 T13:28:17-05:00
-      // br.BirthYear = 2023;
-      // br.BirthMonth = 12;
-      // br.BirthDay = 23;
-      // br.BirthTime = "13:28:17-5:00";
-      // fhirBirth = ((Patient) br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
-      // pdt = fhirBirth.GetExtension(pdtUrl);
-      // Assert.Equal(2023, br.BirthYear);
-      // Assert.Equal(12, br.BirthMonth);
-      // Assert.Equal(23, br.BirthDay);
-      // Assert.Equal("2023-12-23", br.DateOfBirth);
-      // Assert.Equal("2023-12-23", fhirBirth.Value);
-      // Assert.Equal("2023-12-23T13:28:17-5:00", ((FhirDateTime)fhirBirth.GetExtension(VR.ExtensionURL.PatientBirthTime).Value).Value);
-      // Assert.Equal("13:28:17", br.BirthTime);
-      // Assert.Null(pdt);
-      // Assert.Equal("2023", ije.IDOB_YR);
-      // Assert.Equal("12", ije.IDOB_MO);
-      // Assert.Equal("23", ije.IDOB_DY);
-      // Assert.Equal("1328", ije.TB);
+      // EXPLICIT_UNKOWN-12
+      br.DateOfLastLiveBirthYear = -1;
+      br.DateOfLastLiveBirthMonth = 12;
+      observation = (Observation) br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
+      dateToUse = ((FhirDateTime) observation.Value);
+      pdt = dateToUse.GetExtension(pdtUrl);
+      Assert.Equal(-1, br.DateOfLastLiveBirthYear);
+      Assert.Equal(12, br.DateOfLastLiveBirthMonth);
+      Assert.Null(br.DateOfLastLiveBirthDay);
+      Assert.Null(br.DateOfLastLiveBirth);
+      Assert.Null(dateToUse.Value);
+      Assert.Equal("unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateTimeYearVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
+      Assert.Equal(12, ((Integer)pdt.GetExtension(VR.ExtensionURL.PartialDateTimeMonthVR).Value).Value);
+      Assert.Equal("temp-unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateTimeDayVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
+      Assert.Equal("temp-unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateTimeTimeVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
+      Assert.Equal("9999", ije.YLLB);
+      Assert.Equal("12", ije.MLLB);
+
+      // EXPLICIT_UNKOWN-EXPLICIT_UNKNOWN
+      br.DateOfLastLiveBirthYear = -1;
+      br.DateOfLastLiveBirthMonth = -1;
+      observation = (Observation) br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
+      dateToUse = ((FhirDateTime) observation.Value);
+      pdt = dateToUse.GetExtension(pdtUrl);
+      Assert.Equal(-1, br.DateOfLastLiveBirthYear);
+      Assert.Equal(-1, br.DateOfLastLiveBirthMonth);
+      Assert.Null(br.DateOfLastLiveBirthDay);
+      Assert.Null(br.DateOfLastLiveBirth);
+      Assert.Null(dateToUse.Value);
+      Assert.Equal("unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateTimeYearVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
+      Assert.Equal("unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateTimeMonthVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
+      Assert.Equal("temp-unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateTimeDayVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
+      Assert.Equal("temp-unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateTimeTimeVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
+      Assert.Equal("9999", ije.YLLB);
+      Assert.Equal("99", ije.MLLB);
     }
 
     [Fact]
