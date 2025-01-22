@@ -41,7 +41,7 @@ namespace BFDR
 
             if (record != null && state != null)
             {
-                record.BirthLocationJurisdiction = state;
+                record.EventLocationJurisdiction = state;
             }
 
             if (record != null && year != null)
