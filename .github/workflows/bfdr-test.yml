@@ -34,19 +34,19 @@ jobs:
         dotnet-version: [6.0.100]
     permissions: write-all
     steps:
-      - uses: actions/checkout@v4
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: ${{ matrix.dotnet-version }}
-      - name: Install dependencies
-        run: dotnet restore bfdr-dotnet.sln
-      - name: Build
-        run: dotnet build bfdr-dotnet.sln --configuration Release --no-restore
-      - name: Test CLI commands
-        run: ./BFDR.Tests/run_tests.sh
-      - name: Test
-        run: dotnet test bfdr-dotnet.sln
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ matrix.dotnet-version }}
+    - name: Install dependencies
+      run: dotnet restore bfdr-dotnet.sln
+    - name: Build
+      run: dotnet build bfdr-dotnet.sln --configuration Release --no-restore
+    - name: Test CLI commands
+      run: ./BFDR.Tests/run_tests.sh
+    - name: Test
+      run: dotnet test bfdr-dotnet.sln
   coverage:
     runs-on: ubuntu-latest
     defaults:
