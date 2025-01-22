@@ -7028,10 +7028,47 @@
         <member name="M:VR.VitalRecord.CreateAndSetPartialDate(Hl7.Fhir.Model.FhirDateTime,System.String,System.Nullable{System.Int32})">
             <summary>Sets the given value to the given partial date extension and creates any necessary missing extensions.</summary>
         </member>
+        <member name="M:VR.VitalRecord.UpdateFhirDateElement(Hl7.Fhir.Model.Date,System.Nullable{System.Int32},System.String,System.Boolean)">
+            <summary>
+            Updates a FhirDate's date element based on the specified URL.
+            </summary>
+            <param name="dateElement"></param>
+            <param name="value"></param>
+            <param name="partialDateUrl"></param>
+            <param name="useBirthTime"></param>
+            <returns></returns>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:VR.VitalRecord.UpdateFhirDateTimeDateElement(Hl7.Fhir.Model.FhirDateTime,System.Nullable{System.Int32},System.String)">
+            <summary>
+            Updates a FhirDateTime's date element based on the specified URL.
+            </summary>
+            <param name="dateElement"></param>
+            <param name="value"></param>
+            <param name="partialDateUrl"></param>
+            <returns></returns>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:VR.VitalRecord.UpdateFhirDateTimeElement(Hl7.Fhir.Model.Date,System.String,System.Boolean)">
+            <summary>
+            Updates a FhirDate's time element.
+            </summary>
+            <param name="dateElement"></param>
+            <param name="value"></param>
+            <param name="useBirthTime"></param>
+            <returns></returns>
+        </member>
         <member name="M:VR.VitalRecord.UpdateFhirDate(System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Boolean,System.Boolean)">
             <summary>
-            Updates the Fhir Date with the given value and partial date url.
+            Creates either a FhirDate or FhirDateTime based on the useFhirDateTime flag using the given date element values. Builds and formats the date based on PartialDateTime rules.
             </summary>
+            <param name="year"></param>
+            <param name="month"></param>
+            <param name="day"></param>
+            <param name="time"></param>
+            <param name="useFhirDateTime">If true, creates a FhirDateTime, false creates a FhirDate.</param>
+            <param name="useBirthTime"></param>
+            <returns></returns>
         </member>
         <member name="P:VR.VitalRecord.PartialDateYearUrl">
             <summary>Overrideable method that dictates which Extension URL to use for PartialDateTime Year</summary>

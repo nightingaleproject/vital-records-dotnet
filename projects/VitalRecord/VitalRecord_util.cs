@@ -1055,8 +1055,15 @@ namespace VR
         }
 
         /// <summary>
-        /// Updates the Fhir Date with the given value and partial date url.
+        /// Creates either a FhirDate or FhirDateTime based on the useFhirDateTime flag using the given date element values. Builds and formats the date based on PartialDateTime rules.
         /// </summary>
+        /// <param name="year"></param>
+        /// <param name="month"></param>
+        /// <param name="day"></param>
+        /// <param name="time"></param>
+        /// <param name="useFhirDateTime">If true, creates a FhirDateTime, false creates a FhirDate.</param>
+        /// <param name="useBirthTime"></param>
+        /// <returns></returns>
         private PrimitiveType UpdateFhirDate(int? year, int? month, int? day, string time, bool useFhirDateTime, bool useBirthTime = false)
         {
 
