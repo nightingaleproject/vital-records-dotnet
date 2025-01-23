@@ -13,6 +13,7 @@ env:
 jobs:
   deploy-aca_dev:
       runs-on: ubuntu-latest
+      environment: production
       steps:
       - name: Azure login
         uses: azure/login@v2
