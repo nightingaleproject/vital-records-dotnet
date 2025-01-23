@@ -2,7 +2,7 @@ name: Publish package to GHCR and deploy
 
 on:
   push:
-    branches: [master]
+    branches: [main]
   workflow_dispatch:
     inputs:
       target_environment:
