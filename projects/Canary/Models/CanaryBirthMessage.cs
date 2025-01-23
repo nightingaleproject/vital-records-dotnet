@@ -62,7 +62,7 @@ namespace canary.Models
             return myPropInfo != null ? myPropInfo.Name : messageDescription.GetValueOrDefault(entry, "Unknown Property");
         }
 
-        public override Dictionary<string, Message> GetResponsesFor(String type)
+        public override Dictionary<string, Message> GetResponsesFor(string type)
         {
             Dictionary<string, Message> result = new Dictionary<string, Message>();
             // Create acknowledgement

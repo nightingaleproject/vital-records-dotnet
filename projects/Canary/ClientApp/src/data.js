@@ -69,7 +69,7 @@ export const messageTypesVRDR = {
   "http://nchs.cdc.gov/vrdr_extraction_error": "Extraction Error"
 }
 
-export const messageTypesBFDR = {
+export const messageTypesBirth = {
   "http://nchs.cdc.gov/birth_acknowledgement": "Acknowledgement",
   "http://nchs.cdc.gov/birth_demographics_coding": "Demographics Coding",
   "http://nchs.cdc.gov/birth_extraction_error": "Error",
@@ -79,6 +79,15 @@ export const messageTypesBFDR = {
   "http://nchs.cdc.gov/birth_submission_update": "Update"
 }
 
+export const messageTypesFetalDeath = {
+  "http://nchs.cdc.gov/fd_acknowledgement": "Acknowledgement",
+  "http://nchs.cdc.gov/fd_demographics_coding": "Demographics Coding",
+  "http://nchs.cdc.gov/fd_extraction_error": "Error",
+  "http://nchs.cdc.gov/fd_status": "Status",
+  "http://nchs.cdc.gov/fd_submission": "Submission",
+  "http://nchs.cdc.gov/fd_submission_void": "Void",
+  "http://nchs.cdc.gov/fd_submission_update": "Update"
+}
 
 export const messageTypeIconsVRDR = [
   { key: 'submission', name: 'Submission', icon: 'paper plane' },

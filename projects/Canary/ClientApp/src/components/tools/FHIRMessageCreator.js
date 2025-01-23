@@ -62,14 +62,6 @@ export class FHIRMessageCreator extends Component {
 
   render() {
 
-    if (this.props.recordType.toLowerCase() == 'bfdr-fetaldeath') {
-      return (
-        <h1>
-          BFDR Fetal Death does not yet support messaging.
-        </h1>
-      );
-    }
-
     const messageTypeIcons = this.props.recordType.toLowerCase() == 'vrdr' ? messageTypeIconsVRDR : messageTypeIconsBFDR;
 
     return (
