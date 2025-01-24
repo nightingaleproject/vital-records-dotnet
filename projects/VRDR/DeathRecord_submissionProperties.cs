@@ -4491,6 +4491,8 @@ namespace VRDR
             {
                 if(Mortician == null){
                     CreateMortician();
+                    AddReferenceToComposition(Mortician.Id, "DecedentDisposition");
+                    Bundle.AddResourceEntry(Mortician, "urn:uuid:" + Mortician.Id);
                 }
                 HumanName name = Mortician.Name.SingleOrDefault(n => n.Use == HumanName.NameUse.Official);
                 if (name != null)
@@ -4531,6 +4533,8 @@ namespace VRDR
             {
                 if(Mortician == null){
                     CreateMortician();
+                    AddReferenceToComposition(Mortician.Id, "DecedentDisposition");
+                    Bundle.AddResourceEntry(Mortician, "urn:uuid:" + Mortician.Id);
                 }
                 HumanName name = Mortician.Name.FirstOrDefault();
                 if (name != null && !String.IsNullOrEmpty(value))
@@ -4571,6 +4575,8 @@ namespace VRDR
             {
                 if(Mortician == null){
                     CreateMortician();
+                    AddReferenceToComposition(Mortician.Id, "DecedentDisposition");
+                    Bundle.AddResourceEntry(Mortician, "urn:uuid:" + Mortician.Id);
                 }
                 HumanName name = Mortician.Name.FirstOrDefault();
                 if (name != null && !String.IsNullOrEmpty(value))
@@ -4624,6 +4630,8 @@ namespace VRDR
             {
                 if(Mortician == null){
                     CreateMortician();
+                    AddReferenceToComposition(Mortician.Id, "DecedentDisposition");
+                    Bundle.AddResourceEntry(Mortician, "urn:uuid:" + Mortician.Id);
                 }
                 if (Mortician.Identifier.Count > 0)
                 {
@@ -4708,6 +4716,8 @@ namespace VRDR
                 if (Mortician == null)
                 {
                     CreateMortician();
+                    AddReferenceToComposition(Mortician.Id, "DecedentDisposition");
+                    Bundle.AddResourceEntry(Mortician, "urn:uuid:" + Mortician.Id);
                 }
                 Mortician.Address.Clear();
                 Mortician.Address.Add(DictToAddress(value));
