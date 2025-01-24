@@ -4489,24 +4489,12 @@ namespace VRDR
             }
             set
             {
-                if(Mortician == null){
+                if (Mortician == null)
+                {
                     CreateMortician();
-                    AddReferenceToComposition(Mortician.Id, "DecedentDisposition");
-                    Bundle.AddResourceEntry(Mortician, "urn:uuid:" + Mortician.Id);
                 }
-                HumanName name = Mortician.Name.SingleOrDefault(n => n.Use == HumanName.NameUse.Official);
-                if (name != null)
-                {
-                    name.Given = value;
-                }
-                else
-                {
-                    name = new HumanName();
-                    name.Use = HumanName.NameUse.Official;
-                    name.Given = value;
-                    Mortician.Name.Add(name);
-                }
-            }
+                updateGivenHumanName(value, Mortician.Name);
+            }            
         }
 
         /// <summary>Family name of mortician.</summary>
