@@ -2,13 +2,14 @@ import axios from 'axios';
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Breadcrumb, Button, Container, Dimmer, Divider, Form, Grid, Header, Icon, Loader, Menu, Message, Statistic, Transition } from 'semantic-ui-react';
-import { responseMessageTypeIconsVRDR, responseMessageTypeIconsBFDR, messageTypeIconsVRDR, messageTypeIconsBFDR, messageTypesVRDR, messageTypesBFDR } from '../../data';
+import { responseMessageTypeIconsVRDR, responseMessageTypeIconsBFDR, messageTypeIconsVRDR, messageTypeIconsBFDR } from '../../data';
 import { connectionErrorToast } from '../../error';
 import { Getter } from '../misc/Getter';
 import { FHIRInfo } from '../misc/info/FHIRInfo';
 import { Record } from '../misc/Record';
 import report from '../report';
 import { useParams } from 'react-router-dom';
+import { getMessageType } from '../tools/FHIRMessageSyntaxChecker'
 
 export function FHIRMessageProducing(props) {
 
@@ -26,14 +27,6 @@ export function FHIRMessageProducing(props) {
   const [responseOptions, setResponseOptions] = React.useState();
   const [response, setResponse] = React.useState();
   const [responses, setResponses] = React.useState();
-
-  if (props.recordType.toLowerCase() === 'bfdr-fetaldeath') {
-    return (
-      <h1>
-        BFDR Fetal Death does not yet support messaging.
-      </h1>
-    )
-  }
 
   useEffect(() => {
     if (!!id) {
@@ -66,16 +59,7 @@ export function FHIRMessageProducing(props) {
   }, []);
 
   const updateMessage = (message, issues) => {
-    let messageType = "Unknown";
-    if (props.recordType.toLowerCase() == 'vrdr') {
-      if (message && message.messageType in messageTypesVRDR) {
-        messageType = messageTypesVRDR[message.messageType];
-      }
-    } else {
-      if (message && message.messageType in messageTypesBFDR) {
-        messageType = messageTypesBFDR[message.messageType];
-      }
-    }
+    let messageType = getMessageType(props.recordType, message);
 
     /*
      * Only perform this when there are no other issues, since receiving errors here means

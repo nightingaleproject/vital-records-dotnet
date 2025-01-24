@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Breadcrumb, Button, Container, Dimmer, Divider, Dropdown, Input, Form, Grid, Header, Icon, Loader, Menu, Message, Statistic, Transition } from 'semantic-ui-react';
+import { Breadcrumb, Container, Divider, Form, Grid, Header, Icon } from 'semantic-ui-react';
 import { Getter } from '../misc/Getter';
 import { FHIRInfo } from '../misc/info/FHIRInfo';
 import { Record } from '../misc/Record';
@@ -27,15 +27,6 @@ export class MessageInspector extends Component {
   }
 
   render() {
-
-    if (this.props.recordType.toLowerCase() === 'bfdr-fetaldeath') {
-      return (
-        <h1>
-          BFDR Fetal Death does not yet support messaging.
-        </h1>
-      )
-    }
-
       return (
       <React.Fragment>
         <Grid>

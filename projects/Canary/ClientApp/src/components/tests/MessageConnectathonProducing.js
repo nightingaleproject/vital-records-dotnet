@@ -2,12 +2,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Breadcrumb, Button, Container, Dimmer, Divider, Dropdown, Input, Form, Grid, Header, Icon, Loader, Menu, Message, Statistic, Transition } from 'semantic-ui-react';
-import { responseMessageTypeIconsVRDR, messageTypeIconsVRDR, messageTypesVRDR, messageTypesBFDR, stateOptions } from '../../data';
+import { responseMessageTypeIconsVRDR, messageTypeIconsVRDR, stateOptions } from '../../data';
 import { connectionErrorToast } from '../../error';
 import { Getter } from '../misc/Getter';
 import { FHIRInfo } from '../misc/info/FHIRInfo';
 import { Record } from '../misc/Record';
 import report from '../report';
+import {getMessageType} from '../tools/FHIRMessageSyntaxChecker'
 
 export class MessageConnectathonProducing extends Component {
   displayName = MessageConnectathonProducing.name;
@@ -60,16 +61,7 @@ export class MessageConnectathonProducing extends Component {
   }
 
   updateMessage(message, issues) {
-    let messageType = "Unknown";
-    if (this.props.params.recordType.toLowerCase() == 'vrdr') {
-      if (message && message.messageType in messageTypesVRDR) {
-        messageType = messageTypesVRDR[message.messageType];
-      }
-    } else {
-      if (message && message.messageType in messageTypesBFDR) {
-        messageType = messageTypesBFDR[message.messageType];
-      }
-    }
+    let messageType = getMessageType(this.props.recordType, message);
 
     /*
      * Only perform this when there are no other issues, since receiving errors here means
