@@ -110,7 +110,7 @@ namespace BFDR.Tests
             Assert.Equal((uint)48858, submission.CertNo);
             Assert.Equal((uint)2019, submission.EventYear);
             Assert.Equal("000000000042", submission.StateAuxiliaryId);
-            Assert.Equal(submission.JurisdictionId, submission.BirthRecord.BirthLocationJurisdiction);
+            Assert.Equal(submission.JurisdictionId, submission.BirthRecord.EventLocationJurisdiction);
             Assert.Equal(2019, submission.BirthRecord.BirthYear);
             Assert.Null(submission.PayloadVersionId);
         }
@@ -216,7 +216,7 @@ namespace BFDR.Tests
             Assert.Equal((uint)48858, submission.CertNo);
             Assert.Equal((uint)2019, submission.EventYear);
             Assert.Equal("000000000042", submission.StateAuxiliaryId);
-            Assert.Equal(submission.JurisdictionId, submission.BirthRecord.BirthLocationJurisdiction);
+            Assert.Equal(submission.JurisdictionId, submission.BirthRecord.EventLocationJurisdiction);
             Assert.Equal(2019, submission.BirthRecord.BirthYear);
             Assert.Equal("BFDR_STU2_0", submission.PayloadVersionId);
             Assert.Equal("48858", submission.BirthRecord.CertificateNumber);
@@ -232,7 +232,7 @@ namespace BFDR.Tests
         //     Assert.Equal((uint)48858, submission.CertNo);
         //     Assert.Equal((uint)2019, submission.EventYear);
         //     Assert.Equal("000000000042", submission.StateAuxiliaryId);
-        //     Assert.Equal(submission.JurisdictionId, submission.FetalDeathRecord.BirthLocationJurisdiction);
+        //     Assert.Equal(submission.JurisdictionId, submission.FetalDeathRecord.EventLocationJurisdiction);
         //     Assert.Equal(2019, submission.FetalDeathRecord.BirthYear);
         //     Assert.Equal("48858", submission.FetalDeathRecord.CertificateNumber);
         // }

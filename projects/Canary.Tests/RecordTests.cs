@@ -40,10 +40,10 @@ namespace canary.tests
             };
             _recController.ControllerContext.HttpContext = httpContext;
             var response = await _recController.NewPostAsync("bfdr-birth");
-            ((BirthRecord) response.Item1.GetRecord()).BirthLocationJurisdiction = "AZ";
+            ((BirthRecord) response.Item1.GetRecord()).EventLocationJurisdiction = "AZ";
             ((BirthRecord) response.Item1.GetRecord()).CertificateNumber = "99991";
             BirthRecord br = new BirthRecord(romeroJson);
-            br.BirthLocationJurisdiction = "AZ";
+            br.EventLocationJurisdiction = "AZ";
             br.CertificateNumber = "99991";
 
             Assert.Equal(JsonConvert.SerializeObject(br), JsonConvert.SerializeObject(new BirthRecord(response.Item1.Json)));

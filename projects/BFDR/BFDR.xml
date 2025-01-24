@@ -214,6 +214,48 @@
             <para>Console.WriteLine($"Infant transferred helper: {ExampleBirthRecord.InfantTransferredHelper}");</para>
             </example>
         </member>
+        <member name="P:BFDR.BirthRecord.ChildGivenNames">
+            <summary>Child's Legal Name - Given. Middle name should be the last entry.</summary>
+            <value>the child's name (first, etc., middle)</value>
+            <example>
+            <para>// Setter:</para>
+            <para>string[] names = { "Example", "Something", "Middle" };</para>
+            <para>ExampleBirthRecord.ChildGivenNames = names;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Child Given Name(s): {string.Join(", ", ExampleBirthRecord.ChildGivenNames)}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.ChildFamilyName">
+            <summary>Child's Legal Name - Last.</summary>
+            <value>the child's last name</value>
+            <example>
+            <para>// Setter:</para>
+            <para>string lastName = "Quinn";</para>
+            <para>ExampleBirthRecord.ChildFamilyName = lastName;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Child Family Name(s): {string.Join(", ", ExampleBirthRecord.ChildFamilyName)}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.ChildSuffix">
+            <summary>Child's Suffix.</summary>
+            <value>the child's suffix</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.ChildSuffix = "Jr.";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Child Suffix: {ExampleBirthRecord.ChildSuffix}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.DateOfBirth">
+            <summary>Child's Date of Birth.</summary>
+            <value>the child's date of birth</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.DateOfBirth = "1940-02-19";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Child Date of Birth: {ExampleBirthRecord.DateOfBirth}");</para>
+            </example>
+        </member>
         <member name="F:BFDR.BirthRecord.EncounterBirth">
             <summary>The encounter of the birth.</summary>
         </member>
@@ -3498,16 +3540,6 @@
             <param name="date">The date to check.</param>
             <returns>Whether the given date string is a complete date</returns>
         </member>
-        <member name="P:BFDR.NatalityRecord.DateOfBirth">
-            <summary>Child's Date of Birth.</summary>
-            <value>the child's date of birth</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.DateOfBirth = "1940-02-19";</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Child Date of Birth: {ExampleBirthRecord.DateOfBirth}");</para>
-            </example>
-        </member>
         <member name="M:BFDR.NatalityRecord.GetBirthSex">
             <summary>
              Getter method for child or decedent fetus birth/delivery sex.
@@ -3520,16 +3552,17 @@
             </summary>
             <param name="value">The birth/delivery sex.</param>
         </member>
-        <member name="P:BFDR.NatalityRecord.ChildGivenNames">
-            <summary>Child's Legal Name - Given. Middle name should be the last entry.</summary>
-            <value>the child's name (first, etc., middle)</value>
-            <example>
-            <para>// Setter:</para>
-            <para>string[] names = { "Example", "Something", "Middle" };</para>
-            <para>ExampleBirthRecord.ChildGivenNames = names;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Child Given Name(s): {string.Join(", ", ExampleBirthRecord.ChildGivenNames)}");</para>
-            </example>
+        <member name="M:BFDR.NatalityRecord.GetDateOfDelivery">
+            <summary>
+            Gets the date of delivery of the subject child or fetus.
+            </summary>
+            <returns>The date of delivery</returns>
+        </member>
+        <member name="M:BFDR.NatalityRecord.SetDateOfDelivery(System.String)">
+            <summary>
+            Sets the date of the delivery of the subject child or fetus.
+            </summary>
+            <param name="value"></param>
         </member>
         <member name="P:BFDR.NatalityRecord.MotherGivenNames">
             <summary>Mother's Legal Name - Given. Middle name should be the last entry.</summary>
@@ -3562,17 +3595,6 @@
             <para>ExampleBirthRecord.MotherMaidenGivenNames = names;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Mother Given Name(s): {string.Join(", ", ExampleBirthRecord.MotherMaidenGivenNames)}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.NatalityRecord.ChildFamilyName">
-            <summary>Child's Legal Name - Last.</summary>
-            <value>the child's last name</value>
-            <example>
-            <para>// Setter:</para>
-            <para>string lastName = "Quinn";</para>
-            <para>ExampleBirthRecord.ChildFamilyName = lastName;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Child Family Name(s): {string.Join(", ", ExampleBirthRecord.ChildFamilyName)}");</para>
             </example>
         </member>
         <member name="P:BFDR.NatalityRecord.MotherFamilyName">
@@ -3614,16 +3636,6 @@
             <para>Console.WriteLine($"Mother Maiden Family Name(s): {string.Join(", ", ExampleBirthRecord.MotherMaidenFamilyName)}");</para>
             </example>
         </member>
-        <member name="P:BFDR.NatalityRecord.ChildSuffix">
-            <summary>Child's Suffix.</summary>
-            <value>the child's suffix</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.ChildSuffix = "Jr.";</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Child Suffix: {ExampleBirthRecord.ChildSuffix}");</para>
-            </example>
-        </member>
         <member name="P:BFDR.NatalityRecord.MotherSuffix">
             <summary>Mother's Suffix.</summary>
             <value>the mother's suffix</value>
@@ -3654,14 +3666,14 @@
             <para>Console.WriteLine($"Mother Maiden Suffix: {ExampleBirthRecord.MotherMaidenSuffix}");</para>
             </example>
         </member>
-        <member name="P:BFDR.NatalityRecord.BirthLocationJurisdiction">
+        <member name="P:BFDR.NatalityRecord.EventLocationJurisdiction">
             <summary>Birth Location Jurisdiction.</summary>
             <value>the vital record jurisdiction identifier.</value>
             <example>
             <para>// Setter:</para>
-            <para>ExampleBirthRecord.BirthLocationJurisdiction = "MA";</para>
+            <para>ExampleBirthRecord.EventLocationJurisdiction = "MA";</para>
             <para>// Getter:</para>
-            <para>Console.WriteLine($"Birth Location Jurisdiction: {ExampleBirthRecord.BirthLocationJurisdiction}");</para>
+            <para>Console.WriteLine($"Birth Location Jurisdiction: {ExampleBirthRecord.EventLocationJurisdiction}");</para>
             </example>
         </member>
         <member name="P:BFDR.NatalityRecord.PlaceOfBirth">
@@ -5813,6 +5825,24 @@
             <para>Console.WriteLine($"InfantBreastfedAtDischarge: {ExampleBirthRecord.InfantBreastfedAtDischarge}");</para>
             </example>
         </member>
+        <member name="M:BFDR.NatalityRecord.GetWeight(System.String)">
+            <summary>
+            Gets the value of the observation matching the given code as a FhirQuanity.
+            </summary>
+            <param name="code"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BFDR.NatalityRecord.SetWeight(System.String,System.Nullable{System.Int32},System.String,System.String,System.String)">
+            <summary>
+            Sets the vital-sign weight of the given subject id in an observation matching the given code.
+            </summary>
+            <param name="code"></param>
+            <param name="value"></param>
+            <param name="unit"></param>
+            <param name="section"></param>
+            <param name="subjectId"></param>
+            <returns></returns>
+        </member>
         <member name="P:BFDR.NatalityRecord.MotherPrepregnancyWeight">
             <summary>Mother's Prepregnancy Weight.</summary>
             <value>the mother's prepregnancy weight in whole pounds, or -1 if explicitly unknown, or null if never specified</value>
@@ -6691,6 +6721,37 @@
             <para>// Getter:</para>
             <para>Console.WriteLine($"Emerging Issue Value: {ExampleBirthRecord.EmergingIssue20}");</para>
             </example>
+        </member>
+        <member name="M:BFDR.NatalityRecord.GetCertifiedDateElement(Hl7.Fhir.Model.Encounter,System.String)">
+            <summary>
+            Gets the certification date element of the given encounter based on whether it's a day, month, or year element.
+            </summary>
+            <param name="encounter"></param>
+            <param name="dateUrl">The type of date element to extract</param>
+            <returns></returns>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:BFDR.NatalityRecord.SetCertifiedDateElement(Hl7.Fhir.Model.Encounter,System.String,System.Nullable{System.Int32})">
+            <summary>
+            Sets the certification date of the given encounter.
+            </summary>
+            <param name="encounter"></param>
+            <param name="dateUrl">The type of date format such as PartialDate or PartialDateTime</param>
+            <param name="value"></param>
+        </member>
+        <member name="M:BFDR.NatalityRecord.GetCertificationDate(Hl7.Fhir.Model.Encounter)">
+            <summary>
+            Gets the certification date from the given encounter.
+            </summary>
+            <param name="encounter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BFDR.NatalityRecord.SetCertificationDate(Hl7.Fhir.Model.Encounter,System.String)">
+            <summary>
+            Sets the certification date of the given encounter.
+            </summary>
+            <param name="encounter"></param>
+            <param name="value"></param>
         </member>
         <member name="T:BFDR.FHIRSubject">
             <summary>Describes the subject of a birth record field</summary>

@@ -88,7 +88,7 @@ namespace BFDR.CLI
                 birthRecord.AttendantTitleHelper = "76231001";
                
 
-                birthRecord.BirthLocationJurisdiction = "MA";
+                birthRecord.EventLocationJurisdiction = "MA";
                 Dictionary<string, string> birthAddress = new Dictionary<string, string>();
                 birthAddress.Add("addressLine1", "123 Fake Street");
                 birthAddress.Add("addressCity", "Springfield");
@@ -165,12 +165,12 @@ namespace BFDR.CLI
                 fetaldeathRecord.DateOfDelivery = "2023-01-01";
                 fetaldeathRecord.FetalDeathSex = "M";
 
-                string[] childNames = { "Alexander", "Arlo" };
-                fetaldeathRecord.ChildGivenNames = childNames;
+                string[] fetusNames = { "Alexander", "Arlo" };
+                fetaldeathRecord.FetusGivenNames = fetusNames;
                 string[] motherName = { "Xenia" };
                 fetaldeathRecord.MotherGivenNames = motherName;
                 string lastName = "Adkins";
-                fetaldeathRecord.ChildFamilyName = lastName;
+                fetaldeathRecord.FetusFamilyName = lastName;
                 fetaldeathRecord.MotherFamilyName = lastName;
 
                 fetaldeathRecord.CertifierName = "Janet Seito";
@@ -181,7 +181,7 @@ namespace BFDR.CLI
                 fetaldeathRecord.AttendantTitleHelper = "76231001";
                
 
-                fetaldeathRecord.BirthLocationJurisdiction = "MA";
+                fetaldeathRecord.EventLocationJurisdiction = "MA";
                 Dictionary<string, string> birthAddress = new Dictionary<string, string>();
                 birthAddress.Add("addressLine1", "123 Fake Street");
                 birthAddress.Add("addressCity", "Springfield");
