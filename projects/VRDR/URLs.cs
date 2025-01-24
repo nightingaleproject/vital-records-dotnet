@@ -158,7 +158,8 @@ namespace VRDR
         public const string PractitionerRole = "http://hl7.org/fhir/us/vrdr/StructureDefinition/practitioner-role";
 
     }
-    public class CodeSystemURL
+     /// <summary>CodeSystem URLs</summary>
+     public class CodeSystemURL
     {
 
         /// <summary>URL for DeathPregnancyStatusCS</summary>

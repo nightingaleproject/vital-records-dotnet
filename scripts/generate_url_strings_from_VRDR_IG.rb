@@ -109,7 +109,8 @@ namespace VRDR
 
 <% end -%>
     }
-    public class CodeSystemURL
+     /// <summary>CodeSystem URLs</summary>
+     public class CodeSystemURL
     {
 
 <% code_system_hash.select { |name, url| true }.each do |name, url| -%>

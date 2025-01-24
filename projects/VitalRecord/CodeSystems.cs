@@ -143,7 +143,7 @@ namespace VR
         // /// <summary> Bypass Edit Flag </summary>
         // public static string BypassEditFlag = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-bypass-edit-flag-cs";
 
-        // <summary> Place of Injury </summary>
+        /// <summary> Place of Injury </summary>
         public static string PlaceOfInjury = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-system-placeofinjury-cs";
 
         /// <summary> Pregnancy Status </summary>
