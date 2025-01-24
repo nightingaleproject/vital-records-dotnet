@@ -121,10 +121,10 @@ namespace <%= namespace %>
             /// <summary>IJE -> FHIR Mapping for <%= concept %></summary>
             public readonly static Dictionary<string, string> IJEToFHIR = new Dictionary<string, string>
             {
-<% mappings.each do |mapping|  -%>
-  /// Assymetrrical mapping of MaritalStatus -- there is no way to code T in IJE 
+            // Generate mappings, skipping special case of Marital Status T
+            <% mappings.each do |mapping|  -%>
   <% next if concept == "MaritalStatus" && mapping[:fhir] == "T" -%>
-                 { "<%= mapping[:ije] %>", "<%= mapping[:fhir] %>" },
+                 { "<%= mapping[:ije] %>", "<%= mapping[:fhir] %>" },  
 <% end -%>
             };
             /// <summary>FHIR -> IJE Mapping for <%= concept %></summary>
