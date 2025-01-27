@@ -4684,6 +4684,9 @@
         <member name="F:VRDR.ExtensionURL.PractitionerRole">
             <summary>URL for PractitionerRole</summary>
         </member>
+        <member name="T:VRDR.CodeSystemURL">
+            <summary>CodeSystem URLs</summary>
+        </member>
         <member name="F:VRDR.CodeSystemURL.DeathPregnancyStatusCS">
             <summary>URL for DeathPregnancyStatusCS</summary>
         </member>

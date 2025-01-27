@@ -124,6 +124,9 @@
         <member name="F:VR.CodeSystems.ActivityAtTimeOfDeath">
             <summary> Activity at Time of Death </summary>
         </member>
+        <member name="F:VR.CodeSystems.PlaceOfInjury">
+            <summary> Place of Injury </summary>
+        </member>
         <member name="F:VR.CodeSystems.PregnancyStatus">
             <summary> Pregnancy Status </summary>
         </member>
@@ -865,31 +868,19 @@
         <member name="F:VR.ExtensionURL.UnitOrAptNumber">
             <summary>URL for UnitOrAptNumber</summary>
         </member>
-        <member name="P:VR.ExtensionURL.DateDay">
-            <summary>URL for DateDay</summary>
-        </member>
-        <member name="P:VR.ExtensionURL.DateYear">
-            <summary>URL for DateYear</summary>
-        </member>
-        <member name="P:VR.ExtensionURL.DateMonth">
-            <summary>URL for DateMonth</summary>
-        </member>
-        <member name="P:VR.ExtensionURL.DateTime">
-            <summary>URL for DateTime</summary>
-        </member>
         <member name="F:VR.ExtensionURL.PatientBirthTime">
             <summary>URL for PatientBirthTime as defined in the VitalRecords IG</summary>
         </member>
-        <member name="F:VR.ExtensionURL.PartialDateTimeDayVR">
-            <summary>URL for PartialDateTime Day as defined in the VitalRecords IG</summary>
+        <member name="F:VR.ExtensionURL.PartialDateDayVR">
+            <summary>URL for PartialDate Day as defined in the VitalRecords IG</summary>
         </member>
-        <member name="F:VR.ExtensionURL.PartialDateTimeMonthVR">
-            <summary>URL for PartialDateTime Month as defined in the VitalRecords IG</summary>
+        <member name="F:VR.ExtensionURL.PartialDateMonthVR">
+            <summary>URL for PartialDate Month as defined in the VitalRecords IG</summary>
         </member>
-        <member name="F:VR.ExtensionURL.PartialDateTimeYearVR">
+        <member name="F:VR.ExtensionURL.PartialDateYearVR">
             <summary>URL for PartialDateTime Year as defined in the VitalRecords IG</summary>
         </member>
-        <member name="F:VR.ExtensionURL.PartialDateTimeTimeVR">
+        <member name="F:VR.ExtensionURL.PartialDateTimeVR">
             <summary>URL for PartialDateTime Time as defined in the VitalRecords IG</summary>
         </member>
         <member name="T:VR.CodeSystemURL">
@@ -7074,6 +7065,12 @@
         <member name="M:VR.VitalRecord.ConvertToDateTime(System.String)">
             <summary>Returns a Fhir DateTime object parsed from the given string.</summary>
         </member>
+        <member name="M:VR.VitalRecord.ConvertDateToFhirDateTime(Hl7.Fhir.Model.Date)">
+            <summary>Returns a Fhir DateTime object parsed from the given Date.</summary>
+        </member>
+        <member name="M:VR.VitalRecord.ConvertFhirDateTimeToDate(Hl7.Fhir.Model.FhirDateTime)">
+            <summary>Returns a Date object parsed from the given FhirDateTime.</summary>
+        </member>
         <member name="M:VR.VitalRecord.GetDateElement(Hl7.Fhir.Model.Date,System.String)">
             <summary>Gets the specified date element based on the ExtensionURL.PartialDate from the given
             FhirDate, checking in the value and PartialDate extension, and assuming there
@@ -7091,7 +7088,7 @@
             </summary>
             <param name="dateElement"></param>
             <param name="value"></param>
-            <param name="partialDateURL"></param>
+            <param name="partialDateUrl"></param>
             <param name="useBirthTime"></param>
             <returns></returns>
             <exception cref="T:System.Exception"></exception>

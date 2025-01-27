@@ -971,7 +971,7 @@ namespace VR
         /// </summary>
         /// <param name="dateElement"></param>
         /// <param name="value"></param>
-        /// <param name="partialDateURL"></param>
+        /// <param name="partialDateUrl"></param>
         /// <param name="useBirthTime"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
@@ -983,15 +983,15 @@ namespace VR
             }
             ExtractBestDateElements(dateElement, out int? year, out int? month, out int? day, out string time);
             // Set whichever date element we're updating to the given value.
-            switch(partialDateURL)
+            switch(partialDateUrl)
             {
-                case VR.ExtensionURL.PartialDateTimeYearVR:
+                case VR.ExtensionURL.PartialDateYearVR:
                     year = value;
                     break;
-                case VR.ExtensionURL.PartialDateTimeMonthVR:
+                case VR.ExtensionURL.PartialDateMonthVR:
                     month = value;
                     break;
-                case VR.ExtensionURL.PartialDateTimeDayVR:
+                case VR.ExtensionURL.PartialDateDayVR:
                     day = value;
                     break;
                 default:
@@ -1018,13 +1018,13 @@ namespace VR
             // Set whichever date element we're updating to the given value.
             switch(partialDateUrl)
             {
-                case VR.ExtensionURL.PartialDateTimeYearVR:
+                case VR.ExtensionURL.PartialDateYearVR:
                     year = value;
                     break;
-                case VR.ExtensionURL.PartialDateTimeMonthVR:
+                case VR.ExtensionURL.PartialDateMonthVR:
                     month = value;
                     break;
-                case VR.ExtensionURL.PartialDateTimeDayVR:
+                case VR.ExtensionURL.PartialDateDayVR:
                     day = value;
                     break;
                 default:
@@ -1053,13 +1053,13 @@ namespace VR
         private void ExtractBestDateElements(PrimitiveType date, out int? year, out int? month, out int? day, out string time) {
             // Get the most valid date elements, giving priority to the parsed date elements. If the partial date is used, it will include any -1 values. If there are no valid date elements in any of the possible places, it will be null.
             ParseDateElements(((IValue<string>)date).Value, out int? parsedYear, out int? parsedMonth, out int? parsedDay);
-            Extension pdtExt = date.GetExtension(PartialDateTimeUrl);
-            year = parsedYear ?? GetPartialDate(pdtExt, VR.ExtensionURL.PartialDateTimeYearVR);
-            month = parsedMonth ?? GetPartialDate(pdtExt, VR.ExtensionURL.PartialDateTimeMonthVR);
-            day = parsedDay ?? GetPartialDate(pdtExt, VR.ExtensionURL.PartialDateTimeDayVR);
-            time = GetTimeFragment((FhirDateTime) date.GetExtension(ExtensionURL.PatientBirthTime)?.Value)
-                    ?? ((Time)pdtExt?.GetExtension(ExtensionURL.PartialDateTimeTimeVR)?.Value)?.Value
-                    ?? GetPartialTime(date.GetExtension(PartialDateTimeUrl));
+            Extension pdtExt = date.GetExtension(VR.ExtensionURL.PartialDateTimeVR);
+            year = parsedYear ?? GetPartialDate(pdtExt, VR.ExtensionURL.PartialDateYearVR);
+            month = parsedMonth ?? GetPartialDate(pdtExt, VR.ExtensionURL.PartialDateMonthVR);
+            day = parsedDay ?? GetPartialDate(pdtExt, VR.ExtensionURL.PartialDateDayVR);
+            time = GetTimeFragment((FhirDateTime) date.GetExtension(VR.ExtensionURL.PatientBirthTime)?.Value)
+                    ?? ((Time)pdtExt?.GetExtension(VR.ExtensionURL.PartialDateTimeVR)?.Value)?.Value
+                    ?? GetPartialTime(date.GetExtension(VR.ExtensionURL.PartialDateTimeVR));
             if (time == "unknown")
             {
                 time = "-1";
@@ -1243,15 +1243,15 @@ namespace VR
             }
             if (timeValue == "-1")
             {
-                dateElement.GetExtension(PartialDateTimeUrl).Extension.Add(BuildUnknownPartialDateTime(PartialDateTimeTimeUrl));
+                dateElement.GetExtension(VR.ExtensionURL.PartialDateTimeVR).Extension.Add(BuildUnknownPartialDateTime(VR.ExtensionURL.PartialDateTimeVR));
             }
             else if (timeValue == null)
             {
-                dateElement.GetExtension(PartialDateTimeUrl).Extension.Add(BuildTempUnknownPartialDateTime(PartialDateTimeTimeUrl));
+                dateElement.GetExtension(VR.ExtensionURL.PartialDateTimeVR).Extension.Add(BuildTempUnknownPartialDateTime(VR.ExtensionURL.PartialDateTimeVR));
             }
             else
             {
-                dateElement.GetExtension(PartialDateTimeUrl).SetExtension(PartialDateTimeTimeUrl, new Time(timeValue));
+                dateElement.GetExtension(VR.ExtensionURL.PartialDateTimeVR).SetExtension(VR.ExtensionURL.PartialDateTimeVR, new Time(timeValue));
             }
             return dateElement;
         }

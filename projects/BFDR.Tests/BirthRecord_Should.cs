@@ -1564,10 +1564,10 @@ namespace BFDR.Tests
       Assert.Null(br.DateOfLastLiveBirthDay);
       Assert.Null(br.DateOfLastLiveBirth);
       Assert.Null(dateToUse.Value);
-      Assert.Equal("temp-unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateTimeYearVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
-      Assert.Equal(12, ((Integer)pdt.GetExtension(VR.ExtensionURL.PartialDateTimeMonthVR).Value).Value);
-      Assert.Equal("temp-unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateTimeDayVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
-      Assert.Equal("temp-unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateTimeTimeVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
+      Assert.Equal("temp-unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateYearVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
+      Assert.Equal(12, ((Integer)pdt.GetExtension(VR.ExtensionURL.PartialDateMonthVR).Value).Value);
+      Assert.Equal("temp-unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateDayVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
+      Assert.Equal("temp-unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateTimeVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
       Assert.Equal("    ", ije.YLLB);
       Assert.Equal("12", ije.MLLB);
 
@@ -1582,10 +1582,10 @@ namespace BFDR.Tests
       Assert.Null(br.DateOfLastLiveBirthDay);
       Assert.Null(br.DateOfLastLiveBirth);
       Assert.Null(dateToUse.Value);
-      Assert.Equal("unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateTimeYearVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
-      Assert.Equal(12, ((Integer)pdt.GetExtension(VR.ExtensionURL.PartialDateTimeMonthVR).Value).Value);
-      Assert.Equal("temp-unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateTimeDayVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
-      Assert.Equal("temp-unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateTimeTimeVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
+      Assert.Equal("unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateYearVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
+      Assert.Equal(12, ((Integer)pdt.GetExtension(VR.ExtensionURL.PartialDateMonthVR).Value).Value);
+      Assert.Equal("temp-unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateDayVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
+      Assert.Equal("temp-unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateTimeVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
       Assert.Equal("9999", ije.YLLB);
       Assert.Equal("12", ije.MLLB);
 
@@ -1600,10 +1600,10 @@ namespace BFDR.Tests
       Assert.Null(br.DateOfLastLiveBirthDay);
       Assert.Null(br.DateOfLastLiveBirth);
       Assert.Null(dateToUse.Value);
-      Assert.Equal("unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateTimeYearVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
-      Assert.Equal("unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateTimeMonthVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
-      Assert.Equal("temp-unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateTimeDayVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
-      Assert.Equal("temp-unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateTimeTimeVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
+      Assert.Equal("unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateYearVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
+      Assert.Equal("unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateMonthVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
+      Assert.Equal("temp-unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateDayVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
+      Assert.Equal("temp-unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateTimeVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
       Assert.Equal("9999", ije.YLLB);
       Assert.Equal("99", ije.MLLB);
     }
