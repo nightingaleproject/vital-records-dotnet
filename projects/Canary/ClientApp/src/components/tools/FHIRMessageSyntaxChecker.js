@@ -1,9 +1,24 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Breadcrumb, Grid } from 'semantic-ui-react';
-import { messageTypesVRDR, messageTypesBFDR } from '../../data';
+import { messageTypesVRDR, messageTypesBirth, messageTypesFetalDeath } from '../../data';
 import { Getter } from '../misc/Getter';
 import { Record } from '../misc/Record';
+
+export const getMessageType = (recordType, message) => {
+  if (recordType.toLowerCase() == 'vrdr' && message && message.messageType in messageTypesVRDR) {
+      return messageTypesVRDR[message.messageType];
+  }
+  if (recordType.toLowerCase() == 'bfdr-birth' && message && message.messageType in messageTypesBirth) {
+    return messageTypesBirth[message.messageType];
+  }
+  if (recordType.toLowerCase() == 'bfdr-fetaldeath' && message && message.messageType in messageTypesFetalDeath) {
+    return messageTypesFetalDeath[message.messageType];
+  }
+  console.log(recordType);
+  console.log(message);
+  return "Unknown";
+}
 
 export class FHIRMessageSyntaxChecker extends Component {
   displayName = FHIRMessageSyntaxChecker.name;
@@ -15,30 +30,11 @@ export class FHIRMessageSyntaxChecker extends Component {
   }
 
   updateMessage(message, issues) {
-    let messageType = "Unknown";
-    if (this.props.recordType.toLowerCase() == 'vrdr') {
-      if (message && message.messageType in messageTypesVRDR) {
-        messageType = messageTypesVRDR[message.messageType];
-      }
-    } else {
-      if (message && message.messageType in messageTypesBFDR) {
-        messageType = messageTypesBFDR[message.messageType];
-      }
-    }
-
+    let messageType = getMessageType(this.props.recordType, message);
     this.setState({ message: message, messageType: messageType, issues: issues });
   }
 
   render() {
-    if (this.props.recordType.toLowerCase() == 'bfdr-fetaldeath') {
-      return (
-        <React.Fragment>
-          <h1>
-            BFDR Fetal Death does not yet support messaging.
-          </h1>
-        </React.Fragment>
-      )
-    }
     return (
       <React.Fragment>
         <Grid>
