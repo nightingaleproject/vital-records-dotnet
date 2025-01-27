@@ -1243,12 +1243,11 @@ namespace BFDR.Tests
     public void TestComplexPartialDates()
     {
       // Tests source: https://github.com/HL7/vr-common-library/blob/fixPartialDateTime/input/pagecontent/usage.md#partial-dates-and-times
-      string pdtUrl = VR.ExtensionURL.PartialDateTime ; // "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-partial-date-time-vr";
-      BirthRecord br = new();
+       BirthRecord br = new();
       // 2023
       br.BirthYear = 2023;
       Date fhirBirth = ((Patient) br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
-      Extension pdt = fhirBirth.GetExtension(pdtUrl);
+      Extension pdt = fhirBirth.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(2023, br.BirthYear);
       Assert.Null(br.BirthMonth);
       Assert.Null(br.BirthDay);
@@ -1266,7 +1265,7 @@ namespace BFDR.Tests
       br.BirthYear = 2023;
       br.BirthMonth = 12;
       fhirBirth = ((Patient) br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
-      pdt = fhirBirth.GetExtension(pdtUrl);
+      pdt = fhirBirth.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(2023, br.BirthYear);
       Assert.Equal(12, br.BirthMonth);
       Assert.Null(br.BirthDay);
@@ -1285,7 +1284,7 @@ namespace BFDR.Tests
       br.BirthMonth = 12;
       br.BirthDay = 23;
       fhirBirth = ((Patient) br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
-      pdt = fhirBirth.GetExtension(pdtUrl);
+      pdt = fhirBirth.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(2023, br.BirthYear);
       Assert.Equal(12, br.BirthMonth);
       Assert.Equal(23, br.BirthDay);
@@ -1305,7 +1304,7 @@ namespace BFDR.Tests
       br.BirthDay = 23;
       br.BirthTime = "13:28:17-5:00";
       fhirBirth = ((Patient) br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
-      pdt = fhirBirth.GetExtension(pdtUrl);
+      pdt = fhirBirth.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(2023, br.BirthYear);
       Assert.Equal(12, br.BirthMonth);
       Assert.Equal(23, br.BirthDay);
@@ -1324,8 +1323,8 @@ namespace BFDR.Tests
       br.BirthMonth = 12;
       br.BirthDay = 23;
       br.BirthTime = "-1";
-      fhirBirth = ((Patient) br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
-      pdt = fhirBirth.GetExtension(pdtUrl);
+      fhirBirth = ((Patient) br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement; // THIS NEEDS TO BE FIXED
+      pdt = fhirBirth.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(2023, br.BirthYear);
       Assert.Equal(12, br.BirthMonth);
       Assert.Equal(23, br.BirthDay);
@@ -1351,7 +1350,7 @@ namespace BFDR.Tests
       br.BirthDay = 23;
       br.BirthTime = "18:28";
       fhirBirth = ((Patient) br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
-      pdt = fhirBirth.GetExtension(pdtUrl);
+      pdt = fhirBirth.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(-1, br.BirthYear);
       Assert.Equal(12, br.BirthMonth);
       Assert.Equal(23, br.BirthDay);
@@ -1375,7 +1374,7 @@ namespace BFDR.Tests
       br.BirthDay = 23;
       br.BirthTime = "-1";
       fhirBirth = ((Patient) br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
-      pdt = fhirBirth.GetExtension(pdtUrl);
+      pdt = fhirBirth.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(2023, br.BirthYear);
       Assert.Equal(-1, br.BirthMonth);
       Assert.Equal(23, br.BirthDay);
@@ -1401,7 +1400,7 @@ namespace BFDR.Tests
       br.BirthDay = 23;
       br.BirthTime = "-1";
       fhirBirth = ((Patient) br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
-      pdt = fhirBirth.GetExtension(pdtUrl);
+      pdt = fhirBirth.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(2023, br.BirthYear);
       Assert.Null(br.BirthMonth);
       Assert.Equal(23, br.BirthDay);
@@ -1519,13 +1518,12 @@ namespace BFDR.Tests
     [Fact]
     public void TestComplexPartialDateTimes()
     {
-      string pdtUrl = "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-partial-date-time-vr";
       BirthRecord br = new();
       // 2023
       br.DateOfLastLiveBirthYear = 2023;
       Observation observation = (Observation) br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
       FhirDateTime dateToUse = ((FhirDateTime) observation.Value);
-      Extension pdt = dateToUse.GetExtension(pdtUrl);
+      Extension pdt = dateToUse.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(2023, br.DateOfLastLiveBirthYear);
       Assert.Null(br.DateOfLastLiveBirthMonth);
       Assert.Null(br.DateOfLastLiveBirthDay);
@@ -1541,7 +1539,7 @@ namespace BFDR.Tests
       br.DateOfLastLiveBirthMonth = 12;
       observation = (Observation) br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
       dateToUse = ((FhirDateTime) observation.Value);
-      pdt = dateToUse.GetExtension(pdtUrl);
+      pdt = dateToUse.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(2023, br.DateOfLastLiveBirthYear);
       Assert.Equal(12, br.DateOfLastLiveBirthMonth);
       Assert.Null(br.DateOfLastLiveBirthDay);
@@ -1558,7 +1556,7 @@ namespace BFDR.Tests
       br.DateOfLastLiveBirthMonth = 12;
       observation = (Observation) br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
       dateToUse = ((FhirDateTime) observation.Value);
-      pdt = dateToUse.GetExtension(pdtUrl);
+      pdt = dateToUse.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Null(br.DateOfLastLiveBirthYear);
       Assert.Equal(12, br.DateOfLastLiveBirthMonth);
       Assert.Null(br.DateOfLastLiveBirthDay);
@@ -1576,7 +1574,7 @@ namespace BFDR.Tests
       br.DateOfLastLiveBirthMonth = 12;
       observation = (Observation) br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
       dateToUse = ((FhirDateTime) observation.Value);
-      pdt = dateToUse.GetExtension(pdtUrl);
+      pdt = dateToUse.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(-1, br.DateOfLastLiveBirthYear);
       Assert.Equal(12, br.DateOfLastLiveBirthMonth);
       Assert.Null(br.DateOfLastLiveBirthDay);
@@ -1594,7 +1592,7 @@ namespace BFDR.Tests
       br.DateOfLastLiveBirthMonth = -1;
       observation = (Observation) br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
       dateToUse = ((FhirDateTime) observation.Value);
-      pdt = dateToUse.GetExtension(pdtUrl);
+      pdt = dateToUse.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(-1, br.DateOfLastLiveBirthYear);
       Assert.Equal(-1, br.DateOfLastLiveBirthMonth);
       Assert.Null(br.DateOfLastLiveBirthDay);

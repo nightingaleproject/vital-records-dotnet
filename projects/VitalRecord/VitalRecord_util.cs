@@ -545,23 +545,23 @@ namespace VR
                         {
                             errors.Append("Missing 'Date-Day' of [" + partialDateExtension.Url + "] for resource [" + resource.Id + "].").AppendLine();
                         }
-                        if (!partialDateSubExtensions.Contains(ExtensionURL.PartialDateMonthVR))
+                        if (!partialDateSubExtensions.Contains(VR.ExtensionURL.PartialDateMonthVR))
                         {
                             errors.Append("Missing 'Date-Month' of [" + partialDateExtension.Url + "] for resource [" + resource.Id + "].").AppendLine();
                         }
-                        if (!partialDateSubExtensions.Contains(ExtensionURL.PartialDateYearVR))
+                        if (!partialDateSubExtensions.Contains(VR.ExtensionURL.PartialDateYearVR))
                         {
                             errors.Append("Missing 'Date-Year' of [" + partialDateExtension.Url + "] for resource [" + resource.Id + "].").AppendLine();
                         }
-                        if (partialDateExtension.Url.Equals(ExtensionURL.PartialDateTime) && !partialDateSubExtensions.Contains(ExtensionURL.PartialDateTimeVR))
+                        if (partialDateExtension.Url.Equals(VR.ExtensionURL.PartialDateTime) && !partialDateSubExtensions.Contains(VR.ExtensionURL.PartialDateTimeVR))
                         {
                             errors.Append("Missing 'Date-Time' of [" + partialDateExtension.Url + "] for resource [" + resource.Id + "].").AppendLine();
                         }
                         // Validate that there are no extraneous invalid sub-extensions of the PartialDate/Time component.
-                        partialDateSubExtensions.Remove(ExtensionURL.PartialDateDayVR);
-                        partialDateSubExtensions.Remove(ExtensionURL.PartialDateMonthVR);
-                        partialDateSubExtensions.Remove(ExtensionURL.PartialDateYearVR);
-                        partialDateSubExtensions.Remove(ExtensionURL.PartialDateTimeVR);
+                        partialDateSubExtensions.Remove(VR.ExtensionURL.PartialDateDayVR);
+                        partialDateSubExtensions.Remove(VR.ExtensionURL.PartialDateMonthVR);
+                        partialDateSubExtensions.Remove(VR.ExtensionURL.PartialDateYearVR);
+                        partialDateSubExtensions.Remove(VR.ExtensionURL.PartialDateTimeVR);
                         if (partialDateSubExtensions.Count() > 0)
                         {
                             errors.Append("[" + partialDateExtension.Url + "] component contains extra invalid fields [" + string.Join(", ", partialDateSubExtensions) + "] for resource [" + resource.Id + "].").AppendLine();
@@ -642,7 +642,7 @@ namespace VR
         private Extension NewDataAbsentReasonPartialDateTimeExtension(string dataAbsentReason, bool includeTime = true)
         {
             Extension partialDateTime = new Extension(includeTime ? ExtensionURL.PartialDateTime : ExtensionURL.PartialDate, null);
-            Extension year = new Extension(ExtensionURL.PartialDateYearVR, null);
+            Extension year = new Extension(VR.ExtensionURL.PartialDateYearVR, null);
             year.Extension.Add(new Extension(OtherExtensionURL.DataAbsentReason, new Code(dataAbsentReason)));
             partialDateTime.Extension.Add(year);
             Extension month = new Extension(ExtensionURL.PartialDateMonthVR, null);
@@ -760,17 +760,17 @@ namespace VR
             {
                 // DateTimeOffset.Parse will insert fake information where missing, 
                 // so TryParseExact on the partial date info first
-                if (partURL == ExtensionURL.PartialDateYearVR)
+                if (partURL == VR.ExtensionURL.PartialDateYearVR)
                 {
                     ParseDateElements(((FhirDateTime)value).Value, out int? year, out int? month, out int? day);
                     return year;
                 }
-                else if (partURL == ExtensionURL.PartialDateMonthVR)
+                else if (partURL == VR.ExtensionURL.PartialDateMonthVR)
                 {
                     ParseDateElements(((FhirDateTime)value).Value, out int? year, out int? month, out int? day);
                     return month;
                 }
-                else if (partURL == ExtensionURL.PartialDateDayVR)
+                else if (partURL == VR.ExtensionURL.PartialDateDayVR)
                 {
                     ParseDateElements(((FhirDateTime)value).Value, out int? year, out int? month, out int? day);
                     return day;
@@ -785,15 +785,15 @@ namespace VR
                 // Note: We can't just call ToDateTimeOffset() on the Date because want the date in whatever local time zone was provided
                 // if (DateTimeOffset.TryParse(((Date)value).Value, out DateTimeOffset parsedDate))
                 ParseDateElements(((Date)value).Value, out int? year, out int? month, out int? day);
-                if (partURL == ExtensionURL.PartialDateYearVR)
+                if (partURL == VR.ExtensionURL.PartialDateYearVR)
                 {
                     return year;
                 }
-                else if (partURL == ExtensionURL.PartialDateMonthVR)
+                else if (partURL == VR.ExtensionURL.PartialDateMonthVR)
                 {
                     return month;
                 }
-                else if (partURL == ExtensionURL.PartialDateDayVR)
+                else if (partURL == VR.ExtensionURL.PartialDateDayVR)
                 {
                     return day;
                 }
@@ -941,29 +941,29 @@ namespace VR
         /// <summary>Sets the given value to the given partial date extension and creates any necessary missing extensions.</summary>
         protected void CreateAndSetPartialDate(Date dateElement, string partUrl, int? value)
         {
-            if (!dateElement.Extension.Any(ext => ext.Url == ExtensionURL.PartialDateTimeVR))
+            if (!dateElement.Extension.Any(ext => ext.Url == VR.ExtensionURL.PartialDateTimeVR))
             {
-                dateElement.SetExtension(ExtensionURL.PartialDateTimeVR, new Extension());
+                dateElement.SetExtension(VR.ExtensionURL.PartialDateTimeVR, new Extension());
             }
-            if (!dateElement.Extension.Find(ext => ext.Url == ExtensionURL.PartialDateTimeVR).Extension.Any(ext => ext.Url == partUrl))
+            if (!dateElement.Extension.Find(ext => ext.Url == VR.ExtensionURL.PartialDateTimeVR).Extension.Any(ext => ext.Url == partUrl))
             {
-                dateElement.Extension.Find(ext => ext.Url == ExtensionURL.PartialDateTimeVR).SetExtension(partUrl, new Extension());
+                dateElement.Extension.Find(ext => ext.Url == VR.ExtensionURL.PartialDateTimeVR).SetExtension(partUrl, new Extension());
             }
-            SetPartialDate(dateElement.Extension.Find(ext => ext.Url == ExtensionURL.PartialDateTimeVR), partUrl, value);
+            SetPartialDate(dateElement.Extension.Find(ext => ext.Url == VR.ExtensionURL.PartialDateTimeVR), partUrl, value);
         }
 
         /// <summary>Sets the given value to the given partial date extension and creates any necessary missing extensions.</summary>
         protected void CreateAndSetPartialDate(FhirDateTime dateElement, string partUrl, int? value)
         {
-            if (!dateElement.Extension.Any(ext => ext.Url == ExtensionURL.PartialDateTimeVR))
+            if (!dateElement.Extension.Any(ext => ext.Url == VR.ExtensionURL.PartialDateTimeVR))
             {
-                dateElement.SetExtension(ExtensionURL.PartialDateTimeVR, new Extension());
+                dateElement.SetExtension(VR.ExtensionURL.PartialDateTimeVR, new Extension());
             }
-            if (!dateElement.Extension.Find(ext => ext.Url == ExtensionURL.PartialDateTimeVR).Extension.Any(ext => ext.Url == partUrl))
+            if (!dateElement.Extension.Find(ext => ext.Url == VR.ExtensionURL.PartialDateTimeVR).Extension.Any(ext => ext.Url == partUrl))
             {
-                dateElement.Extension.Find(ext => ext.Url == ExtensionURL.PartialDateTimeVR).SetExtension(partUrl, new Extension());
+                dateElement.Extension.Find(ext => ext.Url == VR.ExtensionURL.PartialDateTimeVR).SetExtension(partUrl, new Extension());
             }
-            SetPartialDate(dateElement.Extension.Find(ext => ext.Url == ExtensionURL.PartialDateTimeVR), partUrl, value);
+            SetPartialDate(dateElement.Extension.Find(ext => ext.Url == VR.ExtensionURL.PartialDateTimeVR), partUrl, value);
         }
 
         /// <summary>
@@ -1053,7 +1053,7 @@ namespace VR
         private void ExtractBestDateElements(PrimitiveType date, out int? year, out int? month, out int? day, out string time) {
             // Get the most valid date elements, giving priority to the parsed date elements. If the partial date is used, it will include any -1 values. If there are no valid date elements in any of the possible places, it will be null.
             ParseDateElements(((IValue<string>)date).Value, out int? parsedYear, out int? parsedMonth, out int? parsedDay);
-            Extension pdtExt = date.GetExtension(VR.ExtensionURL.PartialDateTimeVR);
+            Extension pdtExt = date.GetExtension(VR.ExtensionURL.PartialDateTime);
             year = parsedYear ?? GetPartialDate(pdtExt, VR.ExtensionURL.PartialDateYearVR);
             month = parsedMonth ?? GetPartialDate(pdtExt, VR.ExtensionURL.PartialDateMonthVR);
             day = parsedDay ?? GetPartialDate(pdtExt, VR.ExtensionURL.PartialDateDayVR);
@@ -1231,27 +1231,27 @@ namespace VR
                 switch (val)
                 {
                     case -1:
-                        dateElement.GetExtension(ExtensionURL.PartialDateTime).Extension.Add(BuildUnknownPartialDateTime(url));
+                        dateElement.GetExtension(VR.ExtensionURL.PartialDateTime).Extension.Add(BuildUnknownPartialDateTime(url));
                         break;
                     case null:
-                        dateElement.GetExtension(ExtensionURL.PartialDateTime).Extension.Add(BuildTempUnknownPartialDateTime(url));
+                        dateElement.GetExtension(VR.ExtensionURL.PartialDateTime).Extension.Add(BuildTempUnknownPartialDateTime(url));
                         break;
                     default:
-                        dateElement.GetExtension(ExtensionURL.PartialDateTime).SetExtension(url, new Integer(val));
+                        dateElement.GetExtension(VR.ExtensionURL.PartialDateTime).SetExtension(url, new Integer(val));
                         break;
                 }
             }
             if (timeValue == "-1")
             {
-                dateElement.GetExtension(VR.ExtensionURL.PartialDateTimeVR).Extension.Add(BuildUnknownPartialDateTime(VR.ExtensionURL.PartialDateTimeVR));
+                dateElement.GetExtension(VR.ExtensionURL.PartialDateTime).Extension.Add(BuildUnknownPartialDateTime(VR.ExtensionURL.PartialDateTimeVR));
             }
             else if (timeValue == null)
             {
-                dateElement.GetExtension(VR.ExtensionURL.PartialDateTimeVR).Extension.Add(BuildTempUnknownPartialDateTime(VR.ExtensionURL.PartialDateTimeVR));
+                dateElement.GetExtension(VR.ExtensionURL.PartialDateTime).Extension.Add(BuildTempUnknownPartialDateTime(VR.ExtensionURL.PartialDateTimeVR));
             }
             else
             {
-                dateElement.GetExtension(VR.ExtensionURL.PartialDateTimeVR).SetExtension(VR.ExtensionURL.PartialDateTimeVR, new Time(timeValue));
+                dateElement.GetExtension(VR.ExtensionURL.PartialDateTime).SetExtension(VR.ExtensionURL.PartialDateTimeVR, new Time(timeValue));
             }
             return dateElement;
         }
