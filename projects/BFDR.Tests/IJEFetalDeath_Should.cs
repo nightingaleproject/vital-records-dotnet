@@ -153,7 +153,7 @@ namespace BFDR.Tests
       Assert.Equal("01", ije.MDOB_MO);
       Assert.Equal("14", ije.MDOB_DY);
       Assert.Equal("0", ije.MAGE_BYPASS);
-      Assert.Equal("", ije.BPLACEC_ST_TER.Trim());
+      Assert.Equal("PA", ije.BPLACEC_ST_TER.Trim());
       Assert.Equal("FM", ije.BPLACEC_CNT);
       Assert.Equal("36000", ije.CITYC);
       Assert.Equal("209", ije.COUNTYC);

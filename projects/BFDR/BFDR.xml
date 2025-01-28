@@ -3661,13 +3661,13 @@
             </example>
         </member>
         <member name="P:BFDR.NatalityRecord.EventLocationJurisdiction">
-            <summary>Birth Location Jurisdiction.</summary>
+            <summary>Event Location Jurisdiction.</summary>
             <value>the vital record jurisdiction identifier.</value>
             <example>
             <para>// Setter:</para>
             <para>ExampleBirthRecord.EventLocationJurisdiction = "MA";</para>
             <para>// Getter:</para>
-            <para>Console.WriteLine($"Birth Location Jurisdiction: {ExampleBirthRecord.EventLocationJurisdiction}");</para>
+            <para>Console.WriteLine($"Event Location Jurisdiction: {ExampleBirthRecord.EventLocationJurisdiction}");</para>
             </example>
         </member>
         <member name="P:BFDR.NatalityRecord.PlaceOfBirth">

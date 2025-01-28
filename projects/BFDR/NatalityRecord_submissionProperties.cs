@@ -625,15 +625,15 @@ namespace BFDR
             }
         }
 
-        /// <summary>Birth Location Jurisdiction.</summary>
+        /// <summary>Event Location Jurisdiction.</summary>
         /// <value>the vital record jurisdiction identifier.</value>
         /// <example>
         /// <para>// Setter:</para>
         /// <para>ExampleBirthRecord.EventLocationJurisdiction = "MA";</para>
         /// <para>// Getter:</para>
-        /// <para>Console.WriteLine($"Birth Location Jurisdiction: {ExampleBirthRecord.EventLocationJurisdiction}");</para>
+        /// <para>Console.WriteLine($"Event Location Jurisdiction: {ExampleBirthRecord.EventLocationJurisdiction}");</para>
         /// </example>
-        [Property("Birth Location Jurisdiction", Property.Types.String, "Birth Location", "Vital Records Jurisdiction of Birth Location (two character jurisdiction code, e.g. CA).", true, VR.IGURL.Child, false, 16)]
+        [Property("Event Location Jurisdiction", Property.Types.String, "Event Location", "Vital Records Jurisdiction of Event Location (two character jurisdiction code, e.g. CA).", true, VR.IGURL.Child, false, 16)]
         // TODO - Currently not sure where the birth location would be in the record via FHIRPath, it seems different in BFDR vs VRDR. Some of the property fields above also need updating. Is this not in PatientChildVitalRecords at all and I just can't find it? There seems to be no reference to a jurisdiction location in the IG table of contents.
         [FHIRPath("Bundle.entry.resource.where($this is Location).where(type.coding.code='birth')", "")]
         public string EventLocationJurisdiction
@@ -7798,7 +7798,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Facility National Provider Identifier: {ExampleBirthRecord.FacilityNPI}");</para>
         /// </example>
-        [Property("Facility ID (NPI)", Property.Types.String, "Birth Location", "Facility ID (NPI), National Provider Identifier", true, IGURL.LocationBFDR, true, 34)]
+        [Property("Facility ID (NPI)", Property.Types.String, "Event Location", "Facility ID (NPI), National Provider Identifier", true, IGURL.LocationBFDR, true, 34)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87300-0')", "")]
         public string FacilityNPI
         {
@@ -7830,7 +7830,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Jurisdictional Facility Identifier: {ExampleBirthRecord.FacilityJFI}");</para>
         /// </example>
-        [Property("Facility ID (JFI)", Property.Types.String, "Birth Location", "Facility ID (JFI), Jurisdictional Facility Identifier", true, IGURL.LocationBFDR, true, 34)]
+        [Property("Facility ID (JFI)", Property.Types.String, "Event Location", "Facility ID (JFI), Jurisdictional Facility Identifier", true, IGURL.LocationBFDR, true, 34)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87300-0')", "")]
         public string FacilityJFI
         {
@@ -7868,7 +7868,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Birth Facility Name: {ExampleBirthRecord.BirthFacilityName}");</para>
         /// </example>
-        [Property("Birth Facility Name", Property.Types.String, "Birth Location", "Birth Facility Name", true, IGURL.LocationBFDR, true, 34)]
+        [Property("Birth Facility Name", Property.Types.String, "Event Location", "Birth Facility Name", true, IGURL.LocationBFDR, true, 34)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87300-0')", "")]
         public string BirthFacilityName
         {
@@ -7884,7 +7884,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Facility Mother Transferred From: {ExampleBirthRecord.FacilityMotherTransferredFrom}");</para>
         /// </example>
-        [Property("Facility Mother Transferred From", Property.Types.String, "Birth Location", "Facility Mother Moved From (if transferred)", true, IGURL.LocationBFDR, true, 34)]
+        [Property("Facility Mother Transferred From", Property.Types.String, "Event Location", "Facility Mother Moved From (if transferred)", true, IGURL.LocationBFDR, true, 34)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87300-0')", "")]
         public string FacilityMotherTransferredFrom
         {
@@ -7900,7 +7900,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Facility Mother Transferred From: {ExampleBirthRecord.FacilityInfantTransferredTo}");</para>
         /// </example>
-        [Property("Facility Infant Transferred To", Property.Types.String, "Birth Location", "Facility Infant Transferred To (if transferred w/in 24 hours)", true, IGURL.LocationBFDR, true, 34)]
+        [Property("Facility Infant Transferred To", Property.Types.String, "Event Location", "Facility Infant Transferred To (if transferred w/in 24 hours)", true, IGURL.LocationBFDR, true, 34)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='87300-0')", "")]
         public string FacilityInfantTransferredTo
         {
