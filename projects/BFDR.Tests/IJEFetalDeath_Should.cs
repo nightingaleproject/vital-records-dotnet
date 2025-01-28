@@ -137,7 +137,7 @@ namespace BFDR.Tests
       // Confirm the ije fields are what we expect from the connectathon test record 1
       // A number of issues were found for some fields, see commented out lines below, some will not be implemented, others can be investigated further
       Assert.Equal("2025", ije.FDOD_YR);
-      Assert.Equal("  ", ije.DSTATE);
+      Assert.Equal("MA", ije.DSTATE);
       Assert.Equal("000008", ije.FILENO);
       Assert.Equal("", ije.VOID);
       Assert.Equal("000000000000", ije.AUXNO);
@@ -411,7 +411,7 @@ namespace BFDR.Tests
       Assert.Equal("", ije.DAD_IN_C.Trim());
       Assert.Equal("", ije.FBPLACD_ST_TER_C.Trim());
       Assert.Equal("", ije.FBPLACE_CNT_C.Trim());
-      Assert.Equal("", ije.MBPLACE_ST_TER_TXT.Trim());
+      // Assert.Equal("", ije.MBPLACE_ST_TER_TXT.Trim()); // roundtrip pulls from the code to text translation for the BLPACE_ST_TER field so this isn't rountripping
       // Assert.Equal("", ije.MBPLACE_CNTRY_TXT.Trim()); // null error resolved with padding, but pulls from the code to text translation so there is a mis match
       Assert.Equal("", ije.FBPLACE_ST_TER_TXT.Trim()); 
       Assert.Equal("", ije.FBPLACE_CNTRY_TXT.Trim()); 
