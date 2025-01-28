@@ -3368,6 +3368,9 @@
         <member name="M:BFDR.NatalityRecord.#ctor(System.String)">
             <summary>Default constructor that creates a new, empty NatalityRecord.</summary>
         </member>
+        <member name="M:BFDR.NatalityRecord.InitializeCompositionAndSubject">
+            <summary>Initialize Composition and Subject.</summary>
+        </member>
         <member name="M:BFDR.NatalityRecord.#ctor(System.String,System.Boolean)">
             <summary>Constructor that takes a string that represents a FHIR Natality Record in either XML or JSON format.</summary>
             <param name="record">represents a FHIR Natality Record in either XML or JSON format.</param>
@@ -3481,24 +3484,6 @@
              Setter method for child or decedent fetus birth/delivery year.
             </summary>
             <param name="value">The birth year.</param>
-        </member>
-        <member name="P:BFDR.NatalityRecord.PartialDateYearUrl">
-            <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Year</summary>x
-        </member>
-        <member name="P:BFDR.NatalityRecord.PartialDateMonthUrl">
-            <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Month</summary>
-        </member>
-        <member name="P:BFDR.NatalityRecord.PartialDateDayUrl">
-            <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Day</summary>
-        </member>
-        <member name="P:BFDR.NatalityRecord.PartialDateTimeTimeUrl">
-            <summary>Overriden method that dictates which Extension URL to use for PartialDateTime Time</summary>
-        </member>
-        <member name="P:BFDR.NatalityRecord.PartialDateTimeUrl">
-            <summary>Overriden method that dictates which Extension URL to use for PartialDateTime</summary>
-        </member>
-        <member name="P:BFDR.NatalityRecord.PartialDateUrl">
-            <summary>Overrideable method that dictates which Extension URL to use for PartialDate</summary>
         </member>
         <member name="M:BFDR.NatalityRecord.GetBirthMonth">
             <summary>

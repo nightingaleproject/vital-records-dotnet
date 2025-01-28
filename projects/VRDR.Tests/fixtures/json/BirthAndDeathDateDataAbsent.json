@@ -316,7 +316,7 @@
                       "valueCode": "unknown"
                     }
                   ],
-                  "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Year"
+                  "url": "year"
                 },
                 {
                   "extension": [
@@ -325,14 +325,14 @@
                       "valueCode": "unknown"
                     }
                   ],
-                  "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Month"
+                  "url": "month"
                 },
                 {
-                  "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Day",
+                  "url": "day",
                   "valueUnsignedInt": 24
                 }
               ],
-              "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDate"
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-partial-date-vr"
             }
           ]
         },
@@ -340,7 +340,7 @@
           {
             "extension": [
               {
-                "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/WithinCityLimitsIndicator",
+                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-within-city-limits-indicator-vr",
                 "valueCoding": {
                   "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
                   "code": "N",
@@ -504,9 +504,11 @@
             "http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-death-certification"
           ]
         },
-        "identifier": [{
-          "value": "1"
-        }],
+        "identifier": [
+          {
+            "value": "1"
+          }
+        ],
         "status": "completed",
         "category": {
           "coding": [
@@ -738,9 +740,11 @@
         "subject": {
           "reference": "urn:uuid:949354d3-9dcf-4c96-8ec4-6be27dd4c65f"
         },
-        "performer": [{
-          "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
-        }],
+        "performer": [
+          {
+            "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
+          }
+        ],
         "code": {
           "coding": [
             {
@@ -784,9 +788,11 @@
             }
           ]
         },
-        "performer": [{
-          "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
-        }],
+        "performer": [
+          {
+            "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
+          }
+        ],
         "component": [
           {
             "code": {
@@ -803,7 +809,6 @@
             }
           }
         ]
-
       }
     },
     {
@@ -838,9 +843,11 @@
             }
           ]
         },
-        "performer": [{
-          "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
-        }],
+        "performer": [
+          {
+            "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
+          }
+        ],
         "component": [
           {
             "code": {
@@ -884,9 +891,11 @@
             }
           ]
         },
-        "performer": [{
-          "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
-        }],
+        "performer": [
+          {
+            "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
+          }
+        ],
         "component": [
           {
             "code": {
@@ -930,9 +939,11 @@
             }
           ]
         },
-        "performer": [{
-          "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
-        }],
+        "performer": [
+          {
+            "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
+          }
+        ],
         "component": [
           {
             "code": {
@@ -964,13 +975,15 @@
         "patient": {
           "reference": "urn:uuid:949354d3-9dcf-4c96-8ec4-6be27dd4c65f"
         },
-        "relationship": [{
-          "coding": [
-            {
-              "code": "FTH"
-            }
-          ]
-        }],
+        "relationship": [
+          {
+            "coding": [
+              {
+                "code": "FTH"
+              }
+            ]
+          }
+        ],
         "name": [
           {
             "family": "Last",
@@ -998,13 +1011,15 @@
         "patient": {
           "reference": "urn:uuid:949354d3-9dcf-4c96-8ec4-6be27dd4c65f"
         },
-        "relationship": [{
-          "coding": [
-            {
-              "code": "MTH"
-            }
-          ]
-        }],
+        "relationship": [
+          {
+            "coding": [
+              {
+                "code": "MTH"
+              }
+            ]
+          }
+        ],
         "name": [
           {
             "family": "Maiden",
@@ -1032,13 +1047,15 @@
         "patient": {
           "reference": "urn:uuid:949354d3-9dcf-4c96-8ec4-6be27dd4c65f"
         },
-        "relationship": [{
-          "coding": [
-            {
-              "code": "SPS"
-            }
-          ]
-        }],
+        "relationship": [
+          {
+            "coding": [
+              {
+                "code": "SPS"
+              }
+            ]
+          }
+        ],
         "name": [
           {
             "family": "Last",
@@ -1098,12 +1115,11 @@
           ]
         },
         "status": "final",
-        "code" : {
-          "coding" : [
+        "code": {
+          "coding": [
             {
-              "system" : "http://terminology.hl7.org/CodeSystem/v2-0203",
-              "code" : "BR",
-              "display" : "Birth registry number"
+              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs",
+              "code": "childbirthrecordidentifier"
             }
           ]
         },
@@ -1111,26 +1127,26 @@
           "reference": "urn:uuid:949354d3-9dcf-4c96-8ec4-6be27dd4c65f"
         },
         "valueString": "242123",
-        "component" : [
+        "component": [
           {
-            "code" : {
-              "coding" : [
+            "code": {
+              "coding": [
                 {
-                  "system" : "http://loinc.org",
-                  "code" : "21842-0",
-                  "display" : "Birthplace"
+                  "system": "http://loinc.org",
+                  "code": "21842-0",
+                  "display": "Birthplace"
                 }
               ]
             },
-            "valueString" : "MA"
+            "valueString": "MA"
           },
           {
-            "code" : {
-              "coding" : [
+            "code": {
+              "coding": [
                 {
-                  "system" : "http://loinc.org",
-                  "code" : "80904-6",
-                  "display" : "Birth year"
+                  "system": "http://loinc.org",
+                  "code": "80904-6",
+                  "display": "Birth year"
                 }
               ]
             }
@@ -1158,9 +1174,9 @@
             }
           ]
         },
-        "effectivePeriod" : {
-          "start" : "1965-01-01",
-          "end" : "2010-01-01"
+        "effectivePeriod": {
+          "start": "1965-01-01",
+          "end": "2010-01-01"
         },
         "valueCodeableConcept": {
           "coding": [
@@ -1561,24 +1577,26 @@
             "http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-death-location"
           ]
         },
-        "type": [{
-          "coding": [
-            {
-              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-location-type-cs",
-              "code": "death",
-              "display": "death location"
-            }
-          ]
-        }],
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-location-type-cs",
+                "code": "death",
+                "display": "death location"
+              }
+            ]
+          }
+        ],
         "extension": [
           {
-            "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Location-Jurisdiction-Id",
+            "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-jurisdiction-id-vr",
             "valueCodeableConcept": {
               "coding": [
                 {
-                "system": "2.16.840.1.113883.6.92",
-                "code": "25",
-                "display": "MA"
+                  "system": "2.16.840.1.113883.6.92",
+                  "code": "25",
+                  "display": "MA"
                 }
               ]
             }
@@ -1633,11 +1651,11 @@
             {
               "extension": [
                 {
-                  "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Year",
+                  "url": "year",
                   "valueUnsignedInt": 2021
                 },
                 {
-                  "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Month",
+                  "url": "month",
                   "valueUnsignedInt": 2
                 },
                 {
@@ -1647,7 +1665,7 @@
                       "valueCode": "unknown"
                     }
                   ],
-                  "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Day"
+                  "url": "day"
                 },
                 {
                   "extension": [
@@ -1656,10 +1674,10 @@
                       "valueCode": "unknown"
                     }
                   ],
-                  "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Time"
+                  "url": "time"
                 }
               ],
-              "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDateTime"
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-partial-date-time-vr"
             }
           ]
         },
@@ -1707,11 +1725,11 @@
             {
               "extension": [
                 {
-                  "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Year",
+                  "url": "year",
                   "valueUnsignedInt": 2017
                 },
                 {
-                  "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Month",
+                  "url": "month",
                   "valueUnsignedInt": 3
                 },
                 {
@@ -1721,10 +1739,10 @@
                       "valueCode": "unknown"
                     }
                   ],
-                  "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Day"
+                  "url": "day"
                 }
               ],
-              "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDate"
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-partial-date-vr"
             }
           ]
         }

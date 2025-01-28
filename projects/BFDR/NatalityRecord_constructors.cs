@@ -115,6 +115,7 @@ namespace BFDR
             UpdateRecordIdentifier();
         }
 
+        /// <summary>Initialize Composition and Subject.</summary>
         protected abstract void InitializeCompositionAndSubject();
 
         /// <summary>Constructor that takes a string that represents a FHIR Natality Record in either XML or JSON format.</summary>

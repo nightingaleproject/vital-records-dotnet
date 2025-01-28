@@ -56,7 +56,7 @@
         "identifier": {
           "extension": [
             {
-              "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/AuxiliaryStateIdentifier2",
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/AuxiliaryStateIdentifier2",
               "valueString": "1608857"
             }
           ],
@@ -133,7 +133,7 @@
                   "code": {
                     "coding": [
                       {
-                        "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
+                        "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
                         "code": "lineNumber",
                         "display": "lineNumber"
                       }
@@ -145,7 +145,7 @@
                   "code": {
                     "coding": [
                       {
-                        "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
+                        "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
                         "code": "position",
                         "display": "Position"
                       }
@@ -157,7 +157,7 @@
                   "code": {
                     "coding": [
                       {
-                        "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
+                        "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
                         "code": "eCodeIndicator",
                         "display": "eCodeIndicator"
                       }
@@ -203,7 +203,7 @@
                   "code": {
                     "coding": [
                       {
-                        "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
+                        "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
                         "code": "lineNumber",
                         "display": "lineNumber"
                       }
@@ -215,7 +215,7 @@
                   "code": {
                     "coding": [
                       {
-                        "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
+                        "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
                         "code": "position",
                         "display": "Position"
                       }
@@ -227,7 +227,7 @@
                   "code": {
                     "coding": [
                       {
-                        "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
+                        "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
                         "code": "eCodeIndicator",
                         "display": "eCodeIndicator"
                       }
@@ -273,7 +273,7 @@
                   "code": {
                     "coding": [
                       {
-                        "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
+                        "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
                         "code": "lineNumber",
                         "display": "lineNumber"
                       }
@@ -285,7 +285,7 @@
                   "code": {
                     "coding": [
                       {
-                        "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
+                        "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
                         "code": "position",
                         "display": "Position"
                       }
@@ -297,7 +297,7 @@
                   "code": {
                     "coding": [
                       {
-                        "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
+                        "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
                         "code": "eCodeIndicator",
                         "display": "eCodeIndicator"
                       }
@@ -343,7 +343,7 @@
                   "code": {
                     "coding": [
                       {
-                        "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
+                        "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
                         "code": "lineNumber",
                         "display": "lineNumber"
                       }
@@ -355,7 +355,7 @@
                   "code": {
                     "coding": [
                       {
-                        "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
+                        "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
                         "code": "position",
                         "display": "Position"
                       }
@@ -367,7 +367,7 @@
                   "code": {
                     "coding": [
                       {
-                        "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
+                        "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
                         "code": "eCodeIndicator",
                         "display": "eCodeIndicator"
                       }
@@ -413,7 +413,7 @@
                   "code": {
                     "coding": [
                       {
-                        "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
+                        "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
                         "code": "position",
                         "display": "Position"
                       }
@@ -459,7 +459,7 @@
                   "code": {
                     "coding": [
                       {
-                        "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
+                        "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
                         "code": "position",
                         "display": "Position"
                       }
@@ -505,7 +505,7 @@
                   "code": {
                     "coding": [
                       {
-                        "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
+                        "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
                         "code": "position",
                         "display": "Position"
                       }
@@ -534,19 +534,19 @@
                       {
                         "extension": [
                           {
-                            "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Year",
+                            "url": "year",
                             "valueUnsignedInt": 2021
                           },
                           {
-                            "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Month",
+                            "url": "month",
                             "valueUnsignedInt": 6
                           },
                           {
-                            "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Day",
+                            "url": "day",
                             "valueUnsignedInt": 1
                           }
                         ],
-                        "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDate"
+                        "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-partial-date-vr"
                       }
                     ]
                   }
@@ -749,7 +749,7 @@
                             "valueCode": "unknown"
                           }
                         ],
-                        "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Year"
+                        "url": "year"
                       },
                       {
                         "extension": [
@@ -758,7 +758,7 @@
                             "valueCode": "unknown"
                           }
                         ],
-                        "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Month"
+                        "url": "month"
                       },
                       {
                         "extension": [
@@ -767,7 +767,7 @@
                             "valueCode": "unknown"
                           }
                         ],
-                        "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Day"
+                        "url": "day"
                       },
                       {
                         "extension": [
@@ -776,10 +776,10 @@
                             "valueCode": "unknown"
                           }
                         ],
-                        "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Time"
+                        "url": "time"
                       }
                     ],
-                    "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDateTime"
+                    "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-partial-date-time-vr"
                   }
                 ]
               }
@@ -845,7 +845,7 @@
               "valueCodeableConcept": {
                 "coding": [
                   {
-                    "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-pregnancy-status-cs",
+                    "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/CodeSystem-death-pregnancy-status",
                     "code": "9",
                     "display": "Unknown if pregnant within the past year"
                   }
@@ -887,7 +887,7 @@
                             "valueCode": "unknown"
                           }
                         ],
-                        "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Year"
+                        "url": "year"
                       },
                       {
                         "extension": [
@@ -896,7 +896,7 @@
                             "valueCode": "unknown"
                           }
                         ],
-                        "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Month"
+                        "url": "month"
                       },
                       {
                         "extension": [
@@ -905,10 +905,10 @@
                             "valueCode": "unknown"
                           }
                         ],
-                        "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Day"
+                        "url": "day"
                       }
                     ],
-                    "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDate"
+                    "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-partial-date-vr"
                   }
                 ]
               }
@@ -919,4 +919,3 @@
     }
   ]
 }
-
