@@ -320,7 +320,7 @@ namespace BFDR
         {
             get
             {
-                Condition cond = GetCondition("maternalconditions");
+                Condition cond = GetCondition("maternalconditions", "76060-3");
                 if (cond != null && cond.Code != null && cond.Code.Text != null)
                 {
                     return cond.Code.Text.ToString();
@@ -333,7 +333,7 @@ namespace BFDR
                 {
                     return;
                 }
-                Condition cond = GetCondition("maternalconditions");
+                Condition cond = GetCondition("maternalconditions", "76060-3");
                 if (cond == null)
                 {
                     cond = (Condition)CreateEntry(GetFHIRPathAttribute(), SubjectId());
@@ -674,7 +674,7 @@ namespace BFDR
         {
             get
             {
-                Condition cond = GetCondition("702709008");
+                Condition cond = GetCondition("702709008", "76060-3");
                 if (cond != null && cond.Code != null && cond.Code.Text != null)
                 {
                     return cond.Code.Text.ToString();
@@ -687,7 +687,7 @@ namespace BFDR
                 {
                     return;
                 }
-                Condition cond = GetCondition("702709008");
+                Condition cond = GetCondition("702709008", "76060-3");
                 if (cond == null)
                 {
                     cond = (Condition)CreateEntry(GetFHIRPathAttribute(), SubjectId());
@@ -705,7 +705,7 @@ namespace BFDR
         {
             get
             {
-                Condition cond = GetCondition("277489001");
+                Condition cond = GetCondition("277489001", "76060-3");
                 if (cond != null && cond.Code != null && cond.Code.Text != null)
                 {
                     return cond.Code.Text.ToString();
@@ -718,7 +718,7 @@ namespace BFDR
                 {
                     return;
                 }
-                Condition cond = GetCondition("277489001");
+                Condition cond = GetCondition("277489001", "76060-3");
                 if (cond == null)
                 {
                     cond = (Condition)CreateEntry(GetFHIRPathAttribute(), SubjectId());
@@ -767,7 +767,7 @@ namespace BFDR
         {
             get
             {
-                Condition cond = GetCondition("fetalconditions");
+                Condition cond = GetCondition("fetalconditions", "76060-3");
                 if (cond != null && cond.Code != null && cond.Code.Text != null)
                 {
                     return cond.Code.Text.ToString();
@@ -780,7 +780,7 @@ namespace BFDR
                 {
                     return;
                 }
-                Condition cond = GetCondition("fetalconditions");
+                Condition cond = GetCondition("fetalconditions", "76060-3");
                 if (cond == null)
                 {
                     cond = (Condition)CreateEntry(GetFHIRPathAttribute(), SubjectId());
@@ -879,7 +879,7 @@ namespace BFDR
         {
             get
             {
-                Condition cond = GetCondition("maternalconditions");
+                Condition cond = GetCondition("maternalconditions", "76061-1");
                 if (cond != null && cond.Code != null && cond.Code.Text != null)
                 {
                     return cond.Code.Text.ToString();
@@ -892,7 +892,7 @@ namespace BFDR
                 {
                     return;
                 }
-                Condition cond = GetCondition("maternalconditions");
+                Condition cond = GetCondition("maternalconditions", "76061-1");
                 if (cond == null)
                 {
                     cond = (Condition)CreateEntry(GetFHIRPathAttribute(), SubjectId());
@@ -972,7 +972,7 @@ namespace BFDR
         {
             get
             {
-                Condition cond = GetCondition("702709008");
+                Condition cond = GetCondition("702709008", "76061-1");
                 if (cond != null && cond.Code != null && cond.Code.Text != null)
                 {
                     return cond.Code.Text.ToString();
@@ -985,7 +985,7 @@ namespace BFDR
                 {
                     return;
                 }
-                Condition cond = GetCondition("702709008");
+                Condition cond = GetCondition("702709008", "76061-1");
                 if (cond == null)
                 {
                     cond = (Condition)CreateEntry(GetFHIRPathAttribute(), SubjectId());
@@ -1003,7 +1003,7 @@ namespace BFDR
         {
             get
             {
-                Condition cond = GetCondition("277489001");
+                Condition cond = GetCondition("277489001", "76061-1");
                 if (cond != null && cond.Code != null && cond.Code.Text != null)
                 {
                     return cond.Code.Text.ToString();
@@ -1016,7 +1016,7 @@ namespace BFDR
                 {
                     return;
                 }
-                Condition cond = GetCondition("277489001");
+                Condition cond = GetCondition("277489001", "76061-1");
                 if (cond == null)
                 {
                     cond = (Condition)CreateEntry(GetFHIRPathAttribute(), SubjectId());
@@ -1065,7 +1065,7 @@ namespace BFDR
         {
             get
             {
-                Condition cond = GetCondition("fetalconditions");
+                Condition cond = GetCondition("fetalconditions", "76061-1");
                 if (cond != null && cond.Code != null && cond.Code.Text != null)
                 {
                     return cond.Code.Text.ToString();
@@ -1078,7 +1078,7 @@ namespace BFDR
                 {
                     return;
                 }
-                Condition cond = GetCondition("fetalconditions");
+                Condition cond = GetCondition("fetalconditions", "76061-1");
                 if (cond == null)
                 {
                     cond = (Condition)CreateEntry(GetFHIRPathAttribute(), SubjectId());

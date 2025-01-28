@@ -131,12 +131,12 @@ namespace BFDR.Tests
 
       // Confirm the ije can be converted to fhir
       FetalDeathRecord record = ije.ToRecord();
-      Assert.Equal(2020, record.DeliveryYear);
-      Assert.Equal("Smith", record.FetusFamilyName);
+      Assert.Equal(2025, record.DeliveryYear);
+      Assert.Equal("Anwar", record.FetusFamilyName);
 
       // Confirm the ije fields are what we expect from the connectathon test record 1
-      // A number of issues were found for some fields, see commented out lines below, these all need to be addressed
-      Assert.Equal("2020", ije.FDOD_YR);
+      // A number of issues were found for some fields, see commented out lines below, some will not be implemented, others can be investigated further
+      Assert.Equal("2025", ije.FDOD_YR);
       Assert.Equal("  ", ije.DSTATE);
       Assert.Equal("000008", ije.FILENO);
       Assert.Equal("", ije.VOID);
@@ -155,11 +155,11 @@ namespace BFDR.Tests
       Assert.Equal("0", ije.MAGE_BYPASS);
       Assert.Equal("", ije.BPLACEC_ST_TER.Trim());
       Assert.Equal("FM", ije.BPLACEC_CNT);
-      // Assert.Equal("36000", ije.CITYC); // TODO needs to be fixed
+      Assert.Equal("36000", ije.CITYC);
       Assert.Equal("209", ije.COUNTYC);
-      Assert.Equal("KS", ije.STATEC);
+      Assert.Equal("DE", ije.STATEC);
       Assert.Equal("US", ije.COUNTRYC);
-      // Assert.Equal("Y", ije.LIMITS); // TODO needs to be fixed
+      Assert.Equal("Y", ije.LIMITS);
       Assert.Equal("2000", ije.FDOB_YR);
       Assert.Equal("10", ije.FDOB_MO);
       Assert.Equal("20", ije.FDOB_DY);
@@ -212,7 +212,7 @@ namespace BFDR.Tests
       Assert.Equal("", ije.MRACE21C.Trim());
       Assert.Equal("", ije.MRACE22C.Trim());
       Assert.Equal("", ije.MRACE23C.Trim());
-      // Assert.Equal("2", ije.ATTEND); // TODO needs to be fixed
+      Assert.Equal("2", ije.ATTEND); 
       Assert.Equal("", ije.TRAN.Trim());
       Assert.Equal("99", ije.DOFP_MO);
       Assert.Equal("99", ije.DOFP_DY);
@@ -248,14 +248,14 @@ namespace BFDR.Tests
       Assert.Equal("N", ije.GHYPE);
       Assert.Equal("", ije.PPB.Trim());
       Assert.Equal("", ije.PPO.Trim());
-      // Assert.Equal("N", ije.VB); // TODO needs to be fixed
+      // Assert.Equal("N", ije.VB); // VB is not implemented
       Assert.Equal("N", ije.INFT);
       Assert.Equal("N", ije.PCES);
       Assert.Equal("00", ije.NPCES);
       Assert.Equal("0", ije.NPCES_BYPASS);
       Assert.Equal("", ije.GON.Trim());
       Assert.Equal("", ije.SYPH.Trim());
-      // Assert.Equal("N", ije.HSV); // TODO needs to be fixed
+      // Assert.Equal("N", ije.HSV); // HSV is not implemented
       Assert.Equal("", ije.CHAM.Trim());
       Assert.Equal("", ije.LM.Trim());
       Assert.Equal("", ije.GBS.Trim());
@@ -263,11 +263,11 @@ namespace BFDR.Tests
       Assert.Equal("", ije.B19.Trim());
       Assert.Equal("", ije.TOXO.Trim());
       Assert.Equal("", ije.OTHERI.Trim());
-      // Assert.Equal("N", ije.ATTF); // TODO needs to be fixed
-      // Assert.Equal("N", ije.ATTV); // TODO needs to be fixed
+      // Assert.Equal("N", ije.ATTF); // ATTF is not implemented
+      // Assert.Equal("N", ije.ATTV); // ATTV is not implemented
       Assert.Equal("3", ije.PRES);
       Assert.Equal("1", ije.ROUT);
-      Assert.Equal("U", ije.TLAB); // this should actually be an X?
+      Assert.Equal("U", ije.TLAB); // X can't roundtrip, TODO consider changing this to N or Y so the record can be roundtripped
       Assert.Equal("", ije.HYST.Trim());
       Assert.Equal("", ije.MTR.Trim());
       Assert.Equal("", ije.PLAC.Trim());
@@ -276,7 +276,7 @@ namespace BFDR.Tests
       Assert.Equal("N", ije.AINT);
       Assert.Equal("", ije.UOPR.Trim());
       Assert.Equal("0999", ije.FWG);
-      // Assert.Equal("", ije.FW_BYPASS.Trim());  // this is a null error?
+      Assert.Equal("0", ije.FW_BYPASS);
       Assert.Equal("32", ije.OWGEST);
       Assert.Equal("0", ije.OWGEST_BYPASS);
       Assert.Equal("N", ije.ETIME);
@@ -286,7 +286,7 @@ namespace BFDR.Tests
       Assert.Equal("01", ije.PLUR);
       Assert.Equal("99", ije.SORD);
       Assert.Equal("99", ije.FDTH);
-      // Assert.Equal("999999", ije.MATCH); // TODO this needs to be fixed
+      // Assert.Equal("999999", ije.MATCH); // not implemented in FHIR
       Assert.Equal("0", ije.PLUR_BYPASS);
       Assert.Equal("", ije.ANEN.Trim());
       Assert.Equal("", ije.MNSB.Trim());
@@ -306,7 +306,7 @@ namespace BFDR.Tests
       Assert.Equal("26", ije.MAGER);
       Assert.Equal("23", ije.FAGER);
       Assert.Equal("N", ije.EHYPE);
-      // Assert.Equal("X", ije.INFT_DRG); // should this be X?
+      // Assert.Equal("X", ije.INFT_DRG); // should this be X? we can't round trip X or U for these fields, consider changing to N for testing purposes and determine if this is an issue
       // Assert.Equal("X", ije.INFT_ART); // should this be X?
       Assert.Equal("2024", ije.DOR_YR);
       Assert.Equal("12", ije.DOR_MO);
@@ -318,14 +318,14 @@ namespace BFDR.Tests
       Assert.Equal("N", ije.COD18a5);
       Assert.Equal("N", ije.COD18a6);
       Assert.Equal("N", ije.COD18a7);
-      // Assert.Equal("NO PRENATAL CARE", ije.COD18a8); // TODO this needs to be fixed
+      Assert.Equal("NO PRENATAL CARE", ije.COD18a8.Trim()); 
       Assert.Equal("", ije.COD18a9.Trim());
       Assert.Equal("", ije.COD18a10.Trim());
-      // Assert.Equal("", ije.COD18a11.Trim()); // TODO this needs to be fixed
+      Assert.Equal("", ije.COD18a11.Trim()); 
       Assert.Equal("99          0", ije.COD18a12.Trim());
       Assert.Equal("", ije.COD18a13.Trim());
       Assert.Equal("", ije.COD18a13.Trim());
-      // Assert.Equal("", ije.COD18a14.Trim()); // TODO this needs to be fixed
+      Assert.Equal("", ije.COD18a14.Trim()); 
       Assert.Equal("N", ije.COD18b1);
       Assert.Equal("N", ije.COD18b2);
       Assert.Equal("N", ije.COD18b3);
@@ -337,7 +337,7 @@ namespace BFDR.Tests
       Assert.Equal("", ije.COD18b9.Trim());
       Assert.Equal("", ije.COD18b10.Trim());
       Assert.Equal("NONE IDENTIFIED", ije.COD18b11.Trim());
-      // Assert.Equal("", ije.COD18b12.Trim()); // TODO this needs to be fixed
+      Assert.Equal("", ije.COD18b12.Trim()); 
       Assert.Equal("", ije.COD18b13.Trim());
       Assert.Equal("INTRAUTERINE FETAL DEMISE", ije.COD18b14.Trim());
       Assert.Equal("", ije.ICOD.Trim());
@@ -351,9 +351,9 @@ namespace BFDR.Tests
       Assert.Equal("", ije.HSV1.Trim());
       Assert.Equal("", ije.HIV.Trim());
       Assert.Equal("", ije.ALCOHOL.Trim());
-      Assert.Equal("Joe", ije.FETFNAME.Trim());
+      Assert.Equal("Zeke", ije.FETFNAME.Trim());
       Assert.Equal("", ije.FETMNAME.Trim());
-      Assert.Equal("Smith", ije.FETLNAME.Trim());
+      Assert.Equal("Anwar", ije.FETLNAME.Trim());
       Assert.Equal("", ije.SUFFIX.Trim());
       Assert.Equal("", ije.ALIAS.Trim());
       Assert.Equal("", ije.HOSP_D.Trim());
@@ -367,8 +367,8 @@ namespace BFDR.Tests
       Assert.Equal("", ije.ZIPCODE_D.Trim());
       Assert.Equal("", ije.CNTY_D.Trim());
       Assert.Equal("", ije.CITY_D.Trim());
-      // Assert.Equal("", ije.STATE_D.Trim()); // TODO this is giving a null error
-      // Assert.Equal("", ije.COUNTRY_D.Trim()); // TODO this is giving a null error
+      Assert.Equal("", ije.STATE_D.Trim()); 
+      Assert.Equal("", ije.COUNTRY_D.Trim());
       Assert.Equal("", ije.LONG_D.Trim());
       Assert.Equal("", ije.LAT_D.Trim());
       Assert.Equal("", ije.MOMFNAME.Trim());
@@ -389,7 +389,7 @@ namespace BFDR.Tests
       Assert.Equal("XXXXX", ije.ZIPCODE.Trim()); 
       Assert.Equal("XXXXXXXXX", ije.COUNTYTXT.Trim()); 
       Assert.Equal("xxxxxx xxxx", ije.CITYTXT.Trim()); 
-      // Assert.Equal("xxxxx", ije.STATETXT.Trim()); // Todo this needs to be fixed
+      Assert.Equal("Delaware", ije.STATETXT.Trim());
       Assert.Equal("United States", ije.CNTRYTXT.Trim()); 
       Assert.Equal("", ije.LONG.Trim());
       Assert.Equal("", ije.LAT.Trim());
@@ -397,8 +397,8 @@ namespace BFDR.Tests
       Assert.Equal("", ije.DADMNAME.Trim());
       Assert.Equal("", ije.DADLNAME.Trim());
       Assert.Equal("", ije.DADSUFFIX.Trim());
-      // Assert.Equal("", ije.MOM_SSN.Trim()); // TODO null error
-      // Assert.Equal("", ije.DAD_SSN.Trim()); // TODO null error
+      Assert.Equal("", ije.MOM_SSN.Trim());
+      Assert.Equal("", ije.DAD_SSN.Trim());
       Assert.Equal("", ije.MAGE_CALC.Trim());
       Assert.Equal("", ije.FAGE_CALC.Trim());
       Assert.Equal("", ije.MOM_OC_T.Trim());
@@ -411,16 +411,16 @@ namespace BFDR.Tests
       Assert.Equal("", ije.DAD_IN_C.Trim());
       Assert.Equal("", ije.FBPLACD_ST_TER_C.Trim());
       Assert.Equal("", ije.FBPLACE_CNT_C.Trim());
-      // Assert.Equal("", ije.MBPLACE_ST_TER_TXT.Trim()); // TODO null error
-      // Assert.Equal("", ije.MBPLACE_CNTRY_TXT.Trim()); // TODO null error
-      // Assert.Equal("", ije.FBPLACE_ST_TER_TXT.Trim()); // TODO null error
-      // Assert.Equal("", ije.FBPLACE_CNTRY_TXT.Trim()); // TODO null error
+      Assert.Equal("", ije.MBPLACE_ST_TER_TXT.Trim());
+      // Assert.Equal("", ije.MBPLACE_CNTRY_TXT.Trim()); // null error resolved with padding, but pulls from the code to text translation so there is a mis match
+      Assert.Equal("", ije.FBPLACE_ST_TER_TXT.Trim()); 
+      Assert.Equal("", ije.FBPLACE_CNTRY_TXT.Trim()); 
       Assert.Equal("", ije.FEDUC.Trim());
       Assert.Equal("", ije.FEDUC_BYPASS.Trim());
-      // Assert.Equal("", ije.FETHNIC1.Trim()); // TODO needs to be fixed, I think I edited the ije in connectathon.cs
-      // Assert.Equal("", ije.FETHNIC2.Trim()); // TODO needs to be fixed
-      // Assert.Equal("", ije.FETHNIC3.Trim()); // TODO needs to be fixed
-      // Assert.Equal("", ije.FETHNIC4.Trim()); // TODO needs to be fixed
+      Assert.Equal("U", ije.FETHNIC1.Trim()); // blanks become u when round tripped, is this correct?
+      Assert.Equal("U", ije.FETHNIC2.Trim()); // blanks become u when round tripped, is this correct?
+      Assert.Equal("U", ije.FETHNIC3.Trim()); // blanks become u when round tripped, is this correct?
+      Assert.Equal("U", ije.FETHNIC4.Trim()); // blanks become u when round tripped, is this correct?
       Assert.Equal("", ije.FETHNIC5.Trim());
       Assert.Equal("", ije.FRACE1.Trim());
       Assert.Equal("", ije.FRACE2.Trim());
@@ -485,7 +485,7 @@ namespace BFDR.Tests
       Assert.Equal("", ije.REGISTER_YR.Trim());
       Assert.Equal("", ije.REGISTER_MO.Trim());
       Assert.Equal("", ije.REGISTER_DY.Trim());
-      // Assert.Equal("0", ije.REPLACE); // TODO needs to be fixed
+      // Assert.Equal("0", ije.REPLACE); // Not implemented
       Assert.Equal("", ije.PLACE1_1.Trim());
       Assert.Equal("", ije.PLACE1_2.Trim());
       Assert.Equal("", ije.PLACE1_3.Trim());

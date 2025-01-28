@@ -365,14 +365,14 @@ namespace BFDR.Tests
       ije.BPLACEC_CNT = "US";
 
       Assert.Equal("NH", ije.FBPLACD_ST_TER_C);
-      Assert.Equal("New Hampshire", ije.FBPLACE_ST_TER_TXT);
+      Assert.Equal("New Hampshire", ije.FBPLACE_ST_TER_TXT.Trim());
       Assert.Equal("US", ije.FBPLACE_CNT_C);
-      Assert.Equal("United States", ije.FBPLACE_CNTRY_TXT);
+      Assert.Equal("United States", ije.FBPLACE_CNTRY_TXT.Trim());
 
       Assert.Equal("MA", ije.BPLACEC_ST_TER);
-      Assert.Equal("Massachusetts", ije.MBPLACE_ST_TER_TXT);
-      Assert.Equal("US", ije.BPLACEC_CNT);
-      Assert.Equal("United States", ije.MBPLACE_CNTRY_TXT);
+      Assert.Equal("Massachusetts", ije.MBPLACE_ST_TER_TXT.Trim());
+      Assert.Equal("US", ije.BPLACEC_CNT.Trim());
+      Assert.Equal("United States", ije.MBPLACE_CNTRY_TXT.Trim());
     }
 
     [Fact]
@@ -856,13 +856,13 @@ namespace BFDR.Tests
       ije.DWGT_BYPASS = "0";
       ije.DWGT = "120";
       ije.BWG = "3200";
-      ije.BW_BYPASS = "2failedBirthWeightGestationEdit";
+      ije.BW_BYPASS = "2";
       Assert.Equal("1", ije.PWGT_BYPASS);
       Assert.Equal("095", ije.PWGT);
       Assert.Equal("0", ije.DWGT_BYPASS);
       Assert.Equal("120", ije.DWGT);
       Assert.Equal("3200", ije.BWG);
-      Assert.Equal("2failedBirthWeightGestationEdit", ije.BW_BYPASS);
+      Assert.Equal("2", ije.BW_BYPASS);
       ije.PWGT = "999";
       Assert.Equal("999", ije.PWGT);
       Assert.Equal(-1, fhir.MotherPrepregnancyWeight);

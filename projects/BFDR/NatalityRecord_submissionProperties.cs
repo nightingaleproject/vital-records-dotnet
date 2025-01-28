@@ -860,6 +860,7 @@ namespace BFDR
         [PropertyParam("addressLine1", "address, line one")]
         [PropertyParam("addressLine2", "address, line two")]
         [PropertyParam("addressCity", "address, city")]
+        [PropertyParam("addressCityC", "address, cityC")]
         [PropertyParam("addressCounty", "address, county")]
         [PropertyParam("addressState", "address, state")]
         [PropertyParam("addressZip", "address, zip")]
@@ -870,7 +871,11 @@ namespace BFDR
             get => AddressToDict(Mother?.Address.Find(addr => addr.Use == Address.AddressUse.Home));
             set
             {
+
+                // before clearing, save the city limits value and billing
                 Address billing = Mother.Address.Find(addr => addr.Use == Address.AddressUse.Billing);
+                Dictionary<string, string> cityLimits = MotherResidenceWithinCityLimits;
+                
                 Mother.Address.Clear();
                 Address residence = DictToAddress(value);
                 residence.Use = Address.AddressUse.Home;
@@ -879,6 +884,7 @@ namespace BFDR
                 {
                     Mother.Address.Add(billing);
                 }
+                MotherResidenceWithinCityLimits = cityLimits;
             }
         }
 
@@ -1014,6 +1020,7 @@ namespace BFDR
             }
             set
             {
+
                 if (!String.IsNullOrWhiteSpace(value))
                 {
                     SetCodeValue("MotherResidenceWithinCityLimits", value, VR.ValueSets.YesNoUnknown.Codes);
@@ -1764,7 +1771,7 @@ namespace BFDR
         }
 
         //
-        // Maternal Morbidity Section
+        //  Morbidity Section
         //
 
         /// <summary>No Maternal Morbidities.</summary>
