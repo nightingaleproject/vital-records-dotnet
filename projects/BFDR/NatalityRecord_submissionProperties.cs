@@ -230,7 +230,7 @@ namespace BFDR
                 }
             }
             // If it's not there, check for a PartialDateTime.
-            return this.GetPartialTime(this.Subject.BirthDateElement.GetExtension(VR.ExtensionURL.PartialDateTimeVR));
+            return this.GetPartialTime(this.Subject.BirthDateElement.GetExtension(VR.ExtensionURL.PartialDateTime));
         }
 
         /// <summary>

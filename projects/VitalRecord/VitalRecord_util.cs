@@ -898,13 +898,6 @@ namespace VR
             return dt;
         }
 
-         /// <summary>Returns a Date object parsed from the given FhirDateTime.</summary>
-        protected static Date ConvertFhirDateTimeToDate(FhirDateTime dateTime)
-        {
-            Date newDate = ConvertToDate(dateTime?.Value) ?? new Date();
-            newDate.Extension = dateTime?.Extension;
-            return newDate;
-        }
 
         /// <summary>Gets the specified date element based on the ExtensionURL.PartialDate from the given
         /// FhirDate, checking in the value and PartialDate extension, and assuming there
@@ -1311,13 +1304,6 @@ namespace VR
                 extension = value.Extension.Find(ext => ext.Url == ExtensionURL.PartialDate);
             }
             return GetPartialDate(extension, partURL);
-        }
-
-        /// <summary>Convert a time stamp to a datetime stamp using the earliest allowed date.</summary>
-        protected FhirDateTime ConvertFhirTimeToFhirDateTime(Time value)
-        {
-            return new FhirDateTime(DateTimeOffset.MinValue.Year, DateTimeOffset.MinValue.Month, DateTimeOffset.MinValue.Day,
-                FhirTimeHour(value), FhirTimeMin(value), FhirTimeSec(value), TimeSpan.Zero);
         }
 
         /// <summary>Extract the hour.</summary>
