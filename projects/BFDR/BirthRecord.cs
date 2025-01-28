@@ -225,7 +225,7 @@ namespace BFDR
         public string PluralityEditFlagHelper
         {
             get => GetPluralityEditFlagHelper();
-            set => SetPluralityEditFlagHelper(value);
+            set => SetPluralityEditFlagHelper("PluralityEditFlag", value);
         }
 
         /// <summary>Multiple birth plurality</summary>

@@ -2830,6 +2830,7 @@ namespace BFDR
             set
             {
                 // translate Y, N, U to fhir boolean
+                // note that X defaults to U in a round trip since there are only 3 possible values
                 if (value == "Y")
                 {
                     record.LaborTrialAttempted = true;
@@ -2908,14 +2909,13 @@ namespace BFDR
         [IJEField(202, 869, 1, "Birthweight--Edit Flag", "BW_BYPASS", 1)]
         public string BW_BYPASS
         {
-            // TODO implement mapping once BFDR/Mapping.cs has been generated
             get
             {
-                return record.BirthWeightEditFlagHelper;
+                return Get_MappingFHIRToIJE(BFDR.Mappings.BirthWeightEditFlags.FHIRToIJE, "BirthWeightEditFlag", "BW_BYPASS");
             }
             set
             {
-                record.BirthWeightEditFlagHelper = value;
+                Set_MappingIJEToFHIR(BFDR.Mappings.BirthWeightEditFlags.IJEToFHIR, "BW_BYPASS", "BirthWeightEditFlag", value);
             }
         }
 
@@ -3929,7 +3929,11 @@ namespace BFDR
         {
             get
             {
-                return record.MotherSocialSecurityNumber;
+                if (!String.IsNullOrWhiteSpace(record.MotherSocialSecurityNumber))
+                {
+                    return Truncate(record.MotherSocialSecurityNumber, 9).PadRight(9, ' ');
+                }
+                return new string(' ', 9);
             }
             set
             {
@@ -3943,7 +3947,11 @@ namespace BFDR
         {
             get
             {
-                return record.FatherSocialSecurityNumber;
+                if (!String.IsNullOrWhiteSpace(record.FatherSocialSecurityNumber))
+                {
+                    return Truncate(record.FatherSocialSecurityNumber, 9).PadRight(9, ' ');
+                }
+                return new string(' ', 9);
             }
             set
             {
@@ -4364,7 +4372,12 @@ namespace BFDR
         {
             get
             {
-                return IJEData.Instance.StateCodeToStateName(BPLACEC_ST_TER);
+                string stateName =  IJEData.Instance.StateCodeToStateName(BPLACEC_ST_TER);
+                if (!String.IsNullOrWhiteSpace(stateName))
+                {
+                    return Truncate(stateName, 28).PadRight(28, ' ');
+                }
+                return new string(' ', 28);
             }
             set
             {
@@ -4378,7 +4391,12 @@ namespace BFDR
         {
             get
             {
-                return IJEData.Instance.CountryCodeToCountryName(BPLACEC_CNT);
+                string countryName =  IJEData.Instance.CountryCodeToCountryName(BPLACEC_CNT);
+                if (!String.IsNullOrWhiteSpace(countryName))
+                {
+                    return Truncate(countryName, 28).PadRight(28, ' ');
+                }
+                return new string(' ', 28);
             }
             set
             {
@@ -4392,7 +4410,12 @@ namespace BFDR
         {
             get
             {
-                return IJEData.Instance.StateCodeToStateName(FBPLACD_ST_TER_C);
+                string stateName =  IJEData.Instance.StateCodeToStateName(FBPLACD_ST_TER_C);
+                if (!String.IsNullOrWhiteSpace(stateName))
+                {
+                    return Truncate(stateName, 28).PadRight(28, ' ');
+                }
+                return new string(' ', 28);
             }
             set
             {
@@ -4406,7 +4429,12 @@ namespace BFDR
         {
             get
             {
-                return IJEData.Instance.CountryCodeToCountryName(FBPLACE_CNT_C);
+                string countryName =  IJEData.Instance.CountryCodeToCountryName(FBPLACE_CNT_C);
+                if (!String.IsNullOrWhiteSpace(countryName))
+                {
+                    return Truncate(countryName, 28).PadRight(28, ' ');
+                }
+                return new string(' ', 28);
             }
             set
             {

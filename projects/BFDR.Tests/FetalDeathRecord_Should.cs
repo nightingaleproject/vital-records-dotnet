@@ -179,9 +179,9 @@ namespace BFDR.Tests
         // IJE translations
         IJEFetalDeath ije = new IJEFetalDeath(SetterFetalDeathRecord);
         Assert.Equal("3333", ije.FWG);
-        Assert.Equal(BFDR.ValueSets.BirthWeightEditFlags.Off, ije.FW_BYPASS);
-        ije.FW_BYPASS = "2failedBirthWeightGestationEdit";
-        Assert.Equal("2failedBirthWeightGestationEdit", ije.FW_BYPASS); 
+        Assert.Equal("0", ije.FW_BYPASS);
+        ije.FW_BYPASS = "2";
+        Assert.Equal("2", ije.FW_BYPASS); 
     }  
 
     [Fact]
@@ -850,8 +850,8 @@ namespace BFDR.Tests
       Assert.Equal("84116", ije.ZIPCODE_D.Trim());
       Assert.Equal("Made Up", ije.CNTY_D.Trim());
       Assert.Equal("Salt Lake City", ije.CITY_D.Trim());
-      Assert.Equal("Utah", ije.STATE_D);
-      Assert.Equal("United States", ije.COUNTRY_D);
+      Assert.Equal("Utah", ije.STATE_D.Trim());
+      Assert.Equal("United States", ije.COUNTRY_D.Trim());
 
       //set after parse
       Dictionary<string, string> addr = new Dictionary<string, string>();
@@ -1910,9 +1910,9 @@ namespace BFDR.Tests
       ije.BPLACEC_CNT = "US";
 
       Assert.Equal("MA", ije.BPLACEC_ST_TER);
-      Assert.Equal("Massachusetts", ije.MBPLACE_ST_TER_TXT);
-      Assert.Equal("US", ije.BPLACEC_CNT);
-      Assert.Equal("United States", ije.MBPLACE_CNTRY_TXT);
+      Assert.Equal("Massachusetts", ije.MBPLACE_ST_TER_TXT.Trim());
+      Assert.Equal("US", ije.BPLACEC_CNT.Trim());
+      Assert.Equal("United States", ije.MBPLACE_CNTRY_TXT.Trim());
     }
 
     [Fact]
@@ -1938,7 +1938,7 @@ namespace BFDR.Tests
       ije.LIMITS = "U";
 
       Assert.Equal("NH", ije.STATEC);
-      Assert.Equal("New Hampshire", ije.STATETXT);
+      Assert.Equal("New Hampshire", ije.STATETXT.Trim());
       Assert.Equal("US", ije.COUNTRYC);
       Assert.Equal("United States", ije.CNTRYTXT);
       Assert.Equal("U", ije.LIMITS);

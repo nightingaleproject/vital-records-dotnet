@@ -651,6 +651,16 @@
             "country": "US"
           },
           {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-within-city-limits-indicator-vr",
+                "valueCoding": {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                  "code": "Y",
+                  "display": "Yes"
+                }
+              }
+            ],
             "use": "home",
             "line": [
               "999 N COLLEGE AVE5656"
@@ -2656,6 +2666,20 @@
           "reference": "urn:uuid:6d02c6e3-3290-46b1-8682-f64859ace998"
         },
         "valueQuantity": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
+                    "code": "0off",
+                    "display": "Off"
+                  }
+                ]
+              }
+            }
+          ],
           "value": 2277,
           "unit": "g",
           "code": "g"

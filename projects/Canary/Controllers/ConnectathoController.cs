@@ -21,13 +21,24 @@ namespace canary.Controllers
 
         /// <summary>
         /// Returns all Connectathon Birth Record test messages.
-        /// GET /connectathon/bfdr
+        /// GET /connectathon/bfdr-birth
         /// </summary>
         [HttpGet("Connectathon/bfdr-birth")]
         [HttpGet("Connectathon/bfdr-birth/Index")]
         public BirthRecord[] IndexBFDR()
         {
-            return BFDR.Connectathon.Records;
+            return BFDR.Connectathon.BirthRecords;
+        }
+
+        /// <summary>
+        /// Returns all Connectathon Fetal Death Record test messages.
+        /// GET /connectathon/bfdr-fetaldeath
+        /// </summary>
+        [HttpGet("Connectathon/bfdr-fetaldeath")]
+        [HttpGet("Connectathon/bfdr-fetaldeath/Index")]
+        public FetalDeathRecord[] IndexBFDRFetalDeath()
+        {
+            return BFDR.Connectathon.FetalDeathRecords;
         }
     }
 }

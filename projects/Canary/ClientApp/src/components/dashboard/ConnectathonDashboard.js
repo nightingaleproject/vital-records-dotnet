@@ -19,10 +19,6 @@ export class ConnectathonDashboard extends Component {
   }
 
   fetchRecords() {
-    const isFetalDeath = this.props.params.recordType.toLowerCase() == 'bfdr-fetaldeath';
-    if (isFetalDeath) {
-      return;
-    }
     var self = this;
     axios
       .get(`${window.API_URL}/connectathon/${this.props.params.recordType}`)
@@ -47,21 +43,29 @@ export class ConnectathonDashboard extends Component {
   }
 
   render() {
-    const isFetalDeath = this.props.params.recordType.toLowerCase() == 'bfdr-fetaldeath';
-    if (isFetalDeath) {
-      return (
-        <React.Fragment>
-          <h1>
-            BFDR Fetal Death does not yet have any supported Connectathon Records.
-          </h1>
-        </React.Fragment>
-      )
-    }
     const isVRDR = this.props.params.recordType.toLowerCase() == 'vrdr';
+    const isBirth = this.props.params.recordType.toLowerCase() == 'bfdr-birth';
     const sexKey = isVRDR ? 'sexAtDeath' : 'birthSex';
-    const familyNameKey = isVRDR ? 'familyName' : 'childFamilyName';
-    const givenNamesKey = isVRDR ? 'givenNames' : 'childGivenNames';
-    const descriptionKey = isVRDR ? 'coD1A' : 'dateOfBirth';
+    var familyNameKey;
+    var givenNamesKey;
+    var descriptionKey;
+    if (isVRDR) {
+      familyNameKey = 'familyName';
+      givenNamesKey = 'givenNames';
+      descriptionKey = 'coD1A';
+    }
+    else if (isBirth) {
+      familyNameKey = 'childFamilyName';
+      givenNamesKey = 'childGivenNames';
+      descriptionKey = 'dateOfBirth';
+    }
+    else {
+      familyNameKey = 'fetusFamilyName';
+      givenNamesKey = 'fetusGivenNames';
+      descriptionKey = 'dateOfDelivery';
+    }
+
+
     return (
       <React.Fragment>
         <Grid centered columns={1}>
