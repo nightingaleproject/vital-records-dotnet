@@ -44,10 +44,28 @@ export class ConnectathonDashboard extends Component {
 
   render() {
     const isVRDR = this.props.params.recordType.toLowerCase() == 'vrdr';
+    const isBirth = this.props.params.recordType.toLowerCase() == 'bfdr-birth';
     const sexKey = isVRDR ? 'sexAtDeath' : 'birthSex';
-    const familyNameKey = isVRDR ? 'familyName' : 'childFamilyName';
-    const givenNamesKey = isVRDR ? 'givenNames' : 'childGivenNames';
-    const descriptionKey = isVRDR ? 'coD1A' : 'dateOfBirth';
+    var familyNameKey;
+    var givenNamesKey;
+    var descriptionKey;
+    if (isVRDR) {
+      familyNameKey = 'familyName';
+      givenNamesKey = 'givenNames';
+      descriptionKey = 'coD1A';
+    }
+    else if (isBirth) {
+      familyNameKey = 'childFamilyName';
+      givenNamesKey = 'childGivenNames';
+      descriptionKey = 'dateOfBirth';
+    }
+    else {
+      familyNameKey = 'fetusFamilyName';
+      givenNamesKey = 'fetusGivenNames';
+      descriptionKey = 'dateOfDelivery';
+    }
+
+
     return (
       <React.Fragment>
         <Grid centered columns={1}>
