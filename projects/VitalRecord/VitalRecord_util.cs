@@ -1052,7 +1052,7 @@ namespace VR
             day = parsedDay ?? GetPartialDate(pdtExt, VR.ExtensionURL.PartialDateDayVR);
             time = GetTimeFragment((FhirDateTime) date.GetExtension(VR.ExtensionURL.PatientBirthTime)?.Value)
                     ?? ((Time)pdtExt?.GetExtension(VR.ExtensionURL.PartialDateTimeVR)?.Value)?.Value
-                    ?? GetPartialTime(date.GetExtension(VR.ExtensionURL.PartialDateTimeVR));
+                    ?? GetPartialTime(date.GetExtension(VR.ExtensionURL.PartialDateTime));
             if (time == "unknown")
             {
                 time = "-1";
