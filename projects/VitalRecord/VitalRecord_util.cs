@@ -118,15 +118,34 @@ namespace VR
 
         /// <summary>Helper to support vital record property getter helper methods for values stored in Conditions.</summary>
         /// <param name="code">the code to identify the type of Condition</param>
-        protected Condition GetCondition(string code)
+        protected Condition GetCondition(string code, string categoryCode = null)
         {
-            var entry = Bundle.Entry.Where(e => e.Resource is Condition obs && CodeableConceptToDict(obs.Code)["code"] == code).FirstOrDefault();
-            if (entry != null)
+            // Find all conditions with this code
+            var entries = Bundle.Entry.Where(e => e.Resource is Condition obs && CodeableConceptToDict(obs.Code)["code"] == code);
+
+            // Some conditions have the same code and require a category to differentiate
+            if (entries != null && categoryCode != null)
             {
-                Condition cond = (Condition)entry.Resource;
-                return cond;
+                // TODO categories have a required default category, there should be 2 in the list and we can't use 0 index by default
+                var entry = entries.Where(e => e.Resource is Condition obs && CodeableConceptToDict(obs.Category[0])["code"]==categoryCode).FirstOrDefault();
+                if (entry != null)
+                {
+                    Condition cond = (Condition)entry.Resource;
+                    return cond;
+                }
             }
+            else if (entries != null)
+            {
+                var entry = entries.FirstOrDefault();
+                if (entry != null)
+                {
+                    Condition cond = (Condition)entry.Resource;
+                    return cond;
+                }
+            }
+
             return null;
+
         }
 
         /// <summary>Helper to support vital record property setter helper methods for values stored in Observations.</summary>
