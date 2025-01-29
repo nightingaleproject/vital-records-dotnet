@@ -1964,6 +1964,10 @@
             "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
           ]
         },
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/us/vrdr/StructureDefinition/practitioner-role",
+          "valueCode" : "Mortician"
+        }],
         "identifier": [
           {
             "system": "http://hl7.org/fhir/sid/us-npi",
