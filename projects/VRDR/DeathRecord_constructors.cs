@@ -79,12 +79,12 @@ namespace VRDR
             Bundle.AddResourceEntry(Decedent, "urn:uuid:" + Decedent.Id);
             AddReferenceToComposition(Certifier.Id, "DeathCertification");
             Bundle.AddResourceEntry(Certifier, "urn:uuid:" + Certifier.Id);
+            // Bundle.AddResourceEntry(Mortician, "urn:uuid:" + Mortician.Id);   - Mortician is purely optional.... no resource to add by default
             AddReferenceToComposition(DeathCertification.Id, "DeathCertification");
             Bundle.AddResourceEntry(DeathCertification, "urn:uuid:" + DeathCertification.Id);
 
             // AddReferenceToComposition(Pronouncer.Id, "OBE");
             // Bundle.AddResourceEntry(Pronouncer, "urn:uuid:" + Pronouncer.Id);
-            //Bundle.AddResourceEntry(Mortician, "urn:uuid:" + Mortician.Id);
             //Bundle.AddResourceEntry(FuneralHomeDirector, "urn:uuid:" + FuneralHomeDirector.Id);
 
             // Create a Navigator for this new death record.
@@ -131,7 +131,7 @@ namespace VRDR
             string[] profile = { ProfileURL.CauseOfDeathCodedContentBundle };
             codccBundle.Meta.Profile = profile;
             codccBundle.Timestamp = DateTime.Now;
-            // Make sure to include the base identifiers, including certificate number and auxiliary state IDs
+            // Make sure to include the base identifiers, including certificate number, auxiliary state IDs, and state specific identifier
             codccBundle.Identifier = Bundle.Identifier;
             AddResourceToBundleIfPresent(ActivityAtTimeOfDeathObs, codccBundle);
             AddResourceToBundleIfPresent(AutomatedUnderlyingCauseOfDeathObs, codccBundle);
@@ -170,6 +170,23 @@ namespace VRDR
         /// <summary>Helper method to return the subset of this record that makes up a DemographicCodedContent bundle.</summary>
         /// <returns>a new FHIR Bundle</returns>
         public Bundle GetDemographicCodedContentBundle()
+        {
+            Bundle dccBundle = new Bundle();
+            dccBundle.Id = Guid.NewGuid().ToString();
+            dccBundle.Type = Bundle.BundleType.Collection;
+            dccBundle.Meta = new Meta();
+            string[] profile = { ProfileURL.DemographicCodedContentBundle };
+            dccBundle.Meta.Profile = profile;
+            dccBundle.Timestamp = DateTime.Now;
+            // Make sure to include the base identifiers, including certificate number and auxiliary state IDs
+            dccBundle.Identifier = Bundle.Identifier;
+            AddResourceToBundleIfPresent(CodedRaceAndEthnicityObs, dccBundle);
+            AddResourceToBundleIfPresent(InputRaceAndEthnicityObs, dccBundle);
+            return dccBundle;
+        }
+/// <summary>Helper method to return the subset of this record that makes up a DemographicCodedContent bundle.</summary>
+        /// <returns>a new FHIR Bundle</returns>
+        public Bundle GetIndustryOccupationCodedContentBundle()
         {
             Bundle dccBundle = new Bundle();
             dccBundle.Id = Guid.NewGuid().ToString();
@@ -300,6 +317,20 @@ namespace VRDR
             {
                 FuneralHome = (Organization)funeralHome.Resource;
             }
+
+            // Grab Mortician -- Practicier with extension[role] = Mortician 
+            var mortician = Bundle.Entry.FirstOrDefault(entry => 
+                                                            (entry.Resource is Practitioner) && 
+                                                            (((Practitioner)entry.Resource).Extension != null) && 
+                                                            ((Practitioner)entry.Resource).Extension.FirstOrDefault(ext => 
+                                                                                (ext.Url == VRDR.ExtensionURL.PractitionerRole && 
+                                                                                ext.Value is Code code && code.Value == "Mortician")) != null );
+            if (mortician != null)
+            {
+                Mortician = (Practitioner) mortician.Resource;
+            }
+
+
             // Grab Coding Status
             var parameterEntry = Bundle.Entry.FirstOrDefault(entry => entry.Resource is Parameters);
             if (parameterEntry != null)
@@ -365,8 +396,14 @@ namespace VRDR
                     case "55280-2":
                         MilitaryServiceObs = (Observation)obs;
                         break;
-                    case "BR":
-                        BirthRecordIdentifier = (Observation)obs;
+                    case "childbirthrecordidentifier":
+                        BirthRecordIdentifier = (Observation)obs; // decedent is infant child, link to birth certificate of decedent
+                        break;
+                    case "decedentbirthrecordidentifier": // new in STU3 -- decedent is mother, link is cert from recent delivery
+                        BirthRecordIdentifierChild = (Observation)obs;
+                        break;
+                    case "fetaldeathrecordidentifier":    // new in STU3 -- decedent is mother, link is cert from recent fetal death
+                        FetalDeathRecordIdentifier = (Observation)obs;
                         break;
                     case "emergingissues":
                         EmergingIssues = (Observation)obs;

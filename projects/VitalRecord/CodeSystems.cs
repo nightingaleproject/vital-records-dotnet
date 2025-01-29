@@ -74,6 +74,18 @@ namespace VR
         /// <summary> ProvinceCodes </summary>
         public static string ProvinceCodes = "https://canadapost.ca/CodeSystem/ProvinceCodes";
 
+        /// <summary>IndustryCDCCensus2018.</summary>
+        public static string IndustryCDCCensus2018 = "2.16.840.1.114222.4.5.336";
+
+        /// <summary>IndustryCDCNAICS2017.</summary>
+        public static string IndustryCDCNAICS2017 = "2.16.840.1.114222.4.5.337";
+
+        /// <summary>OccupationCDCSOC2018</summary>
+        public static string OccupationCDCSOC2018 = "2.16.840.1.114222.4.5.338";
+
+        /// <summary>OccupationCDCCensus2018 </summary>
+        public static string OccupationCDCCensus2018 = "2.16.840.1.114222.4.5.339";
+
         // Code systems defined within vital record IGs: VRCL IG
 
         /// <summary> VRCL Missing Value Reason </summary>
@@ -110,24 +122,29 @@ namespace VR
         public static string ComponentCodeVR = "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component";
 
         // Code systems defined within vital record IGs: VRDR IG
+        /// <summary> Activity at Time of Death </summary>
+        public static string ActivityAtTimeOfDeath = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-activity-at-time-of-death-cs";
 
-        /// <summary> Hispanic Origin </summary>
-        public static string HispanicOrigin = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-hispanic-origin-cs";
+        // /// <summary> Hispanic Origin </summary>
+        // public static string HispanicOrigin = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-hispanic-origin-cs";
 
-        /// <summary> Jurisdictions </summary>
-        public static string Jurisdictions = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-jurisdictions-cs";
+        // /// <summary> Jurisdictions </summary>
+        // public static string Jurisdictions = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-jurisdictions-cs";
 
-        /// <summary> Race Code </summary>
-        public static string RaceCode = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-race-code-cs";
+        // /// <summary> Race Code </summary>
+        // public static string RaceCode = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-race-code-cs";
 
-        /// <summary> Missing Value Reason </summary>
-        public static string MissingValueReason = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-missing-value-reason-cs";
+        // /// <summary> Missing Value Reason </summary>
+        // public static string MissingValueReason = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-missing-value-reason-cs";
 
-        /// <summary> Race Recode 40 </summary>
-        public static string RaceRecode40 = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-race-recode-40-cs";
+        // / <summary> Race Recode 40 </summary>
+        // public static string RaceRecode40 = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-race-recode-40-cs";
 
-        /// <summary> Bypass Edit Flag </summary>
-        public static string BypassEditFlag = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-bypass-edit-flag-cs";
+        // /// <summary> Bypass Edit Flag </summary>
+        // public static string BypassEditFlag = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-bypass-edit-flag-cs";
+
+        /// <summary> Place of Injury </summary>
+        public static string PlaceOfInjury = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-system-placeofinjury-cs";
 
         /// <summary> Pregnancy Status </summary>
         public static string PregnancyStatus = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-pregnancy-status-cs";
@@ -147,8 +164,7 @@ namespace VR
         /// <summary> Organization Type </summary>
         public static string OrganizationType = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-organization-type-cs";
 
-        /// <summary> Activity at Time of Death </summary>
-        public static string ActivityAtTimeOfDeath = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-activity-at-time-of-death-cs";
+
 
         /// <summary> Intentional Reject </summary>
         public static string IntentionalReject = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-intentional-reject-cs";

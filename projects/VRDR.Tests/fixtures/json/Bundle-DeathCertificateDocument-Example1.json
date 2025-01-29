@@ -10,15 +10,15 @@
   "identifier": {
     "extension": [
       {
-        "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/CertificateNumber",
+        "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/CertificateNumber",
         "valueString": "000182"
       },
       {
-        "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/AuxiliaryStateIdentifier1",
+        "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/AuxiliaryStateIdentifier1",
         "valueString": "000000000001"
       },
       {
-        "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/AuxiliaryStateIdentifier2",
+        "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/AuxiliaryStateIdentifier2",
         "valueString": "100000000001"
       }
     ],
@@ -128,6 +128,12 @@
               },
               {
                 "reference": "Observation/BirthRecordIdentifier-Example1"
+              },
+              {
+                "reference": "Observation/BirthRecordIdentifierChild-Example1"
+              },
+              {
+                "reference": "Observation/FetalDeathRecordIdentifier-Example1"
               },
               {
                 "reference": "Observation/DecedentEducationLevel-Example1"
@@ -300,7 +306,7 @@
           {
             "extension": [
               {
-                "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/WithinCityLimitsIndicator",
+                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-within-city-limits-indicator-vr",
                 "valueCoding": {
                   "code": "Y",
                   "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
@@ -308,7 +314,7 @@
                 }
               },
               {
-                "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/StreetName",
+                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/StreetName",
                 "valueString": "Lockwood"
               }
             ],
@@ -319,7 +325,7 @@
             "_city": {
               "extension": [
                 {
-                  "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/CityCode",
+                  "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/CityCode",
                   "valuePositiveInt": 1234
                 }
               ]
@@ -329,7 +335,7 @@
             "_district": {
               "extension": [
                 {
-                  "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/DistrictCode",
+                  "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/DistrictCode",
                   "valuePositiveInt": 321
                 }
               ]
@@ -340,12 +346,12 @@
         "maritalStatus": {
           "extension": [
             {
-              "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/BypassEditFlag",
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
               "valueCodeableConcept": {
                 "coding": [
                   {
                     "code": "0",
-                    "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-bypass-edit-flag-cs",
+                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
                     "display": "Edit Passed"
                   }
                 ]
@@ -402,19 +408,19 @@
             {
               "extension": [
                 {
-                  "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Day",
+                  "url": "day",
                   "valueUnsignedInt": 10
                 },
                 {
-                  "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Year",
+                  "url": "year",
                   "valueUnsignedInt": 2004
                 },
                 {
-                  "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Month",
+                  "url": "month",
                   "valueUnsignedInt": 11
                 }
               ],
-              "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDate"
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-partial-date-vr"
             }
           ]
         }
@@ -557,12 +563,12 @@
         "valueQuantity": {
           "extension": [
             {
-              "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/BypassEditFlag",
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
               "valueCodeableConcept": {
                 "coding": [
                   {
                     "code": "0",
-                    "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-bypass-edit-flag-cs",
+                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
                     "display": "Edit Passed"
                   }
                 ]
@@ -584,14 +590,14 @@
         "id": "InputRaceAndEthnicity-Example1",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-input-race-and-ethnicity"
+            "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/input-race-and-ethnicity-vr"
           ]
         },
         "code": {
           "coding": [
             {
               "code": "inputraceandethnicity",
-              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs"
+              "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-local-observation-codes-vr"
             }
           ]
         },
@@ -601,7 +607,7 @@
               "coding": [
                 {
                   "code": "White",
-                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs"
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component"
                 }
               ]
             },
@@ -612,7 +618,7 @@
               "coding": [
                 {
                   "code": "BlackOrAfricanAmerican",
-                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs"
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component"
                 }
               ]
             },
@@ -623,7 +629,7 @@
               "coding": [
                 {
                   "code": "AmericanIndianOrAlaskanNative",
-                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs"
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component"
                 }
               ]
             },
@@ -634,7 +640,7 @@
               "coding": [
                 {
                   "code": "AsianIndian",
-                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs"
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component"
                 }
               ]
             },
@@ -645,7 +651,7 @@
               "coding": [
                 {
                   "code": "Chinese",
-                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs"
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component"
                 }
               ]
             },
@@ -656,7 +662,7 @@
               "coding": [
                 {
                   "code": "Filipino",
-                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs"
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component"
                 }
               ]
             },
@@ -667,7 +673,7 @@
               "coding": [
                 {
                   "code": "Japanese",
-                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs"
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component"
                 }
               ]
             },
@@ -678,7 +684,7 @@
               "coding": [
                 {
                   "code": "Korean",
-                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs"
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component"
                 }
               ]
             },
@@ -689,7 +695,7 @@
               "coding": [
                 {
                   "code": "Vietnamese",
-                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs"
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component"
                 }
               ]
             },
@@ -700,7 +706,7 @@
               "coding": [
                 {
                   "code": "OtherAsian",
-                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs"
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component"
                 }
               ]
             },
@@ -711,7 +717,7 @@
               "coding": [
                 {
                   "code": "NativeHawaiian",
-                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs"
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component"
                 }
               ]
             },
@@ -722,7 +728,7 @@
               "coding": [
                 {
                   "code": "GuamanianOrChamorro",
-                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs"
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component"
                 }
               ]
             },
@@ -733,7 +739,7 @@
               "coding": [
                 {
                   "code": "Samoan",
-                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs"
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component"
                 }
               ]
             },
@@ -744,7 +750,7 @@
               "coding": [
                 {
                   "code": "OtherPacificIslander",
-                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs"
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component"
                 }
               ]
             },
@@ -755,7 +761,7 @@
               "coding": [
                 {
                   "code": "OtherRace",
-                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs"
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component"
                 }
               ]
             },
@@ -766,7 +772,7 @@
               "coding": [
                 {
                   "code": "FirstOtherAsianLiteral",
-                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs"
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component"
                 }
               ]
             },
@@ -777,7 +783,7 @@
               "coding": [
                 {
                   "code": "FirstAmericanIndianOrAlaskanNativeLiteral",
-                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs"
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component"
                 }
               ]
             },
@@ -788,7 +794,7 @@
               "coding": [
                 {
                   "code": "HispanicMexican",
-                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs"
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component"
                 }
               ]
             },
@@ -806,7 +812,7 @@
               "coding": [
                 {
                   "code": "HispanicCuban",
-                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs"
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component"
                 }
               ]
             },
@@ -824,7 +830,7 @@
               "coding": [
                 {
                   "code": "HispanicPuertoRican",
-                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs"
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component"
                 }
               ]
             },
@@ -842,7 +848,7 @@
               "coding": [
                 {
                   "code": "HispanicOther",
-                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs"
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component"
                 }
               ]
             },
@@ -876,9 +882,8 @@
         "code": {
           "coding": [
             {
-              "code": "BR",
-              "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
-              "display": "Birth registry number"
+              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs",
+              "code": "childbirthrecordidentifier"
             }
           ]
         },
@@ -913,8 +918,105 @@
         },
         "valueString": "717171"
       },
-      "fullUrl": "http://www.example.org/fhir/Observation/BirthRecordIdentifier-Example1"
+      "fullUrl": "http://www.example.org/fhir/Observation/BirthRecordIdentifierChild-Example1"
     },
+    {
+
+      "resource": {
+      "resourceType": "Observation",
+      "id": "BirthRecordIdentifierChild-Example1",
+      "meta": {
+        "profile": [
+          "http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-birth-record-identifier-child"
+        ]
+      },
+      "status": "final",
+      "code": {
+        "coding": [
+          {
+            "code": "decedentbirthrecordidentifier",
+            "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs"
+          }
+        ]
+      },
+      "component": [
+        {
+          "code": {
+            "coding": [
+              {
+                "code": "21842-0",
+                "system": "http://loinc.org"
+              }
+            ]
+          },
+          "valueString": "YC"
+        },
+        {
+          "code": {
+            "coding": [
+              {
+                "code": "80904-6",
+                "system": "http://loinc.org"
+              }
+            ]
+          },
+          "valueDateTime": "1961"
+        }
+      ],
+      "subject": {
+        "reference": "Patient/Decedent-Example1"
+      },
+      "valueString": "717171"
+    }
+  },  
+  {"resource": 
+    {
+      "resourceType": "Observation",
+      "id": "FetalDeathRecordIdentifier-Example1",
+      "meta": {
+        "profile": [
+          "http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-fetal-death-record-identifier"
+        ]
+      },
+      "status": "final",
+      "code": {
+        "coding": [
+          {
+            "code": "fetaldeathrecordidentifier",
+            "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs"
+          }
+        ]
+      },
+      "component": [
+        {
+          "code": {
+            "coding": [
+              {
+                "code": "77969-4",
+                "system": "http://loinc.org"
+              }
+            ]
+          },
+          "valueString": "YC"
+        },
+        {
+          "code": {
+            "coding": [
+              {
+                "code": "81954-0",
+                "system": "http://loinc.org"
+              }
+            ]
+          },
+          "valueDateTime": "1961"
+        }
+      ],
+      "subject": {
+        "reference": "Patient/Decedent-Example1"
+      },
+      "valueString": "717171"
+    }
+    },      
     {
       "resource": {
         "resourceType": "Observation",
@@ -1050,7 +1152,7 @@
         "id": "EmergingIssues-Example1",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-emerging-issues"
+            "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Observation-emerging-issues-vr"
           ]
         },
         "status": "final",
@@ -1068,7 +1170,7 @@
               "coding": [
                 {
                   "code": "EmergingIssue1_1",
-                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs"
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component"
                 }
               ]
             },
@@ -1103,12 +1205,12 @@
         "valueCodeableConcept": {
           "extension": [
             {
-              "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/BypassEditFlag",
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag",
               "valueCodeableConcept": {
                 "coding": [
                   {
                     "code": "2",
-                    "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-bypass-edit-flag-cs",
+                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags",
                     "display": "Edit Failed, Data Queried, but not Verified"
                   }
                 ]
@@ -1118,7 +1220,7 @@
           "coding": [
             {
               "code": "2",
-              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-pregnancy-status-cs",
+              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/CodeSystem-death-pregnancy-status",
               "display": "Pregnant at time of death"
             }
           ]
@@ -1230,19 +1332,19 @@
             {
               "extension": [
                 {
-                  "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Day",
+                  "url": "day",
                   "valueUnsignedInt": 12
                 },
                 {
-                  "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Year",
+                  "url": "year",
                   "valueUnsignedInt": 2020
                 },
                 {
-                  "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Month",
+                  "url": "month",
                   "valueUnsignedInt": 11
                 },
                 {
-                  "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Time",
+                  "url": "time",
                   "_valueTime": {
                     "extension": [
                       {
@@ -1253,7 +1355,7 @@
                   }
                 }
               ],
-              "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDateTime"
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-partial-date-time-vr"
             }
           ]
         }
@@ -1615,7 +1717,7 @@
               "coding": [
                 {
                   "code": "lineNumber",
-                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs"
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component"
                 }
               ]
             },
@@ -1673,7 +1775,7 @@
               "coding": [
                 {
                   "code": "lineNumber",
-                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs"
+                  "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component"
                 }
               ]
             },
@@ -1921,6 +2023,10 @@
             "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
           ]
         },
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/us/vrdr/StructureDefinition/practitioner-role",
+          "valueCode" : "Mortician"
+        }],
         "identifier": [
           {
             "system": "http://hl7.org/fhir/sid/us-npi",

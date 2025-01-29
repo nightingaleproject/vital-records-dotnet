@@ -122,8 +122,8 @@ namespace canary.Models
             record.FatherIndustry = occIndFather.Item2;
             record.MotherOccupation = occIndMother.Item1;
             record.FatherOccupation = occIndFather.Item1;
-            record.MotherEducationLevelHelper = VR.ValueSets.EducationLevel.Codes[faker.Random.Number(VRDR.ValueSets.EducationLevel.Codes.GetLength(0) - 1), 0];
-            record.FatherEducationLevelHelper = VR.ValueSets.EducationLevel.Codes[faker.Random.Number(VRDR.ValueSets.EducationLevel.Codes.GetLength(0) - 1), 0];
+            record.MotherEducationLevelHelper = VR.ValueSets.EducationLevel.Codes[faker.Random.Number(VR.ValueSets.EducationLevel.Codes.GetLength(0) - 1), 0];
+            record.FatherEducationLevelHelper = VR.ValueSets.EducationLevel.Codes[faker.Random.Number(VR.ValueSets.EducationLevel.Codes.GetLength(0) - 1), 0];
             // set more demographic and record keeping info
             DateTime birth = faker.Date.Recent();
             DateTimeOffset birthUtc = new DateTimeOffset(birth.Year, birth.Month, birth.Day, 0, 0, 0, TimeSpan.Zero);
@@ -137,23 +137,23 @@ namespace canary.Models
             // Ethnicity
             if (faker.Random.Bool() && !simple)
             {
-                record.MotherEthnicity1Helper = VRDR.ValueSets.YesNoUnknown.No;
-                record.MotherEthnicity2Helper = VRDR.ValueSets.YesNoUnknown.No;
-                record.MotherEthnicity3Helper = VRDR.ValueSets.YesNoUnknown.Yes;
-                record.MotherEthnicity4Helper = VRDR.ValueSets.YesNoUnknown.No;
-                record.FatherEthnicity1Helper = VRDR.ValueSets.YesNoUnknown.No;
-                record.FatherEthnicity2Helper = VRDR.ValueSets.YesNoUnknown.Yes;
-                record.FatherEthnicity3Helper = VRDR.ValueSets.YesNoUnknown.No;
-                record.FatherEthnicity4Helper = VRDR.ValueSets.YesNoUnknown.No;
+                record.MotherEthnicity1Helper = VR.ValueSets.YesNoUnknown.No;
+                record.MotherEthnicity2Helper = VR.ValueSets.YesNoUnknown.No;
+                record.MotherEthnicity3Helper = VR.ValueSets.YesNoUnknown.Yes;
+                record.MotherEthnicity4Helper = VR.ValueSets.YesNoUnknown.No;
+                record.FatherEthnicity1Helper = VR.ValueSets.YesNoUnknown.No;
+                record.FatherEthnicity2Helper = VR.ValueSets.YesNoUnknown.Yes;
+                record.FatherEthnicity3Helper = VR.ValueSets.YesNoUnknown.No;
+                record.FatherEthnicity4Helper = VR.ValueSets.YesNoUnknown.No;
                 record.MotherEthnicityLiteral = "";
                 record.FatherEthnicityLiteral = "";
             }
             else
             {
-                record.MotherEthnicity1Helper = VRDR.ValueSets.YesNoUnknown.No;
-                record.MotherEthnicity2Helper = VRDR.ValueSets.YesNoUnknown.No;
-                record.FatherEthnicity1Helper = VRDR.ValueSets.YesNoUnknown.No;
-                record.FatherEthnicity2Helper = VRDR.ValueSets.YesNoUnknown.No;
+                record.MotherEthnicity1Helper = VR.ValueSets.YesNoUnknown.No;
+                record.MotherEthnicity2Helper = VR.ValueSets.YesNoUnknown.No;
+                record.FatherEthnicity1Helper = VR.ValueSets.YesNoUnknown.No;
+                record.FatherEthnicity2Helper = VR.ValueSets.YesNoUnknown.No;
             }
             // Race
             Tuple<string, string>[] nvssRaces =

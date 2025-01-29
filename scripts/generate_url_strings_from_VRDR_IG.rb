@@ -1,7 +1,7 @@
 # This script takes the JSON files that are generated as part of the VRDR IG and creates an output
 # file with static URL strings for each StructureDefinition, Extension, and IG HTML page
 #
-# Usage: ruby tools/generate_url_strings_from_VRDR_IG.rb <path-to-json-files> > VRDR/URLs.cs
+# Usage: ruby scripts/generate_url_strings_from_VRDR_IG.rb <path-to-json-files> > projects/VRDR/URLs.cs
 #
 # If you need to generate the concept map JSON files, first install sushi (https://github.com/FHIR/sushi) then
 #
@@ -21,6 +21,10 @@ raise "Please provide a path to the IG JSON files" unless path_to_ig
 structure_definition_files = Dir.glob("#{path_to_ig}/**/StructureDefinition*.json")
 raise "No Structure Definitions Found" unless structure_definition_files.size > 0
 
+# Load the CodeSystem Definitions from the provided directory
+code_system_files = Dir.glob("#{path_to_ig}/**/CodeSystem*.json")
+raise "No CodeSystem Definitions Found" unless code_system_files.size > 0
+
 # Iterate through each file and populate a hash of name => url
 structure_definition_hash = {}
 structure_definitions = structure_definition_files.each do |structure_definition_file|
@@ -32,17 +36,51 @@ structure_definitions = structure_definition_files.each do |structure_definition
   structure_definition_hash[name] = url
 end
 
+# Iterate through each file and populate a hash of name => url
+code_system_hash = {}
+code_systems = code_system_files.each do |code_system_file|
+  # Load and parse the JSON
+  code_system = JSON.parse(File.read(code_system_file))
+  # Grab the name and URL and populate the hash
+  name = code_system['name']
+  url = code_system['url']
+  #if url.include?('CodeSystem') then type = 'codesystem' 
+  #elsif url.include?('/vrdr-') then type = 'profile' 
+  #else type = 'extension' end
+ # print url + ":" + type + "\n"
+  code_system_hash[name] = url
+end
+
 # Helper method to transform a StructureDefinition URL into a human-visitable link
 # Note: Will need to be updated as IG moves through different publishing stages
 def structure_definition_url_to_ig_url(url)
   # Transform this: http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-decedent-education-level
   # Into this:      http://build.fhir.org/ig/HL7/vrdr/StructureDefinition-vrdr-decedent-education-level.html
-  url.gsub('http://hl7.org/fhir/us/vrdr/StructureDefinition/', 'http://build.fhir.org/ig/HL7/vrdr/StructureDefinition-') + '.html'
+  url.gsub('http://hl7.org/fhir/us/vrdr/StructureDefinition/', 'https://hl7.org/fhir/us/vrdr/StructureDefinition-') + '.html'
 end
 
 # Helper method to determine whether a URL is an Extension or a Profile
 def url_type(url)
-  if url.include?('/vrdr-') then 'profile' else 'extension' end
+  type = 'unknown'
+  if url.include?('CodeSystem') then type = 'codesystem' 
+  elsif url.include?('/vrdr-') then type = 'profile' 
+  else type =  'extension' end
+  type 
+end
+
+# Helper method to extract a short name from an extension named according to conventions
+def short_name(name)
+  if /Extension(?<shortname>[a-zA-Z]+)VitalRecords/ =~ name
+    shortname
+  elsif /CodeSystem(?<shortname>[a-zA-Z]+)VitalRecords/ =~ name
+    shortname
+  elsif /(Observation|Patient|Practitioner)(?<shortname>[a-zA-Z]+)VitalRecords/ =~ name
+    shortname
+  elsif /(?<shortname>[a-zA-Z]+)VitalRecords/ =~ name
+    shortname
+  else
+    name
+  end
 end
 
 # Create a template for the output file
@@ -71,6 +109,16 @@ namespace VRDR
 
 <% end -%>
     }
+     /// <summary>CodeSystem URLs</summary>
+     public class CodeSystemURL
+    {
+
+<% code_system_hash.select { |name, url| true }.each do |name, url| -%>
+        /// <summary>URL for <%= short_name(name) %></summary>
+        public const string <%= short_name(name) %> = "<%= url %>";
+
+<% end -%>
+    }
 
     /// <summary>IG URLs</summary>
     public static class IGURL
@@ -81,6 +129,7 @@ namespace VRDR
 
 <% end -%>
     }
+
 }
 EOT
 
