@@ -1324,6 +1324,13 @@ namespace VR
             return int.Parse(value.ToString().Substring(6, 2));
         }
 
+        /// <summary>Convert a time stamp to a datetime stamp using the earliest allowed date.</summary>
+        protected FhirDateTime ConvertFhirTimeToFhirDateTime(Time value)
+        {
+            return new FhirDateTime(DateTimeOffset.MinValue.Year, DateTimeOffset.MinValue.Month, DateTimeOffset.MinValue.Day,
+                FhirTimeHour(value), FhirTimeMin(value), FhirTimeSec(value), TimeSpan.Zero);
+        }
+        
         /// <summary>Getter helper for anything that can have a regular FHIR date/time, allowing the time to be read from the value</summary>
         protected string GetTimeFragment(Element value)
         {

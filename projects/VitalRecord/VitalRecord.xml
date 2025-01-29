@@ -7068,9 +7068,6 @@
         <member name="M:VR.VitalRecord.ConvertDateToFhirDateTime(Hl7.Fhir.Model.Date)">
             <summary>Returns a Fhir DateTime object parsed from the given Date.</summary>
         </member>
-        <member name="M:VR.VitalRecord.ConvertFhirDateTimeToDate(Hl7.Fhir.Model.FhirDateTime)">
-            <summary>Returns a Date object parsed from the given FhirDateTime.</summary>
-        </member>
         <member name="M:VR.VitalRecord.GetDateElement(Hl7.Fhir.Model.Date,System.String)">
             <summary>Gets the specified date element based on the ExtensionURL.PartialDate from the given
             FhirDate, checking in the value and PartialDate extension, and assuming there
@@ -7128,9 +7125,6 @@
             <summary>Getter helper for anything that can have a regular FHIR date/time or a PartialDateTime extension, allowing a particular date
             field (year, month, or day) to be read from either the value or the extension</summary>
         </member>
-        <member name="M:VR.VitalRecord.ConvertFhirTimeToFhirDateTime(Hl7.Fhir.Model.Time)">
-            <summary>Convert a time stamp to a datetime stamp using the earliest allowed date.</summary>
-        </member>
         <member name="M:VR.VitalRecord.FhirTimeHour(Hl7.Fhir.Model.Time)">
             <summary>Extract the hour.</summary>
         </member>
@@ -7139,6 +7133,9 @@
         </member>
         <member name="M:VR.VitalRecord.FhirTimeSec(Hl7.Fhir.Model.Time)">
             <summary>Extract the second.</summary>
+        </member>
+        <member name="M:VR.VitalRecord.ConvertFhirTimeToFhirDateTime(Hl7.Fhir.Model.Time)">
+            <summary>Convert a time stamp to a datetime stamp using the earliest allowed date.</summary>
         </member>
         <member name="M:VR.VitalRecord.GetTimeFragment(Hl7.Fhir.Model.Element)">
             <summary>Getter helper for anything that can have a regular FHIR date/time, allowing the time to be read from the value</summary>
