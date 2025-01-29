@@ -60,7 +60,7 @@
         "identifier": {
           "extension": [
             {
-              "url": "http://hl7.org/fhir/us/vrdr/StructureDefinition/AuxiliaryStateIdentifier1",
+              "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/AuxiliaryStateIdentifier1",
               "valueString": "500"
             }
           ],
@@ -76,14 +76,14 @@
               "id": "02611119-b9e6-4fe9-b1e2-12b10e79fa5f",
               "meta": {
                 "profile": [
-                  "http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-coded-race-and-ethnicity"
+                  "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/coded-race-and-ethnicity-vr"
                 ]
               },
               "status": "final",
               "code": {
                 "coding": [
                   {
-                    "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs",
+                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-local-observation-codes-vr",
                     "code": "codedraceandethnicity",
                     "display": "Coded Race and Ethnicity"
                   }
@@ -97,7 +97,7 @@
                   "code": {
                     "coding": [
                       {
-                        "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
+                        "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
                         "code": "FirstEditedCode",
                         "display": "First Edited Race"
                       }
@@ -106,7 +106,7 @@
                   "valueCodeableConcept": {
                     "coding": [
                       {
-                        "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-race-code-cs",
+                        "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-race-code-vr",
                         "code": "199",
                         "display": "Multiple WHITE responses"
                       }
@@ -117,7 +117,7 @@
                   "code": {
                     "coding": [
                       {
-                        "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
+                        "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component",
                         "code": "FirstAmericanIndianRace",
                         "display": "First American Indian Race"
                       }
@@ -126,7 +126,7 @@
                   "valueCodeableConcept": {
                     "coding": [
                       {
-                        "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-race-code-cs",
+                        "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-race-code-vr",
                         "code": "B40",
                         "display": "Cheyenne"
                       }
@@ -143,14 +143,14 @@
               "id": "dcd7af01-098c-4329-9077-306d90d6a4f1",
               "meta": {
                 "profile": [
-                  "http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-input-race-and-ethnicity"
+                  "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/input-race-and-ethnicity-vr"
                 ]
               },
               "status": "final",
               "code": {
                 "coding": [
                   {
-                    "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs",
+                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-local-observation-codes-vr",
                     "code": "inputraceandethnicity",
                     "display": "Input Race and Ethnicity"
                   }
@@ -252,7 +252,7 @@
                     "coding": [
                       {
                         "code": "BlackOrAfricanAmerican",
-                        "display" : "Black Or African American"
+                        "display": "Black Or African American"
                       }
                     ]
                   },
@@ -274,7 +274,7 @@
                     "coding": [
                       {
                         "code": "AsianIndian",
-                        "display" : "Asian Indian"
+                        "display": "Asian Indian"
                       }
                     ]
                   },
@@ -340,7 +340,7 @@
                     "coding": [
                       {
                         "code": "OtherAsian",
-                        "display" : "Other Asian"
+                        "display": "Other Asian"
                       }
                     ]
                   },
@@ -351,7 +351,7 @@
                     "coding": [
                       {
                         "code": "NativeHawaiian",
-                        "display" : "Native Hawaiian"
+                        "display": "Native Hawaiian"
                       }
                     ]
                   },
@@ -362,7 +362,7 @@
                     "coding": [
                       {
                         "code": "GuamanianOrChamorro",
-                        "display" : "Guamanian Or Chamorro"
+                        "display": "Guamanian Or Chamorro"
                       }
                     ]
                   },
@@ -384,7 +384,7 @@
                     "coding": [
                       {
                         "code": "OtherPacificIslander",
-                        "display" : "Other Pacific Islander"
+                        "display": "Other Pacific Islander"
                       }
                     ]
                   },
@@ -395,7 +395,7 @@
                     "coding": [
                       {
                         "code": "OtherRace",
-                        "display" : "Other Race"
+                        "display": "Other Race"
                       }
                     ]
                   },

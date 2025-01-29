@@ -269,7 +269,7 @@
             "type": {
               "coding": [
                 {
-                  "code": "BR",
+                  "code": "SS",
                   "display": "Social Beneficiary Identifier"
                 }
               ]
@@ -701,9 +701,11 @@
             }
           }
         ],
-        "performer": [{
-          "reference": "urn:uuid:e6e8758f-cfc3-4147-b9ba-e33f544ab7c8"
-        }]
+        "performer": [
+          {
+            "reference": "urn:uuid:e6e8758f-cfc3-4147-b9ba-e33f544ab7c8"
+          }
+        ]
       }
     },
     {
@@ -754,9 +756,11 @@
         "subject": {
           "reference": "urn:uuid:9521f45f-d8ca-4c62-9878-0686f1028bf5"
         },
-        "performer": [{
-          "reference": "urn:uuid:e6e8758f-cfc3-4147-b9ba-e33f544ab7c8"
-        }]
+        "performer": [
+          {
+            "reference": "urn:uuid:e6e8758f-cfc3-4147-b9ba-e33f544ab7c8"
+          }
+        ]
       }
     },
     {
@@ -800,9 +804,11 @@
             }
           }
         ],
-        "performer": [{
-          "reference": "urn:uuid:e6e8758f-cfc3-4147-b9ba-e33f544ab7c8"
-        }]
+        "performer": [
+          {
+            "reference": "urn:uuid:e6e8758f-cfc3-4147-b9ba-e33f544ab7c8"
+          }
+        ]
       }
     },
     {
@@ -823,7 +829,8 @@
               "display": "Cause of death [US Standard Certificate of Death]"
             }
           ]
-        },        "valueCodeableConcept": {
+        },
+        "valueCodeableConcept": {
           "text": "Atherosclerotic coronary artery disease"
         },
         "subject": {
@@ -845,9 +852,11 @@
             }
           }
         ],
-        "performer": [{
-          "reference": "urn:uuid:e6e8758f-cfc3-4147-b9ba-e33f544ab7c8"
-        }]
+        "performer": [
+          {
+            "reference": "urn:uuid:e6e8758f-cfc3-4147-b9ba-e33f544ab7c8"
+          }
+        ]
       }
     },
     {
@@ -863,13 +872,15 @@
         "patient": {
           "reference": "urn:uuid:9521f45f-d8ca-4c62-9878-0686f1028bf5"
         },
-        "relationship": [{
-          "coding": [
-            {
-              "code": "FTH"
-            }
-          ]
-        }],
+        "relationship": [
+          {
+            "coding": [
+              {
+                "code": "FTH"
+              }
+            ]
+          }
+        ],
         "name": [
           {
             "family": "Last",
@@ -897,13 +908,15 @@
         "patient": {
           "reference": "urn:uuid:9521f45f-d8ca-4c62-9878-0686f1028bf5"
         },
-        "relationship": [{
-          "coding": [
-            {
-              "code": "MTH"
-            }
-          ]
-        }],
+        "relationship": [
+          {
+            "coding": [
+              {
+                "code": "MTH"
+              }
+            ]
+          }
+        ],
         "name": [
           {
             "family": "Maiden",
@@ -931,13 +944,15 @@
         "patient": {
           "reference": "urn:uuid:9521f45f-d8ca-4c62-9878-0686f1028bf5"
         },
-        "relationship": [{
-          "coding": [
-            {
-              "code": "SPS"
-            }
-          ]
-        }],
+        "relationship": [
+          {
+            "coding": [
+              {
+                "code": "SPS"
+              }
+            ]
+          }
+        ],
         "name": [
           {
             "family": "Last",
@@ -1000,7 +1015,8 @@
         "code": {
           "coding": [
             {
-              "code": "BR"
+              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs",
+              "code": "childbirthrecordidentifier"
             }
           ]
         },
@@ -1030,9 +1046,9 @@
             }
           ]
         },
-        "effectivePeriod" : {
-          "start" : "1965-01-01",
-          "end" : "2010-01-01"
+        "effectivePeriod": {
+          "start": "1965-01-01",
+          "end": "2010-01-01"
         },
         "valueCodeableConcept": {
           "coding": [

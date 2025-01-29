@@ -258,7 +258,7 @@
             "type": {
               "coding": [
                 {
-                  "code": "BR",
+                  "code": "SS",
                   "display": "Social Beneficiary Identifier"
                 }
               ]
@@ -548,7 +548,7 @@
         }
       }
     },
-	{
+    {
       "fullUrl": "urn:uuid:fade1bbd-5581-4463-8fa5-60163566c76b",
       "resource": {
         "resourceType": "Observation",
@@ -564,9 +564,11 @@
         "subject": {
           "reference": "urn:uuid:949354d3-9dcf-4c96-8ec4-6be27dd4c65f"
         },
-        "performer": [{
-          "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
-        }],
+        "performer": [
+          {
+            "reference": "urn:uuid:0402b9de-2347-4580-a9bf-b984c161ed2d"
+          }
+        ],
         "code": {
           "coding": [
             {
@@ -693,13 +695,15 @@
         "patient": {
           "reference": "urn:uuid:c83bc94c-cf3f-4062-aa1c-dd86894a3b31"
         },
-        "relationship": [{
-          "coding": [
-            {
-              "code": "FTH"
-            }
-          ]
-        }],
+        "relationship": [
+          {
+            "coding": [
+              {
+                "code": "FTH"
+              }
+            ]
+          }
+        ],
         "name": [
           {
             "family": "Last",
@@ -727,13 +731,15 @@
         "patient": {
           "reference": "urn:uuid:c83bc94c-cf3f-4062-aa1c-dd86894a3b31"
         },
-        "relationship": [{
-          "coding": [
-            {
-              "code": "MTH"
-            }
-          ]
-        }],
+        "relationship": [
+          {
+            "coding": [
+              {
+                "code": "MTH"
+              }
+            ]
+          }
+        ],
         "name": [
           {
             "family": "Maiden",
@@ -761,13 +767,15 @@
         "patient": {
           "reference": "urn:uuid:c83bc94c-cf3f-4062-aa1c-dd86894a3b31"
         },
-        "relationship": [{
-          "coding": [
-            {
-              "code": "SPS"
-            }
-          ]
-        }],
+        "relationship": [
+          {
+            "coding": [
+              {
+                "code": "SPS"
+              }
+            ]
+          }
+        ],
         "name": [
           {
             "family": "Last",
@@ -830,7 +838,8 @@
         "code": {
           "coding": [
             {
-              "code": "BR"
+              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs",
+              "code": "childbirthrecordidentifier"
             }
           ]
         },
@@ -843,60 +852,60 @@
     {
       "fullUrl": "urn:uuid:fee9f666-7099-4259-9a6c-25cf57f75654",
       "resource": {
-          "resourceType": "Observation",
-          "id": "fee9f666-7099-4259-9a6c-25cf57f75654",
-          "meta": {
-            "profile": [
-              "http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-decedent-usual-work"
-            ]
-          },
-          "status": "final",
-          "code": {
-            "coding": [
-              {
-                "system": "http://loinc.org",
-                "code": "21843-8",
-                "display": "History of usual occupation"
-              }
-            ]
-          },
-          "effectivePeriod" : {
-              "start" : "1965-01-01",
-              "end" : "2010-01-01"
-          },
-          "valueCodeableConcept": {
-            "coding": [
-              {
-                "display": "secretary"
-              }
-            ]
-          },
-          "subject": {
-            "reference": "urn:uuid:c83bc94c-cf3f-4062-aa1c-dd86894a3b31"
-          },
-          "component": [
+        "resourceType": "Observation",
+        "id": "fee9f666-7099-4259-9a6c-25cf57f75654",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-decedent-usual-work"
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
             {
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://loinc.org",
-                    "code": "21844-6",
-                    "display": "Usual industry"
-                  }
-                ]
-              },
-              "valueCodeableConcept": {
-                  "coding": [
-                    {
-                      "display": "State agency"
-                    }
-                  ]
-              }
+              "system": "http://loinc.org",
+              "code": "21843-8",
+              "display": "History of usual occupation"
             }
           ]
-        }
-  },
-  {
+        },
+        "effectivePeriod": {
+          "start": "1965-01-01",
+          "end": "2010-01-01"
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "display": "secretary"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:c83bc94c-cf3f-4062-aa1c-dd86894a3b31"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "21844-6",
+                  "display": "Usual industry"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "display": "State agency"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
       "fullUrl": "urn:uuid:e9b3c71b-fe74-4046-a47d-c085b8f76c63",
       "resource": {
         "resourceType": "Observation",
@@ -929,8 +938,8 @@
           ]
         }
       }
-  },
-  {
+    },
+    {
       "fullUrl": "urn:uuid:0de05a69-9bf1-45e2-9609-776cd0983fde",
       "resource": {
         "resourceType": "Observation",

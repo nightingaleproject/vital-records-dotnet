@@ -40,8 +40,8 @@ namespace BFDR
         [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(extension.value.coding.code='CHILD')", "")]
         public int? CertifiedYear
         {
-            get => GetCertifiedDateElement(EncounterMaternity, PartialDateYearUrl);
-            set => SetCertifiedDateElement(EncounterMaternity ?? CreateMaternityEncounter(), PartialDateYearUrl, value);
+            get => GetCertifiedDateElement(EncounterMaternity, VR.ExtensionURL.PartialDateYearVR);
+            set => SetCertifiedDateElement(EncounterMaternity ?? CreateMaternityEncounter(), VR.ExtensionURL.PartialDateYearVR, value);
         }
 
         /// <summary>Certified Month</summary>
@@ -56,8 +56,8 @@ namespace BFDR
         [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(extension.value.coding.code='CHILD')", "")]
         public int? CertifiedMonth
         {
-            get => GetCertifiedDateElement(EncounterMaternity, PartialDateMonthUrl);
-            set => SetCertifiedDateElement(EncounterMaternity ?? CreateMaternityEncounter(), PartialDateMonthUrl, value);
+            get => GetCertifiedDateElement(EncounterMaternity, VR.ExtensionURL.PartialDateMonthVR);
+            set => SetCertifiedDateElement(EncounterMaternity ?? CreateMaternityEncounter(), VR.ExtensionURL.PartialDateMonthVR, value);
         }
 
         /// <summary>Certified Day</summary>
@@ -72,8 +72,8 @@ namespace BFDR
         [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(extension.value.coding.code='CHILD')", "")]
         public int? CertifiedDay
         {
-            get => GetCertifiedDateElement(EncounterMaternity, PartialDateDayUrl);
-            set => SetCertifiedDateElement(EncounterMaternity ?? CreateMaternityEncounter(), PartialDateDayUrl, value);
+            get => GetCertifiedDateElement(EncounterMaternity, VR.ExtensionURL.PartialDateDayVR);
+            set => SetCertifiedDateElement(EncounterMaternity ?? CreateMaternityEncounter(), VR.ExtensionURL.PartialDateDayVR, value);
         }
 
         /// <summary>Fetus Legal Name - Given. Middle name should be the last entry.</summary>

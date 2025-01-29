@@ -213,11 +213,17 @@ namespace VRDR
                 case DemographicsCodingMessage.MESSAGE_TYPE:
                     message = new DemographicsCodingMessage(bundle, message);
                     break;
+                case IndustryOccupationCodingMessage.MESSAGE_TYPE:
+                    message = new IndustryOccupationCodingMessage(bundle, message);
+                    break;
                 case CauseOfDeathCodingUpdateMessage.MESSAGE_TYPE:
                     message = new CauseOfDeathCodingUpdateMessage(bundle, message);
                     break;
                 case DemographicsCodingUpdateMessage.MESSAGE_TYPE:
                     message = new DemographicsCodingUpdateMessage(bundle, message);
+                    break;
+                case IndustryOccupationCodingUpdateMessage.MESSAGE_TYPE:
+                    message = new IndustryOccupationCodingUpdateMessage(bundle, message);
                     break;
                 case ExtractionErrorMessage.MESSAGE_TYPE:
                     message = new ExtractionErrorMessage(bundle, message);
@@ -304,6 +310,18 @@ namespace VRDR
                 case "DemographicsCodingUpdateMessage":
                     {
                         var drsm = message as DemographicsCodingUpdateMessage;
+                        dr = drsm?.DeathRecord;
+                        break;
+                    }
+                case "IndustryOccupationCodingMessage":
+                    {
+                        var drsm = message as IndustryOccupationCodingMessage;
+                        dr = drsm?.DeathRecord;
+                        break;
+                    }
+                case "IndustryOccupationCodingUpdateMessage":
+                    {
+                        var drsm = message as IndustryOccupationCodingUpdateMessage;
                         dr = drsm?.DeathRecord;
                         break;
                     }

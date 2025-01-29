@@ -43,7 +43,7 @@ namespace VRDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Education Level: {ExampleDeathRecord.EducationLevel['display']}");</para>
         /// </example>
-        [Property("Activity at Time of Death", Property.Types.Dictionary, "Coded Content", "Decedent's Activity at Time of Death.", true, IGURL.ActivityAtTimeOfDeath, false, 34)]
+        [Property("Activity at Time of Death", Property.Types.Dictionary, "Coded Content", "Decedent's Activity at Time of Death.", true, ProfileURL.ActivityAtTimeOfDeath, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
@@ -76,7 +76,7 @@ namespace VRDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Decedent's Activity at Time of Death: {ExampleDeathRecord.ActivityAtDeath}");</para>
         /// </example>
-        [Property("Activity at Time of Death Helper", Property.Types.String, "Coded Content", "Decedent's Activity at Time of Death.", false, IGURL.ActivityAtTimeOfDeath, false, 34)]
+        [Property("Activity at Time of Death Helper", Property.Types.String, "Coded Content", "Decedent's Activity at Time of Death.", false, ProfileURL.ActivityAtTimeOfDeath, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='80626-5')", "")]
         public string ActivityAtDeathHelper
@@ -106,7 +106,7 @@ namespace VRDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Decedent's Automated Underlying Cause of Death: {ExampleDeathRecord.AutomatedUnderlyingCOD}");</para>
         /// </example>
-        [Property("Automated Underlying Cause of Death", Property.Types.String, "Coded Content", "Automated Underlying Cause of Death.", true, IGURL.AutomatedUnderlyingCauseOfDeath, false, 34)]
+        [Property("Automated Underlying Cause of Death", Property.Types.String, "Coded Content", "Automated Underlying Cause of Death.", true, ProfileURL.AutomatedUnderlyingCauseOfDeath, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='80358-5')", "")]
         public string AutomatedUnderlyingCOD
@@ -146,7 +146,7 @@ namespace VRDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Decedent's Manual Underlying Cause of Death: {ExampleDeathRecord.ManUnderlyingCOD}");</para>
         /// </example>
-        [Property("Manual Underlying Cause of Death", Property.Types.String, "Coded Content", "Manual Underlying Cause of Death.", true, IGURL.ManualUnderlyingCauseOfDeath, false, 34)]
+        [Property("Manual Underlying Cause of Death", Property.Types.String, "Coded Content", "Manual Underlying Cause of Death.", true, ProfileURL.ManualUnderlyingCauseOfDeath, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='80358-580359-3')", "")]
         public string ManUnderlyingCOD
@@ -193,7 +193,7 @@ namespace VRDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"PlaceOfInjury: {ExampleDeathRecord.PlaceOfInjury['display']}");</para>
         /// </example>
-        [Property("Place of Injury", Property.Types.Dictionary, "Coded Content", "Place of Injury.", true, IGURL.PlaceOfInjury, false, 34)]
+        [Property("Place of Injury", Property.Types.Dictionary, "Coded Content", "Place of Injury.", true, ProfileURL.PlaceOfInjury, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
@@ -226,7 +226,7 @@ namespace VRDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Place of Injury: {ExampleDeathRecord.PlaceOfInjuryHelper}");</para>
         /// </example>
-        [Property("Place of Injury Helper", Property.Types.String, "Coded Content", "Place of Injury.", false, IGURL.PlaceOfInjury, false, 34)]
+        [Property("Place of Injury Helper", Property.Types.String, "Coded Content", "Place of Injury.", false, ProfileURL.PlaceOfInjury, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='11376-1')", "")]
         public string PlaceOfInjuryHelper
@@ -264,7 +264,7 @@ namespace VRDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"First Edited Race Code: {ExampleDeathRecord.FirstEditedRaceCode['display']}");</para>
         /// </example>
-        [Property("FirstEditedRaceCode", Property.Types.Dictionary, "Coded Content", "First Edited Race Code.", true, IGURL.CodedRaceAndEthnicity, false, 34)]
+        [Property("FirstEditedRaceCode", Property.Types.Dictionary, "Coded Content", "First Edited Race Code.", true, VR.ProfileURL.CodedRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
@@ -301,11 +301,11 @@ namespace VRDR
         /// <value>First Edited Race Code Helper.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.FirstEditedRaceCodeHelper = VRDR.ValueSets.RaceCode.African ;</para>
+        /// <para>ExampleDeathRecord.FirstEditedRaceCodeHelper = VR.ValueSets.RaceCode.African ;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"First Edited Race Code: {ExampleDeathRecord.FirstEditedRaceCodeHelper}");</para>
         /// </example>
-        [Property("First Edited Race Code Helper", Property.Types.String, "Coded Content", "First Edited Race Code.", false, IGURL.CodedRaceAndEthnicity, false, 34)]
+        [Property("First Edited Race Code Helper", Property.Types.String, "Coded Content", "First Edited Race Code.", false, VR.ProfileURL.CodedRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
         public string FirstEditedRaceCodeHelper
@@ -322,7 +322,7 @@ namespace VRDR
             {
                 if(!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("FirstEditedRaceCode", value, VRDR.ValueSets.RaceCode.Codes);
+                    SetCodeValue("FirstEditedRaceCode", value, VR.ValueSets.RaceCode.Codes);
                 }
             }
         }
@@ -343,7 +343,7 @@ namespace VRDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Second Edited Race Code: {ExampleDeathRecord.SecondEditedRaceCode['display']}");</para>
         /// </example>
-        [Property("SecondEditedRaceCode", Property.Types.Dictionary, "Coded Content", "Second Edited Race Code.", true, IGURL.CodedRaceAndEthnicity, false, 34)]
+        [Property("SecondEditedRaceCode", Property.Types.Dictionary, "Coded Content", "Second Edited Race Code.", true, VR.ProfileURL.CodedRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
@@ -380,11 +380,11 @@ namespace VRDR
         /// <value>Second Edited Race Code Helper.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.SecondEditedRaceCodeHelper = VRDR.ValueSets.RaceCode.African ;</para>
+        /// <para>ExampleDeathRecord.SecondEditedRaceCodeHelper = VR.ValueSets.RaceCode.African ;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Second Edited Race Code: {ExampleDeathRecord.SecondEditedRaceCodeHelper}");</para>
         /// </example>
-        [Property("Second Edited Race Code Helper", Property.Types.String, "Coded Content", "Second Edited Race Code.", false, IGURL.CodedRaceAndEthnicity, false, 34)]
+        [Property("Second Edited Race Code Helper", Property.Types.String, "Coded Content", "Second Edited Race Code.", false, VR.ProfileURL.CodedRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
         public string SecondEditedRaceCodeHelper
@@ -401,7 +401,7 @@ namespace VRDR
             {
                 if(!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("SecondEditedRaceCode", value, VRDR.ValueSets.RaceCode.Codes);
+                    SetCodeValue("SecondEditedRaceCode", value, VR.ValueSets.RaceCode.Codes);
                 }
             }
         }
@@ -422,7 +422,7 @@ namespace VRDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Third Edited Race Code: {ExampleDeathRecord.ThirdEditedRaceCode['display']}");</para>
         /// </example>
-        [Property("ThirdEditedRaceCode", Property.Types.Dictionary, "Coded Content", "Third Edited Race Code.", true, IGURL.CodedRaceAndEthnicity, false, 34)]
+        [Property("ThirdEditedRaceCode", Property.Types.Dictionary, "Coded Content", "Third Edited Race Code.", true, VR.ProfileURL.CodedRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
@@ -459,11 +459,11 @@ namespace VRDR
         /// <value>Third Edited Race Code Helper.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.ThirdEditedRaceCodeHelper = VRDR.ValueSets.RaceCode.African ;</para>
+        /// <para>ExampleDeathRecord.ThirdEditedRaceCodeHelper = VR.ValueSets.RaceCode.African ;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Third Edited Race Code: {ExampleDeathRecord.ThirdEditedRaceCodeHelper}");</para>
         /// </example>
-        [Property("Third Edited Race Code Helper", Property.Types.String, "Coded Content", "Third Edited Race Code.", false, IGURL.CodedRaceAndEthnicity, false, 34)]
+        [Property("Third Edited Race Code Helper", Property.Types.String, "Coded Content", "Third Edited Race Code.", false, VR.ProfileURL.CodedRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
         public string ThirdEditedRaceCodeHelper
@@ -480,7 +480,7 @@ namespace VRDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("ThirdEditedRaceCode", value, VRDR.ValueSets.RaceCode.Codes);
+                    SetCodeValue("ThirdEditedRaceCode", value, VR.ValueSets.RaceCode.Codes);
                 }
             }
         }
@@ -501,7 +501,7 @@ namespace VRDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Fourth Edited Race Code: {ExampleDeathRecord.FourthEditedRaceCode['display']}");</para>
         /// </example>
-        [Property("FourthEditedRaceCode", Property.Types.Dictionary, "Coded Content", "Fourth Edited Race Code.", true, IGURL.CodedRaceAndEthnicity, false, 34)]
+        [Property("FourthEditedRaceCode", Property.Types.Dictionary, "Coded Content", "Fourth Edited Race Code.", true, VR.ProfileURL.CodedRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
@@ -538,11 +538,11 @@ namespace VRDR
         /// <value>Fourth Edited Race Code Helper.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.FourthEditedRaceCodeHelper = VRDR.ValueSets.RaceCode.African ;</para>
+        /// <para>ExampleDeathRecord.FourthEditedRaceCodeHelper = VR.ValueSets.RaceCode.African ;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Fourth Edited Race Code: {ExampleDeathRecord.FourthEditedRaceCodeHelper}");</para>
         /// </example>
-        [Property("Fourth Edited Race Code Helper", Property.Types.String, "Coded Content", "Fourth Edited Race Code.", false, IGURL.CodedRaceAndEthnicity, false, 34)]
+        [Property("Fourth Edited Race Code Helper", Property.Types.String, "Coded Content", "Fourth Edited Race Code.", false, VR.ProfileURL.CodedRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
         public string FourthEditedRaceCodeHelper
@@ -559,7 +559,7 @@ namespace VRDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("FourthEditedRaceCode", value, VRDR.ValueSets.RaceCode.Codes);
+                    SetCodeValue("FourthEditedRaceCode", value, VR.ValueSets.RaceCode.Codes);
                 }
             }
         }
@@ -580,7 +580,7 @@ namespace VRDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Fifth Edited Race Code: {ExampleDeathRecord.FifthEditedRaceCode['display']}");</para>
         /// </example>
-        [Property("FifthEditedRaceCode", Property.Types.Dictionary, "Coded Content", "Fifth Edited Race Code.", true, IGURL.CodedRaceAndEthnicity, false, 34)]
+        [Property("FifthEditedRaceCode", Property.Types.Dictionary, "Coded Content", "Fifth Edited Race Code.", true, VR.ProfileURL.CodedRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
@@ -617,11 +617,11 @@ namespace VRDR
         /// <value>Fifth Edited Race Code Helper.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.FifthEditedRaceCodeHelper = VRDR.ValueSets.RaceCode.African ;</para>
+        /// <para>ExampleDeathRecord.FifthEditedRaceCodeHelper = VR.ValueSets.RaceCode.African ;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Fifth Edited Race Code: {ExampleDeathRecord.FifthEditedRaceCodeHelper}");</para>
         /// </example>
-        [Property("Fifth Edited Race Code Helper", Property.Types.String, "Coded Content", "Fifth Edited Race Code.", false, IGURL.CodedRaceAndEthnicity, false, 34)]
+        [Property("Fifth Edited Race Code Helper", Property.Types.String, "Coded Content", "Fifth Edited Race Code.", false, VR.ProfileURL.CodedRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
         public string FifthEditedRaceCodeHelper
@@ -638,7 +638,7 @@ namespace VRDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("FifthEditedRaceCode", value, VRDR.ValueSets.RaceCode.Codes);
+                    SetCodeValue("FifthEditedRaceCode", value, VR.ValueSets.RaceCode.Codes);
                 }
             }
         }
@@ -659,7 +659,7 @@ namespace VRDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Sixth Edited Race Code: {ExampleDeathRecord.SixthEditedRaceCode['display']}");</para>
         /// </example>
-        [Property("SixthEditedRaceCode", Property.Types.Dictionary, "Coded Content", "Sixth Edited Race Code.", true, IGURL.CodedRaceAndEthnicity, false, 34)]
+        [Property("SixthEditedRaceCode", Property.Types.Dictionary, "Coded Content", "Sixth Edited Race Code.", true, VR.ProfileURL.CodedRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
@@ -696,11 +696,11 @@ namespace VRDR
         /// <value>Sixth Edited Race Code Helper.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.SixthEditedRaceCodeHelper = VRDR.ValueSets.RaceCode.African ;</para>
+        /// <para>ExampleDeathRecord.SixthEditedRaceCodeHelper = VR.ValueSets.RaceCode.African ;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Sixth Edited Race Code: {ExampleDeathRecord.SixthEditedRaceCodeHelper}");</para>
         /// </example>
-        [Property("Sixth Edited Race Code Helper", Property.Types.String, "Coded Content", "Sixth Edited Race Code.", false, IGURL.CodedRaceAndEthnicity, false, 34)]
+        [Property("Sixth Edited Race Code Helper", Property.Types.String, "Coded Content", "Sixth Edited Race Code.", false, VR.ProfileURL.CodedRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
         public string SixthEditedRaceCodeHelper
@@ -717,7 +717,7 @@ namespace VRDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("SixthEditedRaceCode", value, VRDR.ValueSets.RaceCode.Codes);
+                    SetCodeValue("SixthEditedRaceCode", value, VR.ValueSets.RaceCode.Codes);
                 }
             }
         }
@@ -738,7 +738,7 @@ namespace VRDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Seventh Edited Race Code: {ExampleDeathRecord.SeventhEditedRaceCode['display']}");</para>
         /// </example>
-        [Property("SeventhEditedRaceCode", Property.Types.Dictionary, "Coded Content", "Seventh Edited Race Code.", true, IGURL.CodedRaceAndEthnicity, false, 34)]
+        [Property("SeventhEditedRaceCode", Property.Types.Dictionary, "Coded Content", "Seventh Edited Race Code.", true, VR.ProfileURL.CodedRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
@@ -775,11 +775,11 @@ namespace VRDR
         /// <value>Seventh Edited Race Code Helper.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.SeventhEditedRaceCodeHelper = VRDR.ValueSets.RaceCode.African ;</para>
+        /// <para>ExampleDeathRecord.SeventhEditedRaceCodeHelper = VR.ValueSets.RaceCode.African ;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Seventh Edited Race Code: {ExampleDeathRecord.SeventhEditedRaceCodeHelper}");</para>
         /// </example>
-        [Property("Seventh Edited Race Code Helper", Property.Types.String, "Coded Content", "Seventh Edited Race Code.", false, IGURL.CodedRaceAndEthnicity, false, 34)]
+        [Property("Seventh Edited Race Code Helper", Property.Types.String, "Coded Content", "Seventh Edited Race Code.", false, VR.ProfileURL.CodedRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
         public string SeventhEditedRaceCodeHelper
@@ -796,7 +796,7 @@ namespace VRDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("SeventhEditedRaceCode", value, VRDR.ValueSets.RaceCode.Codes);
+                    SetCodeValue("SeventhEditedRaceCode", value, VR.ValueSets.RaceCode.Codes);
                 }
             }
         }
@@ -817,7 +817,7 @@ namespace VRDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Eighth Edited Race Code: {ExampleDeathRecord.EighthEditedRaceCode['display']}");</para>
         /// </example>
-        [Property("EighthEditedRaceCode", Property.Types.Dictionary, "Coded Content", "Eighth Edited Race Code.", true, IGURL.CodedRaceAndEthnicity, false, 34)]
+        [Property("EighthEditedRaceCode", Property.Types.Dictionary, "Coded Content", "Eighth Edited Race Code.", true, VR.ProfileURL.CodedRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
@@ -854,11 +854,11 @@ namespace VRDR
         /// <value>Eighth Edited Race Code Helper.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.EighthEditedRaceCodeHelper = VRDR.ValueSets.RaceCode.African ;</para>
+        /// <para>ExampleDeathRecord.EighthEditedRaceCodeHelper = VR.ValueSets.RaceCode.African ;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Eighth Edited Race Code: {ExampleDeathRecord.EighthEditedRaceCodeHelper}");</para>
         /// </example>
-        [Property("Eighth Edited Race Code Helper", Property.Types.String, "Coded Content", "Eighth Edited Race Code.", false, IGURL.CodedRaceAndEthnicity, false, 34)]
+        [Property("Eighth Edited Race Code Helper", Property.Types.String, "Coded Content", "Eighth Edited Race Code.", false, VR.ProfileURL.CodedRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
         public string EighthEditedRaceCodeHelper
@@ -875,7 +875,7 @@ namespace VRDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("EighthEditedRaceCode", value, VRDR.ValueSets.RaceCode.Codes);
+                    SetCodeValue("EighthEditedRaceCode", value, VR.ValueSets.RaceCode.Codes);
                 }
             }
         }
@@ -896,7 +896,7 @@ namespace VRDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"First American Indian Race Code: {ExampleDeathRecord.FirstAmericanIndianRaceCode['display']}");</para>
         /// </example>
-        [Property("FirstAmericanIndianRaceCode", Property.Types.Dictionary, "Coded Content", "First American Indian Race Code.", true, IGURL.CodedRaceAndEthnicity, false, 34)]
+        [Property("FirstAmericanIndianRaceCode", Property.Types.Dictionary, "Coded Content", "First American Indian Race Code.", true, VR.ProfileURL.CodedRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
@@ -933,11 +933,11 @@ namespace VRDR
         /// <value>First American Indian Race Code Helper.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.FirstAmericanIndianRaceCodeHelper = VRDR.ValueSets.RaceCode.African ;</para>
+        /// <para>ExampleDeathRecord.FirstAmericanIndianRaceCodeHelper = VR.ValueSets.RaceCode.African ;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"First American Indian Race Code: {ExampleDeathRecord.FirstAmericanIndianRaceCodeHelper}");</para>
         /// </example>
-        [Property("First American Indian Race Code Helper", Property.Types.String, "Coded Content", "First American Indian Race Code.", false, IGURL.CodedRaceAndEthnicity, false, 34)]
+        [Property("First American Indian Race Code Helper", Property.Types.String, "Coded Content", "First American Indian Race Code.", false, VR.ProfileURL.CodedRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
         public string FirstAmericanIndianRaceCodeHelper
@@ -954,7 +954,7 @@ namespace VRDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("FirstAmericanIndianRaceCode", value, VRDR.ValueSets.RaceCode.Codes);
+                    SetCodeValue("FirstAmericanIndianRaceCode", value, VR.ValueSets.RaceCode.Codes);
                 }
             }
         }
@@ -975,7 +975,7 @@ namespace VRDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Second American Indian Race Code: {ExampleDeathRecord.SecondAmericanIndianRaceCode['display']}");</para>
         /// </example>
-        [Property("SecondAmericanIndianRaceCode", Property.Types.Dictionary, "Coded Content", "Second American Indian Race Code.", true, IGURL.CodedRaceAndEthnicity, false, 34)]
+        [Property("SecondAmericanIndianRaceCode", Property.Types.Dictionary, "Coded Content", "Second American Indian Race Code.", true, VR.ProfileURL.CodedRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
@@ -1012,11 +1012,11 @@ namespace VRDR
         /// <value>Second American Indian Race Code Helper.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.SecondAmericanIndianRaceCodeHelper = VRDR.ValueSets.RaceCode.African ;</para>
+        /// <para>ExampleDeathRecord.SecondAmericanIndianRaceCodeHelper = VR.ValueSets.RaceCode.African ;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Second American Indian Race Code: {ExampleDeathRecord.SecondAmericanIndianRaceCodeHelper}");</para>
         /// </example>
-        [Property("Second American Indian Race Code Helper", Property.Types.String, "Coded Content", "Second American Indian Race Code.", false, IGURL.CodedRaceAndEthnicity, false, 34)]
+        [Property("Second American Indian Race Code Helper", Property.Types.String, "Coded Content", "Second American Indian Race Code.", false, VR.ProfileURL.CodedRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
         public string SecondAmericanIndianRaceCodeHelper
@@ -1033,7 +1033,7 @@ namespace VRDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("SecondAmericanIndianRaceCode", value, VRDR.ValueSets.RaceCode.Codes);
+                    SetCodeValue("SecondAmericanIndianRaceCode", value, VR.ValueSets.RaceCode.Codes);
                 }
             }
         }
@@ -1054,7 +1054,7 @@ namespace VRDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"First Other Asian Race Code: {ExampleDeathRecord.FirstOtherAsianRaceCode['display']}");</para>
         /// </example>
-        [Property("FirstOtherAsianRaceCode", Property.Types.Dictionary, "Coded Content", "First Other Asian Race Code.", true, IGURL.CodedRaceAndEthnicity, false, 34)]
+        [Property("FirstOtherAsianRaceCode", Property.Types.Dictionary, "Coded Content", "First Other Asian Race Code.", true, VR.ProfileURL.CodedRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
@@ -1091,11 +1091,11 @@ namespace VRDR
         /// <value>First Other Asian Race Code Helper.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.FirstOtherAsianRaceCodeHelper = VRDR.ValueSets.RaceCode.African ;</para>
+        /// <para>ExampleDeathRecord.FirstOtherAsianRaceCodeHelper = VR.ValueSets.RaceCode.African ;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"First Other Asian Race Code: {ExampleDeathRecord.FirstOtherAsianRaceCodeHelper}");</para>
         /// </example>
-        [Property("First Other Asian Race Code Helper", Property.Types.String, "Coded Content", "First Other Asian Race Code.", false, IGURL.CodedRaceAndEthnicity, false, 34)]
+        [Property("First Other Asian Race Code Helper", Property.Types.String, "Coded Content", "First Other Asian Race Code.", false, VR.ProfileURL.CodedRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
         public string FirstOtherAsianRaceCodeHelper
@@ -1112,7 +1112,7 @@ namespace VRDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("FirstOtherAsianRaceCode", value, VRDR.ValueSets.RaceCode.Codes);
+                    SetCodeValue("FirstOtherAsianRaceCode", value, VR.ValueSets.RaceCode.Codes);
                 }
             }
         }
@@ -1133,7 +1133,7 @@ namespace VRDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Second Other Asian Race Code: {ExampleDeathRecord.SecondOtherAsianRaceCode['display']}");</para>
         /// </example>
-        [Property("SecondOtherAsianRaceCode", Property.Types.Dictionary, "Coded Content", "Second Other Asian Race Code.", true, IGURL.CodedRaceAndEthnicity, false, 34)]
+        [Property("SecondOtherAsianRaceCode", Property.Types.Dictionary, "Coded Content", "Second Other Asian Race Code.", true, VR.ProfileURL.CodedRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
@@ -1170,11 +1170,11 @@ namespace VRDR
         /// <value>Second Other Asian Race Code Helper.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.SecondOtherAsianRaceCodeHelper = VRDR.ValueSets.RaceCode.African ;</para>
+        /// <para>ExampleDeathRecord.SecondOtherAsianRaceCodeHelper = VR.ValueSets.RaceCode.African ;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Second Other Asian Race Code: {ExampleDeathRecord.SecondOtherAsianRaceCodeHelper}");</para>
         /// </example>
-        [Property("Second Other Asian Race Code Helper", Property.Types.String, "Coded Content", "Second Other Asian Race Code.", false, IGURL.CodedRaceAndEthnicity, false, 34)]
+        [Property("Second Other Asian Race Code Helper", Property.Types.String, "Coded Content", "Second Other Asian Race Code.", false, VR.ProfileURL.CodedRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
         public string SecondOtherAsianRaceCodeHelper
@@ -1191,7 +1191,7 @@ namespace VRDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("SecondOtherAsianRaceCode", value, VRDR.ValueSets.RaceCode.Codes);
+                    SetCodeValue("SecondOtherAsianRaceCode", value, VR.ValueSets.RaceCode.Codes);
                 }
             }
         }
@@ -1212,7 +1212,7 @@ namespace VRDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"First Other Pacific Islander Race Code: {ExampleDeathRecord.FirstOtherPacificIslanderRaceCode['display']}");</para>
         /// </example>
-        [Property("FirstOtherPacificIslanderRaceCode", Property.Types.Dictionary, "Coded Content", "First Other Pacific Islander Race Code.", true, IGURL.CodedRaceAndEthnicity, false, 34)]
+        [Property("FirstOtherPacificIslanderRaceCode", Property.Types.Dictionary, "Coded Content", "First Other Pacific Islander Race Code.", true, VR.ProfileURL.CodedRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
@@ -1249,11 +1249,11 @@ namespace VRDR
         /// <value>First Other Pacific Islander Race Code Helper.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.FirstOtherPacificIslanderRaceCodeHelper = VRDR.ValueSets.RaceCode.African ;</para>
+        /// <para>ExampleDeathRecord.FirstOtherPacificIslanderRaceCodeHelper = VR.ValueSets.RaceCode.African ;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"First Other Pacific Islander Race Code: {ExampleDeathRecord.FirstOtherPacificIslanderRaceCodeHelper}");</para>
         /// </example>
-        [Property("First Other Pacific Islander Race Code Helper", Property.Types.String, "Coded Content", "First Other Pacific Islander Race Code.", false, IGURL.CodedRaceAndEthnicity, false, 34)]
+        [Property("First Other Pacific Islander Race Code Helper", Property.Types.String, "Coded Content", "First Other Pacific Islander Race Code.", false, VR.ProfileURL.CodedRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
         public string FirstOtherPacificIslanderRaceCodeHelper
@@ -1270,7 +1270,7 @@ namespace VRDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("FirstOtherPacificIslanderRaceCode", value, VRDR.ValueSets.RaceCode.Codes);
+                    SetCodeValue("FirstOtherPacificIslanderRaceCode", value, VR.ValueSets.RaceCode.Codes);
                 }
             }
         }
@@ -1291,7 +1291,7 @@ namespace VRDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Second Other Pacific Islander Race Code: {ExampleDeathRecord.SecondOtherPacificIslanderRaceCode['display']}");</para>
         /// </example>
-        [Property("SecondOtherPacificIslanderRaceCode", Property.Types.Dictionary, "Coded Content", "Second Other Pacific Islander Race Code.", true, IGURL.CodedRaceAndEthnicity, false, 34)]
+        [Property("SecondOtherPacificIslanderRaceCode", Property.Types.Dictionary, "Coded Content", "Second Other Pacific Islander Race Code.", true, VR.ProfileURL.CodedRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
@@ -1328,11 +1328,11 @@ namespace VRDR
         /// <value>Second Other Pacific Islander Race Code Helper.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.SecondOtherPacificIslanderRaceCodeHelper = VRDR.ValueSets.RaceCode.African ;</para>
+        /// <para>ExampleDeathRecord.SecondOtherPacificIslanderRaceCodeHelper = VR.ValueSets.RaceCode.African ;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Second Other Pacific Islander Race Code: {ExampleDeathRecord.SecondOtherPacificIslanderRaceCodeHelper}");</para>
         /// </example>
-        [Property("Second Other Pacific Islander Race Code Helper", Property.Types.String, "Coded Content", "Second Other Pacific Islander Race Code.", false, IGURL.CodedRaceAndEthnicity, false, 34)]
+        [Property("Second Other Pacific Islander Race Code Helper", Property.Types.String, "Coded Content", "Second Other Pacific Islander Race Code.", false, VR.ProfileURL.CodedRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
         public string SecondOtherPacificIslanderRaceCodeHelper
@@ -1349,7 +1349,7 @@ namespace VRDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("SecondOtherPacificIslanderRaceCode", value, VRDR.ValueSets.RaceCode.Codes);
+                    SetCodeValue("SecondOtherPacificIslanderRaceCode", value, VR.ValueSets.RaceCode.Codes);
                 }
             }
         }
@@ -1370,7 +1370,7 @@ namespace VRDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"First Other Race Code: {ExampleDeathRecord.FirstOtherRaceCode['display']}");</para>
         /// </example>
-        [Property("FirstOtherRaceCode", Property.Types.Dictionary, "Coded Content", "First Other Race Code.", true, IGURL.CodedRaceAndEthnicity, false, 34)]
+        [Property("FirstOtherRaceCode", Property.Types.Dictionary, "Coded Content", "First Other Race Code.", true, VR.ProfileURL.CodedRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
@@ -1407,11 +1407,11 @@ namespace VRDR
         /// <value>First Other Race Code Helper.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.FirstOtherRaceCodeHelper = VRDR.ValueSets.RaceCode.African ;</para>
+        /// <para>ExampleDeathRecord.FirstOtherRaceCodeHelper = VR.ValueSets.RaceCode.African ;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"First Other Race Code: {ExampleDeathRecord.FirstOtherRaceCodeHelper}");</para>
         /// </example>
-        [Property("First Other Race Code Helper", Property.Types.String, "Coded Content", "First Other Race Code.", false, IGURL.CodedRaceAndEthnicity, false, 34)]
+        [Property("First Other Race Code Helper", Property.Types.String, "Coded Content", "First Other Race Code.", false, VR.ProfileURL.CodedRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
         public string FirstOtherRaceCodeHelper
@@ -1428,7 +1428,7 @@ namespace VRDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("FirstOtherRaceCode", value, VRDR.ValueSets.RaceCode.Codes);
+                    SetCodeValue("FirstOtherRaceCode", value, VR.ValueSets.RaceCode.Codes);
                 }
             }
         }
@@ -1449,7 +1449,7 @@ namespace VRDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Second Other Race Code: {ExampleDeathRecord.SecondOtherRaceCode['display']}");</para>
         /// </example>
-        [Property("SecondOtherRaceCode", Property.Types.Dictionary, "Coded Content", "Second Other Race Code.", true, IGURL.CodedRaceAndEthnicity, false, 34)]
+        [Property("SecondOtherRaceCode", Property.Types.Dictionary, "Coded Content", "Second Other Race Code.", true, VR.ProfileURL.CodedRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
@@ -1486,11 +1486,11 @@ namespace VRDR
         /// <value>Second Other Race Code Helper.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.SecondOtherRaceCodeHelper = VRDR.ValueSets.RaceCode.African ;</para>
+        /// <para>ExampleDeathRecord.SecondOtherRaceCodeHelper = VR.ValueSets.RaceCode.African ;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Second Other Race Code: {ExampleDeathRecord.SecondOtherRaceCodeHelper}");</para>
         /// </example>
-        [Property("Second Other Race Code Helper", Property.Types.String, "Coded Content", "Second Other Race Code.", false, IGURL.CodedRaceAndEthnicity, false, 34)]
+        [Property("Second Other Race Code Helper", Property.Types.String, "Coded Content", "Second Other Race Code.", false, VR.ProfileURL.CodedRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
         public string SecondOtherRaceCodeHelper
@@ -1507,7 +1507,7 @@ namespace VRDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("SecondOtherRaceCode", value, VRDR.ValueSets.RaceCode.Codes);
+                    SetCodeValue("SecondOtherRaceCode", value, VR.ValueSets.RaceCode.Codes);
                 }
             }
         }
@@ -1528,7 +1528,7 @@ namespace VRDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Hispanic Code: {ExampleDeathRecord.HispanicCode['display']}");</para>
         /// </example>
-        [Property("HispanicCode", Property.Types.Dictionary, "Coded Content", "Hispanic Code.", true, IGURL.CodedRaceAndEthnicity, false, 34)]
+        [Property("HispanicCode", Property.Types.Dictionary, "Coded Content", "Hispanic Code.", true, VR.ProfileURL.CodedRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
@@ -1565,11 +1565,11 @@ namespace VRDR
         /// <value>Hispanic Code Helper.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.HispanicCodeHelper = VRDR.ValueSets.RaceCode.African ;</para>
+        /// <para>ExampleDeathRecord.HispanicCodeHelper = VR.ValueSets.RaceCode.African ;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Hispanic Code: {ExampleDeathRecord.HispanicCodeHelper}");</para>
         /// </example>
-        [Property("Hispanic Code Helper", Property.Types.String, "Coded Content", "Hispanic Code.", false, IGURL.CodedRaceAndEthnicity, false, 34)]
+        [Property("Hispanic Code Helper", Property.Types.String, "Coded Content", "Hispanic Code.", false, VR.ProfileURL.CodedRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
         public string HispanicCodeHelper
@@ -1586,7 +1586,7 @@ namespace VRDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("HispanicCode", value, VRDR.ValueSets.HispanicOrigin.Codes);
+                    SetCodeValue("HispanicCode", value, VR.ValueSets.HispanicOrigin.Codes);
                 }
             }
         }
@@ -1607,7 +1607,7 @@ namespace VRDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Hispanic Code For Literal: {ExampleDeathRecord.HispanicCodeForLiteral['display']}");</para>
         /// </example>
-        [Property("HispanicCodeForLiteral", Property.Types.Dictionary, "Coded Content", "Hispanic Code For Literal.", true, IGURL.CodedRaceAndEthnicity, false, 34)]
+        [Property("HispanicCodeForLiteral", Property.Types.Dictionary, "Coded Content", "Hispanic Code For Literal.", true, VR.ProfileURL.CodedRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
@@ -1644,11 +1644,11 @@ namespace VRDR
         /// <value>Hispanic Code For Literal Helper.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.HispanicCodeForLiteralHelper = VRDR.ValueSets.RaceCode.African ;</para>
+        /// <para>ExampleDeathRecord.HispanicCodeForLiteralHelper = VR.ValueSets.RaceCode.African ;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Hispanic Code For Literal: {ExampleDeathRecord.HispanicCodeForLiteralHelper}");</para>
         /// </example>
-        [Property("Hispanic Code For Literal Helper", Property.Types.String, "Coded Content", "Hispanic Code For Literal.", false, IGURL.CodedRaceAndEthnicity, false, 34)]
+        [Property("Hispanic Code For Literal Helper", Property.Types.String, "Coded Content", "Hispanic Code For Literal.", false, VR.ProfileURL.CodedRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
         public string HispanicCodeForLiteralHelper
@@ -1665,7 +1665,7 @@ namespace VRDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("HispanicCodeForLiteral", value, VRDR.ValueSets.HispanicOrigin.Codes);
+                    SetCodeValue("HispanicCodeForLiteral", value, VR.ValueSets.HispanicOrigin.Codes);
                 }
             }
         }
@@ -1686,7 +1686,7 @@ namespace VRDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"RaceRecode40: {ExampleDeathRecord.RaceRecode40['display']}");</para>
         /// </example>
-        [Property("RaceRecode40", Property.Types.Dictionary, "Coded Content", "RaceRecode40.", true, IGURL.CodedRaceAndEthnicity, false, 34)]
+        [Property("RaceRecode40", Property.Types.Dictionary, "Coded Content", "RaceRecode40.", true, VR.ProfileURL.CodedRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
@@ -1723,11 +1723,11 @@ namespace VRDR
         /// <value>Race Recode 40 Helper.</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleDeathRecord.RaceRecode40Helper = VRDR.ValueSets.RaceRecode40.AIAN ;</para>
+        /// <para>ExampleDeathRecord.RaceRecode40Helper = VR.ValueSets.RaceRecode40.AIAN ;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Race Recode 40: {ExampleDeathRecord.RaceRecode40Helper}");</para>
         /// </example>
-        [Property("Race Recode 40 Helper", Property.Types.String, "Coded Content", "Race Recode 40.", false, IGURL.CodedRaceAndEthnicity, false, 34)]
+        [Property("Race Recode 40 Helper", Property.Types.String, "Coded Content", "Race Recode 40.", false, VR.ProfileURL.CodedRaceAndEthnicity, false, 34)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='codedraceandethnicity')", "")]
         public string RaceRecode40Helper
@@ -1744,7 +1744,7 @@ namespace VRDR
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    SetCodeValue("RaceRecode40", value, VRDR.ValueSets.RaceRecode40.Codes);
+                    SetCodeValue("RaceRecode40", value, VR.ValueSets.RaceRecode40.Codes);
                 }
             }
         }
@@ -1760,7 +1760,7 @@ namespace VRDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"First Entity Axis Code: {ExampleDeathRecord.EntityAxisCauseOfDeath.ElementAt(0).Code}");</para>
         /// </example>
-        [Property("Entity Axis Cause of Death", Property.Types.Tuple4Arr, "Coded Content", "", true, IGURL.EntityAxisCauseOfDeath, false, 50)]
+        [Property("Entity Axis Cause of Death", Property.Types.Tuple4Arr, "Coded Content", "", true, ProfileURL.EntityAxisCauseOfDeath, false, 50)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code=80356-9)", "")]
         public IEnumerable<(int LineNumber, int Position, string Code, bool ECode)> EntityAxisCauseOfDeath
         {
@@ -1863,7 +1863,7 @@ namespace VRDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"First Record Axis Code: {ExampleDeathRecord.RecordAxisCauseOfDeath.ElememtAt(0).Code}");</para>
         /// </example>
-        [Property("Record Axis Cause Of Death", Property.Types.Tuple4Arr, "Coded Content", "", true, IGURL.RecordAxisCauseOfDeath, false, 50)]
+        [Property("Record Axis Cause Of Death", Property.Types.Tuple4Arr, "Coded Content", "", true, ProfileURL.RecordAxisCauseOfDeath, false, 50)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code=80357-7)", "")]
         public IEnumerable<(int Position, string Code, bool Pregnancy)> RecordAxisCauseOfDeath
         {
@@ -1959,14 +1959,14 @@ namespace VRDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Receipt Year: {ExampleDeathRecord.ReceiptYear}");</para>
         /// </example>
-        [Property("ReceiptYear", Property.Types.Int32, "Coded Content", "Coding Status", true, IGURL.CodingStatusValues, true)]
+        [Property("ReceiptYear", Property.Types.Int32, "Coded Content", "Coding Status", true, ProfileURL.CodingStatusValues, true)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code=codingstatus)", "")]
         public int? ReceiptYear
         {
             get
             {
                 Date date = CodingStatusValues?.GetSingleValue<Date>("receiptDate");
-                return GetDateFragmentOrPartialDate(date, ExtensionURL.DateYear);
+                return GetDateFragmentOrPartialDate(date, VR.ExtensionURL.PartialDateYearVR);
             }
             set
             {
@@ -1975,7 +1975,7 @@ namespace VRDR
                     CreateCodingStatusValues();
                 }
                 Date date = CodingStatusValues?.GetSingleValue<Date>("receiptDate");
-                SetPartialDate(date.Extension.Find(ext => ext.Url == ExtensionURL.PartialDate), ExtensionURL.DateYear, value);
+                SetPartialDate(date.Extension.Find(ext => ext.Url == VR.ExtensionURL.PartialDate), VR.ExtensionURL.PartialDateYearVR, value);
             }
         }
 
@@ -1990,14 +1990,14 @@ namespace VRDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Receipt Month: {ExampleDeathRecord.ReceiptMonth}");</para>
         /// </example>
-        [Property("ReceiptMonth", Property.Types.Int32, "Coded Content", "Coding Status", true, IGURL.CodingStatusValues, true)]
+        [Property("ReceiptMonth", Property.Types.Int32, "Coded Content", "Coding Status", true, ProfileURL.CodingStatusValues, true)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code=codingstatus)", "")]
         public int? ReceiptMonth
         {
             get
             {
                 Date date = CodingStatusValues?.GetSingleValue<Date>("receiptDate");
-                return GetDateFragmentOrPartialDate(date, ExtensionURL.DateMonth);
+                return GetDateFragmentOrPartialDate(date, VR.ExtensionURL.PartialDateMonthVR);
             }
             set
             {
@@ -2006,7 +2006,7 @@ namespace VRDR
                     CreateCodingStatusValues();
                 }
                 Date date = CodingStatusValues?.GetSingleValue<Date>("receiptDate");
-                SetPartialDate(date.Extension.Find(ext => ext.Url == ExtensionURL.PartialDate), ExtensionURL.DateMonth, value);
+                SetPartialDate(date.Extension.Find(ext => ext.Url == VR.ExtensionURL.PartialDate), VR.ExtensionURL.PartialDateMonthVR, value);
             }
         }
 
@@ -2018,14 +2018,14 @@ namespace VRDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Receipt Day: {ExampleDeathRecord.ReceiptDay}");</para>
         /// </example>
-        [Property("ReceiptDay", Property.Types.Int32, "Coded Content", "Coding Status", true, IGURL.CodingStatusValues, true)]
+        [Property("ReceiptDay", Property.Types.Int32, "Coded Content", "Coding Status", true, ProfileURL.CodingStatusValues, true)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code=codingstatus)", "")]
         public int? ReceiptDay
         {
             get
             {
                 Date date = CodingStatusValues?.GetSingleValue<Date>("receiptDate");
-                return GetDateFragmentOrPartialDate(date, ExtensionURL.DateDay);
+                return GetDateFragmentOrPartialDate(date, VR.ExtensionURL.PartialDateDayVR);
             }
             set
             {
@@ -2034,7 +2034,7 @@ namespace VRDR
                     CreateCodingStatusValues();
                 }
                 Date date = CodingStatusValues?.GetSingleValue<Date>("receiptDate");
-                SetPartialDate(date.Extension.Find(ext => ext.Url == ExtensionURL.PartialDate), ExtensionURL.DateDay, value);
+                SetPartialDate(date.Extension.Find(ext => ext.Url == VR.ExtensionURL.PartialDate), VR.ExtensionURL.PartialDateDayVR, value);
             }
         }
 
@@ -2046,7 +2046,7 @@ namespace VRDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Receipt Date: {ExampleDeathRecord.ReceiptDate}");</para>
         /// </example>
-        [Property("Receipt Date", Property.Types.StringDateTime, "Coded Content", "Receipt Date.", true, IGURL.CodingStatusValues, true, 25)]
+        [Property("Receipt Date", Property.Types.StringDateTime, "Coded Content", "Receipt Date.", true, ProfileURL.CodingStatusValues, true, 25)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code=codingstatus)", "")]
         public string ReceiptDate
         {
@@ -2084,7 +2084,7 @@ namespace VRDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Coder STatus {ExampleDeathRecord.CoderStatus}");</para>
         /// </example>
-        [Property("CoderStatus", Property.Types.Int32, "Coded Content", "Coding Status", true, IGURL.CodingStatusValues, false)]
+        [Property("CoderStatus", Property.Types.Int32, "Coded Content", "Coding Status", true, ProfileURL.CodingStatusValues, false)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code=codingstatus)", "")]
         public int? CoderStatus
         {
@@ -2117,7 +2117,7 @@ namespace VRDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Shipment Number{ExampleDeathRecord.ShipmentNumber}");</para>
         /// </example>
-        [Property("ShipmentNumber", Property.Types.String, "Coded Content", "Coding Status", true, IGURL.CodingStatusValues, false)]
+        [Property("ShipmentNumber", Property.Types.String, "Coded Content", "Coding Status", true, ProfileURL.CodingStatusValues, false)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code=codingstatus)", "")]
         public string ShipmentNumber
         {
@@ -2154,7 +2154,7 @@ namespace VRDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Intentional Reject {ExampleDeathRecord.IntentionalReject}");</para>
         /// </example>
-        [Property("IntentionalReject", Property.Types.Dictionary, "Coded Content", "Coding Status", true, IGURL.CodingStatusValues, true)]
+        [Property("IntentionalReject", Property.Types.Dictionary, "Coded Content", "Coding Status", true, ProfileURL.CodingStatusValues, true)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
@@ -2194,7 +2194,7 @@ namespace VRDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Intentional Reject Code: {ExampleDeathRecord.IntentionalRejectHelper}");</para>
         /// </example>
-        [Property("IntentionalRejectHelper", Property.Types.String, "Intentional Reject Codes", "IntentionalRejectCodes.", false, IGURL.CodingStatusValues, true, 4)]
+        [Property("IntentionalRejectHelper", Property.Types.String, "Intentional Reject Codes", "IntentionalRejectCodes.", false, ProfileURL.CodingStatusValues, true, 4)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code=codingstatus)", "")]
         public string IntentionalRejectHelper
@@ -2231,7 +2231,7 @@ namespace VRDR
         /// <para>Console.WriteLine($"Acme System Reject Code: {ExampleDeathRecord.AcmeSystemReject}");</para>
         /// </example>
 
-        [Property("AcmeSystemReject", Property.Types.Dictionary, "Coded Content", "Coding Status", true, IGURL.CodingStatusValues, true)]
+        [Property("AcmeSystemReject", Property.Types.Dictionary, "Coded Content", "Coding Status", true, ProfileURL.CodingStatusValues, true)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
@@ -2271,7 +2271,7 @@ namespace VRDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Acme System Reject Code: {ExampleDeathRecord.AcmeSystemReject}");</para>
         /// </example>
-        [Property("AcmeSystemRejectHelper", Property.Types.String, "Acme System Reject Codes", "AcmeSystemRejectCodes.", false, IGURL.CodingStatusValues, true, 4)]
+        [Property("AcmeSystemRejectHelper", Property.Types.String, "Acme System Reject Codes", "AcmeSystemRejectCodes.", false, ProfileURL.CodingStatusValues, true, 4)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code=codingstatus)", "")]
         public string AcmeSystemRejectHelper
@@ -2308,7 +2308,7 @@ namespace VRDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Transax Conversion Code: {ExampleDeathRecord.TransaxConversion}");</para>
         /// </example>
-        [Property("TransaxConversion", Property.Types.Dictionary, "Coded Content", "Coding Status", true, IGURL.CodingStatusValues, true)]
+        [Property("TransaxConversion", Property.Types.Dictionary, "Coded Content", "Coding Status", true, ProfileURL.CodingStatusValues, true)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
@@ -2348,7 +2348,7 @@ namespace VRDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Filing Format: {ExampleDeathRecord.TransaxConversionHelper}");</para>
         /// </example>
-        [Property("TransaxConversionFlag Helper", Property.Types.String, "Transax Conversion", "TransaxConversion Flag.", false, IGURL.CodingStatusValues, true, 4)]
+        [Property("TransaxConversionFlag Helper", Property.Types.String, "Transax Conversion", "TransaxConversion Flag.", false, ProfileURL.CodingStatusValues, true, 4)]
         [PropertyParam("code", "The code used to describe this concept.")]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code=codingstatus)", "")]
         public string TransaxConversionHelper

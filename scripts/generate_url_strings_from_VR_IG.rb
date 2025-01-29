@@ -1,7 +1,7 @@
 # This script takes the JSON files that are generated as part of the VR IG and creates an output
 # file with static URL strings for each StructureDefinition, Extension, and IG HTML page
 #
-# Usage: ruby tools/generate_url_strings_from_VR_IG.rb <path-to-json-files> > VR/URLs.cs
+# Usage: ruby scripts/generate_url_strings_from_VR_IG.rb <path-to-json-files> > projects/VitalRecord/URLs.cs
 #
 # If you need to generate the concept map JSON files, first install sushi (https://github.com/FHIR/sushi) then
 #
@@ -23,8 +23,13 @@ raise "Please provide a path to the IG JSON files" unless path_to_ig
 structure_definition_files = Dir.glob("#{path_to_ig}/**/StructureDefinition*.json")
 raise "No Structure Definitions Found" unless structure_definition_files.size > 0
 
+# Load the CodeSystem Definitions from the provided directory
+code_system_files = Dir.glob("#{path_to_ig}/**/CodeSystem*.json")
+raise "No CodeSystem Definitions Found" unless code_system_files.size > 0
+
 # Iterate through each file and populate a hash of name => url
 structure_definition_hash = {}
+name = "blank"
 structure_definitions = structure_definition_files.each do |structure_definition_file|
   # Load and parse the JSON
   structure_definition = JSON.parse(File.read(structure_definition_file))
@@ -34,30 +39,36 @@ structure_definitions = structure_definition_files.each do |structure_definition
   structure_definition_hash[name] = url
 end
 
-# Helper method to transform a StructureDefinition URL into a human-visitable link
-# Note: Will need to be updated as IG moves through different publishing stages
+# Iterate through each file and populate a hash of name => url
+code_system_hash = {}
+code_systems = code_system_files.each do |code_system_file|
+  # Load and parse the JSON
+  code_system = JSON.parse(File.read(code_system_file))
+  # Grab the name and URL and populate the hash
+  name = code_system['name']
+  url = code_system['url']
+  code_system_hash[name] = url
+end
+
+# Helper method to transform a StructureDefinition or Codesystem URL into a relative extension URL
 def structure_definition_url_to_ig_url(url)
-  # Transform this: http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Patient-mother-vr
-  # Into this:      http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Patient-mother-vr.html
-  url.gsub('http://hl7.org/fhir/us/vr-common-library/StructureDefinition/', 'http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-') + '.html'
+  # Transform this: http://hl7.org/fhir/us/vr-common-library/StructureDefinition/vrdr-decedent-education-level
+  # Into this:      https://hl7.org/fhir/us/vr-common-library/StructureDefinition-vrdr-decedent-education-level.html
+  url.gsub('http://hl7.org/fhir/us/vr-common-library/StructureDefinition/', 'https://hl7.org/fhir/us/vr-common-library/StructureDefinition-') + '.html'
 end
-
-# Helper method to transform a StructureDefinition URL into a relative extension URL
-# Note: Will need to be updated as IG moves through different publishing stages
-def structure_definition_url_to_ext_url(url)
-  # Transform this: http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Patient-mother-vr
-  # Into this:      /StructureDefinition/Patient-mother-vr
-  url = url.gsub('http://hl7.org/fhir/us/vr-common-library/', '')
-end
-
 # Helper method to determine whether a definition is an Extension or a Profile
 def url_type(name)
-  if name.include?('Extension') then 'extension' else 'profile' end
+  if name.include?('Extension') then 'extension' 
+  elsif name.include?('CodeSystem') then 'codesystem' 
+  else 'profile' 
+  end
 end
 
 # Helper method to extract a short name from an extension named according to conventions
 def short_name(name)
   if /Extension(?<shortname>[a-zA-Z]+)VitalRecords/ =~ name
+    shortname
+  elsif /CodeSystem(?<shortname>[a-zA-Z]+)VitalRecords/ =~ name
     shortname
   elsif /(Observation|Patient|Practitioner)(?<shortname>[a-zA-Z]+)VitalRecords/ =~ name
     shortname
@@ -88,64 +99,39 @@ namespace VR
     /// <summary>Extension URLs</summary>
     public class ExtensionURL
     {
-        private string _prefix;
-        private const string DefaultURLPrefix = "http://hl7.org/fhir/us/vr-common-library";
-
-        /// <summary>Constructor</summary>
-        /// <param name="prefix">the prefix to use for extension URLs</param>
-        public ExtensionURL(string prefix = DefaultURLPrefix)
-        {
-            _prefix = prefix;
-        }
-
-        // Special case processing for three extension URLs that are different between VR and VRDR
-        private string Trim(string url)
-        {
-            if (_prefix.Equals(DefaultURLPrefix))
-            {
-                return url;
-            }
-            if (url.Contains("DatePartAbsentReason") || url.Contains("PartialDate"))
-            {
-                return url.Replace("Extension","").Replace("VitalRecords","");
-            }
-            return url;
-        }
 
 <% structure_definition_hash.select { |name, url| url_type(name) == 'extension' }.each do |name, url| -%>
         /// <summary>URL for <%= short_name(name) %></summary>
-        public string <%= short_name(name) %> => Trim($"{_prefix}/<%= structure_definition_url_to_ext_url(url) %>");
+        public const string <%= short_name(name) %> = "<%= url %>";
 
 <% end -%>
-        /// <summary>URL for DateDay</summary>
-        public string DateDay => $"{_prefix}/StructureDefinition/Date-Day";
-
-        /// <summary>URL for DateYear</summary>
-        public string DateYear => $"{_prefix}/StructureDefinition/Date-Year";
-
-        /// <summary>URL for DateMonth</summary>
-        public string DateMonth => $"{_prefix}/StructureDefinition/Date-Month";
-
-        /// <summary>URL for DateTime</summary>
-        public string DateTime => $"{_prefix}/StructureDefinition/Date-Time";
 
         /// <summary>URL for PatientBirthTime as defined in the VitalRecords IG</summary>
         public const string PatientBirthTime = "http://hl7.org/fhir/StructureDefinition/patient-birthTime";  
 
-        /// <summary>URL for PartialDateTime Day as defined in the VitalRecords IG</summary>
-        public const string PartialDateTimeDayVR = "day";     
+        /// <summary>URL for PartialDate Day as defined in the VitalRecords IG</summary>
+        public const string PartialDateDayVR = "day";     
 
-        /// <summary>URL for PartialDateTime Month as defined in the VitalRecords IG</summary>
-        public const string PartialDateTimeMonthVR = "month";
+        /// <summary>URL for PartialDate Month as defined in the VitalRecords IG</summary>
+        public const string PartialDateMonthVR = "month";
 
         /// <summary>URL for PartialDateTime Year as defined in the VitalRecords IG</summary>
-        public const string PartialDateTimeYearVR = "year";
+        public const string PartialDateYearVR = "year";
 
         /// <summary>URL for PartialDateTime Time as defined in the VitalRecords IG</summary>
-        public const string PartialDateTimeTimeVR = "time";
+        public const string PartialDateTimeVR = "time";
 
     }
+            /// <summary>Extension URLs</summary>
+    public class CodeSystemURL
+    {
 
+<% code_system_hash.select { |name, url| url_type(name) == 'codesystem' }.each do |name, url| -%>
+        /// <summary>URL for <%= short_name(name) %></summary>
+        public const string <%= short_name(name) %> = "<%= url %>";
+
+<% end -%>
+    }
     /// <summary>IG URLs</summary>
     public static class IGURL
     {
@@ -153,6 +139,15 @@ namespace VR
         /// <summary>URL for <%= short_name(name) %></summary>
         public const string <%= short_name(name) %> = "<%= structure_definition_url_to_ig_url(url) %>";
 
+<% end -%>
+    }
+    /// <summary>Vital Records Custom Code System URLs</summary>
+    public static class IGCodeSystemURL
+    {
+        /// <summary>URL for <%= short_name(name) %></summary>
+<% code_system_hash.each do |name, url| -%>
+        /// <summary>URL for <%= short_name(name) %></summary>
+        public const string <%= short_name(name) %> = "<%= structure_definition_url_to_ig_url(url) %>";
 <% end -%>
     }
 }

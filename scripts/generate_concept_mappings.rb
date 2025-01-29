@@ -1,7 +1,7 @@
 # This script takes the concept map JSON files that are generated as part of the VRDR, BFDR, and VR Common IGs
 # and creates output files with mapping dictionaries used for IJE <-> FHIR value set translation
 #
-# Usage: ruby tools/generate_concept_mappings.rb <path-to-concept-maps> > <path-to-source-file>
+# Usage: ruby scripts/generate_concept_mappings.rb <path-to-concept-maps> > <path-to-source-file>
 #
 # If you need to generate the concept map JSON files, first install sushi (https://github.com/FHIR/sushi).
 # Then, to generate the mapping file for VRDR, first checkout the VRDR IG
@@ -121,8 +121,10 @@ namespace <%= namespace %>
             /// <summary>IJE -> FHIR Mapping for <%= concept %></summary>
             public readonly static Dictionary<string, string> IJEToFHIR = new Dictionary<string, string>
             {
-<% mappings.each do |mapping| -%>
-                { "<%= mapping[:ije] %>", "<%= mapping[:fhir] %>" },
+            // Generate mappings, skipping special case of Marital Status T
+            <% mappings.each do |mapping|  -%>
+  <% next if concept == "MaritalStatus" && mapping[:fhir] == "T" -%>
+                 { "<%= mapping[:ije] %>", "<%= mapping[:fhir] %>" },  
 <% end -%>
             };
             /// <summary>FHIR -> IJE Mapping for <%= concept %></summary>

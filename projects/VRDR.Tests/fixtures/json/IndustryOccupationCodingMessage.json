@@ -1,0 +1,160 @@
+{
+  "resourceType" : "Bundle",
+  "id" : "IndustryOccupationCodingMessage-Example1",
+  "meta" : {
+    "profile" : ["http://cdc.gov/nchs/nvss/fhir/vital-records-messaging/StructureDefinition/VRM-IndustryOccupationCodingMessage"]
+  },
+  "type" : "message",
+  "timestamp" : "2021-05-20T00:00:00Z",
+  "entry" : [{
+    "fullUrl" : "http://www.example.org/fhir/Header/IndustryOccupationCodingHeader-Example1",
+    "resource" : {
+      "resourceType" : "MessageHeader",
+      "id" : "IndustryOccupationCodingHeader-Example1",
+      "meta" : {
+        "profile" : ["http://cdc.gov/nchs/nvss/fhir/vital-records-messaging/StructureDefinition/VRM-IndustryOccupationCodingHeader"]
+      },
+       "eventUri" : "http://nchs.cdc.gov/vrdr_industryoccupation_coding",
+      "destination" : [{
+        "endpoint" : "https://sos.ny.gov/vitalrecords"
+      }],
+      "source" : {
+        "endpoint" : "http://nchs.cdc.gov/vrdr_submission"
+      },
+      "response" : {
+        "identifier" : "SubmissionHeader-Example1",
+        "code" : "ok"
+      },
+      "focus" : [{
+        "reference" : "http://www.example.org/fhir/IndustryOccupationCodedContentBundle-Example1"
+      },
+      {
+        "reference" : "http://www.example.org/fhir/Parameters/Parameters-Example1"
+      }]
+    }
+  },
+  {
+    "fullUrl" : "http://www.example.org/fhir/Parameters/Parameters-Example1",
+    "resource" : {
+      "resourceType" : "Parameters",
+      "id" : "Parameters-Example1",
+      "meta" : {
+        "profile" : ["http://cdc.gov/nchs/nvss/fhir/vital-records-messaging/StructureDefinition/VRM-MessageParameters"]
+      },
+      "parameter" : [{
+        "name" : "jurisdiction_id",
+        "valueString" : "NY"
+      },
+      {
+        "name" : "cert_no",
+        "valueUnsignedInt" : 123456
+      },
+      {
+        "name" : "death_year",
+        "valueUnsignedInt" : 2018
+      },
+      {
+        "name" : "state_auxiliary_id",
+        "valueString" : "abcdef10"
+      },
+      {
+        "name" : "payload_version_id",
+        "valueString" : "VRDRSTU30"
+      }]
+    }
+  },
+  {
+   "resource" : {
+    "resourceType" : "Bundle",
+    "id" : "http://www.example.org/fhir/IndustryOccupationCodedContentBundle-Example1",
+    "meta" : {
+      "profile" : [
+       "http://hl7.org/fhir/us/vrdr/StructureDefinition/industry-occupation-coded-content-bundle"
+      ]
+    },
+    "identifier" : {
+      "extension" : [
+        {
+          "url" : "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/CertificateNumber",
+          "valueString" : "000182"
+        },
+        {
+          "url" : "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/AuxiliaryStateIdentifier1",
+          "valueString" : "000000000001"
+        },
+        {
+          "url" : "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/AuxiliaryStateIdentifier2",
+          "valueString" : "100000000001"
+        }
+      ],
+      "system" : "http://nchs.cdc.gov/vrdr_id",
+      "value" : "2020NY000182"
+    },
+    "type" : "collection",
+    "timestamp" : "2020-10-20T14:48:35.401641-04:00",
+    "entry" : [
+      {
+        "fullUrl" : "http://www.example.org/fhir/Observation/DecedentUsualWork-Example1",
+        "resource" : {
+          "resourceType" : "Observation",
+          "id" : "DecedentUsualWork-Example1",
+          "meta" : {
+            "profile" : [
+              "http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-decedent-usual-work"
+            ]
+          },
+          "text" : {
+            "status" : "generated",
+            "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Observation_DecedentUsualWork-Example1\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Observation DecedentUsualWork-Example1</b></p><a name=\"DecedentUsualWork-Example1\"> </a><a name=\"hcDecedentUsualWork-Example1\"> </a><a name=\"DecedentUsualWork-Example1-en-US\"> </a><p><b>status</b>: Final</p><p><b>code</b>: <span title=\"Codes:{http://loinc.org 21843-8}\">History of Usual occupation</span></p><p><b>subject</b>: <a href=\"Patient-Decedent-Example1.html\">Madelyn Patel (official) Female, DoB: 1978-03-12 ( Social Beneficiary Identifier: SSN#987654321)</a></p><p><b>value</b>: <span title=\"Codes:\">secretary</span></p><h3>Components</h3><table class=\"grid\"><tr><td style=\"display: none\">-</td><td><b>Code</b></td><td><b>Value[x]</b></td></tr><tr><td style=\"display: none\">*</td><td><span title=\"Codes:{http://loinc.org 21844-6}\">History of Usual industry</span></td><td><span title=\"Codes:\">State agency</span></td></tr></table></div>"
+          },
+          "status" : "final",
+          "code" : {
+            "coding" : [
+              {
+                "system" : "http://loinc.org",
+                "code" : "21843-8"
+              }
+            ]
+          },
+          "subject" : {
+            "reference" : "Patient/Decedent-Example1"
+          },
+          "valueCodeableConcept" : {
+            "text" : "secretary",
+            "coding": [
+              {
+                "code": "13-2011",
+                "system": "urn:oid:2.16.840.1.114222.4.5.338",
+                "display": "Accountants and Auditors"
+              }
+            ]
+          },
+          "component" : [
+            {
+              "code" : {
+                "coding" : [
+                  {
+                    "system" : "http://loinc.org",
+                    "code" : "21844-6"
+                  }
+                ]
+              },
+              "valueCodeableConcept" : {
+                "text" : "State agency",
+                "coding": [
+                  {
+                    "code": "54121",
+                    "system": "urn:oid:2.16.840.1.114222.4.5.337",
+                    "display": "Accounting, Tax Preparation, Bookkeeping, and Payroll Services"
+                  }
+                ]  
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+]
+}

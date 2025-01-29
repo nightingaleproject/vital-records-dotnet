@@ -76,6 +76,18 @@
         <member name="F:VR.CodeSystems.ProvinceCodes">
             <summary> ProvinceCodes </summary>
         </member>
+        <member name="F:VR.CodeSystems.IndustryCDCCensus2018">
+            <summary>IndustryCDCCensus2018.</summary>
+        </member>
+        <member name="F:VR.CodeSystems.IndustryCDCNAICS2017">
+            <summary>IndustryCDCNAICS2017.</summary>
+        </member>
+        <member name="F:VR.CodeSystems.OccupationCDCSOC2018">
+            <summary>OccupationCDCSOC2018</summary>
+        </member>
+        <member name="F:VR.CodeSystems.OccupationCDCCensus2018">
+            <summary>OccupationCDCCensus2018 </summary>
+        </member>
         <member name="F:VR.CodeSystems.VRCLMissingValueReason">
             <summary> VRCL Missing Value Reason </summary>
         </member>
@@ -109,23 +121,11 @@
         <member name="F:VR.CodeSystems.ComponentCodeVR">
             <summary> Component </summary>
         </member>
-        <member name="F:VR.CodeSystems.HispanicOrigin">
-            <summary> Hispanic Origin </summary>
+        <member name="F:VR.CodeSystems.ActivityAtTimeOfDeath">
+            <summary> Activity at Time of Death </summary>
         </member>
-        <member name="F:VR.CodeSystems.Jurisdictions">
-            <summary> Jurisdictions </summary>
-        </member>
-        <member name="F:VR.CodeSystems.RaceCode">
-            <summary> Race Code </summary>
-        </member>
-        <member name="F:VR.CodeSystems.MissingValueReason">
-            <summary> Missing Value Reason </summary>
-        </member>
-        <member name="F:VR.CodeSystems.RaceRecode40">
-            <summary> Race Recode 40 </summary>
-        </member>
-        <member name="F:VR.CodeSystems.BypassEditFlag">
-            <summary> Bypass Edit Flag </summary>
+        <member name="F:VR.CodeSystems.PlaceOfInjury">
+            <summary> Place of Injury </summary>
         </member>
         <member name="F:VR.CodeSystems.PregnancyStatus">
             <summary> Pregnancy Status </summary>
@@ -144,9 +144,6 @@
         </member>
         <member name="F:VR.CodeSystems.OrganizationType">
             <summary> Organization Type </summary>
-        </member>
-        <member name="F:VR.CodeSystems.ActivityAtTimeOfDeath">
-            <summary> Activity at Time of Death </summary>
         </member>
         <member name="F:VR.CodeSystems.IntentionalReject">
             <summary> Intentional Reject </summary>
@@ -823,84 +820,101 @@
         <member name="T:VR.ExtensionURL">
             <summary>Extension URLs</summary>
         </member>
-        <member name="M:VR.ExtensionURL.#ctor(System.String)">
-            <summary>Constructor</summary>
-            <param name="prefix">the prefix to use for extension URLs</param>
-        </member>
-        <member name="P:VR.ExtensionURL.BypassEditFlag">
+        <member name="F:VR.ExtensionURL.BypassEditFlag">
             <summary>URL for BypassEditFlag</summary>
         </member>
-        <member name="P:VR.ExtensionURL.CityCode">
+        <member name="F:VR.ExtensionURL.CityCode">
             <summary>URL for CityCode</summary>
         </member>
-        <member name="P:VR.ExtensionURL.DistrictCode">
+        <member name="F:VR.ExtensionURL.DistrictCode">
             <summary>URL for DistrictCode</summary>
         </member>
-        <member name="P:VR.ExtensionURL.LocationJurisdictionId">
+        <member name="F:VR.ExtensionURL.LocationJurisdictionId">
             <summary>URL for LocationJurisdictionId</summary>
         </member>
-        <member name="P:VR.ExtensionURL.PartialDateTime">
+        <member name="F:VR.ExtensionURL.PartialDateTime">
             <summary>URL for PartialDateTime</summary>
         </member>
-        <member name="P:VR.ExtensionURL.PartialDate">
+        <member name="F:VR.ExtensionURL.PartialDate">
             <summary>URL for PartialDate</summary>
         </member>
-        <member name="P:VR.ExtensionURL.PatientFetalDeath">
+        <member name="F:VR.ExtensionURL.PatientFetalDeath">
             <summary>URL for PatientFetalDeath</summary>
         </member>
-        <member name="P:VR.ExtensionURL.RelatedpersonBirthplace">
+        <member name="F:VR.ExtensionURL.RelatedpersonBirthplace">
             <summary>URL for RelatedpersonBirthplace</summary>
         </member>
-        <member name="P:VR.ExtensionURL.ReportedParentAgeAtDelivery">
+        <member name="F:VR.ExtensionURL.ReportedParentAgeAtDelivery">
             <summary>URL for ReportedParentAgeAtDelivery</summary>
         </member>
-        <member name="P:VR.ExtensionURL.WithinCityLimitsIndicator">
+        <member name="F:VR.ExtensionURL.WithinCityLimitsIndicator">
             <summary>URL for WithinCityLimitsIndicator</summary>
         </member>
-        <member name="P:VR.ExtensionURL.PostDirectional">
+        <member name="F:VR.ExtensionURL.PostDirectional">
             <summary>URL for PostDirectional</summary>
         </member>
-        <member name="P:VR.ExtensionURL.PreDirectional">
+        <member name="F:VR.ExtensionURL.PreDirectional">
             <summary>URL for PreDirectional</summary>
         </member>
-        <member name="P:VR.ExtensionURL.StreetDesignator">
+        <member name="F:VR.ExtensionURL.StreetDesignator">
             <summary>URL for StreetDesignator</summary>
         </member>
-        <member name="P:VR.ExtensionURL.StreetName">
+        <member name="F:VR.ExtensionURL.StreetName">
             <summary>URL for StreetName</summary>
         </member>
-        <member name="P:VR.ExtensionURL.StreetNumber">
+        <member name="F:VR.ExtensionURL.StreetNumber">
             <summary>URL for StreetNumber</summary>
         </member>
-        <member name="P:VR.ExtensionURL.UnitOrAptNumber">
+        <member name="F:VR.ExtensionURL.UnitOrAptNumber">
             <summary>URL for UnitOrAptNumber</summary>
-        </member>
-        <member name="P:VR.ExtensionURL.DateDay">
-            <summary>URL for DateDay</summary>
-        </member>
-        <member name="P:VR.ExtensionURL.DateYear">
-            <summary>URL for DateYear</summary>
-        </member>
-        <member name="P:VR.ExtensionURL.DateMonth">
-            <summary>URL for DateMonth</summary>
-        </member>
-        <member name="P:VR.ExtensionURL.DateTime">
-            <summary>URL for DateTime</summary>
         </member>
         <member name="F:VR.ExtensionURL.PatientBirthTime">
             <summary>URL for PatientBirthTime as defined in the VitalRecords IG</summary>
         </member>
-        <member name="F:VR.ExtensionURL.PartialDateTimeDayVR">
-            <summary>URL for PartialDateTime Day as defined in the VitalRecords IG</summary>
+        <member name="F:VR.ExtensionURL.PartialDateDayVR">
+            <summary>URL for PartialDate Day as defined in the VitalRecords IG</summary>
         </member>
-        <member name="F:VR.ExtensionURL.PartialDateTimeMonthVR">
-            <summary>URL for PartialDateTime Month as defined in the VitalRecords IG</summary>
+        <member name="F:VR.ExtensionURL.PartialDateMonthVR">
+            <summary>URL for PartialDate Month as defined in the VitalRecords IG</summary>
         </member>
-        <member name="F:VR.ExtensionURL.PartialDateTimeYearVR">
+        <member name="F:VR.ExtensionURL.PartialDateYearVR">
             <summary>URL for PartialDateTime Year as defined in the VitalRecords IG</summary>
         </member>
-        <member name="F:VR.ExtensionURL.PartialDateTimeTimeVR">
+        <member name="F:VR.ExtensionURL.PartialDateTimeVR">
             <summary>URL for PartialDateTime Time as defined in the VitalRecords IG</summary>
+        </member>
+        <member name="T:VR.CodeSystemURL">
+            <summary>Extension URLs</summary>
+        </member>
+        <member name="F:VR.CodeSystemURL.CountryCode">
+            <summary>URL for CountryCode</summary>
+        </member>
+        <member name="F:VR.CodeSystemURL.HispanicOrigin">
+            <summary>URL for HispanicOrigin</summary>
+        </member>
+        <member name="F:VR.CodeSystemURL.Jurisdictions">
+            <summary>URL for Jurisdictions</summary>
+        </member>
+        <member name="F:VR.CodeSystemURL.LocalObservationsCodes">
+            <summary>URL for LocalObservationsCodes</summary>
+        </member>
+        <member name="F:VR.CodeSystemURL.RaceCode">
+            <summary>URL for RaceCode</summary>
+        </member>
+        <member name="F:VR.CodeSystemURL.CodeSystemRaceRecode40VitalRecords">
+            <summary>URL for CodeSystemRaceRecode40VitalRecords</summary>
+        </member>
+        <member name="F:VR.CodeSystemURL.USStatesTerritories">
+            <summary>URL for USStatesTerritories</summary>
+        </member>
+        <member name="F:VR.CodeSystemURL.EditFlags">
+            <summary>URL for EditFlags</summary>
+        </member>
+        <member name="F:VR.CodeSystemURL.IJE">
+            <summary>URL for IJE</summary>
+        </member>
+        <member name="F:VR.CodeSystemURL.Component">
+            <summary>URL for Component</summary>
         </member>
         <member name="T:VR.IGURL">
             <summary>IG URLs</summary>
@@ -1000,6 +1014,40 @@
         </member>
         <member name="F:VR.IGURL.InputRaceAndEthnicity">
             <summary>URL for InputRaceAndEthnicity</summary>
+        </member>
+        <member name="T:VR.IGCodeSystemURL">
+            <summary>Vital Records Custom Code System URLs</summary>
+        </member>
+        <member name="F:VR.IGCodeSystemURL.CountryCode">
+            <summary>URL for Component</summary>
+            <summary>URL for CountryCode</summary>
+        </member>
+        <member name="F:VR.IGCodeSystemURL.HispanicOrigin">
+            <summary>URL for HispanicOrigin</summary>
+        </member>
+        <member name="F:VR.IGCodeSystemURL.Jurisdictions">
+            <summary>URL for Jurisdictions</summary>
+        </member>
+        <member name="F:VR.IGCodeSystemURL.LocalObservationsCodes">
+            <summary>URL for LocalObservationsCodes</summary>
+        </member>
+        <member name="F:VR.IGCodeSystemURL.RaceCode">
+            <summary>URL for RaceCode</summary>
+        </member>
+        <member name="F:VR.IGCodeSystemURL.CodeSystemRaceRecode40VitalRecords">
+            <summary>URL for CodeSystemRaceRecode40VitalRecords</summary>
+        </member>
+        <member name="F:VR.IGCodeSystemURL.USStatesTerritories">
+            <summary>URL for USStatesTerritories</summary>
+        </member>
+        <member name="F:VR.IGCodeSystemURL.EditFlags">
+            <summary>URL for EditFlags</summary>
+        </member>
+        <member name="F:VR.IGCodeSystemURL.IJE">
+            <summary>URL for IJE</summary>
+        </member>
+        <member name="F:VR.IGCodeSystemURL.Component">
+            <summary>URL for Component</summary>
         </member>
         <member name="T:VR.ValueSets">
             <summary> ValueSet Helpers </summary>
@@ -7017,8 +7065,11 @@
         <member name="M:VR.VitalRecord.ConvertToDateTime(System.String)">
             <summary>Returns a Fhir DateTime object parsed from the given string.</summary>
         </member>
+        <member name="M:VR.VitalRecord.ConvertDateToFhirDateTime(Hl7.Fhir.Model.Date)">
+            <summary>Returns a Fhir DateTime object parsed from the given Date.</summary>
+        </member>
         <member name="M:VR.VitalRecord.GetDateElement(Hl7.Fhir.Model.Date,System.String)">
-            <summary>Gets the specified date element based on the partialDateUrl from the given
+            <summary>Gets the specified date element based on the ExtensionURL.PartialDate from the given
             FhirDate, checking in the value and PartialDate extension, and assuming there
             is no time data to consider.</summary>
         </member>
@@ -7070,33 +7121,9 @@
             <param name="useBirthTime"></param>
             <returns></returns>
         </member>
-        <member name="P:VR.VitalRecord.PartialDateYearUrl">
-            <summary>Overrideable method that dictates which Extension URL to use for PartialDateTime Year</summary>
-        </member>
-        <member name="P:VR.VitalRecord.PartialDateMonthUrl">
-            <summary>Overrideable method that dictates which Extension URL to use for PartialDateTime Month</summary>
-        </member>
-        <member name="P:VR.VitalRecord.PartialDateDayUrl">
-            <summary>Overrideable method that dictates which Extension URL to use for PartialDateTime Day</summary>
-        </member>
-        <member name="P:VR.VitalRecord.PartialDateTimeTimeUrl">
-            <summary>Overrideable method that dictates which Extension URL to use for PartialDateTime Time</summary>
-        </member>
-        <member name="P:VR.VitalRecord.PartialDateTimeUrl">
-            <summary>Overrideable method that dictates which Extension URL to use for PartialDateTime</summary>
-        </member>
-        <member name="P:VR.VitalRecord.PartialDateUrl">
-            <summary>Overrideable method that dictates which Extension URL to use for PartialDate</summary>
-        </member>
-        <member name="P:VR.VitalRecord.LocationJurisdictionIdUrl">
-            <summary>Overrideable method that dictates which Extension URL to use for LocationJurisdictionId</summary>
-        </member>
         <member name="M:VR.VitalRecord.GetDateFragmentOrPartialDate(Hl7.Fhir.Model.Element,System.String)">
             <summary>Getter helper for anything that can have a regular FHIR date/time or a PartialDateTime extension, allowing a particular date
             field (year, month, or day) to be read from either the value or the extension</summary>
-        </member>
-        <member name="M:VR.VitalRecord.ConvertFhirTimeToFhirDateTime(Hl7.Fhir.Model.Time)">
-            <summary>Convert a time stamp to a datetime stamp using the earliest allowed date.</summary>
         </member>
         <member name="M:VR.VitalRecord.FhirTimeHour(Hl7.Fhir.Model.Time)">
             <summary>Extract the hour.</summary>
@@ -7106,6 +7133,9 @@
         </member>
         <member name="M:VR.VitalRecord.FhirTimeSec(Hl7.Fhir.Model.Time)">
             <summary>Extract the second.</summary>
+        </member>
+        <member name="M:VR.VitalRecord.ConvertFhirTimeToFhirDateTime(Hl7.Fhir.Model.Time)">
+            <summary>Convert a time stamp to a datetime stamp using the earliest allowed date.</summary>
         </member>
         <member name="M:VR.VitalRecord.GetTimeFragment(Hl7.Fhir.Model.Element)">
             <summary>Getter helper for anything that can have a regular FHIR date/time, allowing the time to be read from the value</summary>

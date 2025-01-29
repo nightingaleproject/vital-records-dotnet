@@ -91,7 +91,7 @@ namespace canary.Models
             record.Residence = residence;
 
             // Residence Within City Limits
-            record.ResidenceWithinCityLimitsHelper = VRDR.ValueSets.YesNoUnknown.Yes;
+            record.ResidenceWithinCityLimitsHelper = VR.ValueSets.YesNoUnknown.Yes;
 
             // Place of birth
 
@@ -124,23 +124,23 @@ namespace canary.Models
 
             // Marital status
 
-            record.MaritalStatusHelper = VRDR.ValueSets.MaritalStatus.Codes[faker.Random.Number(VRDR.ValueSets.MaritalStatus.Codes.GetLength(0) - 1), 0];
+            record.MaritalStatusHelper = VR.ValueSets.MaritalStatus.Codes[faker.Random.Number(VR.ValueSets.MaritalStatus.Codes.GetLength(0) - 1), 0];
 
             // Ethnicity
             if (faker.Random.Bool() && !simple)
             {
-                record.Ethnicity1Helper = VRDR.ValueSets.YesNoUnknown.No;
-                record.Ethnicity2Helper = VRDR.ValueSets.YesNoUnknown.No;
-                record.Ethnicity3Helper = VRDR.ValueSets.YesNoUnknown.No;
-                record.Ethnicity4Helper = VRDR.ValueSets.YesNoUnknown.Yes;
+                record.Ethnicity1Helper = VR.ValueSets.YesNoUnknown.No;
+                record.Ethnicity2Helper = VR.ValueSets.YesNoUnknown.No;
+                record.Ethnicity3Helper = VR.ValueSets.YesNoUnknown.No;
+                record.Ethnicity4Helper = VR.ValueSets.YesNoUnknown.Yes;
                 record.EthnicityLiteral = "";
             }
             else
             {
-                record.Ethnicity1Helper = VRDR.ValueSets.YesNoUnknown.No;
-                record.Ethnicity2Helper = VRDR.ValueSets.YesNoUnknown.No;
-                record.Ethnicity3Helper = VRDR.ValueSets.YesNoUnknown.No;
-                record.Ethnicity4Helper = VRDR.ValueSets.YesNoUnknown.No;
+                record.Ethnicity1Helper = VR.ValueSets.YesNoUnknown.No;
+                record.Ethnicity2Helper = VR.ValueSets.YesNoUnknown.No;
+                record.Ethnicity3Helper = VR.ValueSets.YesNoUnknown.No;
+                record.Ethnicity4Helper = VR.ValueSets.YesNoUnknown.No;
             }
 
             // Race
@@ -178,7 +178,7 @@ namespace canary.Models
 
             // Education level
 
-            record.EducationLevelHelper = VRDR.ValueSets.EducationLevel.Codes[faker.Random.Number(VRDR.ValueSets.EducationLevel.Codes.GetLength(0) - 1), 0];
+            record.EducationLevelHelper = VR.ValueSets.EducationLevel.Codes[faker.Random.Number(VR.ValueSets.EducationLevel.Codes.GetLength(0) - 1), 0];
 
             Tuple<string, string>[] occupationIndustries =
             {
@@ -198,7 +198,7 @@ namespace canary.Models
 
             // Military Service
 
-            record.MilitaryServiceHelper = VRDR.ValueSets.YesNoUnknown.Codes[faker.Random.Number(VRDR.ValueSets.YesNoUnknown.Codes.GetLength(0) - 1), 0];
+            record.MilitaryServiceHelper = VR.ValueSets.YesNoUnknown.Codes[faker.Random.Number(VR.ValueSets.YesNoUnknown.Codes.GetLength(0) - 1), 0];
 
             // Funeral Home Name
 
@@ -282,9 +282,9 @@ namespace canary.Models
                     };
                     record.CausesOfDeath = causes;
 
-                    record.AutopsyPerformedIndicatorHelper = VRDR.ValueSets.YesNoUnknown.No;
-                    record.AutopsyResultsAvailableHelper = VRDR.ValueSets.YesNoUnknown.No;
-                    record.ExaminerContactedHelper = VRDR.ValueSets.YesNoUnknown.No;
+                    record.AutopsyPerformedIndicatorHelper = VR.ValueSets.YesNoUnknown.No;
+                    record.AutopsyResultsAvailableHelper = VR.ValueSets.YesNoUnknown.No;
+                    record.ExaminerContactedHelper = VR.ValueSets.YesNoUnknown.No;
 
                     record.TobaccoUseHelper = VRDR.ValueSets.ContributoryTobaccoUse.No;
                 }
@@ -299,9 +299,9 @@ namespace canary.Models
 
                     record.ContributingConditions = "Carcinoma of cecum, Congestive heart failure";
 
-                    record.AutopsyPerformedIndicatorHelper = VRDR.ValueSets.YesNoUnknown.No;
-                    record.AutopsyResultsAvailableHelper = VRDR.ValueSets.YesNoUnknown.No;
-                    record.ExaminerContactedHelper = VRDR.ValueSets.YesNoUnknown.No;
+                    record.AutopsyPerformedIndicatorHelper = VR.ValueSets.YesNoUnknown.No;
+                    record.AutopsyResultsAvailableHelper = VR.ValueSets.YesNoUnknown.No;
+                    record.ExaminerContactedHelper = VR.ValueSets.YesNoUnknown.No;
 
                     record.TobaccoUseHelper = VRDR.ValueSets.ContributoryTobaccoUse.No;
                 }
@@ -317,9 +317,9 @@ namespace canary.Models
 
                     record.ContributingConditions = "Non-insulin-dependent diabetes mellitus, Obesity, Hypertension, Congestive heart failure";
 
-                    record.AutopsyPerformedIndicatorHelper = VRDR.ValueSets.YesNoUnknown.No;
-                    record.AutopsyResultsAvailableHelper = VRDR.ValueSets.YesNoUnknown.No;
-                    record.ExaminerContactedHelper = VRDR.ValueSets.YesNoUnknown.No;
+                    record.AutopsyPerformedIndicatorHelper = VR.ValueSets.YesNoUnknown.No;
+                    record.AutopsyResultsAvailableHelper = VR.ValueSets.YesNoUnknown.No;
+                    record.ExaminerContactedHelper = VR.ValueSets.YesNoUnknown.No;
 
                     record.TobaccoUseHelper = VRDR.ValueSets.ContributoryTobaccoUse.Yes;
                 }
@@ -335,9 +335,9 @@ namespace canary.Models
 
                     record.ContributingConditions = "Non-insulin-dependent diabetes mellitus, Cigarette smoking, Hypertension, Hypercholesterolemia, Coronary bypass surgery";
 
-                    record.AutopsyPerformedIndicatorHelper = VRDR.ValueSets.YesNoUnknown.Yes;
-                    record.AutopsyResultsAvailableHelper = VRDR.ValueSets.YesNoUnknown.Yes;
-                    record.ExaminerContactedHelper = VRDR.ValueSets.YesNoUnknown.Yes;
+                    record.AutopsyPerformedIndicatorHelper = VR.ValueSets.YesNoUnknown.Yes;
+                    record.AutopsyResultsAvailableHelper = VR.ValueSets.YesNoUnknown.Yes;
+                    record.ExaminerContactedHelper = VR.ValueSets.YesNoUnknown.Yes;
 
                     record.TobaccoUseHelper = VRDR.ValueSets.ContributoryTobaccoUse.Yes;
                 }
@@ -357,9 +357,9 @@ namespace canary.Models
 
                     record.ContributingConditions = "Terminal gastric adenocarcinoma, depression";
 
-                    record.AutopsyPerformedIndicatorHelper = VRDR.ValueSets.YesNoUnknown.Yes;
-                    record.AutopsyResultsAvailableHelper = VRDR.ValueSets.YesNoUnknown.Yes;
-                    record.ExaminerContactedHelper = VRDR.ValueSets.YesNoUnknown.Yes;
+                    record.AutopsyPerformedIndicatorHelper = VR.ValueSets.YesNoUnknown.Yes;
+                    record.AutopsyResultsAvailableHelper = VR.ValueSets.YesNoUnknown.Yes;
+                    record.ExaminerContactedHelper = VR.ValueSets.YesNoUnknown.Yes;
 
                     record.TobaccoUseHelper = VRDR.ValueSets.ContributoryTobaccoUse.Unknown;
 
@@ -393,9 +393,9 @@ namespace canary.Models
                     };
                     record.CausesOfDeath = causes;
 
-                    record.AutopsyPerformedIndicatorHelper = VRDR.ValueSets.YesNoUnknown.Yes;
-                    record.AutopsyResultsAvailableHelper = VRDR.ValueSets.YesNoUnknown.Yes;
-                    record.ExaminerContactedHelper = VRDR.ValueSets.YesNoUnknown.No;
+                    record.AutopsyPerformedIndicatorHelper = VR.ValueSets.YesNoUnknown.Yes;
+                    record.AutopsyResultsAvailableHelper = VR.ValueSets.YesNoUnknown.Yes;
+                    record.ExaminerContactedHelper = VR.ValueSets.YesNoUnknown.No;
 
                     record.TobaccoUseHelper = VRDR.ValueSets.ContributoryTobaccoUse.No;
 
@@ -427,9 +427,9 @@ namespace canary.Models
                     };
                     record.CausesOfDeath = causes;
 
-                    record.AutopsyPerformedIndicatorHelper = VRDR.ValueSets.YesNoUnknown.No;
-                    record.AutopsyResultsAvailableHelper = VRDR.ValueSets.YesNoUnknown.No;
-                    record.ExaminerContactedHelper = VRDR.ValueSets.YesNoUnknown.Yes;
+                    record.AutopsyPerformedIndicatorHelper = VR.ValueSets.YesNoUnknown.No;
+                    record.AutopsyResultsAvailableHelper = VR.ValueSets.YesNoUnknown.No;
+                    record.ExaminerContactedHelper = VR.ValueSets.YesNoUnknown.Yes;
 
                     record.TobaccoUseHelper = VRDR.ValueSets.ContributoryTobaccoUse.No;
 
@@ -458,11 +458,11 @@ namespace canary.Models
 
             if (gender == Bogus.DataSets.Name.Gender.Female)
             {
-                record.PregnancyStatusHelper = VRDR.ValueSets.PregnancyStatus.Not_Pregnant_Within_Past_Year;
+                record.PregnancyStatusHelper = VRDR.ValueSets.DeathPregnancyStatus.Not_Pregnant_Within_Past_Year;
             }
             else
             {
-                record.PregnancyStatusHelper = VRDR.ValueSets.PregnancyStatus.Not_Applicable;
+                record.PregnancyStatusHelper = VRDR.ValueSets.DeathPregnancyStatus.Not_Applicable;
             }
 
             return record;
