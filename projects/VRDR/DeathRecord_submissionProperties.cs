@@ -4693,11 +4693,14 @@ namespace VRDR
         {
             get
             {
-                if (Mortician == null)
+                if (Mortician != null)
                 {
-                    return (new Dictionary<string, string>());
+                    return AddressToDict(Mortician.Address.FirstOrDefault());
                 }
-                return AddressToDict(Mortician.Address.FirstOrDefault());
+                else
+                {
+                    return EmptyAddrDict();
+                }
             }
             set
             {
