@@ -94,8 +94,6 @@ jobs:
           resourceGroup: ${{ vars.ACA_RESOURCE_GROUP }}
           containerAppEnvironment: ${{ vars.ACA_APP_ENVIRONMENT }}
           disableTelemetry: true
-          environmentVariables: |
-            "COMMON_RATE_LIMIT_WINDOW_MS=1000" "COMMON_RATE_LIMIT_MAX_REQUESTS=20" "CORS_ORIGIN=*" "NODE_ENV=production" "PORT=443" "HOST=localhost"
       - name: Update revision
         uses: azure/CLI@v2
         with:

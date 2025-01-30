@@ -1,20 +1,31 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "module": "CommonJS",
+    // "module": "commonjs",
+    "outDir": "./dist",
     "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    },
-    "moduleResolution": "Node",
-    "outDir": "dist",
-    "importsNotUsedAsValues": "remove",
     "strict": true,
+    // Treat files as modules even if it doesn't use import/export
+    "moduleDetection": "force",
+
+    "importsNotUsedAsValues": "remove",
+
+
+    // Ignore module structure
+    "module": "CommonJS",
+
+    // Allow JSON modules to be imported
+    "resolveJsonModule": true,
+
+    // Allow JS files to be imported from TS and vice versa
+    "allowJs": true,
+
+    // Use correct ESM import behavior
     "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "types": ["vitest/globals"]
+
+    // Disallow features that require cross-file awareness
+    "isolatedModules": true
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  // "exclude": ["node_modules"]
 }
