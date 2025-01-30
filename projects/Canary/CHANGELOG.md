@@ -1,6 +1,17 @@
 # Changelog
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
+
+<a name="5.3.0"></a> 
+## 5.3.0 01-30-2025
+
+### Features
+* Add fetal death messaging connectathon test
+
+### Fixes
+* Fix connectathon test records to use more recent years
+* Fix record extraction bug in message inspector that was showing empty values
+
 <a name="5.2.1"></a> 
 ## 5.2.1 11-26-2024
 

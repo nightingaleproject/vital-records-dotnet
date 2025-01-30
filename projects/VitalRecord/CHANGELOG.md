@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+<a name="1.0.0-preview.6"></a>
+## [1.0.0-preview.6](https://github.com/nightingaleproject/vital-records-dotnet/commit/34c63730c52913170ad01d0d25782387190e4d1e) (2025-01-30)
+
+### Features
+* Update util functions to use latest urls
+* Regenerate code systems, mappings, and urls to support VRDR STU 3.0 and BFDR 2.0
+
+### Fixes
+* Fix time component handling for partial date times
+
 <a name="1.0.0-preview.5"></a>
 ## [1.0.0-preview.5](https://github.com/nightingaleproject/vital-records-dotnet/commit/e5d39978b91a26b4460d68f423a12d5159f515d0) (2024-12-23)
 
