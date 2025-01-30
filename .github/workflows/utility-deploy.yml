@@ -93,7 +93,7 @@ jobs:
           containerAppName: utility
           resourceGroup: ${{ vars.ACA_RESOURCE_GROUP }}
           containerAppEnvironment: ${{ vars.ACA_APP_ENVIRONMENT }}
-          targetPort: 8090
+          targetPort: 80
           disableTelemetry: true
       - name: Update revision
         uses: azure/CLI@v2
