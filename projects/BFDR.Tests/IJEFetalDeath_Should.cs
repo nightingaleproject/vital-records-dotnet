@@ -131,20 +131,20 @@ namespace BFDR.Tests
 
       // Confirm the ije can be converted to fhir
       FetalDeathRecord record = ije.ToRecord();
-      Assert.Equal(2025, record.DeliveryYear);
+      Assert.Equal(2024, record.DeliveryYear);
       Assert.Equal("Anwar", record.FetusFamilyName);
 
       // Confirm the ije fields are what we expect from the connectathon test record 1
       // A number of issues were found for some fields, see commented out lines below, some will not be implemented, others can be investigated further
-      Assert.Equal("2025", ije.FDOD_YR);
+      Assert.Equal("2024", ije.FDOD_YR);
       Assert.Equal("MA", ije.DSTATE);
       Assert.Equal("000008", ije.FILENO);
       Assert.Equal("", ije.VOID);
       Assert.Equal("000000000000", ije.AUXNO);
       Assert.Equal("1830", ije.TD);
       Assert.Equal("M", ije.FSEX);
-      Assert.Equal("06", ije.FDOD_MO);
-      Assert.Equal("19", ije.FDOD_DY);
+      Assert.Equal("12", ije.FDOD_MO);
+      Assert.Equal("13", ije.FDOD_DY);
       Assert.Equal("209", ije.CNTYO);
       Assert.Equal("1", ije.DPLACE);
       Assert.Equal("", ije.FNPI.Trim());
