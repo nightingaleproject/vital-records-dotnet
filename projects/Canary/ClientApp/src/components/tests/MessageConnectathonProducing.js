@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Breadcrumb, Button, Container, Dimmer, Divider, Dropdown, Input, Form, Grid, Header, Icon, Loader, Menu, Message, Statistic, Transition } from 'semantic-ui-react';
-import { responseMessageTypeIconsVRDR, messageTypeIconsVRDR, stateOptions } from '../../data';
+import { responseMessageTypeIconsVRDR, responseMessageTypeIconsBFDR, messageTypeIconsVRDR, messageTypeIconsBFDR, stateOptions } from '../../data';
 import { connectionErrorToast } from '../../error';
 import { Getter } from '../misc/Getter';
 import { FHIRInfo } from '../misc/info/FHIRInfo';
@@ -61,7 +61,7 @@ export class MessageConnectathonProducing extends Component {
   }
 
   updateMessage(message, issues) {
-    let messageType = getMessageType(this.props.recordType, message);
+    let messageType = getMessageType(this.props.params.recordType, message);
 
     /*
      * Only perform this when there are no other issues, since receiving errors here means
@@ -79,13 +79,13 @@ export class MessageConnectathonProducing extends Component {
 
   setExpectedMessageType(_, { name }) {
     this.setState({ expectedType: name });
-
+    const responseMessageTypeIcons = this.props.params.recordType.toLowerCase() == 'vrdr' ? responseMessageTypeIconsVRDR : responseMessageTypeIconsBFDR;
     if (name === "Void") {
       // void only provides a subset
-      var voidIcons = [responseMessageTypeIconsVRDR[0], responseMessageTypeIconsVRDR[3]];
+      var voidIcons = [responseMessageTypeIcons[0], responseMessageTypeIcons[3]];
       this.setState({ responseOptions: voidIcons });
     } else {
-      this.setState({ responseOptions: responseMessageTypeIconsVRDR });
+      this.setState({ responseOptions: responseMessageTypeIcons });
     }
   }
 
@@ -151,6 +151,7 @@ export class MessageConnectathonProducing extends Component {
   }
 
   render() {
+    const messageTypeIcons = this.props.params.recordType.toLowerCase() == 'vrdr' ? messageTypeIconsVRDR : messageTypeIconsBFDR;
     return (
       <React.Fragment>
         <Grid.Row id="scroll-to">
@@ -277,7 +278,7 @@ export class MessageConnectathonProducing extends Component {
                         <Header.Subheader>Select the type of message you would like Canary to validate.</Header.Subheader>
                       </Header.Content>
                     </Header>
-                    <Menu items={messageTypeIconsVRDR} widths={messageTypeIconsVRDR.length} onItemClick={this.setExpectedMessageType} />
+                    <Menu items={messageTypeIcons} widths={messageTypeIcons.length} onItemClick={this.setExpectedMessageType} />
                   </Container>
                 </Grid.Row>
                 <Grid.Row>

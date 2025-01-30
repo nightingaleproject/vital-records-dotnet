@@ -6,7 +6,7 @@ import { MessageConnectathonProducing } from '../MessageConnectathonProducing'
 it('renders', () => {
     const tree = renderer.create(
         <MemoryRouter>
-            <MessageConnectathonProducing params={{ id: "1" }} />
+            <MessageConnectathonProducing params={{ id: "1", recordType: "vrdr" }} />
         </MemoryRouter>
     ).toJSON();
     expect(tree).toMatchSnapshot();

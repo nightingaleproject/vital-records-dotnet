@@ -6929,7 +6929,7 @@
             <summary>Helper to support vital record property getter helper methods for removing Observations.</summary>
             <param name="code">the code to identify the type of Observation</param>
         </member>
-        <member name="M:VR.VitalRecord.GetCondition(System.String)">
+        <member name="M:VR.VitalRecord.GetCondition(System.String,System.String)">
             <summary>Helper to support vital record property getter helper methods for values stored in Conditions.</summary>
             <param name="code">the code to identify the type of Condition</param>
         </member>
