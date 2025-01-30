@@ -471,12 +471,14 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                return Dictionary_Geo_Get("CITYC", "MotherResidence", "address", "cityC", true);
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Dictionary_Geo_Set("CITYC", "MotherResidence", "address", "cityC", true, value);
+                }
             }
         }
 
@@ -543,7 +545,7 @@ namespace BFDR
             set
             {
                 if (!String.IsNullOrWhiteSpace(value))
-                {
+                {  
                     Set_MappingIJEToFHIR(VR.Mappings.YesNoUnknown.IJEToFHIR, "LIMITS", "MotherResidenceWithinCityLimits", value);
                 }
             }
@@ -1309,15 +1311,29 @@ namespace BFDR
         /// <summary>Attendant</summary>
         [IJEField(78, 422, 1, "Attendant", "ATTEND", 1)]
         public string ATTEND
-        {
+        {    
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
-                return "";
+                var ret = record.AttendantTitleHelper;
+                if (ret != null && VR.Mappings.BirthAttendantTitles.FHIRToIJE.ContainsKey(ret))
+                {
+                    return Get_MappingFHIRToIJE(VR.Mappings.BirthAttendantTitles.FHIRToIJE, "AttendantTitle", "ATTEND");
+                }
+                else  // If the return value is not a code, it is just an arbitrary string, so return it.
+                {
+                    return ret;
+                }
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                if (VR.Mappings.BirthAttendantTitles.IJEToFHIR.ContainsKey(value.Split(' ')[0]))
+                {
+                    Set_MappingIJEToFHIR(VR.Mappings.BirthAttendantTitles.IJEToFHIR, "ATTEND", "AttendantTitle", value.Trim());
+                }
+                else  // If the value is not a valid code, it is just an arbitrary string.  The helper will deal with it.
+                {
+                    record.AttendantTitleHelper = value;
+                }
             }
         }
 
@@ -2131,7 +2147,8 @@ namespace BFDR
             }
             set
             {
-                // translate Y, N, U to fhir boolean
+                // translate Y, N, U, or X to fhir boolean
+                // note that X defaults to U in a round trip since there are only 3 possible values
                 if (value == "Y")
                 {
                     record.LaborTrialAttempted = true;
@@ -2255,11 +2272,11 @@ namespace BFDR
         {
             get
             {
-                return record.BirthWeightEditFlagHelper;
+                return Get_MappingFHIRToIJE(BFDR.Mappings.BirthWeightEditFlags.FHIRToIJE, "BirthWeightEditFlag", "FW_BYPASS");
             }
             set
             {
-                record.BirthWeightEditFlagHelper = value;
+                Set_MappingIJEToFHIR(BFDR.Mappings.BirthWeightEditFlags.IJEToFHIR, "FW_BYPASS", "BirthWeightEditFlag", value);
             }
         }
 
@@ -3409,7 +3426,15 @@ namespace BFDR
             get
             {
                 string stateCode = Dictionary_Geo_Get("STATE_D", "PlaceOfDelivery", "address", "state", false);
-                return IJEData.Instance.StateCodeToStateName(stateCode);
+                if (!String.IsNullOrWhiteSpace(stateCode))
+                {
+                    string stateName = IJEData.Instance.StateCodeToStateName(stateCode);
+                    return Truncate(stateName, 28).PadRight(28, ' ');
+                }
+                else
+                {
+                    return new String(' ', 28);
+                }   
             }
             set
             {
@@ -3428,7 +3453,15 @@ namespace BFDR
             get
             {
                 string countryCode = Dictionary_Geo_Get("COUNTRY_D", "PlaceOfDelivery", "address", "country", false);
-                return IJEData.Instance.CountryCodeToCountryName(countryCode);
+                if (!String.IsNullOrWhiteSpace(countryCode))
+                {
+                    string countryName = IJEData.Instance.CountryCodeToCountryName(countryCode);
+                    return Truncate(countryName, 28).PadRight(28, ' ');
+                }
+                else
+                {
+                    return new String(' ', 28);
+                }   
             }
             set
             {
@@ -3786,7 +3819,15 @@ namespace BFDR
         {
             get
             {
-                return IJEData.Instance.StateCodeToStateName(STATEC);
+                string stateName = IJEData.Instance.StateCodeToStateName(STATEC);
+                if (!String.IsNullOrWhiteSpace(stateName))
+                {
+                    return Truncate(stateName, 28).PadRight(28, ' ');
+                }
+                else
+                {
+                    return new String(' ', 28);
+                }   
             }
             set
             {
@@ -3903,7 +3944,11 @@ namespace BFDR
         {
             get
             {
-                return record.MotherSocialSecurityNumber;
+                if (!String.IsNullOrWhiteSpace(record.MotherSocialSecurityNumber))
+                {
+                    return Truncate(record.MotherSocialSecurityNumber, 9).PadRight(9, ' ');
+                }
+                return new string(' ', 9);
             }
             set
             {
@@ -3917,7 +3962,11 @@ namespace BFDR
         {
             get
             {
-                return record.FatherSocialSecurityNumber;
+                if (!String.IsNullOrWhiteSpace(record.FatherSocialSecurityNumber))
+                {
+                    return Truncate(record.FatherSocialSecurityNumber, 9).PadRight(9, ' ');
+                }
+                return new string(' ', 9);
             }
             set
             {
@@ -4112,7 +4161,12 @@ namespace BFDR
         {
             get
             {
-                return IJEData.Instance.StateCodeToStateName(BPLACEC_ST_TER);
+                string stateName =  IJEData.Instance.StateCodeToStateName(BPLACEC_ST_TER);
+                if (!String.IsNullOrWhiteSpace(stateName))
+                {
+                    return Truncate(stateName, 28).PadRight(28, ' ');
+                }
+                return new string(' ', 28);
             }
             set
             {
@@ -4126,7 +4180,12 @@ namespace BFDR
         {
             get
             {
-                return IJEData.Instance.CountryCodeToCountryName(BPLACEC_CNT);
+                string countryName =  IJEData.Instance.CountryCodeToCountryName(BPLACEC_CNT);
+                if (!String.IsNullOrWhiteSpace(countryName))
+                {
+                    return Truncate(countryName, 28).PadRight(28, ' ');
+                }
+                return new string(' ', 28);
             }
             set
             {
@@ -4140,7 +4199,12 @@ namespace BFDR
         {
             get
             {
-                return IJEData.Instance.StateCodeToStateName(FBPLACD_ST_TER_C);
+                string stateName =  IJEData.Instance.StateCodeToStateName(FBPLACD_ST_TER_C);
+                if (!String.IsNullOrWhiteSpace(stateName))
+                {
+                    return Truncate(stateName, 28).PadRight(28, ' ');
+                }
+                return new string(' ', 28);
             }
             set
             {
@@ -4154,7 +4218,12 @@ namespace BFDR
         {
             get
             {
-                return IJEData.Instance.CountryCodeToCountryName(FBPLACE_CNT_C);
+                string countryName =  IJEData.Instance.CountryCodeToCountryName(FBPLACE_CNT_C);
+                if (!String.IsNullOrWhiteSpace(countryName))
+                {
+                    return Truncate(countryName, 28).PadRight(28, ' ');
+                }
+                return new string(' ', 28);
             }
             set
             {

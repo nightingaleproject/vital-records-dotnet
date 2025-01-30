@@ -211,14 +211,14 @@ namespace canary.Controllers
         {
             {VRDR, (int id) => VRDRConnectathon.FromId(id)},
             {BFDR_BIRTH, (int id) => BFDR.Connectathon.FromId(id)},
-            // {BFDR_FETALDEATH, (int id) => BFDR.Connectathon.FromId(id)} // TODO - Fetal Death Connecthon Records.
+            {BFDR_FETALDEATH, (int id) => BFDR.Connectathon.FetalDeathRecordFromId(id)} 
         };
 
         public static readonly Dictionary<string, Func<int, int, string, VitalRecord>> connectathonRecordsParams = new()
         {
             {VRDR, (int id, int certificateNumber, string state) => VRDRConnectathon.FromId(id, certificateNumber, state)},
-            {BFDR_BIRTH, (int id, int certificateNumber, string state) => BFDR.Connectathon.FromId(id, certificateNumber, state)}
-            // TODO - Fetal Death Connectathon Records.
+            {BFDR_BIRTH, (int id, int certificateNumber, string state) => BFDR.Connectathon.FromId(id, certificateNumber, state)},
+            {BFDR_FETALDEATH, (int id, int certificateNumber, string state) => BFDR.Connectathon.FetalDeathRecordFromId(id, certificateNumber, state)}
         };
 
         public static readonly Dictionary<string, Func<string, (Record, List<Dictionary<string, string>>)>> createRecordFromIJE = new()

@@ -288,7 +288,10 @@
         <member name="T:BFDR.Connectathon">
             <summary>Class <c>Connectathon</c> provides static methods for generating records used in Connectathon testing, used in Canary and in the CLI tool</summary>
         </member>
-        <member name="P:BFDR.Connectathon.Records">
+        <member name="P:BFDR.Connectathon.BirthRecords">
+            <summary>Retrieve all available pre-set records</summary>
+        </member>
+        <member name="P:BFDR.Connectathon.FetalDeathRecords">
             <summary>Retrieve all available pre-set records</summary>
         </member>
         <member name="M:BFDR.Connectathon.FromId(System.Int32,System.Nullable{System.Int32},System.String,System.Nullable{System.Int32})">
@@ -303,8 +306,14 @@
         <member name="M:BFDR.Connectathon.NullMonroe">
             <summary>Generate the [Null] Monroe example record which is contains mostly null data</summary>
         </member>
-        <member name="M:BFDR.Connectathon.WriteRecordAsXml(BFDR.BirthRecord,System.String)">
+        <member name="M:BFDR.Connectathon.WriteRecordAsXml(VR.VitalRecord,System.String)">
             <summary>Of historical interest for writing a record to a file</summary>
+        </member>
+        <member name="M:BFDR.Connectathon.FetalDeathRecordFromId(System.Int32,System.Nullable{System.Int32},System.String,System.Nullable{System.Int32})">
+            <summary>Generate a FetalDeathRecord from one of 2 pre-set records, providing an optional certificate number and state</summary>
+        </member>
+        <member name="M:BFDR.Connectathon.Test1">
+            <summary>Generate Monroe example record</summary>
         </member>
         <member name="T:BFDR.FetalDeathRecord">
             <summary>Class <c>FetalDeathRecord</c> is a class designed to help consume and produce fetal death
@@ -3652,13 +3661,13 @@
             </example>
         </member>
         <member name="P:BFDR.NatalityRecord.EventLocationJurisdiction">
-            <summary>Birth Location Jurisdiction.</summary>
+            <summary>Event Location Jurisdiction.</summary>
             <value>the vital record jurisdiction identifier.</value>
             <example>
             <para>// Setter:</para>
             <para>ExampleBirthRecord.EventLocationJurisdiction = "MA";</para>
             <para>// Getter:</para>
-            <para>Console.WriteLine($"Birth Location Jurisdiction: {ExampleBirthRecord.EventLocationJurisdiction}");</para>
+            <para>Console.WriteLine($"Event Location Jurisdiction: {ExampleBirthRecord.EventLocationJurisdiction}");</para>
             </example>
         </member>
         <member name="P:BFDR.NatalityRecord.PlaceOfBirth">
@@ -3888,10 +3897,11 @@
             </summary>    
             <returns>Plurality edit flag code as string</returns>
         </member>
-        <member name="M:BFDR.NatalityRecord.SetPluralityEditFlagHelper(System.String)">
+        <member name="M:BFDR.NatalityRecord.SetPluralityEditFlagHelper(System.String,System.String)">
             <summary>
              Helper method for setting child or decedent fetus plurality edit flag.
             </summary>
+            <param name="field">The name of the field.</param>    
             <param name="value">The birth year.</param>         
         </member>
         <member name="M:BFDR.NatalityRecord.GetPlurality">
