@@ -14,7 +14,7 @@
       }
     ],
     "system": "http://nchs.cdc.gov/bfdr_id",
-    "value": "2002XX099991"
+    "value": "2024XX099991"
   },
   "type": "document",
   "timestamp": "2024-11-14T13:18:42.470213-05:00",
@@ -522,12 +522,12 @@
             ]
           }
         ],
-        "birthDate": "2002-01-01",
+        "birthDate": "2024-01-01",
         "_birthDate": {
           "extension": [
             {
               "url": "http://hl7.org/fhir/StructureDefinition/patient-birthTime",
-              "valueDateTime": "2002-01-01T10:31:00"
+              "valueDateTime": "2024-01-01T10:31:00"
             }
           ]
         },
