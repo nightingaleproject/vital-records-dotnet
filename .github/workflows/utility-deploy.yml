@@ -1,8 +1,8 @@
-name: Publish Canary package to GHCR and deploy
+name: Publish Utility package to GHCR and deploy
 
 on:
   push:
-    branches: [main]
+    branches: [util]
   workflow_dispatch:
     inputs:
       target_environment:
@@ -26,7 +26,7 @@ permissions:
 # Defines two custom environment variables for the workflow. These are used for the Container registry domain, and a name for the Docker image that this workflow builds.
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: ${{ github.repository }}-utility
 
 
 # There is a single job in this workflow. It's configured to run on the latest available version of Ubuntu.
@@ -52,7 +52,7 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
-            type=edge,branch=main
+            type=edge,branch=util
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}
             type=raw,value=release,enable=${{ github.event_name == 'release' }}
@@ -64,8 +64,8 @@ jobs:
         id: push
         uses: docker/build-push-action@v6
         with:
-          context: ./projects
-          file: ./projects/canary.Dockerfile
+          context: ./projects/VitalRecord.Utility
+          file: ./projects/VitalRecord.Utility/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -90,17 +90,19 @@ jobs:
         uses: azure/container-apps-deploy-action@v2
         with:
           imageToDeploy: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:edge
-          containerAppName: ${{ vars.ACA_NAME }}
+          containerAppName: utility
           resourceGroup: ${{ vars.ACA_RESOURCE_GROUP }}
           containerAppEnvironment: ${{ vars.ACA_APP_ENVIRONMENT }}
           disableTelemetry: true
+          environmentVariables: |
+            "COMMON_RATE_LIMIT_WINDOW_MS=1000" "COMMON_RATE_LIMIT_MAX_REQUESTS=20" "CORS_ORIGIN=*" "NODE_ENV=production" "PORT=443" "HOST=localhost"
       - name: Update revision
         uses: azure/CLI@v2
         with:
           azcliversion: latest
           inlineScript: |
             az containerapp update \
-            --name ${{ vars.ACA_NAME }} \
+            --name utility \
             --resource-group ${{ vars.ACA_RESOURCE_GROUP }} \
             --image ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:edge \
             --revision-suffix gha-${{ github.run_id }}-${{ github.run_attempt }}
