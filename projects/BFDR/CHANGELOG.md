@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+<a name="1.0.0-preview.11"></a>
+## [1.0.0-preview.11](https://github.com/nightingaleproject/vital-records-dotnet/commit/34c63730c52913170ad01d0d25782387190e4d1e) (2025-01-30)
+
+### Fixes
+* Fix connectathon records to use a recent event year
+* Correct fields that are Birth or Fetal Death specific to only appear in Birth or Fetal Death records
+* Fix time component handling for partial date times
+
 <a name="1.0.0-preview.10"></a>
 ## [1.0.0-preview.10](https://github.com/nightingaleproject/vital-records-dotnet/commit/e5d39978b91a26b4460d68f423a12d5159f515d0) (2024-12-23)
 
