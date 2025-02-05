@@ -1,0 +1,368 @@
+<Bundle xmlns="http://hl7.org/fhir">
+  <id value="43ec7dfc-a767-4990-8b28-fef56f90f856" />
+  <meta>
+    <profile value="http://hl7.org/fhir/us/bfdr/StructureDefinition/Bundle-document-fetal-death-report" />
+  </meta>
+  <identifier>
+    <extension url="http://hl7.org/fhir/us/vr-common-library/StructureDefinition/CertificateNumber">
+      <valueString value="87366" />
+    </extension>
+    <extension url="http://hl7.org/fhir/us/vr-common-library/StructureDefinition/AuxiliaryStateIdentifier1">
+      <valueString value="444455555" />
+    </extension>
+    <system value="http://nchs.cdc.gov/bfdr_id" />
+    <value value="2020NY087366" />
+  </identifier>
+  <type value="document" />
+  <timestamp value="2024-04-18T12:34:03.591881-04:00" />
+  <entry>
+    <fullUrl value="urn:uuid:de56d24e-6c85-44a2-8519-f8dbc989a82b" />
+    <resource>
+      <Composition>
+        <id value="de56d24e-6c85-44a2-8519-f8dbc989a82b" />
+        <meta>
+          <profile value="http://hl7.org/fhir/us/bfdr/StructureDefinition/Composition-jurisdiction-fetal-death-report" />
+        </meta>
+        <status value="final" />
+        <type>
+          <coding>
+            <system value="http://loinc.org" />
+            <code value="71230-7" />
+            <display value="Fetal Death Report" />
+          </coding>
+        </type>
+        <subject>
+          <reference value="urn:uuid:fbdfe5ae-f40f-4119-b435-c23a5d8bb4ed" />
+        </subject>
+        <encounter>
+          <reference value="urn:uuid:d0801c32-d417-41b7-a461-70f9cf163055" />
+        </encounter>
+        <title value="Fetal Death Report" />
+        <attester>
+          <mode value="legal" />
+        </attester>
+        <event>
+          <code>
+            <coding>
+              <system value="http://snomed.info/sct" />
+              <code value="103693007" />
+              <display value="Diagnostic procedure (procedure)" />
+            </coding>
+          </code>
+        </event>
+      </Composition>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:fbdfe5ae-f40f-4119-b435-c23a5d8bb4ed" />
+    <resource>
+      <Patient>
+        <id value="fbdfe5ae-f40f-4119-b435-c23a5d8bb4ed" />
+        <meta>
+          <profile value="http://hl7.org/fhir/us/bfdr/StructureDefinition/Patient-decedent-fetus" />
+        </meta>
+        <extension url="http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-reported-parent-age-at-delivery-vr">
+          <extension url="motherOrFather">
+            <valueCodeableConcept>
+              <coding>
+                <system value="http://terminology.hl7.org/CodeSystem/v3-RoleCode" />
+                <code value="MTH" />
+              </coding>
+              <text value="mother" />
+            </valueCodeableConcept>
+          </extension>
+          <extension url="reportedAge">
+            <valueQuantity>
+              <value value="33" />
+              <unit value="a" />
+              <system value="http://unitsofmeasure.org" />
+              <code value="a" />
+            </valueQuantity>
+          </extension>
+        </extension>
+        <extension url="http://hl7.org/fhir/StructureDefinition/patient-birthPlace">
+          <valueAddress>
+            <city value="Buffalo" />
+            <district value="buffalo">
+              <extension url="http://hl7.org/fhir/us/vr-common-library/StructureDefinition/DistrictCode">
+                <valueString value="035" />
+              </extension>
+            </district>
+            <state value="NY" />
+          </valueAddress>
+        </extension>
+        <extension url="http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-reported-parent-age-at-delivery-vr">
+          <extension url="motherOrFather">
+            <valueCodeableConcept>
+              <coding>
+                <system value="http://terminology.hl7.org/CodeSystem/v3-RoleCode" />
+                <code value="FTH" />
+              </coding>
+              <text value="father" />
+            </valueCodeableConcept>
+          </extension>
+          <extension url="reportedAge">
+            <valueQuantity>
+              <value value="31" />
+              <unit value="a" />
+              <system value="http://unitsofmeasure.org" />
+              <code value="a" />
+            </valueQuantity>
+          </extension>
+        </extension>
+        <name>
+          <use value="official" />
+          <family value="Quinn" />
+          <given value="Baby" />
+          <given value="G" />
+        </name>
+        <birthDate value="2020-02-12" />
+      </Patient>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:18ef120e-0b0b-49d5-85f7-acb8f3a583b7" />
+    <resource>
+      <Patient>
+        <id value="18ef120e-0b0b-49d5-85f7-acb8f3a583b7" />
+        <meta>
+          <profile value="http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Patient-mother-vr" />
+        </meta>
+      </Patient>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:ab2f7329-95a9-41fe-9356-931619dad692" />
+    <resource>
+      <RelatedPerson>
+        <id value="ab2f7329-95a9-41fe-9356-931619dad692" />
+        <meta>
+          <profile value="http://hl7.org/fhir/us/vr-common-library/StructureDefinition/RelatedPerson-father-natural-vr" />
+        </meta>
+        <relationship>
+          <coding>
+            <system value="http://terminology.hl7.org/CodeSystem/v3-RoleCode" />
+            <code value="NFTH" />
+          </coding>
+        </relationship>
+      </RelatedPerson>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="http://www.example.org/fhir/Location/location-south-hospital" />
+    <resource>
+      <Location>
+        <id value="location-south-hospital" />
+        <meta>
+          <profile value="http://hl7.org/fhir/us/bfdr/StructureDefinition/Location-bfdr" />
+        </meta>
+        <text>
+          <status value="generated" />
+          <div xmlns="http://www.w3.org/1999/xhtml">
+            <a name="Location_location-south-hospital"></a>
+            <p>
+              <b>Generated Narrative: Location </b>
+              <a name="location-south-hospital"></a>
+              <a name="hclocation-south-hospital"></a>
+            </p>
+            <div style="display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%">
+              <p style="margin-bottom: 0px">ResourceLocation "location-south-hospital" </p>
+              <p style="margin-bottom: 0px">Profile: <a href="StructureDefinition-Location-bfdr.html">Birth and Fetal Death Location</a></p>
+            </div>
+            <p>
+              <b>identifier</b>: <a href="http://terminology.hl7.org/5.0.0/NamingSystem-npi.html" title="National Provider Identifier">NPI</a>/116441967701</p>
+            <p>
+              <b>status</b>: active</p>
+            <p>
+              <b>name</b>: South Hospital</p>
+            <p>
+              <b>type</b>: Hospital <span style="background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki"> (<a href="http://terminology.hl7.org/5.5.0/CodeSystem-v3-RoleCode.html">RoleCode</a>#HOSP)</span>, Birth Location <span style="background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki"> (<a href="CodeSystem-CodeSystem-local-bfdr-codes.html">Local BFDR Codes</a>#loc_birth)</span></p>
+            <p>
+              <b>address</b>: 2100 North Ave Salt Lake City UT 84116 US </p>
+            <h3>Positions</h3>
+            <table class="grid">
+              <tr>
+                <td style="display: none">-</td>
+                <td>
+                  <b>Longitude</b>
+                </td>
+                <td>
+                  <b>Latitude</b>
+                </td>
+              </tr>
+              <tr>
+                <td style="display: none">*</td>
+                <td>40.8</td>
+                <td>111.9</td>
+              </tr>
+            </table>
+            <p>
+              <b>managingOrganization</b>: See on this page: Organization/organization-south-hospital: Organization - South Hospital</p>
+          </div>
+        </text>
+        <identifier>
+          <extension url="http://hl7.org/fhir/us/bfdr/StructureDefinition/Extension-jurisdictional-facility-identifier">
+            <valueString value="UT12" />
+          </extension>
+          <system value="http://hl7.org/fhir/sid/us-npi" />
+          <value value="116441967701" />
+        </identifier>
+        <status value="active" />
+        <name value="South Hospital" />
+        <type>
+          <coding>
+            <system value="http://terminology.hl7.org/CodeSystem/v3-RoleCode" />
+            <code value="HOSP" />
+            <display value="Hospital" />
+          </coding>
+        </type>
+        <type>
+          <coding>
+            <system value="http://hl7.org/fhir/us/bfdr/CodeSystem/CodeSystem-local-bfdr-codes" />
+            <code value="loc_birth" />
+            <display value="Birth Location" />
+          </coding>
+        </type>
+        <address>
+          <line value="2100 North Ave" />
+          <city value="Salt Lake City" />
+          <district value="Made Up" />
+          <state value="UT" />
+          <postalCode value="84116" />
+          <country value="US" />
+        </address>
+        <position>
+          <longitude value="40.8" />
+          <latitude value="111.9" />
+        </position>
+        <managingOrganization>
+          <reference value="Organization/organization-south-hospital" />
+          <display value="Organization - South Hospital" />
+        </managingOrganization>
+      </Location>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:139fd854-780b-4427-b3cf-6c85f41e6f35" />
+    <resource>
+      <Practitioner>
+        <id value="139fd854-780b-4427-b3cf-6c85f41e6f35" />
+        <meta>
+          <profile value="http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Practitioner-vr" />
+        </meta>
+        <extension url="http://hl7.org/fhir/us/bfdr/StructureDefinition/Extension-role">
+          <valueCode value="certifier" />
+        </extension>
+      </Practitioner>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:348f658f-b005-4136-9831-08c7b197d474" />
+    <resource>
+      <Practitioner>
+        <id value="348f658f-b005-4136-9831-08c7b197d474" />
+        <meta>
+          <profile value="http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Practitioner-vr" />
+        </meta>
+        <extension url="http://hl7.org/fhir/us/bfdr/StructureDefinition/Extension-role">
+          <valueCode value="attendant" />
+        </extension>
+      </Practitioner>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:a31bf759-1f3a-4bf0-aa3a-aa3f1ec94140" />
+    <resource>
+      <Observation>
+        <id value="a31bf759-1f3a-4bf0-aa3a-aa3f1ec94140" />
+        <category>
+          <coding>
+            <system value="http://terminology.hl7.org/CodeSystem/observation-category" />
+            <code value="vital-signs" />
+          </coding>
+        </category>
+        <code>
+          <coding>
+            <system value="http://loinc.org" />
+            <code value="8339-4" />
+          </coding>
+        </code>
+        <subject>
+          <reference value="urn:uuid:fbdfe5ae-f40f-4119-b435-c23a5d8bb4ed" />
+        </subject>
+        <valueQuantity>
+          <extension url="http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag">
+            <valueCodeableConcept>
+              <coding>
+                <system value="http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags" />
+                <code value="0off" />
+                <display value="Off" />
+              </coding>
+            </valueCodeableConcept>
+          </extension>
+          <value value="3333" />
+          <unit value="g" />
+          <code value="g" />
+        </valueQuantity>
+      </Observation>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:8ebfaaa0-aa3e-49fd-aed4-45c93f8e292a" />
+    <resource>
+      <Observation>
+        <id value="8ebfaaa0-aa3e-49fd-aed4-45c93f8e292a" />
+        <meta>
+          <profile value="http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-autopsy-histological-exam-results-used" />
+        </meta>
+        <status value="final" />
+        <code>
+          <coding>
+            <system value="http://loinc.org" />
+            <code value="74498-7" />
+            <display value="Were autopsy or histological placental examinations results used in determining the cause of fetal death?" />
+          </coding>
+        </code>
+        <subject>
+          <reference value="urn:uuid:18ef120e-0b0b-49d5-85f7-acb8f3a583b7" />
+        </subject>
+        <valueCodeableConcept>
+          <coding>
+            <system value="http://terminology.hl7.org/CodeSystem/v2-0136" />
+            <code value="Y" />
+            <display value="Yes" />
+          </coding>
+        </valueCodeableConcept>
+      </Observation>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:32ca4848-9803-4f64-817d-88459703b772" />
+    <resource>
+      <Observation>
+        <id value="32ca4848-9803-4f64-817d-88459703b772" />
+        <meta>
+          <profile value="http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Observation-autopsy-performed-indicator-vr" />
+        </meta>
+        <status value="final" />
+        <code>
+          <coding>
+            <system value="http://loinc.org" />
+            <code value="85699-7" />
+            <display value="Autopsy Performed Indicator" />
+          </coding>
+        </code>
+        <subject>
+          <reference value="urn:uuid:18ef120e-0b0b-49d5-85f7-acb8f3a583b7" />
+        </subject>
+        <valueCodeableConcept>
+          <coding>
+            <system value="http://snomed.info/sct" />
+            <code value="398166005" />
+            <display value="Performed" />
+          </coding>
+        </valueCodeableConcept>
+      </Observation>
+    </resource>
+  </entry>
+</Bundle>

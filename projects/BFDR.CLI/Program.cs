@@ -25,30 +25,28 @@ namespace BFDR.CLI
         static string commands =
 @"* BFDR Command Line Interface - commands
   - help:  prints this help message  (no arguments)
-  - fakerecord: prints a fake JSON birth record (1 argument: 'birth' or 'fetaldeath')
-  - description: prints a verbose JSON description of the record (in the format used to drive Canary) (1 argument: the path to the birth record)
-  - 2ije: Read in the FHIR XML or JSON birth record and print out as IJE (1 argument: path to birth record in JSON or XML format)
-  - 2ijecontent: Read in the FHIR XML or JSON birth record and dump content  in key/value IJE format (1 argument: path to birth record in JSON or XML format)
-  - ije2json: Read in the IJE birth record and print out as JSON (2 arguments: path to birth record in IJE format, 'birth' or 'fetaldeath')
-  - ije2json: Read in several IJE birth records and print out as JSON files to same directory they were imported from (2 or more arguments: list of paths to birth records in IJE format)
-  - ije2xml: Read in the IJE birth record and print out as XML (1 argument: path to birth record in IJE format)
-  - extract2ijecontent: Dump content of a submission message in key/value IJE format (1 argument: submission message)
-  - submit: Create a submission FHIR message wrapping a FHIR birth record (2 arguments: 'birth' or 'fetaldeath', FHIR birth record)
-  - resubmit: Create a submission update FHIR message wrapping a FHIR birth record or fetal death record (2 arguments: 'birth' or 'fetaldeath', FHIR birth record)
-  - void: Creates a Void message for a Birth Record (1 argument: FHIR birth record; one optional argument: number of records to void)
-  - ack: Create an acknowledgement FHIR message for a submission FHIR message (1 argument: submission FHIR message; many arguments: output directory and FHIR messages)
-  - ije2json: Creates an IJE birth record and prints out as JSON
-  - json2xml: Read in the FHIR JSON birth record, completely disassemble then reassemble, and print as FHIR XML (1 argument: FHIR JSON Birth Record)
-  - checkXml: Read in the given FHIR xml (being permissive) and print out the same; useful for doing validation diffs (1 argument: FHIR XML file)
-  - checkJson: Read in the given FHIR json (being permissive) and print out the same; useful for doing validation diffs (1 argument: FHIR JSon file)
-  - xml2json: Read in the IJE birth record and print out as JSON (1 argument: path to death record in XML format)
-  - xml2xml: Read in the IJE birth record and print out as XML (1 argument: path to death record in XML format)
-  - json2json: Read in the FHIR JSON birth record, completely disassemble then reassemble, and print as FHIR JSON (1 argument: FHIR JSON Birth Record)
-  - roundtrip-ije: Convert a record to IJE and back and check field by field to identify any conversion issues (1 argument: FHIR Birth Record)
-  - roundtrip-all: Convert a record to JSON and back and check field by field to identify any conversion issues (1 argument: FHIR Birth Record)
-  - ije: Read in and parse an IJE death record and print out the values for every (supported) field (1 argument: path to death record in IJE format)
-  - ijebuilder: Create json birth record using IJE (natality) mapped fields
-  - compare: Compare an IJE record with a FHIR record by each IJE field (2 arguments:  IJE record, FHIR Record)
+  - fakerecord: prints a fake JSON record (1 argument: 'birth' or 'fetaldeath')
+  - description: prints a verbose JSON description of the record (in the format used to drive Canary) (2 arguments: 'birth' or 'fetaldeath', the path to the record)
+  - 2ije: Read in the FHIR XML or JSON record and print out as IJE (2 arguments: 'birth' or 'fetaldeath', path to record in JSON or XML format)
+  - 2ijecontent: Read in the FHIR XML or JSON record and dump content in key/value IJE format (2 arguments: 'birth' or 'fetaldeath', path to record in JSON or XML format)
+  - ije2json: Read in one or more IJE record(s) and print out as JSON (2 arguments: 'birth' or 'fetaldeath', path to record in IJE format)
+  - ije2xml: Read in the IJE record and print out as XML (2 arguments: 'birth' or 'fetaldeath', path to record in IJE format)
+  - extract2ijecontent: Dump content of a submission message in key/value IJE format (2 arguments: 'birth' or 'fetaldeath', submission message)
+  - submit: Create a submission FHIR message wrapping a FHIR record (2 arguments: 'birth' or 'fetaldeath', FHIR record)
+  - resubmit: Create a submission update FHIR message wrapping a FHIR record (2 arguments: 'birth' or 'fetaldeath', FHIR record)
+  - void: Creates a Void message for a record (2 arguments: FHIR record, 'birth' or 'fetaldeath'; 1 optional argument: number of records to void)
+  - ack: Create an acknowledgement FHIR message for a submission FHIR message (2 or more arguments: 'birth' or 'fetaldeath', submission FHIR message OR output directory, FHIR messages)
+  - json2xml: Read in the FHIR JSON record, completely disassemble then reassemble, and print as FHIR XML (2 arguments: 'birth' or 'fetaldeath', FHIR JSON Record)
+  - checkXml: Read in the given FHIR xml (being permissive) and print out the same; useful for doing validation diffs (2 arguments: 'birth' or 'fetaldeath', FHIR XML file)
+  - checkJson: Read in the given FHIR json (being permissive) and print out the same; useful for doing validation diffs (2 arguments: 'birth' or 'fetaldeath', FHIR JSON file)
+  - xml2json: Read in the IJE record and print out as JSON (2 arguments: 'birth' or 'fetaldeath', path to record in XML format)
+  - xml2xml: Read in the IJE record and print out as XML (2 arguments: 'birth' or 'fetaldeath', path to record in XML format)
+  - json2json: Read in the FHIR JSON record, completely disassemble then reassemble, and print as FHIR JSON (2 arguments: 'birth' or 'fetaldeath', FHIR JSON Record)
+  - roundtrip-ije: Convert a record to IJE and back and check field by field to identify any conversion issues (2 arguments: 'birth' or 'fetaldeath', FHIR Record)
+  - roundtrip-all: Convert a record to JSON and back and check field by field to identify any conversion issues (2 arguments: 'birth' or 'fetaldeath', FHIR Record)
+  - ije: Read in and parse an IJE record and print out the values for every (supported) field (2 arguments: 'birth' or 'fetaldeath', path to record in IJE format)
+  - ijebuilder: Create json record using IJE (natality) mapped fields (1 argument: 'birth' or 'fetaldeath')
+  - compare: Compare an IJE record with a FHIR record by each IJE field (3 arguments: 'birth' or 'fetaldeath', IJE record, FHIR Record)
   - extract: Extract a FHIR record from a FHIR message (1 argument: FHIR message)
   - nre2json: Creates a Demographic Coding Bundle from a NRE Message (1 argument: TRX file)
     ";
@@ -246,22 +244,35 @@ namespace BFDR.CLI
 
                 return 0;
             }
-            else if (args.Length == 2 && args[0] == "description") 
+            else if (args.Length == 3 && args[0] == "description" && args[1] == "birth")
             {
-                BirthRecord b = new BirthRecord(File.ReadAllText(args[1]));
+                BirthRecord b = new BirthRecord(File.ReadAllText(args[2]));
                 Console.WriteLine(b.ToDescription());
                 return 0;
             }
-            else if (args.Length == 2 && args[0] == "2ije")
+            else if (args.Length == 3 && args[0] == "description" && args[1] == "fetaldeath")
             {
-                BirthRecord b = new BirthRecord(File.ReadAllText(args[1]));
+                FetalDeathRecord d = new FetalDeathRecord(File.ReadAllText(args[2]));
+                Console.WriteLine(d.ToDescription());
+                return 0;
+            }
+            else if (args.Length == 3 && args[0] == "2ije" && args[1] == "birth")
+            {
+                BirthRecord b = new BirthRecord(File.ReadAllText(args[2]));
                 IJEBirth ije1 = new IJEBirth(b, false);
                 Console.WriteLine(ije1.ToString());
                 return 0;
             }
-            else if (args.Length == 2 && args[0] == "2ijecontent")
+            else if (args.Length == 3 && args[0] == "2ije" && args[1] == "fetaldeath")
+            {
+                FetalDeathRecord d = new FetalDeathRecord(File.ReadAllText(args[2]));
+                IJEFetalDeath ije1 = new IJEFetalDeath(d, false);
+                Console.WriteLine(ije1.ToString());
+                return 0;
+            }
+            else if (args.Length == 3 && args[0] == "2ijecontent" && args[1] == "birth")
             { // dumps content of a birth record in key/value IJE format
-                BirthRecord b = new BirthRecord(File.ReadAllText(args[1]));
+                BirthRecord b = new BirthRecord(File.ReadAllText(args[2]));
                 IJEBirth ije1 = new IJEBirth(b, false);
                 // Loop over every property (these are the fields); Order by priority
                 List<PropertyInfo> properties = typeof(IJEBirth).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Location).ToList();
@@ -276,16 +287,33 @@ namespace BFDR.CLI
                 }
                 return 0;
             }
-            else if (args.Length == 3 && args[0] == "ije2json" && args[2] == "birth")
+            else if (args.Length == 3 && args[0] == "2ijecontent" && args[1] == "fetaldeath")
+            { // dumps content of a fetaldeath record in key/value IJE format
+                FetalDeathRecord d = new FetalDeathRecord(File.ReadAllText(args[2]));
+                IJEFetalDeath ije1 = new IJEFetalDeath(d, false);
+                // Loop over every property (these are the fields); Order by priority
+                List<PropertyInfo> properties = typeof(IJEFetalDeath).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Location).ToList();
+                foreach (PropertyInfo property in properties)
+                {
+                    // Grab the field attributes
+                    IJEField info = property.GetCustomAttribute<IJEField>();
+                    // Grab the field value
+                    string field = Convert.ToString(property.GetValue(ije1, null));
+                    // Print the key/value pair to console
+                    Console.WriteLine($"{info.Name}: {field.Trim()}");
+                }
+                return 0;
+            }
+            else if (args.Length == 3 && args[0] == "ije2json" && args[1] == "birth")
             {
-                IJEBirth ije1 = new IJEBirth(File.ReadAllText(args[1]));
+                IJEBirth ije1 = new IJEBirth(File.ReadAllText(args[2]));
                 BirthRecord b = ije1.ToRecord();
                 Console.WriteLine(b.ToJSON());
                 return 0;
             }
-            else if (args.Length == 3 && args[0] == "ije2json" && args[2] == "fetaldeath")
+            else if (args.Length == 3 && args[0] == "ije2json" && args[1] == "fetaldeath")
             {
-                IJEFetalDeath ije1 = new IJEFetalDeath(File.ReadAllText(args[1]));
+                IJEFetalDeath ije1 = new IJEFetalDeath(File.ReadAllText(args[2]));
                 FetalDeathRecord b = ije1.ToRecord();
                 Console.WriteLine(b.ToJSON());
                 return 0;
@@ -306,16 +334,23 @@ namespace BFDR.CLI
               }
               return 0;
             }
-            else if (args.Length == 2 && args[0] == "ije2xml")
+            else if (args.Length == 3 && args[0] == "ije2xml" && args[1] == "birth")
             {
-                IJEBirth ije1 = new IJEBirth(File.ReadAllText(args[1]));
+                IJEBirth ije1 = new IJEBirth(File.ReadAllText(args[2]));
                 BirthRecord b = ije1.ToRecord();
                 Console.WriteLine(XDocument.Parse(b.ToXML()).ToString());
                 return 0;
             }
-            else if (args.Length == 2 && args[0] == "extract2ijecontent")
+            else if (args.Length == 3 && args[0] == "ije2xml" && args[1] == "fetaldeath")
+            {
+                IJEFetalDeath ije1 = new IJEFetalDeath(File.ReadAllText(args[2]));
+                FetalDeathRecord d = ije1.ToRecord();
+                Console.WriteLine(XDocument.Parse(d.ToXML()).ToString());
+                return 0;
+            }
+            else if (args.Length == 3 && args[0] == "extract2ijecontent" && args[1] == "birth")
             {  // dumps content of a submission message in key/value IJE format
-                BFDRBaseMessage message = BFDRBaseMessage.Parse(File.ReadAllText(args[1]), true);
+                BFDRBaseMessage message = BFDRBaseMessage.Parse(File.ReadAllText(args[2]), true);
                 switch (message)
                 {
                     case BirthRecordSubmissionMessage submission:
@@ -323,6 +358,29 @@ namespace BFDR.CLI
                         IJEBirth ije1 = new IJEBirth(b, false);
                         // Loop over every property (these are the fields); Order by priority
                         List<PropertyInfo> properties = typeof(IJEBirth).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Location).ToList();
+                        foreach (PropertyInfo property in properties)
+                        {
+                            // Grab the field attributes
+                            IJEField info = property.GetCustomAttribute<IJEField>();
+                            // Grab the field value
+                            string field = Convert.ToString(property.GetValue(ije1, null));
+                            // Print the key/value pair to console
+                            Console.WriteLine($"{info.Name}: {field.Trim()}");
+                        }
+                        break;
+                }
+                return 0;
+            }
+            else if (args.Length == 3 && args[0] == "extract2ijecontent" && args[1] == "fetaldeath")
+            {  // dumps content of a submission message in key/value IJE format
+                BFDRBaseMessage message = BFDRBaseMessage.Parse(File.ReadAllText(args[2]), true);
+                switch (message)
+                {
+                    case FetalDeathRecordSubmissionMessage submission:
+                        var b = submission.FetalDeathRecord;
+                        IJEFetalDeath ije1 = new IJEFetalDeath(b, false);
+                        // Loop over every property (these are the fields); Order by priority
+                        List<PropertyInfo> properties = typeof(IJEFetalDeath).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Location).ToList();
                         foreach (PropertyInfo property in properties)
                         {
                             // Grab the field attributes
@@ -352,19 +410,40 @@ namespace BFDR.CLI
                 Console.WriteLine(message.ToJSON(true));
                 return 0;
             }
-            else if (args.Length > 2 && args[0] == "submit")
+            else if (args.Length > 3 && args[0] == "submit" && args[1] == "birth")
             {
-                string outputDirectory = args[1];
+                string outputDirectory = args[2];
                 if (!Directory.Exists(outputDirectory))
                 {
                     Console.WriteLine("Must supply a valid output directory");
                     return (1);
                 }
-                for (int i = 2; i < args.Length; i++)
+                for (int i = 3; i < args.Length; i++)
                 {
                     string outputFilename = args[i].Replace(".json", "_submission.json");
                     BirthRecord record = new BirthRecord(File.ReadAllText(args[i]));
                     BirthRecordSubmissionMessage message = new BirthRecordSubmissionMessage(record);
+                    message.MessageSource = "http://mitre.org/bfdr";
+                    Console.WriteLine($"Writing record to {outputFilename}");
+                    StreamWriter sw = new StreamWriter(outputFilename);
+                    sw.WriteLine(message.ToJSON(true));
+                    sw.Flush();
+                }
+                return 0;
+            }
+            else if (args.Length > 3 && args[0] == "submit" && args[1] == "fetaldeath")
+            {
+                string outputDirectory = args[2];
+                if (!Directory.Exists(outputDirectory))
+                {
+                    Console.WriteLine("Must supply a valid output directory");
+                    return (1);
+                }
+                for (int i = 3; i < args.Length; i++)
+                {
+                    string outputFilename = args[i].Replace(".json", "_submission.json");
+                    FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(args[i]));
+                    FetalDeathRecordSubmissionMessage message = new FetalDeathRecordSubmissionMessage(record);
                     message.MessageSource = "http://mitre.org/bfdr";
                     Console.WriteLine($"Writing record to {outputFilename}");
                     StreamWriter sw = new StreamWriter(outputFilename);
@@ -383,13 +462,13 @@ namespace BFDR.CLI
             }
             else if (args.Length == 3 && args[0] == "resubmit" && args[1] == "fetaldeath")
             {
-                FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(args[1]));
+                FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(args[2]));
                 FetalDeathRecordUpdateMessage message = new FetalDeathRecordUpdateMessage(record);
                 message.MessageSource = "http://mitre.org/bfdr";
                 Console.WriteLine(message.ToJSON(true));
                 return 0;
             }
-            else if (args.Length == 2 && args[0] == "void")
+            else if (args.Length == 3 && args[0] == "void" && args[1] == "birth")
             {
                 BirthRecord record = new BirthRecord(File.ReadAllText(args[2]));
                 BirthRecordVoidMessage message = new BirthRecordVoidMessage(record);
@@ -397,31 +476,48 @@ namespace BFDR.CLI
                 Console.WriteLine(message.ToJSON(true));
                 return 0;
             }
-            else if (args.Length == 3 && args[0] == "void")
+            else if (args.Length == 4 && args[0] == "void" && args[1] == "birth")
             {
-                BirthRecord record = new BirthRecord(File.ReadAllText(args[1]));
+                BirthRecord record = new BirthRecord(File.ReadAllText(args[2]));
                 BirthRecordVoidMessage message = new BirthRecordVoidMessage(record);
-                message.BlockCount = UInt32.Parse(args[2]);
+                message.BlockCount = UInt32.Parse(args[3]);
                 message.MessageSource = "http://mitre.org/bfdr";
                 Console.WriteLine(message.ToJSON(true));
                 return 0;
             }
-            else if (args.Length == 2 && args[0] == "ack")
+            else if (args.Length == 3 && args[0] == "void" && args[1] == "fetaldeath")
             {
-                BFDRBaseMessage message = BFDRBaseMessage.Parse(File.ReadAllText(args[1]));
+                FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(args[2]));
+                FetalDeathRecordVoidMessage message = new FetalDeathRecordVoidMessage(record);
+                message.MessageSource = "http://mitre.org/bfdr";
+                Console.WriteLine(message.ToJSON(true));
+                return 0;
+            }
+            else if (args.Length == 4 && args[0] == "void" && args[1] == "fetaldeath")
+            {
+                FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(args[2]));
+                FetalDeathRecordVoidMessage message = new FetalDeathRecordVoidMessage(record);
+                message.BlockCount = UInt32.Parse(args[3]);
+                message.MessageSource = "http://mitre.org/bfdr";
+                Console.WriteLine(message.ToJSON(true));
+                return 0;
+            }
+            else if (args.Length == 3 && args[0] == "ack" && args[1] == "birth")
+            {
+                BFDRBaseMessage message = BFDRBaseMessage.Parse(File.ReadAllText(args[2]));
                 BirthRecordAcknowledgementMessage ackMessage = new BirthRecordAcknowledgementMessage(message);
                 Console.WriteLine(ackMessage.ToJSON(true));
                 return 0;
             }
-            else if (args.Length > 2 && args[0] == "ack")
+            else if (args.Length > 3 && args[0] == "ack" && args[1] == "birth")
             {
-                string outputDirectory = args[1];
+                string outputDirectory = args[2];
                 if (!Directory.Exists(outputDirectory))
                 {
                     Console.WriteLine("Must supply a valid output directory");
                     return (1);
                 }
-                for (int i = 2; i < args.Length; i++)
+                for (int i = 3; i < args.Length; i++)
                 {
                     string outputFilename = args[i].Replace(".json", "_acknowledgement.json");
                     BFDRBaseMessage message = BFDRBaseMessage.Parse(File.ReadAllText(args[i]));
@@ -433,6 +529,34 @@ namespace BFDR.CLI
                 }
                 return 0;
             }
+            else if (args.Length == 3 && args[0] == "ack" && args[1] == "fetaldeath")
+            {
+                BFDRBaseMessage message = BFDRBaseMessage.Parse(File.ReadAllText(args[2]));
+                FetalDeathRecordAcknowledgementMessage ackMessage = new FetalDeathRecordAcknowledgementMessage(message);
+                Console.WriteLine(ackMessage.ToJSON(true));
+                return 0;
+            }
+            else if (args.Length > 3 && args[0] == "ack" && args[1] == "fetaldeath")
+            {
+                string outputDirectory = args[2];
+                if (!Directory.Exists(outputDirectory))
+                {
+                    Console.WriteLine("Must supply a valid output directory");
+                    return (1);
+                }
+                for (int i = 3; i < args.Length; i++)
+                {
+                    string outputFilename = args[i].Replace(".json", "_acknowledgement.json");
+                    BFDRBaseMessage message = BFDRBaseMessage.Parse(File.ReadAllText(args[i]));
+                    FetalDeathRecordAcknowledgementMessage ackMessage = new FetalDeathRecordAcknowledgementMessage(message);
+                    Console.WriteLine($"Writing acknowledgement to {outputFilename}");
+                    StreamWriter sw = new StreamWriter(outputFilename);
+                    sw.WriteLine(ackMessage.ToJSON(true));
+                    sw.Flush();
+                }
+                return 0;
+            }
+
           //  else if (args.Length >= 3 && args[0] == "batch")
           //  {
           //      string url = args[1];
@@ -461,19 +585,42 @@ namespace BFDR.CLI
                 
            //     return 0;
            //  }
-            else if (args.Length == 2 && args[0] == "ije")
+            else if (args.Length == 3 && args[0] == "ije" && args[1] == "birth")
             {
-                string ijeString = File.ReadAllText(args[1]);
-                List<PropertyInfo> properties = typeof(IJEBirth).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Field).ToList();
 
+                IJEBirth ije1 = new IJEBirth(File.ReadAllText(args[2]));
+
+                // Loop over every property (these are the fields); Order by priority
+                List<PropertyInfo> properties = typeof(IJEBirth).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Field).ToList();
                 foreach (PropertyInfo property in properties)
                 {
+                    // Grab the field attributes
                     IJEField info = property.GetCustomAttribute<IJEField>();
-                    string field = ijeString.Substring(info.Location - 1, info.Length);
+                    // Grab the field value
+                    string field = Convert.ToString(property.GetValue(ije1, null));
+                    // Print the key/value pair to console
                     Console.WriteLine($"{info.Field,-5} {info.Name,-15} {VR.IJE.Truncate(info.Contents, 75),-75}: \"{field + "\"",-80}");
                 }
+                return 0;
             }
-            else if (args[0] == "ijebuilder")
+            else if (args.Length == 3 && args[0] == "ije" && args[1] == "fetaldeath")
+            {
+                IJEFetalDeath ije1 = new IJEFetalDeath(File.ReadAllText(args[2]));
+
+                // Loop over every property (these are the fields); Order by priority
+                List<PropertyInfo> properties = typeof(IJEFetalDeath).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Field).ToList();
+                foreach (PropertyInfo property in properties)
+                {
+                    // Grab the field attributes
+                    IJEField info = property.GetCustomAttribute<IJEField>();
+                    // Grab the field value
+                    string field = Convert.ToString(property.GetValue(ije1, null));
+                    // Print the key/value pair to console
+                    Console.WriteLine($"{info.Field,-5} {info.Name,-15} {VR.IJE.Truncate(info.Contents, 75),-75}: \"{field + "\"",-80}");
+                }
+                return 0;
+            }
+            else if (args[0] == "ijebuilder" && args[1] == "birth")
             {
                 IJEBirth ije = new IJEBirth();
                 foreach (string arg in args)
@@ -487,23 +634,65 @@ namespace BFDR.CLI
                 BirthRecord b = ije.ToRecord();
                 Console.WriteLine(b.ToJson());
             }
-            else if (args.Length == 3 && args[0] == "compare")
+            else if (args[0] == "ijebuilder" && args[1] == "fetaldeath")
             {
-                string ijeString1 = File.ReadAllText(args[1]);
+                IJEFetalDeath ije = new IJEFetalDeath();
+                foreach (string arg in args)
+                {
+                    string[] keyAndValue = arg.Split('=');
+                    if (keyAndValue.Length == 2)
+                    {
+                        typeof(IJEFetalDeath).GetProperty(keyAndValue[0]).SetValue(ije, keyAndValue[1]);
+                    }
+                }
+                FetalDeathRecord d = ije.ToRecord();
+                Console.WriteLine(d.ToJson());
+            }
+            else if (args.Length == 4 && args[0] == "compare" && args[1] == "birth")
+            {
+                IJEBirth ije1 = new IJEBirth(File.ReadAllText(args[2]));
+                IJEBirth ije2 = new IJEBirth(File.ReadAllText(args[3]));
 
-                BirthRecord record2 = new BirthRecord(File.ReadAllText(args[2]));
-                IJEBirth ije2 = new IJEBirth(record2);
-                string ijeString2 = ije2.ToString();
-
+                // Loop over every property (these are the fields); Order by priority
                 List<PropertyInfo> properties = typeof(IJEBirth).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Field).ToList();
-
                 int differences = 0;
 
                 foreach (PropertyInfo property in properties)
                 {
+                    // Grab the field attributes
                     IJEField info = property.GetCustomAttribute<IJEField>();
-                    string field1 = ijeString1.Substring(info.Location - 1, info.Length);
-                    string field2 = ijeString2.Substring(info.Location - 1, info.Length);
+                    // Grab the field value
+                    string field1 = Convert.ToString(property.GetValue(ije1, null));
+                    string field2 = Convert.ToString(property.GetValue(ije2, null));
+
+                    if (field1 != field2)
+                    {
+                        differences += 1;
+                        Console.WriteLine($" IJE: {info.Field,-5} {info.Name,-15} {VR.IJE.Truncate(info.Contents, 75),-75}: \"{field1 + "\"",-80}");
+                        Console.WriteLine($"FHIR: {info.Field,-5} {info.Name,-15} {VR.IJE.Truncate(info.Contents, 75),-75}: \"{field2 + "\"",-80}");
+                        Console.WriteLine();
+                    }
+                }
+                Console.WriteLine($"Differences detected: {differences}");
+                return differences;
+            }
+            else if (args.Length == 4 && args[0] == "compare" && args[1] == "fetaldeath")
+            {
+                IJEFetalDeath ije1 = new IJEFetalDeath(File.ReadAllText(args[2]));
+                IJEFetalDeath ije2 = new IJEFetalDeath(File.ReadAllText(args[3]));
+
+                // Loop over every property (these are the fields); Order by priority
+                List<PropertyInfo> properties = typeof(IJEFetalDeath).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Field).ToList();
+                int differences = 0;
+
+                foreach (PropertyInfo property in properties)
+                {
+                    // Grab the field attributes
+                    IJEField info = property.GetCustomAttribute<IJEField>();
+                    // Grab the field value
+                    string field1 = Convert.ToString(property.GetValue(ije1, null));
+                    string field2 = Convert.ToString(property.GetValue(ije2, null));
+
                     if (field1 != field2)
                     {
                         differences += 1;
@@ -540,34 +729,58 @@ namespace BFDR.CLI
                 }
                 return 0;
             }
-            else if (args.Length == 2 && args[0] == "json2xml")
+            else if (args.Length == 3 && args[0] == "json2xml" && args[1] == "birth")
             {
-                BirthRecord b = new BirthRecord(File.ReadAllText(args[1]));
+                BirthRecord b = new BirthRecord(File.ReadAllText(args[2]));
                 Console.WriteLine(XDocument.Parse(b.ToXML()).ToString());
                 return 0;
             }
-            else if (args.Length == 2 && args[0] == "checkXml")
+            else if (args.Length == 3 && args[0] == "json2xml" && args[1] == "fetaldeath")
             {
-                BirthRecord b = new BirthRecord(File.ReadAllText(args[1]), true);
+                FetalDeathRecord b = new FetalDeathRecord(File.ReadAllText(args[2]));
                 Console.WriteLine(XDocument.Parse(b.ToXML()).ToString());
                 return 0;
             }
-            else if (args.Length == 2 && args[0] == "checkJson")
+            else if (args.Length == 3 && args[0] == "checkXml" && args[1] == "birth" )
             {
-                BirthRecord b = new BirthRecord(File.ReadAllText(args[1]), true);
+                BirthRecord b = new BirthRecord(File.ReadAllText(args[2]), true);
+                Console.WriteLine(XDocument.Parse(b.ToXML()).ToString());
+                return 0;
+            }
+            else if (args.Length == 3 && args[0] == "checkXml" && args[1] == "fetaldeath" )
+            {
+                FetalDeathRecord b = new FetalDeathRecord(File.ReadAllText(args[2]), true);
+                Console.WriteLine(XDocument.Parse(b.ToXML()).ToString());
+                return 0;
+            }
+            else if (args.Length == 3 && args[0] == "checkJson" && args[1] == "birth")
+            {
+                BirthRecord b = new BirthRecord(File.ReadAllText(args[2]), true);
                 Console.WriteLine(b.ToJSON());
                 return 0;
             }
-            else if (args.Length == 2 && args[0] == "xml2json")
+            else if (args.Length == 3 && args[0] == "checkJson" && args[1] == "fetaldeath")
             {
-                BirthRecord b = new BirthRecord(File.ReadAllText(args[1]));
+                FetalDeathRecord b = new FetalDeathRecord(File.ReadAllText(args[2]), true);
                 Console.WriteLine(b.ToJSON());
                 return 0;
             }
-            else if (args.Length == 2 && args[0] == "xml2xml")
+            else if (args.Length == 3 && args[0] == "xml2json" && args[1] == "birth")
+            {
+                BirthRecord b = new BirthRecord(File.ReadAllText(args[2]));
+                Console.WriteLine(b.ToJSON());
+                return 0;
+            }
+            else if (args.Length == 3 && args[0] == "xml2json" && args[1] == "fetaldeath")
+            {
+                FetalDeathRecord b = new FetalDeathRecord(File.ReadAllText(args[2]));
+                Console.WriteLine(b.ToJSON());
+                return 0;
+            }
+            else if (args.Length == 3 && args[0] == "xml2xml" && args[1] == "birth")
             {
                 // Forces record through getters and then setters, prints as xml
-                BirthRecord indr = new BirthRecord(File.ReadAllText(args[1]));
+                BirthRecord indr = new BirthRecord(File.ReadAllText(args[2]));
                 BirthRecord outdr = new BirthRecord();
                 List<PropertyInfo> properties = typeof(BirthRecord).GetProperties().ToList();
                 foreach (PropertyInfo property in properties)
@@ -580,10 +793,26 @@ namespace BFDR.CLI
                 Console.WriteLine(XDocument.Parse(outdr.ToXML()).ToString());
                 return 0;
             }
-            else if (args.Length == 2 && args[0] == "json2json")
+            else if (args.Length == 3 && args[0] == "xml2xml" && args[1] == "fetaldeath")
+            {
+                // Forces record through getters and then setters, prints as xml
+                FetalDeathRecord indr = new FetalDeathRecord(File.ReadAllText(args[2]));
+                FetalDeathRecord outdr = new FetalDeathRecord();
+                List<PropertyInfo> properties = typeof(FetalDeathRecord).GetProperties().ToList();
+                foreach (PropertyInfo property in properties)
+                {
+                    if (property.GetCustomAttribute<Property>() != null)
+                    {
+                        property.SetValue(outdr, property.GetValue(indr));
+                    }
+                }
+                Console.WriteLine(XDocument.Parse(outdr.ToXML()).ToString());
+                return 0;
+            }
+            else if (args.Length == 3 && args[0] == "json2json" && args[1] == "birth")
             {
                 // Forces record through getters and then setters, prints as JSON
-                BirthRecord inbr = new BirthRecord(File.ReadAllText(args[1]));
+                BirthRecord inbr = new BirthRecord(File.ReadAllText(args[2]));
                 BirthRecord outbr = new BirthRecord();
                 List<PropertyInfo> properties = typeof(BirthRecord).GetProperties().ToList();
                 foreach (PropertyInfo property in properties)
@@ -596,10 +825,26 @@ namespace BFDR.CLI
                 Console.WriteLine(outbr.ToJSON());
                 return 0;
             }
-            else if (args.Length == 3 && args[0] == "roundtrip-ije" && args[2] == "birth")
+            else if (args.Length == 3 && args[0] == "json2json" && args[1] == "fetaldeath")
+            {
+                // Forces record through getters and then setters, prints as JSON
+                FetalDeathRecord inbr = new FetalDeathRecord(File.ReadAllText(args[2]));
+                FetalDeathRecord outbr = new FetalDeathRecord();
+                List<PropertyInfo> properties = typeof(FetalDeathRecord).GetProperties().ToList();
+                foreach (PropertyInfo property in properties)
+                {
+                    if (property.GetCustomAttribute<Property>() != null)
+                    {
+                        property.SetValue(outbr, property.GetValue(inbr));
+                    }
+                }
+                Console.WriteLine(outbr.ToJSON());
+                return 0;
+            }
+            else if (args.Length == 3 && args[0] == "roundtrip-ije" && args[1] == "birth")
             {
                 // Console.WriteLine("Converting FHIR to IJE...\n");
-                BirthRecord b = new BirthRecord(File.ReadAllText(args[1]));
+                BirthRecord b = new BirthRecord(File.ReadAllText(args[2]));
                 IJEBirth ije1, ije2, ije3;
                 try
                 {
@@ -633,11 +878,11 @@ namespace BFDR.CLI
                 Console.WriteLine($"\n{issues} issues out of {total} total fields.");
                 return issues;
             }
-            else if (args.Length == 3 && args[0] == "roundtrip-ije" && args[2] == "fetaldeath")
+            else if (args.Length == 3 && args[0] == "roundtrip-ije" && args[1] == "fetaldeath")
             {
                 // Console.WriteLine("Converting FHIR to IJE...\n");
                 
-                FetalDeathRecord b = new FetalDeathRecord(File.ReadAllText(args[1]));
+                FetalDeathRecord b = new FetalDeathRecord(File.ReadAllText(args[2]));
                 IJEFetalDeath ije1, ije2, ije3;
                 try
                 {
@@ -671,9 +916,9 @@ namespace BFDR.CLI
                 Console.WriteLine($"\n{issues} issues out of {total} total fields.");
                 return issues;
             }
-            else if (args.Length == 2 && args[0] == "roundtrip-all")
+            else if (args.Length == 3 && args[0] == "roundtrip-all" && args[1] == "birth")
             {
-                BirthRecord b1 = new BirthRecord(File.ReadAllText(args[1]));
+                BirthRecord b1 = new BirthRecord(File.ReadAllText(args[2]));
                 BirthRecord b2 = new BirthRecord(b1.ToJSON());
                 BirthRecord b3 = new BirthRecord();
                 List<PropertyInfo> properties = typeof(BirthRecord).GetProperties().ToList();
@@ -750,76 +995,84 @@ namespace BFDR.CLI
                     return 0;
                 }
             }
-            else if (args.Length == 2 && args[0] == "ije")
+            else if (args.Length == 3 && args[0] == "roundtrip-all" && args[1] == "fetaldeath")
             {
-                string ijeString = File.ReadAllText(args[1]);
-                List<PropertyInfo> properties = typeof(IJEBirth).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Field).ToList();
+                FetalDeathRecord b1 = new FetalDeathRecord(File.ReadAllText(args[2]));
+                FetalDeathRecord b2 = new FetalDeathRecord(b1.ToJSON());
+                FetalDeathRecord b3 = new FetalDeathRecord();
+                List<PropertyInfo> properties = typeof(FetalDeathRecord).GetProperties().ToList();
+                // Fields the cannot roundtrip
+                // CertificationDate: cannot roundtrip time data, IJE does not have a field for time of certification
+                // Most fields with a 0..1 text property will not roundtrip
+                HashSet<string> skipPropertyNames = new HashSet<string>() { };
+                foreach (PropertyInfo property in properties)
+                {
+                    if (skipPropertyNames.Contains(property.Name))
+                    {
+                        continue;
+                    }
+                    if (property.GetCustomAttribute<Property>() != null)
+                    {
+                        property.SetValue(b3, property.GetValue(b2));
+                    }
+                }
+
+                int good = 0;
+                int bad = 0;
 
                 foreach (PropertyInfo property in properties)
                 {
-                    IJEField info = property.GetCustomAttribute<IJEField>();
-                    string field = ijeString.Substring(info.Location - 1, info.Length);
-                    Console.WriteLine($"{info.Field,-5} {info.Name,-15} {VR.IJE.Truncate(info.Contents, 75),-75}: \"{field + "\"",-80}");
-                }
-            }
-            else if (args[0] == "ijebuilder")
-            {
-                IJEBirth ije = new IJEBirth();
-                foreach (string arg in args)
-                {
-                    string[] keyAndValue = arg.Split('=');
-                    if (keyAndValue.Length == 2)
+                    if (skipPropertyNames.Contains(property.Name))
                     {
-                        typeof(IJEBirth).GetProperty(keyAndValue[0]).SetValue(ije, keyAndValue[1]);
+                        continue;
+                    }
+                    // Console.WriteLine($"Property: Name: {property.Name.ToString()} Type: {property.PropertyType.ToString()}");
+                    string one;
+                    string two;
+                    string three;
+                    if (property.PropertyType.ToString() == "System.Collections.Generic.Dictionary`2[System.String,System.String]")
+                    {
+                        Dictionary<string, string> oneDict = (Dictionary<string, string>)property.GetValue(b1);
+                        Dictionary<string, string> twoDict = (Dictionary<string, string>)property.GetValue(b2);
+                        Dictionary<string, string> threeDict = (Dictionary<string, string>)property.GetValue(b3);
+                        // Ignore empty entries in the dictionary so they don't throw off comparisons.
+                        one = String.Join(", ", oneDict.Select(x => (x.Value != "") ? (x.Key + "=" + x.Value) : ("")).ToArray()).Replace(" ,", "");
+                        two = String.Join(", ", twoDict.Select(x => (x.Value != "") ? (x.Key + "=" + x.Value) : ("")).ToArray()).Replace(" ,", "");
+                        three = String.Join(", ", threeDict.Select(x => (x.Value != "") ? (x.Key + "=" + x.Value) : ("")).ToArray()).Replace(" ,", "");
+                    }
+                    else if (property.PropertyType.ToString() == "System.String[]")
+                    {
+                        one = String.Join(", ", (string[])property.GetValue(b1));
+                        two = String.Join(", ", (string[])property.GetValue(b2));
+                        three = String.Join(", ", (string[])property.GetValue(b3));
+                    }
+                    else
+                    {
+                        one = Convert.ToString(property.GetValue(b1));
+                        two = Convert.ToString(property.GetValue(b2));
+                        three = Convert.ToString(property.GetValue(b3));
+                    }
+                    if (one.ToLower() != three.ToLower())
+                    {
+                        Console.WriteLine("[***** MISMATCH *****]\t" + $"\"{one}\" (property: {property.Name}) does not equal \"{three}\"" + $"      1:\"{one}\" 2:\"{two}\" 3:\"{three}\"");
+                        bad++;
+                    }
+                    else
+                    {
+                        // We don't actually need to see all the matches and it makes it hard to see the mismatches
+                        // Console.WriteLine("[MATCH]\t" + $"\"{one}\" (property: {property.Name}) equals \"{three}\"" + $"      1:\"{one}\" 2:\"{two}\" 3:\"{three}\"");
+                        good++;
                     }
                 }
-                BirthRecord b = ije.ToRecord();
-                Console.WriteLine(b.ToJson());
-            }
-            else if (args.Length == 3 && args[0] == "compare")
-            {
-                string ijeString1 = File.ReadAllText(args[1]);
-
-                BirthRecord record2 = new BirthRecord(File.ReadAllText(args[2]));
-                IJEBirth ije2 = new IJEBirth(record2);
-                string ijeString2 = ije2.ToString();
-
-                List<PropertyInfo> properties = typeof(IJEBirth).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Field).ToList();
-
-                int differences = 0;
-
-                foreach (PropertyInfo property in properties)
+                Console.WriteLine($"\n{bad} mismatches out of {good + bad} total properties checked.");
+                if (bad > 0)
                 {
-                    IJEField info = property.GetCustomAttribute<IJEField>();
-                    string field1 = ijeString1.Substring(info.Location - 1, info.Length);
-                    string field2 = ijeString2.Substring(info.Location - 1, info.Length);
-                    if (field1 != field2)
-                    {
-                        differences += 1;
-                        Console.WriteLine($" IJE: {info.Field,-5} {info.Name,-15} {VR.IJE.Truncate(info.Contents, 75),-75}: \"{field1 + "\"",-80}");
-                        Console.WriteLine($"FHIR: {info.Field,-5} {info.Name,-15} {VR.IJE.Truncate(info.Contents, 75),-75}: \"{field2 + "\"",-80}");
-                        Console.WriteLine();
-                    }
+                    return 1;
                 }
-                Console.WriteLine($"Differences detected: {differences}");
-                return differences;
-            }
-            else if (args.Length == 2 && args[0] == "extract")
-            {
-                BFDRBaseMessage message = BFDRBaseMessage.Parse(File.ReadAllText(args[1]));
-                BirthRecord record;
-                switch (message)
+                else
                 {
-                    case BirthRecordSubmissionMessage submission:
-                        record = submission.BirthRecord;
-                        Console.WriteLine(record.ToJSON());
-                        break;
-                    case BirthRecordParentalDemographicsCodingMessage coding:
-                        record = (BirthRecord)coding.NatalityRecord;
-                        Console.WriteLine(record.ToJSON());
-                        break;
+                    return 0;
                 }
-                return 0;
             }
             else if (args.Length == 1 && args[0] == "nre2json")
             {
