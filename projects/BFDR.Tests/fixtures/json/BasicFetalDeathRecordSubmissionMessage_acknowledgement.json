@@ -1,0 +1,50 @@
+{
+  "resourceType": "Bundle",
+  "id": "9b453f04-6590-4252-a404-761d22703ddf",
+  "type": "message",
+  "timestamp": "2025-02-10T10:52:38.203039-05:00",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:c8790167-f586-4471-8dfb-029158a8f12c",
+      "resource": {
+        "resourceType": "MessageHeader",
+        "id": "c8790167-f586-4471-8dfb-029158a8f12c",
+        "eventUri": "http://nchs.cdc.gov/fd_acknowledgement",
+        "destination": [
+          {
+            "endpoint": "https://example.com/jurisdiction/message/endpoint"
+          }
+        ],
+        "source": {
+          "endpoint": "http://nchs.cdc.gov/bfdr_submission"
+        },
+        "response": {
+          "identifier": "41f14a27-b079-4c76-ab04-a27c8046b2af",
+          "code": "ok"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:00ee54e7-78a0-4bc1-b3b1-09819dee8330",
+      "resource": {
+        "resourceType": "Parameters",
+        "id": "00ee54e7-78a0-4bc1-b3b1-09819dee8330",
+        "parameter": [
+          {
+            "name": "cert_no",
+            "valueUnsignedInt": 453723
+          },
+          {
+            "name": "event_year",
+            "valueUnsignedInt": 2025
+          },
+          {
+            "name": "payload_version_id",
+            "valueString": "BFDR_STU2_0"
+          }
+        ]
+      }
+    }
+  ]
+}
+
