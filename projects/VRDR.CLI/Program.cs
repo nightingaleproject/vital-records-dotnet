@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Collections;
@@ -17,6 +18,9 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using VRDR;
 using VR;
+using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Text.Unicode;
 
 namespace VRDR.CLI
 {
@@ -64,6 +68,10 @@ namespace VRDR.CLI
   - xml2xml: Read in the IJE death record and print out as XML (1 argument: path to death record in XML format)
   - batch: Read in IJE messages and create a batch submission bundle (2+ arguments: submission URL (for inside bundle) and one or more messages)
   - filter: Read in the FHIR death record and filter based on filter array (1 argument: path to death record to filter)
+  - jsonstu2-to-stu3:  Read in an VRDR STU2.2 file and convert to STU3
+  - jsonstu3-to-stu2:  Read in an VRDR STU3 file and convert to STU2.2
+  - round-trip-from-stu2:  Round trip an STU2 file to STU3 and back and check equivalence
+  - round-trip-from-stu3:  Round trip an STU3 file to STU2 and back and check equivalence
 ";
         static int Main(string[] args)
         {
@@ -650,63 +658,7 @@ namespace VRDR.CLI
                         property.SetValue(d3, property.GetValue(d2));
                     }
                 }
-
-                int good = 0;
-                int bad = 0;
-
-                foreach (PropertyInfo property in properties)
-                {
-                    if (skipPropertyNames.Contains(property.Name))
-                    {
-                        continue;
-                    }
-                    // Console.WriteLine($"Property: Name: {property.Name.ToString()} Type: {property.PropertyType.ToString()}");
-                    string one;
-                    string two;
-                    string three;
-                    if (property.PropertyType.ToString() == "System.Collections.Generic.Dictionary`2[System.String,System.String]")
-                    {
-                        Dictionary<string, string> oneDict = (Dictionary<string, string>)property.GetValue(d1);
-                        Dictionary<string, string> twoDict = (Dictionary<string, string>)property.GetValue(d2);
-                        Dictionary<string, string> threeDict = (Dictionary<string, string>)property.GetValue(d3);
-                        // Ignore empty entries in the dictionary so they don't throw off comparisons.
-                        one = String.Join(", ", oneDict.Select(x => (x.Value != "") ? (x.Key + "=" + x.Value) : ("")).ToArray()).Replace(" ,", "");
-                        two = String.Join(", ", twoDict.Select(x => (x.Value != "") ? (x.Key + "=" + x.Value) : ("")).ToArray()).Replace(" ,", "");
-                        three = String.Join(", ", threeDict.Select(x => (x.Value != "") ? (x.Key + "=" + x.Value) : ("")).ToArray()).Replace(" ,", "");
-                    }
-                    else if (property.PropertyType.ToString() == "System.String[]")
-                    {
-                        one = String.Join(", ", (string[])property.GetValue(d1));
-                        two = String.Join(", ", (string[])property.GetValue(d2));
-                        three = String.Join(", ", (string[])property.GetValue(d3));
-                    }
-                    else
-                    {
-                        one = Convert.ToString(property.GetValue(d1));
-                        two = Convert.ToString(property.GetValue(d2));
-                        three = Convert.ToString(property.GetValue(d3));
-                    }
-                    if (one.ToLower() != three.ToLower())
-                    {
-                        Console.WriteLine("[***** MISMATCH *****]\t" + $"\"{one}\" (property: {property.Name}) does not equal \"{three}\"" + $"      1:\"{one}\" 2:\"{two}\" 3:\"{three}\"");
-                        bad++;
-                    }
-                    else
-                    {
-                        // We don't actually need to see all the matches and it makes it hard to see the mismatches
-                        // Console.WriteLine("[MATCH]\t" + $"\"{one}\" (property: {property.Name}) equals \"{three}\"" + $"      1:\"{one}\" 2:\"{two}\" 3:\"{three}\"");
-                        good++;
-                    }
-                }
-                Console.WriteLine($"\n{bad} mismatches out of {good + bad} total properties checked.");
-                if (bad > 0)
-                {
-                    return 1;
-                }
-                else
-                {
-                    return 0;
-                }
+                return CompareThree(d1, d2, d3);
             }
             else if (args.Length == 2 && args[0] == "ije")
             {
@@ -1130,13 +1082,161 @@ namespace VRDR.CLI
                 
                 return 0;
             }
+            //  - jsonstu2-to-stu3:  Read in an VRDR STU2.2 file and convert to STU3
+            else if (args.Length >= 3 && args[0] == "jsonstu2-to-stu3")
+            {
+                Console.WriteLine($"Converting json file {args[1]} to json file {args[2]} for VRDR STU3 conformance");
+
+                ConvertVersionJSON(args[2], args[1], false);
+            }
+            //  - jsonstu2-to-stu3:  Read in an VRDR STU2.2 file and convert to STU3
+            else if (args.Length >= 3 && args[0] == "jsonstu3-to-stu2")
+            {
+                Console.WriteLine($"Converting json file {args[1]} to json file {args[2]} for VRDR STU2 conformance");
+
+                ConvertVersionJSON(args[2], args[1], true);
+            }
+            else if (args.Length >= 2 && args[0] == "rdtripstu3-to-stu2")
+            {
+                DeathRecord d1, d3;
+                Console.WriteLine($"Roundtrip STU3 json file {args[1]} to STU2 and compare content");
+
+                ConvertVersionJSON("./tempSTU2.json", args[1], true);
+                ConvertVersionJSON("./tempSTU3.json", "./tempSTU2.json",  false);
+                d1 = new DeathRecord(File.ReadAllText(args[1]));
+                //d2 = new DeathRecord(File.ReadAllText("./tempSTU2.json"));
+                d3 = new DeathRecord(File.ReadAllText("./tempSTU3.json"));
+                return (CompareTwo(d1,d3));
+            }
+            // else if (args.Length >= 2 && args[0] == "rdtripstu2-to-stu3")
+            // {
+            //     DeathRecord d1, d2, d3;
+            //     Console.WriteLine($"Roundtrip STU2 json file {args[1]} to STU3 and compare content");
+            //     ConvertVersionJSON("tempSTU3.json", args[1], false);
+            //     ConvertVersionJSON("tempSTU2.json", "tempSTU3.json",  false);
+            //     d1 = new DeathRecord(File.ReadAllText(args[1]));
+            //     d2 = new DeathRecord(File.ReadAllText("tempSTU3.json"));
+            //     d3 = new DeathRecord(File.ReadAllText("tempSTU2.json"));
+            //     return (CompareThree(d1,d3));
+            // }
             else
             {
-                Console.WriteLine($"**** No such command {args[0]} with the number of arguments supplied");
+                Console.WriteLine($"**** No such command {args[0]} with  {args.Length} arguments supplied");
             }
             return 0;
         }
 
+            private static int CompareTwo(DeathRecord d1, DeathRecord d3)
+            {
+                int good = 0;
+                int bad = 0;
+                List<PropertyInfo> properties = typeof(DeathRecord).GetProperties().ToList();
+                foreach (PropertyInfo property in properties)
+                {
+                    // Console.WriteLine($"Property: Name: {property.Name.ToString()} Type: {property.PropertyType.ToString()}");
+                    string one;
+                    // string two;
+                    string three;
+                    if (property.PropertyType.ToString() == "System.Collections.Generic.Dictionary`2[System.String,System.String]")
+                    {
+                        Dictionary<string, string> oneDict = (Dictionary<string, string>)property.GetValue(d1);
+                        //Dictionary<string, string> twoDict = (Dictionary<string, string>)property.GetValue(d2);
+                        Dictionary<string, string> threeDict = (Dictionary<string, string>)property.GetValue(d3);
+                        // Ignore empty entries in the dictionary so they don't throw off comparisons.
+                        one = String.Join(", ", oneDict.Select(x => (x.Value != "") ? (x.Key + "=" + x.Value) : ("")).ToArray()).Replace(" ,", "");
+                        //two = String.Join(", ", twoDict.Select(x => (x.Value != "") ? (x.Key + "=" + x.Value) : ("")).ToArray()).Replace(" ,", "");
+                        three = String.Join(", ", threeDict.Select(x => (x.Value != "") ? (x.Key + "=" + x.Value) : ("")).ToArray()).Replace(" ,", "");
+                    }
+                    else if (property.PropertyType.ToString() == "System.String[]")
+                    {
+                        one = String.Join(", ", (string[])property.GetValue(d1));
+                        //two = String.Join(", ", (string[])property.GetValue(d2));
+                        three = String.Join(", ", (string[])property.GetValue(d3));
+                    }
+                    else
+                    {
+                        one = Convert.ToString(property.GetValue(d1));
+                        //two = Convert.ToString(property.GetValue(d2));
+                        three = Convert.ToString(property.GetValue(d3));
+                    }
+                    if (one.ToLower() != three.ToLower())
+                    {
+                        Console.WriteLine("[***** MISMATCH *****]\t" + $"\"{one}\" (property: {property.Name}) does not equal \"{three}\"" + $"      1:\"{one}\"  3:\"{three}\"");
+                        bad++;
+                    }
+                    else
+                    {
+                        // We don't actually need to see all the matches and it makes it hard to see the mismatches
+                        // Console.WriteLine("[MATCH]\t" + $"\"{one}\" (property: {property.Name}) equals \"{three}\"" + $"      1:\"{one}\" 2:\"{two}\" 3:\"{three}\"");
+                        good++;
+                    }
+                }
+                Console.WriteLine($"\n{bad} mismatches out of {good + bad} total properties checked.");
+                if (bad > 0)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+
+                    private static int CompareThree(DeathRecord d1, DeathRecord d2, DeathRecord d3)
+            {
+                int good = 0;
+                int bad = 0;
+                List<PropertyInfo> properties = typeof(DeathRecord).GetProperties().ToList();
+                foreach (PropertyInfo property in properties)
+                {
+                    // Console.WriteLine($"Property: Name: {property.Name.ToString()} Type: {property.PropertyType.ToString()}");
+                    string one;
+                    string two;
+                    string three;
+                    if (property.PropertyType.ToString() == "System.Collections.Generic.Dictionary`2[System.String,System.String]")
+                    {
+                        Dictionary<string, string> oneDict = (Dictionary<string, string>)property.GetValue(d1);
+                        Dictionary<string, string> twoDict = (Dictionary<string, string>)property.GetValue(d2);
+                        Dictionary<string, string> threeDict = (Dictionary<string, string>)property.GetValue(d3);
+                        // Ignore empty entries in the dictionary so they don't throw off comparisons.
+                        one = String.Join(", ", oneDict.Select(x => (x.Value != "") ? (x.Key + "=" + x.Value) : ("")).ToArray()).Replace(" ,", "");
+                        two = String.Join(", ", twoDict.Select(x => (x.Value != "") ? (x.Key + "=" + x.Value) : ("")).ToArray()).Replace(" ,", "");
+                        three = String.Join(", ", threeDict.Select(x => (x.Value != "") ? (x.Key + "=" + x.Value) : ("")).ToArray()).Replace(" ,", "");
+                    }
+                    else if (property.PropertyType.ToString() == "System.String[]")
+                    {
+                        one = String.Join(", ", (string[])property.GetValue(d1));
+                        two = String.Join(", ", (string[])property.GetValue(d2));
+                        three = String.Join(", ", (string[])property.GetValue(d3));
+                    }
+                    else
+                    {
+                        one = Convert.ToString(property.GetValue(d1));
+                        two = Convert.ToString(property.GetValue(d2));
+                        three = Convert.ToString(property.GetValue(d3));
+                    }
+                    if (one.ToLower() != three.ToLower())
+                    {
+                        Console.WriteLine("[***** MISMATCH *****]\t" + $"\"{one}\" (property: {property.Name}) does not equal \"{three}\"" + $"      1:\"{one}\" 2:\"{two}\" 3:\"{three}\"");
+                        bad++;
+                    }
+                    else
+                    {
+                        // We don't actually need to see all the matches and it makes it hard to see the mismatches
+                        // Console.WriteLine("[MATCH]\t" + $"\"{one}\" (property: {property.Name}) equals \"{three}\"" + $"      1:\"{one}\" 2:\"{two}\" 3:\"{three}\"");
+                        good++;
+                    }
+                }
+                Console.WriteLine($"\n{bad} mismatches out of {good + bad} total properties checked.");
+                if (bad > 0)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
         private static async System.Threading.Tasks.Task CallEndpoint(string endpoint, StringContent content)
         {
             var response = await new HttpClient().PostAsync(endpoint, content);
@@ -1289,5 +1389,130 @@ namespace VRDR.CLI
             Console.WriteLine($"Differences detected: {differences}");
             return differences;
         }
+
+    private static readonly Dictionary<string, string> urisSTU3toSTU2 = new Dictionary<string, string>
+        {
+            { "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag", "http://hl7.org/fhir/us/vrdr/StructureDefinition/BypassEditFlag" },
+            { "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-jurisdiction-id-vr", "http://hl7.org/fhir/us/vrdr/StructureDefinition/Location-Jurisdiction-Id" },
+            { "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/AuxiliaryStateIdentifier1", "http://hl7.org/fhir/us/vrdr/StructureDefinition/AuxiliaryStateIdentifier1" },
+            { "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/AuxiliaryStateIdentifier2", "http://hl7.org/fhir/us/vrdr/StructureDefinition/AuxiliaryStateIdentifier2" },
+            { "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/CertificateNumber", "http://hl7.org/fhir/us/vrdr/StructureDefinition/CertificateNumber" },
+            { "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/input-race-and-ethnicity-vr", "http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-input-race-and-ethnicity" },
+            { "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/coded-race-and-ethnicity-vr", "http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-coded-race-and-ethnicity" },
+            { "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Observation-emerging-issues-vr", "http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-emerging-issues" },
+            { "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/CityCode", "http://hl7.org/fhir/us/vrdr/StructureDefinition/CityCode" },
+            { "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/DistrictCode", "http://hl7.org/fhir/us/vrdr/StructureDefinition/DistrictCode" },
+            { "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/StreetDesignator", "http://hl7.org/fhir/us/vrdr/StructureDefinition/StreetDesignator" },
+            { "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/StreetName", "http://hl7.org/fhir/us/vrdr/StructureDefinition/StreetName" },
+            { "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/StreetNumber", "http://hl7.org/fhir/us/vrdr/StructureDefinition/StreetNumber" },
+            { "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/PreDirectional", "http://hl7.org/fhir/us/vrdr/StructureDefinition/PreDirectional" },
+            { "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/PostDirectional", "http://hl7.org/fhir/us/vrdr/StructureDefinition/PostDirectional" },
+            { "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/UnitOrAptNumber", "http://hl7.org/fhir/us/vrdr/StructureDefinition/UnitOrAptNumber" },
+            { "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-partial-date-time-vr", "http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDateTime" },
+            { "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-partial-date-vr", "http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDate" },
+            { "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-within-city-limits-indicator-vr", "http://hl7.org/fhir/us/vrdr/StructureDefinition/WithinCityLimitsIndicator" },
+            { "day", "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Day" },
+            { "month", "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Month" },
+            { "year", "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Year" },
+            { "time", "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Time" },
+            { "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags", "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-bypass-edit-flag-cs" },
+            { "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-local-observation-codes-vr", "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs" },
+            { "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component", "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs" },
+            { "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-race-code-vr", "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-race-code-cs" },
+            { "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-race-recode-40-vr", "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-race-recode-40-cs" },
+            { "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-hispanic-origin-vr", "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-hispanic-origin-cs" },
+            { "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-country-code-vr", "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-country-code-cs" },
+            { "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-jurisdictions-vr", "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-jurisdictions-cs" },
+            { "http://hl7.org/fhir/us/vrdr/CodeSystem/CodeSystem-death-pregnancy-status", "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-pregnancy-status-cs" }
+        };
+
+        private static readonly Dictionary<string, string>  decedentOnlyUris = new Dictionary<string, string>
+        {
+            { "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/ExtensionPartialDateTimeVitalRecords", "http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDate" }
+        };
+
+    //    private static void
+    //    var urisSTU2toSTU3 = CreateSTU2toSTU3Mapping(urisSTU3toSTU2);
+    
+    static Dictionary<string, string> CreateSTU2toSTU3Mapping(Dictionary<string, string> urisSTU3toSTU2)
+    {
+        var revUrisSTU3toSTU2 = new Dictionary<string, string>();
+        foreach (var kvp in urisSTU3toSTU2)
+        {
+            revUrisSTU3toSTU2[kvp.Value] = kvp.Key;
+        }
+        return revUrisSTU3toSTU2;
+    }
+
+    static void ConvertVersionJSON(string pOutputFile, string pInputFile, bool STU3toSTU2)
+    {
+        var uris = urisSTU3toSTU2;
+        if (!STU3toSTU2){ // The mapping is bidirectional.  Depending on which direction, we flip the map.
+            uris = CreateSTU2toSTU3Mapping(urisSTU3toSTU2);
+        }
+        string content = File.ReadAllText(pInputFile);
+        // Iterate through the mapped strings, and replace them one by one
+        foreach (var kvp in uris)
+        {
+            content = content.Replace(kvp.Key, kvp.Value);
+        }
+        // Fix an observation's code and CodeSystem.  This can't be done using string replace.
+        ParserSettings parserSettings = new ParserSettings
+            {
+                AcceptUnknownMembers = true,
+                AllowUnrecognizedEnums = true,
+                PermissiveParsing = true
+            };
+        FhirJsonParser parser = new FhirJsonParser(parserSettings);
+        Bundle bundle = parser.Parse<Bundle>(content);
+        // Scan through all Observations to make sure they all have codes!
+        foreach (var ob in bundle.Entry.Where(entry => entry.Resource is Observation))
+            {
+                Observation obs = (Observation)ob.Resource;
+                if (obs.Code == null || obs.Code.Coding == null || obs.Code.Coding.FirstOrDefault() == null || obs.Code.Coding.First().Code == null)
+                {
+                    continue;
+                }
+                if(!STU3toSTU2){
+                switch (obs.Code.Coding.First().Code)
+                {
+                    case "BR":
+                        obs.Code = new CodeableConcept(VR.CodeSystems.LocalObservationCodes, "childbirthrecordidentifier", "Birth Record Identifier of Child", null);
+                        break;
+                }
+                }else{
+                switch (obs.Code.Coding.First().Code)
+                {
+                    case "childbirthrecordidentifier":
+                        obs.Code = new CodeableConcept(CodeSystems.HL7_identifier_type, "BR", "Birth registry number", null);
+                        break;
+                }   
+                }                   
+            }
+        // Serialize the bundle as JSON
+        string newContent = bundle.ToJson(new FhirJsonSerializationSettings { Pretty = true, AppendNewLine = true });
+        File.WriteAllText(pOutputFile, newContent );
+    }
+
+static void ExchangeURLsXML(string pOutputFile, string pInputFile, bool STU3toSTU2)
+{
+    var uris = STU3toSTU2 ? urisSTU3toSTU2 : CreateSTU2toSTU3Mapping(urisSTU3toSTU2);
+    
+    var doc = XDocument.Load(pInputFile);
+    
+    foreach (var element in doc.Descendants())
+    {
+        foreach (var kvp in uris)
+        {
+            if (element.Value.Contains(kvp.Key))
+            {
+                element.Value = element.Value.Replace(kvp.Key, kvp.Value);
+            }
+        }
+    }
+    
+    doc.Save(pOutputFile);
+}
+    
     }
 }
