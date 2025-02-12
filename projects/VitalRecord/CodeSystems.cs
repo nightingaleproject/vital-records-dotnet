@@ -87,6 +87,9 @@ namespace VR
         public static string OccupationCDCCensus2018 = "2.16.840.1.114222.4.5.339";
 
         // Code systems defined within vital record IGs: VRCL IG
+        ///<summary> Placeholder IJE CodeSystem </summary>
+        ///
+        public static string IJECodes = "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-ije-vr";
 
         /// <summary> VRCL Missing Value Reason </summary>
         public static string VRCLMissingValueReason = "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-missing-value-reason-vr";

@@ -2756,8 +2756,6 @@
           {
             "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-relatedperson-birthplace-vr",
             "valueAddress": {
-              "city": "Bedford",
-              "district": "Middlesex",
               "state": "MA",
               "country": "US"
             }

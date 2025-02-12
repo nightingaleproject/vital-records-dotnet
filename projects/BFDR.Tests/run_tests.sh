@@ -124,6 +124,9 @@ dotnet run --project BFDR.CLI roundtrip-ije fetaldeath BFDR.Tests/fixtures/json/
 # dotnet run --project BFDR.CLI roundtrip-ije BFDR.CLI/1_wJurisdiction.xml
 
 # Convert JSON files to IJE and back and check every field individually
+echo "* dotnet run --project BFDR.CLI roundtrip-all birth BFDR.Tests/fixtures/json/BirthRecordZ.json"
+dotnet run --project BFDR.CLI roundtrip-all birth BFDR.Tests/fixtures/json/BirthRecordZ.json 
+
 echo "* dotnet run --project BFDR.CLI roundtrip-all birth BFDR.Tests/fixtures/json/BirthRecordBabyGQuinn.json"
 dotnet run --project BFDR.CLI roundtrip-all birth BFDR.Tests/fixtures/json/BirthRecordBabyGQuinn.json 
 echo "* dotnet run --project BFDR.CLI roundtrip-all birth BFDR.Tests/fixtures/json/BirthRecordBabyGQuinnJurisdiction.json"
@@ -131,8 +134,8 @@ dotnet run --project BFDR.CLI roundtrip-all birth BFDR.Tests/fixtures/json/Birth
 echo "* dotnet run --project BFDR.CLI roundtrip-all birth BFDR.Tests/fixtures/json/BirthRecordFakeWithRace.json"
 dotnet run --project BFDR.CLI roundtrip-all birth BFDR.Tests/fixtures/json/BirthRecordFakeWithRace.json
 
-echo "* dotnet run --project BFDR.CLI roundtrip-all fetaldeath BFDR.Tests/fixtures/json/BasicFetalDeathRecord2.json"
-dotnet run --project BFDR.CLI roundtrip-all fetaldeath BFDR.Tests/fixtures/json/BasicFetalDeathRecord2.json
+echo "* dotnet run --project BFDR.CLI roundtrip-all birth fetaldeath BFDR.Tests/fixtures/json/BasicFetalDeathRecord2.json"
+dotnet run --project BFDR.CLI roundtrip-all birth fetaldeath BFDR.Tests/fixtures/json/BasicFetalDeathRecord2.json
 
 # Convert an XML file to IJE and back and check every field individually
 # echo "* dotnet run --project BFDR.CLI roundtrip-all BFDR.Tests/fixtures/json/BasicBirthRecord.json"

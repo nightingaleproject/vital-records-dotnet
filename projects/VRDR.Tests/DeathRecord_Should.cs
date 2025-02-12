@@ -1275,6 +1275,10 @@ namespace VRDR.Tests
             Assert.Equal("St", SetterDeathRecord.Residence["addressStdesig"]);
             Assert.Equal("W", SetterDeathRecord.Residence["addressPostdir"]);
             Assert.Equal("A", SetterDeathRecord.Residence["addressUnitnum"]);
+            SetterDeathRecord.DeathLocationJurisdiction = "MA"; // required
+            // See if the ADDRESS_R == addressLine1
+            IJEMortality ije1 = new IJEMortality(SetterDeathRecord);
+            Assert.Equal(ije1.ADDRESS_R.Trim(), SetterDeathRecord.Residence["addressLine1"]);
         }
 
         [Fact]
