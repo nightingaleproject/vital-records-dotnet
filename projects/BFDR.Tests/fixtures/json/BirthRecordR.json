@@ -571,7 +571,8 @@
           {
             "url": "http://hl7.org/fhir/StructureDefinition/patient-birthPlace",
             "valueAddress": {
-              "country": "MX"
+              "country": "MX",
+              "state": "XX"
             }
           }
         ],
@@ -712,14 +713,6 @@
             "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-relatedperson-birthplace-vr",
             "valueAddress": {
               "state": "ZZ",
-              "_state": {
-                "extension": [
-                  {
-                    "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-jurisdiction-id-vr",
-                    "valueString": "ZZ"
-                  }
-                ]
-              },
               "country": "MX"
             }
           }

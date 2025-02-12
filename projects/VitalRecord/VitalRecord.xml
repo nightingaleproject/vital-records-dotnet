@@ -88,6 +88,10 @@
         <member name="F:VR.CodeSystems.OccupationCDCCensus2018">
             <summary>OccupationCDCCensus2018 </summary>
         </member>
+        <member name="F:VR.CodeSystems.IJECodes">
+            <summary> Placeholder IJE CodeSystem </summary>
+            
+        </member>
         <member name="F:VR.CodeSystems.VRCLMissingValueReason">
             <summary> VRCL Missing Value Reason </summary>
         </member>
@@ -6350,8 +6354,11 @@
         <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Yukon">
             <summary> Yukon </summary>
         </member>
-        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Unknown">
-            <summary> Unknown </summary>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Unknown_Or_Blank_U_S_State_Or_Territory_Or_Unknown_Unclassifiable_Country">
+            <summary> Unknown_Or_Blank_U_S_State_Or_Territory_Or_Unknown_Unclassifiable_Country </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Country_Is_Canada_But_Unknown_Canadian_Province_Or_Any_Country_That_Is_Known_But_Not_U_S_Or_Canada">
+            <summary> Country_Is_Canada_But_Unknown_Canadian_Province_Or_Any_Country_That_Is_Known_But_Not_U_S_Or_Canada </summary>
         </member>
         <member name="T:VR.ValueSets.UnitsOfAge">
             <summary> UnitsOfAge </summary>
