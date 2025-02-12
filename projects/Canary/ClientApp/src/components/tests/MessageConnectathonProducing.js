@@ -215,7 +215,7 @@ export class MessageConnectathonProducing extends Component {
                 </Grid>
                 <div className="p-b-20" />
                 <Form size="large">
-                  <FHIRInfo fhirInfo={this.state.test.results} hideSnippets={true} editable={false} testMode={true} />
+                  <FHIRInfo fhirInfo={this.state.test.results} hideSnippets={false} editable={false} testMode={true} />
                 </Form>
               </Container>
             </Grid.Row>

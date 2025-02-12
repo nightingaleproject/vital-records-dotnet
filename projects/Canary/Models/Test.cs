@@ -115,17 +115,41 @@ namespace canary.Models
                 category[property.Name]["Type"] = (Nullable.GetUnderlyingType(property.PropertyType) ?? property.PropertyType).Name;
                 category[property.Name]["Description"] = this.GetMessageDescriptionFor(property.Name);
                 category[property.Name]["Value"] = property.GetValue(referenceBundle);
+
+                FHIRPath path = property.GetCustomAttribute<FHIRPath>();
+                if (path != null)
+                {
+                    // Add snippets for reference
+                    IEnumerable<Hl7.Fhir.ElementModel.ITypedElement> matches = referenceBundle.GetITypedElement().Select(path.Path);
+                    BuildSnippets(matches, path.Element, property.Name, null, category, "SnippetJSON", "SnippetXML");
+                    // Add snippets for test
+                    IEnumerable<Hl7.Fhir.ElementModel.ITypedElement> matchesTest = TestMessage.GetMessage().GetITypedElement().Select(path.Path);
+                    BuildSnippets(matchesTest, path.Element, property.Name, null, category, "SnippetJSONTest", "SnippetXMLTest");
+                }
+
                 category[property.Name]["FoundValue"] = property.GetValue(bundle);
                 // The record should be valid since we check its validity elsewhere.
                 // Here we just check to make sure the record is properly embedded
                 // into the message bundle.
-                if (property.PropertyType == typeof(DeathRecord) || property.PropertyType == typeof(BirthRecord))
+                if (property.PropertyType == typeof(DeathRecord) || property.PropertyType == typeof(BirthRecord) || property.PropertyType == typeof(FetalDeathRecord))
                 {
                     VitalRecord extracted = (VitalRecord) property.GetValue(bundle);
                     TestRecord = this.CreateRecordFromVitalRecord(extracted);
                     int previousIncorrect = Incorrect;
                     // Add the record comparison results to the message comparison results
-                    Dictionary<string, Dictionary<string, dynamic>> recordCompare = property.PropertyType == typeof(DeathRecord) ? RecordCompare<DeathRecord>() : RecordCompare<BirthRecord>();
+                    Dictionary<string, Dictionary<string, dynamic>> recordCompare;
+                    if (property.PropertyType == typeof(DeathRecord))
+                    {
+                        recordCompare = RecordCompare<DeathRecord>();
+                    }
+                    else if (property.PropertyType == typeof(BirthRecord))
+                    {
+                        recordCompare = RecordCompare<BirthRecord>();
+                    }
+                    else
+                    {
+                        recordCompare = RecordCompare<FetalDeathRecord>();
+                    }
                     foreach (KeyValuePair<string, Dictionary<string, dynamic>> entry in recordCompare)
                     {
                         description.Add(entry.Key, entry.Value);
@@ -225,119 +249,11 @@ namespace canary.Models
 
                 // Add snippets for reference
                 FHIRPath path = property.GetCustomAttribute<FHIRPath>();
-                var matches = ReferenceRecord.GetRecord().GetITypedElement().Select(path.Path);
-                if (matches.Count() > 0)
-                {
-                    if (info.Type == Property.Types.TupleCOD)
-                    {
-                        // Make sure to grab all of the Conditions for COD
-                        string xml = "";
-                        string json = "";
-                        foreach (var match in matches)
-                        {
-                            xml += match.ToXml();
-                            json += match.ToJson() + ",";
-                        }
-                        category[property.Name]["SnippetXML"] = xml;
-                        category[property.Name]["SnippetJSON"] = "[" + json + "]";
-                    }
-                    else if (!String.IsNullOrWhiteSpace(path.Element))
-                    {
-                        // Since there is an "Element" for this path, we need to be more
-                        // specific about what is included in the snippets.
-                        XElement root = XElement.Parse(matches.First().ToXml());
-                        XElement node = root.DescendantsAndSelf("{http://hl7.org/fhir}" + path.Element).FirstOrDefault();
-                        if (node != null)
-                        {
-                            node.Name = node.Name.LocalName;
-                            category[property.Name]["SnippetXML"] = node.ToString();
-                        }
-                        else
-                        {
-                            category[property.Name]["SnippetXML"] = "";
-                        }
-                        Dictionary<string, dynamic> jsonRoot =
-                           JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(matches.First().ToJson(),
-                               new JsonSerializerSettings() { DateParseHandling = DateParseHandling.None });
-                        if (jsonRoot != null && jsonRoot.Keys.Contains(path.Element))
-                        {
-                            category[property.Name]["SnippetJSON"] = "{" + $"\"{path.Element}\": \"{jsonRoot[path.Element]}\"" + "}";
-                        }
-                        else
-                        {
-                            category[property.Name]["SnippetJSON"] = "";
-                        }
-                    }
-                    else
-                    {
-                        category[property.Name]["SnippetXML"] = matches.First().ToXml();
-                        category[property.Name]["SnippetJSON"] = matches.First().ToJson();
-                    }
-
-                }
-                else
-                {
-                    category[property.Name]["SnippetXML"] = "";
-                    category[property.Name]["SnippetJSON"] = "";
-                }
-
+                IEnumerable<Hl7.Fhir.ElementModel.ITypedElement> matches = ReferenceRecord.GetRecord().GetITypedElement().Select(path.Path);
+                BuildSnippets(matches, path.Element, property.Name, info.Type, category, "SnippetJSON", "SnippetXML");
                 // Add snippets for test
-                FHIRPath pathTest = property.GetCustomAttribute<FHIRPath>();
-                var matchesTest = TestRecord.GetRecord().GetITypedElement().Select(pathTest.Path);
-                if (matchesTest.Count() > 0)
-                {
-                    if (info.Type == Property.Types.TupleCOD)
-                    {
-                        // Make sure to grab all of the Conditions for COD
-                        string xml = "";
-                        string json = "";
-                        foreach (var match in matchesTest)
-                        {
-                            xml += match.ToXml();
-                            json += match.ToJson() + ",";
-                        }
-                        category[property.Name]["SnippetXMLTest"] = xml;
-                        category[property.Name]["SnippetJSONTest"] = "[" + json + "]";
-                    }
-                    else if (!String.IsNullOrWhiteSpace(pathTest.Element))
-                    {
-                        // Since there is an "Element" for this path, we need to be more
-                        // specific about what is included in the snippets.
-                        XElement root = XElement.Parse(matchesTest.First().ToXml());
-                        XElement node = root.DescendantsAndSelf("{http://hl7.org/fhir}" + pathTest.Element).FirstOrDefault();
-                        if (node != null)
-                        {
-                            node.Name = node.Name.LocalName;
-                            category[property.Name]["SnippetXMLTest"] = node.ToString();
-                        }
-                        else
-                        {
-                            category[property.Name]["SnippetXMLTest"] = "";
-                        }
-                        Dictionary<string, dynamic> jsonRoot =
-                           JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(matchesTest.First().ToJson(),
-                               new JsonSerializerSettings() { DateParseHandling = DateParseHandling.None });
-                        if (jsonRoot != null && jsonRoot.Keys.Contains(pathTest.Element))
-                        {
-                            category[property.Name]["SnippetJSONTest"] = "{" + $"\"{pathTest.Element}\": \"{jsonRoot[pathTest.Element]}\"" + "}";
-                        }
-                        else
-                        {
-                            category[property.Name]["SnippetJSONTest"] = "";
-                        }
-                    }
-                    else
-                    {
-                        category[property.Name]["SnippetXMLTest"] = matchesTest.First().ToXml();
-                        category[property.Name]["SnippetJSONTest"] = matchesTest.First().ToJson();
-                    }
-
-                }
-                else
-                {
-                    category[property.Name]["SnippetXMLTest"] = "";
-                    category[property.Name]["SnippetJSONTest"] = "";
-                }
+                var matchesTest = TestRecord.GetRecord().GetITypedElement().Select(path.Path);
+                BuildSnippets(matchesTest, path.Element, property.Name, info.Type, category, "SnippetJSONTest", "SnippetXMLTest");
 
                 // RecordCompare values
                 if (info.Type == Property.Types.Dictionary)
@@ -656,6 +572,61 @@ namespace canary.Models
                 }
             }
             return description;
+        }
+
+        private static void BuildSnippets(IEnumerable<Hl7.Fhir.ElementModel.ITypedElement> matches, string pathElement, string propertyName, Property.Types? infoType, Dictionary<string, dynamic> category, string snippetJsonlLabel, string snippetXmlLabel)
+        {
+            if (!matches.Any())
+            {
+                category[propertyName][snippetXmlLabel] = "";
+                category[propertyName][snippetJsonlLabel] = "";
+                return;
+            }
+            if (infoType != null && infoType == Property.Types.TupleCOD)
+            {
+                // Make sure to grab all of the Conditions for COD
+                string xml = "";
+                string json = "";
+                foreach (var match in matches)
+                {
+                    xml += match.ToXml();
+                    json += match.ToJson() + ",";
+                }
+                category[propertyName][snippetXmlLabel] = xml;
+                category[propertyName][snippetJsonlLabel] = "[" + json + "]";
+                return;
+            }
+            if (!String.IsNullOrWhiteSpace(pathElement))
+            {
+                // Since there is an "Element" for this path, we need to be more
+                // specific about what is included in the snippets.
+                XElement root = XElement.Parse(matches.First().ToXml());
+                XElement node = root.DescendantsAndSelf("{http://hl7.org/fhir}" + pathElement).FirstOrDefault();
+                if (node != null)
+                {
+                    node.Name = node.Name.LocalName;
+                    category[propertyName][snippetXmlLabel] = node.ToString();
+                }
+                else
+                {
+                    category[propertyName][snippetXmlLabel] = "";
+                }
+                Dictionary<string, dynamic> jsonRoot =
+                    JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(matches.First().ToJson(),
+                        new JsonSerializerSettings() { DateParseHandling = DateParseHandling.None });
+                if (jsonRoot != null && jsonRoot.Keys.Contains(pathElement))
+                {
+                    category[propertyName][snippetJsonlLabel] = "{" + $"\"{pathElement}\": \"{jsonRoot[pathElement]}\"" + "}";
+                }
+                else
+                {
+                    category[propertyName][snippetJsonlLabel] = "";
+                }
+                return;
+            }
+            // Default case
+            category[propertyName][snippetXmlLabel] = matches.First().ToXml();
+            category[propertyName][snippetJsonlLabel] = matches.First().ToJson();
         }
 
         private void MarkCorrect()

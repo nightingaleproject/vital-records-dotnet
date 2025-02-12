@@ -91,6 +91,7 @@ namespace VRDR
         }
 
         /// <summary>The year in which the death occurred</summary>
+        [FHIRPath("Bundle.entry.resource.where($this is Parameters)", "")]
         public uint? DeathYear
         {
             get
