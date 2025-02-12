@@ -671,7 +671,7 @@ namespace BFDR
                         currentAddress["addressState"] = value;
                     }
                     PlaceOfBirth = currentAddress;
-                    // TODO - UpdateDeathRecordIdentifier();
+                    UpdateRecordIdentifier();
                 }
             }
         }
@@ -703,15 +703,13 @@ namespace BFDR
         [FHIRPath("Bundle.entry.resource.where($this is Patient).extension.where(url='" + OtherExtensionURL.PatientBirthPlace + "')", "")]
         public Dictionary<string, string> PlaceOfBirth
         {
-            get
-            {
-                return GetPlaceOfBirth(Subject);
-            }
+            get => GetPlaceOfBirth(Subject);
             set
             {
                 try
-                {                
-                    if (!String.IsNullOrEmpty(value["addressState"]) && value["addressState"] != "TT" && !CodeExistsInValueSet(value["addressState"], VR.ValueSets.Jurisdiction.Codes))
+                {
+                    if (!String.IsNullOrEmpty(value["addressState"]) && !CodeExistsInValueSet(value["addressState"], VR.ValueSets.Jurisdiction.Codes))
+                    // if (!String.IsNullOrEmpty(value["addressState"]) && value["addressState"] != "TT" && !CodeExistsInValueSet(value["addressState"], VR.ValueSets.Jurisdiction.Codes))
                     {
                         return;
                     }
@@ -749,7 +747,8 @@ namespace BFDR
             get => GetPlaceOfBirth(Mother);
             set 
             {
-                try{
+                try
+                {
                     if (!String.IsNullOrEmpty(value["addressState"]) && !CodeExistsInValueSet(value["addressState"], VR.ValueSets.StatesTerritoriesProvinces.Codes))
                     {
                         return;
