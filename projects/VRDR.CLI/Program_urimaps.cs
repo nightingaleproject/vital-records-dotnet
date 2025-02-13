@@ -67,9 +67,5 @@ namespace VRDR.CLI
             { "http://hl7.org/fhir/us/vrdr/CodeSystem/CodeSystem-death-pregnancy-status", "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-pregnancy-status-cs" }
         };
 
-        private static readonly Dictionary<string, string>  decedentOnlyUris = new Dictionary<string, string>
-        {
-            { "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/ExtensionPartialDateTimeVitalRecords", "http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDate" }
-        };
     }   
 }

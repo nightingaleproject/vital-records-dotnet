@@ -362,7 +362,7 @@ namespace VRDR.CLI
                 ps.Add("display", "not applicable");
                 deathRecord.PregnancyStatus = ps;
 
-		        // TransportationRole
+                // TransportationRole
                 Dictionary<string, string> tr = new Dictionary<string, string>();
                 tr.Add("code", "257500003");
                 tr.Add("system", "http://snomed.info/sct");
@@ -524,19 +524,19 @@ namespace VRDR.CLI
             }
             else if (args.Length > 2 && args[0] == "ije2json")
             {
-              // This command will export the files to the same directory they were imported from.
-              for (int i = 1; i < args.Length; i++)
-              {
-                  string ijeFile = args[i];
-                  string ijeRawRecord = File.ReadAllText(ijeFile);
-                  IJEMortality ije = new IJEMortality(ijeRawRecord);
-                  DeathRecord d = ije.ToRecord();
-                  string outputFilename = ijeFile.Replace(".ije", ".json");
-                  StreamWriter sw = new StreamWriter(outputFilename);
-                  sw.WriteLine(d.ToJSON());
-                  sw.Flush();
-              }
-              return 0;
+                // This command will export the files to the same directory they were imported from.
+                for (int i = 1; i < args.Length; i++)
+                {
+                    string ijeFile = args[i];
+                    string ijeRawRecord = File.ReadAllText(ijeFile);
+                    IJEMortality ije = new IJEMortality(ijeRawRecord);
+                    DeathRecord d = ije.ToRecord();
+                    string outputFilename = ijeFile.Replace(".ije", ".json");
+                    StreamWriter sw = new StreamWriter(outputFilename);
+                    sw.WriteLine(d.ToJSON());
+                    sw.Flush();
+                }
+                return 0;
             }
             else if (args.Length == 2 && args[0] == "json2xml")
             {
@@ -888,7 +888,7 @@ namespace VRDR.CLI
                     if (d.DeathRecordIdentifier == null)
                     {
                         Console.WriteLine("Error: command json2mre requires a Coded Demographic Bundle; did you pass in a message?");
-                        return(1);
+                        return (1);
                     }
                     IJEMortality ije = new IJEMortality(d, false);
                     ije.DOD_YR = d.DeathRecordIdentifier.Substring(0, 4);
@@ -910,7 +910,7 @@ namespace VRDR.CLI
                     if (d.DeathRecordIdentifier == null)
                     {
                         Console.WriteLine("Error: command json2trx requires a Coded Cause Of Death Bundle; did you pass in a message?");
-                        return(1);
+                        return (1);
                     }
                     IJEMortality ije = new IJEMortality(d, false);
                     ije.DOD_YR = d.DeathRecordIdentifier.Substring(0, 4);
@@ -938,7 +938,7 @@ namespace VRDR.CLI
                     ije2.DSTATE = record2.DeathRecordIdentifier.Substring(4, 2);
                     ije2.FILENO = record2.DeathRecordIdentifier.Substring(6, 6);
                     string[] ijeonlyfields = new String[] { "AUXNO2", "POILITRL", "HOWINJ", "TRANSPRT", "COD1A", "INTERVAL1A", "COD1B", "INTERVAL1B", "OTHERCONDITION", "CERTDATE", "SUR_YR", "SUR_MO", "SUR_DY" };
- 		    return (CompareIJEtoIJE(ije1, "TRX", ije2, "JSON", ijeonlyfields));
+                    return (CompareIJEtoIJE(ije1, "TRX", ije2, "JSON", ijeonlyfields));
                 }
                 else
                 {
@@ -1070,15 +1070,15 @@ namespace VRDR.CLI
                 Console.WriteLine($"Filtering file {args[1]}");
 
                 BaseMessage baseMessage = BaseMessage.Parse(File.ReadAllText(args[1]));
-                
+
                 FilterService FilterService = new FilterService("./VRDR.Filter/NCHSIJEFilter.json", "./VRDR.Filter/IJEToFHIRMapping.json");
 
                 var filteredFile = FilterService.filterMessage(baseMessage).ToJson();
                 BaseMessage.Parse(filteredFile);
                 Console.WriteLine($"File successfully filtered and saved to {args[2]}");
-                    
+
                 File.WriteAllText(args[2], filteredFile);
-                
+
                 return 0;
             }
             //  - jsonstu2-to-stu3:  Read in an VRDR STU2.2 file and convert to STU3
@@ -1101,11 +1101,11 @@ namespace VRDR.CLI
                 Console.WriteLine($"Roundtrip STU3 json file {args[1]} to STU2 and compare content");
 
                 ConvertVersionJSON("./tempSTU2.json", args[1], true);
-                ConvertVersionJSON("./tempSTU3.json", "./tempSTU2.json",  false);
+                ConvertVersionJSON("./tempSTU3.json", "./tempSTU2.json", false);
                 d1 = new DeathRecord(File.ReadAllText(args[1]));
                 //d2 = new DeathRecord(File.ReadAllText("./tempSTU2.json"));
                 d3 = new DeathRecord(File.ReadAllText("./tempSTU3.json"));
-                return (CompareTwo(d1,d3));
+                return (CompareTwo(d1, d3));
             }
             // This could be included in the vrdr-dotnet CLI.  This version of the library can't process STU2 content.
             // else if (args.Length >= 2 && args[0] == "rdtripstu2-to-stu3")
@@ -1280,92 +1280,96 @@ namespace VRDR.CLI
             return differences;
         }
 
-    
-    // VRDR STU2.2 and STU3 are not compatible.  Content that transitioned from VRDR to VRCL as part of the harmonization changed identifiers.
-    // There will be jurisdictions using these different versions for a while, so converting between the versions is likely required.
-    
-    // CreateSTU2toSTU3Mapping:  Reverse the sense of the STU3 to STU2 mapping.
-    static Dictionary<string, string> CreateSTU2toSTU3Mapping(Dictionary<string, string> urisSTU3toSTU2)
-    {
-        var revUrisSTU3toSTU2 = new Dictionary<string, string>();
-        foreach (var kvp in urisSTU3toSTU2)
+
+        // VRDR STU2.2 and STU3 are not compatible.  Content that transitioned from VRDR to VRCL as part of the harmonization changed identifiers.
+        // There will be jurisdictions using these different versions for a while, so converting between the versions is likely required.
+
+        // CreateSTU2toSTU3Mapping:  Reverse the sense of the STU3 to STU2 mapping.
+        static Dictionary<string, string> CreateSTU2toSTU3Mapping(Dictionary<string, string> urisSTU3toSTU2)
         {
-            revUrisSTU3toSTU2[kvp.Value] = kvp.Key;
+            var revUrisSTU3toSTU2 = new Dictionary<string, string>();
+            foreach (var kvp in urisSTU3toSTU2)
+            {
+                revUrisSTU3toSTU2[kvp.Value] = kvp.Key;
+            }
+            return revUrisSTU3toSTU2;
         }
-        return revUrisSTU3toSTU2;
-    }
 
         // ConvertVersionJSON:  The boolean STU3toSTU2 should be true when used in this library that supports STU3.  
         // The same code could be used in the vrdr-dotnet library that supports VRDR STU2.2, with STU3toSTU2 set to false.
         static void ConvertVersionJSON(string pOutputFile, string pInputFile, bool STU3toSTU2)
-    {
-        var uris = urisSTU3toSTU2;
-        if (!STU3toSTU2){ // The mapping is bidirectional.  Depending on which direction, we flip the map.
-            uris = CreateSTU2toSTU3Mapping(urisSTU3toSTU2);
-        }
-        string content = File.ReadAllText(pInputFile);
-        // Iterate through the mapped strings, and replace them one by one
-        foreach (var kvp in uris)
         {
-            content = content.Replace(kvp.Key, kvp.Value);
-        }
-        // Fix an observation's code and CodeSystem.  This can't be done using string replace.
-        ParserSettings parserSettings = new ParserSettings
+            var uris = urisSTU3toSTU2;
+            if (!STU3toSTU2)
+            { // The mapping is bidirectional.  Depending on which direction, we flip the map.
+                uris = CreateSTU2toSTU3Mapping(urisSTU3toSTU2);
+            }
+            string content = File.ReadAllText(pInputFile);
+            // Iterate through the mapped strings, and replace them one by one
+            foreach (var kvp in uris)
+            {
+                content = content.Replace(kvp.Key, kvp.Value);
+            }
+            // Fix an observation's code and CodeSystem.  This can't be done using string replace.
+            ParserSettings parserSettings = new ParserSettings
             {
                 AcceptUnknownMembers = true,
                 AllowUnrecognizedEnums = true,
                 PermissiveParsing = true
             };
-        FhirJsonParser parser = new FhirJsonParser(parserSettings);
-        Bundle bundle = parser.Parse<Bundle>(content);
-        // Scan through all Observations to make sure they all have codes!
-        foreach (var ob in bundle.Entry.Where(entry => entry.Resource is Observation))
+            FhirJsonParser parser = new FhirJsonParser(parserSettings);
+            Bundle bundle = parser.Parse<Bundle>(content);
+            // Scan through all Observations to make sure they all have codes!
+            foreach (var ob in bundle.Entry.Where(entry => entry.Resource is Observation))
             {
                 Observation obs = (Observation)ob.Resource;
                 if (obs.Code == null || obs.Code.Coding == null || obs.Code.Coding.FirstOrDefault() == null || obs.Code.Coding.First().Code == null)
                 {
                     continue;
                 }
-                if(!STU3toSTU2){
-                switch (obs.Code.Coding.First().Code)
+                if (!STU3toSTU2)
                 {
-                    case "BR":
-                        obs.Code = new CodeableConcept(VR.CodeSystems.LocalObservationCodes, "childbirthrecordidentifier", "Birth Record Identifier of Child", null);
-                        break;
+                    switch (obs.Code.Coding.First().Code)
+                    {
+                        case "BR":
+                            obs.Code = new CodeableConcept(VR.CodeSystems.LocalObservationCodes, "childbirthrecordidentifier", "Birth Record Identifier of Child", null);
+                            break;
+                    }
                 }
-                }else{
-                switch (obs.Code.Coding.First().Code)
+                else
                 {
-                    case "childbirthrecordidentifier":
-                        obs.Code = new CodeableConcept(CodeSystems.HL7_identifier_type, "BR", "Birth registry number", null);
-                        break;
-                }   
-                }                   
+                    switch (obs.Code.Coding.First().Code)
+                    {
+                        case "childbirthrecordidentifier":
+                            obs.Code = new CodeableConcept(CodeSystems.HL7_identifier_type, "BR", "Birth registry number", null);
+                            break;
+                    }
+                }
             }
-        // Serialize the bundle as JSON
-        string newContent = bundle.ToJson(new FhirJsonSerializationSettings { Pretty = true, AppendNewLine = true });
-        File.WriteAllText(pOutputFile, newContent );
-    }
-
-static void ExchangeURLsXML(string pOutputFile, string pInputFile, bool STU3toSTU2)
-{
-    var uris = STU3toSTU2 ? urisSTU3toSTU2 : CreateSTU2toSTU3Mapping(urisSTU3toSTU2);
-    
-    var doc = XDocument.Load(pInputFile);
-    
-    foreach (var element in doc.Descendants())
-    {
-        foreach (var kvp in uris)
-        {
-            if (element.Value.Contains(kvp.Key))
-            {
-                element.Value = element.Value.Replace(kvp.Key, kvp.Value);
-            }
+            // Serialize the bundle as JSON
+            string newContent = bundle.ToJson(new FhirJsonSerializationSettings { Pretty = true, AppendNewLine = true });
+            File.WriteAllText(pOutputFile, newContent);
         }
-    }
-    
-    doc.Save(pOutputFile);
-}
-    
+
+        static void ExchangeURLsXML(string pOutputFile, string pInputFile, bool STU3toSTU2)
+        {
+            var uris = STU3toSTU2 ? urisSTU3toSTU2 : CreateSTU2toSTU3Mapping(urisSTU3toSTU2);
+
+            var doc = XDocument.Load(pInputFile);
+
+            foreach (var element in doc.Descendants())
+            {
+                foreach (var kvp in uris)
+                {
+                    if (element.Value.Contains(kvp.Key))
+                    {
+                        element.Value = element.Value.Replace(kvp.Key, kvp.Value);
+                    }
+                }
+            }
+
+            doc.Save(pOutputFile);
+        }
+
     }
 }
