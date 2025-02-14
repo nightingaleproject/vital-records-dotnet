@@ -27,8 +27,8 @@ namespace VRDR.CLI
     partial class Program
     {
 
-            // CompareTwo: Perform a field by field comparison of d1 to d3
-            private static int CompareTwo(DeathRecord d1, DeathRecord d3)
+            // CompareTwo: Perform a field by field comparison of d1 to d2
+            private static int CompareTwo(DeathRecord d1, DeathRecord d2)
             {
                 int good = 0;
                 int bad = 0;
@@ -42,28 +42,26 @@ namespace VRDR.CLI
                     if (property.PropertyType.ToString() == "System.Collections.Generic.Dictionary`2[System.String,System.String]")
                     {
                         Dictionary<string, string> oneDict = (Dictionary<string, string>)property.GetValue(d1);
-                        //Dictionary<string, string> twoDict = (Dictionary<string, string>)property.GetValue(d2);
-                        Dictionary<string, string> threeDict = (Dictionary<string, string>)property.GetValue(d3);
+                        Dictionary<string, string> twoDict = (Dictionary<string, string>)property.GetValue(d2);
                         // Ignore empty entries in the dictionary so they don't throw off comparisons.
                         one = String.Join(", ", oneDict.Select(x => (x.Value != "") ? (x.Key + "=" + x.Value) : ("")).ToArray()).Replace(" ,", "");
                         //two = String.Join(", ", twoDict.Select(x => (x.Value != "") ? (x.Key + "=" + x.Value) : ("")).ToArray()).Replace(" ,", "");
-                        three = String.Join(", ", threeDict.Select(x => (x.Value != "") ? (x.Key + "=" + x.Value) : ("")).ToArray()).Replace(" ,", "");
+                        two = String.Join(", ", twoDict.Select(x => (x.Value != "") ? (x.Key + "=" + x.Value) : ("")).ToArray()).Replace(" ,", "");
                     }
                     else if (property.PropertyType.ToString() == "System.String[]")
                     {
                         one = String.Join(", ", (string[])property.GetValue(d1));
-                        //two = String.Join(", ", (string[])property.GetValue(d2));
-                        three = String.Join(", ", (string[])property.GetValue(d3));
+                        two = String.Join(", ", (string[])property.GetValue(d2));
                     }
                     else
                     {
                         one = Convert.ToString(property.GetValue(d1));
                         //two = Convert.ToString(property.GetValue(d2));
-                        three = Convert.ToString(property.GetValue(d3));
+                        two = Convert.ToString(property.GetValue(d2));
                     }
-                    if (one.ToLower() != three.ToLower())
+                    if (one.ToLower() != two.ToLower())
                     {
-                        Console.WriteLine("[***** MISMATCH *****]\t" + $"\"{one}\" (property: {property.Name}) does not equal \"{three}\"" + $"      1:\"{one}\"  3:\"{three}\"");
+                        Console.WriteLine("[***** MISMATCH *****]\t" + $"\"{one}\" (property: {property.Name}) does not equal \"{two}\"" + $"      1:\"{one}\"  3:\"{two}\"");
                         bad++;
                     }
                     else
@@ -84,7 +82,7 @@ namespace VRDR.CLI
                 }
             }
 
-            // CompareTwo: Perform afield by field comparison of d1 to d2 to d3 and highlight differences
+            // CompareThree: Perform afield by field comparison of d1 to d2 to d3 and highlight differences
             private static int CompareThree(DeathRecord d1, DeathRecord d2, DeathRecord d3)
             {
                 int good = 0;
