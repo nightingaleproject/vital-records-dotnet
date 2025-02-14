@@ -138,5 +138,94 @@ namespace VRDR.CLI
                     return 0;
                 }
             }
+        // VRDR STU2.2 and STU3 are not compatible.  Content that transitioned from VRDR to VRCL as part of the harmonization changed identifiers.
+        // There will be jurisdictions using these different versions for a while, so converting between the versions is likely required.
+
+        // CreateSTU2toSTU3Mapping:  Reverse the sense of the STU3 to STU2 mapping.
+        static Dictionary<string, string> CreateSTU2toSTU3Mapping(Dictionary<string, string> urisSTU3toSTU2)
+        {
+            var revUrisSTU3toSTU2 = new Dictionary<string, string>();
+            foreach (var kvp in urisSTU3toSTU2)
+            {
+                revUrisSTU3toSTU2[kvp.Value] = kvp.Key;
+            }
+            return revUrisSTU3toSTU2;
+        }
+
+        // ConvertVersionJSON:  The boolean STU3toSTU2 should be true when used in this library that supports STU3.  
+        // The same code could be used in the vrdr-dotnet library that supports VRDR STU2.2, with STU3toSTU2 set to false.
+        static void ConvertVersionJSON(string pOutputFile, string pInputFile, bool STU3toSTU2)
+        {
+            var uris = urisSTU3toSTU2;
+            if (!STU3toSTU2)
+            { // The mapping is bidirectional.  Depending on which direction, we flip the map.
+                uris = CreateSTU2toSTU3Mapping(urisSTU3toSTU2);
+            }
+            string content = File.ReadAllText(pInputFile);
+            // Iterate through the mapped strings, and replace them one by one
+            foreach (var kvp in uris)
+            {
+                content = content.Replace(kvp.Key, kvp.Value);
+            }
+            // Fix an observation's code and CodeSystem.  This can't be done using string replace.
+            ParserSettings parserSettings = new ParserSettings
+            {
+                AcceptUnknownMembers = true,
+                AllowUnrecognizedEnums = true,
+                PermissiveParsing = true
+            };
+            FhirJsonParser parser = new FhirJsonParser(parserSettings);
+            Bundle bundle = parser.Parse<Bundle>(content);
+            // Scan through all Observations to make sure they all have codes!
+            foreach (var ob in bundle.Entry.Where(entry => entry.Resource is Observation))
+            {
+                Observation obs = (Observation)ob.Resource;
+                if (obs.Code == null || obs.Code.Coding == null || obs.Code.Coding.FirstOrDefault() == null || obs.Code.Coding.First().Code == null)
+                {
+                    continue;
+                }
+                if (!STU3toSTU2)
+                {
+                    switch (obs.Code.Coding.First().Code)
+                    {
+                        case "BR":
+                            obs.Code = new CodeableConcept(VR.CodeSystems.LocalObservationCodes, "childbirthrecordidentifier", "Birth Record Identifier of Child", null);
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (obs.Code.Coding.First().Code)
+                    {
+                        case "childbirthrecordidentifier":
+                            obs.Code = new CodeableConcept(CodeSystems.HL7_identifier_type, "BR", "Birth registry number", null);
+                            break;
+                    }
+                }
+            }
+            // Serialize the bundle as JSON
+            string newContent = bundle.ToJson(new FhirJsonSerializationSettings { Pretty = true, AppendNewLine = true });
+            File.WriteAllText(pOutputFile, newContent);
+        }
+
+        static void ExchangeURLsXML(string pOutputFile, string pInputFile, bool STU3toSTU2)
+        {
+            var uris = STU3toSTU2 ? urisSTU3toSTU2 : CreateSTU2toSTU3Mapping(urisSTU3toSTU2);
+
+            var doc = XDocument.Load(pInputFile);
+
+            foreach (var element in doc.Descendants())
+            {
+                foreach (var kvp in uris)
+                {
+                    if (element.Value.Contains(kvp.Key))
+                    {
+                        element.Value = element.Value.Replace(kvp.Key, kvp.Value);
+                    }
+                }
+            }
+
+            doc.Save(pOutputFile);
+        }
     }
 }
