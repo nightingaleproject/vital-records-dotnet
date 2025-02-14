@@ -1081,31 +1081,31 @@ namespace VRDR.CLI
 
                 return 0;
             }
-            //  - jsonstu2-to-stu3:  Read in an VRDR STU2.2 file and convert to STU3
             else if (args.Length >= 3 && args[0] == "jsonstu2-to-stu3")
             {
+                //  - jsonstu2-to-stu3:  Read in an VRDR STU2.2 file and convert to STU3
                 Console.WriteLine($"Converting json file {args[1]} to json file {args[2]} for VRDR STU3 conformance");
 
                 ConvertVersionJSON(args[2], args[1], false);
             }
-            //  - jsonstu2-to-stu3:  Read in an VRDR STU2.2 file and convert to STU3
             else if (args.Length >= 3 && args[0] == "jsonstu3-to-stu2")
             {
+                //  - jsonstu2-to-stu3:  Read in an VRDR STU2.2 file and convert to STU3
                 Console.WriteLine($"Converting json file {args[1]} to json file {args[2]} for VRDR STU2 conformance");
 
                 ConvertVersionJSON(args[2], args[1], true);
             }
             else if (args.Length >= 2 && args[0] == "rdtripstu3-to-stu2")
             {
-                DeathRecord d1, d3;
+                //  -rdtripstu3-to-stu2:  Roundtrip STU3 json file to STU2 and compare content
+                DeathRecord d1, d2;
                 Console.WriteLine($"Roundtrip STU3 json file {args[1]} to STU2 and compare content");
 
                 ConvertVersionJSON("./tempSTU2.json", args[1], true);
                 ConvertVersionJSON("./tempSTU3.json", "./tempSTU2.json", false);
                 d1 = new DeathRecord(File.ReadAllText(args[1]));
-                //d2 = new DeathRecord(File.ReadAllText("./tempSTU2.json"));
-                d3 = new DeathRecord(File.ReadAllText("./tempSTU3.json"));
-                return (CompareTwo(d1, d3));
+                d2 = new DeathRecord(File.ReadAllText("./tempSTU3.json"));
+                return (CompareTwo(d1, d2));
             }
             // This could be included in the vrdr-dotnet CLI.  This version of the library can't process STU2 content.
             // else if (args.Length >= 2 && args[0] == "rdtripstu2-to-stu3")
