@@ -48,7 +48,7 @@ namespace BFDR
       this.RestoreReferences(ProfileURL.BundleDocumentFetalDeathReport, new[] { ProfileURL.CompositionJurisdictionFetalDeathReport }, ProfileURL.PatientDecedentFetus);
       // Restore FetalDeath specific references.
       string maternityEncounterId = Composition?.Encounter.Reference;
-      EncounterMaternity = Bundle.Entry.FindAll(entry => entry.Resource is Encounter).ConvertAll(entry => (Encounter)entry.Resource).Find(resource => resource.Meta.Profile.Any(p => p == ProfileURL.EncounterMaternity) && maternityEncounterId.Contains(resource.Id));
+      EncounterMaternity = (Encounter)Bundle.Entry.Find(entry => entry.Resource is Encounter && maternityEncounterId.Contains(entry.Resource.Id))?.Resource;
     }
 
     /// <inheritdoc/>
