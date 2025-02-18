@@ -660,17 +660,16 @@ namespace BFDR
                 if (!String.IsNullOrWhiteSpace(value))
                 {
                     Dictionary<string, string> currentAddress = PlaceOfBirth;
-                    // TODO - determine how YC/Jurisdictional checks should be handled and update. For now, this just sets the state of the PlaceOfBirth.
-                    // if (value == "YC")
-                    // {
-                    //     currentAddress["addressJurisdiction"] = value;
-                    //     currentAddress["addressState"] = "NY";
-                    // }
-                    // else
-                    // {
-                    currentAddress["addressJurisdiction"] = value;
-                    currentAddress["addressState"] = value;
-                    // }
+                    if (value == "YC")
+                    {
+                        currentAddress["addressJurisdiction"] = value;
+                        currentAddress["addressState"] = "NY";
+                    }
+                    else
+                    {
+                        currentAddress["addressJurisdiction"] = value;
+                        currentAddress["addressState"] = value;
+                    }
                     PlaceOfBirth = currentAddress;
                     // TODO - UpdateDeathRecordIdentifier();
                 }
@@ -679,37 +678,28 @@ namespace BFDR
 
         /// <summary>Child's Place Of Birth.</summary>
         /// <value>Child's Place Of Birth. A Dictionary representing residence address, containing the following key/value pairs:
-        /// <para>"addressLine1" - address, line one</para>
-        /// <para>"addressLine2" - address, line two</para>
         /// <para>"addressCity" - address, city</para>
         /// <para>"addressCounty" - address, county</para>
+        /// <para>"addressCountyC" - address, countyC</para>
         /// <para>"addressState" - address, state</para>
-        /// <para>"addressZip" - address, zip</para>
-        /// <para>"addressCountry" - address, country</para>
+
         /// </value>
         /// <example>
         /// <para>// Setter:</para>
         /// <para>Dictionary&lt;string, string&gt; address = new Dictionary&lt;string, string&gt;();</para>
-        /// <para>address.Add("addressLine1", "123 Test Street");</para>
-        /// <para>address.Add("addressLine2", "Unit 3");</para>
         /// <para>address.Add("addressCity", "Boston");</para>
         /// <para>address.Add("addressCounty", "Suffolk");</para>
+        /// <para>address.Add("addressCountyC", "8153");</para>
         /// <para>address.Add("addressState", "MA");</para>
-        /// <para>address.Add("addressZip", "12345");</para>
-        /// <para>address.Add("addressCountry", "US");</para>
         /// <para>ExampleBirthRecord.PlaceOfBirth = address;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"State where child was born: {ExampleBirthRecord.PlaceOfBirth["placeOfBirthState"]}");</para>
         /// </example>
         [Property("Place Of Birth", Property.Types.Dictionary, "Child Demographics", "Child's Place Of Birth.", true, VR.IGURL.Child, true, 15)]
-        [PropertyParam("addressLine1", "address, line one")]
-        [PropertyParam("addressLine2", "address, line two")]
         [PropertyParam("addressCity", "address, city")]
         [PropertyParam("addressCounty", "address, county")]
         [PropertyParam("addressCountyC", "address, county code")]
         [PropertyParam("addressState", "address, state")]
-        [PropertyParam("addressZip", "address, zip")]
-        [PropertyParam("addressCountry", "address, country")]
         [FHIRPath("Bundle.entry.resource.where($this is Patient).extension.where(url='" + OtherExtensionURL.PatientBirthPlace + "')", "")]
         public Dictionary<string, string> PlaceOfBirth
         {
@@ -737,36 +727,21 @@ namespace BFDR
         }
 
         /// <summary>Mother's Place Of Birth.</summary>
-        /// <value>Mother's Place Of Birth. A Dictionary representing residence address, containing the following key/value pairs:
-        /// <para>"addressLine1" - address, line one</para>
-        /// <para>"addressLine2" - address, line two</para>
-        /// <para>"addressCity" - address, city</para>
-        /// <para>"addressCounty" - address, county</para>
+        /// <value>Mother's Place Of Birth. A Dictionary representing birthplace location, containing the following key/value pairs:
         /// <para>"addressState" - address, state</para>
-        /// <para>"addressZip" - address, zip</para>
         /// <para>"addressCountry" - address, country</para>
         /// </value>
         /// <example>
         /// <para>// Setter:</para>
         /// <para>Dictionary&lt;string, string&gt; address = new Dictionary&lt;string, string&gt;();</para>
-        /// <para>address.Add("addressLine1", "123 Test Street");</para>
-        /// <para>address.Add("addressLine2", "Unit 3");</para>
-        /// <para>address.Add("addressCity", "Boston");</para>
-        /// <para>address.Add("addressCounty", "Suffolk");</para>
         /// <para>address.Add("addressState", "MA");</para>
-        /// <para>address.Add("addressZip", "12345");</para>
         /// <para>address.Add("addressCountry", "US");</para>
         /// <para>ExampleBirthRecord.MotherPlaceOfBirth = address;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"State where mother was born: {ExampleBirthRecord.MotherPlaceOfBirth["placeOfBirthState"]}");</para>
         /// </example>
         [Property("Mother's Place Of Birth", Property.Types.Dictionary, "Mother Demographics", "Mother's Place Of Birth.", true, VR.IGURL.Mother, true, 305)]
-        [PropertyParam("addressLine1", "address, line one")]
-        [PropertyParam("addressLine2", "address, line two")]
-        [PropertyParam("addressCity", "address, city")]
-        [PropertyParam("addressCounty", "address, county")]
         [PropertyParam("addressState", "address, state")]
-        [PropertyParam("addressZip", "address, zip")]
         [PropertyParam("addressCountry", "address, country")]
         [FHIRPath("Bundle.entry.resource.where($this is Patient).extension.where(url='" + OtherExtensionURL.PatientBirthPlace + "')", "")]
         public Dictionary<string, string> MotherPlaceOfBirth
@@ -794,36 +769,35 @@ namespace BFDR
         }
 
         /// <summary>Father's Place Of Birth.</summary>
-        /// <value>Father's Place Of Birth. A Dictionary representing residence address, containing the following key/value pairs:
-        /// <para>"addressLine1" - address, line one</para>
-        /// <para>"addressLine2" - address, line two</para>
-        /// <para>"addressCity" - address, city</para>
-        /// <para>"addressCounty" - address, county</para>
+        /// <value>Mother's Place Of Birth. A Dictionary representing birthplace location, containing the following key/value pairs:
         /// <para>"addressState" - address, state</para>
-        /// <para>"addressZip" - address, zip</para>
         /// <para>"addressCountry" - address, country</para>
         /// </value>
         /// <example>
         /// <para>// Setter:</para>
         /// <para>Dictionary&lt;string, string&gt; address = new Dictionary&lt;string, string&gt;();</para>
-        /// <para>address.Add("addressLine1", "123 Test Street");</para>
-        /// <para>address.Add("addressLine2", "Unit 3");</para>
-        /// <para>address.Add("addressCity", "Boston");</para>
-        /// <para>address.Add("addressCounty", "Suffolk");</para>
         /// <para>address.Add("addressState", "MA");</para>
-        /// <para>address.Add("addressZip", "12345");</para>
+        /// <para>address.Add("addressCountry", "US");</para>
+        /// <para>ExampleBirthRecord.FatherPlaceOfBirth = address;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"State where father was born: {ExampleBirthRecord.FatherPlaceOfBirth["placeOfBirthState"]}");</para>
+        /// </example>
+        /// /// <summary>Father's Place Of Birth.</summary>
+        /// <value>Father's Place Of Birth. A Dictionary representing residence address, containing the following key/value pairs:
+        /// <para>"addressState" - address, state</para>
+        /// <para>"addressCountry" - address, country</para>
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>Dictionary&lt;string, string&gt; address = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>address.Add("addressState", "MA");</para>
         /// <para>address.Add("addressCountry", "US");</para>
         /// <para>ExampleBirthRecord.FatherPlaceOfBirth = address;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"State where father was born: {ExampleBirthRecord.FatherPlaceOfBirth["placeOfBirthState"]}");</para>
         /// </example>
         [Property("Father's Place Of Birth", Property.Types.Dictionary, "Father Demographics", "Father's Place Of Birth.", true, VR.IGURL.RelatedPersonFather, true, 291)]
-        [PropertyParam("addressLine1", "address, line one")]
-        [PropertyParam("addressLine2", "address, line two")]
-        [PropertyParam("addressCity", "address, city")]
-        [PropertyParam("addressCounty", "address, county")]
         [PropertyParam("addressState", "address, state")]
-        [PropertyParam("addressZip", "address, zip")]
         [PropertyParam("addressCountry", "address, country")]
         [FHIRPath("Bundle.entry.resource.where($this is RelatedPerson).extension.where(url='" + OtherExtensionURL.RelatedPersonBirthPlace + "')", "")]
         public Dictionary<string, string> FatherPlaceOfBirth
@@ -841,6 +815,12 @@ namespace BFDR
         /// <para>"addressState" - address, state</para>
         /// <para>"addressZip" - address, zip</para>
         /// <para>"addressCountry" - address, country</para>
+        /// <para>"addressStnum" - address, stnum</para>
+        /// <para>"addressPredir" - address, predir</para>
+        /// <para>"addressPostdir" - address, postdir</para>
+        /// <para>"addressStname" - address, stname</para>
+        /// <para>"addressStrdesig" - address, strdesig</para>
+        /// <para>"addressUnitnum" - address, unitnum</para>
         /// </value>
         /// <example>
         /// <para>// Setter:</para>
@@ -852,6 +832,12 @@ namespace BFDR
         /// <para>address.Add("addressState", "MA");</para>
         /// <para>address.Add("addressZip", "12345");</para>
         /// <para>address.Add("addressCountry", "US");</para>
+        /// <para>address.Add("addressStnum", "123");</para>
+        /// <para>address.Add("addressPredir", "E");</para>
+        /// <para>address.Add("addressPostDir", "SW");</para>
+        /// <para>address.Add("addressStname", "Test");</para>
+        /// <para>address.Add("addressStrdesig", "Street");</para>
+        /// <para>address.Add("addressUnitnum", "3");</para>
         /// <para>ExampleBirthRecord.MotherResidence = address;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"State where mother resides: {ExampleBirthRecord.MotherResidence["addressState"]}");</para>
@@ -860,11 +846,16 @@ namespace BFDR
         [PropertyParam("addressLine1", "address, line one")]
         [PropertyParam("addressLine2", "address, line two")]
         [PropertyParam("addressCity", "address, city")]
-        [PropertyParam("addressCityC", "address, cityC")]
         [PropertyParam("addressCounty", "address, county")]
         [PropertyParam("addressState", "address, state")]
         [PropertyParam("addressZip", "address, zip")]
         [PropertyParam("addressCountry", "address, country")]
+        [PropertyParam("addressStnum", "address, stnum")]
+        [PropertyParam("addressPredir", "address, predir")]
+        [PropertyParam("addressPostdir", "address, postdir")]
+        [PropertyParam("addressStname", "address, stname")]
+        [PropertyParam("addressStrdesig", "address, strdesig")]
+        [PropertyParam("addressUnitnum", "address, unitnum")]
         [FHIRPath("Bundle.entry.resource.where($this is Patient)", "address")]
         public Dictionary<string, string> MotherResidence
         {
@@ -897,6 +888,12 @@ namespace BFDR
         /// <para>"addressState" - address, state</para>
         /// <para>"addressZip" - address, zip</para>
         /// <para>"addressCountry" - address, country</para>
+        /// <para>"addressStnum" - address, stnum</para>
+        /// <para>"addressPredir" - address, predir</para>
+        /// <para>"addressPostdir" - address, postdir</para>
+        /// <para>"addressStname" - address, stname</para>
+        /// <para>"addressStrdesig" - address, strdesig</para>
+        /// <para>"addressUnitnum" - address, unitnum</para>
         /// </value>
         /// <example>
         /// <para>// Setter:</para>
@@ -908,6 +905,12 @@ namespace BFDR
         /// <para>address.Add("addressState", "MA");</para>
         /// <para>address.Add("addressZip", "12345");</para>
         /// <para>address.Add("addressCountry", "US");</para>
+        /// <para>address.Add("addressStnum", "123");</para>
+        /// <para>address.Add("addressPredir", "E");</para>
+        /// <para>address.Add("addressPostDir", "SW");</para>
+        /// <para>address.Add("addressStname", "Test");</para>
+        /// <para>address.Add("addressStrdesig", "Street");</para>
+        /// <para>address.Add("addressUnitnum", "3");</para>
         /// <para>ExampleBirthRecord.MotherBilling = address;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"State where mother is billed: {ExampleBirthRecord.MotherBilling["addressState"]}");</para>
@@ -920,6 +923,12 @@ namespace BFDR
         [PropertyParam("addressState", "address, state")]
         [PropertyParam("addressZip", "address, zip")]
         [PropertyParam("addressCountry", "address, country")]
+        [PropertyParam("addressStnum", "address, stnum")]
+        [PropertyParam("addressPredir", "address, predir")]
+        [PropertyParam("addressPostdir", "address, postdir")]
+        [PropertyParam("addressStname", "address, stname")]
+        [PropertyParam("addressStrdesig", "address, strdesig")]
+        [PropertyParam("addressUnitnum", "address, unitnum")]
         [FHIRPath("Bundle.entry.resource.where($this is Patient)", "address")]
         public Dictionary<string, string> MotherBilling
         {
@@ -7155,7 +7164,7 @@ namespace BFDR
                 }
                 if (!VR.Mappings.BirthAttendantTitles.FHIRToIJE.ContainsKey(value))
                 { //other
-                    Console.WriteLine("Warning: given 'attendant title' code not found in value set. Setting value to 'Other'.");
+                    Console.WriteLine("Warning: given 'attendant title' code *" + value + "* not found in value set. Setting code value to 'Other'.");
                     AttendantTitle = CodeableConceptToDict(new CodeableConcept(CodeSystems.NullFlavor_HL7_V3, "OTH", "Other", value));
                 }
                 else
@@ -8438,8 +8447,8 @@ namespace BFDR
                 if (!BFDR.Mappings.BirthAndFetalDeathFinancialClass.FHIRToIJE.ContainsKey(value))
                 {
                     // unknown
-                    Console.WriteLine("Warning: given 'principal source of payment for this delivery' code not found in value set. Setting value to 'Unavailable / Unknown'.");
-                    PayorTypeFinancialClass = CodeableConceptToDict(new CodeableConcept(CodeSystems.NAHDO, "9999", "Unavailable / Unknown", value));
+
+                    Console.WriteLine("Warning: given 'principal source of payment for this delivery' *" + value + "* code not found in value set. Setting code value to 'Unavailable / Unknown'.");                    PayorTypeFinancialClass = CodeableConceptToDict(new CodeableConcept(CodeSystems.NAHDO, "9999", "Unavailable / Unknown", value));
                 }
                 else
                 {
@@ -8925,7 +8934,8 @@ namespace BFDR
                 }
                 if (!VR.Mappings.BirthAttendantTitles.FHIRToIJE.ContainsKey(value))
                 { //other
-                    Console.WriteLine("Warning: given 'certifier title' code not found in value set. Setting value to 'Other'.");
+
+                    Console.WriteLine("Warning: given 'certifier title' *" + value + "* not found in value set. Setting code value to 'Other'.");
                     CertifierTitle = CodeableConceptToDict(new CodeableConcept(CodeSystems.NullFlavor_HL7_V3, "OTH", "Other", value));
                 }
                 else
