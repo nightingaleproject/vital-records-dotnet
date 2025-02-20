@@ -217,6 +217,9 @@
         <member name="F:VR.IJE.dataLookup">
             <summary>IJE data lookup helper. Thread-safe singleton!</summary>
         </member>
+        <member name="F:VR.IJE._void">
+            <summary>Field _void.</summary>
+        </member>
         <member name="P:VR.IJE.Record">
             <summary>FHIR based vital record.</summary>
         </member>
@@ -268,6 +271,12 @@
         </member>
         <member name="M:VR.IJE.RightJustifiedZeroed_Set(System.String,System.String,System.String)">
             <summary>Set a value on the VitalRecord whose IJE type is a right justified, zero filled string.</summary>
+        </member>
+        <member name="M:VR.IJE.Get_Void">
+            <summary>Gets the Void IJE status.</summary>
+        </member>
+        <member name="M:VR.IJE.Set_Void(System.String)">
+            <summary>Sets the Void IJE status.</summary>
         </member>
         <member name="M:VR.IJE.ProcessIJE(System.String,System.Boolean)">
             <summary>Helper that takes an IJE string and builds a corresponding internal <c>VitalRecord</c>.</summary>

@@ -33,9 +33,6 @@ namespace VRDR
         /// <summary>Utility location to provide support for setting MRE-only fields that have no mapping in IJE when creating coding response records</summary>
         public MREHelper mre;
 
-        /// <summary>Field _void.</summary>
-        private string _void;
-
         /// <summary>Field _alias.</summary>
         private string _alias;
 
@@ -552,28 +549,8 @@ namespace VRDR
         [IJEField(4, 13, 1, "Void flag", "VOID", 1)]
         public string VOID
         {
-            get
-            {
-		if(_void == null)
-		{
-		  return "0";
-		}
-                else
-		{
-		  return _void;
-		}
-            }
-            set
-            {
-		if(value.Trim() == "1")
-		{
-		  _void = "1";
-		}
-		else
-		{
-		  _void = "0";
-		}
-            }
+            get => Get_Void();
+            set => Set_Void(value);
         }
 
         /// <summary>Auxiliary State file number</summary>
