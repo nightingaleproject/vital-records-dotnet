@@ -708,8 +708,7 @@ namespace BFDR
             {
                 try
                 {
-                    if (!String.IsNullOrEmpty(value["addressState"]) && !CodeExistsInValueSet(value["addressState"], VR.ValueSets.Jurisdiction.Codes))
-                    // if (!String.IsNullOrEmpty(value["addressState"]) && value["addressState"] != "TT" && !CodeExistsInValueSet(value["addressState"], VR.ValueSets.Jurisdiction.Codes))
+                    if (!String.IsNullOrEmpty(value["addressState"]) && value["addressState"] != "TT" && !CodeExistsInValueSet(value["addressState"], VR.ValueSets.Jurisdiction.Codes))
                     {
                         return;
                     }

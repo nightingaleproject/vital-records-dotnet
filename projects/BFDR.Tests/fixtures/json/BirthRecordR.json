@@ -494,6 +494,15 @@
                     "valuePositiveInt": 19
                   }
                 ]
+              },
+              "state": "TT",
+              "_state": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-jurisdiction-id-vr",
+                    "valueString": "TT"
+                  }
+                ]
               }
             }
           }
