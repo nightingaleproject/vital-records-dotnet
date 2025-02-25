@@ -14,7 +14,7 @@
       }
     ],
     "system": "http://nchs.cdc.gov/bfdr_id",
-    "value": "2024XX099991"
+    "value": "2024TT099991"
   },
   "type": "document",
   "timestamp": "2024-11-14T13:18:42.470213-05:00",
@@ -492,6 +492,15 @@
                   {
                     "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/DistrictCode",
                     "valuePositiveInt": 19
+                  }
+                ]
+              },
+              "state": "TT",
+              "_state": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-jurisdiction-id-vr",
+                    "valueString": "TT"
                   }
                 ]
               }
