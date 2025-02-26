@@ -38,8 +38,8 @@
           "coding": [
             {
               "system": "http://loinc.org",
-              "code": "71230-7",
-              "display": "Fetal Death Report"
+              "code": "92010-8",
+              "display": "Jurisdiction fetal death report Document"
             }
           ]
         },
