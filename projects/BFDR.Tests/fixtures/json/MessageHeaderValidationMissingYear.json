@@ -88,8 +88,8 @@
                 "coding": [
                   {
                     "system": "http://loinc.org",
-                    "code": "71230-7",
-                    "display": "Birth certificate"
+                    "code": "92011-6",
+                    "display": "Jurisdiction live birth report Document"
                   }
                 ]
               },
