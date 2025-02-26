@@ -139,7 +139,7 @@ namespace BFDR.Tests
       Assert.Equal("2024", ije.FDOD_YR);
       Assert.Equal("MA", ije.DSTATE);
       Assert.Equal("000008", ije.FILENO);
-      Assert.Equal("", ije.VOID);
+      Assert.Equal("0", ije.VOID);
       Assert.Equal("000000000000", ije.AUXNO);
       Assert.Equal("1830", ije.TD);
       Assert.Equal("M", ije.FSEX);

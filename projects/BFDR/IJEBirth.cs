@@ -159,15 +159,8 @@ namespace BFDR
         [IJEField(4, 13, 1, "Void flag", "VOID", 1)]
         public string VOID
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => Get_Void();
+            set => Set_Void(value);
         }
 
         /// <summary>Auxiliary State file number</summary>

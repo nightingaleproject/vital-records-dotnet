@@ -1204,5 +1204,28 @@ namespace BFDR.Tests
       Assert.Equal("8888", ije.YLLB);
       Assert.Null(ije.ToRecord().DateOfLastLiveBirthYear);
     }
+
+    [Fact]
+    public void SetVOID()
+    {
+      IJEBirth ije = new IJEBirth();
+      Assert.Equal("0", ije.VOID);
+      ije.VOID = "123";
+      Assert.Equal("0", ije.VOID);
+      ije.VOID = " ";
+      Assert.Equal("0", ije.VOID);
+      ije.VOID = "abc #$@";
+      Assert.Equal("0", ije.VOID);
+      ije.VOID = " 0 ";
+      Assert.Equal("0", ije.VOID);
+      ije.VOID = "0";
+      Assert.Equal("0", ije.VOID);
+      ije.VOID = " 1 ";
+      Assert.Equal("1", ije.VOID);
+      ije.VOID = "1";
+      Assert.Equal("1", ije.VOID);
+      ije.VOID = "2";
+      Assert.Equal("0", ije.VOID);
+    }
   }
 }

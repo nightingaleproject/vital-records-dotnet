@@ -56,6 +56,9 @@ namespace VR
         /// <summary>IJE data lookup helper. Thread-safe singleton!</summary>
         protected IJEData dataLookup = IJEData.Instance;
 
+        /// <summary>Field _void.</summary>
+        private string _void;
+
         /// <summary>FHIR based vital record.</summary>
         protected abstract VitalRecord Record
         {
@@ -278,6 +281,32 @@ namespace VR
         {
             IJEField info = FieldInfo(ijeFieldName);
             Record.GetType().GetProperty(fhirFieldName).SetValue(Record, value.TrimStart('0'));
+        }
+
+        /// <summary>Gets the Void IJE status.</summary>
+        protected string Get_Void()
+        {
+            if(_void == null)
+            {
+                return "0";
+            }
+            else
+            {
+                return _void;
+            }
+        }
+
+        /// <summary>Sets the Void IJE status.</summary>
+        protected void Set_Void(string value)
+        {
+            if(value.Trim() == "1")
+            {
+                _void = "1";
+            }
+            else
+            {
+                _void = "0";
+            }
         }
 
         /// <summary>Helper that takes an IJE string and builds a corresponding internal <c>VitalRecord</c>.</summary>
