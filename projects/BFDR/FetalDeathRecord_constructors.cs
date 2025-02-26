@@ -45,9 +45,9 @@ namespace BFDR
     {
       // Do we need differentiate anything for [http://hl7.org/fhir/us/bfdr/StructureDefinition/Bundle-document-demographic-coded-content]? It's not technically a Fetal Death Report bundle... https://build.fhir.org/ig/HL7/fhir-bfdr/StructureDefinition-Bundle-document-demographic-coded-content.html
       // Restore the common references between Birth Records and Fetal Death Records.
-      this.RestoreReferences(ProfileURL.BundleDocumentFetalDeathReport, new[] { ProfileURL.CompositionJurisdictionFetalDeathReport }, ProfileURL.PatientDecedentFetus);
+      base.RestoreReferences();
       // Restore FetalDeath specific references.
-      string maternityEncounterId = Composition?.Encounter.Reference;
+      string maternityEncounterId = Composition?.Encounter?.Reference;
       EncounterMaternity = (Encounter)Bundle.Entry.Find(entry => entry.Resource is Encounter && maternityEncounterId.Contains(entry.Resource.Id))?.Resource;
     }
 

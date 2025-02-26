@@ -3413,7 +3413,7 @@
             <summary>Helper method to return the subset of this record that makes up a DemographicCodedContent bundle.</summary>
             <returns>a new FHIR Bundle</returns>
         </member>
-        <member name="M:BFDR.NatalityRecord.RestoreReferences(System.String,System.String[],System.String)">
+        <member name="M:BFDR.NatalityRecord.RestoreReferences">
             <summary>Restores class references from a newly parsed record.</summary>
         </member>
         <member name="F:BFDR.NatalityRecord.Subject">
@@ -3436,6 +3436,9 @@
         </member>
         <member name="F:BFDR.NatalityRecord.EncounterMaternity">
             <summary>The maternity encounter.</summary>
+        </member>
+        <member name="F:BFDR.NatalityRecord.COMPOSITION_PROVIDER_FETAL_DEATH_REPORT">
+            <summary>Composition Type Constants</summary>
         </member>
         <member name="F:BFDR.NatalityRecord.MOTHER_PRENATAL_SECTION">
             <summary>Composition Section Constants</summary>
