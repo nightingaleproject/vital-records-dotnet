@@ -3392,7 +3392,7 @@
         <member name="M:BFDR.NatalityRecord.InitializeCompositionAndSubject">
             <summary>Initialize Composition and Subject.</summary>
         </member>
-        <member name="M:BFDR.NatalityRecord.#ctor(System.String,System.Boolean)">
+        <member name="M:BFDR.NatalityRecord.#ctor(System.String,System.String[],System.Boolean)">
             <summary>Constructor that takes a string that represents a FHIR Natality Record in either XML or JSON format.</summary>
             <param name="record">represents a FHIR Natality Record in either XML or JSON format.</param>
             <param name="permissive">if the parser should be permissive when parsing the given string</param>

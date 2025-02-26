@@ -97,7 +97,7 @@ namespace VRDR
         /// <param name="record">represents a FHIR Death Record in either XML or JSON format.</param>
         /// <param name="permissive">if the parser should be permissive when parsing the given string</param>
         /// <exception cref="ArgumentException">Record is neither valid XML nor JSON.</exception>
-        public DeathRecord(string record, bool permissive = false) : base(record, permissive){}
+        public DeathRecord(string record, bool permissive = false) : base(record, new[] { ProfileURL.DeathCertificateDocument }, permissive){}
 
         /// <summary>Constructor that takes a FHIR Bundle that represents a FHIR Death Record.</summary>
         /// <param name="bundle">represents a FHIR Bundle.</param>
