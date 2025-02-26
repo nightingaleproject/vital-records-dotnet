@@ -45,7 +45,7 @@ namespace BFDR
         protected override void RestoreReferences()
         {
             // Restore the common references between Birth Records and Fetal Death Records.
-            base.RestoreReferences(ProfileURL.BundleDocumentBirthReport, new[] {ProfileURL.CompositionProviderLiveBirthReport, ProfileURL.CompositionJurisdictionLiveBirthReport}, VR.ProfileURL.Child);
+            base.RestoreReferences();
             // Restore BirthRecord specific references.
             string birthEncounterId = Composition?.Encounter?.Reference;
             EncounterBirth = (Encounter)Bundle.Entry.Find(entry => entry.Resource is Encounter && birthEncounterId.Contains(entry.Resource.Id))?.Resource;
