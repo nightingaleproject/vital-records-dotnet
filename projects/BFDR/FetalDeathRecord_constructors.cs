@@ -26,7 +26,7 @@ namespace BFDR
     /// <param name="record">represents a FHIR FetalDeath Record in either XML or JSON format.</param>
     /// <param name="permissive">if the parser should be permissive when parsing the given string</param>
     /// <exception cref="ArgumentException">Record is neither valid XML nor JSON.</exception>
-    public FetalDeathRecord(string record, bool permissive = false) : base(record, permissive) { }
+    public FetalDeathRecord(string record, bool permissive = false) : base(record, new[] { ProfileURL.BundleDocumentFetalDeathReport  }, permissive) { }
 
     /// <summary>Constructor that takes a FHIR Bundle that represents a FHIR FetalDeath Record.</summary>
     /// <param name="bundle">represents a FHIR Bundle.</param>

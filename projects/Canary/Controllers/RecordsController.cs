@@ -92,41 +92,39 @@ namespace canary.Controllers
 
             if (!String.IsNullOrEmpty(input))
             {
-                if (input.Trim().StartsWith("<") || input.Trim().StartsWith("{")) // XML or JSON?
+                try // IJE?
                 {
-                    return ControllerMappers.checkGetRecord[recordType](input, false);
+                    if (input.Trim().StartsWith("<") || input.Trim().StartsWith("{")) // XML or JSON?
+                    {
+                        return ControllerMappers.checkGetRecord[recordType](input, false);
+                    }
+
+                    int ijeLength = 5000;
+                    if (recordType == ControllerMappers.BFDR_BIRTH) {
+                        ijeLength = 4000;
+                    } else if (recordType == ControllerMappers.BFDR_FETALDEATH) {
+                        ijeLength = 6000;
+                    }
+                    // If input.Length != 5000, truncate/pad according to force it to 5000.
+                    if (input.Length > ijeLength)
+                    {
+                        input = input.Substring(0, ijeLength);
+                    }
+                    else if (input.Length < ijeLength)
+                    {
+                        input = input.PadRight(ijeLength, ' ');
+                    }
+                    return ControllerMappers.createRecordFromIJE[recordType](input);
                 }
-                else
+                catch (Exception e)
                 {
-                    try // IJE?
+                    String message = e.Message;
+                    while (e.InnerException != null)
                     {
-                        int ijeLength = 5000;
-                        if (recordType == ControllerMappers.BFDR_BIRTH) {
-                            ijeLength = 4000;
-                        } else if (recordType == ControllerMappers.BFDR_FETALDEATH) {
-                            ijeLength = 6000;
-                        }
-                        // If input.Length != 5000, truncate/pad according to force it to 5000.
-                        if (input.Length > ijeLength)
-                        {
-                            input = input.Substring(0, ijeLength);
-                        }
-                        else if (input.Length < ijeLength)
-                        {
-                            input = input.PadRight(ijeLength, ' ');
-                        }
-                        return ControllerMappers.createRecordFromIJE[recordType](input);
+                        e = e.InnerException;
+                        message += "; Inner Exception = [ " + e.Message + " ]";
                     }
-                    catch (Exception e)
-                    {
-                        String message = e.Message;
-                        while (e.InnerException != null)
-                        {
-                            e = e.InnerException;
-                            message += "; Inner Exception = [ " + e.Message + " ]";
-                        }
-                        return (null, new List<Dictionary<string, string>> { new Dictionary<string, string> { { "severity", "error" }, { "message", message } } });
-                    }
+                    return (null, new List<Dictionary<string, string>> { new Dictionary<string, string> { { "severity", "error" }, { "message", message } } });
                 }
             }
             else

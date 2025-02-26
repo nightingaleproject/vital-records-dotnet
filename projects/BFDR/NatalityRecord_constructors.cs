@@ -122,7 +122,7 @@ namespace BFDR
         /// <param name="record">represents a FHIR Natality Record in either XML or JSON format.</param>
         /// <param name="permissive">if the parser should be permissive when parsing the given string</param>
         /// <exception cref="ArgumentException">Record is neither valid XML nor JSON.</exception>
-        public NatalityRecord(string record, bool permissive = false) : base(record, permissive){}
+        public NatalityRecord(string record, string[] validProfiles, bool permissive = false) : base(record, validProfiles, permissive) {}
 
         /// <summary>Constructor that takes a FHIR Bundle that represents a FHIR Natality Record.</summary>
         /// <param name="bundle">represents a FHIR Bundle.</param>

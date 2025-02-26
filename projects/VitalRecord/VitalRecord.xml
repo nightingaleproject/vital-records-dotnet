@@ -6823,7 +6823,7 @@
         <member name="M:VR.VitalRecord.#ctor">
             <summary>Default constructor that creates a new, empty Record.</summary>
         </member>
-        <member name="M:VR.VitalRecord.#ctor(System.String,System.Boolean)">
+        <member name="M:VR.VitalRecord.#ctor(System.String,System.String[],System.Boolean)">
             <summary>Constructor that takes a string that represents a FHIR Vital Record in either XML or JSON format.</summary>
             <param name="record">represents a FHIR Vital Record in either XML or JSON format.</param>
             <param name="permissive">if the parser should be permissive when parsing the given string</param>
