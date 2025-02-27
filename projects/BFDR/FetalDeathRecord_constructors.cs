@@ -68,7 +68,7 @@ namespace BFDR
       {
         Profile = new[] { ProfileURL.CompositionJurisdictionFetalDeathReport }
       };
-      Composition.Type = new CodeableConcept(CodeSystems.LOINC, "71230-7", "Fetal Death Report", null);
+      Composition.Type = new CodeableConcept(CodeSystems.LOINC, "92010-8", "Jurisdiction fetal death report Document", null);
       Composition.Title = "Fetal Death Report";
     }
   }

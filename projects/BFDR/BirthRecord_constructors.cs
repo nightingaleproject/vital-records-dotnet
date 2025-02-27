@@ -68,7 +68,7 @@ namespace BFDR
             {
                 Profile = new[] { ProfileURL.CompositionJurisdictionLiveBirthReport }
             };
-            Composition.Type = new CodeableConcept(CodeSystems.LOINC, "71230-7", "Birth certificate", null);
+            Composition.Type = new CodeableConcept(CodeSystems.LOINC, "92011-6", "Jurisdiction live birth report Document", null);
             Composition.Title = "Birth Certificate";
         }
 
