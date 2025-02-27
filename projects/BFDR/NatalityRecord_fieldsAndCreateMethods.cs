@@ -43,6 +43,15 @@ namespace BFDR
         private const string CODED_RACE_ETHNICITY_PROFILE_FATHER = "codedraceandethnicityFather";
         private const string CODED_RACE_ETHNICITY_PROFILE_MOTHER = "codedraceandethnicityMother";
 
+        /// <summary>Composition Type Constants</summary>
+        private const string COMPOSITION_PROVIDER_FETAL_DEATH_REPORT = "69045-3";
+        private const string COMPOSITION_PROVIDER_LIVE_BIRTH_REPORT = "68998-4";
+        private const string COMPOSITION_JURISDICTION_FETAL_DEATH_REPORT = "92010-8";
+        private const string COMPOSITION_JURISDICTION_LIVE_BIRTH_REPORT  ="92011-6";
+        private const string COMPOSITION_CODED_CAUSE_OF_FETAL_DEATH = "86804-2";
+        private const string COMPOSITION_CODED_RACE_AND_ETHNICITY = "86805-9";
+        private const string COMPOSITION_CODED_INDUSTRY_AND_OCCUPATION = "industry_occupation_document";
+
         /// <summary>Composition Section Constants</summary>
         protected const string MOTHER_PRENATAL_SECTION = "57073-9";
         private const string MEDICAL_INFORMATION_SECTION = "55752-0";

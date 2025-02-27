@@ -38,8 +38,8 @@
           "coding": [
             {
               "system": "http://loinc.org",
-              "code": "71230-7",
-              "display": "Fetal Death Report"
+              "code": "92010-8",
+              "display": "Jurisdiction fetal death report Document"
             }
           ]
         },
@@ -50,6 +50,21 @@
           "reference": "urn:uuid:d0801c32-d417-41b7-a461-70f9cf163055"
         },
         "title": "Fetal Death Report",
+        "section": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "92014-0"
+                }
+              ]
+            },
+            "focus": {
+              "reference": "urn:uuid:18ef120e-0b0b-49d5-85f7-acb8f3a583b7"
+            }
+          }
+        ],
         "attester": [
           {
             "mode": "legal"
