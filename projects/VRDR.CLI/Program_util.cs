@@ -160,13 +160,15 @@ namespace VRDR.CLI
         // The same code could be used in the vrdr-dotnet library that supports VRDR STU2.2, with STU3toSTU2 set to false.
         static void ConvertVersionJSON(string pOutputFile, string pInputFile, bool STU3toSTU2)
         {
-            var uris = urisSTU3toSTU2;
+            var uris = UrisSTU3toSTU2;
+            var dateTimeUris = dateTimeComponentsSTU3toSTU2;
             if (!STU3toSTU2)
             { // The mapping is bidirectional.  Depending on which direction, we flip the map.
-                uris = CreateSTU2toSTU3Mapping(urisSTU3toSTU2);
+                uris = CreateSTU2toSTU3Mapping(UrisSTU3toSTU2);
+                dateTimeUris = CreateSTU2toSTU3Mapping(dateTimeComponentsSTU3toSTU2);
             }
             string content = File.ReadAllText(pInputFile);
-            // Iterate through the mapped strings, and replace them one by one
+            // Iterate through the mapped codesystem strings, and replace them one by one
             foreach (var kvp in uris)
             {
                 content = content.Replace(kvp.Key, kvp.Value);
@@ -181,40 +183,98 @@ namespace VRDR.CLI
             FhirJsonParser parser = new FhirJsonParser(parserSettings);
             Bundle bundle = parser.Parse<Bundle>(content);
             // Scan through all Observations to make sure they all have codes!
-            foreach (var ob in bundle.Entry.Where(entry => entry.Resource is Observation))
+            foreach (var entry  in bundle.Entry)
             {
-                Observation obs = (Observation)ob.Resource;
-                if (obs.Code == null || obs.Code.Coding == null || obs.Code.Coding.FirstOrDefault() == null || obs.Code.Coding.First().Code == null)
-                {
-                    continue;
-                }
-                if (!STU3toSTU2)
-                {
-                    switch (obs.Code.Coding.First().Code)
+                if (entry.Resource is Observation){
+                    Observation obs = (Observation)entry.Resource;
+                    if (obs.Code == null || obs.Code.Coding == null || obs.Code.Coding.FirstOrDefault() == null || obs.Code.Coding.First().Code == null)
                     {
-                        case "BR":
-                            obs.Code = new CodeableConcept(VR.CodeSystems.LocalObservationCodes, "childbirthrecordidentifier", "Birth Record Identifier of Child", null);
-                            break;
+                        continue;
                     }
-                }
-                else
-                {
-                    switch (obs.Code.Coding.First().Code)
+                    if (!STU3toSTU2)
                     {
-                        case "childbirthrecordidentifier":
-                            obs.Code = new CodeableConcept(CodeSystems.HL7_identifier_type, "BR", "Birth registry number", null);
-                            break;
+                        switch (obs.Code.Coding.First().Code)
+                        {
+                            case "BR":
+                             obs.Code = new CodeableConcept(VR.CodeSystems.LocalObservationCodes, "childbirthrecordidentifier", "Birth Record Identifier of Child", null);
+                                break;
+                        }
                     }
-                }
+                    else
+                    {
+                        switch (obs.Code.Coding.First().Code)
+                        {
+                            case "childbirthrecordidentifier":
+                                obs.Code = new CodeableConcept(CodeSystems.HL7_identifier_type, "BR", "Birth registry number", null);
+                                break;
+                        }
+                    }
+                }  
             }
+
+            // Recursively update all extensions in the entire bundle
+            UpdateExtensionsRecursively(bundle, dateTimeUris);
+
+            
             // Serialize the bundle as JSON
             string newContent = bundle.ToJson(new FhirJsonSerializationSettings { Pretty = true, AppendNewLine = true });
             File.WriteAllText(pOutputFile, newContent);
+    }
+
+    static void UpdateExtensionsRecursively(Base fhirElement, Dictionary<string, string> replacements)
+    {
+        if (fhirElement == null) return;
+
+        // Check if this element has extensions (any FHIR element can!)
+        if (fhirElement is IExtendable extendable)
+        {
+            if (extendable.Extension != null)
+            {
+                foreach (var ext in extendable.Extension)
+                {
+                    // If the URL matches, update it
+                    if (replacements.ContainsKey(ext.Url))
+                    {
+                        ext.Url = replacements[ext.Url];
+                    }
+
+                    // Recursively process nested extensions
+                    if (ext.Extension != null && ext.Extension.Any())
+                    {
+                        UpdateExtensionsRecursively(ext, replacements);
+                    }
+                }
+            }
         }
+
+        // Recursively process all properties of the current resource
+        foreach (var property in fhirElement.GetType().GetProperties())
+        {
+            if (typeof(Base).IsAssignableFrom(property.PropertyType))
+            {
+                // Single FHIR element (e.g., Patient.name)
+                var value = property.GetValue(fhirElement) as Base;
+                if (value != null) UpdateExtensionsRecursively(value, replacements);
+            }
+            else if (typeof(IEnumerable<Base>).IsAssignableFrom(property.PropertyType))
+            {
+                // List of FHIR elements (e.g., Bundle.entry, Patient.name)
+                var values = property.GetValue(fhirElement) as IEnumerable<Base>;
+                if (values != null)
+                {
+                    foreach (var item in values)
+                    {
+                        UpdateExtensionsRecursively(item, replacements);
+                    }
+                }
+            }
+        }
+    }
+
 
         static void ExchangeURLsXML(string pOutputFile, string pInputFile, bool STU3toSTU2)
         {
-            var uris = STU3toSTU2 ? urisSTU3toSTU2 : CreateSTU2toSTU3Mapping(urisSTU3toSTU2);
+            var uris = STU3toSTU2 ? UrisSTU3toSTU2 : CreateSTU2toSTU3Mapping(UrisSTU3toSTU2);
 
             var doc = XDocument.Load(pInputFile);
 
