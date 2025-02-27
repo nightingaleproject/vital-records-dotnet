@@ -30,8 +30,8 @@ namespace VRDR.CLI
     partial class Program
     {
     
-    // urisSTU3toSTU2: URIs that change between VRDR STU2.2 and STU3 and can be simply string substituted
-    private static readonly Dictionary<string, string> urisSTU3toSTU2 = new Dictionary<string, string>
+    // UrisSTU3toSTU2: URIs that change between VRDR STU2.2 and STU3 and can be simply string substituted
+    private static readonly Dictionary<string, string> UrisSTU3toSTU2 = new Dictionary<string, string>
         {
             { "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag", "http://hl7.org/fhir/us/vrdr/StructureDefinition/BypassEditFlag" },
             { "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-jurisdiction-id-vr", "http://hl7.org/fhir/us/vrdr/StructureDefinition/Location-Jurisdiction-Id" },
@@ -51,11 +51,7 @@ namespace VRDR.CLI
             { "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/UnitOrAptNumber", "http://hl7.org/fhir/us/vrdr/StructureDefinition/UnitOrAptNumber" },
             { "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-partial-date-time-vr", "http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDateTime" },
             { "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-partial-date-vr", "http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDate" },
-            { "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-within-city-limits-indicator-vr", "http://hl7.org/fhir/us/vrdr/StructureDefinition/WithinCityLimitsIndicator" },
-            { "day", "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Day" },
-            { "month", "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Month" },
-            { "year", "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Year" },
-            { "time", "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Time" },
+            { "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-within-city-limits-indicator-vr", "http://hl7.org/fhir/us/vrdr/StructureDefinition/WithinCityLimitsIndicator"},
             { "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags", "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-bypass-edit-flag-cs" },
             { "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-local-observation-codes-vr", "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs" },
             { "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-vr-component", "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs" },
@@ -66,6 +62,14 @@ namespace VRDR.CLI
             { "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-jurisdictions-vr", "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-jurisdictions-cs" },
             { "http://hl7.org/fhir/us/vrdr/CodeSystem/CodeSystem-death-pregnancy-status", "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-pregnancy-status-cs" }
         };
-
-    }   
+    // dateTimeComponentsSTU3toSTU2: URIs that change between VRDR STU2.2 and STU3 and can't be simply string substituted
+        private static readonly Dictionary<string, string> dateTimeComponentsSTU3toSTU2 = new Dictionary<string, string>
+        {
+            { "day", "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Day" },
+            { "month", "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Month" },
+            { "year", "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Year" },
+            { "time", "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Time" }
+        };
+ 
+    };
 }
