@@ -26,6 +26,7 @@ code_system_files = Dir.glob("#{path_to_ig}/**/CodeSystem*.json")
 raise "No CodeSystem Definitions Found" unless code_system_files.size > 0
 
 # Iterate through each file and populate a hash of name => url
+ # print "**** Structure Definitions***\n"
 structure_definition_hash = {}
 structure_definitions = structure_definition_files.each do |structure_definition_file|
   # Load and parse the JSON
@@ -34,20 +35,19 @@ structure_definitions = structure_definition_files.each do |structure_definition
   name = structure_definition['name']
   url = structure_definition['url']
   structure_definition_hash[name] = url
+  # print "* " +  name + "*\n"
 end
 
 # Iterate through each file and populate a hash of name => url
 code_system_hash = {}
 code_systems = code_system_files.each do |code_system_file|
+  # print code_system_file + "\n"
   # Load and parse the JSON
   code_system = JSON.parse(File.read(code_system_file))
   # Grab the name and URL and populate the hash
   name = code_system['name']
   url = code_system['url']
-  #if url.include?('CodeSystem') then type = 'codesystem' 
-  #elsif url.include?('/vrdr-') then type = 'profile' 
-  #else type = 'extension' end
- # print url + ":" + type + "\n"
+  # print name + ":" + url + "\n"
   code_system_hash[name] = url
 end
 
@@ -63,7 +63,7 @@ end
 def url_type(url)
   type = 'unknown'
   if url.include?('CodeSystem') then type = 'codesystem' 
-  elsif url.include?('/vrdr-') then type = 'profile' 
+  elsif url.include?('/vrdr-') || url.include?('industry-occupation') then type = 'profile'  # industry and occupation bundle lacks vrdr- prefix...sigh
   else type =  'extension' end
   type 
 end
