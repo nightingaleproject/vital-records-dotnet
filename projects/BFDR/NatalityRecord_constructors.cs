@@ -16,6 +16,18 @@ namespace BFDR
     /// </summary>
     public abstract partial class NatalityRecord : VitalRecord
     {
+        // Only some natality records are required to have a subject present
+        // Note: At time of development Coded Cause of Fetal Death (86804-2) requires a subject but should not, so it's not included here
+        private static readonly string[] COMPOSITIONS_REQUIRING_SUBJECT = {
+            COMPOSITION_PROVIDER_FETAL_DEATH_REPORT, COMPOSITION_PROVIDER_LIVE_BIRTH_REPORT,
+            COMPOSITION_JURISDICTION_FETAL_DEATH_REPORT, COMPOSITION_JURISDICTION_LIVE_BIRTH_REPORT
+        };
+
+        // Within a composition some sections have a focus that references the mother
+        private static readonly string[] COMPOSITION_MOTHER_FOCUS_SECTIONS = {
+            MOTHER_PRENATAL_SECTION, MEDICAL_INFORMATION_SECTION, MOTHER_INFORMATION_SECTION
+        };
+
         /// <summary>Default constructor that creates a new, empty NatalityRecord.</summary>
         public NatalityRecord(string bundleProfile) : base()
         {
@@ -170,7 +182,7 @@ namespace BFDR
         {
             Bundle dccBundle = new Bundle();
             dccBundle.Id = Guid.NewGuid().ToString();
-            dccBundle.Type = Bundle.BundleType.Collection;
+            dccBundle.Type = Bundle.BundleType.Document;
             dccBundle.Meta = new Meta();
             string[] profile = { ProfileURL.BundleDocumentDemographicCodedContent };
             dccBundle.Meta.Profile = profile;
@@ -221,40 +233,71 @@ namespace BFDR
         }
 
         /// <summary>Restores class references from a newly parsed record.</summary>
-        protected void RestoreReferences(string bundleProfile, string[] compositionProfiles, string subjectProfile)
+        protected override void RestoreReferences()
         {
-            Composition = (Composition) Bundle.Entry.FirstOrDefault(entry => entry.Resource is Composition && entry.Resource.Meta.Profile.Any(p => compositionProfiles.Contains(p)))?.Resource;
-            bool fullRecord = Bundle.Meta?.Profile?.Any(p => p == bundleProfile) ?? false;
-            if (Composition == null && fullRecord)
+            // Note: Unlike mortality records, where some bundles are collections so don't have a composition,
+            // all natality records are documents and so should have a composition
+            Composition = (Composition) Bundle.Entry.FirstOrDefault(entry => entry.Resource is Composition)?.Resource;
+            if (Composition == null)
             {
                 throw new System.ArgumentException("Failed to find a Composition. The first entry in the FHIR Bundle should be a Composition.");
             }
-            // Depending on the type of bundle, some of this information may not be present, so check it in a null-safe way
-            if (fullRecord && (Composition.Subject == null || String.IsNullOrWhiteSpace(Composition.Subject.Reference)))
-            {
-                throw new System.ArgumentException("The Composition is missing a subject (a reference to the Child resource).");
-            }
-            // Grab Subject (Child/Fetus) and Mother.
-            List<Patient> patients = Bundle.Entry.FindAll(entry => entry.Resource is Patient).ConvertAll(entry => (Patient) entry.Resource);
-            string subjectId = Composition?.Subject.Reference;
-            Subject = patients.Find(patient => patient.Meta.Profile.Any(p => p == subjectProfile) && subjectId.Contains(patient.Id));
-            Mother = patients.Find(patient => patient.Meta.Profile.Any(p => p == VR.ProfileURL.Mother));
-            // Grab Father
-            Father = Bundle.Entry.FindAll(entry => entry.Resource is RelatedPerson).ConvertAll(entry => (RelatedPerson) entry.Resource).Find(resource => resource.Meta.Profile.Any(relatedPersonProfile => relatedPersonProfile == VR.ProfileURL.RelatedPersonFatherNatural));
-            Coverage = Bundle.Entry.FindAll(entry => entry.Resource is Coverage).ConvertAll(entry => (Coverage) entry.Resource).Find(resource => resource.Meta.Profile.Any(coverageProfile => coverageProfile == ProfileURL.CoveragePrincipalPayerDelivery));
-            // Grab attendant and certifier
-            List<Practitioner> practitioners = Bundle.Entry.FindAll(entry => entry.Resource is Practitioner).ConvertAll(entry => (Practitioner) entry.Resource);
-            Attendant = practitioners.Find(patient => patient.Extension.Any(ext => Convert.ToString(ext.Value) == "attendant"));
-            Certifier = practitioners.Find(patient => patient.Extension.Any(ext => Convert.ToString(ext.Value) == "certifier"));
 
-            if (fullRecord && Subject == null)
+            // See if this is a type of bundle that requires a subject
+            bool requiresSubject = COMPOSITIONS_REQUIRING_SUBJECT.Contains(Composition.Type?.Coding?[0]?.Code);
+
+            // Depending on the type of bundle, some of this information may not be present, so check it in a null-safe way
+            if (requiresSubject && String.IsNullOrWhiteSpace(Composition.Subject?.Reference))
             {
-                throw new System.ArgumentException("Failed to find a Child (Patient).");
+                throw new System.ArgumentException("The Composition is missing a subject reference to the Child resource.");
             }
-            // TODO: when supporting fetal death, will have to impl. fetalDeathIdentifier
-            if (fullRecord)
+
+            // Retrieve Subject (Child/Fetus)
+            List<Patient> patients = Bundle.Entry.FindAll(entry => entry.Resource is Patient).ConvertAll(entry => (Patient) entry.Resource);
+            string subjectId = Composition.Subject?.Reference;
+            if (subjectId != null)
             {
-              UpdateRecordIdentifier();
+                Subject = patients.Find(patient => subjectId.Contains(patient.Id));
+            }
+            if (requiresSubject && Subject == null)
+            {
+                throw new System.ArgumentException("The Bundle is missing a Patient resource for the child.");
+            }
+
+            // Retrieve the mother as well, if present in the overall record.
+            // If present, it should be the focus of one of the mother-related sections in the compositon
+            // Note: Some bundles (e.g. coded race and ethnicity) have a MTH section with an optional reference
+            // that's not a focus; we ignore these since they are not expected to have mother patient entries
+            Composition.SectionComponent motherFocusSection =
+                Composition.Section.Find(section =>
+                    COMPOSITION_MOTHER_FOCUS_SECTIONS.Contains(section?.Code?.Coding?[0]?.Code) &&
+                    section.Focus?.Reference != null
+                );
+            string motherId = motherFocusSection?.Focus?.Reference;
+            if (motherId != null)
+            {
+                // TODO: If not found, consider an error for record types where Mother is expected
+                Mother = patients.Find(patient => motherId.Contains(patient.Id));
+            }
+
+            // Retrieve the Father
+            Father = Bundle.Entry.FindAll(entry => entry.Resource is RelatedPerson)
+                     .ConvertAll(entry => (RelatedPerson) entry.Resource)
+                     .Find(resource => resource?.Relationship?[0]?.Coding?[0]?.Code == "NFTH");
+
+            // Retrieve Coverage information; note that we expect only a single coverage entry in the record
+            Coverage = (Coverage)Bundle.Entry.Find(entry => entry.Resource is Coverage)?.Resource;
+
+            // Retrieve attendant and certifier
+            List<Practitioner> practitioners = Bundle.Entry.FindAll(entry => entry.Resource is Practitioner).ConvertAll(entry => (Practitioner) entry.Resource);
+            Attendant = practitioners.Find(practitioner => practitioner.Extension.Any(ext => Convert.ToString(ext.Value) == "attendant"));
+            Certifier = practitioners.Find(practitioner => practitioner.Extension.Any(ext => Convert.ToString(ext.Value) == "certifier"));
+
+            // TODO: when supporting fetal death, will have to impl. fetalDeathIdentifier
+            // We want to update the record identifier for records that include a subject
+            if (requiresSubject)
+            {
+                UpdateRecordIdentifier();
             }
 
             // Scan through all Observations to make sure they all have codes!

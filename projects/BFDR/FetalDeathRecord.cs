@@ -146,7 +146,7 @@ namespace BFDR
         [PropertyParam("code", "The code used to describe this concept.")]
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
-        [FHIRPath("Bundle.entry.resource.where($this is Encounter)", "")]
+        [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(extension.value.coding.code='MTH')", "")]
         public Dictionary<string, string> DeliveryPhysicalLocation
         {
             get => GetPhysicalLocation(EncounterMaternity);
@@ -162,7 +162,7 @@ namespace BFDR
         /// <para>Console.WriteLine($"Child's Place Of Birth Type: {ExampleFetalDeathRecord.DeliveryPhysicalLocationHelper}");</para>
         /// </example>
         [Property("DeliveryPhysicalLocationHelper", Property.Types.String, "Delivery Physical Location", "Delivery Physical Location Helper.", false, IGURL.EncounterMaternity, true, 4)]
-        [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(meta.profile == " + IGURL.EncounterMaternity + ")", "")]
+        [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(extension.value.coding.code='MTH')", "")]
         public string DeliveryPhysicalLocationHelper
         {
             get => GetPhysicalLocationHelper(EncounterMaternity);
