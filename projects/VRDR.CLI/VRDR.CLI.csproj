@@ -11,4 +11,7 @@
     <ProjectReference Include="..\VRDR.Messaging\VRDR.Messaging.csproj" />
     <ProjectReference Include="..\VitalRecord\VitalRecord.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="JsonDiffPatch.Net" Version="2.3.0" />
+  </ItemGroup>
 </Project>
