@@ -1435,103 +1435,6 @@
           }
         ]
       }
-    },
-    {
-
-      "resource": {
-      "resourceType": "Observation",
-      "id": "BirthRecordIdentifierChild-Example1",
-      "meta": {
-        "profile": [
-          "http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-birth-record-identifier-child"
-        ]
-      },
-      "status": "final",
-      "code": {
-        "coding": [
-          {
-            "code": "decedentbirthrecordidentifier",
-            "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs"
-          }
-        ]
-      },
-      "component": [
-        {
-          "code": {
-            "coding": [
-              {
-                "code": "21842-0",
-                "system": "http://loinc.org"
-              }
-            ]
-          },
-          "valueString": "YC"
-        },
-        {
-          "code": {
-            "coding": [
-              {
-                "code": "80904-6",
-                "system": "http://loinc.org"
-              }
-            ]
-          },
-          "valueDateTime": "1961"
-        }
-      ],
-      "subject": {
-        "reference": "Patient/Decedent-Example1"
-      },
-      "valueString": "717171"
-    }
-  },  
-  {"resource": 
-    {
-      "resourceType": "Observation",
-      "id": "FetalDeathRecordIdentifier-Example1",
-      "meta": {
-        "profile": [
-          "http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-fetal-death-record-identifier"
-        ]
-      },
-      "status": "final",
-      "code": {
-        "coding": [
-          {
-            "code": "fetaldeathrecordidentifier",
-            "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs"
-          }
-        ]
-      },
-      "component": [
-        {
-          "code": {
-            "coding": [
-              {
-                "code": "77969-4",
-                "system": "http://loinc.org"
-              }
-            ]
-          },
-          "valueString": "YC"
-        },
-        {
-          "code": {
-            "coding": [
-              {
-                "code": "81954-0",
-                "system": "http://loinc.org"
-              }
-            ]
-          },
-          "valueDateTime": "1961"
-        }
-      ],
-      "subject": {
-        "reference": "Patient/Decedent-Example1"
-      },
-      "valueString": "717171"
-    }
     },  
     {
       "fullUrl": "urn:uuid:fee9f666-7099-4259-9a6c-25cf57f75654",
@@ -1558,15 +1461,13 @@
           "end": "2010-01-01"
         },
         "valueCodeableConcept": {
-          "coding": [
-            {
-             "system": "2.16.840.1.114222.4.5.336",
-              "code":  "13-2011",
-              "display": "Accountants and Auditors"
-            }
-          ],
-          "text": "Executive secretary"
-        },
+            "coding": [
+              {
+                "display": "secretary"
+              }
+            ],
+            "text": "Executive secretary"
+          },
         "subject": {
           "reference": "urn:uuid:949354d3-9dcf-4c96-8ec4-6be27dd4c65f"
         },
@@ -1582,15 +1483,13 @@
               ]
             },
             "valueCodeableConcept": {
-              "coding": [
-                {
-                  "system": "2.16.840.1.114222.4.5.337",
-                  "code":  "54121",
-                  "display": "Accounting, Tax Preparation, Bookkeeping, and Payroll Services"
-                }
-              ],
-              "text": "State department of agriculture"
-            }
+                "coding": [
+                  {
+                    "display": "State agency"
+                  }
+                ],
+                "text": "State department of agriculture"
+              }
           }
         ]
       }
@@ -1760,7 +1659,7 @@
         "id": "19cb645f-c8f9-44fc-9137-6f33b009d355",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-death-pregnancy-status"
+            "http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-decedent-pregnancy-status"
           ]
         },
         "status": "final",

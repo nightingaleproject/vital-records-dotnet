@@ -56,3 +56,9 @@ dotnet run --project VRDR.CLI json2trx VRDR.Tests/fixtures/json/Bundle-CauseOfDe
 echo "* dotnet run --project VRDR.CLI compareTRXtoJSON example.trx VRDR.Tests/fixtures/json/Bundle-CauseOfDeathCodedContentBundle-Example1.json"
 dotnet run --project VRDR.CLI compareTRXtoJSON example.trx VRDR.Tests/fixtures/json/Bundle-CauseOfDeathCodedContentBundle-Example1.json
 rm example.trx
+
+# Convert an STU3 JSON file (with only features found in STU2) to STU2 and Back and Compare the STU2 JSON against the STU2 fixture.
+echo "* dotnet run --project VRDR.CLI rdtripstu3-to-stu2 VRDR.Tests/fixtures/json/DeathRecord1_STU3.json "   
+dotnet run --project VRDR.CLI rdtripstu3-to-stu2 VRDR.Tests/fixtures/json/DeathRecord1_STU3.json    
+echo "* dotnet run --project VRDR.CLI json-diff tempSTU2.json VRDR.Tests/fixtures/json/DeathRecord1_STU2.json"
+dotnet run --project VRDR.CLI json-diff tempSTU2.json VRDR.Tests/fixtures/json/DeathRecord1_STU2.json
