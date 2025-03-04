@@ -97,6 +97,11 @@ namespace VR
             {
                 throw new System.ArgumentException("The given input does not appear to be a valid XML or JSON FHIR record.");
             }
+            // Validate that the given Bundle is not a message.
+            if (this.Bundle.Type == Bundle.BundleType.Message)
+            {
+                throw new Exception("Expected a Vital Record Bundle, given a Message.");
+            }
         }
         
         /// <summary>Restores class references from a newly parsed record.</summary>
