@@ -13,7 +13,7 @@ namespace VR
     public abstract partial class VitalRecord
     {
         /// <summary>Default constructor that creates a new, empty Record.</summary>
-        public VitalRecord()
+        protected VitalRecord()
         {
             Composition = new Composition();
         }
@@ -22,7 +22,7 @@ namespace VR
         /// <param name="record">represents a FHIR Vital Record in either XML or JSON format.</param>
         /// <param name="permissive">if the parser should be permissive when parsing the given string</param>
         /// <exception cref="ArgumentException">Record is neither valid XML nor JSON.</exception>
-        public VitalRecord(string record, bool permissive = false)
+        protected VitalRecord(string record, bool permissive = false)
         {
             ParserSettings parserSettings = new ParserSettings
             {
