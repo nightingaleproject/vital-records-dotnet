@@ -189,22 +189,23 @@ namespace BFDR
             dccBundle.Timestamp = DateTime.Now;
             // Make sure to include the base identifiers, including certificate number and auxiliary state IDs
             dccBundle.Identifier = Bundle.Identifier;
-            // Add composition
-            if (Composition == null)
-            {
-                Composition = new Composition();
-            }
-            Composition.Id = Guid.NewGuid().ToString();
-            Composition.Status = CompositionStatus.Final;
-            Composition.Meta = new Meta();
-            string[] composition_profile = { ProfileURL.CompositionCodedRaceAndEthnicity};
-            Composition.Meta.Profile = composition_profile;
-            Composition.Type = new CodeableConcept(CodeSystems.LOINC, "86805-9", "Coded Race and Ethnicity", null);
-            // Child may also be a decedent fetus
-            // Composition.Subject = new ResourceReference("urn:uuid:" + Child.Id);
-            //TODO: Author is a required field for the composition - should be NCHS
-            // Composition.Author = new ResourceReference("urn:uuid:" + Author.Id);
-            Composition.Title = "Demographic Coded Content";
+            // Add composition; we should always create a new composition appropriate for this bundle type
+            Composition composition = new Composition();
+            composition.Id = Guid.NewGuid().ToString();
+            composition.Status = CompositionStatus.Final;
+            composition.Meta = new Meta();
+            string[] composition_profile = { ProfileURL.CompositionCodedRaceAndEthnicity };
+            composition.Meta.Profile = composition_profile;
+            composition.Type = new CodeableConcept(CodeSystems.LOINC, "86805-9", "Race and ethnicity information Document", null);
+            // Note: Subject is optional in this type of composition, and not included in the bundle, so we leave it out
+            // Note: Author is a required field for the composition, for now only expected to be NCHS for this type of bundle
+            Organization author = new Organization();
+            author.Id = Guid.NewGuid().ToString();
+            author.Active = true;
+            author.Name = "National Center for Health Statistics";
+            composition.Author = new List<ResourceReference> { new ResourceReference("urn:uuid:" + author.Id) };
+            AddResourceToBundleIfPresent(author, dccBundle);
+            composition.Title = "Demographic Coded Content";
             if (Mother != null)
             {
                 Composition.SectionComponent motherSection = new Composition.SectionComponent
@@ -212,7 +213,7 @@ namespace BFDR
                   Code = new CodeableConcept(CodeSystems.RoleCode_HL7_V3, "MTH")
                   //TODO: add mother, input, coded race/ethnicity reference slices
                 };
-                Composition.Section.Add(motherSection);
+                composition.Section.Add(motherSection);
             } else if (Father != null)
             {
                 Composition.SectionComponent fatherSection = new Composition.SectionComponent
@@ -220,7 +221,7 @@ namespace BFDR
                   Code = new CodeableConcept(CodeSystems.RoleCode_HL7_V3, "NFTH")
                   //TODO: add father, input, coded race/ethnicity reference slices
                 };
-                Composition.Section.Add(fatherSection);
+                composition.Section.Add(fatherSection);
 
             } else 
             {
