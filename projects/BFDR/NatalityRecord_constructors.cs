@@ -17,7 +17,7 @@ namespace BFDR
     public abstract partial class NatalityRecord : VitalRecord
     {
         /// <summary>Default constructor that creates a new, empty NatalityRecord.</summary>
-        public NatalityRecord(string bundleProfile) : base()
+        protected NatalityRecord(string bundleProfile) : base()
         {
             InitializeCompositionAndSubject();
 
@@ -122,12 +122,12 @@ namespace BFDR
         /// <param name="record">represents a FHIR Natality Record in either XML or JSON format.</param>
         /// <param name="permissive">if the parser should be permissive when parsing the given string</param>
         /// <exception cref="ArgumentException">Record is neither valid XML nor JSON.</exception>
-        public NatalityRecord(string record, bool permissive = false) : base(record, permissive){}
+        protected NatalityRecord(string record, bool permissive = false) : base(record, permissive){}
 
         /// <summary>Constructor that takes a FHIR Bundle that represents a FHIR Natality Record.</summary>
         /// <param name="bundle">represents a FHIR Bundle.</param>
         /// <exception cref="ArgumentException">Record is invalid.</exception>
-        public NatalityRecord(Bundle bundle)
+        protected NatalityRecord(Bundle bundle)
         {
             Bundle = bundle;
             Navigator = Bundle.ToTypedElement();
