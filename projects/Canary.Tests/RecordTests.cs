@@ -69,16 +69,7 @@ namespace canary.tests
         public void TestNonDocumentTypePayload()
         {
             List<Dictionary<string, string>> issues;
-            var resultData = canary.Models.CanaryDeathRecord.CheckGet(messageTypePayload, true, out issues);
-
-            StringBuilder issueList = new StringBuilder();
-            foreach (var issue in issues)
-            {
-                issueList.Append(string.Join("\n", issue.Select(p => "K=" + p.Key + ",L=" + p.Value)));
-            }
-
-            Assert.Contains("error", issueList.ToString());
-
+            Assert.Throws<BundleTypeException>(() => canary.Models.CanaryDeathRecord.CheckGet(messageTypePayload, true, out issues));
         }
 
         [Fact]
