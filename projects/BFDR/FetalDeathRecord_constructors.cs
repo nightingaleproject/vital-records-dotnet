@@ -45,10 +45,10 @@ namespace BFDR
     {
       // Do we need differentiate anything for [http://hl7.org/fhir/us/bfdr/StructureDefinition/Bundle-document-demographic-coded-content]? It's not technically a Fetal Death Report bundle... https://build.fhir.org/ig/HL7/fhir-bfdr/StructureDefinition-Bundle-document-demographic-coded-content.html
       // Restore the common references between Birth Records and Fetal Death Records.
-      this.RestoreReferences(ProfileURL.BundleDocumentFetalDeathReport, new[] { ProfileURL.CompositionJurisdictionFetalDeathReport }, ProfileURL.PatientDecedentFetus);
+      base.RestoreReferences();
       // Restore FetalDeath specific references.
-      string maternityEncounterId = Composition?.Encounter.Reference;
-      EncounterMaternity = Bundle.Entry.FindAll(entry => entry.Resource is Encounter).ConvertAll(entry => (Encounter)entry.Resource).Find(resource => resource.Meta.Profile.Any(p => p == ProfileURL.EncounterMaternity) && maternityEncounterId.Contains(resource.Id));
+      string maternityEncounterId = Composition?.Encounter?.Reference;
+      EncounterMaternity = (Encounter)Bundle.Entry.Find(entry => entry.Resource is Encounter && maternityEncounterId.Contains(entry.Resource.Id))?.Resource;
     }
 
     /// <inheritdoc/>
@@ -68,7 +68,7 @@ namespace BFDR
       {
         Profile = new[] { ProfileURL.CompositionJurisdictionFetalDeathReport }
       };
-      Composition.Type = new CodeableConcept(CodeSystems.LOINC, "71230-7", "Fetal Death Report", null);
+      Composition.Type = new CodeableConcept(CodeSystems.LOINC, "92010-8", "Jurisdiction fetal death report Document", null);
       Composition.Title = "Fetal Death Report";
     }
   }

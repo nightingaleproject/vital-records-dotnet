@@ -236,8 +236,8 @@ namespace VRDR
         protected override void RestoreReferences()
         {
             // Depending on the type of bundle, some of this information may not be present, so check it in a null-safe way
-            string profile = Bundle.Meta?.Profile?.FirstOrDefault();
-            bool fullRecord = VRDR.ProfileURL.DeathCertificateDocument.Equals(profile);
+            // Note: for VRDR, full record bundles are of type "document" and response bundles are of type collection
+            bool fullRecord = Bundle.Type == Bundle.BundleType.Document;
             // Grab Composition
             var compositionEntry = Bundle.Entry.FirstOrDefault(entry => entry.Resource is Composition);
             if (compositionEntry != null)

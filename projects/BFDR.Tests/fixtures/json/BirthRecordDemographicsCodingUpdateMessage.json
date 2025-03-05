@@ -71,8 +71,22 @@
           "system": "http://nchs.cdc.gov/bfdr_id",
           "value": "2023YC000100"
         },
-        "type": "collection",
-        "timestamp": "2023-12-21T17:30:04.866126-05:00"
+        "type": "document",
+        "timestamp": "2023-12-21T17:30:04.866126-05:00",
+        "entry": [
+          {
+            "fullUrl": "urn:uuid:29f4acea-b70a-4170-bc9a-222d98e40919",
+            "resource": {
+              "resourceType": "Composition",
+              "id": "29f4acea-b70a-4170-bc9a-222d98e40919",
+              "meta": {
+                "profile": [
+                  "http://hl7.org/fhir/us/bfdr/StructureDefinition/Composition-jurisdiction-live-birth-report"
+                ]
+              }
+            }
+          }
+        ]
       }
     }
   ]

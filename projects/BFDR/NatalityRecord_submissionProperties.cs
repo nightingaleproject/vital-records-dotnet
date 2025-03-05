@@ -740,7 +740,12 @@ namespace BFDR
         [Property("Mother's Place Of Birth", Property.Types.Dictionary, "Mother Demographics", "Mother's Place Of Birth.", true, VR.IGURL.Mother, true, 305)]
         [PropertyParam("addressState", "address, state")]
         [PropertyParam("addressCountry", "address, country")]
-        [FHIRPath("Bundle.entry.resource.where($this is Patient).extension.where(url='" + OtherExtensionURL.PatientBirthPlace + "')", "")]
+        // NOTE TODO: In order to distinguish between multiple patient records we would need to follow the subject
+        // reference; since following references is not available as part of the FHIR Path implementation in version
+        // 4.3.0 of the Hl7.Fhir.R4 library we fall back to using the Meta Profile URL, which is not guaranteed to
+        // be present but will either provide a correct result or blank; we can revisit this when the version of the
+        // FHIR library is updated to a version that supports following references
+        [FHIRPath("Bundle.entry.resource.where($this is Patient).where(meta.profile='" + VR.ProfileURL.Mother + "').extension.where(url='" + OtherExtensionURL.PatientBirthPlace + "')", "")]
         public Dictionary<string, string> MotherPlaceOfBirth
         {
             get => GetPlaceOfBirth(Mother);
@@ -8412,7 +8417,7 @@ namespace BFDR
         /// <para>Console.WriteLine($"Child's Place Of Birth Type: {ExampleBirthRecord.PayorTypeFinancialClassHelper}");</para>
         /// </example>
         [Property("PayorTypeFinancialClassHelper", Property.Types.String, "PayorTypeFinancialClassHelper", "Principal source of Payment for this delivery Helper.", false, IGURL.CoveragePrincipalPayerDelivery, true, 4)]
-        [FHIRPath("Bundle.entry.resource.where($this is Coverage).where(meta.profile == " + ProfileURL.CoveragePrincipalPayerDelivery + ")", "")]
+        [FHIRPath("Bundle.entry.resource.where($this is Coverage)", "")]
         public string PayorTypeFinancialClassHelper
         {
             get

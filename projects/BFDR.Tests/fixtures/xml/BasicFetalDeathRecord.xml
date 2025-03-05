@@ -27,8 +27,8 @@
         <type>
           <coding>
             <system value="http://loinc.org" />
-            <code value="71230-7" />
-            <display value="Fetal Death Report" />
+            <code value="92010-8" />
+            <display value="Jurisdiction fetal death report Document" />
           </coding>
         </type>
         <subject>

@@ -45,12 +45,12 @@ namespace BFDR
         protected override void RestoreReferences()
         {
             // Restore the common references between Birth Records and Fetal Death Records.
-            base.RestoreReferences(ProfileURL.BundleDocumentBirthReport, new[] {ProfileURL.CompositionProviderLiveBirthReport, ProfileURL.CompositionJurisdictionLiveBirthReport}, VR.ProfileURL.Child);
+            base.RestoreReferences();
             // Restore BirthRecord specific references.
             string birthEncounterId = Composition?.Encounter?.Reference;
-            EncounterBirth = Bundle.Entry.FindAll(entry => entry.Resource is Encounter).ConvertAll(entry => (Encounter) entry.Resource).Find(resource => resource.Meta.Profile.Any(p => p == ProfileURL.EncounterBirth) && birthEncounterId.Contains(resource.Id));
-            string encounterMaternityId = ((ResourceReference) Composition?.Encounter?.Extension.FirstOrDefault(e => e.Url == ExtensionURL.ExtensionEncounterMaternityReference)?.Value)?.Reference;
-            EncounterMaternity = Bundle.Entry.FindAll(entry => entry.Resource is Encounter).ConvertAll(entry => (Encounter) entry.Resource).Find(resource => resource.Meta.Profile.Any(p => p == ProfileURL.EncounterMaternity) && encounterMaternityId.Contains(resource.Id));
+            EncounterBirth = (Encounter)Bundle.Entry.Find(entry => entry.Resource is Encounter && birthEncounterId.Contains(entry.Resource.Id))?.Resource;
+            string maternityEncounterId = ((ResourceReference) Composition?.Encounter?.Extension.FirstOrDefault(e => e.Url == ExtensionURL.ExtensionEncounterMaternityReference)?.Value)?.Reference;
+            EncounterMaternity = (Encounter)Bundle.Entry.Find(entry => entry.Resource is Encounter && maternityEncounterId.Contains(entry.Resource.Id))?.Resource;
         }
 
         /// <inheritdoc/>
@@ -68,7 +68,7 @@ namespace BFDR
             {
                 Profile = new[] { ProfileURL.CompositionJurisdictionLiveBirthReport }
             };
-            Composition.Type = new CodeableConcept(CodeSystems.LOINC, "71230-7", "Birth certificate", null);
+            Composition.Type = new CodeableConcept(CodeSystems.LOINC, "92011-6", "Jurisdiction live birth report Document", null);
             Composition.Title = "Birth Certificate";
         }
 
