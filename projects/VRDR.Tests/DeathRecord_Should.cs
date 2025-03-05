@@ -2243,6 +2243,15 @@ namespace VRDR.Tests
         }
 
         [Fact]
+        public void Get_IndustryOccupationCodedBundle()
+        {
+            Bundle ioccBundle = DeathRecord1_JSON.GetIndustryOccupationCodedContentBundle();
+            Assert.NotNull(ioccBundle);
+            DeathRecord newdr = new DeathRecord(ioccBundle);
+            Assert.Equal("54121", newdr.UsualIndustryCoded["code"]);
+            Assert.Equal("13-2011", newdr.UsualOccupationCoded["code"]);
+        }
+        [Fact]
         public void Set_MilitaryService()
         {
             SetterDeathRecord.MilitaryServiceHelper = VR.ValueSets.YesNoUnknown.Yes;
