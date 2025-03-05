@@ -100,7 +100,7 @@ namespace VR
             // Validate that the given Bundle is not a message.
             if (this.Bundle.Type == Bundle.BundleType.Message)
             {
-                throw new BundleTypeException("Expected a Vital Record Bundle, given a Message.");
+                throw new BundleTypeException("The FHIR Bundle must be of type Document, not Message.");
             }
         }
         
