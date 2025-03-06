@@ -21,6 +21,8 @@ using VR;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Unicode;
+using JsonDiffPatchDotNet;
+
 
 namespace VRDR.CLI
 {
@@ -158,78 +160,182 @@ namespace VRDR.CLI
 
         // ConvertVersionJSON:  The boolean STU3toSTU2 should be true when used in this library that supports STU3.  
         // The same code could be used in the vrdr-dotnet library that supports VRDR STU2.2, with STU3toSTU2 set to false.
-        static void ConvertVersionJSON(string pOutputFile, string pInputFile, bool STU3toSTU2)
+        static void ConvertVersion(string pOutputFile, string pInputFile, bool STU3toSTU2, bool jsonConversion)
         {
-            var uris = urisSTU3toSTU2;
+            var uris = UrisSTU3toSTU2;
+            var dateTimeUris = dateTimeComponentsSTU3toSTU2;
+            Bundle bundle; 
+            string newContent;
+
             if (!STU3toSTU2)
             { // The mapping is bidirectional.  Depending on which direction, we flip the map.
-                uris = CreateSTU2toSTU3Mapping(urisSTU3toSTU2);
+                uris = CreateSTU2toSTU3Mapping(UrisSTU3toSTU2);
+                dateTimeUris = CreateSTU2toSTU3Mapping(dateTimeComponentsSTU3toSTU2);
             }
             string content = File.ReadAllText(pInputFile);
-            // Iterate through the mapped strings, and replace them one by one
+            // Iterate through the mapped codesystem strings, and replace them one by one
             foreach (var kvp in uris)
             {
                 content = content.Replace(kvp.Key, kvp.Value);
             }
             // Fix an observation's code and CodeSystem.  This can't be done using string replace.
-            ParserSettings parserSettings = new ParserSettings
-            {
-                AcceptUnknownMembers = true,
-                AllowUnrecognizedEnums = true,
-                PermissiveParsing = true
-            };
-            FhirJsonParser parser = new FhirJsonParser(parserSettings);
-            Bundle bundle = parser.Parse<Bundle>(content);
+            if(jsonConversion){ // JSON Conversion
+                ParserSettings parserSettings = new ParserSettings
+                {
+                    AcceptUnknownMembers = true,
+                    AllowUnrecognizedEnums = true,
+                    PermissiveParsing = true
+                };
+                FhirJsonParser parser = new FhirJsonParser(parserSettings);
+                bundle = parser.Parse<Bundle>(content);
+            }else{
+                //XML Conversion
+                // Parse the FHIR XML into a Resource object
+                    var parser = new FhirXmlParser();
+                    bundle = parser.Parse<Bundle>(content);
+            }
             // Scan through all Observations to make sure they all have codes!
-            foreach (var ob in bundle.Entry.Where(entry => entry.Resource is Observation))
+            foreach (var entry  in bundle.Entry)
             {
-                Observation obs = (Observation)ob.Resource;
-                if (obs.Code == null || obs.Code.Coding == null || obs.Code.Coding.FirstOrDefault() == null || obs.Code.Coding.First().Code == null)
-                {
-                    continue;
-                }
-                if (!STU3toSTU2)
-                {
-                    switch (obs.Code.Coding.First().Code)
+                if (entry.Resource is Observation){
+                    Observation obs = (Observation)entry.Resource;
+                    if (obs.Code == null || obs.Code.Coding == null || obs.Code.Coding.FirstOrDefault() == null || obs.Code.Coding.First().Code == null)
                     {
-                        case "BR":
-                            obs.Code = new CodeableConcept(VR.CodeSystems.LocalObservationCodes, "childbirthrecordidentifier", "Birth Record Identifier of Child", null);
-                            break;
+                        continue;
                     }
-                }
-                else
-                {
-                    switch (obs.Code.Coding.First().Code)
+                    if (!STU3toSTU2)
                     {
-                        case "childbirthrecordidentifier":
-                            obs.Code = new CodeableConcept(CodeSystems.HL7_identifier_type, "BR", "Birth registry number", null);
-                            break;
+                        switch (obs.Code.Coding.First().Code)
+                        {
+                            case "BR":
+                             obs.Code = new CodeableConcept(VR.CodeSystems.LocalObservationCodes, "childbirthrecordidentifier", "Birth Record Identifier of Child", null);
+                                break;
+                        }
                     }
-                }
+                    else
+                    {
+                        switch (obs.Code.Coding.First().Code)
+                        {
+                            case "childbirthrecordidentifier":
+                                obs.Code = new CodeableConcept(CodeSystems.HL7_identifier_type, "BR", "Birth registry number", null);
+                                break;
+                        }
+                    }
+                }  
             }
-            // Serialize the bundle as JSON
-            string newContent = bundle.ToJson(new FhirJsonSerializationSettings { Pretty = true, AppendNewLine = true });
+
+            // Recursively update all extensions in the entire bundle
+            UpdateExtensionsRecursively(bundle, dateTimeUris);
+
+            
+            if (jsonConversion){ // Serialize the bundle as JSON
+                newContent = bundle.ToJson(new FhirJsonSerializationSettings { Pretty = true, AppendNewLine = true });
+            }else{
+                var serializer = new FhirXmlSerializer();   
+                newContent = serializer.SerializeToString(bundle);
+            }
             File.WriteAllText(pOutputFile, newContent);
-        }
+    }
 
-        static void ExchangeURLsXML(string pOutputFile, string pInputFile, bool STU3toSTU2)
+    static void UpdateExtensionsRecursively(Base fhirElement, Dictionary<string, string> replacements)
+    {
+        if (fhirElement == null) return;
+
+        // Check if this element has extensions (any FHIR element can!)
+        if (fhirElement is IExtendable extendable)
         {
-            var uris = STU3toSTU2 ? urisSTU3toSTU2 : CreateSTU2toSTU3Mapping(urisSTU3toSTU2);
-
-            var doc = XDocument.Load(pInputFile);
-
-            foreach (var element in doc.Descendants())
+            if (extendable.Extension != null)
             {
-                foreach (var kvp in uris)
+                foreach (var ext in extendable.Extension)
                 {
-                    if (element.Value.Contains(kvp.Key))
+                    // If the URL matches, update it
+                    if (replacements.ContainsKey(ext.Url))
                     {
-                        element.Value = element.Value.Replace(kvp.Key, kvp.Value);
+                        ext.Url = replacements[ext.Url];
+                    }
+
+                    // Recursively process nested extensions
+                    if (ext.Extension != null && ext.Extension.Any())
+                    {
+                        UpdateExtensionsRecursively(ext, replacements);
                     }
                 }
             }
-
-            doc.Save(pOutputFile);
         }
+
+        // Recursively process all properties of the current resource
+        foreach (var property in fhirElement.GetType().GetProperties())
+        {
+            if (typeof(Base).IsAssignableFrom(property.PropertyType))
+            {
+                // Single FHIR element (e.g., Patient.name)
+                var value = property.GetValue(fhirElement) as Base;
+                if (value != null) UpdateExtensionsRecursively(value, replacements);
+            }
+            else if (typeof(IEnumerable<Base>).IsAssignableFrom(property.PropertyType))
+            {
+                // List of FHIR elements (e.g., Bundle.entry, Patient.name)
+                var values = property.GetValue(fhirElement) as IEnumerable<Base>;
+                if (values != null)
+                {
+                    foreach (var item in values)
+                    {
+                        UpdateExtensionsRecursively(item, replacements);
+                    }
+                }
+            }
+        }
+    }
+
+
+    static bool CompareJsonIgnoringOrderAndSpacing(string json1, string json2)
+    {
+        var jdp = new JsonDiffPatch();
+        var left = JToken.Parse(json1);
+        var right = JToken.Parse(json2);
+        
+        // Sort both JSON objects
+        var sortedLeft = SortJson(left);
+        var sortedRight = SortJson(right);
+        // bool same = (String.Compare(sortedLeft.ToString(), sortedRight.ToString()) == 0);
+        // string samestring = (same?"same":"different");
+        // Console.WriteLine("Two Json strings are " + samestring);
+        // File.WriteAllText("sortedLeft.json", sortedLeft.ToString());
+        // File.WriteAllText("sortedRight.json", sortedRight.ToString());
+        
+        // Compare the sorted JSON objects
+        var diff = jdp.Diff(sortedLeft, sortedRight);
+        string samestring = (diff == null?"same":"different");
+        // Print the diff to the console
+        if (diff != null)
+        {
+            Console.WriteLine("Differences:");
+            Console.WriteLine(diff.ToString());
+        }
+        return diff == null;
+    }
+
+    static JToken SortJson(JToken token)
+    {
+        if (token is JObject jObj)
+        {
+            var properties = jObj.Properties().ToList();
+            var sortedObj = new JObject();
+            foreach (var prop in properties.OrderBy(p => p.Name))
+            {
+                sortedObj.Add(prop.Name, SortJson(prop.Value));
+            }
+            return sortedObj;
+        }
+        else if (token is JArray jArr)
+        {
+            return new JArray(jArr.Select(SortJson).OrderBy(t => t.ToString()));
+        }
+        else
+        {
+            return token;
+        }
+    }
+
     }
 }
