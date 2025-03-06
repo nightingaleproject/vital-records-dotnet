@@ -357,7 +357,7 @@ namespace VR
             }
         }
 
-        /// <summary>Identifier of the payload version</summary>
+        /// <summary>Identifier of the payload FHIR IG version</summary>
         [FHIRPath("Bundle.entry.resource.where($this is Parameters)", "")]
         public string PayloadVersionId
         {
@@ -371,8 +371,9 @@ namespace VR
             }
         }
         /// TODO move this to an override for GetYear and SetYear in fetal death messaging
-        /// <summary>The year in which the fetal death occurred</summary>
+        /// <summary>The year in which the event occurred</summary>
         [FHIRPath("Bundle.entry.resource.where($this is Parameters)", "")]
+
         public uint? EventYear
         {
             get
