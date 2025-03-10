@@ -191,6 +191,7 @@ namespace BFDR
             dccBundle.Identifier = Bundle.Identifier;
             // Add composition; we should always create a new composition appropriate for this bundle type
             Composition composition = new Composition();
+            // TODO: Need to add the composition to the bundle
             composition.Id = Guid.NewGuid().ToString();
             composition.Status = CompositionStatus.Final;
             composition.Meta = new Meta();
@@ -204,30 +205,70 @@ namespace BFDR
             author.Active = true;
             author.Name = "National Center for Health Statistics";
             composition.Author = new List<ResourceReference> { new ResourceReference("urn:uuid:" + author.Id) };
-            AddResourceToBundleIfPresent(author, dccBundle);
+            dccBundle.AddResourceEntry(author, "urn:uuid:" + author.Id);
             composition.Title = "Demographic Coded Content";
+            // Create and populate the mother section in the composition
+            // TODO: Shake out the common code below, and pass in either the mother or the direct GetObservation result
+            Composition.SectionComponent motherSection = new Composition.SectionComponent
+            {
+                Code = new CodeableConcept(CodeSystems.RoleCode_HL7_V3, "MTH")
+            };
+            composition.Section.Add(motherSection);
             if (Mother != null)
             {
-                Composition.SectionComponent motherSection = new Composition.SectionComponent
-                {
-                  Code = new CodeableConcept(CodeSystems.RoleCode_HL7_V3, "MTH")
-                  //TODO: add mother, input, coded race/ethnicity reference slices
-                };
-                composition.Section.Add(motherSection);
-            } else if (Father != null)
+                motherSection.Entry.Add(new ResourceReference("urn:uuid:" + Mother.Id));
+                dccBundle.AddResourceEntry(Mother, "urn:uuid:" + Mother.Id);
+            }
+            Observation motherInputRaceEthnicity = GetObservation(
+                VR.ValueSets.InputRaceAndEthnicityPerson.Mother_Race_And_Ethnicity_Data_Submitted_By_Jurisdictions_To_Nchs
+            );
+            if (motherInputRaceEthnicity != null)
             {
-                Composition.SectionComponent fatherSection = new Composition.SectionComponent
-                {
-                  Code = new CodeableConcept(CodeSystems.RoleCode_HL7_V3, "NFTH")
-                  //TODO: add father, input, coded race/ethnicity reference slices
-                };
-                composition.Section.Add(fatherSection);
+                motherSection.Entry.Add(new ResourceReference("urn:uuid:" + motherInputRaceEthnicity.Id));
+                dccBundle.AddResourceEntry(motherInputRaceEthnicity, "urn:uuid:" + motherInputRaceEthnicity.Id);
+            }
+            Observation motherCodedRaceEthnicity = GetObservation(
+                VR.ValueSets.CodedRaceAndEthnicityPerson.Mother_Coded_Race_And_Ethnicity_Data_Produced_By_Nchs_From_Submitted_Death_Record
+            );
+            if (motherCodedRaceEthnicity != null)
+            {
+                motherSection.Entry.Add(new ResourceReference("urn:uuid:" + motherCodedRaceEthnicity.Id));
+                dccBundle.AddResourceEntry(motherCodedRaceEthnicity, "urn:uuid:" + motherCodedRaceEthnicity.Id);
+            }
 
-            } else 
+            // Create and populate the father section in the composition
+            Composition.SectionComponent fatherSection = new Composition.SectionComponent
             {
-                //TODO: demographic content composition should have a relevant mother and/or father - this should be an exception
-                Console.WriteLine("Warning: Failed to find a Mother or Father for Demographic Information.");
-            }            
+              Code = new CodeableConcept(CodeSystems.RoleCode_HL7_V3, "NFTH")
+            };
+            composition.Section.Add(fatherSection);
+            if (Father != null)
+            {
+                fatherSection.Entry.Add(new ResourceReference("urn:uuid:" + Father.Id));
+                dccBundle.AddResourceEntry(Father, "urn:uuid:" + Father.Id);
+            }
+            Observation fatherInputRaceEthnicity = GetObservation(
+                VR.ValueSets.InputRaceAndEthnicityPerson.Father_Race_And_Ethnicity_Data_Submitted_By_Jurisdictions_To_Nchs
+            );
+            if (fatherInputRaceEthnicity != null)
+            {
+                fatherSection.Entry.Add(new ResourceReference("urn:uuid:" + fatherInputRaceEthnicity.Id));
+                dccBundle.AddResourceEntry(fatherInputRaceEthnicity, "urn:uuid:" + fatherInputRaceEthnicity.Id);
+            }
+            Observation fatherCodedRaceEthnicity = GetObservation(
+                VR.ValueSets.CodedRaceAndEthnicityPerson.Father_Coded_Race_And_Ethnicity_Data_Produced_By_Nchs_From_Submitted_Death_Record
+            );
+            if (fatherCodedRaceEthnicity != null)
+            {
+                fatherSection.Entry.Add(new ResourceReference("urn:uuid:" + fatherCodedRaceEthnicity.Id));
+                dccBundle.AddResourceEntry(fatherCodedRaceEthnicity, "urn:uuid:" + fatherCodedRaceEthnicity.Id);
+            }
+
+            // TODO: We may not actually need a Mother or Father entry, just the relevant observations
+            if (Mother == null && Father == null)
+            {
+                throw new System.ApplicationException("Cannot create Demographic Coded Content Bundle without mother or father.");
+            }
             // NOTE: If we want to put observations in the coded content bundle that don't have references we'll
             // need to move them over by grabbing them by the observation code
             return dccBundle;
