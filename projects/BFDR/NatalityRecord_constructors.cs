@@ -209,6 +209,7 @@ namespace BFDR
             composition.Title = "Demographic Coded Content";
             // Create and populate the mother section in the composition
             // TODO: Shake out the common code below, and pass in either the mother or the direct GetObservation result
+            // IDEA: Maybe use existing code but move to new function where you pass in a bundle and have existing call that
             Composition.SectionComponent motherSection = new Composition.SectionComponent
             {
                 Code = new CodeableConcept(CodeSystems.RoleCode_HL7_V3, "MTH")
@@ -265,10 +266,10 @@ namespace BFDR
             }
 
             // TODO: We may not actually need a Mother or Father entry, just the relevant observations
-            if (Mother == null && Father == null)
-            {
-                throw new System.ApplicationException("Cannot create Demographic Coded Content Bundle without mother or father.");
-            }
+            //if (Mother == null && Father == null)
+            //{
+            //    throw new System.ApplicationException("Cannot create Demographic Coded Content Bundle without mother or father.");
+            //}
             // NOTE: If we want to put observations in the coded content bundle that don't have references we'll
             // need to move them over by grabbing them by the observation code
             return dccBundle;
