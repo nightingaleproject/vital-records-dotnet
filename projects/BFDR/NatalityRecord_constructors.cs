@@ -176,6 +176,45 @@ namespace BFDR
 
         }
 
+        /// <summary>Helper to add a resource to a bundle, if not null, including adding the appropriate entry to the
+        /// composition, which could require adding a section to the composition; the composition entry is a focus if
+        /// the entry is a Patient or RelatedPerson, otherwise it's a simple entry.</summary>
+        /// <param name="resource">The resource to add</param>
+        /// <param name="compositionSection">The composition section where a reference should be added</param>
+        /// <param name="bundle">The bundle to add the resource to</param>
+        // Note: This is somewhat specialized to the structure of natality records, which is subtly different from
+        // mortality records, but could potentially be moved to the VitalRecord library
+        public void AddResourceToBundle(Resource resource, string compositionSection, Bundle bundle)
+        {
+            // Only act if the resource isn't null
+            if (resource != null)
+            {
+                // Get the composition
+                Composition composition = bundle.Entry.Select(entry => entry.Resource as Composition).FirstOrDefault(c => c != null);
+                if (composition == null)
+                {
+                    throw new System.ApplicationException("Bundle does not contain a composition.");
+                }
+                // See if we can find the required composition section or need to add it
+                Composition.SectionComponent section = composition.Section.FirstOrDefault(s => s.Code.Coding.Any(c => c.Code == compositionSection));
+                if (section == null)
+                {
+                    section = new Composition.SectionComponent { Code = new CodeableConcept(CodeSystems.RoleCode_HL7_V3, compositionSection) };
+                    composition.Section.Add(section);
+                }
+                // Add the resource to the bundle and a reference to the correct place in the composition section
+                bundle.AddResourceEntry(resource, $"urn:uuid:{resource.Id}");
+                if (resource is Patient || resource is RelatedPerson)
+                {
+                    section.Focus = new ResourceReference($"urn:uuid:{resource.Id}");
+                }
+                else
+                {
+                    section.Entry.Add(new ResourceReference($"urn:uuid:{resource.Id}"));
+                }
+            }
+        }
+
         /// <summary>Helper method to return the subset of this record that makes up a DemographicCodedContent bundle.</summary>
         /// <returns>a new FHIR Bundle</returns>
         public Bundle GetDemographicCodedContentBundle()
@@ -191,6 +230,7 @@ namespace BFDR
             dccBundle.Identifier = Bundle.Identifier;
             // Add composition; we should always create a new composition appropriate for this bundle type
             Composition composition = new Composition();
+            dccBundle.AddResourceEntry(composition, $"urn:uuid:{composition.Id}");
             // TODO: Need to add the composition to the bundle
             composition.Id = Guid.NewGuid().ToString();
             composition.Status = CompositionStatus.Final;
@@ -207,71 +247,14 @@ namespace BFDR
             composition.Author = new List<ResourceReference> { new ResourceReference("urn:uuid:" + author.Id) };
             dccBundle.AddResourceEntry(author, "urn:uuid:" + author.Id);
             composition.Title = "Demographic Coded Content";
-            // Create and populate the mother section in the composition
-            // TODO: Shake out the common code below, and pass in either the mother or the direct GetObservation result
-            // IDEA: Maybe use existing code but move to new function where you pass in a bundle and have existing call that
-            Composition.SectionComponent motherSection = new Composition.SectionComponent
-            {
-                Code = new CodeableConcept(CodeSystems.RoleCode_HL7_V3, "MTH")
-            };
-            composition.Section.Add(motherSection);
-            if (Mother != null)
-            {
-                motherSection.Entry.Add(new ResourceReference("urn:uuid:" + Mother.Id));
-                dccBundle.AddResourceEntry(Mother, "urn:uuid:" + Mother.Id);
-            }
-            Observation motherInputRaceEthnicity = GetObservation(
-                VR.ValueSets.InputRaceAndEthnicityPerson.Mother_Race_And_Ethnicity_Data_Submitted_By_Jurisdictions_To_Nchs
-            );
-            if (motherInputRaceEthnicity != null)
-            {
-                motherSection.Entry.Add(new ResourceReference("urn:uuid:" + motherInputRaceEthnicity.Id));
-                dccBundle.AddResourceEntry(motherInputRaceEthnicity, "urn:uuid:" + motherInputRaceEthnicity.Id);
-            }
-            Observation motherCodedRaceEthnicity = GetObservation(
-                VR.ValueSets.CodedRaceAndEthnicityPerson.Mother_Coded_Race_And_Ethnicity_Data_Produced_By_Nchs_From_Submitted_Death_Record
-            );
-            if (motherCodedRaceEthnicity != null)
-            {
-                motherSection.Entry.Add(new ResourceReference("urn:uuid:" + motherCodedRaceEthnicity.Id));
-                dccBundle.AddResourceEntry(motherCodedRaceEthnicity, "urn:uuid:" + motherCodedRaceEthnicity.Id);
-            }
-
-            // Create and populate the father section in the composition
-            Composition.SectionComponent fatherSection = new Composition.SectionComponent
-            {
-              Code = new CodeableConcept(CodeSystems.RoleCode_HL7_V3, "NFTH")
-            };
-            composition.Section.Add(fatherSection);
-            if (Father != null)
-            {
-                fatherSection.Entry.Add(new ResourceReference("urn:uuid:" + Father.Id));
-                dccBundle.AddResourceEntry(Father, "urn:uuid:" + Father.Id);
-            }
-            Observation fatherInputRaceEthnicity = GetObservation(
-                VR.ValueSets.InputRaceAndEthnicityPerson.Father_Race_And_Ethnicity_Data_Submitted_By_Jurisdictions_To_Nchs
-            );
-            if (fatherInputRaceEthnicity != null)
-            {
-                fatherSection.Entry.Add(new ResourceReference("urn:uuid:" + fatherInputRaceEthnicity.Id));
-                dccBundle.AddResourceEntry(fatherInputRaceEthnicity, "urn:uuid:" + fatherInputRaceEthnicity.Id);
-            }
-            Observation fatherCodedRaceEthnicity = GetObservation(
-                VR.ValueSets.CodedRaceAndEthnicityPerson.Father_Coded_Race_And_Ethnicity_Data_Produced_By_Nchs_From_Submitted_Death_Record
-            );
-            if (fatherCodedRaceEthnicity != null)
-            {
-                fatherSection.Entry.Add(new ResourceReference("urn:uuid:" + fatherCodedRaceEthnicity.Id));
-                dccBundle.AddResourceEntry(fatherCodedRaceEthnicity, "urn:uuid:" + fatherCodedRaceEthnicity.Id);
-            }
-
-            // TODO: We may not actually need a Mother or Father entry, just the relevant observations
-            //if (Mother == null && Father == null)
-            //{
-            //    throw new System.ApplicationException("Cannot create Demographic Coded Content Bundle without mother or father.");
-            //}
-            // NOTE: If we want to put observations in the coded content bundle that don't have references we'll
-            // need to move them over by grabbing them by the observation code
+            // Create and populate the mother section in the composition; NOTE: Mother is not required, just the observations
+            AddResourceToBundle(Mother, "MTH", dccBundle);
+            AddResourceToBundle(GetObservation(VR.ValueSets.InputRaceAndEthnicityPerson.Mother_Race_And_Ethnicity_Data_Submitted_By_Jurisdictions_To_Nchs), "MTH", dccBundle);
+            AddResourceToBundle(GetObservation(VR.ValueSets.CodedRaceAndEthnicityPerson.Mother_Coded_Race_And_Ethnicity_Data_Produced_By_Nchs_From_Submitted_Death_Record), "MTH", dccBundle);
+            // Create and populate the father section in the composition; NOTE: Father is not required, just the observations
+            AddResourceToBundle(Father, "NFTH", dccBundle);
+            AddResourceToBundle(GetObservation(VR.ValueSets.InputRaceAndEthnicityPerson.Father_Race_And_Ethnicity_Data_Submitted_By_Jurisdictions_To_Nchs), "NFTH", dccBundle);
+            AddResourceToBundle(GetObservation(VR.ValueSets.CodedRaceAndEthnicityPerson.Father_Coded_Race_And_Ethnicity_Data_Produced_By_Nchs_From_Submitted_Death_Record), "NFTH", dccBundle);
             return dccBundle;
         }
 
