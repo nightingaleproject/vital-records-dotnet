@@ -4016,64 +4016,69 @@ namespace BFDR.Tests
     {
       // Load an existing demographic bundle
       BirthRecord record = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/Bundle-bundle-coded-race-and-ethnicity-baby-g-quinn.json")), true);
-      // Use it to generate a new record based on a new demographic bundle
+      // Use it to generate a new record based on a new demographic bundle and on the JSON output of the demographic bundle
       Bundle newBundle = record.GetDemographicCodedContentBundle();
       BirthRecord newRecord = new(newBundle);
-      // Confirm that the new record contains the appropriate contents from the old record
-      // Mother input race and ethnicity
-      Assert.Equal(record.RecordIdentifier, newRecord.RecordIdentifier);
-      Assert.Equal(record.MotherEthnicity1Helper, newRecord.MotherEthnicity1Helper);
-      Assert.Equal(record.MotherEthnicity2Helper, newRecord.MotherEthnicity2Helper);
-      Assert.Equal(record.MotherEthnicity3Helper, newRecord.MotherEthnicity3Helper);
-      Assert.Equal(record.MotherEthnicity4Helper, newRecord.MotherEthnicity4Helper);
-      Assert.Equal(record.MotherEthnicityLiteral, newRecord.MotherEthnicityLiteral);
-      Assert.Equal(record.MotherRace, newRecord.MotherRace);
-      // Mother output race and ethnicity
-      Assert.Equal(record.MotherRaceTabulation1EHelper, newRecord.MotherRaceTabulation1EHelper);
-      Assert.Equal(record.MotherRaceTabulation2EHelper, newRecord.MotherRaceTabulation2EHelper);
-      Assert.Equal(record.MotherRaceTabulation3EHelper, newRecord.MotherRaceTabulation3EHelper);
-      Assert.Equal(record.MotherRaceTabulation4EHelper, newRecord.MotherRaceTabulation4EHelper);
-      Assert.Equal(record.MotherRaceTabulation5EHelper, newRecord.MotherRaceTabulation5EHelper);
-      Assert.Equal(record.MotherRaceTabulation6EHelper, newRecord.MotherRaceTabulation6EHelper);
-      Assert.Equal(record.MotherRaceTabulation7EHelper, newRecord.MotherRaceTabulation7EHelper);
-      Assert.Equal(record.MotherRaceTabulation8EHelper, newRecord.MotherRaceTabulation8EHelper);
-      Assert.Equal(record.MotherFirstAmericanIndianCodeHelper, newRecord.MotherFirstAmericanIndianCodeHelper);
-      Assert.Equal(record.MotherSecondAmericanIndianCodeHelper, newRecord.MotherSecondAmericanIndianCodeHelper);
-      Assert.Equal(record.MotherFirstOtherAsianCodeHelper, newRecord.MotherFirstOtherAsianCodeHelper);
-      Assert.Equal(record.MotherSecondOtherAsianCodeHelper, newRecord.MotherSecondOtherAsianCodeHelper);
-      Assert.Equal(record.MotherFirstOtherPacificIslanderCodeHelper, newRecord.MotherFirstOtherPacificIslanderCodeHelper);
-      Assert.Equal(record.MotherSecondOtherPacificIslanderCodeHelper, newRecord.MotherSecondOtherPacificIslanderCodeHelper);
-      Assert.Equal(record.MotherFirstOtherRaceCodeHelper, newRecord.MotherFirstOtherRaceCodeHelper);
-      Assert.Equal(record.MotherSecondOtherRaceCodeHelper, newRecord.MotherSecondOtherRaceCodeHelper);
-      Assert.Equal(record.MotherEthnicityCodeForLiteralHelper, newRecord.MotherEthnicityCodeForLiteralHelper);
-      Assert.Equal(record.MotherEthnicityEditedCodeHelper, newRecord.MotherEthnicityEditedCodeHelper);
-      // Father input race and ethnicity
-      Assert.Equal(record.RecordIdentifier, newRecord.RecordIdentifier);
-      Assert.Equal(record.FatherEthnicity1Helper, newRecord.FatherEthnicity1Helper);
-      Assert.Equal(record.FatherEthnicity2Helper, newRecord.FatherEthnicity2Helper);
-      Assert.Equal(record.FatherEthnicity3Helper, newRecord.FatherEthnicity3Helper);
-      Assert.Equal(record.FatherEthnicity4Helper, newRecord.FatherEthnicity4Helper);
-      Assert.Equal(record.FatherEthnicityLiteral, newRecord.FatherEthnicityLiteral);
-      Assert.Equal(record.FatherRace, newRecord.FatherRace);
-      // Father output race and ethnicity
-      Assert.Equal(record.FatherRaceTabulation1EHelper, newRecord.FatherRaceTabulation1EHelper);
-      Assert.Equal(record.FatherRaceTabulation2EHelper, newRecord.FatherRaceTabulation2EHelper);
-      Assert.Equal(record.FatherRaceTabulation3EHelper, newRecord.FatherRaceTabulation3EHelper);
-      Assert.Equal(record.FatherRaceTabulation4EHelper, newRecord.FatherRaceTabulation4EHelper);
-      Assert.Equal(record.FatherRaceTabulation5EHelper, newRecord.FatherRaceTabulation5EHelper);
-      Assert.Equal(record.FatherRaceTabulation6EHelper, newRecord.FatherRaceTabulation6EHelper);
-      Assert.Equal(record.FatherRaceTabulation7EHelper, newRecord.FatherRaceTabulation7EHelper);
-      Assert.Equal(record.FatherRaceTabulation8EHelper, newRecord.FatherRaceTabulation8EHelper);
-      Assert.Equal(record.FatherFirstAmericanIndianCodeHelper, newRecord.FatherFirstAmericanIndianCodeHelper);
-      Assert.Equal(record.FatherSecondAmericanIndianCodeHelper, newRecord.FatherSecondAmericanIndianCodeHelper);
-      Assert.Equal(record.FatherFirstOtherAsianCodeHelper, newRecord.FatherFirstOtherAsianCodeHelper);
-      Assert.Equal(record.FatherSecondOtherAsianCodeHelper, newRecord.FatherSecondOtherAsianCodeHelper);
-      Assert.Equal(record.FatherFirstOtherPacificIslanderCodeHelper, newRecord.FatherFirstOtherPacificIslanderCodeHelper);
-      Assert.Equal(record.FatherSecondOtherPacificIslanderCodeHelper, newRecord.FatherSecondOtherPacificIslanderCodeHelper);
-      Assert.Equal(record.FatherFirstOtherRaceCodeHelper, newRecord.FatherFirstOtherRaceCodeHelper);
-      Assert.Equal(record.FatherSecondOtherRaceCodeHelper, newRecord.FatherSecondOtherRaceCodeHelper);
-      Assert.Equal(record.FatherEthnicityCodeForLiteralHelper, newRecord.FatherEthnicityCodeForLiteralHelper);
-      Assert.Equal(record.FatherEthnicityEditedCodeHelper, newRecord.FatherEthnicityEditedCodeHelper);
+      BirthRecord newRecordFromJSON = new(newBundle.ToJson());
+      // Confirm that each new record contains the appropriate contents from the old record
+      List<BirthRecord> recordsToTest = new List<BirthRecord> { newRecord, newRecordFromJSON };
+      foreach (var testRecord in recordsToTest)
+      {
+        // Mother input race and ethnicity
+        Assert.Equal(record.RecordIdentifier, testRecord.RecordIdentifier);
+        Assert.Equal(record.MotherEthnicity1Helper, testRecord.MotherEthnicity1Helper);
+        Assert.Equal(record.MotherEthnicity2Helper, testRecord.MotherEthnicity2Helper);
+        Assert.Equal(record.MotherEthnicity3Helper, testRecord.MotherEthnicity3Helper);
+        Assert.Equal(record.MotherEthnicity4Helper, testRecord.MotherEthnicity4Helper);
+        Assert.Equal(record.MotherEthnicityLiteral, testRecord.MotherEthnicityLiteral);
+        Assert.Equal(record.MotherRace, testRecord.MotherRace);
+        // Mother output race and ethnicity
+        Assert.Equal(record.MotherRaceTabulation1EHelper, testRecord.MotherRaceTabulation1EHelper);
+        Assert.Equal(record.MotherRaceTabulation2EHelper, testRecord.MotherRaceTabulation2EHelper);
+        Assert.Equal(record.MotherRaceTabulation3EHelper, testRecord.MotherRaceTabulation3EHelper);
+        Assert.Equal(record.MotherRaceTabulation4EHelper, testRecord.MotherRaceTabulation4EHelper);
+        Assert.Equal(record.MotherRaceTabulation5EHelper, testRecord.MotherRaceTabulation5EHelper);
+        Assert.Equal(record.MotherRaceTabulation6EHelper, testRecord.MotherRaceTabulation6EHelper);
+        Assert.Equal(record.MotherRaceTabulation7EHelper, testRecord.MotherRaceTabulation7EHelper);
+        Assert.Equal(record.MotherRaceTabulation8EHelper, testRecord.MotherRaceTabulation8EHelper);
+        Assert.Equal(record.MotherFirstAmericanIndianCodeHelper, testRecord.MotherFirstAmericanIndianCodeHelper);
+        Assert.Equal(record.MotherSecondAmericanIndianCodeHelper, testRecord.MotherSecondAmericanIndianCodeHelper);
+        Assert.Equal(record.MotherFirstOtherAsianCodeHelper, testRecord.MotherFirstOtherAsianCodeHelper);
+        Assert.Equal(record.MotherSecondOtherAsianCodeHelper, testRecord.MotherSecondOtherAsianCodeHelper);
+        Assert.Equal(record.MotherFirstOtherPacificIslanderCodeHelper, testRecord.MotherFirstOtherPacificIslanderCodeHelper);
+        Assert.Equal(record.MotherSecondOtherPacificIslanderCodeHelper, testRecord.MotherSecondOtherPacificIslanderCodeHelper);
+        Assert.Equal(record.MotherFirstOtherRaceCodeHelper, testRecord.MotherFirstOtherRaceCodeHelper);
+        Assert.Equal(record.MotherSecondOtherRaceCodeHelper, testRecord.MotherSecondOtherRaceCodeHelper);
+        Assert.Equal(record.MotherEthnicityCodeForLiteralHelper, testRecord.MotherEthnicityCodeForLiteralHelper);
+        Assert.Equal(record.MotherEthnicityEditedCodeHelper, testRecord.MotherEthnicityEditedCodeHelper);
+        // Father input race and ethnicity
+        Assert.Equal(record.RecordIdentifier, testRecord.RecordIdentifier);
+        Assert.Equal(record.FatherEthnicity1Helper, testRecord.FatherEthnicity1Helper);
+        Assert.Equal(record.FatherEthnicity2Helper, testRecord.FatherEthnicity2Helper);
+        Assert.Equal(record.FatherEthnicity3Helper, testRecord.FatherEthnicity3Helper);
+        Assert.Equal(record.FatherEthnicity4Helper, testRecord.FatherEthnicity4Helper);
+        Assert.Equal(record.FatherEthnicityLiteral, testRecord.FatherEthnicityLiteral);
+        Assert.Equal(record.FatherRace, testRecord.FatherRace);
+        // Father output race and ethnicity
+        Assert.Equal(record.FatherRaceTabulation1EHelper, testRecord.FatherRaceTabulation1EHelper);
+        Assert.Equal(record.FatherRaceTabulation2EHelper, testRecord.FatherRaceTabulation2EHelper);
+        Assert.Equal(record.FatherRaceTabulation3EHelper, testRecord.FatherRaceTabulation3EHelper);
+        Assert.Equal(record.FatherRaceTabulation4EHelper, testRecord.FatherRaceTabulation4EHelper);
+        Assert.Equal(record.FatherRaceTabulation5EHelper, testRecord.FatherRaceTabulation5EHelper);
+        Assert.Equal(record.FatherRaceTabulation6EHelper, testRecord.FatherRaceTabulation6EHelper);
+        Assert.Equal(record.FatherRaceTabulation7EHelper, testRecord.FatherRaceTabulation7EHelper);
+        Assert.Equal(record.FatherRaceTabulation8EHelper, testRecord.FatherRaceTabulation8EHelper);
+        Assert.Equal(record.FatherFirstAmericanIndianCodeHelper, testRecord.FatherFirstAmericanIndianCodeHelper);
+        Assert.Equal(record.FatherSecondAmericanIndianCodeHelper, testRecord.FatherSecondAmericanIndianCodeHelper);
+        Assert.Equal(record.FatherFirstOtherAsianCodeHelper, testRecord.FatherFirstOtherAsianCodeHelper);
+        Assert.Equal(record.FatherSecondOtherAsianCodeHelper, testRecord.FatherSecondOtherAsianCodeHelper);
+        Assert.Equal(record.FatherFirstOtherPacificIslanderCodeHelper, testRecord.FatherFirstOtherPacificIslanderCodeHelper);
+        Assert.Equal(record.FatherSecondOtherPacificIslanderCodeHelper, testRecord.FatherSecondOtherPacificIslanderCodeHelper);
+        Assert.Equal(record.FatherFirstOtherRaceCodeHelper, testRecord.FatherFirstOtherRaceCodeHelper);
+        Assert.Equal(record.FatherSecondOtherRaceCodeHelper, testRecord.FatherSecondOtherRaceCodeHelper);
+        Assert.Equal(record.FatherEthnicityCodeForLiteralHelper, testRecord.FatherEthnicityCodeForLiteralHelper);
+        Assert.Equal(record.FatherEthnicityEditedCodeHelper, testRecord.FatherEthnicityEditedCodeHelper);
+      }
     }
   }
 }
