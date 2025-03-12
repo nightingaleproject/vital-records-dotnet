@@ -315,12 +315,14 @@ namespace BFDR.Tests
             Assert.Null(message.StateAuxiliaryId);
             message.StateAuxiliaryId = "0000123";
             Assert.Equal("0000123", message.StateAuxiliaryId);
-            Assert.Null(message.BlockCount);
+            Assert.Equal((uint)1, message.BlockCount);
             message.BlockCount = 100;
             Assert.Equal((uint)100, message.BlockCount);
             message.BlockCount = 0;
             Assert.Equal((uint)0, message.BlockCount);
             Assert.Equal("BFDR_STU2_0", message.PayloadVersionId);
+            FetalDeathRecordVoidMessage message2 = new FetalDeathRecordVoidMessage();
+            Assert.Equal((uint)1, message2.BlockCount);
         }
 
         // TODO confirm if Voids exist in BFDR
