@@ -55,5 +55,6 @@
     <None Update="fixtures/json/MessageHeaderValidationMissingYear.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures/json/BirthRecordIndustryAndOccupationCodedContent.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures/json/FetalDeathIndustryAndOccupationCodedContent.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="fixtures/json/FetalDeathCodedRaceAndEthnicity.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>
