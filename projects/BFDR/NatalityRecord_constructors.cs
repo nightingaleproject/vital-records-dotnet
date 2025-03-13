@@ -184,7 +184,7 @@ namespace BFDR
         /// <param name="title">The title of the bundle</param>
         /// <param name="authorName">The author of the bundle</param>
         /// <returns>a new FHIR bundle</returns>
-        public Bundle SpecialBundle(string bundleProfileURL, string compositionProfileURL, CodeableConcept compositionType, string title, string authorName)
+        public Bundle BaseBundle(string bundleProfileURL, string compositionProfileURL, CodeableConcept compositionType, string title, string authorName)
         {
             Bundle bundle = new Bundle();
             bundle.Id = Guid.NewGuid().ToString();
@@ -225,7 +225,7 @@ namespace BFDR
         /// <param name="bundle">The bundle to add the resource to</param>
         // Note: This is somewhat specialized to the structure of natality records, which is subtly different from
         // mortality records, but could potentially be moved to the VitalRecord library
-        public void AddResourceToBundle(Resource resource, string compositionSection, Bundle bundle)
+        public void AddResourceToBundleAndComposition(Resource resource, string compositionSection, Bundle bundle)
         {
             // Only act if the resource isn't null
             if (resource != null)
@@ -261,19 +261,19 @@ namespace BFDR
         public Bundle GetDemographicCodedContentBundle()
         {
             // Create the base bundle
-            Bundle dccBundle = SpecialBundle(ProfileURL.BundleDocumentDemographicCodedContent,
-                                             ProfileURL.CompositionCodedRaceAndEthnicity,
-                                             new CodeableConcept(CodeSystems.LOINC, "86805-9", "Race and ethnicity information Document", null),
-                                             "Demographic Coded Content",
-                                             "National Center for Health Statistics");
+            Bundle dccBundle = BaseBundle(ProfileURL.BundleDocumentDemographicCodedContent,
+                                          ProfileURL.CompositionCodedRaceAndEthnicity,
+                                          new CodeableConcept(CodeSystems.LOINC, "86805-9", "Race and ethnicity information Document", null),
+                                          "Demographic Coded Content",
+                                          "National Center for Health Statistics");
             // Populate the mother information; NOTE: Mother is not required, just the observations
-            AddResourceToBundle(Mother, "MTH", dccBundle);
-            AddResourceToBundle(GetObservation(VR.ValueSets.InputRaceAndEthnicityPerson.Mother_Race_And_Ethnicity_Data_Submitted_By_Jurisdictions_To_Nchs), "MTH", dccBundle);
-            AddResourceToBundle(GetObservation(VR.ValueSets.CodedRaceAndEthnicityPerson.Mother_Coded_Race_And_Ethnicity_Data_Produced_By_Nchs_From_Submitted_Death_Record), "MTH", dccBundle);
+            AddResourceToBundleAndComposition(Mother, "MTH", dccBundle);
+            AddResourceToBundleAndComposition(GetObservation(VR.ValueSets.InputRaceAndEthnicityPerson.Mother_Race_And_Ethnicity_Data_Submitted_By_Jurisdictions_To_Nchs), "MTH", dccBundle);
+            AddResourceToBundleAndComposition(GetObservation(VR.ValueSets.CodedRaceAndEthnicityPerson.Mother_Coded_Race_And_Ethnicity_Data_Produced_By_Nchs_From_Submitted_Death_Record), "MTH", dccBundle);
             // Populate the father information; NOTE: Father is not required, just the observations
-            AddResourceToBundle(Father, "NFTH", dccBundle);
-            AddResourceToBundle(GetObservation(VR.ValueSets.InputRaceAndEthnicityPerson.Father_Race_And_Ethnicity_Data_Submitted_By_Jurisdictions_To_Nchs), "NFTH", dccBundle);
-            AddResourceToBundle(GetObservation(VR.ValueSets.CodedRaceAndEthnicityPerson.Father_Coded_Race_And_Ethnicity_Data_Produced_By_Nchs_From_Submitted_Death_Record), "NFTH", dccBundle);
+            AddResourceToBundleAndComposition(Father, "NFTH", dccBundle);
+            AddResourceToBundleAndComposition(GetObservation(VR.ValueSets.InputRaceAndEthnicityPerson.Father_Race_And_Ethnicity_Data_Submitted_By_Jurisdictions_To_Nchs), "NFTH", dccBundle);
+            AddResourceToBundleAndComposition(GetObservation(VR.ValueSets.CodedRaceAndEthnicityPerson.Father_Coded_Race_And_Ethnicity_Data_Produced_By_Nchs_From_Submitted_Death_Record), "NFTH", dccBundle);
             return dccBundle;
         }
 
@@ -282,21 +282,20 @@ namespace BFDR
         public Bundle GetCodedIndustryAndOccupationBundle()
         {
             // Create the base bundle
-            Bundle ciaoBundle = SpecialBundle(ProfileURL.BundleDocumentCodedIndustryOccupation,
-                                             ProfileURL.CompositionCodedIndustryAndOccupation,
-                                             new CodeableConcept(CodeSystems.LocalBFDRCodes, "industry_occupation_document", "Industry and Occupation Document", null),
-                                             "Industry and Occupation Coded Content",
-                                             "National Center for Health Statistics");
+            Bundle ciaoBundle = BaseBundle(ProfileURL.BundleDocumentCodedIndustryOccupation,
+                                           ProfileURL.CompositionCodedIndustryAndOccupation,
+                                           new CodeableConcept(CodeSystems.LocalBFDRCodes, "industry_occupation_document", "Industry and Occupation Document", null),
+                                           "Industry and Occupation Coded Content",
+                                           "National Center for Health Statistics");
             // Populate the mother information; NOTE: Mother is not required, just the observations
-            AddResourceToBundle(Mother, "MTH", ciaoBundle);
+            AddResourceToBundleAndComposition(Mother, "MTH", ciaoBundle);
             // TODO: Coded race and occupation has not yet been implemented on natality records but should be present in this observation
-            // TODO: There will be multiple observations with the same code, one for the mother and one for the father, with different values in the role extension
-            // IDEA: perhaps GetObservation should take an optional lambda that filters
-            // AddResourceToBundle(GetObservation("11341-5"), "MTH", ciaoBundle)
+            // There will be multiple observations with the same code, one for the mother and one for the father, with different values in the role extension
+            // IDEA: We can use the existing GetOccupationObservation() but perhaps GetObservation should take an optional lambda that filters
+            AddResourceToBundleAndComposition(GetOccupationObservation("MTH"), "MTH", ciaoBundle);
             // Populate the father information; NOTE: Father is not required, just the observations
-            AddResourceToBundle(Father, "NFTH", ciaoBundle);
-            // TODO: This should also pick the father observation
-            // AddResourceToBundle(GetObservation("11341-5"), "NFTH", ciaoBundle)
+            AddResourceToBundleAndComposition(Father, "NFTH", ciaoBundle);
+            AddResourceToBundleAndComposition(GetOccupationObservation("FTH"), "NFTH", ciaoBundle);
             return ciaoBundle;
         }
 

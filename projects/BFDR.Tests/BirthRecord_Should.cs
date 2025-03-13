@@ -4014,7 +4014,7 @@ namespace BFDR.Tests
     [Fact]
     public void Test_GetDemographicCodedContentBundle()
     {
-      // Load an existing demographic bundle
+      // Load an existing demographic record
       BirthRecord record = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/Bundle-bundle-coded-race-and-ethnicity-baby-g-quinn.json")), true);
       // Use it to generate a new record based on a new demographic bundle and on the JSON output of the demographic bundle
       Bundle newBundle = record.GetDemographicCodedContentBundle();
@@ -4024,8 +4024,9 @@ namespace BFDR.Tests
       List<BirthRecord> recordsToTest = new List<BirthRecord> { newRecord, newRecordFromJSON };
       foreach (var testRecord in recordsToTest)
       {
-        // Mother input race and ethnicity
+        // Confirm identifier match
         Assert.Equal(record.RecordIdentifier, testRecord.RecordIdentifier);
+        // Mother input race and ethnicity
         Assert.Equal(record.MotherEthnicity1Helper, testRecord.MotherEthnicity1Helper);
         Assert.Equal(record.MotherEthnicity2Helper, testRecord.MotherEthnicity2Helper);
         Assert.Equal(record.MotherEthnicity3Helper, testRecord.MotherEthnicity3Helper);
@@ -4078,6 +4079,30 @@ namespace BFDR.Tests
         Assert.Equal(record.FatherSecondOtherRaceCodeHelper, testRecord.FatherSecondOtherRaceCodeHelper);
         Assert.Equal(record.FatherEthnicityCodeForLiteralHelper, testRecord.FatherEthnicityCodeForLiteralHelper);
         Assert.Equal(record.FatherEthnicityEditedCodeHelper, testRecord.FatherEthnicityEditedCodeHelper);
+      }
+    }
+
+    [Fact]
+    public void Test_GetCodedIndustryAndOccupationBundle()
+    {
+      // Test with two existing industry and occupation records
+      string[] recordFiles = { "fixtures/json/BirthRecordIndustryAndOccupationCodedContent.json", "fixtures/json/FetalDeathIndustryAndOccupationCodedContent.json" };
+      foreach (var recordFile in recordFiles)
+      {
+        // Load the record
+        BirthRecord record = new(File.ReadAllText(TestHelpers.FixturePath(recordFile)), true);
+        // Use it to generate a new record based on a new industry and occupation bundle and on the JSON output of that bundle
+        Bundle newBundle = record.GetCodedIndustryAndOccupationBundle();
+        BirthRecord newRecord = new(newBundle);
+        BirthRecord newRecordFromJSON = new(newBundle.ToJson());
+        // Confirm that each new record contains the appropriate contents from the old record
+        List<BirthRecord> recordsToTest = new List<BirthRecord> { newRecord, newRecordFromJSON };
+        foreach (var testRecord in recordsToTest)
+        {
+          // Confirm identifier match
+          Assert.Equal(record.RecordIdentifier, testRecord.RecordIdentifier);
+          // TODO: When coded industry and occupation fields are supported include them here
+        }
       }
     }
   }
