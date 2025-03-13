@@ -3409,7 +3409,7 @@
         <member name="M:BFDR.NatalityRecord.UpdateRecordIdentifier">
             <summary>Update the bundle identifier from the component fields.</summary>
         </member>
-        <member name="M:BFDR.NatalityRecord.SpecialBundle(System.String,System.String,Hl7.Fhir.Model.CodeableConcept,System.String,System.String)">
+        <member name="M:BFDR.NatalityRecord.BaseBundle(System.String,System.String,Hl7.Fhir.Model.CodeableConcept,System.String,System.String)">
             <summary>Helper to create a specialized base bundle based on the general NatalityRecord bundle for uses
             like DemographicCodedContent, CodedIndustryAndOccupation, and CodedCauseOfFetalDeath</summary>
             <param name="bundleProfileURL">The profile URL of the bundle</param>
@@ -3419,7 +3419,7 @@
             <param name="authorName">The author of the bundle</param>
             <returns>a new FHIR bundle</returns>
         </member>
-        <member name="M:BFDR.NatalityRecord.AddResourceToBundle(Hl7.Fhir.Model.Resource,System.String,Hl7.Fhir.Model.Bundle)">
+        <member name="M:BFDR.NatalityRecord.AddResourceToBundleAndComposition(Hl7.Fhir.Model.Resource,System.String,Hl7.Fhir.Model.Bundle)">
             <summary>Helper to add a resource to a bundle, if not null, including adding the appropriate entry to the
             composition, which could require adding a section to the composition; the composition entry is a focus if
             the entry is a Patient or RelatedPerson, otherwise it's a simple entry.</summary>
