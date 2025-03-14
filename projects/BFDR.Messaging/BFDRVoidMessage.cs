@@ -79,7 +79,10 @@ namespace BFDR
         /// <returns></returns>
         internal BFDRVoidMessage(Bundle messageBundle) : base(messageBundle)
         {
-            BlockCount = 1;
+            if (BlockCount == null)
+            {
+                BlockCount = 1;
+            }
         }
 
         /// <summary>Constructor that takes a BFDR.NatalityRecord and creates a message to void that record.</summary>
