@@ -40,6 +40,22 @@ namespace BFDR
       return (uint?)this.DeliveryYear;
     }
 
+      /// <summary>Helper method to return the subset of this record that makes up a CodedCauseOfFetalDeath bundle.</summary>
+      /// <returns>a new FHIR Bundle</returns>
+      public Bundle GetCodedCauseOfFetalDeathBundle()
+      {
+        // Create the base bundle
+        Bundle ccofdBundle = BaseBundle(ProfileURL.BundleDocumentCodedCauseOfFetalDeath,
+                                        ProfileURL.CompositionCodedCauseOfFetalDeath,
+                                        new CodeableConcept(CodeSystems.LOINC, "86804-2", "Cause of death classification and related information Document", null),
+                                        "Coded Cause of Fetal Death",
+                                        "National Center for Health Statistics");
+        // Add the correct obserbations to the bundle and composition
+        AddResourceToBundleAndComposition(GetObservation("92022-3"), "86804-2", CodeSystems.LOINC, ccofdBundle);
+        AddResourceToBundleAndComposition(GetObservation("92023-1"), "86804-2", CodeSystems.LOINC, ccofdBundle);
+        return ccofdBundle;
+    }
+
     /// <inheritdoc/>
     protected override void RestoreReferences()
     {

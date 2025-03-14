@@ -221,11 +221,12 @@ namespace BFDR
         /// composition, which could require adding a section to the composition; the composition entry is a focus if
         /// the entry is a Patient or RelatedPerson, otherwise it's a simple entry.</summary>
         /// <param name="resource">The resource to add</param>
-        /// <param name="compositionSection">The composition section where a reference should be added</param>
+        /// <param name="sectionCode">The code for the composition section where a reference should be added</param>
+        /// <param name="sectionCodeSystem">The code system for the composition section code</param>
         /// <param name="bundle">The bundle to add the resource to</param>
         // Note: This is somewhat specialized to the structure of natality records, which is subtly different from
         // mortality records, but could potentially be moved to the VitalRecord library
-        public void AddResourceToBundleAndComposition(Resource resource, string compositionSection, Bundle bundle)
+        public void AddResourceToBundleAndComposition(Resource resource, string sectionCode, string sectionCodeSystem, Bundle bundle)
         {
             // Only act if the resource isn't null
             if (resource != null)
@@ -237,10 +238,10 @@ namespace BFDR
                     throw new System.ApplicationException("Bundle does not contain a composition.");
                 }
                 // See if we can find the required composition section or need to add it
-                Composition.SectionComponent section = composition.Section.FirstOrDefault(s => s.Code.Coding.Any(c => c.Code == compositionSection));
+                Composition.SectionComponent section = composition.Section.FirstOrDefault(s => s.Code.Coding.Any(c => c.Code == sectionCode));
                 if (section == null)
                 {
-                    section = new Composition.SectionComponent { Code = new CodeableConcept(CodeSystems.RoleCode_HL7_V3, compositionSection) };
+                    section = new Composition.SectionComponent { Code = new CodeableConcept(sectionCodeSystem, sectionCode) };
                     composition.Section.Add(section);
                 }
                 // Add the resource to the bundle and a reference to the correct place in the composition section
@@ -267,13 +268,13 @@ namespace BFDR
                                           "Demographic Coded Content",
                                           "National Center for Health Statistics");
             // Populate the mother information; NOTE: Mother is not required, just the observations
-            AddResourceToBundleAndComposition(Mother, "MTH", dccBundle);
-            AddResourceToBundleAndComposition(GetObservation(VR.ValueSets.InputRaceAndEthnicityPerson.Mother_Race_And_Ethnicity_Data_Submitted_By_Jurisdictions_To_Nchs), "MTH", dccBundle);
-            AddResourceToBundleAndComposition(GetObservation(VR.ValueSets.CodedRaceAndEthnicityPerson.Mother_Coded_Race_And_Ethnicity_Data_Produced_By_Nchs_From_Submitted_Death_Record), "MTH", dccBundle);
+            AddResourceToBundleAndComposition(Mother, "MTH", CodeSystems.RoleCode_HL7_V3, dccBundle);
+            AddResourceToBundleAndComposition(GetObservation(VR.ValueSets.InputRaceAndEthnicityPerson.Mother_Race_And_Ethnicity_Data_Submitted_By_Jurisdictions_To_Nchs), "MTH", CodeSystems.RoleCode_HL7_V3, dccBundle);
+            AddResourceToBundleAndComposition(GetObservation(VR.ValueSets.CodedRaceAndEthnicityPerson.Mother_Coded_Race_And_Ethnicity_Data_Produced_By_Nchs_From_Submitted_Death_Record), "MTH", CodeSystems.RoleCode_HL7_V3, dccBundle);
             // Populate the father information; NOTE: Father is not required, just the observations
-            AddResourceToBundleAndComposition(Father, "NFTH", dccBundle);
-            AddResourceToBundleAndComposition(GetObservation(VR.ValueSets.InputRaceAndEthnicityPerson.Father_Race_And_Ethnicity_Data_Submitted_By_Jurisdictions_To_Nchs), "NFTH", dccBundle);
-            AddResourceToBundleAndComposition(GetObservation(VR.ValueSets.CodedRaceAndEthnicityPerson.Father_Coded_Race_And_Ethnicity_Data_Produced_By_Nchs_From_Submitted_Death_Record), "NFTH", dccBundle);
+            AddResourceToBundleAndComposition(Father, "NFTH", CodeSystems.RoleCode_HL7_V3, dccBundle);
+            AddResourceToBundleAndComposition(GetObservation(VR.ValueSets.InputRaceAndEthnicityPerson.Father_Race_And_Ethnicity_Data_Submitted_By_Jurisdictions_To_Nchs), "NFTH", CodeSystems.RoleCode_HL7_V3, dccBundle);
+            AddResourceToBundleAndComposition(GetObservation(VR.ValueSets.CodedRaceAndEthnicityPerson.Father_Coded_Race_And_Ethnicity_Data_Produced_By_Nchs_From_Submitted_Death_Record), "NFTH", CodeSystems.RoleCode_HL7_V3, dccBundle);
             return dccBundle;
         }
 
@@ -288,14 +289,14 @@ namespace BFDR
                                            "Industry and Occupation Coded Content",
                                            "National Center for Health Statistics");
             // Populate the mother information; NOTE: Mother is not required, just the observations
-            AddResourceToBundleAndComposition(Mother, "MTH", ciaoBundle);
+            AddResourceToBundleAndComposition(Mother, "MTH", CodeSystems.RoleCode_HL7_V3, ciaoBundle);
             // TODO: Coded race and occupation has not yet been implemented on natality records but should be present in this observation
             // There will be multiple observations with the same code, one for the mother and one for the father, with different values in the role extension
             // IDEA: We can use the existing GetOccupationObservation() but perhaps GetObservation should take an optional lambda that filters
-            AddResourceToBundleAndComposition(GetOccupationObservation("MTH"), "MTH", ciaoBundle);
+            AddResourceToBundleAndComposition(GetOccupationObservation("MTH"), "MTH", CodeSystems.RoleCode_HL7_V3, ciaoBundle);
             // Populate the father information; NOTE: Father is not required, just the observations
-            AddResourceToBundleAndComposition(Father, "NFTH", ciaoBundle);
-            AddResourceToBundleAndComposition(GetOccupationObservation("FTH"), "NFTH", ciaoBundle);
+            AddResourceToBundleAndComposition(Father, "NFTH", CodeSystems.RoleCode_HL7_V3, ciaoBundle);
+            AddResourceToBundleAndComposition(GetOccupationObservation("FTH"), "NFTH", CodeSystems.RoleCode_HL7_V3, ciaoBundle);
             return ciaoBundle;
         }
 
