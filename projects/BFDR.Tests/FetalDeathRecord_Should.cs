@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using VR;
 using Xunit;
+using Hl7.Fhir.Model;
+using Hl7.Fhir.Serialization;
 
 namespace BFDR.Tests
 {
@@ -2185,6 +2187,38 @@ namespace BFDR.Tests
       ije.OCOD1 = "R836";
       FetalDeathRecord fetalDeathRecord2 = ije.ToFetalDeathRecord();
       Assert.Equal("R83.6", fetalDeathRecord2.OCOD1);
+    }
+
+    [Fact]
+    public void Test_GetCodedCauseOfFetalDeathBundle()
+    {
+      // Test with current single coded cause of fetal death record
+      string[] recordFiles = { "fixtures/json/FetalDeathCauseOrConditionCodedContent.json" };
+      foreach (var recordFile in recordFiles)
+      {
+        // Load the record
+        FetalDeathRecord record = new(File.ReadAllText(TestHelpers.FixturePath(recordFile)), true);
+        // Use it to generate a new record based on a new industry and occupation bundle and on the JSON output of that bundle
+        Bundle newBundle = record.GetCodedCauseOfFetalDeathBundle();
+        FetalDeathRecord newRecord = new(newBundle);
+        FetalDeathRecord newRecordFromJSON = new(newBundle.ToJson());
+        // Confirm that each new record contains the appropriate contents from the old record
+        List<FetalDeathRecord> recordsToTest = new List<FetalDeathRecord> { newRecord, newRecordFromJSON };
+        foreach (var testRecord in recordsToTest)
+        {
+          // Confirm identifier match
+          Assert.Equal(record.RecordIdentifier, testRecord.RecordIdentifier);
+          // Confirm relevant record information matches
+          Assert.Equal(record.CodedInitiatingFetalCOD, testRecord.CodedInitiatingFetalCOD);
+          Assert.Equal(record.OCOD1, testRecord.OCOD1);
+          Assert.Equal(record.OCOD2, testRecord.OCOD2);
+          Assert.Equal(record.OCOD3, testRecord.OCOD3);
+          Assert.Equal(record.OCOD4, testRecord.OCOD4);
+          Assert.Equal(record.OCOD5, testRecord.OCOD5);
+          Assert.Equal(record.OCOD6, testRecord.OCOD6);
+          Assert.Equal(record.OCOD7, testRecord.OCOD7);
+        }
+      }
     }
   }
 }
