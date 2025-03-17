@@ -195,7 +195,6 @@ namespace BFDR
             bundle.Meta.Profile = profile;
             bundle.Timestamp = DateTime.Now;
             // Make sure to include the base identifiers, including certificate number and auxiliary state IDs
-            // TODO: Add state IDs if relevant
             bundle.Identifier = Bundle.Identifier;
             // Add composition; we should always create a new composition appropriate for this bundle type
             Composition composition = new Composition();

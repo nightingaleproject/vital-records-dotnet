@@ -50,7 +50,7 @@ namespace BFDR
                                         new CodeableConcept(CodeSystems.LOINC, "86804-2", "Cause of death classification and related information Document", null),
                                         "Coded Cause of Fetal Death",
                                         "National Center for Health Statistics");
-        // Add the correct obserbations to the bundle and composition
+        // Add the correct observations to the bundle and composition
         AddResourceToBundleAndComposition(GetObservation("92022-3"), "86804-2", CodeSystems.LOINC, ccofdBundle);
         AddResourceToBundleAndComposition(GetObservation("92023-1"), "86804-2", CodeSystems.LOINC, ccofdBundle);
         return ccofdBundle;
