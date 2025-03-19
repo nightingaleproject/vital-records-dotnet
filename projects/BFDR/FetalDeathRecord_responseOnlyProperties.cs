@@ -92,8 +92,14 @@ namespace BFDR
             obs.Meta.Profile = condition_profile;
             obs.Status = ObservationStatus.Final;
             obs.Code = new CodeableConcept(CodeSystems.LOINC, "92023-1", "Coded other significant causes or conditions of fetal death", null);
-            obs.Subject = new ResourceReference("urn:uuid:" + Subject.Id);
-            obs.Performer.Add(new ResourceReference("urn:uuid:" + Certifier.Id));
+            if (Subject != null)
+            {
+                obs.Subject = new ResourceReference("urn:uuid:" + Subject.Id);
+            }
+            if (Certifier != null)
+            {
+                obs.Performer.Add(new ResourceReference("urn:uuid:" + Certifier.Id));
+            }
             Observation.ComponentComponent component = new Observation.ComponentComponent();
             component.Code = new CodeableConcept(CodeSystems.SCT, "246268007", "Position (attribute)", null);
             component.Value = new Integer(position); 
