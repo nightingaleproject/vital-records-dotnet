@@ -237,6 +237,8 @@ namespace VRDR.CLI
             File.WriteAllText(pOutputFile, newContent);
     }
 
+    // UpdateExtensionsRecursively:    
+    // Utility routine to fill the gap in Firely FHIRPath capabilities.
     static void UpdateExtensionsRecursively(Base fhirElement, Dictionary<string, string> replacements)
     {
         if (fhirElement == null) return;
@@ -288,6 +290,8 @@ namespace VRDR.CLI
     }
 
 
+    // CompareJsonIgnoringOrderAndSpacing:    
+    // Compare the content of two json strings ignoring differences due to node ordering or white space.
     static bool CompareJsonIgnoringOrderAndSpacing(string json1, string json2)
     {
         var jdp = new JsonDiffPatch();
