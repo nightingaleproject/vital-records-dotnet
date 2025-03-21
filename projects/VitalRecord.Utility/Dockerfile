@@ -7,17 +7,17 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # Install app dependencies
-RUN npm ci
+RUN ["npm","ci"]
 
 # Bundle app source
 COPY . .
 
 # Build the TypeScript files
-RUN npm run build
+RUN ["npm","run","build"]
 
 # Expose port 8080
 EXPOSE 80
 EXPOSE 443
 
 # Start the app
-CMD npm run start
+CMD ["npm","run","start"]

@@ -36,6 +36,8 @@ app.post('/fhirToFsh', async (req: Request, res: Response) => {
     {
       style: 'string',
       dependencies: [`hl7.fhir.us.vrdr#${vrdr}`, `hl7.fhir.us.bfdr#${bfdr}`],
+      logLevel: 'info',
+      indent: true,
     },
   );
 
