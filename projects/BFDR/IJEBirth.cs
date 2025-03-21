@@ -118,13 +118,13 @@ namespace BFDR
         {
             get
             {
-                return Dictionary_Geo_Get("BSTATE", "PlaceOfBirth", "address", "state", true);
+                return LeftJustified_Get("BSTATE", "EventLocationJurisdiction");
             }
             set
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Dictionary_Set("BSTATE", "PlaceOfBirth", "addressState", value);
+                    LeftJustified_Set("BSTATE", "EventLocationJurisdiction", value);
                 }
             }
         }
