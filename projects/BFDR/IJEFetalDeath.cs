@@ -244,7 +244,7 @@ namespace BFDR
             {
                 if (String.IsNullOrWhiteSpace(record?.StateLocalIdentifier1))
                 {
-                    return "".PadLeft(12, '0');
+                    return (new String(' ', 12));
                 }
                 string auxNo = record.StateLocalIdentifier1;
                 if (auxNo.Length > 12)

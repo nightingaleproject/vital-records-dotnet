@@ -768,6 +768,7 @@ namespace BFDR.Tests
     public void TestSetIdentifiers()
     {
       IJEBirth ije = new IJEBirth();
+      Assert.Equal("".PadLeft(12, ' '), ije.AUXNO);
       ije.FILENO = "765765";
       Assert.Equal("765765".PadLeft(6, '0'), ije.FILENO);
       ije.AUXNO = "32";
@@ -781,6 +782,11 @@ namespace BFDR.Tests
       Assert.Equal(ije.AUXNO, br.StateLocalIdentifier1.PadLeft(12, '0'));
       Assert.Equal(ije.IDOB_YR + ije.BSTATE + ije.FILENO, br.RecordIdentifier);
       Assert.Equal("2010HI897897", br.RecordIdentifier);
+
+      br = new BirthRecord();
+      ije = new IJEBirth(br);
+      Assert.Equal("".PadLeft(12, ' '), ije.AUXNO);
+      
     }
 
     [Fact]
