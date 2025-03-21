@@ -89,8 +89,7 @@ jobs:
       - name: Deploy container
         uses: azure/container-apps-deploy-action@v2
         with:
-          registryUrl: ${{ env.REGISTRY }}
-          imageToDeploy: ${{ env.IMAGE_NAME }}:edge
+          imageToDeploy: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:edge
           containerAppName: utility
           resourceGroup: ${{ vars.ACA_RESOURCE_GROUP }}
           containerAppEnvironment: ${{ vars.ACA_APP_ENVIRONMENT }}
