@@ -169,22 +169,17 @@ namespace BFDR
         {
             get
             {
-                if (String.IsNullOrWhiteSpace(record?.StateLocalIdentifier1))
+                if (record.StateLocalIdentifier1 == null)
                 {
                     return (new String(' ', 12));
                 }
-                string auxNo = record.StateLocalIdentifier1;
-                if (auxNo.Length > 12)
-                {
-                    auxNo = auxNo.Substring(auxNo.Length - 12);
-                }
-                return auxNo.PadLeft(12, '0');
+                return LeftJustified_Get("AUXNO", "StateLocalIdentifier1");
             }
             set
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    RightJustifiedZeroed_Set("AUXNO", "StateLocalIdentifier1", value.Trim());
+                    LeftJustified_Set("AUXNO", "StateLocalIdentifier1", value);
                 }
             }
         }
