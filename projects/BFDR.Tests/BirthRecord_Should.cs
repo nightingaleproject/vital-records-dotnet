@@ -1649,6 +1649,8 @@ namespace BFDR.Tests
       FakeBirthRecord.StateLocalIdentifier1 = "124";
       Assert.Equal("101", FakeBirthRecord.CertificateNumber);
       Assert.Equal("124", FakeBirthRecord.StateLocalIdentifier1);
+      FakeBirthRecord.StateLocalIdentifier1 = "";
+      Assert.Equal(null, FakeBirthRecord.StateLocalIdentifier1);
     }
 
     [Fact]

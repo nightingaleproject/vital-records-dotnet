@@ -499,5 +499,27 @@ namespace BFDR.Tests
       Assert.Equal("", ije.BLANK.Trim());
       Assert.Equal("", ije.BLANK2.Trim());
     }
-  }
+
+
+  [Fact]
+    public void TestDeathState()
+    {
+      IJEFetalDeath ije = new IJEFetalDeath();
+      ije.DSTATE = "HI";
+      FetalDeathRecord dr = ije.ToRecord();
+      Assert.Equal("HI", dr.EventLocationJurisdiction);
+      ije.DSTATE = "TT";
+      Assert.Equal("TT", ije.DSTATE); 
+      dr = ije.ToRecord();
+      Assert.Equal("TT", dr.EventLocationJurisdiction);
+      ije.DSTATE = "TS";
+      Assert.Equal("TS", ije.DSTATE); 
+      dr = ije.ToRecord();
+      Assert.Equal("TS", dr.EventLocationJurisdiction);
+      ije.DSTATE = "ZZ";
+      Assert.Equal("ZZ", ije.DSTATE); 
+      dr = ije.ToRecord();
+      Assert.Equal("ZZ", dr.EventLocationJurisdiction);
+    }
+}
 }
