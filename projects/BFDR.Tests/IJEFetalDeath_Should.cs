@@ -140,7 +140,7 @@ namespace BFDR.Tests
       Assert.Equal("MA", ije.DSTATE);
       Assert.Equal("000008", ije.FILENO);
       Assert.Equal("0", ije.VOID);
-      Assert.Equal("000000000000", ije.AUXNO);
+      Assert.Equal("            ", ije.AUXNO);
       Assert.Equal("1830", ije.TD);
       Assert.Equal("M", ije.FSEX);
       Assert.Equal("12", ije.FDOD_MO);
