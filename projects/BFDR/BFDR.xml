@@ -857,6 +857,10 @@
         <member name="M:BFDR.FetalDeathRecord.GetYear">
             <summary>Return the birth year for this record to be used in the identifier</summary>
         </member>
+        <member name="M:BFDR.FetalDeathRecord.GetCodedCauseOfFetalDeathBundle">
+            <summary>Helper method to return the subset of this record that makes up a CodedCauseOfFetalDeath bundle.</summary>
+            <returns>a new FHIR Bundle</returns>
+        </member>
         <member name="M:BFDR.FetalDeathRecord.RestoreReferences">
             <inheritdoc/>
         </member>
@@ -3409,8 +3413,31 @@
         <member name="M:BFDR.NatalityRecord.UpdateRecordIdentifier">
             <summary>Update the bundle identifier from the component fields.</summary>
         </member>
+        <member name="M:BFDR.NatalityRecord.BaseBundle(System.String,System.String,Hl7.Fhir.Model.CodeableConcept,System.String,System.String)">
+            <summary>Helper to create a specialized base bundle based on the general NatalityRecord bundle for uses
+            like DemographicCodedContent, CodedIndustryAndOccupation, and CodedCauseOfFetalDeath</summary>
+            <param name="bundleProfileURL">The profile URL of the bundle</param>
+            <param name="compositionProfileURL">The profile URL of the composition</param>
+            <param name="compositionType">The type of the composition in the bundle</param>
+            <param name="title">The title of the bundle</param>
+            <param name="authorName">The author of the bundle</param>
+            <returns>a new FHIR bundle</returns>
+        </member>
+        <member name="M:BFDR.NatalityRecord.AddResourceToBundleAndComposition(Hl7.Fhir.Model.Resource,System.String,System.String,Hl7.Fhir.Model.Bundle)">
+            <summary>Helper to add a resource to a bundle, if not null, including adding the appropriate entry to the
+            composition, which could require adding a section to the composition; the composition entry is a focus if
+            the entry is a Patient or RelatedPerson, otherwise it's a simple entry.</summary>
+            <param name="resource">The resource to add</param>
+            <param name="sectionCode">The code for the composition section where a reference should be added</param>
+            <param name="sectionCodeSystem">The code system for the composition section code</param>
+            <param name="bundle">The bundle to add the resource to</param>
+        </member>
         <member name="M:BFDR.NatalityRecord.GetDemographicCodedContentBundle">
             <summary>Helper method to return the subset of this record that makes up a DemographicCodedContent bundle.</summary>
+            <returns>a new FHIR Bundle</returns>
+        </member>
+        <member name="M:BFDR.NatalityRecord.GetCodedIndustryAndOccupationBundle">
+            <summary>Helper method to return the subset of this record that makes up a CodedIndustryAndOccupation bundle.</summary>
             <returns>a new FHIR Bundle</returns>
         </member>
         <member name="M:BFDR.NatalityRecord.RestoreReferences">
