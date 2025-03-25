@@ -707,10 +707,6 @@ namespace BFDR
             {
                 try
                 {
-                    // if (!String.IsNullOrEmpty(value["addressState"])  && !CodeExistsInValueSet(value["addressState"], VR.ValueSets.Jurisdiction.Codes))
-                    // { 
-                    //     return;
-                    // }
                     SetPlaceOfBirth(Subject, value);
                 }
                 catch (ArgumentException ex)
