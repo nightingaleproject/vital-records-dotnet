@@ -112,6 +112,8 @@ dotnet run --project BFDR.CLI json2json fetaldeath BFDR.Tests/fixtures/json/Basi
 # Convert JSON files to IJE and back and make sure there's no data loss
 echo "* dotnet run --project BFDR.CLI roundtrip-ije birth BFDR.Tests/fixtures/json/BasicBirthRecord.json"
 dotnet run --project BFDR.CLI roundtrip-ije birth BFDR.Tests/fixtures/json/BasicBirthRecord.json > /dev/null
+echo "* dotnet run --project BFDR.CLI roundtrip-ije birth BFDR.Tests/fixtures/json/BasicBirthRecord2.json (with TT)"
+dotnet run --project BFDR.CLI roundtrip-ije birth BFDR.Tests/fixtures/json/BasicBirthRecord2.json > /dev/null
 echo "* dotnet run --project BFDR.CLI roundtrip-ije fetaldeath BFDR.Tests/fixtures/json/BasicFetalDeathRecord.json"
 dotnet run --project BFDR.CLI roundtrip-ije fetaldeath BFDR.Tests/fixtures/json/BasicFetalDeathRecord.json > /dev/null
 # echo "* dotnet run --project BFDR.CLI roundtrip-ije BFDR.CLI/1_wJurisdiction.json"
