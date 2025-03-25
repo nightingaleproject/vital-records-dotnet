@@ -1650,7 +1650,7 @@ namespace BFDR.Tests
       Assert.Equal("101", FakeBirthRecord.CertificateNumber);
       Assert.Equal("124", FakeBirthRecord.StateLocalIdentifier1);
       FakeBirthRecord.StateLocalIdentifier1 = "";
-      Assert.Equal(null, FakeBirthRecord.StateLocalIdentifier1);
+      Assert.Null(FakeBirthRecord.StateLocalIdentifier1);
     }
 
     [Fact]

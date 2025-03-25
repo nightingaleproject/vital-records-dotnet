@@ -682,7 +682,6 @@ namespace BFDR
         /// <para>"addressCounty" - address, county</para>
         /// <para>"addressCountyC" - address, countyC</para>
         /// <para>"addressState" - address, state</para>
-
         /// </value>
         /// <example>
         /// <para>// Setter:</para>
