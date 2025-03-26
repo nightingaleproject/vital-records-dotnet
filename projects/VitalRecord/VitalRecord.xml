@@ -1590,6 +1590,15 @@
         <member name="F:VR.ValueSets.Jurisdiction.New_York_City">
             <summary> New_York_City </summary>
         </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Nchs_Test_Jurisdiction">
+            <summary> Nchs_Test_Jurisdiction </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Steve_Test_Jurisdiction">
+            <summary> Steve_Test_Jurisdiction </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Unknown_Jurisdiction">
+            <summary> Unknown_Jurisdiction </summary>
+        </member>
         <member name="T:VR.ValueSets.MaritalStatus">
             <summary> MaritalStatus </summary>
         </member>

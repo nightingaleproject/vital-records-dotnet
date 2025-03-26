@@ -682,7 +682,6 @@ namespace BFDR
         /// <para>"addressCounty" - address, county</para>
         /// <para>"addressCountyC" - address, countyC</para>
         /// <para>"addressState" - address, state</para>
-
         /// </value>
         /// <example>
         /// <para>// Setter:</para>
@@ -708,10 +707,6 @@ namespace BFDR
             {
                 try
                 {
-                    if (!String.IsNullOrEmpty(value["addressState"]) && value["addressState"] != "TT" && !CodeExistsInValueSet(value["addressState"], VR.ValueSets.Jurisdiction.Codes))
-                    {
-                        return;
-                    }
                     SetPlaceOfBirth(Subject, value);
                 }
                 catch (ArgumentException ex)

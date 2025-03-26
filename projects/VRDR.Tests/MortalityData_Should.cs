@@ -112,6 +112,18 @@ namespace VRDR.Tests
             Assert.Equal("mo", dr4.AgeAtDeath["code"]);
             Assert.Equal("10", dr4.AgeAtDeath["value"]);
             Assert.Equal(ValueSets.EditBypass01.Edit_Failed_Data_Queried_And_Verified, dr4.AgeAtDeathEditFlagHelper);
+            ije1.DSTATE = "TS";
+            dr4 = ije1.ToRecord();
+            Assert.Equal("TS", dr4.DeathLocationJurisdiction);
+            ije1.DSTATE = "TT";
+            dr4 = ije1.ToRecord();
+            Assert.Equal("TT", dr4.DeathLocationJurisdiction);
+            ije1.DSTATE = "ZZ";
+            dr4 = ije1.ToRecord();
+            Assert.Equal("ZZ", dr4.DeathLocationJurisdiction);
+            ije1.DSTATE = "HH";
+            dr4 = ije1.ToRecord();
+            Assert.Equal("HH", dr4.DeathLocationJurisdiction);
         }
 
         [Fact]

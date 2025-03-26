@@ -4537,6 +4537,9 @@
         <member name="T:VRDR.ProfileURL">
             <summary>Profile URLs</summary>
         </member>
+        <member name="F:VRDR.ProfileURL.IndustryOccupationCodedContentBundle">
+            <summary>URL for IndustryOccupationCodedContentBundle</summary>
+        </member>
         <member name="F:VRDR.ProfileURL.ActivityAtTimeOfDeath">
             <summary>URL for ActivityAtTimeOfDeath</summary>
         </member>
@@ -4680,9 +4683,6 @@
         </member>
         <member name="F:VRDR.ExtensionURL.StateSpecificField">
             <summary>URL for StateSpecificField</summary>
-        </member>
-        <member name="F:VRDR.ExtensionURL.IndustryOccupationCodedContentBundle">
-            <summary>URL for IndustryOccupationCodedContentBundle</summary>
         </member>
         <member name="F:VRDR.ExtensionURL.PractitionerRole">
             <summary>URL for PractitionerRole</summary>

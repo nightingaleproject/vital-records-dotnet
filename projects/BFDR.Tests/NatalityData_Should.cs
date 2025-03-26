@@ -94,6 +94,27 @@ namespace BFDR.Tests
     }
 
     [Fact]
+    public void TestBirthState()
+    {
+      IJEBirth ije = new IJEBirth();
+      ije.BSTATE = "HI";
+      BirthRecord br = ije.ToRecord();
+      Assert.Equal("HI", br.EventLocationJurisdiction);
+      ije.BSTATE = "TT";
+      Assert.Equal("TT", ije.BSTATE); 
+      br = ije.ToRecord();
+      Assert.Equal("TT", br.EventLocationJurisdiction);
+      ije.BSTATE = "TS";
+      Assert.Equal("TS", ije.BSTATE); 
+      br = ije.ToRecord();
+      Assert.Equal("TS", br.EventLocationJurisdiction);
+      ije.BSTATE = "ZZ";
+      Assert.Equal("ZZ", ije.BSTATE); 
+      br = ije.ToRecord();
+      Assert.Equal("ZZ", br.EventLocationJurisdiction);
+    }
+
+    [Fact]
     public void TestSetPatientChildVitalRecordProperties()
     {
       IJEBirth ije = new()
