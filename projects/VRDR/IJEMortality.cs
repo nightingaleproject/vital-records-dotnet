@@ -4420,9 +4420,10 @@ namespace VRDR
                     var mm = value.Substring(0, 2);
                     var dd = value.Substring(2, 2);
                     var yyyy = value.Substring(4, 4);
+                    // Set the year first so that leap years don't cause an error
+                    record.DateOfDeathPronouncementYear = int.Parse(yyyy);
                     record.DateOfDeathPronouncementMonth = int.Parse(mm);
                     record.DateOfDeathPronouncementDay = int.Parse(dd);
-                    record.DateOfDeathPronouncementYear = int.Parse(yyyy);
                 }
             }
         }
