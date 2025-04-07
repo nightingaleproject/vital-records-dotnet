@@ -13,6 +13,7 @@ These scripts are generally used for generating test data or submitting test dat
 ** `FHIRTestCases for VRDR IG validation and systems strengthening.xlsx`: Connectathon test cases
 * `generate_bulk_connectathon_records.rb`: Simple script to create a large number of test records based on the connectathon test cases
 * `manual_api_testing`: A directory containing some very simple scripts for testing the NVSS FHIR API
+* `synthetic_data`: A directory containing scripts to generate large volumes of synthetic data in IJE format and convert to other useful formats like FHIR JSON
 
 # Creating library support code from FHIR IGs
 
