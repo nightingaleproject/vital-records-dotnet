@@ -575,7 +575,7 @@ namespace VR
             {
                 throw new MessageRuleException($"Message jurisdiction ID cannot be null.", message);
             }
-            if (message.EventYear == null)
+            if (message.GetYear() == null)
             {
                 throw new MessageRuleException($"Message event year cannot be null.", message);
             }
