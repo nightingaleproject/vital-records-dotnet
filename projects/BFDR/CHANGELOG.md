@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+<a name="1.0.0-preview.12"></a>
+## [1.0.0-preview.12] (2025-04-8)
+
+### Fixes
+* Fixes BFDR Messaging to better support common messages
+
 <a name="1.0.0-preview.11"></a>
 ## [1.0.0-preview.11](https://github.com/nightingaleproject/vital-records-dotnet/commit/34c63730c52913170ad01d0d25782387190e4d1e) (2025-01-30)
 
