@@ -42,6 +42,10 @@
           {
             "name": "event_year",
             "valueUnsignedInt": 2025
+          },
+          {
+            "name": "jurisdiction_id",
+            "valueString": "UT"
           }
         ]
       }
