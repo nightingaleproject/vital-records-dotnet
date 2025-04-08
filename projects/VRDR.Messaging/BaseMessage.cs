@@ -74,6 +74,7 @@ namespace VRDR
             if (from?.DeathYear != null)
             {
                 this.DeathYear = (uint)from.DeathYear;
+                this.EventYear = this.DeathYear;
             }
             this.JurisdictionId = from?.DeathLocationJurisdiction;
         }

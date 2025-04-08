@@ -1,4 +1,5 @@
 using Hl7.Fhir.Model;
+using VR;
 
 namespace VRDR
 {
@@ -12,12 +13,12 @@ namespace VRDR
 
         /// <summary>Constructor that creates an acknowledgement for the specified message.</summary>
         /// <param name="messageToAck">the message to create an acknowledgement for.</param>
-        public AcknowledgementMessage(BaseMessage messageToAck) : this(messageToAck?.MessageId, messageToAck?.MessageSource, messageToAck?.MessageDestination)
+        public AcknowledgementMessage(CommonMessage messageToAck) : this(messageToAck?.MessageId, messageToAck?.MessageSource, messageToAck?.MessageDestination)
         {
             this.CertNo = messageToAck?.CertNo;
             this.StateAuxiliaryId = messageToAck?.StateAuxiliaryId;
             this.JurisdictionId = messageToAck?.JurisdictionId;
-            this.DeathYear = messageToAck?.DeathYear;
+            this.DeathYear = messageToAck?.GetYear();
             this.PayloadVersionId = $"{GeneratedCustomProperty.Value}";
 
             if(typeof(DeathRecordVoidMessage).IsInstanceOfType(messageToAck))
