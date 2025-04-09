@@ -100,6 +100,7 @@
     <None Update="fixtures/ije/EthnicityPlusOtherCase.ije" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures/ije/UnknownBirthRecordId.ije" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures/ije/DOBPartsAllUnknown.ije" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="fixtures/ije/LeapYear.ije" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures/filter/Pre-filtered-file.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures/filter/NCHSIJEFilter.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures/filter/AllFieldsIJEFilter.json" CopyToOutputDirectory="PreserveNewest" />

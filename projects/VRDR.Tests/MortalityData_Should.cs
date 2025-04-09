@@ -554,6 +554,16 @@ namespace VRDR.Tests
             Assert.DoesNotMatch("^\\d{2}:\\d{2}:\\d{2}$", deathTime);
         }
 
+        [Fact]
+        public void TestLeapYearFeb29()
+        {
+            IJEMortality ije1 = new IJEMortality(File.ReadAllText(FixturePath("fixtures/ije/LeapYear.ije")), true);
+            DeathRecord record1 = ije1.ToDeathRecord();
+            Assert.Equal(2024, record1.DateOfDeathPronouncementYear);
+            Assert.Equal(2, record1.DateOfDeathPronouncementMonth);
+            Assert.Equal(29, record1.DateOfDeathPronouncementDay);
+        }
+
         private string FixturePath(string filePath)
         {
             if (Path.IsPathRooted(filePath))
