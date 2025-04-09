@@ -635,22 +635,31 @@ ije_generator = {
 }
 
 # Generate an IJE record by iterating through all the generator fields and setting an IJE record with the
-# value generated for each field; we automatically detect dependencies and loop until all dependencies are met
+# value generated for each field; we automatically detect dependencies and loop until all dependencies are
+# met. For example, the MNAME field is the first character of the decedent's middle name and the DMIDDLE field
+# is the decedent's full middle name. We want to make sure that the DMIDDLE field is set first and that the
+# MNAME field is set based on the value in the DMIDDLE field.
 
-# Utility class to track what methods are called to track dependencies
+# This DependencyChecker utility class is used to wrap an IJE object to track what methods are called within
+# the IJE generator in order to track dependencies. For example, the MNAME generator depends on the DMIDDLE
+# generator being run first; this wrapper class runs the MNAME generator and records that it calls the DMIDDLE
+# generator; this information is used when generating IJE to wait to run the MNAME generator until after the
+# DMIDDLE generator has been run.
 class DependencyChecker
   attr_reader :methods_called
-  def initialize(wrapped_object)
-    @wrapped_object = wrapped_object
+  def initialize(object)
+    @wrapped_object = object
     @methods_called = []
   end
+  # Track any method called and then pass the method call to the wrapped object
   def method_missing(method, *args)
     @methods_called |= [method]
-    @wrapped_object.send(method, *args)
+    return @wrapped_object.send(method, *args)
   end
-  def self.check(lambda, wrapped_object)
-    dependency_checker = self.new(wrapped_object)
-    lambda.call(dependency_checker) rescue nil # Ignore exceptions for this call
+  # Run a function on an object and return any methods called on the object
+  def self.check(function, object)
+    dependency_checker = self.new(object)
+    function.call(dependency_checker) rescue nil # Ignore exceptions for this call
     return dependency_checker.methods_called
   end
 end
@@ -665,8 +674,8 @@ count.times do |record_number|
   ije_record.DOD_YR = year
   ije_record.DSTATE = jurisdiction if jurisdiction
 
-  # Assume that we want to spread all of the desired records evenly across the year specified, though only up
-  # to the current day if it's the current year
+  # Preset some date fields assuming that we want to spread all of the desired records evenly across the year
+  # specified, though only up to the current day if it's the current year
   start_date = Date.parse("#{year}-01-01")
   end_date = year.to_i < Date.today.year ? Date.parse("#{year}-12-31") : Date.today
   days_in_year = (end_date - start_date).to_i
@@ -676,7 +685,7 @@ count.times do |record_number|
   ije_record.DOD_MO = '%02d' % record_date.month
   ije_record.DOD_DY = '%02d' % record_date.day
 
-  # We set the COD info here since we get all the fields at once since they're related
+  # Preset the COD info here since we want to set all the fields at once because they're related
   sequence = IJEFaker.literal_sequence
   ije_record.COD1A = sequence[0]
   ije_record.COD1B = sequence[1]
@@ -714,14 +723,14 @@ count.times do |record_number|
       next if fields_set.include?(field)
 
       # Call the generator with the dependency checker to determine fields it depends on, except for the
-      # FILENO field which we don't want to call twice (not particularly elegant)
+      # FILENO field which we don't want to call twice since it increments the certificate number
       dependencies = if field == :FILENO
                        [:DOD_YR, :DSTATE]
                      else
                        DependencyChecker.check(generator, ije_record)
                      end
 
-      # Skip if there are dependencies that have not been set
+      # Skip this field if there are dependencies that have not been set
       next if (dependencies - fields_set).length > 0
 
       # Generate the field value, set the record, and note that we've set this field
