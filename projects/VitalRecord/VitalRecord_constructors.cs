@@ -107,6 +107,10 @@ namespace VR
         /// <summary>Restores class references from a newly parsed record.</summary>
         protected abstract void RestoreReferences();
 
+        /// <summary>Returns the focus id of a section in the composition.</summary>
+        /// <returns>the string uuid of the section focus</returns>
+        protected abstract string GetSectionFocusId(string section);
+
         /// <summary>Helper method to return a XML string representation of this Vital Record.</summary>
         /// <returns>a string representation of this Vital Record in XML format</returns>
         public string ToXML()
@@ -222,13 +226,19 @@ namespace VR
                     coding["system"] = CompositionSectionCodeSystem;
                     coding["code"] = code;
                     section.Code = DictToCodeableConcept(coding);
-                    if (focusId != null)
-                    {
-                        section.Focus = new ResourceReference($"urn:uuid:{focusId}");
-                    }
+
+                    // call the override GetSectionFocusId to get the section focus defined in\
+                    // TODO I think we can remove this since we set the focus when we create the default sections
+                    // focusId = GetSectionFocusId(code);
+                    // if (!String.IsNullOrEmpty(focusId))
+                    // {   
+                    //     section.Focus = new ResourceReference($"urn:uuid:{focusId}");
+                    // }
                     Composition.Section.Add(section);
                 }
                 section.Entry.Add(new ResourceReference("urn:uuid:" + reference));
+                // all sections start with an "Empty Reason" by default, since we added an entry, clear the empty reason
+                section.EmptyReason = null;
             }
         }
 

@@ -63,6 +63,19 @@
             "focus": {
               "reference": "urn:uuid:18ef120e-0b0b-49d5-85f7-acb8f3a583b7"
             }
+          },
+          {
+            "code": {
+                "coding": [
+                    {
+                        "system": "http://loinc.org",
+                        "code": "55752-0"
+                    }
+                ]
+            },
+            "focus": {
+                "reference": "urn:uuid:18ef120e-0b0b-49d5-85f7-acb8f3a583b7"
+            }
           }
         ],
         "attester": [

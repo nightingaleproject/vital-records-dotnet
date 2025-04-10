@@ -6850,6 +6850,10 @@
         <member name="M:VR.VitalRecord.RestoreReferences">
             <summary>Restores class references from a newly parsed record.</summary>
         </member>
+        <member name="M:VR.VitalRecord.GetSectionFocusId(System.String)">
+            <summary>Returns the focus id of a section in the composition.</summary>
+            <returns>the string uuid of the section focus</returns>
+        </member>
         <member name="M:VR.VitalRecord.ToXML">
             <summary>Helper method to return a XML string representation of this Vital Record.</summary>
             <returns>a string representation of this Vital Record in XML format</returns>

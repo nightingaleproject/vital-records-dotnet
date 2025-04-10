@@ -3396,6 +3396,18 @@
         <member name="M:BFDR.NatalityRecord.InitializeCompositionAndSubject">
             <summary>Initialize Composition and Subject.</summary>
         </member>
+        <member name="M:BFDR.NatalityRecord.InitializeSections">
+            <summary>
+            Initialize sections creates empty sections based on the composition type
+            These are necessary so resources like Mother and Father can be referenced from somewhere in the composition
+            </summary>
+        </member>
+        <member name="M:BFDR.NatalityRecord.CreateNewSection(System.String)">
+            <summary>
+            Creates a section based on the section code provided. Sets the focus defined for that section and provides an empty reason by default.
+            </summary>
+            <param name="code"></param>
+        </member>
         <member name="M:BFDR.NatalityRecord.#ctor(System.String,System.Boolean)">
             <summary>Constructor that takes a string that represents a FHIR Natality Record in either XML or JSON format.</summary>
             <param name="record">represents a FHIR Natality Record in either XML or JSON format.</param>
@@ -3443,6 +3455,10 @@
         <member name="M:BFDR.NatalityRecord.RestoreReferences">
             <summary>Restores class references from a newly parsed record.</summary>
         </member>
+        <member name="M:BFDR.NatalityRecord.GetSectionFocusId(System.String)">
+            <summary>Returns the focus id of a section in the composition.</summary>
+            <returns>the string uuid of the section focus</returns> 
+        </member>
         <member name="F:BFDR.NatalityRecord.Subject">
             <summary>The Natality Subject - eithr a Child or a DecedentFetus.</summary>
         </member>
@@ -3469,6 +3485,12 @@
         </member>
         <member name="F:BFDR.NatalityRecord.MOTHER_PRENATAL_SECTION">
             <summary>Composition Section Constants</summary>
+        </member>
+        <member name="F:BFDR.NatalityRecord.FETUS_SECTION">
+            <summary> Fetus Section Constant </summary>
+        </member>
+        <member name="F:BFDR.NatalityRecord.CODEDCAUSEOFFETALDEATH_SECTION">
+            <summary> Coded Cause of Fetal Death Section Constant </summary>
         </member>
         <member name="F:BFDR.NatalityRecord.RACE_ETHNICITY_MOTHER">
             <summary>DemographicComposition Section Constants</summary>
