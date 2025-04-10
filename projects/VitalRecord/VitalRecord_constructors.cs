@@ -226,14 +226,6 @@ namespace VR
                     coding["system"] = CompositionSectionCodeSystem;
                     coding["code"] = code;
                     section.Code = DictToCodeableConcept(coding);
-
-                    // call the override GetSectionFocusId to get the section focus defined in\
-                    // TODO I think we can remove this since we set the focus when we create the default sections
-                    // focusId = GetSectionFocusId(code);
-                    // if (!String.IsNullOrEmpty(focusId))
-                    // {   
-                    //     section.Focus = new ResourceReference($"urn:uuid:{focusId}");
-                    // }
                     Composition.Section.Add(section);
                 }
                 section.Entry.Add(new ResourceReference("urn:uuid:" + reference));
