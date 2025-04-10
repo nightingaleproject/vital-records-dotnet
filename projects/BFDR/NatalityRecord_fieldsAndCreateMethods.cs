@@ -72,6 +72,12 @@ namespace BFDR
         private const string MOTHER_RECEIVED_WIC_FOOD = "87303-4";
         private const string INFANT_BREASTFED_AT_DISCHARGE = "73756-9";
 
+        /// <summary> Fetus Section Constant </summary>
+        protected const string FETUS_SECTION = "76400-1";
+
+        /// <summary> Coded Cause of Fetal Death Section Constant </summary>
+        protected const string CODEDCAUSEOFFETALDEATH_SECTION = "86804-2";
+
         /// <summary>DemographicComposition Section Constants</summary>
         private const string RACE_ETHNICITY_MOTHER = "MTH";
         private const string RACE_ETHNICITY_FATHER = "NFTH";

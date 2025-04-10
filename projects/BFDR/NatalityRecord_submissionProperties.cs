@@ -6683,6 +6683,7 @@ namespace BFDR
                     Subject = new ResourceReference($"urn:uuid:{subjectId}")
                 };
                 obs.Category.Add(new CodeableConcept(CodeSystems.ObservationCategory, "vital-signs"));
+                
                 AddReferenceToComposition(obs.Id, section);
                 Bundle.AddResourceEntry(obs, "urn:uuid:" + obs.Id);
             }

@@ -96,6 +96,10 @@
         <member name="M:VRDR.DeathRecord.RestoreReferences">
             <summary>Restores class references from a newly parsed record.</summary>
         </member>
+        <member name="M:VRDR.DeathRecord.GetSectionFocusId(System.String)">
+            <summary>Returns the focus id of a section in the composition.</summary>
+            <returns>the string uuid of the section focus</returns> 
+        </member>
         <member name="F:VRDR.DeathRecord.BlankPlaceholder">
             <summary>Overide the extension URL prefix used by the VR library</summary>
             <summary>String to represent a blank value when an empty string is not allowed</summary>
