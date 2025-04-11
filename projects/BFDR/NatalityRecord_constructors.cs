@@ -138,47 +138,10 @@ namespace BFDR
         /// <summary>Initialize Composition and Subject.</summary>
         protected abstract void InitializeCompositionAndSubject();
 
+        /// <summary>Initialize sections for the composition.</summary>
+        protected abstract void InitializeSections();
 
-        /// <summary>
-        /// Initialize sections creates empty sections based on the composition type
-        /// These are necessary so resources like Mother and Father can be referenced from somewhere in the composition
-        /// </summary>
-        protected void InitializeSections()
-        {
-            // if fetal death, add fetal death sections
-            if (Composition.Type.Coding.First().Code == COMPOSITION_JURISDICTION_FETAL_DEATH_REPORT)
-            {
-                CreateNewSection(MOTHER_PRENATAL_SECTION);
-                CreateNewSection(MEDICAL_INFORMATION_SECTION);
-                CreateNewSection(FETUS_SECTION);
-                CreateNewSection(MOTHER_INFORMATION_SECTION);
-                CreateNewSection(FATHER_INFORMATION_SECTION);
-                CreateNewSection(EMERGING_ISSUES_SECTION);
-            }
-            if (Composition.Type.Coding.First().Code == COMPOSITION_JURISDICTION_LIVE_BIRTH_REPORT)
-            {
-                CreateNewSection(MOTHER_PRENATAL_SECTION);
-                CreateNewSection(MEDICAL_INFORMATION_SECTION);
-                CreateNewSection(NEWBORN_INFORMATION_SECTION);
-                CreateNewSection(MOTHER_INFORMATION_SECTION);
-                CreateNewSection(FATHER_INFORMATION_SECTION);
-                CreateNewSection(EMERGING_ISSUES_SECTION);
-            }
-            if (Composition.Type.Coding.First().Code == COMPOSITION_CODED_CAUSE_OF_FETAL_DEATH)
-            {
-                CreateNewSection(CODEDCAUSEOFFETALDEATH_SECTION);
-            }
-            if (Composition.Type.Coding.First().Code == COMPOSITION_CODED_INDUSTRY_AND_OCCUPATION)
-            {
-                CreateNewSection(RACE_ETHNICITY_MOTHER);
-                CreateNewSection(RACE_ETHNICITY_FATHER);
-            }
-            if (Composition.Type.Coding.First().Code == COMPOSITION_CODED_RACE_AND_ETHNICITY)
-            {
-                CreateNewSection(RACE_ETHNICITY_MOTHER);
-                CreateNewSection(RACE_ETHNICITY_FATHER);
-            }
-        }
+
 
         /// <summary>
         /// Creates a section based on the section code provided. Sets the focus defined for that section and provides an empty reason by default.
@@ -319,17 +282,11 @@ namespace BFDR
                 }
                 // Add the resource to the bundle and a reference to the correct place in the composition section
                 bundle.AddResourceEntry(resource, $"urn:uuid:{resource.Id}");
-                if (resource is Patient || resource is RelatedPerson)
-                {
-                    // TODO: is this accurate? that if the resource is a patient or related person its also the focus?
-                    section.Focus = new ResourceReference($"urn:uuid:{resource.Id}");
-                }
-                else
-                {
-                    section.Entry.Add(new ResourceReference($"urn:uuid:{resource.Id}"));
-                    // all sections start with an "Empty Reason" by default, since we added an entry, clear the empty reason
-                    section.EmptyReason = null;
-                }
+                // this method is used for coded bundles where all resources, including patients, are entries in the composition sections
+                section.Entry.Add(new ResourceReference($"urn:uuid:{resource.Id}"));
+                // some composition sections start with an "Empty Reason" by default, since we added an entry, clear the empty reason
+                section.EmptyReason = null;
+                
             }
         }
 

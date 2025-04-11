@@ -5,6 +5,7 @@ using VR;
 using Xunit;
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Serialization;
+using System.Linq;
 
 namespace BFDR.Tests
 {
@@ -2220,5 +2221,6 @@ namespace BFDR.Tests
         }
       }
     }
+
   }
 }
