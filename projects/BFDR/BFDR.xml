@@ -282,6 +282,12 @@
         <member name="M:BFDR.BirthRecord.InitializeCompositionAndSubject">
             <inheritdoc/>
         </member>
+        <member name="M:BFDR.BirthRecord.InitializeSections">
+            <summary>
+            Initialize sections creates empty sections based on the composition type
+            These are necessary so resources like Mother and Father can be referenced from somewhere in the composition
+            </summary>
+        </member>
         <member name="M:BFDR.BirthRecord.CreateBirthEncounter">
             <summary>Create Birth Encounter.</summary>
         </member>
@@ -866,6 +872,12 @@
         </member>
         <member name="M:BFDR.FetalDeathRecord.InitializeCompositionAndSubject">
             <inheritdoc/>
+        </member>
+        <member name="M:BFDR.FetalDeathRecord.InitializeSections">
+            <summary>
+            Initialize sections creates empty sections based on the composition type
+            These are necessary so resources like Mother and Father can be referenced from somewhere in the composition
+            </summary>
         </member>
         <member name="P:BFDR.FetalDeathRecord.CodedInitiatingFetalCOD">
             <summary>Decedent Fetus's Coded Initiating Fetal Death Cause or Condition</summary>
@@ -3397,10 +3409,7 @@
             <summary>Initialize Composition and Subject.</summary>
         </member>
         <member name="M:BFDR.NatalityRecord.InitializeSections">
-            <summary>
-            Initialize sections creates empty sections based on the composition type
-            These are necessary so resources like Mother and Father can be referenced from somewhere in the composition
-            </summary>
+            <summary>Initialize sections for the composition.</summary>
         </member>
         <member name="M:BFDR.NatalityRecord.CreateNewSection(System.String)">
             <summary>
@@ -3483,8 +3492,26 @@
         <member name="F:BFDR.NatalityRecord.COMPOSITION_PROVIDER_FETAL_DEATH_REPORT">
             <summary>Composition Type Constants</summary>
         </member>
+        <member name="F:BFDR.NatalityRecord.COMPOSITION_CODED_CAUSE_OF_FETAL_DEATH">
+            <summary>Composition code coded cause of fetal death</summary>
+        </member>
         <member name="F:BFDR.NatalityRecord.MOTHER_PRENATAL_SECTION">
-            <summary>Composition Section Constants</summary>
+            <summary>Mother Prenatal Section Constant</summary>
+        </member>
+        <member name="F:BFDR.NatalityRecord.MEDICAL_INFORMATION_SECTION">
+            <summary>Medical Information Section Constant</summary>
+        </member>
+        <member name="F:BFDR.NatalityRecord.NEWBORN_INFORMATION_SECTION">
+            <summary>Newbord Information Section Constant</summary>
+        </member>
+        <member name="F:BFDR.NatalityRecord.MOTHER_INFORMATION_SECTION">
+            <summary>Mother Information Section Constant</summary>
+        </member>
+        <member name="F:BFDR.NatalityRecord.FATHER_INFORMATION_SECTION">
+            <summary>Father Information Section Constant</summary>
+        </member>
+        <member name="F:BFDR.NatalityRecord.EMERGING_ISSUES_SECTION">
+            <summary>Emerging Issues Section Constant</summary>
         </member>
         <member name="F:BFDR.NatalityRecord.FETUS_SECTION">
             <summary> Fetus Section Constant </summary>
