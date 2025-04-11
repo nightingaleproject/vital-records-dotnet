@@ -522,5 +522,12 @@ namespace VRDR
                 }
             }
         }
+        /// <summary>Returns the focus id of a section in the composition.</summary>
+        /// <returns>the string uuid of the section focus</returns> 
+        protected override string GetSectionFocusId(string section)
+        {
+            // The VRDR has no required focus defined for any sections in the composition
+            return "";
+        }
     }
 }

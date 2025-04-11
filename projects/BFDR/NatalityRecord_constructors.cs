@@ -28,6 +28,11 @@ namespace BFDR
             MOTHER_PRENATAL_SECTION, MEDICAL_INFORMATION_SECTION, MOTHER_INFORMATION_SECTION
         };
 
+        // Within a composition some sections have a focus that references the father
+        private static readonly string[] COMPOSITION_FATHER_FOCUS_SECTIONS = {
+            FATHER_INFORMATION_SECTION
+        };
+
         /// <summary>Default constructor that creates a new, empty NatalityRecord.</summary>
         protected NatalityRecord(string bundleProfile) : base()
         {
@@ -121,6 +126,9 @@ namespace BFDR
             // AddReferenceToComposition(BirthCertification.Id, "BirthCertification");
             // Bundle.AddResourceEntry(BirthCertification, "urn:uuid:" + BirthCertification.Id);
 
+            // Create the sections for this composition
+            InitializeSections();
+
             // Create a Navigator for this new birth record.
             Navigator = Bundle.ToTypedElement();
 
@@ -129,6 +137,35 @@ namespace BFDR
 
         /// <summary>Initialize Composition and Subject.</summary>
         protected abstract void InitializeCompositionAndSubject();
+
+        /// <summary>Initialize sections for the composition.</summary>
+        protected abstract void InitializeSections();
+
+
+
+        /// <summary>
+        /// Creates a section based on the section code provided. Sets the focus defined for that section and provides an empty reason by default.
+        /// </summary>
+        /// <param name="code"></param>
+        protected void CreateNewSection(string code)
+        {
+            Composition.SectionComponent section = new Composition.SectionComponent();
+            Dictionary<string, string> coding = new Dictionary<string, string>();
+            coding["system"] = CompositionSectionCodeSystem;
+            coding["code"] = code;
+            section.Code = DictToCodeableConcept(coding);
+
+            string focusId = GetSectionFocusId(code);
+            if (!String.IsNullOrEmpty(focusId))
+            {   
+                section.Focus = new ResourceReference($"urn:uuid:{focusId}");
+            }
+            Dictionary<string, string> emptyReason = new Dictionary<string, string>();
+            emptyReason["system"] = "http://terminology.hl7.org/CodeSystem/list-empty-reason";
+            emptyReason["code"] = "notasked"; // TODO is this an okay default empty reason for the sections?
+            section.EmptyReason = DictToCodeableConcept(emptyReason);
+            Composition.Section.Add(section);
+        }
 
         /// <summary>Constructor that takes a string that represents a FHIR Natality Record in either XML or JSON format.</summary>
         /// <param name="record">represents a FHIR Natality Record in either XML or JSON format.</param>
@@ -245,14 +282,11 @@ namespace BFDR
                 }
                 // Add the resource to the bundle and a reference to the correct place in the composition section
                 bundle.AddResourceEntry(resource, $"urn:uuid:{resource.Id}");
-                if (resource is Patient || resource is RelatedPerson)
-                {
-                    section.Focus = new ResourceReference($"urn:uuid:{resource.Id}");
-                }
-                else
-                {
-                    section.Entry.Add(new ResourceReference($"urn:uuid:{resource.Id}"));
-                }
+                // this method is used for coded bundles where all resources, including patients, are entries in the composition sections
+                section.Entry.Add(new ResourceReference($"urn:uuid:{resource.Id}"));
+                // some composition sections start with an "Empty Reason" by default, since we added an entry, clear the empty reason
+                section.EmptyReason = null;
+                
             }
         }
 
@@ -376,7 +410,23 @@ namespace BFDR
                     throw new System.ArgumentException("Found an Observation resource that did not contain a code. All Observations must include a code to specify what the Observation is referring to.");
                 }
             }
+        }
 
+        /// <summary>Returns the focus id of a section in the composition.</summary>
+        /// <returns>the string uuid of the section focus</returns> 
+        protected override string GetSectionFocusId(string section)
+        {
+            // TODO check the defined sections for Natality Records
+            // return the correct uuid, ex Mother.Id if the section is part of the mother section group
+            if (COMPOSITION_MOTHER_FOCUS_SECTIONS.Contains(section))
+            {   
+                return Mother.Id;
+            }
+            if (COMPOSITION_FATHER_FOCUS_SECTIONS.Contains(section))
+            {   
+                return Father.Id;
+            }
+            return "";
         }
     }
 }

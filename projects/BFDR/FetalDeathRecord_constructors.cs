@@ -11,9 +11,6 @@ namespace BFDR
   /// </summary>
   public partial class FetalDeathRecord : NatalityRecord
   {
-    private const string FETUS_SECTION = "76400-1";
-
-    private const string CODEDCAUSEOFFETALDEATH_SECTION = "86804-2";
 
     /// <summary>Default constructor that creates a new, empty FetalDeathRecord.</summary>
     public FetalDeathRecord() : base(ProfileURL.BundleDocumentFetalDeathReport)
@@ -86,6 +83,20 @@ namespace BFDR
       };
       Composition.Type = new CodeableConcept(CodeSystems.LOINC, "92010-8", "Jurisdiction fetal death report Document", null);
       Composition.Title = "Fetal Death Report";
+    }
+
+    /// <summary>
+    /// Initialize sections creates empty sections based on the composition type
+    /// These are necessary so resources like Mother and Father can be referenced from somewhere in the composition
+    /// </summary>
+    protected override void InitializeSections()
+    {
+      CreateNewSection(MOTHER_PRENATAL_SECTION);
+      CreateNewSection(MEDICAL_INFORMATION_SECTION);
+      CreateNewSection(FETUS_SECTION);
+      CreateNewSection(MOTHER_INFORMATION_SECTION);
+      CreateNewSection(FATHER_INFORMATION_SECTION);
+      CreateNewSection(EMERGING_ISSUES_SECTION);
     }
   }
 }

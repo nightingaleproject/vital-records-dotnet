@@ -46,25 +46,21 @@ namespace BFDR.Tests
       String json = SetterBirthRecord.ToJSON();
       Assert.DoesNotContain("89369001", json); // code
       Assert.DoesNotContain("73780-9", json); // category code
-      Assert.DoesNotContain("57075-4", json); // composition section code
       // Check nothing changes if we set a missing entry to false
       SetterBirthRecord.Anencephaly = false;
       json = SetterBirthRecord.ToJSON();
       Assert.DoesNotContain("89369001", json); // code
       Assert.DoesNotContain("73780-9", json); // category code
-      Assert.DoesNotContain("57075-4", json); // composition section code
       SetterBirthRecord.Anencephaly = true;
       Assert.True(SetterBirthRecord.Anencephaly);
       json = SetterBirthRecord.ToJSON();
       Assert.Contains("89369001", json); // code
       Assert.Contains("73780-9", json); // category code
-      Assert.Contains("57075-4", json); // composition section code
       // Check nothing changes if we set an existing entry to true
       SetterBirthRecord.Anencephaly = true;
       json = SetterBirthRecord.ToJSON();
       Assert.Contains("89369001", json); // code
       Assert.Contains("73780-9", json); // category code
-      Assert.Contains("57075-4", json); // composition section code
       SetterBirthRecord.Anencephaly = false;
       Assert.False(SetterBirthRecord.Anencephaly);
       json = SetterBirthRecord.ToJSON();
@@ -79,25 +75,21 @@ namespace BFDR.Tests
       String json = SetterBirthRecord.ToJSON();
       Assert.DoesNotContain("434691000124101", json); // code
       Assert.DoesNotContain("73813-8", json); // category code
-      Assert.DoesNotContain("55752-0", json); // composition section code
       // Check nothing changes if we set a missing entry to false
       SetterBirthRecord.AntibioticsAdministeredDuringLabor = false;
       json = SetterBirthRecord.ToJSON();
       Assert.DoesNotContain("434691000124101", json); // code
       Assert.DoesNotContain("73813-8", json); // category code
-      Assert.DoesNotContain("55752-0", json); // composition section code
       SetterBirthRecord.AntibioticsAdministeredDuringLabor = true;
       Assert.True(SetterBirthRecord.AntibioticsAdministeredDuringLabor);
       json = SetterBirthRecord.ToJSON();
       Assert.Contains("434691000124101", json); // code
       Assert.Contains("73813-8", json); // category code
-      Assert.Contains("55752-0", json); // composition section code
       // Check nothing changes if we set an existing entry to true
       SetterBirthRecord.AntibioticsAdministeredDuringLabor = true;
       json = SetterBirthRecord.ToJSON();
       Assert.Contains("434691000124101", json); // code
       Assert.Contains("73813-8", json); // category code
-      Assert.Contains("55752-0", json); // composition section code
       SetterBirthRecord.AntibioticsAdministeredDuringLabor = false;
       Assert.False(SetterBirthRecord.AntibioticsAdministeredDuringLabor);
       json = SetterBirthRecord.ToJSON();
@@ -111,12 +103,10 @@ namespace BFDR.Tests
       Assert.False(SetterBirthRecord.InductionOfLabor);
       String json = SetterBirthRecord.ToJSON();
       Assert.DoesNotContain("236958009", json); // code
-      Assert.DoesNotContain("55752-0", json); // composition section code
       SetterBirthRecord.InductionOfLabor = true;
       Assert.True(SetterBirthRecord.InductionOfLabor);
       json = SetterBirthRecord.ToJSON();
       Assert.Contains("236958009", json); // code
-      Assert.Contains("55752-0", json); // composition section code
       SetterBirthRecord.InductionOfLabor = false;
       Assert.False(SetterBirthRecord.InductionOfLabor);
       json = SetterBirthRecord.ToJSON();
