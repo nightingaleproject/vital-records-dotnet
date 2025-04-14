@@ -97,7 +97,7 @@ class IJEFaker
   # using sequences that appear commonly in a set of de-identified jurisdiction data to ensure it's not
   # connected to any individual decedent so is limited to a relatively small set of possible causes
   def self.sequence_data
-    @sequence_data ||= JSON.load_file(File.join(File.dirname(__FILE__), '..', 'datafiles', 'common_literal_sequences.json'))
+    @sequence_data ||= JSON.parse(File.read(File.join(File.dirname(__FILE__), '..', 'datafiles', 'common_literal_sequences.json')))
   end
 
   # Select a random literal sequence

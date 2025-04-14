@@ -8,5 +8,3 @@ gem 'faker'
 
 # Support for generating a weighted distribution
 gem 'weighted_distribution'
-
-gem 'debug'
