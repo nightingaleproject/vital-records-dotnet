@@ -90,7 +90,14 @@ export class Getter extends Component {
         "Content-type": isJSON ? "application/json" : "text/plain"
       }
       if (isJSON) {
-        data = JSON.parse(data);
+        try {
+          data = JSON.parse(data); // catch SyntaxError from misformed JSON
+        } catch {
+          self.setState({loading: false}, () => {
+            self.props.updateRecord(null, [{message: 'Syntax error when parsing JSON.', severity: 'error'}]);
+          })
+          return;
+        }
       }
       var endpoint = '';
       if (this.props.returnType) {

@@ -47,5 +47,8 @@
     "moduleNameMapper": {
       "axios": "axios/dist/node/axios.cjs"
     }
+  },
+  "devDependencies": {
+    "@testing-library/user-event": "^14.6.1"
   }
 }
