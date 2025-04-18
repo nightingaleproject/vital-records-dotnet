@@ -119,6 +119,17 @@ namespace BFDR.CLI
 
                 birthRecord.NoObstetricProcedures = true;
 
+                // Mother Residence
+                Dictionary<string, string> motherResidence = new Dictionary<string, string>();
+                motherResidence.Add("addressLine1", "7 Blue Street");
+                motherResidence.Add("addressCity", "Milford");
+                motherResidence.Add("addressCounty", "New Haven");
+                motherResidence.Add("addressState", "CT");
+                motherResidence.Add("addressZip", "06460");
+                motherResidence.Add("addressCountry", "US");
+                birthRecord.MotherResidence = motherResidence;
+
+                // Mother and Father birthdate
                 birthRecord.MotherBirthDay = 12;
                 birthRecord.MotherBirthMonth = 1;
                 birthRecord.MotherBirthYear = 1992;
@@ -128,23 +139,21 @@ namespace BFDR.CLI
                 birthRecord.FatherBirthYear = 1990;
                 birthRecord.FatherDateOfBirth = "1990-09-21";
 
+                // Mother and Father education
                 birthRecord.MotherEducationLevelHelper = VR.ValueSets.EducationLevel.Doctoral_Or_Post_Graduate_Education;
                 birthRecord.MotherEducationLevelEditFlagHelper = VR.ValueSets.EditBypass01234.Edit_Passed;
                 birthRecord.FatherEducationLevelHelper = VR.ValueSets.EducationLevel.Bachelors_Degree;
                 birthRecord.FatherEducationLevelEditFlagHelper = VR.ValueSets.EditBypass01234.Edit_Failed_Data_Queried_But_Not_Verified;
 
-                //Ethnicity
-                birthRecord.MotherEthnicityLiteral = VR.ValueSets.HispanicOrigin.Colombian;
+                // Mother and Father Ethnicity
+                birthRecord.MotherEthnicityLiteral = "Colombian";
                 birthRecord.MotherEthnicity3Helper = VR.ValueSets.YesNoUnknown.Yes;
-                // Race
+                // Mother and Father Race
                 Tuple<string, string>[] motherRace = { Tuple.Create(NvssRace.BlackOrAfricanAmerican, "Y")};
                 birthRecord.MotherRace = motherRace;
                 Tuple<string, string>[] fatherRace = { Tuple.Create(NvssRace.White, "Y")};
                 birthRecord.FatherRace = fatherRace;
-                birthRecord.MotherRaceTabulation1EHelper = VR.ValueSets.RaceCode.Colombian;
-                birthRecord.FatherRaceTabulation1EHelper = VR.ValueSets.RaceCode.Arab;
-                birthRecord.MotherEthnicityEditedCodeHelper = VR.ValueSets.HispanicOrigin.Colombian;
-                birthRecord.FatherEthnicityEditedCodeHelper = VR.ValueSets.HispanicOrigin.Non_Hispanic;
+
 
                 // Write out the Record
                 Console.WriteLine(birthRecord.ToJSON());
@@ -180,14 +189,14 @@ namespace BFDR.CLI
                
 
                 fetaldeathRecord.EventLocationJurisdiction = "MA";
-                Dictionary<string, string> birthAddress = new Dictionary<string, string>();
-                birthAddress.Add("addressLine1", "123 Fake Street");
-                birthAddress.Add("addressCity", "Springfield");
-                birthAddress.Add("addressCounty", "Hampden");
-                birthAddress.Add("addressState", "MA");
-                birthAddress.Add("addressZip", "01101");
-                birthAddress.Add("addressCountry", "US");
-                fetaldeathRecord.PlaceOfBirth = birthAddress;
+                Dictionary<string, string> deliveryAddress = new Dictionary<string, string>();
+                deliveryAddress.Add("addressLine1", "123 Fake Street");
+                deliveryAddress.Add("addressCity", "Springfield");
+                deliveryAddress.Add("addressCounty", "Hampden");
+                deliveryAddress.Add("addressState", "MA");
+                deliveryAddress.Add("addressZip", "01101");
+                deliveryAddress.Add("addressCountry", "US");
+                fetaldeathRecord.PlaceOfDelivery = deliveryAddress;
 
                 fetaldeathRecord.InfantMedicalRecordNumber = "7134703";
                 fetaldeathRecord.MotherMedicalRecordNumber = "2286144";
@@ -203,15 +212,27 @@ namespace BFDR.CLI
                 fetaldeathRecord.NoInfectionsPresentDuringPregnancy = true;
                 fetaldeathRecord.GestationalHypertension = true;
 
+                // Initiating Cause or Condition
+                fetaldeathRecord.PrematureRuptureOfMembranes = true;
 
                 Dictionary<string, string> route = new Dictionary<string, string>();
                 route.Add("code", "700000006");
                 route.Add("system", "http://snomed.info/sct");
                 route.Add("display", "Vaginal delivery of fetus (procedure)");
                 fetaldeathRecord.FinalRouteAndMethodOfDelivery = route;
-
                 fetaldeathRecord.NoObstetricProcedures = true;
 
+                // Mother Residence
+                Dictionary<string, string> motherResidence = new Dictionary<string, string>();
+                motherResidence.Add("addressLine1", "7 Blue Street");
+                motherResidence.Add("addressCity", "Milford");
+                motherResidence.Add("addressCounty", "New Haven");
+                motherResidence.Add("addressState", "CT");
+                motherResidence.Add("addressZip", "06460");
+                motherResidence.Add("addressCountry", "US");
+                fetaldeathRecord.MotherResidence = motherResidence;
+
+                // Mother and Father birthdates
                 fetaldeathRecord.MotherBirthDay = 12;
                 fetaldeathRecord.MotherBirthMonth = 1;
                 fetaldeathRecord.MotherBirthYear = 1992;
@@ -221,23 +242,21 @@ namespace BFDR.CLI
                 fetaldeathRecord.FatherBirthYear = 1990;
                 fetaldeathRecord.FatherDateOfBirth = "1990-09-21";
 
+                // Mother and Father Education
                 fetaldeathRecord.MotherEducationLevelHelper = VR.ValueSets.EducationLevel.Doctoral_Or_Post_Graduate_Education;
                 fetaldeathRecord.MotherEducationLevelEditFlagHelper = VR.ValueSets.EditBypass01234.Edit_Passed;
                 fetaldeathRecord.FatherEducationLevelHelper = VR.ValueSets.EducationLevel.Bachelors_Degree;
                 fetaldeathRecord.FatherEducationLevelEditFlagHelper = VR.ValueSets.EditBypass01234.Edit_Failed_Data_Queried_But_Not_Verified;
 
-                //Ethnicity
-                fetaldeathRecord.MotherEthnicityLiteral = VR.ValueSets.HispanicOrigin.Colombian;
+                // Mother and Father Ethnicity
+                fetaldeathRecord.MotherEthnicityLiteral = "Colombian";
                 fetaldeathRecord.MotherEthnicity3Helper = VR.ValueSets.YesNoUnknown.Yes;
-                // Race
+                // Mother and Father Race
                 Tuple<string, string>[] motherRace = { Tuple.Create(NvssRace.BlackOrAfricanAmerican, "Y")};
                 fetaldeathRecord.MotherRace = motherRace;
                 Tuple<string, string>[] fatherRace = { Tuple.Create(NvssRace.White, "Y")};
                 fetaldeathRecord.FatherRace = fatherRace;
-                fetaldeathRecord.MotherRaceTabulation1EHelper = VR.ValueSets.RaceCode.Colombian;
-                fetaldeathRecord.FatherRaceTabulation1EHelper = VR.ValueSets.RaceCode.Arab;
-                fetaldeathRecord.MotherEthnicityEditedCodeHelper = VR.ValueSets.HispanicOrigin.Colombian;
-                fetaldeathRecord.FatherEthnicityEditedCodeHelper = VR.ValueSets.HispanicOrigin.Non_Hispanic;
+
 
                 // Write out the Record
                 Console.WriteLine(fetaldeathRecord.ToJSON());

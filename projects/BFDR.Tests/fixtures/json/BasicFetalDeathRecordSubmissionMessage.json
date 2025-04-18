@@ -309,6 +309,24 @@
               },
               "extension": [
                 {
+                  "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
+                  "valueCode": "M"
+                },
+                {
+                    "url": "http://hl7.org/fhir/StructureDefinition/patient-birthPlace",
+                    "valueAddress": {
+                        "state": "MA",
+                        "_state": {
+                            "extension": [
+                                {
+                                    "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-jurisdiction-id-vr",
+                                    "valueString": "MA"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
                   "extension": [
                     {
                       "url": "motherOrFather",
@@ -374,6 +392,34 @@
                   }
                 ]
               }
+            }
+          },
+          {
+            "fullUrl": "urn:uuid:3fe557f1-4928-466e-bc4e-7e6dc71c74ed",
+            "resource": {
+                "resourceType": "Condition",
+                "id": "3fe557f1-4928-466e-bc4e-7e6dc71c74ed",
+                "category": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://loinc.org",
+                                "code": "76060-3"
+                            }
+                        ]
+                    }
+                ],
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "code": "44223004"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:5f76fab9-6fb0-4901-9c4a-dcedab7e1ef4"
+                }
             }
           },
           {
@@ -1420,364 +1466,6 @@
                   }
                 }
               ]
-            }
-          },
-          {
-            "fullUrl": "urn:uuid:37326aab-44db-480f-830c-29414c92a46a",
-            "resource": {
-              "resourceType": "Observation",
-              "id": "37326aab-44db-480f-830c-29414c92a46a",
-              "meta": {
-                "profile": [
-                  "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/coded-race-and-ethnicity-vr"
-                ]
-              },
-              "status": "final",
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-local-observation-codes-vr",
-                    "code": "codedraceandethnicityMother",
-                    "display": "Coded Race and Ethnicity Person"
-                  }
-                ]
-              },
-              "subject": {
-                "reference": "urn:uuid:1c271768-fbe0-43c6-9676-5e0de6b9cbd0"
-              }
-            }
-          },
-          {
-            "fullUrl": "urn:uuid:5bd7dc49-9284-4724-b476-569f4dd34982",
-            "resource": {
-              "resourceType": "Observation",
-              "id": "5bd7dc49-9284-4724-b476-569f4dd34982",
-              "meta": {
-                "profile": [
-                  "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-coded-initiating-fetal-death-cause-or-condition"
-                ]
-              },
-              "status": "final",
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://loinc.org",
-                    "code": "92023-1",
-                    "display": "Coded other significant causes or conditions of fetal death"
-                  }
-                ]
-              },
-              "subject": {
-                "reference": "urn:uuid:1c271768-fbe0-43c6-9676-5e0de6b9cbd0"
-              },
-              "performer": [
-                {
-                  "reference": "urn:uuid:194e1d14-a1f6-4f8a-8be4-74336fd1cab5"
-                }
-              ],
-              "component": [
-                {
-                  "code": {
-                    "coding": [
-                      {
-                        "system": "http://snomed.info/sct",
-                        "code": "246268007",
-                        "display": "Position (attribute)"
-                      }
-                    ]
-                  },
-                  "valueInteger": 1
-                }
-              ]
-            }
-          },
-          {
-            "fullUrl": "urn:uuid:3a9e52de-e599-4a39-86f1-afecf0c753bd",
-            "resource": {
-              "resourceType": "Observation",
-              "id": "3a9e52de-e599-4a39-86f1-afecf0c753bd",
-              "meta": {
-                "profile": [
-                  "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-coded-initiating-fetal-death-cause-or-condition"
-                ]
-              },
-              "status": "final",
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://loinc.org",
-                    "code": "92023-1",
-                    "display": "Coded other significant causes or conditions of fetal death"
-                  }
-                ]
-              },
-              "subject": {
-                "reference": "urn:uuid:1c271768-fbe0-43c6-9676-5e0de6b9cbd0"
-              },
-              "performer": [
-                {
-                  "reference": "urn:uuid:194e1d14-a1f6-4f8a-8be4-74336fd1cab5"
-                }
-              ],
-              "component": [
-                {
-                  "code": {
-                    "coding": [
-                      {
-                        "system": "http://snomed.info/sct",
-                        "code": "246268007",
-                        "display": "Position (attribute)"
-                      }
-                    ]
-                  },
-                  "valueInteger": 2
-                }
-              ]
-            }
-          },
-          {
-            "fullUrl": "urn:uuid:8a4c5a29-9db5-43c2-a824-9fa4de64e0bc",
-            "resource": {
-              "resourceType": "Observation",
-              "id": "8a4c5a29-9db5-43c2-a824-9fa4de64e0bc",
-              "meta": {
-                "profile": [
-                  "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-coded-initiating-fetal-death-cause-or-condition"
-                ]
-              },
-              "status": "final",
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://loinc.org",
-                    "code": "92023-1",
-                    "display": "Coded other significant causes or conditions of fetal death"
-                  }
-                ]
-              },
-              "subject": {
-                "reference": "urn:uuid:1c271768-fbe0-43c6-9676-5e0de6b9cbd0"
-              },
-              "performer": [
-                {
-                  "reference": "urn:uuid:194e1d14-a1f6-4f8a-8be4-74336fd1cab5"
-                }
-              ],
-              "component": [
-                {
-                  "code": {
-                    "coding": [
-                      {
-                        "system": "http://snomed.info/sct",
-                        "code": "246268007",
-                        "display": "Position (attribute)"
-                      }
-                    ]
-                  },
-                  "valueInteger": 3
-                }
-              ]
-            }
-          },
-          {
-            "fullUrl": "urn:uuid:7bd467dd-2d43-4ff1-a9de-0fb841d9ace5",
-            "resource": {
-              "resourceType": "Observation",
-              "id": "7bd467dd-2d43-4ff1-a9de-0fb841d9ace5",
-              "meta": {
-                "profile": [
-                  "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-coded-initiating-fetal-death-cause-or-condition"
-                ]
-              },
-              "status": "final",
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://loinc.org",
-                    "code": "92023-1",
-                    "display": "Coded other significant causes or conditions of fetal death"
-                  }
-                ]
-              },
-              "subject": {
-                "reference": "urn:uuid:1c271768-fbe0-43c6-9676-5e0de6b9cbd0"
-              },
-              "performer": [
-                {
-                  "reference": "urn:uuid:194e1d14-a1f6-4f8a-8be4-74336fd1cab5"
-                }
-              ],
-              "component": [
-                {
-                  "code": {
-                    "coding": [
-                      {
-                        "system": "http://snomed.info/sct",
-                        "code": "246268007",
-                        "display": "Position (attribute)"
-                      }
-                    ]
-                  },
-                  "valueInteger": 4
-                }
-              ]
-            }
-          },
-          {
-            "fullUrl": "urn:uuid:f66e744a-f2df-4905-9a93-b884f89da3cc",
-            "resource": {
-              "resourceType": "Observation",
-              "id": "f66e744a-f2df-4905-9a93-b884f89da3cc",
-              "meta": {
-                "profile": [
-                  "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-coded-initiating-fetal-death-cause-or-condition"
-                ]
-              },
-              "status": "final",
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://loinc.org",
-                    "code": "92023-1",
-                    "display": "Coded other significant causes or conditions of fetal death"
-                  }
-                ]
-              },
-              "subject": {
-                "reference": "urn:uuid:1c271768-fbe0-43c6-9676-5e0de6b9cbd0"
-              },
-              "performer": [
-                {
-                  "reference": "urn:uuid:194e1d14-a1f6-4f8a-8be4-74336fd1cab5"
-                }
-              ],
-              "component": [
-                {
-                  "code": {
-                    "coding": [
-                      {
-                        "system": "http://snomed.info/sct",
-                        "code": "246268007",
-                        "display": "Position (attribute)"
-                      }
-                    ]
-                  },
-                  "valueInteger": 5
-                }
-              ]
-            }
-          },
-          {
-            "fullUrl": "urn:uuid:96b40c04-1196-48b8-b750-83b3d86a86a3",
-            "resource": {
-              "resourceType": "Observation",
-              "id": "96b40c04-1196-48b8-b750-83b3d86a86a3",
-              "meta": {
-                "profile": [
-                  "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-coded-initiating-fetal-death-cause-or-condition"
-                ]
-              },
-              "status": "final",
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://loinc.org",
-                    "code": "92023-1",
-                    "display": "Coded other significant causes or conditions of fetal death"
-                  }
-                ]
-              },
-              "subject": {
-                "reference": "urn:uuid:1c271768-fbe0-43c6-9676-5e0de6b9cbd0"
-              },
-              "performer": [
-                {
-                  "reference": "urn:uuid:194e1d14-a1f6-4f8a-8be4-74336fd1cab5"
-                }
-              ],
-              "component": [
-                {
-                  "code": {
-                    "coding": [
-                      {
-                        "system": "http://snomed.info/sct",
-                        "code": "246268007",
-                        "display": "Position (attribute)"
-                      }
-                    ]
-                  },
-                  "valueInteger": 6
-                }
-              ]
-            }
-          },
-          {
-            "fullUrl": "urn:uuid:129edd28-1d00-45ff-a21a-74cbc83a4a48",
-            "resource": {
-              "resourceType": "Observation",
-              "id": "129edd28-1d00-45ff-a21a-74cbc83a4a48",
-              "meta": {
-                "profile": [
-                  "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-coded-initiating-fetal-death-cause-or-condition"
-                ]
-              },
-              "status": "final",
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://loinc.org",
-                    "code": "92023-1",
-                    "display": "Coded other significant causes or conditions of fetal death"
-                  }
-                ]
-              },
-              "subject": {
-                "reference": "urn:uuid:1c271768-fbe0-43c6-9676-5e0de6b9cbd0"
-              },
-              "performer": [
-                {
-                  "reference": "urn:uuid:194e1d14-a1f6-4f8a-8be4-74336fd1cab5"
-                }
-              ],
-              "component": [
-                {
-                  "code": {
-                    "coding": [
-                      {
-                        "system": "http://snomed.info/sct",
-                        "code": "246268007",
-                        "display": "Position (attribute)"
-                      }
-                    ]
-                  },
-                  "valueInteger": 7
-                }
-              ]
-            }
-          },
-          {
-            "fullUrl": "urn:uuid:451b52bf-264b-463f-b4fb-e56bc5136557",
-            "resource": {
-              "resourceType": "Observation",
-              "id": "451b52bf-264b-463f-b4fb-e56bc5136557",
-              "meta": {
-                "profile": [
-                  "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/coded-race-and-ethnicity-vr"
-                ]
-              },
-              "status": "final",
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-local-observation-codes-vr",
-                    "code": "codedraceandethnicityFather",
-                    "display": "Coded Race and Ethnicity Person"
-                  }
-                ]
-              },
-              "subject": {
-                "reference": "urn:uuid:1c271768-fbe0-43c6-9676-5e0de6b9cbd0"
-              }
             }
           }
         ]

@@ -48,18 +48,24 @@ namespace BFDR
         private const string COMPOSITION_PROVIDER_LIVE_BIRTH_REPORT = "68998-4";
         private const string COMPOSITION_JURISDICTION_FETAL_DEATH_REPORT = "92010-8";
         private const string COMPOSITION_JURISDICTION_LIVE_BIRTH_REPORT  ="92011-6";
-        private const string COMPOSITION_CODED_CAUSE_OF_FETAL_DEATH = "86804-2";
+        /// <summary>Composition code coded cause of fetal death</summary>
+        protected const string COMPOSITION_CODED_CAUSE_OF_FETAL_DEATH = "86804-2";
         private const string COMPOSITION_CODED_RACE_AND_ETHNICITY = "86805-9";
         private const string COMPOSITION_CODED_INDUSTRY_AND_OCCUPATION = "industry_occupation_document";
 
-        /// <summary>Composition Section Constants</summary>
+        /// <summary>Mother Prenatal Section Constant</summary>
         protected const string MOTHER_PRENATAL_SECTION = "57073-9";
-        private const string MEDICAL_INFORMATION_SECTION = "55752-0";
-        private const string NEWBORN_INFORMATION_SECTION = "57075-4";
-        private const string MOTHER_INFORMATION_SECTION = "92014-0";
-        private const string FATHER_INFORMATION_SECTION = "92013-2";
+        /// <summary>Medical Information Section Constant</summary>
+        protected const string MEDICAL_INFORMATION_SECTION = "55752-0";
+        /// <summary>Newbord Information Section Constant</summary>
+        protected const string NEWBORN_INFORMATION_SECTION = "57075-4";
+        /// <summary>Mother Information Section Constant</summary>
+        protected const string MOTHER_INFORMATION_SECTION = "92014-0";
+        /// <summary>Father Information Section Constant</summary>
+        protected const string FATHER_INFORMATION_SECTION = "92013-2";
         private const string PATIENT_QUESTIONAIRRE_RESPONSE_SECTION = "74465-6";
-        private const string EMERGING_ISSUES_SECTION = "emergingIssues";
+        /// <summary>Emerging Issues Section Constant</summary>
+        protected const string EMERGING_ISSUES_SECTION = "emergingIssues";
         private const string SUCCESSFUL_OUTCOME = "385669000";
         private const string UNSUCCESSFUL_OUTCOME = "385671000";
         private const string DATE_OF_LAST_LIVE_BIRTH = "68499-3";
@@ -71,6 +77,12 @@ namespace BFDR
         private const string NUMBER_OF_OTHER_PREGNANCY_OUTCOMES = "69043-8";
         private const string MOTHER_RECEIVED_WIC_FOOD = "87303-4";
         private const string INFANT_BREASTFED_AT_DISCHARGE = "73756-9";
+
+        /// <summary> Fetus Section Constant </summary>
+        protected const string FETUS_SECTION = "76400-1";
+
+        /// <summary> Coded Cause of Fetal Death Section Constant </summary>
+        protected const string CODEDCAUSEOFFETALDEATH_SECTION = "86804-2";
 
         /// <summary>DemographicComposition Section Constants</summary>
         private const string RACE_ETHNICITY_MOTHER = "MTH";

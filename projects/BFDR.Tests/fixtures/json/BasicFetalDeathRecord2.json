@@ -309,6 +309,34 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:3fe557f1-4928-466e-bc4e-7e6dc71c74ed",
+      "resource": {
+          "resourceType": "Condition",
+          "id": "3fe557f1-4928-466e-bc4e-7e6dc71c74ed",
+          "category": [
+              {
+                  "coding": [
+                      {
+                          "system": "http://loinc.org",
+                          "code": "76060-3"
+                      }
+                  ]
+              }
+          ],
+          "code": {
+              "coding": [
+                  {
+                      "system": "http://snomed.info/sct",
+                      "code": "44223004"
+                  }
+              ]
+          },
+          "subject": {
+              "reference": "urn:uuid:5f76fab9-6fb0-4901-9c4a-dcedab7e1ef4"
+          }
+      }
+    },
+    {
       "fullUrl": "urn:uuid:64aa77c0-0361-4882-90b7-476c2a070fe3",
       "resource": {
         "resourceType": "Patient",
