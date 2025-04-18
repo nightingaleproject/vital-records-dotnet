@@ -1,4 +1,5 @@
 using Hl7.Fhir.Model;
+using VR;
 
 namespace BFDR
 {
@@ -11,7 +12,7 @@ namespace BFDR
         public new const string MESSAGE_TYPE = "http://nchs.cdc.gov/birth_acknowledgement";
 
         /// <summary>Default constructor that creates a new, empty BirthRecordAcknowledgementMessage.</summary>
-        public BirthRecordAcknowledgementMessage(BFDRBaseMessage message) : base(message)
+        public BirthRecordAcknowledgementMessage(CommonMessage message) : base(message)
         {
             MessageType = MESSAGE_TYPE;
         }
@@ -38,7 +39,7 @@ namespace BFDR
         /// </summary>
         public new const string MESSAGE_TYPE = "http://nchs.cdc.gov/fd_acknowledgement";
         /// <summary>Default constructor that creates a new, empty FetalDeathRecordAcknowledgementMessage.</summary>
-        public FetalDeathRecordAcknowledgementMessage(BFDRBaseMessage message) : base(message)
+        public FetalDeathRecordAcknowledgementMessage(CommonMessage message) : base(message)
         {
             MessageType = MESSAGE_TYPE;
         }
@@ -63,7 +64,7 @@ namespace BFDR
 
         /// <summary>Constructor that creates an acknowledgement for the specified message.</summary>
         /// <param name="messageToAck">the message to create an acknowledgement for.</param>
-        public BFDRAcknowledgementMessage(BFDRBaseMessage messageToAck) : this(messageToAck?.MessageId, messageToAck?.MessageSource, messageToAck?.MessageDestination)
+        public BFDRAcknowledgementMessage(CommonMessage messageToAck) : this(messageToAck?.MessageId, messageToAck?.MessageSource, messageToAck?.MessageDestination)
         {
             this.CertNo = messageToAck?.CertNo;
             this.StateAuxiliaryId = messageToAck?.StateAuxiliaryId;
