@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+<a name="5.3.1"></a> 
+## 5.3.1 04-18-2025
+
+### Features
+* Add clearer error messages when FHIR messages are submitted instead of FHIR records in the tools and vice versa
+* Add text comparisons to the Connectathon FHIR message tool
+
 <a name="5.3.0"></a> 
 ## 5.3.0 01-30-2025
 

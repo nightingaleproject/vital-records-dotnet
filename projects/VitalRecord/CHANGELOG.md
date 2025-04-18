@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+<a name="1.0.0-preview.7"></a>
+## [1.0.0-preview.7](https://github.com/nightingaleproject/vital-records-dotnet/commit/c8c1bdab07c4fbe50cdec91e4a83569ed0adc1b6) (2025-04-18)
+
+### Features
+* Add void flag for birth and fetal death void messages
+
+### Fixes
+* Fix handling of XX, TS, TT, and ZZ jurisdictions in test examples
+* Fix how sections are intialized and populated in the composition
+
 <a name="1.0.0-preview.6"></a>
 ## [1.0.0-preview.6](https://github.com/nightingaleproject/vital-records-dotnet/commit/34c63730c52913170ad01d0d25782387190e4d1e) (2025-01-30)
 
