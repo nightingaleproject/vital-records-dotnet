@@ -178,7 +178,6 @@ export class EDRSRoundtripProducing extends Component {
                   </Header>
                   <div className="p-b-10" />
                   <Getter updateRecord={this.updateRecord} allowIje={false} recordType={this.props.params.recordType} />
-                  {/* <Issues issues={this.state.issues} /> */}
                 </Container>
               </Grid.Row>
               <div className="p-b-15" />
