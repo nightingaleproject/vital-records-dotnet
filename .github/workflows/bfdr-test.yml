@@ -84,5 +84,6 @@ jobs:
       uses: marocchino/sticky-pull-request-comment@v2
       if: github.event_name == 'pull_request'
       with:
+        header: bfdr-test
         recreate: true
         path: code-coverage-results.md
