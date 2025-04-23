@@ -61,10 +61,10 @@ export class MessageInspector extends Component {
                       </Grid.Row>
                   )}
           <div className="p-b-15" />
-            {!!this.state.issues && this.state.issues.length > 0 && (
-                <Grid.Row>
-                    <Record record={null} issues={this.state.issues} messageInspector={true} showIssues showIje showFsh />
-                </Grid.Row>
+          {!!this.state.issues && (
+              <Grid.Row>
+                  <Record record={null} issues={this.state.issues} messageInspector={true} showIssues showSuccess showIje showFsh />
+              </Grid.Row>
           )}
           {!!this.state.fhirInfo && (
             <Grid.Row>

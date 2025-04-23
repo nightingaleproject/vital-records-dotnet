@@ -1,0 +1,167 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders 1`] = `
+<div
+  className="ui grid"
+>
+  <div
+    className="row"
+  >
+    <div
+      className="ui breadcrumb"
+    >
+      <a
+        className="section"
+        href="/bfdr-birth"
+        onClick={[Function]}
+      >
+        Dashboard
+      </a>
+      <i
+        aria-hidden="true"
+        className="right chevron icon divider"
+        onClick={[Function]}
+      />
+      <div
+        className="section"
+        onClick={[Function]}
+      >
+        FHIR 
+        BFDR Birth
+         Record Inspector
+      </div>
+    </div>
+  </div>
+  <div
+    className="row"
+  >
+    <form
+      className="ui form p-t-10"
+      onSubmit={[Function]}
+    >
+      <div
+        className="field"
+      >
+        <div
+          className="ui buttons"
+        >
+          <button
+            className="ui primary button"
+            onClick={[Function]}
+          >
+            <i
+              aria-hidden="true"
+              className="clipboard icon"
+              onClick={[Function]}
+            />
+            Copy & Paste
+          </button>
+          <div
+            className="or"
+          />
+          <button
+            className="ui button"
+            onClick={[Function]}
+          >
+            <i
+              aria-hidden="true"
+              className="upload icon"
+              onClick={[Function]}
+            />
+            Upload
+          </button>
+          <div
+            className="or"
+          />
+          <button
+            className="ui button"
+            onClick={[Function]}
+          >
+            <i
+              aria-hidden="true"
+              className="send icon"
+              onClick={[Function]}
+            />
+            POST to Canary
+          </button>
+        </div>
+        <div
+          className="ui left pointing basic label m-l-15"
+          onClick={[Function]}
+        >
+          How would you like to import the record into Canary?
+        </div>
+      </div>
+    </form>
+    <div
+      className="ui segment"
+    >
+      <div
+        className="ui inverted dimmer"
+        onClick={[Function]}
+      >
+        <div
+          className="content"
+        >
+          <div
+            className="ui big text loader"
+          >
+            Processing
+          </div>
+        </div>
+      </div>
+      <div
+        className="ui container"
+      >
+        <form
+          className="ui form"
+          onSubmit={[Function]}
+        >
+          <h4>
+            Paste the 
+            record
+             contents below. 
+            The contents can be formatted as FHIR XML or FHIR JSON.
+          </h4>
+          <div
+            id="paste-input"
+            style={
+              Object {
+                "height": "400px",
+                "width": "100%",
+              }
+            }
+          />
+          <button
+            className="ui primary left floated button m-t-10"
+            onClick={[Function]}
+          >
+            <i
+              aria-hidden="true"
+              className="code icon"
+              onClick={[Function]}
+            />
+            Format Input
+          </button>
+          <button
+            className="ui primary disabled right floated button m-t-10"
+            disabled={true}
+            onClick={[Function]}
+            tabIndex={-1}
+          >
+            <i
+              aria-hidden="true"
+              className="send icon"
+              onClick={[Function]}
+            />
+            Submit
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div
+    className="p-b-15"
+  />
+</div>
+`;

@@ -43,9 +43,9 @@ export class FHIRInspector extends Component {
             <Getter updateRecord={this.updateRecord} recordType={this.props.recordType} strict allowIje={false} />
           </Grid.Row>
           <div className="p-b-15" />
-          {!!this.state.issues && this.state.issues.length > 0 && (
+          {!!this.state.issues && (
             <Grid.Row>
-              <Record record={null} issues={this.state.issues} showIssues />
+              <Record record={null} issues={this.state.issues} showIssues showSuccess />
             </Grid.Row>
           )}
           {!!this.state.fhirInfo && (

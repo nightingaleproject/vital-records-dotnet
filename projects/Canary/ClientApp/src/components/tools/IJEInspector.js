@@ -10,7 +10,7 @@ export class IJEInspector extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { ...this.props, record: null, results: null, issues: [], column: 'number', direction: 'ascending' };
+    this.state = { ...this.props, record: null, results: null, issues: null, column: 'number', direction: 'ascending' };
     this.updateRecord = this.updateRecord.bind(this);
   }
 
@@ -60,12 +60,12 @@ export class IJEInspector extends Component {
             <Getter updateRecord={this.updateRecord} recordType={this.props.recordType} ijeOnly noFormat />
           </Grid.Row>
           <div className="p-b-15" />
-          {!!this.state.issues && this.state.issues.length > 0 && (
+          {!!this.state.issues && (
             <Grid.Row>
-              <Record record={null} issues={this.state.issues} showIssues />
+              <Record record={null} issues={this.state.issues} showIssues showSuccess />
             </Grid.Row>
           )}
-          {this.state.issues.length === 0 && !!this.state.record && !!this.state.results && (
+          {!!this.state.record && !!this.state.results && (
             <Grid.Row>
               <Container>
                 <Divider horizontal>

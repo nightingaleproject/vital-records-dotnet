@@ -184,7 +184,7 @@ export class Connectathon extends Component {
                 <h4>Certificate Number</h4>
                 <Input type='number' defaultValue={this.state.certificateNumber} placeholder='Enter Certificate Number' fluid onChange={this.updateCertificateNumber} />
                 <h4>Jurisdiction</h4>
-                <Dropdown placeholder='Select Jurisdiction' search selection fluid onChange={this.updateJurisdiction} options={stateOptions} />
+                <Dropdown placeholder='Select Jurisdiction' search selection fluid onChange={this.updateJurisdiction} options={stateOptions} data-testid={"select-jurisdiction"} />
               </Container>
             </Grid.Row>
             {!(this.state.test && this.state.test.completedBool) && !!this.state.loading && (
@@ -216,7 +216,7 @@ export class Connectathon extends Component {
                     )}
                   </Container>
                 </Grid.Row>
-                <Grid.Row>
+                <Grid.Row data-testid={"fhir-upload"}>
                   <Container fluid>
                     <Divider horizontal />
                     <Header as="h2" dividing id="step-1">
@@ -226,15 +226,16 @@ export class Connectathon extends Component {
                         <Header.Subheader>After entering the record into your system, export it and import it into Canary using the form below.</Header.Subheader>
                       </Header.Content>
                     </Header>
-                    <div className="p-b-15" />
-                    {!!this.state.issues && this.state.issues.length > 0 && (
-                      <Grid.Row id="scroll-to">
-                        <Record issues={this.state.issues} showIssues />
-                      </Grid.Row>
-                    )}
+                    <div className="p-b-10" />
                     <Getter updateRecord={this.updateRecord} allowIje={false} recordType={this.props.params.recordType} />
                   </Container>
                 </Grid.Row>
+                <div className="p-b-15" />
+                {!!this.state.issues && (
+                  <Grid.Row id="scroll-to">
+                    <Record issues={this.state.issues} showIssues showSuccess />
+                  </Grid.Row>
+                )}
                 <Grid.Row>
                   <Container fluid>
                     <Divider horizontal />

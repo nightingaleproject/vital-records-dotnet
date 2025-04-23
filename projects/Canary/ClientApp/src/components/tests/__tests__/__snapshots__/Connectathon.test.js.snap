@@ -11,7 +11,7 @@ Array [
     >
       <a
         className="section"
-        href="/vrdr"
+        href="/bfdr-birth"
         onClick={[Function]}
       >
         Dashboard
@@ -25,7 +25,8 @@ Array [
         className="section"
         onClick={[Function]}
       >
-        Connectathon FHIR Message Producing
+        Connectathon FHIR 
+         Records
       </div>
     </div>
   </div>,
@@ -58,25 +59,26 @@ Array [
           </div>
         </div>
       </h2>
-      <div
-        className="p-b-15"
-      />
+      <h4>
+        Certificate Number
+      </h4>
       <div
         className="ui fluid input"
       >
         <input
-          defaultValue="1"
+          defaultValue={1}
           onChange={[Function]}
           placeholder="Enter Certificate Number"
           type="number"
         />
       </div>
-      <div
-        className="p-b-15"
-      />
+      <h4>
+        Jurisdiction
+      </h4>
       <div
         aria-expanded={false}
         className="ui fluid search selection dropdown"
+        data-testid="select-jurisdiction"
         onBlur={[Function]}
         onChange={[Function]}
         onClick={[Function]}
@@ -1146,5 +1148,8 @@ Array [
       </div>
     </div>
   </div>,
+  <div
+    className="p-b-100"
+  />,
 ]
 `;

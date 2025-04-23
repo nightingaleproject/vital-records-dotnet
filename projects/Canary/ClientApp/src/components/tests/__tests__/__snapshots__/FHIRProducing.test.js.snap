@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders 1`] = `
+Array [
+  <div
+    className="ui grid"
+    id="scroll-to"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className="ui breadcrumb"
+      >
+        <a
+          className="section"
+          href="/vrdr"
+          onClick={[Function]}
+        >
+          Dashboard
+        </a>
+        <i
+          aria-hidden="true"
+          className="right chevron icon divider"
+          onClick={[Function]}
+        />
+        <div
+          className="section"
+          onClick={[Function]}
+        >
+          Producing FHIR 
+          VRDR
+           Records
+        </div>
+      </div>
+    </div>
+    <div
+      className="row loader-height"
+    >
+      <div
+        className="ui container"
+      >
+        <div
+          className="ui active transition visible inverted dimmer"
+          onClick={[Function]}
+        >
+          <div
+            className="content"
+          >
+            <div
+              className="ui massive text loader"
+            >
+              Initializing a New Test...
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="p-b-100"
+  />,
+]
+`;
