@@ -21,6 +21,7 @@ on:
       - 'projects/BFDR.CLI/**'
       - 'projects/BFDR.Messaging/**'
       - 'projects/BFDR.Tests/**'
+      - ".github/workflows/bfdr-test.yml"
   workflow_dispatch:
 
 jobs:
