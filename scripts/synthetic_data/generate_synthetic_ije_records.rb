@@ -99,7 +99,7 @@ ije_generator = {
   # Sex--Edit Flag
   SEX_BYPASS: -> (ije) { '0' }, # Edit passed
   # Social Security Number
-  SSN: -> (ije) { Faker::IDNumber.unique.valid.gsub('-', '') }, # NOTE: Gets slow with many records
+  SSN: -> (ije) { Faker::IdNumber.unique.valid.gsub('-', '') }, # NOTE: Gets slow with many records
   # Decedent's Age--Type
   AGETYPE: -> (ije) { '1' }, # Age type is always years
   # Decedent's Age--Units
