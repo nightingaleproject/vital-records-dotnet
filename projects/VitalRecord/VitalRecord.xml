@@ -185,6 +185,9 @@
         <member name="F:VR.CodeSystems.DischargeDisposition">
             <summary> Discharge Disposition </summary>
         </member>
+        <member name="F:VR.CodeSystems.ConditionCategory">
+            <summary> US Core condition category </summary>
+        </member>
         <member name="T:VR.IJEField">
             <summary>Property attribute used to describe a field in the IJE format.</summary>
         </member>
@@ -6958,9 +6961,9 @@
             <summary>Helper to support vital record property getter helper methods for removing Observations.</summary>
             <param name="code">the code to identify the type of Observation</param>
         </member>
-        <member name="M:VR.VitalRecord.GetCondition(System.String,System.String)">
+        <member name="M:VR.VitalRecord.GetCondition(System.String)">
             <summary>Helper to support vital record property getter helper methods for values stored in Conditions.</summary>
-            <param name="code">the code to identify the type of Condition</param>
+            <param name="propertyName">the name of the C# property, must have a FHIRPath annotation, will default to the name of the calling property</param>
         </member>
         <member name="M:VR.VitalRecord.GetOrCreateObservation(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
             <summary>Helper to support vital record property setter helper methods for values stored in Observations.</summary>
