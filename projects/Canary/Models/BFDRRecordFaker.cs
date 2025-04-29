@@ -60,6 +60,7 @@ namespace canary.Models
             record.FetusGivenNames = new string[] { faker.Name.FirstName(gender), faker.Name.FirstName(gender) };
             record.FetusFamilyName = faker.Name.LastName(gender);
             record.FetusSuffix = faker.Name.Suffix();
+            record.FetalDeathSex = gender.ToString().Substring(0, 1);
             DateTime birth = faker.Date.Recent();
             DateTimeOffset birthUtc = new DateTimeOffset(birth.Year, birth.Month, birth.Day, 0, 0, 0, TimeSpan.Zero);
             record.DateOfDelivery = birthUtc.ToString("yyyy-MM-dd");
