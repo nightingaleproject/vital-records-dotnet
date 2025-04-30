@@ -5,7 +5,7 @@ these records to FHIR JSON format or to S10 format.
 
 ## Dependencies
 
-This code requires the ruby language to be installed, along with some ruby library depencencies. After installing ruby, install the ruby library dependencies by running:
+This code requires the ruby language to be installed, minimum version 3.0, along with some ruby library depencencies. After installing ruby, install the ruby library dependencies by running:
 
 ```
 bundle install
