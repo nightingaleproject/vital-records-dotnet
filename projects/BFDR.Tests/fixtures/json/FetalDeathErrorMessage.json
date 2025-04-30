@@ -1,0 +1,89 @@
+{
+  "resourceType": "Bundle",
+  "id": "SampleFetalDeathErrorMessage",
+  "meta": {
+    "profile": [
+      "http://cdc.gov/nchs/nvss/fhir/vital-records-messaging/StructureDefinition/VRM-ExtractionErrorMessage"
+    ]
+  },
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "MessageHeader",
+        "id": "6f91de53-36f7-474a-bc79-cc2f61fdb211",
+        "meta": {
+          "profile": [
+            "http://cdc.gov/nchs/nvss/fhir/vital-records-messaging/StructureDefinition/VRM-ExtractionErrorHeader"
+          ]
+        },
+        "source": {
+          "endpoint": "http://nchs.cdc.gov/bfdr_submission"
+        },
+        "destination": [
+          {
+            "endpoint": "https://example.com/jurisdiction/message/endpoint"
+          }
+        ],
+        "focus": [
+          {
+            "reference": "Parameters/SampleErrorParams"
+          }
+        ],
+        "eventUri": "http://nchs.cdc.gov/fd_extraction_error"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Parameters",
+        "id": "SampleErrorParams",
+        "meta": {
+          "profile": [
+            "http://cdc.gov/nchs/nvss/fhir/vital-records-messaging/StructureDefinition/VRM-MessageParameters"
+          ]
+        },
+        "parameter": [
+          {
+            "name": "jurisdiction_id",
+            "valueString": "MA"
+          },
+          {
+            "name": "cert_no",
+            "valueUnsignedInt": 874343
+          },
+          {
+            "name": "event_year",
+            "valueUnsignedInt": 2022
+          },
+          {
+            "name": "state_auxiliary_id",
+            "valueString": "abcdef20"
+          },
+          {
+            "name": "payload_version_id",
+            "valueString": "VRDRSTU2.2"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "OperationOutcome",
+        "id": "SampleFDErrorOutcome",
+        "meta": {
+          "profile": [
+            "http://cdc.gov/nchs/nvss/fhir/vital-records-messaging/StructureDefinition/VRM-Outcome"
+          ]
+        },
+        "issue": [
+          {
+            "severity": "error",
+            "code": "required",
+            "diagnostics": "something was not correct."
+          }
+        ]
+      }
+    }
+  ],
+  "type": "message",
+  "timestamp": "2022-04-13T00:00:00Z"
+}

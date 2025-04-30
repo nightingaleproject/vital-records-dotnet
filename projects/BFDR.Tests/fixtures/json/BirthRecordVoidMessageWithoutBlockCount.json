@@ -41,10 +41,6 @@
           {
             "name": "jurisdiction_id",
             "valueString": "UT"
-          },
-          {
-            "name": "block_count",
-            "valueUnsignedInt": 10
           }
         ]
       }
