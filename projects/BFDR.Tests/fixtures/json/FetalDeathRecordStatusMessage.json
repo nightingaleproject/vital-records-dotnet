@@ -1,0 +1,73 @@
+{
+  "resourceType": "Bundle",
+  "id": "StatusMessage-Example2",
+  "meta": {
+    "profile": [
+      "http://cdc.gov/nchs/nvss/fhir/vital-records-messaging/StructureDefinition/VRM-StatusMessage"
+    ]
+  },
+  "type": "message",
+  "timestamp": "2021-05-20T00:00:00Z",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "MessageHeader",
+        "id": "StatusHeader-Example2",
+        "meta": {
+          "profile": [
+            "http://cdc.gov/nchs/nvss/fhir/vital-records-messaging/StructureDefinition/VRM-StatusHeader"
+          ]
+        },
+        "eventUri": "http://nchs.cdc.gov/fd_status",
+        "destination": [
+          {
+            "endpoint": "https://sos.nh.gov/vitalrecords"
+          }
+        ],
+        "source": {
+          "endpoint": "http://nchs.cdc.gov/bfdr_submission"
+        },
+        "focus": [
+          {
+            "reference": "Parameters/StatusParameters-Example2"
+          }
+        ]
+      },
+      "fullUrl": "http://www.example.org/fhir/Header/StatusHeader-Example2"
+    },
+    {
+      "resource": {
+        "resourceType": "Parameters",
+        "id": "StatusParameters-Example2",
+        "meta": {
+          "profile": [
+            "http://cdc.gov/nchs/nvss/fhir/vital-records-messaging/StructureDefinition/VRM-StatusParameters"
+          ]
+        },
+        "parameter": [
+          {
+            "name": "status",
+            "valueString": "manualCauseOfDeathCoding"
+          },
+          {
+            "name": "jurisdiction_id",
+            "valueString": "NY"
+          },
+          {
+            "name": "cert_no",
+            "valueUnsignedInt": 123456
+          },
+          {
+            "name": "event_year",
+            "valueUnsignedInt": 2018
+          },
+          {
+            "name": "state_auxiliary_id",
+            "valueString": "abcdef10"
+          }
+        ]
+      },
+      "fullUrl": "http://www.example.org/fhir/Parameters/StatusParameters-Example2"
+    }
+  ]
+}

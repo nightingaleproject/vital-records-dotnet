@@ -1,0 +1,136 @@
+{
+  "resourceType": "Bundle",
+  "id": "CodedCauseOfFetalDeathUpdateMessageExample",
+  "meta": {
+    "profile": [
+      "http://cdc.gov/nchs/nvss/fhir/vital-records-messaging/StructureDefinition/VRM-CodedCauseOfFetalDeathUpdateMessage"
+    ]
+  },
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "MessageHeader",
+        "id": "CauseOfDeathCodingUpdateHeaderExample",
+        "meta": {
+          "profile": [
+            "http://cdc.gov/nchs/nvss/fhir/vital-records-messaging/StructureDefinition/VRM-CauseOfDeathCodingUpdateHeader"
+          ]
+        },
+        "source": {
+          "endpoint": "http://nchs.cdc.gov/bfdr_submission"
+        },
+        "destination": [
+          {
+            "endpoint": "https://example.com/jurisdiction/message/endpoint"
+          }
+        ],
+        "focus": [
+          {
+            "reference": "Bundle/cd9fa913-55f2-4dfd-940d-11e77344362a"
+          }
+        ],
+        "eventUri": "http://nchs.cdc.gov/fd_causeofdeath_coding_update"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Parameters",
+        "id": "CodedCauseUpdateMessageParameters",
+        "meta": {
+          "profile": [
+            "http://cdc.gov/nchs/nvss/fhir/vital-records-messaging/StructureDefinition/VRM-MessageParameters"
+          ]
+        },
+        "parameter": [
+          {
+            "name": "jurisdiction_id",
+            "valueString": "MA"
+          },
+          {
+            "name": "cert_no",
+            "valueUnsignedInt": 874232
+          },
+          {
+            "name": "event_year",
+            "valueUnsignedInt": 2022
+          },
+          {
+            "name": "state_auxiliary_id",
+            "valueString": "abcdef20"
+          },
+          {
+            "name": "payload_version_id",
+            "valueString": "VRDRSTU2.2"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Bundle",
+        "id": "cd9fa913-55f2-4dfd-940d-11e77344362a",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/bfdr/StructureDefinition/Bundle-document-coded-cause-of-fetal-death"
+          ]
+        },
+        "identifier": {
+          "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-ije-vr",
+          "value": "2022MA874232"
+        },
+        "entry": [
+          {
+            "resource": {
+              "type": {
+                "coding": [
+                  {
+                    "system": "http://loinc.org",
+                    "code": "86804-2"
+                  }
+                ]
+              },
+              "section": [
+                {
+                  "code": {
+                    "coding": [
+                      {
+                        "system": "http://loinc.org",
+                        "code": "86804-2"
+                      }
+                    ]
+                  },
+                  "entry": [
+                    {
+                      "reference": "Observation/TheObservedCause"
+                    }
+                  ]
+                }
+              ],
+              "resourceType": "Composition",
+              "id": "CompositionCodedCauseExample",
+              "meta": {
+                "profile": [
+                  "http://hl7.org/fhir/us/bfdr/StructureDefinition/Composition-coded-cause-of-fetal-death"
+                ]
+              },
+              "subject": {
+                "display": "Patient - Decedent Fetus (Fetus Not Named)"
+              },
+              "author": [
+                {
+                  "display": "National Center for Health Statistics"
+                }
+              ],
+              "status": "final",
+              "title": "Coded Cause of Fetal Death",
+              "date": "2022-04-11"
+            }
+          }
+        ],
+        "type": "document"
+      }
+    }
+  ],
+  "type": "message",
+  "timestamp": "2022-04-11T00:00:00Z"
+}
