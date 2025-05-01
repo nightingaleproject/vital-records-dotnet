@@ -52,6 +52,12 @@ namespace BFDR
                         return Convert.ToString(ext.Value);
                     }
                 }
+                // For cases where we loaded a bundle that has the RecordIdentifier but not the individual fields
+                // we can find the value as a substring of the RecordIdentifier
+                if (RecordIdentifier != null && RecordIdentifier.Length == 12 && RecordIdentifier.Substring(6, 6) != "000000")
+                {
+                    return RecordIdentifier.Substring(6, 6);
+                }
                 return null;
             }
             set
@@ -141,7 +147,22 @@ namespace BFDR
         /// </summary>
         protected int? GetBirthYear()
         {
-            return GetDateElement(Subject?.BirthDateElement, VR.ExtensionURL.PartialDateYearVR);
+            int? year = GetDateElement(Subject?.BirthDateElement, VR.ExtensionURL.PartialDateYearVR);
+            if (year != null)
+            {
+                return year;
+            }
+            // For cases where we loaded a bundle that has the RecordIdentifier but not the individual fields
+            // we can find the value as a substring of the RecordIdentifier
+            if (RecordIdentifier != null && RecordIdentifier.Length == 12 && RecordIdentifier.Substring(0, 4) != "0000")
+            {
+                int parsedYear;
+                if (Int32.TryParse(RecordIdentifier.Substring(0, 4), out parsedYear))
+                {
+                    return parsedYear;
+                }
+            }
+            return null;
         }
 
         /// <summary>
@@ -159,6 +180,7 @@ namespace BFDR
             {
                 Subject.BirthDateElement = newDate;
             }
+            UpdateRecordIdentifier();
         }
 
         /// <summary>
@@ -650,6 +672,12 @@ namespace BFDR
                 if (PlaceOfBirth.ContainsKey("addressState") && !String.IsNullOrWhiteSpace(PlaceOfBirth["addressState"]))
                 {
                     return PlaceOfBirth["addressState"];
+                }
+                // For cases where we loaded a bundle that has the RecordIdentifier but not the individual fields
+                // we can find the value as a substring of the RecordIdentifier
+                if (RecordIdentifier != null && RecordIdentifier.Length == 12 && RecordIdentifier.Substring(4, 2) != "XX")
+                {
+                    return RecordIdentifier.Substring(4, 2);
                 }
                 return null;
             }
