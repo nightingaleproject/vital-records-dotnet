@@ -374,7 +374,7 @@
             <para>ExampleFetalDeathRecord.CertifiedDay = 23;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Certified Day: {ExampleFetalDeathRecord.CertifiedDay}");</para>
-            </example> 
+            </example>
         </member>
         <member name="P:BFDR.FetalDeathRecord.FetusGivenNames">
             <summary>Fetus Legal Name - Given. Middle name should be the last entry.</summary>

@@ -117,17 +117,19 @@ namespace VR
         }
 
         /// <summary>Helper to support vital record property getter helper methods for values stored in Conditions.</summary>
-        /// <param name="code">the code to identify the type of Condition</param>
-        protected Condition GetCondition(string code, string categoryCode = null)
+        /// <param name="propertyName">the name of the C# property, must have a FHIRPath annotation, will default to the name of the calling property</param>
+        protected Condition GetCondition([CallerMemberName] string propertyName = null)
         {
+            FHIRPath fhirPath = GetFHIRPathAttribute(propertyName);
+
             // Find all conditions with this code
-            var entries = Bundle.Entry.Where(e => e.Resource is Condition obs && CodeableConceptToDict(obs.Code)["code"] == code);
+            var entries = Bundle.Entry.Where(e => e.Resource is Condition obs && CodeableConceptToDict(obs.Code)["code"] == fhirPath.Code);
 
             // Some conditions have the same code and require a category to differentiate
-            if (entries != null && categoryCode != null)
+            if (entries != null && fhirPath.CategoryCode != null && fhirPath.CategoryCode.Length > 0)
             {
                 // TODO categories have a required default category, there should be 2 in the list and we can't use 0 index by default
-                var entry = entries.Where(e => e.Resource is Condition obs && CodeableConceptToDict(obs.Category[0])["code"]==categoryCode).FirstOrDefault();
+                var entry = entries.Where(e => e.Resource is Condition cond && cond.Category.Any(c => c.Coding[0].Code == fhirPath.CategoryCode)).FirstOrDefault();
                 if (entry != null)
                 {
                     Condition cond = (Condition)entry.Resource;
@@ -378,16 +380,34 @@ namespace VR
                 string codeSystem = fhirPath.CodeSystem ?? CodeSystems.SCT;
                 code = new CodeableConcept(codeSystem, fhirPath.Code, fhirPath.Display, null);
             }
-            CodeableConcept category = null;
+            CodeableConcept category = null, usCoreCategory = null;
             if (fhirPath.CategoryCode != null && fhirPath.CategoryCode.Length > 0)
             {
                 category = new CodeableConcept(CodeSystems.LOINC, fhirPath.CategoryCode);
+                if (fhirPath.CategoryCode == "76061-1" || fhirPath.CategoryCode == "76060-3")
+                {
+                    // BFDR profiles ConditionFetalDeathInitiatingCauseOrCondition and
+                    // ConditionFetalDeathOtherCauseOrCondition are based on
+                    // USCoreConditionEncounterDiagnosisProfile which require an additional
+                    // category of 'encounter-diagnosis' for conformance.
+                    usCoreCategory = new CodeableConcept(CodeSystems.ConditionCategory, "encounter-diagnosis");
+                }
+                else
+                {
+                    // The remaining Conditions in the Vital Records IGs, all in BFDR for now, are based on
+                    // USCoreConditionProblemsHealthConcernsProfile which requires an additional category of
+                    // 'problem-list-item' for conformance.
+                    // If additional Conditions are supported by Vital Records IGs in the future, additional cases
+                    // would need to be defined here to ensure they get an appropriate USCore-defined category.
+                    usCoreCategory = new CodeableConcept(CodeSystems.ConditionCategory, "problem-list-item");
+                }
             }
             switch (fhirPath.FHIRType)
             {
                 case FHIRPath.FhirType.Condition:
                     Condition condition = new Condition();
                     condition.Code = code;
+                    condition.Category.Add(usCoreCategory);
                     condition.Category.Add(category);
                     condition.Subject = new ResourceReference($"urn:uuid:{subjectId}");
                     resource = condition;
@@ -485,7 +505,7 @@ namespace VR
             }
             else if (String.IsNullOrEmpty(value))
             {
-                Extension missingValueReason = new Extension(OtherExtensionURL.DataAbsentReason, new Code(propertyName == "ChildFamilyName" ? "temp-unknown" : "unknown")); //if child, use temp-unknown, otherwise default to "unknown" 
+                Extension missingValueReason = new Extension(OtherExtensionURL.DataAbsentReason, new Code(propertyName == "ChildFamilyName" ? "temp-unknown" : "unknown")); //if child, use temp-unknown, otherwise default to "unknown"
                 if (name == null)
                 {
                     name = new HumanName
@@ -777,7 +797,7 @@ namespace VR
             // If we have a basic value as a valueDateTime use that, otherwise pull from the PartialDateTime extension
             if (value is FhirDateTime && ((FhirDateTime)value).Value != null)
             {
-                // DateTimeOffset.Parse will insert fake information where missing, 
+                // DateTimeOffset.Parse will insert fake information where missing,
                 // so TryParseExact on the partial date info first
                 if (partURL == VR.ExtensionURL.PartialDateYearVR)
                 {
@@ -1349,7 +1369,7 @@ namespace VR
             return new FhirDateTime(DateTimeOffset.MinValue.Year, DateTimeOffset.MinValue.Month, DateTimeOffset.MinValue.Day,
                 FhirTimeHour(value), FhirTimeMin(value), FhirTimeSec(value), TimeSpan.Zero);
         }
-        
+
         /// <summary>Getter helper for anything that can have a regular FHIR date/time, allowing the time to be read from the value</summary>
         protected string GetTimeFragment(Element value)
         {
