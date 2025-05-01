@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Hl7.Fhir.Model;
+using Hl7.Fhir.Utility;
 using VR;
 
 namespace BFDR
@@ -38,7 +39,9 @@ namespace BFDR
         /// <summary>Return the birth year for this record to be used in the identifier</summary>
         public override uint? GetYear()
         {
-            return (uint?)this.BirthYear;
+            // TODO - make sure this parsedatelements works for Timezones
+            ParseDateElements(this.DateOfBirth, out int? year, out _, out _);
+            return (uint?) year;
         }
         
         /// <inheritdoc/>
