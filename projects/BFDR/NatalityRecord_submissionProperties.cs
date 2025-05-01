@@ -54,6 +54,12 @@ namespace BFDR
                         return Convert.ToString(ext.Value);
                     }
                 }
+                // For cases where we loaded a bundle that has the RecordIdentifier but not the individual fields
+                // we can find the value as a substring of the RecordIdentifier
+                if (RecordIdentifier != null && RecordIdentifier.Length == 12 && RecordIdentifier.Substring(6, 6) != "000000")
+                {
+                    return RecordIdentifier.Substring(6, 6);
+                }
                 return null;
             }
             set
@@ -604,6 +610,12 @@ namespace BFDR
                 if (PlaceOfBirth.ContainsKey("addressState") && !String.IsNullOrWhiteSpace(PlaceOfBirth["addressState"]))
                 {
                     return PlaceOfBirth["addressState"];
+                }
+                // For cases where we loaded a bundle that has the RecordIdentifier but not the individual fields
+                // we can find the value as a substring of the RecordIdentifier
+                if (RecordIdentifier != null && RecordIdentifier.Length == 12 && RecordIdentifier.Substring(4, 2) != "XX")
+                {
+                    return RecordIdentifier.Substring(4, 2);
                 }
                 return null;
             }

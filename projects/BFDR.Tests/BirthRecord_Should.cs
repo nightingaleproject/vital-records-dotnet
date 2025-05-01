@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Serialization;
 using Newtonsoft.Json;
@@ -3592,6 +3593,16 @@ namespace BFDR.Tests
     }
 
     [Fact]
+    public void Test_UpdateIdentifier()
+    {
+      BirthRecord record = new BirthRecord();
+      record.CertificateNumber = "000001";
+      record.EventLocationJurisdiction = "MA";
+      record.BirthYear = 2025;
+      Assert.Equal("2025MA000001", record.GetBundle().Identifier.Value);
+    }
+
+    [Fact]
     public void Test_GetDemographicCodedContentBundle()
     {
       // Test with two existing coded demographic records
@@ -3669,6 +3680,123 @@ namespace BFDR.Tests
     }
 
     [Fact]
+    public void Test_CreateDemographicCodedContentBundle()
+    {
+      // Create the demographic coded content starting with the IJE portions
+      IJEBirth ije = new IJEBirth();
+      ije.IDOB_YR = "2025";
+      ije.BSTATE = "NJ";
+      ije.FILENO = "000001";
+      ije.AUXNO = "123456781234";
+      ije.MRACE1E = "100";
+      ije.MRACE2E = "101";
+      ije.MRACE3E = "102";
+      ije.MRACE4E = "103";
+      ije.MRACE5E = "104";
+      ije.MRACE6E = "105";
+      ije.MRACE7E = "106";
+      ije.MRACE8E = "107";
+      ije.MRACE16C = "108";
+      ije.MRACE17C = "109";
+      ije.MRACE18C = "110";
+      ije.MRACE19C = "111";
+      ije.MRACE20C = "112";
+      ije.MRACE21C = "113";
+      ije.MRACE22C = "114";
+      ije.MRACE23C = "115";
+      ije.FRACE1E = "116";
+      ije.FRACE2E = "117";
+      ije.FRACE3E = "118";
+      ije.FRACE4E = "119";
+      ije.FRACE5E = "120";
+      ije.FRACE6E = "121";
+      ije.FRACE7E = "122";
+      ije.FRACE8E = "123";
+      ije.FRACE16C = "124";
+      ije.FRACE17C = "125";
+      ije.FRACE18C = "126";
+      ije.FRACE19C = "127";
+      ije.FRACE20C = "128";
+      ije.FRACE21C = "129";
+      ije.FRACE22C = "130";
+      ije.FRACE23C = "131";
+      ije.METHNIC5C = "200";
+      ije.METHNICE = "201";
+      ije.FETHNIC5C = "202";
+      ije.FETHNICE = "203";
+      ije.METHNIC1 = "N";
+      ije.METHNIC2 = "H";
+      ije.METHNIC3 = "U";
+      ije.METHNIC4 = "N";
+      ije.METHNIC5 = "literal1";
+      ije.MRACE1 = "Y";
+      ije.MRACE2 = "N";
+      ije.MRACE3 = "Y";
+      ije.MRACE4 = "N";
+      ije.MRACE5 = "Y";
+      ije.MRACE6 = "N";
+      ije.MRACE7 = "Y";
+      ije.MRACE8 = "N";
+      ije.MRACE9 = "Y";
+      ije.MRACE10 = "N";
+      ije.MRACE11 = "Y";
+      ije.MRACE12 = "N";
+      ije.MRACE13 = "Y";
+      ije.MRACE14 = "N";
+      ije.MRACE15 = "Y";
+      ije.MRACE16 = "literal2";
+      ije.MRACE17 = "literal3";
+      ije.MRACE18 = "literal4";
+      ije.MRACE19 = "literal5";
+      ije.MRACE20 = "literal6";
+      ije.MRACE21 = "literal7";
+      ije.MRACE22 = "literal8";
+      ije.MRACE23 = "literal9";
+      ije.FETHNIC1 = "H";
+      ije.FETHNIC2 = "U";
+      ije.FETHNIC3 = "N";
+      ije.FETHNIC4 = "H";
+      ije.FETHNIC5 = "literal10";
+      ije.FRACE1 = "N";
+      ije.FRACE2 = "Y";
+      ije.FRACE3 = "N";
+      ije.FRACE4 = "Y";
+      ije.FRACE5 = "N";
+      ije.FRACE6 = "Y";
+      ije.FRACE7 = "N";
+      ije.FRACE8 = "Y";
+      ije.FRACE9 = "N";
+      ije.FRACE10 = "Y";
+      ije.FRACE11 = "N";
+      ije.FRACE12 = "Y";
+      ije.FRACE13 = "N";
+      ije.FRACE14 = "Y";
+      ije.FRACE15 = "N";
+      ije.FRACE16 = "literal11";
+      ije.FRACE17 = "literal12";
+      ije.FRACE18 = "literal13";
+      ije.FRACE19 = "literal14";
+      ije.FRACE20 = "literal15";
+      ije.FRACE21 = "literal16";
+      ije.FRACE22 = "literal17";
+      ije.FRACE23 = "literal18";
+      BirthRecord record = ije.ToBirthRecord();
+      Bundle bundle = record.GetDemographicCodedContentBundle();
+      Assert.Equal(Bundle.BundleType.Document, bundle.Type);
+      // TODO: Test that the composition type is correct
+      BirthRecord record2 = new BirthRecord(bundle.ToJson());
+      IJEBirth ije2 = new IJEBirth(record2);
+      // Make sure that all the field values match the original
+      List<PropertyInfo> properties = typeof(IJEBirth).GetProperties().ToList();
+      foreach (PropertyInfo property in properties)
+      {
+        Console.WriteLine(property.GetValue(ije));
+        Console.WriteLine(property.GetValue(ije2));
+        Assert.Equal(property.GetValue(ije), property.GetValue(ije2));
+      }
+    }
+
+    [Fact]
     public void Test_GetCodedIndustryAndOccupationBundle()
     {
       // Test with two existing industry and occupation records
@@ -3692,5 +3820,21 @@ namespace BFDR.Tests
         }
       }
     }
+
+    [Fact]
+    public void Test_CreateCodedIndustryAndOccupationBundle()
+    {
+      // Create the industry and occupation coded content starting with the IJE portions
+      IJEBirth ije = new IJEBirth();
+      ije.IDOB_YR = "2025";
+      ije.BSTATE = "NJ";
+      ije.FILENO = "000001";
+      // TODO: Finish
+      // Some fields do not exist in IJE, so we set those after converting to a FHIR record
+      BirthRecord record = ije.ToBirthRecord();
+      // record.
+      record.GetCodedIndustryAndOccupationBundle();
+    }
+
   }
 }
