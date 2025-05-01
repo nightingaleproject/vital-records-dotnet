@@ -380,17 +380,24 @@ namespace VR
                 string codeSystem = fhirPath.CodeSystem ?? CodeSystems.SCT;
                 code = new CodeableConcept(codeSystem, fhirPath.Code, fhirPath.Display, null);
             }
-            CodeableConcept category = null;
+            CodeableConcept category = null, usCoreCategory = null;
             if (fhirPath.CategoryCode != null && fhirPath.CategoryCode.Length > 0)
             {
                 category = new CodeableConcept(CodeSystems.LOINC, fhirPath.CategoryCode);
+                if (fhirPath.CategoryCode == "76061-1" || fhirPath.CategoryCode == "76060-3")
+                {
+                    usCoreCategory = new CodeableConcept(CodeSystems.ConditionCategory, "encounter-diagnosis");
+                }
+                else
+                {
+                    usCoreCategory = new CodeableConcept(CodeSystems.ConditionCategory, "problem-list-item");
+                }
             }
             switch (fhirPath.FHIRType)
             {
                 case FHIRPath.FhirType.Condition:
                     Condition condition = new Condition();
                     condition.Code = code;
-                    CodeableConcept usCoreCategory = new CodeableConcept(CodeSystems.ConditionCategory, "problem-list-item");
                     condition.Category.Add(usCoreCategory);
                     condition.Category.Add(category);
                     condition.Subject = new ResourceReference($"urn:uuid:{subjectId}");
