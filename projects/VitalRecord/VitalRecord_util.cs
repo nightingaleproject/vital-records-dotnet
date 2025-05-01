@@ -386,10 +386,19 @@ namespace VR
                 category = new CodeableConcept(CodeSystems.LOINC, fhirPath.CategoryCode);
                 if (fhirPath.CategoryCode == "76061-1" || fhirPath.CategoryCode == "76060-3")
                 {
+                    // BFDR profiles ConditionFetalDeathInitiatingCauseOrCondition and
+                    // ConditionFetalDeathOtherCauseOrCondition are based on
+                    // USCoreConditionEncounterDiagnosisProfile which require an additional
+                    // category of 'encounter-diagnosis' for conformance.
                     usCoreCategory = new CodeableConcept(CodeSystems.ConditionCategory, "encounter-diagnosis");
                 }
                 else
                 {
+                    // The remaining Conditions in the Vital Records IGs, all in BFDR for now, are based on
+                    // USCoreConditionProblemsHealthConcernsProfile which requires an additional category of
+                    // 'problem-list-item' for conformance.
+                    // If additional Conditions are supported by Vital Records IGs in the future, additional cases
+                    // would need to be defined here to ensure they get an appropriate USCore-defined category.
                     usCoreCategory = new CodeableConcept(CodeSystems.ConditionCategory, "problem-list-item");
                 }
             }
