@@ -75,3 +75,31 @@ it('should show the problems when there are issues', async () => {
   expect(warningMessage).toBeDefined();
   await expect(component.findByText('No issues were found!')).rejects.toBeDefined();
 });
+
+it('should show issues when record is truthy and there is at least one issue', async () => {
+  getterSpy.mockImplementationOnce(() => {
+    const self = getterSpy.mock.instances[0];
+    self.props.updateRecord({
+      fhirInfo: {
+        "Child Demographics": {}
+      }
+    },
+      [{ severity: 'error', message: 'Problem description: data no good.' },
+      { severity: 'warning', message: 'Also, I am tired.' }]);
+  });
+  const component = render(
+    <MemoryRouter>
+      <FHIRInspector recordType={"bfdr-birth"} recordTypeReadable={"BFDR Birth"} />
+    </MemoryRouter>, container);
+  const user = userEvent.setup();
+  const submitButton = await component.findByText('Submit');
+  const textArea = await component.findByRole('textbox');
+  textArea.focus();
+  userEvent.paste('{ "good": false }').then(() => fireEvent.click(submitButton));
+  const errorMessage = await component.findByText('Problem description: data no good.');
+  expect(errorMessage).toBeDefined();
+  const warningMessage = await component.findByText('Also, I am tired.');
+  expect(warningMessage).toBeDefined();
+  const recordSection = await component.findByText('Child Demographics');
+  expect(recordSection).toBeDefined();
+});
