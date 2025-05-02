@@ -7,18 +7,22 @@ using System.IO;
 using Microsoft.AspNetCore.Http;
 using BFDR;
 using Newtonsoft.Json;
+using canary.Models;
 
 namespace canary.tests
 {
     public class RecordTests
     {
 
-        private RecordsController _recController;        
+        private RecordsController _recController;
         string documentTypePayload = "";
         string messageTypePayload = "";
         string emptyTypePayload = "";
         string romeroIje = "";
         string romeroJson = "";
+        string invalidLocationBirthJson = "";
+        string invalidLocationFetalDeathJson = "";
+        string invalidLocationDeathJson = "";
 
         public RecordTests()
         {
@@ -27,6 +31,9 @@ namespace canary.tests
             emptyTypePayload = File.ReadAllText(FixturePath("fixtures/json/EmptyTypePayload.json"));
             romeroIje = File.ReadAllText(FixturePath("fixtures/ije/romeroIje.ije"));
             romeroJson = File.ReadAllText(FixturePath("fixtures/json/BirthRecordR.json"));
+            invalidLocationBirthJson = File.ReadAllText(FixturePath("fixtures/json/BirthRecordInvalidLocation.json"));
+            invalidLocationFetalDeathJson = File.ReadAllText(FixturePath("fixtures/json/FetalDeathRecordInvalidLocation.json"));
+            invalidLocationDeathJson = File.ReadAllText(FixturePath("fixtures/json/DeathRecordInvalidLocation.json"));
             _recController = new RecordsController();
         }
 
@@ -40,8 +47,8 @@ namespace canary.tests
             };
             _recController.ControllerContext.HttpContext = httpContext;
             var response = await _recController.NewPostAsync("bfdr-birth");
-            ((BirthRecord) response.Item1.GetRecord()).EventLocationJurisdiction = "AZ";
-            ((BirthRecord) response.Item1.GetRecord()).CertificateNumber = "99991";
+            ((BirthRecord)response.Item1.GetRecord()).EventLocationJurisdiction = "AZ";
+            ((BirthRecord)response.Item1.GetRecord()).CertificateNumber = "99991";
             BirthRecord br = new BirthRecord(romeroJson);
             br.EventLocationJurisdiction = "AZ";
             br.CertificateNumber = "99991";
@@ -49,6 +56,29 @@ namespace canary.tests
             Assert.Equal(JsonConvert.SerializeObject(br), JsonConvert.SerializeObject(new BirthRecord(response.Item1.Json)));
         }
 
+        [Fact]
+        public void IJEIssueBirthRecordCheck()
+        {
+            CanaryBirthRecord.CheckGet(invalidLocationBirthJson, false, out List<Dictionary<string, string>> issues);
+            Assert.Single(issues);
+            Assert.Contains("Unable to find IJE BPLACE mapping", issues[0]["message"]);
+        }
+
+        [Fact]
+        public void IJEIssueFetalDeathRecordCheck()
+        {
+            CanaryFetalDeathRecord.CheckGet(invalidLocationFetalDeathJson, false, out List<Dictionary<string, string>> issues);
+            Assert.Single(issues);
+            Assert.Contains("Unable to find IJE DPLACE mapping", issues[0]["message"]);
+        }
+
+        [Fact]
+        public void IJEIssueDeathRecordCheck()
+        {
+            CanaryDeathRecord.CheckGet(invalidLocationDeathJson, false, out List<Dictionary<string, string>> issues);
+            Assert.Single(issues);
+            Assert.Contains("Unable to find IJE DPLACE mapping", issues[0]["message"]);
+        }
 
         [Fact]
         public void TestDocumentTypePayload()
@@ -57,7 +87,7 @@ namespace canary.tests
             var resultData = canary.Models.CanaryDeathRecord.CheckGet(documentTypePayload, true, out issues);
 
             StringBuilder issueList = new StringBuilder();
-            foreach(var issue in issues)
+            foreach (var issue in issues)
             {
                 issueList.Append(string.Join("\n", issue.Select(p => "K=" + p.Key + ",L=" + p.Value)));
             }
@@ -84,7 +114,7 @@ namespace canary.tests
                 issueList.Append(string.Join("\n", issue.Select(p => "K=" + p.Key + ",L=" + p.Value)));
             }
 
-            Assert.Contains("error", issueList.ToString()); 
+            Assert.Contains("error", issueList.ToString());
         }
 
         public static string FixturePath(string filePath)
