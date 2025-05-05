@@ -96,6 +96,10 @@
         <member name="M:VRDR.DeathRecord.RestoreReferences">
             <summary>Restores class references from a newly parsed record.</summary>
         </member>
+        <member name="M:VRDR.DeathRecord.GetSectionFocusId(System.String)">
+            <summary>Returns the focus id of a section in the composition.</summary>
+            <returns>the string uuid of the section focus</returns> 
+        </member>
         <member name="F:VRDR.DeathRecord.BlankPlaceholder">
             <summary>Overide the extension URL prefix used by the VR library</summary>
             <summary>String to represent a blank value when an empty string is not allowed</summary>
@@ -799,6 +803,12 @@
             <para>address.Add("addressState", "MA");</para>
             <para>address.Add("addressZip", "12345");</para>
             <para>address.Add("addressCountry", "US");</para>
+            <para>address.Add("addressPredir", "E");</para>
+            <para>address.Add("addressPostDir", "SW");</para>
+            <para>address.Add("addressStname", "Test");</para> 
+            <para>address.Add("addressStnum", "123");</para> 
+            <para>address.Add("addressStdesig", "St");</para> 
+            <para>address.Add("addressUnitnum", "3");</para> 
             <para>ExampleDeathRecord.CertifierAddress = address;</para>
             <para>// Getter:</para>
             <para>foreach(var pair in ExampleDeathRecord.CertifierAddress)</para>
@@ -2535,9 +2545,6 @@
         <member name="F:VRDR.IJEMortality.mre">
             <summary>Utility location to provide support for setting MRE-only fields that have no mapping in IJE when creating coding response records</summary>
         </member>
-        <member name="F:VRDR.IJEMortality._void">
-            <summary>Field _void.</summary>
-        </member>
         <member name="F:VRDR.IJEMortality._alias">
             <summary>Field _alias.</summary>
         </member>
@@ -3536,6 +3543,9 @@
         <member name="T:VRDR.ProfileURL">
             <summary>Profile URLs</summary>
         </member>
+        <member name="F:VRDR.ProfileURL.IndustryOccupationCodedContentBundle">
+            <summary>URL for IndustryOccupationCodedContentBundle</summary>
+        </member>
         <member name="F:VRDR.ProfileURL.ActivityAtTimeOfDeath">
             <summary>URL for ActivityAtTimeOfDeath</summary>
         </member>
@@ -3679,9 +3689,6 @@
         </member>
         <member name="F:VRDR.ExtensionURL.StateSpecificField">
             <summary>URL for StateSpecificField</summary>
-        </member>
-        <member name="F:VRDR.ExtensionURL.IndustryOccupationCodedContentBundle">
-            <summary>URL for IndustryOccupationCodedContentBundle</summary>
         </member>
         <member name="F:VRDR.ExtensionURL.PractitionerRole">
             <summary>URL for PractitionerRole</summary>

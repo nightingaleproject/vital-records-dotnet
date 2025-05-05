@@ -181,7 +181,8 @@ namespace VR
             {"WY","Wyoming"},
             {"YC","New York City"},
             {"TT","Test Jurisdiction"}, // This should only be used for testing with NCHS.
-            {"TS","STEVE Test Jurisdiction"} // This should only be used for STEVE testing with NCHS.
+            {"TS","STEVE Test Jurisdiction"},  // This should only be used for STEVE testing with NCHS.
+            {"ZZ","Unknown Jurisdiction"}
         };
 
         /// <summary>State and Territory Province Codes</summary>

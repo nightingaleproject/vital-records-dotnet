@@ -94,6 +94,27 @@ namespace BFDR.Tests
     }
 
     [Fact]
+    public void TestBirthState()
+    {
+      IJEBirth ije = new IJEBirth();
+      ije.BSTATE = "HI";
+      BirthRecord br = ije.ToRecord();
+      Assert.Equal("HI", br.EventLocationJurisdiction);
+      ije.BSTATE = "TT";
+      Assert.Equal("TT", ije.BSTATE); 
+      br = ije.ToRecord();
+      Assert.Equal("TT", br.EventLocationJurisdiction);
+      ije.BSTATE = "TS";
+      Assert.Equal("TS", ije.BSTATE); 
+      br = ije.ToRecord();
+      Assert.Equal("TS", br.EventLocationJurisdiction);
+      ije.BSTATE = "ZZ";
+      Assert.Equal("ZZ", ije.BSTATE); 
+      br = ije.ToRecord();
+      Assert.Equal("ZZ", br.EventLocationJurisdiction);
+    }
+
+    [Fact]
     public void TestSetPatientChildVitalRecordProperties()
     {
       IJEBirth ije = new()
@@ -286,6 +307,34 @@ namespace BFDR.Tests
       Assert.Equal(ijeImported.FDOB_DY, ijeConverted.FDOB_DY);
       Assert.Equal(-1, br.FatherBirthDay);
       Assert.Null(br.FatherDateOfBirth);
+    }
+
+    [Fact]
+    public void TestBirthRecordMotherDateOfBirthRoundtrip()
+    {
+      IJEBirth ije = new IJEBirth();
+      ije.MDOB_YR = "1992";
+      ije.MDOB_MO = "01";
+      ije.MDOB_DY = "12";
+      // convert IJE to FHIR
+      BirthRecord br = ije.ToRecord();
+      Assert.Equal(1992, br.MotherBirthYear);
+      Assert.Equal(1, br.MotherBirthMonth);
+      Assert.Equal(12, br.MotherBirthDay);
+
+      // then to a json string
+      string asJson = br.ToJSON();
+      // Create a fhir record from the json
+      BirthRecord birthRecord = new BirthRecord(asJson);
+      Assert.Equal(1992, birthRecord.MotherBirthYear);
+      Assert.Equal(1, birthRecord.MotherBirthMonth);
+      Assert.Equal(12, birthRecord.MotherBirthDay);
+
+      // convert back to IJE and confirm the values are the same
+      IJEBirth ije2 = new IJEBirth(birthRecord);
+      Assert.Equal("1992", ije2.MDOB_YR);
+      Assert.Equal("01", ije2.MDOB_MO);
+      Assert.Equal("12", ije2.MDOB_DY);
     }
 
     [Fact]
@@ -756,9 +805,9 @@ namespace BFDR.Tests
       Assert.Equal(ijeImported.FILENO, ijeConverted.FILENO);
       Assert.Equal(ijeImported.FILENO, br.CertificateNumber.PadLeft(6, '0'));
       // Auxiliary State file number - AUXNO
-      Assert.Equal("87".PadLeft(12, '0'), ijeImported.AUXNO);
+      Assert.Equal("87".PadRight(12, ' '), ijeImported.AUXNO);
       Assert.Equal(ijeImported.AUXNO, ijeConverted.AUXNO);
-      Assert.Equal(ijeImported.AUXNO, br.StateLocalIdentifier1.PadLeft(12, '0'));
+      Assert.Equal(ijeImported.AUXNO, br.StateLocalIdentifier1.PadRight(12, ' '));
       Assert.Equal(2023, br.BirthYear);
       Assert.Equal(ijeImported.IDOB_YR + ijeImported.BSTATE + ijeImported.FILENO, br.RecordIdentifier);
       Assert.Equal("2023MA048858", br.RecordIdentifier);
@@ -768,19 +817,25 @@ namespace BFDR.Tests
     public void TestSetIdentifiers()
     {
       IJEBirth ije = new IJEBirth();
+      Assert.Equal("".PadLeft(12, ' '), ije.AUXNO);
       ije.FILENO = "765765";
       Assert.Equal("765765".PadLeft(6, '0'), ije.FILENO);
       ije.AUXNO = "32";
-      Assert.Equal("32".PadLeft(12, '0'), ije.AUXNO);
+      Assert.Equal("32".PadRight(12, ' '), ije.AUXNO);
       ije.IDOB_YR = "2010";
       ije.BSTATE = "HI";
       ije.FILENO = "897897";
       Assert.Equal("897897".PadLeft(6, '0'), ije.FILENO);
       BirthRecord br = ije.ToRecord();
       Assert.Equal(ije.FILENO, br.CertificateNumber.PadLeft(6, '0'));
-      Assert.Equal(ije.AUXNO, br.StateLocalIdentifier1.PadLeft(12, '0'));
+      Assert.Equal(ije.AUXNO, br.StateLocalIdentifier1.PadRight(12, ' '));
       Assert.Equal(ije.IDOB_YR + ije.BSTATE + ije.FILENO, br.RecordIdentifier);
       Assert.Equal("2010HI897897", br.RecordIdentifier);
+
+      br = new BirthRecord();
+      ije = new IJEBirth(br);
+      Assert.Equal("".PadLeft(12, ' '), ije.AUXNO);
+      
     }
 
     [Fact]
@@ -1203,6 +1258,29 @@ namespace BFDR.Tests
       Assert.Null(ije.ToRecord().DateOfLastLiveBirthMonth);
       Assert.Equal("8888", ije.YLLB);
       Assert.Null(ije.ToRecord().DateOfLastLiveBirthYear);
+    }
+
+    [Fact]
+    public void SetVOID()
+    {
+      IJEBirth ije = new IJEBirth();
+      Assert.Equal("0", ije.VOID);
+      ije.VOID = "123";
+      Assert.Equal("0", ije.VOID);
+      ije.VOID = " ";
+      Assert.Equal("0", ije.VOID);
+      ije.VOID = "abc #$@";
+      Assert.Equal("0", ije.VOID);
+      ije.VOID = " 0 ";
+      Assert.Equal("0", ije.VOID);
+      ije.VOID = "0";
+      Assert.Equal("0", ije.VOID);
+      ije.VOID = " 1 ";
+      Assert.Equal("1", ije.VOID);
+      ije.VOID = "1";
+      Assert.Equal("1", ije.VOID);
+      ije.VOID = "2";
+      Assert.Equal("0", ije.VOID);
     }
   }
 }

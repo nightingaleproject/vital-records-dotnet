@@ -74,6 +74,7 @@ namespace VRDR
             if (from?.DeathYear != null)
             {
                 this.DeathYear = (uint)from.DeathYear;
+                this.EventYear = this.DeathYear;
             }
             this.JurisdictionId = from?.DeathLocationJurisdiction;
         }
@@ -91,6 +92,7 @@ namespace VRDR
         }
 
         /// <summary>The year in which the death occurred</summary>
+        [FHIRPath("Bundle.entry.resource.where($this is Parameters)", "")]
         public uint? DeathYear
         {
             get

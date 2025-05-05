@@ -139,8 +139,8 @@ namespace BFDR.Tests
       Assert.Equal("2024", ije.FDOD_YR);
       Assert.Equal("MA", ije.DSTATE);
       Assert.Equal("000008", ije.FILENO);
-      Assert.Equal("", ije.VOID);
-      Assert.Equal("000000000000", ije.AUXNO);
+      Assert.Equal("0", ije.VOID);
+      Assert.Equal("            ", ije.AUXNO);
       Assert.Equal("1830", ije.TD);
       Assert.Equal("M", ije.FSEX);
       Assert.Equal("12", ije.FDOD_MO);
@@ -499,5 +499,55 @@ namespace BFDR.Tests
       Assert.Equal("", ije.BLANK.Trim());
       Assert.Equal("", ije.BLANK2.Trim());
     }
-  }
+
+    [Fact]
+    public void TestMotherDateOfBirthRoundtrip()
+    {
+      IJEFetalDeath ije = new IJEFetalDeath();
+      ije.MDOB_YR = "1992";
+      ije.MDOB_MO = "01";
+      ije.MDOB_DY = "12";
+      // convert IJE to FHIR
+      FetalDeathRecord fd = ije.ToRecord();
+      Assert.Equal(1992, fd.MotherBirthYear);
+      Assert.Equal(1, fd.MotherBirthMonth);
+      Assert.Equal(12, fd.MotherBirthDay);
+
+      // then to a json string
+      string asJson = fd.ToJSON();
+      // Create a fhir record from the json
+      FetalDeathRecord fdRecord = new FetalDeathRecord(asJson);
+      Assert.Equal(1992, fdRecord.MotherBirthYear);
+      Assert.Equal(1, fdRecord.MotherBirthMonth);
+      Assert.Equal(12, fdRecord.MotherBirthDay);
+
+      // convert back to IJE and confirm the values are the same
+      IJEFetalDeath ije2 = new IJEFetalDeath(fdRecord);
+      Assert.Equal("1992", ije2.MDOB_YR);
+      Assert.Equal("01", ije2.MDOB_MO);
+      Assert.Equal("12", ije2.MDOB_DY);
+    }
+
+
+  [Fact]
+    public void TestDeathState()
+    {
+      IJEFetalDeath ije = new IJEFetalDeath();
+      ije.DSTATE = "HI";
+      FetalDeathRecord dr = ije.ToRecord();
+      Assert.Equal("HI", dr.EventLocationJurisdiction);
+      ije.DSTATE = "TT";
+      Assert.Equal("TT", ije.DSTATE); 
+      dr = ije.ToRecord();
+      Assert.Equal("TT", dr.EventLocationJurisdiction);
+      ije.DSTATE = "TS";
+      Assert.Equal("TS", ije.DSTATE); 
+      dr = ije.ToRecord();
+      Assert.Equal("TS", dr.EventLocationJurisdiction);
+      ije.DSTATE = "ZZ";
+      Assert.Equal("ZZ", ije.DSTATE); 
+      dr = ije.ToRecord();
+      Assert.Equal("ZZ", dr.EventLocationJurisdiction);
+    }
+}
 }

@@ -16,8 +16,25 @@ namespace BFDR
     /// </summary>
     public abstract partial class NatalityRecord : VitalRecord
     {
+        // Only some natality records are required to have a subject present
+        // Note: At time of development Coded Cause of Fetal Death (86804-2) requires a subject but should not, so it's not included here
+        private static readonly string[] COMPOSITIONS_REQUIRING_SUBJECT = {
+            COMPOSITION_PROVIDER_FETAL_DEATH_REPORT, COMPOSITION_PROVIDER_LIVE_BIRTH_REPORT,
+            COMPOSITION_JURISDICTION_FETAL_DEATH_REPORT, COMPOSITION_JURISDICTION_LIVE_BIRTH_REPORT
+        };
+
+        // Within a composition some sections have a focus that references the mother
+        private static readonly string[] COMPOSITION_MOTHER_FOCUS_SECTIONS = {
+            MOTHER_PRENATAL_SECTION, MEDICAL_INFORMATION_SECTION, MOTHER_INFORMATION_SECTION
+        };
+
+        // Within a composition some sections have a focus that references the father
+        private static readonly string[] COMPOSITION_FATHER_FOCUS_SECTIONS = {
+            FATHER_INFORMATION_SECTION
+        };
+
         /// <summary>Default constructor that creates a new, empty NatalityRecord.</summary>
-        public NatalityRecord(string bundleProfile) : base()
+        protected NatalityRecord(string bundleProfile) : base()
         {
             InitializeCompositionAndSubject();
 
@@ -109,6 +126,9 @@ namespace BFDR
             // AddReferenceToComposition(BirthCertification.Id, "BirthCertification");
             // Bundle.AddResourceEntry(BirthCertification, "urn:uuid:" + BirthCertification.Id);
 
+            // Create the sections for this composition
+            InitializeSections();
+
             // Create a Navigator for this new birth record.
             Navigator = Bundle.ToTypedElement();
 
@@ -118,16 +138,45 @@ namespace BFDR
         /// <summary>Initialize Composition and Subject.</summary>
         protected abstract void InitializeCompositionAndSubject();
 
+        /// <summary>Initialize sections for the composition.</summary>
+        protected abstract void InitializeSections();
+
+
+
+        /// <summary>
+        /// Creates a section based on the section code provided. Sets the focus defined for that section and provides an empty reason by default.
+        /// </summary>
+        /// <param name="code"></param>
+        protected void CreateNewSection(string code)
+        {
+            Composition.SectionComponent section = new Composition.SectionComponent();
+            Dictionary<string, string> coding = new Dictionary<string, string>();
+            coding["system"] = CompositionSectionCodeSystem;
+            coding["code"] = code;
+            section.Code = DictToCodeableConcept(coding);
+
+            string focusId = GetSectionFocusId(code);
+            if (!String.IsNullOrEmpty(focusId))
+            {   
+                section.Focus = new ResourceReference($"urn:uuid:{focusId}");
+            }
+            Dictionary<string, string> emptyReason = new Dictionary<string, string>();
+            emptyReason["system"] = "http://terminology.hl7.org/CodeSystem/list-empty-reason";
+            emptyReason["code"] = "notasked"; // TODO is this an okay default empty reason for the sections?
+            section.EmptyReason = DictToCodeableConcept(emptyReason);
+            Composition.Section.Add(section);
+        }
+
         /// <summary>Constructor that takes a string that represents a FHIR Natality Record in either XML or JSON format.</summary>
         /// <param name="record">represents a FHIR Natality Record in either XML or JSON format.</param>
         /// <param name="permissive">if the parser should be permissive when parsing the given string</param>
         /// <exception cref="ArgumentException">Record is neither valid XML nor JSON.</exception>
-        public NatalityRecord(string record, bool permissive = false) : base(record, permissive){}
+        protected NatalityRecord(string record, bool permissive = false) : base(record, permissive){}
 
         /// <summary>Constructor that takes a FHIR Bundle that represents a FHIR Natality Record.</summary>
         /// <param name="bundle">represents a FHIR Bundle.</param>
         /// <exception cref="ArgumentException">Record is invalid.</exception>
-        public NatalityRecord(Bundle bundle)
+        protected NatalityRecord(Bundle bundle)
         {
             Bundle = bundle;
             Navigator = Bundle.ToTypedElement();
@@ -164,97 +213,192 @@ namespace BFDR
 
         }
 
+        /// <summary>Helper to create a specialized base bundle based on the general NatalityRecord bundle for uses
+        /// like DemographicCodedContent, CodedIndustryAndOccupation, and CodedCauseOfFetalDeath</summary>
+        /// <param name="bundleProfileURL">The profile URL of the bundle</param>
+        /// <param name="compositionProfileURL">The profile URL of the composition</param>
+        /// <param name="compositionType">The type of the composition in the bundle</param>
+        /// <param name="title">The title of the bundle</param>
+        /// <param name="authorName">The author of the bundle</param>
+        /// <returns>a new FHIR bundle</returns>
+        public Bundle BaseBundle(string bundleProfileURL, string compositionProfileURL, CodeableConcept compositionType, string title, string authorName)
+        {
+            Bundle bundle = new Bundle();
+            bundle.Id = Guid.NewGuid().ToString();
+            // Note: All natality bundles are of type document, will need to parameterize this if ever used for mortality records
+            bundle.Type = Bundle.BundleType.Document;
+            bundle.Meta = new Meta();
+            string[] profile = { bundleProfileURL };
+            bundle.Meta.Profile = profile;
+            bundle.Timestamp = DateTime.Now;
+            // Make sure to include the base identifiers, including certificate number and auxiliary state IDs
+            bundle.Identifier = Bundle.Identifier;
+            // Add composition; we should always create a new composition appropriate for this bundle type
+            Composition composition = new Composition();
+            bundle.AddResourceEntry(composition, $"urn:uuid:{composition.Id}");
+            composition.Id = Guid.NewGuid().ToString();
+            composition.Status = CompositionStatus.Final;
+            composition.Meta = new Meta();
+            string[] compositionProfile = { compositionProfileURL };
+            composition.Meta.Profile = compositionProfile;
+            composition.Type = compositionType;
+            composition.Title = title;
+            // Note: Subject is optional in this type of composition, and not included in the bundle, so we leave it out
+            Organization author = new Organization();
+            author.Id = Guid.NewGuid().ToString();
+            author.Active = true;
+            author.Name = authorName;
+            composition.Author = new List<ResourceReference> { new ResourceReference($"urn:uuid:{author.Id}") };
+            bundle.AddResourceEntry(author, $"urn:uuid:{author.Id}");
+            return bundle;
+        }
+
+        /// <summary>Helper to add a resource to a bundle, if not null, including adding the appropriate entry to the
+        /// composition, which could require adding a section to the composition; the composition entry is a focus if
+        /// the entry is a Patient or RelatedPerson, otherwise it's a simple entry.</summary>
+        /// <param name="resource">The resource to add</param>
+        /// <param name="sectionCode">The code for the composition section where a reference should be added</param>
+        /// <param name="sectionCodeSystem">The code system for the composition section code</param>
+        /// <param name="bundle">The bundle to add the resource to</param>
+        // Note: This is somewhat specialized to the structure of natality records, which is subtly different from
+        // mortality records, but could potentially be moved to the VitalRecord library
+        public void AddResourceToBundleAndComposition(Resource resource, string sectionCode, string sectionCodeSystem, Bundle bundle)
+        {
+            // Only act if the resource isn't null
+            if (resource != null)
+            {
+                // Get the composition
+                Composition composition = bundle.Entry.Select(entry => entry.Resource as Composition).FirstOrDefault(c => c != null);
+                if (composition == null)
+                {
+                    throw new System.ApplicationException("Bundle does not contain a composition.");
+                }
+                // See if we can find the required composition section or need to add it
+                Composition.SectionComponent section = composition.Section.FirstOrDefault(s => s.Code.Coding.Any(c => c.Code == sectionCode));
+                if (section == null)
+                {
+                    section = new Composition.SectionComponent { Code = new CodeableConcept(sectionCodeSystem, sectionCode) };
+                    composition.Section.Add(section);
+                }
+                // Add the resource to the bundle and a reference to the correct place in the composition section
+                bundle.AddResourceEntry(resource, $"urn:uuid:{resource.Id}");
+                // this method is used for coded bundles where all resources, including patients, are entries in the composition sections
+                section.Entry.Add(new ResourceReference($"urn:uuid:{resource.Id}"));
+                // some composition sections start with an "Empty Reason" by default, since we added an entry, clear the empty reason
+                section.EmptyReason = null;
+                
+            }
+        }
+
         /// <summary>Helper method to return the subset of this record that makes up a DemographicCodedContent bundle.</summary>
         /// <returns>a new FHIR Bundle</returns>
         public Bundle GetDemographicCodedContentBundle()
         {
-            Bundle dccBundle = new Bundle();
-            dccBundle.Id = Guid.NewGuid().ToString();
-            dccBundle.Type = Bundle.BundleType.Collection;
-            dccBundle.Meta = new Meta();
-            string[] profile = { ProfileURL.BundleDocumentDemographicCodedContent };
-            dccBundle.Meta.Profile = profile;
-            dccBundle.Timestamp = DateTime.Now;
-            // Make sure to include the base identifiers, including certificate number and auxiliary state IDs
-            dccBundle.Identifier = Bundle.Identifier;
-            // Add composition
-            if (Composition == null)
-            {
-                Composition = new Composition();
-            }
-            Composition.Id = Guid.NewGuid().ToString();
-            Composition.Status = CompositionStatus.Final;
-            Composition.Meta = new Meta();
-            string[] composition_profile = { ProfileURL.CompositionCodedRaceAndEthnicity};
-            Composition.Meta.Profile = composition_profile;
-            Composition.Type = new CodeableConcept(CodeSystems.LOINC, "86805-9", "Coded Race and Ethnicity", null);
-            // Child may also be a decedent fetus
-            // Composition.Subject = new ResourceReference("urn:uuid:" + Child.Id);
-            //TODO: Author is a required field for the composition - should be NCHS
-            // Composition.Author = new ResourceReference("urn:uuid:" + Author.Id);
-            Composition.Title = "Demographic Coded Content";
-            if (Mother != null)
-            {
-                Composition.SectionComponent motherSection = new Composition.SectionComponent
-                {
-                  Code = new CodeableConcept(CodeSystems.RoleCode_HL7_V3, "MTH")
-                  //TODO: add mother, input, coded race/ethnicity reference slices
-                };
-                Composition.Section.Add(motherSection);
-            } else if (Father != null)
-            {
-                Composition.SectionComponent fatherSection = new Composition.SectionComponent
-                {
-                  Code = new CodeableConcept(CodeSystems.RoleCode_HL7_V3, "NFTH")
-                  //TODO: add father, input, coded race/ethnicity reference slices
-                };
-                Composition.Section.Add(fatherSection);
-
-            } else 
-            {
-                //TODO: demographic content composition should have a relevant mother and/or father - this should be an exception
-                Console.WriteLine("Warning: Failed to find a Mother or Father for Demographic Information.");
-            }            
-            // NOTE: If we want to put observations in the coded content bundle that don't have references we'll
-            // need to move them over by grabbing them by the observation code
+            // Create the base bundle
+            Bundle dccBundle = BaseBundle(ProfileURL.BundleDocumentDemographicCodedContent,
+                                          ProfileURL.CompositionCodedRaceAndEthnicity,
+                                          new CodeableConcept(CodeSystems.LOINC, "86805-9", "Race and ethnicity information Document", null),
+                                          "Demographic Coded Content",
+                                          "National Center for Health Statistics");
+            // Populate the mother information; NOTE: Mother is not required, just the observations
+            AddResourceToBundleAndComposition(Mother, "MTH", CodeSystems.RoleCode_HL7_V3, dccBundle);
+            AddResourceToBundleAndComposition(GetObservation(VR.ValueSets.InputRaceAndEthnicityPerson.Mother_Race_And_Ethnicity_Data_Submitted_By_Jurisdictions_To_Nchs), "MTH", CodeSystems.RoleCode_HL7_V3, dccBundle);
+            AddResourceToBundleAndComposition(GetObservation(VR.ValueSets.CodedRaceAndEthnicityPerson.Mother_Coded_Race_And_Ethnicity_Data_Produced_By_Nchs_From_Submitted_Death_Record), "MTH", CodeSystems.RoleCode_HL7_V3, dccBundle);
+            // Populate the father information; NOTE: Father is not required, just the observations
+            AddResourceToBundleAndComposition(Father, "NFTH", CodeSystems.RoleCode_HL7_V3, dccBundle);
+            AddResourceToBundleAndComposition(GetObservation(VR.ValueSets.InputRaceAndEthnicityPerson.Father_Race_And_Ethnicity_Data_Submitted_By_Jurisdictions_To_Nchs), "NFTH", CodeSystems.RoleCode_HL7_V3, dccBundle);
+            AddResourceToBundleAndComposition(GetObservation(VR.ValueSets.CodedRaceAndEthnicityPerson.Father_Coded_Race_And_Ethnicity_Data_Produced_By_Nchs_From_Submitted_Death_Record), "NFTH", CodeSystems.RoleCode_HL7_V3, dccBundle);
             return dccBundle;
         }
 
-        /// <summary>Restores class references from a newly parsed record.</summary>
-        protected void RestoreReferences(string bundleProfile, string[] compositionProfiles, string subjectProfile)
+        /// <summary>Helper method to return the subset of this record that makes up a CodedIndustryAndOccupation bundle.</summary>
+        /// <returns>a new FHIR Bundle</returns>
+        public Bundle GetCodedIndustryAndOccupationBundle()
         {
-            Composition = (Composition) Bundle.Entry.FirstOrDefault(entry => entry.Resource is Composition && entry.Resource.Meta.Profile.Any(p => compositionProfiles.Contains(p)))?.Resource;
-            bool fullRecord = Bundle.Meta?.Profile?.Any(p => p == bundleProfile) ?? false;
-            if (Composition == null && fullRecord)
+            // Create the base bundle
+            Bundle ciaoBundle = BaseBundle(ProfileURL.BundleDocumentCodedIndustryOccupation,
+                                           ProfileURL.CompositionCodedIndustryAndOccupation,
+                                           new CodeableConcept(CodeSystems.LocalBFDRCodes, "industry_occupation_document", "Industry and Occupation Document", null),
+                                           "Industry and Occupation Coded Content",
+                                           "National Center for Health Statistics");
+            // Populate the mother information; NOTE: Mother is not required, just the observations
+            AddResourceToBundleAndComposition(Mother, "MTH", CodeSystems.RoleCode_HL7_V3, ciaoBundle);
+            // TODO: Coded race and occupation has not yet been implemented on natality records but should be present in this observation
+            // There will be multiple observations with the same code, one for the mother and one for the father, with different values in the role extension
+            // IDEA: We can use the existing GetOccupationObservation() but perhaps GetObservation should take an optional lambda that filters
+            AddResourceToBundleAndComposition(GetOccupationObservation("MTH"), "MTH", CodeSystems.RoleCode_HL7_V3, ciaoBundle);
+            // Populate the father information; NOTE: Father is not required, just the observations
+            AddResourceToBundleAndComposition(Father, "NFTH", CodeSystems.RoleCode_HL7_V3, ciaoBundle);
+            AddResourceToBundleAndComposition(GetOccupationObservation("FTH"), "NFTH", CodeSystems.RoleCode_HL7_V3, ciaoBundle);
+            return ciaoBundle;
+        }
+
+        /// <summary>Restores class references from a newly parsed record.</summary>
+        protected override void RestoreReferences()
+        {
+            // Note: Unlike mortality records, where some bundles are collections so don't have a composition,
+            // all natality records are documents and so should have a composition
+            Composition = (Composition) Bundle.Entry.FirstOrDefault(entry => entry.Resource is Composition)?.Resource;
+            if (Composition == null)
             {
                 throw new System.ArgumentException("Failed to find a Composition. The first entry in the FHIR Bundle should be a Composition.");
             }
-            // Depending on the type of bundle, some of this information may not be present, so check it in a null-safe way
-            if (fullRecord && (Composition.Subject == null || String.IsNullOrWhiteSpace(Composition.Subject.Reference)))
-            {
-                throw new System.ArgumentException("The Composition is missing a subject (a reference to the Child resource).");
-            }
-            // Grab Subject (Child/Fetus) and Mother.
-            List<Patient> patients = Bundle.Entry.FindAll(entry => entry.Resource is Patient).ConvertAll(entry => (Patient) entry.Resource);
-            string subjectId = Composition?.Subject.Reference;
-            Subject = patients.Find(patient => patient.Meta.Profile.Any(p => p == subjectProfile) && subjectId.Contains(patient.Id));
-            Mother = patients.Find(patient => patient.Meta.Profile.Any(p => p == VR.ProfileURL.Mother));
-            // Grab Father
-            Father = Bundle.Entry.FindAll(entry => entry.Resource is RelatedPerson).ConvertAll(entry => (RelatedPerson) entry.Resource).Find(resource => resource.Meta.Profile.Any(relatedPersonProfile => relatedPersonProfile == VR.ProfileURL.RelatedPersonFatherNatural));
-            Coverage = Bundle.Entry.FindAll(entry => entry.Resource is Coverage).ConvertAll(entry => (Coverage) entry.Resource).Find(resource => resource.Meta.Profile.Any(coverageProfile => coverageProfile == ProfileURL.CoveragePrincipalPayerDelivery));
-            // Grab attendant and certifier
-            List<Practitioner> practitioners = Bundle.Entry.FindAll(entry => entry.Resource is Practitioner).ConvertAll(entry => (Practitioner) entry.Resource);
-            Attendant = practitioners.Find(patient => patient.Extension.Any(ext => Convert.ToString(ext.Value) == "attendant"));
-            Certifier = practitioners.Find(patient => patient.Extension.Any(ext => Convert.ToString(ext.Value) == "certifier"));
 
-            if (fullRecord && Subject == null)
+            // See if this is a type of bundle that requires a subject
+            bool requiresSubject = COMPOSITIONS_REQUIRING_SUBJECT.Contains(Composition.Type?.Coding?[0]?.Code);
+
+            // Depending on the type of bundle, some of this information may not be present, so check it in a null-safe way
+            if (requiresSubject && String.IsNullOrWhiteSpace(Composition.Subject?.Reference))
             {
-                throw new System.ArgumentException("Failed to find a Child (Patient).");
+                throw new System.ArgumentException("The Composition is missing a subject reference to the Child resource.");
             }
-            // TODO: when supporting fetal death, will have to impl. fetalDeathIdentifier
-            if (fullRecord)
+
+            // Retrieve Subject (Child/Fetus)
+            List<Patient> patients = Bundle.Entry.FindAll(entry => entry.Resource is Patient).ConvertAll(entry => (Patient) entry.Resource);
+            string subjectId = Composition.Subject?.Reference;
+            if (subjectId != null)
             {
-              UpdateRecordIdentifier();
+                Subject = patients.Find(patient => subjectId.Contains(patient.Id));
+            }
+            if (requiresSubject && Subject == null)
+            {
+                throw new System.ArgumentException("The Bundle is missing a Patient resource for the child.");
+            }
+
+            // Retrieve the mother as well, if present in the overall record.
+            // If present, it should be the focus of one of the mother-related sections in the compositon
+            // Note: Some bundles (e.g. coded race and ethnicity) have a MTH section with an optional reference
+            // that's not a focus; we ignore these since they are not expected to have mother patient entries
+            Composition.SectionComponent motherFocusSection =
+                Composition.Section.Find(section =>
+                    COMPOSITION_MOTHER_FOCUS_SECTIONS.Contains(section?.Code?.Coding?[0]?.Code) &&
+                    section.Focus?.Reference != null
+                );
+            string motherId = motherFocusSection?.Focus?.Reference;
+            if (motherId != null)
+            {
+                // TODO: If not found, consider an error for record types where Mother is expected
+                Mother = patients.Find(patient => motherId.Contains(patient.Id));
+            }
+
+            // Retrieve the Father
+            Father = Bundle.Entry.FindAll(entry => entry.Resource is RelatedPerson)
+                     .ConvertAll(entry => (RelatedPerson) entry.Resource)
+                     .Find(resource => resource?.Relationship?[0]?.Coding?[0]?.Code == "NFTH");
+
+            // Retrieve Coverage information; note that we expect only a single coverage entry in the record
+            Coverage = (Coverage)Bundle.Entry.Find(entry => entry.Resource is Coverage)?.Resource;
+
+            // Retrieve attendant and certifier
+            List<Practitioner> practitioners = Bundle.Entry.FindAll(entry => entry.Resource is Practitioner).ConvertAll(entry => (Practitioner) entry.Resource);
+            Attendant = practitioners.Find(practitioner => practitioner.Extension.Any(ext => Convert.ToString(ext.Value) == "attendant"));
+            Certifier = practitioners.Find(practitioner => practitioner.Extension.Any(ext => Convert.ToString(ext.Value) == "certifier"));
+
+            // TODO: when supporting fetal death, will have to impl. fetalDeathIdentifier
+            // We want to update the record identifier for records that include a subject
+            if (requiresSubject)
+            {
+                UpdateRecordIdentifier();
             }
 
             // Scan through all Observations to make sure they all have codes!
@@ -266,7 +410,23 @@ namespace BFDR
                     throw new System.ArgumentException("Found an Observation resource that did not contain a code. All Observations must include a code to specify what the Observation is referring to.");
                 }
             }
+        }
 
+        /// <summary>Returns the focus id of a section in the composition.</summary>
+        /// <returns>the string uuid of the section focus</returns> 
+        protected override string GetSectionFocusId(string section)
+        {
+            // TODO check the defined sections for Natality Records
+            // return the correct uuid, ex Mother.Id if the section is part of the mother section group
+            if (COMPOSITION_MOTHER_FOCUS_SECTIONS.Contains(section))
+            {   
+                return Mother.Id;
+            }
+            if (COMPOSITION_FATHER_FOCUS_SECTIONS.Contains(section))
+            {   
+                return Father.Id;
+            }
+            return "";
         }
     }
 }

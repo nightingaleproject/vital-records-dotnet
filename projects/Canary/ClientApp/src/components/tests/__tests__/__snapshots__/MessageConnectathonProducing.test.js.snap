@@ -11,7 +11,7 @@ Array [
     >
       <a
         className="section"
-        href="/"
+        href="/vrdr"
         onClick={[Function]}
       >
         Dashboard

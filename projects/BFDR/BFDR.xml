@@ -282,6 +282,12 @@
         <member name="M:BFDR.BirthRecord.InitializeCompositionAndSubject">
             <inheritdoc/>
         </member>
+        <member name="M:BFDR.BirthRecord.InitializeSections">
+            <summary>
+            Initialize sections creates empty sections based on the composition type
+            These are necessary so resources like Mother and Father can be referenced from somewhere in the composition
+            </summary>
+        </member>
         <member name="M:BFDR.BirthRecord.CreateBirthEncounter">
             <summary>Create Birth Encounter.</summary>
         </member>
@@ -700,6 +706,12 @@
             <para>"addressState" - address, state</para>
             <para>"addressZip" - address, zip</para>
             <para>"addressCountry" - address, country</para>
+            <para>"addressStnum" - address, stnum</para>
+            <para>"addressPredir" - address, predir</para>
+            <para>"addressPostdir" - address, postdir</para>
+            <para>"addressStname" - address, stname</para>
+            <para>"addressStrdesig" - address, strdesig</para>
+            <para>"addressUnitnum" - address, unitnum</para>
             </value>
             <example>
             <para>// Setter:</para>
@@ -711,6 +723,12 @@
             <para>address.Add("addressState", "MA");</para>
             <para>address.Add("addressZip", "12345");</para>
             <para>address.Add("addressCountry", "US");</para>
+            <para>address.Add("addressStnum", "123");</para>
+            <para>address.Add("addressPredir", "E");</para>
+            <para>address.Add("addressPostDir", "SW");</para>
+            <para>address.Add("addressStname", "Test");</para>
+            <para>address.Add("addressStrdesig", "Street");</para>
+            <para>address.Add("addressUnitnum", "3");</para>
             <para>ExampleFetalDeathRecord.PlaceOfDelivery = address;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"State where baby was delivered: {ExampleFetalDeathRecord.PlaceOfDelivery["addressState"]}");</para>
@@ -845,11 +863,21 @@
         <member name="M:BFDR.FetalDeathRecord.GetYear">
             <summary>Return the birth year for this record to be used in the identifier</summary>
         </member>
+        <member name="M:BFDR.FetalDeathRecord.GetCodedCauseOfFetalDeathBundle">
+            <summary>Helper method to return the subset of this record that makes up a CodedCauseOfFetalDeath bundle.</summary>
+            <returns>a new FHIR Bundle</returns>
+        </member>
         <member name="M:BFDR.FetalDeathRecord.RestoreReferences">
             <inheritdoc/>
         </member>
         <member name="M:BFDR.FetalDeathRecord.InitializeCompositionAndSubject">
             <inheritdoc/>
+        </member>
+        <member name="M:BFDR.FetalDeathRecord.InitializeSections">
+            <summary>
+            Initialize sections creates empty sections based on the composition type
+            These are necessary so resources like Mother and Father can be referenced from somewhere in the composition
+            </summary>
         </member>
         <member name="P:BFDR.FetalDeathRecord.CodedInitiatingFetalCOD">
             <summary>Decedent Fetus's Coded Initiating Fetal Death Cause or Condition</summary>
@@ -3380,6 +3408,15 @@
         <member name="M:BFDR.NatalityRecord.InitializeCompositionAndSubject">
             <summary>Initialize Composition and Subject.</summary>
         </member>
+        <member name="M:BFDR.NatalityRecord.InitializeSections">
+            <summary>Initialize sections for the composition.</summary>
+        </member>
+        <member name="M:BFDR.NatalityRecord.CreateNewSection(System.String)">
+            <summary>
+            Creates a section based on the section code provided. Sets the focus defined for that section and provides an empty reason by default.
+            </summary>
+            <param name="code"></param>
+        </member>
         <member name="M:BFDR.NatalityRecord.#ctor(System.String,System.Boolean)">
             <summary>Constructor that takes a string that represents a FHIR Natality Record in either XML or JSON format.</summary>
             <param name="record">represents a FHIR Natality Record in either XML or JSON format.</param>
@@ -3397,12 +3434,39 @@
         <member name="M:BFDR.NatalityRecord.UpdateRecordIdentifier">
             <summary>Update the bundle identifier from the component fields.</summary>
         </member>
+        <member name="M:BFDR.NatalityRecord.BaseBundle(System.String,System.String,Hl7.Fhir.Model.CodeableConcept,System.String,System.String)">
+            <summary>Helper to create a specialized base bundle based on the general NatalityRecord bundle for uses
+            like DemographicCodedContent, CodedIndustryAndOccupation, and CodedCauseOfFetalDeath</summary>
+            <param name="bundleProfileURL">The profile URL of the bundle</param>
+            <param name="compositionProfileURL">The profile URL of the composition</param>
+            <param name="compositionType">The type of the composition in the bundle</param>
+            <param name="title">The title of the bundle</param>
+            <param name="authorName">The author of the bundle</param>
+            <returns>a new FHIR bundle</returns>
+        </member>
+        <member name="M:BFDR.NatalityRecord.AddResourceToBundleAndComposition(Hl7.Fhir.Model.Resource,System.String,System.String,Hl7.Fhir.Model.Bundle)">
+            <summary>Helper to add a resource to a bundle, if not null, including adding the appropriate entry to the
+            composition, which could require adding a section to the composition; the composition entry is a focus if
+            the entry is a Patient or RelatedPerson, otherwise it's a simple entry.</summary>
+            <param name="resource">The resource to add</param>
+            <param name="sectionCode">The code for the composition section where a reference should be added</param>
+            <param name="sectionCodeSystem">The code system for the composition section code</param>
+            <param name="bundle">The bundle to add the resource to</param>
+        </member>
         <member name="M:BFDR.NatalityRecord.GetDemographicCodedContentBundle">
             <summary>Helper method to return the subset of this record that makes up a DemographicCodedContent bundle.</summary>
             <returns>a new FHIR Bundle</returns>
         </member>
-        <member name="M:BFDR.NatalityRecord.RestoreReferences(System.String,System.String[],System.String)">
+        <member name="M:BFDR.NatalityRecord.GetCodedIndustryAndOccupationBundle">
+            <summary>Helper method to return the subset of this record that makes up a CodedIndustryAndOccupation bundle.</summary>
+            <returns>a new FHIR Bundle</returns>
+        </member>
+        <member name="M:BFDR.NatalityRecord.RestoreReferences">
             <summary>Restores class references from a newly parsed record.</summary>
+        </member>
+        <member name="M:BFDR.NatalityRecord.GetSectionFocusId(System.String)">
+            <summary>Returns the focus id of a section in the composition.</summary>
+            <returns>the string uuid of the section focus</returns> 
         </member>
         <member name="F:BFDR.NatalityRecord.Subject">
             <summary>The Natality Subject - eithr a Child or a DecedentFetus.</summary>
@@ -3425,8 +3489,35 @@
         <member name="F:BFDR.NatalityRecord.EncounterMaternity">
             <summary>The maternity encounter.</summary>
         </member>
+        <member name="F:BFDR.NatalityRecord.COMPOSITION_PROVIDER_FETAL_DEATH_REPORT">
+            <summary>Composition Type Constants</summary>
+        </member>
+        <member name="F:BFDR.NatalityRecord.COMPOSITION_CODED_CAUSE_OF_FETAL_DEATH">
+            <summary>Composition code coded cause of fetal death</summary>
+        </member>
         <member name="F:BFDR.NatalityRecord.MOTHER_PRENATAL_SECTION">
-            <summary>Composition Section Constants</summary>
+            <summary>Mother Prenatal Section Constant</summary>
+        </member>
+        <member name="F:BFDR.NatalityRecord.MEDICAL_INFORMATION_SECTION">
+            <summary>Medical Information Section Constant</summary>
+        </member>
+        <member name="F:BFDR.NatalityRecord.NEWBORN_INFORMATION_SECTION">
+            <summary>Newbord Information Section Constant</summary>
+        </member>
+        <member name="F:BFDR.NatalityRecord.MOTHER_INFORMATION_SECTION">
+            <summary>Mother Information Section Constant</summary>
+        </member>
+        <member name="F:BFDR.NatalityRecord.FATHER_INFORMATION_SECTION">
+            <summary>Father Information Section Constant</summary>
+        </member>
+        <member name="F:BFDR.NatalityRecord.EMERGING_ISSUES_SECTION">
+            <summary>Emerging Issues Section Constant</summary>
+        </member>
+        <member name="F:BFDR.NatalityRecord.FETUS_SECTION">
+            <summary> Fetus Section Constant </summary>
+        </member>
+        <member name="F:BFDR.NatalityRecord.CODEDCAUSEOFFETALDEATH_SECTION">
+            <summary> Coded Cause of Fetal Death Section Constant </summary>
         </member>
         <member name="F:BFDR.NatalityRecord.RACE_ETHNICITY_MOTHER">
             <summary>DemographicComposition Section Constants</summary>
@@ -3673,24 +3764,18 @@
         <member name="P:BFDR.NatalityRecord.PlaceOfBirth">
             <summary>Child's Place Of Birth.</summary>
             <value>Child's Place Of Birth. A Dictionary representing residence address, containing the following key/value pairs:
-            <para>"addressLine1" - address, line one</para>
-            <para>"addressLine2" - address, line two</para>
             <para>"addressCity" - address, city</para>
             <para>"addressCounty" - address, county</para>
+            <para>"addressCountyC" - address, countyC</para>
             <para>"addressState" - address, state</para>
-            <para>"addressZip" - address, zip</para>
-            <para>"addressCountry" - address, country</para>
             </value>
             <example>
             <para>// Setter:</para>
             <para>Dictionary&lt;string, string&gt; address = new Dictionary&lt;string, string&gt;();</para>
-            <para>address.Add("addressLine1", "123 Test Street");</para>
-            <para>address.Add("addressLine2", "Unit 3");</para>
             <para>address.Add("addressCity", "Boston");</para>
             <para>address.Add("addressCounty", "Suffolk");</para>
+            <para>address.Add("addressCountyC", "8153");</para>
             <para>address.Add("addressState", "MA");</para>
-            <para>address.Add("addressZip", "12345");</para>
-            <para>address.Add("addressCountry", "US");</para>
             <para>ExampleBirthRecord.PlaceOfBirth = address;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"State where child was born: {ExampleBirthRecord.PlaceOfBirth["placeOfBirthState"]}");</para>
@@ -3698,24 +3783,14 @@
         </member>
         <member name="P:BFDR.NatalityRecord.MotherPlaceOfBirth">
             <summary>Mother's Place Of Birth.</summary>
-            <value>Mother's Place Of Birth. A Dictionary representing residence address, containing the following key/value pairs:
-            <para>"addressLine1" - address, line one</para>
-            <para>"addressLine2" - address, line two</para>
-            <para>"addressCity" - address, city</para>
-            <para>"addressCounty" - address, county</para>
+            <value>Mother's Place Of Birth. A Dictionary representing birthplace location, containing the following key/value pairs:
             <para>"addressState" - address, state</para>
-            <para>"addressZip" - address, zip</para>
             <para>"addressCountry" - address, country</para>
             </value>
             <example>
             <para>// Setter:</para>
             <para>Dictionary&lt;string, string&gt; address = new Dictionary&lt;string, string&gt;();</para>
-            <para>address.Add("addressLine1", "123 Test Street");</para>
-            <para>address.Add("addressLine2", "Unit 3");</para>
-            <para>address.Add("addressCity", "Boston");</para>
-            <para>address.Add("addressCounty", "Suffolk");</para>
             <para>address.Add("addressState", "MA");</para>
-            <para>address.Add("addressZip", "12345");</para>
             <para>address.Add("addressCountry", "US");</para>
             <para>ExampleBirthRecord.MotherPlaceOfBirth = address;</para>
             <para>// Getter:</para>
@@ -3724,24 +3799,28 @@
         </member>
         <member name="P:BFDR.NatalityRecord.FatherPlaceOfBirth">
             <summary>Father's Place Of Birth.</summary>
-            <value>Father's Place Of Birth. A Dictionary representing residence address, containing the following key/value pairs:
-            <para>"addressLine1" - address, line one</para>
-            <para>"addressLine2" - address, line two</para>
-            <para>"addressCity" - address, city</para>
-            <para>"addressCounty" - address, county</para>
+            <value>Mother's Place Of Birth. A Dictionary representing birthplace location, containing the following key/value pairs:
             <para>"addressState" - address, state</para>
-            <para>"addressZip" - address, zip</para>
             <para>"addressCountry" - address, country</para>
             </value>
             <example>
             <para>// Setter:</para>
             <para>Dictionary&lt;string, string&gt; address = new Dictionary&lt;string, string&gt;();</para>
-            <para>address.Add("addressLine1", "123 Test Street");</para>
-            <para>address.Add("addressLine2", "Unit 3");</para>
-            <para>address.Add("addressCity", "Boston");</para>
-            <para>address.Add("addressCounty", "Suffolk");</para>
             <para>address.Add("addressState", "MA");</para>
-            <para>address.Add("addressZip", "12345");</para>
+            <para>address.Add("addressCountry", "US");</para>
+            <para>ExampleBirthRecord.FatherPlaceOfBirth = address;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"State where father was born: {ExampleBirthRecord.FatherPlaceOfBirth["placeOfBirthState"]}");</para>
+            </example>
+            /// <summary>Father's Place Of Birth.</summary>
+            <value>Father's Place Of Birth. A Dictionary representing residence address, containing the following key/value pairs:
+            <para>"addressState" - address, state</para>
+            <para>"addressCountry" - address, country</para>
+            </value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; address = new Dictionary&lt;string, string&gt;();</para>
+            <para>address.Add("addressState", "MA");</para>
             <para>address.Add("addressCountry", "US");</para>
             <para>ExampleBirthRecord.FatherPlaceOfBirth = address;</para>
             <para>// Getter:</para>
@@ -3758,6 +3837,12 @@
             <para>"addressState" - address, state</para>
             <para>"addressZip" - address, zip</para>
             <para>"addressCountry" - address, country</para>
+            <para>"addressStnum" - address, stnum</para>
+            <para>"addressPredir" - address, predir</para>
+            <para>"addressPostdir" - address, postdir</para>
+            <para>"addressStname" - address, stname</para>
+            <para>"addressStrdesig" - address, strdesig</para>
+            <para>"addressUnitnum" - address, unitnum</para>
             </value>
             <example>
             <para>// Setter:</para>
@@ -3769,6 +3854,12 @@
             <para>address.Add("addressState", "MA");</para>
             <para>address.Add("addressZip", "12345");</para>
             <para>address.Add("addressCountry", "US");</para>
+            <para>address.Add("addressStnum", "123");</para>
+            <para>address.Add("addressPredir", "E");</para>
+            <para>address.Add("addressPostDir", "SW");</para>
+            <para>address.Add("addressStname", "Test");</para>
+            <para>address.Add("addressStrdesig", "Street");</para>
+            <para>address.Add("addressUnitnum", "3");</para>
             <para>ExampleBirthRecord.MotherResidence = address;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"State where mother resides: {ExampleBirthRecord.MotherResidence["addressState"]}");</para>
@@ -3784,6 +3875,12 @@
             <para>"addressState" - address, state</para>
             <para>"addressZip" - address, zip</para>
             <para>"addressCountry" - address, country</para>
+            <para>"addressStnum" - address, stnum</para>
+            <para>"addressPredir" - address, predir</para>
+            <para>"addressPostdir" - address, postdir</para>
+            <para>"addressStname" - address, stname</para>
+            <para>"addressStrdesig" - address, strdesig</para>
+            <para>"addressUnitnum" - address, unitnum</para>
             </value>
             <example>
             <para>// Setter:</para>
@@ -3795,6 +3892,12 @@
             <para>address.Add("addressState", "MA");</para>
             <para>address.Add("addressZip", "12345");</para>
             <para>address.Add("addressCountry", "US");</para>
+            <para>address.Add("addressStnum", "123");</para>
+            <para>address.Add("addressPredir", "E");</para>
+            <para>address.Add("addressPostDir", "SW");</para>
+            <para>address.Add("addressStname", "Test");</para>
+            <para>address.Add("addressStrdesig", "Street");</para>
+            <para>address.Add("addressUnitnum", "3");</para>
             <para>ExampleBirthRecord.MotherBilling = address;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"State where mother is billed: {ExampleBirthRecord.MotherBilling["addressState"]}");</para>

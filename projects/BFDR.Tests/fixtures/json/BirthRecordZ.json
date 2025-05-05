@@ -34,8 +34,8 @@
           "coding": [
             {
               "system": "http://loinc.org",
-              "code": "71230-7",
-              "display": "Birth certificate"
+              "code": "92011-6",
+              "display": "Jurisdiction live birth report Document"
             }
           ]
         },
@@ -571,7 +571,8 @@
           {
             "url": "http://hl7.org/fhir/StructureDefinition/patient-birthPlace",
             "valueAddress": {
-              "country": "KU"
+              "country": "KU",
+              "state": "XX"
             }
           }
         ],
@@ -713,14 +714,6 @@
             "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-relatedperson-birthplace-vr",
             "valueAddress": {
               "state": "ZZ",
-              "_state": {
-                "extension": [
-                  {
-                    "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-jurisdiction-id-vr",
-                    "valueString": "ZZ"
-                  }
-                ]
-              },
               "country": "KU"
             }
           }

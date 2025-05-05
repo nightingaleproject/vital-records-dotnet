@@ -183,15 +183,16 @@ export function FHIRProducing(props) {
                     <Header.Subheader>After entering the record into your system, export it and import it into Canary using the form below.</Header.Subheader>
                   </Header.Content>
                 </Header>
-                <div className="p-b-15" />
-                {!!issues && issues.length > 0 && (
-                  <Grid.Row id="scroll-to">
-                    <Record issues={issues} showIssues />
-                  </Grid.Row>
-                )}
+                <div className="p-b-10" />
                 <Getter updateRecord={updateRecord} allowIje={false} recordType={props.recordType} />
               </Container>
             </Grid.Row>
+            <div className="p-b-15" />
+            {!!issues && (
+              <Grid.Row id="scroll-to">
+                <Record record={null} issues={issues} showIssues showSuccess />
+              </Grid.Row>
+            )}
             <Grid.Row>
               <Container fluid>
                 <Divider horizontal />

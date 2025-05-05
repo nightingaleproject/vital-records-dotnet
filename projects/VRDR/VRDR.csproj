@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Version>5.0.0-preview.1</Version>
+    <Version>5.1.0-preview.1</Version>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>VRDR</RootNamespace>
     <DocumentationFile>DeathRecord.xml</DocumentationFile>

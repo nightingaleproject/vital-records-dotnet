@@ -11,9 +11,6 @@ namespace BFDR
   /// </summary>
   public partial class FetalDeathRecord : NatalityRecord
   {
-    private const string FETUS_SECTION = "76400-1";
-
-    private const string CODEDCAUSEOFFETALDEATH_SECTION = "86804-2";
 
     /// <summary>Default constructor that creates a new, empty FetalDeathRecord.</summary>
     public FetalDeathRecord() : base(ProfileURL.BundleDocumentFetalDeathReport)
@@ -40,15 +37,31 @@ namespace BFDR
       return (uint?)this.DeliveryYear;
     }
 
+      /// <summary>Helper method to return the subset of this record that makes up a CodedCauseOfFetalDeath bundle.</summary>
+      /// <returns>a new FHIR Bundle</returns>
+      public Bundle GetCodedCauseOfFetalDeathBundle()
+      {
+        // Create the base bundle
+        Bundle ccofdBundle = BaseBundle(ProfileURL.BundleDocumentCodedCauseOfFetalDeath,
+                                        ProfileURL.CompositionCodedCauseOfFetalDeath,
+                                        new CodeableConcept(CodeSystems.LOINC, "86804-2", "Cause of death classification and related information Document", null),
+                                        "Coded Cause of Fetal Death",
+                                        "National Center for Health Statistics");
+        // Add the correct observations to the bundle and composition
+        AddResourceToBundleAndComposition(GetObservation("92022-3"), "86804-2", CodeSystems.LOINC, ccofdBundle);
+        AddResourceToBundleAndComposition(GetObservation("92023-1"), "86804-2", CodeSystems.LOINC, ccofdBundle);
+        return ccofdBundle;
+    }
+
     /// <inheritdoc/>
     protected override void RestoreReferences()
     {
       // Do we need differentiate anything for [http://hl7.org/fhir/us/bfdr/StructureDefinition/Bundle-document-demographic-coded-content]? It's not technically a Fetal Death Report bundle... https://build.fhir.org/ig/HL7/fhir-bfdr/StructureDefinition-Bundle-document-demographic-coded-content.html
       // Restore the common references between Birth Records and Fetal Death Records.
-      this.RestoreReferences(ProfileURL.BundleDocumentFetalDeathReport, new[] { ProfileURL.CompositionJurisdictionFetalDeathReport }, ProfileURL.PatientDecedentFetus);
+      base.RestoreReferences();
       // Restore FetalDeath specific references.
-      string maternityEncounterId = Composition?.Encounter.Reference;
-      EncounterMaternity = Bundle.Entry.FindAll(entry => entry.Resource is Encounter).ConvertAll(entry => (Encounter)entry.Resource).Find(resource => resource.Meta.Profile.Any(p => p == ProfileURL.EncounterMaternity) && maternityEncounterId.Contains(resource.Id));
+      string maternityEncounterId = Composition?.Encounter?.Reference;
+      EncounterMaternity = (Encounter)Bundle.Entry.Find(entry => entry.Resource is Encounter && maternityEncounterId.Contains(entry.Resource.Id))?.Resource;
     }
 
     /// <inheritdoc/>
@@ -68,8 +81,22 @@ namespace BFDR
       {
         Profile = new[] { ProfileURL.CompositionJurisdictionFetalDeathReport }
       };
-      Composition.Type = new CodeableConcept(CodeSystems.LOINC, "71230-7", "Fetal Death Report", null);
+      Composition.Type = new CodeableConcept(CodeSystems.LOINC, "92010-8", "Jurisdiction fetal death report Document", null);
       Composition.Title = "Fetal Death Report";
+    }
+
+    /// <summary>
+    /// Initialize sections creates empty sections based on the composition type
+    /// These are necessary so resources like Mother and Father can be referenced from somewhere in the composition
+    /// </summary>
+    protected override void InitializeSections()
+    {
+      CreateNewSection(MOTHER_PRENATAL_SECTION);
+      CreateNewSection(MEDICAL_INFORMATION_SECTION);
+      CreateNewSection(FETUS_SECTION);
+      CreateNewSection(MOTHER_INFORMATION_SECTION);
+      CreateNewSection(FATHER_INFORMATION_SECTION);
+      CreateNewSection(EMERGING_ISSUES_SECTION);
     }
   }
 }

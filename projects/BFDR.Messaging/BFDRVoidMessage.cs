@@ -69,6 +69,7 @@ namespace BFDR
         /// <summary>Default constructor that creates a new, empty BFDRVoidMessage.</summary>
         public BFDRVoidMessage() : base(MESSAGE_TYPE)
         {
+            BlockCount = 1;
         }
 
         /// <summary>
@@ -78,12 +79,17 @@ namespace BFDR
         /// <returns></returns>
         internal BFDRVoidMessage(Bundle messageBundle) : base(messageBundle)
         {
+            if (BlockCount == null)
+            {
+                BlockCount = 1;
+            }
         }
 
         /// <summary>Constructor that takes a BFDR.NatalityRecord and creates a message to void that record.</summary>
         /// <param name="record">the BFDR.NatalityRecord to create a BFDRVoidMessage for.</param>
         public BFDRVoidMessage(NatalityRecord record) : this()
         {
+            BlockCount = 1;
             ExtractBusinessIdentifiers(record);
         }
 

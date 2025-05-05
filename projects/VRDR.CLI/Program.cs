@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Collections;
@@ -17,10 +18,13 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using VRDR;
 using VR;
+using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Text.Unicode;
 
 namespace VRDR.CLI
 {
-    class Program
+    partial class Program
     {
         static string commands =
 @"* VRDR Command Line Interface - commands
@@ -64,6 +68,10 @@ namespace VRDR.CLI
   - xml2xml: Read in the IJE death record and print out as XML (1 argument: path to death record in XML format)
   - batch: Read in IJE messages and create a batch submission bundle (2+ arguments: submission URL (for inside bundle) and one or more messages)
   - filter: Read in the FHIR death record and filter based on filter array (1 argument: path to death record to filter)
+  - jsonstu2-to-stu3:  Read in an VRDR STU2.2 file and convert to STU3 (2 arguments: path to input STU2.2 json input and path to output STU3 json output) 
+  - jsonstu3-to-stu2:  Read in an VRDR STU3 file and convert to STU2.2 (2 arguments: path to input STU3 json input and path to output STU2.2 json output) 
+  - rdtripstu3-to-stu2:  Round trip an STU3 file to STU2 and back and check equivalence (1 arguments: path to input STU3 input)
+  - json-diff:   Compare two json files that should be identical except for spacing and ordering of nodes using JsonDiffPatchDotNet
 ";
         static int Main(string[] args)
         {
@@ -368,7 +376,7 @@ namespace VRDR.CLI
                 ps.Add("display", "not applicable");
                 deathRecord.PregnancyStatus = ps;
 
-		        // TransportationRole
+                // TransportationRole
                 Dictionary<string, string> tr = new Dictionary<string, string>();
                 tr.Add("code", "257500003");
                 tr.Add("system", "http://snomed.info/sct");
@@ -532,19 +540,19 @@ namespace VRDR.CLI
             }
             else if (args.Length > 2 && args[0] == "ije2json")
             {
-              // This command will export the files to the same directory they were imported from.
-              for (int i = 1; i < args.Length; i++)
-              {
-                  string ijeFile = args[i];
-                  string ijeRawRecord = File.ReadAllText(ijeFile);
-                  IJEMortality ije = new IJEMortality(ijeRawRecord);
-                  DeathRecord d = ije.ToRecord();
-                  string outputFilename = ijeFile.Replace(".ije", ".json");
-                  StreamWriter sw = new StreamWriter(outputFilename);
-                  sw.WriteLine(d.ToJSON());
-                  sw.Flush();
-              }
-              return 0;
+                // This command will export the files to the same directory they were imported from.
+                for (int i = 1; i < args.Length; i++)
+                {
+                    string ijeFile = args[i];
+                    string ijeRawRecord = File.ReadAllText(ijeFile);
+                    IJEMortality ije = new IJEMortality(ijeRawRecord);
+                    DeathRecord d = ije.ToRecord();
+                    string outputFilename = ijeFile.Replace(".ije", ".json");
+                    StreamWriter sw = new StreamWriter(outputFilename);
+                    sw.WriteLine(d.ToJSON());
+                    sw.Flush();
+                }
+                return 0;
             }
             else if (args.Length == 2 && args[0] == "json2xml")
             {
@@ -653,75 +661,14 @@ namespace VRDR.CLI
                 DeathRecord d2 = new DeathRecord(d1.ToJSON());
                 DeathRecord d3 = new DeathRecord();
                 List<PropertyInfo> properties = typeof(DeathRecord).GetProperties().ToList();
-                HashSet<string> skipPropertyNames = new HashSet<string>() { "UsualOccupationCoded", "UsualIndustryCoded", "DeathRecordIdentifier", "CausesOfDeath", "AgeAtDeathYears", "AgeAtDeathMonths", "AgeAtDeathDays", "AgeAtDeathHours", "AgeAtDeathMinutes" };
-                foreach (PropertyInfo property in properties)
+                 foreach (PropertyInfo property in properties)
                 {
-                    if (skipPropertyNames.Contains(property.Name))
-                    {
-                        continue;
-                    }
                     if (property.GetCustomAttribute<Property>() != null)
                     {
                         property.SetValue(d3, property.GetValue(d2));
                     }
                 }
-
-                int good = 0;
-                int bad = 0;
-
-                foreach (PropertyInfo property in properties)
-                {
-                    if (skipPropertyNames.Contains(property.Name))
-                    {
-                        continue;
-                    }
-                    // Console.WriteLine($"Property: Name: {property.Name.ToString()} Type: {property.PropertyType.ToString()}");
-                    string one;
-                    string two;
-                    string three;
-                    if (property.PropertyType.ToString() == "System.Collections.Generic.Dictionary`2[System.String,System.String]")
-                    {
-                        Dictionary<string, string> oneDict = (Dictionary<string, string>)property.GetValue(d1);
-                        Dictionary<string, string> twoDict = (Dictionary<string, string>)property.GetValue(d2);
-                        Dictionary<string, string> threeDict = (Dictionary<string, string>)property.GetValue(d3);
-                        // Ignore empty entries in the dictionary so they don't throw off comparisons.
-                        one = String.Join(", ", oneDict.Select(x => (x.Value != "") ? (x.Key + "=" + x.Value) : ("")).ToArray()).Replace(" ,", "");
-                        two = String.Join(", ", twoDict.Select(x => (x.Value != "") ? (x.Key + "=" + x.Value) : ("")).ToArray()).Replace(" ,", "");
-                        three = String.Join(", ", threeDict.Select(x => (x.Value != "") ? (x.Key + "=" + x.Value) : ("")).ToArray()).Replace(" ,", "");
-                    }
-                    else if (property.PropertyType.ToString() == "System.String[]")
-                    {
-                        one = String.Join(", ", (string[])property.GetValue(d1));
-                        two = String.Join(", ", (string[])property.GetValue(d2));
-                        three = String.Join(", ", (string[])property.GetValue(d3));
-                    }
-                    else
-                    {
-                        one = Convert.ToString(property.GetValue(d1));
-                        two = Convert.ToString(property.GetValue(d2));
-                        three = Convert.ToString(property.GetValue(d3));
-                    }
-                    if (one.ToLower() != three.ToLower())
-                    {
-                        Console.WriteLine("[***** MISMATCH *****]\t" + $"\"{one}\" (property: {property.Name}) does not equal \"{three}\"" + $"      1:\"{one}\" 2:\"{two}\" 3:\"{three}\"");
-                        bad++;
-                    }
-                    else
-                    {
-                        // We don't actually need to see all the matches and it makes it hard to see the mismatches
-                        // Console.WriteLine("[MATCH]\t" + $"\"{one}\" (property: {property.Name}) equals \"{three}\"" + $"      1:\"{one}\" 2:\"{two}\" 3:\"{three}\"");
-                        good++;
-                    }
-                }
-                Console.WriteLine($"\n{bad} mismatches out of {good + bad} total properties checked.");
-                if (bad > 0)
-                {
-                    return 1;
-                }
-                else
-                {
-                    return 0;
-                }
+                return CompareThree(d1, d2, d3);
             }
             else if (args.Length == 2 && args[0] == "ije")
             {
@@ -952,7 +899,7 @@ namespace VRDR.CLI
                     if (d.DeathRecordIdentifier == null)
                     {
                         Console.WriteLine("Error: command json2mre requires a Coded Demographic Bundle; did you pass in a message?");
-                        return(1);
+                        return (1);
                     }
                     IJEMortality ije = new IJEMortality(d, false);
                     ije.DOD_YR = d.DeathRecordIdentifier.Substring(0, 4);
@@ -974,7 +921,7 @@ namespace VRDR.CLI
                     if (d.DeathRecordIdentifier == null)
                     {
                         Console.WriteLine("Error: command json2trx requires a Coded Cause Of Death Bundle; did you pass in a message?");
-                        return(1);
+                        return (1);
                     }
                     IJEMortality ije = new IJEMortality(d, false);
                     ije.DOD_YR = d.DeathRecordIdentifier.Substring(0, 4);
@@ -1002,7 +949,7 @@ namespace VRDR.CLI
                     ije2.DSTATE = record2.DeathRecordIdentifier.Substring(4, 2);
                     ije2.FILENO = record2.DeathRecordIdentifier.Substring(6, 6);
                     string[] ijeonlyfields = new String[] { "AUXNO2", "POILITRL", "HOWINJ", "TRANSPRT", "COD1A", "INTERVAL1A", "COD1B", "INTERVAL1B", "OTHERCONDITION", "CERTDATE", "SUR_YR", "SUR_MO", "SUR_DY" };
- 		    return (CompareIJEtoIJE(ije1, "TRX", ije2, "JSON", ijeonlyfields));
+                    return (CompareIJEtoIJE(ije1, "TRX", ije2, "JSON", ijeonlyfields));
                 }
                 else
                 {
@@ -1123,23 +1070,56 @@ namespace VRDR.CLI
                 Console.WriteLine($"Filtering file {args[1]}");
 
                 BaseMessage baseMessage = BaseMessage.Parse(File.ReadAllText(args[1]));
-                
+
                 FilterService FilterService = new FilterService("./VRDR.Filter/NCHSIJEFilter.json", "./VRDR.Filter/IJEToFHIRMapping.json");
 
                 var filteredFile = FilterService.filterMessage(baseMessage).ToJson();
                 BaseMessage.Parse(filteredFile);
                 Console.WriteLine($"File successfully filtered and saved to {args[2]}");
-                    
+
                 File.WriteAllText(args[2], filteredFile);
-                
+
                 return 0;
+            }
+            else if (args.Length >= 3 && args[0] == "jsonstu2-to-stu3")
+            {
+                //  - jsonstu2-to-stu3:  Read in an VRDR STU2.2 file and convert to STU3
+                Console.WriteLine($"Converting json file {args[1]} to json file {args[2]} for VRDR STU3 conformance");
+
+                ConvertVersion(args[2], args[1], false, true);
+            }
+            else if (args.Length >= 3 && args[0] == "jsonstu3-to-stu2")
+            {
+                //  - jsonstu2-to-stu3:  Read in an VRDR STU2.2 file and convert to STU3
+                Console.WriteLine($"Converting json file {args[1]} to json file {args[2]} for VRDR STU2 conformance");
+
+                ConvertVersion(args[2], args[1], true, true);
+            }
+            else if (args.Length >= 2 && args[0] == "rdtripstu3-to-stu2")
+            {
+                //  -rdtripstu3-to-stu2:  Roundtrip STU3 json file to STU2 and compare content
+                DeathRecord d1, d2;
+                Console.WriteLine($"Roundtrip STU3 json file {args[1]} to STU2 and compare content");
+
+                ConvertVersion("./tempSTU2.json", args[1], true, true);
+                ConvertVersion("./tempSTU3.json", "./tempSTU2.json", false, true);
+                d1 = new DeathRecord(File.ReadAllText(args[1]));
+                d2 = new DeathRecord(File.ReadAllText("./tempSTU3.json"));
+                return (CompareTwo(d1, d2));
+            }
+            else if (args.Length >= 2 && args[0] == "json-diff")
+            {
+                //   -json-diff:  compare two json files irrespective of space and ordering
+                Console.WriteLine($"Compare two json files {args[1]} and {args[2]} json files irrespective of space and ordering");
+                return (CompareJsonIgnoringOrderAndSpacing (File.ReadAllText(args[1]), File.ReadAllText(args[2]))?0:1);    
             }
             else
             {
-                Console.WriteLine($"**** No such command {args[0]} with the number of arguments supplied");
+                Console.WriteLine($"**** No such command {args[0]} with  {args.Length} arguments supplied");
             }
             return 0;
         }
+
 
         private static async System.Threading.Tasks.Task CallEndpoint(string endpoint, StringContent content)
         {

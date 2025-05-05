@@ -782,6 +782,12 @@ namespace VRDR
         /// <para>address.Add("addressState", "MA");</para>
         /// <para>address.Add("addressZip", "12345");</para>
         /// <para>address.Add("addressCountry", "US");</para>
+        /// <para>address.Add("addressPredir", "E");</para>
+        /// <para>address.Add("addressPostDir", "SW");</para>
+        /// <para>address.Add("addressStname", "Test");</para> 
+        /// <para>address.Add("addressStnum", "123");</para> 
+        /// <para>address.Add("addressStdesig", "St");</para> 
+        /// <para>address.Add("addressUnitnum", "3");</para> 
         /// <para>ExampleDeathRecord.CertifierAddress = address;</para>
         /// <para>// Getter:</para>
         /// <para>foreach(var pair in ExampleDeathRecord.CertifierAddress)</para>

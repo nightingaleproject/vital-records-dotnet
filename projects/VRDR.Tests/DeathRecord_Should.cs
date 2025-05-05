@@ -1154,6 +1154,10 @@ namespace VRDR.Tests
             Assert.Equal("St", SetterDeathRecord.Residence["addressStdesig"]);
             Assert.Equal("W", SetterDeathRecord.Residence["addressPostdir"]);
             Assert.Equal("A", SetterDeathRecord.Residence["addressUnitnum"]);
+            SetterDeathRecord.DeathLocationJurisdiction = "MA"; // required
+            // See if the ADDRESS_R == addressLine1
+            IJEMortality ije1 = new IJEMortality(SetterDeathRecord);
+            Assert.Equal(ije1.ADDRESS_R.Trim(), SetterDeathRecord.Residence["addressLine1"]);
         }
 
         [Fact]
@@ -2002,6 +2006,15 @@ namespace VRDR.Tests
             Assert.Equal("54121", DeathRecord1_XML.UsualIndustryCoded["code"]);
         }
 
+        [Fact]
+        public void Get_IndustryOccupationCodedBundle()
+        {
+            Bundle ioccBundle = DeathRecord1_JSON.GetIndustryOccupationCodedContentBundle();
+            Assert.NotNull(ioccBundle);
+            DeathRecord newdr = new DeathRecord(ioccBundle);
+            Assert.Equal("54121", newdr.UsualIndustryCoded["code"]);
+            Assert.Equal("13-2011", newdr.UsualOccupationCoded["code"]);
+        }
         [Fact]
         public void Set_MilitaryService()
         {

@@ -9,7 +9,7 @@ export class RecordConverter extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { ...this.props, record: null, issues: [] };
+    this.state = { ...this.props, record: null, issues: null };
     this.updateRecord = this.updateRecord.bind(this);
   }
 
@@ -38,7 +38,7 @@ export class RecordConverter extends Component {
           <div className="p-b-15" />
           {(!!this.state.record || (!!this.state.issues && this.state.issues.length > 0)) && (
             <Grid.Row id="scroll-to">
-              <Record record={this.state.record} issues={this.state.issues} showIssues showSave />
+              <Record record={this.state.record} issues={this.state.issues} showIssues showSuccess showSave />
             </Grid.Row>
           )}
         </Grid>

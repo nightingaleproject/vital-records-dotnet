@@ -1760,7 +1760,7 @@
         "id": "19cb645f-c8f9-44fc-9137-6f33b009d355",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/vrdr/StructureDefinition/CodeSystem-death-pregnancy-status"
+            "http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-death-pregnancy-status"
           ]
         },
         "status": "final",

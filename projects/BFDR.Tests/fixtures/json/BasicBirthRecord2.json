@@ -18,7 +18,7 @@
          }
       ],
       "system":"http://nchs.cdc.gov/bfdr_id",
-      "value":"2023XX000100"
+      "value":"2023TT000100"
    },
    "type":"document",
    "timestamp":"2024-06-06T14:12:16.11888-04:00",
@@ -38,8 +38,8 @@
                "coding":[
                   {
                      "system":"http://loinc.org",
-                     "code":"71230-7",
-                     "display":"Birth certificate"
+                     "code":"92011-6",
+                     "display":"Jurisdiction live birth report Document"
                   }
                ]
             },

@@ -118,13 +118,13 @@ namespace BFDR
         {
             get
             {
-                return Dictionary_Geo_Get("BSTATE", "PlaceOfBirth", "address", "state", true);
+                return LeftJustified_Get("BSTATE", "EventLocationJurisdiction");
             }
             set
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    Dictionary_Set("BSTATE", "PlaceOfBirth", "addressState", value);
+                    LeftJustified_Set("BSTATE", "EventLocationJurisdiction", value);
                 }
             }
         }
@@ -159,15 +159,8 @@ namespace BFDR
         [IJEField(4, 13, 1, "Void flag", "VOID", 1)]
         public string VOID
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => Get_Void();
+            set => Set_Void(value);
         }
 
         /// <summary>Auxiliary State file number</summary>
@@ -176,22 +169,17 @@ namespace BFDR
         {
             get
             {
-                if (String.IsNullOrWhiteSpace(record?.StateLocalIdentifier1))
+                if (record.StateLocalIdentifier1 == null)
                 {
-                    return "".PadLeft(12, '0');
+                    return (new String(' ', 12));
                 }
-                string auxNo = record.StateLocalIdentifier1;
-                if (auxNo.Length > 12)
-                {
-                    auxNo = auxNo.Substring(auxNo.Length - 12);
-                }
-                return auxNo.PadLeft(12, '0');
+                return LeftJustified_Get("AUXNO", "StateLocalIdentifier1");
             }
             set
             {
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    RightJustifiedZeroed_Set("AUXNO", "StateLocalIdentifier1", value.Trim());
+                    LeftJustified_Set("AUXNO", "StateLocalIdentifier1", value);
                 }
             }
         }

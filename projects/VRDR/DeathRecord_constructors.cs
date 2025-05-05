@@ -187,16 +187,18 @@ namespace VRDR
         /// <returns>a new FHIR Bundle</returns>
         public Bundle GetIndustryOccupationCodedContentBundle()
         {
-            Bundle dccBundle = new Bundle();
-            dccBundle.Id = Guid.NewGuid().ToString();
-            dccBundle.Type = Bundle.BundleType.Collection;
-            dccBundle.Meta = new Meta();
-            string[] profile = { ProfileURL.DemographicCodedContentBundle };
-            dccBundle.Meta.Profile = profile;
-            dccBundle.Timestamp = DateTime.Now;
+            Bundle ioccBundle = new Bundle();
+            ioccBundle.Id = Guid.NewGuid().ToString();
+            ioccBundle.Type = Bundle.BundleType.Collection;
+            ioccBundle.Meta = new Meta();
+            string[] profile = { ProfileURL.IndustryOccupationCodedContentBundle };
+            ioccBundle.Meta.Profile = profile;
+            ioccBundle.Timestamp = DateTime.Now;
             // Make sure to include the base identifiers, including certificate number and auxiliary state IDs
-            dccBundle.Identifier = Bundle.Identifier;
-            return dccBundle;
+            ioccBundle.Identifier = Bundle.Identifier;
+            // The input (text) and coded Industry and Occuption are both packaged in the DecedentUsualWork Observation
+            AddResourceToBundleIfPresent(UsualWork, ioccBundle);
+            return ioccBundle;
         }
         /// <summary>Helper method to return the subset of this record that makes up a Mortality Roster bundle.</summary>
         /// <returns>a new FHIR Bundle</returns>
@@ -231,8 +233,8 @@ namespace VRDR
         protected override void RestoreReferences()
         {
             // Depending on the type of bundle, some of this information may not be present, so check it in a null-safe way
-            string profile = Bundle.Meta?.Profile?.FirstOrDefault();
-            bool fullRecord = VRDR.ProfileURL.DeathCertificateDocument.Equals(profile);
+            // Note: for VRDR, full record bundles are of type "document" and response bundles are of type collection
+            bool fullRecord = Bundle.Type == Bundle.BundleType.Document;
             // Grab Composition
             var compositionEntry = Bundle.Entry.FirstOrDefault(entry => entry.Resource is Composition);
             if (compositionEntry != null)
@@ -507,6 +509,13 @@ namespace VRDR
                     }
                 }
             }
+        }
+        /// <summary>Returns the focus id of a section in the composition.</summary>
+        /// <returns>the string uuid of the section focus</returns> 
+        protected override string GetSectionFocusId(string section)
+        {
+            // The VRDR has no required focus defined for any sections in the composition
+            return "";
         }
     }
 }

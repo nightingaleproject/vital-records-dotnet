@@ -1,0 +1,10 @@
+source 'https://rubygems.org'
+
+# Support for fixed length record files for search
+gem 'ije', git: 'https://github.com/nightingaleproject/ije'
+
+# Faker for generation of synthetic values for common data types
+gem 'faker'
+
+# Support for generating a weighted distribution
+gem 'weighted_distribution'

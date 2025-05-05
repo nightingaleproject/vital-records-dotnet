@@ -13,7 +13,7 @@ export class FHIRIJEValidatorProducing extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { ...this.props, test: null, fhirrecord: null, ijerecord: null, fhirInfo: null, fhirIssues:null, results: null, ijeIssues: null, column: 'number', direction: 'ascending' };
+    this.state = { ...this.props, test: null, fhirrecord: null, ijerecord: null, fhirInfo: null, fhirIssues: null, results: null, ijeIssues: null, column: 'number', direction: 'ascending' };
     this.runTest = this.runTest.bind(this);
     this.updateRecord = this.updateRecord.bind(this);
     this.updateFHIRRecord = this.updateFHIRRecord.bind(this);
@@ -25,12 +25,12 @@ export class FHIRIJEValidatorProducing extends Component {
     this.setState({ loading: true }, () => {
       axios
         .post(`${window.API_URL}/tests/${recordType}/validator`, this.setEmptyToNull(this.state.ijerecord.fhirInfo))
-        .then(function(response) {
+        .then(function (response) {
           var test = response.data;
           test.results = JSON.parse(test.results);
           self.setState({ test: test, fhirInfo: JSON.parse(response.data.referenceRecord.fhirInfo), loading: false });
         })
-        .catch(function(error) {
+        .catch(function (error) {
           self.setState({ loading: false }, () => {
             connectionErrorToast(error);
           });
@@ -73,14 +73,14 @@ export class FHIRIJEValidatorProducing extends Component {
     this.setState({ running: true }, () => {
       axios
         .post(`${window.API_URL}/tests/${recordType}/Produce/run/${this.state.test.testId}`, this.setEmptyToNull(this.state.fhirrecord.fhirInfo))
-        .then(function(response) {
+        .then(function (response) {
           var test = response.data;
           test.results = JSON.parse(test.results);
           self.setState({ test: test, running: false }, () => {
             document.getElementById('scroll-to').scrollIntoView({ behavior: 'smooth', block: 'start' });
           });
         })
-        .catch(function(error) {
+        .catch(function (error) {
           self.setState({ loading: false, running: false }, () => {
             connectionErrorToast(error);
           });
@@ -145,7 +145,7 @@ export class FHIRIJEValidatorProducing extends Component {
           )}
           {!(!!this.state.test && this.state.test.completedBool) && (
             <React.Fragment>
-              <Grid.Row>
+              <Grid.Row data-testid={"ije-upload"}>
                 <Container fluid>
                   <Divider horizontal />
                   <Header as="h2" dividing id="step-1">
@@ -164,11 +164,11 @@ export class FHIRIJEValidatorProducing extends Component {
               </Grid.Row>
               <div className="p-b-15" />
               {!!this.state.ijeIssues && (
-                <Grid.Row>
+                <Grid.Row data-testid={"ije-record"}>
                   <Record record={null} issues={this.state.ijeIssues} showIssues showSuccess />
                 </Grid.Row>
               )}
-              <Grid.Row>
+              <Grid.Row data-testid={"fhir-upload"}>
                 <Container fluid>
                   <Divider horizontal />
                   <Header as="h2" dividing id="step-2">
@@ -185,7 +185,7 @@ export class FHIRIJEValidatorProducing extends Component {
               </Grid.Row>
               <div className="p-b-15" />
               {!!this.state.fhirIssues && (
-                <Grid.Row>
+                <Grid.Row data-testid={"fhir-record"}>
                   <Record record={null} issues={this.state.fhirIssues} showIssues showSuccess />
                 </Grid.Row>
               )}

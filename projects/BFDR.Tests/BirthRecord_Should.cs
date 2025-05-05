@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Hl7.Fhir.Model;
+using Hl7.Fhir.Serialization;
 using Newtonsoft.Json;
 using VR;
 using Xunit;
@@ -45,25 +46,21 @@ namespace BFDR.Tests
       String json = SetterBirthRecord.ToJSON();
       Assert.DoesNotContain("89369001", json); // code
       Assert.DoesNotContain("73780-9", json); // category code
-      Assert.DoesNotContain("57075-4", json); // composition section code
       // Check nothing changes if we set a missing entry to false
       SetterBirthRecord.Anencephaly = false;
       json = SetterBirthRecord.ToJSON();
       Assert.DoesNotContain("89369001", json); // code
       Assert.DoesNotContain("73780-9", json); // category code
-      Assert.DoesNotContain("57075-4", json); // composition section code
       SetterBirthRecord.Anencephaly = true;
       Assert.True(SetterBirthRecord.Anencephaly);
       json = SetterBirthRecord.ToJSON();
       Assert.Contains("89369001", json); // code
       Assert.Contains("73780-9", json); // category code
-      Assert.Contains("57075-4", json); // composition section code
       // Check nothing changes if we set an existing entry to true
       SetterBirthRecord.Anencephaly = true;
       json = SetterBirthRecord.ToJSON();
       Assert.Contains("89369001", json); // code
       Assert.Contains("73780-9", json); // category code
-      Assert.Contains("57075-4", json); // composition section code
       SetterBirthRecord.Anencephaly = false;
       Assert.False(SetterBirthRecord.Anencephaly);
       json = SetterBirthRecord.ToJSON();
@@ -78,25 +75,21 @@ namespace BFDR.Tests
       String json = SetterBirthRecord.ToJSON();
       Assert.DoesNotContain("434691000124101", json); // code
       Assert.DoesNotContain("73813-8", json); // category code
-      Assert.DoesNotContain("55752-0", json); // composition section code
       // Check nothing changes if we set a missing entry to false
       SetterBirthRecord.AntibioticsAdministeredDuringLabor = false;
       json = SetterBirthRecord.ToJSON();
       Assert.DoesNotContain("434691000124101", json); // code
       Assert.DoesNotContain("73813-8", json); // category code
-      Assert.DoesNotContain("55752-0", json); // composition section code
       SetterBirthRecord.AntibioticsAdministeredDuringLabor = true;
       Assert.True(SetterBirthRecord.AntibioticsAdministeredDuringLabor);
       json = SetterBirthRecord.ToJSON();
       Assert.Contains("434691000124101", json); // code
       Assert.Contains("73813-8", json); // category code
-      Assert.Contains("55752-0", json); // composition section code
       // Check nothing changes if we set an existing entry to true
       SetterBirthRecord.AntibioticsAdministeredDuringLabor = true;
       json = SetterBirthRecord.ToJSON();
       Assert.Contains("434691000124101", json); // code
       Assert.Contains("73813-8", json); // category code
-      Assert.Contains("55752-0", json); // composition section code
       SetterBirthRecord.AntibioticsAdministeredDuringLabor = false;
       Assert.False(SetterBirthRecord.AntibioticsAdministeredDuringLabor);
       json = SetterBirthRecord.ToJSON();
@@ -110,12 +103,10 @@ namespace BFDR.Tests
       Assert.False(SetterBirthRecord.InductionOfLabor);
       String json = SetterBirthRecord.ToJSON();
       Assert.DoesNotContain("236958009", json); // code
-      Assert.DoesNotContain("55752-0", json); // composition section code
       SetterBirthRecord.InductionOfLabor = true;
       Assert.True(SetterBirthRecord.InductionOfLabor);
       json = SetterBirthRecord.ToJSON();
       Assert.Contains("236958009", json); // code
-      Assert.Contains("55752-0", json); // composition section code
       SetterBirthRecord.InductionOfLabor = false;
       Assert.False(SetterBirthRecord.InductionOfLabor);
       json = SetterBirthRecord.ToJSON();
@@ -1649,6 +1640,8 @@ namespace BFDR.Tests
       FakeBirthRecord.StateLocalIdentifier1 = "124";
       Assert.Equal("101", FakeBirthRecord.CertificateNumber);
       Assert.Equal("124", FakeBirthRecord.StateLocalIdentifier1);
+      FakeBirthRecord.StateLocalIdentifier1 = "";
+      Assert.Null(FakeBirthRecord.StateLocalIdentifier1);
     }
 
     [Fact]
@@ -4008,6 +4001,108 @@ namespace BFDR.Tests
       Assert.Equal(JsonConvert.SerializeObject(romeroRawBr), JsonConvert.SerializeObject(romeroImportedBr));
       Assert.Equal(JsonConvert.SerializeObject(zalbanaizRawBr), JsonConvert.SerializeObject(zalbanaizConnectathonBr));
       Assert.Equal(JsonConvert.SerializeObject(zalbanaizRawBr), JsonConvert.SerializeObject(zalbanaizImportedBr));
+    }
+
+    [Fact]
+    public void Test_GetDemographicCodedContentBundle()
+    {
+      // Test with two existing coded demographic records
+      string[] recordFiles = { "fixtures/json/Bundle-bundle-coded-race-and-ethnicity-baby-g-quinn.json",
+                               "fixtures/json/FetalDeathCodedRaceAndEthnicity.json" };
+      foreach (var recordFile in recordFiles)
+      {
+        // Load the record
+        BirthRecord record = new(File.ReadAllText(TestHelpers.FixturePath(recordFile)), true);
+        // Use it to generate a new record based on a new demographic bundle and on the JSON output of the demographic bundle
+        Bundle newBundle = record.GetDemographicCodedContentBundle();
+        BirthRecord newRecord = new(newBundle);
+        BirthRecord newRecordFromJSON = new(newBundle.ToJson());
+        // Confirm that each new record contains the appropriate contents from the old record
+        List<BirthRecord> recordsToTest = new List<BirthRecord> { newRecord, newRecordFromJSON };
+        foreach (var testRecord in recordsToTest)
+        {
+          // Confirm identifier match
+          Assert.Equal(record.RecordIdentifier, testRecord.RecordIdentifier);
+          // Mother input race and ethnicity
+          Assert.Equal(record.MotherEthnicity1Helper, testRecord.MotherEthnicity1Helper);
+          Assert.Equal(record.MotherEthnicity2Helper, testRecord.MotherEthnicity2Helper);
+          Assert.Equal(record.MotherEthnicity3Helper, testRecord.MotherEthnicity3Helper);
+          Assert.Equal(record.MotherEthnicity4Helper, testRecord.MotherEthnicity4Helper);
+          Assert.Equal(record.MotherEthnicityLiteral, testRecord.MotherEthnicityLiteral);
+          Assert.Equal(record.MotherRace, testRecord.MotherRace);
+          // Mother output race and ethnicity
+          Assert.Equal(record.MotherRaceTabulation1EHelper, testRecord.MotherRaceTabulation1EHelper);
+          Assert.Equal(record.MotherRaceTabulation2EHelper, testRecord.MotherRaceTabulation2EHelper);
+          Assert.Equal(record.MotherRaceTabulation3EHelper, testRecord.MotherRaceTabulation3EHelper);
+          Assert.Equal(record.MotherRaceTabulation4EHelper, testRecord.MotherRaceTabulation4EHelper);
+          Assert.Equal(record.MotherRaceTabulation5EHelper, testRecord.MotherRaceTabulation5EHelper);
+          Assert.Equal(record.MotherRaceTabulation6EHelper, testRecord.MotherRaceTabulation6EHelper);
+          Assert.Equal(record.MotherRaceTabulation7EHelper, testRecord.MotherRaceTabulation7EHelper);
+          Assert.Equal(record.MotherRaceTabulation8EHelper, testRecord.MotherRaceTabulation8EHelper);
+          Assert.Equal(record.MotherFirstAmericanIndianCodeHelper, testRecord.MotherFirstAmericanIndianCodeHelper);
+          Assert.Equal(record.MotherSecondAmericanIndianCodeHelper, testRecord.MotherSecondAmericanIndianCodeHelper);
+          Assert.Equal(record.MotherFirstOtherAsianCodeHelper, testRecord.MotherFirstOtherAsianCodeHelper);
+          Assert.Equal(record.MotherSecondOtherAsianCodeHelper, testRecord.MotherSecondOtherAsianCodeHelper);
+          Assert.Equal(record.MotherFirstOtherPacificIslanderCodeHelper, testRecord.MotherFirstOtherPacificIslanderCodeHelper);
+          Assert.Equal(record.MotherSecondOtherPacificIslanderCodeHelper, testRecord.MotherSecondOtherPacificIslanderCodeHelper);
+          Assert.Equal(record.MotherFirstOtherRaceCodeHelper, testRecord.MotherFirstOtherRaceCodeHelper);
+          Assert.Equal(record.MotherSecondOtherRaceCodeHelper, testRecord.MotherSecondOtherRaceCodeHelper);
+          Assert.Equal(record.MotherEthnicityCodeForLiteralHelper, testRecord.MotherEthnicityCodeForLiteralHelper);
+          Assert.Equal(record.MotherEthnicityEditedCodeHelper, testRecord.MotherEthnicityEditedCodeHelper);
+          // Father input race and ethnicity
+          Assert.Equal(record.RecordIdentifier, testRecord.RecordIdentifier);
+          Assert.Equal(record.FatherEthnicity1Helper, testRecord.FatherEthnicity1Helper);
+          Assert.Equal(record.FatherEthnicity2Helper, testRecord.FatherEthnicity2Helper);
+          Assert.Equal(record.FatherEthnicity3Helper, testRecord.FatherEthnicity3Helper);
+          Assert.Equal(record.FatherEthnicity4Helper, testRecord.FatherEthnicity4Helper);
+          Assert.Equal(record.FatherEthnicityLiteral, testRecord.FatherEthnicityLiteral);
+          Assert.Equal(record.FatherRace, testRecord.FatherRace);
+          // Father output race and ethnicity
+          Assert.Equal(record.FatherRaceTabulation1EHelper, testRecord.FatherRaceTabulation1EHelper);
+          Assert.Equal(record.FatherRaceTabulation2EHelper, testRecord.FatherRaceTabulation2EHelper);
+          Assert.Equal(record.FatherRaceTabulation3EHelper, testRecord.FatherRaceTabulation3EHelper);
+          Assert.Equal(record.FatherRaceTabulation4EHelper, testRecord.FatherRaceTabulation4EHelper);
+          Assert.Equal(record.FatherRaceTabulation5EHelper, testRecord.FatherRaceTabulation5EHelper);
+          Assert.Equal(record.FatherRaceTabulation6EHelper, testRecord.FatherRaceTabulation6EHelper);
+          Assert.Equal(record.FatherRaceTabulation7EHelper, testRecord.FatherRaceTabulation7EHelper);
+          Assert.Equal(record.FatherRaceTabulation8EHelper, testRecord.FatherRaceTabulation8EHelper);
+          Assert.Equal(record.FatherFirstAmericanIndianCodeHelper, testRecord.FatherFirstAmericanIndianCodeHelper);
+          Assert.Equal(record.FatherSecondAmericanIndianCodeHelper, testRecord.FatherSecondAmericanIndianCodeHelper);
+          Assert.Equal(record.FatherFirstOtherAsianCodeHelper, testRecord.FatherFirstOtherAsianCodeHelper);
+          Assert.Equal(record.FatherSecondOtherAsianCodeHelper, testRecord.FatherSecondOtherAsianCodeHelper);
+          Assert.Equal(record.FatherFirstOtherPacificIslanderCodeHelper, testRecord.FatherFirstOtherPacificIslanderCodeHelper);
+          Assert.Equal(record.FatherSecondOtherPacificIslanderCodeHelper, testRecord.FatherSecondOtherPacificIslanderCodeHelper);
+          Assert.Equal(record.FatherFirstOtherRaceCodeHelper, testRecord.FatherFirstOtherRaceCodeHelper);
+          Assert.Equal(record.FatherSecondOtherRaceCodeHelper, testRecord.FatherSecondOtherRaceCodeHelper);
+          Assert.Equal(record.FatherEthnicityCodeForLiteralHelper, testRecord.FatherEthnicityCodeForLiteralHelper);
+          Assert.Equal(record.FatherEthnicityEditedCodeHelper, testRecord.FatherEthnicityEditedCodeHelper);
+        }
+      }
+    }
+
+    [Fact]
+    public void Test_GetCodedIndustryAndOccupationBundle()
+    {
+      // Test with two existing industry and occupation records
+      string[] recordFiles = { "fixtures/json/BirthRecordIndustryAndOccupationCodedContent.json",
+                               "fixtures/json/FetalDeathIndustryAndOccupationCodedContent.json" };
+      foreach (var recordFile in recordFiles)
+      {
+        // Load the record
+        BirthRecord record = new(File.ReadAllText(TestHelpers.FixturePath(recordFile)), true);
+        // Use it to generate a new record based on a new industry and occupation bundle and on the JSON output of that bundle
+        Bundle newBundle = record.GetCodedIndustryAndOccupationBundle();
+        BirthRecord newRecord = new(newBundle);
+        BirthRecord newRecordFromJSON = new(newBundle.ToJson());
+        // Confirm that each new record contains the appropriate contents from the old record
+        List<BirthRecord> recordsToTest = new List<BirthRecord> { newRecord, newRecordFromJSON };
+        foreach (var testRecord in recordsToTest)
+        {
+          // Confirm identifier match
+          Assert.Equal(record.RecordIdentifier, testRecord.RecordIdentifier);
+          // TODO: When coded industry and occupation fields are supported include them here
+        }
+      }
     }
   }
 }

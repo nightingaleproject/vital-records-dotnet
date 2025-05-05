@@ -13,7 +13,7 @@ namespace VR
     public abstract partial class VitalRecord
     {
         /// <summary>Default constructor that creates a new, empty Record.</summary>
-        public VitalRecord()
+        protected VitalRecord()
         {
             Composition = new Composition();
         }
@@ -22,7 +22,7 @@ namespace VR
         /// <param name="record">represents a FHIR Vital Record in either XML or JSON format.</param>
         /// <param name="permissive">if the parser should be permissive when parsing the given string</param>
         /// <exception cref="ArgumentException">Record is neither valid XML nor JSON.</exception>
-        public VitalRecord(string record, bool permissive = false)
+        protected VitalRecord(string record, bool permissive = false)
         {
             ParserSettings parserSettings = new ParserSettings
             {
@@ -97,10 +97,19 @@ namespace VR
             {
                 throw new System.ArgumentException("The given input does not appear to be a valid XML or JSON FHIR record.");
             }
+            // Validate that the given Bundle is not a message.
+            if (this.Bundle.Type == Bundle.BundleType.Message)
+            {
+                throw new BundleTypeException("The FHIR Bundle must be of type Document, not Message.");
+            }
         }
         
         /// <summary>Restores class references from a newly parsed record.</summary>
         protected abstract void RestoreReferences();
+
+        /// <summary>Returns the focus id of a section in the composition.</summary>
+        /// <returns>the string uuid of the section focus</returns>
+        protected abstract string GetSectionFocusId(string section);
 
         /// <summary>Helper method to return a XML string representation of this Vital Record.</summary>
         /// <returns>a string representation of this Vital Record in XML format</returns>
@@ -217,13 +226,11 @@ namespace VR
                     coding["system"] = CompositionSectionCodeSystem;
                     coding["code"] = code;
                     section.Code = DictToCodeableConcept(coding);
-                    if (focusId != null)
-                    {
-                        section.Focus = new ResourceReference($"urn:uuid:{focusId}");
-                    }
                     Composition.Section.Add(section);
                 }
                 section.Entry.Add(new ResourceReference("urn:uuid:" + reference));
+                // all sections start with an "Empty Reason" by default, since we added an entry, clear the empty reason
+                section.EmptyReason = null;
             }
         }
 

@@ -21,7 +21,9 @@ namespace canary.Models
             { "CertNo", "Birth Certificate Number (BirthRecord Identifier)" },
             { "StateAuxiliaryId", "Auxiliary State File Number (BirthRecord BundleIdentifier)" },
             { "NCHSIdentifier", "The NCHS compound identifier for the supplied BirthRecord" },
-            { "JurisdictionId", "Two character identifier of the jurisdiction in which the birth occurred" }
+            { "JurisdictionId", "Two character identifier of the jurisdiction in which the birth occurred" },
+            { "PayloadVersionId", "Identifier of the payload FHIR IG version" },
+            { "EventYear", "The year in which the birth occurred" }
         };
 
         public CanaryFetalDeathMessage() { }

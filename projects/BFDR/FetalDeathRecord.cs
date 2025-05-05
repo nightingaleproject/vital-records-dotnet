@@ -146,7 +146,7 @@ namespace BFDR
         [PropertyParam("code", "The code used to describe this concept.")]
         [PropertyParam("system", "The relevant code system.")]
         [PropertyParam("display", "The human readable version of this code.")]
-        [FHIRPath("Bundle.entry.resource.where($this is Encounter)", "")]
+        [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(extension.value.coding.code='MTH')", "")]
         public Dictionary<string, string> DeliveryPhysicalLocation
         {
             get => GetPhysicalLocation(EncounterMaternity);
@@ -162,7 +162,7 @@ namespace BFDR
         /// <para>Console.WriteLine($"Child's Place Of Birth Type: {ExampleFetalDeathRecord.DeliveryPhysicalLocationHelper}");</para>
         /// </example>
         [Property("DeliveryPhysicalLocationHelper", Property.Types.String, "Delivery Physical Location", "Delivery Physical Location Helper.", false, IGURL.EncounterMaternity, true, 4)]
-        [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(meta.profile == " + IGURL.EncounterMaternity + ")", "")]
+        [FHIRPath("Bundle.entry.resource.where($this is Encounter).where(extension.value.coding.code='MTH')", "")]
         public string DeliveryPhysicalLocationHelper
         {
             get => GetPhysicalLocationHelper(EncounterMaternity);
@@ -1096,6 +1096,12 @@ namespace BFDR
         /// <para>"addressState" - address, state</para>
         /// <para>"addressZip" - address, zip</para>
         /// <para>"addressCountry" - address, country</para>
+        /// <para>"addressStnum" - address, stnum</para>
+        /// <para>"addressPredir" - address, predir</para>
+        /// <para>"addressPostdir" - address, postdir</para>
+        /// <para>"addressStname" - address, stname</para>
+        /// <para>"addressStrdesig" - address, strdesig</para>
+        /// <para>"addressUnitnum" - address, unitnum</para>
         /// </value>
         /// <example>
         /// <para>// Setter:</para>
@@ -1107,6 +1113,12 @@ namespace BFDR
         /// <para>address.Add("addressState", "MA");</para>
         /// <para>address.Add("addressZip", "12345");</para>
         /// <para>address.Add("addressCountry", "US");</para>
+        /// <para>address.Add("addressStnum", "123");</para>
+        /// <para>address.Add("addressPredir", "E");</para>
+        /// <para>address.Add("addressPostDir", "SW");</para>
+        /// <para>address.Add("addressStname", "Test");</para>
+        /// <para>address.Add("addressStrdesig", "Street");</para>
+        /// <para>address.Add("addressUnitnum", "3");</para>
         /// <para>ExampleFetalDeathRecord.PlaceOfDelivery = address;</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"State where baby was delivered: {ExampleFetalDeathRecord.PlaceOfDelivery["addressState"]}");</para>
@@ -1119,6 +1131,12 @@ namespace BFDR
         [PropertyParam("addressState", "address, state")]
         [PropertyParam("addressZip", "address, zip")]
         [PropertyParam("addressCountry", "address, country")]
+        [PropertyParam("addressStnum", "address, stnum")]
+        [PropertyParam("addressPredir", "address, predir")]
+        [PropertyParam("addressPostdir", "address, postdir")]
+        [PropertyParam("addressStname", "address, stname")]
+        [PropertyParam("addressStrdesig", "address, strdesig")]
+        [PropertyParam("addressUnitnum", "address, unitnum")]
         [FHIRPath("Bundle.entry.resource.where($this is Location)", "address")]
         public Dictionary<string, string> PlaceOfDelivery
         {

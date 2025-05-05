@@ -14,7 +14,7 @@ export class EDRSRoundtripConsuming extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { ...this.props, ijeRecord: null, fhirRecord: null, loading: true, running: false, issues: [] };
+    this.state = { ...this.props, ijeRecord: null, fhirRecord: null, loading: true, running: false, issues: null };
     this.setEmptyToNull = this.setEmptyToNull.bind(this);
     this.runTest = this.runTest.bind(this);
     this.updateRecord = this.updateRecord.bind(this);
@@ -179,9 +179,14 @@ export class EDRSRoundtripConsuming extends Component {
                   </Header>
                   <div className="p-b-10" />
                   <Getter updateRecord={this.updateRecord} allowIje={true} ijeOnly={true} noFormat recordType={this.props.params.recordType} />
-                  <Issues issues={this.state.issues} />
                 </Container>
               </Grid.Row>
+              <div className="p-b-15" />
+              {!!this.state.issues &&
+                <Grid.Row>
+                  <Record record={null} issues={this.state.issues} showIssues showSuccess />
+                </Grid.Row>
+              }
               <Grid.Row>
                 <Container fluid>
                   <Divider horizontal />

@@ -88,6 +88,10 @@
         <member name="F:VR.CodeSystems.OccupationCDCCensus2018">
             <summary>OccupationCDCCensus2018 </summary>
         </member>
+        <member name="F:VR.CodeSystems.IJECodes">
+            <summary> Placeholder IJE CodeSystem </summary>
+            
+        </member>
         <member name="F:VR.CodeSystems.VRCLMissingValueReason">
             <summary> VRCL Missing Value Reason </summary>
         </member>
@@ -217,6 +221,9 @@
         <member name="F:VR.IJE.dataLookup">
             <summary>IJE data lookup helper. Thread-safe singleton!</summary>
         </member>
+        <member name="F:VR.IJE._void">
+            <summary>Field _void.</summary>
+        </member>
         <member name="P:VR.IJE.Record">
             <summary>FHIR based vital record.</summary>
         </member>
@@ -268,6 +275,12 @@
         </member>
         <member name="M:VR.IJE.RightJustifiedZeroed_Set(System.String,System.String,System.String)">
             <summary>Set a value on the VitalRecord whose IJE type is a right justified, zero filled string.</summary>
+        </member>
+        <member name="M:VR.IJE.Get_Void">
+            <summary>Gets the Void IJE status.</summary>
+        </member>
+        <member name="M:VR.IJE.Set_Void(System.String)">
+            <summary>Sets the Void IJE status.</summary>
         </member>
         <member name="M:VR.IJE.ProcessIJE(System.String,System.Boolean)">
             <summary>Helper that takes an IJE string and builds a corresponding internal <c>VitalRecord</c>.</summary>
@@ -1576,6 +1589,15 @@
         </member>
         <member name="F:VR.ValueSets.Jurisdiction.New_York_City">
             <summary> New_York_City </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Nchs_Test_Jurisdiction">
+            <summary> Nchs_Test_Jurisdiction </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Steve_Test_Jurisdiction">
+            <summary> Steve_Test_Jurisdiction </summary>
+        </member>
+        <member name="F:VR.ValueSets.Jurisdiction.Unknown_Jurisdiction">
+            <summary> Unknown_Jurisdiction </summary>
         </member>
         <member name="T:VR.ValueSets.MaritalStatus">
             <summary> MaritalStatus </summary>
@@ -6350,8 +6372,11 @@
         <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Yukon">
             <summary> Yukon </summary>
         </member>
-        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Unknown">
-            <summary> Unknown </summary>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Unknown_Or_Blank_U_S_State_Or_Territory_Or_Unknown_Unclassifiable_Country">
+            <summary> Unknown_Or_Blank_U_S_State_Or_Territory_Or_Unknown_Unclassifiable_Country </summary>
+        </member>
+        <member name="F:VR.ValueSets.StatesTerritoriesProvinces.Country_Is_Canada_But_Unknown_Canadian_Province_Or_Any_Country_That_Is_Known_But_Not_U_S_Or_Canada">
+            <summary> Country_Is_Canada_But_Unknown_Canadian_Province_Or_Any_Country_That_Is_Known_But_Not_U_S_Or_Canada </summary>
         </member>
         <member name="T:VR.ValueSets.UnitsOfAge">
             <summary> UnitsOfAge </summary>
@@ -6824,6 +6849,10 @@
         </member>
         <member name="M:VR.VitalRecord.RestoreReferences">
             <summary>Restores class references from a newly parsed record.</summary>
+        </member>
+        <member name="M:VR.VitalRecord.GetSectionFocusId(System.String)">
+            <summary>Returns the focus id of a section in the composition.</summary>
+            <returns>the string uuid of the section focus</returns>
         </member>
         <member name="M:VR.VitalRecord.ToXML">
             <summary>Helper method to return a XML string representation of this Vital Record.</summary>

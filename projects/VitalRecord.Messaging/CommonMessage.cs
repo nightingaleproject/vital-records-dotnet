@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 using Hl7.Fhir.ElementModel;
@@ -46,6 +45,15 @@ namespace VR
 
             // Find Parameters
             Record = findEntry<Parameters>(ignoreMissingEntries);
+        }
+
+        /// <summary>
+        /// Returns the typed element for getting FhirPath data from the bundle.
+        /// </summary>
+        /// <returns></returns>
+        public ITypedElement GetITypedElement()
+        {
+            return MessageBundle.ToTypedElement();
         }
 
         /// <summary>Constructor that creates a new, empty message for the specified message type.</summary>
@@ -163,6 +171,7 @@ namespace VR
 
         /// <summary>Message timestamp</summary>
         /// <value>the message timestamp.</value>
+        [FHIRPath("Bundle.entry.resource.where($this is Bundle)", "timestamp")]
         public DateTimeOffset? MessageTimestamp
         {
             get
@@ -177,6 +186,7 @@ namespace VR
 
         /// <summary>Message Id</summary>
         /// <value>the message id.</value>
+        [FHIRPath("Bundle.entry.resource.where($this is MessageHeader)", "id")]
         public string MessageId
         {
             get
@@ -193,6 +203,7 @@ namespace VR
 
         /// <summary>Message Type</summary>
         /// <value>the message type.</value>
+        [FHIRPath("Bundle.entry.resource.where($this is MessageHeader)", "")]
         public string MessageType
         {
             get
@@ -215,6 +226,7 @@ namespace VR
 
         /// <summary>Message Source</summary>
         /// <value>the message source.</value>
+        [FHIRPath("Bundle.entry.resource.where($this is MessageHeader)", "source")]
         public string MessageSource
         {
             get
@@ -233,6 +245,7 @@ namespace VR
 
         /// <summary>Message Destination</summary>
         /// <value>the message destinations, in csv format to support multiple endpoints. Acts as a wrapper for MessageDestinations while still maintaining backwards compatibility.</value>
+        [FHIRPath("Bundle.entry.resource.where($this is MessageHeader)", "destination")]
         public string MessageDestination
         {
             get
@@ -251,6 +264,7 @@ namespace VR
 
         /// <summary>Message Destinations</summary>
         /// <value>the message destinations in list-based format.</value>
+        [FHIRPath("Bundle.entry.resource.where($this is MessageHeader)", "destination")]
         public List<string> MessageDestinations
         {
             get
@@ -286,6 +300,7 @@ namespace VR
         }
 
         /// <summary>Jurisdiction-assigned certificate number</summary>
+        [FHIRPath("Bundle.entry.resource.where($this is Parameters)", "")]
         public uint? CertNo
         {
             get
@@ -307,6 +322,7 @@ namespace VR
         }
 
         /// <summary>Jurisdiction-assigned auxiliary identifier</summary>
+        // [FHIRPath("Bundle.entry.resource.where($this is Patient).birthDate", "")] UNKNOWN PROPERTY
         public string StateAuxiliaryId
         {
             get
@@ -320,6 +336,7 @@ namespace VR
         }
 
         /// <summary>Two character identifier of the jurisdiction in which the event occurred</summary>
+        [FHIRPath("Bundle.entry.resource.where($this is Parameters)", "")]
         public string JurisdictionId
         {
             get
@@ -340,7 +357,8 @@ namespace VR
             }
         }
 
-        /// <summary>Identifier of the payload version</summary>
+        /// <summary>Identifier of the payload FHIR IG version</summary>
+        [FHIRPath("Bundle.entry.resource.where($this is Parameters)", "")]
         public string PayloadVersionId
         {
             get
@@ -353,7 +371,9 @@ namespace VR
             }
         }
         /// TODO move this to an override for GetYear and SetYear in fetal death messaging
-        /// <summary>The year in which the fetal death occurred</summary>
+        /// <summary>The year in which the event occurred</summary>
+        [FHIRPath("Bundle.entry.resource.where($this is Parameters)", "")]
+
         public uint? EventYear
         {
             get
@@ -386,6 +406,7 @@ namespace VR
         }
 
         /// <summary>NCHS identifier. Format is 4-digit year, two character jurisdiction id, six character/digit certificate id.</summary>
+        [FHIRPath("Bundle.entry.resource.where($this is Bundle)", "identifier")]
         public string NCHSIdentifier
         {
             get
@@ -554,7 +575,7 @@ namespace VR
             {
                 throw new MessageRuleException($"Message jurisdiction ID cannot be null.", message);
             }
-            if (message.EventYear == null)
+            if (message.GetYear() == null)
             {
                 throw new MessageRuleException($"Message event year cannot be null.", message);
             }
