@@ -408,3 +408,4 @@ FodyWeavers.xsd
 
 .vscode
 *.db
+/projects/Vital-records-dotnet/Vital-records-dotnet.sln

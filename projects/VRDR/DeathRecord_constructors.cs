@@ -79,7 +79,7 @@ namespace VRDR
             Bundle.AddResourceEntry(Decedent, "urn:uuid:" + Decedent.Id);
             AddReferenceToComposition(Certifier.Id, "DeathCertification");
             Bundle.AddResourceEntry(Certifier, "urn:uuid:" + Certifier.Id);
-            // Bundle.AddResourceEntry(Mortician, "urn:uuid:" + Mortician.Id);   - Mortician is purely optional.... no resource to add by default
+           // Bundle.AddResourceEntry(Mortician, "urn:uuid:" + Mortician.Id);   // Mortician is purely optional.... no resource to add by default
             AddReferenceToComposition(DeathCertification.Id, "DeathCertification");
             Bundle.AddResourceEntry(DeathCertification, "urn:uuid:" + DeathCertification.Id);
 
@@ -180,8 +180,6 @@ namespace VRDR
             dccBundle.Timestamp = DateTime.Now;
             // Make sure to include the base identifiers, including certificate number and auxiliary state IDs
             dccBundle.Identifier = Bundle.Identifier;
-            AddResourceToBundleIfPresent(CodedRaceAndEthnicityObs, dccBundle);
-            AddResourceToBundleIfPresent(InputRaceAndEthnicityObs, dccBundle);
             return dccBundle;
         }
 /// <summary>Helper method to return the subset of this record that makes up a DemographicCodedContent bundle.</summary>
@@ -219,9 +217,6 @@ namespace VRDR
             AddResourceToBundleIfPresent(Father, mortRosterBundle);
             AddResourceToBundleIfPresent(Mother, mortRosterBundle);
 
-            // Stick Replace and Alias into bundle header as extensions
-            // Copy replace from Composition header
-            // Use value of alias from argument
             if (!String.IsNullOrWhiteSpace(ReplaceStatusHelper))
             {
                 Extension replaceExt = new Extension(ExtensionURL.ReplaceStatus, DictToCodeableConcept(ReplaceStatus));
@@ -229,6 +224,7 @@ namespace VRDR
             }
             Extension aliasExt = new Extension(ExtensionURL.AliasStatus, new FhirBoolean(alias));
             mortRosterBundle.Meta.Extension.Add(aliasExt);
+
             return mortRosterBundle;
         }
 
@@ -404,15 +400,6 @@ namespace VRDR
                         break;
                     case "fetaldeathrecordidentifier":    // new in STU3 -- decedent is mother, link is cert from recent fetal death
                         FetalDeathRecordIdentifier = (Observation)obs;
-                        break;
-                    case "emergingissues":
-                        EmergingIssues = (Observation)obs;
-                        break;
-                    case "codedraceandethnicity":
-                        CodedRaceAndEthnicityObs = (Observation)obs;
-                        break;
-                    case "inputraceandethnicity":
-                        InputRaceAndEthnicityObs = (Observation)obs;
                         break;
                     case "11376-1":
                         PlaceOfInjuryObs = (Observation)obs;
