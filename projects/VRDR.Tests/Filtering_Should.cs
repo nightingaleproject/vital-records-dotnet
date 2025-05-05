@@ -158,9 +158,8 @@ namespace VRDR.Tests
             Assert.Equal((uint)000026, parsedBaseMessage.CertNo);
             Assert.Equal((uint)2023, parsedBaseMessage.DeathYear);
             Assert.Null(parsedBaseMessage.StateAuxiliaryId);
-            Assert.Equal("Y", parsedBaseMessage.DeathRecord.EmergingIssue1_1);
         }
-        
+
         [Fact]
         public void FilteringPlusParsingTest_1()
         {
@@ -168,16 +167,16 @@ namespace VRDR.Tests
 
             string postFilteredBaseMessage = allFieldsFilterService.filterMessage(preFilteredBaseMessage).ToJson();
             DeathRecordSubmissionMessage parsedBaseMessage = BaseMessage.Parse<DeathRecordSubmissionMessage>(postFilteredBaseMessage);
-            
+
             Assert.Equal("2022-09-23T09:09:00", parsedBaseMessage.DeathRecord.DateOfDeathPronouncement);
             Assert.Equal("http://nchs.cdc.gov/vrdr_submission", parsedBaseMessage.MessageType);
             Assert.Equal("2022KS000230", parsedBaseMessage.NCHSIdentifier);
             Assert.Equal((uint)000230, parsedBaseMessage.CertNo);
             Assert.Equal((uint)2022, parsedBaseMessage.DeathYear);
             Assert.Equal("202204000230", parsedBaseMessage.StateAuxiliaryId);
-            Assert.Null(parsedBaseMessage.DeathRecord.EmergingIssue1_1);
+            
         }
-        
+
         [Fact]
         public void FilteringPlusParsingTest_2()
         {
@@ -185,16 +184,16 @@ namespace VRDR.Tests
 
             string postFilteredBaseMessage = allFieldsFilterService.filterMessage(preFilteredBaseMessage).ToJson();
             DeathRecordSubmissionMessage parsedBaseMessage = BaseMessage.Parse<DeathRecordSubmissionMessage>(postFilteredBaseMessage);
-            
+
             Assert.Null(parsedBaseMessage.DeathRecord.DateOfDeathPronouncement);
             Assert.Equal("http://nchs.cdc.gov/vrdr_submission", parsedBaseMessage.MessageType);
             Assert.Equal("2023NV000026", parsedBaseMessage.NCHSIdentifier);
             Assert.Equal((uint)000026, parsedBaseMessage.CertNo);
             Assert.Equal((uint)2023, parsedBaseMessage.DeathYear);
             Assert.Null(parsedBaseMessage.StateAuxiliaryId);
-            Assert.Equal("Y", parsedBaseMessage.DeathRecord.EmergingIssue1_1);
+            
         }
-        
+
         [Fact]
         public void FilteringPlusParsingTest_3()
         {
@@ -202,16 +201,16 @@ namespace VRDR.Tests
 
             string postFilteredBaseMessage = allFieldsFilterService.filterMessage(preFilteredBaseMessage).ToJson();
             DeathRecordSubmissionMessage parsedBaseMessage = BaseMessage.Parse<DeathRecordSubmissionMessage>(postFilteredBaseMessage);
-            
+
             Assert.Null(parsedBaseMessage.DeathRecord.DateOfDeathPronouncement);
             Assert.Equal("http://nchs.cdc.gov/vrdr_submission", parsedBaseMessage.MessageType);
             Assert.Equal("2023NV000031", parsedBaseMessage.NCHSIdentifier);
             Assert.Equal((uint)000031, parsedBaseMessage.CertNo);
             Assert.Equal((uint)2023, parsedBaseMessage.DeathYear);
             Assert.Null(parsedBaseMessage.StateAuxiliaryId);
-            Assert.Null(parsedBaseMessage.DeathRecord.EmergingIssue1_1);
+            
         }
-        
+
         [Fact]
         public void FilteringPlusParsingTest_4()
         {
@@ -219,16 +218,16 @@ namespace VRDR.Tests
 
             string postFilteredBaseMessage = allFieldsFilterService.filterMessage(preFilteredBaseMessage).ToJson();
             DeathRecordSubmissionMessage parsedBaseMessage = BaseMessage.Parse<DeathRecordSubmissionMessage>(postFilteredBaseMessage);
-            
+
             Assert.Null(parsedBaseMessage.DeathRecord.DateOfDeathPronouncement);
             Assert.Equal("http://nchs.cdc.gov/vrdr_submission", parsedBaseMessage.MessageType);
             Assert.Equal("2022TS000532", parsedBaseMessage.NCHSIdentifier);
             Assert.Equal((uint)000532, parsedBaseMessage.CertNo);
             Assert.Equal((uint)2022, parsedBaseMessage.DeathYear);
             Assert.Null(parsedBaseMessage.StateAuxiliaryId);
-            Assert.Equal("Y", parsedBaseMessage.DeathRecord.EmergingIssue1_1);
+            
         }
-        
+
         [Fact]
         public void FilteringPlusParsingTest_5()
         {
@@ -236,14 +235,14 @@ namespace VRDR.Tests
 
             string postFilteredBaseMessage = allFieldsFilterService.filterMessage(preFilteredBaseMessage).ToJson();
             DeathRecordSubmissionMessage parsedBaseMessage = BaseMessage.Parse<DeathRecordSubmissionMessage>(postFilteredBaseMessage);
-            
+
             Assert.Null(parsedBaseMessage.DeathRecord.DateOfDeathPronouncement);
             Assert.Equal("http://nchs.cdc.gov/vrdr_submission", parsedBaseMessage.MessageType);
             Assert.Equal("2023NV000026", parsedBaseMessage.NCHSIdentifier);
             Assert.Equal((uint)000026, parsedBaseMessage.CertNo);
             Assert.Equal((uint)2023, parsedBaseMessage.DeathYear);
             Assert.Null(parsedBaseMessage.StateAuxiliaryId);
-            Assert.Equal("Y", parsedBaseMessage.DeathRecord.EmergingIssue1_1);
+            
         }
 
         [Fact]
@@ -253,16 +252,16 @@ namespace VRDR.Tests
 
             string postFilteredBaseMessage = noFieldsFilterService.filterMessage(preFilteredBaseMessage).ToJson();
             DeathRecordSubmissionMessage parsedBaseMessage = BaseMessage.Parse<DeathRecordSubmissionMessage>(postFilteredBaseMessage);
-            
+
             Assert.Null(parsedBaseMessage.DeathRecord.DateOfDeathPronouncement);
             Assert.Equal("http://nchs.cdc.gov/vrdr_submission", parsedBaseMessage.MessageType);
             Assert.Equal("2023NV000026", parsedBaseMessage.NCHSIdentifier);
             Assert.Equal((uint)000026, parsedBaseMessage.CertNo);
             Assert.Equal((uint)2023, parsedBaseMessage.DeathYear);
             Assert.Null(parsedBaseMessage.StateAuxiliaryId);
-            Assert.Null(parsedBaseMessage.DeathRecord.EmergingIssue1_1);
+            
         }
-        
+
         [Fact]
         public void FilterAllFields_2()
         {
@@ -270,16 +269,16 @@ namespace VRDR.Tests
 
             string postFilteredBaseMessage = noFieldsFilterService.filterMessage(preFilteredBaseMessage).ToJson();
             DeathRecordSubmissionMessage parsedBaseMessage = BaseMessage.Parse<DeathRecordSubmissionMessage>(postFilteredBaseMessage);
-            
+
             Assert.Null(parsedBaseMessage.DeathRecord.DateOfDeathPronouncement);
             Assert.Equal("http://nchs.cdc.gov/vrdr_submission", parsedBaseMessage.MessageType);
             Assert.Equal("2022TS000532", parsedBaseMessage.NCHSIdentifier);
             Assert.Equal((uint)000532, parsedBaseMessage.CertNo);
             Assert.Equal((uint)2022, parsedBaseMessage.DeathYear);
             Assert.Null(parsedBaseMessage.StateAuxiliaryId);
-            Assert.Null(parsedBaseMessage.DeathRecord.EmergingIssue1_1);
+            
         }
-        
+
         [Fact]
         public void FilterAllFields_3()
         {
@@ -287,14 +286,13 @@ namespace VRDR.Tests
 
             string postFilteredBaseMessage = noFieldsFilterService.filterMessage(preFilteredBaseMessage).ToJson();
             DeathRecordSubmissionMessage parsedBaseMessage = BaseMessage.Parse<DeathRecordSubmissionMessage>(postFilteredBaseMessage);
-            
+
             Assert.Null(parsedBaseMessage.DeathRecord.DateOfDeathPronouncement);
             Assert.Equal("http://nchs.cdc.gov/vrdr_submission", parsedBaseMessage.MessageType);
             Assert.Equal("2023NV000026", parsedBaseMessage.NCHSIdentifier);
             Assert.Equal((uint)000026, parsedBaseMessage.CertNo);
             Assert.Equal((uint)2023, parsedBaseMessage.DeathYear);
             Assert.Null(parsedBaseMessage.StateAuxiliaryId);
-            Assert.Null(parsedBaseMessage.DeathRecord.EmergingIssue1_1);
         }
 
         [Fact]

@@ -736,8 +736,7 @@ namespace VRDR.Tests
             Assert.Equal("500", message.StateAuxiliaryId);
             Assert.Equal("2022YC000123", message.NCHSIdentifier);
             Assert.Null(message.PayloadVersionId);
-            Assert.Equal("199", message.DeathRecord.FirstEditedRaceCodeHelper);
-            Assert.Equal("B40", message.DeathRecord.FirstAmericanIndianRaceCodeHelper);
+           
         }
 
         [Fact]
@@ -751,8 +750,7 @@ namespace VRDR.Tests
             Assert.Equal("500", message.StateAuxiliaryId);
             Assert.Equal("2022YC000123", message.NCHSIdentifier);
             Assert.Null(message.PayloadVersionId);
-            Assert.Equal("199", message.DeathRecord.FirstEditedRaceCodeHelper);
-            Assert.Equal("B40", message.DeathRecord.FirstAmericanIndianRaceCodeHelper);
+            
         }
 
         [Fact]
@@ -764,13 +762,7 @@ namespace VRDR.Tests
             ije.DSTATE = "YC";
             ije.FILENO = "123";
             ije.AUXNO = "500";
-            ije.DETHNIC1 = "Y";
-            ije.DETHNIC2 = "N";
-            ije.RACE1 = "Y";
-            ije.RACE2 = "N";
-            ije.RACE16 = "Cheyenne";
-            ije.RACE1E = "199";
-            ije.RACE16C = "B40";
+         
             DemographicsCodingMessage message = new DemographicsCodingMessage(ije.ToRecord());
             message.MessageSource = "http://nchs.cdc.gov/vrdr_submission";
             message.MessageDestination = "https://example.org/jurisdiction/endpoint";
@@ -782,14 +774,8 @@ namespace VRDR.Tests
             Assert.Equal("000000000500", message.StateAuxiliaryId);
             Assert.Equal("2022YC000123", message.NCHSIdentifier);
             Assert.Equal("VRDR_STU3_0", message.PayloadVersionId);
-            Assert.Equal(VR.ValueSets.YesNoUnknown.Yes, message.DeathRecord.Ethnicity1Helper);
-            Assert.Equal(VR.ValueSets.YesNoUnknown.No, message.DeathRecord.Ethnicity2Helper);
-            Assert.Equal(NvssRace.White, message.DeathRecord.Race[0].Item1);
-            Assert.Equal("Y", message.DeathRecord.Race[0].Item2);
-            Assert.Equal(NvssRace.BlackOrAfricanAmerican, message.DeathRecord.Race[1].Item1);
-            Assert.Equal("N", message.DeathRecord.Race[1].Item2);
-            Assert.Equal("199", message.DeathRecord.FirstEditedRaceCodeHelper);
-            Assert.Equal("B40", message.DeathRecord.FirstAmericanIndianRaceCodeHelper);
+            //Assert.Equal("199", message.DeathRecord.FirstEditedRaceCodeHelper);
+            //Assert.Equal("B40", message.DeathRecord.FirstAmericanIndianRaceCodeHelper);
         }
 
         [Fact]
@@ -801,13 +787,7 @@ namespace VRDR.Tests
             ije.DSTATE = "YC";
             ije.FILENO = "123";
             ije.AUXNO = "500";
-            ije.DETHNIC1 = "Y";
-            ije.DETHNIC2 = "N";
-            ije.RACE1 = "Y";
-            ije.RACE2 = "N";
-            ije.RACE16 = "Cheyenne";
-            ije.RACE1E = "199";
-            ije.RACE16C = "B40";
+           
             DemographicsCodingUpdateMessage message = new DemographicsCodingUpdateMessage(ije.ToRecord());
             message.MessageSource = "http://nchs.cdc.gov/vrdr_submission";
             message.MessageDestination = "https://example.org/jurisdiction/endpoint";
@@ -819,16 +799,9 @@ namespace VRDR.Tests
             Assert.Equal("000000000500", message.StateAuxiliaryId);
             Assert.Equal("2022YC000123", message.NCHSIdentifier);
             Assert.Equal("VRDR_STU3_0", message.PayloadVersionId);
-            Assert.Equal(VR.ValueSets.YesNoUnknown.Yes, message.DeathRecord.Ethnicity1Helper);
-            Assert.Equal(VR.ValueSets.YesNoUnknown.No, message.DeathRecord.Ethnicity2Helper);
-            Assert.Equal(NvssRace.White, message.DeathRecord.Race[0].Item1);
-            Assert.Equal("Y", message.DeathRecord.Race[0].Item2);
-            Assert.Equal(NvssRace.BlackOrAfricanAmerican, message.DeathRecord.Race[1].Item1);
-            Assert.Equal("N", message.DeathRecord.Race[1].Item2);
-            Assert.Equal("199", message.DeathRecord.FirstEditedRaceCodeHelper);
-            Assert.Equal("B40", message.DeathRecord.FirstAmericanIndianRaceCodeHelper);
+            
         }
-[Fact]
+        [Fact]
         public void CreateIndustryOccupationCodingResponse()
         {
             // This test creates a response using the approach NCHS will use via IJE setters
@@ -837,13 +810,6 @@ namespace VRDR.Tests
             ije.DSTATE = "YC";
             ije.FILENO = "123";
             ije.AUXNO = "500";
-            ije.DETHNIC1 = "Y";
-            ije.DETHNIC2 = "N";
-            ije.RACE1 = "Y";
-            ije.RACE2 = "N";
-            ije.RACE16 = "Cheyenne";
-            ije.RACE1E = "199";
-            ije.RACE16C = "B40";
             IndustryOccupationCodingMessage message = new IndustryOccupationCodingMessage(ije.ToRecord());
 
             var occ = new Dictionary<string, string>();

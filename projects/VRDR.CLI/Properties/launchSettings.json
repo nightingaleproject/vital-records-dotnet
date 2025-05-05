@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "VRDR.CLI": {
+      "commandName": "Project",
+      "commandLineArgs": "fakerecord"
+    }
+  }
+}
