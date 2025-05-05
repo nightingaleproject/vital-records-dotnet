@@ -64,7 +64,6 @@ namespace VRDR
             Composition.Subject = new ResourceReference("urn:uuid:" + Decedent.Id);
             Composition.Author.Add(new ResourceReference("urn:uuid:" + Certifier.Id));
             Composition.Title = "Death Certificate";
-            //Composition.VersionId = "3.0";
             Composition.Attester.Add(new Composition.AttesterComponent());
             Composition.Attester.First().Party = new ResourceReference("urn:uuid:" + Certifier.Id);
             Composition.Attester.First().ModeElement = new Code<Hl7.Fhir.Model.Composition.CompositionAttestationMode>(Hl7.Fhir.Model.Composition.CompositionAttestationMode.Legal);
