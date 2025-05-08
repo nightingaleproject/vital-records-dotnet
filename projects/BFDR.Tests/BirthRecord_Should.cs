@@ -744,7 +744,7 @@ namespace BFDR.Tests
       Assert.Equal(ije.BPLACEC_CNT, record.MotherPlaceOfBirth["addressCountry"]);
       Assert.Equal(ije.BPLACEC_ST_TER, record.MotherPlaceOfBirth["addressState"]);
 
-      
+
       // Exception ex = Assert.Throws<System.ArgumentException>(() => record.PlaceOfBirth = new Dictionary<string, string>{["addressState"] = "X"});
       // Assert.Equal("Code 'X' is not an allowed value for the valueset used in PlaceOfBirth", ex.Message);
     }
@@ -848,10 +848,10 @@ namespace BFDR.Tests
       // test missing family name
       Assert.Equal("Quinn", record.ChildFamilyName);
       Assert.Null(record.GetFamilyNameAbsentDataReason());
-      record.ChildFamilyName = ""; //set family name to empty 
+      record.ChildFamilyName = ""; //set family name to empty
       Assert.Equal("", record.ChildFamilyName);
       Assert.Equal("temp-unknown", record.GetFamilyNameAbsentDataReason());
-      record.ChildFamilyName = null; //set family name to null 
+      record.ChildFamilyName = null; //set family name to null
       Assert.Null(record.ChildFamilyName);
       Assert.Equal("temp-unknown", record.GetFamilyNameAbsentDataReason());
       IJEBirth ije2 = new(record);
@@ -882,7 +882,7 @@ namespace BFDR.Tests
       Assert.Equal("Mommy".PadRight(50), ije.MOMFNAME);
       Assert.Equal("D".PadRight(50), ije.MOMMIDDL);
       Assert.Equal("Quin".PadRight(50), ije.MOMLNAME);
-      
+
       Assert.Equal("Mommy".PadRight(50), ije.MOMFNAME);
       Assert.Equal("D".PadRight(50), ije.MOMMIDDL);
       Assert.Equal("Quin".PadRight(50), ije.MOMLNAME);
@@ -2273,7 +2273,7 @@ namespace BFDR.Tests
       // IJE translations
       IJEBirth ije1 = new IJEBirth(record);
       Assert.Equal("5", ije1.HFT);
-      Assert.Equal("7", ije1.HIN);
+      Assert.Equal("07", ije1.HIN);
       Assert.Equal("0", ije1.HGT_BYPASS);
     }
 
@@ -2283,7 +2283,7 @@ namespace BFDR.Tests
       BirthRecord record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json")));
       Assert.Equal(67, record.MotherHeight);
 
-      //set after parse 
+      //set after parse
       record.MotherHeight = 68;
       Assert.Equal(68, record.MotherHeight);
     }
@@ -2552,7 +2552,7 @@ namespace BFDR.Tests
       BirthRecord record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json")));
       Assert.Null(record.MaritalStatus);
 
-      //set after parse 
+      //set after parse
       record.MaritalStatus = "Married";
       Assert.Equal("Married", record.MaritalStatus);
     }
@@ -3940,7 +3940,7 @@ namespace BFDR.Tests
     [Fact]
     public void parseRecordZWithValidation()
     {
-      // TODO pass in the IJE and convert roundtrip so the record is up to date with the library 
+      // TODO pass in the IJE and convert roundtrip so the record is up to date with the library
       BirthRecord b = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordZ.json")));
       IJEBirth ije1 = new(b, true); // run with validation true since NCHS uses validation in their code, this confirms the record will be processed
       Console.WriteLine(ije1.ToString());
@@ -3956,14 +3956,14 @@ namespace BFDR.Tests
 
     [Fact]
     public void TestPatientFetalDeath() {
-      Assert.Null(SetterBirthRecord.PatientFetalDeath); 
-      SetterBirthRecord.PatientFetalDeath = false; 
+      Assert.Null(SetterBirthRecord.PatientFetalDeath);
+      SetterBirthRecord.PatientFetalDeath = false;
       Assert.Null(SetterBirthRecord.PatientFetalDeath); //Fetal death should only be indicated if Patient is deceased (value=true).
-      SetterBirthRecord.PatientFetalDeath = true; 
+      SetterBirthRecord.PatientFetalDeath = true;
       Assert.True(SetterBirthRecord.PatientFetalDeath);
       SetterBirthRecord.PatientFetalDeath = null;
       Assert.Null(SetterBirthRecord.PatientFetalDeath);
-      
+
       //parse
       BirthRecord record = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
       Assert.Null(record.PatientFetalDeath);

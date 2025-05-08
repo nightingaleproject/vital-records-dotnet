@@ -184,8 +184,8 @@ namespace BFDR.Tests
         Assert.Equal("3333", ije.FWG);
         Assert.Equal("0", ije.FW_BYPASS);
         ije.FW_BYPASS = "2";
-        Assert.Equal("2", ije.FW_BYPASS); 
-    }  
+        Assert.Equal("2", ije.FW_BYPASS);
+    }
 
     [Fact]
     public void GetBirthWeight()
@@ -194,8 +194,8 @@ namespace BFDR.Tests
         Assert.Equal(BFDR.ValueSets.BirthWeightEditFlags.Off, BasicFetalDeathRecord.BirthWeightEditFlagHelper);
         Assert.Equal(BFDR.ValueSets.BirthWeightEditFlags.Off, BasicFetalDeathRecord.BirthWeightEditFlag["code"]);
         Assert.Equal(VR.CodeSystems.VRCLEditFlags, BasicFetalDeathRecord.BirthWeightEditFlag["system"]);
-        Assert.Equal("Off", BasicFetalDeathRecord.BirthWeightEditFlag["display"]); 
-    }  
+        Assert.Equal("Off", BasicFetalDeathRecord.BirthWeightEditFlag["display"]);
+    }
 
     [Fact]
     public void ParseRegistrationDate()
@@ -212,7 +212,7 @@ namespace BFDR.Tests
       Assert.Equal("09", ije.DOR_DY);
 
       //set after parse
-      record.FirstPrenatalCareVisit = "2024-05"; 
+      record.FirstPrenatalCareVisit = "2024-05";
       Assert.Equal("2024-05", record.FirstPrenatalCareVisit);
       Assert.Equal(2024, record.FirstPrenatalCareVisitYear);
       Assert.Equal(5, record.FirstPrenatalCareVisitMonth);
@@ -319,7 +319,7 @@ namespace BFDR.Tests
       Assert.Equal(02, (int)br2.CertifiedMonth);
       Assert.Equal(19, (int)br2.CertifiedDay);
     }
-    
+
     [Fact]
     public void TestCigarettesSmoked()
     {
@@ -399,19 +399,19 @@ namespace BFDR.Tests
       FetalDeathRecord record = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
       //maternal morbidity
       Assert.False(record.NoMaternalMorbidities);
-      Assert.False(record.RupturedUterus); 
+      Assert.False(record.RupturedUterus);
       Assert.False(record.ICUAdmission);
       //risk factors
       Assert.False(record.NoPregnancyRiskFactors);
-      Assert.False(record.EclampsiaHypertension); 
-      Assert.False(record.GestationalDiabetes); 
-      Assert.False(record.GestationalHypertension); 
-      Assert.False(record.PrepregnancyDiabetes); 
-      Assert.False(record.PrepregnancyHypertension); 
-      Assert.False(record.PreviousCesarean); 
-      Assert.False(record.FertilityEnhancingDrugTherapyArtificialIntrauterineInsemination); 
-      Assert.False(record.AssistedReproductiveTechnology); 
-      Assert.False(record.InfertilityTreatment); 
+      Assert.False(record.EclampsiaHypertension);
+      Assert.False(record.GestationalDiabetes);
+      Assert.False(record.GestationalHypertension);
+      Assert.False(record.PrepregnancyDiabetes);
+      Assert.False(record.PrepregnancyHypertension);
+      Assert.False(record.PreviousCesarean);
+      Assert.False(record.FertilityEnhancingDrugTherapyArtificialIntrauterineInsemination);
+      Assert.False(record.AssistedReproductiveTechnology);
+      Assert.False(record.InfertilityTreatment);
       //set after parse
       record.NoMaternalMorbidities = true;
       Assert.True(record.NoMaternalMorbidities);
@@ -465,7 +465,7 @@ namespace BFDR.Tests
 
     [Fact]
     public void ParseFetalDeathCauseOrCondition()
-    { 
+    {
       FetalDeathRecord record = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
       Assert.True(record.PrematureRuptureOfMembranes);
       Assert.False(record.AbruptioPlacenta);
@@ -483,9 +483,9 @@ namespace BFDR.Tests
       Assert.Null(record.OtherFetalConditionsDisordersLiteral);
 
       //set after parse
-      record.PrematureRuptureOfMembranes = false; 
+      record.PrematureRuptureOfMembranes = false;
       Assert.False(record.PrematureRuptureOfMembranes);
-      record.ProlapsedCord = true; 
+      record.ProlapsedCord = true;
       Assert.True(record.ProlapsedCord);
       record.MaternalConditionsDiseasesLiteral = "Complication of Placenta Cord";
       Assert.Equal("Complication of Placenta Cord", record.MaternalConditionsDiseasesLiteral);
@@ -552,7 +552,7 @@ namespace BFDR.Tests
 
       Assert.Null(SetterFetalDeathRecord.FetalInfectionLiteral);
       SetterFetalDeathRecord.FetalInfectionLiteral = "Some Fetal Infection";
-      Assert.Equal("Some Fetal Infection", SetterFetalDeathRecord.FetalInfectionLiteral); 
+      Assert.Equal("Some Fetal Infection", SetterFetalDeathRecord.FetalInfectionLiteral);
 
       Assert.Null(SetterFetalDeathRecord.OtherFetalConditionsDisordersLiteral);
       SetterFetalDeathRecord.OtherFetalConditionsDisordersLiteral = "Other Fetal Condition or Disorder";
@@ -561,7 +561,7 @@ namespace BFDR.Tests
 
     [Fact]
     public void ParseOtherFetalDeathCauseOrCondition()
-    { 
+    {
       FetalDeathRecord record = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
       Assert.False(record.OtherCOD_PrematureRuptureOfMembranes);
       Assert.False(record.OtherCOD_AbruptioPlacenta);
@@ -579,9 +579,9 @@ namespace BFDR.Tests
       Assert.Null(record.OtherCOD_OtherFetalConditionsDisordersLiteral);
 
       //set after parse
-      record.OtherCOD_PlacentalInsufficiency = false; 
+      record.OtherCOD_PlacentalInsufficiency = false;
       Assert.False(record.OtherCOD_PlacentalInsufficiency);
-      record.OtherCOD_ProlapsedCord = true; 
+      record.OtherCOD_ProlapsedCord = true;
       Assert.True(record.OtherCOD_ProlapsedCord);
       record.OtherCOD_OtherFetalConditionsDisordersLiteral = "Some other fetal condition disorder";
       Assert.Equal("Some other fetal condition disorder", record.OtherCOD_OtherFetalConditionsDisordersLiteral);
@@ -648,13 +648,13 @@ namespace BFDR.Tests
 
       Assert.Null(SetterFetalDeathRecord.OtherCOD_FetalInfectionLiteral);
       SetterFetalDeathRecord.OtherCOD_FetalInfectionLiteral = "Some Fetal Infection";
-      Assert.Equal("Some Fetal Infection", SetterFetalDeathRecord.OtherCOD_FetalInfectionLiteral); 
+      Assert.Equal("Some Fetal Infection", SetterFetalDeathRecord.OtherCOD_FetalInfectionLiteral);
 
       Assert.Null(SetterFetalDeathRecord.OtherCOD_OtherFetalConditionsDisordersLiteral);
       SetterFetalDeathRecord.OtherCOD_OtherFetalConditionsDisordersLiteral = "Other Fetal Condition or Disorder";
       Assert.Equal("Other Fetal Condition or Disorder", SetterFetalDeathRecord.OtherCOD_OtherFetalConditionsDisordersLiteral);
     }
-  
+
     [Fact]
     public void SetFetalPresentation()
     {
@@ -701,7 +701,7 @@ namespace BFDR.Tests
       Assert.Equal("38", fetalDeathRecord2.GestationalAgeAtDelivery["value"]);
       Assert.Equal("wk", fetalDeathRecord2.GestationalAgeAtDelivery["code"]);
       Assert.Equal("http://unitsofmeasure.org", fetalDeathRecord2.GestationalAgeAtDelivery["system"]);
-      
+
       FetalDeathRecord fetalDeathRecord3 = new FetalDeathRecord();
       Dictionary<string, string> dict2 = new Dictionary<string, string>();
       dict2.Add("value", "48");
@@ -828,7 +828,7 @@ namespace BFDR.Tests
     }
 
     [Fact]
-    public void TestImportDeliveryLocation() 
+    public void TestImportDeliveryLocation()
     {
       FetalDeathRecord record = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
       Assert.Equal("116441967701", record.FacilityNPI);
@@ -1022,7 +1022,7 @@ namespace BFDR.Tests
     }
 
     [Fact]
-    public void TestImportLastMenstrualPeriod() 
+    public void TestImportLastMenstrualPeriod()
     {
       FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
       Assert.Equal("2018-04-18", record.LastMenstrualPeriod);
@@ -1085,9 +1085,9 @@ namespace BFDR.Tests
         // IJE translations
         IJEFetalDeath ije1 = new IJEFetalDeath(record);
         Assert.Equal("5", ije1.HFT);
-        Assert.Equal("7", ije1.HIN);  
+        Assert.Equal("07", ije1.HIN);
         Assert.Equal("0", ije1.HGT_BYPASS);
-    }  
+    }
 
     [Fact]
     public void TestImportMotherHeightProperties()
@@ -1095,10 +1095,10 @@ namespace BFDR.Tests
         FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
         Assert.Equal(56, record.MotherHeight);
 
-        //set after parse 
-        record.MotherHeight = 68; 
+        //set after parse
+        record.MotherHeight = 68;
         Assert.Equal(68, record.MotherHeight);
-    } 
+    }
 
     [Fact]
     public void TestWeightPropertiesSetter()
@@ -1122,12 +1122,12 @@ namespace BFDR.Tests
         // IJE translations
         IJEFetalDeath ije1 = new IJEFetalDeath(record);
         Assert.Equal("145", ije1.PWGT);
-        Assert.Equal("0", ije1.PWGT_BYPASS); 
+        Assert.Equal("0", ije1.PWGT_BYPASS);
         // TODO: add these when fetal weight is added
         // Assert.Equal("2500", ije1.FWG);
-        // Assert.Equal("0", ije1.FW_BYPASS); 
-    }  
-  
+        // Assert.Equal("0", ije1.FW_BYPASS);
+    }
+
     [Fact]
     public void TestImportWeightProperties()
     {
@@ -1264,7 +1264,7 @@ namespace BFDR.Tests
         }
         Assert.Equal(17, b2.FatherRace.Length);
     }
-  
+
     [Fact]
     public void TestImportRace()
     {
@@ -1396,16 +1396,16 @@ namespace BFDR.Tests
     public void TestParentReportedAge()
     {
 
-      // set 
+      // set
       SetterFetalDeathRecord.MotherReportedAgeAtDelivery = 26;
       SetterFetalDeathRecord.FatherReportedAgeAtDelivery = 27;
-      Assert.Equal(26, SetterFetalDeathRecord.MotherReportedAgeAtDelivery); 
+      Assert.Equal(26, SetterFetalDeathRecord.MotherReportedAgeAtDelivery);
       Assert.Equal(27, SetterFetalDeathRecord.FatherReportedAgeAtDelivery);
 
       // parsed record
       FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicFetalDeathRecord.json")));
-      Assert.Equal(33, record.MotherReportedAgeAtDelivery); 
-      Assert.Equal(31, record.FatherReportedAgeAtDelivery); 
+      Assert.Equal(33, record.MotherReportedAgeAtDelivery);
+      Assert.Equal(31, record.FatherReportedAgeAtDelivery);
 
       // to IJE
       IJEFetalDeath ije = new(record);
@@ -1469,10 +1469,10 @@ namespace BFDR.Tests
       // test missing family name
       Assert.Equal("Quinn", record.FetusFamilyName);
       Assert.Null(record.GetFamilyNameAbsentDataReason());
-      record.FetusFamilyName = ""; //set family name to empty 
+      record.FetusFamilyName = ""; //set family name to empty
       Assert.Equal("", record.FetusFamilyName);
       Assert.Equal("unknown", record.GetFamilyNameAbsentDataReason());
-      record.FetusFamilyName = null; //set family name to null 
+      record.FetusFamilyName = null; //set family name to null
       Assert.Null(record.FetusFamilyName);
       Assert.Equal("unknown", record.GetFamilyNameAbsentDataReason());
       IJEFetalDeath ije2 = new(record);
@@ -1538,12 +1538,12 @@ namespace BFDR.Tests
       // Assert.Equal("F", firstRecord.FetalDeathSexHelper);
       // Assert.Equal(firstRecord.FetalDeathSex["code"], secondRecord.FetalDeathSexHelper);
       // Plurality
-      Assert.Equal(4, firstRecord.FetalDeathPlurality); 
+      Assert.Equal(4, firstRecord.FetalDeathPlurality);
       // Set Order
       Assert.Equal(3, firstRecord.FetalDeathSetOrder);
       Assert.Equal(firstRecord.FetalDeathSetOrder, secondRecord.FetalDeathSetOrder);
       // // Mother's Age
-      //  Assert.Equal(34, firstRecord.MotherReportedAgeAtDelivery); 
+      //  Assert.Equal(34, firstRecord.MotherReportedAgeAtDelivery);
       // // Father's Age
       //  Assert.Equal(35, firstRecord.FatherReportedAgeAtDelivery);
       // // Child's First Name
@@ -1889,7 +1889,7 @@ namespace BFDR.Tests
         Assert.Equal("BBBBBBBB", record1.EmergingIssue8_2);
         Assert.Equal("CCCCCCCC", record1.EmergingIssue8_3);
         Assert.Equal("AAAAAAAAAAAAAAAAAAAA", record1.EmergingIssue20);
-        
+
         IJEFetalDeath ije = new IJEFetalDeath(record1, false); // Don't validate since we don't care about most fields
         Assert.Equal("A", ije.PLACE1_1);
         Assert.Equal("B", ije.PLACE1_2);
@@ -2002,15 +2002,15 @@ namespace BFDR.Tests
     {
       //parse
       FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
-      Assert.Equal("132224986", record.MotherSocialSecurityNumber); 
-      Assert.Null(record.FatherSocialSecurityNumber); 
+      Assert.Equal("132224986", record.MotherSocialSecurityNumber);
+      Assert.Null(record.FatherSocialSecurityNumber);
 
       //set after parse
       record.MotherSocialSecurityNumber = "123456789";
       Assert.Equal("123456789", record.MotherSocialSecurityNumber);
       record.FatherSocialSecurityNumber = "123123123";
       Assert.Equal("123123123", record.FatherSocialSecurityNumber);
-      
+
       IJEFetalDeath ije = new(record);
       Assert.Equal("123456789", ije.MOM_SSN);
       Assert.Equal("123123123", ije.DAD_SSN);
@@ -2137,7 +2137,7 @@ namespace BFDR.Tests
       FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
       Assert.True(record.PatientFetalDeath);
 
-      SetterFetalDeathRecord.PatientFetalDeath = false; //DecedentFetus is required to have PatientFetalDeath extension = true. --> handle in business rules. 
+      SetterFetalDeathRecord.PatientFetalDeath = false; //DecedentFetus is required to have PatientFetalDeath extension = true. --> handle in business rules.
       Assert.Null(SetterFetalDeathRecord.PatientFetalDeath); //Fetal death should only be indicated if Patient is deceased (value = true).
       SetterFetalDeathRecord.PatientFetalDeath = true;
       Assert.True(SetterFetalDeathRecord.PatientFetalDeath);

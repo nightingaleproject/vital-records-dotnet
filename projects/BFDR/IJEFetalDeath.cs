@@ -95,7 +95,7 @@ namespace BFDR
             {
                 return "Y";
             }
-            else 
+            else
             {
                 return "N";
             }
@@ -109,7 +109,7 @@ namespace BFDR
             {
                 field(true);
             }
-            else 
+            else
             {
                 field(false);
             }
@@ -533,7 +533,7 @@ namespace BFDR
             set
             {
                 if (!String.IsNullOrWhiteSpace(value))
-                {  
+                {
                     Set_MappingIJEToFHIR(VR.Mappings.YesNoUnknown.IJEToFHIR, "LIMITS", "MotherResidenceWithinCityLimits", value);
                 }
             }
@@ -601,12 +601,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -616,12 +616,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -1299,7 +1299,7 @@ namespace BFDR
         /// <summary>Attendant</summary>
         [IJEField(78, 422, 1, "Attendant", "ATTEND", 1)]
         public string ATTEND
-        {    
+        {
             get
             {
                 var ret = record.AttendantTitleHelper;
@@ -1331,12 +1331,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -1388,12 +1388,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -1403,12 +1403,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -1418,12 +1418,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -1433,12 +1433,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -1448,12 +1448,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -1468,7 +1468,8 @@ namespace BFDR
                 IJEField info = FieldInfo("HFT");
                 int? value = (int?)Record.GetType().GetProperty("MotherHeight").GetValue(record);
                 if (value == -1 || value == null) return new String('9', info.Length); // Explicitly set to unknown
-                return (value / 12).ToString();
+                var valueString = (value / 12).ToString();
+                return Truncate(valueString, info.Length).PadLeft(info.Length, '0');
             }
             set
             {
@@ -1496,7 +1497,8 @@ namespace BFDR
                 IJEField info = FieldInfo("HIN");
                 int? value = (int?)Record.GetType().GetProperty("MotherHeight").GetValue(record);
                 if (value == -1 || value == null) return new String('9', info.Length); // Explicitly set to unknown
-                return (value % 12).ToString();
+                var valueString = (value % 12).ToString();
+                return Truncate(valueString, info.Length).PadLeft(info.Length, '0');
             }
             set
             {
@@ -1605,12 +1607,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -1648,12 +1650,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -1663,12 +1665,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -1808,12 +1810,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -1823,12 +1825,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -1838,12 +1840,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -1897,12 +1899,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -1912,12 +1914,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -1927,12 +1929,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -1942,12 +1944,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -1957,12 +1959,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -1972,12 +1974,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -1987,12 +1989,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -2002,12 +2004,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -2017,12 +2019,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -2032,12 +2034,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -2047,12 +2049,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -2062,12 +2064,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -2145,7 +2147,6 @@ namespace BFDR
                 {
                     record.LaborTrialAttempted = false;
                 }
-                return;
             }
         }
 
@@ -2155,12 +2156,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -2170,12 +2171,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -2185,12 +2186,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -2208,12 +2209,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -2231,12 +2232,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -2281,7 +2282,7 @@ namespace BFDR
                 if (record.GestationalAgeAtDelivery != null && !String.IsNullOrEmpty(record.GestationalAgeAtDelivery["value"]))
                 {
 
-                    if (record.GestationalAgeAtDelivery["code"] == "wk") 
+                    if (record.GestationalAgeAtDelivery["code"] == "wk")
                     {
                         int weeks = (int)Convert.ToDecimal(record.GestationalAgeAtDelivery["value"]);
                         return Truncate(weeks.ToString(), info.Length).PadLeft(info.Length, '0');
@@ -2291,7 +2292,7 @@ namespace BFDR
                         int days = (int)(Convert.ToDecimal(record.GestationalAgeAtDelivery["value"])/7);
                         return Truncate(days.ToString(), info.Length).PadLeft(info.Length, '0');
                     }
-                    
+
                 }
                 return "  ";
             }
@@ -2433,12 +2434,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -2462,12 +2463,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -2477,12 +2478,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -2492,12 +2493,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -2507,12 +2508,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -2522,12 +2523,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -2537,12 +2538,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -2552,12 +2553,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -2567,12 +2568,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -2582,12 +2583,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -2597,12 +2598,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -2612,12 +2613,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -2627,12 +2628,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -2642,12 +2643,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -2657,12 +2658,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -2672,12 +2673,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -3121,12 +3122,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -3136,12 +3137,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -3151,12 +3152,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -3220,12 +3221,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -3422,7 +3423,7 @@ namespace BFDR
                 else
                 {
                     return new String(' ', 28);
-                }   
+                }
             }
             set
             {
@@ -3449,7 +3450,7 @@ namespace BFDR
                 else
                 {
                     return new String(' ', 28);
-                }   
+                }
             }
             set
             {
@@ -3467,12 +3468,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -3482,12 +3483,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -3815,7 +3816,7 @@ namespace BFDR
                 else
                 {
                     return new String(' ', 28);
-                }   
+                }
             }
             set
             {
@@ -3843,12 +3844,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -3858,12 +3859,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -3968,12 +3969,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -3983,12 +3984,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -4012,12 +4013,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -4041,12 +4042,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -4070,12 +4071,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -4086,7 +4087,6 @@ namespace BFDR
             get
             {
                 return LeftJustified_Get("DAD_IN_T", "FatherIndustry");
-                //return Truncate(LeftJustified_Get("DAD_IN_T", "FatherIndustry"), 20).Trim();
             }
             set
             {
@@ -4100,12 +4100,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -4908,12 +4908,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -4939,12 +4939,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -4954,12 +4954,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -4969,12 +4969,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -4984,12 +4984,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -4999,12 +4999,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -5022,12 +5022,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -5037,12 +5037,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -5052,12 +5052,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -5067,12 +5067,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -5082,12 +5082,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -5097,12 +5097,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -5112,12 +5112,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -5169,12 +5169,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -5184,12 +5184,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -5199,12 +5199,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -5214,12 +5214,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -5369,12 +5369,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
 
@@ -5384,12 +5384,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location: 
+                // TODO: Implement mapping from FHIR record location:
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location: 
+                // TODO: Implement mapping to FHIR record location:
             }
         }
     }

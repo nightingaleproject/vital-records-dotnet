@@ -101,15 +101,15 @@ namespace BFDR.Tests
       BirthRecord br = ije.ToRecord();
       Assert.Equal("HI", br.EventLocationJurisdiction);
       ije.BSTATE = "TT";
-      Assert.Equal("TT", ije.BSTATE); 
+      Assert.Equal("TT", ije.BSTATE);
       br = ije.ToRecord();
       Assert.Equal("TT", br.EventLocationJurisdiction);
       ije.BSTATE = "TS";
-      Assert.Equal("TS", ije.BSTATE); 
+      Assert.Equal("TS", ije.BSTATE);
       br = ije.ToRecord();
       Assert.Equal("TS", br.EventLocationJurisdiction);
       ije.BSTATE = "ZZ";
-      Assert.Equal("ZZ", ije.BSTATE); 
+      Assert.Equal("ZZ", ije.BSTATE);
       br = ije.ToRecord();
       Assert.Equal("ZZ", br.EventLocationJurisdiction);
     }
@@ -835,7 +835,7 @@ namespace BFDR.Tests
       br = new BirthRecord();
       ije = new IJEBirth(br);
       Assert.Equal("".PadLeft(12, ' '), ije.AUXNO);
-      
+
     }
 
     [Fact]
@@ -1062,12 +1062,12 @@ namespace BFDR.Tests
         Assert.Equal("9",ije1.HFT);
         ije1.HFT = "5";
         ije1.HIN = "7";
-        Assert.Equal("7", ije1.HIN);
+        Assert.Equal("07", ije1.HIN);
         Assert.Equal("5", ije1.HFT);
         ije1.HFT = "5";
         ije1.HIN = "3";
         Assert.Equal("5", ije1.HFT);
-        Assert.Equal("3", ije1.HIN);
+        Assert.Equal("03", ije1.HIN);
         // Edit Flag
         Assert.Equal("", ije1.HGT_BYPASS);
         ije1.HGT_BYPASS = "1";

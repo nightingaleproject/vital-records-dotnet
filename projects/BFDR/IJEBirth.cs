@@ -86,7 +86,7 @@ namespace BFDR
         // Class helper methods for getting and settings IJE fields.
         //
         /////////////////////////////////////////////////////////////////////////////////
-    
+
 
         /////////////////////////////////////////////////////////////////////////////////
         //
@@ -2076,7 +2076,8 @@ namespace BFDR
                 IJEField info = FieldInfo("HFT");
                 int? value = (int?)Record.GetType().GetProperty("MotherHeight").GetValue(record);
                 if (value == -1 || value == null) return new String('9', info.Length); // Explicitly set to unknown
-                return (value / 12).ToString();
+                var valueString = (value / 12).ToString();
+                return Truncate(valueString, info.Length).PadLeft(info.Length, '0');
             }
             set
             {
@@ -2104,7 +2105,8 @@ namespace BFDR
                 IJEField info = FieldInfo("HIN");
                 int? value = (int?)Record.GetType().GetProperty("MotherHeight").GetValue(record);
                 if (value == -1 || value == null) return new String('9', info.Length); // Explicitly set to unknown
-                return (value % 12).ToString();
+                var valueString = (value % 12).ToString();
+                return Truncate(valueString, info.Length).PadLeft(info.Length, '0');
             }
             set
             {
@@ -2827,7 +2829,6 @@ namespace BFDR
                 {
                     record.LaborTrialAttempted = false;
                 }
-                return;
             }
         }
 
@@ -2920,7 +2921,7 @@ namespace BFDR
                 if (record.GestationalAgeAtDelivery != null && !String.IsNullOrEmpty(record.GestationalAgeAtDelivery["value"]))
                 {
 
-                    if (record.GestationalAgeAtDelivery["code"] == "wk") 
+                    if (record.GestationalAgeAtDelivery["code"] == "wk")
                     {
                         int weeks = (int)Convert.ToDecimal(record.GestationalAgeAtDelivery["value"]);
                         return Truncate(weeks.ToString(), info.Length).PadLeft(info.Length, '0');
@@ -2930,7 +2931,7 @@ namespace BFDR
                         int days = (int)(Convert.ToDecimal(record.GestationalAgeAtDelivery["value"])/7);
                         return Truncate(days.ToString(), info.Length).PadLeft(info.Length, '0');
                     }
-                    
+
                 }
                 return "  ";
             }
@@ -3240,7 +3241,6 @@ namespace BFDR
                 {
                     record.InfantLiving = false;
                 }
-                return;
             }
         }
 
@@ -4657,7 +4657,7 @@ namespace BFDR
             set
             {
                 if (value == "Y")
-                {   
+                {
                     record.SSNRequested = true;
                 }
                 else if (value == "N")
