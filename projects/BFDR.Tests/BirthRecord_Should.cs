@@ -3783,15 +3783,15 @@ namespace BFDR.Tests
       BirthRecord record = ije.ToBirthRecord();
       Bundle bundle = record.GetDemographicCodedContentBundle();
       Assert.Equal(Bundle.BundleType.Document, bundle.Type);
-      // TODO: Test that the composition type is correct
+      // Make sure the composition type is correct
+      Composition composition = bundle.Entry.Select(entry => entry.Resource as Composition).FirstOrDefault(c => c != null);
+      Assert.Equal("86805-9", composition.Type.Coding[0].Code);
       BirthRecord record2 = new BirthRecord(bundle.ToJson());
       IJEBirth ije2 = new IJEBirth(record2);
       // Make sure that all the field values match the original
       List<PropertyInfo> properties = typeof(IJEBirth).GetProperties().ToList();
       foreach (PropertyInfo property in properties)
       {
-        Console.WriteLine(property.GetValue(ije));
-        Console.WriteLine(property.GetValue(ije2));
         Assert.Equal(property.GetValue(ije), property.GetValue(ije2));
       }
     }

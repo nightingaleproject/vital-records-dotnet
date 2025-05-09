@@ -213,8 +213,13 @@ namespace VR
                 string[] profile = { profileURL };
                 observation.Meta.Profile = profile;
                 observation.Code = new CodeableConcept(codeSystem, code, text, null);
-                observation.Subject = new ResourceReference($"urn:uuid:{SubjectId(propertyName)}");
-                observation.Status = ObservationStatus.Final; // TODO: is this correct?
+                if (SubjectId(propertyName) != null)
+                {
+                    observation.Subject = new ResourceReference($"urn:uuid:{SubjectId(propertyName)}");
+                }
+                // Note: The IG supports observations that can have non-final status, but they are not used
+                // for NCHS data submission at this time
+                observation.Status = ObservationStatus.Final;
                 if (focusId != null)
                 {
                     observation.Focus.Add(new ResourceReference($"urn:uuid:{focusId}"));

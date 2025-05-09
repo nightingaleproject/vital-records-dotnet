@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using VR;
 using Xunit;
 using Hl7.Fhir.Model;
@@ -1988,6 +1989,39 @@ namespace BFDR.Tests
           Assert.Equal(record.OCOD6, testRecord.OCOD6);
           Assert.Equal(record.OCOD7, testRecord.OCOD7);
         }
+      }
+    }
+
+    [Fact]
+    public void Test_CreateCodedCauseOfFetalDeathBundle()
+    {
+      // Create the coded cause of death content starting with the IJE
+      IJEFetalDeath ije = new IJEFetalDeath();
+      ije.FDOD_YR = "2025";
+      ije.DSTATE = "NJ";
+      ije.FILENO = "000001";
+      ije.AUXNO = "123456781234";
+      ije.ICOD = "P011";
+      ije.OCOD1 = "P021";
+      ije.OCOD2 = "P022";
+      ije.OCOD3 = "P023";
+      ije.OCOD4 = "P024";
+      ije.OCOD5 = "P025";
+      ije.OCOD6 = "P026";
+      ije.OCOD7 = "P027";
+      FetalDeathRecord record = ije.ToFetalDeathRecord();
+      Bundle bundle = record.GetCodedCauseOfFetalDeathBundle();
+      Assert.Equal(Bundle.BundleType.Document, bundle.Type);
+      // Make sure the composition type is correct
+      Composition composition = bundle.Entry.Select(entry => entry.Resource as Composition).FirstOrDefault(c => c != null);
+      Assert.Equal("86804-2", composition.Type.Coding[0].Code);
+      FetalDeathRecord record2 = new FetalDeathRecord(bundle.ToJson());
+      IJEFetalDeath ije2 = new IJEFetalDeath(record2);
+      // Make sure that all the field values match the original
+      List<PropertyInfo> properties = typeof(IJEFetalDeath).GetProperties().ToList();
+      foreach (PropertyInfo property in properties)
+      {
+        Assert.Equal(property.GetValue(ije), property.GetValue(ije2));
       }
     }
 
