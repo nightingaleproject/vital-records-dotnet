@@ -143,6 +143,18 @@ namespace VR
             return null;
         }
 
+        /// <summary>
+        /// Helper to support retrieval of matching Observations in cases where there can be multiple matches.
+        /// </summary>
+        /// <param name="code">The code to identify the type of Observation.</param>
+        /// <returns>A list of matching Observations, or an empty list if no matches are found.</returns>
+        protected List<Observation> GetObservations(string code)
+        {
+            return Bundle.Entry.Where(e => e.Resource is Observation obs && CodeableConceptToDict(obs.Code)["code"] == code)
+                               .Select(e => (Observation)e.Resource)
+                               .ToList();
+        }
+
         /// <summary>Helper to support vital record property getter helper methods for removing Observations.</summary>
         /// <param name="code">the code to identify the type of Observation</param>
         protected void RemoveObservation(string code)

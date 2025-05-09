@@ -49,7 +49,11 @@ namespace BFDR
                                         "National Center for Health Statistics");
         // Add the correct observations to the bundle and composition
         AddResourceToBundleAndComposition(GetObservation("92022-3"), "86804-2", CodeSystems.LOINC, ccofdBundle);
-        AddResourceToBundleAndComposition(GetObservation("92023-1"), "86804-2", CodeSystems.LOINC, ccofdBundle);
+        var otherFetalDeathCauseObservations = GetObservations("92023-1");
+        foreach (var observation in otherFetalDeathCauseObservations)
+        {
+            AddResourceToBundleAndComposition(observation, "86804-2", CodeSystems.LOINC, ccofdBundle);
+        }
         return ccofdBundle;
     }
 
