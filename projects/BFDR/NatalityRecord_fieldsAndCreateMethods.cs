@@ -118,9 +118,9 @@ namespace BFDR
             IEnumerable<FHIRSubject> subjects = this.GetType().GetProperty(propertyName).GetCustomAttributes(false).OfType<FHIRSubject>();
             if ((subjects == null) || subjects.Count() == 0)
             {
-                return Mother.Id;
+                return Mother?.Id;
             }
-            return subjects.First().subject == FHIRSubject.Subject.Newborn ? Subject.Id : Mother.Id;
+            return subjects.First().subject == FHIRSubject.Subject.Newborn ? Subject?.Id : Mother?.Id;
         }
 
         /// <summary>Create Attendant/Practitioner.</summary>
