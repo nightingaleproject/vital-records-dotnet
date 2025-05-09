@@ -1,0 +1,71 @@
+{
+  "resourceType": "Bundle",
+  "id": "CodedCauseMessage",
+  "meta": {
+    "profile": [
+      "http://cdc.gov/nchs/nvss/fhir/vital-records-messaging/StructureDefinition/VRM-CauseOfDeathCodingMessage"
+    ]
+  },
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "MessageHeader",
+        "id": "CodedCauseMessageHeader",
+        "meta": {
+          "profile": [
+            "http://cdc.gov/nchs/nvss/fhir/vital-records-messaging/StructureDefinition/VRM-CauseOfDeathCodingHeader"
+          ]
+        },
+        "source": {
+          "endpoint": "http://nchs.cdc.gov/bfdr_submission"
+        },
+        "destination": [
+          {
+            "endpoint": "https://example.com/jurisdiction/message/endpoint"
+          }
+        ],
+        "focus": [
+          {
+            "reference": "Bundle/cd9fa913-55f2-4dfd-940d-11e77344362a"
+          }
+        ],
+        "eventUri": "http://nchs.cdc.gov/fd_causeofdeath_coding"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Parameters",
+        "id": "CodedCauseMessageParameters",
+        "meta": {
+          "profile": [
+            "http://cdc.gov/nchs/nvss/fhir/vital-records-messaging/StructureDefinition/VRM-MessageParameters"
+          ]
+        },
+        "parameter": [
+          {
+            "name": "jurisdiction_id",
+            "valueString": "MA"
+          },
+          {
+            "name": "cert_no",
+            "valueUnsignedInt": 874232
+          },
+          {
+            "name": "event_year",
+            "valueUnsignedInt": 2022
+          },
+          {
+            "name": "state_auxiliary_id",
+            "valueString": "abcdef20"
+          },
+          {
+            "name": "payload_version_id",
+            "valueString": "VRDRSTU2.2"
+          }
+        ]
+      }
+    }
+  ],
+  "type": "message",
+  "timestamp": "2022-04-11T00:00:00Z"
+}

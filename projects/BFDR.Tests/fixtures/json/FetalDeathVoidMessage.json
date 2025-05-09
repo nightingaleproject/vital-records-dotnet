@@ -1,0 +1,75 @@
+{
+  "resourceType": "Bundle",
+  "id": "FDVoidMessage",
+  "meta": {
+    "profile": [
+      "http://cdc.gov/nchs/nvss/fhir/vital-records-messaging/StructureDefinition/VRM-VoidMessage"
+    ]
+  },
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "MessageHeader",
+        "id": "FDVoidHeader",
+        "meta": {
+          "profile": [
+            "http://cdc.gov/nchs/nvss/fhir/vital-records-messaging/StructureDefinition/VRM-VoidHeader"
+          ]
+        },
+        "source": {
+          "endpoint": "http://mitre.org/bfdr"
+        },
+        "destination": [
+          {
+            "endpoint": "http://nchs.cdc.gov/bfdr_submission"
+          }
+        ],
+        "focus": [
+          {
+            "display": "Header for FD Void Message"
+          }
+        ],
+        "eventUri": "http://nchs.cdc.gov/fd_submission_void"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Parameters",
+        "id": "FDVoidParams",
+        "meta": {
+          "profile": [
+            "http://cdc.gov/nchs/nvss/fhir/vital-records-messaging/StructureDefinition/VRM-VoidParameters"
+          ]
+        },
+        "parameter": [
+          {
+            "name": "jurisdiction_id",
+            "valueString": "MA"
+          },
+          {
+            "name": "cert_no",
+            "valueUnsignedInt": 63214
+          },
+          {
+            "name": "event_year",
+            "valueUnsignedInt": 2022
+          },
+          {
+            "name": "state_auxiliary_id",
+            "valueString": "abc00020"
+          },
+          {
+            "name": "payload_version_id",
+            "valueString": "VRDRSTU2.2"
+          },
+          {
+            "name": "block_count",
+            "valueUnsignedInt": 8
+          }
+        ]
+      }
+    }
+  ],
+  "type": "message",
+  "timestamp": "2022-04-18T00:00:00Z"
+}

@@ -1,0 +1,75 @@
+{
+  "resourceType": "Bundle",
+  "id": "FDAckMessage",
+  "meta": {
+    "profile": [
+      "http://cdc.gov/nchs/nvss/fhir/vital-records-messaging/StructureDefinition/VRM-AcknowledgementMessage"
+    ]
+  },
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "MessageHeader",
+        "id": "FDAckHeader",
+        "meta": {
+          "profile": [
+            "http://cdc.gov/nchs/nvss/fhir/vital-records-messaging/StructureDefinition/VRM-AcknowledgementHeader"
+          ]
+        },
+        "source": {
+          "endpoint": "http://nchs.cdc.gov/fd_submission"
+        },
+        "destination": [
+          {
+            "endpoint": "http://mitre.org/bfdr"
+          }
+        ],
+        "response": {
+          "code": "ok",
+          "identifier": "cd9fa913-55f2-4dfd-940d-11e77344362a"
+        },
+        "focus": [
+          {
+            "reference": "Parameters/148f66f7-49fa-4118-947e-636bd89d5dbc"
+          }
+        ],
+        "eventUri": "http://nchs.cdc.gov/fd_acknowledgement"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Parameters",
+        "id": "148f66f7-49fa-4118-947e-636bd89d5dbc",
+        "meta": {
+          "profile": [
+            "http://cdc.gov/nchs/nvss/fhir/vital-records-messaging/StructureDefinition/VRM-MessageParameters"
+          ]
+        },
+        "parameter": [
+          {
+            "name": "jurisdiction_id",
+            "valueString": "MA"
+          },
+          {
+            "name": "cert_no",
+            "valueUnsignedInt": 874232
+          },
+          {
+            "name": "event_year",
+            "valueUnsignedInt": 2022
+          },
+          {
+            "name": "state_auxiliary_id",
+            "valueString": "abcdef20"
+          },
+          {
+            "name": "payload_version_id",
+            "valueString": "VRDRSTU2.2"
+          }
+        ]
+      }
+    }
+  ],
+  "type": "message",
+  "timestamp": "2022-04-12T00:00:00Z"
+}
