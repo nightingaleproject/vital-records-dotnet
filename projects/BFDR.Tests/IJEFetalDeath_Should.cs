@@ -99,6 +99,21 @@ namespace BFDR.Tests
     }
 
     [Fact]
+    public void IndependentCOD1xab()
+    {
+      IJEFetalDeath ije = new();
+      ije.COD18a8 = "foo";
+      Assert.Equal("foo", ije.COD18a8.Trim());
+      ije.COD18b8 = "bar";
+      Assert.Equal("foo", ije.COD18a8.Trim());
+      Assert.Equal("bar", ije.COD18b8.Trim());
+      ije.COD18b8 = "bar";
+      ije.COD18a8 = "foo";
+      Assert.Equal("foo", ije.COD18a8.Trim());
+      Assert.Equal("bar", ije.COD18b8.Trim());
+    }
+
+    [Fact]
     public void ParseEstimatedTimeOfFetalDeath()
     {
       IJEFetalDeath ije = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/FetalDeathRecord.ije")));
@@ -212,7 +227,7 @@ namespace BFDR.Tests
       Assert.Equal("", ije.MRACE21C.Trim());
       Assert.Equal("", ije.MRACE22C.Trim());
       Assert.Equal("", ije.MRACE23C.Trim());
-      Assert.Equal("2", ije.ATTEND); 
+      Assert.Equal("2", ije.ATTEND);
       Assert.Equal("", ije.TRAN.Trim());
       Assert.Equal("99", ije.DOFP_MO);
       Assert.Equal("99", ije.DOFP_DY);
@@ -223,7 +238,7 @@ namespace BFDR.Tests
       Assert.Equal("", ije.NPREV.Trim());
       Assert.Equal("", ije.NPREV_BYPASS.Trim());
       Assert.Equal("5", ije.HFT);
-      Assert.Equal("3", ije.HIN);
+      Assert.Equal("03", ije.HIN);
       Assert.Equal("0", ije.HGT_BYPASS);
       Assert.Equal("182", ije.PWGT);
       Assert.Equal("0", ije.PWGT_BYPASS);
@@ -318,14 +333,14 @@ namespace BFDR.Tests
       Assert.Equal("N", ije.COD18a5);
       Assert.Equal("N", ije.COD18a6);
       Assert.Equal("N", ije.COD18a7);
-      Assert.Equal("NO PRENATAL CARE", ije.COD18a8.Trim()); 
+      Assert.Equal("NO PRENATAL CARE", ije.COD18a8.Trim());
       Assert.Equal("", ije.COD18a9.Trim());
       Assert.Equal("", ije.COD18a10.Trim());
-      Assert.Equal("", ije.COD18a11.Trim()); 
+      Assert.Equal("", ije.COD18a11.Trim());
       Assert.Equal("99          0", ije.COD18a12.Trim());
       Assert.Equal("", ije.COD18a13.Trim());
       Assert.Equal("", ije.COD18a13.Trim());
-      Assert.Equal("", ije.COD18a14.Trim()); 
+      Assert.Equal("", ije.COD18a14.Trim());
       Assert.Equal("N", ije.COD18b1);
       Assert.Equal("N", ije.COD18b2);
       Assert.Equal("N", ije.COD18b3);
@@ -337,7 +352,7 @@ namespace BFDR.Tests
       Assert.Equal("", ije.COD18b9.Trim());
       Assert.Equal("", ije.COD18b10.Trim());
       Assert.Equal("NONE IDENTIFIED", ije.COD18b11.Trim());
-      Assert.Equal("", ije.COD18b12.Trim()); 
+      Assert.Equal("", ije.COD18b12.Trim());
       Assert.Equal("", ije.COD18b13.Trim());
       Assert.Equal("INTRAUTERINE FETAL DEMISE", ije.COD18b14.Trim());
       Assert.Equal("", ije.ICOD.Trim());
@@ -367,7 +382,7 @@ namespace BFDR.Tests
       Assert.Equal("", ije.ZIPCODE_D.Trim());
       Assert.Equal("", ije.CNTY_D.Trim());
       Assert.Equal("", ije.CITY_D.Trim());
-      Assert.Equal("", ije.STATE_D.Trim()); 
+      Assert.Equal("", ije.STATE_D.Trim());
       Assert.Equal("", ije.COUNTRY_D.Trim());
       Assert.Equal("", ije.LONG_D.Trim());
       Assert.Equal("", ije.LAT_D.Trim());
@@ -379,18 +394,18 @@ namespace BFDR.Tests
       Assert.Equal("", ije.MOMMMID.Trim());
       Assert.Equal("", ije.MOMMAIDN.Trim());
       Assert.Equal("", ije.MOMMSUFFIX.Trim());
-      Assert.Equal("XXXX", ije.STNUM.Trim()); 
-      Assert.Equal("S", ije.PREDIR.Trim()); 
-      Assert.Equal("14 TH", ije.STNAME.Trim()); 
-      Assert.Equal("ST", ije.STDESIG.Trim()); 
+      Assert.Equal("XXXX", ije.STNUM.Trim());
+      Assert.Equal("S", ije.PREDIR.Trim());
+      Assert.Equal("14 TH", ije.STNAME.Trim());
+      Assert.Equal("ST", ije.STDESIG.Trim());
       Assert.Equal("", ije.POSTDIR.Trim());
       Assert.Equal("", ije.APTNUMB.Trim());
-      Assert.Equal("XXXX S 14 TH ST", ije.ADDRESS.Trim()); 
-      Assert.Equal("XXXXX", ije.ZIPCODE.Trim()); 
-      Assert.Equal("XXXXXXXXX", ije.COUNTYTXT.Trim()); 
-      Assert.Equal("xxxxxx xxxx", ije.CITYTXT.Trim()); 
+      Assert.Equal("XXXX S 14 TH ST", ije.ADDRESS.Trim());
+      Assert.Equal("XXXXX", ije.ZIPCODE.Trim());
+      Assert.Equal("XXXXXXXXX", ije.COUNTYTXT.Trim());
+      Assert.Equal("xxxxxx xxxx", ije.CITYTXT.Trim());
       Assert.Equal("Delaware", ije.STATETXT.Trim());
-      Assert.Equal("United States", ije.CNTRYTXT.Trim()); 
+      Assert.Equal("United States", ije.CNTRYTXT.Trim());
       Assert.Equal("", ije.LONG.Trim());
       Assert.Equal("", ije.LAT.Trim());
       Assert.Equal("", ije.DADFNAME.Trim());
@@ -413,8 +428,8 @@ namespace BFDR.Tests
       Assert.Equal("", ije.FBPLACE_CNT_C.Trim());
       // Assert.Equal("", ije.MBPLACE_ST_TER_TXT.Trim()); // roundtrip pulls from the code to text translation for the BLPACE_ST_TER field so this isn't rountripping
       // Assert.Equal("", ije.MBPLACE_CNTRY_TXT.Trim()); // null error resolved with padding, but pulls from the code to text translation so there is a mis match
-      Assert.Equal("", ije.FBPLACE_ST_TER_TXT.Trim()); 
-      Assert.Equal("", ije.FBPLACE_CNTRY_TXT.Trim()); 
+      Assert.Equal("", ije.FBPLACE_ST_TER_TXT.Trim());
+      Assert.Equal("", ije.FBPLACE_CNTRY_TXT.Trim());
       Assert.Equal("", ije.FEDUC.Trim());
       Assert.Equal("", ije.FEDUC_BYPASS.Trim());
       Assert.Equal("U", ije.FETHNIC1.Trim()); // blanks become u when round tripped, is this correct?
@@ -537,15 +552,15 @@ namespace BFDR.Tests
       FetalDeathRecord dr = ije.ToRecord();
       Assert.Equal("HI", dr.EventLocationJurisdiction);
       ije.DSTATE = "TT";
-      Assert.Equal("TT", ije.DSTATE); 
+      Assert.Equal("TT", ije.DSTATE);
       dr = ije.ToRecord();
       Assert.Equal("TT", dr.EventLocationJurisdiction);
       ije.DSTATE = "TS";
-      Assert.Equal("TS", ije.DSTATE); 
+      Assert.Equal("TS", ije.DSTATE);
       dr = ije.ToRecord();
       Assert.Equal("TS", dr.EventLocationJurisdiction);
       ije.DSTATE = "ZZ";
-      Assert.Equal("ZZ", ije.DSTATE); 
+      Assert.Equal("ZZ", ije.DSTATE);
       dr = ije.ToRecord();
       Assert.Equal("ZZ", dr.EventLocationJurisdiction);
     }
