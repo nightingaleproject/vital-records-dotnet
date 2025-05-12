@@ -29,6 +29,9 @@ namespace BFDR
             MessageBundle = messageBundle;
 
             // Validate bundle type is message
+            // TODO: This condition is unsatisfiable due to an identical condition in the base CommonMessage constructor.
+            // In this case, the CommonMessage constructor throws a System.ArgumentException. We may want to revisit these
+            // constructors in order to provide a more useful error message to the user.
             if (messageBundle?.Type != Bundle.BundleType.Message && !ignoreBundleType)
             {
                 String actualType = messageBundle?.Type == null ? "null" : messageBundle?.Type.ToString();
