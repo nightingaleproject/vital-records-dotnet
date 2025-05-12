@@ -15,6 +15,9 @@
   <ItemGroup>
     <None Update="fixtures/ije/romeroIje.ije" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures/json/BirthRecordR.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="fixtures/json/BirthRecordInvalidLocation.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="fixtures/json/FetalDeathRecordInvalidLocation.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="fixtures/json/DeathRecordInvalidLocation.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures/json/CauseOfDeathCodingMessage.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures/json/EmptyMessage.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures\json\DocumentTypePayload.json">
