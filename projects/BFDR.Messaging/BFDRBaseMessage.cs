@@ -29,6 +29,9 @@ namespace BFDR
             MessageBundle = messageBundle;
 
             // Validate bundle type is message
+            // TODO: This condition is unsatisfiable due to an identical condition in the base CommonMessage constructor.
+            // In this case, the CommonMessage constructor throws a System.ArgumentException. We may want to revisit these
+            // constructors in order to provide a more useful error message to the user.
             if (messageBundle?.Type != Bundle.BundleType.Message && !ignoreBundleType)
             {
                 String actualType = messageBundle?.Type == null ? "null" : messageBundle?.Type.ToString();
@@ -94,7 +97,7 @@ namespace BFDR
         /// <param name="permissive">if the parser should be permissive when parsing the given string</param>
         /// <returns>The deserialized message object</returns>
         /// <exception cref="MessageParseException">Thrown when source does not represent the same or a subtype of the type parameter.</exception>
-        public static T Parse<T>(StreamReader source, bool permissive = false) where T: BFDRBaseMessage
+        public static T Parse<T>(StreamReader source, bool permissive = false) where T : BFDRBaseMessage
         {
             BFDRBaseMessage typedMessage = Parse(source, permissive);
             if (!typeof(T).IsInstanceOfType(typedMessage))
@@ -112,7 +115,7 @@ namespace BFDR
         /// <param name="bundle">A FHIR Bundle</param>
         /// <returns>The message object of the appropriate message type</returns>
         /// <exception cref="MessageParseException">Thrown when source does not represent the same or a subtype of the type parameter.</exception>
-        public static T Parse<T>(Bundle bundle) where T: BFDRBaseMessage
+        public static T Parse<T>(Bundle bundle) where T : BFDRBaseMessage
         {
             BFDRBaseMessage typedMessage = Parse(bundle);
             if (!typeof(T).IsInstanceOfType(typedMessage))
@@ -131,7 +134,7 @@ namespace BFDR
         /// <param name="permissive">if the parser should be permissive when parsing the given string</param>
         /// <returns>the deserialized message object</returns>
         /// <exception cref="MessageParseException">thrown when source does not represent the same or a subtype of the type parameter.</exception>
-        public static T Parse<T>(string source, bool permissive = false) where T: BFDRBaseMessage
+        public static T Parse<T>(string source, bool permissive = false) where T : BFDRBaseMessage
         {
             BFDRBaseMessage typedMessage = Parse(source, permissive);
             if (!typeof(T).IsInstanceOfType(typedMessage))
@@ -258,7 +261,7 @@ namespace BFDR
         /// <returns>The natality record inside the base message</returns>
         public static NatalityRecord GetNatalityRecordFromMessage(BFDRBaseMessage message)
         {
-                
+
             Type messageType = message.GetType();
 
             NatalityRecord nr = null;
@@ -266,41 +269,41 @@ namespace BFDR
             switch (messageType.Name)
             {
                 case "BirthRecordSubmissionMessage":
-                {
-                    var brsm = message as BirthRecordSubmissionMessage;
-                    nr = brsm?.BirthRecord;
-                    break;
-                }
+                    {
+                        var brsm = message as BirthRecordSubmissionMessage;
+                        nr = brsm?.BirthRecord;
+                        break;
+                    }
                 case "BirthRecordUpdateMessage":
-                {
-                    var brsm = message as BirthRecordUpdateMessage;
-                    nr = brsm?.BirthRecord;
-                    break;
-                }
+                    {
+                        var brsm = message as BirthRecordUpdateMessage;
+                        nr = brsm?.BirthRecord;
+                        break;
+                    }
                 case "BFDRParentalDemographicsCodingMessage":
-                {
-                    var brsm = message as BFDRParentalDemographicsCodingMessage;
-                    nr = brsm?.NatalityRecord;
-                    break;
-                }
+                    {
+                        var brsm = message as BFDRParentalDemographicsCodingMessage;
+                        nr = brsm?.NatalityRecord;
+                        break;
+                    }
                 case "BFDRParentalDemographicsCodingUpdateMessage":
-                {
-                    var brsm = message as BFDRParentalDemographicsCodingUpdateMessage;
-                    nr = brsm?.NatalityRecord;
-                    break;
-                }
+                    {
+                        var brsm = message as BFDRParentalDemographicsCodingUpdateMessage;
+                        nr = brsm?.NatalityRecord;
+                        break;
+                    }
                 case "FetalDeathRecordSubmissionMessage":
-                {
-                    var brsm = message as FetalDeathRecordSubmissionMessage;
-                    nr = brsm?.FetalDeathRecord;
-                    break;
-                }
+                    {
+                        var brsm = message as FetalDeathRecordSubmissionMessage;
+                        nr = brsm?.FetalDeathRecord;
+                        break;
+                    }
                 case "FetalDeathRecordUpdateMessage":
-                {
-                    var brsm = message as FetalDeathRecordUpdateMessage;
-                    nr = brsm?.FetalDeathRecord;
-                    break;
-                }
+                    {
+                        var brsm = message as FetalDeathRecordUpdateMessage;
+                        nr = brsm?.FetalDeathRecord;
+                        break;
+                    }
             }
 
             return nr;
@@ -330,7 +333,9 @@ namespace BFDR
         public BirthRecordErrorMessage CreateBirthRecordExtractionErrorMessage()
         {
             var message = new BirthRecordErrorMessage(sourceMessage);
-            message.Issues.Add(new Issue(OperationOutcome.IssueSeverity.Error, OperationOutcome.IssueType.Exception, this.Message));
+            List<BFDR.Issue> issues = message.Issues;
+            issues.Add(new Issue(OperationOutcome.IssueSeverity.Error, OperationOutcome.IssueType.Exception, this.Message));
+            message.Issues = issues;
             return message;
         }
 
@@ -340,7 +345,9 @@ namespace BFDR
         public FetalDeathRecordErrorMessage CreateFetalDeathRecordExtractionErrorMessage()
         {
             var message = new FetalDeathRecordErrorMessage(sourceMessage);
-            message.Issues.Add(new Issue(OperationOutcome.IssueSeverity.Error, OperationOutcome.IssueType.Exception, this.Message));
+            List<BFDR.Issue> issues = message.Issues;
+            issues.Add(new Issue(OperationOutcome.IssueSeverity.Error, OperationOutcome.IssueType.Exception, this.Message));
+            message.Issues = issues;
             return message;
         }
     }
