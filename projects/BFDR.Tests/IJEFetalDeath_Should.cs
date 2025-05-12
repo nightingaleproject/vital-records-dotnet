@@ -99,6 +99,21 @@ namespace BFDR.Tests
     }
 
     [Fact]
+    public void IndependentCOD1xab()
+    {
+      IJEFetalDeath ije = new();
+      ije.COD18a8 = "foo";
+      Assert.Equal("foo", ije.COD18a8.Trim());
+      ije.COD18b8 = "bar";
+      Assert.Equal("foo", ije.COD18a8.Trim());
+      Assert.Equal("bar", ije.COD18b8.Trim());
+      ije.COD18b8 = "bar";
+      ije.COD18a8 = "foo";
+      Assert.Equal("foo", ije.COD18a8.Trim());
+      Assert.Equal("bar", ije.COD18b8.Trim());
+    }
+
+    [Fact]
     public void ParseEstimatedTimeOfFetalDeath()
     {
       IJEFetalDeath ije = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/FetalDeathRecord.ije")));

@@ -189,7 +189,7 @@ namespace VR
 
         /// <summary> Date of Death Determination Methods </summary>
         public static string DateOfDeathDeterminationMethods = "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-date-of-death-determination-methods-cs";
-    
+
         /// <summary> Death Pregnancy Status </summary>
         public static string DeathPregnancyStatus = "http://hl7.org/fhir/us/vrdr/CodeSystem/CodeSystem-death-pregnancy-status";
 
@@ -206,5 +206,8 @@ namespace VR
 
         /// <summary> Discharge Disposition </summary>
         public static string DischargeDisposition = "http://terminology.hl7.org/CodeSystem/discharge-disposition";
+
+        /// <summary> US Core condition category </summary>
+        public static string ConditionCategory = "http://terminology.hl7.org/CodeSystem/condition-category";
     }
 }
