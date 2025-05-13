@@ -215,19 +215,12 @@ namespace VRDR.CLI
                 // SSN
                 deathRecord.SSN = "123456789";
 
-                // Ethnicity
-                deathRecord.Ethnicity2Helper = VR.ValueSets.YesNoUnknown.Yes;
-
-                // Race
-                Tuple<string, string>[] race = { Tuple.Create(NvssRace.White, "Y"), Tuple.Create(NvssRace.NativeHawaiian, "Y"), Tuple.Create(NvssRace.OtherPacificIslander, "Y") };
-                deathRecord.Race = race;
-
                 // MaritalStatus
                 Dictionary<string, string> mscode = new Dictionary<string, string>();
                 mscode.Add("code", "S");
                 mscode.Add("system", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus");
                 mscode.Add("display", "Never Married");
-                deathRecord.MaritalStatus = mscode;
+                deathRecord.MaritalStatus = mscode; 
 
                 // FatherGivenNames
                 string[] fnames = { "Father", "Middle" };
@@ -288,21 +281,41 @@ namespace VRDR.CLI
                 mserv.Add("display", "Yes");
                 deathRecord.MilitaryService = mserv;
 
-                // // MorticianGivenNames
-                // string[] fdnames = { "FD", "Middle" };
-                // deathRecord.MorticianGivenNames = fdnames;
+                //FetalDeathRecordId
+                //deathRecord.FetalDeathRecordId = "99999999";
 
-                // // MorticianFamilyName
-                // deathRecord.MorticianFamilyName = "Last";
+                ////FetalDeathRecordState
+                //deathRecord.FetalDeathRecordState = "TX";
+                
+                ////FetalDeathRecordYear
+                //deathRecord.FetalDeathRecordYear = "1950";
 
-                // // MorticianSuffix
-                // deathRecord.MorticianSuffix = "Jr.";
+                // MorticianGivenNames
+                string[] fdnames = { "FD", "Middle" };
+                deathRecord.MorticianGivenNames = fdnames;
 
-                // // MorticianIdentifier
-                // var mortId = new Dictionary<string, string>();
-                // mortId["value"] = "9876543210";
-                // mortId["system"] = "http://hl7.org/fhir/sid/us-npi";
-                // deathRecord.MorticianIdentifier = mortId;
+                // MorticianFamilyName
+                deathRecord.MorticianFamilyName = "Last";
+
+                // MorticianSuffix
+                deathRecord.MorticianSuffix = "Jr.";
+
+                // MorticianIdentifier
+                var mortId = new Dictionary<string, string>();
+                mortId["value"] = "9876543210";
+                mortId["system"] = "http://hl7.org/fhir/sid/us-npi";
+                deathRecord.MorticianIdentifier = mortId;
+
+                Dictionary<string, string> morticianAaddress = new Dictionary<string, string>();
+                morticianAaddress.Add("addressLine1", "1234 Example Street");
+                morticianAaddress.Add("addressLine2", "Line 2");
+                morticianAaddress.Add("addressCity", "Bedford");
+                morticianAaddress.Add("addressCounty", "Middlesex");
+                morticianAaddress.Add("addressState", "MA");
+                morticianAaddress.Add("addressZip", "01730");
+                morticianAaddress.Add("addressCountry", "US");
+
+                deathRecord.MorticianAddress = morticianAaddress;
 
                 // FuneralHomeAddress
                 Dictionary<string, string> fdaddress = new Dictionary<string, string>();
@@ -445,7 +458,7 @@ namespace VRDR.CLI
 
                 // AgeAtDeath
                 Dictionary<string, string> aad = new Dictionary<string, string>();
-                aad.Add("code", "a");
+                aad.Add("code", VR.ValueSets.UnitsOfAge.Years);
                 aad.Add("value", "79");
                 deathRecord.AgeAtDeath = aad;
 
@@ -469,7 +482,8 @@ namespace VRDR.CLI
                 // deathRecord.PronouncerIdentifier = pronouncerId;
 
                 Console.WriteLine(XDocument.Parse(deathRecord.ToXML()).ToString() + "\n\n");
-                //Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(Newtonsoft.Json.JsonConvert.DeserializeObject(deathRecord.ToJSON()), Newtonsoft.Json.Formatting.Indented) + "\n\n");
+                Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(Newtonsoft.Json.JsonConvert.DeserializeObject(deathRecord.ToJSON()), Newtonsoft.Json.Formatting.Indented) + "\n\n");
+                
                 return 0;
             }
             else if (args.Length == 4 && args[0] == "connectathon")
@@ -983,18 +997,7 @@ namespace VRDR.CLI
                         }
                         Console.WriteLine();
                         break;
-                    case DemographicsCodingMessage codingResponse:
-                        Console.WriteLine($"First Edited Race Code: {codingResponse.DeathRecord.FirstEditedRaceCodeHelper}");
-                        Console.WriteLine($"Second Edited Race Code: {codingResponse.DeathRecord.SecondEditedRaceCodeHelper}");
-                        Console.WriteLine($"Third Edited Race Code: {codingResponse.DeathRecord.ThirdEditedRaceCodeHelper}");
-                        Console.WriteLine($"Fourth Edited Race Code: {codingResponse.DeathRecord.FourthEditedRaceCodeHelper}");
-                        Console.WriteLine($"Fifth Edited Race Code: {codingResponse.DeathRecord.FifthEditedRaceCodeHelper}");
-                        Console.WriteLine($"Sixth Edited Race Code: {codingResponse.DeathRecord.SixthEditedRaceCodeHelper}");
-                        Console.WriteLine($"Seventh Edited Race Code: {codingResponse.DeathRecord.SeventhEditedRaceCodeHelper}");
-                        Console.WriteLine($"Eighth Edited Race Code: {codingResponse.DeathRecord.EighthEditedRaceCodeHelper}");
-                        Console.WriteLine($"First American Indian Race Code: {codingResponse.DeathRecord.FirstAmericanIndianRaceCodeHelper}");
-                        Console.WriteLine($"Second American Indian Race Code: {codingResponse.DeathRecord.SecondAmericanIndianRaceCodeHelper}");
-                        break;
+                  
                     default:
                         Console.WriteLine("Message does not appear to be a CodingMessage");
                         break;
@@ -1145,8 +1148,8 @@ namespace VRDR.CLI
             ijeRecord.DOD_YR = mre.Substring(0, 4);
             ijeRecord.DSTATE = mre.Substring(4, 2);
             ijeRecord.FILENO = mre.Substring(6, 6);
-            ijeRecord.DETHNICE = mre.Substring(342, 3);
-            ijeRecord.DETHNIC5C = mre.Substring(345, 3);
+            //ijeRecord.DETHNICE = mre.Substring(342, 3);
+           // ijeRecord.DETHNIC5C = mre.Substring(345, 3);
 
             return (ijeRecord);
         }
@@ -1158,8 +1161,8 @@ namespace VRDR.CLI
             mreString = mreString.Insert(4, ije.DSTATE);
             mreString = mreString.Insert(6, ije.FILENO);
             mreString = mreString.Insert(15, ijeString.Substring(246, 324));
-            mreString = mreString.Insert(342, ije.DETHNICE);
-            mreString = mreString.Insert(345, ije.DETHNIC5C);
+            //mreString = mreString.Insert(342, ije.DETHNICE);
+            //mreString = mreString.Insert(345, ije.DETHNIC5C);
             return (mreString);
         }
 
