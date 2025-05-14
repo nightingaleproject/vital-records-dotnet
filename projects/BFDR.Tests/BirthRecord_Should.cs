@@ -3821,6 +3821,11 @@ namespace BFDR.Tests
           Assert.Equal(record.FatherCodedOccupation, testRecord.FatherCodedOccupation);
           Assert.Equal(record.MotherCodedIndustry, testRecord.MotherCodedIndustry);
           Assert.Equal(record.FatherCodedIndustry, testRecord.FatherCodedIndustry);
+          // Test the helper methods as well
+          Assert.Equal(record.MotherCodedOccupationHelper, testRecord.MotherCodedOccupationHelper);
+          Assert.Equal(record.FatherCodedOccupationHelper, testRecord.FatherCodedOccupationHelper);
+          Assert.Equal(record.MotherCodedIndustryHelper, testRecord.MotherCodedIndustryHelper);
+          Assert.Equal(record.FatherCodedIndustryHelper, testRecord.FatherCodedIndustryHelper);
         }
       }
     }
@@ -3839,16 +3844,22 @@ namespace BFDR.Tests
       ije.DAD_IN_T = "Father industry";
       // Some fields do not exist in IJE, so we set those after converting to a FHIR record
       BirthRecord record = ije.ToBirthRecord();
-      // TODO: Set fields
+      record.MotherCodedOccupationHelper = "13-2011";
+      record.FatherCodedOccupationHelper = "27-2011";
+      record.MotherCodedIndustryHelper = "54121";
+      record.FatherCodedIndustryHelper = "5223";
       Bundle bundle = record.GetCodedIndustryAndOccupationBundle();
       Assert.Equal(Bundle.BundleType.Document, bundle.Type);
       // Make sure the composition type is correct
       Composition composition = bundle.Entry.Select(entry => entry.Resource as Composition).FirstOrDefault(c => c != null);
       Assert.Equal("industry_occupation_document", composition.Type.Coding[0].Code);
       // Test that the information that can't be represented in IJE was set correctly
-      // TODO: Add these tests
-      // Test that the values that can be represented in IJE were set correctly
       BirthRecord record2 = new BirthRecord(bundle.ToJson());
+      Assert.Equal(record.MotherCodedOccupationHelper, record2.MotherCodedOccupationHelper);
+      Assert.Equal(record.FatherCodedOccupationHelper, record2.FatherCodedOccupationHelper);
+      Assert.Equal(record.MotherCodedIndustryHelper, record2.MotherCodedIndustryHelper);
+      Assert.Equal(record.FatherCodedIndustryHelper, record2.FatherCodedIndustryHelper);
+      // Test that the values that can be represented in IJE were set correctly
       IJEBirth ije2 = new IJEBirth(record2);
       // Make sure that all the field values match the original
       List<PropertyInfo> properties = typeof(IJEBirth).GetProperties().ToList();
