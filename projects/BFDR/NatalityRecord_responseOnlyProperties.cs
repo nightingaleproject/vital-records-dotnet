@@ -67,7 +67,95 @@ namespace BFDR
             }
         }
 
-        // Coded getter and setter for 4 things that use the above, helpers for all for can just use GetObservationValueHelper
+        // TODO: Add Helpers for each of the below using GetObservationValueHelper; may need a version that doesn't expect codes
+        // TODO: Add basic tests for these in addition to the bundle ones
 
+        /// <summary>Coded Occupation of Mother.</summary>
+        /// <value>the occupation of the mother as a Dictionary containing coded information</value>
+        /// <example>
+        /// <para>Dictionary&lt;string, string&gt; occ = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>occ.Add("code", "27-2011");</para>
+        /// <para>occ.Add("system", "urn:oid:2.16.840.1.114222.4.11.8068");</para>
+        /// <para>occ.Add("display", "Actors");</para>
+        /// <para>ExampleBirthRecord.MotherCodedOccupation = occ;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother's Occupation: {ExampleBirthRecord.MotherCodedOccupation["display"]}");</para>
+        /// </example>
+        [Property("MotherCodedOccupation", Property.Types.Dictionary, "Mother Information", "Mother's Occupation", true, IGURL.ObservationPresentJob, false, 282)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='11341-5')", "")]
+        public Dictionary<string, string> MotherCodedOccupation
+        {
+            get => GetCodedOccupation("MTH");
+            set => SetCodedOccupation("MTH", value);
+        }
+
+        /// <summary>Coded Occupation of Father.</summary>
+        /// <value>the occupation of the father as a Dictionary containing coded information</value>
+        /// <example>
+        /// <para>Dictionary&lt;string, string&gt; occ = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>occ.Add("code", "27-2011");</para>
+        /// <para>occ.Add("system", "urn:oid:2.16.840.1.114222.4.11.8068");</para>
+        /// <para>occ.Add("display", "Actors");</para>
+        /// <para>ExampleBirthRecord.FatherCodedOccupation = occ;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Father's Occupation: {ExampleBirthRecord.FatherCodedOccupation["display"]}");</para>
+        /// </example>
+        [Property("FatherCodedOccupation", Property.Types.Dictionary, "Father Information", "Father's Occupation", true, IGURL.ObservationPresentJob, false, 282)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='11341-5')", "")]
+        public Dictionary<string, string> FatherCodedOccupation
+        {
+            get => GetCodedOccupation("MTH");
+            set => SetCodedOccupation("MTH", value);
+        }
+
+        /// <summary>Coded Industry of Mother.</summary>
+        /// <value>the industry of the mother as a Dictionary containing coded information</value>
+        /// <example>
+        /// <para>Dictionary&lt;string, string&gt; ind = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>ind.Add("code", "336411");</para>
+        /// <para>ind.Add("system", "urn:oid:2.16.840.1.114222.4.11.8067");</para>
+        /// <para>ind.Add("display", "Aircraft Manufacturing");</para>
+        /// <para>ExampleBirthRecord.MotherCodedIndustry = ind;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother's Industry: {ExampleBirthRecord.MotherCodedIndustry["display"]}");</para>
+        /// </example>
+        [Property("MotherCodedIndustry", Property.Types.Dictionary, "Mother Information", "Mother's Industry", true, IGURL.ObservationPresentJob, false, 282)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='11341-5')", "")]
+        public Dictionary<string, string> MotherCodedIndustry
+        {
+            get => GetCodedIndustry("MTH");
+            set => SetCodedIndustry("MTH", value);
+        }
+
+        /// <summary>Coded Industry of Father.</summary>
+        /// <value>the industry of the father as a Dictionary containing coded information</value>
+        /// <example>
+        /// <para>Dictionary&lt;string, string&gt; ind = new Dictionary&lt;string, string&gt;();</para>
+        /// <para>ind.Add("code", "336411");</para>
+        /// <para>ind.Add("system", "urn:oid:2.16.840.1.114222.4.11.8067");</para>
+        /// <para>ind.Add("display", "Aircraft Manufacturing");</para>
+        /// <para>ExampleBirthRecord.FatherCodedIndustry = ind;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Father's Industry: {ExampleBirthRecord.FatherCodedIndustry["display"]}");</para>
+        /// </example>
+        [Property("FatherCodedIndustry", Property.Types.Dictionary, "Father Information", "Father's Industry", true, IGURL.ObservationPresentJob, false, 282)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='11341-5')", "")]
+        public Dictionary<string, string> FatherCodedIndustry
+        {
+            get => GetCodedIndustry("FTH");
+            set => SetCodedIndustry("FTH", value);
+        }
     }
 }

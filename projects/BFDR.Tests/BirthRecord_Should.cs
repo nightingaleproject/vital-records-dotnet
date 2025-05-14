@@ -3816,7 +3816,11 @@ namespace BFDR.Tests
         {
           // Confirm identifier match
           Assert.Equal(record.RecordIdentifier, testRecord.RecordIdentifier);
-          // TODO: When coded industry and occupation fields are supported include them here
+          // Confirm industry and occupation coded fields match
+          Assert.Equal(record.MotherCodedOccupation, testRecord.MotherCodedOccupation);
+          Assert.Equal(record.FatherCodedOccupation, testRecord.FatherCodedOccupation);
+          Assert.Equal(record.MotherCodedIndustry, testRecord.MotherCodedIndustry);
+          Assert.Equal(record.FatherCodedIndustry, testRecord.FatherCodedIndustry);
         }
       }
     }

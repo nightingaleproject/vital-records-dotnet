@@ -3686,6 +3686,58 @@
         <member name="M:BFDR.NatalityRecord.CreateMaternityEncounter">
             <summary>Create Maternity Encounter.</summary>
         </member>
+        <member name="P:BFDR.NatalityRecord.MotherCodedOccupation">
+            <summary>Coded Occupation of Mother.</summary>
+            <value>the occupation of the mother as a Dictionary containing coded information</value>
+            <example>
+            <para>Dictionary&lt;string, string&gt; occ = new Dictionary&lt;string, string&gt;();</para>
+            <para>occ.Add("code", "27-2011");</para>
+            <para>occ.Add("system", "urn:oid:2.16.840.1.114222.4.11.8068");</para>
+            <para>occ.Add("display", "Actors");</para>
+            <para>ExampleBirthRecord.MotherCodedOccupation = occ;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's Occupation: {ExampleBirthRecord.MotherCodedOccupation["display"]}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherCodedOccupation">
+            <summary>Coded Occupation of Father.</summary>
+            <value>the occupation of the father as a Dictionary containing coded information</value>
+            <example>
+            <para>Dictionary&lt;string, string&gt; occ = new Dictionary&lt;string, string&gt;();</para>
+            <para>occ.Add("code", "27-2011");</para>
+            <para>occ.Add("system", "urn:oid:2.16.840.1.114222.4.11.8068");</para>
+            <para>occ.Add("display", "Actors");</para>
+            <para>ExampleBirthRecord.FatherCodedOccupation = occ;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Father's Occupation: {ExampleBirthRecord.FatherCodedOccupation["display"]}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.MotherCodedIndustry">
+            <summary>Coded Industry of Mother.</summary>
+            <value>the industry of the mother as a Dictionary containing coded information</value>
+            <example>
+            <para>Dictionary&lt;string, string&gt; ind = new Dictionary&lt;string, string&gt;();</para>
+            <para>ind.Add("code", "336411");</para>
+            <para>ind.Add("system", "urn:oid:2.16.840.1.114222.4.11.8067");</para>
+            <para>ind.Add("display", "Aircraft Manufacturing");</para>
+            <para>ExampleBirthRecord.MotherCodedIndustry = ind;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's Industry: {ExampleBirthRecord.MotherCodedIndustry["display"]}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherCodedIndustry">
+            <summary>Coded Industry of Father.</summary>
+            <value>the industry of the father as a Dictionary containing coded information</value>
+            <example>
+            <para>Dictionary&lt;string, string&gt; ind = new Dictionary&lt;string, string&gt;();</para>
+            <para>ind.Add("code", "336411");</para>
+            <para>ind.Add("system", "urn:oid:2.16.840.1.114222.4.11.8067");</para>
+            <para>ind.Add("display", "Aircraft Manufacturing");</para>
+            <para>ExampleBirthRecord.FatherCodedIndustry = ind;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Father's Industry: {ExampleBirthRecord.FatherCodedIndustry["display"]}");</para>
+            </example>
+        </member>
         <member name="P:BFDR.NatalityRecord.CertificateNumber">
             <summary>Certificate Number.</summary>
             <value>a record identification string.</value>
