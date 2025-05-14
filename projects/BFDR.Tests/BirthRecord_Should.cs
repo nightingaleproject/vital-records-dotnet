@@ -3829,12 +3829,29 @@ namespace BFDR.Tests
       ije.IDOB_YR = "2025";
       ije.BSTATE = "NJ";
       ije.FILENO = "000001";
-      // TODO: Finish
+      ije.MOM_OC_T = "Mother occupation";
+      ije.MOM_IN_T = "Mother industry";
+      ije.DAD_OC_T = "Father occupation";
+      ije.DAD_IN_T = "Father industry";
       // Some fields do not exist in IJE, so we set those after converting to a FHIR record
       BirthRecord record = ije.ToBirthRecord();
-      // record.
-      record.GetCodedIndustryAndOccupationBundle();
+      // TODO: Set fields
+      Bundle bundle = record.GetCodedIndustryAndOccupationBundle();
+      Assert.Equal(Bundle.BundleType.Document, bundle.Type);
+      // Make sure the composition type is correct
+      Composition composition = bundle.Entry.Select(entry => entry.Resource as Composition).FirstOrDefault(c => c != null);
+      Assert.Equal("industry_occupation_document", composition.Type.Coding[0].Code);
+      // Test that the information that can't be represented in IJE was set correctly
+      // TODO: Add these tests
+      // Test that the values that can be represented in IJE were set correctly
+      BirthRecord record2 = new BirthRecord(bundle.ToJson());
+      IJEBirth ije2 = new IJEBirth(record2);
+      // Make sure that all the field values match the original
+      List<PropertyInfo> properties = typeof(IJEBirth).GetProperties().ToList();
+      foreach (PropertyInfo property in properties)
+      {
+        Assert.Equal(property.GetValue(ije), property.GetValue(ije2));
+      }
     }
-
   }
 }
