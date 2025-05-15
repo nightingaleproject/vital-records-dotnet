@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Collections;
 using System.IO;
 using System.Linq;
 using Xunit;
@@ -63,7 +62,7 @@ namespace BFDR.Tests
             Assert.Equal((uint)2019, submission.EventYear);
             Assert.Equal("444455555", submission.StateAuxiliaryId);
             Assert.Equal("2019UT015075", submission.NCHSIdentifier);
-            Assert.Equal(2019, submission.BirthRecord.BirthYear);
+            Assert.Contains("2019", submission.BirthRecord.DateOfBirth);
             Assert.Equal("BFDR_STU2_0", submission.PayloadVersionId);
             Assert.Equal("15075", submission.BirthRecord.CertificateNumber);
 
@@ -111,7 +110,7 @@ namespace BFDR.Tests
             Assert.Equal((uint)2019, submission.EventYear);
             Assert.Equal("000000000042", submission.StateAuxiliaryId);
             Assert.Equal(submission.JurisdictionId, submission.BirthRecord.EventLocationJurisdiction);
-            Assert.Equal(2019, submission.BirthRecord.BirthYear);
+            Assert.Contains("2019", submission.BirthRecord.DateOfBirth);
             Assert.Null(submission.PayloadVersionId);
         }
 
@@ -171,7 +170,7 @@ namespace BFDR.Tests
             Assert.Equal((uint)2019, submission.EventYear);
             Assert.Equal("444455555", submission.StateAuxiliaryId);
             Assert.Equal("2019UT015075", submission.NCHSIdentifier);
-            Assert.Equal(2019, submission.BirthRecord.BirthYear);
+            Assert.Contains("2019", submission.BirthRecord.DateOfBirth);
             Assert.Equal("BFDR_STU2_0", submission.PayloadVersionId);
 
             // Test with null record
@@ -217,7 +216,7 @@ namespace BFDR.Tests
             Assert.Equal((uint)2019, submission.EventYear);
             Assert.Equal("000000000042", submission.StateAuxiliaryId);
             Assert.Equal(submission.JurisdictionId, submission.BirthRecord.EventLocationJurisdiction);
-            Assert.Equal(2019, submission.BirthRecord.BirthYear);
+            Assert.Contains("2019", submission.BirthRecord.DateOfBirth);
             Assert.Equal("BFDR_STU2_0", submission.PayloadVersionId);
             Assert.Equal("48858", submission.BirthRecord.CertificateNumber);
         }
