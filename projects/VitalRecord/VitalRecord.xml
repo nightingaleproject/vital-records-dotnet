@@ -7124,9 +7124,6 @@
         <member name="M:VR.VitalRecord.ConvertToDateTime(System.String)">
             <summary>Returns a Fhir DateTime object parsed from the given string.</summary>
         </member>
-        <member name="M:VR.VitalRecord.ConvertDateToFhirDateTime(Hl7.Fhir.Model.Date)">
-            <summary>Returns a Fhir DateTime object parsed from the given Date.</summary>
-        </member>
         <member name="M:VR.VitalRecord.GetDateElement(Hl7.Fhir.Model.Date,System.String)">
             <summary>Gets the specified date element based on the ExtensionURL.PartialDate from the given
             FhirDate, checking in the value and PartialDate extension, and assuming there

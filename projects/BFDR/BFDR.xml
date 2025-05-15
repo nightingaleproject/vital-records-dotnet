@@ -3338,6 +3338,41 @@
         <member name="M:BFDR.IJENatality.Set_FatherRace(System.String,System.String)">
             <summary>Adds the given race to the record for Father.</summary>
         </member>
+        <member name="M:BFDR.IJENatality.AddYear(System.String,System.String)">
+            <summary>
+            Creates and returns a new date string based on the given string and year value.
+            </summary>
+            <param name="value"></param>
+            <param name="date"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BFDR.IJENatality.AddMonth(System.String,System.String)">
+            <summary>
+            Creates and returns a new date string based on the given string and month value.
+            </summary>
+            <param name="value"></param>
+            <param name="date"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:BFDR.IJENatality.AddDay(System.String,System.String)">
+            <summary>
+            Creates and returns a new date string based on the given string and day value.
+            </summary>
+            <param name="value"></param>
+            <param name="date"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:BFDR.IJENatality.AddTime(System.String,System.String)">
+            <summary>
+            Creates and returns a new datetime string based on the given string and time value.
+            </summary>
+            <param name="value"></param>
+            <param name="date"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
         <member name="T:BFDR.Mappings">
             <summary>Mappings between IJE and FHIR value sets</summary>
         </member>
