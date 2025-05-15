@@ -208,9 +208,24 @@ namespace BFDR
                 // Is this correct? We just don't support unknowns at time anymore?
                 throw new ArgumentException($"BFDR's IJE TB cannot accept unknown '99's for time values. Given: {value}");
             }
-            Console.WriteLine("hours" + hours);
-            Console.WriteLine("mins" + minutes);
             return new Hl7.Fhir.Model.FhirDateTime((int) year, (int) month, (int)day, hours, minutes, 0, TimeSpan.Zero).ToString();
+        }
+
+        /// <summary>
+        /// Returns the time in IJE HHMM format from the given datetime string.
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <returns></returns>
+        protected static string GetTimeIJE(string dateTime)
+        {
+            string timeString = dateTime;
+            if (DateTimeOffset.TryParse(timeString, out DateTimeOffset parsedTime))
+            {
+                TimeSpan timeSpan = new TimeSpan(0, parsedTime.Hour, parsedTime.Minute, parsedTime.Second);
+                return timeSpan.ToString(@"hhmm");
+            }
+            // TODO - Throw error? Check the TimeAllowingUnknown_Get method.
+            return null;
         }
     }
 }

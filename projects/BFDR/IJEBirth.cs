@@ -172,17 +172,7 @@ namespace BFDR
         [IJEField(6, 26, 4, "Time of Birth", "TB", 4)]
         public string TB
         {
-            get
-            {
-                string timeString = record.BirthDateTime;
-                if (DateTimeOffset.TryParse(timeString, out DateTimeOffset parsedTime))
-                {
-                    TimeSpan timeSpan = new TimeSpan(0, parsedTime.Hour, parsedTime.Minute, parsedTime.Second);
-                    return timeSpan.ToString(@"hhmm");
-                }
-                // Throw error? Check the TimeAllowingUnknown_Get method.
-                return null;
-            }
+            get => GetTimeIJE(record.BirthDateTime);
             set => record.BirthDateTime = AddTime(value, record.DateOfBirth);
         }
 
