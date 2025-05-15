@@ -254,7 +254,7 @@ namespace BFDR
             {
                 return null;
             }
-            return this.Subject.BirthDateElement.GetExtension(VR.ExtensionURL.PatientBirthTime).ToString();
+            return this.Subject.BirthDateElement.GetExtension(VR.ExtensionURL.PatientBirthTime).Value.ToString();
         }
 
         /// <summary>
@@ -263,7 +263,7 @@ namespace BFDR
         /// <param name="value"></param>
         protected void SetDateTimeOfDelivery(string value)
         {
-            FhirDateTime dateTime = ConvertToDateTime(value);
+            FhirDateTime dateTime = new FhirDateTime(value);
             this.Subject.BirthDateElement = ConvertToDate(value);
             this.Subject.BirthDateElement.SetExtension(VR.ExtensionURL.PatientBirthTime, dateTime);
         }
@@ -2302,7 +2302,7 @@ namespace BFDR
                 }
                 return this.Mother.BirthDate;
             }
-            set =>this.Mother.BirthDateElement = ConvertToDate(value);
+            set => this.Mother.BirthDateElement = ConvertToDate(value);
         }
 
         // Parent ages at delivery are represented as extensions on the child Patient resource as shown below
