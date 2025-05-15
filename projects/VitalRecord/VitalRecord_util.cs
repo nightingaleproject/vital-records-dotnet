@@ -880,7 +880,7 @@ namespace VR
 
         /// <summary>Parses out the output year/month/day from the given string. Returns false if no valid FHIR date objects were extracted.
         /// A valid FHIR date object can be either: "yyyy", "yyyy-MM", or "yyyy-MM-dd </summary>
-        protected static bool ParseDateElements(string date, out int? year, out int? month, out int? day)
+        public static bool ParseDateElements(string date, out int? year, out int? month, out int? day)
         {
             if (date != null)
             {
@@ -922,7 +922,7 @@ namespace VR
         }
 
         /// <summary>Returns a Fhir Date object parsed from the given string.</summary>
-        protected static Date ConvertToDate(string date)
+        public static Date ConvertToDate(string date)
         {
             if (ParseDateElements(date, out int? year, out int? month, out int? day))
             {
@@ -962,15 +962,6 @@ namespace VR
             }
             return null;
         }
-
-        /// <summary>Returns a Fhir DateTime object parsed from the given Date.</summary>
-        protected static FhirDateTime ConvertDateToFhirDateTime(Date date)
-        {
-            FhirDateTime dt = ConvertToDateTime(date?.Value) ?? new FhirDateTime();
-            dt.Extension = date?.Extension;
-            return dt;
-        }
-
 
         /// <summary>Gets the specified date element based on the ExtensionURL.PartialDate from the given
         /// FhirDate, checking in the value and PartialDate extension, and assuming there
