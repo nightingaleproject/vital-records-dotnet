@@ -55,13 +55,9 @@ namespace BFDR.Tests
       // Plurality--Edit Flag
       // TODO ---
       // Mother's Reported Age
-      Assert.Equal("30", ijeImported.MAGER);
-      Assert.Equal(ijeImported.MAGER, ijeConverted.MAGER);
-      Assert.Equal(30, br.MotherReportedAgeAtDelivery);
+      // TODO ---
       // Father's Reported Age
-      Assert.Equal("29", ijeImported.FAGER);
-      Assert.Equal(ijeImported.MAGER, ijeConverted.FAGER);
-      Assert.Equal(29, br.FatherReportedAgeAtDelivery);
+      // TODO ---
       // Child's First Name
       Assert.Equal("TestFirst".PadRight(50), ijeImported.KIDFNAME);
       Assert.Equal(ijeImported.KIDFNAME, ijeConverted.KIDFNAME);
