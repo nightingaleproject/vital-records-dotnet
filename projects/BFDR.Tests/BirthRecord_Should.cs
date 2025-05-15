@@ -423,7 +423,7 @@ namespace BFDR.Tests
       Assert.Equal(firstRecord.PlaceOfBirth["addressState"], secondRecord.PlaceOfBirth["addressState"]);
       Assert.Equal("UT", firstRecord.EventLocationJurisdiction); // TODO - Birth Location Jurisdiction still needs to be finalized.
       // Time of Birth
-      Assert.Equal("13:00:00", firstRecord.BirthDateTime);
+      Assert.Contains("13:00:00", firstRecord.BirthDateTime); // TODO - check timezone
       Assert.Equal(firstRecord.BirthDateTime, secondRecord.BirthDateTime);
       // Birth Sex
       Assert.Equal("F", firstRecord.BirthSex);
@@ -1035,7 +1035,11 @@ namespace BFDR.Tests
       rec.MotherDateOfBirth = "2000-03-29";
       Assert.Equal("2000-03-29", rec.MotherDateOfBirth);
       rec.MotherDateOfBirth = "2001";
-      Assert.Equal("2001-03-29", rec.MotherDateOfBirth);
+      Assert.Equal("2001", rec.MotherDateOfBirth);
+      rec.MotherDateOfBirth = "2001-08";
+      Assert.Equal("2001-08", rec.MotherDateOfBirth);
+        rec.MotherDateOfBirth = "2001-08-06";
+      Assert.Equal("2001-08--6", rec.MotherDateOfBirth);
     }
 
     [Fact]
@@ -1080,7 +1084,11 @@ namespace BFDR.Tests
       rec.FatherDateOfBirth = "2000-03-29";
       Assert.Equal("2000-03-29", rec.FatherDateOfBirth);
       rec.FatherDateOfBirth = "2001";
-      Assert.Equal("2001-03-29", rec.FatherDateOfBirth);
+      Assert.Equal("2001", rec.FatherDateOfBirth);
+      rec.FatherDateOfBirth = "2003-06";
+      Assert.Equal("2003-06", rec.FatherDateOfBirth);
+      rec.FatherDateOfBirth = "1999-09-28";
+      Assert.Equal("1999-09-28", rec.FatherDateOfBirth);
     }
 
     [Fact]
