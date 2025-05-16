@@ -36,7 +36,6 @@ namespace VRDR.CLI
             }
             return 0;
         }
-
         // CompareTwo: Perform a field by field comparison of d1 to d2
         private static int CompareTwo(DeathRecord d1, DeathRecord d2)
         {
