@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VRDR.STU2.Convert", "VRDR.STU2.Convert.csproj", "{E3E8880F-F07D-0E3B-B1CF-A39A05A5DA58}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E3E8880F-F07D-0E3B-B1CF-A39A05A5DA58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3E8880F-F07D-0E3B-B1CF-A39A05A5DA58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3E8880F-F07D-0E3B-B1CF-A39A05A5DA58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3E8880F-F07D-0E3B-B1CF-A39A05A5DA58}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F2FD499A-9869-4EE2-A0A6-51E46F7B39FC}
+	EndGlobalSection
+EndGlobal

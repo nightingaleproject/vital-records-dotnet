@@ -1,37 +1,12 @@
-
-
-
-            using System;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Xml;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Collections;
 using System.Collections.Generic;
-using System.Xml.Linq;
-using System.Reflection;
-using System.Net.Http;
-using Hl7.Fhir.Model;
-using Hl7.Fhir.Serialization;
-using Hl7.Fhir.ElementModel;
-using Hl7.FhirPath;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using VRDR;
-using VR;
-using System.Text.Encodings.Web;
-using System.Text.Json;
-using System.Text.Unicode;
 
 namespace VRDR.CLI
 {
     partial class Program
     {
-    
-    // UrisSTU3toSTU2: URIs that change between VRDR STU2.2 and STU3 and can be simply string substituted
-    private static readonly Dictionary<string, string> UrisSTU3toSTU2 = new Dictionary<string, string>
+
+        // UrisSTU3toSTU2: URIs that change between VRDR STU2.2 and STU3 and can be simply string substituted
+        private static readonly Dictionary<string, string> UrisSTU3toSTU2 = new Dictionary<string, string>
         {
             { "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag", "http://hl7.org/fhir/us/vrdr/StructureDefinition/BypassEditFlag" },
             { "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-jurisdiction-id-vr", "http://hl7.org/fhir/us/vrdr/StructureDefinition/Location-Jurisdiction-Id" },
@@ -62,7 +37,7 @@ namespace VRDR.CLI
             { "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-jurisdictions-vr", "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-jurisdictions-cs" },
             { "http://hl7.org/fhir/us/vrdr/CodeSystem/CodeSystem-death-pregnancy-status", "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-pregnancy-status-cs" }
         };
-    // dateTimeComponentsSTU3toSTU2: URIs that change between VRDR STU2.2 and STU3 and can't be simply string substituted
+        // dateTimeComponentsSTU3toSTU2: URIs that change between VRDR STU2.2 and STU3 and can't be simply string substituted
         private static readonly Dictionary<string, string> dateTimeComponentsSTU3toSTU2 = new Dictionary<string, string>
         {
             { "day", "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Day" },
@@ -70,6 +45,6 @@ namespace VRDR.CLI
             { "year", "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Year" },
             { "time", "http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Time" }
         };
- 
+
     };
 }
