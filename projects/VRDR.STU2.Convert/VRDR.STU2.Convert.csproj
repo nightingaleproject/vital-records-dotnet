@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="../VRDR.CLI/Program_convert.cs" Link="Lib/Program_convert.cs" />
+    <Compile Include="../VRDR.CLI/Program_urimaps.cs" Link="Lib/Program_urimaps.cs" />
+    <PackageReference Include="Hl7.Fhir.R4" Version="4.3.0" />
+    <PackageReference Include="JsonDiffPatch.Net" Version="2.4.0" />
+    <PackageReference Include="VRDR" Version="4.4.3" />
+  </ItemGroup>
+</Project>
