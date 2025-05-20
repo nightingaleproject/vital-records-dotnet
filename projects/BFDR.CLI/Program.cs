@@ -58,7 +58,7 @@ namespace BFDR.CLI
                 Console.WriteLine(commands);
                 return (0);
             }
-            else if (args.Length == 2 && args[0] == "fakerecord" && args[1] == "birth" )
+            else if (args.Length == 2 && args[0] == "fakerecord" && args[1] == "birth")
             {
                 // 0. Set up a BirthRecord object
                 BirthRecord birthRecord = new BirthRecord();
@@ -81,10 +81,10 @@ namespace BFDR.CLI
                 birthRecord.CertifierName = "Janet Seito";
                 birthRecord.CertifierNPI = "223347044";
                 birthRecord.CertifierTitleHelper = "76231001";
-                birthRecord.AttendantName ="Avery Jones";
+                birthRecord.AttendantName = "Avery Jones";
                 birthRecord.AttendantNPI = "762310012345";
                 birthRecord.AttendantTitleHelper = "76231001";
-               
+
 
                 birthRecord.EventLocationJurisdiction = "MA";
                 Dictionary<string, string> birthAddress = new Dictionary<string, string>();
@@ -149,9 +149,9 @@ namespace BFDR.CLI
                 birthRecord.MotherEthnicityLiteral = "Colombian";
                 birthRecord.MotherEthnicity3Helper = VR.ValueSets.YesNoUnknown.Yes;
                 // Mother and Father Race
-                Tuple<string, string>[] motherRace = { Tuple.Create(NvssRace.BlackOrAfricanAmerican, "Y")};
+                Tuple<string, string>[] motherRace = { Tuple.Create(NvssRace.BlackOrAfricanAmerican, "Y") };
                 birthRecord.MotherRace = motherRace;
-                Tuple<string, string>[] fatherRace = { Tuple.Create(NvssRace.White, "Y")};
+                Tuple<string, string>[] fatherRace = { Tuple.Create(NvssRace.White, "Y") };
                 birthRecord.FatherRace = fatherRace;
 
 
@@ -160,7 +160,7 @@ namespace BFDR.CLI
 
                 return 0;
             }
-            else if (args.Length == 2 && args[0] == "fakerecord" && args[1] == "fetaldeath" )
+            else if (args.Length == 2 && args[0] == "fakerecord" && args[1] == "fetaldeath")
             {
                 // 0. Set up a FetalDeathRecord object
                 FetalDeathRecord fetaldeathRecord = new FetalDeathRecord();
@@ -183,10 +183,10 @@ namespace BFDR.CLI
                 fetaldeathRecord.CertifierName = "Janet Seito";
                 fetaldeathRecord.CertifierNPI = "223347044";
                 fetaldeathRecord.CertifierTitleHelper = "76231001";
-                fetaldeathRecord.AttendantName ="Avery Jones";
+                fetaldeathRecord.AttendantName = "Avery Jones";
                 fetaldeathRecord.AttendantNPI = "762310012345";
                 fetaldeathRecord.AttendantTitleHelper = "76231001";
-               
+
 
                 fetaldeathRecord.EventLocationJurisdiction = "MA";
                 Dictionary<string, string> deliveryAddress = new Dictionary<string, string>();
@@ -204,8 +204,6 @@ namespace BFDR.CLI
 
                 fetaldeathRecord.FetalDeathSetOrder = null;
                 fetaldeathRecord.FetalDeathPlurality = null;
-                fetaldeathRecord.CyanoticCongenitalHeartDisease = true;
-                fetaldeathRecord.NoCongenitalAnomaliesOfTheNewborn = true;
                 fetaldeathRecord.EpiduralOrSpinalAnesthesia = true;
                 fetaldeathRecord.AugmentationOfLabor = true;
                 fetaldeathRecord.NoSpecifiedAbnormalConditionsOfNewborn = true;
@@ -252,9 +250,9 @@ namespace BFDR.CLI
                 fetaldeathRecord.MotherEthnicityLiteral = "Colombian";
                 fetaldeathRecord.MotherEthnicity3Helper = VR.ValueSets.YesNoUnknown.Yes;
                 // Mother and Father Race
-                Tuple<string, string>[] motherRace = { Tuple.Create(NvssRace.BlackOrAfricanAmerican, "Y")};
+                Tuple<string, string>[] motherRace = { Tuple.Create(NvssRace.BlackOrAfricanAmerican, "Y") };
                 fetaldeathRecord.MotherRace = motherRace;
-                Tuple<string, string>[] fatherRace = { Tuple.Create(NvssRace.White, "Y")};
+                Tuple<string, string>[] fatherRace = { Tuple.Create(NvssRace.White, "Y") };
                 fetaldeathRecord.FatherRace = fatherRace;
 
 
@@ -339,19 +337,19 @@ namespace BFDR.CLI
             }
             else if (args.Length > 2 && args[0] == "ije2json")
             {
-              // This command will export the files to the same directory they were imported from.
-              for (int i = 1; i < args.Length; i++)
-              {
-                  string ijeFile = args[i];
-                  string ijeRawRecord = File.ReadAllText(ijeFile);
-                  IJEBirth ije = new IJEBirth(ijeRawRecord);
-                  BirthRecord b = ije.ToRecord();
-                  string outputFilename = ijeFile.Replace(".ije", ".json");
-                  StreamWriter sw = new StreamWriter(outputFilename);
-                  sw.WriteLine(b.ToJSON());
-                  sw.Flush();
-              }
-              return 0;
+                // This command will export the files to the same directory they were imported from.
+                for (int i = 1; i < args.Length; i++)
+                {
+                    string ijeFile = args[i];
+                    string ijeRawRecord = File.ReadAllText(ijeFile);
+                    IJEBirth ije = new IJEBirth(ijeRawRecord);
+                    BirthRecord b = ije.ToRecord();
+                    string outputFilename = ijeFile.Replace(".ije", ".json");
+                    StreamWriter sw = new StreamWriter(outputFilename);
+                    sw.WriteLine(b.ToJSON());
+                    sw.Flush();
+                }
+                return 0;
             }
             else if (args.Length == 3 && args[0] == "ije2xml" && args[1] == "birth")
             {
@@ -576,34 +574,34 @@ namespace BFDR.CLI
                 return 0;
             }
 
-          //  else if (args.Length >= 3 && args[0] == "batch")
-          //  {
-          //      string url = args[1];
-          //      List<BFDRBaseMessage> messages = new List<BFDRBaseMessage>();
-          //      for (int i = 2; i < args.Length; i++)
-          //      {
-          //          messages.Add(BFDRBaseMessage.Parse(File.ReadAllText(args[i])));
-          //      }
-          //      string payload = Client.CreateBulkUploadPayload(messages, url, true);
-          //      Console.WriteLine(payload);
-          //      return 0;
-          //  }
-           // else if (args.Length == 3 && args[0] == "filter")
-           // {
-           //     Console.WriteLine($"Filtering file {args[1]}");
+            //  else if (args.Length >= 3 && args[0] == "batch")
+            //  {
+            //      string url = args[1];
+            //      List<BFDRBaseMessage> messages = new List<BFDRBaseMessage>();
+            //      for (int i = 2; i < args.Length; i++)
+            //      {
+            //          messages.Add(BFDRBaseMessage.Parse(File.ReadAllText(args[i])));
+            //      }
+            //      string payload = Client.CreateBulkUploadPayload(messages, url, true);
+            //      Console.WriteLine(payload);
+            //      return 0;
+            //  }
+            // else if (args.Length == 3 && args[0] == "filter")
+            // {
+            //     Console.WriteLine($"Filtering file {args[1]}");
 
-           //     BFDRBaseMessage baseMessage = BFDRBaseMessage.Parse(File.ReadAllText(args[1]));
-                
-           //     FilterService FilterService = new FilterService("./BFDR.Filter/NCHSIJEFilter.json", "./BFDR.Filter/IJEToFHIRMapping.json");
+            //     BFDRBaseMessage baseMessage = BFDRBaseMessage.Parse(File.ReadAllText(args[1]));
 
-           //     var filteredFile = FilterService.filterMessage(baseMessage).ToJson();
-           //     BFDRBaseMessage.Parse(filteredFile);
-           //     Console.WriteLine($"File successfully filtered and saved to {args[2]}");
-                    
-           //     File.WriteAllText(args[2], filteredFile);
-                
-           //     return 0;
-           //  }
+            //     FilterService FilterService = new FilterService("./BFDR.Filter/NCHSIJEFilter.json", "./BFDR.Filter/IJEToFHIRMapping.json");
+
+            //     var filteredFile = FilterService.filterMessage(baseMessage).ToJson();
+            //     BFDRBaseMessage.Parse(filteredFile);
+            //     Console.WriteLine($"File successfully filtered and saved to {args[2]}");
+
+            //     File.WriteAllText(args[2], filteredFile);
+
+            //     return 0;
+            //  }
             else if (args.Length == 3 && args[0] == "ije" && args[1] == "birth")
             {
 
@@ -760,13 +758,13 @@ namespace BFDR.CLI
                 Console.WriteLine(XDocument.Parse(b.ToXML()).ToString());
                 return 0;
             }
-            else if (args.Length == 3 && args[0] == "checkXml" && args[1] == "birth" )
+            else if (args.Length == 3 && args[0] == "checkXml" && args[1] == "birth")
             {
                 BirthRecord b = new BirthRecord(File.ReadAllText(args[2]), true);
                 Console.WriteLine(XDocument.Parse(b.ToXML()).ToString());
                 return 0;
             }
-            else if (args.Length == 3 && args[0] == "checkXml" && args[1] == "fetaldeath" )
+            else if (args.Length == 3 && args[0] == "checkXml" && args[1] == "fetaldeath")
             {
                 FetalDeathRecord b = new FetalDeathRecord(File.ReadAllText(args[2]), true);
                 Console.WriteLine(XDocument.Parse(b.ToXML()).ToString());
@@ -900,7 +898,7 @@ namespace BFDR.CLI
             else if (args.Length == 3 && args[0] == "roundtrip-ije" && args[1] == "fetaldeath")
             {
                 // Console.WriteLine("Converting FHIR to IJE...\n");
-                
+
                 FetalDeathRecord b = new FetalDeathRecord(File.ReadAllText(args[2]));
                 IJEFetalDeath ije1, ije2, ije3;
                 try
@@ -1106,7 +1104,7 @@ namespace BFDR.CLI
                 ijeb.MRACE8E = "";
 
                 ijeb.METHNIC1 = "N";
-                ijeb.METHNIC2 = "N";                
+                ijeb.METHNIC2 = "N";
                 ijeb.METHNIC3 = "N";
                 ijeb.METHNIC4 = "N";
                 ijeb.METHNIC5 = "";

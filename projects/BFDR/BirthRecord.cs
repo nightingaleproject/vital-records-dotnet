@@ -463,5 +463,530 @@ namespace BFDR
             get => GetDateOfDelivery();
             set => SetDateOfDelivery(value);
         }
+
+        //
+        // Congenital Anomalies of the Newborn Section
+        //
+
+        /// <summary>No Congenital Anomalies of the Newborn.</summary>
+        [Property("No Congenital Anomalies of the Newborn", Property.Types.Bool, "Congenital Anomalies of the Newborn",
+                  "No Congenital Anomalies of the Newborn", true, IGURL.ObservationNoneOfSpecifiedCongenitalAnomoliesOfTheNewborn, false, 219)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Observation, categoryCode: "73780-9", code: VitalRecord.NONE_OF_THE_ABOVE, section: NEWBORN_INFORMATION_SECTION)]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public bool NoCongenitalAnomaliesOfTheNewborn
+        {
+            get => EntryExists();
+            set => UpdateEntry(value);
+        }
+
+        /// <summary>Congenital Anomalies of the Newborn, Anencephaly.</summary>
+        [Property("Anencephaly", Property.Types.Bool, "Congenital Anomalies of the Newborn",
+                  "Congenital Anomalies of the Newborn, Anencephaly", true, IGURL.ConditionCongenitalAnomalyOfNewborn, true, 219)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "73780-9", code: "89369001", section: NEWBORN_INFORMATION_SECTION)]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public bool Anencephaly
+        {
+            get => EntryExists();
+            set => UpdateEntry(value);
+        }
+
+        /// <summary>Congenital Anomalies of the Newborn, Cleft Lip with or without Cleft Palate.</summary>
+        [Property("Cleft Lip with or without Cleft Palate", Property.Types.Bool, "Congenital Anomalies of the Newborn",
+                  "Congenital Anomalies of the Newborn, Cleft Lip with or without Cleft Palate", true, IGURL.ConditionCongenitalAnomalyOfNewborn, true, 226)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "73780-9", code: "80281008", section: NEWBORN_INFORMATION_SECTION)]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public bool CleftLipWithOrWithoutCleftPalate
+        {
+            get => EntryExists();
+            set => UpdateEntry(value);
+        }
+
+        /// <summary>Congenital Anomalies of the Newborn, Cleft Palate Alone.</summary>
+        [Property("Cleft Palate Alone", Property.Types.Bool, "Congenital Anomalies of the Newborn",
+                  "Congenital Anomalies of the Newborn, Cleft Palate Alone", true, IGURL.ConditionCongenitalAnomalyOfNewborn, true, 227)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "73780-9", code: "87979003", section: NEWBORN_INFORMATION_SECTION)]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public bool CleftPalateAlone
+        {
+            get => EntryExists();
+            set => UpdateEntry(value);
+        }
+
+        /// <summary>Congenital Anomalies of the Newborn, Congenital Diaphragmatic Hernia.</summary>
+        [Property("Congenital Diaphragmatic Hernia", Property.Types.Bool, "Congenital Anomalies of the Newborn",
+                  "Congenital Anomalies of the Newborn, Congenital Diaphragmatic Hernia", true, IGURL.ConditionCongenitalAnomalyOfNewborn, true, 222)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "73780-9", code: "17190001", section: NEWBORN_INFORMATION_SECTION)]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public bool CongenitalDiaphragmaticHernia
+        {
+            get => EntryExists();
+            set => UpdateEntry(value);
+        }
+
+        /// <summary>Congenital Anomalies of the Newborn, Cyanotic Congenital Heart Disease.</summary>
+        [Property("Cyanotic Congenital Heart Disease", Property.Types.Bool, "Congenital Anomalies of the Newborn",
+                  "Congenital Anomalies of the Newborn, Cyanotic Congenital Heart Disease", true, IGURL.ConditionCongenitalAnomalyOfNewborn, true, 221)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "73780-9", code: "12770006", section: NEWBORN_INFORMATION_SECTION)]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public bool CyanoticCongenitalHeartDisease
+        {
+            get => EntryExists();
+            set => UpdateEntry(value);
+        }
+
+        /// <summary>Congenital Anomalies of the Newborn, Down Syndrome.</summary>
+        [Property("Down Syndrome", Property.Types.Bool, "Congenital Anomalies of the Newborn",
+                  "Congenital Anomalies of the Newborn, Down Syndrome", true, IGURL.ConditionCongenitalAnomalyOfNewborn, true, 228)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "73780-9", code: "70156005", section: NEWBORN_INFORMATION_SECTION)]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public bool DownSyndrome
+        {
+            get => EntryExists();
+            set => UpdateEntry(value);
+        }
+
+        /// <summary>Congenital Anomalies of the Newborn, Gastroschisis.</summary>
+        [Property("Gastroschisis", Property.Types.Bool, "Congenital Anomalies of the Newborn",
+                  "Congenital Anomalies of the Newborn, Gastroschisis", true, IGURL.ConditionCongenitalAnomalyOfNewborn, true, 224)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "73780-9", code: "72951007", section: NEWBORN_INFORMATION_SECTION)]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public bool Gastroschisis
+        {
+            get => EntryExists();
+            set => UpdateEntry(value);
+        }
+
+        /// <summary>Congenital Anomalies of the Newborn, Hypospadias.</summary>
+        [Property("Hypospadias", Property.Types.Bool, "Congenital Anomalies of the Newborn",
+                  "Congenital Anomalies of the Newborn, Hypospadias", true, IGURL.ConditionCongenitalAnomalyOfNewborn, true, 230)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "73780-9", code: "416010008", section: NEWBORN_INFORMATION_SECTION)]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public bool Hypospadias
+        {
+            get => EntryExists();
+            set => UpdateEntry(value);
+        }
+
+        /// <summary>Congenital Anomalies of the Newborn, Limb Reduction Defect.</summary>
+        [Property("Limb Reduction Defect", Property.Types.Bool, "Congenital Anomalies of the Newborn",
+                  "Congenital Anomalies of the Newborn, Limb Reduction Defect", true, IGURL.ConditionCongenitalAnomalyOfNewborn, true, 225)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "73780-9", code: "67341007", section: NEWBORN_INFORMATION_SECTION)]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public bool LimbReductionDefect
+        {
+            get => EntryExists();
+            set => UpdateEntry(value);
+        }
+
+        /// <summary>Congenital Anomalies of the Newborn, Meningomyelocele.</summary>
+        [Property("Meningomyelocele", Property.Types.Bool, "Congenital Anomalies of the Newborn",
+                  "Congenital Anomalies of the Newborn, Meningomyelocele", true, IGURL.ConditionCongenitalAnomalyOfNewborn, true, 220)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "73780-9", code: "67531005", section: NEWBORN_INFORMATION_SECTION)]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public bool Meningomyelocele
+        {
+            get => EntryExists();
+            set => UpdateEntry(value);
+        }
+
+        /// <summary>Congenital Anomalies of the Newborn, Omphalocele.</summary>
+        [Property("Omphalocele", Property.Types.Bool, "Congenital Anomalies of the Newborn",
+                  "Congenital Anomalies of the Newborn, Omphalocele", true, IGURL.ConditionCongenitalAnomalyOfNewborn, true, 223)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "73780-9", code: "18735004", section: NEWBORN_INFORMATION_SECTION)]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public bool Omphalocele
+        {
+            get => EntryExists();
+            set => UpdateEntry(value);
+        }
+
+        /// <summary>Congenital Anomalies of the Newborn, Suspected Chromosomal Disorder.</summary>
+        [Property("Suspected Chromosomal Disorder", Property.Types.Bool, "Congenital Anomalies of the Newborn",
+                  "Congenital Anomalies of the Newborn, Suspected Chromosomal Disorder", true, IGURL.ConditionCongenitalAnomalyOfNewborn, true, 229)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "73780-9", code: "409709004", section: NEWBORN_INFORMATION_SECTION)]
+        [FHIRSubject(FHIRSubject.Subject.Newborn)]
+        public bool SuspectedChromosomalDisorder
+        {
+            get => EntryExists();
+            set => UpdateEntry(value);
+        }
+
+        /// <summary>Infections Present During Pregnancy, Chlamydia.</summary>
+        [Property("Chlamydia", Property.Types.Bool, "Infections Present During Pregnancy",
+                  "Infections Present During Pregnancy, Chlamydia", true, IGURL.ConditionInfectionPresentDuringPregnancy, true, 171)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "72519-2", code: "105629000", section: MEDICAL_INFORMATION_SECTION)]
+        public bool Chlamydia
+        {
+            get => EntryExists();
+            set => UpdateEntry(value);
+        }
+
+        /// <summary>Infections Present During Pregnancy, Gonorrhea.</summary>
+        [Property("Gonorrhea", Property.Types.Bool, "Infections Present During Pregnancy",
+                  "Infections Present During Pregnancy, Gonorrhea", true, IGURL.ConditionInfectionPresentDuringPregnancy, true, 168)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "72519-2", code: "15628003", section: MEDICAL_INFORMATION_SECTION)]
+        public bool Gonorrhea
+        {
+            get => EntryExists();
+            set => UpdateEntry(value);
+        }
+
+        /// <summary>Infections Present During Pregnancy, Syphilis.</summary>
+        [Property("Syphilis", Property.Types.Bool, "Infections Present During Pregnancy",
+                  "Infections Present During Pregnancy, Syphilis", true, IGURL.ConditionInfectionPresentDuringPregnancy, true, 169)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "72519-2", code: "76272004", section: MEDICAL_INFORMATION_SECTION)]
+        public bool Syphilis
+        {
+            get => EntryExists();
+            set => UpdateEntry(value);
+        }
+
+        /// <summary>Previous Preterm Birth.</summary>
+        [Property("Previous Preterm Birth", Property.Types.Bool, "Pregnancy Risk Factors",
+                  "Pregnancy Risk Factors, Previous Preterm Birth", true, IGURL.ObservationPreviousPretermBirth, true, 245)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Observation, categoryCode: "73775-9", code: "161765003", section: MEDICAL_INFORMATION_SECTION)]
+        public bool PreviousPretermBirth
+        {
+            get => EntryExists();
+            set => UpdateEntry(value);
+        }
+
+        /// <summary>Date Of Last Other Pregnancy Outcome Day</summary>
+        /// <value>the date of the last other pregnancy outcome day
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.DateOfLastOtherPregnancyOutcomeDay = 4;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Date of Last Other Pregnancy Outcome: {ExampleBirthRecord.DateOfLastOtherPregnancyOutcomeDay}");</para>
+        /// </example>
+        [Property("DateOfLastOtherPregnancyOutcomeDay", Property.Types.Int32, "Date of Last Other Pregnancy Outcome", "Date of last other pregnancy outcome.", false, IGURL.ObservationDateOfLastOtherPregnancyOutcome, false, 34)]
+        [PropertyParam("DateOfLastOtherPregnancyOutcomeDay", "The day of the last other pregnancy outcome.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='68500-8')", "")]
+        public int? DateOfLastOtherPregnancyOutcomeDay
+        {
+            get
+            {
+
+                Observation obs = GetObservation("68500-8");
+                if (obs != null)
+                {
+                    return GetDateFragmentOrPartialDate(obs.Value, VR.ExtensionURL.PartialDateDayVR);
+                }
+                return null;
+            }
+            set
+            {
+                Observation obs = GetOrCreateObservation("68500-8", CodeSystems.LOINC, "Date of last other pregnancy outcome", BFDR.ProfileURL.ObservationDateOfLastOtherPregnancyOutcome, DATE_OF_LAST_OTHER_PREGNANCY_OUTCOME, Mother.Id);
+                if (obs.Value as Hl7.Fhir.Model.FhirDateTime == null)
+                {
+                    obs.Value = new FhirDateTime();
+                    obs.Extension.Add(NewBlankPartialDateTimeExtension(false));
+                }
+                FhirDateTime newDate = UpdateFhirDateTimeDateElement(obs.Value as FhirDateTime, value, VR.ExtensionURL.PartialDateDayVR);
+                if (newDate != null)
+                {
+                    obs.Value = newDate;
+                }
+            }
+        }
+
+        /// <summary>Date Of Last Other Pregnancy Outcome Month</summary>
+        /// <value>the date of the last other pregnancy outcome month
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.DateOfLastOtherPregnancyOutcomeMonth = 4;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Date of Last Other Pregnancy Outcome: {ExampleBirthRecord.DateOfLastOtherPregnancyOutcomeMonth}");</para>
+        /// </example>
+        [Property("DateOfLastOtherPregnancyOutcomeMonth", Property.Types.Int32, "Date of Last Other Pregnancy Outcome", "Date of last other pregnancy outcome.", false, IGURL.ObservationDateOfLastOtherPregnancyOutcome, false, 34)]
+        [PropertyParam("dateOfLastOtherPregnancyOutcomeMonth", "The month of the last other pregnancy outcome.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='68500-8')", "")]
+        public int? DateOfLastOtherPregnancyOutcomeMonth
+        {
+            get
+            {
+                Observation obs = GetObservation("68500-8");
+                if (obs != null)
+                {
+                    return GetDateFragmentOrPartialDate(obs.Value, VR.ExtensionURL.PartialDateMonthVR);
+                }
+                return null;
+            }
+            set
+            {
+                Observation obs = GetOrCreateObservation("68500-8", CodeSystems.LOINC, "Date of last other pregnancy outcome", BFDR.ProfileURL.ObservationDateOfLastOtherPregnancyOutcome, DATE_OF_LAST_OTHER_PREGNANCY_OUTCOME, Mother.Id);
+                if (obs.Value as Hl7.Fhir.Model.FhirDateTime == null)
+                {
+                    obs.Value = new FhirDateTime();
+                    obs.Value.Extension.Add(NewBlankPartialDateTimeExtension(false));
+                }
+                FhirDateTime newDate = UpdateFhirDateTimeDateElement(obs.Value as FhirDateTime, value, VR.ExtensionURL.PartialDateMonthVR);
+                if (newDate != null)
+                {
+                    obs.Value = newDate;
+                }
+            }
+        }
+
+        /// <summary>Date Of Last Other Pregnancy Outcome year</summary>
+        /// <value>the date of the Mother's last other pregnancy outcome
+        /// </value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.DateOfLastOtherPregnancyOutcomeYear = 2022;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Date of Last Other Pregnancy Outcome:: {ExampleBirthRecord.DateOfLastOtherPregnancyOutcomeYear}");</para>
+        /// </example>
+        [Property("DateOfLastOtherPregnancyOutcomeYear", Property.Types.Int32, "Date of Last Other Pregnancy Outcome", "Date of last other pregnancy outcome.", false, IGURL.ObservationDateOfLastOtherPregnancyOutcome, false, 34)]
+        [PropertyParam("dateOfLastOtherPregnancyOutcomeYear", "The year of the last other pregnancy outcome.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='68500-8')", "")]
+        public int? DateOfLastOtherPregnancyOutcomeYear
+        {
+            get
+            {
+                Observation obs = GetObservation("68500-8");
+                if (obs != null)
+                {
+                    return GetDateFragmentOrPartialDate(obs.Value, VR.ExtensionURL.PartialDateYearVR);
+                }
+                return null;
+            }
+            set
+            {
+                Observation obs = GetOrCreateObservation("68500-8", CodeSystems.LOINC, "Date of last other pregnancy outcome", BFDR.ProfileURL.ObservationDateOfLastOtherPregnancyOutcome, DATE_OF_LAST_OTHER_PREGNANCY_OUTCOME, Mother.Id);
+                if (obs.Value as Hl7.Fhir.Model.FhirDateTime == null)
+                {
+                    obs.Value = new FhirDateTime();
+                    obs.Value.Extension.Add(NewBlankPartialDateTimeExtension(false));
+                }
+                FhirDateTime newDate = UpdateFhirDateTimeDateElement(obs.Value as FhirDateTime, value, VR.ExtensionURL.PartialDateYearVR);
+                if (newDate != null)
+                {
+                    obs.Value = newDate;
+                }
+            }
+        }
+
+        /// <summary>Date Of Last Other Pregnancy Outcome.</summary>
+        /// <value>Date of Last Other Pregnancy Outcome</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.DateOfLastOtherPregnancyOutcome = "2020-02-19";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Date of Last Other Pregnancy Outcome: {ExampleBirthRecord.DateOfLastOtherPregnancyOutcome}");</para>
+        /// </example>
+        [Property("Date Of Last Other Pregnancy Outcome", Property.Types.String, "Date of Last Other Pregnancy Outcome", "Date of mother's last live birth.", true, IGURL.ObservationDateOfLastOtherPregnancyOutcome, true, 14)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='68500-8')", "")]
+        public string DateOfLastOtherPregnancyOutcome
+        {
+            get
+            {
+                Observation obs = GetObservation("68500-8");
+                if (obs != null)
+                {
+                    return (obs.Value as Hl7.Fhir.Model.FhirDateTime)?.Value;
+                }
+                return null;
+            }
+            set
+            {
+                Observation obs = GetOrCreateObservation("68500-8", CodeSystems.LOINC, "Date of last other pregnancy outcome", BFDR.ProfileURL.ObservationDateOfLastOtherPregnancyOutcome, DATE_OF_LAST_OTHER_PREGNANCY_OUTCOME, Mother.Id);
+                obs.Value = ConvertToDateTime(value);
+            }
+        }
+
+        /// <summary>NumberOfPrenatalVisits.</summary>
+        /// <value>NumberOfPrenatalVisits</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.NumberOfPrenatalVisits = 4;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"NumberOfPrenatalVisits: {ExampleBirthRecord.NumberOfPrenatalVisits}");</para>
+        /// </example>
+        [Property("Number Of Prenatal Visits", Property.Types.Int32, "Number of Prenatal Visits", "Number of Prenatal Visits.", true, IGURL.ObservationNumberPrenatalVisits, true, 14)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='68493-6')", "")]
+        public int? NumberOfPrenatalVisits
+        {
+            get => GetIntegerObservationValue("68493-6");
+            set => SetIntegerObservationValue("68493-6", CodeSystems.LOINC, value, BFDR.ProfileURL.ObservationNumberPrenatalVisits, NUMBER_OF_PRENATAL_VISITS, Mother.Id);
+        }
+
+        /// <summary>NumberOfPrenatalVisitsEditFlag.</summary>
+        /// <value>NumberOfPrenatalVisitsEditFlag</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.NumberOfPrenatalVisitsEditFlag = 4;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"NumberOfPrenatalVisitsEditFlag: {ExampleBirthRecord.NumberOfPrenatalVisitsEditFlag}");</para>
+        /// </example>
+        [Property("Number Of Prenatal Visits Edit Flag", Property.Types.Dictionary, "Number of Prenatal Visits", "Number of Prenatal Visits Edit Flag.", true, IGURL.ObservationNumberPrenatalVisits, true, 14)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='68493-6')", "")]
+        public Dictionary<string, string> NumberOfPrenatalVisitsEditFlag
+        {
+            get
+            {
+                Observation obs = GetObservation("68493-6");
+                Extension editFlag = obs?.Value?.Extension.FirstOrDefault(ext => ext.Url == VR.ExtensionURL.BypassEditFlag);
+                if (editFlag != null && editFlag.Value != null && editFlag.Value.GetType() == typeof(CodeableConcept))
+                {
+                    return CodeableConceptToDict((CodeableConcept)editFlag.Value);
+                }
+                return EmptyCodeableDict();
+            }
+            set
+            {
+                if (IsDictEmptyOrDefault(value))
+                {
+                    return;
+                }
+                Observation obs = GetObservation("68493-6");
+                if (obs == null)
+                {
+                    obs = GetOrCreateObservation("68493-6", CodeSystems.LOINC, "Number of prenatal visits", BFDR.ProfileURL.ObservationNumberPrenatalVisits, NUMBER_OF_PRENATAL_VISITS, Mother.Id);
+                    obs.Value = new UnsignedInt();
+                }
+                obs.Value?.Extension.RemoveAll(ext => ext.Url == VR.ExtensionURL.BypassEditFlag);
+                Extension editFlag = new Extension(VR.ExtensionURL.BypassEditFlag, DictToCodeableConcept(value));
+                obs.Value.Extension.Add(editFlag);
+            }
+        }
+
+        /// <summary>
+        /// NumberOfPrenatalVisitsEditFlag Helper
+        /// </summary>
+        [Property("NumberOfPrenatalVisitsEditFlagHelper", Property.Types.String, "Number of Prenatal Visits", "NumberOfPrenatalVisitsEditFlag.", false, IGURL.ObservationNumberPrenatalVisits, true, 2)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='68493-6')", "")]
+        public String NumberOfPrenatalVisitsEditFlagHelper
+        {
+            get
+            {
+                return NumberOfPrenatalVisitsEditFlag.ContainsKey("code") && !String.IsNullOrWhiteSpace(NumberOfPrenatalVisitsEditFlag["code"]) ? NumberOfPrenatalVisitsEditFlag["code"] : null;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    SetCodeValue("NumberOfPrenatalVisitsEditFlag", value, BFDR.ValueSets.PregnancyReportEditFlags.Codes);
+                }
+            }
+        }
+
+        /// <summary>NumberOfOtherPregnancyOutcomes.</summary>
+        /// <value>NumberOfOtherPregnancyOutcomes</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.NumberOfOtherPregnancyOutcomes = 1;</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"NumberOfOtherPregnancyOutcomes: {ExampleBirthRecord.NumberOfOtherPregnancyOutcomes}");</para>
+        /// </example>
+        [Property("NumberOfOtherPregnancyOutcomes", Property.Types.Int32, "Number Of Other Pregnancy Outcomes", "Number Of Other Pregnancy Outcomes", true, IGURL.ObservationNumberOtherPregnancyOutcomes, true, 14)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='69043-8')", "")]
+        public int? NumberOfOtherPregnancyOutcomes
+        {
+            get => GetIntegerObservationValue("69043-8");
+            set => SetIntegerObservationValue("69043-8", CodeSystems.LOINC, value, BFDR.ProfileURL.ObservationNumberOtherPregnancyOutcomes, NUMBER_OF_OTHER_PREGNANCY_OUTCOMES, Mother.Id);
+        }
+
+        /// <summary>Mother Transferred</summary>
+        /// <value>Mother transferred</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotherTransferred = "hosp-trans";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother transferred: {ExampleBirthRecord.MotherTransferred}");</para>
+        /// </example>
+        [Property("MotherTransferred", Property.Types.Dictionary, "MotherTransferred", "MotherTransferred", false, VR.IGURL.Mother, true, 288)]
+        [PropertyParam("code", "The code used to describe this concept.")]
+        [PropertyParam("system", "The relevant code system.")]
+        [PropertyParam("display", "The human readable version of this code.")]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient)", "hospitalization")]
+        public Dictionary<string, string> MotherTransferred
+        {
+            get
+            {
+                Dictionary<string, string> admitSource = CodeableConceptToDict(EncounterMaternity?.Hospitalization?.AdmitSource);
+                return admitSource;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    return;
+                }
+                // TODO define CC
+                CodeableConcept admitSource = DictToCodeableConcept(value);
+                HospitalizationComponent hosp = new HospitalizationComponent();
+                hosp.AdmitSource = admitSource;
+                EncounterMaternity.Hospitalization = hosp;
+            }
+        }
+
+        /// <summary>Mother Transferred Helper</summary>
+        /// <value>Mother transferred helper</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleBirthRecord.MotherTransferredHelper = "hosp-trans";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"Mother transferred: {ExampleBirthRecord.MotherTransferredHelper}");</para>
+        /// </example>
+        [Property("MotherTransferred", Property.Types.String, "MotherTransferred", "MotherTransferred", false, VR.IGURL.Mother, true, 288)]
+        [FHIRPath("Bundle.entry.resource.where($this is Patient)", "hospitalization")]
+        public string MotherTransferredHelper
+        {
+            get
+            {
+                // TODO there should be a mapping for this
+                if (MotherTransferred.ContainsKey("code"))
+                {
+                    string code = MotherTransferred["code"];
+                    if (code == "hosp-trans")
+                    {
+                        // TODO add check for Transferred From name == "UNKNOWN" and return U
+                        if (FacilityMotherTransferredFrom == "UNKNOWN")
+                        {
+                            return "U";
+                        }
+                        return "Y";
+                    }
+                    if (code == "other")
+                    {
+                        return "N";
+                    }
+                }
+                return "";
+            }
+            set
+            {
+                if (String.IsNullOrEmpty(value))
+                {
+                    return;
+                }
+                // IJE values are Y, N, U, set to "hosp-trans" if value is Y
+                // https://build.fhir.org/ig/HL7/fhir-bfdr/usage.html#mother-or-infant-transferred
+                if (value == "Y")
+                {
+                    MotherTransferred = CodeableConceptToDict(new CodeableConcept(CodeSystems.AdmitSource, "hosp-trans", "Transferred from other hospital", "The Patient has been transferred from another hospital for this encounter."));
+                }
+                else if (value == "U")
+                {
+                    // If the value is unknown, set the code to hosp-trans, and the hospitalization.origin.name should be set to “UNKNOWN” 
+                    // https://build.fhir.org/ig/HL7/fhir-bfdr/usage.html#mother-or-infant-transferred
+                    MotherTransferred = CodeableConceptToDict(new CodeableConcept(CodeSystems.AdmitSource, "hosp-trans", "Transferred from other hospital", "The Patient has been transferred from another hospital for this encounter."));
+                    FacilityMotherTransferredFrom = "UNKNOWN";
+                }
+                else
+                {
+                    // all other codes should be interpretted as N with "other" as the code to express mother did not transfer
+                    MotherTransferred = CodeableConceptToDict(new CodeableConcept(CodeSystems.AdmitSource, "other", "Other", "Did not transfer"));
+                }
+            }
+        }
     }
+
 }

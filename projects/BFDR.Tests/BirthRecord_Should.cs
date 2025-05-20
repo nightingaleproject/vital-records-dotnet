@@ -1234,10 +1234,10 @@ namespace BFDR.Tests
     public void TestComplexPartialDates()
     {
       // Tests source: https://github.com/HL7/vr-common-library/blob/fixPartialDateTime/input/pagecontent/usage.md#partial-dates-and-times
-       BirthRecord br = new();
+      BirthRecord br = new();
       // 2023
       br.BirthYear = 2023;
-      Date fhirBirth = ((Patient) br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
+      Date fhirBirth = ((Patient)br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
       Extension pdt = fhirBirth.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(2023, br.BirthYear);
       Assert.Null(br.BirthMonth);
@@ -1255,7 +1255,7 @@ namespace BFDR.Tests
       // 2023-12
       br.BirthYear = 2023;
       br.BirthMonth = 12;
-      fhirBirth = ((Patient) br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
+      fhirBirth = ((Patient)br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
       pdt = fhirBirth.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(2023, br.BirthYear);
       Assert.Equal(12, br.BirthMonth);
@@ -1274,7 +1274,7 @@ namespace BFDR.Tests
       br.BirthYear = 2023;
       br.BirthMonth = 12;
       br.BirthDay = 23;
-      fhirBirth = ((Patient) br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
+      fhirBirth = ((Patient)br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
       pdt = fhirBirth.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(2023, br.BirthYear);
       Assert.Equal(12, br.BirthMonth);
@@ -1294,7 +1294,7 @@ namespace BFDR.Tests
       br.BirthMonth = 12;
       br.BirthDay = 23;
       br.BirthTime = "13:28:17-5:00";
-      fhirBirth = ((Patient) br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
+      fhirBirth = ((Patient)br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
       pdt = fhirBirth.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(2023, br.BirthYear);
       Assert.Equal(12, br.BirthMonth);
@@ -1314,7 +1314,7 @@ namespace BFDR.Tests
       br.BirthMonth = 12;
       br.BirthDay = 23;
       br.BirthTime = "-1";
-      fhirBirth = ((Patient) br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement; // THIS NEEDS TO BE FIXED
+      fhirBirth = ((Patient)br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement; // THIS NEEDS TO BE FIXED
       pdt = fhirBirth.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(2023, br.BirthYear);
       Assert.Equal(12, br.BirthMonth);
@@ -1340,7 +1340,7 @@ namespace BFDR.Tests
       br.BirthMonth = 12;
       br.BirthDay = 23;
       br.BirthTime = "18:28";
-      fhirBirth = ((Patient) br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
+      fhirBirth = ((Patient)br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
       pdt = fhirBirth.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(-1, br.BirthYear);
       Assert.Equal(12, br.BirthMonth);
@@ -1364,7 +1364,7 @@ namespace BFDR.Tests
       br.BirthMonth = -1;
       br.BirthDay = 23;
       br.BirthTime = "-1";
-      fhirBirth = ((Patient) br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
+      fhirBirth = ((Patient)br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
       pdt = fhirBirth.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(2023, br.BirthYear);
       Assert.Equal(-1, br.BirthMonth);
@@ -1390,7 +1390,7 @@ namespace BFDR.Tests
       br.BirthMonth = null;
       br.BirthDay = 23;
       br.BirthTime = "-1";
-      fhirBirth = ((Patient) br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
+      fhirBirth = ((Patient)br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
       pdt = fhirBirth.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(2023, br.BirthYear);
       Assert.Null(br.BirthMonth);
@@ -1512,8 +1512,8 @@ namespace BFDR.Tests
       BirthRecord br = new();
       // 2023
       br.DateOfLastLiveBirthYear = 2023;
-      Observation observation = (Observation) br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
-      FhirDateTime dateToUse = ((FhirDateTime) observation.Value);
+      Observation observation = (Observation)br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
+      FhirDateTime dateToUse = ((FhirDateTime)observation.Value);
       Extension pdt = dateToUse.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(2023, br.DateOfLastLiveBirthYear);
       Assert.Null(br.DateOfLastLiveBirthMonth);
@@ -1528,8 +1528,8 @@ namespace BFDR.Tests
       // 2023-12
       br.DateOfLastLiveBirthYear = 2023;
       br.DateOfLastLiveBirthMonth = 12;
-      observation = (Observation) br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
-      dateToUse = ((FhirDateTime) observation.Value);
+      observation = (Observation)br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
+      dateToUse = ((FhirDateTime)observation.Value);
       pdt = dateToUse.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(2023, br.DateOfLastLiveBirthYear);
       Assert.Equal(12, br.DateOfLastLiveBirthMonth);
@@ -1545,8 +1545,8 @@ namespace BFDR.Tests
       ije = new(br);
       br.DateOfLastLiveBirthYear = null;
       br.DateOfLastLiveBirthMonth = 12;
-      observation = (Observation) br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
-      dateToUse = ((FhirDateTime) observation.Value);
+      observation = (Observation)br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
+      dateToUse = ((FhirDateTime)observation.Value);
       pdt = dateToUse.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Null(br.DateOfLastLiveBirthYear);
       Assert.Equal(12, br.DateOfLastLiveBirthMonth);
@@ -1563,8 +1563,8 @@ namespace BFDR.Tests
       // EXPLICIT_UNKOWN-12
       br.DateOfLastLiveBirthYear = -1;
       br.DateOfLastLiveBirthMonth = 12;
-      observation = (Observation) br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
-      dateToUse = ((FhirDateTime) observation.Value);
+      observation = (Observation)br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
+      dateToUse = ((FhirDateTime)observation.Value);
       pdt = dateToUse.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(-1, br.DateOfLastLiveBirthYear);
       Assert.Equal(12, br.DateOfLastLiveBirthMonth);
@@ -1581,8 +1581,8 @@ namespace BFDR.Tests
       // EXPLICIT_UNKOWN-EXPLICIT_UNKNOWN
       br.DateOfLastLiveBirthYear = -1;
       br.DateOfLastLiveBirthMonth = -1;
-      observation = (Observation) br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
-      dateToUse = ((FhirDateTime) observation.Value);
+      observation = (Observation)br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
+      dateToUse = ((FhirDateTime)observation.Value);
       pdt = dateToUse.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(-1, br.DateOfLastLiveBirthYear);
       Assert.Equal(-1, br.DateOfLastLiveBirthMonth);
@@ -2015,7 +2015,6 @@ namespace BFDR.Tests
       Assert.False(record.HepatitisB);
       Assert.False(record.HepatitisC);
       Assert.False(record.Syphilis);
-      Assert.False(record.GenitalHerpesSimplex);
       //maternal morbidities
       Assert.False(record.NoMaternalMorbidities);
       Assert.False(record.ICUAdmission);
@@ -2345,12 +2344,12 @@ namespace BFDR.Tests
     public void TestEncounterRole()
     {
       BirthRecord importedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json")));
-      Encounter encBirth = (Encounter) importedRecord.GetBundle().Entry.Find(e => e.Resource.Meta.Profile.Any(p => p == ProfileURL.EncounterBirth)).Resource;
-      Encounter encMaternity = (Encounter) importedRecord.GetBundle().Entry.Find(e => e.Resource.Meta.Profile.Any(p => p == ProfileURL.EncounterMaternity)).Resource;
+      Encounter encBirth = (Encounter)importedRecord.GetBundle().Entry.Find(e => e.Resource.Meta.Profile.Any(p => p == ProfileURL.EncounterBirth)).Resource;
+      Encounter encMaternity = (Encounter)importedRecord.GetBundle().Entry.Find(e => e.Resource.Meta.Profile.Any(p => p == ProfileURL.EncounterMaternity)).Resource;
       Assert.NotNull(encBirth.Extension.Find(e => e.Url.Equals(BFDR.ExtensionURL.ExtensionRole)));
       Assert.NotNull(encMaternity.Extension.Find(e => e.Url.Equals(BFDR.ExtensionURL.ExtensionRole)));
       BirthRecord emptyRecord = new();
-      encMaternity = (Encounter) emptyRecord.GetBundle().Entry.Find(e => e.Resource.Meta.Profile.Any(p => p == ProfileURL.EncounterMaternity)).Resource;
+      encMaternity = (Encounter)emptyRecord.GetBundle().Entry.Find(e => e.Resource.Meta.Profile.Any(p => p == ProfileURL.EncounterMaternity)).Resource;
       Assert.NotNull(encMaternity.Extension.Find(e => e.Url.Equals(BFDR.ExtensionURL.ExtensionRole)));
     }
 
@@ -3591,7 +3590,6 @@ namespace BFDR.Tests
       Assert.False(birthRecord.HepatitisB);
       Assert.False(birthRecord.HepatitisC);
       Assert.False(birthRecord.Syphilis);
-      Assert.False(birthRecord.GenitalHerpesSimplex);
       Assert.False(birthRecord.NoMaternalMorbidities);
       Assert.False(birthRecord.ICUAdmission);
       Assert.False(birthRecord.MaternalTransfusion);
@@ -3955,7 +3953,8 @@ namespace BFDR.Tests
     }
 
     [Fact]
-    public void TestPatientFetalDeath() {
+    public void TestPatientFetalDeath()
+    {
       Assert.Null(SetterBirthRecord.PatientFetalDeath);
       SetterBirthRecord.PatientFetalDeath = false;
       Assert.Null(SetterBirthRecord.PatientFetalDeath); //Fetal death should only be indicated if Patient is deceased (value=true).
@@ -3975,7 +3974,8 @@ namespace BFDR.Tests
     }
 
     [Fact]
-    public void TestConnectathonRecords() {
+    public void TestConnectathonRecords()
+    {
       string romeroIje = "2024TT0999910            1031F010101911487607784  1101199210130XXMX77000019AZUSY199112190UUU30HNNN                    YNNNNNNNNNNNNNN                                                                                                                                                                                                                                                                                                30HNNN                    YNNNNNNNNNNNNNN                                                                                                                                                                                                                                                                                                1N8888888888888888000501010001270N03000006201588888800000000320190731NNNNNN NN000NN NNNNNNNNYNNNNYNNNNYNN21XNNNNNN0539021001040199999999990YYYNNNNNNNNNNNNNNNNYYN        9999NXX                 20200102                                                 YYTRF                                             XMIDDLEXX                                         CARDENAS ROMERO                                          PIMA                     TUCSON                                            NORTHWEST MEDICAL CENTER                          ALEJANDRA                                                                                           ROMERO LEON                                                                                                                                                  ROMERO LEON                                                                                                                         6666 NORTH ORACLE ROAD100                         85705    PIMA                        TUCSON                      ARIZONA                     UNITED STATES               RAMON                                             FELIPE                                            CARDENAS OTERO                                           8888888888888888882930                                                                                                                ZZMX                                                                                                                                                                                                    BANNER UNIVERSITY MEDICAL CENTER - TUCSON                                                         MEXICO                                                  MEXICO                                                                                                 9999 NORTH PRIEST RD236                           85489                                MESA                        ARIZONA                     UNITED STATES               Y1             HEATHERSTEVENS                                    1932304839                                                                                     1393674        1393655                20200102                                                  1XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ";
       string zalbanaizIje = "2024TT0099990            1025M010101311568794535  1095199505150XXKU73000013AZUSY199506040YYX40NNNN                    NNNNNNNNNNNNNNY                                                                                                                                                                                    MIDDLE EASTERN                ARABIAN                                                                       60NNNN                    NNNNNNNNNNNNNNY                                                                                                                                                                                    MIDDLE EASTERN                ARABIAN                                                                       1N0604201812272018180503016501990N01000001201988888800000000220180418NNNNNN NN000NN NNNNNNNNNNNNNNYNNYYNN14NNNNNNN2277036009880202999999990NNNNNNNNNNNNNNNNNNNNYY        9999NXX                 20190102                                                 XYUGBNX                                           XMX                                               ZALBANAIZ                                                MARICOPA                 MESA                                              MOUNTAIN VISTA MEDICAL CENTER                     REEM                                              NASSER                                            ALHAMADI                                                                                                                                                     ALHAMADI                                                                                                                            999 N COLLEGE AVE5656                             85281    MARICOPA                    TEMPE                       ARIZONA                     UNITED STATES               OMAR                                              AHMED                                             ALBANAI                                                  8888888888888888882626                                                                                                                ZZKU                                                                                                                                                                                                                                                                                                      KUWAIT                                                  KUWAIT                                                                                                 888 N PRIEST AVE9999                              85429                                GLENDALE                    ARIZONA                     UNITED STATES               Y1             MANISHAAPUROHIT                                   1972721538                                                                                     1201183921     1200527124             20190102                                                  0XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ";
 
