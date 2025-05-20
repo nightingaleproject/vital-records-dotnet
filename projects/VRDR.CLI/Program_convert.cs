@@ -16,30 +16,34 @@ namespace VRDR.CLI
         private static readonly string LocalObservationCodes = "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-local-observation-codes-vr";
         private static readonly string HL7_identifier_type = "http://terminology.hl7.org/CodeSystem/v2-0203";
 
-        // CreateSTU2toSTU3Mapping:  Reverse the sense of the STU3 to STU2 mapping.
-        static Dictionary<string, string> CreateSTU2toSTU3Mapping(Dictionary<string, string> urisSTU3toSTU2)
+        enum ConversionDirection
         {
-            var revUrisSTU3toSTU2 = new Dictionary<string, string>();
-            foreach (var kvp in urisSTU3toSTU2)
-            {
-                revUrisSTU3toSTU2[kvp.Value] = kvp.Key;
-            }
-            return revUrisSTU3toSTU2;
+            STU3toSTU2,
+            STU2toSTU3
         }
 
-        // ConvertVersionJSON:  The boolean STU3toSTU2 should be true when used in this library that supports STU3.
-        // The same code could be used in the vrdr-dotnet library that supports VRDR STU2.2, with STU3toSTU2 set to false.
-        static void ConvertVersion(string pOutputFile, string pInputFile, bool STU3toSTU2, bool jsonConversion)
+        enum DataFormat
+        {
+            JSON,
+            XML
+        }
+
+        /// <summary>Convert between implementation guide versions</summary>
+        /// <param name="pOutputFile">path to the output file</param>
+        /// <param name="pInputFile">path to the input file</param>
+        /// <param name="direction">whether to convert from STU2 to STU3 or vice versa</param>
+        /// <param name="format">whether to read/write JSON or XML</param>
+        static void ConvertVersion(string pOutputFile, string pInputFile, ConversionDirection direction, DataFormat format)
         {
             var uris = UrisSTU3toSTU2;
             var dateTimeUris = dateTimeComponentsSTU3toSTU2;
             Bundle bundle;
             string newContent;
 
-            if (!STU3toSTU2)
+            if (direction == ConversionDirection.STU2toSTU3)
             { // The mapping is bidirectional.  Depending on which direction, we flip the map.
-                uris = CreateSTU2toSTU3Mapping(UrisSTU3toSTU2);
-                dateTimeUris = CreateSTU2toSTU3Mapping(dateTimeComponentsSTU3toSTU2);
+                uris = uris.ToDictionary(x => x.Value, x => x.Key);
+                dateTimeUris = dateTimeUris.ToDictionary(x => x.Value, x => x.Key);
             }
             string content = File.ReadAllText(pInputFile);
             // Iterate through the mapped codesystem strings, and replace them one by one
@@ -48,8 +52,9 @@ namespace VRDR.CLI
                 content = content.Replace(kvp.Key, kvp.Value);
             }
             // Fix an observation's code and CodeSystem.  This can't be done using string replace.
-            if (jsonConversion)
-            { // JSON Conversion
+            if (format == DataFormat.JSON)
+            {
+                // JSON Conversion
                 ParserSettings parserSettings = new ParserSettings
                 {
                     AcceptUnknownMembers = true,
@@ -76,7 +81,7 @@ namespace VRDR.CLI
                     {
                         continue;
                     }
-                    if (!STU3toSTU2)
+                    if (direction == ConversionDirection.STU2toSTU3)
                     {
                         switch (obs.Code.Coding.First().Code)
                         {
@@ -101,7 +106,7 @@ namespace VRDR.CLI
             UpdateExtensionsRecursively(bundle, dateTimeUris);
 
 
-            if (jsonConversion)
+            if (format == DataFormat.JSON)
             { // Serialize the bundle as JSON
                 newContent = bundle.ToJson(new FhirJsonSerializationSettings { Pretty = true, AppendNewLine = true });
             }

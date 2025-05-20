@@ -20,7 +20,7 @@ namespace VRDR.CLI
             {
                 //  - jsonstu2-to-stu3:  Read in an VRDR STU2.2 file and convert to STU3
                 Console.WriteLine($"Converting json file {args[1]} to json file {args[2]} for VRDR STU3 conformance");
-                ConvertVersion(args[2], args[1], false, true);
+                ConvertVersion(args[2], args[1], ConversionDirection.STU2toSTU3, DataFormat.JSON);
             }
             else if (args.Length >= 2 && args[0] == "rdtripstu2-to-stu3")
             {
@@ -28,14 +28,15 @@ namespace VRDR.CLI
                 DeathRecord d1, d2;
                 Console.WriteLine($"Roundtrip STU2 json file {args[1]} to STU3 and compare content");
 
-                ConvertVersion("./tempSTU3.json", args[1], false, true);
-                ConvertVersion("./tempSTU2.json", "./tempSTU3.json", true, true);
+                ConvertVersion("./tempSTU3.json", args[1], ConversionDirection.STU2toSTU3, DataFormat.JSON);
+                ConvertVersion("./tempSTU2.json", "./tempSTU3.json", ConversionDirection.STU3toSTU2, DataFormat.JSON);
                 d1 = new DeathRecord(File.ReadAllText(args[1]));
                 d2 = new DeathRecord(File.ReadAllText("./tempSTU2.json"));
                 return (CompareTwo(d1, d2));
             }
             return 0;
         }
+
         // CompareTwo: Perform a field by field comparison of d1 to d2
         private static int CompareTwo(DeathRecord d1, DeathRecord d2)
         {

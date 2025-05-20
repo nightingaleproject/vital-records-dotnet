@@ -1070,14 +1070,14 @@ namespace VRDR.CLI
                 //  - jsonstu2-to-stu3:  Read in an VRDR STU2.2 file and convert to STU3
                 Console.WriteLine($"Converting json file {args[1]} to json file {args[2]} for VRDR STU3 conformance");
 
-                ConvertVersion(args[2], args[1], false, true);
+                ConvertVersion(args[2], args[1], ConversionDirection.STU2toSTU3, DataFormat.JSON);
             }
             else if (args.Length >= 3 && args[0] == "jsonstu3-to-stu2")
             {
-                //  - jsonstu2-to-stu3:  Read in an VRDR STU2.2 file and convert to STU3
+                //  - jsonstu3-to-stu2:  Read in an VRDR STU3 and convert to STU2.2
                 Console.WriteLine($"Converting json file {args[1]} to json file {args[2]} for VRDR STU2 conformance");
 
-                ConvertVersion(args[2], args[1], true, true);
+                ConvertVersion(args[2], args[1], ConversionDirection.STU3toSTU2, DataFormat.JSON);
             }
             else if (args.Length >= 2 && args[0] == "rdtripstu3-to-stu2")
             {
@@ -1085,8 +1085,8 @@ namespace VRDR.CLI
                 DeathRecord d1, d2;
                 Console.WriteLine($"Roundtrip STU3 json file {args[1]} to STU2 and compare content");
 
-                ConvertVersion("./tempSTU2.json", args[1], true, true);
-                ConvertVersion("./tempSTU3.json", "./tempSTU2.json", false, true);
+                ConvertVersion("./tempSTU2.json", args[1], ConversionDirection.STU3toSTU2, DataFormat.JSON);
+                ConvertVersion("./tempSTU3.json", "./tempSTU2.json", ConversionDirection.STU2toSTU3, DataFormat.JSON);
                 d1 = new DeathRecord(File.ReadAllText(args[1]));
                 d2 = new DeathRecord(File.ReadAllText("./tempSTU3.json"));
                 return (CompareTwo(d1, d2));
