@@ -28,14 +28,16 @@ namespace VRDR.CLI
                     Dictionary<string, string> oneDict = (Dictionary<string, string>)property.GetValue(d1);
                     Dictionary<string, string> twoDict = (Dictionary<string, string>)property.GetValue(d2);
                     // Ignore empty entries in the dictionary so they don't throw off comparisons.
-                    one = String.Join(", ", oneDict.Select(x => (x.Value != "") ? (x.Key + "=" + x.Value) : ("")).ToArray()).Replace(" ,", "");
+                    one = oneDict != null ? String.Join(", ", oneDict.Select(x => (x.Value != "") ? (x.Key + "=" + x.Value) : ("")).ToArray()).Replace(" ,", "") : "";
                     //two = String.Join(", ", twoDict.Select(x => (x.Value != "") ? (x.Key + "=" + x.Value) : ("")).ToArray()).Replace(" ,", "");
-                    two = String.Join(", ", twoDict.Select(x => (x.Value != "") ? (x.Key + "=" + x.Value) : ("")).ToArray()).Replace(" ,", "");
+                    two = twoDict != null ? String.Join(", ", twoDict.Select(x => (x.Value != "") ? (x.Key + "=" + x.Value) : ("")).ToArray()).Replace(" ,", ""): "";
                 }
                 else if (property.PropertyType.ToString() == "System.String[]")
                 {
-                    one = String.Join(", ", (string[])property.GetValue(d1));
-                    two = String.Join(", ", (string[])property.GetValue(d2));
+                    var oneVal = property.GetValue(d1);
+                    one = oneVal != null ? String.Join(", ", (string[])oneVal) : "";
+                    var twoVal = property.GetValue(d2);
+                    two = twoVal != null ? String.Join(", ", (string[])twoVal) : "";
                 }
                 else
                 {
