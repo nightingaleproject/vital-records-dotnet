@@ -243,9 +243,9 @@ namespace canary.Models
 
         protected abstract VitalRecord GenerateFakeRecord(string state, string type, string sex);
 
-        protected abstract IJE CreateIJEFromRecord(VitalRecord record, bool permissive = true);
+        protected abstract IJE CreateIJEFromRecord(VitalRecord record, bool validate = true);
 
-        protected abstract IJE CreateIJEFromString(string value, bool permissive = true);
+        protected abstract IJE CreateIJEFromString(string value, bool validate = true);
 
         protected abstract List<PropertyInfo> GetIJEProperties();
 
@@ -273,7 +273,7 @@ namespace canary.Models
                 entries = DecorateErrors(e);
             }
             issues = entries;
-            
+
             return newRecord;
         }
 
@@ -410,7 +410,7 @@ namespace canary.Models
             }
 
             var jsonData = JsonObject.Parse(record.Json);
-            if(jsonData["type"] == null)
+            if (jsonData["type"] == null)
             {
                 throw new Exception("No type key in JSON data");
             }
