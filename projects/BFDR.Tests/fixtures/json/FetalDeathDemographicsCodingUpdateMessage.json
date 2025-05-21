@@ -1,0 +1,131 @@
+{
+  "resourceType": "Bundle",
+  "id": "FDDemographicsUpdateMsg",
+  "meta": {
+    "profile": [
+      "http://cdc.gov/nchs/nvss/fhir/vital-records-messaging/StructureDefinition/VRM-DemographicsCodingUpdateMessage"
+    ]
+  },
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "MessageHeader",
+        "id": "FDDemoUpdateHeader",
+        "meta": {
+          "profile": [
+            "http://cdc.gov/nchs/nvss/fhir/vital-records-messaging/StructureDefinition/VRM-DemographicsCodingUpdateHeader"
+          ]
+        },
+        "source": {
+          "endpoint": "http://nchs.cdc.gov/bfdr_submission"
+        },
+        "destination": [
+          {
+            "endpoint": "https://example.com/jurisdiction/message/endpoint"
+          }
+        ],
+        "focus": [
+          {
+            "reference": "Bundle/guid"
+          }
+        ],
+        "eventUri": "http://nchs.cdc.gov/fd_demographics_coding_update"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Parameters",
+        "id": "FDDemoUpdateParams",
+        "meta": {
+          "profile": [
+            "http://cdc.gov/nchs/nvss/fhir/vital-records-messaging/StructureDefinition/VRM-MessageParameters"
+          ]
+        },
+        "parameter": [
+          {
+            "name": "jurisdiction_id",
+            "valueString": "MA"
+          },
+          {
+            "name": "cert_no",
+            "valueUnsignedInt": 55123
+          },
+          {
+            "name": "event_year",
+            "valueUnsignedInt": 2022
+          },
+          {
+            "name": "state_auxiliary_id",
+            "valueString": "abcdef20"
+          },
+          {
+            "name": "payload_version_id",
+            "valueString": "VRDRSTU2.2"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Bundle",
+        "id": "guid",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/bfdr/StructureDefinition/Bundle-document-demographic-coded-content"
+          ]
+        },
+        "identifier": {
+          "system": "http://hl7.org/fhir/us/vr-common-library/CodeSystem/codesystem-ije-vr",
+          "value": "2022MA055123"
+        },
+        "entry": [
+          {
+            "resource": {
+              "type": {
+                "coding": [
+                  {
+                    "system": "http://loinc.org",
+                    "code": "86805-9"
+                  }
+                ]
+              },
+              "resourceType": "Composition",
+              "id": "DemographicComp",
+              "meta": {
+                "profile": [
+                  "http://hl7.org/fhir/us/bfdr/StructureDefinition/Composition-coded-race-and-ethnicity"
+                ]
+              },
+              "subject": {
+                "display": "Patient - Decedent Fetus (Fetus Not Named)"
+              },
+              "author": [
+                {
+                  "display": "Demographic Services"
+                }
+              ],
+              "section": [
+                {
+                  "code": {
+                    "coding": [
+                      {
+                        "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+                        "code": "MTH"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "status": "final",
+              "date": "2022-04-15",
+              "title": "Demographic information and details"
+            }
+          }
+        ],
+        "type": "document"
+      }
+    }
+  ],
+  "type": "message",
+  "timestamp": "2022-04-15T00:00:00Z"
+}
