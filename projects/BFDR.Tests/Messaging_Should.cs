@@ -1284,13 +1284,12 @@ namespace BFDR.Tests
             Assert.Equal(natality, record);
         }
 
-        [Fact(Skip = "GetNatalityRecordFromMessage needs fixing")]
+        [Fact]
         public void GetNatalityRecordFromBirthRecordParentalDemographicsCodingMessage()
         {
-            BirthRecordSubmissionMessage submission = BFDRBaseMessage.Parse<BirthRecordSubmissionMessage>(TestHelpers.FixtureStream("fixtures/json/BirthRecordSubmissionMessage.json"));
-            BirthRecordParentalDemographicsCodingMessage coding = new BirthRecordParentalDemographicsCodingMessage(submission);
+            BirthRecordParentalDemographicsCodingMessage coding = BFDRBaseMessage.Parse<BirthRecordParentalDemographicsCodingMessage>(TestHelpers.FixtureStream("fixtures/json/BirthRecordDemographicsCodingMessage.json"));
             NatalityRecord natality = BFDRBaseMessage.GetNatalityRecordFromMessage(coding);
-            Assert.Equal(natality, submission.BirthRecord);
+            Assert.Equal(coding.NatalityRecord, natality);
         }
 
         [Fact]

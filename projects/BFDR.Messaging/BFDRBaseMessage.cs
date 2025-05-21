@@ -264,49 +264,45 @@ namespace BFDR
 
             Type messageType = message.GetType();
 
-            NatalityRecord nr = null;
-
             switch (messageType.Name)
             {
                 case "BirthRecordSubmissionMessage":
                     {
                         var brsm = message as BirthRecordSubmissionMessage;
-                        nr = brsm?.BirthRecord;
-                        break;
+                        return brsm?.BirthRecord;
                     }
                 case "BirthRecordUpdateMessage":
                     {
                         var brsm = message as BirthRecordUpdateMessage;
-                        nr = brsm?.BirthRecord;
-                        break;
+                        return brsm?.BirthRecord;
                     }
                 case "BFDRParentalDemographicsCodingMessage":
+                case "BirthRecordParentalDemographicsCodingMessage":
+                case "FetalDeathRecordParentalDemographicsCodingMessage":
                     {
                         var brsm = message as BFDRParentalDemographicsCodingMessage;
-                        nr = brsm?.NatalityRecord;
-                        break;
+                        return brsm?.NatalityRecord;
                     }
                 case "BFDRParentalDemographicsCodingUpdateMessage":
+                case "BirthRecordParentalDemographicsCodingUpdateMessage":
+                case "FetalDeathRecordParentalDemographicsCodingUpdateMessage":
                     {
                         var brsm = message as BFDRParentalDemographicsCodingUpdateMessage;
-                        nr = brsm?.NatalityRecord;
-                        break;
+                        return brsm?.NatalityRecord;
                     }
                 case "FetalDeathRecordSubmissionMessage":
                     {
                         var brsm = message as FetalDeathRecordSubmissionMessage;
-                        nr = brsm?.FetalDeathRecord;
-                        break;
+                        return brsm?.FetalDeathRecord;
                     }
                 case "FetalDeathRecordUpdateMessage":
                     {
                         var brsm = message as FetalDeathRecordUpdateMessage;
-                        nr = brsm?.FetalDeathRecord;
-                        break;
+                        return brsm?.FetalDeathRecord;
                     }
             }
 
-            return nr;
+            return null;
         }
     }
 
