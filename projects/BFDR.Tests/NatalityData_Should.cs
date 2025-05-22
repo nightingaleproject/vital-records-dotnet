@@ -182,115 +182,117 @@ namespace BFDR.Tests
       Assert.Equal("1992-10-05", br.FatherDateOfBirth);
     }
 
-    // Test unknown date values for Mother and Father.
     [Fact]
-    public void TestParentBirthDateUnknowns()
+    public void TestBirthDateUnknownsErrors()
+    {
+      IJEBirth ije = new();
+      Assert.Throws<System.FormatException>(() => ije.IDOB_DY = "99");
+      Assert.Throws<System.FormatException>(() => ije.IDOB_MO = "99");
+      Assert.Throws<System.FormatException>(() => ije.IDOB_YR = "9999");
+      Assert.Null(ije.ToRecord().DateOfBirth);
+      Assert.Throws<System.FormatException>(() => ije.MDOB_DY = "99");
+      Assert.Throws<System.FormatException>(() => ije.MDOB_MO = "99");
+      Assert.Throws<System.FormatException>(() => ije.MDOB_YR = "9999");
+      Assert.Null(ije.ToRecord().MotherDateOfBirth);
+      Assert.Throws<System.FormatException>(() => ije.FDOB_DY = "99");
+      Assert.Throws<System.FormatException>(() => ije.FDOB_MO = "99");
+      Assert.Throws<System.FormatException>(() => ije.MDOB_YR = "9999");
+      Assert.Null(ije.ToRecord().FatherDateOfBirth);
+      // Sample tiny IJE string with parent birthdates set to 9999.
+      Assert.Throws<System.Reflection.TargetInvocationException>(() => new IJEBirth("                                                      99999999                  99999999", true));
+    }
+
+    [Fact]
+    public void TestBirthDateOrderingErrors()
+    {
+      IJEBirth ije = new();
+      // Child
+      
+      // Mother
+      Assert.Throws<System.ArgumentException>(() => ije.MDOB_MO = "14");
+      Assert.Equal("  ", ije.MDOB_MO);
+      Assert.Null(ije.ToRecord().MotherDateOfBirth);
+      Assert.Throws<System.ArgumentException>(() => ije.MDOB_DY = "14");
+      Assert.Equal("  ", ije.MDOB_DY);
+      Assert.Null(ije.ToRecord().MotherDateOfBirth);
+      ije.MDOB_YR = "2000";
+      Assert.Equal("2000", ije.MDOB_YR);
+      Assert.Equal("2000", ije.ToRecord().MotherDateOfBirth);
+      Assert.Throws<System.ArgumentException>(() => ije.MDOB_DY = "14");
+      Assert.Equal("  ", ije.MDOB_DY);
+      Assert.Equal("2000", ije.ToRecord().MotherDateOfBirth);
+      ije.MDOB_MO = "10";
+      Assert.Equal("2000", ije.MDOB_YR);
+      Assert.Equal("10", ije.MDOB_MO);
+      Assert.Equal("2000-10", ije.ToRecord().MotherDateOfBirth);
+      ije.MDOB_DY = "21";
+      Assert.Equal("2000", ije.MDOB_YR);
+      Assert.Equal("10", ije.MDOB_MO);
+      Assert.Equal("21", ije.MDOB_DY);
+      Assert.Equal("2000-10-21", ije.ToRecord().MotherDateOfBirth);
+
+      // Father
+    }
+
+    [Fact]
+    public void TestParentBirthDateSetters()
     {
       // Patient Mother.
       IJEBirth ije = new();
       ije.MDOB_YR = "2000";
+      Assert.Equal("2000", ije.ToRecord().MotherDateOfBirth);
       ije.MDOB_MO = "09";
+      Assert.Equal("2000-09", ije.ToRecord().MotherDateOfBirth);
       ije.MDOB_DY = "27";
+      Assert.Equal("2000-09-27", ije.ToRecord().MotherDateOfBirth);
       ije.MAGE_BYPASS = "0";
       ije.MAGER = "29";
+      Assert.Equal(29, ije.ToRecord().MotherReportedAgeAtDelivery);
       Assert.Equal("2000", ije.MDOB_YR);
       Assert.Equal("09", ije.MDOB_MO);
       Assert.Equal("27", ije.MDOB_DY);
       Assert.Equal("0", ije.MAGE_BYPASS);
       Assert.Equal("29", ije.MAGER);
-      ije.MDOB_DY = "99";
-      Assert.Equal("99", ije.MDOB_DY);
-      BirthRecord converted = ije.ToRecord();
-      // Assert.Equal(-1, converted.MotherBirthDay);
-      Assert.Equal("2000-09", converted.MotherDateOfBirth);
+      Assert.Equal("2000-09-27", ije.ToRecord().MotherDateOfBirth);
       ije.MDOB_DY = "30";
-      converted = ije.ToRecord();
-      // Assert.Equal(30, converted.MotherBirthDay);
-      Assert.Equal("2000-09-30", converted.MotherDateOfBirth);
-      ije.MDOB_MO = "99";
-      converted = ije.ToRecord();
-      // Assert.Equal(-1, converted.MotherBirthMonth);
-      // Assert.Equal(30, converted.MotherBirthDay);
-      Assert.Equal("2000", converted.MotherDateOfBirth);
+      Assert.Equal("30", ije.MDOB_DY);
+      Assert.Equal("2000-09-30", ije.ToRecord().MotherDateOfBirth);
+      Assert.Throws<System.FormatException>(() => ije.MDOB_MO = "99");
+      Assert.Equal("2000-09-30", ije.ToRecord().MotherDateOfBirth);
       ije.MDOB_MO = "05";
-      converted = ije.ToRecord();
-      // Assert.Equal(5, converted.MotherBirthMonth);
-      // Assert.Equal(30, converted.MotherBirthDay);
-      Assert.Equal("2000-05-30", converted.MotherDateOfBirth);
-      ije.MDOB_YR = "9999";
-      // Assert.Equal(-1, converted.MotherBirthYear);
-      // Assert.Equal(5, converted.MotherBirthMonth);
-      // Assert.Equal(30, converted.MotherBirthDay);
-      Assert.Null(converted.MotherDateOfBirth);
+      Assert.Equal("05", ije.MDOB_MO);
+      Assert.Equal("2000-05-30", ije.ToRecord().MotherDateOfBirth);
+      Assert.Throws<System.FormatException>(() => ije.MDOB_YR = "9999");
+      Assert.Equal("2000", ije.MDOB_YR);
+      Assert.Equal("2000-05-30", ije.ToRecord().MotherDateOfBirth);
+
       // Related Person Father.
       ije.FDOB_YR = "1999";
+      Assert.Equal("1999", ije.ToRecord().FatherDateOfBirth);
       ije.FDOB_MO = "11";
+      Assert.Equal("1999-11", ije.ToRecord().FatherDateOfBirth);
       ije.FDOB_DY = "27";
+      Assert.Equal("1999-11-27", ije.ToRecord().FatherDateOfBirth);
       ije.FAGE_BYPASS = "0";
       ije.FAGER = "31";
+      Assert.Equal(31, ije.ToRecord().FatherReportedAgeAtDelivery);
       Assert.Equal("1999", ije.FDOB_YR);
       Assert.Equal("11", ije.FDOB_MO);
       Assert.Equal("27", ije.FDOB_DY);
       Assert.Equal("0", ije.FAGE_BYPASS);
       Assert.Equal("31", ije.FAGER);
-      ije.FDOB_DY = "99";
-      Assert.Equal("99", ije.FDOB_DY);
-      converted = ije.ToRecord();
-      // Assert.Equal(-1, converted.FatherBirthDay);
-      Assert.Equal("1999-11", converted.FatherDateOfBirth);
+      Assert.Throws<System.FormatException>(() => ije.FDOB_DY = "99");
+      Assert.Equal("27", ije.FDOB_DY);
+      Assert.Equal("1999-11-27", ije.ToRecord().FatherDateOfBirth);
       ije.FDOB_DY = "22";
-      converted = ije.ToRecord();
-      // Assert.Equal(22, converted.FatherBirthDay);
-      Assert.Equal("1999-11-22", converted.FatherDateOfBirth);
-      ije.FDOB_MO = "99";
-      converted = ije.ToRecord();
-      // Assert.Equal(-1, converted.FatherBirthMonth);
-      // Assert.Equal(22, converted.FatherBirthDay);
-      Assert.Equal("1999", converted.FatherDateOfBirth);
+      Assert.Equal("1999-11-22", ije.ToRecord().FatherDateOfBirth);
+      Assert.Throws<System.FormatException>(() => ije.FDOB_MO = "99");
+      Assert.Equal("1999-11-22", ije.ToRecord().FatherDateOfBirth);
       ije.FDOB_MO = "05";
-      converted = ije.ToRecord();
-      // Assert.Equal(5, converted.FatherBirthMonth);
-      // Assert.Equal(22, converted.FatherBirthDay);
-      Assert.Equal("1999-05-22", converted.FatherDateOfBirth);
-      ije.FDOB_YR = "9999";
-      // Assert.Equal(-1, converted.FatherBirthYear);
-      // Assert.Equal(5, converted.FatherBirthMonth);
-      // Assert.Equal(22, converted.FatherBirthDay);
-      Assert.Null(converted.FatherDateOfBirth);
-    }
-
-    // Test Unknown Parent Birthdate imports from IJE.
-    [Fact]
-    public void TestUnknownParentBirthdateImports()
-    {
-      // Test IJE import.
-      IJEBirth ijeImported = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/UnknownParentBirthDates.ije")), true);
-      // Test IJE conversion to BirthRecord.
-      BirthRecord br = ijeImported.ToRecord();
-      // Test IJE conversion from BirthRecord.
-      IJEBirth ijeConverted = new(br);
-
-      // Date of Birth (Mother)--Year
-      Assert.Equal("9999", ijeImported.MDOB_YR);
-      Assert.Equal(ijeImported.MDOB_YR, ijeConverted.MDOB_YR);
-      // Date of Birth (Mother)--Month
-      Assert.Equal("99", ijeImported.MDOB_MO);
-      Assert.Equal(ijeImported.MDOB_MO, ijeConverted.MDOB_MO);
-      // Date of Birth (Mother)--Day
-      Assert.Equal("99", ijeImported.MDOB_DY);
-      Assert.Equal(ijeImported.MDOB_DY, ijeConverted.MDOB_DY);
-      Assert.Null(br.MotherDateOfBirth);
-
-      // Date of Birth (Father)--Year
-      Assert.Equal("9999", ijeImported.FDOB_YR);
-      Assert.Equal(ijeImported.FDOB_YR, ijeConverted.FDOB_YR);
-      // Date of Birth (Father)--Month
-      Assert.Equal("99", ijeImported.FDOB_MO);
-      Assert.Equal(ijeImported.FDOB_MO, ijeConverted.FDOB_MO);
-      // Date of Birth (Father)--Day
-      Assert.Equal("99", ijeImported.FDOB_DY);
-      Assert.Equal(ijeImported.FDOB_DY, ijeConverted.FDOB_DY);
-      Assert.Null(br.FatherDateOfBirth);
+      Assert.Equal("05", ije.FDOB_MO);
+      Assert.Equal("1999-05-22", ije.ToRecord().FatherDateOfBirth);
+      Assert.Throws<System.FormatException>(() => ije.FDOB_YR = "9999");
+      Assert.Equal("1999-05-22", ije.ToRecord().FatherDateOfBirth);
     }
 
     [Fact]
