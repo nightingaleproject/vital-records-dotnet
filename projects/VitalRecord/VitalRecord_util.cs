@@ -905,10 +905,9 @@ namespace VR
                     day = null;
                     return true;
                 }
-                else
+                else if (DateTimeOffset.TryParse(date, out DateTimeOffset dateTimeOffset))
                 {
                     // Note: We can't just call ToDateTimeOffset() on the FhirDateTime because want the datetime in whatever local time zone was provided
-                    DateTimeOffset dateTimeOffset = DateTimeOffset.Parse(date);
                     year = dateTimeOffset.Year;
                     month = dateTimeOffset.Month;
                     day = dateTimeOffset.Day;

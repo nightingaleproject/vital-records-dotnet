@@ -184,11 +184,7 @@ namespace BFDR
         [IJEField(1, 1, 4, "Date of Delivery (Fetus)--Year", "FDOD_YR", 1)]
         public string FDOD_YR
         {
-            get
-            {
-                VitalRecord.ParseDateElements(record.DateOfDelivery, out int? year, out _, out _);
-                return year.ToString();
-            }
+            get => GetYearIJEFormatted(record.DateOfDelivery);
             set => record.DateOfDelivery = AddYear(value, record.DateOfDelivery);
         }
 
@@ -246,7 +242,7 @@ namespace BFDR
         [IJEField(6, 26, 4, "Time of Delivery", "TD", 4)]
         public string TD
         {
-            get => GetTimeIJE(record.DateTimeOfDelivery);
+            get => GetTimeIJEFormatted(record.DateTimeOfDelivery);
             set => record.DateTimeOfDelivery = AddTime(value, record.DateOfDelivery);
         }
 
@@ -268,11 +264,7 @@ namespace BFDR
         [IJEField(8, 31, 2, "Date of Delivery (Fetus)--Month", "FDOD_MO", 2)]
         public string FDOD_MO
         {
-            get
-            {
-                VitalRecord.ParseDateElements(record.DateOfDelivery, out _, out int? month, out _);
-                return month.ToString();
-            }
+            get => GetMonthIJEFormatted(record.DateOfDelivery);
             set => record.DateOfDelivery = AddMonth(value, record.DateOfDelivery);
         }
 
@@ -280,11 +272,7 @@ namespace BFDR
         [IJEField(9, 33, 2, "Date of Delivery (Fetus)--Day", "FDOD_DY", 3)]
         public string FDOD_DY
         {
-            get
-            {
-                VitalRecord.ParseDateElements(record.DateOfDelivery, out _, out _, out int? day);
-                return day.ToString();
-            }
+            get => GetDayIJEFormatted(record.DateOfDelivery);
             set => record.DateOfDelivery = AddDay(value, record.DateOfDelivery);
         }
 
@@ -339,11 +327,7 @@ namespace BFDR
         [IJEField(14, 55, 4, "Date of Birth (Mother)--Year", "MDOB_YR", 1)]
         public string MDOB_YR
         {
-            get
-            {
-                VitalRecord.ParseDateElements(record.MotherDateOfBirth, out int? year, out _, out _);
-                return year.ToString();
-            }
+            get => GetYearIJEFormatted(record.MotherDateOfBirth);
             set => record.MotherDateOfBirth = AddYear(value, record.MotherDateOfBirth);
         }
 
@@ -351,11 +335,7 @@ namespace BFDR
         [IJEField(15, 59, 2, "Date of Birth (Mother)--Month", "MDOB_MO", 2)]
         public string MDOB_MO
         {
-            get
-            {
-                VitalRecord.ParseDateElements(record.MotherDateOfBirth, out _, out int? month, out _);
-                return month.ToString();
-            }
+            get => GetMonthIJEFormatted(record.MotherDateOfBirth);
             set => record.MotherDateOfBirth = AddMonth(value, record.MotherDateOfBirth);
         }
 
@@ -363,11 +343,7 @@ namespace BFDR
         [IJEField(16, 61, 2, "Date of Birth (Mother)--Day", "MDOB_DY", 3)]
         public string MDOB_DY
         {
-            get
-            {
-                VitalRecord.ParseDateElements(record.MotherDateOfBirth, out _, out _, out int? day);
-                return day.ToString();
-            }
+            get => GetDayIJEFormatted(record.MotherDateOfBirth);
             set => record.MotherDateOfBirth = AddDay(value, record.MotherDateOfBirth);
         }
 
@@ -509,11 +485,7 @@ namespace BFDR
         [IJEField(25, 81, 4, "Date of Birth (Father)--Year", "FDOB_YR", 1)]
         public string FDOB_YR
         {
-            get
-            {
-                VitalRecord.ParseDateElements(record.FatherDateOfBirth, out int? year, out _, out _);
-                return year.ToString();
-            }
+            get => GetYearIJEFormatted(record.FatherDateOfBirth);
             set => record.FatherDateOfBirth = AddYear(value, record.FatherDateOfBirth);
         }
 
@@ -521,11 +493,7 @@ namespace BFDR
         [IJEField(26, 85, 2, "Date of Birth (Father)--Month", "FDOB_MO", 2)]
         public string FDOB_MO
         {
-            get
-            {
-                VitalRecord.ParseDateElements(record.FatherDateOfBirth, out _, out int? month, out _);
-                return month.ToString();
-            }
+            get => GetMonthIJEFormatted(record.FatherDateOfBirth);
             set => record.FatherDateOfBirth = AddMonth(value, record.FatherDateOfBirth);
         }
 
@@ -533,11 +501,7 @@ namespace BFDR
         [IJEField(27, 87, 2, "Date of Birth (Father)--Day", "FDOB_DY", 3)]
         public string FDOB_DY
         {
-            get
-            {
-                VitalRecord.ParseDateElements(record.FatherDateOfBirth, out _, out _, out int? day);
-                return day.ToString();
-            }
+            get => GetDayIJEFormatted(record.FatherDateOfBirth);
             set => record.FatherDateOfBirth = AddDay(value, record.FatherDateOfBirth);
         }
 

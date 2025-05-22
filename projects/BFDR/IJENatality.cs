@@ -113,12 +113,21 @@ namespace BFDR
         /// <returns></returns>
         protected static string AddYear(string value, string date)
         {
+            // When setting the date elements via IJE, year MUST be set first, then month, then day to maintain a consistenly valid date.
+            // Otherwise, an error will throw.
             VitalRecord.ParseDateElements(date, out _, out int? month, out int? day);
-            // TODO - this might need to account for multiple cases like (year-month) and (year). 
-            // TODO - what do we do if someone creates an IJE, then sets DAY first? It should throw an error. That's a TODO.
-            // If someone is setting the date elements via IJE, they MUST set it year first, then month, then day. Otherwise error.
-            if (String.IsNullOrEmpty(value)) {
+            if (String.IsNullOrWhiteSpace(value))
+            {
+                // Silently skips empty or white space IJE values.
                 return "";
+            }
+            if (value == "9999")
+            {
+                throw new System.FormatException("Date IJE unknowns in the format '9999' are not supported by this library.");
+            }
+            if (value.Length != 4)
+            {
+                throw new ArgumentException($"Setting IJE Year must be exactly 4 digits. Given: {value}");
             }
             if (month != null && day != null)
             {
@@ -128,7 +137,14 @@ namespace BFDR
             {
                 return new Hl7.Fhir.Model.Date(int.Parse(value), (int)month).ToString();
             }
-            return new Hl7.Fhir.Model.Date(int.Parse(value)).ToString();
+            try
+            {
+                return new Hl7.Fhir.Model.Date(int.Parse(value)).ToString();
+            }
+            catch (System.FormatException e)
+            {
+                throw new FormatException($"The given year value is not in a format supported by FHIR or is outside of the supported range. Given '{value}'. {e.StackTrace}");
+            }
         }
 
         /// <summary>
@@ -141,11 +157,17 @@ namespace BFDR
         protected static string AddMonth(string value, string date)
         {
             VitalRecord.ParseDateElements(date, out int? year, out _, out int? day);
-            // TODO - this might need to account for multiple cases like (year-month) and (year). 
-            // TODO - what do we do if someone creates an IJE, then sets DAY first? It should throw an error. That's a TODO.
-            // If someone is setting the date elements via IJE, they MUST set it year first, then month, then day. Otherwise error.
-            if (String.IsNullOrEmpty(value)) {
-                return "";
+            if (String.IsNullOrWhiteSpace(value)) {
+                // Silently skips empty or white space IJE values.
+                return null;
+            }
+            if (value == "99")
+            {
+                throw new System.FormatException("Date IJE unknowns in the format '99' are not supported by this library.");
+            }
+            if (value.Length != 2)
+            {
+                throw new ArgumentException($"Setting IJE Month must be exactly 2 digits. Given: {value}");
             }
             if (year == null)
             {
@@ -168,17 +190,42 @@ namespace BFDR
         protected static string AddDay(string value, string date)
         {
             VitalRecord.ParseDateElements(date, out int? year, out int? month, out _);
-            // TODO - this might need to account for multiple cases like (year-month) and (year). 
-            // TODO - what do we do if someone creates an IJE, then sets DAY first? It should throw an error. That's a TODO.
-            // If someone is setting the date elements via IJE, they MUST set it year first, then month, then day. Otherwise error.
-            if (String.IsNullOrEmpty(value)) {
+            if (String.IsNullOrWhiteSpace(value))
+            {
+                // Silently skips empty or white space IJE values.
                 return "";
+            }
+            if (value.Length != 2)
+            {
+                throw new ArgumentException($"Setting IJE Day must be exactly 2 digits. Given: {value}");
+            }
+            if (value == "99")
+            {
+                throw new System.FormatException("Date IJE unknowns in the format '99' are not supported by this library.");
             }
             if (year == null || month == null)
             {
                 throw new ArgumentException($"The year and month must be set before day data can be set. Currently set year: '{year}', month: '{month}'");
             }
             return new Hl7.Fhir.Model.Date((int)year, (int)month, int.Parse(value)).ToString();
+        }
+
+        protected static string GetYearIJEFormatted(string date)
+        {
+            VitalRecord.ParseDateElements(date, out int? year, out _, out _);
+            return year == null || year <= 0 ? "".PadLeft(4, ' ') : year.ToString().PadLeft(4, '0');
+        }
+
+        protected static string GetMonthIJEFormatted(string date)
+        {
+            VitalRecord.ParseDateElements(date, out _, out int? month, out _);
+            return month == null || month <= 0 ? "".PadLeft(2, ' ') : month.ToString().PadLeft(2, '0');
+        }
+
+        protected static string GetDayIJEFormatted(string date)
+        {
+            VitalRecord.ParseDateElements(date, out _, out _, out int? day);
+            return day == null || day <= 0 ? "".PadLeft(2, ' ') : day.ToString().PadLeft(2, '0');
         }
         
         /// <summary>
@@ -190,6 +237,10 @@ namespace BFDR
         /// <exception cref="ArgumentException"></exception>
         protected static string AddTime(string value, string date)
         {
+            if (String.IsNullOrWhiteSpace(value))
+            {
+                return "";
+            }
             VitalRecord.ParseDateElements(date, out int? year, out int? month, out int? day);
             // TIME must be set LAST? Because we need a complete date to add a time to it?
             // Also gotta deal with some time zone stuff here? Or more rather, in the record itself.
@@ -199,16 +250,16 @@ namespace BFDR
             }
             if (value.Length != 4)
             {
-                throw new ArgumentException($"Setting IJE TB must be exactly 4 digits in the format HHMM. Given: {value}");
+                throw new ArgumentException($"Setting IJE Times must be exactly 4 digits in the format HHMM. Given: {value}");
             }
             int hours = int.Parse(value.Substring(0, 2));
             int minutes = int.Parse(value.Substring(2));
             if (hours == 99 || minutes == 99)
             {
                 // Is this correct? We just don't support unknowns at time anymore?
-                throw new ArgumentException($"BFDR's IJE TB cannot accept unknown '99's for time values. Given: {value}");
+                throw new ArgumentException($"BFDR's IJE Times cannot accept unknown '99's for time values. Given: {value}");
             }
-            return new Hl7.Fhir.Model.FhirDateTime((int) year, (int) month, (int)day, hours, minutes, 0, TimeSpan.Zero).ToString();
+            return new Hl7.Fhir.Model.FhirDateTime((int)year, (int)month, (int)day, hours, minutes, 0, TimeSpan.Zero).ToString();
         }
 
         /// <summary>
@@ -216,7 +267,7 @@ namespace BFDR
         /// </summary>
         /// <param name="dateTime"></param>
         /// <returns></returns>
-        protected static string GetTimeIJE(string dateTime)
+        protected static string GetTimeIJEFormatted(string dateTime)
         {
             string timeString = dateTime;
             if (DateTimeOffset.TryParse(timeString, out DateTimeOffset parsedTime))
@@ -224,7 +275,6 @@ namespace BFDR
                 TimeSpan timeSpan = new TimeSpan(0, parsedTime.Hour, parsedTime.Minute, parsedTime.Second);
                 return timeSpan.ToString(@"hhmm");
             }
-            // TODO - Throw error? Check the TimeAllowingUnknown_Get method.
             return null;
         }
     }
