@@ -378,6 +378,10 @@ namespace BFDR
         /// <param name="value"></param>
         protected void SetDateTimeOfDelivery(string value)
         {
+            if (String.IsNullOrEmpty(value))
+            {
+                return;
+            }
             FhirDateTime dateTime = new FhirDateTime(value);
             this.Subject.BirthDateElement = ConvertToDate(value);
             this.Subject.BirthDateElement.SetExtension(VR.ExtensionURL.PatientBirthTime, dateTime);
