@@ -5,7 +5,7 @@ using Hl7.Fhir.Model;
 namespace VRDR
 {
     /// <summary>
-    /// A <c>DemographicsCodingMessage</c> that conveys the coded demographics information of a decedent.
+    /// An <c>IndustryOccupationCodingMessage</c> that conveys the coded industry and occupation information of a decedent.
     /// </summary>
     public class IndustryOccupationCodingMessage : BaseMessage
     {
@@ -18,9 +18,9 @@ namespace VRDR
         private DeathRecord deathRecord;
 
         /// <summary>
-        /// Construct a DemographicsCodingMessage from a record containing demographics coded content.
+        /// Construct a IndustryOccupationCodingMessage from a record containing industry and occupation coded content.
         /// </summary>
-        /// <param name="record">a record containing demographics coded content for initializing the DemographicsCodingMessage</param>
+        /// <param name="record">a record containing industry and occupation coded content for initializing the IndustryOccupationCodingMessage</param>
         /// <returns></returns>
         public IndustryOccupationCodingMessage(DeathRecord record) : base(MESSAGE_TYPE)
         {
@@ -29,9 +29,9 @@ namespace VRDR
         }
 
         /// <summary>
-        /// Construct a DemographicsCodingMessage from a FHIR Bundle.
+        /// Construct a IndustryOccupationCodingMessage from a FHIR Bundle.
         /// </summary>
-        /// <param name="messageBundle">a FHIR Bundle that will be used to initialize the DemographicsCodingMessage</param>
+        /// <param name="messageBundle">a FHIR Bundle that will be used to initialize the IndustryOccupationCodingMessage</param>
         /// <param name="baseMessage">the BaseMessage instance that was constructed during parsing that can be used in a MessageParseException if needed</param>
         /// <returns></returns>
         internal IndustryOccupationCodingMessage(Bundle messageBundle, BaseMessage baseMessage) : base(messageBundle)
@@ -115,18 +115,18 @@ namespace VRDR
         }
     }
 
-    /// <summary>Class <c>DemographicsCodingUpdateMessage</c> conveys an updated coded demographics of a decedent.</summary>
+    /// <summary>Class <c>IndustryOccupationCodingUpdateMessage</c> conveys an updated coded industry and occupation of a decedent.</summary>
     public class IndustryOccupationCodingUpdateMessage : IndustryOccupationCodingMessage
     {
         /// <summary>
-        /// The event URI for DemographicsCodingUpdateMessage.
+        /// The event URI for IndustryOccupationCodingUpdateMessage.
         /// </summary>
         public new const string MESSAGE_TYPE = "http://nchs.cdc.gov/vrdr_industryoccupation_coding_update";
 
         /// <summary>
-        /// Construct a DemographicsCodingUpdateMessage from a record containing demographics coded content.
+        /// Construct a IndustryOccupationCodingUpdateMessage from a record containing industry and occupation coded content.
         /// </summary>
-        /// <param name="record">a record containing demographics coded content for initializing the DemographicsCodingUpdateMessage</param>
+        /// <param name="record">a record containing industry and occupation coded content for initializing the IndustryOccupationCodingUpdateMessage</param>
         /// <returns></returns>
         public IndustryOccupationCodingUpdateMessage(DeathRecord record) : base(record)
         {
@@ -134,7 +134,7 @@ namespace VRDR
         }
 
         /// <summary>
-        /// Construct a DemographicsCodingUpdateMessage from a FHIR Bundle.
+        /// Construct a IndustryOccupationCodingUpdateMessage from a FHIR Bundle.
         /// </summary>
         /// <param name="messageBundle">a FHIR Bundle that will be used to initialize the IndustryOccupationCodingUpdateMessage</param>
         /// <param name="baseMessage">the BaseMessage instance that was constructed during parsing that can be used in a MessageParseException if needed</param>
