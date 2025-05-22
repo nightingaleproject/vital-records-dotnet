@@ -369,11 +369,7 @@ namespace BFDR
         /// <returns>The date of delivery</returns>
         protected string GetDateTimeOfDelivery()
         {
-            if (this.Subject?.BirthDateElement == null)
-            {
-                return null;
-            }
-            return this.Subject.BirthDateElement.GetExtension(VR.ExtensionURL.PatientBirthTime).Value.ToString();
+            return this.Subject?.BirthDateElement?.GetExtension(VR.ExtensionURL.PatientBirthTime)?.Value.ToString();
         }
 
         /// <summary>
