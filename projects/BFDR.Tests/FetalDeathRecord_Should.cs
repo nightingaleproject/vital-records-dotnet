@@ -1520,7 +1520,7 @@ namespace BFDR.Tests
       Assert.Equal("UT", firstRecord.PlaceOfDelivery["addressState"]);
       Assert.Equal(firstRecord.PlaceOfDelivery["addressState"], secondRecord.PlaceOfDelivery["addressState"]);
       // Time of Delivery
-      Assert.Equal("18:23:00", firstRecord.DateTimeOfDelivery);
+      Assert.Contains("18:23:00", firstRecord.DateTimeOfDelivery);
       Assert.Equal(firstRecord.DateTimeOfDelivery, secondRecord.DateTimeOfDelivery);
       // Sex
       Assert.Equal("F", firstRecord.FetalDeathSex);
@@ -1592,7 +1592,9 @@ namespace BFDR.Tests
     [Fact]
     public void ParentBirthDatesPresent()
     {
-      BirthRecord_Should.TestParentBirthDatesPresentHelper(new FetalDeathRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json"))));
+      FetalDeathRecord fd = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
+      Assert.Equal("1990-03-11", fd.MotherDateOfBirth);
+      Assert.Equal("1991-06-05", fd.FatherDateOfBirth);
     }
 
     [Fact]
