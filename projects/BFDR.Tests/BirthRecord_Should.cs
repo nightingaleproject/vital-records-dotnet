@@ -1235,10 +1235,10 @@ namespace BFDR.Tests
     public void TestComplexPartialDates()
     {
       // Tests source: https://github.com/HL7/vr-common-library/blob/fixPartialDateTime/input/pagecontent/usage.md#partial-dates-and-times
-       BirthRecord br = new();
+      BirthRecord br = new();
       // 2023
       br.BirthYear = 2023;
-      Date fhirBirth = ((Patient) br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
+      Date fhirBirth = ((Patient)br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
       Extension pdt = fhirBirth.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(2023, br.BirthYear);
       Assert.Null(br.BirthMonth);
@@ -1256,7 +1256,7 @@ namespace BFDR.Tests
       // 2023-12
       br.BirthYear = 2023;
       br.BirthMonth = 12;
-      fhirBirth = ((Patient) br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
+      fhirBirth = ((Patient)br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
       pdt = fhirBirth.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(2023, br.BirthYear);
       Assert.Equal(12, br.BirthMonth);
@@ -1275,7 +1275,7 @@ namespace BFDR.Tests
       br.BirthYear = 2023;
       br.BirthMonth = 12;
       br.BirthDay = 23;
-      fhirBirth = ((Patient) br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
+      fhirBirth = ((Patient)br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
       pdt = fhirBirth.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(2023, br.BirthYear);
       Assert.Equal(12, br.BirthMonth);
@@ -1295,7 +1295,7 @@ namespace BFDR.Tests
       br.BirthMonth = 12;
       br.BirthDay = 23;
       br.BirthTime = "13:28:17-5:00";
-      fhirBirth = ((Patient) br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
+      fhirBirth = ((Patient)br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
       pdt = fhirBirth.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(2023, br.BirthYear);
       Assert.Equal(12, br.BirthMonth);
@@ -1315,7 +1315,7 @@ namespace BFDR.Tests
       br.BirthMonth = 12;
       br.BirthDay = 23;
       br.BirthTime = "-1";
-      fhirBirth = ((Patient) br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement; // THIS NEEDS TO BE FIXED
+      fhirBirth = ((Patient)br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement; // THIS NEEDS TO BE FIXED
       pdt = fhirBirth.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(2023, br.BirthYear);
       Assert.Equal(12, br.BirthMonth);
@@ -1341,7 +1341,7 @@ namespace BFDR.Tests
       br.BirthMonth = 12;
       br.BirthDay = 23;
       br.BirthTime = "18:28";
-      fhirBirth = ((Patient) br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
+      fhirBirth = ((Patient)br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
       pdt = fhirBirth.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(-1, br.BirthYear);
       Assert.Equal(12, br.BirthMonth);
@@ -1365,7 +1365,7 @@ namespace BFDR.Tests
       br.BirthMonth = -1;
       br.BirthDay = 23;
       br.BirthTime = "-1";
-      fhirBirth = ((Patient) br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
+      fhirBirth = ((Patient)br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
       pdt = fhirBirth.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(2023, br.BirthYear);
       Assert.Equal(-1, br.BirthMonth);
@@ -1391,7 +1391,7 @@ namespace BFDR.Tests
       br.BirthMonth = null;
       br.BirthDay = 23;
       br.BirthTime = "-1";
-      fhirBirth = ((Patient) br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
+      fhirBirth = ((Patient)br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
       pdt = fhirBirth.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(2023, br.BirthYear);
       Assert.Null(br.BirthMonth);
@@ -1513,8 +1513,8 @@ namespace BFDR.Tests
       BirthRecord br = new();
       // 2023
       br.DateOfLastLiveBirthYear = 2023;
-      Observation observation = (Observation) br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
-      FhirDateTime dateToUse = ((FhirDateTime) observation.Value);
+      Observation observation = (Observation)br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
+      FhirDateTime dateToUse = ((FhirDateTime)observation.Value);
       Extension pdt = dateToUse.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(2023, br.DateOfLastLiveBirthYear);
       Assert.Null(br.DateOfLastLiveBirthMonth);
@@ -1529,8 +1529,8 @@ namespace BFDR.Tests
       // 2023-12
       br.DateOfLastLiveBirthYear = 2023;
       br.DateOfLastLiveBirthMonth = 12;
-      observation = (Observation) br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
-      dateToUse = ((FhirDateTime) observation.Value);
+      observation = (Observation)br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
+      dateToUse = ((FhirDateTime)observation.Value);
       pdt = dateToUse.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(2023, br.DateOfLastLiveBirthYear);
       Assert.Equal(12, br.DateOfLastLiveBirthMonth);
@@ -1546,8 +1546,8 @@ namespace BFDR.Tests
       ije = new(br);
       br.DateOfLastLiveBirthYear = null;
       br.DateOfLastLiveBirthMonth = 12;
-      observation = (Observation) br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
-      dateToUse = ((FhirDateTime) observation.Value);
+      observation = (Observation)br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
+      dateToUse = ((FhirDateTime)observation.Value);
       pdt = dateToUse.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Null(br.DateOfLastLiveBirthYear);
       Assert.Equal(12, br.DateOfLastLiveBirthMonth);
@@ -1564,8 +1564,8 @@ namespace BFDR.Tests
       // EXPLICIT_UNKOWN-12
       br.DateOfLastLiveBirthYear = -1;
       br.DateOfLastLiveBirthMonth = 12;
-      observation = (Observation) br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
-      dateToUse = ((FhirDateTime) observation.Value);
+      observation = (Observation)br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
+      dateToUse = ((FhirDateTime)observation.Value);
       pdt = dateToUse.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(-1, br.DateOfLastLiveBirthYear);
       Assert.Equal(12, br.DateOfLastLiveBirthMonth);
@@ -1582,8 +1582,8 @@ namespace BFDR.Tests
       // EXPLICIT_UNKOWN-EXPLICIT_UNKNOWN
       br.DateOfLastLiveBirthYear = -1;
       br.DateOfLastLiveBirthMonth = -1;
-      observation = (Observation) br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
-      dateToUse = ((FhirDateTime) observation.Value);
+      observation = (Observation)br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
+      dateToUse = ((FhirDateTime)observation.Value);
       pdt = dateToUse.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(-1, br.DateOfLastLiveBirthYear);
       Assert.Equal(-1, br.DateOfLastLiveBirthMonth);
@@ -2346,12 +2346,12 @@ namespace BFDR.Tests
     public void TestEncounterRole()
     {
       BirthRecord importedRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordBabyGQuinn.json")));
-      Encounter encBirth = (Encounter) importedRecord.GetBundle().Entry.Find(e => e.Resource.Meta.Profile.Any(p => p == ProfileURL.EncounterBirth)).Resource;
-      Encounter encMaternity = (Encounter) importedRecord.GetBundle().Entry.Find(e => e.Resource.Meta.Profile.Any(p => p == ProfileURL.EncounterMaternity)).Resource;
+      Encounter encBirth = (Encounter)importedRecord.GetBundle().Entry.Find(e => e.Resource.Meta.Profile.Any(p => p == ProfileURL.EncounterBirth)).Resource;
+      Encounter encMaternity = (Encounter)importedRecord.GetBundle().Entry.Find(e => e.Resource.Meta.Profile.Any(p => p == ProfileURL.EncounterMaternity)).Resource;
       Assert.NotNull(encBirth.Extension.Find(e => e.Url.Equals(BFDR.ExtensionURL.ExtensionRole)));
       Assert.NotNull(encMaternity.Extension.Find(e => e.Url.Equals(BFDR.ExtensionURL.ExtensionRole)));
       BirthRecord emptyRecord = new();
-      encMaternity = (Encounter) emptyRecord.GetBundle().Entry.Find(e => e.Resource.Meta.Profile.Any(p => p == ProfileURL.EncounterMaternity)).Resource;
+      encMaternity = (Encounter)emptyRecord.GetBundle().Entry.Find(e => e.Resource.Meta.Profile.Any(p => p == ProfileURL.EncounterMaternity)).Resource;
       Assert.NotNull(encMaternity.Extension.Find(e => e.Url.Equals(BFDR.ExtensionURL.ExtensionRole)));
     }
 
@@ -3956,7 +3956,8 @@ namespace BFDR.Tests
     }
 
     [Fact]
-    public void TestPatientFetalDeath() {
+    public void TestPatientFetalDeath()
+    {
       Assert.Null(SetterBirthRecord.PatientFetalDeath);
       SetterBirthRecord.PatientFetalDeath = false;
       Assert.Null(SetterBirthRecord.PatientFetalDeath); //Fetal death should only be indicated if Patient is deceased (value=true).
@@ -3976,7 +3977,8 @@ namespace BFDR.Tests
     }
 
     [Fact]
-    public void TestConnectathonRecords() {
+    public void TestConnectathonRecords()
+    {
       string romeroIje = "2024TT0999910            1031F010101911487607784  1101199210130XXMX77000019AZUSY199112190UUU30HNNN                    YNNNNNNNNNNNNNN                                                                                                                                                                                                                                                                                                30HNNN                    YNNNNNNNNNNNNNN                                                                                                                                                                                                                                                                                                1N8888888888888888000501010001270N03000006201588888800000000320190731NNNNNN NN000NN NNNNNNNNYNNNNYNNNNYNN21XNNNNNN0539021001040199999999990YYYNNNNNNNNNNNNNNNNYYN        9999NXX                 20200102                                                 YYTRF                                             XMIDDLEXX                                         CARDENAS ROMERO                                          PIMA                     TUCSON                                            NORTHWEST MEDICAL CENTER                          ALEJANDRA                                                                                           ROMERO LEON                                                                                                                                                  ROMERO LEON                                                                                                                         6666 NORTH ORACLE ROAD100                         85705    PIMA                        TUCSON                      ARIZONA                     UNITED STATES               RAMON                                             FELIPE                                            CARDENAS OTERO                                           8888888888888888882930                                                                                                                ZZMX                                                                                                                                                                                                    BANNER UNIVERSITY MEDICAL CENTER - TUCSON                                                         MEXICO                                                  MEXICO                                                                                                 9999 NORTH PRIEST RD236                           85489                                MESA                        ARIZONA                     UNITED STATES               Y1             HEATHERSTEVENS                                    1932304839                                                                                     1393674        1393655                20200102                                                  1XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ";
       string zalbanaizIje = "2024TT0099990            1025M010101311568794535  1095199505150XXKU73000013AZUSY199506040YYX40NNNN                    NNNNNNNNNNNNNNY                                                                                                                                                                                    MIDDLE EASTERN                ARABIAN                                                                       60NNNN                    NNNNNNNNNNNNNNY                                                                                                                                                                                    MIDDLE EASTERN                ARABIAN                                                                       1N0604201812272018180503016501990N01000001201988888800000000220180418NNNNNN NN000NN NNNNNNNNNNNNNNYNNYYNN14NNNNNNN2277036009880202999999990NNNNNNNNNNNNNNNNNNNNYY        9999NXX                 20190102                                                 XYUGBNX                                           XMX                                               ZALBANAIZ                                                MARICOPA                 MESA                                              MOUNTAIN VISTA MEDICAL CENTER                     REEM                                              NASSER                                            ALHAMADI                                                                                                                                                     ALHAMADI                                                                                                                            999 N COLLEGE AVE5656                             85281    MARICOPA                    TEMPE                       ARIZONA                     UNITED STATES               OMAR                                              AHMED                                             ALBANAI                                                  8888888888888888882626                                                                                                                ZZKU                                                                                                                                                                                                                                                                                                      KUWAIT                                                  KUWAIT                                                                                                 888 N PRIEST AVE9999                              85429                                GLENDALE                    ARIZONA                     UNITED STATES               Y1             MANISHAAPUROHIT                                   1972721538                                                                                     1201183921     1200527124             20190102                                                  0XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ";
 
@@ -4095,6 +4097,8 @@ namespace BFDR.Tests
     public void Test_CreateDemographicCodedContentBundle()
     {
       // Create the demographic coded content starting with the IJE portions
+      // TODO: Are some of these not supposed to be in the coded version? Add note: IG includes the input race and ethnicity, but optional, so tested here
+      // TODO: We really need to check the original set values
       IJEBirth ije = new IJEBirth();
       ije.IDOB_YR = "2025";
       ije.BSTATE = "NJ";
@@ -4280,5 +4284,369 @@ namespace BFDR.Tests
         Assert.Equal(property.GetValue(ije), property.GetValue(ije2));
       }
     }
+    
+        [Fact]
+    public void TestForOverwrites()
+    {
+        // This test makes sure that there are no fields that, when writing them, accidentally change another field;
+        // we test this by going through each field, setting it to a value, and then setting all other fields to a value,
+        // and then checking to make sure the original field still has the same value
+
+        // Make a list of all the fields we'll test and a valid value for each
+        Dictionary<string, string> fields = new Dictionary<string, string>
+        {
+            // This list of fields is fairly comprehensive, though some have been intentionally left out:
+            // TODO: Remove the TODOs and update the comments in IJEBirth.cs for this set of fields
+            // These fields are not expected to be implemented: DOLP_MO, DOLP_DY, DOLP_YR, CERV, TOC, PROM, PRIC, PROL
+            // ATTF, ATTV, R_YR, R_MO, R_DY, MOM_OC_C, DAD_OC_C, MOM_IN_C, DAD_IN_C, MARE
+            // This test doesn't work with middle name fields since they can't be set first due to how FHIR handles names:
+            // KIDMNAME, MOMMIDDL, MOMMMID, DADMNAME
+            { "IDOB_YR", "2024" },
+            { "BSTATE", "TT" },
+            { "FILENO", "099991" },
+            { "VOID", "0" },
+            { "AUXNO", "123456" },
+            { "TB", "1031" },
+            { "ISEX", "F" },
+            { "IDOB_MO", "01" },
+            { "IDOB_DY", "01" },
+            { "CNTYO", "019" },
+            { "BPLACE", "1" },
+            { "FNPI", "1487607784" },
+            { "SFN", "1101" },
+            { "MDOB_YR", "1992" },
+            { "MDOB_MO", "10" },
+            { "MDOB_DY", "13" },
+            // { "MAGE_BYPASS", "0" }, TODO: Library needs to implement this?
+            // { "BPLACEC_ST_TER", "XX" }, TODO: Seems to get overwritten by MBPLACE_ST_TER_TXT
+            { "BPLACEC_CNT", "MX" },
+            { "CITYC", "77000" },
+            { "COUNTYC", "019" },
+            { "STATEC", "AZ" },
+            { "COUNTRYC", "US" },
+            { "LIMITS", "Y" },
+            { "FDOB_YR", "1991" },
+            { "FDOB_MO", "12" },
+            { "FDOB_DY", "19" },
+            //{ "FAGE_BYPASS", "0" }, TODO: Library needs to implement this?
+            { "MARN", "U" },
+            { "ACKN", "U" },
+            { "MEDUC", "3" },
+            { "MEDUC_BYPASS", "0" },
+            { "METHNIC1", "H" },
+            { "METHNIC2", "N" },
+            { "METHNIC3", "N" },
+            { "METHNIC4", "N" },
+            { "METHNIC5", "Literal1" },
+            { "MRACE1", "Y" },
+            { "MRACE2", "N" },
+            { "MRACE3", "N" },
+            { "MRACE4", "N" },
+            { "MRACE5", "N" },
+            { "MRACE6", "N" },
+            { "MRACE7", "N" },
+            { "MRACE8", "N" },
+            { "MRACE9", "N" },
+            { "MRACE10", "N" },
+            { "MRACE11", "N" },
+            { "MRACE12", "N" },
+            { "MRACE13", "N" },
+            { "MRACE14", "N" },
+            { "MRACE15", "N" },
+            { "MRACE16", "Literal2" },
+            { "MRACE17", "Literal3" },
+            { "MRACE18", "Literal4" },
+            { "MRACE19", "Literal5" },
+            { "MRACE20", "Literal6" },
+            { "MRACE21", "Literal7" },
+            { "MRACE22", "Literal8" },
+            { "MRACE23", "Literal9" },
+            { "MRACE1E", "100" },
+            { "MRACE2E", "101" },
+            { "MRACE3E", "102" },
+            { "MRACE4E", "103" },
+            { "MRACE5E", "104" },
+            { "MRACE6E", "105" },
+            { "MRACE7E", "106" },
+            { "MRACE8E", "107" },
+            { "MRACE16C", "108" },
+            { "MRACE17C", "109" },
+            { "MRACE18C", "110" },
+            { "MRACE19C", "111" },
+            { "MRACE20C", "112" },
+            { "MRACE21C", "113" },
+            { "MRACE22C", "114" },
+            { "MRACE23C", "115" },
+            { "FEDUC", "3" },
+            { "FEDUC_BYPASS", "0" },
+            { "FETHNIC1", "H" },
+            { "FETHNIC2", "N" },
+            { "FETHNIC3", "N" },
+            { "FETHNIC4", "N" },
+            { "FETHNIC5", "Literal10" },
+            { "FRACE1", "Y" },
+            { "FRACE2", "N" },
+            { "FRACE3", "N" },
+            { "FRACE4", "N" },
+            { "FRACE5", "N" },
+            { "FRACE6", "N" },
+            { "FRACE7", "N" },
+            { "FRACE8", "N" },
+            { "FRACE9", "N" },
+            { "FRACE10", "N" },
+            { "FRACE11", "N" },
+            { "FRACE12", "N" },
+            { "FRACE13", "N" },
+            { "FRACE14", "N" },
+            { "FRACE15", "N" },
+            { "FRACE16", "Literal11" },
+            { "FRACE17", "Literal12" },
+            { "FRACE18", "Literal13" },
+            { "FRACE19", "Literal14" },
+            { "FRACE20", "Literal15" },
+            { "FRACE21", "Literal16" },
+            { "FRACE22", "Literal17" },
+            { "FRACE23", "Literal18" },
+            { "FRACE1E", "200" },
+            { "FRACE2E", "201" },
+            { "FRACE3E", "202" },
+            { "FRACE4E", "203" },
+            { "FRACE5E", "204" },
+            { "FRACE6E", "205" },
+            { "FRACE7E", "206" },
+            { "FRACE8E", "207" },
+            { "FRACE16C", "208" },
+            { "FRACE17C", "209" },
+            { "FRACE18C", "400" },
+            { "FRACE19C", "401" },
+            { "FRACE20C", "402" },
+            { "FRACE21C", "403" },
+            { "FRACE22C", "404" },
+            { "FRACE23C", "405" },
+            // { "ATTEND", "1" }, TODO: Seems to get overwritten with 5
+            { "TRAN", "N" },
+            { "DOFP_MO", "88" },
+            { "DOFP_DY", "88" },
+            { "DOFP_YR", "8888" },
+            { "NPREV", "00" },
+            //{ "NPREV_BYPASS", "0" }, TODO: Library needs to implement this?
+            { "HFT", "5" },
+            //{ "HIN", "01" }, TODO: Seems to get overwritten with 00
+            //{ "HGT_BYPASS", "0" }, TODO: Library needs to implement this?
+            { "PWGT", "100" },
+            { "PWGT_BYPASS", "0" },
+            { "DWGT", "127" },
+            { "DWGT_BYPASS", "0" },
+            { "WIC", "N" },
+            { "PLBL", "03" },
+            { "PLBD", "00" },
+            { "POPO", "00" },
+            { "MLLB", "06" },
+            { "YLLB", "2015" },
+            { "MOPO", "88" },
+            { "YOPO", "8888" },
+            { "CIGPN", "00" },
+            { "CIGFN", "00" },
+            { "CIGSN", "00" },
+            { "CIGLN", "00" },
+            { "PAY", "3" },
+            { "DLMP_YR", "2019" },
+            { "DLMP_MO", "07" },
+            { "DLMP_DY", "31" },
+            { "PDIAB", "N" },
+            { "GDIAB", "N" },
+            { "PHYPE", "N" },
+            { "GHYPE", "N" },
+            { "PPB", "N" },
+            { "PPO", "U" },
+            { "VB", "U" },
+            { "INFT", "N" },
+            { "PCES", "N" },
+            { "NPCES", "00" },
+            //{ "NPCES_BYPASS", "0" }, TODO: Library needs to implement this?
+            { "GON", "N" },
+            { "SYPH", "N" },
+            { "HSV", "N" },
+            { "CHAM", "N" },
+            { "HEPB", "N" },
+            { "HEPC", "N" },
+            { "ECVS", "N" },
+            { "ECVF", "N" },
+            { "INDL", "U" },
+            { "AUGL", "U" },
+            { "NVPR", "U" },
+            { "STER", "U" },
+            { "ANTB", "U" },
+            { "CHOR", "U" },
+            { "MECS", "U" },
+            { "FINT", "U" },
+            { "ESAN", "Y" },
+            { "PRES", "2" },
+            { "ROUT", "1" },
+            { "TLAB", "U" },
+            { "MTR", "N" },
+            { "PLAC", "N" },
+            { "RUT", "N" },
+            { "UHYS", "N" },
+            { "AINT", "N" },
+            { "UOPR", "U" },
+            { "BWG", "0539" },
+            { "BW_BYPASS", "0" },
+            //{ "OWGEST", "21" }, TODO: This causes an error when setting
+            { "OWGEST_BYPASS", "0" },
+            { "APGAR5", "01" },
+            { "APGAR10", "04" },
+            { "PLUR", "01" },
+            { "SORD", "99" },
+            { "LIVEB", "99" },
+            // { "MATCH", "654321" }, TODO: Library needs to implement this?
+            { "PLUR_BYPASS", "0" },
+            { "AVEN1", "N" },
+            { "AVEN6", "N" },
+            { "NICU", "N" },
+            { "SURF", "N" },
+            { "ANTI", "N" },
+            { "SEIZ", "N" },
+            { "BINJ", "U" },
+            { "ANEN", "N" },
+            { "MNSB", "N" },
+            { "CCHD", "N" },
+            { "CDH", "N" },
+            { "OMPH", "N" },
+            { "GAST", "N" },
+            { "LIMB", "N" },
+            { "CL", "N" },
+            { "CP", "N" },
+            { "DOWT", "N" },
+            { "CDIT", "N" },
+            { "HYPO", "N" },
+            { "ITRAN", "Y" },
+            { "ILIV", "Y" },
+            { "BFED", "N" },
+            { "MAGER", "99" },
+            { "FAGER", "99" },
+            { "EHYPE", "N" },
+            { "INFT_DRG", "N" },
+            { "INFT_ART", "N" },
+            { "DOR_YR", "2020" },
+            { "DOR_MO", "01" },
+            { "DOR_DY", "02" },
+            //{ "MCPH", "N" }, TODO: Library needs to implement this?
+            { "KIDFNAME", "YYTRF" },
+            { "KIDLNAME", "CARDENAS ROMERO" },
+            { "KIDSUFFX", "KIDSUFF" },
+            { "BIRTH_CO", "PIMA" },
+            { "BRTHCITY", "TUCSON" },
+            { "HOSP", "NORTHWEST MEDICAL CENTER" },
+            { "MOMFNAME", "ALEJANDRA" },
+            { "MOMLNAME", "ROMERO LEON" },
+            { "MOMSUFFX", "MOMSUFF" },
+            { "MOMFMNME", "MOMFMNME" },
+            { "MOMMAIDN", "ROMERO LEON" },
+            { "MOMMSUFX", "MOMMSUF" },
+            { "STNUM", "STNUM" },
+            { "PREDIR", "PREDIR" },
+            { "STNAME", "STNAME" },
+            { "STDESIG", "STDESIG" },
+            { "POSTDIR", "POSTDIR" },
+            { "UNUM", "UNUM" },
+            { "ADDRESS", "6666 NORTH ORACLE ROAD100" },
+            { "ZIPCODE", "85705" },
+            { "COUNTYTXT", "PIMA" },
+            { "CITYTEXT", "TUCSON" },
+            { "STATETXT", "Arizona" },
+            { "CNTRYTXT", "United States" },
+            { "DADFNAME", "RAMON" },
+            { "DADLNAME", "CARDENAS OTERO" },
+            { "DADSUFFX", "DADSUFF" },
+            { "MOM_SSN", "888888888" },
+            { "DAD_SSN", "888888888" },
+            // { "MAGE_CALC", "33" }, TODO: Library needs to implement this?
+            // { "FAGE_CALC", "44" }, TODO: Library needs to implement this?
+            { "MOM_OC_T", "Literal19" },
+            { "DAD_OC_T", "Literal20" },
+            { "MOM_IN_T", "Literal21" },
+            { "DAD_IN_T", "Literal22" },
+            // { "FBPLACD_ST_TER_C", "ZZ" }, TODO: Seems to get overwritten with AK from FBPLACE_ST_TER_TXT
+            { "FBPLACE_CNT_C", "MX" },
+            // { "METHNIC5C", "100" }, TODO: Library needs to implement this?
+            { "METHNICE", "200" },
+            // { "MRACEBG_C", "01" }, TODO: Library needs to implement this?
+            // { "FETHNIC5C", "201" }, TODO: Library needs to implement this?
+            { "FETHNICE", "202" },
+            // { "FRACEBG_C", "02" }, TODO: Library needs to implement this?
+            // { "METHNIC_T", "Literal23" }, TODO: Library needs to implement this?
+            // { "MRACE_T", "Literal24" }, TODO: Library needs to implement this?
+            // { "FETHNIC_T", "Literal25" }, TODO: Library needs to implement this?
+            // { "FRACE_T", "Literal26" }, TODO: Library needs to implement this?
+            { "HOSPFROM", "Literal27" },
+            { "HOSPTO", "BANNER UNIVERSITY MEDICAL CENTER - TUCSON" },
+            { "ATTEND_OTH_TXT", "OTHER" },
+            { "MBPLACE_ST_TER_TXT", "Texas" },
+            { "MBPLACE_CNTRY_TXT", "Mexico" },
+            { "FBPLACE_ST_TER_TXT", "Alaska" },
+            { "FBPLACE_CNTRY_TXT", "Mexico" },
+            { "MAIL_STNUM", "MAIL_STNUM" },
+            { "MAIL_PREDIR", "MAIL_PREDI" },
+            { "MAIL_STNAME", "MAIL_STNAME" },
+            { "MAIL_STDESIG", "MAIL_STDES" },
+            { "MAIL_POSTDIR", "MAIL_POSTD" },
+            { "MAIL_UNUM", "MAIL_UN" },
+            { "MAIL_ADDRESS", "9999 NORTH PRIEST RD236" },
+            { "MAIL_ZIPCODE", "85489" },
+            { "MAIL_COUNTYTXT", "MAIL_COUNTYTXT" },
+            { "MAIL_CITYTEXT", "MESA" },
+            { "MAIL_STATETXT", "Arizona" },
+            { "MAIL_CNTRYTXT", "United States" },
+            { "SSN_REQ", "Y" },
+            // { "SSN_CITIZEN_CD", "1" }, TODO: Library needs to implement this?
+            // { "SSN_MULT_BTH_CD", "N" }, TODO: Library needs to implement this?
+            // { "SSN_FEEDBACK", "N" }, TODO: Library needs to implement this?
+            // { "SSN_BRTH_CRT_NO", "11111111111" }, TODO: Library needs to implement this?
+            { "ATTEND_NAME", "HEATHERSTEVENS" },
+            { "ATTEND_NPI", "1932304839" },
+            { "CERTIF_NAME", "CERTIF_NAME" },
+            { "CERTIF_NPI", "123456789876" },
+            { "CERTIF", "5" },
+            // { "CERTIF_OTH_TXT", "CERTIF_OTH_TXT" }, TODO: Library needs to implement this?
+            { "INF_MED_REC_NUM", "1393674" },
+            { "MOM_MED_REC_NUM", "1393655" },
+            { "CERTIFIED_YR", "2024" },
+            { "CERTIFIED_MO", "12" },
+            { "CERTIFIED_DY", "31" },
+            // { "REGISTER_YR", "2025" }, TODO: Library needs to implement this?
+            // { "REGISTER_MO", "01" }, TODO: Library needs to implement this?
+            // { "REGISTER_DY", "01" }, TODO: Library needs to implement this?
+            { "MARITAL_DESCRIP", "MARITAL_DESCRIP" },
+            // { "REPLACE", "1" }, TODO: Not actually implemented, right?
+            { "PLACE1_1", "A" },
+            { "PLACE1_2", "B" },
+            { "PLACE1_3", "C" },
+            { "PLACE1_4", "D" },
+            { "PLACE1_5", "E" },
+            { "PLACE1_6", "F" },
+            { "PLACE8_1", "PLACE8_1" },
+            { "PLACE8_2", "PLACE8_2" },
+            { "PLACE8_3", "PLACE8_3" },
+            { "PLACE20", "PLACE20" },
+            { "BLANK", "" },
+            { "BLANK2", "" }
+        };
+        // For each field, create a record, set that field, set all the other fields, and make sure the first field still has the same value
+        foreach (var (field, value) in fields)
+        {
+            IJEBirth ije = new IJEBirth();
+            PropertyInfo property = typeof(IJEBirth).GetProperty(field);
+            property.SetValue(ije, value);
+            foreach (var (overwriteField, overwriteValue) in fields)
+            {
+                if (overwriteField == field) continue; // Don't rewrite the field we're testing
+                PropertyInfo overwriteProperty = typeof(IJEBirth).GetProperty(overwriteField);
+                overwriteProperty.SetValue(ije, overwriteValue);
+            }
+            Console.WriteLine($"Testing {field} with value {value}");
+            Assert.Equal(value, ((string)property.GetValue(ije)).Trim());
+        }
+    }    
   }
 }
