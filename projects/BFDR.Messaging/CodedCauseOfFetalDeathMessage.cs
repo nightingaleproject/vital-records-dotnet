@@ -65,7 +65,7 @@ namespace BFDR
         {
             get
             {
-                return fetalDeathRecord?.GetBundle();
+                return fetalDeathRecord?.GetCodedCauseOfFetalDeathBundle();
             }
         }
     }
