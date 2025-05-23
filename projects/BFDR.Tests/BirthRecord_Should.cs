@@ -4096,7 +4096,6 @@ namespace BFDR.Tests
     {
       // Create the demographic coded content starting with the IJE portions
       // TODO: Are some of these not supposed to be in the coded version? Add note: IG includes the input race and ethnicity, but optional, so tested here
-      // TODO: We really need to check the original set values
       IJEBirth ije = new IJEBirth();
       ije.IDOB_YR = "2025";
       ije.BSTATE = "NJ";
@@ -4283,7 +4282,7 @@ namespace BFDR.Tests
       }
     }
     
-        [Fact]
+    [Fact]
     public void TestForOverwrites()
     {
         // This test makes sure that there are no fields that, when writing them, accidentally change another field;
@@ -4646,5 +4645,6 @@ namespace BFDR.Tests
             Assert.Equal(value, ((string)property.GetValue(ije)).Trim());
         }
     }    
+
   }
 }
