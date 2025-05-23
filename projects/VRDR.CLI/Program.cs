@@ -1,26 +1,14 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Xml;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using System.Reflection;
 using System.Net.Http;
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Serialization;
-using Hl7.Fhir.ElementModel;
-using Hl7.FhirPath;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using VRDR;
 using VR;
-using System.Text.Encodings.Web;
-using System.Text.Json;
-using System.Text.Unicode;
 
 namespace VRDR.CLI
 {
@@ -68,8 +56,8 @@ namespace VRDR.CLI
   - xml2xml: Read in the IJE death record and print out as XML (1 argument: path to death record in XML format)
   - batch: Read in IJE messages and create a batch submission bundle (2+ arguments: submission URL (for inside bundle) and one or more messages)
   - filter: Read in the FHIR death record and filter based on filter array (1 argument: path to death record to filter)
-  - jsonstu2-to-stu3:  Read in an VRDR STU2.2 file and convert to STU3 (2 arguments: path to input STU2.2 json input and path to output STU3 json output) 
-  - jsonstu3-to-stu2:  Read in an VRDR STU3 file and convert to STU2.2 (2 arguments: path to input STU3 json input and path to output STU2.2 json output) 
+  - jsonstu2-to-stu3:  Read in an VRDR STU2.2 file and convert to STU3 (2 arguments: path to input STU2.2 json input and path to output STU3 json output)
+  - jsonstu3-to-stu2:  Read in an VRDR STU3 file and convert to STU2.2 (2 arguments: path to input STU3 json input and path to output STU2.2 json output)
   - rdtripstu3-to-stu2:  Round trip an STU3 file to STU2 and back and check equivalence (1 arguments: path to input STU3 input)
   - json-diff:   Compare two json files that should be identical except for spacing and ordering of nodes using JsonDiffPatchDotNet
 ";
@@ -1082,14 +1070,14 @@ namespace VRDR.CLI
                 //  - jsonstu2-to-stu3:  Read in an VRDR STU2.2 file and convert to STU3
                 Console.WriteLine($"Converting json file {args[1]} to json file {args[2]} for VRDR STU3 conformance");
 
-                ConvertVersion(args[2], args[1], false, true);
+                ConvertVersion(args[2], args[1], ConversionDirection.STU2toSTU3, DataFormat.JSON);
             }
             else if (args.Length >= 3 && args[0] == "jsonstu3-to-stu2")
             {
-                //  - jsonstu2-to-stu3:  Read in an VRDR STU2.2 file and convert to STU3
+                //  - jsonstu3-to-stu2:  Read in an VRDR STU3 and convert to STU2.2
                 Console.WriteLine($"Converting json file {args[1]} to json file {args[2]} for VRDR STU2 conformance");
 
-                ConvertVersion(args[2], args[1], true, true);
+                ConvertVersion(args[2], args[1], ConversionDirection.STU3toSTU2, DataFormat.JSON);
             }
             else if (args.Length >= 2 && args[0] == "rdtripstu3-to-stu2")
             {
@@ -1097,8 +1085,8 @@ namespace VRDR.CLI
                 DeathRecord d1, d2;
                 Console.WriteLine($"Roundtrip STU3 json file {args[1]} to STU2 and compare content");
 
-                ConvertVersion("./tempSTU2.json", args[1], true, true);
-                ConvertVersion("./tempSTU3.json", "./tempSTU2.json", false, true);
+                ConvertVersion("./tempSTU2.json", args[1], ConversionDirection.STU3toSTU2, DataFormat.JSON);
+                ConvertVersion("./tempSTU3.json", "./tempSTU2.json", ConversionDirection.STU2toSTU3, DataFormat.JSON);
                 d1 = new DeathRecord(File.ReadAllText(args[1]));
                 d2 = new DeathRecord(File.ReadAllText("./tempSTU3.json"));
                 return (CompareTwo(d1, d2));
@@ -1107,7 +1095,7 @@ namespace VRDR.CLI
             {
                 //   -json-diff:  compare two json files irrespective of space and ordering
                 Console.WriteLine($"Compare two json files {args[1]} and {args[2]} json files irrespective of space and ordering");
-                return (CompareJsonIgnoringOrderAndSpacing (File.ReadAllText(args[1]), File.ReadAllText(args[2]))?0:1);    
+                return (CompareJsonIgnoringOrderAndSpacing (File.ReadAllText(args[1]), File.ReadAllText(args[2]))?0:1);
             }
             else
             {
