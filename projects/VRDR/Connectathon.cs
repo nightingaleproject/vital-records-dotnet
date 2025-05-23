@@ -97,25 +97,7 @@ namespace VRDR
             ije.TOD = "1000";
             ije.DEDUC = "8";
             ije.DEDUC_BYPASS = "0";
-            ije.DETHNIC1 = "N";
-            ije.DETHNIC2 = "N";
-            ije.DETHNIC3 = "N";
-            ije.DETHNIC4 = "N";
-            ije.RACE1 = "Y";
-            ije.RACE2 = "N";
-            ije.RACE3 = "N";
-            ije.RACE4 = "N";
-            ije.RACE5 = "N";
-            ije.RACE6 = "N";
-            ije.RACE7 = "N";
-            ije.RACE8 = "N";
-            ije.RACE9 = "N";
-            ije.RACE10 = "N";
-            ije.RACE11 = "N";
-            ije.RACE12 = "N";
-            ije.RACE13 = "N";
-            ije.RACE14 = "N";
-            ije.RACE15 = "N";
+           
             ije.OCCUP = "Teacher";
             ije.INDUST = "Education";
             ije.MANNER = "N";
@@ -141,7 +123,7 @@ namespace VRDR
             ije.INTERVAL1A = "4 Days";
             ije.COD1B = "MRSA Pneumonia";
             ije.INTERVAL1B = "4 Days";
-            ije.PLACE1_1 = "Y";
+            
             DeathRecord record = ije.ToRecord();
             return record;
         }
@@ -183,25 +165,6 @@ namespace VRDR
             ije.TOD = "1040";
             ije.DEDUC = "4";
             ije.DEDUC_BYPASS = "0";
-            ije.DETHNIC1 = "N";
-            ije.DETHNIC2 = "H";
-            ije.DETHNIC3 = "H";
-            ije.DETHNIC4 = "N";
-            ije.RACE1 = "N";
-            ije.RACE2 = "Y";
-            ije.RACE3 = "N";
-            ije.RACE4 = "N";
-            ije.RACE5 = "N";
-            ije.RACE6 = "N";
-            ije.RACE7 = "N";
-            ije.RACE8 = "N";
-            ije.RACE9 = "N";
-            ije.RACE10 = "N";
-            ije.RACE11 = "N";
-            ije.RACE12 = "N";
-            ije.RACE13 = "N";
-            ije.RACE14 = "N";
-            ije.RACE15 = "N";
             ije.OCCUP = "Carpenter";
             ije.INDUST = "Construction";
             ije.DOR_YR = "2022";
@@ -233,7 +196,6 @@ namespace VRDR
             ije.COD1D = "Hepatic Encephalopathy";
             ije.INTERVAL1D = "Weeks";
             ije.OTHERCONDITION = "Alcoholism";
-            ije.PLACE8_1 = "00000033";
             DeathRecord record = ije.ToRecord();
             return record;
         }
@@ -274,27 +236,7 @@ namespace VRDR
             ije.DOD_DY = "17";
             ije.TOD = "1823";
             ije.DEDUC = "1";
-            ije.DEDUC_BYPASS = "0";
-            ije.DETHNIC1 = "N";
-            ije.DETHNIC2 = "N";
-            ije.DETHNIC3 = "N";
-            ije.DETHNIC4 = "N";
-            ije.RACE1 = "Y";
-            ije.RACE2 = "N";
-            ije.RACE3 = "Y";
-            ije.RACE4 = "N";
-            ije.RACE5 = "N";
-            ije.RACE6 = "N";
-            ije.RACE7 = "N";
-            ije.RACE8 = "N";
-            ije.RACE9 = "N";
-            ije.RACE10 = "N";
-            ije.RACE11 = "N";
-            ije.RACE12 = "N";
-            ije.RACE13 = "N";
-            ije.RACE14 = "N";
-            ije.RACE15 = "N";
-            ije.RACE16 = "Cheyenne";
+            ije.DEDUC_BYPASS = "0";           
             ije.OCCUP = "Infant";
             ije.INDUST = "Never Worked";
             ije.BCNO = "001023";
@@ -317,7 +259,6 @@ namespace VRDR
             ije.COUNTRYTEXT_R = "United States";
             ije.ADDRESS_R = "2722 N Pin Oak Dr";
             ije.COD1A = "Pending";
-            ije.PLACE20 = "043-A-110234";
             DeathRecord record = ije.ToRecord();
             return record;
         }
@@ -356,27 +297,7 @@ namespace VRDR
             ije.TOD = "9999";
             ije.DEDUC = "9";
             ije.DEDUC_BYPASS = "0";
-            ije.DETHNIC1 = "H";
-            ije.DETHNIC2 = "N";
-            ije.DETHNIC3 = "N";
-            ije.DETHNIC4 = "N";
-            ije.RACE1 = "N";
-            ije.RACE2 = "N";
-            ije.RACE3 = "Y";
-            ije.RACE4 = "N";
-            ije.RACE5 = "N";
-            ije.RACE6 = "N";
-            ije.RACE7 = "N";
-            ije.RACE8 = "N";
-            ije.RACE9 = "N";
-            ije.RACE10 = "N";
-            ije.RACE11 = "N";
-            ije.RACE12 = "N";
-            ije.RACE13 = "N";
-            ije.RACE14 = "N";
-            ije.RACE15 = "N";
-            ije.RACE16 = "Choctaw";
-            ije.RACE17 = "Cree";
+           
             ije.OCCUP = "Software developer";
             ije.INDUST = "Computer";
             ije.MANNER = "A";
