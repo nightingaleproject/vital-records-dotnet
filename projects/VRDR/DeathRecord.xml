@@ -3419,9 +3419,6 @@
         <member name="M:VRDR.IJEMortality.DateTime_Set(System.String,System.String,System.String,System.String,System.Boolean,System.Boolean)">
             <summary>Set a value on the DeathRecord whose type is some part of a DateTime.</summary>
         </member>
-        <member name="M:VRDR.IJEMortality.RightJustifiedZeroed_Get(System.String,System.String)">
-            <summary>Get a value on the DeathRecord whose IJE type is a right justified, zero filled string.</summary>
-        </member>
         <member name="M:VRDR.IJEMortality.Dictionary_Get(System.String,System.String,System.String)">
             <summary>Get a value on the DeathRecord whose property is a Dictionary type.</summary>
         </member>

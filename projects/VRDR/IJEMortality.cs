@@ -308,21 +308,6 @@ namespace VRDR
             }
         }
 
-        /// <summary>Get a value on the DeathRecord whose IJE type is a right justified, zero filled string.</summary>
-        private string RightJustifiedZeroed_Get(string ijeFieldName, string fhirFieldName)
-        {
-            IJEField info = FieldInfo(ijeFieldName);
-            string current = Convert.ToString(typeof(DeathRecord).GetProperty(fhirFieldName).GetValue(this.record));
-            if (current != null)
-            {
-                return Truncate(current, info.Length).PadLeft(info.Length, '0');
-            }
-            else
-            {
-                return new String('0', info.Length);
-            }
-        }
-
         /// <summary>Get a value on the DeathRecord whose property is a Dictionary type.</summary>
         private string Dictionary_Get(string ijeFieldName, string fhirFieldName, string key)
         {
@@ -595,12 +580,7 @@ namespace VRDR
         {
             get
             {
-                string[] names = record.GivenNames;
-                if (names.Length > 0)
-                {
-                    return Truncate(names[0], 50).PadRight(50, ' ');
-                }
-                return new string(' ', 50);
+                return LeftJustifiedValue("GNAME", record.GivenNames);
             }
             set
             {
@@ -617,12 +597,7 @@ namespace VRDR
         {
             get
             {
-                string[] names = record.GivenNames;
-                if (names.Length > 1)
-                {
-                    return Truncate(names[1], 1).PadRight(1, ' ');
-                }
-                return " ";
+                return LeftJustifiedValue("MNAME", record.GivenNames, 1);
             }
             set
             {
@@ -3031,12 +3006,7 @@ namespace VRDR
         {
             get
             {
-                string[] names = record.SpouseGivenNames;
-                if (names.Length > 0)
-                {
-                    return Truncate(names[0], 50).PadRight(50, ' ');
-                }
-                return new string(' ', 50);
+                return LeftJustifiedValue("SPOUSEF", record.SpouseGivenNames);
             }
             set
             {
@@ -3413,12 +3383,7 @@ namespace VRDR
         {
             get
             {
-                string[] names = record.GivenNames;
-                if (names.Length > 1)
-                {
-                    return Truncate(names[1], 50).PadRight(50, ' ');
-                }
-                return new string(' ', 50);
+                return LeftJustifiedValue("DMIDDLE", record.GivenNames, 1);
             }
             set
             {
@@ -3441,12 +3406,7 @@ namespace VRDR
         {
             get
             {
-                string[] names = record.FatherGivenNames;
-                if (names != null && names.Length > 0)
-                {
-                    return Truncate(names[0], 50).PadRight(50, ' ');
-                }
-                return new string(' ', 50);
+                return LeftJustifiedValue("DDADF", record.FatherGivenNames);
             }
             set
             {
@@ -3463,12 +3423,7 @@ namespace VRDR
         {
             get
             {
-                string[] names = record.FatherGivenNames;
-                if (names != null && names.Length > 1)
-                {
-                    return Truncate(names[1], 50).PadRight(50, ' ');
-                }
-                return new string(' ', 50);
+                return LeftJustifiedValue("DDADMID", record.FatherGivenNames, 1);
             }
             set
             {
@@ -3491,12 +3446,7 @@ namespace VRDR
         {
             get
             {
-                string[] names = record.MotherGivenNames;
-                if (names != null && names.Length > 0)
-                {
-                    return Truncate(names[0], 50).PadRight(50, ' ');
-                }
-                return new string(' ', 50);
+                return LeftJustifiedValue("DMOMF", record.MotherGivenNames);
             }
             set
             {
@@ -3513,12 +3463,7 @@ namespace VRDR
         {
             get
             {
-                string[] names = record.MotherGivenNames;
-                if (names != null && names.Length > 1)
-                {
-                    return Truncate(names[1], 50).PadRight(50, ' ');
-                }
-                return new string(' ', 50);
+                return LeftJustifiedValue("DMOMMID", record.MotherGivenNames, 1);
             }
             set
             {
@@ -4047,12 +3992,7 @@ namespace VRDR
         {
             get
             {
-                string[] names = record.SpouseGivenNames;
-                if (names != null && names.Length > 1)
-                {
-                    return Truncate(names[1], 50).PadRight(50, ' ');
-                }
-                return new string(' ', 50);
+                return LeftJustifiedValue("SPOUSEMIDNAME", record.SpouseGivenNames, 1);
             }
             set
             {
@@ -4463,12 +4403,7 @@ namespace VRDR
         {
             get
             {
-                string[] names = record.CertifierGivenNames;
-                if (names != null && names.Length > 0)
-                {
-                    return Truncate(names[0], 50).PadRight(50, ' ');
-                }
-                return new string(' ', 50);
+                return LeftJustifiedValue("CERTFIRST", record.CertifierGivenNames);
             }
             set
             {
@@ -4485,12 +4420,7 @@ namespace VRDR
         {
             get
             {
-                string[] names = record.CertifierGivenNames;
-                if (names != null && names.Length > 1)
-                {
-                    return Truncate(names[1], 50).PadRight(50, ' ');
-                }
-                return new string(' ', 50);
+                return LeftJustifiedValue("CERTMIDDLE", record.CertifierGivenNames, 1);
             }
             set
             {
