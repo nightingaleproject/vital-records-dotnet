@@ -208,16 +208,7 @@ namespace BFDR
         {
             get
             {
-                if (String.IsNullOrWhiteSpace(record?.CertificateNumber))
-                {
-                    return "".PadLeft(6, '0');
-                }
-                string id_str = record.CertificateNumber;
-                if (id_str.Length > 6)
-                {
-                    id_str = id_str.Substring(id_str.Length - 6);
-                }
-                return id_str.PadLeft(6, '0');
+                return RightJustifiedZeroed_Get("FILENO", "CertificateNumber");
             }
             set
             {
@@ -242,10 +233,6 @@ namespace BFDR
         {
             get
             {
-                if (record.StateLocalIdentifier1 == null)
-                {
-                    return (new String(' ', 12));
-                }
                 return LeftJustified_Get("AUXNO", "StateLocalIdentifier1");
             }
             set
@@ -757,15 +744,7 @@ namespace BFDR
         {
             get
             {
-                var ethnicityLiteral = record.MotherEthnicityLiteral;
-                if (!String.IsNullOrWhiteSpace(ethnicityLiteral))
-                {
-                    return Truncate(ethnicityLiteral, 20).Trim();
-                }
-                else
-                {
-                    return "";
-                }
+                return LeftJustified_Get("METHNIC5", "MotherEthnicityLiteral");
             }
             set
             {
@@ -3167,12 +3146,7 @@ namespace BFDR
         {
             get
             {
-                string[] names = record.FetusGivenNames;
-                if (names.Length > 0)
-                {
-                    return Truncate(names[0], 50).PadRight(50, ' ');
-                }
-                return new string(' ', 50);
+                return LeftJustifiedValue("FETFNAME", record.FetusGivenNames);
             }
             set
             {
@@ -3189,12 +3163,7 @@ namespace BFDR
         {
             get
             {
-                string[] names = record.FetusGivenNames;
-                if (names.Length > 1)
-                {
-                    return Truncate(names[1], 50).PadRight(50, ' ');
-                }
-                return " ";
+                return LeftJustifiedValue("FETMNAME", record.FetusGivenNames, 1);
             }
             set => record.FetusGivenNames = Update_MiddleName(value, record.FetusGivenNames, FETFNAME);
         }
@@ -3496,15 +3465,7 @@ namespace BFDR
         [IJEField(239, 3257, 50, "Mother's Legal First Name", "MOMFNAME", 1)]
         public string MOMFNAME
         {
-            get
-            {
-                string[] names = record.MotherGivenNames;
-                if (names.Length > 0)
-                {
-                    return Truncate(names[0], 50).PadRight(50, ' ');
-                }
-                return new string(' ', 50);
-            }
+            get => LeftJustifiedValue("MOMFNAME", record.MotherGivenNames);
             set => record.MotherGivenNames = Update_FirstName(value, record.MotherGivenNames);
         }
 
@@ -3512,15 +3473,7 @@ namespace BFDR
         [IJEField(240, 3307, 50, "Mother's Legal Middle Name", "MOMMNAME", 1)]
         public string MOMMNAME
         {
-            get
-            {
-                string[] names = record.MotherGivenNames;
-                if (names.Length > 1)
-                {
-                    return Truncate(names[1], 50).PadRight(50, ' ');
-                }
-                return " ";
-            }
+            get => LeftJustifiedValue("MOMMNAME", record.MotherGivenNames, 1);
             set => record.MotherGivenNames = Update_MiddleName(value, record.MotherGivenNames, MOMFNAME);
         }
 
@@ -3557,12 +3510,7 @@ namespace BFDR
         {
             get
             {
-                string[] names = record.MotherMaidenGivenNames;
-                if (names.Length > 0)
-                {
-                    return Truncate(names[0], 50).PadRight(50, ' ');
-                }
-                return new string(' ', 50);
+                return LeftJustifiedValue("MOMFMNME", record.MotherMaidenGivenNames);
             }
             set
             {
@@ -3579,12 +3527,7 @@ namespace BFDR
         {
             get
             {
-                string[] names = record.MotherMaidenGivenNames;
-                if (names.Length > 1)
-                {
-                    return Truncate(names[1], 50).PadRight(50, ' ');
-                }
-                return " ";
+                return LeftJustifiedValue("MOMMMID", record.MotherMaidenGivenNames, 1);
             }
             set
             {
@@ -3872,15 +3815,7 @@ namespace BFDR
         [IJEField(261, 3879, 50, "Father's Legal First Name", "DADFNAME", 1)]
         public string DADFNAME
         {
-            get
-            {
-                string[] names = record.FatherGivenNames;
-                if (names.Length > 0)
-                {
-                    return Truncate(names[0], 50).PadRight(50, ' ');
-                }
-                return new string(' ', 50);
-            }
+            get => LeftJustifiedValue("DADFNAME", record.FatherGivenNames);
             set => record.FatherGivenNames = Update_FirstName(value, record.FatherGivenNames);
         }
 
@@ -3888,15 +3823,7 @@ namespace BFDR
         [IJEField(262, 3929, 50, "Father's Legal Middle Name", "DADMNAME", 1)]
         public string DADMNAME
         {
-            get
-            {
-                string[] names = record.FatherGivenNames;
-                if (names.Length > 1)
-                {
-                    return Truncate(names[1], 50).PadRight(50, ' ');
-                }
-                return " ";
-            }
+            get => LeftJustifiedValue("DADMNAME", record.FatherGivenNames, 1);
             set => record.FatherGivenNames = Update_MiddleName(value, record.FatherGivenNames, DADFNAME);
         }
 
@@ -4347,15 +4274,7 @@ namespace BFDR
         {
             get
             {
-                var ethnicityLiteral = record.FatherEthnicityLiteral;
-                if (!String.IsNullOrWhiteSpace(ethnicityLiteral))
-                {
-                    return Truncate(ethnicityLiteral, 20).Trim();
-                }
-                else
-                {
-                    return "";
-                }
+                 return LeftJustified_Get("FETHNIC5", "FatherEthnicityLiteral");
             }
             set
             {
