@@ -893,8 +893,17 @@ namespace BFDR.Tests
             ije.IDOB_YR = "2022";
             ije.BSTATE = "YC";
             ije.FILENO = "123";
-            // TODO: Set the IJE fields that support demographic data
+            // Set some of the IJE fields that support coded demographic data (full field testing happens in the record test)
+            ije.MRACE1E = "100";
+            ije.MRACE2E = "101";
+            ije.FRACE1E = "116";
+            ije.FRACE2E = "117";
+            ije.METHNIC5C = "200"; // TODO: This getter or setter seems broken
+            ije.METHNICE = "201";
+            ije.FETHNIC5C = "202";
+            ije.FETHNICE = "203";
             BirthRecordParentalDemographicsCodingMessage message = new BirthRecordParentalDemographicsCodingMessage(ije.ToRecord());
+            // TODO: Move the message through a JSON phase?
             message.MessageSource = "http://nchs.cdc.gov/bfdr_submission";
             message.MessageDestination = "https://example.org/jurisdiction/endpoint";
             Assert.Equal(BirthRecordParentalDemographicsCodingMessage.MESSAGE_TYPE, message.MessageType);
@@ -904,7 +913,14 @@ namespace BFDR.Tests
             Assert.Equal((uint)2022, message.EventYear);
             Assert.Equal("2022YC000123", message.NCHSIdentifier);
             Assert.Equal("BFDR_STU2_0", message.PayloadVersionId);
-            // TODO: Check demographic coding fields once implemented
+            Assert.Equal("100", message.NatalityRecord.MotherRaceTabulation1EHelper);
+            Assert.Equal("101", message.NatalityRecord.MotherRaceTabulation2EHelper);
+            Assert.Equal("116", message.NatalityRecord.FatherRaceTabulation1EHelper);
+            Assert.Equal("117", message.NatalityRecord.FatherRaceTabulation2EHelper);
+            Assert.Equal("200", message.NatalityRecord.MotherEthnicityCodeForLiteralHelper);
+            Assert.Equal("201", message.NatalityRecord.MotherEthnicityEditedCodeHelper);
+            Assert.Equal("202", message.NatalityRecord.FatherEthnicityCodeForLiteralHelper);
+            Assert.Equal("203", message.NatalityRecord.FatherEthnicityEditedCodeHelper);
         }
 
         [Fact]
