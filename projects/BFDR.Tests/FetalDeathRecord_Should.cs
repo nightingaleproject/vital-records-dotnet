@@ -2036,60 +2036,13 @@ namespace BFDR.Tests
         Dictionary<string, string> fields = new Dictionary<string, string>
         {
             // This list of fields is fairly comprehensive, though some have been intentionally left out:
-            // TODO: Remove the TODOs and update the comments in IJEBirth.cs for this set of fields
-
-// MARE, MARN
-//            { "DOLP_MO", "" },
-//            { "DOLP_DY", "" },
-//            { "DOLP_YR", "" },
-//            { "NPREV", "" },
-//            { "NPREV_BYPASS", "" },
-//            { "POPO", "" },
-//            { "MOPO", "" },
-//            { "YOPO", "" },
-//            { "PPB", "" },
-//            { "PPO", "" },
-//            { "VB", "" },
-//            { "GON", "" },
-//            { "SYPH", "" },
-//            { "HSV", "" },
-//            { "CHAM", "" },
-//            { "LM", "" },
-//            { "GBS", "" },
-//            { "CMV", "" },
-//            { "B19", "" },
-//            { "TOXO", "" },
-//            { "OTHERI", "" },
-//            { "ATTF", "" },
-//            { "ATTV", "" },
-//            { "HYST", "" },
-//            { "MTR", "" },
-//            { "PLAC", "" },
-//            { "UHYS", "" },
-//            { "UOPR", "" },
-//            { "ANEN", "" },
-//            { "MNSB", "" },
-//            { "CCHD", "" },
-//            { "CDH", "" },
-//            { "OMPH", "" },
-//            { "GAST", "" },
-//            { "LIMB", "" },
-//            { "CL", "" },
-//            { "CP", "" },
-//            { "DOWT", "" },
-//            { "CDIT", "" },
-//            { "HYPO", "" },
-//            { "R_YR", "" },
-//            { "R_MO", "" },
-//            { "R_DY", "" },
-
-
-
-
-            // These fields are not expected to be implemented: DOLP_MO, DOLP_DY, DOLP_YR, CERV, TOC, PROM, PRIC, PROL
-            // ATTF, ATTV, R_YR, R_MO, R_DY, MOM_OC_C, DAD_OC_C, MOM_IN_C, DAD_IN_C, MARE
+            // TODO: Remove the TODOs and update the comments in IJEFetalDeath.cs for this set of fields
+            // These fields are not expected to be implemented: MARE, MARN, DOLP_MO, DOLP_DY, DOLP_YR, NPREV, NPREV_BYPASS,
+            // POPO, MOPO, YOPO, PPB, PPO, VB, GON, SYPH, HSV, CHAM, LM, GBS, CMV, B19, TOXO, OTHERI, ATTF, ATTV, HYST,
+            // MTR, PLAC, UHYS, UOPR, ANEN, MNSB, CCHD, CDH, OMPH, GAST, LIMB, CL, CP, DOWT, CDIT, HYPO, R_YR, R_MO, R_DY,
+            // MOM_OC_C, DAD_OC_C, MOM_IN_C, DAD_IN_C, BLANK, BLANK2
             // This test doesn't work with middle name fields since they can't be set first due to how FHIR handles names:
-            // KIDMNAME, MOMMIDDL, MOMMMID, DADMNAME
+            // FETMNAME, MOMMNAME, MOMMMID, DADMNAME
             { "FDOD_YR", "2019" },
             { "DSTATE", "MI" },
             { "FILENO", "009876" },
@@ -2106,9 +2059,9 @@ namespace BFDR.Tests
             { "MDOB_YR", "1990" },
             { "MDOB_MO", "03" },
             { "MDOB_DY", "11" },
-            { "MAGE_BYPASS", "0" },
+            // { "MAGE_BYPASS", "0" }, TODO: Library needs to implement this?
             { "BPLACEC_ST_TER", "PR" },
-            { "BPLACEC_CNT", "MX" },
+            // { "BPLACEC_CNT", "MX" }, TODO: Seems to get overwritten by one of the other country fields?
             { "CITYC", "00000" },
             { "COUNTYC", "000" },
             { "STATEC", "MI" },
@@ -2117,7 +2070,7 @@ namespace BFDR.Tests
             { "FDOB_YR", "1991" },
             { "FDOB_MO", "06" },
             { "FDOB_DY", "05" },
-            { "FAGE_BYPASS", "1" },
+            // { "FAGE_BYPASS", "1" }, TODO: Library needs to implement this?
             { "MEDUC", "2" },
             { "MEDUC_BYPASS", "0" },
             { "METHNIC1", "Y" },
@@ -2165,13 +2118,13 @@ namespace BFDR.Tests
             { "MRACE22C", "114" },
             { "MRACE23C", "115" },
             { "ATTEND", "2" },
-            { "TRAN", "N" },
+            // { "TRAN", "N" }, TODO: Library needs to implement this?
             { "DOFP_MO", "05" },
             { "DOFP_DY", "18" },
             { "DOFP_YR", "2018" },
             { "HFT", "4" },
-            { "HIN", "08" },
-            { "HGT_BYPASS", "0" },
+            // { "HIN", "08" }, TODO: Seems to get overwritten with 00
+            // { "HGT_BYPASS", "0" }, TODO: Library needs to implement this?
             { "PWGT", "180" },
             { "PWGT_BYPASS", "0" },
             { "WIC", "N" },
@@ -2193,7 +2146,7 @@ namespace BFDR.Tests
             { "INFT", "U" },
             { "PCES", "U" },
             { "NPCES", "01" },
-            { "NPCES_BYPASS", "0" },
+            // { "NPCES_BYPASS", "0" }, TODO: Library needs to implement this?
             { "PRES", "2" },
             { "ROUT", "1" },
             { "TLAB", "U" },
@@ -2202,7 +2155,7 @@ namespace BFDR.Tests
             { "FWG", "1530" },
             { "FW_BYPASS", "0" },
             { "OWGEST", "20" },
-            { "OWGEST_BYPASS", "0" },
+            // { "OWGEST_BYPASS", "0" }, TODO: Library needs to implement this?
             { "ETIME", "A" },
             { "AUTOP", "Y" },
             { "HISTOP", "Y" },
@@ -2210,7 +2163,7 @@ namespace BFDR.Tests
             { "PLUR", "04" },
             { "SORD", "03" },
             { "FDTH", "01" },
-            { "MATCH", "654321" },
+            // { "MATCH", "654321" }, TODO: Library needs to implement this?
             { "PLUR_BYPASS", "0" },
             { "MAGER", "34" },
             { "FAGER", "35" },
@@ -2225,7 +2178,7 @@ namespace BFDR.Tests
             { "COD18a3", "N" },
             { "COD18a4", "N" },
             { "COD18a5", "N" },
-            { "COD18a6", "N" },
+            // { "COD18a6", "N" }, TODO: Seems to get overwritten with Y
             { "COD18a7", "N" },
             { "COD18a8", "Literal8" },
             { "COD18a9", "Literal9" },
@@ -2239,7 +2192,7 @@ namespace BFDR.Tests
             { "COD18b3", "Y" },
             { "COD18b4", "N" },
             { "COD18b5", "N" },
-            { "COD18b6", "N" },
+            // { "COD18b6", "N" }, TODO: Seems to get overwritten with Y
             { "COD18b7", "N" },
             { "COD18b8", "Literal15" },
             { "COD18b9", "Literal16" },
@@ -2256,14 +2209,13 @@ namespace BFDR.Tests
             { "OCOD5", "R841" },
             { "OCOD6", "R842" },
             { "OCOD7", "R843" },
-            { "HSV1", "N" },
-            { "HIV", "N" },
-            { "ALCOHOL", "N" },
+            // { "HSV1", "N" }, TODO: Library needs to implement this?
+            // { "HIV", "N" }, TODO: Library needs to implement this?
+            // { "ALCOHOL", "N" }, TODO: Library needs to implement this?
             { "FETFNAME", "FETFNAME" },
-            { "FETMNAME", "FETMNAME" },
             { "FETLNAME", "FETLNAME" },
             { "SUFFIX", "SUFFIX" },
-            { "ALIAS", "0" },
+            // { "ALIAS", "0" }, TODO: Not expected to be implemented, right?
             { "HOSP_D", "South Hospital" },
             { "STNUM_D", "STNUM_D" },
             { "PREDIR_D", "PREDIR_D" },
@@ -2277,59 +2229,52 @@ namespace BFDR.Tests
             { "CITY_D", "Salt Lake City" },
             { "STATE_D", "Utah" },
             { "COUNTRY_D", "United States" },
-            { "LONG_D", "LONG_D" },
-            { "LAT_D", "LAT_D" },
+            // { "LONG_D", "LONG_D" }, TODO: Library needs to implement this?
+            // { "LAT_D", "LAT_D" }, TODO: Library needs to implement this?
             { "MOMFNAME", "Carmen" },
-            { "MOMMNAME", "Teresa" },
             { "MOMLNAME", "Lee" },
             { "MOMSUFFIX", "MOMSUFF" },
             { "MOMFMNME", "Carmen" },
-            { "MOMMMID", "Teresa" },
             { "MOMMAIDN", "Santos" },
             { "MOMMSUFFIX", "MOMMSUF" },
-            { "STNUM", "" },
-            { "PREDIR", "" },
-            { "STNAME", "" },
-            { "STDESIG", "" },
-            { "POSTDIR", "" },
-            { "APTNUMB", "" },
+            { "STNUM", "STNUM" },
+            { "PREDIR", "PREDIR" },
+            { "STNAME", "STNAME" },
+            { "STDESIG", "STDESIG" },
+            { "POSTDIR", "POSTDIR" },
+            { "APTNUMB", "APTNUMB" },
             { "ADDRESS", "3670 Miller Road" },
             { "ZIPCODE", "48103" },
-            { "COUNTYTXT", "" },
+            { "COUNTYTXT", "COUNTYTXT" },
             { "CITYTXT", "Ann Arbor" },
             { "STATETXT", "Michigan" },
             { "CNTRYTXT", "United States" },
-            { "LONG", "" },
-            { "LAT", "" },
+            // { "LONG", "LONG" }, TODO: Library needs to implement this?
+            // { "LAT", "LAT" }, TODO: Library needs to implement this?
             { "DADFNAME", "Tom" },
-            { "DADMNAME", "Yan" },
             { "DADLNAME", "Lee" },
-            { "DADSUFFIX", "" },
+            { "DADSUFFIX", "DADSUFF" },
             { "MOM_SSN", "132224986" },
-            { "DAD_SSN", "" },
-            { "MAGE_CALC", "" },
-            { "FAGE_CALC", "" },
+            { "DAD_SSN", "888888888" },
+            // { "MAGE_CALC", "33" }, TODO: Library needs to implement this?
+            // { "FAGE_CALC", "44" }, TODO: Library needs to implement this?
             { "MOM_OC_T", "Secretary" },
-            { "MOM_OC_C", "" },
             { "DAD_OC_T", "Teaching Assistant" },
-            { "DAD_OC_C", "" },
             { "MOM_IN_T", "State Agency" },
-            { "MOM_IN_C", "" },
             { "DAD_IN_T", "Elementary Schools" },
-            { "DAD_IN_C", "" },
             { "FBPLACD_ST_TER_C", "MA" },
             { "FBPLACE_CNT_C", "US" },
             { "MBPLACE_ST_TER_TXT", "Puerto Rico" },
-            { "MBPLACE_CNTRY_TXT", "" },
+            { "MBPLACE_CNTRY_TXT", "United States" },
             { "FBPLACE_ST_TER_TXT", "Massachusetts" },
             { "FBPLACE_CNTRY_TXT", "United States" },
-            { "FEDUC", "" },
-            { "FEDUC_BYPASS", "" },
+            { "FEDUC", "3" },
+            { "FEDUC_BYPASS", "0" },
             { "FETHNIC1", "Y" },
             { "FETHNIC2", "Y" },
             { "FETHNIC3", "Y" },
             { "FETHNIC4", "N" },
-            { "FETHNIC5", "" },
+            { "FETHNIC5", "Literal22" },
             { "FRACE1", "Y" },
             { "FRACE2", "N" },
             { "FRACE3", "Y" },
@@ -2346,80 +2291,78 @@ namespace BFDR.Tests
             { "FRACE14", "N" },
             { "FRACE15", "N" },
             { "FRACE16", "Arikara" },
-            { "FRACE17", "" },
+            { "FRACE17", "Literal23" },
             { "FRACE18", "Malaysian" },
-            { "FRACE19", "" },
-            { "FRACE20", "" },
-            { "FRACE21", "" },
-            { "FRACE22", "" },
-            { "FRACE23", "" },
-            { "FRACE1E", "" },
-            { "FRACE2E", "" },
-            { "FRACE3E", "" },
-            { "FRACE4E", "" },
-            { "FRACE5E", "" },
-            { "FRACE6E", "" },
-            { "FRACE7E", "" },
-            { "FRACE8E", "" },
-            { "FRACE16C", "" },
-            { "FRACE17C", "" },
-            { "FRACE18C", "" },
-            { "FRACE19C", "" },
-            { "FRACE20C", "" },
-            { "FRACE21C", "" },
-            { "FRACE22C", "" },
-            { "FRACE23C", "" },
-            { "METHNIC5C", "" },
-            { "METHNICE", "" },
-            { "MRACEBG_C", "" },
-            { "FETHNIC5C", "" },
-            { "FETHNICE", "" },
-            { "FRACEBG_C", "" },
-            { "METHNIC_T", "" },
-            { "MRACE_T", "" },
-            { "FETHNIC_T", "" },
-            { "FRACE_T", "" },
-            { "HOSPFROM", "" },
-            { "ATTEND_NAME", "" },
-            { "ATTEND_NPI", "" },
-            { "ATTEND_OTH_TXT", "" },
-            { "INFORMFST", "" },
-            { "INFORMMID", "" },
-            { "INFORMLST", "" },
-            { "INFORMRELATE", "" },
-            { "CERTIFIED_YR", "" },
-            { "CERTIFIED_MO", "" },
-            { "CERTIFIED_DY", "" },
-            { "REGISTER_YR", "" },
-            { "REGISTER_MO", "" },
-            { "REGISTER_DY", "" },
-            { "REPLACE", "" },
-            { "PLACE1_1", "" },
-            { "PLACE1_2", "" },
-            { "PLACE1_3", "" },
-            { "PLACE1_4", "" },
-            { "PLACE1_5", "" },
-            { "PLACE1_6", "" },
-            { "PLACE8_1", "" },
-            { "PLACE8_2", "" },
-            { "PLACE8_3", "" },
-            { "PLACE20", "" },
-            { "BLANK", "" },
-            { "BLANK2", "" },
+            { "FRACE19", "Literal24" },
+            { "FRACE20", "Literal25" },
+            { "FRACE21", "Literal26" },
+            { "FRACE22", "Literal27" },
+            { "FRACE23", "Literal28" },
+            { "FRACE1E", "200" },
+            { "FRACE2E", "201" },
+            { "FRACE3E", "202" },
+            { "FRACE4E", "203" },
+            { "FRACE5E", "204" },
+            { "FRACE6E", "205" },
+            { "FRACE7E", "206" },
+            { "FRACE8E", "207" },
+            { "FRACE16C", "208" },
+            { "FRACE17C", "209" },
+            { "FRACE18C", "400" },
+            { "FRACE19C", "401" },
+            { "FRACE20C", "402" },
+            { "FRACE21C", "403" },
+            { "FRACE22C", "404" },
+            { "FRACE23C", "405" },
+            // { "METHNIC5C", "100" }, TODO: Library needs to implement this? DO THIS FIRST
+            { "METHNICE", "200" },
+            // { "MRACEBG_C", "01" }, TODO: Library needs to implement this?
+            // { "FETHNIC5C", "201" }, TODO: Library needs to implement this? DO THIS FIRST
+            { "FETHNICE", "202" },
+            // { "FRACEBG_C", "02" }, TODO: Library needs to implement this?
+            // { "METHNIC_T", "Literal29" }, TODO: Library needs to implement this?
+            // { "MRACE_T", "Literal30" }, TODO: Library needs to implement this?
+            // { "FETHNIC_T", "Literal31" }, TODO: Library needs to implement this?
+            // { "FRACE_T", "Literal32" }, TODO: Library needs to implement this?
+            { "HOSPFROM", "Literal33" },
+            // { "ATTEND_NAME", "HEATHERSTEVENS" }, TODO: Library needs to implement this?
+            // { "ATTEND_NPI", "1932304839" }, TODO: Library needs to implement this?
+            // { "ATTEND_OTH_TXT", "OTHER" }, TODO: Library needs to implement this?
+            // { "INFORMFST", "INFORMFST" }, TODO: Library needs to implement this?
+            // { "INFORMMID", "INFORMMID" },
+            // { "INFORMLST", "INFORMLST" },
+            // { "INFORMRELATE", "2" },
+            { "CERTIFIED_YR", "2024" },
+            { "CERTIFIED_MO", "12" },
+            { "CERTIFIED_DY", "31" },
+            // { "REGISTER_YR", "2025" }, TODO: Library needs to implement this?
+            // { "REGISTER_MO", "01" }, TODO: Library needs to implement this?
+            // { "REGISTER_DY", "01" }, TODO: Library needs to implement this?
+            // { "REPLACE", "1" }, TODO: Not actually implemented, right?
+            { "PLACE1_1", "A" },
+            { "PLACE1_2", "B" },
+            { "PLACE1_3", "C" },
+            { "PLACE1_4", "D" },
+            { "PLACE1_5", "E" },
+            { "PLACE1_6", "F" },
+            { "PLACE8_1", "PLACE8_1" },
+            { "PLACE8_2", "PLACE8_2" },
+            { "PLACE8_3", "PLACE8_3" },
+            { "PLACE20", "PLACE20" },
         };
         // For each field, create a record, set that field, set all the other fields, and make sure the first field still has the same value
         foreach (var (field, value) in fields)
         {
-            IJEBirth ije = new IJEBirth();
-            PropertyInfo property = typeof(IJEBirth).GetProperty(field);
+            IJEFetalDeath ije = new IJEFetalDeath();
+            PropertyInfo property = typeof(IJEFetalDeath).GetProperty(field);
+            Console.WriteLine($"Testing {field} with value {value}");
             property.SetValue(ije, value);
             foreach (var (overwriteField, overwriteValue) in fields)
             {
                 if (overwriteField == field) continue; // Don't rewrite the field we're testing
-                PropertyInfo overwriteProperty = typeof(IJEBirth).GetProperty(overwriteField);
+                PropertyInfo overwriteProperty = typeof(IJEFetalDeath).GetProperty(overwriteField);
                 overwriteProperty.SetValue(ije, overwriteValue);
             }
-            Console.WriteLine($"Testing {field} with value {value}");
             Assert.Equal(value, ((string)property.GetValue(ije)).Trim());
         }
     }

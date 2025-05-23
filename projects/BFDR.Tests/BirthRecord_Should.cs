@@ -3883,7 +3883,7 @@ namespace BFDR.Tests
             // This list of fields is fairly comprehensive, though some have been intentionally left out:
             // TODO: Remove the TODOs and update the comments in IJEBirth.cs for this set of fields
             // These fields are not expected to be implemented: DOLP_MO, DOLP_DY, DOLP_YR, CERV, TOC, PROM, PRIC, PROL
-            // ATTF, ATTV, R_YR, R_MO, R_DY, MOM_OC_C, DAD_OC_C, MOM_IN_C, DAD_IN_C, MARE
+            // ATTF, ATTV, R_YR, R_MO, R_DY, MOM_OC_C, DAD_OC_C, MOM_IN_C, DAD_IN_C, MARE, BLANK, BLANK2
             // This test doesn't work with middle name fields since they can't be set first due to how FHIR handles names:
             // KIDMNAME, MOMMIDDL, MOMMMID, DADMNAME
             { "IDOB_YR", "2024" },
@@ -4154,10 +4154,10 @@ namespace BFDR.Tests
             { "DAD_IN_T", "Literal22" },
             // { "FBPLACD_ST_TER_C", "ZZ" }, TODO: Seems to get overwritten with AK from FBPLACE_ST_TER_TXT
             { "FBPLACE_CNT_C", "MX" },
-            // { "METHNIC5C", "100" }, TODO: Library needs to implement this?
+            // { "METHNIC5C", "100" }, TODO: Library needs to implement this? DO THIS FIRST
             { "METHNICE", "200" },
             // { "MRACEBG_C", "01" }, TODO: Library needs to implement this?
-            // { "FETHNIC5C", "201" }, TODO: Library needs to implement this?
+            // { "FETHNIC5C", "201" }, TODO: Library needs to implement this? DO THIS FIRST
             { "FETHNICE", "202" },
             // { "FRACEBG_C", "02" }, TODO: Library needs to implement this?
             // { "METHNIC_T", "Literal23" }, TODO: Library needs to implement this?
@@ -4213,15 +4213,14 @@ namespace BFDR.Tests
             { "PLACE8_1", "PLACE8_1" },
             { "PLACE8_2", "PLACE8_2" },
             { "PLACE8_3", "PLACE8_3" },
-            { "PLACE20", "PLACE20" },
-            { "BLANK", "" },
-            { "BLANK2", "" }
+            { "PLACE20", "PLACE20" }
         };
         // For each field, create a record, set that field, set all the other fields, and make sure the first field still has the same value
         foreach (var (field, value) in fields)
         {
             IJEBirth ije = new IJEBirth();
             PropertyInfo property = typeof(IJEBirth).GetProperty(field);
+            Console.WriteLine($"Testing {field} with value {value}");
             property.SetValue(ije, value);
             foreach (var (overwriteField, overwriteValue) in fields)
             {
@@ -4229,7 +4228,6 @@ namespace BFDR.Tests
                 PropertyInfo overwriteProperty = typeof(IJEBirth).GetProperty(overwriteField);
                 overwriteProperty.SetValue(ije, overwriteValue);
             }
-            Console.WriteLine($"Testing {field} with value {value}");
             Assert.Equal(value, ((string)property.GetValue(ije)).Trim());
         }
     }    
