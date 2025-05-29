@@ -270,6 +270,7 @@ namespace BFDR
             {
                 throw new ArgumentException($"Could not parse given string, expected a Date string in the format YYYY-MM-DD. Given {value}.");
             }
+            date.Extension = this.Subject.BirthDateElement?.Extension ?? date.Extension;
             this.Subject.BirthDateElement = date;
             this.Subject.BirthDateElement.SetExtension(VR.ExtensionURL.PatientBirthTime, dateTime);
         }
@@ -2332,13 +2333,22 @@ namespace BFDR
         {
             get
             {
-                if (this.Mother == null || this.Mother.BirthDateElement == null)
+                if (this.Mother?.BirthDateElement == null)
                 {
                     return null;
                 }
                 return this.Mother.BirthDate;
             }
-            set => this.Mother.BirthDateElement = ConvertToDate(value);
+            set
+            {
+                if (String.IsNullOrEmpty(value))
+                {
+                    return;
+                }
+                Date date = ConvertToDate(value);
+                date.Extension = this.Mother?.BirthDateElement?.Extension ?? date.Extension;
+                this.Mother.BirthDateElement = date;
+            }
         }
 
         // Parent ages at delivery are represented as extensions on the child Patient resource as shown below
@@ -2556,7 +2566,13 @@ namespace BFDR
             }
             set
             {
-                this.Father.BirthDateElement = ConvertToDate(value);
+                if (String.IsNullOrEmpty(value))
+                {
+                    return;
+                }
+                Date date = ConvertToDate(value);
+                date.Extension = this.Father?.BirthDateElement?.Extension ?? date.Extension;
+                this.Father.BirthDateElement = date;
             }
         }
 
