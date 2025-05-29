@@ -3373,6 +3373,13 @@
             <returns></returns>
             <exception cref="T:System.ArgumentException"></exception>
         </member>
+        <member name="M:BFDR.IJENatality.GetTimeIJEFormatted(System.String)">
+            <summary>
+            Returns the time in IJE HHMM format from the given datetime string.
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
         <member name="T:BFDR.Mappings">
             <summary>Mappings between IJE and FHIR value sets</summary>
         </member>
@@ -3704,13 +3711,6 @@
             <para>// Getter:</para>
             <para>Console.WriteLine($"State local identifier: {ExampleBirthRecord.StateLocalIdentifier1}");</para>
             </example>
-        </member>
-        <member name="M:BFDR.NatalityRecord.DateIsComplete(System.String)">
-            <summary>
-             Determines whether a date is a complete date (yyyy-MM-dd).
-            </summary>
-            <param name="date">The date to check.</param>
-            <returns>Whether the given date string is a complete date</returns>
         </member>
         <member name="M:BFDR.NatalityRecord.GetBirthSex">
             <summary>
