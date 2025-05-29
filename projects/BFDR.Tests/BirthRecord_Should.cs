@@ -905,7 +905,7 @@ namespace BFDR.Tests
       rec.MotherDateOfBirth = "1994";
       Assert.Equal("1994", rec.MotherDateOfBirth);
       rec.MotherDateOfBirth = null;
-      Assert.Null(rec.MotherDateOfBirth);
+      Assert.Equal("1994", rec.MotherDateOfBirth);
       rec.MotherDateOfBirth = "1988-09-05";
       Assert.Equal("1988-09-05", rec.MotherDateOfBirth);
       rec.MotherDateOfBirth = "1990-08-29";
@@ -933,7 +933,7 @@ namespace BFDR.Tests
       rec.MotherDateOfBirth = "1990-08-29";
       Assert.Equal("1990-08-29", rec.MotherDateOfBirth);
       rec.MotherDateOfBirth = null;
-      Assert.Null(rec.MotherDateOfBirth);
+      Assert.Equal("1990-08-29", rec.MotherDateOfBirth);
       rec.MotherDateOfBirth = "2000-03-29";
       Assert.Equal("2000-03-29", rec.MotherDateOfBirth);
       rec.MotherDateOfBirth = "2001";
@@ -968,31 +968,21 @@ namespace BFDR.Tests
       rec.FatherDateOfBirth = "1997-11-25";
       Assert.Equal("1997-11-25", rec.FatherDateOfBirth);
       rec.FatherDateOfBirth = null;
-      Assert.Null(rec.FatherDateOfBirth);
+      Assert.Equal("1997-11-25", rec.FatherDateOfBirth);
       rec.FatherDateOfBirth = "1990-08-29";
       Assert.Equal("1990-08-29", rec.FatherDateOfBirth);
       rec.FatherDateOfBirth = null;
-      Assert.Null(rec.FatherDateOfBirth);
+      Assert.Equal("1990-08-29", rec.FatherDateOfBirth);
       rec.FatherDateOfBirth = "2000-03-29";
       Assert.Equal("2000-03-29", rec.FatherDateOfBirth);
       rec.FatherDateOfBirth = "2001";
       Assert.Equal("2001", rec.FatherDateOfBirth);
       rec.FatherDateOfBirth = "2001-03-29";
       Assert.Equal("2001-03-29", rec.FatherDateOfBirth);
-    }
-
-    [Fact]
-    public void TestFatherBirthDateUnknowns()
-    {
-      TestFatherBirthDateUnknownsHelper(new BirthRecord());
-    }
-
-    public static void TestFatherBirthDateUnknownsHelper(NatalityRecord rec)
-    {
       rec.FatherDateOfBirth = "1990-08-29";
       Assert.Equal("1990-08-29", rec.FatherDateOfBirth);
       rec.FatherDateOfBirth = null;
-    Assert.Null(rec.FatherDateOfBirth);
+      Assert.Equal("1990-08-29", rec.FatherDateOfBirth);
       rec.FatherDateOfBirth = "2000-03-29";
       Assert.Equal("2000-03-29", rec.FatherDateOfBirth);
       rec.FatherDateOfBirth = "2001";

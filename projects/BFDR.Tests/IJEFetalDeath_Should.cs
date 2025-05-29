@@ -168,7 +168,7 @@ namespace BFDR.Tests
       Assert.Equal("1998", ije.MDOB_YR);
       Assert.Equal("01", ije.MDOB_MO);
       Assert.Equal("14", ije.MDOB_DY);
-      // Assert.Equal("0", ije.MAGE_BYPASS); // TODO - should this be ' ' or '0'?
+      Assert.Equal("0", ije.MAGE_BYPASS);
       Assert.Equal("PA", ije.BPLACEC_ST_TER.Trim());
       Assert.Equal("FM", ije.BPLACEC_CNT);
       Assert.Equal("36000", ije.CITYC);
@@ -179,7 +179,7 @@ namespace BFDR.Tests
       Assert.Equal("2000", ije.FDOB_YR);
       Assert.Equal("10", ije.FDOB_MO);
       Assert.Equal("20", ije.FDOB_DY);
-      // Assert.Equal("0", ije.FAGE_BYPASS); // TODO - should this be ' ' or '0'?
+      Assert.Equal("0", ije.FAGE_BYPASS);
       Assert.Equal("", ije.MARE.Trim());
       Assert.Equal("", ije.MARN.Trim());
       Assert.Equal("9", ije.MEDUC);
