@@ -498,7 +498,7 @@ namespace BFDR.Tests
     }
 
     [Fact]
-    public void TestChildBirthDateSetters()
+    public void TestChildBirthDateTimeSetters()
     {
       BirthRecord rec = new BirthRecord();
       Assert.Null(rec.DateOfBirth);
@@ -514,10 +514,10 @@ namespace BFDR.Tests
       Assert.Equal("2021-03-09", rec.BirthDateTime);
       rec.BirthDateTime = "2024-08-23T13:00:00";
       Assert.Equal("2024-08-23", rec.DateOfBirth);
-      Assert.Equal("2024-08-23T13:00:00", rec.BirthDateTime);
+      Assert.Equal("2024-08-23T13:00:00-04:00", rec.BirthDateTime);
       rec.DateOfBirth = "1990-10-08";
       Assert.Equal("1990-10-08", rec.DateOfBirth);
-      Assert.Equal("1990-10-08T13:00:00", rec.BirthDateTime);
+      Assert.Equal("1990-10-08T13:00:00-04:00", rec.BirthDateTime);
       rec.DateOfBirth = "2023";
       Assert.Equal("2023", rec.DateOfBirth);
       Assert.Equal("2023", rec.BirthDateTime);
@@ -542,6 +542,24 @@ namespace BFDR.Tests
       rec.BirthDateTime = "";
       Assert.Equal("2023", rec.DateOfBirth);
       Assert.Equal("2023", rec.BirthDateTime);
+      Assert.Throws<System.ArgumentException>(() => rec.BirthDateTime = "2022-08-19");
+      Assert.Equal("2023", rec.DateOfBirth);
+      Assert.Equal("2023", rec.BirthDateTime);
+      rec.BirthDateTime = "2024-11-29T12:24";
+      Assert.Equal("2024-11-29", rec.DateOfBirth);
+      Assert.Equal("2024-11-29T12:24:00-05:00", rec.BirthDateTime);
+      rec.BirthDateTime = "2021-10-28T15:20:46";
+      Assert.Equal("2021-10-28", rec.DateOfBirth);
+      Assert.Equal("2021-10-28T15:20:46-04:00", rec.BirthDateTime);
+      rec.BirthDateTime = "2018-03-27T10:55:33-02:00";
+      Assert.Equal("2018-03-27", rec.DateOfBirth);
+      Assert.Equal("2018-03-27T10:55:33-02:00", rec.BirthDateTime);
+      Assert.Throws<System.FormatException>(() => rec.BirthDateTime = "2020-09-05T07");
+      Assert.Equal("2018-03-27", rec.DateOfBirth);
+      Assert.Equal("2018-03-27T10:55:33-02:00", rec.BirthDateTime);
+      rec.BirthDateTime = "2021-08-07T08:09";
+      Assert.Equal("2021-08-07", rec.DateOfBirth);
+      Assert.Equal("2021-08-07T08:09:00-04:00", rec.BirthDateTime);
     }
 
     [Fact]

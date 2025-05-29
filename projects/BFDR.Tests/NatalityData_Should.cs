@@ -110,6 +110,123 @@ namespace BFDR.Tests
     }
 
     [Fact]
+    public void TestBirthDateTime()
+    {
+      BirthRecord rec = new BirthRecord();
+      Assert.Null(rec.DateOfBirth);
+      Assert.Null(rec.BirthDateTime);
+      Assert.Equal("    ", new IJEBirth(rec).IDOB_YR);
+      Assert.Equal("  ", new IJEBirth(rec).IDOB_MO);
+      Assert.Equal("  ", new IJEBirth(rec).IDOB_DY);
+      Assert.Equal("    ", new IJEBirth(rec).TB);
+      rec.DateOfBirth = "2021";
+      Assert.Equal("2021", rec.DateOfBirth);
+      Assert.Equal("2021", rec.BirthDateTime);
+      Assert.Equal("2021", new IJEBirth(rec).IDOB_YR);
+      Assert.Equal("  ", new IJEBirth(rec).IDOB_MO);
+      Assert.Equal("  ", new IJEBirth(rec).IDOB_DY);
+      Assert.Equal("    ", new IJEBirth(rec).TB);
+      rec.DateOfBirth = "2021-03";
+      Assert.Equal("2021-03", rec.DateOfBirth);
+      Assert.Equal("2021-03", rec.BirthDateTime);
+      Assert.Equal("2021", new IJEBirth(rec).IDOB_YR);
+      Assert.Equal("03", new IJEBirth(rec).IDOB_MO);
+      Assert.Equal("  ", new IJEBirth(rec).IDOB_DY);
+      Assert.Equal("    ", new IJEBirth(rec).TB);
+      rec.DateOfBirth = "2021-03-09";
+      Assert.Equal("2021-03-09", rec.DateOfBirth);
+      Assert.Equal("2021-03-09", rec.BirthDateTime);
+      Assert.Equal("2021", new IJEBirth(rec).IDOB_YR);
+      Assert.Equal("03", new IJEBirth(rec).IDOB_MO);
+      Assert.Equal("09", new IJEBirth(rec).IDOB_DY);
+      Assert.Equal("    ", new IJEBirth(rec).TB);
+      rec.BirthDateTime = "2024-08-23T13:00:00";
+      Assert.Equal("2024-08-23", rec.DateOfBirth);
+      Assert.Equal("2024-08-23T13:00:00-04:00", rec.BirthDateTime);
+      Assert.Equal("2024", new IJEBirth(rec).IDOB_YR);
+      Assert.Equal("08", new IJEBirth(rec).IDOB_MO);
+      Assert.Equal("23", new IJEBirth(rec).IDOB_DY);
+      Assert.Equal("1300", new IJEBirth(rec).TB);
+      rec.DateOfBirth = "1990-10-08";
+      Assert.Equal("1990-10-08", rec.DateOfBirth);
+      Assert.Equal("1990-10-08T13:00:00-04:00", rec.BirthDateTime);
+      Assert.Equal("1990", new IJEBirth(rec).IDOB_YR);
+      Assert.Equal("10", new IJEBirth(rec).IDOB_MO);
+      Assert.Equal("08", new IJEBirth(rec).IDOB_DY);
+      Assert.Equal("1300", new IJEBirth(rec).TB);
+      rec.DateOfBirth = "2023";
+      Assert.Equal("2023", rec.DateOfBirth);
+      Assert.Equal("2023", rec.BirthDateTime);
+      Assert.Equal("2023", new IJEBirth(rec).IDOB_YR);
+      Assert.Equal("  ", new IJEBirth(rec).IDOB_MO);
+      Assert.Equal("  ", new IJEBirth(rec).IDOB_DY);
+      Assert.Equal("    ", new IJEBirth(rec).TB);
+      Assert.Throws<System.ArgumentException>(() => rec.BirthDateTime = "2023T15:30:00");
+      Assert.Equal("2023", rec.DateOfBirth);
+      Assert.Equal("2023", rec.BirthDateTime);
+      Assert.Throws<System.ArgumentException>(() => rec.BirthDateTime = "T15:30:00");
+      Assert.Equal("2023", rec.DateOfBirth);
+      Assert.Equal("2023", rec.BirthDateTime);
+      Assert.Throws<System.ArgumentException>(() => rec.DateOfBirth = "20");
+      Assert.Equal("2023", rec.DateOfBirth);
+      Assert.Equal("2023", rec.BirthDateTime);
+      rec.DateOfBirth = null;
+      Assert.Equal("2023", rec.DateOfBirth);
+      Assert.Equal("2023", rec.BirthDateTime);
+      rec.DateOfBirth = "";
+      Assert.Equal("2023", rec.DateOfBirth);
+      Assert.Equal("2023", rec.BirthDateTime);
+      rec.BirthDateTime = null;
+      Assert.Equal("2023", rec.DateOfBirth);
+      Assert.Equal("2023", rec.BirthDateTime);
+      rec.BirthDateTime = "";
+      Assert.Equal("2023", rec.DateOfBirth);
+      Assert.Equal("2023", rec.BirthDateTime);
+      Assert.Throws<System.ArgumentException>(() => rec.BirthDateTime = "2022-08-19");
+      Assert.Equal("2023", rec.DateOfBirth);
+      Assert.Equal("2023", rec.BirthDateTime);
+      Assert.Equal("2023", new IJEBirth(rec).IDOB_YR);
+      Assert.Equal("  ", new IJEBirth(rec).IDOB_MO);
+      Assert.Equal("  ", new IJEBirth(rec).IDOB_DY);
+      Assert.Equal("    ", new IJEBirth(rec).TB);
+      rec.BirthDateTime = "2024-11-29T12:24";
+      Assert.Equal("2024-11-29", rec.DateOfBirth);
+      Assert.Equal("2024-11-29T12:24:00-05:00", rec.BirthDateTime);
+      Assert.Equal("2024", new IJEBirth(rec).IDOB_YR);
+      Assert.Equal("11", new IJEBirth(rec).IDOB_MO);
+      Assert.Equal("29", new IJEBirth(rec).IDOB_DY);
+      Assert.Equal("1224", new IJEBirth(rec).TB);
+      rec.BirthDateTime = "2021-10-28T15:20:46";
+      Assert.Equal("2021-10-28", rec.DateOfBirth);
+      Assert.Equal("2021-10-28T15:20:46-04:00", rec.BirthDateTime);
+      Assert.Equal("2021", new IJEBirth(rec).IDOB_YR);
+      Assert.Equal("10", new IJEBirth(rec).IDOB_MO);
+      Assert.Equal("28", new IJEBirth(rec).IDOB_DY);
+      Assert.Equal("1520", new IJEBirth(rec).TB);
+      rec.BirthDateTime = "2018-03-27T10:55:33-02:00";
+      Assert.Equal("2018-03-27", rec.DateOfBirth);
+      Assert.Equal("2018-03-27T10:55:33-02:00", rec.BirthDateTime);
+      Assert.Equal("2018", new IJEBirth(rec).IDOB_YR);
+      Assert.Equal("03", new IJEBirth(rec).IDOB_MO);
+      Assert.Equal("27", new IJEBirth(rec).IDOB_DY);
+      Assert.Equal("1055", new IJEBirth(rec).TB);
+      Assert.Throws<System.FormatException>(() => rec.BirthDateTime = "2020-09-05T07");
+      Assert.Equal("2018-03-27", rec.DateOfBirth);
+      Assert.Equal("2018-03-27T10:55:33-02:00", rec.BirthDateTime);
+      Assert.Equal("2018", new IJEBirth(rec).IDOB_YR);
+      Assert.Equal("03", new IJEBirth(rec).IDOB_MO);
+      Assert.Equal("27", new IJEBirth(rec).IDOB_DY);
+      Assert.Equal("1055", new IJEBirth(rec).TB);
+      rec.BirthDateTime = "2021-08-07T08:09";
+      Assert.Equal("2021-08-07", rec.DateOfBirth);
+      Assert.Equal("2021-08-07T08:09:00-04:00", rec.BirthDateTime);
+      Assert.Equal("2021", new IJEBirth(rec).IDOB_YR);
+      Assert.Equal("08", new IJEBirth(rec).IDOB_MO);
+      Assert.Equal("07", new IJEBirth(rec).IDOB_DY);
+      Assert.Equal("0809", new IJEBirth(rec).TB);
+    }
+
+    [Fact]
     public void TestSetPatientChildVitalRecordProperties()
     {
       IJEBirth ije = new()

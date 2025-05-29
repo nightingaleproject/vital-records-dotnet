@@ -229,7 +229,49 @@ namespace BFDR
         /// <param name="value"></param>
         protected void SetDateOfDelivery(string value)
         {
-            this.Subject.BirthDateElement = ConvertToDate(value);
+            if (String.IsNullOrEmpty(value))
+            {
+                return;
+            }
+            Date date;
+            FhirDateTime dateTime;
+            if (ParseDateElements(value, out int? year, out int? month, out int? day))
+            {
+                if (year != null && month != null && day != null)
+                {
+                    date = new Date((int)year, (int)month, (int)day);
+                    string timeStr = this.GetDateTimeOfDelivery()?.Split('T') is string[] parts && parts.Length > 1 ? parts[1] : null;
+                    if (timeStr == null)
+                    {
+                        dateTime = new FhirDateTime((int)year, (int)month, (int)day);
+                    }
+                    else
+                    {
+                        DateTimeOffset dt = DateTimeOffset.Parse($"{year.ToString().PadLeft(4, '0')}-{month.ToString().PadLeft(2, '0')}-{day.ToString().PadLeft(2, '0')}T{timeStr}");
+                        dateTime = new FhirDateTime(dt);
+                    }
+                }
+                else if (year != null && month != null)
+                {
+                    date = new Date((int)year, (int)month);
+                    dateTime = new FhirDateTime((int)year, (int)month);
+                }
+                else if (year != null)
+                {
+                    date = new Date((int)year);
+                    dateTime = new FhirDateTime((int)year);
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else
+            {
+                throw new ArgumentException($"Could not parse given string, expected a Date string in the format YYYY-MM-DD. Given {value}.");
+            }
+            this.Subject.BirthDateElement = date;
+            this.Subject.BirthDateElement.SetExtension(VR.ExtensionURL.PatientBirthTime, dateTime);
         }
 
         /// <summary>
@@ -251,9 +293,15 @@ namespace BFDR
             {
                 return;
             }
-            FhirDateTime dateTime = new FhirDateTime(value);
-            this.Subject.BirthDateElement = ConvertToDate(value);
-            this.Subject.BirthDateElement.SetExtension(VR.ExtensionURL.PatientBirthTime, dateTime);
+            if (ParseDateElements(value, out int? year, out int? month, out int? day) && year != null && month != null && day != null && value.Contains('T'))
+            {
+                string timeStr = value.Split('T')[1];
+                DateTimeOffset dt = DateTimeOffset.Parse($"{year.ToString().PadLeft(4, '0')}-{month.ToString().PadLeft(2, '0')}-{day.ToString().PadLeft(2, '0')}T{timeStr}");
+                this.Subject.BirthDateElement = new Date((int)year, (int)month, (int)day);
+                this.Subject.BirthDateElement.SetExtension(VR.ExtensionURL.PatientBirthTime, new FhirDateTime(dt));
+                return;
+            }
+            throw new ArgumentException($"Could not parse given string, expected a DateTime string in the format YYYY-MM-DDTHH:MM. Given {value}.");
         }
 
         /// <summary>Mother's Legal Name - Given. Middle name should be the last entry.</summary>

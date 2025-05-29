@@ -882,7 +882,9 @@ namespace VR
         /// A valid FHIR date object can be either: "yyyy", "yyyy-MM", or "yyyy-MM-dd </summary>
         public static bool ParseDateElements(string date, out int? year, out int? month, out int? day)
         {
-            if (date != null)
+            // Temporarily remove time data so we can focus on just the date elements.
+            date = date?.Split('T') is string[] parts ? parts[0] : date;
+            if (date != null && date.Length >= 4)
             {
                 if (DateTimeOffset.TryParseExact(date, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTimeOffset parsedDateDay))
                 {
@@ -903,14 +905,6 @@ namespace VR
                     year = parsedDateYear.Year;
                     month = null;
                     day = null;
-                    return true;
-                }
-                else if (DateTimeOffset.TryParse(date, out DateTimeOffset dateTimeOffset))
-                {
-                    // Note: We can't just call ToDateTimeOffset() on the FhirDateTime because want the datetime in whatever local time zone was provided
-                    year = dateTimeOffset.Year;
-                    month = dateTimeOffset.Month;
-                    day = dateTimeOffset.Day;
                     return true;
                 }
             }

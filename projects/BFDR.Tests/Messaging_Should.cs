@@ -126,7 +126,7 @@ namespace BFDR.Tests
             Assert.Equal((uint)2025, submission.EventYear);
             Assert.Null(submission.StateAuxiliaryId);
             Assert.Equal("MA", submission.FetalDeathRecord.EventLocationJurisdiction);
-            Assert.Equal(2025, submission.FetalDeathRecord.DeliveryYear);
+            Assert.Contains("2025", submission.FetalDeathRecord.DateOfDelivery);
         }
 
         [Fact]
@@ -160,7 +160,7 @@ namespace BFDR.Tests
             Assert.Equal((uint)2019, submission.EventYear);
             Assert.Equal("000000000042", submission.StateAuxiliaryId);
             Assert.Equal(submission.JurisdictionId, submission.BirthRecord.EventLocationJurisdiction);
-            Assert.Equal(2019, submission.BirthRecord.BirthYear);
+            Assert.Contains("2019", submission.BirthRecord.DateOfBirth);
             Assert.Null(submission.PayloadVersionId);
         }
 
@@ -278,7 +278,7 @@ namespace BFDR.Tests
             Assert.Equal((uint)2020, submission.EventYear);
             Assert.Equal("444455555", submission.StateAuxiliaryId);
             Assert.Equal(submission.JurisdictionId, submission.FetalDeathRecord.EventLocationJurisdiction);
-            Assert.Equal(2020, submission.FetalDeathRecord.DeliveryYear);
+            Assert.Contains("2020", submission.FetalDeathRecord.DateOfDelivery);
             Assert.Equal("87366", submission.FetalDeathRecord.CertificateNumber);
         }
 

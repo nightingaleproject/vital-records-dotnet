@@ -269,12 +269,24 @@ namespace BFDR
         /// <returns></returns>
         protected static string GetTimeIJEFormatted(string dateTime)
         {
-            string timeString = dateTime;
-            if (DateTimeOffset.TryParse(timeString, out DateTimeOffset parsedTime))
+            if (String.IsNullOrEmpty(dateTime))
             {
-                TimeSpan timeSpan = new TimeSpan(0, parsedTime.Hour, parsedTime.Minute, parsedTime.Second);
-                return timeSpan.ToString(@"hhmm");
+                return null;
             }
+            string timeStr = dateTime?.Split('T') is string[] parts && parts.Length > 1 ? parts[1] : null;
+            if (timeStr == null)
+            {
+                return null;
+            }
+            if (Hl7.Fhir.ElementModel.Types.Time.TryParse(timeStr, out Hl7.Fhir.ElementModel.Types.Time parsedTime))
+                {
+                    if (parsedTime.Hours == null || parsedTime.Minutes == null)
+                    {
+                        return null;
+                    }
+                    TimeSpan timeSpan = new TimeSpan((int)parsedTime.Hours, (int)parsedTime.Minutes, 0);
+                    return timeSpan.ToString(@"hhmm");
+                }
             return null;
         }
     }

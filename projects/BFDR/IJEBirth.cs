@@ -168,7 +168,7 @@ namespace BFDR
         [IJEField(6, 26, 4, "Time of Birth", "TB", 4)]
         public string TB
         {
-            get => GetTimeIJEFormatted(record.BirthDateTime);
+            get => GetTimeIJEFormatted(record.BirthDateTime) ?? "".PadLeft(4);
             set => record.BirthDateTime = AddTime(value, record.DateOfBirth);
         }
 
