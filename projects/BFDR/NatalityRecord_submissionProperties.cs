@@ -136,18 +136,6 @@ namespace BFDR
             }
         }
 
-        /// <summary>
-        ///  Determines whether a date is a complete date (yyyy-MM-dd).
-        /// </summary>
-        /// <param name="date">The date to check.</param>
-        /// <returns>Whether the given date string is a complete date</returns>
-        protected bool DateIsComplete(string date)
-        {
-            // MAYBE DELETE
-            ParseDateElements(date, out int? year, out int? month, out int? day);
-            return year != null && month != null && day != null;
-        }
-
         // TODO: waiting to figure out how to differentiate between Encounters in the record
         // /// <summary>Certified Year</summary>
         // /// <value>year of certification</value>
