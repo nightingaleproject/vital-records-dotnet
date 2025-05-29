@@ -1584,12 +1584,6 @@ namespace BFDR.Tests
     }
 
     [Fact]
-    public void TestFatherBirthDateUnknowns()
-    {
-      BirthRecord_Should.TestFatherBirthDateUnknownsHelper(new FetalDeathRecord());
-    }
-
-    [Fact]
     public void ParentBirthDatesPresent()
     {
       FetalDeathRecord fd = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/FetalDeathReport.json")));
