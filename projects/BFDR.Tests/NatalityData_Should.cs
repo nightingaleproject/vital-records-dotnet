@@ -114,6 +114,10 @@ namespace BFDR.Tests
     public void TestBirthDateTime()
     {
       string timeZoneOffset = TimeZoneInfo.Local.GetUtcOffset(DateTime.UtcNow).ToString()[..6];
+      if (timeZoneOffset == "00:00:")
+      {
+        timeZoneOffset = "+00:00";
+      }
       BirthRecord rec = new BirthRecord();
       Assert.Null(rec.DateOfBirth);
       Assert.Null(rec.BirthDateTime);
