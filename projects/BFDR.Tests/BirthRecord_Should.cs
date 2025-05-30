@@ -501,6 +501,10 @@ namespace BFDR.Tests
     public void TestChildBirthDateTimeSetters()
     {
       string timeZoneOffset = TimeZoneInfo.Local.GetUtcOffset(DateTime.UtcNow).ToString()[..6];
+      if (timeZoneOffset == "00:00:")
+      {
+        timeZoneOffset = "+00:00";
+      }
       BirthRecord rec = new();
       Assert.Null(rec.DateOfBirth);
       Assert.Null(rec.BirthDateTime);
