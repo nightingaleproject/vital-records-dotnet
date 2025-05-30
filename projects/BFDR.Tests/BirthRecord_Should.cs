@@ -560,7 +560,7 @@ namespace BFDR.Tests
       Assert.Equal("2018-03-27T10:55:33-02:00", rec.BirthDateTime);
       rec.BirthDateTime = "2021-08-07T08:09";
       Assert.Equal("2021-08-07", rec.DateOfBirth);
-      Assert.Equal("2021-08-07T08:09:00-04:00", rec.BirthDateTime);
+      Assert.Equal("2021-08-07T08:09:00" + timeZoneOffset, rec.BirthDateTime);
     }
 
     [Fact]

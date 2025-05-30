@@ -2,6 +2,7 @@ using System.IO;
 using System.Collections.Generic;
 using VR;
 using Xunit;
+using System;
 
 namespace BFDR.Tests
 {
@@ -112,6 +113,7 @@ namespace BFDR.Tests
     [Fact]
     public void TestBirthDateTime()
     {
+      string timeZoneOffset = TimeZoneInfo.Local.GetUtcOffset(DateTime.UtcNow).ToString()[..6];
       BirthRecord rec = new BirthRecord();
       Assert.Null(rec.DateOfBirth);
       Assert.Null(rec.BirthDateTime);
@@ -142,14 +144,14 @@ namespace BFDR.Tests
       Assert.Equal("    ", new IJEBirth(rec).TB);
       rec.BirthDateTime = "2024-08-23T13:00:00";
       Assert.Equal("2024-08-23", rec.DateOfBirth);
-      Assert.Equal("2024-08-23T13:00:00-04:00", rec.BirthDateTime);
+      Assert.Equal("2024-08-23T13:00:00" + timeZoneOffset, rec.BirthDateTime);
       Assert.Equal("2024", new IJEBirth(rec).IDOB_YR);
       Assert.Equal("08", new IJEBirth(rec).IDOB_MO);
       Assert.Equal("23", new IJEBirth(rec).IDOB_DY);
       Assert.Equal("1300", new IJEBirth(rec).TB);
       rec.DateOfBirth = "1990-10-08";
       Assert.Equal("1990-10-08", rec.DateOfBirth);
-      Assert.Equal("1990-10-08T13:00:00-04:00", rec.BirthDateTime);
+      Assert.Equal("1990-10-08T13:00:00" + timeZoneOffset, rec.BirthDateTime);
       Assert.Equal("1990", new IJEBirth(rec).IDOB_YR);
       Assert.Equal("10", new IJEBirth(rec).IDOB_MO);
       Assert.Equal("08", new IJEBirth(rec).IDOB_DY);
@@ -198,7 +200,7 @@ namespace BFDR.Tests
       Assert.Equal("1224", new IJEBirth(rec).TB);
       rec.BirthDateTime = "2021-10-28T15:20:46";
       Assert.Equal("2021-10-28", rec.DateOfBirth);
-      Assert.Equal("2021-10-28T15:20:46-04:00", rec.BirthDateTime);
+      Assert.Equal("2021-10-28T15:20:46" + timeZoneOffset, rec.BirthDateTime);
       Assert.Equal("2021", new IJEBirth(rec).IDOB_YR);
       Assert.Equal("10", new IJEBirth(rec).IDOB_MO);
       Assert.Equal("28", new IJEBirth(rec).IDOB_DY);
@@ -219,7 +221,7 @@ namespace BFDR.Tests
       Assert.Equal("1055", new IJEBirth(rec).TB);
       rec.BirthDateTime = "2021-08-07T08:09";
       Assert.Equal("2021-08-07", rec.DateOfBirth);
-      Assert.Equal("2021-08-07T08:09:00-04:00", rec.BirthDateTime);
+      Assert.Equal("2021-08-07T08:09:00" + timeZoneOffset, rec.BirthDateTime);
       Assert.Equal("2021", new IJEBirth(rec).IDOB_YR);
       Assert.Equal("08", new IJEBirth(rec).IDOB_MO);
       Assert.Equal("07", new IJEBirth(rec).IDOB_DY);
