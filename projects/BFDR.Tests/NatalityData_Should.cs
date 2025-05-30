@@ -195,11 +195,11 @@ namespace BFDR.Tests
       Assert.Equal("  ", new IJEBirth(rec).IDOB_MO);
       Assert.Equal("  ", new IJEBirth(rec).IDOB_DY);
       Assert.Equal("    ", new IJEBirth(rec).TB);
-      rec.BirthDateTime = "2024-11-29T12:24";
-      Assert.Equal("2024-11-29", rec.DateOfBirth);
-      Assert.Equal("2024-11-29T12:24:00-05:00", rec.BirthDateTime);
+      rec.BirthDateTime = "2024-07-29T12:24";
+      Assert.Equal("2024-07-29", rec.DateOfBirth);
+      Assert.Equal("2024-07-29T12:24:00" + timeZoneOffset, rec.BirthDateTime);
       Assert.Equal("2024", new IJEBirth(rec).IDOB_YR);
-      Assert.Equal("11", new IJEBirth(rec).IDOB_MO);
+      Assert.Equal("07", new IJEBirth(rec).IDOB_MO);
       Assert.Equal("29", new IJEBirth(rec).IDOB_DY);
       Assert.Equal("1224", new IJEBirth(rec).TB);
       rec.BirthDateTime = "2021-10-28T15:20:46";
