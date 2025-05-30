@@ -38,14 +38,14 @@ namespace canary.Models
             return new BirthRecord();
         }
 
-        protected override VR.IJE CreateIJEFromRecord(VitalRecord record, bool permissive = true)
+        protected override VR.IJE CreateIJEFromRecord(VitalRecord record, bool validate = true)
         {
-            return new IJEBirth((BirthRecord)record, permissive);
+            return new IJEBirth((BirthRecord)record, validate);
         }
 
-        protected override VR.IJE CreateIJEFromString(string ije, bool permissive = true)
+        protected override VR.IJE CreateIJEFromString(string ije, bool validate = true)
         {
-            return new IJEBirth(ije, permissive);
+            return new IJEBirth(ije, validate);
         }
 
         protected override VitalRecord CreateRecordFromDescription(string value)
