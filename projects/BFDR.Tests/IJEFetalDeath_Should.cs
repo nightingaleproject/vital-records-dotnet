@@ -146,7 +146,8 @@ namespace BFDR.Tests
 
       // Confirm the ije can be converted to fhir
       FetalDeathRecord record = ije.ToRecord();
-      Assert.Equal(2024, record.DeliveryYear);
+      Assert.Equal("2024-12-13", record.DateOfDelivery);
+      Assert.Equal("2024-12-13T18:30:00+00:00", record.DateTimeOfDelivery);
       Assert.Equal("Anwar", record.FetusFamilyName);
 
       // Confirm the ije fields are what we expect from the connectathon test record 1
@@ -524,17 +525,13 @@ namespace BFDR.Tests
       ije.MDOB_DY = "12";
       // convert IJE to FHIR
       FetalDeathRecord fd = ije.ToRecord();
-      Assert.Equal(1992, fd.MotherBirthYear);
-      Assert.Equal(1, fd.MotherBirthMonth);
-      Assert.Equal(12, fd.MotherBirthDay);
+      Assert.Equal("1992-01-12", fd.MotherDateOfBirth);
 
       // then to a json string
       string asJson = fd.ToJSON();
       // Create a fhir record from the json
       FetalDeathRecord fdRecord = new FetalDeathRecord(asJson);
-      Assert.Equal(1992, fdRecord.MotherBirthYear);
-      Assert.Equal(1, fdRecord.MotherBirthMonth);
-      Assert.Equal(12, fdRecord.MotherBirthDay);
+      Assert.Equal("1992-01-12", fd.MotherDateOfBirth);
 
       // convert back to IJE and confirm the values are the same
       IJEFetalDeath ije2 = new IJEFetalDeath(fdRecord);
