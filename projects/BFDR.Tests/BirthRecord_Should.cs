@@ -3891,6 +3891,7 @@ namespace BFDR.Tests
             // KIDMNAME, MOMMIDDL, MOMMMID, DADMNAME
 
             // TODO: This is is list of fields not implemented in IG, maybe calling IJE setters should raise an error (and add this list to the above)
+            // TODO: Should all non-implemented fields raise an error when calling setter?
             // PPO
             // VB
             // NVPR

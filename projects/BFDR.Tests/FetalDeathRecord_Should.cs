@@ -2040,9 +2040,17 @@ namespace BFDR.Tests
             // These fields are not expected to be implemented: MARE, MARN, DOLP_MO, DOLP_DY, DOLP_YR, NPREV, NPREV_BYPASS,
             // POPO, MOPO, YOPO, PPB, PPO, VB, GON, SYPH, HSV, CHAM, LM, GBS, CMV, B19, TOXO, OTHERI, ATTF, ATTV, HYST,
             // MTR, PLAC, UHYS, UOPR, ANEN, MNSB, CCHD, CDH, OMPH, GAST, LIMB, CL, CP, DOWT, CDIT, HYPO, R_YR, R_MO, R_DY,
-            // MOM_OC_C, DAD_OC_C, MOM_IN_C, DAD_IN_C, BLANK, BLANK2
+            // MOM_OC_C, DAD_OC_C, MOM_IN_C, DAD_IN_C, BLANK, BLANK2, TRAN, MATCH, HSV1, HIV, ALCOHOL, ALIAS, LONG_D, LAT_D,
+            // LONG, LAT, MAGE_CALC, FAGE_CALC, MRACEBG_C, FRACEBG_C, METHNIC_T, MRACE_T, FETHNIC_T, FRACE_T, INFORMFST,
+            // INFORMMID, INFORMLST, INFORMRELATE, REGISTER_YR, REGISTER_MO, REGISTER_DY, REPLACE
+
             // This test doesn't work with middle name fields since they can't be set first due to how FHIR handles names:
             // FETMNAME, MOMMNAME, MOMMMID, DADMNAME
+
+            // TODO: This is a list of fields that should not be implemented that look like they have implementations?
+            // VOID
+            // AUTOPF
+
             { "FDOD_YR", "2019" },
             { "DSTATE", "MI" },
             { "FILENO", "009876" },
@@ -2118,7 +2126,6 @@ namespace BFDR.Tests
             { "MRACE22C", "114" },
             { "MRACE23C", "115" },
             { "ATTEND", "2" },
-            // { "TRAN", "N" }, TODO: Library needs to implement this?
             { "DOFP_MO", "05" },
             { "DOFP_DY", "18" },
             { "DOFP_YR", "2018" },
@@ -2163,7 +2170,6 @@ namespace BFDR.Tests
             { "PLUR", "04" },
             { "SORD", "03" },
             { "FDTH", "01" },
-            // { "MATCH", "654321" }, TODO: Library needs to implement this?
             { "PLUR_BYPASS", "0" },
             { "MAGER", "34" },
             { "FAGER", "35" },
@@ -2209,13 +2215,9 @@ namespace BFDR.Tests
             { "OCOD5", "R841" },
             { "OCOD6", "R842" },
             { "OCOD7", "R843" },
-            // { "HSV1", "N" }, TODO: Library needs to implement this?
-            // { "HIV", "N" }, TODO: Library needs to implement this?
-            // { "ALCOHOL", "N" }, TODO: Library needs to implement this?
             { "FETFNAME", "FETFNAME" },
             { "FETLNAME", "FETLNAME" },
             { "SUFFIX", "SUFFIX" },
-            // { "ALIAS", "0" }, TODO: Not expected to be implemented, right?
             { "HOSP_D", "South Hospital" },
             { "STNUM_D", "STNUM_D" },
             { "PREDIR_D", "PREDIR_D" },
@@ -2229,8 +2231,6 @@ namespace BFDR.Tests
             { "CITY_D", "Salt Lake City" },
             { "STATE_D", "Utah" },
             { "COUNTRY_D", "United States" },
-            // { "LONG_D", "LONG_D" }, TODO: Library needs to implement this?
-            // { "LAT_D", "LAT_D" }, TODO: Library needs to implement this?
             { "MOMFNAME", "Carmen" },
             { "MOMLNAME", "Lee" },
             { "MOMSUFFIX", "MOMSUFF" },
@@ -2249,15 +2249,11 @@ namespace BFDR.Tests
             { "CITYTXT", "Ann Arbor" },
             { "STATETXT", "Michigan" },
             { "CNTRYTXT", "United States" },
-            // { "LONG", "LONG" }, TODO: Library needs to implement this?
-            // { "LAT", "LAT" }, TODO: Library needs to implement this?
             { "DADFNAME", "Tom" },
             { "DADLNAME", "Lee" },
             { "DADSUFFIX", "DADSUFF" },
             { "MOM_SSN", "132224986" },
             { "DAD_SSN", "888888888" },
-            // { "MAGE_CALC", "33" }, TODO: Library needs to implement this?
-            // { "FAGE_CALC", "44" }, TODO: Library needs to implement this?
             { "MOM_OC_T", "Secretary" },
             { "DAD_OC_T", "Teaching Assistant" },
             { "MOM_IN_T", "State Agency" },
@@ -2316,29 +2312,15 @@ namespace BFDR.Tests
             { "FRACE23C", "405" },
             { "METHNIC5C", "100" },
             { "METHNICE", "200" },
-            // { "MRACEBG_C", "01" }, TODO: Library needs to implement this?
             { "FETHNIC5C", "201" },
             { "FETHNICE", "202" },
-            // { "FRACEBG_C", "02" }, TODO: Library needs to implement this?
-            // { "METHNIC_T", "Literal29" }, TODO: Library needs to implement this?
-            // { "MRACE_T", "Literal30" }, TODO: Library needs to implement this?
-            // { "FETHNIC_T", "Literal31" }, TODO: Library needs to implement this?
-            // { "FRACE_T", "Literal32" }, TODO: Library needs to implement this?
             { "HOSPFROM", "Literal33" },
             // { "ATTEND_NAME", "HEATHERSTEVENS" }, TODO: Library needs to implement this?
             // { "ATTEND_NPI", "1932304839" }, TODO: Library needs to implement this?
             // { "ATTEND_OTH_TXT", "OTHER" }, TODO: Library needs to implement this?
-            // { "INFORMFST", "INFORMFST" }, TODO: Library needs to implement this?
-            // { "INFORMMID", "INFORMMID" },
-            // { "INFORMLST", "INFORMLST" },
-            // { "INFORMRELATE", "2" },
             { "CERTIFIED_YR", "2024" },
             { "CERTIFIED_MO", "12" },
             { "CERTIFIED_DY", "31" },
-            // { "REGISTER_YR", "2025" }, TODO: Library needs to implement this?
-            // { "REGISTER_MO", "01" }, TODO: Library needs to implement this?
-            // { "REGISTER_DY", "01" }, TODO: Library needs to implement this?
-            // { "REPLACE", "1" }, TODO: Not actually implemented, right?
             { "PLACE1_1", "A" },
             { "PLACE1_2", "B" },
             { "PLACE1_3", "C" },
