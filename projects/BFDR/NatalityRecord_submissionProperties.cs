@@ -6,6 +6,7 @@ using Hl7.Fhir.Model;
 using VR;
 using Hl7.Fhir.Support;
 using static Hl7.Fhir.Model.Encounter;
+using System.Text.RegularExpressions;
 
 // NatalityRecord_submissionProperties.cs
 // These fields are used primarily for submitting birth records to NCHS.
@@ -22,7 +23,7 @@ namespace BFDR
     /// and the cause of death bundle has a fetalDeathReportNumber + required CompositionCodedCauseOfFetalDeath
     /// TODO BFDR STU2 supports usual work and role extension
     /// </summary>
-    public partial class NatalityRecord
+    public partial class NatalityRecord : VitalRecord
     {
         /////////////////////////////////////////////////////////////////////////////////
         //
