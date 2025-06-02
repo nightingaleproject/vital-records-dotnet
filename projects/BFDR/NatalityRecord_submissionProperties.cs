@@ -3462,16 +3462,16 @@ namespace BFDR
         /// ComponentDisplay gives a more human readable display value for the component code.
         /// </para>
         /// </summary>
-        private void SetCodedRaceEthnicity(Dictionary<string, string> value, string observationCode, string ComponentCode, string ComponentDisplay, string section, [CallerMemberName] string propertyName = null)
+        private void SetCodedRaceEthnicity(Dictionary<string, string> value, string observationCode, string componentCode, string componentDisplay, string section, [CallerMemberName] string propertyName = null)
         {
             if (value["code"] == "")
             {
                 return;
             }
             Observation obs = GetOrCreateObservation(observationCode, CodeSystems.LocalObservationCodes, "Coded Race and Ethnicity Person", VR.ProfileURL.CodedRaceAndEthnicity, section, propertyName: propertyName);
-            obs.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.CodeForLiteral);
+            obs.Component.RemoveAll(c => c.Code.Coding[0].Code == componentCode);
             Observation.ComponentComponent component = new Observation.ComponentComponent();
-            component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, ComponentCode, ComponentDisplay, null);
+            component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, componentCode, componentDisplay, null);
             component.Value = DictToCodeableConcept(value);
             obs.Component.Add(component);
             obs.Subject = new ResourceReference("urn:uuid:" + Subject.Id);

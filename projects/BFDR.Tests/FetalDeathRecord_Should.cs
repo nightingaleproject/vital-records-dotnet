@@ -2314,10 +2314,10 @@ namespace BFDR.Tests
             { "FRACE21C", "403" },
             { "FRACE22C", "404" },
             { "FRACE23C", "405" },
-            // { "METHNIC5C", "100" }, TODO: Library needs to implement this? DO THIS FIRST
+            { "METHNIC5C", "100" },
             { "METHNICE", "200" },
             // { "MRACEBG_C", "01" }, TODO: Library needs to implement this?
-            // { "FETHNIC5C", "201" }, TODO: Library needs to implement this? DO THIS FIRST
+            { "FETHNIC5C", "201" },
             { "FETHNICE", "202" },
             // { "FRACEBG_C", "02" }, TODO: Library needs to implement this?
             // { "METHNIC_T", "Literal29" }, TODO: Library needs to implement this?

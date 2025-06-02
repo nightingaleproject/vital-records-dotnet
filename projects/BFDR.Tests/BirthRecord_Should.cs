@@ -4154,10 +4154,10 @@ namespace BFDR.Tests
             { "DAD_IN_T", "Literal22" },
             // { "FBPLACD_ST_TER_C", "ZZ" }, TODO: Seems to get overwritten with AK from FBPLACE_ST_TER_TXT
             { "FBPLACE_CNT_C", "MX" },
-            // { "METHNIC5C", "100" }, TODO: Library needs to implement this? DO THIS FIRST
+            { "METHNIC5C", "100" },
             { "METHNICE", "200" },
             // { "MRACEBG_C", "01" }, TODO: Library needs to implement this?
-            // { "FETHNIC5C", "201" }, TODO: Library needs to implement this? DO THIS FIRST
+            { "FETHNIC5C", "201" },
             { "FETHNICE", "202" },
             // { "FRACEBG_C", "02" }, TODO: Library needs to implement this?
             // { "METHNIC_T", "Literal23" }, TODO: Library needs to implement this?

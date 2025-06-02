@@ -903,24 +903,25 @@ namespace BFDR.Tests
             ije.FETHNIC5C = "202";
             ije.FETHNICE = "203";
             BirthRecordParentalDemographicsCodingMessage message = new BirthRecordParentalDemographicsCodingMessage(ije.ToRecord());
-            // TODO: Move the message through a JSON phase?
             message.MessageSource = "http://nchs.cdc.gov/bfdr_submission";
             message.MessageDestination = "https://example.org/jurisdiction/endpoint";
-            Assert.Equal(BirthRecordParentalDemographicsCodingMessage.MESSAGE_TYPE, message.MessageType);
-            Assert.Equal("http://nchs.cdc.gov/bfdr_submission", message.MessageSource);
-            Assert.Equal("https://example.org/jurisdiction/endpoint", message.MessageDestination);
-            Assert.Equal((uint)123, message.CertNo);
-            Assert.Equal((uint)2022, message.EventYear);
-            Assert.Equal("2022YC000123", message.NCHSIdentifier);
-            Assert.Equal("BFDR_STU2_0", message.PayloadVersionId);
-            Assert.Equal("100", message.NatalityRecord.MotherRaceTabulation1EHelper);
-            Assert.Equal("101", message.NatalityRecord.MotherRaceTabulation2EHelper);
-            Assert.Equal("116", message.NatalityRecord.FatherRaceTabulation1EHelper);
-            Assert.Equal("117", message.NatalityRecord.FatherRaceTabulation2EHelper);
-            Assert.Equal("200", message.NatalityRecord.MotherEthnicityCodeForLiteralHelper);
-            Assert.Equal("201", message.NatalityRecord.MotherEthnicityEditedCodeHelper);
-            Assert.Equal("202", message.NatalityRecord.FatherEthnicityCodeForLiteralHelper);
-            Assert.Equal("203", message.NatalityRecord.FatherEthnicityEditedCodeHelper);
+            // Move the message through JSON to ensure everything is preserved
+            BirthRecordParentalDemographicsCodingMessage parsedMessage = BirthRecordParentalDemographicsCodingMessage.Parse(message.ToJson()) as BirthRecordParentalDemographicsCodingMessage;
+            Assert.Equal(BirthRecordParentalDemographicsCodingMessage.MESSAGE_TYPE, parsedMessage.MessageType);
+            Assert.Equal("http://nchs.cdc.gov/bfdr_submission", parsedMessage.MessageSource);
+            Assert.Equal("https://example.org/jurisdiction/endpoint", parsedMessage.MessageDestination);
+            Assert.Equal((uint)123, parsedMessage.CertNo);
+            Assert.Equal((uint)2022, parsedMessage.EventYear);
+            Assert.Equal("2022YC000123", parsedMessage.NCHSIdentifier);
+            Assert.Equal("BFDR_STU2_0", parsedMessage.PayloadVersionId);
+            Assert.Equal("100", parsedMessage.NatalityRecord.MotherRaceTabulation1EHelper);
+            Assert.Equal("101", parsedMessage.NatalityRecord.MotherRaceTabulation2EHelper);
+            Assert.Equal("116", parsedMessage.NatalityRecord.FatherRaceTabulation1EHelper);
+            Assert.Equal("117", parsedMessage.NatalityRecord.FatherRaceTabulation2EHelper);
+            Assert.Equal("200", parsedMessage.NatalityRecord.MotherEthnicityCodeForLiteralHelper);
+            Assert.Equal("201", parsedMessage.NatalityRecord.MotherEthnicityEditedCodeHelper);
+            Assert.Equal("202", parsedMessage.NatalityRecord.FatherEthnicityCodeForLiteralHelper);
+            Assert.Equal("203", parsedMessage.NatalityRecord.FatherEthnicityEditedCodeHelper);
         }
 
         [Fact]
