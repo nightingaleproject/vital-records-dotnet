@@ -500,16 +500,6 @@ namespace BFDR.Tests
     [Fact]
     public void TestChildBirthDateTimeSetters()
     {
-      string timeZoneOffsetStandard = TimeZoneInfo.Local.GetUtcOffset(new DateTime(2000, 1, 1)).ToString()[..6];
-      if (timeZoneOffsetStandard == "00:00:")
-      {
-        timeZoneOffsetStandard = "+00:00";
-      }
-      string timeZoneOffsetDaylightSavings = TimeZoneInfo.Local.GetUtcOffset(new DateTime(2000, 7, 1)).ToString()[..6];
-      if (timeZoneOffsetDaylightSavings == "00:00:")
-      {
-        timeZoneOffsetDaylightSavings = "+00:00";
-      }
       BirthRecord rec = new();
       Assert.Null(rec.DateOfBirth);
       Assert.Null(rec.BirthDateTime);
@@ -522,16 +512,25 @@ namespace BFDR.Tests
       rec.DateOfBirth = "2021-03-09";
       Assert.Equal("2021-03-09", rec.DateOfBirth);
       Assert.Equal("2021-03-09", rec.BirthDateTime);
-      rec.BirthDateTime = "2024-08-23T13:00:00";
+      rec.BirthDateTime = "2024-08-23T13:00:00+8:00";
       Assert.Equal("2024-08-23", rec.DateOfBirth);
-      Assert.Equal("2024-08-23T13:00:00" + timeZoneOffsetDaylightSavings, rec.BirthDateTime);
+      Assert.Equal("2024-08-23T13:00:00+08:00", rec.BirthDateTime);
+      rec.BirthDateTime = "2020-11-28T10:23:45+01:24";
+      Assert.Equal("2020-11-28", rec.DateOfBirth);
+      Assert.Equal("2020-11-28T10:23:45+01:24", rec.BirthDateTime);
+      rec.BirthDateTime = "2022-02-12T09:00+5:30";
+      Assert.Equal("2022-02-12", rec.DateOfBirth);
+      Assert.Equal("2022-02-12T09:00:00+05:30", rec.BirthDateTime);
       rec.DateOfBirth = "1990-10-08";
       Assert.Equal("1990-10-08", rec.DateOfBirth);
-      Assert.Equal("1990-10-08T13:00:00" + timeZoneOffsetDaylightSavings, rec.BirthDateTime);
+      Assert.Equal("1990-10-08T09:00:00+05:30", rec.BirthDateTime);
       rec.DateOfBirth = "2023";
       Assert.Equal("2023", rec.DateOfBirth);
       Assert.Equal("2023", rec.BirthDateTime);
       Assert.Throws<System.ArgumentException>(() => rec.BirthDateTime = "2023T15:30:00");
+      Assert.Equal("2023", rec.DateOfBirth);
+      Assert.Equal("2023", rec.BirthDateTime);
+      Assert.Throws<System.ArgumentException>(() => rec.BirthDateTime = "2024-08-23T13:00:00");
       Assert.Equal("2023", rec.DateOfBirth);
       Assert.Equal("2023", rec.BirthDateTime);
       Assert.Throws<System.ArgumentException>(() => rec.BirthDateTime = "T15:30:00");
@@ -555,24 +554,33 @@ namespace BFDR.Tests
       Assert.Throws<System.ArgumentException>(() => rec.BirthDateTime = "2022-08-19");
       Assert.Equal("2023", rec.DateOfBirth);
       Assert.Equal("2023", rec.BirthDateTime);
-      rec.BirthDateTime = "2024-07-29T12:24";
+      Assert.Throws<System.ArgumentException>(() => rec.BirthDateTime = "2022-08-19T16:12+4");
+      Assert.Equal("2023", rec.DateOfBirth);
+      Assert.Equal("2023", rec.BirthDateTime);
+      Assert.Throws<System.ArgumentException>(() => rec.BirthDateTime = "2024-07-29T12:24");
+      Assert.Equal("2023", rec.DateOfBirth);
+      Assert.Equal("2023", rec.BirthDateTime);
+      rec.BirthDateTime = "2024-07-29T12:24+0:00";
       Assert.Equal("2024-07-29", rec.DateOfBirth);
-      Assert.Equal("2024-07-29T12:24:00" + timeZoneOffsetDaylightSavings, rec.BirthDateTime);
-      rec.BirthDateTime = "2021-10-28T15:20:46";
+      Assert.Equal("2024-07-29T12:24:00+00:00", rec.BirthDateTime);
+      Assert.Throws<System.ArgumentException>(() => rec.BirthDateTime = "2021-10-28T15:20:46");
+      Assert.Equal("2024-07-29", rec.DateOfBirth);
+      Assert.Equal("2024-07-29T12:24:00+00:00", rec.BirthDateTime);
+      rec.BirthDateTime = "2021-10-28T15:20:46-11:00";
       Assert.Equal("2021-10-28", rec.DateOfBirth);
-      Assert.Equal("2021-10-28T15:20:46" + timeZoneOffsetDaylightSavings, rec.BirthDateTime);
+      Assert.Equal("2021-10-28T15:20:46-11:00", rec.BirthDateTime);
       rec.BirthDateTime = "2018-03-27T10:55:33-02:00";
       Assert.Equal("2018-03-27", rec.DateOfBirth);
       Assert.Equal("2018-03-27T10:55:33-02:00", rec.BirthDateTime);
-      Assert.Throws<System.FormatException>(() => rec.BirthDateTime = "2020-09-05T07");
+      Assert.Throws<System.ArgumentException>(() => rec.BirthDateTime = "2020-09-05T07");
       Assert.Equal("2018-03-27", rec.DateOfBirth);
       Assert.Equal("2018-03-27T10:55:33-02:00", rec.BirthDateTime);
-      rec.BirthDateTime = "2021-08-07T08:09";
+      rec.BirthDateTime = "2021-08-07T08:09-2:45";
       Assert.Equal("2021-08-07", rec.DateOfBirth);
-      Assert.Equal("2021-08-07T08:09:00" + timeZoneOffsetDaylightSavings, rec.BirthDateTime);
-      rec.BirthDateTime = "2020-12-15T10:45";
+      Assert.Equal("2021-08-07T08:09:00-02:45", rec.BirthDateTime);
+      rec.BirthDateTime = "2020-12-15T10:45:01-0:01";
       Assert.Equal("2020-12-15", rec.DateOfBirth);
-      Assert.Equal("2020-12-15T10:45:00" + timeZoneOffsetStandard, rec.BirthDateTime);  // Tests Standard time rather than Daylight Savings
+      Assert.Equal("2020-12-15T10:45:01-00:01", rec.BirthDateTime);
     }
 
     [Fact]
@@ -3561,9 +3569,16 @@ namespace BFDR.Tests
       BirthRecord romeroImportedBr = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordR.json")));
       romeroImportedBr.EventLocationJurisdiction = "AZ";
       romeroImportedBr.CertificateNumber = "8888";
+      string timeZoneOffset = TimeZoneInfo.Local.GetUtcOffset(new DateTime(2000, 1, 1)).ToString()[..6];
+      if (timeZoneOffset == "00:00:")
+      {
+        timeZoneOffset = "+00:00";
+      }
+      romeroImportedBr.BirthDateTime = $"{romeroImportedBr.BirthDateTime[..19]}{timeZoneOffset}";
       BirthRecord zalbanaizImportedBr = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordZ.json")));
       zalbanaizImportedBr.EventLocationJurisdiction = "AZ";
       zalbanaizImportedBr.CertificateNumber = "8888";
+      zalbanaizImportedBr.BirthDateTime = $"{zalbanaizImportedBr.BirthDateTime[..19]}{timeZoneOffset}";
       Assert.Equal(JsonConvert.SerializeObject(romeroRawBr), JsonConvert.SerializeObject(romeroConnectathonBr));
       Assert.Equal(JsonConvert.SerializeObject(romeroRawBr), JsonConvert.SerializeObject(romeroImportedBr));
       Assert.Equal(JsonConvert.SerializeObject(zalbanaizRawBr), JsonConvert.SerializeObject(zalbanaizConnectathonBr));

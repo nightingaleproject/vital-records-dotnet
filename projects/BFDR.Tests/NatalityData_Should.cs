@@ -11,6 +11,11 @@ namespace BFDR.Tests
     [Fact]
     public void TestImportPatientChildVitalRecordProperties()
     {
+      string timeZoneOffsetStandard = TimeZoneInfo.Local.GetUtcOffset(new DateTime(2000, 1, 1)).ToString()[..6];
+      if (timeZoneOffsetStandard == "00:00:")
+      {
+        timeZoneOffsetStandard = "+00:00";
+      }
       // Test IJE import.
       IJEBirth ijeImported = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/BasicBirthRecord.ije")), true);
       // Test IJE conversion to BirthRecord.
@@ -45,6 +50,7 @@ namespace BFDR.Tests
       // Check complete date of birth in record
       Assert.Equal(ijeImported.IDOB_YR + "-" + ijeImported.IDOB_MO + "-" + ijeImported.IDOB_DY, br.DateOfBirth);
       Assert.Equal("2023-11-25", br.DateOfBirth);
+      Assert.Equal("2023-11-25T12:30:00" + timeZoneOffsetStandard, br.BirthDateTime);
       // County of Birth | (CountyCodes) (CNTYO)
       Assert.Equal("467", ijeImported.CNTYO);
       // Plurality
@@ -113,11 +119,6 @@ namespace BFDR.Tests
     [Fact]
     public void TestBirthDateTime()
     {
-      string timeZoneOffset = TimeZoneInfo.Local.GetUtcOffset(DateTime.UtcNow).ToString()[..6];
-      if (timeZoneOffset == "00:00:")
-      {
-        timeZoneOffset = "+00:00";
-      }
       BirthRecord rec = new BirthRecord();
       Assert.Null(rec.DateOfBirth);
       Assert.Null(rec.BirthDateTime);
@@ -146,16 +147,16 @@ namespace BFDR.Tests
       Assert.Equal("03", new IJEBirth(rec).IDOB_MO);
       Assert.Equal("09", new IJEBirth(rec).IDOB_DY);
       Assert.Equal("    ", new IJEBirth(rec).TB);
-      rec.BirthDateTime = "2024-08-23T13:00:00";
+      rec.BirthDateTime = "2024-08-23T13:00:00-1:00";
       Assert.Equal("2024-08-23", rec.DateOfBirth);
-      Assert.Equal("2024-08-23T13:00:00" + timeZoneOffset, rec.BirthDateTime);
+      Assert.Equal("2024-08-23T13:00:00-01:00", rec.BirthDateTime);
       Assert.Equal("2024", new IJEBirth(rec).IDOB_YR);
       Assert.Equal("08", new IJEBirth(rec).IDOB_MO);
       Assert.Equal("23", new IJEBirth(rec).IDOB_DY);
       Assert.Equal("1300", new IJEBirth(rec).TB);
       rec.DateOfBirth = "1990-10-08";
       Assert.Equal("1990-10-08", rec.DateOfBirth);
-      Assert.Equal("1990-10-08T13:00:00" + timeZoneOffset, rec.BirthDateTime);
+      Assert.Equal("1990-10-08T13:00:00-01:00", rec.BirthDateTime);
       Assert.Equal("1990", new IJEBirth(rec).IDOB_YR);
       Assert.Equal("10", new IJEBirth(rec).IDOB_MO);
       Assert.Equal("08", new IJEBirth(rec).IDOB_DY);
@@ -195,16 +196,16 @@ namespace BFDR.Tests
       Assert.Equal("  ", new IJEBirth(rec).IDOB_MO);
       Assert.Equal("  ", new IJEBirth(rec).IDOB_DY);
       Assert.Equal("    ", new IJEBirth(rec).TB);
-      rec.BirthDateTime = "2024-07-29T12:24";
+      rec.BirthDateTime = "2024-07-29T12:24+4:30";
       Assert.Equal("2024-07-29", rec.DateOfBirth);
-      Assert.Equal("2024-07-29T12:24:00" + timeZoneOffset, rec.BirthDateTime);
+      Assert.Equal("2024-07-29T12:24:00+04:30", rec.BirthDateTime);
       Assert.Equal("2024", new IJEBirth(rec).IDOB_YR);
       Assert.Equal("07", new IJEBirth(rec).IDOB_MO);
       Assert.Equal("29", new IJEBirth(rec).IDOB_DY);
       Assert.Equal("1224", new IJEBirth(rec).TB);
-      rec.BirthDateTime = "2021-10-28T15:20:46";
+      rec.BirthDateTime = "2021-10-28T15:20:46+04:00";
       Assert.Equal("2021-10-28", rec.DateOfBirth);
-      Assert.Equal("2021-10-28T15:20:46" + timeZoneOffset, rec.BirthDateTime);
+      Assert.Equal("2021-10-28T15:20:46+04:00", rec.BirthDateTime);
       Assert.Equal("2021", new IJEBirth(rec).IDOB_YR);
       Assert.Equal("10", new IJEBirth(rec).IDOB_MO);
       Assert.Equal("28", new IJEBirth(rec).IDOB_DY);
@@ -216,20 +217,57 @@ namespace BFDR.Tests
       Assert.Equal("03", new IJEBirth(rec).IDOB_MO);
       Assert.Equal("27", new IJEBirth(rec).IDOB_DY);
       Assert.Equal("1055", new IJEBirth(rec).TB);
-      Assert.Throws<System.FormatException>(() => rec.BirthDateTime = "2020-09-05T07");
+      Assert.Throws<System.ArgumentException>(() => rec.BirthDateTime = "2020-09-05T07");
       Assert.Equal("2018-03-27", rec.DateOfBirth);
       Assert.Equal("2018-03-27T10:55:33-02:00", rec.BirthDateTime);
       Assert.Equal("2018", new IJEBirth(rec).IDOB_YR);
       Assert.Equal("03", new IJEBirth(rec).IDOB_MO);
       Assert.Equal("27", new IJEBirth(rec).IDOB_DY);
       Assert.Equal("1055", new IJEBirth(rec).TB);
-      rec.BirthDateTime = "2021-08-07T08:09";
+      rec.BirthDateTime = "2021-08-07T08:09+11:11";
       Assert.Equal("2021-08-07", rec.DateOfBirth);
-      Assert.Equal("2021-08-07T08:09:00" + timeZoneOffset, rec.BirthDateTime);
+      Assert.Equal("2021-08-07T08:09:00+11:11", rec.BirthDateTime);
       Assert.Equal("2021", new IJEBirth(rec).IDOB_YR);
       Assert.Equal("08", new IJEBirth(rec).IDOB_MO);
       Assert.Equal("07", new IJEBirth(rec).IDOB_DY);
       Assert.Equal("0809", new IJEBirth(rec).TB);
+    }
+
+    [Fact]
+    public void TestBirthTimeZoneIJESetters()
+    {
+      string timeZoneOffsetStandard = TimeZoneInfo.Local.GetUtcOffset(new DateTime(2000, 1, 1)).ToString()[..6];
+      if (timeZoneOffsetStandard == "00:00:")
+      {
+        timeZoneOffsetStandard = "+00:00";
+      }
+      string timeZoneOffsetDaylightSavings = TimeZoneInfo.Local.GetUtcOffset(new DateTime(2000, 7, 1)).ToString()[..6];
+      if (timeZoneOffsetDaylightSavings == "00:00:")
+      {
+        timeZoneOffsetDaylightSavings = "+00:00";
+      }
+      IJEBirth ije = new IJEBirth();
+      Assert.Throws<System.ArgumentException>(() => ije.IDOB_DY = "11");
+      ije.IDOB_YR = "2025";
+      ije.IDOB_MO = "12";
+      ije.IDOB_DY = "14";
+      Assert.Equal("2025-12-14", ije.ToRecord().DateOfBirth);
+      Assert.Equal("2025-12-14", ije.ToRecord().BirthDateTime);
+      ije.TB = "1435";
+      Assert.Equal("2025-12-14", ije.ToRecord().DateOfBirth);
+      Assert.Equal("2025-12-14T14:35:00" + timeZoneOffsetStandard, ije.ToRecord().BirthDateTime);
+      ije.IDOB_YR = "2022";
+      Assert.Equal("2022-12-14", ije.ToRecord().DateOfBirth);
+      Assert.Equal("2022-12-14T14:35:00" + timeZoneOffsetStandard, ije.ToRecord().BirthDateTime);
+      ije.IDOB_MO = " 6";
+      Assert.Equal("2022-06-14", ije.ToRecord().DateOfBirth);
+      Assert.Equal("2022-06-14T14:35:00" + timeZoneOffsetStandard, ije.ToRecord().BirthDateTime);
+      ije.IDOB_DY = "22";
+      Assert.Equal("2022-06-22", ije.ToRecord().DateOfBirth);
+      Assert.Equal("2022-06-22T14:35:00-05:00", ije.ToRecord().BirthDateTime);
+      ije.TB = " 145";
+      Assert.Equal("2022-06-22", ije.ToRecord().DateOfBirth);
+      Assert.Equal("2022-06-22T01:45:00" + timeZoneOffsetDaylightSavings, ije.ToRecord().BirthDateTime);
     }
 
     [Fact]
