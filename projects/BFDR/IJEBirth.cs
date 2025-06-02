@@ -169,7 +169,9 @@ namespace BFDR
         public string TB
         {
             get => GetTimeIJEFormatted(record.BirthDateTime) ?? "".PadLeft(4);
-            set => record.BirthDateTime = AddTime(value, record.DateOfBirth);
+            set {
+                record.BirthDateTime = AddTime(value, record.DateOfBirth);
+            } 
         }
 
         /// <summary>Sex</summary>

@@ -7,6 +7,7 @@ using VR;
 using Hl7.Fhir.Support;
 using static Hl7.Fhir.Model.Encounter;
 using System.Text.RegularExpressions;
+using System.Globalization;
 
 // NatalityRecord_submissionProperties.cs
 // These fields are used primarily for submitting birth records to NCHS.
@@ -295,15 +296,26 @@ namespace BFDR
             {
                 return;
             }
-            if (ParseDateElements(value, out int? year, out int? month, out int? day) && year != null && month != null && day != null && value.Contains('T'))
+            string[] formats = {
+                "yyyy-MM-ddTHH:mm:sszzz",
+                "yyyy-MM-dd HH:mm:ss zzz",
+                "yyyy-MM-ddTHH:mm:ssZ",
+                "yyyy-MM-dd HH:mm:ssZ",
+                "yyyy-MM-ddTHH:mmzzz",
+                "yyyy-MM-dd HH:mm zzz",
+                "yyyy-MM-ddTHH:mmZ",
+                "yyyy-MM-dd HH:mmZ"
+            };
+            // if (ParseDateElements(value, out int? year, out int? month, out int? day) && year != null && month != null && day != null && value.Contains('T'))
+            if (DateTimeOffset.TryParseExact(value, formats, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTimeOffset parsedDateTime))
             {
-                string timeStr = value.Split('T')[1];
-                DateTimeOffset dt = DateTimeOffset.Parse($"{year.ToString().PadLeft(4, '0')}-{month.ToString().PadLeft(2, '0')}-{day.ToString().PadLeft(2, '0')}T{timeStr}");
-                this.Subject.BirthDateElement = new Date((int)year, (int)month, (int)day);
-                this.Subject.BirthDateElement.SetExtension(VR.ExtensionURL.PatientBirthTime, new FhirDateTime(dt));
+                // string timeStr = value.Split('T')[1];
+                // DateTimeOffset dt = DateTimeOffset.Parse($"{year.ToString().PadLeft(4, '0')}-{month.ToString().PadLeft(2, '0')}-{day.ToString().PadLeft(2, '0')}T{timeStr}");
+                this.Subject.BirthDateElement = new Date(parsedDateTime.Year, parsedDateTime.Month, parsedDateTime.Day);
+                this.Subject.BirthDateElement.SetExtension(VR.ExtensionURL.PatientBirthTime, new FhirDateTime(parsedDateTime));
                 return;
             }
-            throw new ArgumentException($"Could not parse given string, expected a DateTime string in the format YYYY-MM-DDTHH:MM. Given {value}.");
+            throw new ArgumentException($"Could not parse given string, expected a complete DateTime string in the format 'yyyy-MM-ddTHH:mm zzz' including time zone. Given {value}.");
         }
 
         /// <summary>Mother's Legal Name - Given. Middle name should be the last entry.</summary>

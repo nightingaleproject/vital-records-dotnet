@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using Xunit;
 
@@ -147,7 +148,12 @@ namespace BFDR.Tests
       // Confirm the ije can be converted to fhir
       FetalDeathRecord record = ije.ToRecord();
       Assert.Equal("2024-12-13", record.DateOfDelivery);
-      Assert.Equal("2024-12-13T18:30:00+00:00", record.DateTimeOfDelivery);
+      string timeZoneOffset = TimeZoneInfo.Local.GetUtcOffset(new DateTime(2024, 12, 13)).ToString()[..6];
+      if (timeZoneOffset == "00:00:")
+      {
+        timeZoneOffset = "+00:00";
+      }
+      Assert.Equal("2024-12-13T18:30:00" + timeZoneOffset, record.DateTimeOfDelivery);
       Assert.Equal("Anwar", record.FetusFamilyName);
 
       // Confirm the ije fields are what we expect from the connectathon test record 1
