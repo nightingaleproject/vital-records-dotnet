@@ -915,7 +915,7 @@ namespace VR
         }
 
         /// <summary>Returns a Fhir Date object parsed from the given string.</summary>
-        public static Date ConvertToDate(string date)
+        protected static Date ConvertToDate(string date)
         {
             if (ParseDateElements(date, out int? year, out int? month, out int? day))
             {

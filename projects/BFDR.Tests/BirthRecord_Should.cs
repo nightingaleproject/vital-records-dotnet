@@ -500,10 +500,15 @@ namespace BFDR.Tests
     [Fact]
     public void TestChildBirthDateTimeSetters()
     {
-      string timeZoneOffset = TimeZoneInfo.Local.GetUtcOffset(DateTime.UtcNow).ToString()[..6];
-      if (timeZoneOffset == "00:00:")
+      string timeZoneOffsetStandard = TimeZoneInfo.Local.GetUtcOffset(new DateTime(2000, 1, 1)).ToString()[..6];
+      if (timeZoneOffsetStandard == "00:00:")
       {
-        timeZoneOffset = "+00:00";
+        timeZoneOffsetStandard = "+00:00";
+      }
+      string timeZoneOffsetDaylightSavings = TimeZoneInfo.Local.GetUtcOffset(new DateTime(2000, 7, 1)).ToString()[..6];
+      if (timeZoneOffsetDaylightSavings == "00:00:")
+      {
+        timeZoneOffsetDaylightSavings = "+00:00";
       }
       BirthRecord rec = new();
       Assert.Null(rec.DateOfBirth);
@@ -519,10 +524,10 @@ namespace BFDR.Tests
       Assert.Equal("2021-03-09", rec.BirthDateTime);
       rec.BirthDateTime = "2024-08-23T13:00:00";
       Assert.Equal("2024-08-23", rec.DateOfBirth);
-      Assert.Equal("2024-08-23T13:00:00" + timeZoneOffset, rec.BirthDateTime);
+      Assert.Equal("2024-08-23T13:00:00" + timeZoneOffsetDaylightSavings, rec.BirthDateTime);
       rec.DateOfBirth = "1990-10-08";
       Assert.Equal("1990-10-08", rec.DateOfBirth);
-      Assert.Equal("1990-10-08T13:00:00" + timeZoneOffset, rec.BirthDateTime);
+      Assert.Equal("1990-10-08T13:00:00" + timeZoneOffsetDaylightSavings, rec.BirthDateTime);
       rec.DateOfBirth = "2023";
       Assert.Equal("2023", rec.DateOfBirth);
       Assert.Equal("2023", rec.BirthDateTime);
@@ -552,10 +557,10 @@ namespace BFDR.Tests
       Assert.Equal("2023", rec.BirthDateTime);
       rec.BirthDateTime = "2024-07-29T12:24";
       Assert.Equal("2024-07-29", rec.DateOfBirth);
-      Assert.Equal("2024-07-29T12:24:00" + timeZoneOffset, rec.BirthDateTime);
+      Assert.Equal("2024-07-29T12:24:00" + timeZoneOffsetDaylightSavings, rec.BirthDateTime);
       rec.BirthDateTime = "2021-10-28T15:20:46";
       Assert.Equal("2021-10-28", rec.DateOfBirth);
-      Assert.Equal("2021-10-28T15:20:46" + timeZoneOffset, rec.BirthDateTime);
+      Assert.Equal("2021-10-28T15:20:46" + timeZoneOffsetDaylightSavings, rec.BirthDateTime);
       rec.BirthDateTime = "2018-03-27T10:55:33-02:00";
       Assert.Equal("2018-03-27", rec.DateOfBirth);
       Assert.Equal("2018-03-27T10:55:33-02:00", rec.BirthDateTime);
@@ -564,7 +569,10 @@ namespace BFDR.Tests
       Assert.Equal("2018-03-27T10:55:33-02:00", rec.BirthDateTime);
       rec.BirthDateTime = "2021-08-07T08:09";
       Assert.Equal("2021-08-07", rec.DateOfBirth);
-      Assert.Equal("2021-08-07T08:09:00" + timeZoneOffset, rec.BirthDateTime);
+      Assert.Equal("2021-08-07T08:09:00" + timeZoneOffsetDaylightSavings, rec.BirthDateTime);
+      rec.BirthDateTime = "2020-12-15T10:45";
+      Assert.Equal("2020-12-15", rec.DateOfBirth);
+      Assert.Equal("2020-12-15T10:45:00" + timeZoneOffsetStandard, rec.BirthDateTime);  // Tests Standard time rather than Daylight Savings
     }
 
     [Fact]

@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using Hl7.Fhir.Model;
-using Hl7.Fhir.Utility;
 using VR;
 
 namespace BFDR
@@ -40,7 +39,7 @@ namespace BFDR
         public override uint? GetYear()
         {
             // TODO - make sure this parsedatelements works for Timezones
-            ParseDateElements(this.DateOfBirth, out int? year, out _, out _);
+            VitalRecord.ParseDateElements(this.DateOfBirth, out int? year, out _, out _);
             return (uint?) year;
         }
         
