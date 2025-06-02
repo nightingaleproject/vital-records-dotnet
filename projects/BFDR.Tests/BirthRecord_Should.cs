@@ -3882,14 +3882,31 @@ namespace BFDR.Tests
         {
             // This list of fields is fairly comprehensive, though some have been intentionally left out:
             // TODO: Remove the TODOs and update the comments in IJEBirth.cs for this set of fields
-            // These fields are not expected to be implemented: DOLP_MO, DOLP_DY, DOLP_YR, CERV, TOC, PROM, PRIC, PROL
-            // ATTF, ATTV, R_YR, R_MO, R_DY, MOM_OC_C, DAD_OC_C, MOM_IN_C, DAD_IN_C, MARE, BLANK, BLANK2
+            // These fields are not expected to be implemented: DOLP_MO, DOLP_DY, DOLP_YR, CERV, TOC, PROM, PRIC, PROL,
+            // ATTF, ATTV, R_YR, R_MO, R_DY, MOM_OC_C, DAD_OC_C, MOM_IN_C, DAD_IN_C, MARE, BLANK, BLANK2, MATCH, MCPH,
+            // MAGE_CALC, FAGE_CALC, MRACEBG_C, FRACEBG_C, METHNIC_T, MRACE_T, FETHNIC_T, FRACE_T, SSN_CITIZEN_CD,
+            // SSN_MULT_BTH_CD, SSN_FEEDBACK, SSN_BRTH_CRT_NO, REGISTER_YR, REGISTER_MO, REGISTER_DY, REPLACE
+
             // This test doesn't work with middle name fields since they can't be set first due to how FHIR handles names:
             // KIDMNAME, MOMMIDDL, MOMMMID, DADMNAME
+
+            // TODO: This is is list of fields not implemented in IG, maybe calling IJE setters should raise an error (and add this list to the above)
+            // PPO
+            // VB
+            // NVPR
+            // MECS
+            // FINT
+            // UOPR
+            // BINJ
+
+            // TODO: This is a list of fields that should not be implemented that look like they have implementations?
+            // HSV
+            // VOID
+
             { "IDOB_YR", "2024" },
             { "BSTATE", "TT" },
             { "FILENO", "099991" },
-            { "VOID", "0" },
+            { "VOID", "1" },
             { "AUXNO", "123456" },
             { "TB", "1031" },
             { "ISEX", "F" },
@@ -4043,15 +4060,12 @@ namespace BFDR.Tests
             { "PHYPE", "N" },
             { "GHYPE", "N" },
             { "PPB", "N" },
-            { "PPO", "U" },
-            { "VB", "U" },
             { "INFT", "N" },
             { "PCES", "N" },
             { "NPCES", "00" },
-            //{ "NPCES_BYPASS", "0" }, TODO: Library needs to implement this?
+            // { "NPCES_BYPASS", "0" }, TODO: Library needs to implement this?
             { "GON", "N" },
             { "SYPH", "N" },
-            { "HSV", "N" },
             { "CHAM", "N" },
             { "HEPB", "N" },
             { "HEPC", "N" },
@@ -4059,12 +4073,9 @@ namespace BFDR.Tests
             { "ECVF", "N" },
             { "INDL", "U" },
             { "AUGL", "U" },
-            { "NVPR", "U" },
             { "STER", "U" },
             { "ANTB", "U" },
             { "CHOR", "U" },
-            { "MECS", "U" },
-            { "FINT", "U" },
             { "ESAN", "Y" },
             { "PRES", "2" },
             { "ROUT", "1" },
@@ -4074,7 +4085,6 @@ namespace BFDR.Tests
             { "RUT", "N" },
             { "UHYS", "N" },
             { "AINT", "N" },
-            { "UOPR", "U" },
             { "BWG", "0539" },
             { "BW_BYPASS", "0" },
             //{ "OWGEST", "21" }, TODO: This causes an error when setting
@@ -4084,7 +4094,6 @@ namespace BFDR.Tests
             { "PLUR", "01" },
             { "SORD", "99" },
             { "LIVEB", "99" },
-            // { "MATCH", "654321" }, TODO: Library needs to implement this?
             { "PLUR_BYPASS", "0" },
             { "AVEN1", "N" },
             { "AVEN6", "N" },
@@ -4092,7 +4101,6 @@ namespace BFDR.Tests
             { "SURF", "N" },
             { "ANTI", "N" },
             { "SEIZ", "N" },
-            { "BINJ", "U" },
             { "ANEN", "N" },
             { "MNSB", "N" },
             { "CCHD", "N" },
@@ -4116,7 +4124,6 @@ namespace BFDR.Tests
             { "DOR_YR", "2020" },
             { "DOR_MO", "01" },
             { "DOR_DY", "02" },
-            //{ "MCPH", "N" }, TODO: Library needs to implement this?
             { "KIDFNAME", "YYTRF" },
             { "KIDLNAME", "CARDENAS ROMERO" },
             { "KIDSUFFX", "KIDSUFF" },
@@ -4146,8 +4153,6 @@ namespace BFDR.Tests
             { "DADSUFFX", "DADSUFF" },
             { "MOM_SSN", "888888888" },
             { "DAD_SSN", "888888888" },
-            // { "MAGE_CALC", "33" }, TODO: Library needs to implement this?
-            // { "FAGE_CALC", "44" }, TODO: Library needs to implement this?
             { "MOM_OC_T", "Literal19" },
             { "DAD_OC_T", "Literal20" },
             { "MOM_IN_T", "Literal21" },
@@ -4156,14 +4161,8 @@ namespace BFDR.Tests
             { "FBPLACE_CNT_C", "MX" },
             { "METHNIC5C", "100" },
             { "METHNICE", "200" },
-            // { "MRACEBG_C", "01" }, TODO: Library needs to implement this?
             { "FETHNIC5C", "201" },
             { "FETHNICE", "202" },
-            // { "FRACEBG_C", "02" }, TODO: Library needs to implement this?
-            // { "METHNIC_T", "Literal23" }, TODO: Library needs to implement this?
-            // { "MRACE_T", "Literal24" }, TODO: Library needs to implement this?
-            // { "FETHNIC_T", "Literal25" }, TODO: Library needs to implement this?
-            // { "FRACE_T", "Literal26" }, TODO: Library needs to implement this?
             { "HOSPFROM", "Literal27" },
             { "HOSPTO", "BANNER UNIVERSITY MEDICAL CENTER - TUCSON" },
             { "ATTEND_OTH_TXT", "OTHER" },
@@ -4184,10 +4183,6 @@ namespace BFDR.Tests
             { "MAIL_STATETXT", "Arizona" },
             { "MAIL_CNTRYTXT", "United States" },
             { "SSN_REQ", "Y" },
-            // { "SSN_CITIZEN_CD", "1" }, TODO: Library needs to implement this?
-            // { "SSN_MULT_BTH_CD", "N" }, TODO: Library needs to implement this?
-            // { "SSN_FEEDBACK", "N" }, TODO: Library needs to implement this?
-            // { "SSN_BRTH_CRT_NO", "11111111111" }, TODO: Library needs to implement this?
             { "ATTEND_NAME", "HEATHERSTEVENS" },
             { "ATTEND_NPI", "1932304839" },
             { "CERTIF_NAME", "CERTIF_NAME" },
@@ -4199,11 +4194,7 @@ namespace BFDR.Tests
             { "CERTIFIED_YR", "2024" },
             { "CERTIFIED_MO", "12" },
             { "CERTIFIED_DY", "31" },
-            // { "REGISTER_YR", "2025" }, TODO: Library needs to implement this?
-            // { "REGISTER_MO", "01" }, TODO: Library needs to implement this?
-            // { "REGISTER_DY", "01" }, TODO: Library needs to implement this?
             { "MARITAL_DESCRIP", "MARITAL_DESCRIP" },
-            // { "REPLACE", "1" }, TODO: Not actually implemented, right?
             { "PLACE1_1", "A" },
             { "PLACE1_2", "B" },
             { "PLACE1_3", "C" },
