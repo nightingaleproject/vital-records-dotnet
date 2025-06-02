@@ -236,32 +236,28 @@ namespace BFDR
                 return;
             }
             Date date;
-            FhirDateTime dateTime;
             if (ParseDateElements(value, out int? year, out int? month, out int? day))
             {
                 if (year != null && month != null && day != null)
                 {
-                    date = new Date((int)year, (int)month, (int)day);
                     string timeStr = this.GetDateTimeOfDelivery()?.Split('T') is string[] parts && parts.Length > 1 ? parts[1] : null;
-                    if (timeStr == null)
                     {
-                        dateTime = new FhirDateTime((int)year, (int)month, (int)day);
+                        if (timeStr != null && TryParseValidDateTime($"{year.ToString().PadLeft(4, '0')}-{month.ToString().PadLeft(2, '0')}-{day.ToString().PadLeft(2, '0')}T{timeStr}", out DateTimeOffset parsedDateTime))
+                        {
+                            this.Subject.BirthDateElement.SetExtension(VR.ExtensionURL.PatientBirthTime, new FhirDateTime(parsedDateTime));
+                        }
                     }
-                    else
-                    {
-                        DateTimeOffset dt = DateTimeOffset.Parse($"{year.ToString().PadLeft(4, '0')}-{month.ToString().PadLeft(2, '0')}-{day.ToString().PadLeft(2, '0')}T{timeStr}");
-                        dateTime = new FhirDateTime(dt);
-                    }
+                    date = new Date((int)year, (int)month, (int)day);
                 }
                 else if (year != null && month != null)
                 {
                     date = new Date((int)year, (int)month);
-                    dateTime = new FhirDateTime((int)year, (int)month);
+                    this.Subject.BirthDateElement?.RemoveExtension(VR.ExtensionURL.PatientBirthTime);
                 }
                 else if (year != null)
                 {
                     date = new Date((int)year);
-                    dateTime = new FhirDateTime((int)year);
+                    this.Subject.BirthDateElement?.RemoveExtension(VR.ExtensionURL.PatientBirthTime);
                 }
                 else
                 {
@@ -274,7 +270,6 @@ namespace BFDR
             }
             date.Extension = this.Subject.BirthDateElement?.Extension ?? date.Extension;
             this.Subject.BirthDateElement = date;
-            this.Subject.BirthDateElement.SetExtension(VR.ExtensionURL.PatientBirthTime, dateTime);
         }
 
         /// <summary>
@@ -296,6 +291,17 @@ namespace BFDR
             {
                 return;
             }
+            if (TryParseValidDateTime(value, out DateTimeOffset parsedDateTime))
+            {
+                this.Subject.BirthDateElement = new Date(parsedDateTime.Year, parsedDateTime.Month, parsedDateTime.Day);
+                this.Subject.BirthDateElement.SetExtension(VR.ExtensionURL.PatientBirthTime, new FhirDateTime(parsedDateTime));
+                return;
+            }
+            throw new ArgumentException($"Could not parse given string, expected a complete DateTime string in the format 'yyyy-MM-ddTHH:mm zzz' including time zone. Given {value}.");
+        }
+
+        private static bool TryParseValidDateTime(string value, out DateTimeOffset parsedDateTime)
+        {
             string[] formats = {
                 "yyyy-MM-ddTHH:mm:sszzz",
                 "yyyy-MM-dd HH:mm:ss zzz",
@@ -306,16 +312,13 @@ namespace BFDR
                 "yyyy-MM-ddTHH:mmZ",
                 "yyyy-MM-dd HH:mmZ"
             };
-            // if (ParseDateElements(value, out int? year, out int? month, out int? day) && year != null && month != null && day != null && value.Contains('T'))
-            if (DateTimeOffset.TryParseExact(value, formats, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTimeOffset parsedDateTime))
+            if (DateTimeOffset.TryParseExact(value, formats, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTimeOffset pdt))
             {
-                // string timeStr = value.Split('T')[1];
-                // DateTimeOffset dt = DateTimeOffset.Parse($"{year.ToString().PadLeft(4, '0')}-{month.ToString().PadLeft(2, '0')}-{day.ToString().PadLeft(2, '0')}T{timeStr}");
-                this.Subject.BirthDateElement = new Date(parsedDateTime.Year, parsedDateTime.Month, parsedDateTime.Day);
-                this.Subject.BirthDateElement.SetExtension(VR.ExtensionURL.PatientBirthTime, new FhirDateTime(parsedDateTime));
-                return;
+                parsedDateTime = pdt;
+                return true;
             }
-            throw new ArgumentException($"Could not parse given string, expected a complete DateTime string in the format 'yyyy-MM-ddTHH:mm zzz' including time zone. Given {value}.");
+            // parseDateTime = null;
+            return false;
         }
 
         /// <summary>Mother's Legal Name - Given. Middle name should be the last entry.</summary>
