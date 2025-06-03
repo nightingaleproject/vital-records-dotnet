@@ -235,38 +235,33 @@ namespace BFDR
             {
                 return;
             }
-            Date date;
-            if (ParseDateElements(value, out int? year, out int? month, out int? day))
+            if (!ParseDateElements(value, out int? year, out int? month, out int? day))
             {
-                if (year != null && month != null && day != null)
+                throw new ArgumentException($"Could not parse given string, expected a Date string in the format YYYY-MM-DD. Given {value}.");
+            }
+            Date date;
+            if (year != null && month != null && day != null)
+            {
+                string timeStr = this.GetDateTimeOfDelivery()?.Split('T') is string[] parts && parts.Length > 1 ? parts[1] : null;
+                if (timeStr != null && TryParseValidDateTime($"{year.ToString().PadLeft(4, '0')}-{month.ToString().PadLeft(2, '0')}-{day.ToString().PadLeft(2, '0')}T{timeStr}", out DateTimeOffset parsedDateTime))
                 {
-                    string timeStr = this.GetDateTimeOfDelivery()?.Split('T') is string[] parts && parts.Length > 1 ? parts[1] : null;
-                    {
-                        if (timeStr != null && TryParseValidDateTime($"{year.ToString().PadLeft(4, '0')}-{month.ToString().PadLeft(2, '0')}-{day.ToString().PadLeft(2, '0')}T{timeStr}", out DateTimeOffset parsedDateTime))
-                        {
-                            this.Subject.BirthDateElement.SetExtension(VR.ExtensionURL.PatientBirthTime, new FhirDateTime(parsedDateTime));
-                        }
-                    }
-                    date = new Date((int)year, (int)month, (int)day);
+                    this.Subject.BirthDateElement.SetExtension(VR.ExtensionURL.PatientBirthTime, new FhirDateTime(parsedDateTime));
                 }
-                else if (year != null && month != null)
-                {
-                    date = new Date((int)year, (int)month);
-                    this.Subject.BirthDateElement?.RemoveExtension(VR.ExtensionURL.PatientBirthTime);
-                }
-                else if (year != null)
-                {
-                    date = new Date((int)year);
-                    this.Subject.BirthDateElement?.RemoveExtension(VR.ExtensionURL.PatientBirthTime);
-                }
-                else
-                {
-                    return;
-                }
+                date = new Date((int)year, (int)month, (int)day);
+            }
+            else if (year != null && month != null)
+            {
+                date = new Date((int)year, (int)month);
+                this.Subject.BirthDateElement?.RemoveExtension(VR.ExtensionURL.PatientBirthTime);
+            }
+            else if (year != null)
+            {
+                date = new Date((int)year);
+                this.Subject.BirthDateElement?.RemoveExtension(VR.ExtensionURL.PatientBirthTime);
             }
             else
             {
-                throw new ArgumentException($"Could not parse given string, expected a Date string in the format YYYY-MM-DD. Given {value}.");
+                return;
             }
             date.Extension = this.Subject.BirthDateElement?.Extension ?? date.Extension;
             this.Subject.BirthDateElement = date;

@@ -1169,10 +1169,10 @@ namespace BFDR
         }
 
         /// <summary>Decedent Fetus's Date-Time of Delivery.</summary>
-        /// <value>the decedent fetus's date and time of delivery</value>
+        /// <value>the decedent fetus's date and time of delivery, including time zone</value>
         /// <example>
         /// <para>// Setter:</para>
-        /// <para>ExampleFetalDeathRecord.DateTimeOfDelivery = "1940-02-19";</para>
+        /// <para>ExampleFetalDeathRecord.DateTimeOfDelivery = "1940-02-19T12:30:00+04:00";</para>
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Decedent Fetus Date of Delivery: {ExampleFetalDeathRecord.DateOfBirth}");</para>
         /// </example>

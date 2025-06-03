@@ -38,7 +38,6 @@ namespace BFDR
         /// <summary>Return the birth year for this record to be used in the identifier</summary>
         public override uint? GetYear()
         {
-            // TODO - make sure this parsedatelements works for Timezones
             VitalRecord.ParseDateElements(this.DateOfBirth, out int? year, out _, out _);
             return (uint?) year;
         }
