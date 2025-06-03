@@ -26,7 +26,10 @@ All notable changes to this project will be documented in this file. See [commit
 ### Fixes
 * Fix connectathon records to use a recent event year
 * Correct fields that are Birth or Fetal Death specific to only appear in Birth or Fetal Death records
+  * Use `FetusGivenNames` for Fetal Death Records instead of `ChildGivenNames` in the Fetal Death CLI and test cases
+  * Use `DateOfDelivery` instead of `DateOfBirth` in the Fetal Death test cases
 * Fix time component handling for partial date times
+* Refactor `BirthLocationJurisdiction` to `EventLocationJurisdiction`
 
 <a name="1.0.0-preview.10"></a>
 ## [1.0.0-preview.10](https://github.com/nightingaleproject/vital-records-dotnet/commit/e5d39978b91a26b4460d68f423a12d5159f515d0) (2024-12-23)
