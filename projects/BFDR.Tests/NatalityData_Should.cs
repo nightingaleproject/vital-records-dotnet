@@ -264,7 +264,7 @@ namespace BFDR.Tests
       Assert.Equal("2022-06-14T14:35:00" + timeZoneOffsetStandard, ije.ToRecord().BirthDateTime);
       ije.IDOB_DY = "22";
       Assert.Equal("2022-06-22", ije.ToRecord().DateOfBirth);
-      Assert.Equal("2022-06-22T14:35:00-05:00", ije.ToRecord().BirthDateTime);
+      Assert.Equal("2022-06-22T14:35:00" + timeZoneOffsetStandard, ije.ToRecord().BirthDateTime);
       ije.TB = " 145";
       Assert.Equal("2022-06-22", ije.ToRecord().DateOfBirth);
       Assert.Equal("2022-06-22T01:45:00" + timeZoneOffsetDaylightSavings, ije.ToRecord().BirthDateTime);
