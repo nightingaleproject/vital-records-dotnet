@@ -229,7 +229,7 @@ namespace BFDR
         }
         
         /// <summary>
-        /// Creates and returns a new datetime string based on the given string and time value.
+        /// Creates and returns a new datetime string based on the given string time value.
         /// </summary>
         /// <param name="value"></param>
         /// <param name="date"></param>
@@ -242,8 +242,6 @@ namespace BFDR
                 return "";
             }
             VitalRecord.ParseDateElements(date, out int? year, out int? month, out int? day);
-            // TIME must be set LAST? Because we need a complete date to add a time to it?
-            // Also gotta deal with some time zone stuff here? Or more rather, in the record itself.
             if (year == null || month == null || day == null)
             {
                 throw new ArgumentException($"A complete date (year, month, and day) must be set before time data can be set. Currently set year: '{year}', month: '{month}', day: '{day}'");
