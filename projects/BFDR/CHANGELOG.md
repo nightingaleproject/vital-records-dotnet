@@ -27,6 +27,7 @@ All notable changes to this project will be documented in this file. See [commit
 * Fix connectathon records to use a recent event year
 * Correct fields that are Birth or Fetal Death specific to only appear in Birth or Fetal Death records
   * Use `FetusGivenNames` for Fetal Death Records instead of `ChildGivenNames` in the Fetal Death CLI and test cases
+  * Use `FetusFamilyName` for Fetal Death Records instead of `ChildFamilyName` in the Fetal Death CLI and test cases
   * Use `DateOfDelivery` instead of `DateOfBirth` in the Fetal Death test cases
 * Fix time component handling for partial date times
 * Refactor `BirthLocationJurisdiction` to `EventLocationJurisdiction`
