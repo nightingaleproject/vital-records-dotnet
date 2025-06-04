@@ -14,7 +14,7 @@
       }
     ],
     "system": "http://nchs.cdc.gov/bfdr_id",
-    "value": "2024TT099991"
+    "value": "2024XX099991"
   },
   "type": "document",
   "timestamp": "2024-11-14T13:18:42.470213-05:00",
@@ -525,10 +525,7 @@
           {
             "use": "official",
             "family": "CARDENAS ROMERO",
-            "given": [
-              "YYTRF",
-              "XMIDDLEXX"
-            ]
+            "given": ["YYTRF", "XMIDDLEXX"]
           }
         ],
         "birthDate": "2024-01-01",
@@ -615,9 +612,7 @@
           {
             "use": "official",
             "family": "ROMERO LEON",
-            "given": [
-              "ALEJANDRA"
-            ]
+            "given": ["ALEJANDRA"]
           },
           {
             "use": "maiden",
@@ -643,9 +638,7 @@
         "address": [
           {
             "use": "billing",
-            "line": [
-              "9999 NORTH PRIEST RD236"
-            ],
+            "line": ["9999 NORTH PRIEST RD236"],
             "city": "MESA",
             "state": "AZ",
             "_state": {
@@ -671,9 +664,7 @@
               }
             ],
             "use": "home",
-            "line": [
-              "6666 NORTH ORACLE ROAD100"
-            ],
+            "line": ["6666 NORTH ORACLE ROAD100"],
             "city": "TUCSON",
             "_city": {
               "extension": [
@@ -754,10 +745,7 @@
           {
             "use": "official",
             "family": "CARDENAS OTERO",
-            "given": [
-              "RAMON",
-              "FELIPE"
-            ]
+            "given": ["RAMON", "FELIPE"]
           }
         ],
         "birthDate": "1991-12-19",
@@ -2423,6 +2411,32 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:ed5e8ce2-00ae-4891-94b4-bd7177a02687",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "ed5e8ce2-00ae-4891-94b4-bd7177a02687",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "73813-8"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:7f22e644-c03c-42ff-8b98-06035bfd1e04"
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "434611000124106"
+            }
+          ]
+        }
+      }
+    },
+    {
       "fullUrl": "urn:uuid:1bd35aba-6fd4-4a39-9cdb-c4e86bbcf46d",
       "resource": {
         "resourceType": "Procedure",
@@ -2730,10 +2744,62 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:8e6738fa-dfc9-4daf-a9f0-f1b7ee6ccb86",
+      "fullUrl": "urn:uuid:46f9ec97-e060-46e3-8ee5-10b5ad3ae572",
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "46f9ec97-e060-46e3-8ee5-10b5ad3ae572",
+        "category": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "73812-0"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/us/bfdr/CodeSystem/CodeSystem-local-bfdr-codes",
+              "code": "assistedventfollowingdelivery"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:d1390877-6cbc-4ee9-ac22-0b2850fd3154"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:5e3917f9-a3b6-43bf-b545-9c52d2a1d017",
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "5e3917f9-a3b6-43bf-b545-9c52d2a1d017",
+        "category": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "73812-0"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/us/bfdr/CodeSystem/CodeSystem-local-bfdr-codes",
+              "code": "assistedventmorethan6hrs"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:d1390877-6cbc-4ee9-ac22-0b2850fd3154"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:24173c09-6527-485f-b7dd-c4dd38744f87",
       "resource": {
         "resourceType": "Observation",
-        "id": "8e6738fa-dfc9-4daf-a9f0-f1b7ee6ccb86",
+        "id": "24173c09-6527-485f-b7dd-c4dd38744f87",
         "code": {
           "coding": [
             {
@@ -2749,7 +2815,7 @@
           "coding": [
             {
               "system": "http://snomed.info/sct",
-              "code": "260413007"
+              "code": "830077005"
             }
           ]
         }
