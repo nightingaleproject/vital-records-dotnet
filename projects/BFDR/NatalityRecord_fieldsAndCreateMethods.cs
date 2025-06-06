@@ -47,7 +47,7 @@ namespace BFDR
         private const string COMPOSITION_PROVIDER_FETAL_DEATH_REPORT = "69045-3";
         private const string COMPOSITION_PROVIDER_LIVE_BIRTH_REPORT = "68998-4";
         private const string COMPOSITION_JURISDICTION_FETAL_DEATH_REPORT = "92010-8";
-        private const string COMPOSITION_JURISDICTION_LIVE_BIRTH_REPORT  ="92011-6";
+        private const string COMPOSITION_JURISDICTION_LIVE_BIRTH_REPORT = "92011-6";
         /// <summary>Composition code coded cause of fetal death</summary>
         protected const string COMPOSITION_CODED_CAUSE_OF_FETAL_DEATH = "86804-2";
         private const string COMPOSITION_CODED_RACE_AND_ETHNICITY = "86805-9";
@@ -69,12 +69,15 @@ namespace BFDR
         private const string SUCCESSFUL_OUTCOME = "385669000";
         private const string UNSUCCESSFUL_OUTCOME = "385671000";
         private const string DATE_OF_LAST_LIVE_BIRTH = "68499-3";
-        private const string DATE_OF_LAST_OTHER_PREGNANCY_OUTCOME = "68500-8";
-        private const string NUMBER_OF_PRENATAL_VISITS = "68493-6";
+        /// <summary>Date of Last Other Pregnancy Outcome Section Constant</summary>
+        protected const string DATE_OF_LAST_OTHER_PREGNANCY_OUTCOME = "68500-8";
+        /// <summary>Number of Prenatal Visits Section Constant</summary>
+        protected const string NUMBER_OF_PRENATAL_VISITS = "68493-6";
         private const string GESTATIONAL_AGE = "11884-4";
-        private const string NUMBER_OF_BIRTHS_NOW_DEAD = "68496-9"; 
+        private const string NUMBER_OF_BIRTHS_NOW_DEAD = "68496-9";
         private const string NUMBER_OF_BIRTHS_NOW_LIVING = "11638-4";
-        private const string NUMBER_OF_OTHER_PREGNANCY_OUTCOMES = "69043-8";
+        /// <summary>Number of Other Pregnancy Outcomes Section Constant</summary>
+        protected const string NUMBER_OF_OTHER_PREGNANCY_OUTCOMES = "69043-8";
         private const string MOTHER_RECEIVED_WIC_FOOD = "87303-4";
         private const string INFANT_BREASTFED_AT_DISCHARGE = "73756-9";
 
@@ -95,17 +98,17 @@ namespace BFDR
             {
                 return new string[] {
                     MOTHER_PRENATAL_SECTION, MEDICAL_INFORMATION_SECTION, NEWBORN_INFORMATION_SECTION, MOTHER_INFORMATION_SECTION,
-                    FATHER_INFORMATION_SECTION, PATIENT_QUESTIONAIRRE_RESPONSE_SECTION, EMERGING_ISSUES_SECTION, RACE_ETHNICITY_MOTHER, 
+                    FATHER_INFORMATION_SECTION, PATIENT_QUESTIONAIRRE_RESPONSE_SECTION, EMERGING_ISSUES_SECTION, RACE_ETHNICITY_MOTHER,
                     RACE_ETHNICITY_FATHER, DATE_OF_LAST_LIVE_BIRTH, DATE_OF_LAST_OTHER_PREGNANCY_OUTCOME, NUMBER_OF_PRENATAL_VISITS,
-                    GESTATIONAL_AGE, NUMBER_OF_BIRTHS_NOW_DEAD, NUMBER_OF_BIRTHS_NOW_LIVING, NUMBER_OF_OTHER_PREGNANCY_OUTCOMES, MOTHER_RECEIVED_WIC_FOOD, 
+                    GESTATIONAL_AGE, NUMBER_OF_BIRTHS_NOW_DEAD, NUMBER_OF_BIRTHS_NOW_LIVING, NUMBER_OF_OTHER_PREGNANCY_OUTCOMES, MOTHER_RECEIVED_WIC_FOOD,
                     INFANT_BREASTFED_AT_DISCHARGE
                 };
-            } 
+            }
         }
 
         /// <summary>Birth record composition sections use LOINC codes</summary>
         protected override string CompositionSectionCodeSystem { get => VR.CodeSystems.LOINC; }
-        
+
         /// <summary>Use annotation on the property to determine whether the subject is
         /// the mother or newborn, then extract the corresponding resource id.</summary>
         /// <param name="propertyName">name of the NatalityRecord property</param>
@@ -132,15 +135,15 @@ namespace BFDR
             Attendant.Extension.Add(roleExt);
             // Not linked to Composition or inserted in bundle, since this is run before the composition exists.
         }
-    
-            /// <summary>Create Certifier/Practitioner.</summary>
+
+        /// <summary>Create Certifier/Practitioner.</summary>
         protected void CreateCertifier()
         {
             Certifier = new Practitioner();
-            Certifier .Id = Guid.NewGuid().ToString();
-            Certifier .Meta = new Meta();
+            Certifier.Id = Guid.NewGuid().ToString();
+            Certifier.Meta = new Meta();
             string[] certifier_profile = { BFDR.ExtensionURL.PractitionerBirthCertifier };
-            Certifier .Meta.Profile = certifier_profile;
+            Certifier.Meta.Profile = certifier_profile;
             Extension roleExt = new Extension(BFDR.ExtensionURL.ExtensionRole, new Code("certifier"));
             Certifier.Extension.Add(roleExt);
             // Not linked to Composition or inserted in bundle, since this is run before the composition exists.
@@ -167,7 +170,7 @@ namespace BFDR
             Bundle.AddResourceEntry(locationBirth, "urn:uuid:" + locationBirth.Id);
             return locationBirth;
         }
-        
+
 
         /// <summary>Create Maternity Encounter.</summary>
         protected Encounter CreateMaternityEncounter()
