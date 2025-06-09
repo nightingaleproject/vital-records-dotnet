@@ -363,6 +363,8 @@
             <para>ExampleBirthRecord.MotherTransferredHelper = "hosp-trans";</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Mother transferred: {ExampleBirthRecord.MotherTransferredHelper}");</para>
+            </example>
+        </member>
         <member name="P:BFDR.BirthRecord.BirthDateTime">
             <summary>Child's Time of Birth.</summary>
             <value>the child's time of birth.</value>
