@@ -62,10 +62,9 @@ namespace BFDR.CLI
             {
                 // 0. Set up a BirthRecord object
                 BirthRecord birthRecord = new BirthRecord();
-                birthRecord.DateOfBirth = "2023-01-01";
+                birthRecord.DateOfBirth = "2023-01-02";
                 birthRecord.CertificateNumber = "100";
                 birthRecord.StateLocalIdentifier1 = "123";
-                birthRecord.DateOfBirth = "2023-01-01";
                 birthRecord.BirthSex = "M";
 
                 string[] childNames = { "Alexander", "Arlo" };
