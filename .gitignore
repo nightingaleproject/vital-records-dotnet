@@ -408,3 +408,4 @@ FodyWeavers.xsd
 
 .vscode
 *.db
+/projects/VRDR.CLI/Properties/launchSettings.json
