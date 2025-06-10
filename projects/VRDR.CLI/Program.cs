@@ -80,7 +80,7 @@ namespace VRDR.CLI
                 Console.WriteLine(commands);
                 return (0);
             }
-            else if (args.Length == 1 && args[0] == "fakerecord")
+            else if (args.Length >= 1 && args[0] == "fakerecord")
             {
                 DeathRecord deathRecord = new DeathRecord();
 
@@ -93,22 +93,8 @@ namespace VRDR.CLI
                 // RegisteredTime
                 deathRecord.RegisteredTime = "2019-02-01T16:47:04-05:00";
 
-                // CertificationRole
-                Dictionary<string, string> certificationRole = new Dictionary<string, string>();
-                certificationRole.Add("code", "434641000124105");
-                certificationRole.Add("system", "http://snomed.info/sct");
-                certificationRole.Add("display", "Physician");
-                deathRecord.CertificationRole = certificationRole;
-
                 // State Local Identifier
                 deathRecord.StateLocalIdentifier1 = "000000000042";
-
-                // MannerOfDeathType
-                Dictionary<string, string> mannerOfDeathType = new Dictionary<string, string>();
-                mannerOfDeathType.Add("code", "7878000");
-                mannerOfDeathType.Add("system", "http://snomed.info/sct");
-                mannerOfDeathType.Add("display", "Accidental death");
-                deathRecord.MannerOfDeathType = mannerOfDeathType;
 
                 // CertifierGivenNames
                 string[] cnames = { "Doctor", "Middle" };
@@ -180,6 +166,8 @@ namespace VRDR.CLI
                 // INTERVAL1D
                 deathRecord.INTERVAL1D = "7 years";
 
+                deathRecord.ContributingConditions = "Obesity";
+
                 // GivenNames
                 deathRecord.GivenNames = new string[] { "Example", "Something", "Middle" };
 
@@ -188,9 +176,6 @@ namespace VRDR.CLI
 
                 // Suffix
                 deathRecord.Suffix = "Jr.";
-
-                // Gender
-                deathRecord.SexAtDeathHelper = ValueSets.AdministrativeGender.Male;
 
                 // BirthSex
                 //deathRecord.BirthSex = "F";
@@ -209,14 +194,8 @@ namespace VRDR.CLI
                 raddress.Add("addressCountry", "US");
                 deathRecord.Residence = raddress;
 
-                // ResidenceWithinCityLimits
-                deathRecord.ResidenceWithinCityLimitsHelper = VR.ValueSets.YesNoUnknown.No;
-
                 // SSN
                 deathRecord.SSN = "123456789";
-
-                // Ethnicity
-                deathRecord.Ethnicity2Helper = VR.ValueSets.YesNoUnknown.Yes;
 
                 // Race
                 Tuple<string, string>[] race = { Tuple.Create(NvssRace.White, "Y"), Tuple.Create(NvssRace.NativeHawaiian, "Y"), Tuple.Create(NvssRace.OtherPacificIslander, "Y") };
@@ -259,13 +238,6 @@ namespace VRDR.CLI
                 // SpouseSuffix
                 deathRecord.SpouseSuffix = "Ph.D.";
 
-                // EducationLevel
-                Dictionary<string, string> elevel = new Dictionary<string, string>();
-                elevel.Add("code", "BD");
-                elevel.Add("system", "http://terminology.hl7.org/CodeSystem/v3-EducationLevel");
-                elevel.Add("display", "College or baccalaureate degree complete");
-                deathRecord.EducationLevel = elevel;
-
                 // BirthRecordId
                 deathRecord.BirthRecordId = "4242123";
 
@@ -281,28 +253,41 @@ namespace VRDR.CLI
                 // UsualIndustry
                 deathRecord.UsualIndustry = "State agency";
 
-                // MilitaryService
-                Dictionary<string, string> mserv = new Dictionary<string, string>();
-                mserv.Add("code", "Y");
-                mserv.Add("system", "http://terminology.hl7.org/CodeSystem/v2-0136");
-                mserv.Add("display", "Yes");
-                deathRecord.MilitaryService = mserv;
+                //FetalDeathRecordId
+                //deathRecord.FetalDeathRecordId = "99999999";
 
-                // // MorticianGivenNames
-                // string[] fdnames = { "FD", "Middle" };
-                // deathRecord.MorticianGivenNames = fdnames;
+                ////FetalDeathRecordState
+                //deathRecord.FetalDeathRecordState = "TX";
 
-                // // MorticianFamilyName
-                // deathRecord.MorticianFamilyName = "Last";
+                ////FetalDeathRecordYear
+                //deathRecord.FetalDeathRecordYear = "1950";
 
-                // // MorticianSuffix
-                // deathRecord.MorticianSuffix = "Jr.";
+                // MorticianGivenNames
+                string[] fdnames = { "FD", "Middle" };
+                deathRecord.MorticianGivenNames = fdnames;
 
-                // // MorticianIdentifier
-                // var mortId = new Dictionary<string, string>();
-                // mortId["value"] = "9876543210";
-                // mortId["system"] = "http://hl7.org/fhir/sid/us-npi";
-                // deathRecord.MorticianIdentifier = mortId;
+                // MorticianFamilyName
+                deathRecord.MorticianFamilyName = "Last";
+
+                // MorticianSuffix
+                deathRecord.MorticianSuffix = "Jr.";
+
+                // MorticianIdentifier
+                var mortId = new Dictionary<string, string>();
+                mortId["value"] = "9876543210";
+                mortId["system"] = "http://hl7.org/fhir/sid/us-npi";
+                deathRecord.MorticianIdentifier = mortId;
+
+                Dictionary<string, string> morticianAaddress = new Dictionary<string, string>();
+                morticianAaddress.Add("addressLine1", "1234 Example Street");
+                morticianAaddress.Add("addressLine2", "Line 2");
+                morticianAaddress.Add("addressCity", "Bedford");
+                morticianAaddress.Add("addressCounty", "Middlesex");
+                morticianAaddress.Add("addressState", "MA");
+                morticianAaddress.Add("addressZip", "01730");
+                morticianAaddress.Add("addressCountry", "US");
+
+                deathRecord.MorticianAddress = morticianAaddress;
 
                 // FuneralHomeAddress
                 Dictionary<string, string> fdaddress = new Dictionary<string, string>();
@@ -335,13 +320,6 @@ namespace VRDR.CLI
                 // DispositionLocationName
                 deathRecord.DispositionLocationName = "Bedford Cemetery";
 
-                // DecedentDispositionMethod
-                Dictionary<string, string> ddm = new Dictionary<string, string>();
-                ddm.Add("code", "449971000124106");
-                ddm.Add("system", "http://snomed.info/sct");
-                ddm.Add("display", "Burial");
-                deathRecord.DecedentDispositionMethod = ddm;
-
                 // AutopsyPerformedIndicator
                 Dictionary<string, string> api = new Dictionary<string, string>();
                 api.Add("code", "Y");
@@ -362,23 +340,6 @@ namespace VRDR.CLI
                 ps.Add("system", "http://terminology.hl7.org/CodeSystem/v3-NullFlavor");
                 ps.Add("display", "not applicable");
                 deathRecord.PregnancyStatus = ps;
-
-                // TransportationRole
-                Dictionary<string, string> tr = new Dictionary<string, string>();
-                tr.Add("code", "257500003");
-                tr.Add("system", "http://snomed.info/sct");
-                tr.Add("display", "Passenger");
-                deathRecord.TransportationRole = tr;
-
-                // ExaminerContacted
-                deathRecord.ExaminerContactedHelper = "N";
-
-                // TobaccoUse
-                Dictionary<string, string> tbu = new Dictionary<string, string>();
-                tbu.Add("code", "373066001");
-                tbu.Add("system", "http://snomed.info/sct");
-                tbu.Add("display", "Yes");
-                deathRecord.TobaccoUse = tbu;
 
                 // InjuryLocationAddress
                 Dictionary<string, string> iladdress = new Dictionary<string, string>();
@@ -402,13 +363,6 @@ namespace VRDR.CLI
 
                 // InjuryDate
                 deathRecord.InjuryDate = "2018-02-19T16:48:06-05:00";
-
-                // InjuryAtWork
-                Dictionary<string, string> codeIW = new Dictionary<string, string>();
-                codeIW.Add("code", "N");
-                codeIW.Add("system", "http://terminology.hl7.org/CodeSystem/v2-0136");
-                codeIW.Add("display", "No");
-                deathRecord.InjuryAtWork = codeIW;
 
                 // InjuryPlace
                 deathRecord.InjuryPlaceDescription = "Home";
@@ -449,9 +403,141 @@ namespace VRDR.CLI
                 aad.Add("value", "79");
                 deathRecord.AgeAtDeath = aad;
 
-                // DateOfDeathPronouncement
-                deathRecord.DateOfDeathPronouncement = "2018-02-20T16:48:06-05:00";
+                // BirthLocationAddress
+                Dictionary<string, string> birthPlaceAddress = new Dictionary<string, string>();
+                birthPlaceAddress.Add("addressLine1", "101 Example Street");
+                birthPlaceAddress.Add("addressLine2", "Road 2");
+                birthPlaceAddress.Add("addressCity", "Houston");
+                birthPlaceAddress.Add("addressCounty", "Harris");
+                birthPlaceAddress.Add("addressState", "TX");
+                birthPlaceAddress.Add("addressZip", "77002");
+                birthPlaceAddress.Add("addressCountry", "US");
+                deathRecord.PlaceOfBirth = birthPlaceAddress;
 
+                Dictionary<string, string> relationship = new Dictionary<string, string>();
+                relationship.Add("text", "cousin");
+                deathRecord.ContactRelationship = relationship;
+
+                deathRecord.SurgeryDate = "2018-02-20T09:10:06-05:00";
+                
+                deathRecord.CertifiedTime = "2019-01-28T16:48:06-05:00";
+                if (args.Length>1&& args[1]=="uh")
+                {
+                    deathRecord.SexAtDeathHelper = ValueSets.AdministrativeGender.Male;
+                    deathRecord.MannerOfDeathTypeHelper = ValueSets.MannerOfDeath.Accidental_Death;
+                    deathRecord.EducationLevelHelper = VR.ValueSets.EducationLevel.Bachelors_Degree;
+                    deathRecord.EducationLevelEditFlagHelper = VR.ValueSets.EditBypass01234.Edit_Passed;
+                    deathRecord.MilitaryServiceHelper = VR.ValueSets.YesNoUnknown.Yes;
+                    deathRecord.ResidenceWithinCityLimitsHelper = VR.ValueSets.YesNoUnknown.No;
+                    deathRecord.Ethnicity2Helper = VR.ValueSets.YesNoUnknown.Yes;
+
+                    deathRecord.DecedentDispositionMethodHelper = ValueSets.MethodOfDisposition.Burial;
+                    deathRecord.TobaccoUseHelper = ValueSets.ContributoryTobaccoUse.Yes;
+                    deathRecord.InjuryAtWorkHelper = VR.ValueSets.YesNoUnknownNotApplicable.No;
+                    deathRecord.CertificationRoleHelper = ValueSets.CertifierTypes.Death_Certification_And_Verification_By_Physician_Procedure;
+                    deathRecord.TransportationRoleHelper = ValueSets.TransportationIncidentRole.Passenger;
+                    // ExaminerContacted
+                    deathRecord.ExaminerContactedHelper = VR.ValueSets.YesNoUnknown.No;
+                    //deathRecord.RaceMissingValueReasonHelper = VR.CodeSystems.ActReason;
+                }
+                else
+                {
+                    //SexAtDeath 
+                    Dictionary<string, string> sexAtDeath = new Dictionary<string, string>();
+                    sexAtDeath.Add("code", "male");
+                    sexAtDeath.Add("system", "http://hl7.org/fhir/administrative-gender");
+                    sexAtDeath.Add("display", "Male");
+                    deathRecord.SexAtDeath = sexAtDeath;
+
+                    // MannerOfDeathType
+                    Dictionary<string, string> mannerOfDeathType = new Dictionary<string, string>();
+                    mannerOfDeathType.Add("code", "7878000");
+                    mannerOfDeathType.Add("system", "http://snomed.info/sct");
+                    mannerOfDeathType.Add("display", "Accidental death");
+                    deathRecord.MannerOfDeathType = mannerOfDeathType;
+
+                    // EducationLevel
+                    Dictionary<string, string> elevel = new Dictionary<string, string>();
+                    elevel.Add("code", "BD");
+                    elevel.Add("system", "http://terminology.hl7.org/CodeSystem/v3-EducationLevel");
+                    elevel.Add("display", "College or baccalaureate degree complete");
+                    deathRecord.EducationLevel = elevel;
+
+                    // EducationLevelEditFlag
+                    Dictionary<string, string> elef = new Dictionary<string, string>();
+                    elef.Add("code", "1");
+                    elef.Add("system", VR.CodeSystemURL.EditFlags);
+                    elef.Add("display", "Edit Failed, Data Queried, and Verified");
+                    deathRecord.EducationLevelEditFlag = elef;
+
+                    // MilitaryService
+                    Dictionary<string, string> mserv = new Dictionary<string, string>();
+                    mserv.Add("code", "Y");
+                    mserv.Add("system", "http://terminology.hl7.org/CodeSystem/v2-0136");
+                    mserv.Add("display", "Yes");
+                    deathRecord.MilitaryService = mserv;
+
+                    // ResidenceWithinCityLimits
+                    Dictionary<string, string> rwcl = new Dictionary<string, string>();
+                    rwcl.Add("code", "N");
+                    rwcl.Add("system", "http://terminology.hl7.org/CodeSystem/v2-0136");
+                    rwcl.Add("display", "No");
+                    deathRecord.ResidenceWithinCityLimits = rwcl;
+
+                    //Ethnicity2
+                    Dictionary<string, string> ethnicity = new Dictionary<string, string>();
+                    ethnicity.Add("code", "Y");
+                    ethnicity.Add("system", "http://terminology.hl7.org/CodeSystem/v2-0136");
+                    ethnicity.Add("display", "Yes");
+                    deathRecord.Ethnicity2 = ethnicity;
+
+                    // DecedentDispositionMethod
+                    Dictionary<string, string> ddm = new Dictionary<string, string>();
+                    ddm.Add("code", "449971000124106");
+                    ddm.Add("system", "http://snomed.info/sct");
+                    ddm.Add("display", "Burial");
+                    deathRecord.DecedentDispositionMethod = ddm;
+
+                    // TobaccoUse
+                    Dictionary<string, string> tbu = new Dictionary<string, string>();
+                    tbu.Add("code", "373066001");
+                    tbu.Add("system", "http://snomed.info/sct");
+                    tbu.Add("display", "Yes");
+                    deathRecord.TobaccoUse = tbu;
+
+                    // InjuryAtWork
+                    Dictionary<string, string> codeIW = new Dictionary<string, string>();
+                    codeIW.Add("code", "N");
+                    codeIW.Add("system", "http://terminology.hl7.org/CodeSystem/v2-0136");
+                    codeIW.Add("display", "No");
+                    deathRecord.InjuryAtWork = codeIW;
+
+                    // CertificationRole
+                    Dictionary<string, string> certificationRole = new Dictionary<string, string>();
+                    certificationRole.Add("code", "434641000124105");
+                    certificationRole.Add("system", "http://snomed.info/sct");
+                    certificationRole.Add("display", "Physician");
+                    deathRecord.CertificationRole = certificationRole;
+
+                    // TransportationRole
+                    Dictionary<string, string> tr = new Dictionary<string, string>();
+                    tr.Add("code", "257500003");
+                    tr.Add("system", "http://snomed.info/sct");
+                    tr.Add("display", "Passenger");
+                    deathRecord.TransportationRole = tr;
+
+                    Dictionary<string, string> examiner = new Dictionary<string, string>();
+                    examiner.Add("code", "N");
+                    examiner.Add("system", "http://terminology.hl7.org/CodeSystem/v2-0136");
+                    examiner.Add("display", "No");
+                    deathRecord.ExaminerContacted = examiner;
+
+                    Dictionary<string, string> raceMissing = new Dictionary<string, string>();
+                    raceMissing.Add("code", "PREFUS");
+                    raceMissing.Add("system", "http://terminology.hl7.org/CodeSystem/v3-ActReason");
+                    raceMissing.Add("display", "patient refuse");
+                    //deathRecord.RaceMissingValueReason = raceMissing;
+                }
                 // PronouncerGivenNames
                 // string[] pronouncer_gnames = { "FD", "Middle" };
                 // deathRecord.PronouncerGivenNames = pronouncer_gnames;
@@ -469,7 +555,9 @@ namespace VRDR.CLI
                 // deathRecord.PronouncerIdentifier = pronouncerId;
 
                 Console.WriteLine(XDocument.Parse(deathRecord.ToXML()).ToString() + "\n\n");
-                //Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(Newtonsoft.Json.JsonConvert.DeserializeObject(deathRecord.ToJSON()), Newtonsoft.Json.Formatting.Indented) + "\n\n");
+                File.WriteAllText("C:\\Temp\\STU3.0_RoundTripTesting\\InputJson\\FackeRecord_3.0.json",
+                    Newtonsoft.Json.JsonConvert.SerializeObject(Newtonsoft.Json.JsonConvert.DeserializeObject(deathRecord.ToJSON()),
+                    Newtonsoft.Json.Formatting.Indented) + "\n\n");
                 return 0;
             }
             else if (args.Length == 4 && args[0] == "connectathon")
@@ -518,24 +606,18 @@ namespace VRDR.CLI
             }
             else if (args.Length == 2 && args[0] == "ije2json")
             {
-                IJEMortality ije1 = new IJEMortality(File.ReadAllText(args[1]));
-                DeathRecord d = ije1.ToRecord();
-                Console.WriteLine(d.ToJSON());
+
+                Ije2JsonConversionProcess(args[1]);
                 return 0;
             }
             else if (args.Length > 2 && args[0] == "ije2json")
             {
+
                 // This command will export the files to the same directory they were imported from.
                 for (int i = 1; i < args.Length; i++)
                 {
-                    string ijeFile = args[i];
-                    string ijeRawRecord = File.ReadAllText(ijeFile);
-                    IJEMortality ije = new IJEMortality(ijeRawRecord);
-                    DeathRecord d = ije.ToRecord();
-                    string outputFilename = ijeFile.Replace(".ije", ".json");
-                    StreamWriter sw = new StreamWriter(outputFilename);
-                    sw.WriteLine(d.ToJSON());
-                    sw.Flush();
+                    string path = args[i];
+                    Ije2JsonConversionProcess(path);
                 }
                 return 0;
             }
@@ -646,7 +728,7 @@ namespace VRDR.CLI
                 DeathRecord d2 = new DeathRecord(d1.ToJSON());
                 DeathRecord d3 = new DeathRecord();
                 List<PropertyInfo> properties = typeof(DeathRecord).GetProperties().ToList();
-                 foreach (PropertyInfo property in properties)
+                foreach (PropertyInfo property in properties)
                 {
                     if (property.GetCustomAttribute<Property>() != null)
                     {
@@ -1107,7 +1189,57 @@ namespace VRDR.CLI
             {
                 //   -json-diff:  compare two json files irrespective of space and ordering
                 Console.WriteLine($"Compare two json files {args[1]} and {args[2]} json files irrespective of space and ordering");
-                return (CompareJsonIgnoringOrderAndSpacing (File.ReadAllText(args[1]), File.ReadAllText(args[2]))?0:1);    
+                return (CompareJsonIgnoringOrderAndSpacing(File.ReadAllText(args[1]), File.ReadAllText(args[2])) ? 0 : 1);
+            }
+            else if (args.Length == 2 && args[0] == "ijefiles2jsonfiles")
+            {
+                string SrcDirPath = args[1];
+                if (string.IsNullOrWhiteSpace(SrcDirPath) || !Directory.Exists(SrcDirPath))
+                {
+                    Console.WriteLine("Please pass existing Directory");
+                    return 0;
+                }
+                string DestPath = Path.Combine(Path.GetDirectoryName(SrcDirPath), "_OutputJson_IntermediateStep");
+                Directory.CreateDirectory(DestPath);
+                foreach (var filePath in Directory.GetFiles(args[1]))
+                {
+                    IJEMortality ije1 = new IJEMortality(File.ReadAllText(filePath));
+                    DeathRecord d = ije1.ToRecord();
+
+                    string DestFilePath = Path.Combine(DestPath, Path.ChangeExtension(Path.GetFileName(filePath), ".json"));
+                    File.WriteAllText(DestFilePath, d.ToJSON());
+
+                }
+                return 0;
+            }
+            else if (args.Length >= 2 && args[0] == "json2ije")
+            {
+                string srcPath = args[1];
+                FileAttributes srcPathAttr = File.GetAttributes(args[1]);
+                string destPath = !string.IsNullOrWhiteSpace(args[2]) &&
+                    File.GetAttributes(args[2]).HasFlag(FileAttributes.Directory) ?
+                    args[2] :
+                    Path.Combine(Path.GetDirectoryName(srcPath), "OutputIJE");
+                if (srcPathAttr.HasFlag(FileAttributes.Directory) && !Directory.Exists(srcPath))
+                {
+                    Console.WriteLine("Please pass existing Directory");
+                    return 0;
+                }
+                
+                if (srcPathAttr.HasFlag(FileAttributes.Directory))
+                {
+                    Directory.CreateDirectory(destPath);
+                    foreach (var filePath in Directory.GetFiles(srcPath, "*.json"))
+                    {
+                        string destFilePath = Path.Combine(destPath, Path.ChangeExtension(filePath, ".ije"));
+                        Json2Ijeconsversion(filePath, destFilePath);
+                    }
+                }
+                else
+                {
+                    Json2Ijeconsversion(srcPath, Path.ChangeExtension(srcPath,".ije"));
+                }
+                return 0;
             }
             else
             {
@@ -1116,6 +1248,51 @@ namespace VRDR.CLI
             return 0;
         }
 
+        private static string Ije2JsonConversionProcess(string path)
+        {
+            
+            if (string.IsNullOrWhiteSpace(path) ||(!File.Exists(path) && !Directory.Exists(path)))
+            {
+               return string.Format("Provided Path {0} not found.", path);
+            }
+
+            FileAttributes attr = File.GetAttributes(path);
+
+            if (attr.HasFlag(FileAttributes.Directory))
+            {
+                StringBuilder sb = new StringBuilder();
+                foreach (var ijeFile in Directory.GetFiles(path))
+                {
+                    sb.AppendLine("File Path:");
+                    sb.AppendLine(Ije2JsonConversion(path));
+                }
+                return sb.ToString();
+            }
+            else
+            {
+
+                return Ije2JsonConversion(path);
+            }
+        }
+
+        private static string Ije2JsonConversion(string ijeFilepath)
+        {
+            string ijeRawRecord = File.ReadAllText(ijeFilepath);
+            IJEMortality ije = new IJEMortality(ijeRawRecord);
+            DeathRecord d = ije.ToRecord();
+            string outputFilename = ijeFilepath.Replace(".ije", ".json");
+            StreamWriter sw = new StreamWriter(outputFilename);
+            sw.WriteLine(d.ToJSON());
+            sw.Flush();
+            return sw.ToString();
+        }
+        private static string Json2Ijeconsversion(string jsonFilePath, string destFilePathPath)
+        {
+            DeathRecord d = new DeathRecord(File.ReadAllText(jsonFilePath));
+            IJEMortality ije1 = new IJEMortality(d, false);
+            File.WriteAllText(destFilePathPath, ije1.ToString());
+            return ije1.ToString(); 
+        }
 
         private static async System.Threading.Tasks.Task CallEndpoint(string endpoint, StringContent content)
         {
@@ -1162,7 +1339,6 @@ namespace VRDR.CLI
             mreString = mreString.Insert(345, ije.DETHNIC5C);
             return (mreString);
         }
-
         private static IJEMortality trx2ije(string trxfilename)
         {
             // Mapping a TRX file to an IJE file:
@@ -1236,8 +1412,6 @@ namespace VRDR.CLI
             trxString = trxString.Insert(377, ije.STATESP);
             return (trxString);
         }
-
-
         private static int CompareIJEtoIJE(IJEMortality ije1, string ije1name, IJEMortality ije2, string ije2name, string[] excludefields = null)
         {
             string ijeString1 = ije1.ToString();
