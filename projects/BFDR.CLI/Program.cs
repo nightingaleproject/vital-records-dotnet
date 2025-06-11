@@ -62,12 +62,9 @@ namespace BFDR.CLI
             {
                 // 0. Set up a BirthRecord object
                 BirthRecord birthRecord = new BirthRecord();
-                birthRecord.BirthYear = 2023;
-                birthRecord.BirthMonth = 1;
-                birthRecord.BirthDay = 1;
+                birthRecord.DateOfBirth = "2023-01-02";
                 birthRecord.CertificateNumber = "100";
                 birthRecord.StateLocalIdentifier1 = "123";
-                birthRecord.DateOfBirth = "2023-01-01";
                 birthRecord.BirthSex = "M";
 
                 string[] childNames = { "Alexander", "Arlo" };
@@ -130,13 +127,7 @@ namespace BFDR.CLI
                 birthRecord.MotherResidence = motherResidence;
 
                 // Mother and Father birthdate
-                birthRecord.MotherBirthDay = 12;
-                birthRecord.MotherBirthMonth = 1;
-                birthRecord.MotherBirthYear = 1992;
                 birthRecord.MotherDateOfBirth = "1992-01-12";
-                birthRecord.FatherBirthDay = 21;
-                birthRecord.FatherBirthMonth = 9;
-                birthRecord.FatherBirthYear = 1990;
                 birthRecord.FatherDateOfBirth = "1990-09-21";
 
                 // Mother and Father education
@@ -164,9 +155,7 @@ namespace BFDR.CLI
             {
                 // 0. Set up a FetalDeathRecord object
                 FetalDeathRecord fetaldeathRecord = new FetalDeathRecord();
-                fetaldeathRecord.DeliveryYear = 2023;
-                fetaldeathRecord.DeliveryMonth = 1;
-                fetaldeathRecord.DeliveryDay = 1;
+                fetaldeathRecord.DateOfDelivery = "2023-01-01";
                 fetaldeathRecord.CertificateNumber = "100";
                 fetaldeathRecord.StateLocalIdentifier1 = "123";
                 fetaldeathRecord.DateOfDelivery = "2023-01-01";
@@ -231,13 +220,7 @@ namespace BFDR.CLI
                 fetaldeathRecord.MotherResidence = motherResidence;
 
                 // Mother and Father birthdates
-                fetaldeathRecord.MotherBirthDay = 12;
-                fetaldeathRecord.MotherBirthMonth = 1;
-                fetaldeathRecord.MotherBirthYear = 1992;
                 fetaldeathRecord.MotherDateOfBirth = "1992-01-12";
-                fetaldeathRecord.FatherBirthDay = 21;
-                fetaldeathRecord.FatherBirthMonth = 9;
-                fetaldeathRecord.FatherBirthYear = 1990;
                 fetaldeathRecord.FatherDateOfBirth = "1990-09-21";
 
                 // Mother and Father Education
