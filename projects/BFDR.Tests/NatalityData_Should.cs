@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using VR;
 using Xunit;
 using System;
+using Hl7.Fhir.Model;
+using System.Linq;
 
 namespace BFDR.Tests
 {
@@ -185,21 +187,29 @@ namespace BFDR.Tests
       Assert.Equal("2023", rec.DateOfBirth);
       Assert.Null(rec.BirthDateTime);
       rec.DateOfBirth = null;
-      Assert.Equal("2023", rec.DateOfBirth);
+      Assert.Null(rec.DateOfBirth);
       Assert.Null(rec.BirthDateTime);
+      rec.DateOfBirth = "2023";
+      Assert.Equal("2023", rec.DateOfBirth);
       rec.DateOfBirth = "";
-      Assert.Equal("2023", rec.DateOfBirth);
+      Assert.Null(rec.DateOfBirth);
       Assert.Null(rec.BirthDateTime);
+      rec.DateOfBirth = "2023";
+      Assert.Equal("2023", rec.DateOfBirth);
       rec.BirthDateTime = null;
-      Assert.Equal("2023", rec.DateOfBirth);
+      Assert.Null(rec.DateOfBirth);
       Assert.Null(rec.BirthDateTime);
+      rec.DateOfBirth = "2023";
+      Assert.Equal("2023", rec.DateOfBirth);
       rec.BirthDateTime = "";
-      ije = new IJEBirth(rec);
-      Assert.Equal("2023", rec.DateOfBirth);
+      Assert.Null(rec.DateOfBirth);
       Assert.Null(rec.BirthDateTime);
+      rec.DateOfBirth = "2023";
+      Assert.Equal("2023", rec.DateOfBirth);
       Assert.Throws<System.ArgumentException>(() => rec.BirthDateTime = "2022-08-19");
       Assert.Equal("2023", rec.DateOfBirth);
       Assert.Null(rec.BirthDateTime);
+      ije = new IJEBirth(rec);
       Assert.Equal("2023", ije.IDOB_YR);
       Assert.Equal("  ", ije.IDOB_MO);
       Assert.Equal("  ", ije.IDOB_DY);
@@ -378,9 +388,7 @@ namespace BFDR.Tests
     [Fact]
     public void TestBirthDateOrderingErrors()
     {
-      IJEBirth ije = new();
-      // Child
-      
+      IJEBirth ije = new();      
       // Mother
       Assert.Throws<System.ArgumentException>(() => ije.MDOB_MO = "14");
       Assert.Equal("  ", ije.MDOB_MO);
@@ -403,8 +411,42 @@ namespace BFDR.Tests
       Assert.Equal("10", ije.MDOB_MO);
       Assert.Equal("21", ije.MDOB_DY);
       Assert.Equal("2000-10-21", ije.ToRecord().MotherDateOfBirth);
+    }
 
-      // Father
+    [Fact]
+    public void TestSupportedDateUnkowns()
+    {
+      IJEBirth ije = new IJEBirth();
+      ije.YLLB = "9999";
+      ije.MLLB = "99";
+      BirthRecord br = ije.ToRecord();
+      Observation observation = (Observation)br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
+      FhirDateTime dateToUse = (FhirDateTime)observation.Value;
+      Extension pdt = dateToUse.GetExtension(VR.ExtensionURL.PartialDateTime);
+      Assert.Equal(-1, br.DateOfLastLiveBirthYear);
+      Assert.Equal(-1, br.DateOfLastLiveBirthMonth);
+      Assert.Null(br.DateOfLastLiveBirthDay);
+      Assert.Null(br.DateOfLastLiveBirth);
+      Assert.Null(dateToUse.Value);
+      Assert.Equal("unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateYearVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
+      Assert.Equal("unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateMonthVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
+      Assert.Equal("temp-unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateDayVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
+      Assert.Equal("9999", ije.YLLB);
+      Assert.Equal("99", ije.MLLB);
+      ije.YLLB = "2020";
+      br = ije.ToRecord();
+      observation = (Observation)br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
+      dateToUse = (FhirDateTime)observation.Value;
+      pdt = dateToUse.GetExtension(VR.ExtensionURL.PartialDateTime);
+      Assert.Equal(2020, br.DateOfLastLiveBirthYear);
+      Assert.Equal(-1, br.DateOfLastLiveBirthMonth);
+      Assert.Null(br.DateOfLastLiveBirthDay);
+      Assert.Equal("2020", br.DateOfLastLiveBirth);
+      Assert.Equal("2020", dateToUse.Value);
+      Assert.Equal("unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateMonthVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
+      Assert.Equal("temp-unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateDayVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
+      Assert.Equal("2020", ije.YLLB);
+      Assert.Equal("99", ije.MLLB);
     }
 
     [Fact]

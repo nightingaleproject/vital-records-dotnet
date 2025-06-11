@@ -123,7 +123,7 @@ namespace BFDR
             }
             if (value == "9999")
             {
-                throw new System.FormatException("Date IJE unknowns in the format '9999' are not supported by this library.");
+                throw new System.FormatException("Birthdate IJE unknowns for this field in the format '9999' are not supported by this library.");
             }
             if (value.Length != 4)
             {
@@ -163,7 +163,7 @@ namespace BFDR
             }
             if (value == "99")
             {
-                throw new System.FormatException("Date IJE unknowns in the format '99' are not supported by this library.");
+                throw new System.FormatException("Birthdate IJE unknowns for this field in the format '99' are not supported by this library.");
             }
             if (value.Length != 2)
             {
@@ -201,7 +201,7 @@ namespace BFDR
             }
             if (value == "99")
             {
-                throw new System.FormatException("Date IJE unknowns in the format '99' are not supported by this library.");
+                throw new System.FormatException("Birthdate IJE unknowns for this field in the format '99' are not supported by this library.");
             }
             if (year == null || month == null)
             {
