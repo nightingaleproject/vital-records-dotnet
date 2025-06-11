@@ -233,6 +233,8 @@ namespace BFDR
         {
             if (String.IsNullOrEmpty(value))
             {
+                this.Subject.BirthDate = null;
+                this.Subject.BirthDateElement = null;
                 return;
             }
             if (!ParseDateElements(value, out int? year, out int? month, out int? day))
@@ -284,6 +286,8 @@ namespace BFDR
         {
             if (String.IsNullOrEmpty(value))
             {
+                this.Subject.BirthDate = null;
+                this.Subject.BirthDateElement = null;
                 return;
             }
             if (TryParseValidDateTime(value, out DateTimeOffset parsedDateTime))

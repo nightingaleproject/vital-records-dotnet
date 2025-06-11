@@ -540,17 +540,23 @@ namespace BFDR.Tests
       Assert.Equal("2023", rec.DateOfBirth);
       Assert.Null(rec.BirthDateTime);
       rec.DateOfBirth = null;
-      Assert.Equal("2023", rec.DateOfBirth);
+      Assert.Null(rec.DateOfBirth);
       Assert.Null(rec.BirthDateTime);
-      rec.DateOfBirth = "";
+      rec.DateOfBirth = "2023";
       Assert.Equal("2023", rec.DateOfBirth);
+      rec.DateOfBirth = "";
+      Assert.Null(rec.DateOfBirth);
       Assert.Null(rec.BirthDateTime);
       rec.BirthDateTime = null;
-      Assert.Equal("2023", rec.DateOfBirth);
+      Assert.Null(rec.DateOfBirth);
       Assert.Null(rec.BirthDateTime);
+      rec.DateOfBirth = "2023";
+      Assert.Equal("2023", rec.DateOfBirth);
       rec.BirthDateTime = "";
-      Assert.Equal("2023", rec.DateOfBirth);
+      Assert.Null(rec.DateOfBirth);
       Assert.Null(rec.BirthDateTime);
+      rec.DateOfBirth = "2023";
+      Assert.Equal("2023", rec.DateOfBirth);
       Assert.Throws<System.ArgumentException>(() => rec.BirthDateTime = "2022-08-19");
       Assert.Equal("2023", rec.DateOfBirth);
       Assert.Null(rec.BirthDateTime);
@@ -1115,7 +1121,7 @@ namespace BFDR.Tests
       // 2023
       br.DateOfLastLiveBirthYear = 2023;
       Observation observation = (Observation)br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
-      FhirDateTime dateToUse = ((FhirDateTime)observation.Value);
+      FhirDateTime dateToUse = (FhirDateTime)observation.Value;
       Extension pdt = dateToUse.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(2023, br.DateOfLastLiveBirthYear);
       Assert.Null(br.DateOfLastLiveBirthMonth);
@@ -1131,7 +1137,7 @@ namespace BFDR.Tests
       br.DateOfLastLiveBirthYear = 2023;
       br.DateOfLastLiveBirthMonth = 12;
       observation = (Observation)br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
-      dateToUse = ((FhirDateTime)observation.Value);
+      dateToUse = (FhirDateTime)observation.Value;
       pdt = dateToUse.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(2023, br.DateOfLastLiveBirthYear);
       Assert.Equal(12, br.DateOfLastLiveBirthMonth);
@@ -1148,7 +1154,7 @@ namespace BFDR.Tests
       br.DateOfLastLiveBirthYear = null;
       br.DateOfLastLiveBirthMonth = 12;
       observation = (Observation)br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
-      dateToUse = ((FhirDateTime)observation.Value);
+      dateToUse = (FhirDateTime)observation.Value;
       pdt = dateToUse.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Null(br.DateOfLastLiveBirthYear);
       Assert.Equal(12, br.DateOfLastLiveBirthMonth);
@@ -1165,7 +1171,7 @@ namespace BFDR.Tests
       br.DateOfLastLiveBirthYear = -1;
       br.DateOfLastLiveBirthMonth = 12;
       observation = (Observation)br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
-      dateToUse = ((FhirDateTime)observation.Value);
+      dateToUse = (FhirDateTime)observation.Value;
       pdt = dateToUse.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(-1, br.DateOfLastLiveBirthYear);
       Assert.Equal(12, br.DateOfLastLiveBirthMonth);
@@ -1182,7 +1188,7 @@ namespace BFDR.Tests
       br.DateOfLastLiveBirthYear = -1;
       br.DateOfLastLiveBirthMonth = -1;
       observation = (Observation)br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
-      dateToUse = ((FhirDateTime)observation.Value);
+      dateToUse = (FhirDateTime)observation.Value;
       pdt = dateToUse.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(-1, br.DateOfLastLiveBirthYear);
       Assert.Equal(-1, br.DateOfLastLiveBirthMonth);
