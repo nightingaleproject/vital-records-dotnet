@@ -323,17 +323,18 @@
         <member name="M:VR.IJE.Dictionary_Geo_Set(System.String,System.String,System.String,System.String,System.Boolean,System.String)">
             <summary>Set a value on the VitalRecord whose property is a geographic type (and is contained in a dictionary).</summary>
         </member>
-        <member name="M:VR.IJE.PresenceToIJE(System.Boolean,System.Boolean)">
+        <member name="M:VR.IJE.PresenceToIJE(System.Boolean,System.Boolean,System.String)">
             <summary>Converts the FHIR representation of presence-only fields to the IJE equivalent.</summary>
             <param name="fieldValue">the value of the field</param>
             <param name="noneOfTheAboveValue">the value of the corresponding none-of-the-above field</param>
+            <param name="fhirFieldName">name of the FHIR field being checked</param>
             <returns>Y (yes), N (no), or U (unknown)</returns>
         </member>
-        <member name="M:VR.IJE.IJEToPresence(System.String,System.Func{System.Boolean,System.Boolean},System.Func{System.Boolean,System.Boolean})">
+        <member name="M:VR.IJE.IJEToPresence(System.String,System.String,System.String)">
             <summary>Converts the IJE representation of presence-only fields to the FHIR equivalent.</summary>
             <param name="value">Y (yes), N (no), or U (unknown)</param>
-            <param name="field">a function that will set a field in the FHIR record</param>
-            <param name="noneOfTheAboveField">a function that will set the corresponding none-of-the-above field in the FHIR record</param>
+            <param name="fhirFieldName">name of the FHIR field that represents this IJE field</param>
+            <param name="noneOfTheAboveFieldName">name of the FHIR field that represents "none of the above" for the FHIR field's category</param>
         </member>
         <member name="T:VR.IJEData">
             <summary>Data helper class for dealing with IJE mortality data. Follows Singleton-esque pattern!</summary>
@@ -6952,6 +6953,14 @@
             <summary>Update the bundle entry that matches the information in the FHIRPath attribute of the calling property.</summary>
             <param name="shouldExist">if true the entry will be created unless it already exists, if false the entry will be removed if it exists</param>
             <param name="propertyName">the name of the C# property, must have a FHIRPath annotation, will default to the name of the calling property</param>
+        </member>
+        <member name="M:VR.VitalRecord.IsCategoryEmpty(System.String)">
+            <summary>
+            Test if there are any entries in the same category as the specified attribute. This can include "none of the above" entries.
+            </summary>
+            <param name="propertyName">The name of the FHIR attribute whose category will be checked</param>
+            <returns>true if there is at least one entry in the checked category, false if there are no entries in the checked category</returns>
+            <exception cref="T:System.ArgumentException">thrown if propertyName does not specify a property with a FHIRPath attribute</exception>
         </member>
         <member name="M:VR.VitalRecord.GetObservation(System.String)">
             <summary>Helper to support vital record property getter helper methods for values stored in Observations.</summary>

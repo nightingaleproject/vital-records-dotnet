@@ -123,7 +123,7 @@ namespace VR
         protected string NumericAllowingUnknownAndAbsence_Get(string ijeFieldName, string fhirFieldName, string obsCodeToRemove)
         {
             IJEField info = FieldInfo(ijeFieldName);
-            if(!Record.GetBundle().Entry.Any(e => e.Resource is Observation obs && obs.Code.Coding.Any(coding => coding.Code == obsCodeToRemove)))
+            if (!Record.GetBundle().Entry.Any(e => e.Resource is Observation obs && obs.Code.Coding.Any(coding => coding.Code == obsCodeToRemove)))
             {
                 return new String('8', info.Length); // Set to explicitly absent.
             }
@@ -286,7 +286,7 @@ namespace VR
         /// <summary>Gets the Void IJE status.</summary>
         protected string Get_Void()
         {
-            if(_void == null)
+            if (_void == null)
             {
                 return "0";
             }
@@ -299,7 +299,7 @@ namespace VR
         /// <summary>Sets the Void IJE status.</summary>
         protected void Set_Void(string value)
         {
-            if(value.Trim() == "1")
+            if (value.Trim() == "1")
             {
                 _void = "1";
             }
@@ -338,7 +338,8 @@ namespace VR
         }
 
         /// <summary>Returns the corresponding <c>VitalRecord</c> for this IJE string.</summary>
-        public VitalRecord ToRecord() {
+        public VitalRecord ToRecord()
+        {
             return Record;
         }
 
@@ -569,8 +570,9 @@ namespace VR
         /// <summary>Converts the FHIR representation of presence-only fields to the IJE equivalent.</summary>
         /// <param name="fieldValue">the value of the field</param>
         /// <param name="noneOfTheAboveValue">the value of the corresponding none-of-the-above field</param>
+        /// <param name="fhirFieldName">name of the FHIR field being checked</param>
         /// <returns>Y (yes), N (no), or U (unknown)</returns>
-        protected string PresenceToIJE(bool fieldValue, bool noneOfTheAboveValue)
+        protected string PresenceToIJE(bool fieldValue, bool noneOfTheAboveValue, string fhirFieldName)
         {
             if (fieldValue)
             {
@@ -580,29 +582,37 @@ namespace VR
             {
                 return "N";
             }
-            else
+            else if (this.Record.IsCategoryEmpty(fhirFieldName))
             {
                 return "U";
+            }
+            else
+            {
+                return "N";
             }
         }
 
         /// <summary>Converts the IJE representation of presence-only fields to the FHIR equivalent.</summary>
         /// <param name="value">Y (yes), N (no), or U (unknown)</param>
-        /// <param name="field">a function that will set a field in the FHIR record</param>
-        /// <param name="noneOfTheAboveField">a function that will set the corresponding none-of-the-above field in the FHIR record</param>
-        protected void IJEToPresence(string value, Func<bool, bool> field, Func<bool, bool> noneOfTheAboveField)
+        /// <param name="fhirFieldName">name of the FHIR field that represents this IJE field</param>
+        /// <param name="noneOfTheAboveFieldName">name of the FHIR field that represents "none of the above" for the FHIR field's category</param>
+        protected void IJEToPresence(string value, string fhirFieldName, string noneOfTheAboveFieldName)
         {
             if (value.Equals("Y"))
             {
-                field(true);
+                this.Record.GetType().GetProperty(fhirFieldName).SetValue(this.Record, true);
             }
             else if (value.Equals("N"))
             {
-                noneOfTheAboveField(true);
+                this.Record.GetType().GetProperty(fhirFieldName).SetValue(this.Record, false);
+                if (this.Record.IsCategoryEmpty(fhirFieldName))
+                {
+                    this.Record.GetType().GetProperty(noneOfTheAboveFieldName).SetValue(this.Record, true);
+                }
             }
             else
             {
-                field(false);
+                this.Record.GetType().GetProperty(fhirFieldName).SetValue(this.Record, false);
             }
         }
     }
