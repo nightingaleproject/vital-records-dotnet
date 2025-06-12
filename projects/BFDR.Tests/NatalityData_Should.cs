@@ -119,7 +119,7 @@ namespace BFDR.Tests
     {
       IJEBirth ije = new()
       {
-          CNTYO = "635"
+        CNTYO = "635"
       };
       Assert.Equal("635", ije.CNTYO);
     }
@@ -362,9 +362,14 @@ namespace BFDR.Tests
     {
       BirthRecord fhir = new BirthRecord();
       IJEBirth ije = new IJEBirth(fhir);
+      // a new record is empty, so these values will be U in IJE and false in FHIR
       Assert.False(fhir.Anencephaly);
+      Assert.False(fhir.Hypospadias);
+      Assert.False(fhir.Meningomyelocele);
       Assert.False(fhir.NoCongenitalAnomaliesOfTheNewborn);
       Assert.Equal("U", ije.ANEN);
+      Assert.Equal("U", ije.HYPO);
+      Assert.Equal("U", ije.MNSB);
       ije.ANEN = "Y";
       Assert.Equal("Y", ije.ANEN);
       Assert.True(fhir.Anencephaly);
@@ -379,7 +384,7 @@ namespace BFDR.Tests
       Assert.True(fhir.NoCongenitalAnomaliesOfTheNewborn);
       ije.ANEN = "U";
       // FHIR uses false for either U or N, the two values are differentiated by the value of the corresponding none-of-the-above field
-      // Setting an existing false attribute to false doesn't change the corresponding none-of-the-above field so we get N instead of U
+      // Setting N can potentially set the none-of-the-above field, but setting U can not do that.
       Assert.Equal("N", ije.ANEN);
       Assert.False(fhir.Anencephaly);
       Assert.True(fhir.NoCongenitalAnomaliesOfTheNewborn);
@@ -387,17 +392,17 @@ namespace BFDR.Tests
       Assert.Equal("Y", ije.ANEN);
       Assert.True(fhir.Anencephaly);
       Assert.False(fhir.NoCongenitalAnomaliesOfTheNewborn);
-      ije.HYPO = "N"; // Setting any field to N sets all fields in the same group to N
+      ije.HYPO = "N"; // Setting any field to N sets none-of-the-above only if there are no Y in the same group
       Assert.Equal("N", ije.HYPO);
-      Assert.Equal("N", ije.ANEN);
+      Assert.Equal("Y", ije.ANEN);
       Assert.False(fhir.Hypospadias);
-      Assert.False(fhir.Anencephaly);
-      Assert.True(fhir.NoCongenitalAnomaliesOfTheNewborn);
-      ije.HYPO = "Y"; // Setting any field to Y sets all fields in the same group to U unless they are also Y
+      Assert.True(fhir.Anencephaly);
+      Assert.False(fhir.NoCongenitalAnomaliesOfTheNewborn);
+      ije.HYPO = "Y"; // Setting any field to Y sets all fields in the same group to N unless they are also Y
       Assert.Equal("Y", ije.HYPO);
-      Assert.Equal("U", ije.ANEN);
+      Assert.Equal("N", ije.MNSB);
       Assert.True(fhir.Hypospadias);
-      Assert.False(fhir.Anencephaly);
+      Assert.False(fhir.Meningomyelocele);
       Assert.False(fhir.NoCongenitalAnomaliesOfTheNewborn);
     }
 
@@ -735,8 +740,8 @@ namespace BFDR.Tests
       // Manually set ije values.
       IJEBirth ije = new()
       {
-          BPLACEC_CNT = "US",
-          BPLACEC_ST_TER = "FL"
+        BPLACEC_CNT = "US",
+        BPLACEC_ST_TER = "FL"
       };
       // Test IJE conversion to BirthRecord.
       BirthRecord br = ije.ToRecord();
@@ -763,7 +768,7 @@ namespace BFDR.Tests
       // Manually set ije values.
       IJEBirth ije = new()
       {
-          BPLACE = "1"
+        BPLACE = "1"
       };
       Assert.Equal("1", ije.BPLACE);
       Assert.Equal("22232009", ije.ToRecord().BirthPhysicalLocation["code"]);
@@ -933,18 +938,18 @@ namespace BFDR.Tests
       Assert.Null(fhir.FatherOccupation);
       Assert.Equal("", ije.DAD_OC_T.Trim());
       Assert.Null(fhir.MotherIndustry);
-      Assert.Equal("",ije.MOM_IN_T.Trim());
+      Assert.Equal("", ije.MOM_IN_T.Trim());
       Assert.Null(fhir.FatherIndustry);
-      Assert.Equal("",ije.DAD_IN_T.Trim());
+      Assert.Equal("", ije.DAD_IN_T.Trim());
       ije.MOM_OC_T = "scientist";
       Assert.Equal("scientist", ije.MOM_OC_T.Trim());
       Assert.Equal("scientist", fhir.MotherOccupation);
       Assert.Null(fhir.MotherIndustry);
-      Assert.Equal("",ije.MOM_IN_T.Trim());
+      Assert.Equal("", ije.MOM_IN_T.Trim());
       Assert.Null(fhir.FatherOccupation);
       Assert.Equal("", ije.DAD_OC_T.Trim());
       Assert.Null(fhir.FatherIndustry);
-      Assert.Equal("",ije.DAD_IN_T.Trim());
+      Assert.Equal("", ije.DAD_IN_T.Trim());
       ije.MOM_IN_T = "public health";
       Assert.Equal("scientist", ije.MOM_OC_T.Trim());
       Assert.Equal("scientist", fhir.MotherOccupation);
@@ -953,7 +958,7 @@ namespace BFDR.Tests
       Assert.Null(fhir.FatherOccupation);
       Assert.Equal("", ije.DAD_OC_T.Trim());
       Assert.Null(fhir.FatherIndustry);
-      Assert.Equal("",ije.DAD_IN_T.Trim());
+      Assert.Equal("", ije.DAD_IN_T.Trim());
       ije.DAD_IN_T = "real estate";
       Assert.Equal("scientist", ije.MOM_OC_T.Trim());
       Assert.Equal("scientist", fhir.MotherOccupation);
@@ -996,11 +1001,11 @@ namespace BFDR.Tests
     {
       IJEBirth ije = new()
       {
-          FNPI = "25789",
-          SFN = "1111",
-          HOSP = "Griffin Hospital",
-          HOSPFROM = "Taylor Hospital",
-          HOSPTO = "Oswald Medical"
+        FNPI = "25789",
+        SFN = "1111",
+        HOSP = "Griffin Hospital",
+        HOSPFROM = "Taylor Hospital",
+        HOSPTO = "Oswald Medical"
       };
       BirthRecord br = ije.ToRecord();
       Assert.Equal("25789".PadRight(12), ije.FNPI);
@@ -1055,27 +1060,27 @@ namespace BFDR.Tests
     [Fact]
     public void TestMotherHeightPropertiesSetter()
     {
-        BirthRecord record = new BirthRecord();
-        IJEBirth ije1 = new IJEBirth(record);
-        // Height
-        Assert.Equal("99",ije1.HIN);
-        Assert.Equal("9",ije1.HFT);
-        ije1.HFT = "5";
-        ije1.HIN = "7";
-        Assert.Equal("07", ije1.HIN);
-        Assert.Equal("5", ije1.HFT);
-        ije1.HFT = "5";
-        ije1.HIN = "3";
-        Assert.Equal("5", ije1.HFT);
-        Assert.Equal("03", ije1.HIN);
-        // Edit Flag
-        Assert.Equal("", ije1.HGT_BYPASS);
-        ije1.HGT_BYPASS = "1";
-        Assert.Equal("1", ije1.HGT_BYPASS);
-        // FHIR translations
-        BirthRecord record1 = new BirthRecord(ije1.ToRecord().ToXML());
-        Assert.Equal(63, record1.MotherHeight);
-        Assert.Equal(VR.ValueSets.EditBypass01234.Edit_Failed_Data_Queried_And_Verified, record1.MotherHeightEditFlag["code"]);
+      BirthRecord record = new BirthRecord();
+      IJEBirth ije1 = new IJEBirth(record);
+      // Height
+      Assert.Equal("99", ije1.HIN);
+      Assert.Equal("9", ije1.HFT);
+      ije1.HFT = "5";
+      ije1.HIN = "7";
+      Assert.Equal("07", ije1.HIN);
+      Assert.Equal("5", ije1.HFT);
+      ije1.HFT = "5";
+      ije1.HIN = "3";
+      Assert.Equal("5", ije1.HFT);
+      Assert.Equal("03", ije1.HIN);
+      // Edit Flag
+      Assert.Equal("", ije1.HGT_BYPASS);
+      ije1.HGT_BYPASS = "1";
+      Assert.Equal("1", ije1.HGT_BYPASS);
+      // FHIR translations
+      BirthRecord record1 = new BirthRecord(ije1.ToRecord().ToXML());
+      Assert.Equal(63, record1.MotherHeight);
+      Assert.Equal(VR.ValueSets.EditBypass01234.Edit_Failed_Data_Queried_And_Verified, record1.MotherHeightEditFlag["code"]);
     }
 
     [Fact]
@@ -1128,7 +1133,7 @@ namespace BFDR.Tests
       // Manually set ije values.
       IJEBirth ije = new()
       {
-          PAY = "1"
+        PAY = "1"
       };
       Assert.Equal("1", ije.PAY);
       Assert.Equal("2", ije.ToRecord().PayorTypeFinancialClass["code"]);
@@ -1179,12 +1184,12 @@ namespace BFDR.Tests
     {
       BirthRecord fhir = new BirthRecord(File.ReadAllText("fixtures/json/BirthRecordFakeWithRace.json"));
       Assert.False(fhir.NoPregnancyRiskFactors); // if present, will cause IJE values to flip to N
-      Assert.False(fhir.GestationalDiabetes); // should map to U
+      Assert.False(fhir.GestationalDiabetes); // should map to N
       Assert.True(fhir.GestationalHypertension); // should map to Y
       Assert.True(fhir.NoCongenitalAnomaliesOfTheNewborn); // should map to N
       Assert.False(fhir.Anencephaly); // would normally map to U, but NoCongenitalAnomaliesOfTheNewborn should flip IJE to N
       IJEBirth ije = new IJEBirth(fhir);
-      Assert.Equal("U", ije.GDIAB);
+      Assert.Equal("N", ije.GDIAB);
       Assert.Equal("Y", ije.GHYPE);
       Assert.Equal("9", ije.HFT);
       Assert.Equal("99", ije.HIN);
@@ -1194,7 +1199,7 @@ namespace BFDR.Tests
       Assert.Equal("7134703", ije.INF_MED_REC_NUM.Trim());
       Assert.Equal("2286144", ije.MOM_MED_REC_NUM.Trim());
       IJEBirth ije2 = new IJEBirth(ije.ToString());
-      Assert.Equal("U", ije2.GDIAB);
+      Assert.Equal("N", ije2.GDIAB);
       Assert.Equal("Y", ije2.GHYPE);
       Assert.Equal("9", ije2.HFT);
       Assert.Equal("99", ije2.HIN);
@@ -1204,7 +1209,7 @@ namespace BFDR.Tests
       Assert.Equal("7134703", ije2.INF_MED_REC_NUM.Trim());
       Assert.Equal("2286144", ije2.MOM_MED_REC_NUM.Trim());
       IJEBirth ije3 = new IJEBirth(new BirthRecord(ije2.ToRecord().ToXML()));
-      Assert.Equal("U", ije3.GDIAB);
+      Assert.Equal("N", ije3.GDIAB);
       Assert.Equal("Y", ije3.GHYPE);
       Assert.Equal("9", ije3.HFT);
       Assert.Equal("99", ije3.HIN);
@@ -1216,17 +1221,18 @@ namespace BFDR.Tests
     }
 
     [Fact]
-    public void BlankEights() {
+    public void BlankEights()
+    {
       IJEBirth ije = new()
       {
-          YOPO = "2020",
-          MOPO = "04",
-          DOFP_DY = "05",
-          DOFP_MO = "07",
-          DOFP_YR = "2021",
-          APGAR10 = "09",
-          MLLB = "08",
-          YLLB = "2017"
+        YOPO = "2020",
+        MOPO = "04",
+        DOFP_DY = "05",
+        DOFP_MO = "07",
+        DOFP_YR = "2021",
+        APGAR10 = "09",
+        MLLB = "08",
+        YLLB = "2017"
       };
 
       Assert.Equal("2020", ije.YOPO);

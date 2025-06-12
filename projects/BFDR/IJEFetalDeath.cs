@@ -1690,32 +1690,32 @@ namespace BFDR
         [IJEField(110, 490, 1, "Risk Factors--Prepregnancy Diabetes  (NOTE: SEE INSERTED NOTES FOR RISK FACTOR LOCATIONS 490-501 AND 573-575 TO REFLECT 2004 CHANGES)", "PDIAB", 1)]
         public string PDIAB
         {
-            get => PresenceToIJE(record.PrepregnancyDiabetes, record.NoPregnancyRiskFactors);
-            set => IJEToPresence(value, (v) => record.PrepregnancyDiabetes = v, (v) => record.NoPregnancyRiskFactors = v);
+            get => PresenceToIJE(record.PrepregnancyDiabetes, record.NoPregnancyRiskFactors, "PrepregnancyDiabetes");
+            set => IJEToPresence(value, "PrepregnancyDiabetes", "NoPregnancyRiskFactors");
         }
 
         /// <summary>Risk Factors--Gestational Diabetes</summary>
         [IJEField(111, 491, 1, "Risk Factors--Gestational Diabetes", "GDIAB", 1)]
         public string GDIAB
         {
-            get => PresenceToIJE(record.GestationalDiabetes, record.NoPregnancyRiskFactors);
-            set => IJEToPresence(value, (v) => record.GestationalDiabetes = v, (v) => record.NoPregnancyRiskFactors = v);
+            get => PresenceToIJE(record.GestationalDiabetes, record.NoPregnancyRiskFactors, "GestationalDiabetes");
+            set => IJEToPresence(value, "GestationalDiabetes", "NoPregnancyRiskFactors");
         }
 
         /// <summary>Risk Factors--Hypertension Prepregnancy</summary>
         [IJEField(112, 492, 1, "Risk Factors--Hypertension Prepregnancy", "PHYPE", 1)]
         public string PHYPE
         {
-            get => PresenceToIJE(record.PrepregnancyHypertension, record.NoPregnancyRiskFactors);
-            set => IJEToPresence(value, (v) => record.PrepregnancyHypertension = v, (v) => record.NoPregnancyRiskFactors = v);
+            get => PresenceToIJE(record.PrepregnancyHypertension, record.NoPregnancyRiskFactors, "PrepregnancyHypertension");
+            set => IJEToPresence(value, "PrepregnancyHypertension", "NoPregnancyRiskFactors");
         }
 
         /// <summary><html>Risk Factors--Hypertension Gestational <b> (SEE ADDITIONAL HYPERTENSION CATEGORY IN LOCATION 573)</b></html></summary>
         [IJEField(113, 493, 1, "<html>Risk Factors--Hypertension Gestational <b> (SEE ADDITIONAL HYPERTENSION CATEGORY IN LOCATION 573)</b></html>", "GHYPE", 1)]
         public string GHYPE
         {
-            get => PresenceToIJE(record.GestationalHypertension, record.NoPregnancyRiskFactors);
-            set => IJEToPresence(value, (v) => record.GestationalHypertension = v, (v) => record.NoPregnancyRiskFactors = v);
+            get => PresenceToIJE(record.GestationalHypertension, record.NoPregnancyRiskFactors, "GestationalHypertension");
+            set => IJEToPresence(value, "GestationalHypertension", "NoPregnancyRiskFactors");
         }
 
         /// <summary>Risk Factors--Previous Preterm Births(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
@@ -1746,16 +1746,16 @@ namespace BFDR
         [IJEField(117, 497, 1, "<html>Risk Factors--Infertility Treatment  <b>(SEE ADDITIONAL SUBCATEGORIES IN LOCATIONS 574-575)</b></html>", "INFT", 1)]
         public string INFT
         {
-            get => PresenceToIJE(record.InfertilityTreatment, record.NoPregnancyRiskFactors);
-            set => IJEToPresence(value, (v) => record.InfertilityTreatment = v, (v) => record.NoPregnancyRiskFactors = v);
+            get => PresenceToIJE(record.InfertilityTreatment, record.NoPregnancyRiskFactors, "InfertilityTreatment");
+            set => IJEToPresence(value, "InfertilityTreatment", "NoPregnancyRiskFactors");
         }
 
         /// <summary>Risk Factors--Previous Cesarean</summary>
         [IJEField(118, 498, 1, "Risk Factors--Previous Cesarean", "PCES", 1)]
         public string PCES
         {
-            get => PresenceToIJE(record.PreviousCesarean, record.NoPregnancyRiskFactors);
-            set => IJEToPresence(value, (v) => record.PreviousCesarean = v, (v) => record.NoPregnancyRiskFactors = v);
+            get => PresenceToIJE(record.PreviousCesarean, record.NoPregnancyRiskFactors, "PreviousCesarean");
+            set => IJEToPresence(value, "PreviousCesarean", "NoPregnancyRiskFactors");
         }
 
         /// <summary>Risk Factors--Number Previous Cesareans</summary>
@@ -1987,8 +1987,8 @@ namespace BFDR
         [IJEField(139, 520, 1, "Maternal Morbidity--Ruptured Uterus", "RUT", 1)]
         public string RUT
         {
-            get => PresenceToIJE(record.RupturedUterus, record.NoMaternalMorbidities);
-            set => IJEToPresence(value, (v) => record.RupturedUterus = v, (v) => record.NoMaternalMorbidities = v);
+            get => PresenceToIJE(record.RupturedUterus, record.NoMaternalMorbidities, "RupturedUterus");
+            set => IJEToPresence(value, "RupturedUterus", "NoMaternalMorbidities");
         }
 
         /// <summary>Maternal Morbidity--Unplanned Hysterectomy(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
@@ -2003,8 +2003,8 @@ namespace BFDR
         [IJEField(141, 522, 1, "Maternal Morbidity--Admit to Intensive Care", "AINT", 1)]
         public string AINT
         {
-            get => PresenceToIJE(record.ICUAdmission, record.NoMaternalMorbidities);
-            set => IJEToPresence(value, (v) => record.ICUAdmission = v, (v) => record.NoMaternalMorbidities = v);
+            get => PresenceToIJE(record.ICUAdmission, record.NoMaternalMorbidities, "ICUAdmission");
+            set => IJEToPresence(value, "ICUAdmission", "NoMaternalMorbidities");
         }
 
         /// <summary>Maternal Morbidity--Unplanned Operation(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
@@ -2404,24 +2404,24 @@ namespace BFDR
         [IJEField(173, 573, 1, "Risk Factors--Hypertension Eclampsia (added after 2004)", "EHYPE", 1)]
         public string EHYPE
         {
-            get => PresenceToIJE(record.EclampsiaHypertension, record.NoPregnancyRiskFactors);
-            set => IJEToPresence(value, (v) => record.EclampsiaHypertension = v, (v) => record.NoPregnancyRiskFactors = v);
+            get => PresenceToIJE(record.EclampsiaHypertension, record.NoPregnancyRiskFactors, "EclampsiaHypertension");
+            set => IJEToPresence(value, "EclampsiaHypertension", "NoPregnancyRiskFactors");
         }
 
         /// <summary>Risk Factors--Infertility: Fertility Enhancing Drugs (added after 2004)</summary>
         [IJEField(174, 574, 1, "Risk Factors--Infertility: Fertility Enhancing Drugs (added after 2004)", "INFT_DRG", 1)]
         public string INFT_DRG
         {
-            get => PresenceToIJE(record.FertilityEnhancingDrugTherapyArtificialIntrauterineInsemination, record.NoPregnancyRiskFactors);
-            set => IJEToPresence(value, (v) => record.FertilityEnhancingDrugTherapyArtificialIntrauterineInsemination = v, (v) => record.NoPregnancyRiskFactors = v);
+            get => PresenceToIJE(record.FertilityEnhancingDrugTherapyArtificialIntrauterineInsemination, record.NoPregnancyRiskFactors, "FertilityEnhancingDrugTherapyArtificialIntrauterineInsemination");
+            set => IJEToPresence(value, "FertilityEnhancingDrugTherapyArtificialIntrauterineInsemination", "NoPregnancyRiskFactors");
         }
 
         /// <summary>Risk Factors--Infertility: Asst. Rep. Technology (added after 2004)</summary>
         [IJEField(175, 575, 1, "Risk Factors--Infertility: Asst. Rep. Technology (added after 2004)", "INFT_ART", 1)]
         public string INFT_ART
         {
-            get => PresenceToIJE(record.AssistedReproductiveTechnology, record.NoPregnancyRiskFactors);
-            set => IJEToPresence(value, (v) => record.AssistedReproductiveTechnology = v, (v) => record.NoPregnancyRiskFactors = v);
+            get => PresenceToIJE(record.AssistedReproductiveTechnology, record.NoPregnancyRiskFactors, "AssistedReproductiveTechnology");
+            set => IJEToPresence(value, "AssistedReproductiveTechnology", "NoPregnancyRiskFactors");
         }
 
         /// <summary>Date of Registration--Year</summary>

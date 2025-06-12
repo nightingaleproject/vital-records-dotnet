@@ -96,6 +96,40 @@ namespace VR
             }
         }
 
+        /// <summary>
+        /// Test if there are any entries in the same category as the specified attribute. This can include "none of the above" entries.
+        /// </summary>
+        /// <param name="propertyName">The name of the FHIR attribute whose category will be checked</param>
+        /// <returns>true if there is at least one entry in the checked category, false if there are no entries in the checked category</returns>
+        /// <exception cref="ArgumentException">thrown if propertyName does not specify a property with a FHIRPath attribute</exception>
+        public bool IsCategoryEmpty(string propertyName)
+        {
+            FHIRPath fhirPath = GetFHIRPathAttribute(propertyName);
+            if (fhirPath.FHIRType == null)
+            {
+                throw new ArgumentException("Invalid FHIRPath attribute, fhirType attribute must be specified to use UpdateEntry");
+            }
+            Func<Bundle.EntryComponent, bool> conditionCriteria = e =>
+                e.Resource.TypeName == "Condition" &&
+                ((Condition)e.Resource).Category.Any(c => c.Coding[0].Code == fhirPath.CategoryCode);
+            Func<Bundle.EntryComponent, bool> observationCriteria = e =>
+                e.Resource.TypeName == "Observation" &&
+                ((Observation)e.Resource).Code.Coding[0].Code == fhirPath.CategoryCode &&
+                ((Observation)e.Resource).Value as CodeableConcept != null;
+            Func<Bundle.EntryComponent, bool> procedureCriteria = e =>
+                e.Resource.TypeName == "Procedure" &&
+                ((Procedure)e.Resource).Category.Coding[0].Code == fhirPath.CategoryCode;
+            Func<Bundle.EntryComponent, bool>[] all = { conditionCriteria, observationCriteria, procedureCriteria };
+            foreach (var criteria in all)
+            {
+                if (Bundle.Entry.Any(criteria))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         /// <summary>Helper to support vital record property getter helper methods for values stored in Observations.</summary>
         /// <param name="code">the code to identify the type of Observation</param>
         protected Observation GetObservation(string code)
@@ -722,7 +756,7 @@ namespace VR
         /// <summary>Getter helper for anything that uses PartialDateTime, allowing the time to be read from the extension</summary>
         protected string GetPartialTime(Extension partialDateTime)
         {
-            Extension part = partialDateTime?.Extension?.Find(ext => ext.Url == ExtensionURL.PartialDateTimeVR );
+            Extension part = partialDateTime?.Extension?.Find(ext => ext.Url == ExtensionURL.PartialDateTimeVR);
             Extension dataAbsent = part?.Extension?.Find(ext => ext.Url == OtherExtensionURL.DataAbsentReason);
             // extension for absent date can be directly on the part as with year, month, day
             if (dataAbsent != null)
@@ -1015,7 +1049,7 @@ namespace VR
             }
             ExtractBestDateElements(dateElement, out int? year, out int? month, out int? day, out string time);
             // Set whichever date element we're updating to the given value.
-            switch(partialDateUrl)
+            switch (partialDateUrl)
             {
                 case VR.ExtensionURL.PartialDateYearVR:
                     year = value;
@@ -1048,7 +1082,7 @@ namespace VR
             }
             ExtractBestDateElements(dateElement, out int? year, out int? month, out int? day, out string time);
             // Set whichever date element we're updating to the given value.
-            switch(partialDateUrl)
+            switch (partialDateUrl)
             {
                 case VR.ExtensionURL.PartialDateYearVR:
                     year = value;
@@ -1082,14 +1116,15 @@ namespace VR
             return (Date)UpdateFhirDate(year, month, day, value, false, useBirthTime);
         }
 
-        private void ExtractBestDateElements(PrimitiveType date, out int? year, out int? month, out int? day, out string time) {
+        private void ExtractBestDateElements(PrimitiveType date, out int? year, out int? month, out int? day, out string time)
+        {
             // Get the most valid date elements, giving priority to the parsed date elements. If the partial date is used, it will include any -1 values. If there are no valid date elements in any of the possible places, it will be null.
             ParseDateElements(((IValue<string>)date).Value, out int? parsedYear, out int? parsedMonth, out int? parsedDay);
             Extension pdtExt = date.GetExtension(VR.ExtensionURL.PartialDateTime);
             year = parsedYear ?? GetPartialDate(pdtExt, VR.ExtensionURL.PartialDateYearVR);
             month = parsedMonth ?? GetPartialDate(pdtExt, VR.ExtensionURL.PartialDateMonthVR);
             day = parsedDay ?? GetPartialDate(pdtExt, VR.ExtensionURL.PartialDateDayVR);
-            time = GetTimeFragment((FhirDateTime) date.GetExtension(VR.ExtensionURL.PatientBirthTime)?.Value)
+            time = GetTimeFragment((FhirDateTime)date.GetExtension(VR.ExtensionURL.PatientBirthTime)?.Value)
                     ?? ((Time)pdtExt?.GetExtension(VR.ExtensionURL.PartialDateTimeVR)?.Value)?.Value
                     ?? GetPartialTime(date.GetExtension(VR.ExtensionURL.PartialDateTime));
             if (time == "unknown")

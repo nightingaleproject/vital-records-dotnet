@@ -9,7 +9,8 @@ namespace BFDR
         /// <summary>Retrieve all available pre-set records</summary>
         public static BirthRecord[] BirthRecords
         {
-            get { 
+            get
+            {
                 return new BirthRecord[] {
                     YytrfCardenasRomero(),
                     XyugbnxZalbanaiz(),
@@ -21,7 +22,8 @@ namespace BFDR
         /// <summary>Retrieve all available pre-set records</summary>
         public static FetalDeathRecord[] FetalDeathRecords
         {
-            get { 
+            get
+            {
                 return new FetalDeathRecord[] {
                     Test1()
                 };
