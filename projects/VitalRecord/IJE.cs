@@ -162,6 +162,17 @@ namespace VR
             NumericAllowingUnknown_Set(ijeFieldName, fhirFieldName, value);
         }
 
+        /// <summary>Get the value of the supplied array at position pos, correctly padded to the supplied IJE field length</summary>
+        protected string LeftJustifiedValue(string ijeFieldName, string[] values, int pos = 0)
+        {
+            IJEField info = FieldInfo(ijeFieldName);
+            if (values == null || values.Length <= pos)
+            {
+                return new string(' ', info.Length);
+            }
+            return Truncate(values[pos], info.Length).PadRight(info.Length, ' ');
+        }
+
         /// <summary>Get a value on the VitalRecord whose IJE type is a left justified string.</summary>
         protected string LeftJustified_Get(string ijeFieldName, string fhirFieldName)
         {
@@ -276,10 +287,26 @@ namespace VR
             }
         }
 
+        /// <summary>Get a value from the VitalRecord whose IJE type is a right justified, zero filled string.</summary>
+        protected string RightJustifiedZeroed_Get(string ijeFieldName, string fhirFieldName)
+        {
+            IJEField info = FieldInfo(ijeFieldName);
+            string current = Convert.ToString(Record.GetType().GetProperty(fhirFieldName).GetValue(Record));
+            if (current != null)
+            {
+                if (current.Length > info.Length)
+                {
+                    validationErrors.Add($"Error: FHIR field {fhirFieldName} contains string '{current}' too long for IJE field {ijeFieldName} of length {info.Length}");
+                    current = current.Substring(current.Length - info.Length);
+                }
+                return current.PadLeft(info.Length, '0');
+            }
+            return "".PadLeft(info.Length, '0');
+        }
+
         /// <summary>Set a value on the VitalRecord whose IJE type is a right justified, zero filled string.</summary>
         protected void RightJustifiedZeroed_Set(string ijeFieldName, string fhirFieldName, string value)
         {
-            IJEField info = FieldInfo(ijeFieldName);
             Record.GetType().GetProperty(fhirFieldName).SetValue(Record, value.TrimStart('0'));
         }
 

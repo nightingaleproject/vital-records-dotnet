@@ -518,32 +518,32 @@ namespace BFDR.Tests
     public void TestSetEthnicityLiteral()
     {
       IJEBirth ije = new();
-      Assert.Equal("", ije.METHNIC5);
-      Assert.Equal("", ije.FETHNIC5);
+      Assert.Equal("", ije.METHNIC5.Trim());
+      Assert.Equal("", ije.FETHNIC5.Trim());
       ije.METHNIC5 = "Bolivian";
       ije.FETHNIC5 = "Columbian";
-      Assert.Equal("Bolivian", ije.METHNIC5);
-      Assert.Equal("Columbian", ije.FETHNIC5);
-      Assert.Equal("Bolivian", ije.ToRecord().MotherEthnicityLiteral);
-      Assert.Equal("Columbian", ije.ToRecord().FatherEthnicityLiteral);
+      Assert.Equal("Bolivian", ije.METHNIC5.Trim());
+      Assert.Equal("Columbian", ije.FETHNIC5.Trim());
+      Assert.Equal("Bolivian", ije.ToRecord().MotherEthnicityLiteral.Trim());
+      Assert.Equal("Columbian", ije.ToRecord().FatherEthnicityLiteral.Trim());
     }
 
     [Fact]
     public void TestImportEthnicityLiteral()
     {
       IJEBirth ije = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/BasicBirthRecord.ije")), true);
-      Assert.Equal("Chilean", ije.METHNIC5);
-      Assert.Equal("Panamanian", ije.FETHNIC5);
-      Assert.Equal("Chilean", ije.ToRecord().MotherEthnicityLiteral);
-      Assert.Equal("Panamanian", ije.ToRecord().FatherEthnicityLiteral);
+      Assert.Equal("Chilean", ije.METHNIC5.Trim());
+      Assert.Equal("Panamanian", ije.FETHNIC5.Trim());
+      Assert.Equal("Chilean", ije.ToRecord().MotherEthnicityLiteral.Trim());
+      Assert.Equal("Panamanian", ije.ToRecord().FatherEthnicityLiteral.Trim());
     }
 
     [Fact]
     public void TestSetCodedEthnicityLiteral()
     {
       IJEBirth ije = new();
-      Assert.Equal("", ije.METHNIC5C);
-      Assert.Equal("", ije.FETHNIC5C);
+      Assert.Equal("", ije.METHNIC5C.Trim());
+      Assert.Equal("", ije.FETHNIC5C.Trim());
       ije.METHNIC5C = VR.ValueSets.HispanicOrigin.Bolivian;
       ije.FETHNIC5C = VR.ValueSets.HispanicOrigin.Chicano;
       Assert.Equal("232", ije.METHNIC5C);
@@ -556,10 +556,10 @@ namespace BFDR.Tests
     public void TestSetCodedEthnicity()
     {
       IJEBirth ije = new();
-      Assert.Equal("", ije.METHNICE);
-      Assert.Equal("", ije.FETHNICE);
-      Assert.Equal("", ije.METHNIC5C);
-      Assert.Equal("", ije.FETHNIC5C);
+      Assert.Equal("", ije.METHNICE.Trim());
+      Assert.Equal("", ije.FETHNICE.Trim());
+      Assert.Equal("", ije.METHNIC5C.Trim());
+      Assert.Equal("", ije.FETHNIC5C.Trim());
       ije.FETHNICE = VR.ValueSets.HispanicOrigin.Chicano;
       ije.METHNICE = VR.ValueSets.HispanicOrigin.Bolivian;
       ije.FETHNIC5C = VR.ValueSets.HispanicOrigin.Dominican;
@@ -1196,8 +1196,8 @@ namespace BFDR.Tests
       Assert.Equal("N", ije.ECVS);
       Assert.Equal("N", ije.ECVF);
       Assert.Equal("N", ije.ANEN);
-      Assert.Equal("7134703", ije.INF_MED_REC_NUM);
-      Assert.Equal("2286144", ije.MOM_MED_REC_NUM);
+      Assert.Equal("7134703", ije.INF_MED_REC_NUM.Trim());
+      Assert.Equal("2286144", ije.MOM_MED_REC_NUM.Trim());
       IJEBirth ije2 = new IJEBirth(ije.ToString());
       Assert.Equal("N", ije2.GDIAB);
       Assert.Equal("Y", ije2.GHYPE);
@@ -1206,8 +1206,8 @@ namespace BFDR.Tests
       Assert.Equal("N", ije2.ECVS);
       Assert.Equal("N", ije2.ECVF);
       Assert.Equal("N", ije2.ANEN);
-      Assert.Equal("7134703", ije2.INF_MED_REC_NUM);
-      Assert.Equal("2286144", ije2.MOM_MED_REC_NUM);
+      Assert.Equal("7134703", ije2.INF_MED_REC_NUM.Trim());
+      Assert.Equal("2286144", ije2.MOM_MED_REC_NUM.Trim());
       IJEBirth ije3 = new IJEBirth(new BirthRecord(ije2.ToRecord().ToXML()));
       Assert.Equal("N", ije3.GDIAB);
       Assert.Equal("Y", ije3.GHYPE);
@@ -1216,8 +1216,8 @@ namespace BFDR.Tests
       Assert.Equal("N", ije3.ECVS);
       Assert.Equal("N", ije3.ECVF);
       Assert.Equal("N", ije3.ANEN);
-      Assert.Equal("7134703", ije3.INF_MED_REC_NUM);
-      Assert.Equal("2286144", ije3.MOM_MED_REC_NUM);
+      Assert.Equal("7134703", ije3.INF_MED_REC_NUM.Trim());
+      Assert.Equal("2286144", ije3.MOM_MED_REC_NUM.Trim());
     }
 
     [Fact]

@@ -208,16 +208,7 @@ namespace BFDR
         {
             get
             {
-                if (String.IsNullOrWhiteSpace(record?.CertificateNumber))
-                {
-                    return "".PadLeft(6, '0');
-                }
-                string id_str = record.CertificateNumber;
-                if (id_str.Length > 6)
-                {
-                    id_str = id_str.Substring(id_str.Length - 6);
-                }
-                return id_str.PadLeft(6, '0');
+                return RightJustifiedZeroed_Get("FILENO", "CertificateNumber");
             }
             set
             {
@@ -242,10 +233,6 @@ namespace BFDR
         {
             get
             {
-                if (record.StateLocalIdentifier1 == null)
-                {
-                    return (new String(' ', 12));
-                }
                 return LeftJustified_Get("AUXNO", "StateLocalIdentifier1");
             }
             set
@@ -599,30 +586,16 @@ namespace BFDR
         [IJEField(29, 90, 1, "Mother Married?--Ever(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)", "MARE", 1)]
         public string MARE
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => " ";
+            set { }
         }
 
         /// <summary>Mother Married?-- At Conception, at Delivery or any Time in Between(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
         [IJEField(30, 91, 1, "Mother Married?-- At Conception, at Delivery or any Time in Between(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)", "MARN", 1)]
         public string MARN
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => " ";
+            set { }
         }
 
         // <summary>FILLER</summary>
@@ -757,15 +730,7 @@ namespace BFDR
         {
             get
             {
-                var ethnicityLiteral = record.MotherEthnicityLiteral;
-                if (!String.IsNullOrWhiteSpace(ethnicityLiteral))
-                {
-                    return Truncate(ethnicityLiteral, 20).Trim();
-                }
-                else
-                {
-                    return "";
-                }
+                return LeftJustified_Get("METHNIC5", "MotherEthnicityLiteral");
             }
             set
             {
@@ -1329,15 +1294,8 @@ namespace BFDR
         [IJEField(79, 423, 1, "Mother Transferred?(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)", "TRAN", 1)]
         public string TRAN
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => " ";
+            set { }
         }
 
         /// <summary>Date of First Prenatal Care Visit--Month</summary>
@@ -1386,75 +1344,40 @@ namespace BFDR
         [IJEField(83, 432, 2, "Date of Last Prenatal Care Visit--Month(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)", "DOLP_MO", 1)]
         public string DOLP_MO
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => "  ";
+            set { }
         }
 
         /// <summary>Date of Last Prenatal Care Visit--Day(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
         [IJEField(84, 434, 2, "Date of Last Prenatal Care Visit--Day(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)", "DOLP_DY", 1)]
         public string DOLP_DY
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => "  ";
+            set { }
         }
 
         /// <summary>Date of Last Prenatal Care Visit--Year(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
         [IJEField(85, 436, 4, "Date of Last Prenatal Care Visit--Year(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)", "DOLP_YR", 1)]
         public string DOLP_YR
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => "    ";
+            set { }
         }
 
         /// <summary>Total Number of Prenatal Care Visits(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
         [IJEField(86, 440, 2, "Total Number of Prenatal Care Visits(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)", "NPREV", 1)]
         public string NPREV
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => "  ";
+            set { }
         }
 
         /// <summary>Total Number of Prenatal Care Visits--Edit Flag(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
         [IJEField(87, 442, 1, "Total Number of Prenatal Care Visits--Edit Flag(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)", "NPREV_BYPASS", 1)]
         public string NPREV_BYPASS
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => " ";
+            set { }
         }
 
         /// <summary>Mother's Height--Feet</summary>
@@ -1617,15 +1540,8 @@ namespace BFDR
         [IJEField(98, 460, 2, "Previous Other Pregnancy Outcomes(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)", "POPO", 1)]
         public string POPO
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => "  ";
+            set { }
         }
 
         /// <summary>Date of Last Live Birth--Month</summary>
@@ -1660,30 +1576,16 @@ namespace BFDR
         [IJEField(101, 468, 2, "Date of Last Other Pregnancy Outcome--Month(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)", "MOPO", 1)]
         public string MOPO
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => "  ";
+            set { }
         }
 
         /// <summary>Date of Last Other Pregnancy Outcome--Year(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
         [IJEField(102, 470, 4, "Date of Last Other Pregnancy Outcome--Year(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)", "YOPO", 1)]
         public string YOPO
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => "    ";
+            set { }
         }
 
         /// <summary>Number of Cigarettes Smoked in 3 months prior to Pregnancy</summary>
@@ -1820,45 +1722,24 @@ namespace BFDR
         [IJEField(114, 494, 1, "Risk Factors--Previous Preterm Births(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)", "PPB", 1)]
         public string PPB
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => "";
+            set { }
         }
 
         /// <summary>Risk Factors--Poor Pregnancy Outcomes(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
         [IJEField(115, 495, 1, "Risk Factors--Poor Pregnancy Outcomes(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)", "PPO", 1)]
         public string PPO
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => " ";
+            set { }
         }
 
         /// <summary><html>Risk Factors--Vaginal Bleeding <b><i> (NCHS DELETED THIS ITEM EFFECTIVE 2011)</i></b></html></summary>
         [IJEField(116, 496, 1, "<html>Risk Factors--Vaginal Bleeding <b><i> (NCHS DELETED THIS ITEM EFFECTIVE 2011)</i></b></html>", "VB", 1)]
         public string VB
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => " ";
+            set { }
         }
 
         /// <summary><html>Risk Factors--Infertility Treatment  <b>(SEE ADDITIONAL SUBCATEGORIES IN LOCATIONS 574-575)</b></html></summary>
@@ -1909,180 +1790,96 @@ namespace BFDR
         [IJEField(121, 502, 1, "Infections Present--Gonorrhea(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)", "GON", 1)]
         public string GON
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => " ";
+            set { }
         }
 
         /// <summary>Infections Present--Syphilis(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
         [IJEField(122, 503, 1, "Infections Present--Syphilis(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)", "SYPH", 1)]
         public string SYPH
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => " ";
+            set { }
         }
 
         /// <summary><html>Infections Present--Herpes Simplex (HSV) <b><i>(NCHS DELETED THIS ITEM EFFECTIVE 2011)</i></b></html></summary>
         [IJEField(123, 504, 1, "<html>Infections Present--Herpes Simplex (HSV) <b><i>(NCHS DELETED THIS ITEM EFFECTIVE 2011)</i></b></html>", "HSV", 1)]
         public string HSV
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => " ";
+            set { }
         }
 
         /// <summary>Infections Present--Chlamydia(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
         [IJEField(124, 505, 1, "Infections Present--Chlamydia(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)", "CHAM", 1)]
         public string CHAM
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => " ";
+            set { }
         }
 
         /// <summary>Infections Present--Listeria(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
         [IJEField(125, 506, 1, "Infections Present--Listeria(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)", "LM", 1)]
         public string LM
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => " ";
+            set { }
         }
 
         /// <summary>Infections Present--Group B streptococcus(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
         [IJEField(126, 507, 1, "Infections Present--Group B streptococcus(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)", "GBS", 1)]
         public string GBS
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => " ";
+            set { }
         }
 
         /// <summary>Infections Present--Cytomeglovirus(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
         [IJEField(127, 508, 1, "Infections Present--Cytomeglovirus(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)", "CMV", 1)]
         public string CMV
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => " ";
+            set { }
         }
 
         /// <summary>Infections Present--Parvo virus(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
         [IJEField(128, 509, 1, "Infections Present--Parvo virus(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)", "B19", 1)]
         public string B19
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => " ";
+            set { }
         }
 
         /// <summary>Infections Present--Toxoplasmosis(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
         [IJEField(129, 510, 1, "Infections Present--Toxoplasmosis(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)", "TOXO", 1)]
         public string TOXO
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => " ";
+            set { }
         }
 
         /// <summary>Infections Present--Other(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
         [IJEField(130, 511, 1, "Infections Present--Other(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)", "OTHERI", 1)]
         public string OTHERI
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => " ";
+            set { }
         }
 
         /// <summary><html>Method of Delivery--Attempted Forceps<b><i> (NCHS DELETED THIS ITEM EFFECTIVE 2011)</i></b></html></summary>
         [IJEField(131, 512, 1, "<html>Method of Delivery--Attempted Forceps<b><i> (NCHS DELETED THIS ITEM EFFECTIVE 2011)</i></b></html>", "ATTF", 1)]
         public string ATTF
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => " ";
+            set { }
         }
 
         /// <summary><html>Method of Delivery--Attempted Vacuum <b><i>(NCHS DELETED THIS ITEM EFFECTIVE 2011)</i></b></html></summary>
         [IJEField(132, 513, 1, "<html>Method of Delivery--Attempted Vacuum <b><i>(NCHS DELETED THIS ITEM EFFECTIVE 2011)</i></b></html>", "ATTV", 1)]
         public string ATTV
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => " ";
+            set { }
         }
 
         /// <summary>Method of Delivery--Fetal Presentation</summary>
@@ -2166,45 +1963,24 @@ namespace BFDR
         [IJEField(136, 517, 1, "Method of Delivery--Hysterotomy/Hysterectomy(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)", "HYST", 1)]
         public string HYST
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => " ";
+            set { }
         }
 
         /// <summary>Maternal Morbidity--Maternal Transfusion(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
         [IJEField(137, 518, 1, "Maternal Morbidity--Maternal Transfusion(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)", "MTR", 1)]
         public string MTR
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => " ";
+            set { }
         }
 
         /// <summary>Maternal Morbidity--Perineal Laceration(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
         [IJEField(138, 519, 1, "Maternal Morbidity--Perineal Laceration(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)", "PLAC", 1)]
         public string PLAC
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => " ";
+            set { }
         }
 
         /// <summary>Maternal Morbidity--Ruptured Uterus</summary>
@@ -2219,15 +1995,8 @@ namespace BFDR
         [IJEField(140, 521, 1, "Maternal Morbidity--Unplanned Hysterectomy(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)", "UHYS", 1)]
         public string UHYS
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => " ";
+            set { }
         }
 
         /// <summary>Maternal Morbidity--Admit to Intensive Care</summary>
@@ -2242,15 +2011,8 @@ namespace BFDR
         [IJEField(142, 523, 1, "Maternal Morbidity--Unplanned Operation(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)", "UOPR", 1)]
         public string UOPR
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => " ";
+            set { }
         }
 
         /// <summary>Weight of Fetus</summary>
@@ -2473,180 +2235,96 @@ namespace BFDR
         [IJEField(156, 549, 1, "Congenital Anomalies of the Fetus--Anencephaly(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)", "ANEN", 1)]
         public string ANEN
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => " ";
+            set { }
         }
 
         /// <summary>Congenital Anomalies of the Fetus--Meningomyelocele/Spina Bifida(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
         [IJEField(157, 550, 1, "Congenital Anomalies of the Fetus--Meningomyelocele/Spina Bifida(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)", "MNSB", 1)]
         public string MNSB
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => " ";
+            set { }
         }
 
         /// <summary>Congenital Anomalies of the Fetus--Cyanotic congenital heart disease(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
         [IJEField(158, 551, 1, "Congenital Anomalies of the Fetus--Cyanotic congenital heart disease(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)", "CCHD", 1)]
         public string CCHD
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => " ";
+            set { }
         }
 
         /// <summary>Congenital Anomalies of the Fetus--Congenital diaphragmatic hernia(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
         [IJEField(159, 552, 1, "Congenital Anomalies of the Fetus--Congenital diaphragmatic hernia(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)", "CDH", 1)]
         public string CDH
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => " ";
+            set { }
         }
 
         /// <summary>Congenital Anomalies of the Fetus--Omphalocele(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
         [IJEField(160, 553, 1, "Congenital Anomalies of the Fetus--Omphalocele(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)", "OMPH", 1)]
         public string OMPH
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => " ";
+            set { }
         }
 
         /// <summary>Congenital Anomalies of the Fetus--Gastroschisis(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
         [IJEField(161, 554, 1, "Congenital Anomalies of the Fetus--Gastroschisis(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)", "GAST", 1)]
         public string GAST
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => " ";
+            set { }
         }
 
         /// <summary>Congenital Anomalies of the Fetus--Limb Reduction Defect(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
         [IJEField(162, 555, 1, "Congenital Anomalies of the Fetus--Limb Reduction Defect(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)", "LIMB", 1)]
         public string LIMB
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => " ";
+            set { }
         }
 
         /// <summary>Congenital Anomalies of the Fetus--Cleft Lip with or without Cleft Palate(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
         [IJEField(163, 556, 1, "Congenital Anomalies of the Fetus--Cleft Lip with or without Cleft Palate(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)", "CL", 1)]
         public string CL
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => " ";
+            set { }
         }
 
         /// <summary>Congenital Anomalies of the Fetus--Cleft Palate Alone(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
         [IJEField(164, 557, 1, "Congenital Anomalies of the Fetus--Cleft Palate Alone(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)", "CP", 1)]
         public string CP
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => " ";
+            set { }
         }
 
         /// <summary>Congenital Anomalies of the Fetus--Down Syndrome(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
         [IJEField(165, 558, 1, "Congenital Anomalies of the Fetus--Down Syndrome(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)", "DOWT", 1)]
         public string DOWT
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => " ";
+            set { }
         }
 
         /// <summary>Congenital Anomalies of the Fetus--Suspected Chromosomal disorder(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
         [IJEField(166, 559, 1, "Congenital Anomalies of the Fetus--Suspected Chromosomal disorder(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)", "CDIT", 1)]
         public string CDIT
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => " ";
+            set { }
         }
 
         /// <summary>Congenital Anomalies of the Fetus--Hypospadias(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
         [IJEField(167, 560, 1, "Congenital Anomalies of the Fetus--Hypospadias(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)", "HYPO", 1)]
         public string HYPO
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => " ";
+            set { }
         }
 
         /// <summary>NCHS USE ONLY: Receipt date -- Year</summary>
@@ -3179,12 +2857,7 @@ namespace BFDR
         {
             get
             {
-                string[] names = record.FetusGivenNames;
-                if (names.Length > 0)
-                {
-                    return Truncate(names[0], 50).PadRight(50, ' ');
-                }
-                return new string(' ', 50);
+                return LeftJustifiedValue("FETFNAME", record.FetusGivenNames);
             }
             set
             {
@@ -3201,12 +2874,7 @@ namespace BFDR
         {
             get
             {
-                string[] names = record.FetusGivenNames;
-                if (names.Length > 1)
-                {
-                    return Truncate(names[1], 50).PadRight(50, ' ');
-                }
-                return " ";
+                return LeftJustifiedValue("FETMNAME", record.FetusGivenNames, 1);
             }
             set => record.FetusGivenNames = Update_MiddleName(value, record.FetusGivenNames, FETFNAME);
         }
@@ -3508,15 +3176,7 @@ namespace BFDR
         [IJEField(239, 3257, 50, "Mother's Legal First Name", "MOMFNAME", 1)]
         public string MOMFNAME
         {
-            get
-            {
-                string[] names = record.MotherGivenNames;
-                if (names.Length > 0)
-                {
-                    return Truncate(names[0], 50).PadRight(50, ' ');
-                }
-                return new string(' ', 50);
-            }
+            get => LeftJustifiedValue("MOMFNAME", record.MotherGivenNames);
             set => record.MotherGivenNames = Update_FirstName(value, record.MotherGivenNames);
         }
 
@@ -3524,15 +3184,7 @@ namespace BFDR
         [IJEField(240, 3307, 50, "Mother's Legal Middle Name", "MOMMNAME", 1)]
         public string MOMMNAME
         {
-            get
-            {
-                string[] names = record.MotherGivenNames;
-                if (names.Length > 1)
-                {
-                    return Truncate(names[1], 50).PadRight(50, ' ');
-                }
-                return " ";
-            }
+            get => LeftJustifiedValue("MOMMNAME", record.MotherGivenNames, 1);
             set => record.MotherGivenNames = Update_MiddleName(value, record.MotherGivenNames, MOMFNAME);
         }
 
@@ -3570,12 +3222,7 @@ namespace BFDR
         {
             get
             {
-                string[] names = record.MotherMaidenGivenNames;
-                if (names.Length > 0)
-                {
-                    return Truncate(names[0], 50).PadRight(50, ' ');
-                }
-                return new string(' ', 50);
+                return LeftJustifiedValue("MOMFMNME", record.MotherMaidenGivenNames);
             }
             set
             {
@@ -3592,12 +3239,7 @@ namespace BFDR
         {
             get
             {
-                string[] names = record.MotherMaidenGivenNames;
-                if (names.Length > 1)
-                {
-                    return Truncate(names[1], 50).PadRight(50, ' ');
-                }
-                return " ";
+                return LeftJustifiedValue("MOMMMID", record.MotherMaidenGivenNames, 1);
             }
             set
             {
@@ -3885,15 +3527,7 @@ namespace BFDR
         [IJEField(261, 3879, 50, "Father's Legal First Name", "DADFNAME", 1)]
         public string DADFNAME
         {
-            get
-            {
-                string[] names = record.FatherGivenNames;
-                if (names.Length > 0)
-                {
-                    return Truncate(names[0], 50).PadRight(50, ' ');
-                }
-                return new string(' ', 50);
-            }
+            get => LeftJustifiedValue("DADFNAME", record.FatherGivenNames);
             set => record.FatherGivenNames = Update_FirstName(value, record.FatherGivenNames);
         }
 
@@ -3901,15 +3535,7 @@ namespace BFDR
         [IJEField(262, 3929, 50, "Father's Legal Middle Name", "DADMNAME", 1)]
         public string DADMNAME
         {
-            get
-            {
-                string[] names = record.FatherGivenNames;
-                if (names.Length > 1)
-                {
-                    return Truncate(names[1], 50).PadRight(50, ' ');
-                }
-                return " ";
-            }
+            get => LeftJustifiedValue("DADMNAME", record.FatherGivenNames, 1);
             set => record.FatherGivenNames = Update_MiddleName(value, record.FatherGivenNames, DADFNAME);
         }
 
@@ -4361,15 +3987,7 @@ namespace BFDR
         {
             get
             {
-                var ethnicityLiteral = record.FatherEthnicityLiteral;
-                if (!String.IsNullOrWhiteSpace(ethnicityLiteral))
-                {
-                    return Truncate(ethnicityLiteral, 20).Trim();
-                }
-                else
-                {
-                    return "";
-                }
+                 return LeftJustified_Get("FETHNIC5", "FatherEthnicityLiteral");
             }
             set
             {

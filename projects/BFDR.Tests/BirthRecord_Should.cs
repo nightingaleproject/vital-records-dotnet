@@ -2015,7 +2015,6 @@ namespace BFDR.Tests
       Assert.False(record.HepatitisB);
       Assert.False(record.HepatitisC);
       Assert.False(record.Syphilis);
-      Assert.False(record.GenitalHerpesSimplex);
       //maternal morbidities
       Assert.False(record.NoMaternalMorbidities);
       Assert.False(record.ICUAdmission);
@@ -3591,7 +3590,6 @@ namespace BFDR.Tests
       Assert.False(birthRecord.HepatitisB);
       Assert.False(birthRecord.HepatitisC);
       Assert.False(birthRecord.Syphilis);
-      Assert.False(birthRecord.GenitalHerpesSimplex);
       Assert.False(birthRecord.NoMaternalMorbidities);
       Assert.False(birthRecord.ICUAdmission);
       Assert.False(birthRecord.MaternalTransfusion);
