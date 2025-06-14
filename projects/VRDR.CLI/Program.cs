@@ -426,7 +426,7 @@ namespace VRDR.CLI
                     deathRecord.TransportationRoleHelper = ValueSets.TransportationIncidentRole.Passenger;
                     // ExaminerContacted
                     deathRecord.ExaminerContactedHelper = VR.ValueSets.YesNoUnknown.No;
-                    //deathRecord.RaceMissingValueReasonHelper = VR.CodeSystems.ActReason;
+                    deathRecord.RaceMissingValueReasonHelper = VR.ValueSets.RaceMissingValueReason.Patient_Refuse;
                 }
                 else
                 {
@@ -524,7 +524,7 @@ namespace VRDR.CLI
                     raceMissing.Add("code", "PREFUS");
                     raceMissing.Add("system", "http://terminology.hl7.org/CodeSystem/v3-ActReason");
                     raceMissing.Add("display", "patient refuse");
-                    //deathRecord.RaceMissingValueReason = raceMissing;
+                    deathRecord.RaceMissingValueReason = raceMissing;
                 }
                 // PronouncerGivenNames
                 // string[] pronouncer_gnames = { "FD", "Middle" };
