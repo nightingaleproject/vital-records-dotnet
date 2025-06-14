@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Serialization;
 
@@ -168,6 +169,52 @@ namespace VRDR.CLI
                     }
                 }
             }
+        }
+
+        private static string Ije2JsonConversionProcess(string path)
+        {
+
+            if (string.IsNullOrWhiteSpace(path) || (!File.Exists(path) && !Directory.Exists(path)))
+            {
+                return string.Format("Provided Path {0} not found.", path);
+            }
+
+            FileAttributes attr = File.GetAttributes(path);
+
+            if (attr.HasFlag(FileAttributes.Directory))
+            {
+                StringBuilder sb = new StringBuilder();
+                foreach (var ijeFile in Directory.GetFiles(path))
+                {
+                    sb.AppendLine("File Path:");
+                    sb.AppendLine(Ije2JsonConversion(path));
+                }
+                return sb.ToString();
+            }
+            else
+            {
+
+                return Ije2JsonConversion(path);
+            }
+        }
+
+        private static string Ije2JsonConversion(string ijeFilepath)
+        {
+            string ijeRawRecord = File.ReadAllText(ijeFilepath);
+            IJEMortality ije = new IJEMortality(ijeRawRecord);
+            DeathRecord d = ije.ToRecord();
+            string outputFilename = ijeFilepath.Replace(".ije", ".json");
+            StreamWriter sw = new StreamWriter(outputFilename);
+            sw.WriteLine(d.ToJSON());
+            sw.Flush();
+            return sw.ToString();
+        }
+        private static string Json2Ijeconsversion(string jsonFilePath, string destFilePathPath)
+        {
+            DeathRecord d = new DeathRecord(File.ReadAllText(jsonFilePath));
+            IJEMortality ije1 = new IJEMortality(d, false);
+            File.WriteAllText(destFilePathPath, ije1.ToString());
+            return ije1.ToString();
         }
     }
 }
