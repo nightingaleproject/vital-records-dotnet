@@ -184,10 +184,10 @@ namespace VRDR.CLI
             if (attr.HasFlag(FileAttributes.Directory))
             {
                 StringBuilder sb = new StringBuilder();
-                foreach (var ijeFile in Directory.GetFiles(path))
+                foreach (var ijeFile in Directory.GetFiles(path,"*.ije"))
                 {
                     sb.AppendLine("File Path:");
-                    sb.AppendLine(Ije2JsonConversion(path));
+                    sb.AppendLine(Ije2JsonConversion(ijeFile));
                 }
                 return sb.ToString();
             }
@@ -209,11 +209,11 @@ namespace VRDR.CLI
             sw.Flush();
             return sw.ToString();
         }
-        private static string Json2Ijeconsversion(string jsonFilePath, string destFilePathPath)
+        private static string Json2Ijeconsversion(string jsonFilePath, string destFilePath)
         {
             DeathRecord d = new DeathRecord(File.ReadAllText(jsonFilePath));
             IJEMortality ije1 = new IJEMortality(d, false);
-            File.WriteAllText(destFilePathPath, ije1.ToString());
+            File.WriteAllText(destFilePath, ije1.ToString());
             return ije1.ToString();
         }
     }

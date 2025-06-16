@@ -1183,9 +1183,9 @@ namespace VRDR.CLI
             {
                 string srcPath = args[1];
                 FileAttributes srcPathAttr = File.GetAttributes(args[1]);
-                string destPath = !string.IsNullOrWhiteSpace(args[2]) &&
-                    File.GetAttributes(args[2]).HasFlag(FileAttributes.Directory) ?
-                    args[2] :
+                string destPath = args.Length>2 && !string.IsNullOrWhiteSpace(args[2]) &&
+                                  Directory.Exists(args[2]) ?
+                                  args[2] :
                     Path.Combine(Path.GetDirectoryName(srcPath), "OutputIJE");
                 if (srcPathAttr.HasFlag(FileAttributes.Directory) && !Directory.Exists(srcPath))
                 {
@@ -1198,7 +1198,7 @@ namespace VRDR.CLI
                     Directory.CreateDirectory(destPath);
                     foreach (var filePath in Directory.GetFiles(srcPath, "*.json"))
                     {
-                        string destFilePath = Path.Combine(destPath, Path.ChangeExtension(filePath, ".ije"));
+                        string destFilePath = Path.Combine(destPath,Path.ChangeExtension(Path.GetFileName(filePath), ".ije"));
                         Json2Ijeconsversion(filePath, destFilePath);
                     }
                 }
