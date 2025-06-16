@@ -1,17 +1,18 @@
-using System.Text;
-using System.Net.Http.Headers;
+﻿using System.Text;
+using System.Net.HTTP.Headers;
 using Newtonsoft.Json.Linq;
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Serialization;
 using System.Net.Http;
 
-namespace VRDR
+namespace VR
 {
-    /// <summary>Client library for interacting with the NVSS FHIR API</summary>
-    /// TODO: make this class a child of VitalRecord.Client and inherit methods
-    public class Client
+    /// <summary>Abstract Client for handling BFDR and VRDR messages from the NVSS FHIR API</summary>
+    public abstract class Client
     {
         /// <summary>The API url</summary>
+        /// TODO: should Url toggle based on message type?
+        /// TODO: does Url also need IG version now?
         public String Url { get; }
         /// <summary>Whether the client is running locally</summary>
         public bool LocalTesting { get; }
@@ -75,6 +76,7 @@ namespace VRDR
         }
 
         /// <summary>PostMessageAsync POSTS a single message to the NVSS FHIR API server for processing</summary>
+        /// TODO: replace BaseMessage with CommonMessage !!!
         public async Task<HttpResponseMessage> PostMessageAsync(BaseMessage message)
         {
 
@@ -243,6 +245,6 @@ namespace VRDR
             var response = await client.SendAsync(request);
 
             return response;
-        }
+        }        
     }
 }
