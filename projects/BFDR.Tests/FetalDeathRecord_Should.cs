@@ -2026,7 +2026,7 @@ namespace BFDR.Tests
     }
 
     [Fact]
-    public void TestForOverwrites()
+    public void TestForOverwritesFD()
     {
         // This test makes sure that there are no fields that, when writing them, accidentally change another field;
         // we test this by going through each field, setting it to a value, and then setting all other fields to a value,
@@ -2036,20 +2036,18 @@ namespace BFDR.Tests
         Dictionary<string, string> fields = new Dictionary<string, string>
         {
             // This list of fields is fairly comprehensive, though some have been intentionally left out:
-            // TODO: Remove the TODOs and update the comments in IJEFetalDeath.cs for this set of fields
+            //
             // These fields are not expected to be implemented: MARE, MARN, DOLP_MO, DOLP_DY, DOLP_YR, NPREV, NPREV_BYPASS,
             // POPO, MOPO, YOPO, PPB, PPO, VB, GON, SYPH, HSV, CHAM, LM, GBS, CMV, B19, TOXO, OTHERI, ATTF, ATTV, HYST,
             // MTR, PLAC, UHYS, UOPR, ANEN, MNSB, CCHD, CDH, OMPH, GAST, LIMB, CL, CP, DOWT, CDIT, HYPO, R_YR, R_MO, R_DY,
             // MOM_OC_C, DAD_OC_C, MOM_IN_C, DAD_IN_C, BLANK, BLANK2, TRAN, MATCH, HSV1, HIV, ALCOHOL, ALIAS, LONG_D, LAT_D,
             // LONG, LAT, MAGE_CALC, FAGE_CALC, MRACEBG_C, FRACEBG_C, METHNIC_T, MRACE_T, FETHNIC_T, FRACE_T, INFORMFST,
             // INFORMMID, INFORMLST, INFORMRELATE, REGISTER_YR, REGISTER_MO, REGISTER_DY, REPLACE
-
+            //
             // This test doesn't work with middle name fields since they can't be set first due to how FHIR handles names:
             // FETMNAME, MOMMNAME, MOMMMID, DADMNAME
 
-            // TODO: This is a list of fields that should not be implemented that look like they have implementations?
-            // VOID
-            // AUTOPF
+            // TODO: This is a field that should not be implemented that looks like it's implemented: AUTOPF
 
             { "FDOD_YR", "2019" },
             { "DSTATE", "MI" },
@@ -2184,7 +2182,7 @@ namespace BFDR.Tests
             { "COD18a3", "N" },
             { "COD18a4", "N" },
             { "COD18a5", "N" },
-            // { "COD18a6", "N" }, TODO: Seems to get overwritten with Y
+            { "COD18a6", "N" }, //TODO: Seems to get overwritten with Y
             { "COD18a7", "N" },
             { "COD18a8", "Literal8" },
             { "COD18a9", "Literal9" },
@@ -2315,9 +2313,9 @@ namespace BFDR.Tests
             { "FETHNIC5C", "201" },
             { "FETHNICE", "202" },
             { "HOSPFROM", "Literal33" },
-            // { "ATTEND_NAME", "HEATHERSTEVENS" }, TODO: Library needs to implement this?
-            // { "ATTEND_NPI", "1932304839" }, TODO: Library needs to implement this?
-            // { "ATTEND_OTH_TXT", "OTHER" }, TODO: Library needs to implement this?
+            // { "ATTEND_NAME", "HEATHERSTEVENS" }, TODO: Library needs to implement this
+            // { "ATTEND_NPI", "1932304839" }, TODO: Library needs to implement this
+            // { "ATTEND_OTH_TXT", "OTHER" }, TODO: Library needs to implement this
             { "CERTIFIED_YR", "2024" },
             { "CERTIFIED_MO", "12" },
             { "CERTIFIED_DY", "31" },
@@ -2343,7 +2341,9 @@ namespace BFDR.Tests
             {
                 if (overwriteField == field) continue; // Don't rewrite the field we're testing
                 PropertyInfo overwriteProperty = typeof(IJEFetalDeath).GetProperty(overwriteField);
+                Console.WriteLine($"  Overwrite test of {field} by writing {overwriteValue} to {overwriteField}");
                 overwriteProperty.SetValue(ije, overwriteValue);
+                Console.WriteLine($"    After write to {overwriteField} value of {field} is {property.GetValue(ije)}");
             }
             Assert.Equal(value, ((string)property.GetValue(ije)).Trim());
         }

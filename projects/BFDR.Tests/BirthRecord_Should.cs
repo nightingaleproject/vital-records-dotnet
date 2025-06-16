@@ -3881,29 +3881,14 @@ namespace BFDR.Tests
         Dictionary<string, string> fields = new Dictionary<string, string>
         {
             // This list of fields is fairly comprehensive, though some have been intentionally left out:
-            // TODO: Remove the TODOs and update the comments in IJEBirth.cs for this set of fields
+            //
             // These fields are not expected to be implemented: DOLP_MO, DOLP_DY, DOLP_YR, CERV, TOC, PROM, PRIC, PROL,
             // ATTF, ATTV, R_YR, R_MO, R_DY, MOM_OC_C, DAD_OC_C, MOM_IN_C, DAD_IN_C, MARE, BLANK, BLANK2, MATCH, MCPH,
             // MAGE_CALC, FAGE_CALC, MRACEBG_C, FRACEBG_C, METHNIC_T, MRACE_T, FETHNIC_T, FRACE_T, SSN_CITIZEN_CD,
             // SSN_MULT_BTH_CD, SSN_FEEDBACK, SSN_BRTH_CRT_NO, REGISTER_YR, REGISTER_MO, REGISTER_DY, REPLACE
-
+            //
             // This test doesn't work with middle name fields since they can't be set first due to how FHIR handles names:
             // KIDMNAME, MOMMIDDL, MOMMMID, DADMNAME
-
-            // TODO: This is is list of fields not implemented in IG, maybe calling IJE setters should raise an error (and add this list to the above)
-            // TODO: Should all non-implemented fields raise an error when calling setter?
-            // PPO
-            // VB
-            // NVPR
-            // MECS
-            // FINT
-            // UOPR
-            // BINJ
-
-            // TODO: This is a list of fields that should not be implemented that look like they have implementations?
-            // HSV
-            // VOID
-
             { "IDOB_YR", "2024" },
             { "BSTATE", "TT" },
             { "FILENO", "099991" },
@@ -3920,7 +3905,7 @@ namespace BFDR.Tests
             { "MDOB_YR", "1992" },
             { "MDOB_MO", "10" },
             { "MDOB_DY", "13" },
-            // { "MAGE_BYPASS", "0" }, TODO: Library needs to implement this?
+            // { "MAGE_BYPASS", "0" }, TODO: Gets cleared?
             // { "BPLACEC_ST_TER", "XX" }, TODO: Seems to get overwritten by MBPLACE_ST_TER_TXT
             { "BPLACEC_CNT", "MX" },
             { "CITYC", "77000" },
@@ -3931,7 +3916,7 @@ namespace BFDR.Tests
             { "FDOB_YR", "1991" },
             { "FDOB_MO", "12" },
             { "FDOB_DY", "19" },
-            //{ "FAGE_BYPASS", "0" }, TODO: Library needs to implement this?
+            // { "FAGE_BYPASS", "0" }, TODO: Gets cleared?
             { "MARN", "U" },
             { "ACKN", "U" },
             { "MEDUC", "3" },
