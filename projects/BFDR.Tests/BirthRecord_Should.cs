@@ -3871,7 +3871,7 @@ namespace BFDR.Tests
     }
     
     [Fact]
-    public void TestForOverwrites()
+    public void TestForOverwritesBirth()
     {
         // This test makes sure that there are no fields that, when writing them, accidentally change another field;
         // we test this by going through each field, setting it to a value, and then setting all other fields to a value,
@@ -3889,6 +3889,11 @@ namespace BFDR.Tests
             //
             // This test doesn't work with middle name fields since they can't be set first due to how FHIR handles names:
             // KIDMNAME, MOMMIDDL, MOMMMID, DADMNAME
+            //
+            // ATTEND and ATTEND_OTH_TXT interact with each other
+            // CERTIF and CERTIF_OTH_TXT interact with each other
+            // HFT, HIN, and HGT_BYPASS interact with each other
+
             { "IDOB_YR", "2024" },
             { "BSTATE", "TT" },
             { "FILENO", "099991" },
@@ -3906,7 +3911,7 @@ namespace BFDR.Tests
             { "MDOB_MO", "10" },
             { "MDOB_DY", "13" },
             // { "MAGE_BYPASS", "0" }, TODO: Gets cleared?
-            // { "BPLACEC_ST_TER", "XX" }, TODO: Seems to get overwritten by MBPLACE_ST_TER_TXT
+            { "BPLACEC_ST_TER", "TX" },
             { "BPLACEC_CNT", "MX" },
             { "CITYC", "77000" },
             { "COUNTYC", "019" },
@@ -3965,6 +3970,7 @@ namespace BFDR.Tests
             { "MRACE21C", "113" },
             { "MRACE22C", "114" },
             { "MRACE23C", "115" },
+            { "ATTEND", "2" },
             { "FEDUC", "3" },
             { "FEDUC_BYPASS", "0" },
             { "FETHNIC1", "H" },
@@ -4011,16 +4017,12 @@ namespace BFDR.Tests
             { "FRACE21C", "403" },
             { "FRACE22C", "404" },
             { "FRACE23C", "405" },
-            // { "ATTEND", "1" }, TODO: Seems to get overwritten with 5
             { "TRAN", "N" },
             { "DOFP_MO", "88" },
             { "DOFP_DY", "88" },
             { "DOFP_YR", "8888" },
             { "NPREV", "00" },
             //{ "NPREV_BYPASS", "0" }, TODO: Library needs to implement this?
-            { "HFT", "5" },
-            //{ "HIN", "01" }, TODO: Seems to get overwritten with 00
-            //{ "HGT_BYPASS", "0" }, TODO: Library needs to implement this?
             { "PWGT", "100" },
             { "PWGT_BYPASS", "0" },
             { "DWGT", "127" },
@@ -4073,7 +4075,7 @@ namespace BFDR.Tests
             { "AINT", "N" },
             { "BWG", "0539" },
             { "BW_BYPASS", "0" },
-            //{ "OWGEST", "21" }, TODO: This causes an error when setting
+            //{ "OWGEST", "21" }, // TODO: This causes an error when setting after OWGEST_BYPASS is set
             { "OWGEST_BYPASS", "0" },
             { "APGAR5", "01" },
             { "APGAR10", "04" },
@@ -4143,7 +4145,7 @@ namespace BFDR.Tests
             { "DAD_OC_T", "Literal20" },
             { "MOM_IN_T", "Literal21" },
             { "DAD_IN_T", "Literal22" },
-            // { "FBPLACD_ST_TER_C", "ZZ" }, TODO: Seems to get overwritten with AK from FBPLACE_ST_TER_TXT
+            { "FBPLACD_ST_TER_C", "AK" },
             { "FBPLACE_CNT_C", "MX" },
             { "METHNIC5C", "100" },
             { "METHNICE", "200" },
@@ -4151,7 +4153,6 @@ namespace BFDR.Tests
             { "FETHNICE", "202" },
             { "HOSPFROM", "Literal27" },
             { "HOSPTO", "BANNER UNIVERSITY MEDICAL CENTER - TUCSON" },
-            { "ATTEND_OTH_TXT", "OTHER" },
             { "MBPLACE_ST_TER_TXT", "Texas" },
             { "MBPLACE_CNTRY_TXT", "Mexico" },
             { "FBPLACE_ST_TER_TXT", "Alaska" },
@@ -4174,7 +4175,6 @@ namespace BFDR.Tests
             { "CERTIF_NAME", "CERTIF_NAME" },
             { "CERTIF_NPI", "123456789876" },
             { "CERTIF", "5" },
-            // { "CERTIF_OTH_TXT", "CERTIF_OTH_TXT" }, TODO: Library needs to implement this?
             { "INF_MED_REC_NUM", "1393674" },
             { "MOM_MED_REC_NUM", "1393655" },
             { "CERTIFIED_YR", "2024" },
