@@ -2046,6 +2046,10 @@ namespace BFDR.Tests
             //
             // This test doesn't work with middle name fields since they can't be set first due to how FHIR handles names:
             // FETMNAME, MOMMNAME, MOMMMID, DADMNAME
+            //
+            // The COD18a9 field is expected to overwrite the COD18a6 field
+            // The COD18b9 field is expected to overwrite the COD18b6 field
+            // HFT, HIN, and HGT_BYPASS interact with each other
 
             // TODO: This is a field that should not be implemented that looks like it's implemented: AUTOPF
 
@@ -2067,7 +2071,7 @@ namespace BFDR.Tests
             { "MDOB_DY", "11" },
             // { "MAGE_BYPASS", "0" }, TODO: Library needs to implement this?
             { "BPLACEC_ST_TER", "PR" },
-            // { "BPLACEC_CNT", "MX" }, TODO: Seems to get overwritten by one of the other country fields?
+            { "BPLACEC_CNT", "US" },
             { "CITYC", "00000" },
             { "COUNTYC", "000" },
             { "STATEC", "MI" },
@@ -2127,9 +2131,6 @@ namespace BFDR.Tests
             { "DOFP_MO", "05" },
             { "DOFP_DY", "18" },
             { "DOFP_YR", "2018" },
-            { "HFT", "4" },
-            // { "HIN", "08" }, TODO: Seems to get overwritten with 00
-            // { "HGT_BYPASS", "0" }, TODO: Library needs to implement this?
             { "PWGT", "180" },
             { "PWGT_BYPASS", "0" },
             { "WIC", "N" },
@@ -2182,10 +2183,9 @@ namespace BFDR.Tests
             { "COD18a3", "N" },
             { "COD18a4", "N" },
             { "COD18a5", "N" },
-            { "COD18a6", "N" }, //TODO: Seems to get overwritten with Y
+            { "COD18a6", "N" },
             { "COD18a7", "N" },
             { "COD18a8", "Literal8" },
-            { "COD18a9", "Literal9" },
             { "COD18a10", "Literal10" },
             { "COD18a11", "Literal11" },
             { "COD18a12", "Literal12" },
@@ -2196,10 +2196,9 @@ namespace BFDR.Tests
             { "COD18b3", "Y" },
             { "COD18b4", "N" },
             { "COD18b5", "N" },
-            // { "COD18b6", "N" }, TODO: Seems to get overwritten with Y
+            { "COD18b6", "N" },
             { "COD18b7", "N" },
             { "COD18b8", "Literal15" },
-            { "COD18b9", "Literal16" },
             { "COD18b10", "Literal17" },
             { "COD18b11", "Literal18" },
             { "COD18b12", "Literal19" },
@@ -2341,9 +2340,9 @@ namespace BFDR.Tests
             {
                 if (overwriteField == field) continue; // Don't rewrite the field we're testing
                 PropertyInfo overwriteProperty = typeof(IJEFetalDeath).GetProperty(overwriteField);
-                Console.WriteLine($"  Overwrite test of {field} by writing {overwriteValue} to {overwriteField}");
+                //Console.WriteLine($"  Overwrite test of {field} by writing {overwriteValue} to {overwriteField}");
                 overwriteProperty.SetValue(ije, overwriteValue);
-                Console.WriteLine($"    After write to {overwriteField} value of {field} is {property.GetValue(ije)}");
+                //Console.WriteLine($"    After write to {overwriteField} value of {field} is {property.GetValue(ije)}");
             }
             Assert.Equal(value, ((string)property.GetValue(ije)).Trim());
         }

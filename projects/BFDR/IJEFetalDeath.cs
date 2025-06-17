@@ -2445,7 +2445,7 @@ namespace BFDR
             set => YesNo_IJEToPresence(value, (v) => record.ChorioamnionitisCOD = v);
         }
 
-        /// <summary>Initiating cause/condition - Other complications of placenta, cord, or membranes</summary>
+        /// <summary>Initiating cause/condition - Other complications of placenta, cord, or membranes (Note: this field can be overwritten when COD18a9 is set)</summary>
         [IJEField(185, 592, 1, "Initiating cause/condition - Other complications of placenta, cord, or membranes", "COD18a6", 1)]
         public string COD18a6
         {
@@ -2469,7 +2469,7 @@ namespace BFDR
             set => LeftJustified_Set("COD18a8", "MaternalConditionsDiseasesLiteral", value);
         }
 
-        /// <summary>Initiating cause/condition - Other complications of placenta, cord, or membranes literal</summary>
+        /// <summary>Initiating cause/condition - Other complications of placenta, cord, or membranes literal (Note: this field can overwrite the COD18a6 field)</summary>
         [IJEField(188, 654, 60, "Initiating cause/condition - Other complications of placenta, cord, or membranes literal", "COD18a9", 1)]
         public string COD18a9
         {
@@ -2557,7 +2557,7 @@ namespace BFDR
             set => YesNo_IJEToPresence(value, (v) => record.OtherCOD_ChorioamnionitisCOD = v);
         }
 
-        /// <summary>Other significant causes or conditions - Other complications of placenta, cord, or membranes</summary>
+        /// <summary>Other significant causes or conditions - Other complications of placenta, cord, or membranes (Note: this field can overwrite the COD18b6 field)</summary>
         [IJEField(199, 1019, 1, "Other significant causes or conditions - Other complications of placenta, cord, or membranes", "COD18b6", 1)]
         public string COD18b6
         {
@@ -2581,7 +2581,7 @@ namespace BFDR
             set => LeftJustified_Set("COD18b8", "OtherCOD_MaternalConditionsDiseasesLiteral", value);
         }
 
-        /// <summary>Other significant causes or conditions - Other complications of placenta, cord, or membranes literal</summary>
+        /// <summary>Other significant causes or conditions - Other complications of placenta, cord, or membranes literal (Note: this field can overwrite the COD18b6 field)</summary>
         [IJEField(202, 1261, 240, "Other significant causes or conditions - Other complications of placenta, cord, or membranes literal", "COD18b9", 1)]
         public string COD18b9
         {

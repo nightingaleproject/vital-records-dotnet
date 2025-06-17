@@ -2759,7 +2759,7 @@
             <summary>Initiating cause/condition - Chorioamnionitis</summary>
         </member>
         <member name="P:BFDR.IJEFetalDeath.COD18a6">
-            <summary>Initiating cause/condition - Other complications of placenta, cord, or membranes</summary>
+            <summary>Initiating cause/condition - Other complications of placenta, cord, or membranes (Note: this field can be overwritten when COD18a9 is set)</summary>
         </member>
         <member name="P:BFDR.IJEFetalDeath.COD18a7">
             <summary>Initiating cause/condition - Unknown</summary>
@@ -2768,7 +2768,7 @@
             <summary>Initiating cause/condition - Maternal conditions/diseases literal</summary>
         </member>
         <member name="P:BFDR.IJEFetalDeath.COD18a9">
-            <summary>Initiating cause/condition - Other complications of placenta, cord, or membranes literal</summary>
+            <summary>Initiating cause/condition - Other complications of placenta, cord, or membranes literal (Note: this field can overwrite the COD18a6 field)</summary>
         </member>
         <member name="P:BFDR.IJEFetalDeath.COD18a10">
             <summary>Initiating cause/condition - Other obstetrical or pregnancy complications literal</summary>
@@ -2801,7 +2801,7 @@
             <summary>Other significant causes or conditions - Chorioamnionitis</summary>
         </member>
         <member name="P:BFDR.IJEFetalDeath.COD18b6">
-            <summary>Other significant causes or conditions - Other complications of placenta, cord, or membranes</summary>
+            <summary>Other significant causes or conditions - Other complications of placenta, cord, or membranes (Note: this field can overwrite the COD18b6 field)</summary>
         </member>
         <member name="P:BFDR.IJEFetalDeath.COD18b7">
             <summary>Other significant causes or conditions - Unknown</summary>
@@ -2810,7 +2810,7 @@
             <summary>Other significant causes or conditions - Maternal conditions/diseases literal</summary>
         </member>
         <member name="P:BFDR.IJEFetalDeath.COD18b9">
-            <summary>Other significant causes or conditions - Other complications of placenta, cord, or membranes literal</summary>
+            <summary>Other significant causes or conditions - Other complications of placenta, cord, or membranes literal (Note: this field can overwrite the COD18b6 field)</summary>
         </member>
         <member name="P:BFDR.IJEFetalDeath.COD18b10">
             <summary>Other significant causes or conditions - Other obstetrical or pregnancy complications literal</summary>
