@@ -223,6 +223,18 @@ namespace BFDR
                 case CodedCauseOfFetalDeathUpdateMessage.MESSAGE_TYPE:
                     message = new CodedCauseOfFetalDeathUpdateMessage(bundle, message);
                     break;
+                case BirthRecordParentalIndustryOccupationCodingMessage.MESSAGE_TYPE:
+                    message = new BirthRecordParentalIndustryOccupationCodingMessage(bundle, message);
+                    break;
+                case FetalDeathRecordParentalIndustryOccupationCodingMessage.MESSAGE_TYPE:
+                    message = new FetalDeathRecordParentalIndustryOccupationCodingMessage(bundle, message);
+                    break;
+                case BirthRecordParentalIndustryOccupationCodingUpdateMessage.MESSAGE_TYPE:
+                    message = new BirthRecordParentalIndustryOccupationCodingUpdateMessage(bundle, message);
+                    break;
+                case FetalDeathRecordParentalIndustryOccupationCodingUpdateMessage.MESSAGE_TYPE:
+                    message = new FetalDeathRecordParentalIndustryOccupationCodingUpdateMessage(bundle, message);
+                    break;
                 default:
                     string errorText;
                     if (message.Header == null)
