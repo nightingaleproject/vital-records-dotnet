@@ -213,7 +213,202 @@ You can also include a locally downloaded copy of the library instead of the NuG
 </Project>
 ```
 
-#### Return Coding Example
+#### Return Coding Examples
+
+When birth and fetal death records are submitted to NCHS, NCHS responds with various coded content
+messages. This section shows examples of creating the different types of response messages.
+
+##### Demographics Coding Messages
+
+The following four message types can be created:
+
+* BirthRecordParentalDemographicsCodingMessage
+* BirthRecordParentalDemographicsCodingUpdateMessage
+* FetalDeathRecordParentalDemographicsCodingMessage
+* FetalDeathRecordParentalDemographicsCodingUpdateMessage
+
+These messages can be created following this example, substituting the appropriate message type
+listed above as needed:
+
+```csharp
+// Create and populate the IJE record
+// Note: This example also includes input fields, which can be included in the return message but may not be required
+IJEBirth ije = new IJEBirth();
+ije.IDOB_YR = "2022";
+ije.BSTATE = "YC";
+ije.FILENO = "123";
+ije.IDOB_YR = "2025";
+ije.BSTATE = "NJ";
+ije.FILENO = "000001";
+ije.AUXNO = "123456781234";
+ije.MRACE1E = "100";
+ije.MRACE2E = "101";
+ije.MRACE3E = "102";
+ije.MRACE4E = "103";
+ije.MRACE5E = "104";
+ije.MRACE6E = "105";
+ije.MRACE7E = "106";
+ije.MRACE8E = "107";
+ije.MRACE16C = "108";
+ije.MRACE17C = "109";
+ije.MRACE18C = "110";
+ije.MRACE19C = "111";
+ije.MRACE20C = "112";
+ije.MRACE21C = "113";
+ije.MRACE22C = "114";
+ije.MRACE23C = "115";
+ije.FRACE1E = "116";
+ije.FRACE2E = "117";
+ije.FRACE3E = "118";
+ije.FRACE4E = "119";
+ije.FRACE5E = "120";
+ije.FRACE6E = "121";
+ije.FRACE7E = "122";
+ije.FRACE8E = "123";
+ije.FRACE16C = "124";
+ije.FRACE17C = "125";
+ije.FRACE18C = "126";
+ije.FRACE19C = "127";
+ije.FRACE20C = "128";
+ije.FRACE21C = "129";
+ije.FRACE22C = "130";
+ije.FRACE23C = "131";
+ije.METHNIC5C = "200";
+ije.METHNICE = "201";
+ije.FETHNIC5C = "202";
+ije.FETHNICE = "203";
+ije.METHNIC1 = "N";
+ije.METHNIC2 = "H";
+ije.METHNIC3 = "U";
+ije.METHNIC4 = "N";
+ije.METHNIC5 = "literal1";
+ije.MRACE1 = "Y";
+ije.MRACE2 = "N";
+ije.MRACE3 = "Y";
+ije.MRACE4 = "N";
+ije.MRACE5 = "Y";
+ije.MRACE6 = "N";
+ije.MRACE7 = "Y";
+ije.MRACE8 = "N";
+ije.MRACE9 = "Y";
+ije.MRACE10 = "N";
+ije.MRACE11 = "Y";
+ije.MRACE12 = "N";
+ije.MRACE13 = "Y";
+ije.MRACE14 = "N";
+ije.MRACE15 = "Y";
+ije.MRACE16 = "literal2";
+ije.MRACE17 = "literal3";
+ije.MRACE18 = "literal4";
+ije.MRACE19 = "literal5";
+ije.MRACE20 = "literal6";
+ije.MRACE21 = "literal7";
+ije.MRACE22 = "literal8";
+ije.MRACE23 = "literal9";
+ije.FETHNIC1 = "H";
+ije.FETHNIC2 = "U";
+ije.FETHNIC3 = "N";
+ije.FETHNIC4 = "H";
+ije.FETHNIC5 = "literal10";
+ije.FRACE1 = "N";
+ije.FRACE2 = "Y";
+ije.FRACE3 = "N";
+ije.FRACE4 = "Y";
+ije.FRACE5 = "N";
+ije.FRACE6 = "Y";
+ije.FRACE7 = "N";
+ije.FRACE8 = "Y";
+ije.FRACE9 = "N";
+ije.FRACE10 = "Y";
+ije.FRACE11 = "N";
+ije.FRACE12 = "Y";
+ije.FRACE13 = "N";
+ije.FRACE14 = "Y";
+ije.FRACE15 = "N";
+ije.FRACE16 = "literal11";
+ije.FRACE17 = "literal12";
+ije.FRACE18 = "literal13";
+ije.FRACE19 = "literal14";
+ije.FRACE20 = "literal15";
+ije.FRACE21 = "literal16";
+ije.FRACE22 = "literal17";
+ije.FRACE23 = "literal18";
+// Create the message from the IJE content and set message fields as needed
+BirthRecordParentalDemographicsCodingMessage message = new BirthRecordParentalDemographicsCodingMessage(ije.ToRecord());
+message.MessageSource = "http://nchs.cdc.gov/bfdr_submission";
+message.MessageDestination = "https://example.org/jurisdiction/endpoint";
+// The message can be converted to JSON when complete
+message.ToJson()
+```
+
+##### Coded Cause of Fetal Death Message
+
+The following two message types can be created:
+
+* CodedCauseOfFetalDeathMessage
+* CodedCauseOfFetalDeathUpdateMessage
+
+These messages can be created following this example, substituting the appropriate message type
+listed above as needed:
+
+```csharp
+// Create and populate the IJE record
+IJEFetalDeath ije = new IJEFetalDeath();
+ije.FDOD_YR = "2025";
+ije.DSTATE = "NJ";
+ije.FILENO = "000001";
+ije.AUXNO = "123456781234";
+ije.ICOD = "P011";
+ije.OCOD1 = "P021";
+ije.OCOD2 = "P022";
+ije.OCOD3 = "P023";
+ije.OCOD4 = "P024";
+ije.OCOD5 = "P025";
+ije.OCOD6 = "P026";
+ije.OCOD7 = "P027";
+// Create the message from the IJE content and set message fields as needed
+CodedCauseOfFetalDeathMessage message = new CodedCauseOfFetalDeathMessage(ije.ToRecord());
+message.MessageSource = "http://nchs.cdc.gov/bfdr_submission";
+message.MessageDestination = "https://example.org/jurisdiction/endpoint";
+// The message can be converted to JSON when complete
+message.ToJson()
+```
+
+##### Parental Industry and Occupation Coding Message
+
+The following four message types can be created:
+
+* BirthRecordParentalIndustryOccupationCodingMessage
+* FetalDeathRecordParentalIndustryOccupationCodingMessage
+* BirthRecordParentalIndustryOccupationCodingUpdateMessage
+* FetalDeathRecordParentalIndustryOccupationCodingUpdateMessage
+
+These messages can be created following this example, substituting the appropriate message type
+listed above as needed:
+
+```csharp
+// Create and populate the IJE record
+IJEBirth ije = new IJEBirth();
+ije.IDOB_YR = "2025";
+ije.BSTATE = "NJ";
+ije.FILENO = "000001";
+ije.MOM_OC_T = "Mother occupation";
+ije.MOM_IN_T = "Mother industry";
+ije.DAD_OC_T = "Father occupation";
+ije.DAD_IN_T = "Father industry";
+// Some fields do not exist in IJE, so we set those after converting to a FHIR record
+BirthRecord record = ije.ToBirthRecord();
+record.MotherCodedOccupationHelper = "13-2011";
+record.MotherCodedIndustryHelper = "54121";
+record.FatherCodedOccupationHelper = "27-2011";
+record.FatherCodedIndustryHelper = "5223";
+// Create the message from the IJE content and set message fields as needed
+BirthRecordParentalIndustryOccupationCodingMessage message = new BirthRecordParentalIndustryOccupationCodingMessage(ije.ToRecord());
+message.MessageSource = "http://nchs.cdc.gov/bfdr_submission";
+message.MessageDestination = "https://example.org/jurisdiction/endpoint";
+// The message can be converted to JSON when complete
+message.ToJson()
+```
 
 ### BFDR.Tests
 

@@ -898,7 +898,7 @@ namespace BFDR.Tests
             ije.MRACE2E = "101";
             ije.FRACE1E = "116";
             ije.FRACE2E = "117";
-            ije.METHNIC5C = "200"; // TODO: This getter or setter seems broken
+            ije.METHNIC5C = "200";
             ije.METHNICE = "201";
             ije.FETHNIC5C = "202";
             ije.FETHNICE = "203";
@@ -1062,6 +1062,46 @@ namespace BFDR.Tests
         }
 
         [Fact]
+        public void CreateCodedCauseOfFetalDeathMessage()
+        {
+            // This test creates a response using the approach NCHS will use via IJE setters
+            IJEFetalDeath ije = new IJEFetalDeath();
+            ije.FDOD_YR = "2025";
+            ije.DSTATE = "NJ";
+            ije.FILENO = "000001";
+            ije.AUXNO = "123456781234";
+            ije.ICOD = "P011";
+            ije.OCOD1 = "P021";
+            ije.OCOD2 = "P022";
+            ije.OCOD3 = "P023";
+            ije.OCOD4 = "P024";
+            ije.OCOD5 = "P025";
+            ije.OCOD6 = "P026";
+            ije.OCOD7 = "P027";
+            CodedCauseOfFetalDeathMessage message = new CodedCauseOfFetalDeathMessage(ije.ToRecord());
+            message.MessageSource = "http://nchs.cdc.gov/bfdr_submission";
+            message.MessageDestination = "https://example.org/jurisdiction/endpoint";
+            // Move the message through JSON to ensure everything is preserved
+            CodedCauseOfFetalDeathMessage parsedMessage = CodedCauseOfFetalDeathMessage.Parse(message.ToJson()) as CodedCauseOfFetalDeathMessage;
+            Assert.Equal(CodedCauseOfFetalDeathMessage.MESSAGE_TYPE, parsedMessage.MessageType);
+            Assert.Equal("http://nchs.cdc.gov/bfdr_submission", parsedMessage.MessageSource);
+            Assert.Equal("https://example.org/jurisdiction/endpoint", parsedMessage.MessageDestination);
+            Assert.Equal((uint)1, parsedMessage.CertNo);
+            Assert.Equal((uint)2025, parsedMessage.EventYear);
+            Assert.Equal("2025NJ000001", parsedMessage.NCHSIdentifier);
+            Assert.Equal("BFDR_STU2_0", parsedMessage.PayloadVersionId);
+            // TODO: These properties should probably not be returning ICD codes with decimal points
+            Assert.Equal("P01.1", parsedMessage.FetalDeathRecord.CodedInitiatingFetalCOD);
+            Assert.Equal("P02.1", parsedMessage.FetalDeathRecord.OCOD1);
+            Assert.Equal("P02.2", parsedMessage.FetalDeathRecord.OCOD2);
+            Assert.Equal("P02.3", parsedMessage.FetalDeathRecord.OCOD3);
+            Assert.Equal("P02.4", parsedMessage.FetalDeathRecord.OCOD4);
+            Assert.Equal("P02.5", parsedMessage.FetalDeathRecord.OCOD5);
+            Assert.Equal("P02.6", parsedMessage.FetalDeathRecord.OCOD6);
+            Assert.Equal("P02.7", parsedMessage.FetalDeathRecord.OCOD7);
+        }
+
+        [Fact]
         public void CreateEmptyCodedCauseOfFetalDeathMessage()
         {
             CodedCauseOfFetalDeathMessage message = new CodedCauseOfFetalDeathMessage();
@@ -1159,6 +1199,47 @@ namespace BFDR.Tests
             Assert.Equal("http://nchs.cdc.gov/bfdr_submission", message.MessageSource);
             FetalDeathRecord fdr = message.FetalDeathRecord;
             Assert.NotNull(fdr);
+        }
+
+        [Fact]
+        public void CreateBirthRecordParentalIndustryOccupationCodingMessage()
+        {
+            // This test creates a response using the approach NCHS will use via IJE setters
+            // Create the industry and occupation coded content starting with the IJE portions
+            IJEBirth ije = new IJEBirth();
+            ije.IDOB_YR = "2025";
+            ije.BSTATE = "NJ";
+            ije.FILENO = "000001";
+            ije.MOM_OC_T = "Mother occupation";
+            ije.MOM_IN_T = "Mother industry";
+            ije.DAD_OC_T = "Father occupation";
+            ije.DAD_IN_T = "Father industry";
+            // Some fields do not exist in IJE, so we set those after converting to a FHIR record
+            BirthRecord record = ije.ToBirthRecord();
+            record.MotherCodedOccupationHelper = "13-2011";
+            record.MotherCodedIndustryHelper = "54121";
+            record.FatherCodedOccupationHelper = "27-2011";
+            record.FatherCodedIndustryHelper = "5223";
+            BirthRecordParentalIndustryOccupationCodingMessage message = new BirthRecordParentalIndustryOccupationCodingMessage(ije.ToRecord());
+            message.MessageSource = "http://nchs.cdc.gov/bfdr_submission";
+            message.MessageDestination = "https://example.org/jurisdiction/endpoint";
+            // Move the message through JSON to ensure everything is preserved
+            BirthRecordParentalIndustryOccupationCodingMessage parsedMessage = BirthRecordParentalIndustryOccupationCodingMessage.Parse(message.ToJson()) as BirthRecordParentalIndustryOccupationCodingMessage;
+            Assert.Equal(BirthRecordParentalIndustryOccupationCodingMessage.MESSAGE_TYPE, parsedMessage.MessageType);
+            Assert.Equal("http://nchs.cdc.gov/bfdr_submission", parsedMessage.MessageSource);
+            Assert.Equal("https://example.org/jurisdiction/endpoint", parsedMessage.MessageDestination);
+            Assert.Equal((uint)1, parsedMessage.CertNo);
+            Assert.Equal((uint)2025, parsedMessage.EventYear);
+            Assert.Equal("2025NJ000001", parsedMessage.NCHSIdentifier);
+            Assert.Equal("BFDR_STU2_0", parsedMessage.PayloadVersionId);
+            Assert.Equal("Mother occupation", parsedMessage.NatalityRecord.MotherOccupation);
+            Assert.Equal("Mother industry", parsedMessage.NatalityRecord.MotherIndustry);
+            Assert.Equal("Father occupation", parsedMessage.NatalityRecord.FatherOccupation);
+            Assert.Equal("Father industry", parsedMessage.NatalityRecord.FatherIndustry);
+            Assert.Equal("13-2011", parsedMessage.NatalityRecord.MotherCodedOccupationHelper);
+            Assert.Equal("54121", parsedMessage.NatalityRecord.MotherCodedIndustryHelper);
+            Assert.Equal("27-2011", parsedMessage.NatalityRecord.FatherCodedOccupationHelper);
+            Assert.Equal("5223", parsedMessage.NatalityRecord.FatherCodedIndustryHelper);
         }
 
         [Fact]
