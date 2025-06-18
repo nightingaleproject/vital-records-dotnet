@@ -206,10 +206,10 @@ namespace VR
         protected string Boolean_Get(string ijeFieldName, string fhirFieldName)
         {
             IJEField info = FieldInfo(ijeFieldName);
-            bool? current = Convert.ToBoolean(Record.GetType().GetProperty(fhirFieldName).GetValue(Record));
-            if (current != null)
+            object value = Record.GetType().GetProperty(fhirFieldName).GetValue(Record);
+            if (value != null)
             {
-                if ((bool)current)
+                if (Convert.ToBoolean(value))
                 {
                     return "Y";
                 }
@@ -537,7 +537,7 @@ namespace VR
             {  // Remove "-" for zip
                 current.Replace("-", string.Empty);
             }
-            if (current != null)
+            if (!String.IsNullOrWhiteSpace(current))
             {
                 return Truncate(current, info.Length).PadRight(info.Length, ' ');
             }
