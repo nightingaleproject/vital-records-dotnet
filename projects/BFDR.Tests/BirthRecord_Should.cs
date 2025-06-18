@@ -3910,7 +3910,7 @@ namespace BFDR.Tests
             { "MDOB_YR", "1992" },
             { "MDOB_MO", "10" },
             { "MDOB_DY", "13" },
-            // { "MAGE_BYPASS", "0" }, TODO: Gets cleared?
+            // { "MAGE_BYPASS", "0" }, Note: This gets cleared when MAGE is set
             { "BPLACEC_ST_TER", "TX" },
             { "BPLACEC_CNT", "MX" },
             { "CITYC", "77000" },
@@ -3921,7 +3921,7 @@ namespace BFDR.Tests
             { "FDOB_YR", "1991" },
             { "FDOB_MO", "12" },
             { "FDOB_DY", "19" },
-            // { "FAGE_BYPASS", "0" }, TODO: Gets cleared?
+            // { "FAGE_BYPASS", "0" }, Note: This gets cleared when FAGE is set
             { "MARN", "U" },
             { "ACKN", "U" },
             { "MEDUC", "3" },
@@ -4022,7 +4022,7 @@ namespace BFDR.Tests
             { "DOFP_DY", "88" },
             { "DOFP_YR", "8888" },
             { "NPREV", "00" },
-            //{ "NPREV_BYPASS", "0" }, TODO: Library needs to implement this?
+            // { "NPREV_BYPASS", "0" }, Note: This gets cleared when NPREV is set
             { "PWGT", "100" },
             { "PWGT_BYPASS", "0" },
             { "DWGT", "127" },
@@ -4051,7 +4051,7 @@ namespace BFDR.Tests
             { "INFT", "N" },
             { "PCES", "N" },
             { "NPCES", "00" },
-            // { "NPCES_BYPASS", "0" }, TODO: Library needs to implement this?
+            // { "NPCES_BYPASS", "0" }, Note: This gets cleared when NPCES is set
             { "GON", "N" },
             { "SYPH", "N" },
             { "CHAM", "N" },
@@ -4075,7 +4075,7 @@ namespace BFDR.Tests
             { "AINT", "N" },
             { "BWG", "0539" },
             { "BW_BYPASS", "0" },
-            //{ "OWGEST", "21" }, // TODO: This causes an error when setting after OWGEST_BYPASS is set
+            // { "OWGEST", "21" }, TODO: This causes an error when setting after OWGEST_BYPASS is set
             { "OWGEST_BYPASS", "0" },
             { "APGAR5", "01" },
             { "APGAR10", "04" },

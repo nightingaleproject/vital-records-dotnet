@@ -2051,8 +2051,6 @@ namespace BFDR.Tests
             // The COD18b9 field is expected to overwrite the COD18b6 field
             // HFT, HIN, and HGT_BYPASS interact with each other
 
-            // TODO: This is a field that should not be implemented that looks like it's implemented: AUTOPF
-
             { "FDOD_YR", "2019" },
             { "DSTATE", "MI" },
             { "FILENO", "009876" },
@@ -2069,7 +2067,7 @@ namespace BFDR.Tests
             { "MDOB_YR", "1990" },
             { "MDOB_MO", "03" },
             { "MDOB_DY", "11" },
-            // { "MAGE_BYPASS", "0" }, TODO: Library needs to implement this?
+            // { "MAGE_BYPASS", "0" }, Note: This gets cleared when MAGE is set
             { "BPLACEC_ST_TER", "PR" },
             { "BPLACEC_CNT", "US" },
             { "CITYC", "00000" },
@@ -2080,7 +2078,7 @@ namespace BFDR.Tests
             { "FDOB_YR", "1991" },
             { "FDOB_MO", "06" },
             { "FDOB_DY", "05" },
-            // { "FAGE_BYPASS", "1" }, TODO: Library needs to implement this?
+            // { "FAGE_BYPASS", "1" }, Note: This gets cleared when FAGE is set
             { "MEDUC", "2" },
             { "MEDUC_BYPASS", "0" },
             { "METHNIC1", "Y" },
@@ -2152,7 +2150,7 @@ namespace BFDR.Tests
             { "INFT", "U" },
             { "PCES", "U" },
             { "NPCES", "01" },
-            // { "NPCES_BYPASS", "0" }, TODO: Library needs to implement this?
+            // { "NPCES_BYPASS", "0" }, Note: This gets cleared when NPCES is set
             { "PRES", "2" },
             { "ROUT", "1" },
             { "TLAB", "U" },
@@ -2161,7 +2159,7 @@ namespace BFDR.Tests
             { "FWG", "1530" },
             { "FW_BYPASS", "0" },
             { "OWGEST", "20" },
-            // { "OWGEST_BYPASS", "0" }, TODO: Library needs to implement this?
+            // { "OWGEST_BYPASS", "0" }, Note: This gets cleared when OWGEST is set
             { "ETIME", "A" },
             { "AUTOP", "Y" },
             { "HISTOP", "Y" },
