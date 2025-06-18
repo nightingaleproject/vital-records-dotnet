@@ -626,10 +626,6 @@ namespace VR
                         {
                             errors.Append("Missing 'Date-Year' of [" + partialDateExtension.Url + "] for resource [" + resource.Id + "].").AppendLine();
                         }
-                        if (partialDateExtension.Url.Equals(VR.ExtensionURL.PartialDateTime) && !partialDateSubExtensions.Contains(VR.ExtensionURL.PartialDateTimeVR))
-                        {
-                            errors.Append("Missing 'Date-Time' of [" + partialDateExtension.Url + "] for resource [" + resource.Id + "].").AppendLine();
-                        }
                         // Validate that there are no extraneous invalid sub-extensions of the PartialDate/Time component.
                         partialDateSubExtensions.Remove(VR.ExtensionURL.PartialDateDayVR);
                         partialDateSubExtensions.Remove(VR.ExtensionURL.PartialDateMonthVR);
@@ -702,14 +698,6 @@ namespace VR
         protected Extension NewBlankPartialDateTimeExtension(bool includeTime = true)
         {
             return NewDataAbsentReasonPartialDateTimeExtension("temp-unknown", includeTime);
-        }
-
-        /// <summary>NewUnknownPartialDateTimeExtension, Build a blank PartialDateTime extension (which means all the placeholder data absent
-        /// reasons are present to note that the data is unknown). This method takes an optional flag to determine if this extension
-        /// should include the time field, which is not always needed</summary>
-        protected Extension NewUnkownPartialDateTimeExtension(bool includeTime = true)
-        {
-            return NewDataAbsentReasonPartialDateTimeExtension("unknown", includeTime);
         }
 
         private Extension NewDataAbsentReasonPartialDateTimeExtension(string dataAbsentReason, bool includeTime = true)
@@ -986,34 +974,6 @@ namespace VR
             }
             // If it's not there, check for a PartialDateTime.
             return GetDateFragmentOrPartialDate(birthDateElement, partialDateURL);
-        }
-
-        /// <summary>Sets the given value to the given partial date extension and creates any necessary missing extensions.</summary>
-        protected void CreateAndSetPartialDate(Date dateElement, string partUrl, int? value)
-        {
-            if (!dateElement.Extension.Any(ext => ext.Url == VR.ExtensionURL.PartialDateTimeVR))
-            {
-                dateElement.SetExtension(VR.ExtensionURL.PartialDateTimeVR, new Extension());
-            }
-            if (!dateElement.Extension.Find(ext => ext.Url == VR.ExtensionURL.PartialDateTimeVR).Extension.Any(ext => ext.Url == partUrl))
-            {
-                dateElement.Extension.Find(ext => ext.Url == VR.ExtensionURL.PartialDateTimeVR).SetExtension(partUrl, new Extension());
-            }
-            SetPartialDate(dateElement.Extension.Find(ext => ext.Url == VR.ExtensionURL.PartialDateTimeVR), partUrl, value);
-        }
-
-        /// <summary>Sets the given value to the given partial date extension and creates any necessary missing extensions.</summary>
-        protected void CreateAndSetPartialDate(FhirDateTime dateElement, string partUrl, int? value)
-        {
-            if (!dateElement.Extension.Any(ext => ext.Url == VR.ExtensionURL.PartialDateTimeVR))
-            {
-                dateElement.SetExtension(VR.ExtensionURL.PartialDateTimeVR, new Extension());
-            }
-            if (!dateElement.Extension.Find(ext => ext.Url == VR.ExtensionURL.PartialDateTimeVR).Extension.Any(ext => ext.Url == partUrl))
-            {
-                dateElement.Extension.Find(ext => ext.Url == VR.ExtensionURL.PartialDateTimeVR).SetExtension(partUrl, new Extension());
-            }
-            SetPartialDate(dateElement.Extension.Find(ext => ext.Url == VR.ExtensionURL.PartialDateTimeVR), partUrl, value);
         }
 
         /// <summary>
@@ -1314,37 +1274,6 @@ namespace VR
             throw new System.ArgumentException($"Code '{code}' is not an allowed value for the valueset used in {propertyName}");
         }
 
-        /// <summary>Helper function to set a quantity value based on a value, code and the set of allowed codes.</summary>
-        // <param name="field">the field name to set.</param>
-        // <param name="code">the code to set the field to.</param>
-        // <param name="value">the value of the quantity.</param>
-        // <param name="options">the list of valid options and related display strings and code systems</param>
-        protected void SetQuantityValue(string field, string code, string value, string[,] options)
-        {
-            // If string is empty don't bother to set the value
-            if (code == null || code == "")
-            {
-                return;
-            }
-            // Iterate over the allowed options and see if the code supplies is one of them
-            for (int i = 0; i < options.GetLength(0); i += 1)
-            {
-                if (options[i, 0] == code)
-                {
-                    // Found it, so call the supplied setter with the appropriate dictionary built based on the code
-                    // using the supplied options and return
-                    Dictionary<string, string> dict = new Dictionary<string, string>();
-                    dict.Add("code", code);
-                    dict.Add("system", options[i, 2]);
-                    dict.Add("value", value);
-                    this.GetType().GetProperty(field).SetValue(this, dict);
-                    return;
-                }
-            }
-            // If we got here we didn't find the code, so it's not a valid option
-            throw new System.ArgumentException($"Code '{code}' is not an allowed value for field {field}");
-        }
-
         /// <summary>Convert a "code" dictionary to a FHIR Coding.</summary>
         /// <param name="dict">represents a code.</param>
         /// <returns>the corresponding Coding representation of the code.</returns>
@@ -1570,66 +1499,6 @@ namespace VR
             return address;
         }
 
-
-        /// <summary>Convert a Date Part Extension to an Array.</summary>
-        /// <param name="datePartAbsent">a Date Part Extension.</param>
-        /// <returns>the corresponding array representation of the date parts.</returns>
-        protected Tuple<string, string>[] DatePartsToArray(Extension datePartAbsent)
-        {
-            List<Tuple<string, string>> dateParts = new List<Tuple<string, string>>();
-            if (datePartAbsent != null)
-            {
-                Extension yearAbsentPart = datePartAbsent.Extension.Where(ext => ext.Url == "year-absent-reason").FirstOrDefault();
-                Extension monthAbsentPart = datePartAbsent.Extension.Where(ext => ext.Url == "month-absent-reason").FirstOrDefault();
-                Extension dayAbsentPart = datePartAbsent.Extension.Where(ext => ext.Url == "day-absent-reason").FirstOrDefault();
-                Extension yearPart = datePartAbsent.Extension.Where(ext => ext.Url == "date-year").FirstOrDefault();
-                Extension monthPart = datePartAbsent.Extension.Where(ext => ext.Url == "date-month").FirstOrDefault();
-                Extension dayPart = datePartAbsent.Extension.Where(ext => ext.Url == "date-day").FirstOrDefault();
-                // Year part
-                if (yearAbsentPart != null)
-                {
-                    dateParts.Add(Tuple.Create("year-absent-reason", yearAbsentPart.Value.ToString()));
-                }
-                if (yearPart != null)
-                {
-                    dateParts.Add(Tuple.Create("date-year", yearPart.Value.ToString()));
-                }
-                // Month part
-                if (monthAbsentPart != null)
-                {
-                    dateParts.Add(Tuple.Create("month-absent-reason", monthAbsentPart.Value.ToString()));
-                }
-                if (monthPart != null)
-                {
-                    dateParts.Add(Tuple.Create("date-month", monthPart.Value.ToString()));
-                }
-                // Day Part
-                if (dayAbsentPart != null)
-                {
-                    dateParts.Add(Tuple.Create("day-absent-reason", dayAbsentPart.Value.ToString()));
-                }
-                if (dayPart != null)
-                {
-                    dateParts.Add(Tuple.Create("date-day", dayPart.Value.ToString()));
-                }
-            }
-            return dateParts.ToArray();
-        }
-
-        /// <summary>Convert an element to an integer or code depending on if the input element is a date part.</summary>
-        /// <param name="pair">A key value pair, the key will be used to identify whether the element is a date part.</param>
-        protected Element DatePartToIntegerOrCode(Tuple<string, string> pair)
-        {
-            if (pair.Item1 == "date-year" || pair.Item1 == "date-month" || pair.Item1 == "date-day")
-            {
-                return new Integer(Int32.Parse(pair.Item2));
-            }
-            else
-            {
-                return new Code(pair.Item2);
-            }
-        }
-
         /// <summary>Convert a FHIR Address to an "address" Dictionary.</summary>
         /// <param name="addr">a FHIR Address.</param>
         /// <returns>the corresponding Dictionary representation of the FHIR Address.</returns>
@@ -1814,22 +1683,6 @@ namespace VR
             }
         }
 
-        /// <summary>Given a FHIR path, return the last element that matches the given path.</summary>
-        /// <param name="path">represents a FHIR path.</param>
-        /// <returns>the last element that matches the given path, or null if no match is found.</returns>
-        public object GetLast(string path)
-        {
-            var matches = Navigator.Select(path);
-            if (matches.Count() > 0)
-            {
-                return matches.Last().Value;
-            }
-            else
-            {
-                return null; // Nothing found
-            }
-        }
-
         /// <summary>Given a FHIR path, return the elements that match the given path as a string;
         /// returns an empty array if no matches are found.</summary>
         /// <param name="path">represents a FHIR path.</param>
@@ -1861,23 +1714,6 @@ namespace VR
             }
         }
 
-        /// <summary>Given a FHIR path, return the last element that matches the given path as a string;
-        /// returns an empty string if no match is found.</summary>
-        /// <param name="path">represents a FHIR path.</param>
-        /// <returns>the last element that matches the given path as a string, or null if no match is found.</returns>
-        protected string GetLastString(string path)
-        {
-            var last = GetLast(path);
-            if (last != null)
-            {
-                return Convert.ToString(last);
-            }
-            else
-            {
-                return null; // Nothing found
-            }
-        }
-
         /// <summary>Get a value from a Dictionary, but return null if the key doesn't exist or the value is an empty string.</summary>
         protected static string GetValue(Dictionary<string, string> dict, string key)
         {
@@ -1886,31 +1722,6 @@ namespace VR
                 return dict[key];
             }
             return null;
-        }
-
-        // /// <summary>Check to make sure the given profile contains the given resource.</summary>
-        // protected static bool MatchesProfile(string resource, string profile)
-        // {
-        //     if (!String.IsNullOrWhiteSpace(profile) && profile.Contains(resource))
-        //     {
-        //         return true;
-        //     }
-        //     return false;
-        // }
-
-        /// <summary>Combine the given dictionaries and return the combined result.</summary>
-        protected static Dictionary<string, string> UpdateDictionary(Dictionary<string, string> a, Dictionary<string, string> b)
-        {
-            Dictionary<string, string> dictionary = new Dictionary<string, string>();
-            foreach (KeyValuePair<string, string> entry in a)
-            {
-                dictionary[entry.Key] = entry.Value;
-            }
-            foreach (KeyValuePair<string, string> entry in b)
-            {
-                dictionary[entry.Key] = entry.Value;
-            }
-            return dictionary;
         }
 
         /// <summary>Helper method to return a JSON string representation of this Vital Record.</summary>
