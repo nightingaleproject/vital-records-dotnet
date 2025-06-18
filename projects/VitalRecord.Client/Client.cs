@@ -11,7 +11,7 @@ namespace VR
     public abstract class Client
     {
         /// <summary>The API url</summary>
-        /// TODO: should Url toggle based on message type?
+        ///TODO: should Url toggle based on message type- VT? 
         /// TODO: does Url also need IG version now?
         public String Url { get; }
         /// <summary>Whether the client is running locally</summary>
