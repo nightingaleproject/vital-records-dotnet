@@ -1,0 +1,58 @@
+{
+  "resourceType": "Bundle",
+  "id": "c579e3bf-33f0-428d-939c-e2dcd97a9b10",
+  "type": "message",
+  "timestamp": "2025-06-19T14:28:48.875604-04:00",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:63fb7212-04e5-4cd8-9490-44acbe916b85",
+      "resource": {
+        "resourceType": "MessageHeader",
+        "id": "63fb7212-04e5-4cd8-9490-44acbe916b85",
+        "eventUri": "http://nchs.cdc.gov/birth_acknowledgement",
+        "destination": [
+          {
+            "endpoint": "http://mitre.org/bfdr"
+          }
+        ],
+        "source": {
+          "endpoint": "http://nchs.cdc.gov/bfdr_submission"
+        },
+        "response": {
+          "identifier": "c36cfa0d-f3d4-4b1a-9df4-410f640b50c3",
+          "code": "ok"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:0d8ed7bd-bb69-4c18-add0-9615d36565d8",
+      "resource": {
+        "resourceType": "Parameters",
+        "id": "0d8ed7bd-bb69-4c18-add0-9615d36565d8",
+        "parameter": [
+          {
+            "name": "cert_no",
+            "valueUnsignedInt": 48858
+          },
+          {
+            "name": "state_auxiliary_id",
+            "valueString": "000000000042"
+          },
+          {
+            "name": "jurisdiction_id",
+            "valueString": "UT"
+          },
+          {
+            "name": "event_year",
+            "valueUnsignedInt": 2019
+          },
+          {
+            "name": "payload_version_id",
+            "valueString": "BFDR_STU2_0"
+          }
+        ]
+      }
+    }
+  ]
+}
+

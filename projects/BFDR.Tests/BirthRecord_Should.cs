@@ -553,7 +553,7 @@ namespace BFDR.Tests
       rec.DateOfBirth = "2023";
       Assert.Equal("2023", rec.DateOfBirth);
       rec.BirthDateTime = "";
-      Assert.Null(rec.DateOfBirth);
+      Assert.Equal(rec.DateOfBirth, "2023");
       Assert.Null(rec.BirthDateTime);
       rec.DateOfBirth = "2023";
       Assert.Equal("2023", rec.DateOfBirth);

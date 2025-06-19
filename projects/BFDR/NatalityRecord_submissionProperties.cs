@@ -286,8 +286,7 @@ namespace BFDR
         {
             if (String.IsNullOrEmpty(value))
             {
-                this.Subject.BirthDate = null;
-                this.Subject.BirthDateElement = null;
+                this.Subject?.BirthDateElement?.RemoveExtension(VR.ExtensionURL.PatientBirthTime);
                 return;
             }
             if (TryParseValidDateTime(value, out DateTimeOffset parsedDateTime))
