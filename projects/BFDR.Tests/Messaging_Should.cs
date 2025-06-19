@@ -1090,7 +1090,7 @@ namespace BFDR.Tests
             Assert.Equal((uint)2025, parsedMessage.EventYear);
             Assert.Equal("2025NJ000001", parsedMessage.NCHSIdentifier);
             Assert.Equal("BFDR_STU2_0", parsedMessage.PayloadVersionId);
-            // TODO: These properties should probably not be returning ICD codes with decimal points
+            // Note: IJE does not use decimal points for ICD codes but FHIR does
             Assert.Equal("P01.1", parsedMessage.FetalDeathRecord.CodedInitiatingFetalCOD);
             Assert.Equal("P02.1", parsedMessage.FetalDeathRecord.OCOD1);
             Assert.Equal("P02.2", parsedMessage.FetalDeathRecord.OCOD2);
