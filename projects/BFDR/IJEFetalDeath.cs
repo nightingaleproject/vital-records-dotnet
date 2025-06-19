@@ -242,9 +242,14 @@ namespace BFDR
         [IJEField(6, 26, 4, "Time of Delivery", "TD", 4)]
         public string TD
         {
-            get => GetTimeIJEFormatted(record.DateTimeOfDelivery);
-            set => record.DateTimeOfDelivery = AddTime(value, record.DateOfDelivery);
-        }
+            get => GetTimeIJEFormatted(record.DateTimeOfDelivery) ?? "".PadLeft(4);
+            set {
+                string potentialDateTime = AddTime(value, record.DateOfDelivery);
+                if (potentialDateTime != null)
+                {
+                    record.DateTimeOfDelivery = potentialDateTime;
+                }
+            }        }
 
         /// <summary>Sex</summary>
         [IJEField(7, 30, 1, "Sex", "FSEX", 1)]

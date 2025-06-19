@@ -5,6 +5,7 @@ using Xunit;
 using System;
 using Hl7.Fhir.Model;
 using System.Linq;
+using System.Reflection;
 
 namespace BFDR.Tests
 {
@@ -1130,18 +1131,18 @@ namespace BFDR.Tests
       Assert.Null(fhir.FatherOccupation);
       Assert.Equal("", ije.DAD_OC_T.Trim());
       Assert.Null(fhir.MotherIndustry);
-      Assert.Equal("",ije.MOM_IN_T.Trim());
+      Assert.Equal("", ije.MOM_IN_T.Trim());
       Assert.Null(fhir.FatherIndustry);
-      Assert.Equal("",ije.DAD_IN_T.Trim());
+      Assert.Equal("", ije.DAD_IN_T.Trim());
       ije.MOM_OC_T = "scientist";
       Assert.Equal("scientist", ije.MOM_OC_T.Trim());
       Assert.Equal("scientist", fhir.MotherOccupation);
       Assert.Null(fhir.MotherIndustry);
-      Assert.Equal("",ije.MOM_IN_T.Trim());
+      Assert.Equal("", ije.MOM_IN_T.Trim());
       Assert.Null(fhir.FatherOccupation);
       Assert.Equal("", ije.DAD_OC_T.Trim());
       Assert.Null(fhir.FatherIndustry);
-      Assert.Equal("",ije.DAD_IN_T.Trim());
+      Assert.Equal("", ije.DAD_IN_T.Trim());
       ije.MOM_IN_T = "public health";
       Assert.Equal("scientist", ije.MOM_OC_T.Trim());
       Assert.Equal("scientist", fhir.MotherOccupation);
@@ -1150,7 +1151,7 @@ namespace BFDR.Tests
       Assert.Null(fhir.FatherOccupation);
       Assert.Equal("", ije.DAD_OC_T.Trim());
       Assert.Null(fhir.FatherIndustry);
-      Assert.Equal("",ije.DAD_IN_T.Trim());
+      Assert.Equal("", ije.DAD_IN_T.Trim());
       ije.DAD_IN_T = "real estate";
       Assert.Equal("scientist", ije.MOM_OC_T.Trim());
       Assert.Equal("scientist", fhir.MotherOccupation);
@@ -1252,27 +1253,27 @@ namespace BFDR.Tests
     [Fact]
     public void TestMotherHeightPropertiesSetter()
     {
-        BirthRecord record = new BirthRecord();
-        IJEBirth ije1 = new IJEBirth(record);
-        // Height
-        Assert.Equal("99",ije1.HIN);
-        Assert.Equal("9",ije1.HFT);
-        ije1.HFT = "5";
-        ije1.HIN = "7";
-        Assert.Equal("07", ije1.HIN);
-        Assert.Equal("5", ije1.HFT);
-        ije1.HFT = "5";
-        ije1.HIN = "3";
-        Assert.Equal("5", ije1.HFT);
-        Assert.Equal("03", ije1.HIN);
-        // Edit Flag
-        Assert.Equal("", ije1.HGT_BYPASS);
-        ije1.HGT_BYPASS = "1";
-        Assert.Equal("1", ije1.HGT_BYPASS);
-        // FHIR translations
-        BirthRecord record1 = new BirthRecord(ije1.ToRecord().ToXML());
-        Assert.Equal(63, record1.MotherHeight);
-        Assert.Equal(VR.ValueSets.EditBypass01234.Edit_Failed_Data_Queried_And_Verified, record1.MotherHeightEditFlag["code"]);
+      BirthRecord record = new BirthRecord();
+      IJEBirth ije1 = new IJEBirth(record);
+      // Height
+      Assert.Equal("99", ije1.HIN);
+      Assert.Equal("9", ije1.HFT);
+      ije1.HFT = "5";
+      ije1.HIN = "7";
+      Assert.Equal("07", ije1.HIN);
+      Assert.Equal("5", ije1.HFT);
+      ije1.HFT = "5";
+      ije1.HIN = "3";
+      Assert.Equal("5", ije1.HFT);
+      Assert.Equal("03", ije1.HIN);
+      // Edit Flag
+      Assert.Equal("", ije1.HGT_BYPASS);
+      ije1.HGT_BYPASS = "1";
+      Assert.Equal("1", ije1.HGT_BYPASS);
+      // FHIR translations
+      BirthRecord record1 = new BirthRecord(ije1.ToRecord().ToXML());
+      Assert.Equal(63, record1.MotherHeight);
+      Assert.Equal(VR.ValueSets.EditBypass01234.Edit_Failed_Data_Queried_And_Verified, record1.MotherHeightEditFlag["code"]);
     }
 
     [Fact]
@@ -1413,7 +1414,8 @@ namespace BFDR.Tests
     }
 
     [Fact]
-    public void BlankEights() {
+    public void BlankEights()
+    {
       IJEBirth ije = new()
       {
           YOPO = "2020",
@@ -1478,6 +1480,27 @@ namespace BFDR.Tests
       Assert.Equal("1", ije.VOID);
       ije.VOID = "2";
       Assert.Equal("0", ije.VOID);
+    }
+    
+    [Fact]
+    public void RecordIJERoundTrip()
+    {
+      BirthRecord b = new BirthRecord(File.ReadAllText("fixtures/json/BasicBirthRecord.json"));
+      IJEBirth ije1, ije2, ije3;
+      ije1 = new IJEBirth(b);
+      ije2 = new IJEBirth(ije1.ToString());
+      ije3 = new IJEBirth(new BirthRecord(ije2.ToRecord().ToXML()));
+      foreach (PropertyInfo property in typeof(IJEBirth).GetProperties())
+      {
+        string val1 = Convert.ToString(property.GetValue(ije1, null));
+        string val2 = Convert.ToString(property.GetValue(ije2, null));
+        string val3 = Convert.ToString(property.GetValue(ije3, null));
+        IJEField info = property.GetCustomAttribute<IJEField>();
+        if (val1.ToUpper() != val2.ToUpper() || val1.ToUpper() != val3.ToUpper() || val2.ToUpper() != val3.ToUpper())
+        {
+          Assert.Fail($"[***** MISMATCH *****]\t{info.Name}: {info.Contents} \t\t\"{val1}\" != \"{val2}\" != \"{val3}\"");
+        }
+      }
     }
   }
 }
