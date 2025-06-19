@@ -128,8 +128,8 @@ namespace BFDR
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='11341-5')", "")]
         public Dictionary<string, string> FatherCodedOccupation
         {
-            get => GetCodedOccupation("MTH");
-            set => SetCodedOccupation("MTH", value);
+            get => GetCodedOccupation("FTH");
+            set => SetCodedOccupation("FTH", value);
         }
 
         /// <summary>Coded Occupation of Father Helper.</summary>

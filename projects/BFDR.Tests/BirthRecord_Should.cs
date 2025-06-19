@@ -3856,10 +3856,10 @@ namespace BFDR.Tests
       Assert.Equal("industry_occupation_document", composition.Type.Coding[0].Code);
       // Test that the information that can't be represented in IJE was set correctly
       BirthRecord record2 = new BirthRecord(bundle.ToJson());
-      Assert.Equal(record.MotherCodedOccupationHelper, record2.MotherCodedOccupationHelper);
-      Assert.Equal(record.FatherCodedOccupationHelper, record2.FatherCodedOccupationHelper);
-      Assert.Equal(record.MotherCodedIndustryHelper, record2.MotherCodedIndustryHelper);
-      Assert.Equal(record.FatherCodedIndustryHelper, record2.FatherCodedIndustryHelper);
+      Assert.Equal("13-2011", record2.MotherCodedOccupationHelper);
+      Assert.Equal("27-2011", record2.FatherCodedOccupationHelper);
+      Assert.Equal("54121", record2.MotherCodedIndustryHelper);
+      Assert.Equal("5223", record2.FatherCodedIndustryHelper);
       // Test that the values that can be represented in IJE were set correctly
       IJEBirth ije2 = new IJEBirth(record2);
       // Make sure that all the field values match the original
