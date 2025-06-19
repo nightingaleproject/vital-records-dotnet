@@ -5,6 +5,7 @@ using Xunit;
 using System;
 using Hl7.Fhir.Model;
 using System.Linq;
+using System.Reflection;
 
 namespace BFDR.Tests
 {
@@ -1484,6 +1485,27 @@ namespace BFDR.Tests
       Assert.Equal("1", ije.VOID);
       ije.VOID = "2";
       Assert.Equal("0", ije.VOID);
+    }
+    
+    [Fact]
+    public void RecordIJERoundTrip()
+    {
+      BirthRecord b = new BirthRecord(File.ReadAllText("fixtures/json/BasicBirthRecord.json"));
+      IJEBirth ije1, ije2, ije3;
+      ije1 = new IJEBirth(b);
+      ije2 = new IJEBirth(ije1.ToString());
+      ije3 = new IJEBirth(new BirthRecord(ije2.ToRecord().ToXML()));
+      foreach (PropertyInfo property in typeof(IJEBirth).GetProperties())
+      {
+        string val1 = Convert.ToString(property.GetValue(ije1, null));
+        string val2 = Convert.ToString(property.GetValue(ije2, null));
+        string val3 = Convert.ToString(property.GetValue(ije3, null));
+        IJEField info = property.GetCustomAttribute<IJEField>();
+        if (val1.ToUpper() != val2.ToUpper() || val1.ToUpper() != val3.ToUpper() || val2.ToUpper() != val3.ToUpper())
+        {
+          Assert.Fail($"[***** MISMATCH *****]\t{info.Name}: {info.Contents} \t\t\"{val1}\" != \"{val2}\" != \"{val3}\"");
+        }
+      }
     }
   }
 }

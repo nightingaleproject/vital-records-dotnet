@@ -1,21 +1,10 @@
 using System;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using System.Reflection;
-using System.Net.Http;
-using Hl7.Fhir.Model;
-using Hl7.Fhir.Serialization;
-using Hl7.Fhir.ElementModel;
 using Hl7.FhirPath;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using BFDR;
 using VR;
 
 namespace BFDR.CLI
@@ -909,11 +898,11 @@ namespace BFDR.CLI
                     if (val1.ToUpper() != val2.ToUpper() || val1.ToUpper() != val3.ToUpper() || val2.ToUpper() != val3.ToUpper())
                     {
                         issues++;
-                        Console.WriteLine($"[***** MISMATCH *****]\t{info.Name}: {info.Contents} \t\t\"{val1}\" != \"{val2}\" != \"{val3}\"");
+                        Console.Error.WriteLine($"[***** MISMATCH *****]\t{info.Name}: {info.Contents} \t\t\"{val1}\" != \"{val2}\" != \"{val3}\"");
                     }
                     total++;
                 }
-                Console.WriteLine($"\n{issues} issues out of {total} total fields.");
+                Console.Error.WriteLine($"\n{issues} issues out of {total} total fields.");
                 return issues;
             }
             else if (args.Length == 3 && args[0] == "roundtrip-all" && args[1] == "birth")

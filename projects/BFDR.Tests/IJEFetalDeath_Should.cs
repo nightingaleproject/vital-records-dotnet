@@ -1,5 +1,7 @@
 using System;
 using System.IO;
+using System.Reflection;
+using VR;
 using Xunit;
 
 namespace BFDR.Tests
@@ -137,6 +139,46 @@ namespace BFDR.Tests
       ije.DPLACE = "4";
       Assert.Equal("408838003", ije.ToRecord().DeliveryPhysicalLocationHelper);
       Assert.Equal("4", ije.DPLACE);
+    }
+
+    [Fact]
+    public void RoundTripDates()
+    {
+      string rawIJE = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/ConnectathonFetalDeathRecord.ije")));
+      IJEFetalDeath ije1 = new IJEFetalDeath(rawIJE);
+      IJEFetalDeath ije2 = new IJEFetalDeath(ije1.ToString());
+      IJEFetalDeath ije3 = new IJEFetalDeath(new FetalDeathRecord(ije2.ToRecord().ToXML()));
+
+      Assert.Equal("2024", ije1.FDOD_YR);
+      Assert.Equal("12", ije1.FDOD_MO);
+      Assert.Equal("13", ije1.FDOD_DY);
+      Assert.Equal("2024", ije2.FDOD_YR);
+      Assert.Equal("12", ije2.FDOD_MO);
+      Assert.Equal("13", ije2.FDOD_DY);
+      Assert.Equal("2024", ije3.FDOD_YR);
+      Assert.Equal("12", ije3.FDOD_MO);
+      Assert.Equal("13", ije3.FDOD_DY);
+    }
+
+    [Fact]
+    public void RecordIJERoundTrip()
+    {
+      FetalDeathRecord b = new FetalDeathRecord(File.ReadAllText("fixtures/json/BasicFetalDeathRecord.json"));
+      IJEFetalDeath ije1, ije2, ije3;
+      ije1 = new IJEFetalDeath(b);
+      ije2 = new IJEFetalDeath(ije1.ToString());
+      ije3 = new IJEFetalDeath(new FetalDeathRecord(ije2.ToRecord().ToXML()));
+      foreach (PropertyInfo property in typeof(IJEFetalDeath).GetProperties())
+      {
+        string val1 = Convert.ToString(property.GetValue(ije1, null));
+        string val2 = Convert.ToString(property.GetValue(ije2, null));
+        string val3 = Convert.ToString(property.GetValue(ije3, null));
+        IJEField info = property.GetCustomAttribute<IJEField>();
+        if (val1.ToUpper() != val2.ToUpper() || val1.ToUpper() != val3.ToUpper() || val2.ToUpper() != val3.ToUpper())
+        {
+          Assert.Fail($"[***** MISMATCH *****]\t{info.Name}: {info.Contents} \t\t\"{val1}\" != \"{val2}\" != \"{val3}\"");
+        }
+      }
     }
 
     [Fact]

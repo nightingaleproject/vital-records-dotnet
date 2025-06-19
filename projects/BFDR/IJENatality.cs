@@ -239,7 +239,7 @@ namespace BFDR
         {
             if (String.IsNullOrWhiteSpace(value))
             {
-                return "";
+                return null;
             }
             VitalRecord.ParseDateElements(date, out int? year, out int? month, out int? day);
             if (year == null || month == null || day == null)
