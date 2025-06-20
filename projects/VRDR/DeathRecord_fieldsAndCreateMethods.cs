@@ -39,9 +39,7 @@ namespace VRDR
         /// <summary>The Decedent.</summary>
         private Patient Decedent;
 
-        /// <summary>The Decedent's Race and Ethnicity provided by Jurisdiction.</summary>
-        private Observation InputRaceAndEthnicityObs;
-
+      
         /// <summary>CompositionSections that define the codes that represent the different sections in the composition</summary>
         protected override string[] CompositionSections
         {
@@ -49,22 +47,6 @@ namespace VRDR
             {
                 return new string[]{ "DecedentDemographics", "DeathInvestigation", "DeathCertification", "DecedentDisposition", "CodedContent"};
             }
-        }
-
-        /// <summary> Create Input Race and Ethnicity </summary>
-
-        private void CreateInputRaceEthnicityObs()
-        {
-            InputRaceAndEthnicityObs = new Observation();
-            InputRaceAndEthnicityObs.Id = Guid.NewGuid().ToString();
-            InputRaceAndEthnicityObs.Meta = new Meta();
-            string[] raceethnicity_profile = { VR.ProfileURL.InputRaceAndEthnicity };
-            InputRaceAndEthnicityObs.Meta.Profile = raceethnicity_profile;
-            InputRaceAndEthnicityObs.Status = ObservationStatus.Final;
-            InputRaceAndEthnicityObs.Code = new CodeableConcept(CodeSystems.ObservationCode, "inputraceandethnicity", "Input Race and Ethnicity", null);
-            InputRaceAndEthnicityObs.Subject = new ResourceReference("urn:uuid:" + Decedent.Id);
-            AddReferenceToComposition(InputRaceAndEthnicityObs.Id, "DecedentDemographics");
-            Bundle.AddResourceEntry(InputRaceAndEthnicityObs, "urn:uuid:" + InputRaceAndEthnicityObs.Id);
         }
 
         /// <summary>The Certifier.</summary>
@@ -278,9 +260,6 @@ namespace VRDR
         }
 
 
-
-        /// <summary>Emerging Issues.</summary>
-        protected Observation EmergingIssues;
 
         /// <summary> Coding Status </summary>
         private Parameters CodingStatusValues;
@@ -636,23 +615,6 @@ namespace VRDR
             Bundle.AddResourceEntry(PlaceOfInjuryObs, "urn:uuid:" + PlaceOfInjuryObs.Id);
         }
 
-        /// <summary>The Decedent's Race and Ethnicity provided by Jurisdiction.</summary>
-        private Observation CodedRaceAndEthnicityObs;
-
-        /// <summary>Create an empty CodedRaceAndEthnicityObs, to be populated in Various Methods.</summary>
-        private void CreateCodedRaceAndEthnicityObs()
-        {
-            CodedRaceAndEthnicityObs = new Observation();
-            CodedRaceAndEthnicityObs.Id = Guid.NewGuid().ToString();
-            CodedRaceAndEthnicityObs.Meta = new Meta();
-            string[] profile = { VR.ProfileURL.CodedRaceAndEthnicity };
-            CodedRaceAndEthnicityObs.Meta.Profile = profile;
-            CodedRaceAndEthnicityObs.Status = ObservationStatus.Final;
-            CodedRaceAndEthnicityObs.Code = new CodeableConcept(CodeSystems.ObservationCode, "codedraceandethnicity", "Coded Race and Ethnicity", null);
-            CodedRaceAndEthnicityObs.Subject = new ResourceReference("urn:uuid:" + Decedent.Id);
-            AddReferenceToComposition(CodedRaceAndEthnicityObs.Id, "CodedContent");
-            Bundle.AddResourceEntry(CodedRaceAndEthnicityObs, "urn:uuid:" + CodedRaceAndEthnicityObs.Id);
-        }
         /// <summary>Entity Axis Cause of Death</summary>
         private List<Observation> EntityAxisCauseOfDeathObsList;
 
