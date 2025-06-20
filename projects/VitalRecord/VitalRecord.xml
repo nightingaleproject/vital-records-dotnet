@@ -4,6 +4,18 @@
         <name>VitalRecord</name>
     </assembly>
     <members>
+        <member name="T:BundleTypeException">
+            <summary>Thrown to indicate that a bundle is of the incorrect type for the current context</summary>
+        </member>
+        <member name="M:BundleTypeException.#ctor">
+            <summary>Create an exception with a default message</summary>
+        </member>
+        <member name="M:BundleTypeException.#ctor(System.String)">
+            <summary>Create an exception with a specified message</summary>
+        </member>
+        <member name="M:BundleTypeException.#ctor(System.String,System.Exception)">
+            <summary>Create an exception with a specified message and inner (causal) exception</summary>
+        </member>
         <member name="T:VR.CodeSystems">
             <summary>Single definitions for CodeSystem OIDs and URLs used throughout. </summary>
         </member>
