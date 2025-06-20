@@ -1,21 +1,10 @@
 using System;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using System.Reflection;
-using System.Net.Http;
-using Hl7.Fhir.Model;
-using Hl7.Fhir.Serialization;
-using Hl7.Fhir.ElementModel;
 using Hl7.FhirPath;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using BFDR;
 using VR;
 
 namespace BFDR.CLI
@@ -62,12 +51,9 @@ namespace BFDR.CLI
             {
                 // 0. Set up a BirthRecord object
                 BirthRecord birthRecord = new BirthRecord();
-                birthRecord.BirthYear = 2023;
-                birthRecord.BirthMonth = 1;
-                birthRecord.BirthDay = 1;
+                birthRecord.DateOfBirth = "2023-01-02";
                 birthRecord.CertificateNumber = "100";
                 birthRecord.StateLocalIdentifier1 = "123";
-                birthRecord.DateOfBirth = "2023-01-01";
                 birthRecord.BirthSex = "M";
 
                 string[] childNames = { "Alexander", "Arlo" };
@@ -130,13 +116,7 @@ namespace BFDR.CLI
                 birthRecord.MotherResidence = motherResidence;
 
                 // Mother and Father birthdate
-                birthRecord.MotherBirthDay = 12;
-                birthRecord.MotherBirthMonth = 1;
-                birthRecord.MotherBirthYear = 1992;
                 birthRecord.MotherDateOfBirth = "1992-01-12";
-                birthRecord.FatherBirthDay = 21;
-                birthRecord.FatherBirthMonth = 9;
-                birthRecord.FatherBirthYear = 1990;
                 birthRecord.FatherDateOfBirth = "1990-09-21";
 
                 // Mother and Father education
@@ -164,9 +144,7 @@ namespace BFDR.CLI
             {
                 // 0. Set up a FetalDeathRecord object
                 FetalDeathRecord fetaldeathRecord = new FetalDeathRecord();
-                fetaldeathRecord.DeliveryYear = 2023;
-                fetaldeathRecord.DeliveryMonth = 1;
-                fetaldeathRecord.DeliveryDay = 1;
+                fetaldeathRecord.DateOfDelivery = "2023-01-01";
                 fetaldeathRecord.CertificateNumber = "100";
                 fetaldeathRecord.StateLocalIdentifier1 = "123";
                 fetaldeathRecord.DateOfDelivery = "2023-01-01";
@@ -231,13 +209,7 @@ namespace BFDR.CLI
                 fetaldeathRecord.MotherResidence = motherResidence;
 
                 // Mother and Father birthdates
-                fetaldeathRecord.MotherBirthDay = 12;
-                fetaldeathRecord.MotherBirthMonth = 1;
-                fetaldeathRecord.MotherBirthYear = 1992;
                 fetaldeathRecord.MotherDateOfBirth = "1992-01-12";
-                fetaldeathRecord.FatherBirthDay = 21;
-                fetaldeathRecord.FatherBirthMonth = 9;
-                fetaldeathRecord.FatherBirthYear = 1990;
                 fetaldeathRecord.FatherDateOfBirth = "1990-09-21";
 
                 // Mother and Father Education
@@ -926,11 +898,11 @@ namespace BFDR.CLI
                     if (val1.ToUpper() != val2.ToUpper() || val1.ToUpper() != val3.ToUpper() || val2.ToUpper() != val3.ToUpper())
                     {
                         issues++;
-                        Console.WriteLine($"[***** MISMATCH *****]\t{info.Name}: {info.Contents} \t\t\"{val1}\" != \"{val2}\" != \"{val3}\"");
+                        Console.Error.WriteLine($"[***** MISMATCH *****]\t{info.Name}: {info.Contents} \t\t\"{val1}\" != \"{val2}\" != \"{val3}\"");
                     }
                     total++;
                 }
-                Console.WriteLine($"\n{issues} issues out of {total} total fields.");
+                Console.Error.WriteLine($"\n{issues} issues out of {total} total fields.");
                 return issues;
             }
             else if (args.Length == 3 && args[0] == "roundtrip-all" && args[1] == "birth")

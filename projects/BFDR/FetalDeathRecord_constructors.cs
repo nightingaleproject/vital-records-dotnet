@@ -30,11 +30,11 @@ namespace BFDR
     /// <exception cref="ArgumentException">Record is invalid.</exception>
     public FetalDeathRecord(Bundle bundle) : base(bundle) { }
 
-    /// <summary>Return the birth year for this record to be used in the identifier</summary>
+    /// <summary>Return the delivery year for this record to be used in the identifier</summary>
     public override uint? GetYear()
     {
-      // TODO: Uncomment and remove null return when DeliveryYear is implemented
-      return (uint?)this.DeliveryYear;
+      ParseDateElements(this.DateOfDelivery, out int? year, out _, out _);
+      return (uint?) year;
     }
 
       /// <summary>Helper method to return the subset of this record that makes up a CodedCauseOfFetalDeath bundle.</summary>

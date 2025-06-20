@@ -415,15 +415,6 @@ namespace BFDR.Tests
       // Record State Local Identifier 1
       Assert.Equal("444455555", firstRecord.StateLocalIdentifier1);
       Assert.Equal(firstRecord.StateLocalIdentifier1, secondRecord.StateLocalIdentifier1);
-      // Date of Birth - Year
-      Assert.Equal(2019, firstRecord.BirthYear);
-      Assert.Equal(firstRecord.BirthYear, secondRecord.BirthYear);
-      // Date of Birth - Month
-      Assert.Equal(2, firstRecord.BirthMonth);
-      Assert.Equal(firstRecord.BirthMonth, secondRecord.BirthMonth);
-      // Date of Birth - Day
-      Assert.Equal(12, firstRecord.BirthDay);
-      Assert.Equal(firstRecord.BirthDay, secondRecord.BirthDay);
       // Complete Date of Birth.
       Assert.Equal("2019-02-12", firstRecord.DateOfBirth);
       Assert.Equal(firstRecord.DateOfBirth, secondRecord.DateOfBirth);
@@ -432,8 +423,8 @@ namespace BFDR.Tests
       Assert.Equal(firstRecord.PlaceOfBirth["addressState"], secondRecord.PlaceOfBirth["addressState"]);
       Assert.Equal("UT", firstRecord.EventLocationJurisdiction); // TODO - Birth Location Jurisdiction still needs to be finalized.
       // Time of Birth
-      Assert.Equal("13:00:00", firstRecord.BirthTime);
-      Assert.Equal(firstRecord.BirthTime, secondRecord.BirthTime);
+      Assert.Contains("13:00:00", firstRecord.BirthDateTime);
+      Assert.Equal(firstRecord.BirthDateTime, secondRecord.BirthDateTime);
       // Birth Sex
       Assert.Equal("F", firstRecord.BirthSex);
       // Plurality
@@ -488,16 +479,6 @@ namespace BFDR.Tests
       string firstDescription = firstRecord.ToDescription();
       // Test conversion via FromDescription.
       BirthRecord secondRecord = VitalRecord.FromDescription<BirthRecord>(firstDescription);
-
-      // Mother Date of Birth - Year
-      Assert.Equal(1985, firstRecord.MotherBirthYear);
-      Assert.Equal(firstRecord.MotherBirthYear, secondRecord.MotherBirthYear);
-      // Mother Date of Birth - Month
-      Assert.Equal(1, firstRecord.MotherBirthMonth);
-      Assert.Equal(firstRecord.MotherBirthMonth, secondRecord.MotherBirthMonth);
-      // Mother Date of Birth - Day
-      Assert.Equal(15, firstRecord.MotherBirthDay);
-      Assert.Equal(firstRecord.MotherBirthDay, secondRecord.MotherBirthDay);
       // Mother Complete Date of Birth.
       Assert.Equal("1985-01-15", firstRecord.MotherDateOfBirth);
       Assert.Equal(firstRecord.MotherDateOfBirth, secondRecord.MotherDateOfBirth);
@@ -511,191 +492,101 @@ namespace BFDR.Tests
       string firstDescription = firstRecord.ToDescription();
       // Test conversion via FromDescription.
       BirthRecord secondRecord = VitalRecord.FromDescription<BirthRecord>(firstDescription);
-
-      // Father Date of Birth - Year
-      Assert.Equal(1972, firstRecord.FatherBirthYear);
-      Assert.Equal(firstRecord.FatherBirthYear, secondRecord.FatherBirthYear);
-      // Father Date of Birth - Month
-      Assert.Equal(11, firstRecord.FatherBirthMonth);
-      Assert.Equal(firstRecord.FatherBirthMonth, secondRecord.FatherBirthMonth);
-      // Father Date of Birth - Day
-      Assert.Equal(24, firstRecord.FatherBirthDay);
-      Assert.Equal(firstRecord.FatherBirthDay, secondRecord.FatherBirthDay);
       // Father Complete Date of Birth.
       Assert.Equal("1972-11-24", firstRecord.FatherDateOfBirth);
       Assert.Equal(firstRecord.FatherDateOfBirth, secondRecord.FatherDateOfBirth);
     }
 
     [Fact]
-    public void TestChildBirthDateSetters()
+    public void TestChildBirthDateTimeSetters()
     {
-      BirthRecord record1 = new BirthRecord();
-      // Date of Birth - Year
-      record1.BirthYear = 2021;
-      Assert.Equal(2021, record1.BirthYear);
-      // Date of Birth - Month
-      record1.BirthMonth = 3;
-      Assert.Equal(3, record1.BirthMonth);
-      // Date of Birth - Day
-      record1.BirthDay = 9;
-      Assert.Equal(9, record1.BirthDay);
-      // Complete Date of Birth.
-      Assert.Equal("2021-03-09", record1.DateOfBirth);
-      // TODO - there should be a test that double checks that the output FHIR JSON has the _birthDate and birthDate.
-      // Time of Birth
-      record1.BirthTime = "13:00:00";
-      Assert.Equal("13:00:00", record1.BirthTime);
-
-      // Test setting unknown date components
-      record1.BirthMonth = -1;
-      Assert.Equal("2021", record1.DateOfBirth);
-      record1.BirthMonth = 7;
-      Assert.Equal("2021-07-09", record1.DateOfBirth);
-      record1.BirthYear = -1;
-      Assert.Null(record1.DateOfBirth);
-      record1.BirthYear = 2020;
-      Assert.Equal("2020-07-09", record1.DateOfBirth);
-
-
-      // Test in a different order.
-      BirthRecord record2 = new BirthRecord();
-      // Time of Birth
-      record2.BirthTime = "07:30:00";
-      Assert.Equal("07:30:00", record2.BirthTime);
-      // Date of Birth - Day
-      record2.BirthDay = 29;
-      Assert.Equal(29, record2.BirthDay);
-      // Date of Birth - Month
-      record2.BirthMonth = 11;
-      Assert.Equal(11, record2.BirthMonth);
-      // Date of Birth - Year
-      record2.BirthYear = 2022;
-      Assert.Equal(2022, record2.BirthYear);
-      // Complete Date of Birth.
-      Assert.Equal("2022-11-29", record2.DateOfBirth);
-      record2.DateOfBirth = "2022-10-28";
-      Assert.Equal("2022-10-28", record2.DateOfBirth);
-      Assert.Equal(28, record2.BirthDay);
-      Assert.Equal(10, record2.BirthMonth);
-      Assert.Equal(2022, record2.BirthYear);
-      Assert.Equal("07:30:00", record2.BirthTime);
-
-      // Test updating a completed date.
-      BirthRecord record3 = new BirthRecord();
-      record3.DateOfBirth = "1990-10-08";
-      record3.BirthMonth = 8;
-      record3.BirthTime = "12:36:00";
-      Assert.Equal("1990-08-08", record3.DateOfBirth);
-      Assert.Equal("12:36:00", record3.BirthTime);
-
-      // Test partial dates and times.
-      BirthRecord record4 = new BirthRecord();
-      // Birth Time
-      record4.BirthTime = "12:36:00";
-      Assert.Equal("12:36:00", record4.BirthTime);
-      // Date of Birth - Year
-      record4.BirthYear = 1992;
-      Assert.Equal(1992, record4.BirthYear);
-      Assert.Equal("1992", record4.DateOfBirth);
-      Assert.Equal("12:36:00", record4.BirthTime);
-      // Date of Birth - Month
-      record4.BirthMonth = 7;
-      Assert.Equal(7, record4.BirthMonth);
-      Assert.Equal("1992-07", record4.DateOfBirth);
-      Assert.Equal("12:36:00", record4.BirthTime);
-      // Date of Birth - Day
-      record4.BirthDay = 3;
-      Assert.Equal(3, record4.BirthDay);
-      Assert.Equal("12:36:00", record4.BirthTime);
-      // Complete Date of Birth.
-      Assert.Equal("1992-07-03", record4.DateOfBirth);
-      record4.DateOfBirth = "1993-06";
-      Assert.Equal("1993-06", record4.DateOfBirth);
-      Assert.Null(record4.BirthDay);
-      Assert.Equal(6, record4.BirthMonth);
-      Assert.Equal(1993, record4.BirthYear);
-      Assert.Equal("12:36:00", record4.BirthTime);
-      record4.DateOfBirth = "1994";
-      Assert.Equal("1994", record4.DateOfBirth);
-      Assert.Null(record4.BirthDay);
-      Assert.Null(record4.BirthMonth);
-      Assert.Equal(1994, record4.BirthYear);
-      Assert.Equal("12:36:00", record4.BirthTime);
-      // Birth time again
-      record4.BirthTime = "09:45:28";
-      Assert.Equal("1994", record4.DateOfBirth);
-      Assert.Null(record4.BirthDay);
-      Assert.Null(record4.BirthMonth);
-      Assert.Equal(1994, record4.BirthYear);
-      Assert.Equal("09:45:28", record4.BirthTime);
-
-      // Test partial dates and times in weird orders.
-      BirthRecord record5 = new BirthRecord();
-      // Date of Birth - Day
-      record5.BirthDay = 5;
-      Assert.Equal(5, record5.BirthDay);
-      Assert.Null(record5.DateOfBirth);
-      Assert.Null(record5.BirthTime);
-      // Birth Time
-      record5.BirthTime = "01:05:04";
-      Assert.Equal(5, record5.BirthDay);
-      Assert.Null(record5.DateOfBirth);
-      Assert.Equal("01:05:04", record5.BirthTime);
-      // Date of Birth - Month
-      record5.BirthMonth = 9;
-      Assert.Equal(5, record5.BirthDay);
-      Assert.Equal(9, record5.BirthMonth);
-      Assert.Null(record5.DateOfBirth);
-      Assert.Equal("01:05:04", record5.BirthTime);
-      // Date of Birth - Year
-      record5.BirthYear = 1988;
-      Assert.Equal(5, record5.BirthDay);
-      Assert.Equal(9, record5.BirthMonth);
-      Assert.Equal(1988, record5.BirthYear);
-      Assert.Equal("1988-09-05", record5.DateOfBirth);
-      Assert.Equal("01:05:04", record5.BirthTime);
-    }
-
-    [Fact]
-    public void TestChildBirthDateTimeUnknowns()
-    {
-      BirthRecord record1 = new BirthRecord();
-      record1.DateOfBirth = "1990-08-29";
-      record1.BirthTime = "11:22:33";
-      Assert.Equal("1990-08-29", record1.DateOfBirth);
-      Assert.Equal("11:22:33", record1.BirthTime);
-      record1.BirthYear = -1;
-      Assert.Equal(-1, record1.BirthYear);
-      Assert.Equal(8, record1.BirthMonth);
-      Assert.Equal(29, record1.BirthDay);
-      Assert.Null(record1.DateOfBirth);
-      Assert.Equal("11:22:33", record1.BirthTime);
-      record1.BirthYear = 2000;
-      Assert.Equal(2000, record1.BirthYear);
-      Assert.Equal(8, record1.BirthMonth);
-      Assert.Equal(29, record1.BirthDay);
-      Assert.Equal("11:22:33", record1.BirthTime);
-      record1.BirthTime = "-1";
-      Assert.Equal(2000, record1.BirthYear);
-      Assert.Equal(8, record1.BirthMonth);
-      Assert.Equal(29, record1.BirthDay);
-      Assert.Equal("-1", record1.BirthTime);
-      record1.BirthMonth = -1;
-      Assert.Equal("2000", record1.DateOfBirth);
-      Assert.Equal(-1, record1.BirthMonth);
-      Assert.Equal(29, record1.BirthDay);
-      Assert.Equal("-1", record1.BirthTime);
-      record1.BirthMonth = 3;
-      Assert.Equal("2000-03-29", record1.DateOfBirth);
-      Assert.Equal("-1", record1.BirthTime);
-      record1.BirthDay = -1;
-      Assert.Equal(-1, record1.BirthDay);
-      Assert.Equal("2000-03", record1.DateOfBirth);
-      Assert.Equal("-1", record1.BirthTime);
-      record1.BirthTime = "07:52:43";
-      Assert.Equal(-1, record1.BirthDay);
-      Assert.Equal("2000-03", record1.DateOfBirth);
-      Assert.Equal("07:52:43", record1.BirthTime);
+      BirthRecord rec = new();
+      Assert.Null(rec.DateOfBirth);
+      Assert.Null(rec.BirthDateTime);
+      rec.DateOfBirth = "2021";
+      Assert.Equal("2021", rec.DateOfBirth);
+      Assert.Null(rec.BirthDateTime);
+      rec.DateOfBirth = "2021-03";
+      Assert.Equal("2021-03", rec.DateOfBirth);
+      Assert.Null(rec.BirthDateTime);
+      rec.DateOfBirth = "2021-03-09";
+      Assert.Equal("2021-03-09", rec.DateOfBirth);
+      Assert.Null(rec.BirthDateTime);
+      rec.BirthDateTime = "2024-08-23T13:00:00+8:00";
+      Assert.Equal("2024-08-23", rec.DateOfBirth);
+      Assert.Equal("2024-08-23T13:00:00+08:00", rec.BirthDateTime);
+      rec.BirthDateTime = "2020-11-28T10:23:45+01:24";
+      Assert.Equal("2020-11-28", rec.DateOfBirth);
+      Assert.Equal("2020-11-28T10:23:45+01:24", rec.BirthDateTime);
+      rec.BirthDateTime = "2022-02-12T09:00+5:30";
+      Assert.Equal("2022-02-12", rec.DateOfBirth);
+      Assert.Equal("2022-02-12T09:00:00+05:30", rec.BirthDateTime);
+      rec.DateOfBirth = "1990-10-08";
+      Assert.Equal("1990-10-08", rec.DateOfBirth);
+      Assert.Equal("1990-10-08T09:00:00+05:30", rec.BirthDateTime);
+      rec.DateOfBirth = "2023";
+      Assert.Equal("2023", rec.DateOfBirth);
+      Assert.Null(rec.BirthDateTime);
+      Assert.Throws<System.ArgumentException>(() => rec.BirthDateTime = "2023T15:30:00");
+      Assert.Equal("2023", rec.DateOfBirth);
+      Assert.Null(rec.BirthDateTime);
+      Assert.Throws<System.ArgumentException>(() => rec.BirthDateTime = "2024-08-23T13:00:00");
+      Assert.Equal("2023", rec.DateOfBirth);
+      Assert.Null(rec.BirthDateTime);
+      Assert.Throws<System.ArgumentException>(() => rec.BirthDateTime = "T15:30:00");
+      Assert.Equal("2023", rec.DateOfBirth);
+      Assert.Null(rec.BirthDateTime);
+      Assert.Throws<System.ArgumentException>(() => rec.DateOfBirth = "20");
+      Assert.Equal("2023", rec.DateOfBirth);
+      Assert.Null(rec.BirthDateTime);
+      rec.DateOfBirth = null;
+      Assert.Null(rec.DateOfBirth);
+      Assert.Null(rec.BirthDateTime);
+      rec.DateOfBirth = "2023";
+      Assert.Equal("2023", rec.DateOfBirth);
+      rec.DateOfBirth = "";
+      Assert.Null(rec.DateOfBirth);
+      Assert.Null(rec.BirthDateTime);
+      rec.BirthDateTime = null;
+      Assert.Null(rec.DateOfBirth);
+      Assert.Null(rec.BirthDateTime);
+      rec.DateOfBirth = "2023";
+      Assert.Equal("2023", rec.DateOfBirth);
+      rec.BirthDateTime = "";
+      Assert.Equal(rec.DateOfBirth, "2023");
+      Assert.Null(rec.BirthDateTime);
+      rec.DateOfBirth = "2023";
+      Assert.Equal("2023", rec.DateOfBirth);
+      Assert.Throws<System.ArgumentException>(() => rec.BirthDateTime = "2022-08-19");
+      Assert.Equal("2023", rec.DateOfBirth);
+      Assert.Null(rec.BirthDateTime);
+      Assert.Throws<System.ArgumentException>(() => rec.BirthDateTime = "2022-08-19T16:12+4");
+      Assert.Equal("2023", rec.DateOfBirth);
+      Assert.Null(rec.BirthDateTime);
+      Assert.Throws<System.ArgumentException>(() => rec.BirthDateTime = "2024-07-29T12:24");
+      Assert.Equal("2023", rec.DateOfBirth);
+      Assert.Null(rec.BirthDateTime);
+      rec.BirthDateTime = "2024-07-29T12:24+0:00";
+      Assert.Equal("2024-07-29", rec.DateOfBirth);
+      Assert.Equal("2024-07-29T12:24:00+00:00", rec.BirthDateTime);
+      Assert.Throws<System.ArgumentException>(() => rec.BirthDateTime = "2021-10-28T15:20:46");
+      Assert.Equal("2024-07-29", rec.DateOfBirth);
+      Assert.Equal("2024-07-29T12:24:00+00:00", rec.BirthDateTime);
+      rec.BirthDateTime = "2021-10-28T15:20:46-11:00";
+      Assert.Equal("2021-10-28", rec.DateOfBirth);
+      Assert.Equal("2021-10-28T15:20:46-11:00", rec.BirthDateTime);
+      rec.BirthDateTime = "2018-03-27T10:55:33-02:00";
+      Assert.Equal("2018-03-27", rec.DateOfBirth);
+      Assert.Equal("2018-03-27T10:55:33-02:00", rec.BirthDateTime);
+      Assert.Throws<System.ArgumentException>(() => rec.BirthDateTime = "2020-09-05T07");
+      Assert.Equal("2018-03-27", rec.DateOfBirth);
+      Assert.Equal("2018-03-27T10:55:33-02:00", rec.BirthDateTime);
+      rec.BirthDateTime = "2021-08-07T08:09-2:45";
+      Assert.Equal("2021-08-07", rec.DateOfBirth);
+      Assert.Equal("2021-08-07T08:09:00-02:45", rec.BirthDateTime);
+      rec.BirthDateTime = "2020-12-15T10:45:01-0:01";
+      Assert.Equal("2020-12-15", rec.DateOfBirth);
+      Assert.Equal("2020-12-15T10:45:01-00:01", rec.BirthDateTime);
     }
 
     [Fact]
@@ -964,7 +855,7 @@ namespace BFDR.Tests
       Assert.Null(record.StateLocalIdentifier1);
       record.StateLocalIdentifier1 = "0000033";
       Assert.Equal("0000033", record.StateLocalIdentifier1);
-      record.BirthYear = 2020;
+      record.DateOfBirth = "2020";
       record.CertificateNumber = "767676";
       Assert.Equal("2020XX767676", record.RecordIdentifier);
       record.EventLocationJurisdiction = "WY";
@@ -1013,403 +904,120 @@ namespace BFDR.Tests
     }
 
     [Fact]
-    public void TestMotherBirthDateSetters()
+    public void TestMotherBirthDateSetter()
     {
-      BirthRecord record1 = new BirthRecord();
-      // Date of Birth - Year
-      record1.MotherBirthYear = 1990;
-      Assert.Equal(1990, record1.MotherBirthYear);
-      // Date of Birth - Month
-      record1.MotherBirthMonth = 8;
-      Assert.Equal(8, record1.MotherBirthMonth);
-      // Date of Birth - Day
-      record1.MotherBirthDay = 29;
-      Assert.Equal(29, record1.MotherBirthDay);
-      // Complete Date of Birth.
-      Assert.Equal("1990-08-29", record1.MotherDateOfBirth);
-      Assert.Null(record1.MotherReportedAgeAtDelivery);
-      record1.MotherReportedAgeAtDelivery = 27;
-      Assert.Equal(27, record1.MotherReportedAgeAtDelivery);
+      TestMotherBirthDateHelper(new BirthRecord());
+    }
 
-      // Test in a different order.
-      BirthRecord record2 = new BirthRecord();
-      // Date of Birth - Day
-      record2.MotherBirthDay = 1;
-      Assert.Equal(1, record2.MotherBirthDay);
-      // Date of Birth - Month
-      record2.MotherBirthMonth = 5;
-      Assert.Equal(5, record2.MotherBirthMonth);
-      // Date of Birth - Year
-      record2.MotherBirthYear = 1992;
-      Assert.Equal(1992, record2.MotherBirthYear);
-      // Complete Date of Birth.
-      Assert.Equal("1992-05-01", record2.MotherDateOfBirth);
-      record2.MotherDateOfBirth = "1993-06-02";
-      Assert.Equal("1993-06-02", record2.MotherDateOfBirth);
-      Assert.Equal(2, record2.MotherBirthDay);
-      Assert.Equal(6, record2.MotherBirthMonth);
-      Assert.Equal(1993, record2.MotherBirthYear);
-
-      // Test updating a completed date.
-      BirthRecord record3 = new BirthRecord();
-      record3.MotherDateOfBirth = "1990-10-08";
-      record3.MotherBirthMonth = 8;
-      Assert.Equal("1990-08-08", record3.MotherDateOfBirth);
-
-      // Test partial dates.
-      BirthRecord record4 = new BirthRecord();
-      // Date of Birth - Year
-      record4.MotherBirthYear = 1992;
-      Assert.Equal(1992, record4.MotherBirthYear);
-      Assert.Equal("1992", record4.MotherDateOfBirth);
-      // Date of Birth - Month
-      record4.MotherBirthMonth = 7;
-      Assert.Equal(7, record4.MotherBirthMonth);
-      Assert.Equal("1992-07", record4.MotherDateOfBirth);
-      // Date of Birth - Day
-      record4.MotherBirthDay = 3;
-      Assert.Equal(3, record4.MotherBirthDay);
-      // Complete Date of Birth.
-      Assert.Equal("1992-07-03", record4.MotherDateOfBirth);
-      record4.MotherDateOfBirth = "1993-06";
-      Assert.Equal("1993-06", record4.MotherDateOfBirth);
-      Assert.Null(record4.MotherBirthDay);
-      Assert.Equal(6, record4.MotherBirthMonth);
-      Assert.Equal(1993, record4.MotherBirthYear);
-      record4.MotherDateOfBirth = "1994";
-      Assert.Equal("1994", record4.MotherDateOfBirth);
-      Assert.Null(record4.MotherBirthDay);
-      Assert.Null(record4.MotherBirthMonth);
-      Assert.Equal(1994, record4.MotherBirthYear);
-
-      // Test partial dates in weird orders.
-      BirthRecord record5 = new BirthRecord();
-      // Date of Birth - Day
-      record5.MotherBirthDay = 5;
-      Assert.Equal(5, record5.MotherBirthDay);
-      Assert.Null(record5.MotherDateOfBirth);
-      // Date of Birth - Month
-      record5.MotherBirthMonth = 9;
-      Assert.Equal(9, record5.MotherBirthMonth);
-      Assert.Null(record5.MotherDateOfBirth);
-      // Date of Birth - Year
-      record5.MotherBirthYear = 1988;
-      Assert.Equal(1988, record5.MotherBirthYear);
-      Assert.Equal("1988-09-05", record5.MotherDateOfBirth);
+    public static void TestMotherBirthDateHelper(NatalityRecord rec)
+    {
+      Assert.Null(rec.MotherDateOfBirth);
+      Assert.Null(rec.MotherReportedAgeAtDelivery);
+      rec.MotherReportedAgeAtDelivery = 27;
+      Assert.Equal(27, rec.MotherReportedAgeAtDelivery);
+      rec.MotherDateOfBirth = "1992-05-01";
+      Assert.Equal("1992-05-01", rec.MotherDateOfBirth);
+      rec.MotherDateOfBirth = "1993-06-02";
+      Assert.Equal("1993-06-02", rec.MotherDateOfBirth);
+      rec.MotherDateOfBirth = "1990-10-08";
+      Assert.Equal("1990-10-08", rec.MotherDateOfBirth);
+      rec.MotherDateOfBirth = "1992";
+      Assert.Equal("1992", rec.MotherDateOfBirth);
+      rec.MotherDateOfBirth = "1992-07";
+      Assert.Equal("1992-07", rec.MotherDateOfBirth);
+      rec.MotherDateOfBirth = "1992-07-03";
+      Assert.Equal("1992-07-03", rec.MotherDateOfBirth);
+      rec.MotherDateOfBirth = "1993-06";
+      Assert.Equal("1993-06", rec.MotherDateOfBirth);
+      rec.MotherDateOfBirth = "1994";
+      Assert.Equal("1994", rec.MotherDateOfBirth);
+      rec.MotherDateOfBirth = null;
+      Assert.Equal("1994", rec.MotherDateOfBirth);
+      rec.MotherDateOfBirth = "1988-09-05";
+      Assert.Equal("1988-09-05", rec.MotherDateOfBirth);
+      rec.MotherDateOfBirth = "1990-08-29";
+      Assert.Equal("1990-08-29", rec.MotherDateOfBirth);
+      rec.MotherDateOfBirth = null;
+      Assert.Equal(27, rec.MotherReportedAgeAtDelivery);
+      rec.MotherReportedAgeAtDelivery = null;
+      Assert.Null(rec.MotherReportedAgeAtDelivery);
+      rec.MotherReportedAgeAtDelivery = 30;
+      Assert.Equal(30, rec.MotherReportedAgeAtDelivery);
+      rec.MotherDateOfBirth = "1992-05-01";
+      Assert.Equal("1992-05-01", rec.MotherDateOfBirth);
+      rec.MotherDateOfBirth = "1993-06-02";
+      Assert.Equal("1993-06-02", rec.MotherDateOfBirth);
     }
 
     [Fact]
     public void TestMotherBirthDateUnknowns()
     {
-      BirthRecord record1 = new BirthRecord();
-      record1.MotherDateOfBirth = "1990-08-29";
-      Assert.Equal("1990-08-29", record1.MotherDateOfBirth);
-      record1.MotherBirthYear = -1;
-      Assert.Equal(-1, record1.MotherBirthYear);
-      Assert.Equal(8, record1.MotherBirthMonth);
-      Assert.Equal(29, record1.MotherBirthDay);
-      Assert.Null(record1.MotherDateOfBirth);
-      record1.MotherBirthYear = 2000;
-      Assert.Equal(2000, record1.MotherBirthYear);
-      Assert.Equal(8, record1.MotherBirthMonth);
-      Assert.Equal(29, record1.MotherBirthDay);
-      record1.MotherBirthMonth = -1;
-      Assert.Equal("2000", record1.MotherDateOfBirth);
-      Assert.Equal(-1, record1.MotherBirthMonth);
-      Assert.Equal(29, record1.MotherBirthDay);
-      record1.MotherBirthMonth = 3;
-      Assert.Equal("2000-03-29", record1.MotherDateOfBirth);
-      record1.MotherBirthDay = -1;
-      Assert.Equal(-1, record1.MotherBirthDay);
-      Assert.Equal("2000-03", record1.MotherDateOfBirth);
+      TestMotherBirthDateUnknownsHelper(new BirthRecord());
+    }
+
+    public static void TestMotherBirthDateUnknownsHelper(NatalityRecord rec)
+    {
+      rec.MotherDateOfBirth = "1990-08-29";
+      Assert.Equal("1990-08-29", rec.MotherDateOfBirth);
+      rec.MotherDateOfBirth = null;
+      Assert.Equal("1990-08-29", rec.MotherDateOfBirth);
+      rec.MotherDateOfBirth = "2000-03-29";
+      Assert.Equal("2000-03-29", rec.MotherDateOfBirth);
+      rec.MotherDateOfBirth = "2001";
+      Assert.Equal("2001", rec.MotherDateOfBirth);
+      rec.MotherDateOfBirth = "2001-08";
+      Assert.Equal("2001-08", rec.MotherDateOfBirth);
+        rec.MotherDateOfBirth = "2001-08-06";
+      Assert.Equal("2001-08-06", rec.MotherDateOfBirth);
     }
 
     [Fact]
-    public void TestFatherBirthDateUnknowns()
+    public void TestFatherBirthDateSetter()
     {
-      BirthRecord record1 = new BirthRecord();
-      record1.FatherDateOfBirth = "1990-08-29";
-      Assert.Equal("1990-08-29", record1.FatherDateOfBirth);
-      record1.FatherBirthYear = -1;
-      Assert.Equal(-1, record1.FatherBirthYear);
-      Assert.Equal(8, record1.FatherBirthMonth);
-      Assert.Equal(29, record1.FatherBirthDay);
-      Assert.Null(record1.FatherDateOfBirth);
-      record1.FatherBirthYear = 2000;
-      Assert.Equal(2000, record1.FatherBirthYear);
-      Assert.Equal(8, record1.FatherBirthMonth);
-      Assert.Equal(29, record1.FatherBirthDay);
-      record1.FatherBirthMonth = -1;
-      Assert.Equal("2000", record1.FatherDateOfBirth);
-      Assert.Equal(-1, record1.FatherBirthMonth);
-      Assert.Equal(29, record1.FatherBirthDay);
-      record1.FatherBirthMonth = 3;
-      Assert.Equal("2000-03-29", record1.FatherDateOfBirth);
-      record1.FatherBirthDay = -1;
-      Assert.Equal(-1, record1.FatherBirthDay);
-      Assert.Equal("2000-03", record1.FatherDateOfBirth);
+      TestFatherBirthDateSetterHelper(new BirthRecord());
     }
 
-    [Fact]
-    public void TestFatherBirthDateSetters()
+    public static void TestFatherBirthDateSetterHelper(NatalityRecord rec)
     {
-      BirthRecord record1 = new BirthRecord();
-      // Date of Birth - Year
-      record1.FatherBirthYear = 1990;
-      Assert.Equal(1990, record1.FatherBirthYear);
-      // Date of Birth - Month
-      record1.FatherBirthMonth = 8;
-      Assert.Equal(8, record1.FatherBirthMonth);
-      // Date of Birth - Day
-      record1.FatherBirthDay = 29;
-      Assert.Equal(29, record1.FatherBirthDay);
-      // Complete Date of Birth.
-      Assert.Equal("1990-08-29", record1.FatherDateOfBirth);
-      Assert.Null(record1.FatherReportedAgeAtDelivery);
-      record1.FatherReportedAgeAtDelivery = 28;
-      Assert.Equal(28, record1.FatherReportedAgeAtDelivery);
-
-      // Test in a different order.
-      BirthRecord record2 = new BirthRecord();
-      // Date of Birth - Day
-      record2.FatherBirthDay = 1;
-      Assert.Equal(1, record2.FatherBirthDay);
-      // Date of Birth - Month
-      record2.FatherBirthMonth = 5;
-      Assert.Equal(5, record2.FatherBirthMonth);
-      // Date of Birth - Year
-      record2.FatherBirthYear = 1992;
-      Assert.Equal(1992, record2.FatherBirthYear);
-      // Complete Date of Birth.
-      Assert.Equal("1992-05-01", record2.FatherDateOfBirth);
-      record2.FatherDateOfBirth = "1993-06-02";
-      Assert.Equal("1993-06-02", record2.FatherDateOfBirth);
-      Assert.Equal(2, record2.FatherBirthDay);
-      Assert.Equal(6, record2.FatherBirthMonth);
-      Assert.Equal(1993, record2.FatherBirthYear);
-
-      // Test partial dates.
-      BirthRecord record3 = new BirthRecord();
-      // Date of Birth - Year
-      record3.FatherBirthYear = 1992;
-      Assert.Equal(1992, record3.FatherBirthYear);
-      Assert.Equal("1992", record3.FatherDateOfBirth);
-      // Date of Birth - Month
-      record3.FatherBirthMonth = 7;
-      Assert.Equal(7, record3.FatherBirthMonth);
-      Assert.Equal("1992-07", record3.FatherDateOfBirth);
-      // Date of Birth - Day
-      record3.FatherBirthDay = 3;
-      Assert.Equal(3, record3.FatherBirthDay);
-      // Complete Date of Birth.
-      Assert.Equal("1992-07-03", record3.FatherDateOfBirth);
-      record3.FatherDateOfBirth = "1993-06";
-      Assert.Equal("1993-06", record3.FatherDateOfBirth);
-      Assert.Null(record3.FatherBirthDay);
-      Assert.Equal(6, record3.FatherBirthMonth);
-      Assert.Equal(1993, record3.FatherBirthYear);
-      record3.FatherDateOfBirth = "1994";
-      Assert.Equal("1994", record3.FatherDateOfBirth);
-      Assert.Null(record3.FatherBirthDay);
-      Assert.Null(record3.FatherBirthMonth);
-      Assert.Equal(1994, record3.FatherBirthYear);
-
-      // Test partial dates in weird orders.
-      BirthRecord record4 = new BirthRecord();
-      // Date of Birth - Day
-      record4.FatherBirthDay = 5;
-      Assert.Equal(5, record4.FatherBirthDay);
-      Assert.Null(record4.FatherDateOfBirth);
-      // Date of Birth - Month
-      record4.FatherBirthMonth = 9;
-      Assert.Equal(9, record4.FatherBirthMonth);
-      Assert.Null(record4.FatherDateOfBirth);
-      // Date of Birth - Year
-      record4.FatherBirthYear = 1988;
-      Assert.Equal(1988, record4.FatherBirthYear);
-      Assert.Equal("1988-09-05", record4.FatherDateOfBirth);
-    }
-
-    [Fact]
-    public void TestComplexPartialDates()
-    {
-      // Tests source: https://github.com/HL7/vr-common-library/blob/fixPartialDateTime/input/pagecontent/usage.md#partial-dates-and-times
-      BirthRecord br = new();
-      // 2023
-      br.BirthYear = 2023;
-      Date fhirBirth = ((Patient)br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
-      Extension pdt = fhirBirth.GetExtension(VR.ExtensionURL.PartialDateTime);
-      Assert.Equal(2023, br.BirthYear);
-      Assert.Null(br.BirthMonth);
-      Assert.Null(br.BirthDay);
-      Assert.Equal("2023", br.DateOfBirth);
-      Assert.Equal("2023", fhirBirth.Value);
-      Assert.Null(br.BirthTime);
-      Assert.Null(pdt);
-      IJEBirth ije = new(br);
-      Assert.Equal("2023", ije.IDOB_YR);
-      Assert.Equal("  ", ije.IDOB_MO);
-      Assert.Equal("  ", ije.IDOB_DY);
-      Assert.Equal("    ", ije.TB);
-
-      // 2023-12
-      br.BirthYear = 2023;
-      br.BirthMonth = 12;
-      fhirBirth = ((Patient)br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
-      pdt = fhirBirth.GetExtension(VR.ExtensionURL.PartialDateTime);
-      Assert.Equal(2023, br.BirthYear);
-      Assert.Equal(12, br.BirthMonth);
-      Assert.Null(br.BirthDay);
-      Assert.Equal("2023-12", br.DateOfBirth);
-      Assert.Equal("2023-12", fhirBirth.Value);
-      Assert.Null(br.BirthTime);
-      Assert.Null(fhirBirth.GetExtension(VR.ExtensionURL.PatientBirthTime));
-      Assert.Null(pdt);
-      Assert.Equal("2023", ije.IDOB_YR);
-      Assert.Equal("12", ije.IDOB_MO);
-      Assert.Equal("  ", ije.IDOB_DY);
-      Assert.Equal("    ", ije.TB);
-
-      // 2023-12-23
-      br.BirthYear = 2023;
-      br.BirthMonth = 12;
-      br.BirthDay = 23;
-      fhirBirth = ((Patient)br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
-      pdt = fhirBirth.GetExtension(VR.ExtensionURL.PartialDateTime);
-      Assert.Equal(2023, br.BirthYear);
-      Assert.Equal(12, br.BirthMonth);
-      Assert.Equal(23, br.BirthDay);
-      Assert.Equal("2023-12-23", br.DateOfBirth);
-      Assert.Equal("2023-12-23", fhirBirth.Value);
-      Assert.Null(br.BirthTime);
-      Assert.Null(fhirBirth.GetExtension(VR.ExtensionURL.PatientBirthTime));
-      Assert.Null(pdt);
-      Assert.Equal("2023", ije.IDOB_YR);
-      Assert.Equal("12", ije.IDOB_MO);
-      Assert.Equal("23", ije.IDOB_DY);
-      Assert.Equal("    ", ije.TB);
-
-      // 2023-12-23 T13:28:17-05:00
-      br.BirthYear = 2023;
-      br.BirthMonth = 12;
-      br.BirthDay = 23;
-      br.BirthTime = "13:28:17-5:00";
-      fhirBirth = ((Patient)br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
-      pdt = fhirBirth.GetExtension(VR.ExtensionURL.PartialDateTime);
-      Assert.Equal(2023, br.BirthYear);
-      Assert.Equal(12, br.BirthMonth);
-      Assert.Equal(23, br.BirthDay);
-      Assert.Equal("2023-12-23", br.DateOfBirth);
-      Assert.Equal("2023-12-23", fhirBirth.Value);
-      Assert.Equal("2023-12-23T13:28:17-5:00", ((FhirDateTime)fhirBirth.GetExtension(VR.ExtensionURL.PatientBirthTime).Value).Value);
-      Assert.Equal("13:28:17", br.BirthTime);
-      Assert.Null(pdt);
-      Assert.Equal("2023", ije.IDOB_YR);
-      Assert.Equal("12", ije.IDOB_MO);
-      Assert.Equal("23", ije.IDOB_DY);
-      Assert.Equal("1328", ije.TB);
-
-      // 2023-12-23 EXPLCIT_UNKNOWN
-      br.BirthYear = 2023;
-      br.BirthMonth = 12;
-      br.BirthDay = 23;
-      br.BirthTime = "-1";
-      fhirBirth = ((Patient)br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement; // THIS NEEDS TO BE FIXED
-      pdt = fhirBirth.GetExtension(VR.ExtensionURL.PartialDateTime);
-      Assert.Equal(2023, br.BirthYear);
-      Assert.Equal(12, br.BirthMonth);
-      Assert.Equal(23, br.BirthDay);
-      Assert.Equal("2023-12-23", br.DateOfBirth);
-      Assert.Equal("2023-12-23", fhirBirth.Value);
-      Assert.Equal("-1", br.BirthTime);
-      Assert.Null(fhirBirth.GetExtension(VR.ExtensionURL.PatientBirthTime));
-      Assert.NotNull(pdt);
-      Assert.NotNull(pdt.GetExtension(VR.ExtensionURL.PartialDateYearVR));
-      Assert.Equal(2023, ((Integer)pdt.GetExtension(VR.ExtensionURL.PartialDateYearVR).Value).Value);
-      Assert.Equal(12, ((Integer)pdt.GetExtension(VR.ExtensionURL.PartialDateMonthVR).Value).Value);
-      Assert.Equal(23, ((Integer)pdt.GetExtension(VR.ExtensionURL.PartialDateDayVR).Value).Value);
-      Assert.Null(pdt.GetExtension(VR.ExtensionURL.PartialDateTimeVR).Value);
-      Assert.Equal("unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateTimeVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
-      Assert.Equal("2023", ije.IDOB_YR);
-      Assert.Equal("12", ije.IDOB_MO);
-      Assert.Equal("23", ije.IDOB_DY);
-      Assert.Equal("9999", ije.TB);
-
-      // EXPLCIT_UNKNOWN-12-23 18:28
-      br.BirthYear = -1;
-      br.BirthMonth = 12;
-      br.BirthDay = 23;
-      br.BirthTime = "18:28";
-      fhirBirth = ((Patient)br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
-      pdt = fhirBirth.GetExtension(VR.ExtensionURL.PartialDateTime);
-      Assert.Equal(-1, br.BirthYear);
-      Assert.Equal(12, br.BirthMonth);
-      Assert.Equal(23, br.BirthDay);
-      Assert.Null(br.DateOfBirth);
-      Assert.Null(fhirBirth.Value);
-      Assert.Equal("18:28", br.BirthTime);
-      Assert.Null(fhirBirth.GetExtension(VR.ExtensionURL.PatientBirthTime));
-      Assert.Null(pdt.GetExtension(VR.ExtensionURL.PartialDateYearVR).Value);
-      Assert.Equal("unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateYearVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
-      Assert.Equal(12, ((Integer)pdt.GetExtension(VR.ExtensionURL.PartialDateMonthVR).Value).Value);
-      Assert.Equal(23, ((Integer)pdt.GetExtension(VR.ExtensionURL.PartialDateDayVR).Value).Value);
-      Assert.Equal("18:28", pdt.GetExtension(VR.ExtensionURL.PartialDateTimeVR).Value.ToString());
-      Assert.Equal("9999", ije.IDOB_YR);
-      Assert.Equal("12", ije.IDOB_MO);
-      Assert.Equal("23", ije.IDOB_DY);
-      Assert.Equal("1828", ije.TB);
-
-      // 2023-EXPLCIT_UNKNOWN-23 EXPLCIT_UNKNOWN
-      br.BirthYear = 2023;
-      br.BirthMonth = -1;
-      br.BirthDay = 23;
-      br.BirthTime = "-1";
-      fhirBirth = ((Patient)br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
-      pdt = fhirBirth.GetExtension(VR.ExtensionURL.PartialDateTime);
-      Assert.Equal(2023, br.BirthYear);
-      Assert.Equal(-1, br.BirthMonth);
-      Assert.Equal(23, br.BirthDay);
-      Assert.Equal("2023", br.DateOfBirth);
-      Assert.Equal("2023", fhirBirth.Value);
-      Assert.Equal("-1", br.BirthTime);
-      Assert.Null(fhirBirth.GetExtension(VR.ExtensionURL.PatientBirthTime));
-      Assert.Equal(2023, ((Integer)pdt.GetExtension(VR.ExtensionURL.PartialDateYearVR).Value).Value);
-      Assert.Null(pdt.GetExtension(VR.ExtensionURL.PartialDateMonthVR).Value);
-      Assert.Equal("unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateMonthVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
-      Assert.Equal(23, ((Integer)pdt.GetExtension(VR.ExtensionURL.PartialDateDayVR).Value).Value);
-      Assert.Null(pdt.GetExtension(VR.ExtensionURL.PartialDateTimeVR).Value);
-      Assert.Equal("unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateTimeVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
-      Assert.Equal("2023", ije.IDOB_YR);
-      Assert.Equal("99", ije.IDOB_MO);
-      Assert.Equal("23", ije.IDOB_DY);
-      Assert.Equal("9999", ije.TB);
-
-      // 2023-TEMP_UNKNOWN-23 EXPLCIT_UNKNOWN
-      br = new();
-      br.BirthYear = 2023;
-      br.BirthMonth = null;
-      br.BirthDay = 23;
-      br.BirthTime = "-1";
-      fhirBirth = ((Patient)br.GetBundle().Entry.Find(entry => entry.Resource.Meta.Profile.Any(profile => profile == VR.ProfileURL.Child)).Resource).BirthDateElement;
-      pdt = fhirBirth.GetExtension(VR.ExtensionURL.PartialDateTime);
-      Assert.Equal(2023, br.BirthYear);
-      Assert.Null(br.BirthMonth);
-      Assert.Equal(23, br.BirthDay);
-      Assert.Equal("2023", br.DateOfBirth);
-      Assert.Equal("2023", fhirBirth.Value);
-      Assert.Equal("-1", br.BirthTime);
-      Assert.Null(fhirBirth.GetExtension(VR.ExtensionURL.PatientBirthTime));
-      Assert.Equal(2023, ((Integer)pdt.GetExtension(VR.ExtensionURL.PartialDateYearVR).Value).Value);
-      Assert.Null(pdt.GetExtension(VR.ExtensionURL.PartialDateMonthVR).Value);
-      Assert.Equal("temp-unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateMonthVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
-      Assert.Equal(23, ((Integer)pdt.GetExtension(VR.ExtensionURL.PartialDateDayVR).Value).Value);
-      Assert.Null(pdt.GetExtension(VR.ExtensionURL.PartialDateTimeVR).Value);
-      Assert.Equal("unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateTimeVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
-      ije = new(br);
-      Assert.Equal("2023", ije.IDOB_YR);
-      Assert.Equal("  ", ije.IDOB_MO);
-      Assert.Equal("23", ije.IDOB_DY);
-      Assert.Equal("9999", ije.TB);
+      rec.FatherDateOfBirth = "1990-08-29";
+      Assert.Equal("1990-08-29", rec.FatherDateOfBirth);
+      rec.FatherDateOfBirth = "1992-05-01";
+      Assert.Equal("1992-05-01", rec.FatherDateOfBirth);
+      rec.FatherDateOfBirth = "1993-06-02";
+      Assert.Equal("1993-06-02", rec.FatherDateOfBirth);
+      Assert.Null(rec.FatherReportedAgeAtDelivery);
+      rec.FatherReportedAgeAtDelivery = 30;
+      Assert.Equal(30, rec.FatherReportedAgeAtDelivery);
+      rec.FatherDateOfBirth = "1995-06";
+      Assert.Equal("1995-06", rec.FatherDateOfBirth);
+      rec.FatherDateOfBirth = "1996";
+      Assert.Equal("1996", rec.FatherDateOfBirth);
+      rec.FatherDateOfBirth = "1997-11-25";
+      Assert.Equal("1997-11-25", rec.FatherDateOfBirth);
+      rec.FatherDateOfBirth = null;
+      Assert.Equal("1997-11-25", rec.FatherDateOfBirth);
+      rec.FatherDateOfBirth = "1990-08-29";
+      Assert.Equal("1990-08-29", rec.FatherDateOfBirth);
+      rec.FatherDateOfBirth = null;
+      Assert.Equal("1990-08-29", rec.FatherDateOfBirth);
+      rec.FatherDateOfBirth = "2000-03-29";
+      Assert.Equal("2000-03-29", rec.FatherDateOfBirth);
+      rec.FatherDateOfBirth = "2001";
+      Assert.Equal("2001", rec.FatherDateOfBirth);
+      rec.FatherDateOfBirth = "2001-03-29";
+      Assert.Equal("2001-03-29", rec.FatherDateOfBirth);
+      rec.FatherDateOfBirth = "1990-08-29";
+      Assert.Equal("1990-08-29", rec.FatherDateOfBirth);
+      rec.FatherDateOfBirth = null;
+      Assert.Equal("1990-08-29", rec.FatherDateOfBirth);
+      rec.FatherDateOfBirth = "2000-03-29";
+      Assert.Equal("2000-03-29", rec.FatherDateOfBirth);
+      rec.FatherDateOfBirth = "2001";
+      Assert.Equal("2001", rec.FatherDateOfBirth);
+      rec.FatherDateOfBirth = "2003-06";
+      Assert.Equal("2003-06", rec.FatherDateOfBirth);
+      rec.FatherDateOfBirth = "1999-09-28";
+      Assert.Equal("1999-09-28", rec.FatherDateOfBirth);
     }
 
     [Fact]
@@ -1513,7 +1121,7 @@ namespace BFDR.Tests
       // 2023
       br.DateOfLastLiveBirthYear = 2023;
       Observation observation = (Observation)br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
-      FhirDateTime dateToUse = ((FhirDateTime)observation.Value);
+      FhirDateTime dateToUse = (FhirDateTime)observation.Value;
       Extension pdt = dateToUse.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(2023, br.DateOfLastLiveBirthYear);
       Assert.Null(br.DateOfLastLiveBirthMonth);
@@ -1529,7 +1137,7 @@ namespace BFDR.Tests
       br.DateOfLastLiveBirthYear = 2023;
       br.DateOfLastLiveBirthMonth = 12;
       observation = (Observation)br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
-      dateToUse = ((FhirDateTime)observation.Value);
+      dateToUse = (FhirDateTime)observation.Value;
       pdt = dateToUse.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(2023, br.DateOfLastLiveBirthYear);
       Assert.Equal(12, br.DateOfLastLiveBirthMonth);
@@ -1546,7 +1154,7 @@ namespace BFDR.Tests
       br.DateOfLastLiveBirthYear = null;
       br.DateOfLastLiveBirthMonth = 12;
       observation = (Observation)br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
-      dateToUse = ((FhirDateTime)observation.Value);
+      dateToUse = (FhirDateTime)observation.Value;
       pdt = dateToUse.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Null(br.DateOfLastLiveBirthYear);
       Assert.Equal(12, br.DateOfLastLiveBirthMonth);
@@ -1556,7 +1164,6 @@ namespace BFDR.Tests
       Assert.Equal("temp-unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateYearVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
       Assert.Equal(12, ((Integer)pdt.GetExtension(VR.ExtensionURL.PartialDateMonthVR).Value).Value);
       Assert.Equal("temp-unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateDayVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
-      Assert.Equal("temp-unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateTimeVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
       Assert.Equal("    ", ije.YLLB);
       Assert.Equal("12", ije.MLLB);
 
@@ -1564,7 +1171,7 @@ namespace BFDR.Tests
       br.DateOfLastLiveBirthYear = -1;
       br.DateOfLastLiveBirthMonth = 12;
       observation = (Observation)br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
-      dateToUse = ((FhirDateTime)observation.Value);
+      dateToUse = (FhirDateTime)observation.Value;
       pdt = dateToUse.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(-1, br.DateOfLastLiveBirthYear);
       Assert.Equal(12, br.DateOfLastLiveBirthMonth);
@@ -1574,7 +1181,6 @@ namespace BFDR.Tests
       Assert.Equal("unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateYearVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
       Assert.Equal(12, ((Integer)pdt.GetExtension(VR.ExtensionURL.PartialDateMonthVR).Value).Value);
       Assert.Equal("temp-unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateDayVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
-      Assert.Equal("temp-unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateTimeVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
       Assert.Equal("9999", ije.YLLB);
       Assert.Equal("12", ije.MLLB);
 
@@ -1582,7 +1188,7 @@ namespace BFDR.Tests
       br.DateOfLastLiveBirthYear = -1;
       br.DateOfLastLiveBirthMonth = -1;
       observation = (Observation)br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
-      dateToUse = ((FhirDateTime)observation.Value);
+      dateToUse = (FhirDateTime)observation.Value;
       pdt = dateToUse.GetExtension(VR.ExtensionURL.PartialDateTime);
       Assert.Equal(-1, br.DateOfLastLiveBirthYear);
       Assert.Equal(-1, br.DateOfLastLiveBirthMonth);
@@ -1592,7 +1198,6 @@ namespace BFDR.Tests
       Assert.Equal("unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateYearVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
       Assert.Equal("unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateMonthVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
       Assert.Equal("temp-unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateDayVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
-      Assert.Equal("temp-unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateTimeVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
       Assert.Equal("9999", ije.YLLB);
       Assert.Equal("99", ije.MLLB);
     }
@@ -1851,31 +1456,17 @@ namespace BFDR.Tests
     }
 
     [Fact]
-    public void PatientBirthDatePresent()
+    public void ParentChildBirthDatesPresent()
     {
-      Assert.Equal(2023, FakeBirthRecord.BirthYear);
-      Assert.Equal(1, FakeBirthRecord.BirthMonth);
-      Assert.Equal(1, FakeBirthRecord.BirthDay);
       Assert.Equal("2023-01-01", FakeBirthRecord.DateOfBirth);
-      //set after parse
-      FakeBirthRecord.DateOfBirth = "2022-02-02";
-      Assert.Equal(2022, FakeBirthRecord.BirthYear);
-      Assert.Equal(2, FakeBirthRecord.BirthMonth);
-      Assert.Equal(2, FakeBirthRecord.BirthDay);
-      Assert.Equal("2022-02-02", FakeBirthRecord.DateOfBirth);
-    }
-
-    [Fact]
-    public void ParentBirthDatesPresent()
-    {
-      Assert.Equal(1992, FakeBirthRecord.MotherBirthYear);
-      Assert.Equal(1, FakeBirthRecord.MotherBirthMonth);
-      Assert.Equal(12, FakeBirthRecord.MotherBirthDay);
-      Assert.Equal("1992-01-12", FakeBirthRecord.MotherDateOfBirth);
-      Assert.Equal(1990, FakeBirthRecord.FatherBirthYear);
-      Assert.Equal(9, FakeBirthRecord.FatherBirthMonth);
-      Assert.Equal(21, FakeBirthRecord.FatherBirthDay);
       Assert.Equal("1990-09-21", FakeBirthRecord.FatherDateOfBirth);
+      Assert.Equal("1992-01-12", FakeBirthRecord.MotherDateOfBirth);
+      FakeBirthRecord.DateOfBirth = "2022-02-02";
+      Assert.Equal("2022-02-02", FakeBirthRecord.DateOfBirth);
+      FakeBirthRecord.MotherDateOfBirth = "1991-09-07";
+      Assert.Equal("1991-09-07", FakeBirthRecord.MotherDateOfBirth);
+      FakeBirthRecord.FatherDateOfBirth = "1989-08-06";
+      Assert.Equal("1989-08-06", FakeBirthRecord.FatherDateOfBirth);
     }
 
     [Fact]
@@ -3124,7 +2715,7 @@ namespace BFDR.Tests
       BirthRecord birthRecord2 = ije.ToBirthRecord();
       Assert.Equal(11, birthRecord.DateOfLastOtherPregnancyOutcomeMonth);
       Assert.Equal(2022, birthRecord.DateOfLastOtherPregnancyOutcomeYear);
-      // // TODO check roundtrip from IJE
+      // TODO check roundtrip from IJE
       Assert.Equal(11, birthRecord2.DateOfLastOtherPregnancyOutcomeMonth);
       Assert.Equal(2022, birthRecord2.DateOfLastOtherPregnancyOutcomeYear);
       Assert.Equal("2022-11", birthRecord2.DateOfLastOtherPregnancyOutcome);
@@ -3419,10 +3010,6 @@ namespace BFDR.Tests
       Assert.Equal("15075", birthRecord.CertificateNumber);
       Assert.Equal("2019UT015075", birthRecord.RecordIdentifier);
       Assert.Equal("444455555", birthRecord.StateLocalIdentifier1);
-      Assert.Equal(2019, birthRecord.BirthYear);
-      Assert.Equal(2, birthRecord.BirthMonth);
-      Assert.Equal(12, birthRecord.BirthDay);
-      Assert.Equal("13:00:00", birthRecord.BirthTime);
       Assert.Equal("2019-02-12", birthRecord.DateOfBirth);
       tempDict = new();
       tempDict.Add("code", "F");
@@ -3632,9 +3219,6 @@ namespace BFDR.Tests
       Assert.False(birthRecord.NoObstetricProcedures);
       Assert.False(birthRecord.SuccessfulExternalCephalicVersion);
       Assert.True(birthRecord.UnsuccessfulExternalCephalicVersion);
-      Assert.Equal(15, birthRecord.MotherBirthDay);
-      Assert.Equal(1, birthRecord.MotherBirthMonth);
-      Assert.Equal(1985, birthRecord.MotherBirthYear);
       Assert.Equal("1985-01-15", birthRecord.MotherDateOfBirth);
       Assert.Equal(34, birthRecord.MotherReportedAgeAtDelivery);
       tempDict = new();
@@ -3644,9 +3228,6 @@ namespace BFDR.Tests
       tempDict.Add("text", "");
       Assert.Equal(tempDict, birthRecord.MotherDateOfBirthEditFlag);
       Assert.Null(birthRecord.MotherDateOfBirthEditFlagHelper);
-      Assert.Equal(24, birthRecord.FatherBirthDay);
-      Assert.Equal(11, birthRecord.FatherBirthMonth);
-      Assert.Equal(1972, birthRecord.FatherBirthYear);
       Assert.Equal("1972-11-24", birthRecord.FatherDateOfBirth);
       Assert.Equal(35, birthRecord.FatherReportedAgeAtDelivery);
       tempDict = new();
@@ -3994,9 +3575,16 @@ namespace BFDR.Tests
       BirthRecord romeroImportedBr = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordR.json")));
       romeroImportedBr.EventLocationJurisdiction = "AZ";
       romeroImportedBr.CertificateNumber = "8888";
+      string timeZoneOffset = TimeZoneInfo.Local.GetUtcOffset(new DateTime(2000, 1, 1)).ToString()[..6];
+      if (timeZoneOffset == "00:00:")
+      {
+        timeZoneOffset = "+00:00";
+      }
+      romeroImportedBr.BirthDateTime = $"{romeroImportedBr.BirthDateTime[..19]}{timeZoneOffset}";
       BirthRecord zalbanaizImportedBr = new BirthRecord(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BirthRecordZ.json")));
       zalbanaizImportedBr.EventLocationJurisdiction = "AZ";
       zalbanaizImportedBr.CertificateNumber = "8888";
+      zalbanaizImportedBr.BirthDateTime = $"{zalbanaizImportedBr.BirthDateTime[..19]}{timeZoneOffset}";
       Assert.Equal(JsonConvert.SerializeObject(romeroRawBr), JsonConvert.SerializeObject(romeroConnectathonBr));
       Assert.Equal(JsonConvert.SerializeObject(romeroRawBr), JsonConvert.SerializeObject(romeroImportedBr));
       Assert.Equal(JsonConvert.SerializeObject(zalbanaizRawBr), JsonConvert.SerializeObject(zalbanaizConnectathonBr));
