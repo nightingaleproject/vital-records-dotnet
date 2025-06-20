@@ -52,6 +52,12 @@ namespace BFDR
                         return Convert.ToString(ext.Value);
                     }
                 }
+                // For cases where we loaded a bundle that has the RecordIdentifier but not the individual fields
+                // we can find the value as a substring of the RecordIdentifier
+                if (RecordIdentifier != null && RecordIdentifier.Length == 12 && RecordIdentifier.Substring(6, 6) != "000000")
+                {
+                    return RecordIdentifier.Substring(6, 6);
+                }
                 return null;
             }
             set
@@ -141,7 +147,22 @@ namespace BFDR
         /// </summary>
         protected int? GetBirthYear()
         {
-            return GetDateElement(Subject?.BirthDateElement, VR.ExtensionURL.PartialDateYearVR);
+            int? year = GetDateElement(Subject?.BirthDateElement, VR.ExtensionURL.PartialDateYearVR);
+            if (year != null)
+            {
+                return year;
+            }
+            // For cases where we loaded a bundle that has the RecordIdentifier but not the individual fields
+            // we can find the value as a substring of the RecordIdentifier
+            if (RecordIdentifier != null && RecordIdentifier.Length == 12 && RecordIdentifier.Substring(0, 4) != "0000")
+            {
+                int parsedYear;
+                if (Int32.TryParse(RecordIdentifier.Substring(0, 4), out parsedYear))
+                {
+                    return parsedYear;
+                }
+            }
+            return null;
         }
 
         /// <summary>
@@ -159,6 +180,7 @@ namespace BFDR
             {
                 Subject.BirthDateElement = newDate;
             }
+            UpdateRecordIdentifier();
         }
 
         /// <summary>
@@ -650,6 +672,12 @@ namespace BFDR
                 if (PlaceOfBirth.ContainsKey("addressState") && !String.IsNullOrWhiteSpace(PlaceOfBirth["addressState"]))
                 {
                     return PlaceOfBirth["addressState"];
+                }
+                // For cases where we loaded a bundle that has the RecordIdentifier but not the individual fields
+                // we can find the value as a substring of the RecordIdentifier
+                if (RecordIdentifier != null && RecordIdentifier.Length == 12 && RecordIdentifier.Substring(4, 2) != "XX")
+                {
+                    return RecordIdentifier.Substring(4, 2);
                 }
                 return null;
             }
@@ -3667,16 +3695,16 @@ namespace BFDR
         /// ComponentDisplay gives a more human readable display value for the component code.
         /// </para>
         /// </summary>
-        private void SetCodedRaceEthnicity(Dictionary<string, string> value, string observationCode, string ComponentCode, string ComponentDisplay, string section, [CallerMemberName] string propertyName = null)
+        private void SetCodedRaceEthnicity(Dictionary<string, string> value, string observationCode, string componentCode, string componentDisplay, string section, [CallerMemberName] string propertyName = null)
         {
             if (value["code"] == "")
             {
                 return;
             }
             Observation obs = GetOrCreateObservation(observationCode, CodeSystems.LocalObservationCodes, "Coded Race and Ethnicity Person", VR.ProfileURL.CodedRaceAndEthnicity, section, propertyName: propertyName);
-            obs.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.CodeForLiteral);
+            obs.Component.RemoveAll(c => c.Code.Coding[0].Code == componentCode);
             Observation.ComponentComponent component = new Observation.ComponentComponent();
-            component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, ComponentCode, ComponentDisplay, null);
+            component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, componentCode, componentDisplay, null);
             component.Value = DictToCodeableConcept(value);
             obs.Component.Add(component);
             obs.Subject = new ResourceReference("urn:uuid:" + Subject.Id);
@@ -6885,7 +6913,7 @@ namespace BFDR
             set => SetCigarettesSmoked("64795-8", value);
         }
 
-        private Observation GetOccupationObservation(string role)
+        private Observation GetOrCreateOccupationObservation(string role, bool create = false)
         {
             if (IsDictEmptyOrDefault(GetRoleCode(role)))
             {
@@ -6899,16 +6927,37 @@ namespace BFDR
                     CodeableConceptToDict(ext.Value as CodeableConcept)["code"] == role
                 ) != null).FirstOrDefault();
 
-            if (entry != null)
+            Observation observation = entry?.Resource as Observation;
+
+            if (observation == null && create)
             {
-                return entry.Resource as Observation;
+                observation = new Observation
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Code = new CodeableConcept(VR.CodeSystems.LOINC, "11341-5"),
+                };
+                Extension roleExt = new Extension(BFDR.ExtensionURL.ExtensionRole, new CodeableConcept(VR.CodeSystems.RoleCode_HL7_V3, role));
+                observation.Extension.Add(roleExt);
+                if (role == "MTH")
+                {
+                    observation.Subject = new ResourceReference($"urn:uuid:{Mother.Id}");
+                    AddReferenceToComposition(observation.Id, MOTHER_INFORMATION_SECTION);
+                }
+                else if (role == "FTH")
+                {
+                    observation.Subject = new ResourceReference($"urn:uuid:{Father.Id}");
+                    AddReferenceToComposition(observation.Id, FATHER_INFORMATION_SECTION);
+                }
+                observation.Focus.Add(new ResourceReference($"urn:uuid:{Subject.Id}"));
+                Bundle.AddResourceEntry(observation, "urn:uuid:" + observation.Id);
             }
-            return null;
+
+            return observation;
         }
 
         private string GetOccupation(string role)
         {
-            Observation obs = GetOccupationObservation(role);
+            Observation obs = GetOrCreateOccupationObservation(role);
             if (obs != null)
             {
                 return (obs.Value as CodeableConcept)?.Text;
@@ -6918,7 +6967,7 @@ namespace BFDR
 
         private string GetIndustry(string role)
         {
-            Observation obs = GetOccupationObservation(role);
+            Observation obs = GetOrCreateOccupationObservation(role);
             if (obs != null)
             {
                 var comp = obs.Component.Where(c => CodeableConceptToDict(c.Code)["code"] == "86188-0").FirstOrDefault();
@@ -6930,39 +6979,17 @@ namespace BFDR
             return null;
         }
 
-        private Observation SetOccupation(string role, string value)
+        private void SetOccupation(string role, string value)
         {
-            Observation obs = GetOccupationObservation(role);
-            if (obs == null)
-            {
-                obs = new Observation
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    Code = new CodeableConcept(VR.CodeSystems.LOINC, "11341-5"),
-                };
-                Extension roleExt = new Extension(BFDR.ExtensionURL.ExtensionRole, new CodeableConcept(VR.CodeSystems.RoleCode_HL7_V3, role));
-                obs.Extension.Add(roleExt);
-                if (role == "MTH")
-                {
-                    obs.Subject = new ResourceReference($"urn:uuid:{Mother.Id}");
-                    AddReferenceToComposition(obs.Id, MOTHER_INFORMATION_SECTION);
-                }
-                else if (role == "FTH")
-                {
-                    obs.Subject = new ResourceReference($"urn:uuid:{Father.Id}");
-                    AddReferenceToComposition(obs.Id, FATHER_INFORMATION_SECTION);
-                }
-                obs.Focus.Add(new ResourceReference($"urn:uuid:{Subject.Id}"));
-                Bundle.AddResourceEntry(obs, "urn:uuid:" + obs.Id);
-            }
+            Observation obs = GetOrCreateOccupationObservation(role, true);
             if (!String.IsNullOrWhiteSpace(value))
             {
-                obs.Value = new CodeableConcept
+                if (obs.Value == null)
                 {
-                    Text = value
-                };
+                    obs.Value = new CodeableConcept();
+                }
+                (obs.Value as CodeableConcept).Text = value;
             }
-            return obs;
         }
 
         private void SetIndustry(string role, string value)
@@ -6971,7 +6998,7 @@ namespace BFDR
             {
                 return;
             }
-            Observation obs = GetOccupationObservation(role) ?? SetOccupation(role, null);
+            Observation obs = GetOrCreateOccupationObservation(role, true);
             var comp = obs.Component.Where(c => CodeableConceptToDict(c.Code)["code"] == "86188-0").FirstOrDefault();
             if (comp == null)
             {
@@ -6981,11 +7008,11 @@ namespace BFDR
                 };
                 obs.Component.Add(comp);
             }
-            CodeableConcept cc = new CodeableConcept
+            if (comp.Value == null)
             {
-                Text = value
-            };
-            comp.Value = cc;
+                comp.Value = new CodeableConcept();
+            }
+            (comp.Value as CodeableConcept).Text = value;
         }
 
         /// <summary>Occupation of Mother.</summary>

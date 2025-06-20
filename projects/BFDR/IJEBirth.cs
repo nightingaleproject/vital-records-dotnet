@@ -333,7 +333,7 @@ namespace BFDR
             }
         }
 
-        /// <summary>State, U.S. Territory or Canadian Province of Birth (Mother) - code</summary>
+        /// <summary>State, U.S. Territory or Canadian Province of Birth (Mother) - code (Note: setting the MBPLACE_ST_TER_TXT field will overwrite this field)</summary>
         [IJEField(18, 64, 2, "State, U.S. Territory or Canadian Province of Birth (Mother) - code", "BPLACEC_ST_TER", 1)]
         public string BPLACEC_ST_TER
         {
@@ -1960,7 +1960,6 @@ namespace BFDR
         {
             get => "  ";
             set { }
-
         }
 
         /// <summary>Date of Last Prenatal Care Visit--Day(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
@@ -2927,12 +2926,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // Not implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // Note implemented in FHIR
             }
         }
 
@@ -3264,12 +3263,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // Not implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // Not implemented in FHIR
             }
         }
 
@@ -3321,12 +3320,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // Not implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // Not implemented in FHIR
             }
         }
 
@@ -4011,12 +4010,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // Not implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // Not implenented in FHIR
             }
         }
 
@@ -4060,12 +4059,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // Not implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // Not implemented in FHIR
             }
         }
 
@@ -4075,12 +4074,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // Not implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // Not implemented in FHIR
             }
         }
 
@@ -4090,12 +4089,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // Not implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // Not implemented in FHIR
             }
         }
 
@@ -4105,12 +4104,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // Not implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // Not implemented in FHIR
             }
         }
 
@@ -4120,12 +4119,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // Not implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // Not implemented in FHIR
             }
         }
 
@@ -4162,7 +4161,7 @@ namespace BFDR
             }
         }
 
-        /// <summary>State, U.S. Territory or Canadian Province of Birth (Mother) - literal</summary>
+        /// <summary>State, U.S. Territory or Canadian Province of Birth (Mother) - literal (Note: Setting this field will overwrite the BPLACEC_ST_TER field)</summary>
         [IJEField(305, 2404, 28, "State, U.S. Territory or Canadian Province of Birth (Mother) - literal", "MBPLACE_ST_TER_TXT", 1)]
         public string MBPLACE_ST_TER_TXT
         {
@@ -4481,12 +4480,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // Not implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // Not implemented in FHIR
             }
         }
 
@@ -4496,12 +4495,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // Not implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // Not implemented in FHIR
             }
         }
 
@@ -4511,12 +4510,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // Not implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // Not implemented in FHIR
             }
         }
 
@@ -4526,12 +4525,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // Not implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // Not implemented in FHIR
             }
         }
 
@@ -4713,12 +4712,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // Not implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // Not implemented in FHIR
             }
         }
 
@@ -4728,12 +4727,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // Not implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // Not implemented in FHIR
             }
         }
 
@@ -4743,12 +4742,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // Not implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // Not implemented in FHIR
             }
         }
 
@@ -4772,12 +4771,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // Not implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // Not implemented in FHIR
             }
         }
 
