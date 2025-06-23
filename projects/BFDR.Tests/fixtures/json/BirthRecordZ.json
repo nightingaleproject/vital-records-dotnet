@@ -519,10 +519,7 @@
           {
             "use": "official",
             "family": "ZALBANAIZ",
-            "given": [
-              "XYUGBNX",
-              "XMX"
-            ]
+            "given": ["XYUGBNX", "XMX"]
           }
         ],
         "birthDate": "2024-01-01",
@@ -606,10 +603,7 @@
           {
             "use": "official",
             "family": "ALHAMADI",
-            "given": [
-              "REEM",
-              "NASSER"
-            ]
+            "given": ["REEM", "NASSER"]
           },
           {
             "use": "maiden",
@@ -635,9 +629,7 @@
         "address": [
           {
             "use": "billing",
-            "line": [
-              "888 N PRIEST AVE9999"
-            ],
+            "line": ["888 N PRIEST AVE9999"],
             "city": "GLENDALE",
             "state": "AZ",
             "_state": {
@@ -663,9 +655,7 @@
               }
             ],
             "use": "home",
-            "line": [
-              "999 N COLLEGE AVE5656"
-            ],
+            "line": ["999 N COLLEGE AVE5656"],
             "city": "TEMPE",
             "_city": {
               "extension": [
@@ -746,10 +736,7 @@
           {
             "use": "official",
             "family": "ALBANAI",
-            "given": [
-              "OMAR",
-              "AHMED"
-            ]
+            "given": ["OMAR", "AHMED"]
           }
         ],
         "birthDate": "1995-06-04",
@@ -2494,10 +2481,36 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:0b8cc9c9-eb4d-4261-8750-f95f8e601346",
+      "fullUrl": "urn:uuid:61b2438e-4eb7-4df3-ae35-c461d4978e6d",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "61b2438e-4eb7-4df3-ae35-c461d4978e6d",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "73813-8"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:84c0aec1-343e-42ff-8fca-fa306668e7b4"
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "434691000124101"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:aa1c46f2-e735-4ae5-a04f-c776978edf05",
       "resource": {
         "resourceType": "Procedure",
-        "id": "0b8cc9c9-eb4d-4261-8750-f95f8e601346",
+        "id": "aa1c46f2-e735-4ae5-a04f-c776978edf05",
         "category": {
           "coding": [
             {

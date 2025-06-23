@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import AceEditor from 'react-ace';
 import { toast } from 'react-semantic-toasts';
 import { Button, Container, Dimmer, Form, Header, Icon, Label, Loader, Segment } from 'semantic-ui-react';
-import { connectionErrorToast } from '../../error';
 
 import 'ace-builds/src-noconflict/mode-text';
 import 'ace-builds/src-noconflict/theme-chrome';
@@ -31,7 +30,7 @@ export class Getter extends Component {
       } else if (this.state.pasteText.length === 5000) {
         this.setState({ pasteText: this.formatIje(this.state.pasteText) });
       }
-    } catch (err) {}
+    } catch (err) { }
   }
 
   formatXml(xml, spaces) {
@@ -93,8 +92,8 @@ export class Getter extends Component {
         try {
           data = JSON.parse(data); // catch SyntaxError from misformed JSON
         } catch {
-          self.setState({loading: false}, () => {
-            self.props.updateRecord(null, [{message: 'Syntax error when parsing JSON.', severity: 'error'}]);
+          self.setState({ loading: false }, () => {
+            self.props.updateRecord(null, [{ message: 'Syntax error when parsing JSON.', severity: 'error' }]);
           })
           return;
         }
@@ -102,7 +101,7 @@ export class Getter extends Component {
       var endpoint = '';
       if (this.props.returnType) {
         endpoint = `/records/${this.props.recordType}/return/new`;
-      } else if(this.props.messageValidation) {
+      } else if (this.props.messageValidation) {
         endpoint = `/messages/${this.props.recordType}/new`
       } else if (this.props.messageInspector) {
         endpoint = `/messages/${this.props.recordType}/inspect`;
@@ -114,8 +113,8 @@ export class Getter extends Component {
         endpoint = `/records/${this.props.recordType}/new`;
       }
       axios
-        .post(window.API_URL + endpoint + (!!this.props.strict ? '?strict=yes' : '?strict=no'), data, {headers: headers})
-        .then(function(response) {
+        .post(window.API_URL + endpoint + (!!this.props.strict ? '?strict=yes' : '?strict=no'), data, { headers: headers })
+        .then(function (response) {
           self.setState({ loading: false }, () => {
             var record = response.data.item1;
             if (record && record.fhirInfo) {
@@ -124,9 +123,10 @@ export class Getter extends Component {
             self.props.updateRecord(record, response.data.item2);
           });
         })
-        .catch(function(error) {
+        .catch(function (error) {
           self.setState({ loading: false }, () => {
-            connectionErrorToast(error);
+            const errMsg = error?.response?.data?.errorDetails ?? error?.response?.statusText ?? error;
+            self.props.updateRecord(null, [{ message: errMsg, severity: 'error' }]);
           });
         });
     });
@@ -137,7 +137,7 @@ export class Getter extends Component {
     const recordType = this.props.recordType
     axios
       .get(`${window.API_URL}/endpoints/${recordType}/new`)
-      .then(function(response) {
+      .then(function (response) {
         self.setState(
           {
             endpoint: `${window.location.protocol}//${window.location.host}/endpoints/${recordType}/record/${response.data}`,
@@ -152,7 +152,7 @@ export class Getter extends Component {
                 self.setState({ waiting: true }, () => {
                   axios
                     .get(`${window.API_URL}/endpoints/${recordType}/${self.state.endpointId}`)
-                    .then(function(response) {
+                    .then(function (response) {
                       if (response.data && response.data.finished) {
                         self.setState({ checking: false, waiting: false }, () => {
                           var record = null;
@@ -170,7 +170,7 @@ export class Getter extends Component {
                         self.setState({ waiting: false });
                       }
                     })
-                    .catch(function(error) {
+                    .catch(function (error) {
                       self.setState({ checking: false, waiting: false }, () => {
                         console.error('Error checking endpoint: ' + JSON.stringify(error));
                       });
@@ -181,9 +181,10 @@ export class Getter extends Component {
           }
         );
       })
-      .catch(function(error) {
+      .catch(function (error) {
         self.setState({ loading: false }, () => {
-          connectionErrorToast(error);
+          const errMsg = error?.response?.data?.errorDetails ?? error?.response ?? error;
+          self.props.updateRecord(null, [{ message: errMsg, severity: 'error' }]);
         });
       });
   }
@@ -191,12 +192,12 @@ export class Getter extends Component {
   onChangeFile(event) {
     var self = this;
     var reader = new FileReader();
-    reader.onload = function(event) {
+    reader.onload = function (event) {
       self.setState({ pasteText: event.target.result }, () => {
         self.submitPaste();
       });
     };
-    reader.onerror = function(event) {
+    reader.onerror = function (event) {
       self.setState({ loading: false }, () => {
         toast({
           type: 'error',
@@ -223,8 +224,7 @@ export class Getter extends Component {
       containerTip = 'The contents must be formatted as an IJE ' + ijeDataType + ' record.'
     }
 
-    if (this.props.source == 'FshSushiInspector')
-    {
+    if (this.props.source == 'FshSushiInspector') {
       containerTip = 'The contents must be formatted as FSH.'
     }
 
