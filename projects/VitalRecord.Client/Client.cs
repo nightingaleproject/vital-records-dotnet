@@ -1,5 +1,5 @@
 ﻿using System.Text;
-using System.Net.HTTP.Headers;
+using System.Net.Http.Headers;
 using Newtonsoft.Json.Linq;
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Serialization;
@@ -8,10 +8,10 @@ using System.Net.Http;
 namespace VR
 {
     /// <summary>Abstract Client for handling BFDR and VRDR messages from the NVSS FHIR API</summary>
-    public abstract class Client
+    public class Client
     {
         /// <summary>The API url</summary>
-        ///TODO: should Url toggle based on message type- VT? 
+        ///TODO: should Url toggle based on message type? 
         /// TODO: does Url also need IG version now?
         public String Url { get; }
         /// <summary>Whether the client is running locally</summary>
@@ -77,7 +77,7 @@ namespace VR
 
         /// <summary>PostMessageAsync POSTS a single message to the NVSS FHIR API server for processing</summary>
         /// TODO: replace BaseMessage with CommonMessage !!!
-        public async Task<HttpResponseMessage> PostMessageAsync(BaseMessage message)
+        public async Task<HttpResponseMessage> PostMessageAsync(CommonMessage message)
         {
 
             var json = message.ToJSON();
@@ -114,13 +114,13 @@ namespace VR
         }
 
         /// <summary>Create the payload for submission to the NVSS FHIR API for bulk upload</summary>
-        public static string CreateBulkUploadPayload(IEnumerable<BaseMessage> messages, string url, bool prettyPrint = false)
+        public static string CreateBulkUploadPayload(IEnumerable<CommonMessage> messages, string url, bool prettyPrint = false)
         {
             Bundle payload = new Bundle();
             payload.Id = Guid.NewGuid().ToString();
             payload.Type = Bundle.BundleType.Batch;
             payload.Timestamp = DateTime.Now;
-            foreach (BaseMessage message in messages)
+            foreach (CommonMessage message in messages)
             {
                 Bundle.EntryComponent entry = new Bundle.EntryComponent();
                 entry.Resource = (Bundle)message;
@@ -133,12 +133,12 @@ namespace VR
         }
 
         /// <summary>PostMessageAsync POSTS a list of messages to the NVSS FHIR API server for processing using bulk upload</summary>
-        public async Task<List<HttpResponseMessage>> PostMessagesAsync(IEnumerable<BaseMessage> messages, int batchSize)
+        public async Task<List<HttpResponseMessage>> PostMessagesAsync(IEnumerable<CommonMessage> messages, int batchSize)
         {
             List<HttpResponseMessage> responses = new List<HttpResponseMessage>();
             while (messages.Count() > 0)
             {
-                IEnumerable<BaseMessage> batch = messages.Take(batchSize);
+                IEnumerable<CommonMessage> batch = messages.Take(batchSize);
                 List<HttpResponseMessage> batchResponses = await PostMessagesAsync(batch);
                 responses.AddRange(batchResponses);
                 messages = messages.Skip(batchSize);
@@ -148,7 +148,7 @@ namespace VR
 
         // PostMessageAsync POSTS a list of messages to the NVSS FHIR API server for processing using bulk upload
         // This method is private because it sends batches of arbirary size, the public method requires a batch size to be set
-        private async Task<List<HttpResponseMessage>> PostMessagesAsync(IEnumerable<BaseMessage> messages)
+        private async Task<List<HttpResponseMessage>> PostMessagesAsync(IEnumerable<CommonMessage> messages)
         {
             string json = CreateBulkUploadPayload(messages, this.Url);
             StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
@@ -187,7 +187,7 @@ namespace VR
             {
                 // We should have a batch-response Bundle
                 string content = response.Content.ReadAsStringAsync().Result;
-                Bundle bundle = BaseMessage.ParseGenericBundle(content, true);
+                Bundle bundle = CommonMessage.ParseGenericBundle(content, true);
                 if (bundle?.Type == Bundle.BundleType.BatchResponse)
                 {
                     List<HttpResponseMessage> httpResponses = new List<HttpResponseMessage>();
