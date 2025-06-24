@@ -243,13 +243,8 @@ namespace BFDR
         public string TD
         {
             get => GetTimeIJEFormatted(record.DateTimeOfDelivery) ?? "".PadLeft(4);
-            set {
-                string potentialDateTime = AddTime(value, record.DateOfDelivery);
-                if (potentialDateTime != null)
-                {
-                    record.DateTimeOfDelivery = potentialDateTime;
-                }
-            }        }
+            set => record.DateTimeOfDelivery = AddTime(value, record.DateOfDelivery);
+        }
 
         /// <summary>Sex</summary>
         [IJEField(7, 30, 1, "Sex", "FSEX", 1)]

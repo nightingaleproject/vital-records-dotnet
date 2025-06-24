@@ -254,8 +254,7 @@ namespace BFDR
             int minutes = int.Parse(value.Substring(2));
             if (hours == 99 || minutes == 99)
             {
-                // Is this correct? We just don't support unknowns at time anymore?
-                throw new ArgumentException($"BFDR's IJE Times cannot accept unknown '99's for time values. Given: {value}");
+                return null;
             }
             TimeSpan timeZoneOffset = TimeZoneInfo.Local.GetUtcOffset(new DateTime((int)year, (int)month, (int)day));
             return new Hl7.Fhir.Model.FhirDateTime((int)year, (int)month, (int)day, hours, minutes, 0, timeZoneOffset).ToString();
