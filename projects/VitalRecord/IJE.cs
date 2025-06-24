@@ -356,7 +356,7 @@ namespace VR
                 IJEField info = property.GetCustomAttribute<IJEField>();
                 // Grab the field value
                 string field = ije.Substring(info.Location - 1, info.Length);
-                // Set the value on this IJEMortality (and the embedded record)
+                // Set the value on this IJE (and the embedded record)
                 property.SetValue(this, field);
             }
 

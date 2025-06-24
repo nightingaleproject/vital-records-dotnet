@@ -1,4 +1,7 @@
+using System;
 using System.IO;
+using System.Reflection;
+using VR;
 using Xunit;
 
 namespace BFDR.Tests
@@ -139,6 +142,46 @@ namespace BFDR.Tests
     }
 
     [Fact]
+    public void RoundTripDates()
+    {
+      string rawIJE = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/ConnectathonFetalDeathRecord.ije")));
+      IJEFetalDeath ije1 = new IJEFetalDeath(rawIJE);
+      IJEFetalDeath ije2 = new IJEFetalDeath(ije1.ToString());
+      IJEFetalDeath ije3 = new IJEFetalDeath(new FetalDeathRecord(ije2.ToRecord().ToXML()));
+
+      Assert.Equal("2024", ije1.FDOD_YR);
+      Assert.Equal("12", ije1.FDOD_MO);
+      Assert.Equal("13", ije1.FDOD_DY);
+      Assert.Equal("2024", ije2.FDOD_YR);
+      Assert.Equal("12", ije2.FDOD_MO);
+      Assert.Equal("13", ije2.FDOD_DY);
+      Assert.Equal("2024", ije3.FDOD_YR);
+      Assert.Equal("12", ije3.FDOD_MO);
+      Assert.Equal("13", ije3.FDOD_DY);
+    }
+
+    [Fact]
+    public void RecordIJERoundTrip()
+    {
+      FetalDeathRecord b = new FetalDeathRecord(File.ReadAllText("fixtures/json/BasicFetalDeathRecord.json"));
+      IJEFetalDeath ije1, ije2, ije3;
+      ije1 = new IJEFetalDeath(b);
+      ije2 = new IJEFetalDeath(ije1.ToString());
+      ije3 = new IJEFetalDeath(new FetalDeathRecord(ije2.ToRecord().ToXML()));
+      foreach (PropertyInfo property in typeof(IJEFetalDeath).GetProperties())
+      {
+        string val1 = Convert.ToString(property.GetValue(ije1, null));
+        string val2 = Convert.ToString(property.GetValue(ije2, null));
+        string val3 = Convert.ToString(property.GetValue(ije3, null));
+        IJEField info = property.GetCustomAttribute<IJEField>();
+        if (val1.ToUpper() != val2.ToUpper() || val1.ToUpper() != val3.ToUpper() || val2.ToUpper() != val3.ToUpper())
+        {
+          Assert.Fail($"[***** MISMATCH *****]\t{info.Name}: {info.Contents} \t\t\"{val1}\" != \"{val2}\" != \"{val3}\"");
+        }
+      }
+    }
+
+    [Fact]
     public void ParseIJEConnectathonTestData()
     {
       string rawIJE = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/ConnectathonFetalDeathRecord.ije")));
@@ -146,7 +189,13 @@ namespace BFDR.Tests
 
       // Confirm the ije can be converted to fhir
       FetalDeathRecord record = ije.ToRecord();
-      Assert.Equal(2024, record.DeliveryYear);
+      Assert.Equal("2024-12-13", record.DateOfDelivery);
+      string timeZoneOffset = TimeZoneInfo.Local.GetUtcOffset(new DateTime(2024, 12, 13)).ToString()[..6];
+      if (timeZoneOffset == "00:00:")
+      {
+        timeZoneOffset = "+00:00";
+      }
+      Assert.Equal("2024-12-13T18:30:00" + timeZoneOffset, record.DateTimeOfDelivery);
       Assert.Equal("Anwar", record.FetusFamilyName);
 
       // Confirm the ije fields are what we expect from the connectathon test record 1
@@ -524,17 +573,13 @@ namespace BFDR.Tests
       ije.MDOB_DY = "12";
       // convert IJE to FHIR
       FetalDeathRecord fd = ije.ToRecord();
-      Assert.Equal(1992, fd.MotherBirthYear);
-      Assert.Equal(1, fd.MotherBirthMonth);
-      Assert.Equal(12, fd.MotherBirthDay);
+      Assert.Equal("1992-01-12", fd.MotherDateOfBirth);
 
       // then to a json string
       string asJson = fd.ToJSON();
       // Create a fhir record from the json
       FetalDeathRecord fdRecord = new FetalDeathRecord(asJson);
-      Assert.Equal(1992, fdRecord.MotherBirthYear);
-      Assert.Equal(1, fdRecord.MotherBirthMonth);
-      Assert.Equal(12, fdRecord.MotherBirthDay);
+      Assert.Equal("1992-01-12", fd.MotherDateOfBirth);
 
       // convert back to IJE and confirm the values are the same
       IJEFetalDeath ije2 = new IJEFetalDeath(fdRecord);

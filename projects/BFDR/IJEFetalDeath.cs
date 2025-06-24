@@ -184,14 +184,8 @@ namespace BFDR
         [IJEField(1, 1, 4, "Date of Delivery (Fetus)--Year", "FDOD_YR", 1)]
         public string FDOD_YR
         {
-            get
-            {
-                return NumericAllowingUnknown_Get("FDOD_YR", "DeliveryYear");
-            }
-            set
-            {
-                NumericAllowingUnknown_Set("FDOD_YR", "DeliveryYear", value);
-            }
+            get => GetYearIJEFormatted(record.DateOfDelivery);
+            set => record.DateOfDelivery = AddYear(value, record.DateOfDelivery);
         }
 
         /// <summary>State, U.S. Territory or Canadian Province of Place of Delivery - code</summary>
@@ -245,20 +239,11 @@ namespace BFDR
         }
 
         /// <summary>Time of Delivery</summary>
-        [IJEField(6, 26, 4, "Time of Delivery", "TD", 1)]
+        [IJEField(6, 26, 4, "Time of Delivery", "TD", 4)]
         public string TD
         {
-            get
-            {
-                return TimeAllowingUnknown_Get("TD", "DeliveryTime");
-            }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    TimeAllowingUnknown_Set("TD", "DeliveryTime", value);
-                }
-            }
+            get => GetTimeIJEFormatted(record.DateTimeOfDelivery) ?? "".PadLeft(4);
+            set => record.DateTimeOfDelivery = AddTime(value, record.DateOfDelivery);
         }
 
         /// <summary>Sex</summary>
@@ -276,31 +261,19 @@ namespace BFDR
         }
 
         /// <summary>Date of Delivery (Fetus)--Month</summary>
-        [IJEField(8, 31, 2, "Date of Delivery (Fetus)--Month", "FDOD_MO", 1)]
+        [IJEField(8, 31, 2, "Date of Delivery (Fetus)--Month", "FDOD_MO", 2)]
         public string FDOD_MO
         {
-            get
-            {
-                return NumericAllowingUnknown_Get("FDOD_MO", "DeliveryMonth");
-            }
-            set
-            {
-                NumericAllowingUnknown_Set("FDOD_MO", "DeliveryMonth", value);
-            }
+            get => GetMonthIJEFormatted(record.DateOfDelivery);
+            set => record.DateOfDelivery = AddMonth(value, record.DateOfDelivery);
         }
 
         /// <summary>Date of Delivery (Fetus)--Day</summary>
-        [IJEField(9, 33, 2, "Date of Delivery (Fetus)--Day", "FDOD_DY", 1)]
+        [IJEField(9, 33, 2, "Date of Delivery (Fetus)--Day", "FDOD_DY", 3)]
         public string FDOD_DY
         {
-            get
-            {
-                return NumericAllowingUnknown_Get("FDOD_DY", "DeliveryDay");
-            }
-            set
-            {
-                NumericAllowingUnknown_Set("FDOD_DY", "DeliveryDay", value);
-            }
+            get => GetDayIJEFormatted(record.DateOfDelivery);
+            set => record.DateOfDelivery = AddDay(value, record.DateOfDelivery);
         }
 
         /// <summary>County of Delivery</summary>
@@ -354,42 +327,24 @@ namespace BFDR
         [IJEField(14, 55, 4, "Date of Birth (Mother)--Year", "MDOB_YR", 1)]
         public string MDOB_YR
         {
-            get
-            {
-                return NumericAllowingUnknown_Get("MDOB_YR", "MotherBirthYear");
-            }
-            set
-            {
-                NumericAllowingUnknown_Set("MDOB_YR", "MotherBirthYear", value);
-            }
+            get => GetYearIJEFormatted(record.MotherDateOfBirth);
+            set => record.MotherDateOfBirth = AddYear(value, record.MotherDateOfBirth);
         }
 
         /// <summary>Date of Birth (Mother)--Month</summary>
-        [IJEField(15, 59, 2, "Date of Birth (Mother)--Month", "MDOB_MO", 1)]
+        [IJEField(15, 59, 2, "Date of Birth (Mother)--Month", "MDOB_MO", 2)]
         public string MDOB_MO
         {
-            get
-            {
-                return NumericAllowingUnknown_Get("MDOB_MO", "MotherBirthMonth");
-            }
-            set
-            {
-                NumericAllowingUnknown_Set("MDOB_MO", "MotherBirthMonth", value);
-            }
+            get => GetMonthIJEFormatted(record.MotherDateOfBirth);
+            set => record.MotherDateOfBirth = AddMonth(value, record.MotherDateOfBirth);
         }
 
         /// <summary>Date of Birth (Mother)--Day</summary>
-        [IJEField(16, 61, 2, "Date of Birth (Mother)--Day", "MDOB_DY", 1)]
+        [IJEField(16, 61, 2, "Date of Birth (Mother)--Day", "MDOB_DY", 3)]
         public string MDOB_DY
         {
-            get
-            {
-                return NumericAllowingUnknown_Get("MDOB_DY", "MotherBirthDay");
-            }
-            set
-            {
-                NumericAllowingUnknown_Set("MDOB_DY", "MotherBirthDay", value);
-            }
+            get => GetDayIJEFormatted(record.MotherDateOfBirth);
+            set => record.MotherDateOfBirth = AddDay(value, record.MotherDateOfBirth);
         }
 
         /// <summary>Date of Birth (Mother)--Edit Flag</summary>
@@ -530,42 +485,24 @@ namespace BFDR
         [IJEField(25, 81, 4, "Date of Birth (Father)--Year", "FDOB_YR", 1)]
         public string FDOB_YR
         {
-            get
-            {
-                return NumericAllowingUnknown_Get("FDOB_YR", "FatherBirthYear");
-            }
-            set
-            {
-                NumericAllowingUnknown_Set("FDOB_YR", "FatherBirthYear", value);
-            }
+            get => GetYearIJEFormatted(record.FatherDateOfBirth);
+            set => record.FatherDateOfBirth = AddYear(value, record.FatherDateOfBirth);
         }
 
         /// <summary>Date of Birth (Father)--Month</summary>
-        [IJEField(26, 85, 2, "Date of Birth (Father)--Month", "FDOB_MO", 1)]
+        [IJEField(26, 85, 2, "Date of Birth (Father)--Month", "FDOB_MO", 2)]
         public string FDOB_MO
         {
-            get
-            {
-                return NumericAllowingUnknown_Get("FDOB_MO", "FatherBirthMonth");
-            }
-            set
-            {
-                NumericAllowingUnknown_Set("FDOB_MO", "FatherBirthMonth", value);
-            }
+            get => GetMonthIJEFormatted(record.FatherDateOfBirth);
+            set => record.FatherDateOfBirth = AddMonth(value, record.FatherDateOfBirth);
         }
 
         /// <summary>Date of Birth (Father)--Day</summary>
-        [IJEField(27, 87, 2, "Date of Birth (Father)--Day", "FDOB_DY", 1)]
+        [IJEField(27, 87, 2, "Date of Birth (Father)--Day", "FDOB_DY", 3)]
         public string FDOB_DY
         {
-            get
-            {
-                return NumericAllowingUnknown_Get("FDOB_DY", "FatherBirthDay");
-            }
-            set
-            {
-                NumericAllowingUnknown_Set("FDOB_DY", "FatherBirthDay", value);
-            }
+            get => GetDayIJEFormatted(record.FatherDateOfBirth);
+            set => record.FatherDateOfBirth = AddDay(value, record.FatherDateOfBirth);
         }
 
         /// <summary>Date of Birth (Father)--Edit Flag</summary>
