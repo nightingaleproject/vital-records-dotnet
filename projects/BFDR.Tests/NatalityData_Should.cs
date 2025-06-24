@@ -129,7 +129,7 @@ namespace BFDR.Tests
       Assert.Equal("    ", ije.IDOB_YR);
       Assert.Equal("  ", ije.IDOB_MO);
       Assert.Equal("  ", ije.IDOB_DY);
-      Assert.Equal("    ", ije.TB);
+      Assert.Equal("9999", ije.TB);
       rec.DateOfBirth = "2021";
       ije = new IJEBirth(rec);
       Assert.Equal("2021", rec.DateOfBirth);
@@ -137,7 +137,7 @@ namespace BFDR.Tests
       Assert.Equal("2021", ije.IDOB_YR);
       Assert.Equal("  ", ije.IDOB_MO);
       Assert.Equal("  ", ije.IDOB_DY);
-      Assert.Equal("    ", ije.TB);
+      Assert.Equal("9999", ije.TB);
       rec.DateOfBirth = "2021-03";
       ije = new IJEBirth(rec);
       Assert.Equal("2021-03", rec.DateOfBirth);
@@ -145,7 +145,7 @@ namespace BFDR.Tests
       Assert.Equal("2021", ije.IDOB_YR);
       Assert.Equal("03", ije.IDOB_MO);
       Assert.Equal("  ", ije.IDOB_DY);
-      Assert.Equal("    ", ije.TB);
+      Assert.Equal("9999", ije.TB);
       rec.DateOfBirth = "2021-03-09";
       ije = new IJEBirth(rec);
       Assert.Equal("2021-03-09", rec.DateOfBirth);
@@ -153,7 +153,7 @@ namespace BFDR.Tests
       Assert.Equal("2021", ije.IDOB_YR);
       Assert.Equal("03", ije.IDOB_MO);
       Assert.Equal("09", ije.IDOB_DY);
-      Assert.Equal("    ", ije.TB);
+      Assert.Equal("9999", ije.TB);
       rec.BirthDateTime = "2024-08-23T13:00:00-1:00";
       ije = new IJEBirth(rec);
       Assert.Equal("2024-08-23", rec.DateOfBirth);
@@ -177,7 +177,7 @@ namespace BFDR.Tests
       Assert.Equal("2023", ije.IDOB_YR);
       Assert.Equal("  ", ije.IDOB_MO);
       Assert.Equal("  ", ije.IDOB_DY);
-      Assert.Equal("    ", ije.TB);
+      Assert.Equal("9999", ije.TB);
       Assert.Throws<System.ArgumentException>(() => rec.BirthDateTime = "2023T15:30:00");
       Assert.Equal("2023", rec.DateOfBirth);
       Assert.Null(rec.BirthDateTime);
@@ -214,7 +214,7 @@ namespace BFDR.Tests
       Assert.Equal("2023", ije.IDOB_YR);
       Assert.Equal("  ", ije.IDOB_MO);
       Assert.Equal("  ", ije.IDOB_DY);
-      Assert.Equal("    ", ije.TB);
+      Assert.Equal("9999", ije.TB);
       rec.BirthDateTime = "2024-07-29T12:24+4:30";
       ije = new IJEBirth(rec);
       Assert.Equal("2024-07-29", rec.DateOfBirth);
@@ -294,6 +294,7 @@ namespace BFDR.Tests
       ije.TB = "9999";
       Assert.Equal("2022-06-22", ije.ToRecord().DateOfBirth);
       Assert.Null(ije.ToRecord().BirthDateTime);
+      Assert.Equal("9999", ije.TB);
     }
 
     [Fact]

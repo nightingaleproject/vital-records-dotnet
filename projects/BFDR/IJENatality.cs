@@ -269,7 +269,7 @@ namespace BFDR
         {
             if (String.IsNullOrEmpty(dateTime))
             {
-                return null;
+                return "9999";
             }
             string timeStr = dateTime?.Split('T') is string[] parts && parts.Length > 1 ? parts[1] : null;
             if (timeStr == null)
@@ -280,7 +280,7 @@ namespace BFDR
                 {
                     if (parsedTime.Hours == null || parsedTime.Minutes == null)
                     {
-                        return null;
+                    return "9999";
                     }
                     TimeSpan timeSpan = new TimeSpan((int)parsedTime.Hours, (int)parsedTime.Minutes, 0);
                     return timeSpan.ToString(@"hhmm");
