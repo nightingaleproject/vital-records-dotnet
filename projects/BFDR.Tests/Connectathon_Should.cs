@@ -61,7 +61,7 @@ namespace BFDR.Tests
             var result = Connectathon.FromId(1, year: year);
 
             Assert.NotNull(result);
-            Assert.Equal(year, result.BirthYear);
+            Assert.Contains(year.ToString(), result.DateOfBirth);
         }
 
         [Fact]
@@ -76,7 +76,7 @@ namespace BFDR.Tests
             Assert.NotNull(result);
             Assert.Equal(certificateNumber.ToString(), result.CertificateNumber);
             Assert.Equal(state, result.EventLocationJurisdiction);
-            Assert.Equal(year, result.BirthYear);
+            Assert.Contains(year.ToString(), result.DateOfBirth);
         }
 
         [Fact]
@@ -179,7 +179,7 @@ namespace BFDR.Tests
             var result = Connectathon.FetalDeathRecordFromId(1, year: year);
 
             Assert.NotNull(result);
-            Assert.Equal(year, result.DeliveryYear);
+            Assert.Contains(year.ToString(), result.DateOfDelivery);
         }
 
         [Fact]
@@ -194,7 +194,7 @@ namespace BFDR.Tests
             Assert.NotNull(result);
             Assert.Equal(certificateNumber.ToString(), result.CertificateNumber);
             Assert.Equal(state, result.EventLocationJurisdiction);
-            Assert.Equal(year, result.DeliveryYear);
+            Assert.Contains(year.ToString(), result.DateOfDelivery);
         }
 
         [Fact]
@@ -251,7 +251,7 @@ namespace BFDR.Tests
             var originalRecord = Connectathon.FromId(1);
             var originalCertNumber = originalRecord.CertificateNumber;
             var originalState = originalRecord.EventLocationJurisdiction;
-            var originalYear = originalRecord.BirthYear;
+            var originalYear = originalRecord.DateOfBirth;
 
             var modifiedRecord = Connectathon.FromId(1, 999999, "ZZ", 1999);
 
@@ -259,12 +259,12 @@ namespace BFDR.Tests
             var checkOriginal = Connectathon.FromId(1);
             Assert.Equal(originalCertNumber, checkOriginal.CertificateNumber);
             Assert.Equal(originalState, checkOriginal.EventLocationJurisdiction);
-            Assert.Equal(originalYear, checkOriginal.BirthYear);
+            Assert.Equal(originalYear, checkOriginal.DateOfBirth);
 
             // Verify modified record has new values
             Assert.Equal("999999", modifiedRecord.CertificateNumber);
             Assert.Equal("ZZ", modifiedRecord.EventLocationJurisdiction);
-            Assert.Equal(1999, modifiedRecord.BirthYear);
+            Assert.Contains("1999", modifiedRecord.DateOfBirth);
         }
 
         [Fact]
@@ -277,7 +277,7 @@ namespace BFDR.Tests
             var baseRecord = Connectathon.FromId(1);
             Assert.Equal(baseRecord.CertificateNumber, result.CertificateNumber);
             Assert.Equal(baseRecord.EventLocationJurisdiction, result.EventLocationJurisdiction);
-            Assert.Equal(baseRecord.BirthYear, result.BirthYear);
+            Assert.Equal(baseRecord.DateOfBirth, result.DateOfBirth);
         }
 
         [Fact]
@@ -290,7 +290,7 @@ namespace BFDR.Tests
             var baseRecord = Connectathon.FetalDeathRecordFromId(1);
             Assert.Equal(baseRecord.CertificateNumber, result.CertificateNumber);
             Assert.Equal(baseRecord.EventLocationJurisdiction, result.EventLocationJurisdiction);
-            Assert.Equal(baseRecord.DeliveryYear, result.DeliveryYear);
+            Assert.Equal(baseRecord.DateOfDelivery, result.DateOfDelivery);
         }
 
         [Theory]
@@ -367,7 +367,7 @@ namespace BFDR.Tests
             // Only specified parameters should be different
             Assert.NotEqual(originalRecord.CertificateNumber, modifiedRecord.CertificateNumber);
             Assert.NotEqual(originalRecord.EventLocationJurisdiction, modifiedRecord.EventLocationJurisdiction);
-            Assert.NotEqual(originalRecord.BirthYear, modifiedRecord.BirthYear);
+            Assert.NotEqual(originalRecord.DateOfBirth, modifiedRecord.DateOfBirth);
         }
     }
 }

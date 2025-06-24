@@ -347,12 +347,17 @@
             <param name="noneOfTheAboveValue">the value of the corresponding none-of-the-above field</param>
             <param name="fhirFieldName">name of the FHIR field being checked</param>
             <returns>Y (yes), N (no), or U (unknown)</returns>
+            <remarks>U will only be returned if the category for the FHIR field is completely empty. Therefore, if a U was provided
+            in the original IJE along with Y or N in the same category, that U value will not be maintained during a round-trip conversion.</remarks>
         </member>
         <member name="M:VR.IJE.IJEToPresence(System.String,System.String,System.String)">
             <summary>Converts the IJE representation of presence-only fields to the FHIR equivalent.</summary>
             <param name="value">Y (yes), N (no), or U (unknown)</param>
             <param name="fhirFieldName">name of the FHIR field that represents this IJE field</param>
             <param name="noneOfTheAboveFieldName">name of the FHIR field that represents "none of the above" for the FHIR field's category</param>
+            <remarks>A value of N causes the FHIR field to be set to false and, if the field's category is then empty,
+            cause the none of the above field to be set to true. U or other non-Y values cause the FHIR field to be set to false, but
+            will not cause the none of the above field to be set to true.</remarks>
         </member>
         <member name="T:VR.IJEData">
             <summary>Data helper class for dealing with IJE mortality data. Follows Singleton-esque pattern!</summary>
