@@ -2,7 +2,7 @@
   <PropertyGroup>
     <PackageId>VitalRecord.Messaging</PackageId>
     <Version>1.0.0-preview.8</Version>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>netstandard2.0;net9.0</TargetFrameworks>
     <RootNamespace>VR</RootNamespace>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Title>FHIR VR Messaging</Title>
