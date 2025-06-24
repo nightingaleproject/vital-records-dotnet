@@ -374,7 +374,7 @@ namespace canary.Models
 
                 var options = new RestClientOptions("https://" + url)
                 {
-                    MaxTimeout = -1,
+                    Timeout = TimeSpan.FromMinutes(5),
                 };
                 var client = new RestClient(options);
                 var request = new RestRequest("/api/FshToFhir", Method.Post);
@@ -480,7 +480,7 @@ namespace canary.Models
 
                 var options = new RestClientOptions("https://" + url)
                 {
-                    MaxTimeout = -1,
+                    Timeout = TimeSpan.FromMinutes(5),
                 };
                 var client = new RestClient(options);
                 var request = new RestRequest("/api/FhirToFsh", Method.Post);
@@ -512,7 +512,7 @@ namespace canary.Models
 
                 var options = new RestClientOptions("https://" + url)
                 {
-                    MaxTimeout = -1,
+                    Timeout = TimeSpan.FromMinutes(5),
                 };
                 var client = new RestClient(options);
                 var request = new RestRequest("/api/ConvertInstanceOf", Method.Post);
