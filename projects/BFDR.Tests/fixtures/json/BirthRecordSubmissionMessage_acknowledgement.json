@@ -1,38 +1,42 @@
 {
   "resourceType": "Bundle",
-  "id": "040891e2-cfc4-4c75-933a-be75f48ef1f7",
+  "id": "3217efcd-cb39-432a-9af1-f02ebc1a4e05",
   "type": "message",
-  "timestamp": "2025-06-12T10:48:32.687189-04:00",
+  "timestamp": "2025-06-12T10:48:24.6344057-04:00",
   "entry": [
     {
-      "fullUrl": "urn:uuid:acc938a1-d06b-4bb8-a6db-5229d614d2e9",
+      "fullUrl": "urn:uuid:3a881ca8-2163-47f0-8085-b16190c011e6",
       "resource": {
         "resourceType": "MessageHeader",
-        "id": "acc938a1-d06b-4bb8-a6db-5229d614d2e9",
-        "eventUri": "http://nchs.cdc.gov/fd_acknowledgement",
+        "id": "3a881ca8-2163-47f0-8085-b16190c011e6",
+        "eventUri": "http://nchs.cdc.gov/birth_acknowledgement",
         "destination": [
           {
-            "endpoint": "https://example.com/jurisdiction/message/endpoint"
+            "endpoint": "http://mitre.org/bfdr"
           }
         ],
         "source": {
           "endpoint": "http://nchs.cdc.gov/bfdr_submission"
         },
         "response": {
-          "identifier": "41f14a27-b079-4c76-ab04-a27c8046b2af",
+          "identifier": "c36cfa0d-f3d4-4b1a-9df4-410f640b50c3",
           "code": "ok"
         }
       }
     },
     {
-      "fullUrl": "urn:uuid:690a4395-8f01-46db-b953-9677e975640b",
+      "fullUrl": "urn:uuid:47bd09a1-8332-4d99-92d5-efe06f134579",
       "resource": {
         "resourceType": "Parameters",
-        "id": "690a4395-8f01-46db-b953-9677e975640b",
+        "id": "47bd09a1-8332-4d99-92d5-efe06f134579",
         "parameter": [
           {
             "name": "cert_no",
-            "valueUnsignedInt": 453723
+            "valueUnsignedInt": 48858
+          },
+          {
+            "name": "state_auxiliary_id",
+            "valueString": "000000000042"
           },
           {
             "name": "jurisdiction_id",
@@ -40,7 +44,7 @@
           },
           {
             "name": "event_year",
-            "valueUnsignedInt": 2025
+            "valueUnsignedInt": 2019
           },
           {
             "name": "payload_version_id",
