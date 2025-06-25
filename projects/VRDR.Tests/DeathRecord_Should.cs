@@ -1943,7 +1943,7 @@ namespace VRDR.Tests
             Assert.Equal("717171", DeathRecord1_JSON.BirthRecordChildId);
             Assert.Equal("242123", DeathRecord1_XML.BirthRecordChildId);
         }
-              [Fact]
+        [Fact]
         public void Set_FetalDeathRecordId()
         {
             SetterDeathRecord.FetalDeathRecordId = "242123";
@@ -1982,7 +1982,7 @@ namespace VRDR.Tests
             DeathRecord dr = new DeathRecord(File.ReadAllText(FixturePath("fixtures/json/DeathRecordBirthRecordDataAbsent.json")));
             Assert.Null(dr.BirthRecordChildId);
         }
-         [Fact]
+        [Fact]
         public void Set_FetalDeathRecord_Absent()
         {
             SetterDeathRecord.FetalDeathRecordId = "";
@@ -2007,7 +2007,7 @@ namespace VRDR.Tests
             Assert.Equal("242123", dr2.BirthRecordId);
         }
 
-          [Fact]
+        [Fact]
         public void Get_BirthRecordChild_Roundtrip()
         {
             DeathRecord dr = DeathRecord1_JSON;
@@ -2017,13 +2017,13 @@ namespace VRDR.Tests
             Assert.Equal("717171", dr2.BirthRecordChildId);
         }
 
-          [Fact]
+        [Fact]
         public void Get_FetalDeathRecord_Roundtrip()
         {
             DeathRecord dr = DeathRecord1_JSON;
             Assert.Equal("717171", dr.FetalDeathRecordId);
             IJEMortality ije1 = new IJEMortality(dr);
-//
+            //
             DeathRecord dr2 = ije1.ToRecord();
             Assert.Equal("717171", dr2.FetalDeathRecordId);
         }
@@ -2059,7 +2059,7 @@ namespace VRDR.Tests
             SetterDeathRecord.BirthRecordChildState = state;
             Assert.Equal(state, SetterDeathRecord.BirthRecordChildState);
         }
-                [Theory]
+        [Theory]
         [InlineData("MA")]
         [InlineData("YC")]
         public void Set_FetalDeathRecordState(string state)
@@ -2143,8 +2143,8 @@ namespace VRDR.Tests
             var occ = new Dictionary<string, string>();
             occ["system"] = VR.CodeSystems.OccupationCDCSOC2018;
             occ["code"] = "13-2011";
-            occ["display"]= "Accountants and Auditors";
-    
+            occ["display"] = "Accountants and Auditors";
+
             SetterDeathRecord.UsualOccupationCoded = occ;
             // Set text component
             SetterDeathRecord.UsualOccupation = "secretary";
@@ -2169,7 +2169,7 @@ namespace VRDR.Tests
             var ind = new Dictionary<string, string>();
             ind["system"] = VR.CodeSystems.IndustryCDCNAICS2017;
             ind["code"] = "54121";
-            ind["display"]= "Accounting, Tax Preparation, Bookkeeping, and Payroll Services";
+            ind["display"] = "Accounting, Tax Preparation, Bookkeeping, and Payroll Services";
             SetterDeathRecord.UsualIndustryCoded = ind;
 
             // Check that the text value was set properly
@@ -2192,17 +2192,17 @@ namespace VRDR.Tests
         /// <para>mserv.Add("code", "13-2011");</para>
         /// <para>mserv.Add("system", VR.CodeSystems.IndustryDCCensus2018);</para>
         /// <para>mserv.Add("display", "Accountants and Auditors");</para>
-                [Fact]
+        [Fact]
         public void Set_UsualOccupationCode()
         {
             var occ = new Dictionary<string, string>();
             occ["system"] = VR.CodeSystems.OccupationCDCSOC2018;
             occ["code"] = "13-2011";
-            occ["display"]= "Accountants and Auditors";
+            occ["display"] = "Accountants and Auditors";
 
             // Check that text field isn't perturbed
             SetterDeathRecord.UsualOccupation = "Hairdresser";
-    
+
             SetterDeathRecord.UsualOccupationCoded = occ;
             Assert.Equal("13-2011", SetterDeathRecord.UsualOccupationCoded["code"]);
             Assert.Equal(VR.CodeSystems.OccupationCDCSOC2018, SetterDeathRecord.UsualOccupationCoded["system"]);
@@ -2222,11 +2222,11 @@ namespace VRDR.Tests
             var ind = new Dictionary<string, string>();
             ind["system"] = VR.CodeSystems.IndustryCDCNAICS2017;
             ind["code"] = "54121";
-            ind["display"]= "Accounting, Tax Preparation, Bookkeeping, and Payroll Services";
+            ind["display"] = "Accounting, Tax Preparation, Bookkeeping, and Payroll Services";
 
             // Check that it doesn't overload the text field
-           SetterDeathRecord.UsualIndustry = "Basket weaving";
-    
+            SetterDeathRecord.UsualIndustry = "Basket weaving";
+
             SetterDeathRecord.UsualIndustryCoded = ind;
             Assert.Equal("54121", SetterDeathRecord.UsualIndustryCoded["code"]);
             Assert.Equal(VR.CodeSystems.IndustryCDCNAICS2017, SetterDeathRecord.UsualIndustryCoded["system"]);
@@ -3930,6 +3930,35 @@ namespace VRDR.Tests
         }
 
         [Fact]
+        public void CheckConnectathonRecordFromId()
+        {
+            DeathRecord dr1 = VRDR.Connectathon.FromId(3);
+            Assert.Equal("3", dr1.AgeAtDeath["value"]);
+            Assert.Equal("male", dr1.SexAtDeath["code"]);
+            Assert.Equal("3", dr1.Identifier);
+            Assert.Equal("CT", dr1.DeathLocationJurisdiction);
+            Assert.Equal(2023, dr1.DeathYear);
+        }
+
+        [Fact]
+        public void CheckConnectathonRecordFromIdWithParams()
+        {
+            DeathRecord dr1 = VRDR.Connectathon.FromId(1, 123456, "VA", 2008);
+            Assert.Equal("21", dr1.AgeAtDeath["value"]);
+            Assert.Equal("female", dr1.SexAtDeath["code"]);
+            Assert.Equal("123456", dr1.Identifier);
+            Assert.Equal("VA", dr1.DeathLocationJurisdiction);
+            Assert.Equal(2008, dr1.DeathYear);
+        }
+
+        [Fact]
+        public void CheckConnectathonRecordFromUnknownId()
+        {
+            DeathRecord dr = VRDR.Connectathon.FromId(10);
+            Assert.Null(dr);
+        }
+
+        [Fact]
         public void Test_GetCauseOfDeathCodedContentBundle()
         {
             Bundle bundle = DeathRecord1_JSON.GetCauseOfDeathCodedContentBundle();
@@ -4328,13 +4357,13 @@ namespace VRDR.Tests
                     {
                         Assert.Equal(value, "unknown");
                     }
-                    else if(property.Name == "DeathProperty")
+                    else if (property.Name == "DeathProperty")
                     {
                         Assert.Equal(value, "DeathRecordPropertyValue");
-                    } 
-                    else 
+                    }
+                    else
                     {
-                      Assert.Null(value);
+                        Assert.Null(value);
                     }
                 }
             }
@@ -4633,7 +4662,7 @@ namespace VRDR.Tests
             record = ije.ToDeathRecord();
             Assert.Null(record.FamilyName);
         }
-     // Testing for PartialDateTime now happens in VR.Test.  This test is obsolete
+        // Testing for PartialDateTime now happens in VR.Test.  This test is obsolete
         // [Fact]
         // public void TestBadPartialDate()
         // {
