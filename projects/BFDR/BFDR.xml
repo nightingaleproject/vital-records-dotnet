@@ -52,46 +52,6 @@
             <para>Console.WriteLine($"Mother's Weight at Delivery: {ExampleBirthRecord.MotherWeightAtDelivery}");</para>
             </example>
         </member>
-        <member name="P:BFDR.BirthRecord.BirthYear">
-            <summary>Child's Year of Birth.</summary>
-            <value>the child's year of birth, or -1 if explicitly unknown, or null if never specified</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.BirthYear = 1928;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Child Year of Birth: {ExampleBirthRecord.BirthYear}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.BirthRecord.BirthMonth">
-            <summary>Child's Month of Birth.</summary>
-            <value>the child's month of birth, or -1 if explicitly unknown, or null if never specified</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.BirthMonth = 11;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Child Month of Birth: {ExampleBirthRecord.BirthMonth}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.BirthRecord.BirthDay">
-            <summary>Child's Day of Birth.</summary>
-            <value>the child's day of birth, or -1 if explicitly unknown, or null if never specified</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.BirthDay = 11;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Child Day of Birth: {ExampleBirthRecord.BirthDay}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.BirthRecord.BirthTime">
-            <summary>Child's Time of Birth.</summary>
-            <value>the child's time of birth.</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.BirthTime = 11;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Child Time of Birth: {ExampleBirthRecord.BirthTime}");</para>
-            </example>
-        </member>
         <member name="P:BFDR.BirthRecord.BirthSex">
             <summary>Child's BirthSex at Birth.</summary>
             <value>The child's BirthSex at time of birth</value>
@@ -403,6 +363,16 @@
             <para>ExampleBirthRecord.MotherTransferredHelper = "hosp-trans";</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Mother transferred: {ExampleBirthRecord.MotherTransferredHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.BirthRecord.BirthDateTime">
+            <summary>Child's Time of Birth.</summary>
+            <value>the child's time of birth.</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.BirthTime = 11;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Child Time of Birth: {ExampleBirthRecord.BirthTime}");</para>
             </example>
         </member>
         <member name="F:BFDR.BirthRecord.EncounterBirth">
@@ -893,44 +863,14 @@
             <para>Console.WriteLine($"Decedent Fetus Date of Delivery: {ExampleFetalDeathRecord.DateOfBirth}");</para>
             </example>
         </member>
-        <member name="P:BFDR.FetalDeathRecord.DeliveryYear">
-            <summary>Decedent Fetus's Year of Delivery.</summary>
-            <value>the decedent fetus's year of delivery, or -1 if explicitly unknown, or null if never specified</value>
+        <member name="P:BFDR.FetalDeathRecord.DateTimeOfDelivery">
+            <summary>Decedent Fetus's Date-Time of Delivery.</summary>
+            <value>the decedent fetus's date and time of delivery, including time zone</value>
             <example>
             <para>// Setter:</para>
-            <para>ExampleFetalDeathRecord.DeliveryYear = 1928;</para>
+            <para>ExampleFetalDeathRecord.DateTimeOfDelivery = "1940-02-19T12:30:00+04:00";</para>
             <para>// Getter:</para>
-            <para>Console.WriteLine($"Decedent Fetus' Year of Delivery: {ExampleFetalDeathRecord.DeliveryYear}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.FetalDeathRecord.DeliveryMonth">
-            <summary>Decedent Fetus's Month of Delivery.</summary>
-            <value>the decedent fetus's month of delivery, or -1 if explicitly unknown, or null if never specified</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleFetalDeathRecord.DeliveryMonth = 11;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Child Month of Birth: {ExampleFetalDeathRecord.DeliveryMonth}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.FetalDeathRecord.DeliveryDay">
-            <summary>Decedent Fetus's Day of Delivery.</summary>
-            <value>the decedent fetus's day of delivery, or -1 if explicitly unknown, or null if never specified</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleFetalDeathRecord.DeliveryDay = 11;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Decedent Fetus' Day of Birth: {ExampleFetalDeathRecord.DeliveryDay}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.FetalDeathRecord.DeliveryTime">
-            <summary>Decedent Fetus's Time of Delivery.</summary>
-            <value>the decedent fetus's time of delivery.</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleFetalDeathRecord.DeliveryTime = 11;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Decedent Fetus Time of Birth: {ExampleFetalDeathRecord.DeliveryTime}");</para>
+            <para>Console.WriteLine($"Decedent Fetus Date of Delivery: {ExampleFetalDeathRecord.DateOfBirth}");</para>
             </example>
         </member>
         <member name="P:BFDR.FetalDeathRecord.FetalDeathSex">
@@ -1010,7 +950,7 @@
             <exception cref="T:System.ArgumentException">Record is invalid.</exception>
         </member>
         <member name="M:BFDR.FetalDeathRecord.GetYear">
-            <summary>Return the birth year for this record to be used in the identifier</summary>
+            <summary>Return the delivery year for this record to be used in the identifier</summary>
         </member>
         <member name="M:BFDR.FetalDeathRecord.GetCodedCauseOfFetalDeathBundle">
             <summary>Helper method to return the subset of this record that makes up a CodedCauseOfFetalDeath bundle.</summary>
@@ -3400,6 +3340,48 @@
         <member name="M:BFDR.IJENatality.Set_FatherRace(System.String,System.String)">
             <summary>Adds the given race to the record for Father.</summary>
         </member>
+        <member name="M:BFDR.IJENatality.AddYear(System.String,System.String)">
+            <summary>
+            Creates and returns a new date string based on the given string and year value.
+            </summary>
+            <param name="value"></param>
+            <param name="date"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BFDR.IJENatality.AddMonth(System.String,System.String)">
+            <summary>
+            Creates and returns a new date string based on the given string and month value.
+            </summary>
+            <param name="value"></param>
+            <param name="date"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:BFDR.IJENatality.AddDay(System.String,System.String)">
+            <summary>
+            Creates and returns a new date string based on the given string and day value.
+            </summary>
+            <param name="value"></param>
+            <param name="date"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:BFDR.IJENatality.AddTime(System.String,System.String)">
+            <summary>
+            Creates and returns a new datetime string based on the given string time value.
+            </summary>
+            <param name="value"></param>
+            <param name="date"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:BFDR.IJENatality.GetTimeIJEFormatted(System.String)">
+            <summary>
+            Returns the time in IJE HHMM format from the given datetime string.
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
         <member name="T:BFDR.Mappings">
             <summary>Mappings between IJE and FHIR value sets</summary>
         </member>
@@ -3732,57 +3714,6 @@
             <para>Console.WriteLine($"State local identifier: {ExampleBirthRecord.StateLocalIdentifier1}");</para>
             </example>
         </member>
-        <member name="M:BFDR.NatalityRecord.GetBirthYear">
-            <summary>
-             Getter method for child or decedent fetus birth/delivery year.
-            </summary>
-        </member>
-        <member name="M:BFDR.NatalityRecord.SetBirthYear(System.Nullable{System.Int32})">
-            <summary>
-             Setter method for child or decedent fetus birth/delivery year.
-            </summary>
-            <param name="value">The birth year.</param>
-        </member>
-        <member name="M:BFDR.NatalityRecord.GetBirthMonth">
-            <summary>
-             Getter method for child or decedent fetus birth/delivery month.
-            </summary>
-        </member>
-        <member name="M:BFDR.NatalityRecord.SetBirthMonth(System.Nullable{System.Int32})">
-            <summary>
-             Setter method for child or decedent fetus birth/delivery month.
-            </summary>
-            <param name="value">The birth month.</param>
-        </member>
-        <member name="M:BFDR.NatalityRecord.GetBirthDay">
-            <summary>
-             Getter method for child or decedent fetus birth/delivery day.
-            </summary>
-        </member>
-        <member name="M:BFDR.NatalityRecord.SetBirthDay(System.Nullable{System.Int32})">
-            <summary>
-             Setter method for child or decedent fetus birth/delivery day.
-            </summary>
-            <param name="value">The birth day.</param>
-        </member>
-        <member name="M:BFDR.NatalityRecord.GetBirthTime">
-            <summary>
-             Getter method for child or decedent fetus birth/delivery time.
-            </summary>
-        </member>
-        <member name="M:BFDR.NatalityRecord.SetBirthTime(System.String)">
-            <summary>
-            Set method fir BirthTime 
-            </summary>
-            <param name="value"></param>
-        </member>
-        <member name="M:BFDR.NatalityRecord.DateIsComplete(System.String)">
-            <summary>
-             Determines whether a date is a complete date (yyyy-MM-dd).
-            </summary>
-            <param name="date">The date to check.</param>
-            <returns>Whether the given date string is a complete date</returns>
-        </member>
         <member name="M:BFDR.NatalityRecord.GetBirthSex">
             <summary>
              Getter method for child or decedent fetus birth/delivery sex.
@@ -3804,6 +3735,18 @@
         <member name="M:BFDR.NatalityRecord.SetDateOfDelivery(System.String)">
             <summary>
             Sets the date of the delivery of the subject child or fetus.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:BFDR.NatalityRecord.GetDateTimeOfDelivery">
+            <summary>
+            Gets the date-time of delivery of the subject child or fetus.
+            </summary>
+            <returns>The date of delivery</returns>
+        </member>
+        <member name="M:BFDR.NatalityRecord.SetDateTimeOfDelivery(System.String)">
+            <summary>
+            Sets the date-time of the delivery of the subject child or fetus.
             </summary>
             <param name="value"></param>
         </member>
@@ -4381,36 +4324,6 @@
         <member name="P:BFDR.NatalityRecord.UnsuccessfulExternalCephalicVersion">
             <summary>Unsuccessful External Cephalic Version.</summary>
         </member>
-        <member name="P:BFDR.NatalityRecord.MotherBirthDay">
-            <summary>Mother's Day of Birth.</summary>
-            <value>the mother's day of birth, or -1 if explicitly unknown, or null if never specified</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.MotherBirthDay = 11;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Mother Day of Birth: {ExampleBirthRecord.MotherBirthDay}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.NatalityRecord.MotherBirthMonth">
-            <summary>Mother's Month of Birth.</summary>
-            <value>the mother's month of birth, or -1 if explicitly unknown, or null if never specified</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.MotherBirthMonth = 11;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Mother Month of Birth: {ExampleBirthRecord.MotherBirthMonth}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.NatalityRecord.MotherBirthYear">
-            <summary>Mother's Year of Birth.</summary>
-            <value>the mother's year of birth, or -1 if explicitly unknown, or null if never specified</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.MotherBirtYear = 1987;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Mother Month of Birth: {ExampleBirthRecord.MotherBirthYear}");</para>
-            </example>
-        </member>
         <member name="P:BFDR.NatalityRecord.MotherDateOfBirth">
             <summary>Mother's Date of Birth.</summary>
             <value>the mother's date of birth</value>
@@ -4453,36 +4366,6 @@
             <para>ExampleBirthRecord.MotherDateOfBirthEditFlagHelper = "queriedCorrect";</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"Mother's date of birth edit flag: {ExampleBirthRecord.MotherDateOfBirthEditFlagHelper}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.NatalityRecord.FatherBirthDay">
-            <summary>Father's Day of Birth.</summary>
-            <value>the father's day of birth, or -1 if explicitly unknown, or null if never specified</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.FatherBirthDay = 11;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Father Day of Birth: {ExampleBirthRecord.FatherBirthDay}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.NatalityRecord.FatherBirthMonth">
-            <summary>Father's Month of Birth.</summary>
-            <value>the father's month of birth, or -1 if explicitly unknown, or null if never specified</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.FatherBirthMonth = 9;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Father Day of Birth: {ExampleBirthRecord.FatherBirthMonth}");</para>
-            </example>
-        </member>
-        <member name="P:BFDR.NatalityRecord.FatherBirthYear">
-            <summary>Father's Year of Birth.</summary>
-            <value>the father's year of birth, or -1 if explicitly unknown, or null if never specified</value>
-            <example>
-            <para>// Setter:</para>
-            <para>ExampleBirthRecord.FatherBirthYear = 1979;</para>
-            <para>// Getter:</para>
-            <para>Console.WriteLine($"Father Day of Birth: {ExampleBirthRecord.FatherBirthYear}");</para>
             </example>
         </member>
         <member name="P:BFDR.NatalityRecord.FatherDateOfBirth">
