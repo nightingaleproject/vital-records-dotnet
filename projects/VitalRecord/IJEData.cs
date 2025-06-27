@@ -18,15 +18,6 @@ namespace VR
             internal static readonly IJEData instance = new IJEData();
         }
 
-        // /// <summary>Given a State code, return a random PlaceCode.</summary>
-        // public PlaceCode StateCodeToRandomPlace(string state)
-        // {
-        //     Random random = new Random();
-        //     List<PlaceCode> places =
-        //         PlaceCodes.Where(t => LinqHelper.EqualsInsensitive(t.State, state)).ToList();
-        //     return places[random.Next(places.Count)];
-        // }
-
         /// <summary>Given a State, Territory, or Province name - return the representative State code.</summary>
         public string StateNameToStateCode(string state)
         {
@@ -48,10 +39,10 @@ namespace VR
 
             return DictValueFinderHelper(JurisdictionCodes, jurisdiction);
         }
-         /// <summary>Given a Jurisdiction name - return the representative Jurisdiction code.</summary>
+        /// <summary>Given a Jurisdiction name - return the representative Jurisdiction code.</summary>
         public string JurisdictionCodeToJurisdictionName(string code)
         {
-             return DictKeyFinderHelper(JurisdictionCodes, code);
+            return DictKeyFinderHelper(JurisdictionCodes, code);
         }
 
         /// <summary>Given a State, Territory, or Province code - return the representative State, Territory, or Province name.</summary>
@@ -121,7 +112,7 @@ namespace VR
         /// <summary>Jurisdiction Codes</summary>
         // JurisdictionCodes uses IJE-defined two-character string as key, and provides the jurisdiction's name.
         // all codes are USPS Postal codes except for YC
-         public Dictionary<string, string> JurisdictionCodes = new Dictionary<string, string>
+        public Dictionary<string, string> JurisdictionCodes = new Dictionary<string, string>
         {
             {"AL","Alabama"},
             {"AK","Alaska"},
