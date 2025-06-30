@@ -6680,7 +6680,7 @@ namespace BFDR
             set => SetCigarettesSmoked("64795-8", value);
         }
 
-        private Observation GetOrCreateOccupationObservation(string role, bool create = false)
+        private Observation GetOrOptionallyCreateOccupationObservation(string role, bool create = false)
         {
             if (IsDictEmptyOrDefault(GetRoleCode(role)))
             {
@@ -6705,12 +6705,12 @@ namespace BFDR
                 };
                 Extension roleExt = new Extension(BFDR.ExtensionURL.ExtensionRole, new CodeableConcept(VR.CodeSystems.RoleCode_HL7_V3, role));
                 observation.Extension.Add(roleExt);
-                if (role == "MTH")
+                if (role == "MTH" && Mother != null)
                 {
                     observation.Subject = new ResourceReference($"urn:uuid:{Mother.Id}");
                     AddReferenceToComposition(observation.Id, MOTHER_INFORMATION_SECTION);
                 }
-                else if (role == "FTH")
+                else if (role == "FTH" && Father != null)
                 {
                     observation.Subject = new ResourceReference($"urn:uuid:{Father.Id}");
                     AddReferenceToComposition(observation.Id, FATHER_INFORMATION_SECTION);
@@ -6724,7 +6724,7 @@ namespace BFDR
 
         private string GetOccupation(string role)
         {
-            Observation obs = GetOrCreateOccupationObservation(role);
+            Observation obs = GetOrOptionallyCreateOccupationObservation(role);
             if (obs != null)
             {
                 return (obs.Value as CodeableConcept)?.Text;
@@ -6734,7 +6734,7 @@ namespace BFDR
 
         private string GetIndustry(string role)
         {
-            Observation obs = GetOrCreateOccupationObservation(role);
+            Observation obs = GetOrOptionallyCreateOccupationObservation(role);
             if (obs != null)
             {
                 var comp = obs.Component.Where(c => CodeableConceptToDict(c.Code)["code"] == "86188-0").FirstOrDefault();
@@ -6748,24 +6748,17 @@ namespace BFDR
 
         private void SetOccupation(string role, string value)
         {
-            Observation obs = GetOrCreateOccupationObservation(role, true);
-            if (!String.IsNullOrWhiteSpace(value))
+            Observation obs = GetOrOptionallyCreateOccupationObservation(role, true);
+            if (obs.Value == null)
             {
-                if (obs.Value == null)
-                {
-                    obs.Value = new CodeableConcept();
-                }
-                (obs.Value as CodeableConcept).Text = value;
+                obs.Value = new CodeableConcept();
             }
+            (obs.Value as CodeableConcept).Text = value;
         }
 
         private void SetIndustry(string role, string value)
         {
-            if (String.IsNullOrWhiteSpace(value))
-            {
-                return;
-            }
-            Observation obs = GetOrCreateOccupationObservation(role, true);
+            Observation obs = GetOrOptionallyCreateOccupationObservation(role, true);
             var comp = obs.Component.Where(c => CodeableConceptToDict(c.Code)["code"] == "86188-0").FirstOrDefault();
             if (comp == null)
             {

@@ -325,11 +325,11 @@ namespace BFDR
             AddResourceToBundleAndComposition(Mother, "MTH", CodeSystems.RoleCode_HL7_V3, ciaoBundle);
             // TODO: Coded race and occupation has not yet been implemented on natality records but should be present in this observation
             // There will be multiple observations with the same code, one for the mother and one for the father, with different values in the role extension
-            // IDEA: We can use the existing GetOrCreateOccupationObservation() but perhaps GetObservation should take an optional lambda that filters
-            AddResourceToBundleAndComposition(GetOrCreateOccupationObservation("MTH"), "MTH", CodeSystems.RoleCode_HL7_V3, ciaoBundle);
+            // IDEA: We can use the existing GetOrOptionallyCreateOccupationObservation() but perhaps GetObservation should take an optional lambda that filters
+            AddResourceToBundleAndComposition(GetOrOptionallyCreateOccupationObservation("MTH"), "MTH", CodeSystems.RoleCode_HL7_V3, ciaoBundle);
             // Populate the father information; NOTE: Father is not required, just the observations
             AddResourceToBundleAndComposition(Father, "NFTH", CodeSystems.RoleCode_HL7_V3, ciaoBundle);
-            AddResourceToBundleAndComposition(GetOrCreateOccupationObservation("FTH"), "NFTH", CodeSystems.RoleCode_HL7_V3, ciaoBundle);
+            AddResourceToBundleAndComposition(GetOrOptionallyCreateOccupationObservation("FTH"), "NFTH", CodeSystems.RoleCode_HL7_V3, ciaoBundle);
             return ciaoBundle;
         }
 

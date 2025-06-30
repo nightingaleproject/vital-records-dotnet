@@ -1210,6 +1210,39 @@ namespace BFDR.Tests
             ije.IDOB_YR = "2025";
             ije.BSTATE = "NJ";
             ije.FILENO = "000001";
+            // Some fields do not exist in IJE, so we set those after converting to a FHIR record
+            BirthRecord record = ije.ToBirthRecord();
+            record.MotherCodedOccupationHelper = "13-2011";
+            record.MotherCodedIndustryHelper = "54121";
+            record.FatherCodedOccupationHelper = "27-2011";
+            record.FatherCodedIndustryHelper = "5223";
+            BirthRecordParentalIndustryOccupationCodingMessage message = new BirthRecordParentalIndustryOccupationCodingMessage(ije.ToRecord());
+            message.MessageSource = "http://nchs.cdc.gov/bfdr_submission";
+            message.MessageDestination = "https://example.org/jurisdiction/endpoint";
+            // Move the message through JSON to ensure everything is preserved
+            BirthRecordParentalIndustryOccupationCodingMessage parsedMessage = BirthRecordParentalIndustryOccupationCodingMessage.Parse(message.ToJson()) as BirthRecordParentalIndustryOccupationCodingMessage;
+            Assert.Equal(BirthRecordParentalIndustryOccupationCodingMessage.MESSAGE_TYPE, parsedMessage.MessageType);
+            Assert.Equal("http://nchs.cdc.gov/bfdr_submission", parsedMessage.MessageSource);
+            Assert.Equal("https://example.org/jurisdiction/endpoint", parsedMessage.MessageDestination);
+            Assert.Equal((uint)1, parsedMessage.CertNo);
+            Assert.Equal((uint)2025, parsedMessage.EventYear);
+            Assert.Equal("2025NJ000001", parsedMessage.NCHSIdentifier);
+            Assert.Equal("BFDR_STU2_0", parsedMessage.PayloadVersionId);
+            Assert.Equal("13-2011", parsedMessage.NatalityRecord.MotherCodedOccupationHelper);
+            Assert.Equal("54121", parsedMessage.NatalityRecord.MotherCodedIndustryHelper);
+            Assert.Equal("27-2011", parsedMessage.NatalityRecord.FatherCodedOccupationHelper);
+            Assert.Equal("5223", parsedMessage.NatalityRecord.FatherCodedIndustryHelper);
+        }
+
+        [Fact]
+        public void CreateBirthRecordParentalIndustryOccupationCodingMessageWithLiterals()
+        {
+            // This test creates a response using the approach NCHS will use via IJE setters
+            // Create the industry and occupation coded content starting with the IJE portions
+            IJEBirth ije = new IJEBirth();
+            ije.IDOB_YR = "2025";
+            ije.BSTATE = "NJ";
+            ije.FILENO = "000001";
             ije.MOM_OC_T = "Mother occupation";
             ije.MOM_IN_T = "Mother industry";
             ije.DAD_OC_T = "Father occupation";

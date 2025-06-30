@@ -12,7 +12,7 @@ namespace BFDR
     {
         private Dictionary<string, string> GetCodedOccupation(string role)
         {
-            Observation observation = GetOrCreateOccupationObservation(role);
+            Observation observation = GetOrOptionallyCreateOccupationObservation(role);
             if (observation != null)
             {
                 return CodeableConceptToDict((CodeableConcept)observation.Value);
@@ -22,7 +22,7 @@ namespace BFDR
 
         private Dictionary<string, string> GetCodedIndustry(string role)
         {
-            Observation observation = GetOrCreateOccupationObservation(role);
+            Observation observation = GetOrOptionallyCreateOccupationObservation(role);
             if (observation != null)
             {
                 var component = observation.Component.Where(c => CodeableConceptToDict(c.Code)["code"] == "86188-0").FirstOrDefault();
@@ -36,35 +36,29 @@ namespace BFDR
 
         private void SetCodedOccupation(string role, Dictionary<string, string> value)
         {
-            Observation observation = GetOrCreateOccupationObservation(role);
-            if (observation != null)
-            {
-                // Preserve any existing Text in the value
-                string existingText = (observation.Value as CodeableConcept).Text;
-                observation.Value = DictToCodeableConcept(value);
-                (observation.Value as CodeableConcept).Text = existingText;
-            }
+            Observation observation = GetOrOptionallyCreateOccupationObservation(role, true);
+            // Preserve any existing Text in the value
+            string existingText = (observation.Value as CodeableConcept)?.Text;
+            observation.Value = DictToCodeableConcept(value);
+            (observation.Value as CodeableConcept).Text = existingText;
         }
 
         private void SetCodedIndustry(string role, Dictionary<string, string> value)
         {
-            Observation observation = GetOrCreateOccupationObservation(role);
-            if (observation != null)
+            Observation observation = GetOrOptionallyCreateOccupationObservation(role, true);
+            var component = observation.Component.Where(c => CodeableConceptToDict(c.Code)["code"] == "86188-0").FirstOrDefault();
+            if (component == null)
             {
-                var component = observation.Component.Where(c => CodeableConceptToDict(c.Code)["code"] == "86188-0").FirstOrDefault();
-                if (component == null)
+                component = new Observation.ComponentComponent
                 {
-                    component = new Observation.ComponentComponent
-                    {
-                        Code = new CodeableConcept(CodeSystems.LOINC, "86188-0")
-                    };
-                    observation.Component.Add(component);
-                }
-                // Preserve any existing Text in the value
-                string existingText = (component.Value as CodeableConcept).Text;
-                component.Value = DictToCodeableConcept(value);
-                (component.Value as CodeableConcept).Text = existingText;
+                    Code = new CodeableConcept(CodeSystems.LOINC, "86188-0")
+                };
+                observation.Component.Add(component);
             }
+            // Preserve any existing Text in the value
+            string existingText = (component.Value as CodeableConcept)?.Text;
+            component.Value = DictToCodeableConcept(value);
+            (component.Value as CodeableConcept).Text = existingText;
         }
 
         // TODO: Add Helpers for each of the below using GetObservationValueHelper; may need a version that doesn't expect codes
