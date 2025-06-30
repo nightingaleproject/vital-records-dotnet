@@ -12,7 +12,7 @@ namespace BFDR
         /// <summary>
         /// The event URI for BirthRecordParentalIndustryOccupationCodingMessage.
         /// </summary>
-        public new const string MESSAGE_TYPE = "http://nchs.cdc.gov/birth_industry_occupation_coding";
+        public new const string MESSAGE_TYPE = "http://nchs.cdc.gov/birth_industryoccupation_coding";
 
         /// <summary>Default constructor that creates a new, empty BirthRecordParentalIndustryOccupationCodingMessage.</summary>
         public BirthRecordParentalIndustryOccupationCodingMessage(Bundle messageBundle, BFDRBaseMessage message) : base(messageBundle, message)
@@ -57,7 +57,7 @@ namespace BFDR
         /// <summary>
         /// The event URI for FetalDeathRecordParentalIndustryOccupationCodingMessage.
         /// </summary>
-        public new const string MESSAGE_TYPE = "http://nchs.cdc.gov/fd_industry_occupation_coding";
+        public new const string MESSAGE_TYPE = "http://nchs.cdc.gov/fd_industryoccupation_coding";
         /// <summary>Default constructor that creates a new, empty FetalDeathRecordParentalIndustryOccupationCodingMessage.</summary>
         public FetalDeathRecordParentalIndustryOccupationCodingMessage(Bundle messageBundle, BFDRBaseMessage message) : base(messageBundle, message)
         {
@@ -100,7 +100,7 @@ namespace BFDR
         /// <summary>
         /// The event URI for BirthRecordParentalIndustryOccupationCodingUpdateMessage.
         /// </summary>
-        public new const string MESSAGE_TYPE = "http://nchs.cdc.gov/birth_industry_occupation_coding_update";
+        public new const string MESSAGE_TYPE = "http://nchs.cdc.gov/birth_industryoccupation_coding_update";
 
         /// <summary>Default constructor that creates a new, empty BirthRecordParentalIndustryOccupationCodingMessage.</summary>
         public BirthRecordParentalIndustryOccupationCodingUpdateMessage(Bundle messageBundle, BFDRBaseMessage message) : base(messageBundle, message)
@@ -127,7 +127,7 @@ namespace BFDR
         /// <summary>
         /// The event URI for FetalDeathRecordParentalIndustryOccupationCodingUpdateMessage.
         /// </summary>
-        public new const string MESSAGE_TYPE = "http://nchs.cdc.gov/fd_industry_occupation_coding_update";
+        public new const string MESSAGE_TYPE = "http://nchs.cdc.gov/fd_industryoccupation_coding_update";
         /// <summary>Default constructor that creates a new, empty FetalDeathRecordParentalIndustryOccupationCodingMessage.</summary>
         public FetalDeathRecordParentalIndustryOccupationCodingUpdateMessage(Bundle messageBundle, BFDRBaseMessage message) : base(messageBundle, message)
         {
