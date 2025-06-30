@@ -4,6 +4,7 @@ using VRDR;
 using BFDR;
 using System.IO;
 using Newtonsoft.Json;
+using System;
 
 namespace canary.tests
 {
@@ -31,7 +32,12 @@ namespace canary.tests
             var response = controller.IndexBFDR();
             var result = controller.IndexBFDR();
             BirthRecord romeroConnectathon = result[0];
-            Assert.Equal(JsonConvert.SerializeObject(br), JsonConvert.SerializeObject(romeroConnectathon));
+            string timeZoneOffset = TimeZoneInfo.Local.GetUtcOffset(new DateTime(2000, 1, 1)).ToString()[..6];
+            if (timeZoneOffset == "00:00:")
+            {
+                timeZoneOffset = "+00:00";
+            }
+            Assert.Equal(JsonConvert.SerializeObject(br).Replace("-05:00", timeZoneOffset), JsonConvert.SerializeObject(romeroConnectathon));
         }
     }
 }

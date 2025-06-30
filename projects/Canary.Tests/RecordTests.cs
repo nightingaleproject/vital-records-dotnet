@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using BFDR;
 using Newtonsoft.Json;
 using canary.Models;
+using System;
 
 namespace canary.tests
 {
@@ -52,8 +53,12 @@ namespace canary.tests
             BirthRecord br = new BirthRecord(romeroJson);
             br.EventLocationJurisdiction = "AZ";
             br.CertificateNumber = "99991";
-
-            Assert.Equal(JsonConvert.SerializeObject(br), JsonConvert.SerializeObject(new BirthRecord(response.Item1.Json)));
+            string timeZoneOffset = TimeZoneInfo.Local.GetUtcOffset(new DateTime(2000, 1, 1)).ToString()[..6];
+            if (timeZoneOffset == "00:00:")
+            {
+                timeZoneOffset = "+00:00";
+            }
+            Assert.Equal(JsonConvert.SerializeObject(br).Replace("-05:00", timeZoneOffset), JsonConvert.SerializeObject(new BirthRecord(response.Item1.Json)));
         }
 
         [Fact]
