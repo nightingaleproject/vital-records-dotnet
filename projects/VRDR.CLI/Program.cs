@@ -634,7 +634,7 @@ namespace VRDR.CLI
                 DeathRecord d2 = new DeathRecord(d1.ToJSON());
                 DeathRecord d3 = new DeathRecord();
                 List<PropertyInfo> properties = typeof(DeathRecord).GetProperties().ToList();
-                 foreach (PropertyInfo property in properties)
+                foreach (PropertyInfo property in properties)
                 {
                     if (property.GetCustomAttribute<Property>() != null)
                     {
@@ -759,12 +759,13 @@ namespace VRDR.CLI
                 }
                 for (int i = 2; i < args.Length; i++)
                 {
-                    string outputFilename = args[i].Replace(".json", "_submission.json");
+                    string outputFilename = Path.GetFileName(args[i]).Replace(".json", "_submission.json");
+                    string outputPath = Path.Join(outputDirectory, outputFilename);
                     DeathRecord record = new DeathRecord(File.ReadAllText(args[i]));
                     DeathRecordSubmissionMessage message = new DeathRecordSubmissionMessage(record);
                     message.MessageSource = "http://mitre.org/vrdr";
-                    Console.WriteLine($"Writing record to {outputFilename}");
-                    StreamWriter sw = new StreamWriter(outputFilename);
+                    Console.WriteLine($"Writing record to {outputPath}");
+                    StreamWriter sw = new StreamWriter(outputPath);
                     sw.WriteLine(message.ToJSON(true));
                     sw.Flush();
                 }
@@ -838,11 +839,12 @@ namespace VRDR.CLI
                 }
                 for (int i = 2; i < args.Length; i++)
                 {
-                    string outputFilename = args[i].Replace(".json", "_acknowledgement.json");
+                    string outputFilename = Path.GetFileName(args[i]).Replace(".json", "_acknowledgement.json");
+                    string outputPath = Path.Join(outputDirectory, outputFilename);
                     BaseMessage message = BaseMessage.Parse(File.ReadAllText(args[i]));
                     AcknowledgementMessage ackMessage = new AcknowledgementMessage(message);
-                    Console.WriteLine($"Writing acknowledgement to {outputFilename}");
-                    StreamWriter sw = new StreamWriter(outputFilename);
+                    Console.WriteLine($"Writing acknowledgement to {outputPath}");
+                    StreamWriter sw = new StreamWriter(outputPath);
                     sw.WriteLine(ackMessage.ToJSON(true));
                     sw.Flush();
                 }
@@ -1095,7 +1097,7 @@ namespace VRDR.CLI
             {
                 //   -json-diff:  compare two json files irrespective of space and ordering
                 Console.WriteLine($"Compare two json files {args[1]} and {args[2]} json files irrespective of space and ordering");
-                return (CompareJsonIgnoringOrderAndSpacing (File.ReadAllText(args[1]), File.ReadAllText(args[2]))?0:1);
+                return (CompareJsonIgnoringOrderAndSpacing(File.ReadAllText(args[1]), File.ReadAllText(args[2])) ? 0 : 1);
             }
             else
             {

@@ -409,12 +409,13 @@ namespace BFDR.CLI
                 }
                 for (int i = 3; i < args.Length; i++)
                 {
-                    string outputFilename = args[i].Replace(".json", "_submission.json");
+                    string outputFilename = Path.GetFileName(args[i]).Replace(".json", "_submission.json");
+                    string outputPath = Path.Join(outputDirectory, outputFilename);
                     BirthRecord record = new BirthRecord(File.ReadAllText(args[i]));
                     BirthRecordSubmissionMessage message = new BirthRecordSubmissionMessage(record);
                     message.MessageSource = "http://mitre.org/bfdr";
-                    Console.WriteLine($"Writing record to {outputFilename}");
-                    StreamWriter sw = new StreamWriter(outputFilename);
+                    Console.WriteLine($"Writing record to {outputPath}");
+                    StreamWriter sw = new StreamWriter(outputPath);
                     sw.WriteLine(message.ToJSON(true));
                     sw.Flush();
                 }
@@ -430,12 +431,13 @@ namespace BFDR.CLI
                 }
                 for (int i = 3; i < args.Length; i++)
                 {
-                    string outputFilename = args[i].Replace(".json", "_submission.json");
+                    string outputFilename = Path.GetFileName(args[i]).Replace(".json", "_submission.json");
+                    string outputPath = Path.Join(outputDirectory, outputFilename);
                     FetalDeathRecord record = new FetalDeathRecord(File.ReadAllText(args[i]));
                     FetalDeathRecordSubmissionMessage message = new FetalDeathRecordSubmissionMessage(record);
                     message.MessageSource = "http://mitre.org/bfdr";
-                    Console.WriteLine($"Writing record to {outputFilename}");
-                    StreamWriter sw = new StreamWriter(outputFilename);
+                    Console.WriteLine($"Writing record to {outputPath}");
+                    StreamWriter sw = new StreamWriter(outputPath);
                     sw.WriteLine(message.ToJSON(true));
                     sw.Flush();
                 }
@@ -508,11 +510,12 @@ namespace BFDR.CLI
                 }
                 for (int i = 3; i < args.Length; i++)
                 {
-                    string outputFilename = args[i].Replace(".json", "_acknowledgement.json");
+                    string outputFilename = Path.GetFileName(args[i]).Replace(".json", "_acknowledgement.json");
+                    string outputPath = Path.Join(outputDirectory, outputFilename);
                     BFDRBaseMessage message = BFDRBaseMessage.Parse(File.ReadAllText(args[i]));
                     BirthRecordAcknowledgementMessage ackMessage = new BirthRecordAcknowledgementMessage(message);
-                    Console.WriteLine($"Writing acknowledgement to {outputFilename}");
-                    StreamWriter sw = new StreamWriter(outputFilename);
+                    Console.WriteLine($"Writing acknowledgement to {outputPath}");
+                    StreamWriter sw = new StreamWriter(outputPath);
                     sw.WriteLine(ackMessage.ToJSON(true));
                     sw.Flush();
                 }
@@ -535,11 +538,12 @@ namespace BFDR.CLI
                 }
                 for (int i = 3; i < args.Length; i++)
                 {
-                    string outputFilename = args[i].Replace(".json", "_acknowledgement.json");
+                    string outputFilename = Path.GetFileName(args[i]).Replace(".json", "_acknowledgement.json");
+                    string outputPath = Path.Join(outputDirectory, outputFilename);
                     BFDRBaseMessage message = BFDRBaseMessage.Parse(File.ReadAllText(args[i]));
                     FetalDeathRecordAcknowledgementMessage ackMessage = new FetalDeathRecordAcknowledgementMessage(message);
-                    Console.WriteLine($"Writing acknowledgement to {outputFilename}");
-                    StreamWriter sw = new StreamWriter(outputFilename);
+                    Console.WriteLine($"Writing acknowledgement to {outputPath}");
+                    StreamWriter sw = new StreamWriter(outputPath);
                     sw.WriteLine(ackMessage.ToJSON(true));
                     sw.Flush();
                 }
