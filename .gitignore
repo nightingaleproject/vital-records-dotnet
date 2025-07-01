@@ -154,10 +154,10 @@ projects/VRDR.Tests/tools
 projects/VRDR.Tests/.config/dotnet-tools.json
 projects/VRDR.Tests/coveragereport/*
 
-
 # Visual Studio code coverage results
 *.coverage
 *.coveragexml
+coveragereport
 
 # NCrunch
 _NCrunch_*

@@ -9,7 +9,8 @@ namespace BFDR
         /// <summary>Retrieve all available pre-set records</summary>
         public static BirthRecord[] BirthRecords
         {
-            get { 
+            get
+            {
                 return new BirthRecord[] {
                     YytrfCardenasRomero(),
                     XyugbnxZalbanaiz(),
@@ -21,7 +22,8 @@ namespace BFDR
         /// <summary>Retrieve all available pre-set records</summary>
         public static FetalDeathRecord[] FetalDeathRecords
         {
-            get { 
+            get
+            {
                 return new FetalDeathRecord[] {
                     Test1()
                 };
@@ -57,7 +59,8 @@ namespace BFDR
 
             if (record != null && year != null)
             {
-                record.BirthYear = year;
+                // Overwrite the record's year in it's date of birth attribute.
+                record.DateOfBirth = year.ToString() + record.DateOfBirth.Substring(4);
             }
 
             return record;
@@ -129,7 +132,8 @@ namespace BFDR
 
             if (record != null && year != null)
             {
-                record.DeliveryYear = year;
+                // Overwrite the record's year in it's date of birth attribute.
+                record.DateOfDelivery = year.ToString() + record.DateOfDelivery.Substring(4);
             }
 
             return record;

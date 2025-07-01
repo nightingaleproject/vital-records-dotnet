@@ -1,4 +1,8 @@
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
+using VR;
 using Xunit;
 
 namespace BFDR.Tests
@@ -139,6 +143,46 @@ namespace BFDR.Tests
     }
 
     [Fact]
+    public void RoundTripDates()
+    {
+      string rawIJE = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/ConnectathonFetalDeathRecord.ije")));
+      IJEFetalDeath ije1 = new IJEFetalDeath(rawIJE);
+      IJEFetalDeath ije2 = new IJEFetalDeath(ije1.ToString());
+      IJEFetalDeath ije3 = new IJEFetalDeath(new FetalDeathRecord(ije2.ToRecord().ToXML()));
+
+      Assert.Equal("2024", ije1.FDOD_YR);
+      Assert.Equal("12", ije1.FDOD_MO);
+      Assert.Equal("13", ije1.FDOD_DY);
+      Assert.Equal("2024", ije2.FDOD_YR);
+      Assert.Equal("12", ije2.FDOD_MO);
+      Assert.Equal("13", ije2.FDOD_DY);
+      Assert.Equal("2024", ije3.FDOD_YR);
+      Assert.Equal("12", ije3.FDOD_MO);
+      Assert.Equal("13", ije3.FDOD_DY);
+    }
+
+    [Fact]
+    public void RecordIJERoundTrip()
+    {
+      FetalDeathRecord b = new FetalDeathRecord(File.ReadAllText("fixtures/json/BasicFetalDeathRecord.json"));
+      IJEFetalDeath ije1, ije2, ije3;
+      ije1 = new IJEFetalDeath(b);
+      ije2 = new IJEFetalDeath(ije1.ToString());
+      ije3 = new IJEFetalDeath(new FetalDeathRecord(ije2.ToRecord().ToXML()));
+      foreach (PropertyInfo property in typeof(IJEFetalDeath).GetProperties())
+      {
+        string val1 = Convert.ToString(property.GetValue(ije1, null));
+        string val2 = Convert.ToString(property.GetValue(ije2, null));
+        string val3 = Convert.ToString(property.GetValue(ije3, null));
+        IJEField info = property.GetCustomAttribute<IJEField>();
+        if (val1.ToUpper() != val2.ToUpper() || val1.ToUpper() != val3.ToUpper() || val2.ToUpper() != val3.ToUpper())
+        {
+          Assert.Fail($"[***** MISMATCH *****]\t{info.Name}: {info.Contents} \t\t\"{val1}\" != \"{val2}\" != \"{val3}\"");
+        }
+      }
+    }
+
+    [Fact]
     public void ParseIJEConnectathonTestData()
     {
       string rawIJE = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/ConnectathonFetalDeathRecord.ije")));
@@ -146,7 +190,13 @@ namespace BFDR.Tests
 
       // Confirm the ije can be converted to fhir
       FetalDeathRecord record = ije.ToRecord();
-      Assert.Equal(2024, record.DeliveryYear);
+      Assert.Equal("2024-12-13", record.DateOfDelivery);
+      string timeZoneOffset = TimeZoneInfo.Local.GetUtcOffset(new DateTime(2024, 12, 13)).ToString()[..6];
+      if (timeZoneOffset == "00:00:")
+      {
+        timeZoneOffset = "+00:00";
+      }
+      Assert.Equal("2024-12-13T18:30:00" + timeZoneOffset, record.DateTimeOfDelivery);
       Assert.Equal("Anwar", record.FetusFamilyName);
 
       // Confirm the ije fields are what we expect from the connectathon test record 1
@@ -524,17 +574,13 @@ namespace BFDR.Tests
       ije.MDOB_DY = "12";
       // convert IJE to FHIR
       FetalDeathRecord fd = ije.ToRecord();
-      Assert.Equal(1992, fd.MotherBirthYear);
-      Assert.Equal(1, fd.MotherBirthMonth);
-      Assert.Equal(12, fd.MotherBirthDay);
+      Assert.Equal("1992-01-12", fd.MotherDateOfBirth);
 
       // then to a json string
       string asJson = fd.ToJSON();
       // Create a fhir record from the json
       FetalDeathRecord fdRecord = new FetalDeathRecord(asJson);
-      Assert.Equal(1992, fdRecord.MotherBirthYear);
-      Assert.Equal(1, fdRecord.MotherBirthMonth);
-      Assert.Equal(12, fdRecord.MotherBirthDay);
+      Assert.Equal("1992-01-12", fd.MotherDateOfBirth);
 
       // convert back to IJE and confirm the values are the same
       IJEFetalDeath ije2 = new IJEFetalDeath(fdRecord);
@@ -544,7 +590,7 @@ namespace BFDR.Tests
     }
 
 
-  [Fact]
+    [Fact]
     public void TestDeathState()
     {
       IJEFetalDeath ije = new IJEFetalDeath();
@@ -563,6 +609,66 @@ namespace BFDR.Tests
       Assert.Equal("ZZ", ije.DSTATE);
       dr = ije.ToRecord();
       Assert.Equal("ZZ", dr.EventLocationJurisdiction);
+    }
+
+    [Fact]
+    public void TestAttendantPropertiesSetter()
+    {
+      FetalDeathRecord record = new FetalDeathRecord();
+      // Attendant's name
+      Assert.Null(record.AttendantName);
+      record.AttendantName = "Janet Seito";
+      Assert.Equal("Janet Seito", record.AttendantName);
+      // Attendant's NPI
+      Assert.Null(record.AttendantNPI);
+      record.AttendantNPI = "123456789011";
+      Assert.Equal("123456789011", record.AttendantNPI);
+      // Attendant's Title
+      Dictionary<string, string> AttendantTitle = new Dictionary<string, string>();
+      AttendantTitle.Add("code", "309343006");
+      AttendantTitle.Add("system", CodeSystems.SCT);
+      AttendantTitle.Add("display", "Medical Doctor");
+      record.AttendantTitle = AttendantTitle;
+      Assert.Equal("309343006", record.AttendantTitle["code"]);
+      Assert.Equal(CodeSystems.SCT, record.AttendantTitle["system"]);
+      Assert.Equal("Medical Doctor", record.AttendantTitle["display"]);
+      // test setting other Attendant Title
+      FetalDeathRecord record2 = new FetalDeathRecord();
+      record2.AttendantName = "Jessica Leung";
+      Assert.Equal("Jessica Leung", record2.AttendantName);
+      record2.AttendantTitleHelper = "Birth Clerk"; //set using Title helper
+      Assert.Equal("OTH", record2.AttendantTitle["code"]);
+      Assert.Equal(CodeSystems.NullFlavor_HL7_V3, record2.AttendantTitle["system"]);
+      Assert.Equal("Other", record2.AttendantTitle["display"]);
+      Assert.Equal("Birth Clerk", record2.AttendantTitle["text"]);
+      record2.AttendantOtherHelper = "Birth Clerk"; //set using Other helper
+      Assert.Equal("OTH", record2.AttendantTitle["code"]);
+      Assert.Equal(CodeSystems.NullFlavor_HL7_V3, record2.AttendantTitle["system"]);
+      Assert.Equal("Other", record2.AttendantTitle["display"]);
+      Assert.Equal("Birth Clerk", record2.AttendantTitle["text"]);
+      Assert.Equal("Birth Clerk", record2.AttendantOtherHelper);
+      // test IJE translations
+      IJEFetalDeath ije1 = new IJEFetalDeath(record);
+      Assert.Equal("Janet Seito", ije1.ATTEND_NAME.Trim());
+      Assert.Equal("123456789011", ije1.ATTEND_NPI);
+      Assert.Equal("1", ije1.ATTEND);
+      IJEFetalDeath ije2 = new IJEFetalDeath(record2);
+      Assert.Equal("Jessica Leung", ije2.ATTEND_NAME.Trim());
+      Assert.Equal("            ", ije2.ATTEND_NPI);
+      Assert.Equal("5", ije2.ATTEND);
+      Assert.Equal("Birth Clerk", ije2.ATTEND_OTH_TXT.Trim());
+      ije2.ATTEND_NPI = "89089090";
+      ije2.ATTEND_OTH_TXT = "Test";
+      ije2.ATTEND_NAME = "Name Test";
+      Assert.Equal("Name Test", ije2.ATTEND_NAME.Trim());
+      Assert.Equal("89089090", ije2.ATTEND_NPI.Trim());
+      Assert.Equal("Test", ije2.ATTEND_OTH_TXT.Trim());
+      record2 = ije2.ToRecord();
+      Assert.Equal("Name Test", record2.AttendantName);
+      Assert.Equal("89089090", record2.AttendantNPI);
+      Assert.Equal("Test", record2.AttendantTitle["text"]);
+      Assert.Equal("Test", record2.AttendantOtherHelper);
+
     }
 }
 }

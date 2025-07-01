@@ -184,14 +184,8 @@ namespace BFDR
         [IJEField(1, 1, 4, "Date of Delivery (Fetus)--Year", "FDOD_YR", 1)]
         public string FDOD_YR
         {
-            get
-            {
-                return NumericAllowingUnknown_Get("FDOD_YR", "DeliveryYear");
-            }
-            set
-            {
-                NumericAllowingUnknown_Set("FDOD_YR", "DeliveryYear", value);
-            }
+            get => GetYearIJEFormatted(record.DateOfDelivery);
+            set => record.DateOfDelivery = AddYear(value, record.DateOfDelivery);
         }
 
         /// <summary>State, U.S. Territory or Canadian Province of Place of Delivery - code</summary>
@@ -245,20 +239,11 @@ namespace BFDR
         }
 
         /// <summary>Time of Delivery</summary>
-        [IJEField(6, 26, 4, "Time of Delivery", "TD", 1)]
+        [IJEField(6, 26, 4, "Time of Delivery", "TD", 4)]
         public string TD
         {
-            get
-            {
-                return TimeAllowingUnknown_Get("TD", "DeliveryTime");
-            }
-            set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    TimeAllowingUnknown_Set("TD", "DeliveryTime", value);
-                }
-            }
+            get => GetTimeIJEFormatted(record.DateTimeOfDelivery) ?? "".PadLeft(4);
+            set => record.DateTimeOfDelivery = AddTime(value, record.DateOfDelivery);
         }
 
         /// <summary>Sex</summary>
@@ -276,31 +261,19 @@ namespace BFDR
         }
 
         /// <summary>Date of Delivery (Fetus)--Month</summary>
-        [IJEField(8, 31, 2, "Date of Delivery (Fetus)--Month", "FDOD_MO", 1)]
+        [IJEField(8, 31, 2, "Date of Delivery (Fetus)--Month", "FDOD_MO", 2)]
         public string FDOD_MO
         {
-            get
-            {
-                return NumericAllowingUnknown_Get("FDOD_MO", "DeliveryMonth");
-            }
-            set
-            {
-                NumericAllowingUnknown_Set("FDOD_MO", "DeliveryMonth", value);
-            }
+            get => GetMonthIJEFormatted(record.DateOfDelivery);
+            set => record.DateOfDelivery = AddMonth(value, record.DateOfDelivery);
         }
 
         /// <summary>Date of Delivery (Fetus)--Day</summary>
-        [IJEField(9, 33, 2, "Date of Delivery (Fetus)--Day", "FDOD_DY", 1)]
+        [IJEField(9, 33, 2, "Date of Delivery (Fetus)--Day", "FDOD_DY", 3)]
         public string FDOD_DY
         {
-            get
-            {
-                return NumericAllowingUnknown_Get("FDOD_DY", "DeliveryDay");
-            }
-            set
-            {
-                NumericAllowingUnknown_Set("FDOD_DY", "DeliveryDay", value);
-            }
+            get => GetDayIJEFormatted(record.DateOfDelivery);
+            set => record.DateOfDelivery = AddDay(value, record.DateOfDelivery);
         }
 
         /// <summary>County of Delivery</summary>
@@ -354,42 +327,24 @@ namespace BFDR
         [IJEField(14, 55, 4, "Date of Birth (Mother)--Year", "MDOB_YR", 1)]
         public string MDOB_YR
         {
-            get
-            {
-                return NumericAllowingUnknown_Get("MDOB_YR", "MotherBirthYear");
-            }
-            set
-            {
-                NumericAllowingUnknown_Set("MDOB_YR", "MotherBirthYear", value);
-            }
+            get => GetYearIJEFormatted(record.MotherDateOfBirth);
+            set => record.MotherDateOfBirth = AddYear(value, record.MotherDateOfBirth);
         }
 
         /// <summary>Date of Birth (Mother)--Month</summary>
-        [IJEField(15, 59, 2, "Date of Birth (Mother)--Month", "MDOB_MO", 1)]
+        [IJEField(15, 59, 2, "Date of Birth (Mother)--Month", "MDOB_MO", 2)]
         public string MDOB_MO
         {
-            get
-            {
-                return NumericAllowingUnknown_Get("MDOB_MO", "MotherBirthMonth");
-            }
-            set
-            {
-                NumericAllowingUnknown_Set("MDOB_MO", "MotherBirthMonth", value);
-            }
+            get => GetMonthIJEFormatted(record.MotherDateOfBirth);
+            set => record.MotherDateOfBirth = AddMonth(value, record.MotherDateOfBirth);
         }
 
         /// <summary>Date of Birth (Mother)--Day</summary>
-        [IJEField(16, 61, 2, "Date of Birth (Mother)--Day", "MDOB_DY", 1)]
+        [IJEField(16, 61, 2, "Date of Birth (Mother)--Day", "MDOB_DY", 3)]
         public string MDOB_DY
         {
-            get
-            {
-                return NumericAllowingUnknown_Get("MDOB_DY", "MotherBirthDay");
-            }
-            set
-            {
-                NumericAllowingUnknown_Set("MDOB_DY", "MotherBirthDay", value);
-            }
+            get => GetDayIJEFormatted(record.MotherDateOfBirth);
+            set => record.MotherDateOfBirth = AddDay(value, record.MotherDateOfBirth);
         }
 
         /// <summary>Date of Birth (Mother)--Edit Flag</summary>
@@ -530,42 +485,24 @@ namespace BFDR
         [IJEField(25, 81, 4, "Date of Birth (Father)--Year", "FDOB_YR", 1)]
         public string FDOB_YR
         {
-            get
-            {
-                return NumericAllowingUnknown_Get("FDOB_YR", "FatherBirthYear");
-            }
-            set
-            {
-                NumericAllowingUnknown_Set("FDOB_YR", "FatherBirthYear", value);
-            }
+            get => GetYearIJEFormatted(record.FatherDateOfBirth);
+            set => record.FatherDateOfBirth = AddYear(value, record.FatherDateOfBirth);
         }
 
         /// <summary>Date of Birth (Father)--Month</summary>
-        [IJEField(26, 85, 2, "Date of Birth (Father)--Month", "FDOB_MO", 1)]
+        [IJEField(26, 85, 2, "Date of Birth (Father)--Month", "FDOB_MO", 2)]
         public string FDOB_MO
         {
-            get
-            {
-                return NumericAllowingUnknown_Get("FDOB_MO", "FatherBirthMonth");
-            }
-            set
-            {
-                NumericAllowingUnknown_Set("FDOB_MO", "FatherBirthMonth", value);
-            }
+            get => GetMonthIJEFormatted(record.FatherDateOfBirth);
+            set => record.FatherDateOfBirth = AddMonth(value, record.FatherDateOfBirth);
         }
 
         /// <summary>Date of Birth (Father)--Day</summary>
-        [IJEField(27, 87, 2, "Date of Birth (Father)--Day", "FDOB_DY", 1)]
+        [IJEField(27, 87, 2, "Date of Birth (Father)--Day", "FDOB_DY", 3)]
         public string FDOB_DY
         {
-            get
-            {
-                return NumericAllowingUnknown_Get("FDOB_DY", "FatherBirthDay");
-            }
-            set
-            {
-                NumericAllowingUnknown_Set("FDOB_DY", "FatherBirthDay", value);
-            }
+            get => GetDayIJEFormatted(record.FatherDateOfBirth);
+            set => record.FatherDateOfBirth = AddDay(value, record.FatherDateOfBirth);
         }
 
         /// <summary>Date of Birth (Father)--Edit Flag</summary>
@@ -1690,32 +1627,32 @@ namespace BFDR
         [IJEField(110, 490, 1, "Risk Factors--Prepregnancy Diabetes  (NOTE: SEE INSERTED NOTES FOR RISK FACTOR LOCATIONS 490-501 AND 573-575 TO REFLECT 2004 CHANGES)", "PDIAB", 1)]
         public string PDIAB
         {
-            get => PresenceToIJE(record.PrepregnancyDiabetes, record.NoPregnancyRiskFactors);
-            set => IJEToPresence(value, (v) => record.PrepregnancyDiabetes = v, (v) => record.NoPregnancyRiskFactors = v);
+            get => PresenceToIJE(record.PrepregnancyDiabetes, record.NoPregnancyRiskFactors, "PrepregnancyDiabetes");
+            set => IJEToPresence(value, "PrepregnancyDiabetes", "NoPregnancyRiskFactors");
         }
 
         /// <summary>Risk Factors--Gestational Diabetes</summary>
         [IJEField(111, 491, 1, "Risk Factors--Gestational Diabetes", "GDIAB", 1)]
         public string GDIAB
         {
-            get => PresenceToIJE(record.GestationalDiabetes, record.NoPregnancyRiskFactors);
-            set => IJEToPresence(value, (v) => record.GestationalDiabetes = v, (v) => record.NoPregnancyRiskFactors = v);
+            get => PresenceToIJE(record.GestationalDiabetes, record.NoPregnancyRiskFactors, "GestationalDiabetes");
+            set => IJEToPresence(value, "GestationalDiabetes", "NoPregnancyRiskFactors");
         }
 
         /// <summary>Risk Factors--Hypertension Prepregnancy</summary>
         [IJEField(112, 492, 1, "Risk Factors--Hypertension Prepregnancy", "PHYPE", 1)]
         public string PHYPE
         {
-            get => PresenceToIJE(record.PrepregnancyHypertension, record.NoPregnancyRiskFactors);
-            set => IJEToPresence(value, (v) => record.PrepregnancyHypertension = v, (v) => record.NoPregnancyRiskFactors = v);
+            get => PresenceToIJE(record.PrepregnancyHypertension, record.NoPregnancyRiskFactors, "PrepregnancyHypertension");
+            set => IJEToPresence(value, "PrepregnancyHypertension", "NoPregnancyRiskFactors");
         }
 
         /// <summary><html>Risk Factors--Hypertension Gestational <b> (SEE ADDITIONAL HYPERTENSION CATEGORY IN LOCATION 573)</b></html></summary>
         [IJEField(113, 493, 1, "<html>Risk Factors--Hypertension Gestational <b> (SEE ADDITIONAL HYPERTENSION CATEGORY IN LOCATION 573)</b></html>", "GHYPE", 1)]
         public string GHYPE
         {
-            get => PresenceToIJE(record.GestationalHypertension, record.NoPregnancyRiskFactors);
-            set => IJEToPresence(value, (v) => record.GestationalHypertension = v, (v) => record.NoPregnancyRiskFactors = v);
+            get => PresenceToIJE(record.GestationalHypertension, record.NoPregnancyRiskFactors, "GestationalHypertension");
+            set => IJEToPresence(value, "GestationalHypertension", "NoPregnancyRiskFactors");
         }
 
         /// <summary>Risk Factors--Previous Preterm Births(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
@@ -1746,16 +1683,16 @@ namespace BFDR
         [IJEField(117, 497, 1, "<html>Risk Factors--Infertility Treatment  <b>(SEE ADDITIONAL SUBCATEGORIES IN LOCATIONS 574-575)</b></html>", "INFT", 1)]
         public string INFT
         {
-            get => PresenceToIJE(record.InfertilityTreatment, record.NoPregnancyRiskFactors);
-            set => IJEToPresence(value, (v) => record.InfertilityTreatment = v, (v) => record.NoPregnancyRiskFactors = v);
+            get => PresenceToIJE(record.InfertilityTreatment, record.NoPregnancyRiskFactors, "InfertilityTreatment");
+            set => IJEToPresence(value, "InfertilityTreatment", "NoPregnancyRiskFactors");
         }
 
         /// <summary>Risk Factors--Previous Cesarean</summary>
         [IJEField(118, 498, 1, "Risk Factors--Previous Cesarean", "PCES", 1)]
         public string PCES
         {
-            get => PresenceToIJE(record.PreviousCesarean, record.NoPregnancyRiskFactors);
-            set => IJEToPresence(value, (v) => record.PreviousCesarean = v, (v) => record.NoPregnancyRiskFactors = v);
+            get => PresenceToIJE(record.PreviousCesarean, record.NoPregnancyRiskFactors, "PreviousCesarean");
+            set => IJEToPresence(value, "PreviousCesarean", "NoPregnancyRiskFactors");
         }
 
         /// <summary>Risk Factors--Number Previous Cesareans</summary>
@@ -1987,8 +1924,8 @@ namespace BFDR
         [IJEField(139, 520, 1, "Maternal Morbidity--Ruptured Uterus", "RUT", 1)]
         public string RUT
         {
-            get => PresenceToIJE(record.RupturedUterus, record.NoMaternalMorbidities);
-            set => IJEToPresence(value, (v) => record.RupturedUterus = v, (v) => record.NoMaternalMorbidities = v);
+            get => PresenceToIJE(record.RupturedUterus, record.NoMaternalMorbidities, "RupturedUterus");
+            set => IJEToPresence(value, "RupturedUterus", "NoMaternalMorbidities");
         }
 
         /// <summary>Maternal Morbidity--Unplanned Hysterectomy(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
@@ -2003,8 +1940,8 @@ namespace BFDR
         [IJEField(141, 522, 1, "Maternal Morbidity--Admit to Intensive Care", "AINT", 1)]
         public string AINT
         {
-            get => PresenceToIJE(record.ICUAdmission, record.NoMaternalMorbidities);
-            set => IJEToPresence(value, (v) => record.ICUAdmission = v, (v) => record.NoMaternalMorbidities = v);
+            get => PresenceToIJE(record.ICUAdmission, record.NoMaternalMorbidities, "ICUAdmission");
+            set => IJEToPresence(value, "ICUAdmission", "NoMaternalMorbidities");
         }
 
         /// <summary>Maternal Morbidity--Unplanned Operation(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
@@ -2404,24 +2341,24 @@ namespace BFDR
         [IJEField(173, 573, 1, "Risk Factors--Hypertension Eclampsia (added after 2004)", "EHYPE", 1)]
         public string EHYPE
         {
-            get => PresenceToIJE(record.EclampsiaHypertension, record.NoPregnancyRiskFactors);
-            set => IJEToPresence(value, (v) => record.EclampsiaHypertension = v, (v) => record.NoPregnancyRiskFactors = v);
+            get => PresenceToIJE(record.EclampsiaHypertension, record.NoPregnancyRiskFactors, "EclampsiaHypertension");
+            set => IJEToPresence(value, "EclampsiaHypertension", "NoPregnancyRiskFactors");
         }
 
         /// <summary>Risk Factors--Infertility: Fertility Enhancing Drugs (added after 2004)</summary>
         [IJEField(174, 574, 1, "Risk Factors--Infertility: Fertility Enhancing Drugs (added after 2004)", "INFT_DRG", 1)]
         public string INFT_DRG
         {
-            get => PresenceToIJE(record.FertilityEnhancingDrugTherapyArtificialIntrauterineInsemination, record.NoPregnancyRiskFactors);
-            set => IJEToPresence(value, (v) => record.FertilityEnhancingDrugTherapyArtificialIntrauterineInsemination = v, (v) => record.NoPregnancyRiskFactors = v);
+            get => PresenceToIJE(record.FertilityEnhancingDrugTherapyArtificialIntrauterineInsemination, record.NoPregnancyRiskFactors, "FertilityEnhancingDrugTherapyArtificialIntrauterineInsemination");
+            set => IJEToPresence(value, "FertilityEnhancingDrugTherapyArtificialIntrauterineInsemination", "NoPregnancyRiskFactors");
         }
 
         /// <summary>Risk Factors--Infertility: Asst. Rep. Technology (added after 2004)</summary>
         [IJEField(175, 575, 1, "Risk Factors--Infertility: Asst. Rep. Technology (added after 2004)", "INFT_ART", 1)]
         public string INFT_ART
         {
-            get => PresenceToIJE(record.AssistedReproductiveTechnology, record.NoPregnancyRiskFactors);
-            set => IJEToPresence(value, (v) => record.AssistedReproductiveTechnology = v, (v) => record.NoPregnancyRiskFactors = v);
+            get => PresenceToIJE(record.AssistedReproductiveTechnology, record.NoPregnancyRiskFactors, "AssistedReproductiveTechnology");
+            set => IJEToPresence(value, "AssistedReproductiveTechnology", "NoPregnancyRiskFactors");
         }
 
         /// <summary>Date of Registration--Year</summary>
@@ -4652,44 +4589,29 @@ namespace BFDR
         [IJEField(340, 4814, 50, "Attendant's Name", "ATTEND_NAME", 1)]
         public string ATTEND_NAME
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => LeftJustified_Get("ATTEND_NAME", "AttendantName");
+            set => LeftJustified_Set("ATTEND_NAME", "AttendantName", value);
         }
 
         /// <summary>Attendant's NPI</summary>
         [IJEField(341, 4864, 12, "Attendant's NPI", "ATTEND_NPI", 1)]
         public string ATTEND_NPI
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => LeftJustified_Get("ATTEND_NPI", "AttendantNPI");
+            set => LeftJustified_Set("ATTEND_NPI", "AttendantNPI", value);
         }
 
         /// <summary>Attendant ("Other" specified text)</summary>
         [IJEField(342, 4876, 20, "Attendant (\"Other\" specified text)", "ATTEND_OTH_TXT", 1)]
         public string ATTEND_OTH_TXT
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
+            get => LeftJustified_Get("ATTEND_OTH_TXT", "AttendantOtherHelper");
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    LeftJustified_Set("ATTEND_OTH_TXT", "AttendantOtherHelper", value);
+                }
             }
         }
 

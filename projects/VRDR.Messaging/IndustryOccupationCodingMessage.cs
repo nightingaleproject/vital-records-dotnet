@@ -59,10 +59,9 @@ namespace VRDR
         /// <summary>Constructor that creates a IndustryOccupationCodingMessage for the specified message.</summary>
         /// <param name="messageId">the id of the message to code.</param>
         /// <param name="destination">the endpoint identifier that the ack message will be sent to.</param>
-        /// <param name="status">the status being sent, from http://build.fhir.org/ig/nightingaleproject/vital_records_fhir_messaging_ig/branches/main/ValueSet-VRM-Status-vs.html</param>
         /// <param name="source">the endpoint identifier that the ack message will be sent from.</param>
 
-        public IndustryOccupationCodingMessage(string messageId, string destination, string status, string source = "http://nchs.cdc.gov/vrdr_submission") : base(MESSAGE_TYPE)
+        public IndustryOccupationCodingMessage(string messageId, string destination, string source = "http://nchs.cdc.gov/vrdr_submission") : base(MESSAGE_TYPE)
         {
             Header.Source.Endpoint = source;
             this.MessageDestination = destination;

@@ -9,7 +9,7 @@ namespace VRDR;
 
 public class FilterService
 {
-    
+
     /// <summary>The filter array.</summary>
     private string[] nchsIjeFilterArray;
 
@@ -33,7 +33,7 @@ public class FilterService
         {
             nchsIjeFilterArray = JsonConvert.DeserializeObject<string[]>(nchsIjeFilterFileLocation);
         }
-        
+
         nchsIjeFilterArray = nchsIjeFilterArray?.Select(e => e.ToUpper()).ToArray();
 
         // The mappings
@@ -153,6 +153,8 @@ public class FilterService
         }
         else
         {
+            // unreachable block. any type other than DeathRecordSubmissionMessage or DeathRecordUpdateMessage
+            // will have already returned
             return message;
         }
     }

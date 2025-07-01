@@ -1,9 +1,11 @@
-using System;
 using System.IO;
 using System.Collections.Generic;
 using VR;
 using Xunit;
-using System.Security;
+using System;
+using Hl7.Fhir.Model;
+using System.Linq;
+using System.Reflection;
 
 namespace BFDR.Tests
 {
@@ -12,6 +14,11 @@ namespace BFDR.Tests
     [Fact]
     public void TestImportPatientChildVitalRecordProperties()
     {
+      string timeZoneOffsetStandard = TimeZoneInfo.Local.GetUtcOffset(new DateTime(2000, 1, 1)).ToString()[..6];
+      if (timeZoneOffsetStandard == "00:00:")
+      {
+        timeZoneOffsetStandard = "+00:00";
+      }
       // Test IJE import.
       IJEBirth ijeImported = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/BasicBirthRecord.ije")), true);
       // Test IJE conversion to BirthRecord.
@@ -25,7 +32,6 @@ namespace BFDR.Tests
       // Date of Birth (Infant)--Year
       Assert.Equal("2023", ijeImported.IDOB_YR);
       Assert.Equal(ijeImported.IDOB_YR, ijeConverted.IDOB_YR);
-      Assert.Equal(2023, br.BirthYear);
       // State, U.S. Territory or Canadian Province of Birth (Infant) - code
       Assert.Equal("MA".PadRight(2), ijeImported.BSTATE);
       Assert.Equal(ijeImported.BSTATE, ijeConverted.BSTATE);
@@ -34,7 +40,6 @@ namespace BFDR.Tests
       // Time of Birth
       Assert.Equal("1230".PadRight(4), ijeImported.TB);
       Assert.Equal(ijeImported.TB, ijeConverted.TB);
-      Assert.Equal("12:30:00", br.BirthTime);
       // Sex
       Assert.Equal("M", ijeImported.ISEX);
       Assert.Equal(ijeImported.ISEX, ijeConverted.ISEX);
@@ -42,13 +47,13 @@ namespace BFDR.Tests
       // Date of Birth (Infant)--Month
       Assert.Equal("11", ijeImported.IDOB_MO);
       Assert.Equal(ijeImported.IDOB_MO, ijeConverted.IDOB_MO);
-      Assert.Equal(11, br.BirthMonth);
       // Date of Birth (Infant)--Day
       Assert.Equal("25", ijeImported.IDOB_DY);
       Assert.Equal(ijeImported.IDOB_DY, ijeConverted.IDOB_DY);
-      Assert.Equal(25, br.BirthDay);
+      // Check complete date of birth in record
       Assert.Equal(ijeImported.IDOB_YR + "-" + ijeImported.IDOB_MO + "-" + ijeImported.IDOB_DY, br.DateOfBirth);
       Assert.Equal("2023-11-25", br.DateOfBirth);
+      Assert.Equal("2023-11-25T12:30:00" + timeZoneOffsetStandard, br.BirthDateTime);
       // County of Birth | (CountyCodes) (CNTYO)
       Assert.Equal("467", ijeImported.CNTYO);
       // Plurality
@@ -115,11 +120,189 @@ namespace BFDR.Tests
     }
 
     [Fact]
+    public void TestBirthDateTime()
+    {
+      BirthRecord rec = new BirthRecord();
+      IJEBirth ije = new IJEBirth(rec);
+      Assert.Null(rec.DateOfBirth);
+      Assert.Null(rec.BirthDateTime);
+      Assert.Equal("    ", ije.IDOB_YR);
+      Assert.Equal("  ", ije.IDOB_MO);
+      Assert.Equal("  ", ije.IDOB_DY);
+      Assert.Equal("9999", ije.TB);
+      rec.DateOfBirth = "2021";
+      ije = new IJEBirth(rec);
+      Assert.Equal("2021", rec.DateOfBirth);
+      Assert.Null(rec.BirthDateTime);
+      Assert.Equal("2021", ije.IDOB_YR);
+      Assert.Equal("  ", ije.IDOB_MO);
+      Assert.Equal("  ", ije.IDOB_DY);
+      Assert.Equal("9999", ije.TB);
+      rec.DateOfBirth = "2021-03";
+      ije = new IJEBirth(rec);
+      Assert.Equal("2021-03", rec.DateOfBirth);
+      Assert.Null(rec.BirthDateTime);
+      Assert.Equal("2021", ije.IDOB_YR);
+      Assert.Equal("03", ije.IDOB_MO);
+      Assert.Equal("  ", ije.IDOB_DY);
+      Assert.Equal("9999", ije.TB);
+      rec.DateOfBirth = "2021-03-09";
+      ije = new IJEBirth(rec);
+      Assert.Equal("2021-03-09", rec.DateOfBirth);
+      Assert.Null(rec.BirthDateTime);
+      Assert.Equal("2021", ije.IDOB_YR);
+      Assert.Equal("03", ije.IDOB_MO);
+      Assert.Equal("09", ije.IDOB_DY);
+      Assert.Equal("9999", ije.TB);
+      rec.BirthDateTime = "2024-08-23T13:00:00-1:00";
+      ije = new IJEBirth(rec);
+      Assert.Equal("2024-08-23", rec.DateOfBirth);
+      Assert.Equal("2024-08-23T13:00:00-01:00", rec.BirthDateTime);
+      Assert.Equal("2024", ije.IDOB_YR);
+      Assert.Equal("08", ije.IDOB_MO);
+      Assert.Equal("23", ije.IDOB_DY);
+      Assert.Equal("1300", ije.TB);
+      rec.DateOfBirth = "1990-10-08";
+      ije = new IJEBirth(rec);
+      Assert.Equal("1990-10-08", rec.DateOfBirth);
+      Assert.Equal("1990-10-08T13:00:00-01:00", rec.BirthDateTime);
+      Assert.Equal("1990", ije.IDOB_YR);
+      Assert.Equal("10", ije.IDOB_MO);
+      Assert.Equal("08", ije.IDOB_DY);
+      Assert.Equal("1300", ije.TB);
+      rec.DateOfBirth = "2023";
+      ije = new IJEBirth(rec);
+      Assert.Equal("2023", rec.DateOfBirth);
+      Assert.Null(rec.BirthDateTime);
+      Assert.Equal("2023", ije.IDOB_YR);
+      Assert.Equal("  ", ije.IDOB_MO);
+      Assert.Equal("  ", ije.IDOB_DY);
+      Assert.Equal("9999", ije.TB);
+      Assert.Throws<System.ArgumentException>(() => rec.BirthDateTime = "2023T15:30:00");
+      Assert.Equal("2023", rec.DateOfBirth);
+      Assert.Null(rec.BirthDateTime);
+      Assert.Throws<System.ArgumentException>(() => rec.BirthDateTime = "T15:30:00");
+      Assert.Equal("2023", rec.DateOfBirth);
+      Assert.Null(rec.BirthDateTime);
+      Assert.Throws<System.ArgumentException>(() => rec.DateOfBirth = "20");
+      Assert.Equal("2023", rec.DateOfBirth);
+      Assert.Null(rec.BirthDateTime);
+      rec.DateOfBirth = null;
+      Assert.Null(rec.DateOfBirth);
+      Assert.Null(rec.BirthDateTime);
+      rec.DateOfBirth = "2023";
+      Assert.Equal("2023", rec.DateOfBirth);
+      rec.DateOfBirth = "";
+      Assert.Null(rec.DateOfBirth);
+      Assert.Null(rec.BirthDateTime);
+      rec.DateOfBirth = "2023";
+      Assert.Equal("2023", rec.DateOfBirth);
+      rec.BirthDateTime = null;
+      Assert.Equal("2023", rec.DateOfBirth);
+      Assert.Null(rec.BirthDateTime);
+      rec.DateOfBirth = "2023";
+      Assert.Equal("2023", rec.DateOfBirth);
+      rec.BirthDateTime = "";
+      Assert.Equal("2023", rec.DateOfBirth);
+      Assert.Null(rec.BirthDateTime);
+      rec.DateOfBirth = "2023";
+      Assert.Equal("2023", rec.DateOfBirth);
+      Assert.Throws<System.ArgumentException>(() => rec.BirthDateTime = "2022-08-19");
+      Assert.Equal("2023", rec.DateOfBirth);
+      Assert.Null(rec.BirthDateTime);
+      ije = new IJEBirth(rec);
+      Assert.Equal("2023", ije.IDOB_YR);
+      Assert.Equal("  ", ije.IDOB_MO);
+      Assert.Equal("  ", ije.IDOB_DY);
+      Assert.Equal("9999", ije.TB);
+      rec.BirthDateTime = "2024-07-29T12:24+4:30";
+      ije = new IJEBirth(rec);
+      Assert.Equal("2024-07-29", rec.DateOfBirth);
+      Assert.Equal("2024-07-29T12:24:00+04:30", rec.BirthDateTime);
+      Assert.Equal("2024", ije.IDOB_YR);
+      Assert.Equal("07", ije.IDOB_MO);
+      Assert.Equal("29", ije.IDOB_DY);
+      Assert.Equal("1224", ije.TB);
+      rec.BirthDateTime = "2021-10-28T15:20:46+04:00";
+      ije = new IJEBirth(rec);
+      Assert.Equal("2021-10-28", rec.DateOfBirth);
+      Assert.Equal("2021-10-28T15:20:46+04:00", rec.BirthDateTime);
+      Assert.Equal("2021", ije.IDOB_YR);
+      Assert.Equal("10", ije.IDOB_MO);
+      Assert.Equal("28", ije.IDOB_DY);
+      Assert.Equal("1520", ije.TB);
+      rec.BirthDateTime = "2018-03-27T10:55:33-02:00";
+      ije = new IJEBirth(rec);
+      Assert.Equal("2018-03-27", rec.DateOfBirth);
+      Assert.Equal("2018-03-27T10:55:33-02:00", rec.BirthDateTime);
+      Assert.Equal("2018", ije.IDOB_YR);
+      Assert.Equal("03", ije.IDOB_MO);
+      Assert.Equal("27", ije.IDOB_DY);
+      Assert.Equal("1055", ije.TB);
+      Assert.Throws<System.ArgumentException>(() => rec.BirthDateTime = "2020-09-05T07");
+      Assert.Equal("2018-03-27", rec.DateOfBirth);
+      Assert.Equal("2018-03-27T10:55:33-02:00", rec.BirthDateTime);
+      Assert.Equal("2018", ije.IDOB_YR);
+      Assert.Equal("03", ije.IDOB_MO);
+      Assert.Equal("27", ije.IDOB_DY);
+      Assert.Equal("1055", ije.TB);
+      rec.BirthDateTime = "2021-08-07T08:09+11:11";
+      ije = new IJEBirth(rec);
+      Assert.Equal("2021-08-07", rec.DateOfBirth);
+      Assert.Equal("2021-08-07T08:09:00+11:11", rec.BirthDateTime);
+      Assert.Equal("2021", ije.IDOB_YR);
+      Assert.Equal("08", ije.IDOB_MO);
+      Assert.Equal("07", ije.IDOB_DY);
+      Assert.Equal("0809", ije.TB);
+    }
+
+    [Fact]
+    public void TestBirthTimeZoneIJESetters()
+    {
+      string timeZoneOffsetStandard = TimeZoneInfo.Local.GetUtcOffset(new DateTime(2000, 1, 1)).ToString()[..6];
+      if (timeZoneOffsetStandard == "00:00:")
+      {
+        timeZoneOffsetStandard = "+00:00";
+      }
+      string timeZoneOffsetDaylightSavings = TimeZoneInfo.Local.GetUtcOffset(new DateTime(2000, 7, 1)).ToString()[..6];
+      if (timeZoneOffsetDaylightSavings == "00:00:")
+      {
+        timeZoneOffsetDaylightSavings = "+00:00";
+      }
+      IJEBirth ije = new IJEBirth();
+      Assert.Throws<System.ArgumentException>(() => ije.IDOB_DY = "11");
+      ije.IDOB_YR = "2025";
+      ije.IDOB_MO = "12";
+      ije.IDOB_DY = "14";
+      Assert.Equal("2025-12-14", ije.ToRecord().DateOfBirth);
+      Assert.Null(ije.ToRecord().BirthDateTime);
+      ije.TB = "1435";
+      Assert.Equal("2025-12-14", ije.ToRecord().DateOfBirth);
+      Assert.Equal("2025-12-14T14:35:00" + timeZoneOffsetStandard, ije.ToRecord().BirthDateTime);
+      ije.IDOB_YR = "2022";
+      Assert.Equal("2022-12-14", ije.ToRecord().DateOfBirth);
+      Assert.Equal("2022-12-14T14:35:00" + timeZoneOffsetStandard, ije.ToRecord().BirthDateTime);
+      ije.IDOB_MO = " 6";
+      Assert.Equal("2022-06-14", ije.ToRecord().DateOfBirth);
+      Assert.Equal("2022-06-14T14:35:00" + timeZoneOffsetStandard, ije.ToRecord().BirthDateTime);
+      ije.IDOB_DY = "22";
+      Assert.Equal("2022-06-22", ije.ToRecord().DateOfBirth);
+      Assert.Equal("2022-06-22T14:35:00" + timeZoneOffsetStandard, ije.ToRecord().BirthDateTime);
+      ije.TB = " 145";
+      Assert.Equal("2022-06-22", ije.ToRecord().DateOfBirth);
+      Assert.Equal("2022-06-22T01:45:00" + timeZoneOffsetDaylightSavings, ije.ToRecord().BirthDateTime);
+      ije.TB = "9999";
+      Assert.Equal("2022-06-22", ije.ToRecord().DateOfBirth);
+      Assert.Null(ije.ToRecord().BirthDateTime);
+      Assert.Equal("9999", ije.TB);
+    }
+
+    [Fact]
     public void TestSetPatientChildVitalRecordProperties()
     {
       IJEBirth ije = new()
       {
-          CNTYO = "635"
+        CNTYO = "635"
       };
       Assert.Equal("635", ije.CNTYO);
     }
@@ -153,15 +336,12 @@ namespace BFDR.Tests
       // Date of Birth (Mother)--Year
       Assert.Equal("1994", ijeImported.MDOB_YR);
       Assert.Equal(ijeImported.MDOB_YR, ijeConverted.MDOB_YR);
-      Assert.Equal(1994, br.MotherBirthYear);
       // Date of Birth (Mother)--Month
       Assert.Equal("11", ijeImported.MDOB_MO);
       Assert.Equal(ijeImported.MDOB_MO, ijeConverted.MDOB_MO);
-      Assert.Equal(11, br.MotherBirthMonth);
       // Date of Birth (Mother)--Day
       Assert.Equal("29", ijeImported.MDOB_DY);
       Assert.Equal(ijeImported.MDOB_DY, ijeConverted.MDOB_DY);
-      Assert.Equal(29, br.MotherBirthDay);
       Assert.Equal(ijeImported.MDOB_YR + "-" + ijeImported.MDOB_MO + "-" + ijeImported.MDOB_DY, br.MotherDateOfBirth);
       Assert.Equal("1994-11-29", br.MotherDateOfBirth);
     }
@@ -180,133 +360,159 @@ namespace BFDR.Tests
       // Date of Birth (Father)--Year
       Assert.Equal("1992", ijeImported.FDOB_YR);
       Assert.Equal(ijeImported.FDOB_YR, ijeConverted.FDOB_YR);
-      Assert.Equal(1992, br.FatherBirthYear);
       // Date of Birth (Father)--Month
       Assert.Equal("10", ijeImported.FDOB_MO);
       Assert.Equal(ijeImported.FDOB_MO, ijeConverted.FDOB_MO);
-      Assert.Equal(10, br.FatherBirthMonth);
       // Date of Birth (Father)--Day
       Assert.Equal("05", ijeImported.FDOB_DY);
       Assert.Equal(ijeImported.FDOB_DY, ijeConverted.FDOB_DY);
-      Assert.Equal(5, br.FatherBirthDay);
       Assert.Equal(ijeImported.FDOB_YR + "-" + ijeImported.FDOB_MO + "-" + ijeImported.FDOB_DY, br.FatherDateOfBirth);
       Assert.Equal("1992-10-05", br.FatherDateOfBirth);
     }
 
-    // Test unknown date values for Mother and Father.
     [Fact]
-    public void TestParentBirthDateUnknowns()
+    public void TestBirthDateUnknownsErrors()
+    {
+      IJEBirth ije = new();
+      Assert.Throws<System.FormatException>(() => ije.IDOB_DY = "99");
+      Assert.Throws<System.FormatException>(() => ije.IDOB_MO = "99");
+      Assert.Throws<System.FormatException>(() => ije.IDOB_YR = "9999");
+      Assert.Null(ije.ToRecord().DateOfBirth);
+      Assert.Throws<System.FormatException>(() => ije.MDOB_DY = "99");
+      Assert.Throws<System.FormatException>(() => ije.MDOB_MO = "99");
+      Assert.Throws<System.FormatException>(() => ije.MDOB_YR = "9999");
+      Assert.Null(ije.ToRecord().MotherDateOfBirth);
+      Assert.Throws<System.FormatException>(() => ije.FDOB_DY = "99");
+      Assert.Throws<System.FormatException>(() => ije.FDOB_MO = "99");
+      Assert.Throws<System.FormatException>(() => ije.MDOB_YR = "9999");
+      Assert.Null(ije.ToRecord().FatherDateOfBirth);
+      // Sample tiny IJE string with parent birthdates set to 9999.
+      Assert.Throws<System.Reflection.TargetInvocationException>(() => new IJEBirth("                                                      99999999                  99999999", true));
+    }
+
+    [Fact]
+    public void TestBirthDateOrderingErrors()
+    {
+      IJEBirth ije = new();      
+      // Mother
+      Assert.Throws<System.ArgumentException>(() => ije.MDOB_MO = "14");
+      Assert.Equal("  ", ije.MDOB_MO);
+      Assert.Null(ije.ToRecord().MotherDateOfBirth);
+      Assert.Throws<System.ArgumentException>(() => ije.MDOB_DY = "14");
+      Assert.Equal("  ", ije.MDOB_DY);
+      Assert.Null(ije.ToRecord().MotherDateOfBirth);
+      ije.MDOB_YR = "2000";
+      Assert.Equal("2000", ije.MDOB_YR);
+      Assert.Equal("2000", ije.ToRecord().MotherDateOfBirth);
+      Assert.Throws<System.ArgumentException>(() => ije.MDOB_DY = "14");
+      Assert.Equal("  ", ije.MDOB_DY);
+      Assert.Equal("2000", ije.ToRecord().MotherDateOfBirth);
+      ije.MDOB_MO = "10";
+      Assert.Equal("2000", ije.MDOB_YR);
+      Assert.Equal("10", ije.MDOB_MO);
+      Assert.Equal("2000-10", ije.ToRecord().MotherDateOfBirth);
+      ije.MDOB_DY = "21";
+      Assert.Equal("2000", ije.MDOB_YR);
+      Assert.Equal("10", ije.MDOB_MO);
+      Assert.Equal("21", ije.MDOB_DY);
+      Assert.Equal("2000-10-21", ije.ToRecord().MotherDateOfBirth);
+    }
+
+    [Fact]
+    public void TestSupportedDateUnkowns()
+    {
+      IJEBirth ije = new IJEBirth();
+      ije.YLLB = "9999";
+      ije.MLLB = "99";
+      BirthRecord br = ije.ToRecord();
+      Observation observation = (Observation)br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
+      FhirDateTime dateToUse = (FhirDateTime)observation.Value;
+      Extension pdt = dateToUse.GetExtension(VR.ExtensionURL.PartialDateTime);
+      Assert.Equal(-1, br.DateOfLastLiveBirthYear);
+      Assert.Equal(-1, br.DateOfLastLiveBirthMonth);
+      Assert.Null(br.DateOfLastLiveBirthDay);
+      Assert.Null(br.DateOfLastLiveBirth);
+      Assert.Null(dateToUse.Value);
+      Assert.Equal("unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateYearVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
+      Assert.Equal("unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateMonthVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
+      Assert.Equal("temp-unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateDayVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
+      Assert.Equal("9999", ije.YLLB);
+      Assert.Equal("99", ije.MLLB);
+      ije.YLLB = "2020";
+      br = ije.ToRecord();
+      observation = (Observation)br.GetBundle().Entry.Where(e => e.Resource is Observation dObs && VitalRecord.CodeableConceptToDict(dObs.Code)["code"] == "68499-3").FirstOrDefault().Resource;
+      dateToUse = (FhirDateTime)observation.Value;
+      pdt = dateToUse.GetExtension(VR.ExtensionURL.PartialDateTime);
+      Assert.Equal(2020, br.DateOfLastLiveBirthYear);
+      Assert.Equal(-1, br.DateOfLastLiveBirthMonth);
+      Assert.Null(br.DateOfLastLiveBirthDay);
+      Assert.Equal("2020", br.DateOfLastLiveBirth);
+      Assert.Equal("2020", dateToUse.Value);
+      Assert.Equal("unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateMonthVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
+      Assert.Equal("temp-unknown", pdt.GetExtension(VR.ExtensionURL.PartialDateDayVR).GetExtension(VR.OtherExtensionURL.DataAbsentReason).Value.ToString());
+      Assert.Equal("2020", ije.YLLB);
+      Assert.Equal("99", ije.MLLB);
+    }
+
+    [Fact]
+    public void TestParentBirthDateSetters()
     {
       // Patient Mother.
       IJEBirth ije = new();
       ije.MDOB_YR = "2000";
+      Assert.Equal("2000", ije.ToRecord().MotherDateOfBirth);
       ije.MDOB_MO = "09";
+      Assert.Equal("2000-09", ije.ToRecord().MotherDateOfBirth);
       ije.MDOB_DY = "27";
+      Assert.Equal("2000-09-27", ije.ToRecord().MotherDateOfBirth);
       ije.MAGE_BYPASS = "0";
       ije.MAGER = "29";
+      Assert.Equal(29, ije.ToRecord().MotherReportedAgeAtDelivery);
       Assert.Equal("2000", ije.MDOB_YR);
       Assert.Equal("09", ije.MDOB_MO);
       Assert.Equal("27", ije.MDOB_DY);
       Assert.Equal("0", ije.MAGE_BYPASS);
       Assert.Equal("29", ije.MAGER);
-      ije.MDOB_DY = "99";
-      Assert.Equal("99", ije.MDOB_DY);
-      BirthRecord converted = ije.ToRecord();
-      Assert.Equal(-1, converted.MotherBirthDay);
-      Assert.Equal("2000-09", converted.MotherDateOfBirth);
+      Assert.Equal("2000-09-27", ije.ToRecord().MotherDateOfBirth);
       ije.MDOB_DY = "30";
-      converted = ije.ToRecord();
-      Assert.Equal(30, converted.MotherBirthDay);
-      Assert.Equal("2000-09-30", converted.MotherDateOfBirth);
-      ije.MDOB_MO = "99";
-      converted = ije.ToRecord();
-      Assert.Equal(-1, converted.MotherBirthMonth);
-      Assert.Equal(30, converted.MotherBirthDay);
-      Assert.Equal("2000", converted.MotherDateOfBirth);
+      Assert.Equal("30", ije.MDOB_DY);
+      Assert.Equal("2000-09-30", ije.ToRecord().MotherDateOfBirth);
+      Assert.Throws<System.FormatException>(() => ije.MDOB_MO = "99");
+      Assert.Equal("2000-09-30", ije.ToRecord().MotherDateOfBirth);
       ije.MDOB_MO = "05";
-      converted = ije.ToRecord();
-      Assert.Equal(5, converted.MotherBirthMonth);
-      Assert.Equal(30, converted.MotherBirthDay);
-      Assert.Equal("2000-05-30", converted.MotherDateOfBirth);
-      ije.MDOB_YR = "9999";
-      Assert.Equal(-1, converted.MotherBirthYear);
-      Assert.Equal(5, converted.MotherBirthMonth);
-      Assert.Equal(30, converted.MotherBirthDay);
-      Assert.Null(converted.MotherDateOfBirth);
+      Assert.Equal("05", ije.MDOB_MO);
+      Assert.Equal("2000-05-30", ije.ToRecord().MotherDateOfBirth);
+      Assert.Throws<System.FormatException>(() => ije.MDOB_YR = "9999");
+      Assert.Equal("2000", ije.MDOB_YR);
+      Assert.Equal("2000-05-30", ije.ToRecord().MotherDateOfBirth);
+
       // Related Person Father.
       ije.FDOB_YR = "1999";
+      Assert.Equal("1999", ije.ToRecord().FatherDateOfBirth);
       ije.FDOB_MO = "11";
+      Assert.Equal("1999-11", ije.ToRecord().FatherDateOfBirth);
       ije.FDOB_DY = "27";
+      Assert.Equal("1999-11-27", ije.ToRecord().FatherDateOfBirth);
       ije.FAGE_BYPASS = "0";
       ije.FAGER = "31";
+      Assert.Equal(31, ije.ToRecord().FatherReportedAgeAtDelivery);
       Assert.Equal("1999", ije.FDOB_YR);
       Assert.Equal("11", ije.FDOB_MO);
       Assert.Equal("27", ije.FDOB_DY);
       Assert.Equal("0", ije.FAGE_BYPASS);
       Assert.Equal("31", ije.FAGER);
-      ije.FDOB_DY = "99";
-      Assert.Equal("99", ije.FDOB_DY);
-      converted = ije.ToRecord();
-      Assert.Equal(-1, converted.FatherBirthDay);
-      Assert.Equal("1999-11", converted.FatherDateOfBirth);
+      Assert.Throws<System.FormatException>(() => ije.FDOB_DY = "99");
+      Assert.Equal("27", ije.FDOB_DY);
+      Assert.Equal("1999-11-27", ije.ToRecord().FatherDateOfBirth);
       ije.FDOB_DY = "22";
-      converted = ije.ToRecord();
-      Assert.Equal(22, converted.FatherBirthDay);
-      Assert.Equal("1999-11-22", converted.FatherDateOfBirth);
-      ije.FDOB_MO = "99";
-      converted = ije.ToRecord();
-      Assert.Equal(-1, converted.FatherBirthMonth);
-      Assert.Equal(22, converted.FatherBirthDay);
-      Assert.Equal("1999", converted.FatherDateOfBirth);
+      Assert.Equal("1999-11-22", ije.ToRecord().FatherDateOfBirth);
+      Assert.Throws<System.FormatException>(() => ije.FDOB_MO = "99");
+      Assert.Equal("1999-11-22", ije.ToRecord().FatherDateOfBirth);
       ije.FDOB_MO = "05";
-      converted = ije.ToRecord();
-      Assert.Equal(5, converted.FatherBirthMonth);
-      Assert.Equal(22, converted.FatherBirthDay);
-      Assert.Equal("1999-05-22", converted.FatherDateOfBirth);
-      ije.FDOB_YR = "9999";
-      Assert.Equal(-1, converted.FatherBirthYear);
-      Assert.Equal(5, converted.FatherBirthMonth);
-      Assert.Equal(22, converted.FatherBirthDay);
-      Assert.Null(converted.FatherDateOfBirth);
-    }
-
-    // Test Unknown Parent Birthdate imports from IJE.
-    [Fact]
-    public void TestUnknownParentBirthdateImports()
-    {
-      // Test IJE import.
-      IJEBirth ijeImported = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/ije/UnknownParentBirthDates.ije")), true);
-      // Test IJE conversion to BirthRecord.
-      BirthRecord br = ijeImported.ToRecord();
-      // Test IJE conversion from BirthRecord.
-      IJEBirth ijeConverted = new(br);
-
-      // Date of Birth (Mother)--Year
-      Assert.Equal("9999", ijeImported.MDOB_YR);
-      Assert.Equal(ijeImported.MDOB_YR, ijeConverted.MDOB_YR);
-      Assert.Equal(-1, br.MotherBirthYear);
-      // Date of Birth (Mother)--Month
-      Assert.Equal("99", ijeImported.MDOB_MO);
-      Assert.Equal(ijeImported.MDOB_MO, ijeConverted.MDOB_MO);
-      Assert.Equal(-1, br.MotherBirthMonth);
-      // Date of Birth (Mother)--Day
-      Assert.Equal("99", ijeImported.MDOB_DY);
-      Assert.Equal(ijeImported.MDOB_DY, ijeConverted.MDOB_DY);
-      Assert.Equal(-1, br.MotherBirthDay);
-      Assert.Null(br.MotherDateOfBirth);
-      // Date of Birth (Father)--Year
-      Assert.Equal("9999", ijeImported.FDOB_YR);
-      Assert.Equal(ijeImported.FDOB_YR, ijeConverted.FDOB_YR);
-      Assert.Equal(-1, br.FatherBirthYear);
-      // Date of Birth (Father)--Month
-      Assert.Equal("99", ijeImported.FDOB_MO);
-      Assert.Equal(ijeImported.FDOB_MO, ijeConverted.FDOB_MO);
-      Assert.Equal(-1, br.FatherBirthMonth);
-      // Date of Birth (Father)--Day
-      Assert.Equal("99", ijeImported.FDOB_DY);
-      Assert.Equal(ijeImported.FDOB_DY, ijeConverted.FDOB_DY);
-      Assert.Equal(-1, br.FatherBirthDay);
-      Assert.Null(br.FatherDateOfBirth);
+      Assert.Equal("05", ije.FDOB_MO);
+      Assert.Equal("1999-05-22", ije.ToRecord().FatherDateOfBirth);
+      Assert.Throws<System.FormatException>(() => ije.FDOB_YR = "9999");
+      Assert.Equal("1999-05-22", ije.ToRecord().FatherDateOfBirth);
     }
 
     [Fact]
@@ -318,23 +524,19 @@ namespace BFDR.Tests
       ije.MDOB_DY = "12";
       // convert IJE to FHIR
       BirthRecord br = ije.ToRecord();
-      Assert.Equal(1992, br.MotherBirthYear);
-      Assert.Equal(1, br.MotherBirthMonth);
-      Assert.Equal(12, br.MotherBirthDay);
+      Assert.Equal("1992-01-12", br.MotherDateOfBirth);
 
       // then to a json string
       string asJson = br.ToJSON();
       // Create a fhir record from the json
-      BirthRecord birthRecord = new BirthRecord(asJson);
-      Assert.Equal(1992, birthRecord.MotherBirthYear);
-      Assert.Equal(1, birthRecord.MotherBirthMonth);
-      Assert.Equal(12, birthRecord.MotherBirthDay);
+      BirthRecord brConverted = new BirthRecord(asJson);
+      Assert.Equal("1992-01-12", brConverted.MotherDateOfBirth);
 
       // convert back to IJE and confirm the values are the same
-      IJEBirth ije2 = new IJEBirth(birthRecord);
-      Assert.Equal("1992", ije2.MDOB_YR);
-      Assert.Equal("01", ije2.MDOB_MO);
-      Assert.Equal("12", ije2.MDOB_DY);
+      IJEBirth ijeConverted = new IJEBirth(brConverted);
+      Assert.Equal("1992", ijeConverted.MDOB_YR);
+      Assert.Equal("01", ijeConverted.MDOB_MO);
+      Assert.Equal("12", ijeConverted.MDOB_DY);
     }
 
     [Fact]
@@ -362,9 +564,14 @@ namespace BFDR.Tests
     {
       BirthRecord fhir = new BirthRecord();
       IJEBirth ije = new IJEBirth(fhir);
+      // a new record is empty, so these values will be U in IJE and false in FHIR
       Assert.False(fhir.Anencephaly);
+      Assert.False(fhir.Hypospadias);
+      Assert.False(fhir.Meningomyelocele);
       Assert.False(fhir.NoCongenitalAnomaliesOfTheNewborn);
       Assert.Equal("U", ije.ANEN);
+      Assert.Equal("U", ije.HYPO);
+      Assert.Equal("U", ije.MNSB);
       ije.ANEN = "Y";
       Assert.Equal("Y", ije.ANEN);
       Assert.True(fhir.Anencephaly);
@@ -379,7 +586,7 @@ namespace BFDR.Tests
       Assert.True(fhir.NoCongenitalAnomaliesOfTheNewborn);
       ije.ANEN = "U";
       // FHIR uses false for either U or N, the two values are differentiated by the value of the corresponding none-of-the-above field
-      // Setting an existing false attribute to false doesn't change the corresponding none-of-the-above field so we get N instead of U
+      // Setting N can potentially set the none-of-the-above field, but setting U can not do that.
       Assert.Equal("N", ije.ANEN);
       Assert.False(fhir.Anencephaly);
       Assert.True(fhir.NoCongenitalAnomaliesOfTheNewborn);
@@ -387,17 +594,17 @@ namespace BFDR.Tests
       Assert.Equal("Y", ije.ANEN);
       Assert.True(fhir.Anencephaly);
       Assert.False(fhir.NoCongenitalAnomaliesOfTheNewborn);
-      ije.HYPO = "N"; // Setting any field to N sets all fields in the same group to N
+      ije.HYPO = "N"; // Setting any field to N sets none-of-the-above only if there are no Y in the same group
       Assert.Equal("N", ije.HYPO);
-      Assert.Equal("N", ije.ANEN);
+      Assert.Equal("Y", ije.ANEN);
       Assert.False(fhir.Hypospadias);
-      Assert.False(fhir.Anencephaly);
-      Assert.True(fhir.NoCongenitalAnomaliesOfTheNewborn);
-      ije.HYPO = "Y"; // Setting any field to Y sets all fields in the same group to U unless they are also Y
+      Assert.True(fhir.Anencephaly);
+      Assert.False(fhir.NoCongenitalAnomaliesOfTheNewborn);
+      ije.HYPO = "Y"; // Setting any field to Y sets all fields in the same group to N unless they are also Y
       Assert.Equal("Y", ije.HYPO);
-      Assert.Equal("U", ije.ANEN);
+      Assert.Equal("N", ije.MNSB);
       Assert.True(fhir.Hypospadias);
-      Assert.False(fhir.Anencephaly);
+      Assert.False(fhir.Meningomyelocele);
       Assert.False(fhir.NoCongenitalAnomaliesOfTheNewborn);
     }
 
@@ -735,8 +942,8 @@ namespace BFDR.Tests
       // Manually set ije values.
       IJEBirth ije = new()
       {
-          BPLACEC_CNT = "US",
-          BPLACEC_ST_TER = "FL"
+        BPLACEC_CNT = "US",
+        BPLACEC_ST_TER = "FL"
       };
       // Test IJE conversion to BirthRecord.
       BirthRecord br = ije.ToRecord();
@@ -763,7 +970,7 @@ namespace BFDR.Tests
       // Manually set ije values.
       IJEBirth ije = new()
       {
-          BPLACE = "1"
+        BPLACE = "1"
       };
       Assert.Equal("1", ije.BPLACE);
       Assert.Equal("22232009", ije.ToRecord().BirthPhysicalLocation["code"]);
@@ -808,7 +1015,7 @@ namespace BFDR.Tests
       Assert.Equal("87".PadRight(12, ' '), ijeImported.AUXNO);
       Assert.Equal(ijeImported.AUXNO, ijeConverted.AUXNO);
       Assert.Equal(ijeImported.AUXNO, br.StateLocalIdentifier1.PadRight(12, ' '));
-      Assert.Equal(2023, br.BirthYear);
+      Assert.Contains("2023", br.DateOfBirth);
       Assert.Equal(ijeImported.IDOB_YR + ijeImported.BSTATE + ijeImported.FILENO, br.RecordIdentifier);
       Assert.Equal("2023MA048858", br.RecordIdentifier);
     }
@@ -933,18 +1140,18 @@ namespace BFDR.Tests
       Assert.Null(fhir.FatherOccupation);
       Assert.Equal("", ije.DAD_OC_T.Trim());
       Assert.Null(fhir.MotherIndustry);
-      Assert.Equal("",ije.MOM_IN_T.Trim());
+      Assert.Equal("", ije.MOM_IN_T.Trim());
       Assert.Null(fhir.FatherIndustry);
-      Assert.Equal("",ije.DAD_IN_T.Trim());
+      Assert.Equal("", ije.DAD_IN_T.Trim());
       ije.MOM_OC_T = "scientist";
       Assert.Equal("scientist", ije.MOM_OC_T.Trim());
       Assert.Equal("scientist", fhir.MotherOccupation);
       Assert.Null(fhir.MotherIndustry);
-      Assert.Equal("",ije.MOM_IN_T.Trim());
+      Assert.Equal("", ije.MOM_IN_T.Trim());
       Assert.Null(fhir.FatherOccupation);
       Assert.Equal("", ije.DAD_OC_T.Trim());
       Assert.Null(fhir.FatherIndustry);
-      Assert.Equal("",ije.DAD_IN_T.Trim());
+      Assert.Equal("", ije.DAD_IN_T.Trim());
       ije.MOM_IN_T = "public health";
       Assert.Equal("scientist", ije.MOM_OC_T.Trim());
       Assert.Equal("scientist", fhir.MotherOccupation);
@@ -953,7 +1160,7 @@ namespace BFDR.Tests
       Assert.Null(fhir.FatherOccupation);
       Assert.Equal("", ije.DAD_OC_T.Trim());
       Assert.Null(fhir.FatherIndustry);
-      Assert.Equal("",ije.DAD_IN_T.Trim());
+      Assert.Equal("", ije.DAD_IN_T.Trim());
       ije.DAD_IN_T = "real estate";
       Assert.Equal("scientist", ije.MOM_OC_T.Trim());
       Assert.Equal("scientist", fhir.MotherOccupation);
@@ -996,11 +1203,11 @@ namespace BFDR.Tests
     {
       IJEBirth ije = new()
       {
-          FNPI = "25789",
-          SFN = "1111",
-          HOSP = "Griffin Hospital",
-          HOSPFROM = "Taylor Hospital",
-          HOSPTO = "Oswald Medical"
+        FNPI = "25789",
+        SFN = "1111",
+        HOSP = "Griffin Hospital",
+        HOSPFROM = "Taylor Hospital",
+        HOSPTO = "Oswald Medical"
       };
       BirthRecord br = ije.ToRecord();
       Assert.Equal("25789".PadRight(12), ije.FNPI);
@@ -1055,27 +1262,27 @@ namespace BFDR.Tests
     [Fact]
     public void TestMotherHeightPropertiesSetter()
     {
-        BirthRecord record = new BirthRecord();
-        IJEBirth ije1 = new IJEBirth(record);
-        // Height
-        Assert.Equal("99",ije1.HIN);
-        Assert.Equal("9",ije1.HFT);
-        ije1.HFT = "5";
-        ije1.HIN = "7";
-        Assert.Equal("07", ije1.HIN);
-        Assert.Equal("5", ije1.HFT);
-        ije1.HFT = "5";
-        ije1.HIN = "3";
-        Assert.Equal("5", ije1.HFT);
-        Assert.Equal("03", ije1.HIN);
-        // Edit Flag
-        Assert.Equal("", ije1.HGT_BYPASS);
-        ije1.HGT_BYPASS = "1";
-        Assert.Equal("1", ije1.HGT_BYPASS);
-        // FHIR translations
-        BirthRecord record1 = new BirthRecord(ije1.ToRecord().ToXML());
-        Assert.Equal(63, record1.MotherHeight);
-        Assert.Equal(VR.ValueSets.EditBypass01234.Edit_Failed_Data_Queried_And_Verified, record1.MotherHeightEditFlag["code"]);
+      BirthRecord record = new BirthRecord();
+      IJEBirth ije1 = new IJEBirth(record);
+      // Height
+      Assert.Equal("99", ije1.HIN);
+      Assert.Equal("9", ije1.HFT);
+      ije1.HFT = "5";
+      ije1.HIN = "7";
+      Assert.Equal("07", ije1.HIN);
+      Assert.Equal("5", ije1.HFT);
+      ije1.HFT = "5";
+      ije1.HIN = "3";
+      Assert.Equal("5", ije1.HFT);
+      Assert.Equal("03", ije1.HIN);
+      // Edit Flag
+      Assert.Equal("", ije1.HGT_BYPASS);
+      ije1.HGT_BYPASS = "1";
+      Assert.Equal("1", ije1.HGT_BYPASS);
+      // FHIR translations
+      BirthRecord record1 = new BirthRecord(ije1.ToRecord().ToXML());
+      Assert.Equal(63, record1.MotherHeight);
+      Assert.Equal(VR.ValueSets.EditBypass01234.Edit_Failed_Data_Queried_And_Verified, record1.MotherHeightEditFlag["code"]);
     }
 
     [Fact]
@@ -1128,7 +1335,7 @@ namespace BFDR.Tests
       // Manually set ije values.
       IJEBirth ije = new()
       {
-          PAY = "1"
+        PAY = "1"
       };
       Assert.Equal("1", ije.PAY);
       Assert.Equal("2", ije.ToRecord().PayorTypeFinancialClass["code"]);
@@ -1179,12 +1386,12 @@ namespace BFDR.Tests
     {
       BirthRecord fhir = new BirthRecord(File.ReadAllText("fixtures/json/BirthRecordFakeWithRace.json"));
       Assert.False(fhir.NoPregnancyRiskFactors); // if present, will cause IJE values to flip to N
-      Assert.False(fhir.GestationalDiabetes); // should map to U
+      Assert.False(fhir.GestationalDiabetes); // should map to N
       Assert.True(fhir.GestationalHypertension); // should map to Y
       Assert.True(fhir.NoCongenitalAnomaliesOfTheNewborn); // should map to N
       Assert.False(fhir.Anencephaly); // would normally map to U, but NoCongenitalAnomaliesOfTheNewborn should flip IJE to N
       IJEBirth ije = new IJEBirth(fhir);
-      Assert.Equal("U", ije.GDIAB);
+      Assert.Equal("N", ije.GDIAB);
       Assert.Equal("Y", ije.GHYPE);
       Assert.Equal("9", ije.HFT);
       Assert.Equal("99", ije.HIN);
@@ -1194,7 +1401,7 @@ namespace BFDR.Tests
       Assert.Equal("7134703", ije.INF_MED_REC_NUM.Trim());
       Assert.Equal("2286144", ije.MOM_MED_REC_NUM.Trim());
       IJEBirth ije2 = new IJEBirth(ije.ToString());
-      Assert.Equal("U", ije2.GDIAB);
+      Assert.Equal("N", ije2.GDIAB);
       Assert.Equal("Y", ije2.GHYPE);
       Assert.Equal("9", ije2.HFT);
       Assert.Equal("99", ije2.HIN);
@@ -1204,7 +1411,7 @@ namespace BFDR.Tests
       Assert.Equal("7134703", ije2.INF_MED_REC_NUM.Trim());
       Assert.Equal("2286144", ije2.MOM_MED_REC_NUM.Trim());
       IJEBirth ije3 = new IJEBirth(new BirthRecord(ije2.ToRecord().ToXML()));
-      Assert.Equal("U", ije3.GDIAB);
+      Assert.Equal("N", ije3.GDIAB);
       Assert.Equal("Y", ije3.GHYPE);
       Assert.Equal("9", ije3.HFT);
       Assert.Equal("99", ije3.HIN);
@@ -1216,17 +1423,18 @@ namespace BFDR.Tests
     }
 
     [Fact]
-    public void BlankEights() {
+    public void BlankEights()
+    {
       IJEBirth ije = new()
       {
-          YOPO = "2020",
-          MOPO = "04",
-          DOFP_DY = "05",
-          DOFP_MO = "07",
-          DOFP_YR = "2021",
-          APGAR10 = "09",
-          MLLB = "08",
-          YLLB = "2017"
+        YOPO = "2020",
+        MOPO = "04",
+        DOFP_DY = "05",
+        DOFP_MO = "07",
+        DOFP_YR = "2021",
+        APGAR10 = "09",
+        MLLB = "08",
+        YLLB = "2017"
       };
 
       Assert.Equal("2020", ije.YOPO);
@@ -1281,6 +1489,27 @@ namespace BFDR.Tests
       Assert.Equal("1", ije.VOID);
       ije.VOID = "2";
       Assert.Equal("0", ije.VOID);
+    }
+    
+    [Fact]
+    public void RecordIJERoundTrip()
+    {
+      BirthRecord b = new BirthRecord(File.ReadAllText("fixtures/json/BasicBirthRecord.json"));
+      IJEBirth ije1, ije2, ije3;
+      ije1 = new IJEBirth(b);
+      ije2 = new IJEBirth(ije1.ToString());
+      ije3 = new IJEBirth(new BirthRecord(ije2.ToRecord().ToXML()));
+      foreach (PropertyInfo property in typeof(IJEBirth).GetProperties())
+      {
+        string val1 = Convert.ToString(property.GetValue(ije1, null));
+        string val2 = Convert.ToString(property.GetValue(ije2, null));
+        string val3 = Convert.ToString(property.GetValue(ije3, null));
+        IJEField info = property.GetCustomAttribute<IJEField>();
+        if (val1.ToUpper() != val2.ToUpper() || val1.ToUpper() != val3.ToUpper() || val2.ToUpper() != val3.ToUpper())
+        {
+          Assert.Fail($"[***** MISMATCH *****]\t{info.Name}: {info.Contents} \t\t\"{val1}\" != \"{val2}\" != \"{val3}\"");
+        }
+      }
     }
   }
 }
