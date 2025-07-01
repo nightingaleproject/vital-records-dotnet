@@ -4085,10 +4085,7 @@ namespace BFDR
         [IJEField(304, 2384, 20, "Attendant (\"Other\" specified text)", "ATTEND_OTH_TXT", 1)]
         public string ATTEND_OTH_TXT
         {
-            get
-            {
-                return LeftJustified_Get("ATTEND_OTH_TXT", "AttendantOtherHelper");
-            }
+            get => LeftJustified_Get("ATTEND_OTH_TXT", "AttendantOtherHelper");
             set
             {
                 if (!String.IsNullOrWhiteSpace(value))
@@ -4475,28 +4472,16 @@ namespace BFDR
         [IJEField(326, 2777, 50, "Attendant's Name", "ATTEND_NAME", 1)]
         public string ATTEND_NAME
         {
-            get
-            {
-                return LeftJustified_Get("ATTEND_NAME", "AttendantName");
-            }
-            set
-            {
-                LeftJustified_Set("ATTEND_NAME", "AttendantName", value);
-            }
+            get => LeftJustified_Get("ATTEND_NAME", "AttendantName");
+            set => LeftJustified_Set("ATTEND_NAME", "AttendantName", value);
         }
 
         /// <summary>Attendant's NPI</summary>
         [IJEField(327, 2827, 12, "Attendant's NPI", "ATTEND_NPI", 1)]
         public string ATTEND_NPI
         {
-            get
-            {
-                return LeftJustified_Get("ATTEND_NPI", "AttendantNPI");
-            }
-            set
-            {
-                LeftJustified_Set("ATTEND_NPI", "AttendantNPI", value);
-            }
+            get => LeftJustified_Get("ATTEND_NPI", "AttendantNPI");
+            set => LeftJustified_Set("ATTEND_NPI", "AttendantNPI", value);
         }
 
         /// <summary>Certifier's Name</summary>
