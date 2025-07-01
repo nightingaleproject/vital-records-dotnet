@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -171,40 +172,12 @@ namespace VRDR.CLI
             }
         }
 
-        private static string Ije2JsonConversionProcess(string path)
-        {
-
-            if (string.IsNullOrWhiteSpace(path) || (!File.Exists(path) && !Directory.Exists(path)))
-            {
-                return string.Format("Provided Path {0} not found.", path);
-            }
-
-            FileAttributes attr = File.GetAttributes(path);
-
-            if (attr.HasFlag(FileAttributes.Directory))
-            {
-                StringBuilder sb = new StringBuilder();
-                foreach (var ijeFile in Directory.GetFiles(path,"*.ije"))
-                {
-                    sb.AppendLine("File Path:");
-                    sb.AppendLine(Ije2JsonConversion(ijeFile));
-                }
-                return sb.ToString();
-            }
-            else
-            {
-
-                return Ije2JsonConversion(path);
-            }
-        }
-
-        private static string Ije2JsonConversion(string ijeFilepath)
+        private static string Ije2JsonConversion(string ijeFilepath, string jsonFilePath)
         {
             string ijeRawRecord = File.ReadAllText(ijeFilepath);
             IJEMortality ije = new IJEMortality(ijeRawRecord);
             DeathRecord d = ije.ToRecord();
-            string outputFilename = ijeFilepath.Replace(".ije", ".json");
-            StreamWriter sw = new StreamWriter(outputFilename);
+            StreamWriter sw = new StreamWriter(jsonFilePath);
             sw.WriteLine(d.ToJSON());
             sw.Flush();
             return sw.ToString();
@@ -216,5 +189,74 @@ namespace VRDR.CLI
             File.WriteAllText(destFilePath, ije1.ToString());
             return ije1.ToString();
         }
+
+        private static List<(string Input, string Output)> BuildConversionFileList(string srcPath, string destPath, 
+            string searchFileExtension,string destFileExtension)
+        {
+            var ioFilePathMappingPathList = new List<(string, string)>();
+
+            if (string.IsNullOrWhiteSpace(srcPath) || (!File.Exists(srcPath) && !Directory.Exists(srcPath)))
+            {
+                throw new FileNotFoundException($"Provided path '{srcPath}' not found.");
+            }
+
+            FileAttributes attr = File.GetAttributes(srcPath);
+
+            if (attr.HasFlag(FileAttributes.Directory))
+            {
+                foreach (var file in Directory.GetFiles(srcPath, searchFileExtension,SearchOption.TopDirectoryOnly))
+                {
+                    var outputPath = !string.IsNullOrWhiteSpace(destPath) && Directory.Exists(destPath)
+                        ? Path.Combine(destPath, Path.ChangeExtension(Path.GetFileName(file),destFileExtension))
+                        : Path.ChangeExtension(file,destFileExtension);
+
+                    ioFilePathMappingPathList.Add((file, outputPath));
+                }
+            }
+            else
+            {
+                var outputPath = !string.IsNullOrWhiteSpace(destPath) && Directory.Exists(destPath)
+                    ? Path.Combine(destPath, Path.ChangeExtension(Path.GetFileName(srcPath), destFileExtension))
+                        : Path.ChangeExtension(srcPath, destFileExtension);
+
+                ioFilePathMappingPathList.Add((srcPath, outputPath));
+            }
+
+            return ioFilePathMappingPathList;
+        }
+
+        public static bool EnsureDirectoryPath(string path)
+        {
+            if (string.IsNullOrWhiteSpace(path))
+                return false;
+
+            // If path exists, check type
+            if (Directory.Exists(path))
+                return true;
+            if (File.Exists(path))
+                return false;
+
+            // Treat as directory if no extension or ends with slash
+            bool looksLikeDirectory = path.EndsWith(Path.DirectorySeparatorChar.ToString()) ||
+                                      path.EndsWith(Path.AltDirectorySeparatorChar.ToString()) ||
+                                      string.IsNullOrEmpty(Path.GetExtension(path));
+
+            if (looksLikeDirectory)
+            {
+                try
+                {
+                    Directory.CreateDirectory(path);
+                    return true;
+                }
+                catch
+                {
+                    Console.WriteLine("Provided destination folder does not exist and could not be created. Files will be generated in the input folder instead.");
+                    return false;
+                }
+            }
+
+            return false;
+        }
+
     }
 }

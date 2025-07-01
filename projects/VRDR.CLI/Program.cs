@@ -17,7 +17,7 @@ namespace VRDR.CLI
         static string commands =
 @"* VRDR Command Line Interface - commands
   - help:  prints this help message  (no arguments)
-  - fakerecord: prints a fake XML death record (no arguments)
+  - fakerecord: prints a fake XML death record (1 argument: 'uh' will use helper methods to generate fake record)
   - connectathon: prints one of the 3 connectathon records (3 arguments: the number (1,2, or 3) of the connectathon record, the certificate number, and the jurisdiction)
   - description: prints a verbose JSON description of the record (in the format used to drive Canary) (1 argument: the path to the death record)
   - 2ije: Read in the FHIR XML or JSON death record and print out as IJE (1 argument: path to death record in JSON or XML format)
@@ -34,7 +34,7 @@ namespace VRDR.CLI
   - extract: Extract a FHIR record from a FHIR message (1 argument: FHIR message)
   - fakerecord: prints a fake XML death record (no arguments)
   - generaterecords: Generate records for bulk testing based on the 3 connectathon testing records. (4+ arguments: initial certificate number, number of records to generate (each with cert_no one greater than its predecessor), submitting jurisdiction, output directory (must exist), optional year)
-  - ije2json: Read in the IJE death record and print out as JSON (1 argument: path to death record in IJE format)
+  - ije2json: Converts IJE death record(s) to JSON (argument 1: path to IJE file(s) or directory, argument 2 (optional): output directory path, if not provided defaults to input directory)
   - ije2xml: Read in the IJE death record and print out as XML (1 argument: path to death record in IJE format)
   - ije: Read in and parse an IJE death record and print out the values for every (supported) field (1 argument: path to death record in IJE format)
   - json2json: Read in the FHIR JSON death record, completely disassemble then reassemble, and print as FHIR JSON (1 argument: FHIR JSON Death Record)
@@ -60,7 +60,7 @@ namespace VRDR.CLI
   - jsonstu3-to-stu2:  Read in an VRDR STU3 file and convert to STU2.2 (2 arguments: path to input STU3 json input and path to output STU2.2 json output)
   - rdtripstu3-to-stu2:  Round trip an STU3 file to STU2 and back and check equivalence (1 arguments: path to input STU3 input)
   - json-diff:   Compare two json files that should be identical except for spacing and ordering of nodes using JsonDiffPatchDotNet
-";
+  - json2ije: Converts IJE death record(s) from JSON file(s) (1 argument: path to JSON file or directory, argument 2 (optional): output directory path, if not provided defaults to input directory)";
         static int Main(string[] args)
         {
             if ((args.Length == 0) || ((args.Length == 1) && (args[0] == "help")))
@@ -68,7 +68,7 @@ namespace VRDR.CLI
                 Console.WriteLine(commands);
                 return (0);
             }
-            else if (args.Length >= 1 && args[0] == "fakerecord")
+            else if (args.Length >= 1 && args.Length <=2 && args[0] == "fakerecord")
             {
                 DeathRecord deathRecord = new DeathRecord();
 
@@ -543,9 +543,7 @@ namespace VRDR.CLI
                 // deathRecord.PronouncerIdentifier = pronouncerId;
 
                 Console.WriteLine(XDocument.Parse(deathRecord.ToXML()).ToString() + "\n\n");
-                File.WriteAllText("C:\\Temp\\STU3.0_RoundTripTesting\\InputJson\\FackeRecord_3.0.json",
-                    Newtonsoft.Json.JsonConvert.SerializeObject(Newtonsoft.Json.JsonConvert.DeserializeObject(deathRecord.ToJSON()),
-                    Newtonsoft.Json.Formatting.Indented) + "\n\n");
+               
                 return 0;
             }
             else if (args.Length == 4 && args[0] == "connectathon")
@@ -592,21 +590,13 @@ namespace VRDR.CLI
                 Console.WriteLine(XDocument.Parse(d.ToXML()).ToString());
                 return 0;
             }
-            else if (args.Length == 2 && args[0] == "ije2json")
+            else if (args.Length >= 2 && args.Length <= 3 && args[0] == "ije2json")
             {
-
-                Ije2JsonConversionProcess(args[1]);
-                return 0;
-            }
-            else if (args.Length > 2 && args[0] == "ije2json")
-            {
-
-                // This command will export the files to the same directory they were imported from.
-                for (int i = 1; i < args.Length; i++)
-                {
-                    string path = args[i];
-                    Ije2JsonConversionProcess(path);
-                }
+                string srcPath = args[1];
+                string destPath = args.Length>2 && EnsureDirectoryPath(args[2]) ? args[2] : srcPath;
+                var ijeConversionEntities = BuildConversionFileList(srcPath,destPath,"*.ije","json");
+                foreach (var IjeConversionEntity in ijeConversionEntities)
+                    Ije2JsonConversion(IjeConversionEntity.Input, IjeConversionEntity.Output);
                 return 0;
             }
             else if (args.Length == 2 && args[0] == "json2xml")
@@ -1179,33 +1169,14 @@ namespace VRDR.CLI
                 Console.WriteLine($"Compare two json files {args[1]} and {args[2]} json files irrespective of space and ordering");
                 return (CompareJsonIgnoringOrderAndSpacing (File.ReadAllText(args[1]), File.ReadAllText(args[2]))?0:1);
             }
-            else if (args.Length >= 2 && args[0] == "json2ije")
+            else if (args.Length >= 2 && args.Length <=3 && args[0] == "json2ije")
             {
                 string srcPath = args[1];
-                FileAttributes srcPathAttr = File.GetAttributes(args[1]);
-                string destPath = args.Length>2 && !string.IsNullOrWhiteSpace(args[2]) &&
-                                  Directory.Exists(args[2]) ?
-                                  args[2] :
-                    Path.Combine(Path.GetDirectoryName(srcPath), "OutputIJE");
-                if (srcPathAttr.HasFlag(FileAttributes.Directory) && !Directory.Exists(srcPath))
-                {
-                    Console.WriteLine("Please pass existing Directory");
-                    return 0;
-                }
-
-                if (srcPathAttr.HasFlag(FileAttributes.Directory))
-                {
-                    Directory.CreateDirectory(destPath);
-                    foreach (var filePath in Directory.GetFiles(srcPath, "*.json"))
-                    {
-                        string destFilePath = Path.Combine(destPath,Path.ChangeExtension(Path.GetFileName(filePath), ".ije"));
-                        Json2Ijeconsversion(filePath, destFilePath);
-                    }
-                }
-                else
-                {
-                    Json2Ijeconsversion(srcPath, Path.ChangeExtension(srcPath, ".ije"));
-                }
+                string destPath = args.Length>2 && EnsureDirectoryPath(args[2]) ? args[2] : srcPath;
+                var jsonConversionEntities = BuildConversionFileList(srcPath, destPath, "*.json", ".ije");
+                foreach (var jsonConversionEntity in jsonConversionEntities)                
+                    Json2Ijeconsversion(jsonConversionEntity.Input, jsonConversionEntity.Output);
+                
                 return 0;
             }
             else
