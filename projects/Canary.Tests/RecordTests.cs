@@ -53,6 +53,7 @@ namespace canary.tests
             BirthRecord br = new BirthRecord(romeroJson);
             br.EventLocationJurisdiction = "AZ";
             br.CertificateNumber = "99991";
+            // The timezone has to be manually set here because the connectathon records are generated based on the local time zone. However, our test FHIR records have hard coded time zone data which must be updated to match the local time zone.
             string timeZoneOffset = TimeZoneInfo.Local.GetUtcOffset(new DateTime(2000, 1, 1)).ToString()[..6];
             if (timeZoneOffset == "00:00:")
             {
