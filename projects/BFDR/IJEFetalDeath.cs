@@ -184,7 +184,8 @@ namespace BFDR
         [IJEField(1, 1, 4, "Date of Delivery (Fetus)--Year", "FDOD_YR", 1)]
         public string FDOD_YR
         {
-            get => GetYearIJEFormatted(record.DateOfDelivery);
+            // For the getter we go through GetYear() since that can retrieve the year from the identifier if needed
+            get => record.GetYear()?.ToString() ?? "    ";
             set => record.DateOfDelivery = AddYear(value, record.DateOfDelivery);
         }
 

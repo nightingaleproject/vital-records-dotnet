@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Linq;
 using VR;
 using Xunit;
 using Hl7.Fhir.Model;
@@ -2056,10 +2057,10 @@ namespace BFDR.Tests
             { "FILENO", "009876" },
             { "VOID", "0" },
             { "AUXNO", "11111-11111" },
-            { "TD", "1823" },
             { "FSEX", "F" },
             { "FDOD_MO", "01" },
             { "FDOD_DY", "09" },
+            { "TD", "1823" },
             { "CNTYO", "000" },
             { "DPLACE", "1" },
             { "FNPI", "116441967701" },
@@ -2327,13 +2328,18 @@ namespace BFDR.Tests
             { "PLACE8_3", "PLACE8_3" },
             { "PLACE20", "PLACE20" },
         };
-        // For each field, create a record, set that field, set all the other fields, and make sure the first field still has the same value
+        // For each field, create a record, set all the fields, reset all the fields besides the field being
+        // tested, and make sure the field being tested still has the same value
         foreach (var (field, value) in fields)
         {
             IJEFetalDeath ije = new IJEFetalDeath();
             PropertyInfo property = typeof(IJEFetalDeath).GetProperty(field);
             Console.WriteLine($"Testing {field} with value {value}");
-            property.SetValue(ije, value);
+            foreach (var (writeField, writeValue) in fields)
+            {
+                PropertyInfo writeProperty = typeof(IJEFetalDeath).GetProperty(writeField);
+                writeProperty.SetValue(ije, writeValue);
+            }
             foreach (var (overwriteField, overwriteValue) in fields)
             {
                 if (overwriteField == field) continue; // Don't rewrite the field we're testing

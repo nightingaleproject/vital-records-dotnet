@@ -3598,7 +3598,7 @@ namespace BFDR.Tests
       BirthRecord record = new BirthRecord();
       record.CertificateNumber = "000001";
       record.EventLocationJurisdiction = "MA";
-      record.BirthYear = 2025;
+      record.DateOfBirth = "2025-01-01";
       Assert.Equal("2025MA000001", record.GetBundle().Identifier.Value);
     }
 
@@ -3899,10 +3899,10 @@ namespace BFDR.Tests
             { "FILENO", "099991" },
             { "VOID", "1" },
             { "AUXNO", "123456" },
-            { "TB", "1031" },
             { "ISEX", "F" },
             { "IDOB_MO", "01" },
             { "IDOB_DY", "01" },
+            { "TB", "1031" },
             { "CNTYO", "019" },
             { "BPLACE", "1" },
             { "FNPI", "1487607784" },
@@ -4059,11 +4059,11 @@ namespace BFDR.Tests
             { "HEPC", "N" },
             { "ECVS", "N" },
             { "ECVF", "N" },
-            { "INDL", "U" },
-            { "AUGL", "U" },
-            { "STER", "U" },
-            { "ANTB", "U" },
-            { "CHOR", "U" },
+            { "INDL", "Y" },
+            { "AUGL", "Y" },
+            { "STER", "Y" },
+            { "ANTB", "Y" },
+            { "CHOR", "Y" },
             { "ESAN", "Y" },
             { "PRES", "2" },
             { "ROUT", "1" },
@@ -4192,13 +4192,18 @@ namespace BFDR.Tests
             { "PLACE8_3", "PLACE8_3" },
             { "PLACE20", "PLACE20" }
         };
-        // For each field, create a record, set that field, set all the other fields, and make sure the first field still has the same value
+        // For each field, create a record, set all the fields, reset all the fields besides the field being
+        // tested, and make sure the field being tested still has the same value
         foreach (var (field, value) in fields)
         {
             IJEBirth ije = new IJEBirth();
             PropertyInfo property = typeof(IJEBirth).GetProperty(field);
             Console.WriteLine($"Testing {field} with value {value}");
-            property.SetValue(ije, value);
+            foreach (var (writeField, writeValue) in fields)
+            {
+                PropertyInfo writeProperty = typeof(IJEBirth).GetProperty(writeField);
+                writeProperty.SetValue(ije, writeValue);
+            }
             foreach (var (overwriteField, overwriteValue) in fields)
             {
                 if (overwriteField == field) continue; // Don't rewrite the field we're testing

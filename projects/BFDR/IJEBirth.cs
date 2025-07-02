@@ -101,7 +101,8 @@ namespace BFDR
         [IJEField(1, 1, 4, "Date of Birth (Infant)--Year", "IDOB_YR", 1)]
         public string IDOB_YR
         {
-            get => GetYearIJEFormatted(record.DateOfBirth);
+            // For the getter we go through GetYear() since that can retrieve the year from the identifier if needed
+            get => record.GetYear()?.ToString() ?? "    ";
             set => record.DateOfBirth = AddYear(value, record.DateOfBirth);
         }
 

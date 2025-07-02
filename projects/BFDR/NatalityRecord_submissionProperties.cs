@@ -273,6 +273,8 @@ namespace BFDR
             }
             date.Extension = this.Subject.BirthDateElement?.Extension ?? date.Extension;
             this.Subject.BirthDateElement = date;
+            // The record identifier is based on the date of birth aka the date of delivery, so update it
+            UpdateRecordIdentifier();
         }
 
         /// <summary>
