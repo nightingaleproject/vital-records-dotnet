@@ -36,33 +36,36 @@ namespace BFDR
 
         private void SetCodedOccupation(string role, Dictionary<string, string> value)
         {
-            Observation observation = GetOrOptionallyCreateOccupationObservation(role, true);
-            // Preserve any existing Text in the value
-            string existingText = (observation.Value as CodeableConcept)?.Text;
-            observation.Value = DictToCodeableConcept(value);
-            (observation.Value as CodeableConcept).Text = existingText;
+            if (value != null && !IsDictEmptyOrDefault(value))
+            {
+                Observation observation = GetOrOptionallyCreateOccupationObservation(role, true);
+                // Preserve any existing Text in the value
+                string existingText = (observation.Value as CodeableConcept)?.Text;
+                observation.Value = DictToCodeableConcept(value);
+                (observation.Value as CodeableConcept).Text = existingText;
+            }
         }
 
         private void SetCodedIndustry(string role, Dictionary<string, string> value)
         {
-            Observation observation = GetOrOptionallyCreateOccupationObservation(role, true);
-            var component = observation.Component.Where(c => CodeableConceptToDict(c.Code)["code"] == "86188-0").FirstOrDefault();
-            if (component == null)
+            if (value != null && !IsDictEmptyOrDefault(value))
             {
-                component = new Observation.ComponentComponent
+                Observation observation = GetOrOptionallyCreateOccupationObservation(role, true);
+                var component = observation.Component.Where(c => CodeableConceptToDict(c.Code)["code"] == "86188-0").FirstOrDefault();
+                if (component == null)
                 {
-                    Code = new CodeableConcept(CodeSystems.LOINC, "86188-0")
-                };
-                observation.Component.Add(component);
+                    component = new Observation.ComponentComponent
+                    {
+                        Code = new CodeableConcept(CodeSystems.LOINC, "86188-0")
+                    };
+                    observation.Component.Add(component);
+                }
+                // Preserve any existing Text in the value
+                string existingText = (component.Value as CodeableConcept)?.Text;
+                component.Value = DictToCodeableConcept(value);
+                (component.Value as CodeableConcept).Text = existingText;
             }
-            // Preserve any existing Text in the value
-            string existingText = (component.Value as CodeableConcept)?.Text;
-            component.Value = DictToCodeableConcept(value);
-            (component.Value as CodeableConcept).Text = existingText;
         }
-
-        // TODO: Add Helpers for each of the below using GetObservationValueHelper; may need a version that doesn't expect codes
-        // TODO: Add basic tests for these in addition to the bundle ones
 
         /// <summary>Coded Occupation of Mother.</summary>
         /// <value>the occupation of the mother as a Dictionary containing coded information</value>
@@ -100,7 +103,13 @@ namespace BFDR
         public string MotherCodedOccupationHelper
         {
             get => MotherCodedOccupation?["code"];
-            set => MotherCodedOccupation = new Dictionary<string, string> { { "code", value }, { "system", "urn:oid:2.16.840.1.114222.4.11.8068" } };
+            set
+            {
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    MotherCodedOccupation = new Dictionary<string, string> { { "code", value }, { "system", "urn:oid:2.16.840.1.114222.4.11.8068" } };
+                }
+            }
         }
 
         /// <summary>Coded Occupation of Father.</summary>
@@ -139,7 +148,13 @@ namespace BFDR
         public string FatherCodedOccupationHelper
         {
             get => FatherCodedOccupation?["code"];
-            set => FatherCodedOccupation = new Dictionary<string, string> { { "code", value }, { "system", "urn:oid:2.16.840.1.114222.4.11.8068" } };
+            set
+            {
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    FatherCodedOccupation = new Dictionary<string, string> { { "code", value }, { "system", "urn:oid:2.16.840.1.114222.4.11.8068" } };
+                }
+            }
         }
 
         /// <summary>Coded Industry of Mother.</summary>
@@ -178,7 +193,13 @@ namespace BFDR
         public string MotherCodedIndustryHelper
         {
             get => MotherCodedIndustry?["code"];
-            set => MotherCodedIndustry = new Dictionary<string, string> { { "code", value }, { "system", "urn:oid:2.16.840.1.114222.4.11.8067" } };
+            set
+            {
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    MotherCodedIndustry = new Dictionary<string, string> { { "code", value }, { "system", "urn:oid:2.16.840.1.114222.4.11.8067" } };
+                }
+            }
         }
 
         /// <summary>Coded Industry of Father.</summary>
@@ -217,7 +238,13 @@ namespace BFDR
         public string FatherCodedIndustryHelper
         {
             get => FatherCodedIndustry?["code"];
-            set => FatherCodedIndustry = new Dictionary<string, string> { { "code", value }, { "system", "urn:oid:2.16.840.1.114222.4.11.8067" } };
+            set
+            {
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    FatherCodedIndustry = new Dictionary<string, string> { { "code", value }, { "system", "urn:oid:2.16.840.1.114222.4.11.8067" } };
+                }
+            }
         }
 
     }
