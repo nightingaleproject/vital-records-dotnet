@@ -1289,18 +1289,27 @@ namespace BFDR.Tests
       Assert.Equal("99", ije1.HIN);
       Assert.Equal("9", ije1.HFT);
       ije1.HFT = "5";
-      ije1.HIN = "7";
-      Assert.Equal("07", ije1.HIN);
       Assert.Equal("5", ije1.HFT);
-      ije1.HFT = "5";
-      ije1.HIN = "3";
+      Assert.Equal("00", ije1.HIN);
+      ije1.HIN = "1";
       Assert.Equal("5", ije1.HFT);
-      Assert.Equal("03", ije1.HIN);
+      Assert.Equal("01", ije1.HIN);
+      ije1.HFT = "6";
+      Assert.Equal("6", ije1.HFT);
+      Assert.Equal("01", ije1.HIN);
+      ije1.HIN = "2";
+      Assert.Equal("6", ije1.HFT);
+      Assert.Equal("02", ije1.HIN);
+      ije1.HIN = "99";
+      Assert.Equal("99", ije1.HIN);
+      Assert.Equal("9", ije1.HFT);
       // Edit Flag
       Assert.Equal("", ije1.HGT_BYPASS);
       ije1.HGT_BYPASS = "1";
       Assert.Equal("1", ije1.HGT_BYPASS);
       // FHIR translations
+      ije1.HFT = "5";
+      ije1.HIN = "3";
       BirthRecord record1 = new BirthRecord(ije1.ToRecord().ToXML());
       Assert.Equal(63, record1.MotherHeight);
       Assert.Equal(VR.ValueSets.EditBypass01234.Edit_Failed_Data_Queried_And_Verified, record1.MotherHeightEditFlag["code"]);
