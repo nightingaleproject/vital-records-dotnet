@@ -4589,44 +4589,29 @@ namespace BFDR
         [IJEField(340, 4814, 50, "Attendant's Name", "ATTEND_NAME", 1)]
         public string ATTEND_NAME
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => LeftJustified_Get("ATTEND_NAME", "AttendantName");
+            set => LeftJustified_Set("ATTEND_NAME", "AttendantName", value);
         }
 
         /// <summary>Attendant's NPI</summary>
         [IJEField(341, 4864, 12, "Attendant's NPI", "ATTEND_NPI", 1)]
         public string ATTEND_NPI
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
-            set
-            {
-                // TODO: Implement mapping to FHIR record location:
-            }
+            get => LeftJustified_Get("ATTEND_NPI", "AttendantNPI");
+            set => LeftJustified_Set("ATTEND_NPI", "AttendantNPI", value);
         }
 
         /// <summary>Attendant ("Other" specified text)</summary>
         [IJEField(342, 4876, 20, "Attendant (\"Other\" specified text)", "ATTEND_OTH_TXT", 1)]
         public string ATTEND_OTH_TXT
         {
-            get
-            {
-                // TODO: Implement mapping from FHIR record location:
-                return "";
-            }
+            get => LeftJustified_Get("ATTEND_OTH_TXT", "AttendantOtherHelper");
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    LeftJustified_Set("ATTEND_OTH_TXT", "AttendantOtherHelper", value);
+                }
             }
         }
 
