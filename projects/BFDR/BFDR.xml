@@ -1156,7 +1156,7 @@
             <summary>Date of Birth (Mother)--Edit Flag</summary>
         </member>
         <member name="P:BFDR.IJEBirth.BPLACEC_ST_TER">
-            <summary>State, U.S. Territory or Canadian Province of Birth (Mother) - code</summary>
+            <summary>State, U.S. Territory or Canadian Province of Birth (Mother) - code (Note: setting the MBPLACE_ST_TER_TXT field will overwrite this field)</summary>
         </member>
         <member name="P:BFDR.IJEBirth.BPLACEC_CNT">
             <summary>Birthplace of Mother--Country</summary>
@@ -2018,7 +2018,7 @@
             <summary>Attendant ("Other" specified text)</summary>
         </member>
         <member name="P:BFDR.IJEBirth.MBPLACE_ST_TER_TXT">
-            <summary>State, U.S. Territory or Canadian Province of Birth (Mother) - literal</summary>
+            <summary>State, U.S. Territory or Canadian Province of Birth (Mother) - literal (Note: Setting this field will overwrite the BPLACEC_ST_TER field)</summary>
         </member>
         <member name="P:BFDR.IJEBirth.MBPLACE_CNTRY_TXT">
             <summary>Mother's Country of Birth (Literal)</summary>
@@ -2269,7 +2269,7 @@
             <summary>Date of Birth (Mother)--Edit Flag</summary>
         </member>
         <member name="P:BFDR.IJEFetalDeath.BPLACEC_ST_TER">
-            <summary>State, U.S. Territory or Canadian Province of Birth (Mother) - code</summary>
+            <summary>State, U.S. Territory or Canadian Province of Birth (Mother) - code (Note: setting the MBPLACE_ST_TER_TXT field will overwrite this field)</summary>
         </member>
         <member name="P:BFDR.IJEFetalDeath.BPLACEC_CNT">
             <summary>Mother's Birthplace--Country</summary>
@@ -2759,7 +2759,7 @@
             <summary>Initiating cause/condition - Chorioamnionitis</summary>
         </member>
         <member name="P:BFDR.IJEFetalDeath.COD18a6">
-            <summary>Initiating cause/condition - Other complications of placenta, cord, or membranes</summary>
+            <summary>Initiating cause/condition - Other complications of placenta, cord, or membranes (Note: this field can be overwritten when COD18a9 is set)</summary>
         </member>
         <member name="P:BFDR.IJEFetalDeath.COD18a7">
             <summary>Initiating cause/condition - Unknown</summary>
@@ -2768,7 +2768,7 @@
             <summary>Initiating cause/condition - Maternal conditions/diseases literal</summary>
         </member>
         <member name="P:BFDR.IJEFetalDeath.COD18a9">
-            <summary>Initiating cause/condition - Other complications of placenta, cord, or membranes literal</summary>
+            <summary>Initiating cause/condition - Other complications of placenta, cord, or membranes literal (Note: this field can overwrite the COD18a6 field)</summary>
         </member>
         <member name="P:BFDR.IJEFetalDeath.COD18a10">
             <summary>Initiating cause/condition - Other obstetrical or pregnancy complications literal</summary>
@@ -2801,7 +2801,7 @@
             <summary>Other significant causes or conditions - Chorioamnionitis</summary>
         </member>
         <member name="P:BFDR.IJEFetalDeath.COD18b6">
-            <summary>Other significant causes or conditions - Other complications of placenta, cord, or membranes</summary>
+            <summary>Other significant causes or conditions - Other complications of placenta, cord, or membranes (Note: this field can overwrite the COD18b6 field)</summary>
         </member>
         <member name="P:BFDR.IJEFetalDeath.COD18b7">
             <summary>Other significant causes or conditions - Unknown</summary>
@@ -2810,7 +2810,7 @@
             <summary>Other significant causes or conditions - Maternal conditions/diseases literal</summary>
         </member>
         <member name="P:BFDR.IJEFetalDeath.COD18b9">
-            <summary>Other significant causes or conditions - Other complications of placenta, cord, or membranes literal</summary>
+            <summary>Other significant causes or conditions - Other complications of placenta, cord, or membranes literal (Note: this field can overwrite the COD18b6 field)</summary>
         </member>
         <member name="P:BFDR.IJEFetalDeath.COD18b10">
             <summary>Other significant causes or conditions - Other obstetrical or pregnancy complications literal</summary>
@@ -3041,7 +3041,7 @@
             <summary>Father's Country of Birth (Code)</summary>
         </member>
         <member name="P:BFDR.IJEFetalDeath.MBPLACE_ST_TER_TXT">
-            <summary>State, U.S. Territory or Canadian Province of Birth (Mother) - literal</summary>
+            <summary>State, U.S. Territory or Canadian Province of Birth (Mother) - literal (Note: Setting this field will overwrite the BPLACEC_ST_TER field)</summary>
         </member>
         <member name="P:BFDR.IJEFetalDeath.MBPLACE_CNTRY_TXT">
             <summary>Mother's Country of Birth (Literal)</summary>
@@ -3685,6 +3685,102 @@
         </member>
         <member name="M:BFDR.NatalityRecord.CreateMaternityEncounter">
             <summary>Create Maternity Encounter.</summary>
+        </member>
+        <member name="P:BFDR.NatalityRecord.MotherCodedOccupation">
+            <summary>Coded Occupation of Mother.</summary>
+            <value>the occupation of the mother as a Dictionary containing coded information</value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; occ = new Dictionary&lt;string, string&gt;();</para>
+            <para>occ.Add("code", "27-2011");</para>
+            <para>occ.Add("system", "urn:oid:2.16.840.1.114222.4.11.8068");</para>
+            <para>occ.Add("display", "Actors");</para>
+            <para>ExampleBirthRecord.MotherCodedOccupation = occ;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's Occupation: {ExampleBirthRecord.MotherCodedOccupation["display"]}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.MotherCodedOccupationHelper">
+            <summary>Coded Occupation of Mother Helper.</summary>
+            <value>the occupation of the mother as a code string</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherCodedOccupationHelper = "27-2011";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's Occupation Code: {ExampleBirthRecord.MotherCodedOccupationHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherCodedOccupation">
+            <summary>Coded Occupation of Father.</summary>
+            <value>the occupation of the father as a Dictionary containing coded information</value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; occ = new Dictionary&lt;string, string&gt;();</para>
+            <para>occ.Add("code", "27-2011");</para>
+            <para>occ.Add("system", "urn:oid:2.16.840.1.114222.4.11.8068");</para>
+            <para>occ.Add("display", "Actors");</para>
+            <para>ExampleBirthRecord.FatherCodedOccupation = occ;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Father's Occupation: {ExampleBirthRecord.FatherCodedOccupation["display"]}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherCodedOccupationHelper">
+            <summary>Coded Occupation of Father Helper.</summary>
+            <value>the occupation of the father as a code string</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.FatherCodedOccupationHelper = "27-2011";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Father's Occupation Code: {ExampleBirthRecord.FatherCodedOccupationHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.MotherCodedIndustry">
+            <summary>Coded Industry of Mother.</summary>
+            <value>the industry of the mother as a Dictionary containing coded information</value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; ind = new Dictionary&lt;string, string&gt;();</para>
+            <para>ind.Add("code", "336411");</para>
+            <para>ind.Add("system", "urn:oid:2.16.840.1.114222.4.11.8067");</para>
+            <para>ind.Add("display", "Aircraft Manufacturing");</para>
+            <para>ExampleBirthRecord.MotherCodedIndustry = ind;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's Industry: {ExampleBirthRecord.MotherCodedIndustry["display"]}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.MotherCodedIndustryHelper">
+            <summary>Coded Industry of Mother Helper.</summary>
+            <value>the industry of the mother as a code string</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.MotherCodedIndustryHelper = "27-2011";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Mother's Industry Code: {ExampleBirthRecord.MotherCodedIndustryHelper}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherCodedIndustry">
+            <summary>Coded Industry of Father.</summary>
+            <value>the industry of the father as a Dictionary containing coded information</value>
+            <example>
+            <para>// Setter:</para>
+            <para>Dictionary&lt;string, string&gt; ind = new Dictionary&lt;string, string&gt;();</para>
+            <para>ind.Add("code", "336411");</para>
+            <para>ind.Add("system", "urn:oid:2.16.840.1.114222.4.11.8067");</para>
+            <para>ind.Add("display", "Aircraft Manufacturing");</para>
+            <para>ExampleBirthRecord.FatherCodedIndustry = ind;</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Father's Industry: {ExampleBirthRecord.FatherCodedIndustry["display"]}");</para>
+            </example>
+        </member>
+        <member name="P:BFDR.NatalityRecord.FatherCodedIndustryHelper">
+            <summary>Coded Industry of Father Helper.</summary>
+            <value>the industry of the father as a code string</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleBirthRecord.FatherCodedIndustryHelper = "27-2011";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"Father's Industry Code: {ExampleBirthRecord.FatherCodedIndustryHelper}");</para>
+            </example>
         </member>
         <member name="P:BFDR.NatalityRecord.CertificateNumber">
             <summary>Certificate Number.</summary>
