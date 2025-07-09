@@ -668,7 +668,41 @@ namespace BFDR.Tests
       Assert.Equal("89089090", record2.AttendantNPI);
       Assert.Equal("Test", record2.AttendantTitle["text"]);
       Assert.Equal("Test", record2.AttendantOtherHelper);
-
     }
-}
+
+    [Fact]
+    public void TestMotherHeightPropertiesSetter()
+    {
+      FetalDeathRecord record = new FetalDeathRecord();
+      IJEFetalDeath ije1 = new IJEFetalDeath(record);
+      // Height
+      Assert.Equal("99", ije1.HIN);
+      Assert.Equal("9", ije1.HFT);
+      ije1.HFT = "5";
+      Assert.Equal("5", ije1.HFT);
+      Assert.Equal("00", ije1.HIN);
+      ije1.HIN = "1";
+      Assert.Equal("5", ije1.HFT);
+      Assert.Equal("01", ije1.HIN);
+      ije1.HFT = "6";
+      Assert.Equal("6", ije1.HFT);
+      Assert.Equal("01", ije1.HIN);
+      ije1.HIN = "2";
+      Assert.Equal("6", ije1.HFT);
+      Assert.Equal("02", ije1.HIN);
+      ije1.HIN = "99";
+      Assert.Equal("99", ije1.HIN);
+      Assert.Equal("9", ije1.HFT);
+      // Edit Flag
+      Assert.Equal("", ije1.HGT_BYPASS);
+      ije1.HGT_BYPASS = "1";
+      Assert.Equal("1", ije1.HGT_BYPASS);
+      // FHIR translations
+      ije1.HFT = "5";
+      ije1.HIN = "3";
+      FetalDeathRecord record1 = new FetalDeathRecord(ije1.ToRecord().ToXML());
+      Assert.Equal(63, record1.MotherHeight);
+      Assert.Equal(VR.ValueSets.EditBypass01234.Edit_Failed_Data_Queried_And_Verified, record1.MotherHeightEditFlag["code"]);
+    }
+  }
 }
