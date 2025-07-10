@@ -938,6 +938,19 @@ namespace BFDR.Tests
       Assert.Equal("1988-09-05", rec.MotherDateOfBirth);
       rec.MotherDateOfBirth = "1990-08-29";
       Assert.Equal("1990-08-29", rec.MotherDateOfBirth);
+
+      // Make sure setter does not override edit flag
+      Dictionary<string, string> editDict = new();
+      editDict.Add("code", "abc");
+      editDict.Add("system", "example.com");
+      editDict.Add("display", "ABC");
+      editDict.Add("text", "A B C");
+      rec.MotherDateOfBirthEditFlag = editDict;
+      Assert.Equal(editDict, rec.MotherDateOfBirthEditFlag);
+      rec.MotherDateOfBirth = "1980-01-01";
+      Assert.Equal("1980-01-01", rec.MotherDateOfBirth);
+      Assert.Equal(editDict, rec.MotherDateOfBirthEditFlag);
+
       rec.MotherDateOfBirth = null;
       Assert.Equal(27, rec.MotherReportedAgeAtDelivery);
       rec.MotherReportedAgeAtDelivery = null;
@@ -3001,6 +3014,30 @@ namespace BFDR.Tests
       cc2.Add("display", "Edit Passed");
       Assert.Equal("0", birthRecord3.NumberOfPreviousCesareansEditFlagHelper);
       Assert.Equal(cc2, birthRecord3.NumberOfPreviousCesareansEditFlag);
+    }
+
+    [Fact]
+    public void TestGestationalAgeAtDeliveryIsQuantity()
+    {
+      BirthRecord birthRecord = new();
+
+      // Start by setting edit flag
+      Dictionary<string, string> editDict = new();
+      editDict.Add("code", "0off");
+      editDict.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");
+      editDict.Add("display", "Off");
+      birthRecord.GestationalAgeAtDeliveryEditFlag = editDict;
+      Assert.Equal(editDict, birthRecord.GestationalAgeAtDeliveryEditFlag);
+
+      // Set value as a Quantity
+      Dictionary<string, string> ageDict = new Dictionary<string, string>
+      {
+          { "value", "12.5" },
+          { "code", "d" }
+      };
+      birthRecord.GestationalAgeAtDelivery = ageDict;
+      Assert.Equal(ageDict["value"], birthRecord.GestationalAgeAtDelivery["value"]);
+      Assert.Equal("d", birthRecord.GestationalAgeAtDelivery["code"]);
     }
 
     [Fact]

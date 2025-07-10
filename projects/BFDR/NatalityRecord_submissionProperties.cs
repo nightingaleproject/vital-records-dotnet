@@ -2181,6 +2181,7 @@ namespace BFDR
                     return;
                 }
                 Date date = ConvertToDate(value);
+                // Need to keep any existing extension that could be there
                 date.Extension = this.Mother?.BirthDateElement?.Extension ?? date.Extension;
                 this.Mother.BirthDateElement = date;
             }
@@ -2406,6 +2407,7 @@ namespace BFDR
                     return;
                 }
                 Date date = ConvertToDate(value);
+                // Need to keep any existing extension that could be there
                 date.Extension = this.Father?.BirthDateElement?.Extension ?? date.Extension;
                 this.Father.BirthDateElement = date;
             }
@@ -5837,7 +5839,7 @@ namespace BFDR
                 Observation obs = GetOrCreateObservation("11884-4", CodeSystems.LOINC, "Gestational age at delivery", BFDR.ProfileURL.ObservationGestationalAgeAtDelivery, GESTATIONAL_AGE, Mother.Id);
                 if (obs.Value == null)
                 {
-                    obs.Value = new CodeableConcept();
+                    obs.Value = new Quantity();
                 }
                 obs.Value?.Extension.RemoveAll(ext => ext.Url == VR.ExtensionURL.BypassEditFlag);
                 Extension editFlag = new Extension(VR.ExtensionURL.BypassEditFlag, DictToCodeableConcept(value));
