@@ -562,6 +562,17 @@ namespace VRDR.Tests
             Assert.Equal(2024, record1.DateOfDeathPronouncementYear);
             Assert.Equal(2, record1.DateOfDeathPronouncementMonth);
             Assert.Equal(29, record1.DateOfDeathPronouncementDay);
+            ije1.PPDATESIGNED = "02292024";
+            Assert.Equal("02292024", ije1.PPDATESIGNED);
+            Assert.Equal(2024, record1.DateOfDeathPronouncementYear);
+            Assert.Equal(2, record1.DateOfDeathPronouncementMonth);
+            Assert.Equal(29, record1.DateOfDeathPronouncementDay);
+            ije1.CERTDATE = "02292024";
+            Assert.Equal("02292024", ije1.CERTDATE);
+            var fhirValue = record1.CertifiedTime;
+            Assert.Equal("2024", fhirValue.Substring(0, 4));
+            Assert.Equal("02", fhirValue.Substring(5, 2));
+            Assert.Equal("29", fhirValue.Substring(8, 2));
         }
 
         private string FixturePath(string filePath)

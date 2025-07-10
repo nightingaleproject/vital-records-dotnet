@@ -3319,17 +3319,17 @@
         <member name="M:BFDR.IJENatality.Update_FirstName(System.String,System.String[])">
             
              <summary>Sets FirstName.</summary>
-             
+            
         </member>
         <member name="M:BFDR.IJENatality.Update_MiddleName(System.String,System.String[],System.String)">
             
              <summary>Sets Middle Name.</summary>
-             
+            
         </member>
         <member name="M:BFDR.IJENatality.Get_MotherRace(System.String)">
             
              <summary>Checks if the given race exists in the record for Mother.</summary>
-             
+            
         </member>
         <member name="M:BFDR.IJENatality.Set_MotherRace(System.String,System.String)">
             <summary>Adds the given race to the record for Mother.</summary>
@@ -3365,6 +3365,15 @@
             <param name="date"></param>
             <returns></returns>
             <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:BFDR.IJENatality.GetYearIJEFormatted(System.String)">
+            <summary>Extract the year from the supplied date string and return as IJE 4 character string</summary>
+        </member>
+        <member name="M:BFDR.IJENatality.GetMonthIJEFormatted(System.String)">
+            <summary>Extract the month from the supplied date string and return as IJE 2 character string</summary>
+        </member>
+        <member name="M:BFDR.IJENatality.GetDayIJEFormatted(System.String)">
+            <summary>Extract the day from the supplied date string and return as IJE 2 character string</summary>
         </member>
         <member name="M:BFDR.IJENatality.AddTime(System.String,System.String)">
             <summary>
@@ -4177,44 +4186,44 @@
             <summary>
              Setter method for child or decedent fetus set order.
             </summary>
-            <param name="value">The birth year.</param>        
+            <param name="value">The birth year.</param>
         </member>
         <member name="M:BFDR.NatalityRecord.GetPluralityEditFlag">
             <summary>
              Getter method for child or decedent fetus plurality edit flag.
-            </summary>   
+            </summary>
             <returns>Plurality edit flag codeable concept as Dictionary</returns>
         </member>
         <member name="M:BFDR.NatalityRecord.SetPluralityEditFlag(System.Collections.Generic.Dictionary{System.String,System.String})">
             <summary>
              Setter method for child or decedent fetus plurality edit flag.
             </summary>
-            <param name="value">The birth year.</param> 
+            <param name="value">The birth year.</param>
         </member>
         <member name="M:BFDR.NatalityRecord.GetPluralityEditFlagHelper">
             <summary>
              Helper method for getting child or decedent fetus plurality edit flag.
-            </summary>    
+            </summary>
             <returns>Plurality edit flag code as string</returns>
         </member>
         <member name="M:BFDR.NatalityRecord.SetPluralityEditFlagHelper(System.String,System.String)">
             <summary>
              Helper method for setting child or decedent fetus plurality edit flag.
             </summary>
-            <param name="field">The name of the field.</param>    
-            <param name="value">The birth year.</param>         
+            <param name="field">The name of the field.</param>
+            <param name="value">The birth year.</param>
         </member>
         <member name="M:BFDR.NatalityRecord.GetPlurality">
             <summary>
              Gettter method for child or decedent fetus plurality.
-            </summary>     
+            </summary>
             <returns>Integer representing Plurality or -1 if dataAbsent</returns>
         </member>
         <member name="M:BFDR.NatalityRecord.SetPlurality(System.Nullable{System.Int32})">
             <summary>
              Setter method for child or decedent fetus plurality.
             </summary>
-            <param name="value">The birth year.</param>   
+            <param name="value">The birth year.</param>
         </member>
         <member name="P:BFDR.NatalityRecord.PatientFetalDeath">
             <summary>Patient Fetal Death</summary>
@@ -4788,7 +4797,7 @@
             <summary>Get a coded race and ethnicity dictionary (representing a codeableconcept).
             <para>
             This helper gets the correct observation using the observationCode, section, propertyName.
-            It then uses the componentCode to get the component (e.g. FirstAmericanIndianCode) 
+            It then uses the componentCode to get the component (e.g. FirstAmericanIndianCode)
             and returns the corresponding codeable concept or and empty one if none are found.
             </para>
             </summary>
