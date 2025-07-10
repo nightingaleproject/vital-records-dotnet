@@ -1174,7 +1174,7 @@ namespace BFDR
         /// <summary>
         ///  Setter method for child or decedent fetus set order.
         /// </summary>
-        /// <param name="value">The birth year.</param>        
+        /// <param name="value">The birth year.</param>
         protected void SetSetOrder(int? value)
         {
             Dictionary<string, string> pluralityEditFlag = GetPluralityEditFlag();
@@ -1199,7 +1199,7 @@ namespace BFDR
 
         /// <summary>
         ///  Getter method for child or decedent fetus plurality edit flag.
-        /// </summary>   
+        /// </summary>
         /// <returns>Plurality edit flag codeable concept as Dictionary</returns>
         public Dictionary<string, string> GetPluralityEditFlag()
         {
@@ -1217,7 +1217,7 @@ namespace BFDR
         /// <summary>
         ///  Setter method for child or decedent fetus plurality edit flag.
         /// </summary>
-        /// <param name="value">The birth year.</param> 
+        /// <param name="value">The birth year.</param>
         protected void SetPluralityEditFlag(Dictionary<string, string> value)
         {
             if (Subject.MultipleBirth == null)
@@ -1229,7 +1229,7 @@ namespace BFDR
         }
         /// <summary>
         ///  Helper method for getting child or decedent fetus plurality edit flag.
-        /// </summary>    
+        /// </summary>
         /// <returns>Plurality edit flag code as string</returns>
         public string GetPluralityEditFlagHelper()
         {
@@ -1247,8 +1247,8 @@ namespace BFDR
         /// <summary>
         ///  Helper method for setting child or decedent fetus plurality edit flag.
         /// </summary>
-        /// <param name="field">The name of the field.</param>    
-        /// <param name="value">The birth year.</param>         
+        /// <param name="field">The name of the field.</param>
+        /// <param name="value">The birth year.</param>
         protected void SetPluralityEditFlagHelper(string field, string value)
         {
             if (!String.IsNullOrEmpty(value))
@@ -1258,7 +1258,7 @@ namespace BFDR
         }
         /// <summary>
         ///  Gettter method for child or decedent fetus plurality.
-        /// </summary>     
+        /// </summary>
         /// <returns>Integer representing Plurality or -1 if dataAbsent</returns>
         public int? GetPlurality()
         {
@@ -1283,7 +1283,7 @@ namespace BFDR
         /// <summary>
         ///  Setter method for child or decedent fetus plurality.
         /// </summary>
-        /// <param name="value">The birth year.</param>   
+        /// <param name="value">The birth year.</param>
         protected void SetPlurality(int? value)
         {
             if (Subject.MultipleBirth == null)
@@ -2167,8 +2167,15 @@ namespace BFDR
                     return;
                 }
                 Date date = ConvertToDate(value);
-                date.Extension = this.Mother?.BirthDateElement?.Extension ?? date.Extension;
-                this.Mother.BirthDateElement = date;
+                if (date != null)
+                {
+                    date.Extension = this.Mother?.BirthDateElement?.Extension ?? date.Extension;
+                    this.Mother.BirthDateElement = date;
+                }
+                else
+                {
+                    throw new ArgumentException($"Could not parse given string, expected a Date string in the format YYYY-MM-DD. Given {value}.");
+                }
             }
         }
 
@@ -2392,8 +2399,15 @@ namespace BFDR
                     return;
                 }
                 Date date = ConvertToDate(value);
-                date.Extension = this.Father?.BirthDateElement?.Extension ?? date.Extension;
-                this.Father.BirthDateElement = date;
+                if (date != null)
+                {
+                    date.Extension = this.Father?.BirthDateElement?.Extension ?? date.Extension;
+                    this.Father.BirthDateElement = date;
+                }
+                else
+                {
+                    throw new ArgumentException($"Could not parse given string, expected a Date string in the format YYYY-MM-DD. Given {value}.");
+                }
             }
         }
 
@@ -3428,7 +3442,7 @@ namespace BFDR
         /// <summary>Get a coded race and ethnicity dictionary (representing a codeableconcept).
         /// <para>
         /// This helper gets the correct observation using the observationCode, section, propertyName.
-        /// It then uses the componentCode to get the component (e.g. FirstAmericanIndianCode) 
+        /// It then uses the componentCode to get the component (e.g. FirstAmericanIndianCode)
         /// and returns the corresponding codeable concept or and empty one if none are found.
         /// </para>
         /// </summary>
@@ -5985,7 +5999,7 @@ namespace BFDR
                         return Convert.ToBoolean((obs.Value).ToString());
                     }
                 }
-                // blank or absent data 
+                // blank or absent data
                 return null;
             }
             set
@@ -8624,7 +8638,7 @@ namespace BFDR
                 p.StartElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 stateComp.Period = p;
             }
-            // TODO create new helper function specific to FHIRDateTimes so we don't drop time information 
+            // TODO create new helper function specific to FHIRDateTimes so we don't drop time information
             FhirDateTime newDate = UpdateFhirDateTimeDateElement(stateComp.Period.StartElement, value, dateUrl);
             if (newDate != null)
             {
@@ -8644,7 +8658,7 @@ namespace BFDR
             //         break;
             //     default:
             //         throw new Exception("Invalid date element url.");
-            // } 
+            // }
             // if (newDate != null)
             // {
             //     stateComp.Period.StartElement = newDate;
