@@ -28,11 +28,11 @@ namespace BFDR
         // Class helper methods for getting and settings IJE fields.
         //
         /////////////////////////////////////////////////////////////////////////////////
-        
+
 
         ///
         /// <summary>Sets FirstName.</summary>
-        /// 
+        ///
         protected string[] Update_FirstName(string value, string[] givenNames)
         {
             if (!String.IsNullOrWhiteSpace(value))
@@ -43,7 +43,7 @@ namespace BFDR
         }
         ///
         /// <summary>Sets Middle Name.</summary>
-        /// 
+        ///
         protected string[] Update_MiddleName(string value, string[] givenNames, string ijeFirstName)
         {
           if (!String.IsNullOrWhiteSpace(value))
@@ -61,7 +61,7 @@ namespace BFDR
 
         ///
         /// <summary>Checks if the given race exists in the record for Mother.</summary>
-        /// 
+        ///
         protected string Get_MotherRace(string name)
         {
             Tuple<string, string>[] raceStatus = NatalityRecord.MotherRace.ToArray();
@@ -210,24 +210,27 @@ namespace BFDR
             return new Hl7.Fhir.Model.Date((int)year, (int)month, int.Parse(value)).ToString();
         }
 
+        /// <summary>Extract the year from the supplied date string and return as IJE 4 character string</summary>
         protected static string GetYearIJEFormatted(string date)
         {
             VitalRecord.ParseDateElements(date, out int? year, out _, out _);
             return year == null || year <= 0 ? "".PadLeft(4, ' ') : year.ToString().PadLeft(4, '0');
         }
 
+        /// <summary>Extract the month from the supplied date string and return as IJE 2 character string</summary>
         protected static string GetMonthIJEFormatted(string date)
         {
             VitalRecord.ParseDateElements(date, out _, out int? month, out _);
             return month == null || month <= 0 ? "".PadLeft(2, ' ') : month.ToString().PadLeft(2, '0');
         }
 
+        /// <summary>Extract the day from the supplied date string and return as IJE 2 character string</summary>
         protected static string GetDayIJEFormatted(string date)
         {
             VitalRecord.ParseDateElements(date, out _, out _, out int? day);
             return day == null || day <= 0 ? "".PadLeft(2, ' ') : day.ToString().PadLeft(2, '0');
         }
-        
+
         /// <summary>
         /// Creates and returns a new datetime string based on the given string time value.
         /// </summary>

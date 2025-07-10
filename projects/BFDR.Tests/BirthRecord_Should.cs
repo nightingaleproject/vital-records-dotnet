@@ -554,7 +554,7 @@ namespace BFDR.Tests
       rec.DateOfBirth = "2023";
       Assert.Equal("2023", rec.DateOfBirth);
       rec.BirthDateTime = "";
-      Assert.Equal(rec.DateOfBirth, "2023");
+      Assert.Equal("2023", rec.DateOfBirth);
       Assert.Null(rec.BirthDateTime);
       rec.DateOfBirth = "2023";
       Assert.Equal("2023", rec.DateOfBirth);
@@ -910,7 +910,7 @@ namespace BFDR.Tests
       TestMotherBirthDateHelper(new BirthRecord());
     }
 
-    public static void TestMotherBirthDateHelper(NatalityRecord rec)
+    internal static void TestMotherBirthDateHelper(NatalityRecord rec)
     {
       Assert.Null(rec.MotherDateOfBirth);
       Assert.Null(rec.MotherReportedAgeAtDelivery);
@@ -956,7 +956,7 @@ namespace BFDR.Tests
       TestMotherBirthDateUnknownsHelper(new BirthRecord());
     }
 
-    public static void TestMotherBirthDateUnknownsHelper(NatalityRecord rec)
+    internal static void TestMotherBirthDateUnknownsHelper(NatalityRecord rec)
     {
       rec.MotherDateOfBirth = "1990-08-29";
       Assert.Equal("1990-08-29", rec.MotherDateOfBirth);
@@ -968,7 +968,7 @@ namespace BFDR.Tests
       Assert.Equal("2001", rec.MotherDateOfBirth);
       rec.MotherDateOfBirth = "2001-08";
       Assert.Equal("2001-08", rec.MotherDateOfBirth);
-        rec.MotherDateOfBirth = "2001-08-06";
+      rec.MotherDateOfBirth = "2001-08-06";
       Assert.Equal("2001-08-06", rec.MotherDateOfBirth);
     }
 
@@ -978,7 +978,7 @@ namespace BFDR.Tests
       TestFatherBirthDateSetterHelper(new BirthRecord());
     }
 
-    public static void TestFatherBirthDateSetterHelper(NatalityRecord rec)
+    internal static void TestFatherBirthDateSetterHelper(NatalityRecord rec)
     {
       rec.FatherDateOfBirth = "1990-08-29";
       Assert.Equal("1990-08-29", rec.FatherDateOfBirth);
