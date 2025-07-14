@@ -393,7 +393,7 @@ namespace BFDR.Tests
     [Fact]
     public void TestBirthDateOrderingErrors()
     {
-      IJEBirth ije = new();      
+      IJEBirth ije = new();
       // Mother
       Assert.Throws<System.ArgumentException>(() => ije.MDOB_MO = "14");
       Assert.Equal("  ", ije.MDOB_MO);
@@ -416,6 +416,27 @@ namespace BFDR.Tests
       Assert.Equal("10", ije.MDOB_MO);
       Assert.Equal("21", ije.MDOB_DY);
       Assert.Equal("2000-10-21", ije.ToRecord().MotherDateOfBirth);
+    }
+
+    [Fact]
+    public void TestBirthDateLeapYear()
+    {
+      IJEBirth ije = new();
+      // test setting a Feb 29 leap year date
+      ije.MDOB_YR = "2024";
+      ije.MDOB_MO = "02";
+      ije.MDOB_DY = "29";
+      Assert.Equal("2024", ije.MDOB_YR);
+      Assert.Equal("02", ije.MDOB_MO);
+      Assert.Equal("29", ije.MDOB_DY);
+      // test that changing the year to a non-leap year will cause an error
+      Assert.Throws<System.ArgumentException>(() => ije.MDOB_YR = "2023");
+      // test that switch to Feb 28 will allow the year to be changed
+      ije.MDOB_DY = "28";
+      ije.MDOB_YR = "2023";
+      Assert.Equal("2023", ije.MDOB_YR);
+      Assert.Equal("02", ije.MDOB_MO);
+      Assert.Equal("28", ije.MDOB_DY);
     }
 
     [Fact]
@@ -1490,7 +1511,7 @@ namespace BFDR.Tests
       ije.VOID = "2";
       Assert.Equal("0", ije.VOID);
     }
-    
+
     [Fact]
     public void RecordIJERoundTrip()
     {
