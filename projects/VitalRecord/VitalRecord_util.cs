@@ -143,6 +143,18 @@ namespace VR
             return null;
         }
 
+        /// <summary>
+        /// Helper to support retrieval of matching Observations in cases where there can be multiple matches.
+        /// </summary>
+        /// <param name="code">The code to identify the type of Observation.</param>
+        /// <returns>A list of matching Observations, or an empty list if no matches are found.</returns>
+        protected List<Observation> GetObservations(string code)
+        {
+            return Bundle.Entry.Where(e => e.Resource is Observation obs && CodeableConceptToDict(obs.Code)["code"] == code)
+                               .Select(e => (Observation)e.Resource)
+                               .ToList();
+        }
+
         /// <summary>Helper to support vital record property getter helper methods for removing Observations.</summary>
         /// <param name="code">the code to identify the type of Observation</param>
         protected void RemoveObservation(string code)
@@ -213,8 +225,13 @@ namespace VR
                 string[] profile = { profileURL };
                 observation.Meta.Profile = profile;
                 observation.Code = new CodeableConcept(codeSystem, code, text, null);
-                observation.Subject = new ResourceReference($"urn:uuid:{SubjectId(propertyName)}");
-                observation.Status = ObservationStatus.Final; // TODO: is this correct?
+                if (SubjectId(propertyName) != null)
+                {
+                    observation.Subject = new ResourceReference($"urn:uuid:{SubjectId(propertyName)}");
+                }
+                // Note: The IG supports observations that can have non-final status, but they are not used
+                // for NCHS data submission at this time
+                observation.Status = ObservationStatus.Final;
                 if (focusId != null)
                 {
                     observation.Focus.Add(new ResourceReference($"urn:uuid:{focusId}"));

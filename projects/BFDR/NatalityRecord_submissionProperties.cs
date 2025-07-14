@@ -54,6 +54,12 @@ namespace BFDR
                         return Convert.ToString(ext.Value);
                     }
                 }
+                // For cases where we loaded a bundle that has the RecordIdentifier but not the individual fields
+                // we can find the value as a substring of the RecordIdentifier
+                if (RecordIdentifier != null && RecordIdentifier.Length == 12 && RecordIdentifier.Substring(6, 6) != "000000")
+                {
+                    return RecordIdentifier.Substring(6, 6);
+                }
                 return null;
             }
             set
@@ -267,6 +273,8 @@ namespace BFDR
             }
             date.Extension = this.Subject.BirthDateElement?.Extension ?? date.Extension;
             this.Subject.BirthDateElement = date;
+            // The record identifier is based on the date of birth aka the date of delivery, so update it
+            UpdateRecordIdentifier();
         }
 
         /// <summary>
@@ -604,6 +612,12 @@ namespace BFDR
                 if (PlaceOfBirth.ContainsKey("addressState") && !String.IsNullOrWhiteSpace(PlaceOfBirth["addressState"]))
                 {
                     return PlaceOfBirth["addressState"];
+                }
+                // For cases where we loaded a bundle that has the RecordIdentifier but not the individual fields
+                // we can find the value as a substring of the RecordIdentifier
+                if (RecordIdentifier != null && RecordIdentifier.Length == 12 && RecordIdentifier.Substring(4, 2) != "XX")
+                {
+                    return RecordIdentifier.Substring(4, 2);
                 }
                 return null;
             }
@@ -1174,7 +1188,7 @@ namespace BFDR
         /// <summary>
         ///  Setter method for child or decedent fetus set order.
         /// </summary>
-        /// <param name="value">The birth year.</param>        
+        /// <param name="value">The birth year.</param>
         protected void SetSetOrder(int? value)
         {
             Dictionary<string, string> pluralityEditFlag = GetPluralityEditFlag();
@@ -1199,7 +1213,7 @@ namespace BFDR
 
         /// <summary>
         ///  Getter method for child or decedent fetus plurality edit flag.
-        /// </summary>   
+        /// </summary>
         /// <returns>Plurality edit flag codeable concept as Dictionary</returns>
         public Dictionary<string, string> GetPluralityEditFlag()
         {
@@ -1217,7 +1231,7 @@ namespace BFDR
         /// <summary>
         ///  Setter method for child or decedent fetus plurality edit flag.
         /// </summary>
-        /// <param name="value">The birth year.</param> 
+        /// <param name="value">The birth year.</param>
         protected void SetPluralityEditFlag(Dictionary<string, string> value)
         {
             if (Subject.MultipleBirth == null)
@@ -1229,7 +1243,7 @@ namespace BFDR
         }
         /// <summary>
         ///  Helper method for getting child or decedent fetus plurality edit flag.
-        /// </summary>    
+        /// </summary>
         /// <returns>Plurality edit flag code as string</returns>
         public string GetPluralityEditFlagHelper()
         {
@@ -1247,8 +1261,8 @@ namespace BFDR
         /// <summary>
         ///  Helper method for setting child or decedent fetus plurality edit flag.
         /// </summary>
-        /// <param name="field">The name of the field.</param>    
-        /// <param name="value">The birth year.</param>         
+        /// <param name="field">The name of the field.</param>
+        /// <param name="value">The birth year.</param>
         protected void SetPluralityEditFlagHelper(string field, string value)
         {
             if (!String.IsNullOrEmpty(value))
@@ -1258,7 +1272,7 @@ namespace BFDR
         }
         /// <summary>
         ///  Gettter method for child or decedent fetus plurality.
-        /// </summary>     
+        /// </summary>
         /// <returns>Integer representing Plurality or -1 if dataAbsent</returns>
         public int? GetPlurality()
         {
@@ -1283,7 +1297,7 @@ namespace BFDR
         /// <summary>
         ///  Setter method for child or decedent fetus plurality.
         /// </summary>
-        /// <param name="value">The birth year.</param>   
+        /// <param name="value">The birth year.</param>
         protected void SetPlurality(int? value)
         {
             if (Subject.MultipleBirth == null)
@@ -2167,8 +2181,15 @@ namespace BFDR
                     return;
                 }
                 Date date = ConvertToDate(value);
-                date.Extension = this.Mother?.BirthDateElement?.Extension ?? date.Extension;
-                this.Mother.BirthDateElement = date;
+                if (date != null)
+                {
+                    date.Extension = this.Mother?.BirthDateElement?.Extension ?? date.Extension;
+                    this.Mother.BirthDateElement = date;
+                }
+                else
+                {
+                    throw new ArgumentException($"Could not parse given string, expected a Date string in the format YYYY-MM-DD. Given {value}.");
+                }
             }
         }
 
@@ -2392,8 +2413,15 @@ namespace BFDR
                     return;
                 }
                 Date date = ConvertToDate(value);
-                date.Extension = this.Father?.BirthDateElement?.Extension ?? date.Extension;
-                this.Father.BirthDateElement = date;
+                if (date != null)
+                {
+                    date.Extension = this.Father?.BirthDateElement?.Extension ?? date.Extension;
+                    this.Father.BirthDateElement = date;
+                }
+                else
+                {
+                    throw new ArgumentException($"Could not parse given string, expected a Date string in the format YYYY-MM-DD. Given {value}.");
+                }
             }
         }
 
@@ -3428,7 +3456,7 @@ namespace BFDR
         /// <summary>Get a coded race and ethnicity dictionary (representing a codeableconcept).
         /// <para>
         /// This helper gets the correct observation using the observationCode, section, propertyName.
-        /// It then uses the componentCode to get the component (e.g. FirstAmericanIndianCode) 
+        /// It then uses the componentCode to get the component (e.g. FirstAmericanIndianCode)
         /// and returns the corresponding codeable concept or and empty one if none are found.
         /// </para>
         /// </summary>
@@ -3450,16 +3478,16 @@ namespace BFDR
         /// ComponentDisplay gives a more human readable display value for the component code.
         /// </para>
         /// </summary>
-        private void SetCodedRaceEthnicity(Dictionary<string, string> value, string observationCode, string ComponentCode, string ComponentDisplay, string section, [CallerMemberName] string propertyName = null)
+        private void SetCodedRaceEthnicity(Dictionary<string, string> value, string observationCode, string componentCode, string componentDisplay, string section, [CallerMemberName] string propertyName = null)
         {
             if (value["code"] == "")
             {
                 return;
             }
             Observation obs = GetOrCreateObservation(observationCode, CodeSystems.LocalObservationCodes, "Coded Race and Ethnicity Person", VR.ProfileURL.CodedRaceAndEthnicity, section, propertyName: propertyName);
-            obs.Component.RemoveAll(c => c.Code.Coding[0].Code == NvssEthnicity.CodeForLiteral);
+            obs.Component.RemoveAll(c => c.Code.Coding[0].Code == componentCode);
             Observation.ComponentComponent component = new Observation.ComponentComponent();
-            component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, ComponentCode, ComponentDisplay, null);
+            component.Code = new CodeableConcept(CodeSystems.ComponentCodeVR, componentCode, componentDisplay, null);
             component.Value = DictToCodeableConcept(value);
             obs.Component.Add(component);
             obs.Subject = new ResourceReference("urn:uuid:" + Subject.Id);
@@ -5985,7 +6013,7 @@ namespace BFDR
                         return Convert.ToBoolean((obs.Value).ToString());
                     }
                 }
-                // blank or absent data 
+                // blank or absent data
                 return null;
             }
             set
@@ -6668,7 +6696,7 @@ namespace BFDR
             set => SetCigarettesSmoked("64795-8", value);
         }
 
-        private Observation GetOccupationObservation(string role)
+        private Observation GetOrOptionallyCreateOccupationObservation(string role, bool create = false)
         {
             if (IsDictEmptyOrDefault(GetRoleCode(role)))
             {
@@ -6682,16 +6710,37 @@ namespace BFDR
                     CodeableConceptToDict(ext.Value as CodeableConcept)["code"] == role
                 ) != null).FirstOrDefault();
 
-            if (entry != null)
+            Observation observation = entry?.Resource as Observation;
+
+            if (observation == null && create)
             {
-                return entry.Resource as Observation;
+                observation = new Observation
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Code = new CodeableConcept(VR.CodeSystems.LOINC, "11341-5"),
+                };
+                Extension roleExt = new Extension(BFDR.ExtensionURL.ExtensionRole, new CodeableConcept(VR.CodeSystems.RoleCode_HL7_V3, role));
+                observation.Extension.Add(roleExt);
+                if (role == "MTH" && Mother != null)
+                {
+                    observation.Subject = new ResourceReference($"urn:uuid:{Mother.Id}");
+                    AddReferenceToComposition(observation.Id, MOTHER_INFORMATION_SECTION);
+                }
+                else if (role == "FTH" && Father != null)
+                {
+                    observation.Subject = new ResourceReference($"urn:uuid:{Father.Id}");
+                    AddReferenceToComposition(observation.Id, FATHER_INFORMATION_SECTION);
+                }
+                observation.Focus.Add(new ResourceReference($"urn:uuid:{Subject.Id}"));
+                Bundle.AddResourceEntry(observation, "urn:uuid:" + observation.Id);
             }
-            return null;
+
+            return observation;
         }
 
         private string GetOccupation(string role)
         {
-            Observation obs = GetOccupationObservation(role);
+            Observation obs = GetOrOptionallyCreateOccupationObservation(role);
             if (obs != null)
             {
                 return (obs.Value as CodeableConcept)?.Text;
@@ -6701,7 +6750,7 @@ namespace BFDR
 
         private string GetIndustry(string role)
         {
-            Observation obs = GetOccupationObservation(role);
+            Observation obs = GetOrOptionallyCreateOccupationObservation(role);
             if (obs != null)
             {
                 var comp = obs.Component.Where(c => CodeableConceptToDict(c.Code)["code"] == "86188-0").FirstOrDefault();
@@ -6713,48 +6762,19 @@ namespace BFDR
             return null;
         }
 
-        private Observation SetOccupation(string role, string value)
+        private void SetOccupation(string role, string value)
         {
-            Observation obs = GetOccupationObservation(role);
-            if (obs == null)
+            Observation obs = GetOrOptionallyCreateOccupationObservation(role, true);
+            if (obs.Value == null)
             {
-                obs = new Observation
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    Code = new CodeableConcept(VR.CodeSystems.LOINC, "11341-5"),
-                };
-                Extension roleExt = new Extension(BFDR.ExtensionURL.ExtensionRole, new CodeableConcept(VR.CodeSystems.RoleCode_HL7_V3, role));
-                obs.Extension.Add(roleExt);
-                if (role == "MTH")
-                {
-                    obs.Subject = new ResourceReference($"urn:uuid:{Mother.Id}");
-                    AddReferenceToComposition(obs.Id, MOTHER_INFORMATION_SECTION);
-                }
-                else if (role == "FTH")
-                {
-                    obs.Subject = new ResourceReference($"urn:uuid:{Father.Id}");
-                    AddReferenceToComposition(obs.Id, FATHER_INFORMATION_SECTION);
-                }
-                obs.Focus.Add(new ResourceReference($"urn:uuid:{Subject.Id}"));
-                Bundle.AddResourceEntry(obs, "urn:uuid:" + obs.Id);
+                obs.Value = new CodeableConcept();
             }
-            if (!String.IsNullOrWhiteSpace(value))
-            {
-                obs.Value = new CodeableConcept
-                {
-                    Text = value
-                };
-            }
-            return obs;
+            (obs.Value as CodeableConcept).Text = value;
         }
 
         private void SetIndustry(string role, string value)
         {
-            if (String.IsNullOrWhiteSpace(value))
-            {
-                return;
-            }
-            Observation obs = GetOccupationObservation(role) ?? SetOccupation(role, null);
+            Observation obs = GetOrOptionallyCreateOccupationObservation(role, true);
             var comp = obs.Component.Where(c => CodeableConceptToDict(c.Code)["code"] == "86188-0").FirstOrDefault();
             if (comp == null)
             {
@@ -6764,11 +6784,11 @@ namespace BFDR
                 };
                 obs.Component.Add(comp);
             }
-            CodeableConcept cc = new CodeableConcept
+            if (comp.Value == null)
             {
-                Text = value
-            };
-            comp.Value = cc;
+                comp.Value = new CodeableConcept();
+            }
+            (comp.Value as CodeableConcept).Text = value;
         }
 
         /// <summary>Occupation of Mother.</summary>
@@ -8624,7 +8644,7 @@ namespace BFDR
                 p.StartElement.Extension.Add(NewBlankPartialDateTimeExtension(false));
                 stateComp.Period = p;
             }
-            // TODO create new helper function specific to FHIRDateTimes so we don't drop time information 
+            // TODO create new helper function specific to FHIRDateTimes so we don't drop time information
             FhirDateTime newDate = UpdateFhirDateTimeDateElement(stateComp.Period.StartElement, value, dateUrl);
             if (newDate != null)
             {
@@ -8644,7 +8664,7 @@ namespace BFDR
             //         break;
             //     default:
             //         throw new Exception("Invalid date element url.");
-            // } 
+            // }
             // if (newDate != null)
             // {
             //     stateComp.Period.StartElement = newDate;
