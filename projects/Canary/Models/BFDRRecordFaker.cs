@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Bogus.Extensions.UnitedStates;
 using BFDR;
+using System.Linq;
 
 namespace canary.Models
 {
@@ -271,61 +272,51 @@ namespace canary.Models
         record.FatherEthnicity2Helper = VR.ValueSets.YesNoUnknown.No;
       }
       // Race
-      Tuple<string, string>[] nvssRaces =
-      {
-              Tuple.Create(VR.NvssRace.AmericanIndianOrAlaskanNative, "Y"),
-              Tuple.Create(VR.NvssRace.AsianIndian, "Y"),
-              Tuple.Create(VR.NvssRace.BlackOrAfricanAmerican, "Y"),
-              Tuple.Create(VR.NvssRace.Chinese, "Y"),
-              Tuple.Create(VR.NvssRace.Filipino, "Y"),
-              Tuple.Create(VR.NvssRace.GuamanianOrChamorro, "Y"),
-              Tuple.Create(VR.NvssRace.Japanese, "Y"),
-              Tuple.Create(VR.NvssRace.Korean, "Y"),
-              Tuple.Create(VR.NvssRace.NativeHawaiian, "Y"),
-              Tuple.Create(VR.NvssRace.OtherAsian, "Y"),
-              Tuple.Create(VR.NvssRace.OtherPacificIslander, "Y"),
-              Tuple.Create(VR.NvssRace.OtherRace, "Y"),
-              Tuple.Create(VR.NvssRace.Samoan, "Y"),
-              Tuple.Create(VR.NvssRace.Vietnamese, "Y"),
-              Tuple.Create(VR.NvssRace.White, "Y"),
-          };
+      string[] nvssRaces = VR.NvssRace.GetBooleanRaceCodes().Concat(VR.NvssRace.GetLiteralRaceCodes()).ToArray();
       if (!simple)
       {
-        Tuple<string, string> race1 = faker.Random.ArrayElement<Tuple<string, string>>(nvssRaces);
-        Tuple<string, string> race2 = faker.Random.ArrayElement<Tuple<string, string>>(nvssRaces);
-        Tuple<string, string> race3 = faker.Random.ArrayElement<Tuple<string, string>>(nvssRaces);
-        Tuple<string, string> race4 = faker.Random.ArrayElement<Tuple<string, string>>(nvssRaces);
-        Tuple<string, string>[] FatherRaces = { race1, race2 };
-        Tuple<string, string>[] MotherRaces = { race3, race4 };
-        record.FatherRace = FatherRaces;
-        record.MotherRace = MotherRaces;
+        string race1 = faker.Random.ArrayElement(nvssRaces);
+        string race2 = faker.Random.ArrayElement(nvssRaces);
+        string race3 = faker.Random.ArrayElement(nvssRaces);
+        string race4 = faker.Random.ArrayElement(nvssRaces);
+        record.MotherRace = nvssRaces.Select(raceCode =>
+        {
+          if (raceCode == race1 || raceCode == race2)
+          {
+            return Tuple.Create(raceCode, "Y");
+          }
+          return Tuple.Create(raceCode, "N");
+        }).ToArray();
+        record.FatherRace = nvssRaces.Select(raceCode =>
+        {
+          if (raceCode == race3 || raceCode == race4)
+          {
+            return Tuple.Create(raceCode, "Y");
+          }
+          return Tuple.Create(raceCode, "N");
+        }).ToArray();
       }
       else
       {
-        Tuple<string, string> race1 = faker.Random.ArrayElement<Tuple<string, string>>(nvssRaces);
-        Tuple<string, string> race2 = faker.Random.ArrayElement<Tuple<string, string>>(nvssRaces);
-        record.FatherRace = new Tuple<string, string>[] { race1 };
-        record.MotherRace = new Tuple<string, string>[] { race2 };
+        string race1 = faker.Random.ArrayElement(nvssRaces);
+        string race2 = faker.Random.ArrayElement(nvssRaces);
+        record.MotherRace = nvssRaces.Select(raceCode =>
+        {
+          if (raceCode == race1)
+          {
+            return Tuple.Create(raceCode, "Y");
+          }
+          return Tuple.Create(raceCode, "N");
+        }).ToArray();
+        record.FatherRace = nvssRaces.Select(raceCode =>
+        {
+          if (raceCode == race2)
+          {
+            return Tuple.Create(raceCode, "Y");
+          }
+          return Tuple.Create(raceCode, "N");
+        }).ToArray();
       }
-
-      Tuple<string, string>[] risks_anomalies_characteristics =
-      {
-              Tuple.Create(VR.NvssRace.AmericanIndianOrAlaskanNative, "Y"),
-              Tuple.Create(VR.NvssRace.AsianIndian, "Y"),
-              Tuple.Create(VR.NvssRace.BlackOrAfricanAmerican, "Y"),
-              Tuple.Create(VR.NvssRace.Chinese, "Y"),
-              Tuple.Create(VR.NvssRace.Filipino, "Y"),
-              Tuple.Create(VR.NvssRace.GuamanianOrChamorro, "Y"),
-              Tuple.Create(VR.NvssRace.Japanese, "Y"),
-              Tuple.Create(VR.NvssRace.Korean, "Y"),
-              Tuple.Create(VR.NvssRace.NativeHawaiian, "Y"),
-              Tuple.Create(VR.NvssRace.OtherAsian, "Y"),
-              Tuple.Create(VR.NvssRace.OtherPacificIslander, "Y"),
-              Tuple.Create(VR.NvssRace.OtherRace, "Y"),
-              Tuple.Create(VR.NvssRace.Samoan, "Y"),
-              Tuple.Create(VR.NvssRace.Vietnamese, "Y"),
-              Tuple.Create(VR.NvssRace.White, "Y"),
-          };
     }
   }
 }
