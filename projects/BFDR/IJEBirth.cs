@@ -1949,31 +1949,24 @@ namespace BFDR
         {
             get
             {
-                // not using NumericAllowingUnknown_Get due to the length of the ije field (ft) being then imposed on FHIR field (in)
-                // string height_ft = NumericAllowingUnknown_Get("HFT", "MotherHeight");
-                IJEField info = FieldInfo("HFT");
-                int? value = (int?)Record.GetType().GetProperty("MotherHeight").GetValue(record);
-                if (value == -1 || value == null) return new String('9', info.Length); // Explicitly set to unknown
+                int? value = record.MotherHeight;
+                if (value == -1 || value == null) return new String('9', 1); // Explicitly set to unknown
                 var valueString = (value / 12).ToString();
-                return Truncate(valueString, info.Length).PadLeft(info.Length, '0');
+                return Truncate(valueString, 1);
             }
             set
             {
-                if (value != "9" && !string.IsNullOrWhiteSpace(value))
+                // Support explicitly setting to unknown; note that this sets both HIN and HFT to unknown
+                if (value == "9" || string.IsNullOrWhiteSpace(value))
                 {
-                    if (!string.IsNullOrWhiteSpace(HIN) && HIN != "-1")
-                    {
-                        record.MotherHeight = int.Parse(value) * 12 + int.Parse(HIN);
-                    }
-                    else
-                    {
-                        record.MotherHeight = int.Parse(value);
-                    }
-                    record.MotherHeight = int.Parse(value) * 12;
+                    record.MotherHeight = -1;
                 }
                 else
                 {
-                    record.MotherHeight = -1;
+                    // Set the value for feet without changing the value for inches (if set)
+                    int hin = HIN == "99" ? 0 : int.Parse(HIN);
+                    int totalInches = int.Parse(value) * 12 + hin;
+                    record.MotherHeight = totalInches;
                 }
             }
         }
@@ -1984,30 +1977,24 @@ namespace BFDR
         {
             get
             {
-                // not using NumericAllowingUnknown_Get due to the length of the ije field (%12 in) being then imposed on FHIR field (total in)
-                // string height_in = NumericAllowingUnknown_Get("HIN", "MotherHeight");
-                IJEField info = FieldInfo("HIN");
-                int? value = (int?)Record.GetType().GetProperty("MotherHeight").GetValue(record);
-                if (value == -1 || value == null) return new String('9', info.Length); // Explicitly set to unknown
+                int? value = record.MotherHeight;
+                if (value == -1 || value == null) return new String('9', 2); // Explicitly set to unknown
                 var valueString = (value % 12).ToString();
-                return Truncate(valueString, info.Length).PadLeft(info.Length, '0');
+                return Truncate(valueString, 2).PadLeft(2, '0');
             }
             set
             {
-                if (value != "99" && !string.IsNullOrWhiteSpace(value))
+                // Support explicitly setting to unknown; note that this sets both HIN and HFT to unknown
+                if (value == "99" || string.IsNullOrWhiteSpace(value))
                 {
-                    if (!string.IsNullOrWhiteSpace(HFT) && HFT != "-1")
-                    {
-                        record.MotherHeight = int.Parse(value) + (int.Parse(HFT) * 12);
-                    }
-                    else
-                    {
-                        record.MotherHeight = int.Parse(value);
-                    }
+                    record.MotherHeight = -1;
                 }
                 else
                 {
-                    record.MotherHeight = -1;
+                    // Set the value for inches without changing the value for feet (if set)
+                    int hft = HFT == "9" ? 0 : int.Parse(HFT);
+                    int totalInches = hft * 12 + int.Parse(value);
+                    record.MotherHeight = totalInches;
                 }
             }
         }
