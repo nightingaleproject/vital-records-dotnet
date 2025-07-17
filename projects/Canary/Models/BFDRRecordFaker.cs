@@ -272,7 +272,7 @@ namespace canary.Models
         record.FatherEthnicity2Helper = VR.ValueSets.YesNoUnknown.No;
       }
       // Race
-      string[] nvssRaces = VR.NvssRace.GetBooleanRaceCodes().Concat(VR.NvssRace.GetLiteralRaceCodes()).ToArray();
+      string[] nvssRaces = VR.NvssRace.GetBooleanRaceCodes().ToArray();
       if (!simple)
       {
         string race1 = faker.Random.ArrayElement(nvssRaces);

@@ -10,14 +10,14 @@ namespace canary.tests
 {
   public class BFDRRecordFakerTests
   {
-    readonly List<string> raceCodes = NvssRace.GetBooleanRaceCodes().Concat(NvssRace.GetLiteralRaceCodes()).ToList();
+    readonly List<string> raceCodes = NvssRace.GetBooleanRaceCodes();
 
     [Fact]
     public void GenerateRaceAttributes()
     {
       BirthRecordFaker faker = new();
       BirthRecord record = faker.Generate();
-      // all race codes should be present
+      // all boolean race codes should be present
       foreach (string raceCode in raceCodes)
       {
         Assert.Contains(record.FatherRace, element => element.Item1 == raceCode);
@@ -35,7 +35,7 @@ namespace canary.tests
     {
       BirthRecordFaker faker = new();
       BirthRecord record = faker.Generate(true);
-      // all race codes should be present
+      // all boolean race codes should be present
       foreach (string raceCode in raceCodes)
       {
         Assert.Contains(record.FatherRace, element => element.Item1 == raceCode);
