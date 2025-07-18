@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Version>1.0.0-preview.8</Version>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>netstandard2.0;net9.0</TargetFrameworks>
     <RootNamespace>VR</RootNamespace>
     <DocumentationFile>VitalRecord.xml</DocumentationFile>
     <!-- <DocumentationFile>VitalRecord.md</DocumentationFile> -->
