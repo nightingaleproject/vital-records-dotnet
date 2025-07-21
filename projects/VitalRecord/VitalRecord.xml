@@ -7097,11 +7097,6 @@
             reasons are present to note that the data is not in fact present). This method takes an optional flag to determine if this extension
             should include the time field, which is not always needed</summary>
         </member>
-        <member name="M:VR.VitalRecord.NewUnkownPartialDateTimeExtension(System.Boolean)">
-            <summary>NewUnknownPartialDateTimeExtension, Build a blank PartialDateTime extension (which means all the placeholder data absent
-            reasons are present to note that the data is unknown). This method takes an optional flag to determine if this extension
-            should include the time field, which is not always needed</summary>
-        </member>
         <member name="M:VR.VitalRecord.SetPartialDate(Hl7.Fhir.Model.Extension,System.String,System.Nullable{System.Int32})">
             <summary>Setter helper for anything that uses PartialDateTime, allowing a particular date field (year, month, or day) to be
             set in the extension. Arguments are the extension to poplulate, the part of the URL to populate, and the value to specify.
@@ -7129,30 +7124,10 @@
         <member name="M:VR.VitalRecord.ConvertToDateTime(System.String)">
             <summary>Returns a Fhir DateTime object parsed from the given string.</summary>
         </member>
-        <member name="M:VR.VitalRecord.ConvertDateToFhirDateTime(Hl7.Fhir.Model.Date)">
-            <summary>Returns a Fhir DateTime object parsed from the given Date.</summary>
-        </member>
         <member name="M:VR.VitalRecord.GetDateElement(Hl7.Fhir.Model.Date,System.String)">
             <summary>Gets the specified date element based on the ExtensionURL.PartialDate from the given
             FhirDate, checking in the value and PartialDate extension, and assuming there
             is no time data to consider.</summary>
-        </member>
-        <member name="M:VR.VitalRecord.CreateAndSetPartialDate(Hl7.Fhir.Model.Date,System.String,System.Nullable{System.Int32})">
-            <summary>Sets the given value to the given partial date extension and creates any necessary missing extensions.</summary>
-        </member>
-        <member name="M:VR.VitalRecord.CreateAndSetPartialDate(Hl7.Fhir.Model.FhirDateTime,System.String,System.Nullable{System.Int32})">
-            <summary>Sets the given value to the given partial date extension and creates any necessary missing extensions.</summary>
-        </member>
-        <member name="M:VR.VitalRecord.UpdateFhirDateElement(Hl7.Fhir.Model.Date,System.Nullable{System.Int32},System.String,System.Boolean)">
-            <summary>
-            Updates a FhirDate's date element based on the specified URL.
-            </summary>
-            <param name="dateElement"></param>
-            <param name="value"></param>
-            <param name="partialDateUrl"></param>
-            <param name="useBirthTime"></param>
-            <returns></returns>
-            <exception cref="T:System.Exception"></exception>
         </member>
         <member name="M:VR.VitalRecord.UpdateFhirDateTimeDateElement(Hl7.Fhir.Model.FhirDateTime,System.Nullable{System.Int32},System.String)">
             <summary>
@@ -7164,25 +7139,13 @@
             <returns></returns>
             <exception cref="T:System.Exception"></exception>
         </member>
-        <member name="M:VR.VitalRecord.UpdateFhirDateTimeElement(Hl7.Fhir.Model.Date,System.String,System.Boolean)">
+        <member name="M:VR.VitalRecord.UpdateFhirDateTime(System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32})">
             <summary>
-            Updates a FhirDate's time element.
-            </summary>
-            <param name="dateElement"></param>
-            <param name="value"></param>
-            <param name="useBirthTime"></param>
-            <returns></returns>
-        </member>
-        <member name="M:VR.VitalRecord.UpdateFhirDate(System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Boolean,System.Boolean)">
-            <summary>
-            Creates either a FhirDate or FhirDateTime based on the useFhirDateTime flag using the given date element values. Builds and formats the date based on PartialDateTime rules.
+            Creates a FhirDate formatted based on PartialDateTime rules.
             </summary>
             <param name="year"></param>
             <param name="month"></param>
             <param name="day"></param>
-            <param name="time"></param>
-            <param name="useFhirDateTime">If true, creates a FhirDateTime, false creates a FhirDate.</param>
-            <param name="useBirthTime"></param>
             <returns></returns>
         </member>
         <member name="M:VR.VitalRecord.GetDateFragmentOrPartialDate(Hl7.Fhir.Model.Element,System.String)">
@@ -7222,9 +7185,6 @@
         <member name="M:VR.VitalRecord.CodeExistsInValueSet(System.String,System.String[0:,0:],System.String)">
             <summary>Helper function to determine whether a value appears in the the set of allowed codes.</summary>
         </member>
-        <member name="M:VR.VitalRecord.SetQuantityValue(System.String,System.String,System.String,System.String[0:,0:])">
-            <summary>Helper function to set a quantity value based on a value, code and the set of allowed codes.</summary>
-        </member>
         <member name="M:VR.VitalRecord.DictToCoding(System.Collections.Generic.Dictionary{System.String,System.String})">
             <summary>Convert a "code" dictionary to a FHIR Coding.</summary>
             <param name="dict">represents a code.</param>
@@ -7255,15 +7215,6 @@
             <param name="dict">represents an address.</param>
             <returns>the corresponding FHIR Address representation of the address.</returns>
         </member>
-        <member name="M:VR.VitalRecord.DatePartsToArray(Hl7.Fhir.Model.Extension)">
-            <summary>Convert a Date Part Extension to an Array.</summary>
-            <param name="datePartAbsent">a Date Part Extension.</param>
-            <returns>the corresponding array representation of the date parts.</returns>
-        </member>
-        <member name="M:VR.VitalRecord.DatePartToIntegerOrCode(System.Tuple{System.String,System.String})">
-            <summary>Convert an element to an integer or code depending on if the input element is a date part.</summary>
-            <param name="pair">A key value pair, the key will be used to identify whether the element is a date part.</param>
-        </member>
         <member name="M:VR.VitalRecord.AddressToDict(Hl7.Fhir.Model.Address)">
             <summary>Convert a FHIR Address to an "address" Dictionary.</summary>
             <param name="addr">a FHIR Address.</param>
@@ -7292,11 +7243,6 @@
             <param name="path">represents a FHIR path.</param>
             <returns>the first element that matches the given path, or null if no match is found.</returns>
         </member>
-        <member name="M:VR.VitalRecord.GetLast(System.String)">
-            <summary>Given a FHIR path, return the last element that matches the given path.</summary>
-            <param name="path">represents a FHIR path.</param>
-            <returns>the last element that matches the given path, or null if no match is found.</returns>
-        </member>
         <member name="M:VR.VitalRecord.GetAllString(System.String)">
             <summary>Given a FHIR path, return the elements that match the given path as a string;
             returns an empty array if no matches are found.</summary>
@@ -7309,17 +7255,8 @@
             <param name="path">represents a FHIR path.</param>
             <returns>the first element that matches the given path as a string, or null if no match is found.</returns>
         </member>
-        <member name="M:VR.VitalRecord.GetLastString(System.String)">
-            <summary>Given a FHIR path, return the last element that matches the given path as a string;
-            returns an empty string if no match is found.</summary>
-            <param name="path">represents a FHIR path.</param>
-            <returns>the last element that matches the given path as a string, or null if no match is found.</returns>
-        </member>
         <member name="M:VR.VitalRecord.GetValue(System.Collections.Generic.Dictionary{System.String,System.String},System.String)">
             <summary>Get a value from a Dictionary, but return null if the key doesn't exist or the value is an empty string.</summary>
-        </member>
-        <member name="M:VR.VitalRecord.UpdateDictionary(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String})">
-            <summary>Combine the given dictionaries and return the combined result.</summary>
         </member>
         <member name="M:VR.VitalRecord.FromDescription``1(System.String)">
             <summary>Helper method to return a JSON string representation of this Vital Record.</summary>

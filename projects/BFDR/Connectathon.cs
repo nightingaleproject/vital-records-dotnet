@@ -59,7 +59,8 @@ namespace BFDR
 
             if (record != null && year != null)
             {
-                record.BirthYear = year;
+                // Overwrite the record's year in it's date of birth attribute.
+                record.DateOfBirth = year.ToString() + record.DateOfBirth.Substring(4);
             }
 
             return record;
@@ -131,7 +132,8 @@ namespace BFDR
 
             if (record != null && year != null)
             {
-                record.DeliveryYear = year;
+                // Overwrite the record's year in it's date of birth attribute.
+                record.DateOfDelivery = year.ToString() + record.DateOfDelivery.Substring(4);
             }
 
             return record;
