@@ -42,7 +42,7 @@ namespace VR
         }
         /// <summary>GetMessageResponsesAsync makes a GET request to the NVSS FHIR API server for any new messages
         /// responses</summary>
-        public async Task<HttpResponseMessage> GetMessageResponsesAsync()
+        public async Task<HttpResponseMessage> GetMessageResponsesAsync(string? optionalPath = null)
         {
             // if testing against the NVSS FHIR API server, add the authentication token
             if (!this.LocalTesting)
@@ -58,7 +58,9 @@ namespace VR
                 }
             }
 
-            var response = await client.GetAsync(this.Url);
+            string urlWithPath = CreateUrlWithPath(optionalPath);
+
+            var response = await client.GetAsync(urlWithPath);
 
             // check if the token expired, refresh and try again
             if (!response.IsSuccessStatusCode)
@@ -69,7 +71,7 @@ namespace VR
                 {
                     return authRetry;
                 }
-                response = await client.GetAsync(this.Url);
+                response = await client.GetAsync(urlWithPath);
             }
 
             return response;
@@ -77,11 +79,13 @@ namespace VR
 
         /// <summary>PostMessageAsync POSTS a single message to the NVSS FHIR API server for processing</summary>
         /// TODO: replace BaseMessage with CommonMessage !!!
-        public async Task<HttpResponseMessage> PostMessageAsync(CommonMessage message)
+        public async Task<HttpResponseMessage> PostMessageAsync(CommonMessage message, string? optionalPath = null)
         {
 
             var json = message.ToJSON();
             var data = new StringContent(json, Encoding.UTF8, "application/json");
+
+
 
             // if testing against the NVSS FHIR API server, add the authentication token
             if (!this.LocalTesting)
@@ -96,7 +100,7 @@ namespace VR
                     }
                 }
             }
-            var response = client.PostAsync(this.Url, data).Result;
+            var response = client.PostAsync(CreateUrlWithPath(optionalPath), data).Result;
 
             // check if the token expired, refresh and try again
             if (!response.IsSuccessStatusCode)
@@ -107,10 +111,20 @@ namespace VR
                 {
                     return authRetry;
                 }
-                response = await client.PostAsync(this.Url, data);
+                response = await client.PostAsync(CreateUrlWithPath(optionalPath), data);
             }
 
             return response;
+        }
+
+        private string CreateUrlWithPath(string? optionalPath)
+        {
+            string urlWithPath = this.Url;
+            if (optionalPath != null)
+            {
+                urlWithPath = this.Url + "/" + optionalPath;
+            }
+            return urlWithPath;
         }
 
         /// <summary>Create the payload for submission to the NVSS FHIR API for bulk upload</summary>
@@ -133,13 +147,13 @@ namespace VR
         }
 
         /// <summary>PostMessageAsync POSTS a list of messages to the NVSS FHIR API server for processing using bulk upload</summary>
-        public async Task<List<HttpResponseMessage>> PostMessagesAsync(IEnumerable<CommonMessage> messages, int batchSize)
+        public async Task<List<HttpResponseMessage>> PostMessagesAsync(IEnumerable<CommonMessage> messages, int batchSize, string? optionalPath = null)
         {
             List<HttpResponseMessage> responses = new List<HttpResponseMessage>();
             while (messages.Count() > 0)
             {
                 IEnumerable<CommonMessage> batch = messages.Take(batchSize);
-                List<HttpResponseMessage> batchResponses = await PostMessagesAsync(batch);
+                List<HttpResponseMessage> batchResponses = await PostMessagesAsync(batch, optionalPath);
                 responses.AddRange(batchResponses);
                 messages = messages.Skip(batchSize);
             }
@@ -148,9 +162,12 @@ namespace VR
 
         // PostMessageAsync POSTS a list of messages to the NVSS FHIR API server for processing using bulk upload
         // This method is private because it sends batches of arbirary size, the public method requires a batch size to be set
-        private async Task<List<HttpResponseMessage>> PostMessagesAsync(IEnumerable<CommonMessage> messages)
+        private async Task<List<HttpResponseMessage>> PostMessagesAsync(IEnumerable<CommonMessage> messages, string? optionalPath = null)
         {
-            string json = CreateBulkUploadPayload(messages, this.Url);
+
+            string urlWithPath = CreateUrlWithPath(optionalPath);
+
+            string json = CreateBulkUploadPayload(messages, urlWithPath);
             StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
 
             // if testing against the NVSS FHIR API server, add the authentication token
@@ -166,7 +183,7 @@ namespace VR
                     }
                 }
             }
-            var response = client.PostAsync(this.Url, data).Result;
+            var response = client.PostAsync(urlWithPath, data).Result;
 
             // check if the token expired, refresh and try again
             if (!response.IsSuccessStatusCode)
@@ -177,7 +194,7 @@ namespace VR
                 {
                     return Enumerable.Repeat(authRetry, messages.Count()).ToList();
                 }
-                response = await client.PostAsync(this.Url, data);
+                response = await client.PostAsync(urlWithPath, data);
             }
 
             // At this point we have an overall HTTP response and, if the request succeeded, one internal response for each
