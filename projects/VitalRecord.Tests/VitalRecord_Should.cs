@@ -26,16 +26,7 @@ namespace VitalRecord.Tests
             }
 
             // Expose protected methods for testing
-            public new static FhirDateTime ConvertDateToFhirDateTime(Date value) => VR.VitalRecord.ConvertDateToFhirDateTime(value);
             public new static FhirDateTime ConvertToDateTime(string date) => VR.VitalRecord.ConvertToDateTime(date);
-        }
-
-        [Fact]
-        public void ConvertDateToFhirDateTime_ShouldPreserveTheDate()
-        {
-            var now = Date.Today();
-            var fhirDate = MockVitalRecord.ConvertDateToFhirDateTime(now);
-            Assert.Equal(now.Value, fhirDate.Value);
         }
 
         [Fact]
