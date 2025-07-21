@@ -323,7 +323,7 @@ namespace BFDR
                 parsedDateTime = pdt;
                 return true;
             }
-            // parseDateTime = null;
+            parsedDateTime = default;
             return false;
         }
 

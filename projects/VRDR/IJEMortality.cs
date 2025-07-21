@@ -259,15 +259,15 @@ namespace VRDR
             }
             if (dateOnly)
             {
-                return date == null ? null : date.ToString("yyyy-MM-dd");
+                return date.ToString("yyyy-MM-dd");
             }
             else if (withTimezoneOffset)
             {
-                return date == null ? null : date.ToString("o");
+                return date.ToString("o");
             }
             else
             {
-                return date == null ? null : date.ToString("s");
+                return date.ToString("s");
             }
         }
 

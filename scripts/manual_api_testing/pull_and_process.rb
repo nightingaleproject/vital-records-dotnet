@@ -7,7 +7,7 @@ require 'oauth2'
 require 'active_support/time'
 require 'parallel'
 
-CLI_PATH = File.join(__dir__, '..', '..', 'VRDR.CLI', 'bin', 'Debug', 'netcoreapp6.0', 'DeathRecord.CLI.dll')
+CLI_PATH = File.join(__dir__, '..', '..', 'VRDR.CLI', 'bin', 'Debug', 'net9.0', 'DeathRecord.CLI.dll')
 if (!File.exists?(CLI_PATH))
   puts "Cannot find the CLI application at #{CLI_PATH}, you may need to build it"
   exit
