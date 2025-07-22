@@ -2144,14 +2144,30 @@ namespace VRDR.Tests
             occ["system"] = VR.CodeSystems.OccupationCDCSOC2018;
             occ["code"] = "13-2011";
             occ["display"] = "Accountants and Auditors";
-
             SetterDeathRecord.UsualOccupationCoded = occ;
+
             // Set text component
             SetterDeathRecord.UsualOccupation = "secretary";
             Assert.Equal("secretary", SetterDeathRecord.UsualOccupation);
-            Assert.Equal("13-2011", SetterDeathRecord.UsualOccupationCoded["code"]);
             Assert.Equal(VR.CodeSystems.OccupationCDCSOC2018, SetterDeathRecord.UsualOccupationCoded["system"]);
+            Assert.Equal("13-2011", SetterDeathRecord.UsualOccupationCoded["code"]);
+            Assert.Equal("Accountants and Auditors", SetterDeathRecord.UsualOccupationCoded["display"]);
 
+            // Test the associated helpers
+            SetterDeathRecord.UsualOccupationCDCSOC2018 = "27-2011";
+            Assert.Equal("secretary", SetterDeathRecord.UsualOccupation);
+            Assert.Equal("27-2011", SetterDeathRecord.UsualOccupationCDCSOC2018);
+            Assert.Null(SetterDeathRecord.UsualOccupationCensus2018);
+            Assert.Equal(VR.CodeSystems.OccupationCDCSOC2018, SetterDeathRecord.UsualOccupationCoded["system"]);
+            Assert.Equal("27-2011", SetterDeathRecord.UsualOccupationCoded["code"]);
+            Assert.Equal("", SetterDeathRecord.UsualOccupationCoded["display"]);
+            SetterDeathRecord.UsualOccupationCensus2018 = "0800";
+            Assert.Equal("secretary", SetterDeathRecord.UsualOccupation);
+            Assert.Equal("0800", SetterDeathRecord.UsualOccupationCensus2018);
+            Assert.Null(SetterDeathRecord.UsualOccupationCDCSOC2018);
+            Assert.Equal(VR.CodeSystems.OccupationCDCCensus2018, SetterDeathRecord.UsualOccupationCoded["system"]);
+            Assert.Equal("0800", SetterDeathRecord.UsualOccupationCoded["code"]);
+            Assert.Equal("", SetterDeathRecord.UsualOccupationCoded["display"]);
         }
 
         [Fact]
@@ -2165,7 +2181,7 @@ namespace VRDR.Tests
         [Fact]
         public void Set_UsualIndustryText()
         {
-            // Make sure that it doesn't mess up the coded part 
+            // Make sure that it doesn't mess up the coded part
             var ind = new Dictionary<string, string>();
             ind["system"] = VR.CodeSystems.IndustryCDCNAICS2017;
             ind["code"] = "54121";
@@ -2180,6 +2196,22 @@ namespace VRDR.Tests
             Assert.Equal("54121", SetterDeathRecord.UsualIndustryCoded["code"]);
             Assert.Equal("Accounting, Tax Preparation, Bookkeeping, and Payroll Services", SetterDeathRecord.UsualIndustryCoded["display"]);
             Assert.Equal(VR.CodeSystems.IndustryCDCNAICS2017, SetterDeathRecord.UsualIndustryCoded["system"]);
+
+            // Test the associate helpers
+            SetterDeathRecord.UsualIndustryCensus2018 = "7280";
+            Assert.Equal("State agency", SetterDeathRecord.UsualIndustry);
+            Assert.Equal("7280", SetterDeathRecord.UsualIndustryCensus2018);
+            Assert.Null(SetterDeathRecord.UsualIndustryNAICS2017);
+            Assert.Equal(VR.CodeSystems.IndustryCDCCensus2018, SetterDeathRecord.UsualIndustryCoded["system"]);
+            Assert.Equal("7280", SetterDeathRecord.UsualIndustryCoded["code"]);
+            Assert.Equal("", SetterDeathRecord.UsualIndustryCoded["display"]);
+            SetterDeathRecord.UsualIndustryNAICS2017 = "54121";
+            Assert.Equal("State agency", SetterDeathRecord.UsualIndustry);
+            Assert.Equal("54121", SetterDeathRecord.UsualIndustryNAICS2017);
+            Assert.Null(SetterDeathRecord.UsualIndustryCensus2018);
+            Assert.Equal(VR.CodeSystems.IndustryCDCNAICS2017, SetterDeathRecord.UsualIndustryCoded["system"]);
+            Assert.Equal("54121", SetterDeathRecord.UsualIndustryCoded["code"]);
+            Assert.Equal("", SetterDeathRecord.UsualIndustryCoded["display"]);
         }
 
         [Fact]
@@ -4220,7 +4252,9 @@ namespace VRDR.Tests
                 { "RACE14", "N" },
                 { "RACE15", "N" },
                 { "OCCUP", "Teacher" },
+                { "OCCUPC4", "0800" },
                 { "INDUST", "Education" },
+                { "INDUSTC4", "7280" },
                 { "BCNO", "717171" },
                 { "IDOB_YR", "1961" },
                 { "BSTATE", "YC" },

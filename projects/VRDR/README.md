@@ -157,6 +157,12 @@ deathRecord.ExaminerContactedHelper = VRDR.ValueSets.YesNoUnkown.Yes ;
 // Add DateOfDeath
 deathRecord.DateOfDeath = "2018-07-10T10:04:00+00:00";
 
+// Add occupation information
+deathRecord.UsualOccupation = "Tax accountant";
+deathRecord.UsualIndustry = "Tax preparation";
+deathRecord.UsualOccupationCensus2018 = "0800"; // or deathRecord.UsualOccupationCDCSOC2018 = "13-2011";
+deathRecord.UsualIndustryCensus2018 = "7280"; // or deathRecord.UsualIndustryNAICS2017 = "54121";
+
 // Print record as a JSON string
 Console.WriteLine(deathRecord.ToJSON());
 ```
@@ -258,6 +264,10 @@ are available to simplify setting coded values:
 * SpouseAliveHelper
 * EducationLevelHelper
 * EducationLevelEditFlagHelper
+* UsualOccupationCDCSOC2018
+* UsualOccupationCensus2018
+* UsualIndustryCensus2018
+* UsualIndustryNAICS2017
 * MilitaryServiceHelper
 * DecedentDispositionMethodHelper
 * AutopsyPerformedIndicatorHelper

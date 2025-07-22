@@ -139,6 +139,7 @@ namespace VRDR.Tests
             Assert.Equal("902101111", ije1.ZIP9_D);
 
         }
+
         [Fact]
         public void SetSTNAME_R()
         {
@@ -172,23 +173,37 @@ namespace VRDR.Tests
         public void SetVOID()
         {
             IJEMortality ije = new IJEMortality();
-	    Assert.Equal("0", ije.VOID);
+	        Assert.Equal("0", ije.VOID);
             ije.VOID = "123";
-	    Assert.Equal("0", ije.VOID);
+	        Assert.Equal("0", ije.VOID);
             ije.VOID = " ";
-	    Assert.Equal("0", ije.VOID);
+	        Assert.Equal("0", ije.VOID);
             ije.VOID = "abc #$@";
-	    Assert.Equal("0", ije.VOID);
+	        Assert.Equal("0", ije.VOID);
             ije.VOID = " 0 ";
             Assert.Equal("0", ije.VOID);
             ije.VOID = "0";
             Assert.Equal("0", ije.VOID);
             ije.VOID = " 1 ";
             Assert.Equal("1", ije.VOID);
-	    ije.VOID = "1";
+	        ije.VOID = "1";
             Assert.Equal("1", ije.VOID);
             ije.VOID = "2";
             Assert.Equal("0", ije.VOID);
+        }
+
+        [Fact]
+        public void SetOccupationAndIndustry()
+        {
+            IJEMortality ije1 = new IJEMortality();
+            Assert.Equal("", ije1.OCCUP.Trim());
+            Assert.Equal("", ije1.OCCUPC4.Trim());
+            ije1.OCCUP = "secretary";
+            ije1.OCCUPC4 = "0800";
+            ije1.INDUSTC4 = "7280";
+            Assert.Equal("secretary", ije1.OCCUP.Trim());
+            Assert.Equal("0800", ije1.OCCUPC4);
+            Assert.Equal("7280", ije1.INDUSTC4);
         }
 
         [Fact]
