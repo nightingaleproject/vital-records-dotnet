@@ -59,6 +59,7 @@
     <None Update="fixtures/json/EmptySubmission.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures/json/ExtractionErrorMessage.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures/json/IndustryOccupationCodingMessage.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="fixtures/json/IndustryOccupationCodingUpdateMessage.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures/json/InvalidJurisdictionId.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures/json/InvalidMessageType.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures/json/MissingArray.json" CopyToOutputDirectory="PreserveNewest" />
@@ -108,9 +109,11 @@
     <None Update="fixtures/filter/JurisdictionFieldsIJEFilter.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures/filter/IJEToFHIRMapping.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures/filter/ADDRESS_D-test.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="fixtures/filter/ADDRESS_D-update.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures/filter/LIMITS-test_1.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures/filter/LIMITS-test_2.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures/filter/Filtering+Parsing_1.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="fixtures/filter/DemographicsCodingMessage.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures/json/DeathRecordBadPartialDate.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures/json/DeathRecordBadPartialDateTime.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="fixtures\json\BadDeathRecord.json">

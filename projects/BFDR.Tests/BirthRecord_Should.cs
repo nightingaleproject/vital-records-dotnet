@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Serialization;
 using Newtonsoft.Json;
@@ -553,7 +554,7 @@ namespace BFDR.Tests
       rec.DateOfBirth = "2023";
       Assert.Equal("2023", rec.DateOfBirth);
       rec.BirthDateTime = "";
-      Assert.Equal(rec.DateOfBirth, "2023");
+      Assert.Equal("2023", rec.DateOfBirth);
       Assert.Null(rec.BirthDateTime);
       rec.DateOfBirth = "2023";
       Assert.Equal("2023", rec.DateOfBirth);
@@ -909,7 +910,7 @@ namespace BFDR.Tests
       TestMotherBirthDateHelper(new BirthRecord());
     }
 
-    public static void TestMotherBirthDateHelper(NatalityRecord rec)
+    internal static void TestMotherBirthDateHelper(NatalityRecord rec)
     {
       Assert.Null(rec.MotherDateOfBirth);
       Assert.Null(rec.MotherReportedAgeAtDelivery);
@@ -937,6 +938,19 @@ namespace BFDR.Tests
       Assert.Equal("1988-09-05", rec.MotherDateOfBirth);
       rec.MotherDateOfBirth = "1990-08-29";
       Assert.Equal("1990-08-29", rec.MotherDateOfBirth);
+
+      // Make sure setter does not override edit flag
+      Dictionary<string, string> editDict = new();
+      editDict.Add("code", "abc");
+      editDict.Add("system", "example.com");
+      editDict.Add("display", "ABC");
+      editDict.Add("text", "A B C");
+      rec.MotherDateOfBirthEditFlag = editDict;
+      Assert.Equal(editDict, rec.MotherDateOfBirthEditFlag);
+      rec.MotherDateOfBirth = "1980-01-01";
+      Assert.Equal("1980-01-01", rec.MotherDateOfBirth);
+      Assert.Equal(editDict, rec.MotherDateOfBirthEditFlag);
+
       rec.MotherDateOfBirth = null;
       Assert.Equal(27, rec.MotherReportedAgeAtDelivery);
       rec.MotherReportedAgeAtDelivery = null;
@@ -955,7 +969,7 @@ namespace BFDR.Tests
       TestMotherBirthDateUnknownsHelper(new BirthRecord());
     }
 
-    public static void TestMotherBirthDateUnknownsHelper(NatalityRecord rec)
+    internal static void TestMotherBirthDateUnknownsHelper(NatalityRecord rec)
     {
       rec.MotherDateOfBirth = "1990-08-29";
       Assert.Equal("1990-08-29", rec.MotherDateOfBirth);
@@ -967,7 +981,7 @@ namespace BFDR.Tests
       Assert.Equal("2001", rec.MotherDateOfBirth);
       rec.MotherDateOfBirth = "2001-08";
       Assert.Equal("2001-08", rec.MotherDateOfBirth);
-        rec.MotherDateOfBirth = "2001-08-06";
+      rec.MotherDateOfBirth = "2001-08-06";
       Assert.Equal("2001-08-06", rec.MotherDateOfBirth);
     }
 
@@ -977,7 +991,7 @@ namespace BFDR.Tests
       TestFatherBirthDateSetterHelper(new BirthRecord());
     }
 
-    public static void TestFatherBirthDateSetterHelper(NatalityRecord rec)
+    internal static void TestFatherBirthDateSetterHelper(NatalityRecord rec)
     {
       rec.FatherDateOfBirth = "1990-08-29";
       Assert.Equal("1990-08-29", rec.FatherDateOfBirth);
@@ -3003,6 +3017,30 @@ namespace BFDR.Tests
     }
 
     [Fact]
+    public void TestGestationalAgeAtDeliveryIsQuantity()
+    {
+      BirthRecord birthRecord = new();
+
+      // Start by setting edit flag
+      Dictionary<string, string> editDict = new();
+      editDict.Add("code", "0off");
+      editDict.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");
+      editDict.Add("display", "Off");
+      birthRecord.GestationalAgeAtDeliveryEditFlag = editDict;
+      Assert.Equal(editDict, birthRecord.GestationalAgeAtDeliveryEditFlag);
+
+      // Set value as a Quantity
+      Dictionary<string, string> ageDict = new Dictionary<string, string>
+      {
+          { "value", "12.5" },
+          { "code", "d" }
+      };
+      birthRecord.GestationalAgeAtDelivery = ageDict;
+      Assert.Equal(ageDict["value"], birthRecord.GestationalAgeAtDelivery["value"]);
+      Assert.Equal("d", birthRecord.GestationalAgeAtDelivery["code"]);
+    }
+
+    [Fact]
     public void TestFullBirthRecordImport()
     {
       BirthRecord birthRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
@@ -3592,6 +3630,16 @@ namespace BFDR.Tests
     }
 
     [Fact]
+    public void Test_UpdateIdentifier()
+    {
+      BirthRecord record = new BirthRecord();
+      record.CertificateNumber = "000001";
+      record.EventLocationJurisdiction = "MA";
+      record.DateOfBirth = "2025-01-01";
+      Assert.Equal("2025MA000001", record.GetBundle().Identifier.Value);
+    }
+
+    [Fact]
     public void Test_GetDemographicCodedContentBundle()
     {
       // Test with two existing coded demographic records
@@ -3669,6 +3717,124 @@ namespace BFDR.Tests
     }
 
     [Fact]
+    public void Test_CreateDemographicCodedContentBundle()
+    {
+      // Create the demographic coded content starting with the IJE portions
+      // TODO: Are some of these not supposed to be in the coded version? Add note: IG includes the input race and ethnicity, but optional, so tested here
+      IJEBirth ije = new IJEBirth();
+      ije.IDOB_YR = "2025";
+      ije.BSTATE = "NJ";
+      ije.FILENO = "000001";
+      ije.AUXNO = "123456781234";
+      ije.MRACE1E = "100";
+      ije.MRACE2E = "101";
+      ije.MRACE3E = "102";
+      ije.MRACE4E = "103";
+      ije.MRACE5E = "104";
+      ije.MRACE6E = "105";
+      ije.MRACE7E = "106";
+      ije.MRACE8E = "107";
+      ije.MRACE16C = "108";
+      ije.MRACE17C = "109";
+      ije.MRACE18C = "110";
+      ije.MRACE19C = "111";
+      ije.MRACE20C = "112";
+      ije.MRACE21C = "113";
+      ije.MRACE22C = "114";
+      ije.MRACE23C = "115";
+      ije.FRACE1E = "116";
+      ije.FRACE2E = "117";
+      ije.FRACE3E = "118";
+      ije.FRACE4E = "119";
+      ije.FRACE5E = "120";
+      ije.FRACE6E = "121";
+      ije.FRACE7E = "122";
+      ije.FRACE8E = "123";
+      ije.FRACE16C = "124";
+      ije.FRACE17C = "125";
+      ije.FRACE18C = "126";
+      ije.FRACE19C = "127";
+      ije.FRACE20C = "128";
+      ije.FRACE21C = "129";
+      ije.FRACE22C = "130";
+      ije.FRACE23C = "131";
+      ije.METHNIC5C = "200";
+      ije.METHNICE = "201";
+      ije.FETHNIC5C = "202";
+      ije.FETHNICE = "203";
+      ije.METHNIC1 = "N";
+      ije.METHNIC2 = "H";
+      ije.METHNIC3 = "U";
+      ije.METHNIC4 = "N";
+      ije.METHNIC5 = "literal1";
+      ije.MRACE1 = "Y";
+      ije.MRACE2 = "N";
+      ije.MRACE3 = "Y";
+      ije.MRACE4 = "N";
+      ije.MRACE5 = "Y";
+      ije.MRACE6 = "N";
+      ije.MRACE7 = "Y";
+      ije.MRACE8 = "N";
+      ije.MRACE9 = "Y";
+      ije.MRACE10 = "N";
+      ije.MRACE11 = "Y";
+      ije.MRACE12 = "N";
+      ije.MRACE13 = "Y";
+      ije.MRACE14 = "N";
+      ije.MRACE15 = "Y";
+      ije.MRACE16 = "literal2";
+      ije.MRACE17 = "literal3";
+      ije.MRACE18 = "literal4";
+      ije.MRACE19 = "literal5";
+      ije.MRACE20 = "literal6";
+      ije.MRACE21 = "literal7";
+      ije.MRACE22 = "literal8";
+      ije.MRACE23 = "literal9";
+      ije.FETHNIC1 = "H";
+      ije.FETHNIC2 = "U";
+      ije.FETHNIC3 = "N";
+      ije.FETHNIC4 = "H";
+      ije.FETHNIC5 = "literal10";
+      ije.FRACE1 = "N";
+      ije.FRACE2 = "Y";
+      ije.FRACE3 = "N";
+      ije.FRACE4 = "Y";
+      ije.FRACE5 = "N";
+      ije.FRACE6 = "Y";
+      ije.FRACE7 = "N";
+      ije.FRACE8 = "Y";
+      ije.FRACE9 = "N";
+      ije.FRACE10 = "Y";
+      ije.FRACE11 = "N";
+      ije.FRACE12 = "Y";
+      ije.FRACE13 = "N";
+      ije.FRACE14 = "Y";
+      ije.FRACE15 = "N";
+      ije.FRACE16 = "literal11";
+      ije.FRACE17 = "literal12";
+      ije.FRACE18 = "literal13";
+      ije.FRACE19 = "literal14";
+      ije.FRACE20 = "literal15";
+      ije.FRACE21 = "literal16";
+      ije.FRACE22 = "literal17";
+      ije.FRACE23 = "literal18";
+      BirthRecord record = ije.ToBirthRecord();
+      Bundle bundle = record.GetDemographicCodedContentBundle();
+      Assert.Equal(Bundle.BundleType.Document, bundle.Type);
+      // Make sure the composition type is correct
+      Composition composition = bundle.Entry.Select(entry => entry.Resource as Composition).FirstOrDefault(c => c != null);
+      Assert.Equal("86805-9", composition.Type.Coding[0].Code);
+      BirthRecord record2 = new BirthRecord(bundle.ToJson());
+      IJEBirth ije2 = new IJEBirth(record2);
+      // Make sure that all the field values match the original
+      List<PropertyInfo> properties = typeof(IJEBirth).GetProperties().ToList();
+      foreach (PropertyInfo property in properties)
+      {
+        Assert.Equal(property.GetValue(ije), property.GetValue(ije2));
+      }
+    }
+
+    [Fact]
     public void Test_GetCodedIndustryAndOccupationBundle()
     {
       // Test with two existing industry and occupation records
@@ -3688,9 +3854,402 @@ namespace BFDR.Tests
         {
           // Confirm identifier match
           Assert.Equal(record.RecordIdentifier, testRecord.RecordIdentifier);
-          // TODO: When coded industry and occupation fields are supported include them here
+          // Confirm industry and occupation coded fields match
+          Assert.Equal(record.MotherCodedOccupation, testRecord.MotherCodedOccupation);
+          Assert.Equal(record.FatherCodedOccupation, testRecord.FatherCodedOccupation);
+          Assert.Equal(record.MotherCodedIndustry, testRecord.MotherCodedIndustry);
+          Assert.Equal(record.FatherCodedIndustry, testRecord.FatherCodedIndustry);
+          // Test the helper methods as well
+          Assert.Equal(record.MotherCodedOccupationHelper, testRecord.MotherCodedOccupationHelper);
+          Assert.Equal(record.FatherCodedOccupationHelper, testRecord.FatherCodedOccupationHelper);
+          Assert.Equal(record.MotherCodedIndustryHelper, testRecord.MotherCodedIndustryHelper);
+          Assert.Equal(record.FatherCodedIndustryHelper, testRecord.FatherCodedIndustryHelper);
         }
       }
     }
+
+    [Fact]
+    public void Test_CreateCodedIndustryAndOccupationBundle()
+    {
+      // Create the industry and occupation coded content starting with the IJE portions
+      IJEBirth ije = new IJEBirth();
+      ije.IDOB_YR = "2025";
+      ije.BSTATE = "NJ";
+      ije.FILENO = "000001";
+      ije.MOM_OC_T = "Mother occupation";
+      ije.MOM_IN_T = "Mother industry";
+      ije.DAD_OC_T = "Father occupation";
+      ije.DAD_IN_T = "Father industry";
+      // Some fields do not exist in IJE, so we set those after converting to a FHIR record
+      BirthRecord record = ije.ToBirthRecord();
+      record.MotherCodedOccupationHelper = "13-2011";
+      record.FatherCodedOccupationHelper = "27-2011";
+      record.MotherCodedIndustryHelper = "54121";
+      record.FatherCodedIndustryHelper = "5223";
+      Bundle bundle = record.GetCodedIndustryAndOccupationBundle();
+      Assert.Equal(Bundle.BundleType.Document, bundle.Type);
+      // Make sure the composition type is correct
+      Composition composition = bundle.Entry.Select(entry => entry.Resource as Composition).FirstOrDefault(c => c != null);
+      Assert.Equal("industry_occupation_document", composition.Type.Coding[0].Code);
+      // Test that the information that can't be represented in IJE was set correctly
+      BirthRecord record2 = new BirthRecord(bundle.ToJson());
+      Assert.Equal("13-2011", record2.MotherCodedOccupationHelper);
+      Assert.Equal("27-2011", record2.FatherCodedOccupationHelper);
+      Assert.Equal("54121", record2.MotherCodedIndustryHelper);
+      Assert.Equal("5223", record2.FatherCodedIndustryHelper);
+      // Test that the values that can be represented in IJE were set correctly
+      IJEBirth ije2 = new IJEBirth(record2);
+      // Make sure that all the field values match the original
+      List<PropertyInfo> properties = typeof(IJEBirth).GetProperties().ToList();
+      foreach (PropertyInfo property in properties)
+      {
+        Assert.Equal(property.GetValue(ije), property.GetValue(ije2));
+      }
+    }
+    
+    [Fact]
+    public void TestForOverwritesBirth()
+    {
+        // This test makes sure that there are no fields that, when writing them, accidentally change another field;
+        // we test this by going through each field, setting it to a value, and then setting all other fields to a value,
+        // and then checking to make sure the original field still has the same value
+
+        // Make a list of all the fields we'll test and a valid value for each
+        Dictionary<string, string> fields = new Dictionary<string, string>
+        {
+            // This list of fields is fairly comprehensive, though some have been intentionally left out:
+            //
+            // These fields are not expected to be implemented: DOLP_MO, DOLP_DY, DOLP_YR, CERV, TOC, PROM, PRIC, PROL,
+            // ATTF, ATTV, R_YR, R_MO, R_DY, MOM_OC_C, DAD_OC_C, MOM_IN_C, DAD_IN_C, MARE, BLANK, BLANK2, MATCH, MCPH,
+            // MAGE_CALC, FAGE_CALC, MRACEBG_C, FRACEBG_C, METHNIC_T, MRACE_T, FETHNIC_T, FRACE_T, SSN_CITIZEN_CD,
+            // SSN_MULT_BTH_CD, SSN_FEEDBACK, SSN_BRTH_CRT_NO, REGISTER_YR, REGISTER_MO, REGISTER_DY, REPLACE
+            //
+            // This test doesn't work with middle name fields since they can't be set first due to how FHIR handles names:
+            // KIDMNAME, MOMMIDDL, MOMMMID, DADMNAME
+            //
+            // ATTEND and ATTEND_OTH_TXT interact with each other
+            // CERTIF and CERTIF_OTH_TXT interact with each other
+            // HFT, HIN, and HGT_BYPASS interact with each other
+
+            { "IDOB_YR", "2024" },
+            { "BSTATE", "TT" },
+            { "FILENO", "099991" },
+            { "VOID", "1" },
+            { "AUXNO", "123456" },
+            { "ISEX", "F" },
+            { "IDOB_MO", "01" },
+            { "IDOB_DY", "01" },
+            { "TB", "1031" },
+            { "CNTYO", "019" },
+            { "BPLACE", "1" },
+            { "FNPI", "1487607784" },
+            { "SFN", "1101" },
+            { "MDOB_YR", "1992" },
+            { "MDOB_MO", "10" },
+            { "MDOB_DY", "13" },
+            // { "MAGE_BYPASS", "0" }, Note: This gets cleared when MAGE is set
+            { "BPLACEC_ST_TER", "TX" },
+            { "BPLACEC_CNT", "MX" },
+            { "CITYC", "77000" },
+            { "COUNTYC", "019" },
+            { "STATEC", "AZ" },
+            { "COUNTRYC", "US" },
+            { "LIMITS", "Y" },
+            { "FDOB_YR", "1991" },
+            { "FDOB_MO", "12" },
+            { "FDOB_DY", "19" },
+            // { "FAGE_BYPASS", "0" }, Note: This gets cleared when FAGE is set
+            { "MARN", "U" },
+            { "ACKN", "U" },
+            { "MEDUC", "3" },
+            { "MEDUC_BYPASS", "0" },
+            { "METHNIC1", "H" },
+            { "METHNIC2", "N" },
+            { "METHNIC3", "N" },
+            { "METHNIC4", "N" },
+            { "METHNIC5", "Literal1" },
+            { "MRACE1", "Y" },
+            { "MRACE2", "N" },
+            { "MRACE3", "N" },
+            { "MRACE4", "N" },
+            { "MRACE5", "N" },
+            { "MRACE6", "N" },
+            { "MRACE7", "N" },
+            { "MRACE8", "N" },
+            { "MRACE9", "N" },
+            { "MRACE10", "N" },
+            { "MRACE11", "N" },
+            { "MRACE12", "N" },
+            { "MRACE13", "N" },
+            { "MRACE14", "N" },
+            { "MRACE15", "N" },
+            { "MRACE16", "Literal2" },
+            { "MRACE17", "Literal3" },
+            { "MRACE18", "Literal4" },
+            { "MRACE19", "Literal5" },
+            { "MRACE20", "Literal6" },
+            { "MRACE21", "Literal7" },
+            { "MRACE22", "Literal8" },
+            { "MRACE23", "Literal9" },
+            { "MRACE1E", "100" },
+            { "MRACE2E", "101" },
+            { "MRACE3E", "102" },
+            { "MRACE4E", "103" },
+            { "MRACE5E", "104" },
+            { "MRACE6E", "105" },
+            { "MRACE7E", "106" },
+            { "MRACE8E", "107" },
+            { "MRACE16C", "108" },
+            { "MRACE17C", "109" },
+            { "MRACE18C", "110" },
+            { "MRACE19C", "111" },
+            { "MRACE20C", "112" },
+            { "MRACE21C", "113" },
+            { "MRACE22C", "114" },
+            { "MRACE23C", "115" },
+            { "ATTEND", "2" },
+            { "FEDUC", "3" },
+            { "FEDUC_BYPASS", "0" },
+            { "FETHNIC1", "H" },
+            { "FETHNIC2", "N" },
+            { "FETHNIC3", "N" },
+            { "FETHNIC4", "N" },
+            { "FETHNIC5", "Literal10" },
+            { "FRACE1", "Y" },
+            { "FRACE2", "N" },
+            { "FRACE3", "N" },
+            { "FRACE4", "N" },
+            { "FRACE5", "N" },
+            { "FRACE6", "N" },
+            { "FRACE7", "N" },
+            { "FRACE8", "N" },
+            { "FRACE9", "N" },
+            { "FRACE10", "N" },
+            { "FRACE11", "N" },
+            { "FRACE12", "N" },
+            { "FRACE13", "N" },
+            { "FRACE14", "N" },
+            { "FRACE15", "N" },
+            { "FRACE16", "Literal11" },
+            { "FRACE17", "Literal12" },
+            { "FRACE18", "Literal13" },
+            { "FRACE19", "Literal14" },
+            { "FRACE20", "Literal15" },
+            { "FRACE21", "Literal16" },
+            { "FRACE22", "Literal17" },
+            { "FRACE23", "Literal18" },
+            { "FRACE1E", "200" },
+            { "FRACE2E", "201" },
+            { "FRACE3E", "202" },
+            { "FRACE4E", "203" },
+            { "FRACE5E", "204" },
+            { "FRACE6E", "205" },
+            { "FRACE7E", "206" },
+            { "FRACE8E", "207" },
+            { "FRACE16C", "208" },
+            { "FRACE17C", "209" },
+            { "FRACE18C", "400" },
+            { "FRACE19C", "401" },
+            { "FRACE20C", "402" },
+            { "FRACE21C", "403" },
+            { "FRACE22C", "404" },
+            { "FRACE23C", "405" },
+            { "TRAN", "N" },
+            { "DOFP_MO", "88" },
+            { "DOFP_DY", "88" },
+            { "DOFP_YR", "8888" },
+            { "NPREV", "00" },
+            // { "NPREV_BYPASS", "0" }, Note: This gets cleared when NPREV is set
+            { "PWGT", "100" },
+            { "PWGT_BYPASS", "0" },
+            { "DWGT", "127" },
+            { "DWGT_BYPASS", "0" },
+            { "WIC", "N" },
+            { "PLBL", "03" },
+            { "PLBD", "00" },
+            { "POPO", "00" },
+            { "MLLB", "06" },
+            { "YLLB", "2015" },
+            { "MOPO", "88" },
+            { "YOPO", "8888" },
+            { "CIGPN", "00" },
+            { "CIGFN", "00" },
+            { "CIGSN", "00" },
+            { "CIGLN", "00" },
+            { "PAY", "3" },
+            { "DLMP_YR", "2019" },
+            { "DLMP_MO", "07" },
+            { "DLMP_DY", "31" },
+            { "PDIAB", "N" },
+            { "GDIAB", "N" },
+            { "PHYPE", "N" },
+            { "GHYPE", "N" },
+            { "PPB", "N" },
+            { "INFT", "N" },
+            { "PCES", "N" },
+            { "NPCES", "00" },
+            // { "NPCES_BYPASS", "0" }, Note: This gets cleared when NPCES is set
+            { "GON", "N" },
+            { "SYPH", "N" },
+            { "CHAM", "N" },
+            { "HEPB", "N" },
+            { "HEPC", "N" },
+            { "ECVS", "N" },
+            { "ECVF", "N" },
+            { "INDL", "Y" },
+            { "AUGL", "Y" },
+            { "STER", "Y" },
+            { "ANTB", "Y" },
+            { "CHOR", "Y" },
+            { "ESAN", "Y" },
+            { "PRES", "2" },
+            { "ROUT", "1" },
+            { "TLAB", "U" },
+            { "MTR", "N" },
+            { "PLAC", "N" },
+            { "RUT", "N" },
+            { "UHYS", "N" },
+            { "AINT", "N" },
+            { "BWG", "0539" },
+            { "BW_BYPASS", "0" },
+            // { "OWGEST", "21" }, TODO: This causes an error when setting after OWGEST_BYPASS is set
+            { "OWGEST_BYPASS", "0" },
+            { "APGAR5", "01" },
+            { "APGAR10", "04" },
+            { "PLUR", "01" },
+            { "SORD", "99" },
+            { "LIVEB", "99" },
+            { "PLUR_BYPASS", "0" },
+            { "AVEN1", "N" },
+            { "AVEN6", "N" },
+            { "NICU", "N" },
+            { "SURF", "N" },
+            { "ANTI", "N" },
+            { "SEIZ", "N" },
+            { "ANEN", "N" },
+            { "MNSB", "N" },
+            { "CCHD", "N" },
+            { "CDH", "N" },
+            { "OMPH", "N" },
+            { "GAST", "N" },
+            { "LIMB", "N" },
+            { "CL", "N" },
+            { "CP", "N" },
+            { "DOWT", "N" },
+            { "CDIT", "N" },
+            { "HYPO", "N" },
+            { "ITRAN", "Y" },
+            { "ILIV", "Y" },
+            { "BFED", "N" },
+            { "MAGER", "99" },
+            { "FAGER", "99" },
+            { "EHYPE", "N" },
+            { "INFT_DRG", "N" },
+            { "INFT_ART", "N" },
+            { "DOR_YR", "2020" },
+            { "DOR_MO", "01" },
+            { "DOR_DY", "02" },
+            { "KIDFNAME", "YYTRF" },
+            { "KIDLNAME", "CARDENAS ROMERO" },
+            { "KIDSUFFX", "KIDSUFF" },
+            { "BIRTH_CO", "PIMA" },
+            { "BRTHCITY", "TUCSON" },
+            { "HOSP", "NORTHWEST MEDICAL CENTER" },
+            { "MOMFNAME", "ALEJANDRA" },
+            { "MOMLNAME", "ROMERO LEON" },
+            { "MOMSUFFX", "MOMSUFF" },
+            { "MOMFMNME", "MOMFMNME" },
+            { "MOMMAIDN", "ROMERO LEON" },
+            { "MOMMSUFX", "MOMMSUF" },
+            { "STNUM", "STNUM" },
+            { "PREDIR", "PREDIR" },
+            { "STNAME", "STNAME" },
+            { "STDESIG", "STDESIG" },
+            { "POSTDIR", "POSTDIR" },
+            { "UNUM", "UNUM" },
+            { "ADDRESS", "6666 NORTH ORACLE ROAD100" },
+            { "ZIPCODE", "85705" },
+            { "COUNTYTXT", "PIMA" },
+            { "CITYTEXT", "TUCSON" },
+            { "STATETXT", "Arizona" },
+            { "CNTRYTXT", "United States" },
+            { "DADFNAME", "RAMON" },
+            { "DADLNAME", "CARDENAS OTERO" },
+            { "DADSUFFX", "DADSUFF" },
+            { "MOM_SSN", "888888888" },
+            { "DAD_SSN", "888888888" },
+            { "MOM_OC_T", "Literal19" },
+            { "DAD_OC_T", "Literal20" },
+            { "MOM_IN_T", "Literal21" },
+            { "DAD_IN_T", "Literal22" },
+            { "FBPLACD_ST_TER_C", "AK" },
+            { "FBPLACE_CNT_C", "MX" },
+            { "METHNIC5C", "100" },
+            { "METHNICE", "200" },
+            { "FETHNIC5C", "201" },
+            { "FETHNICE", "202" },
+            { "HOSPFROM", "Literal27" },
+            { "HOSPTO", "BANNER UNIVERSITY MEDICAL CENTER - TUCSON" },
+            { "MBPLACE_ST_TER_TXT", "Texas" },
+            { "MBPLACE_CNTRY_TXT", "Mexico" },
+            { "FBPLACE_ST_TER_TXT", "Alaska" },
+            { "FBPLACE_CNTRY_TXT", "Mexico" },
+            { "MAIL_STNUM", "MAIL_STNUM" },
+            { "MAIL_PREDIR", "MAIL_PREDI" },
+            { "MAIL_STNAME", "MAIL_STNAME" },
+            { "MAIL_STDESIG", "MAIL_STDES" },
+            { "MAIL_POSTDIR", "MAIL_POSTD" },
+            { "MAIL_UNUM", "MAIL_UN" },
+            { "MAIL_ADDRESS", "9999 NORTH PRIEST RD236" },
+            { "MAIL_ZIPCODE", "85489" },
+            { "MAIL_COUNTYTXT", "MAIL_COUNTYTXT" },
+            { "MAIL_CITYTEXT", "MESA" },
+            { "MAIL_STATETXT", "Arizona" },
+            { "MAIL_CNTRYTXT", "United States" },
+            { "SSN_REQ", "Y" },
+            { "ATTEND_NAME", "HEATHERSTEVENS" },
+            { "ATTEND_NPI", "1932304839" },
+            { "CERTIF_NAME", "CERTIF_NAME" },
+            { "CERTIF_NPI", "123456789876" },
+            { "CERTIF", "5" },
+            { "INF_MED_REC_NUM", "1393674" },
+            { "MOM_MED_REC_NUM", "1393655" },
+            { "CERTIFIED_YR", "2024" },
+            { "CERTIFIED_MO", "12" },
+            { "CERTIFIED_DY", "31" },
+            { "MARITAL_DESCRIP", "MARITAL_DESCRIP" },
+            { "PLACE1_1", "A" },
+            { "PLACE1_2", "B" },
+            { "PLACE1_3", "C" },
+            { "PLACE1_4", "D" },
+            { "PLACE1_5", "E" },
+            { "PLACE1_6", "F" },
+            { "PLACE8_1", "PLACE8_1" },
+            { "PLACE8_2", "PLACE8_2" },
+            { "PLACE8_3", "PLACE8_3" },
+            { "PLACE20", "PLACE20" }
+        };
+        // For each field, create a record, set all the fields, reset all the fields besides the field being
+        // tested, and make sure the field being tested still has the same value
+        foreach (var (field, value) in fields)
+        {
+            IJEBirth ije = new IJEBirth();
+            PropertyInfo property = typeof(IJEBirth).GetProperty(field);
+            Console.WriteLine($"Testing {field} with value {value}");
+            foreach (var (writeField, writeValue) in fields)
+            {
+                PropertyInfo writeProperty = typeof(IJEBirth).GetProperty(writeField);
+                writeProperty.SetValue(ije, writeValue);
+            }
+            foreach (var (overwriteField, overwriteValue) in fields)
+            {
+                if (overwriteField == field) continue; // Don't rewrite the field we're testing
+                PropertyInfo overwriteProperty = typeof(IJEBirth).GetProperty(overwriteField);
+                overwriteProperty.SetValue(ije, overwriteValue);
+            }
+            Assert.Equal(value, ((string)property.GetValue(ije)).Trim());
+        }
+    }    
+
   }
 }

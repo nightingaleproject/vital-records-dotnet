@@ -39,7 +39,21 @@ namespace BFDR
         public override uint? GetYear()
         {
             VitalRecord.ParseDateElements(this.DateOfBirth, out int? year, out _, out _);
-            return (uint?) year;
+            if (year != null)
+            {
+                return (uint?) year;
+            }
+            // For cases where we loaded a bundle that has the RecordIdentifier but not the individual fields
+            // we can find the value as a substring of the RecordIdentifier
+            if (RecordIdentifier != null && RecordIdentifier.Length == 12 && RecordIdentifier.Substring(0, 4) != "0000")
+            {
+                int parsedYear;
+                if (Int32.TryParse(RecordIdentifier.Substring(0, 4), out parsedYear))
+                {
+                    return (uint?) parsedYear;
+                }
+            }
+            return null;
         }
         
         /// <inheritdoc/>

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
+using System.Linq;
 using VR;
 using Xunit;
 using Hl7.Fhir.Model;
@@ -1989,6 +1991,365 @@ namespace BFDR.Tests
           Assert.Equal(record.OCOD7, testRecord.OCOD7);
         }
       }
+    }
+
+    [Fact]
+    public void Test_CreateCodedCauseOfFetalDeathBundle()
+    {
+      // Create the coded cause of death content starting with the IJE
+      IJEFetalDeath ije = new IJEFetalDeath();
+      ije.FDOD_YR = "2025";
+      ije.DSTATE = "NJ";
+      ije.FILENO = "000001";
+      ije.AUXNO = "123456781234";
+      ije.ICOD = "P011";
+      ije.OCOD1 = "P021";
+      ije.OCOD2 = "P022";
+      ije.OCOD3 = "P023";
+      ije.OCOD4 = "P024";
+      ije.OCOD5 = "P025";
+      ije.OCOD6 = "P026";
+      ije.OCOD7 = "P027";
+      FetalDeathRecord record = ije.ToFetalDeathRecord();
+      Bundle bundle = record.GetCodedCauseOfFetalDeathBundle();
+      Assert.Equal(Bundle.BundleType.Document, bundle.Type);
+      // Make sure the composition type is correct
+      Composition composition = bundle.Entry.Select(entry => entry.Resource as Composition).FirstOrDefault(c => c != null);
+      Assert.Equal("86804-2", composition.Type.Coding[0].Code);
+      FetalDeathRecord record2 = new FetalDeathRecord(bundle.ToJson());
+      IJEFetalDeath ije2 = new IJEFetalDeath(record2);
+      // Make sure that all the field values match the original
+      List<PropertyInfo> properties = typeof(IJEFetalDeath).GetProperties().ToList();
+      foreach (PropertyInfo property in properties)
+      {
+        Assert.Equal(property.GetValue(ije), property.GetValue(ije2));
+      }
+    }
+
+    [Fact]
+    public void TestForOverwritesFD()
+    {
+        // This test makes sure that there are no fields that, when writing them, accidentally change another field;
+        // we test this by going through each field, setting it to a value, and then setting all other fields to a value,
+        // and then checking to make sure the original field still has the same value
+
+        // Make a list of all the fields we'll test and a valid value for each
+        Dictionary<string, string> fields = new Dictionary<string, string>
+        {
+            // This list of fields is fairly comprehensive, though some have been intentionally left out:
+            //
+            // These fields are not expected to be implemented: MARE, MARN, DOLP_MO, DOLP_DY, DOLP_YR, NPREV, NPREV_BYPASS,
+            // POPO, MOPO, YOPO, PPB, PPO, VB, GON, SYPH, HSV, CHAM, LM, GBS, CMV, B19, TOXO, OTHERI, ATTF, ATTV, HYST,
+            // MTR, PLAC, UHYS, UOPR, ANEN, MNSB, CCHD, CDH, OMPH, GAST, LIMB, CL, CP, DOWT, CDIT, HYPO, R_YR, R_MO, R_DY,
+            // MOM_OC_C, DAD_OC_C, MOM_IN_C, DAD_IN_C, BLANK, BLANK2, TRAN, MATCH, HSV1, HIV, ALCOHOL, ALIAS, LONG_D, LAT_D,
+            // LONG, LAT, MAGE_CALC, FAGE_CALC, MRACEBG_C, FRACEBG_C, METHNIC_T, MRACE_T, FETHNIC_T, FRACE_T, INFORMFST,
+            // INFORMMID, INFORMLST, INFORMRELATE, REGISTER_YR, REGISTER_MO, REGISTER_DY, REPLACE
+            //
+            // This test doesn't work with middle name fields since they can't be set first due to how FHIR handles names:
+            // FETMNAME, MOMMNAME, MOMMMID, DADMNAME
+            //
+            // The COD18a9 field is expected to overwrite the COD18a6 field
+            // The COD18b9 field is expected to overwrite the COD18b6 field
+            // HFT, HIN, and HGT_BYPASS interact with each other
+
+            { "FDOD_YR", "2019" },
+            { "DSTATE", "MI" },
+            { "FILENO", "009876" },
+            { "VOID", "0" },
+            { "AUXNO", "11111-11111" },
+            { "FSEX", "F" },
+            { "FDOD_MO", "01" },
+            { "FDOD_DY", "09" },
+            { "TD", "1823" },
+            { "CNTYO", "000" },
+            { "DPLACE", "1" },
+            { "FNPI", "116441967701" },
+            { "SFN", "UT12" },
+            { "MDOB_YR", "1990" },
+            { "MDOB_MO", "03" },
+            { "MDOB_DY", "11" },
+            // { "MAGE_BYPASS", "0" }, Note: This gets cleared when MAGE is set
+            { "BPLACEC_ST_TER", "PR" },
+            { "BPLACEC_CNT", "US" },
+            { "CITYC", "00000" },
+            { "COUNTYC", "000" },
+            { "STATEC", "MI" },
+            { "COUNTRYC", "US" },
+            { "LIMITS", "N" },
+            { "FDOB_YR", "1991" },
+            { "FDOB_MO", "06" },
+            { "FDOB_DY", "05" },
+            // { "FAGE_BYPASS", "1" }, Note: This gets cleared when FAGE is set
+            { "MEDUC", "2" },
+            { "MEDUC_BYPASS", "0" },
+            { "METHNIC1", "Y" },
+            { "METHNIC2", "Y" },
+            { "METHNIC3", "Y" },
+            { "METHNIC4", "N" },
+            { "METHNIC5", "Literal1" },
+            { "MRACE1", "Y" },
+            { "MRACE2", "Y" },
+            { "MRACE3", "Y" },
+            { "MRACE4", "N" },
+            { "MRACE5", "N" },
+            { "MRACE6", "N" },
+            { "MRACE7", "N" },
+            { "MRACE8", "N" },
+            { "MRACE9", "N" },
+            { "MRACE10", "N" },
+            { "MRACE11", "N" },
+            { "MRACE12", "N" },
+            { "MRACE13", "N" },
+            { "MRACE14", "N" },
+            { "MRACE15", "N" },
+            { "MRACE16", "Arikara" },
+            { "MRACE17", "Literal2" },
+            { "MRACE18", "Malaysian" },
+            { "MRACE19", "Literal3" },
+            { "MRACE20", "Literal4" },
+            { "MRACE21", "Literal5" },
+            { "MRACE22", "Literal6" },
+            { "MRACE23", "Literal7" },
+            { "MRACE1E", "100" },
+            { "MRACE2E", "101" },
+            { "MRACE3E", "102" },
+            { "MRACE4E", "103" },
+            { "MRACE5E", "104" },
+            { "MRACE6E", "105" },
+            { "MRACE7E", "106" },
+            { "MRACE8E", "107" },
+            { "MRACE16C", "108" },
+            { "MRACE17C", "109" },
+            { "MRACE18C", "110" },
+            { "MRACE19C", "111" },
+            { "MRACE20C", "112" },
+            { "MRACE21C", "113" },
+            { "MRACE22C", "114" },
+            { "MRACE23C", "115" },
+            { "ATTEND", "2" },
+            { "DOFP_MO", "05" },
+            { "DOFP_DY", "18" },
+            { "DOFP_YR", "2018" },
+            { "PWGT", "180" },
+            { "PWGT_BYPASS", "0" },
+            { "WIC", "N" },
+            { "PLBL", "01" },
+            { "PLBD", "00" },
+            { "MLLB", "01" },
+            { "YLLB", "2016" },
+            { "CIGPN", "00" },
+            { "CIGFN", "00" },
+            { "CIGSN", "01" },
+            { "CIGLN", "00" },
+            { "DLMP_YR", "2018" },
+            { "DLMP_MO", "04" },
+            { "DLMP_DY", "18" },
+            { "PDIAB", "U" },
+            { "GDIAB", "U" },
+            { "PHYPE", "U" },
+            { "GHYPE", "U" },
+            { "INFT", "U" },
+            { "PCES", "U" },
+            { "NPCES", "01" },
+            // { "NPCES_BYPASS", "0" }, Note: This gets cleared when NPCES is set
+            { "PRES", "2" },
+            { "ROUT", "1" },
+            { "TLAB", "U" },
+            { "RUT", "U" },
+            { "AINT", "U" },
+            { "FWG", "1530" },
+            { "FW_BYPASS", "0" },
+            { "OWGEST", "20" },
+            // { "OWGEST_BYPASS", "0" }, Note: This gets cleared when OWGEST is set
+            { "ETIME", "A" },
+            { "AUTOP", "Y" },
+            { "HISTOP", "Y" },
+            { "AUTOPF", "Y" },
+            { "PLUR", "04" },
+            { "SORD", "03" },
+            { "FDTH", "01" },
+            { "PLUR_BYPASS", "0" },
+            { "MAGER", "34" },
+            { "FAGER", "35" },
+            { "EHYPE", "U" },
+            { "INFT_DRG", "U" },
+            { "INFT_ART", "U" },
+            { "DOR_YR", "2019" },
+            { "DOR_MO", "01" },
+            { "DOR_DY", "09" },
+            { "COD18a1", "Y" },
+            { "COD18a2", "N" },
+            { "COD18a3", "N" },
+            { "COD18a4", "N" },
+            { "COD18a5", "N" },
+            { "COD18a6", "N" },
+            { "COD18a7", "N" },
+            { "COD18a8", "Literal8" },
+            { "COD18a10", "Literal10" },
+            { "COD18a11", "Literal11" },
+            { "COD18a12", "Literal12" },
+            { "COD18a13", "Literal13" },
+            { "COD18a14", "Literal14" },
+            { "COD18b1", "N" },
+            { "COD18b2", "N" },
+            { "COD18b3", "Y" },
+            { "COD18b4", "N" },
+            { "COD18b5", "N" },
+            { "COD18b6", "N" },
+            { "COD18b7", "N" },
+            { "COD18b8", "Literal15" },
+            { "COD18b10", "Literal17" },
+            { "COD18b11", "Literal18" },
+            { "COD18b12", "Literal19" },
+            { "COD18b13", "Literal20" },
+            { "COD18b14", "Literal21" },
+            { "ICOD", "R836" },
+            { "OCOD1", "R837" },
+            { "OCOD2", "R838" },
+            { "OCOD3", "R839" },
+            { "OCOD4", "R840" },
+            { "OCOD5", "R841" },
+            { "OCOD6", "R842" },
+            { "OCOD7", "R843" },
+            { "FETFNAME", "FETFNAME" },
+            { "FETLNAME", "FETLNAME" },
+            { "SUFFIX", "SUFFIX" },
+            { "HOSP_D", "South Hospital" },
+            { "STNUM_D", "STNUM_D" },
+            { "PREDIR_D", "PREDIR_D" },
+            { "STNAME_D", "STNAME_D" },
+            { "STDESIG_D", "STDESIG_D" },
+            { "POSTDIR_D", "POSTDIR_D" },
+            { "APTNUMB_D", "APTNUMB" },
+            { "ADDRESS_D", "2100 North Ave" },
+            { "ZIPCODE_D", "84116" },
+            { "CNTY_D", "Made Up" },
+            { "CITY_D", "Salt Lake City" },
+            { "STATE_D", "Utah" },
+            { "COUNTRY_D", "United States" },
+            { "MOMFNAME", "Carmen" },
+            { "MOMLNAME", "Lee" },
+            { "MOMSUFFIX", "MOMSUFF" },
+            { "MOMFMNME", "Carmen" },
+            { "MOMMAIDN", "Santos" },
+            { "MOMMSUFFIX", "MOMMSUF" },
+            { "STNUM", "STNUM" },
+            { "PREDIR", "PREDIR" },
+            { "STNAME", "STNAME" },
+            { "STDESIG", "STDESIG" },
+            { "POSTDIR", "POSTDIR" },
+            { "APTNUMB", "APTNUMB" },
+            { "ADDRESS", "3670 Miller Road" },
+            { "ZIPCODE", "48103" },
+            { "COUNTYTXT", "COUNTYTXT" },
+            { "CITYTXT", "Ann Arbor" },
+            { "STATETXT", "Michigan" },
+            { "CNTRYTXT", "United States" },
+            { "DADFNAME", "Tom" },
+            { "DADLNAME", "Lee" },
+            { "DADSUFFIX", "DADSUFF" },
+            { "MOM_SSN", "132224986" },
+            { "DAD_SSN", "888888888" },
+            { "MOM_OC_T", "Secretary" },
+            { "DAD_OC_T", "Teaching Assistant" },
+            { "MOM_IN_T", "State Agency" },
+            { "DAD_IN_T", "Elementary Schools" },
+            { "FBPLACD_ST_TER_C", "MA" },
+            { "FBPLACE_CNT_C", "US" },
+            { "MBPLACE_ST_TER_TXT", "Puerto Rico" },
+            { "MBPLACE_CNTRY_TXT", "United States" },
+            { "FBPLACE_ST_TER_TXT", "Massachusetts" },
+            { "FBPLACE_CNTRY_TXT", "United States" },
+            { "FEDUC", "3" },
+            { "FEDUC_BYPASS", "0" },
+            { "FETHNIC1", "Y" },
+            { "FETHNIC2", "Y" },
+            { "FETHNIC3", "Y" },
+            { "FETHNIC4", "N" },
+            { "FETHNIC5", "Literal22" },
+            { "FRACE1", "Y" },
+            { "FRACE2", "N" },
+            { "FRACE3", "Y" },
+            { "FRACE4", "N" },
+            { "FRACE5", "N" },
+            { "FRACE6", "N" },
+            { "FRACE7", "N" },
+            { "FRACE8", "N" },
+            { "FRACE9", "N" },
+            { "FRACE10", "Y" },
+            { "FRACE11", "N" },
+            { "FRACE12", "N" },
+            { "FRACE13", "N" },
+            { "FRACE14", "N" },
+            { "FRACE15", "N" },
+            { "FRACE16", "Arikara" },
+            { "FRACE17", "Literal23" },
+            { "FRACE18", "Malaysian" },
+            { "FRACE19", "Literal24" },
+            { "FRACE20", "Literal25" },
+            { "FRACE21", "Literal26" },
+            { "FRACE22", "Literal27" },
+            { "FRACE23", "Literal28" },
+            { "FRACE1E", "200" },
+            { "FRACE2E", "201" },
+            { "FRACE3E", "202" },
+            { "FRACE4E", "203" },
+            { "FRACE5E", "204" },
+            { "FRACE6E", "205" },
+            { "FRACE7E", "206" },
+            { "FRACE8E", "207" },
+            { "FRACE16C", "208" },
+            { "FRACE17C", "209" },
+            { "FRACE18C", "400" },
+            { "FRACE19C", "401" },
+            { "FRACE20C", "402" },
+            { "FRACE21C", "403" },
+            { "FRACE22C", "404" },
+            { "FRACE23C", "405" },
+            { "METHNIC5C", "100" },
+            { "METHNICE", "200" },
+            { "FETHNIC5C", "201" },
+            { "FETHNICE", "202" },
+            { "HOSPFROM", "Literal33" },
+            // { "ATTEND_NAME", "HEATHERSTEVENS" }, TODO: Library needs to implement this
+            // { "ATTEND_NPI", "1932304839" }, TODO: Library needs to implement this
+            // { "ATTEND_OTH_TXT", "OTHER" }, TODO: Library needs to implement this
+            { "CERTIFIED_YR", "2024" },
+            { "CERTIFIED_MO", "12" },
+            { "CERTIFIED_DY", "31" },
+            { "PLACE1_1", "A" },
+            { "PLACE1_2", "B" },
+            { "PLACE1_3", "C" },
+            { "PLACE1_4", "D" },
+            { "PLACE1_5", "E" },
+            { "PLACE1_6", "F" },
+            { "PLACE8_1", "PLACE8_1" },
+            { "PLACE8_2", "PLACE8_2" },
+            { "PLACE8_3", "PLACE8_3" },
+            { "PLACE20", "PLACE20" },
+        };
+        // For each field, create a record, set all the fields, reset all the fields besides the field being
+        // tested, and make sure the field being tested still has the same value
+        foreach (var (field, value) in fields)
+        {
+            IJEFetalDeath ije = new IJEFetalDeath();
+            PropertyInfo property = typeof(IJEFetalDeath).GetProperty(field);
+            Console.WriteLine($"Testing {field} with value {value}");
+            foreach (var (writeField, writeValue) in fields)
+            {
+                PropertyInfo writeProperty = typeof(IJEFetalDeath).GetProperty(writeField);
+                writeProperty.SetValue(ije, writeValue);
+            }
+            foreach (var (overwriteField, overwriteValue) in fields)
+            {
+                if (overwriteField == field) continue; // Don't rewrite the field we're testing
+                PropertyInfo overwriteProperty = typeof(IJEFetalDeath).GetProperty(overwriteField);
+                //Console.WriteLine($"  Overwrite test of {field} by writing {overwriteValue} to {overwriteField}");
+                overwriteProperty.SetValue(ije, overwriteValue);
+                //Console.WriteLine($"    After write to {overwriteField} value of {field} is {property.GetValue(ije)}");
+            }
+            Assert.Equal(value, ((string)property.GetValue(ije)).Trim());
+        }
     }
 
   }

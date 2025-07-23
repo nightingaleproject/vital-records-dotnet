@@ -34,7 +34,21 @@ namespace BFDR
     public override uint? GetYear()
     {
       ParseDateElements(this.DateOfDelivery, out int? year, out _, out _);
-      return (uint?) year;
+      if (year != null)
+      {
+        return (uint?) year;
+      }
+      // For cases where we loaded a bundle that has the RecordIdentifier but not the individual fields
+      // we can find the value as a substring of the RecordIdentifier
+      if (RecordIdentifier != null && RecordIdentifier.Length == 12 && RecordIdentifier.Substring(0, 4) != "0000")
+      {
+        int parsedYear;
+        if (Int32.TryParse(RecordIdentifier.Substring(0, 4), out parsedYear))
+        {
+          return (uint?) parsedYear;
+        }
+      }
+      return null;
     }
 
       /// <summary>Helper method to return the subset of this record that makes up a CodedCauseOfFetalDeath bundle.</summary>
@@ -49,7 +63,11 @@ namespace BFDR
                                         "National Center for Health Statistics");
         // Add the correct observations to the bundle and composition
         AddResourceToBundleAndComposition(GetObservation("92022-3"), "86804-2", CodeSystems.LOINC, ccofdBundle);
-        AddResourceToBundleAndComposition(GetObservation("92023-1"), "86804-2", CodeSystems.LOINC, ccofdBundle);
+        var otherFetalDeathCauseObservations = GetObservations("92023-1");
+        foreach (var observation in otherFetalDeathCauseObservations)
+        {
+            AddResourceToBundleAndComposition(observation, "86804-2", CodeSystems.LOINC, ccofdBundle);
+        }
         return ccofdBundle;
     }
 

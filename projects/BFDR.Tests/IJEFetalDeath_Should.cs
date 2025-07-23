@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using VR;
@@ -589,7 +590,7 @@ namespace BFDR.Tests
     }
 
 
-  [Fact]
+    [Fact]
     public void TestDeathState()
     {
       IJEFetalDeath ije = new IJEFetalDeath();
@@ -609,5 +610,99 @@ namespace BFDR.Tests
       dr = ije.ToRecord();
       Assert.Equal("ZZ", dr.EventLocationJurisdiction);
     }
-}
+
+    [Fact]
+    public void TestAttendantPropertiesSetter()
+    {
+      FetalDeathRecord record = new FetalDeathRecord();
+      // Attendant's name
+      Assert.Null(record.AttendantName);
+      record.AttendantName = "Janet Seito";
+      Assert.Equal("Janet Seito", record.AttendantName);
+      // Attendant's NPI
+      Assert.Null(record.AttendantNPI);
+      record.AttendantNPI = "123456789011";
+      Assert.Equal("123456789011", record.AttendantNPI);
+      // Attendant's Title
+      Dictionary<string, string> AttendantTitle = new Dictionary<string, string>();
+      AttendantTitle.Add("code", "309343006");
+      AttendantTitle.Add("system", CodeSystems.SCT);
+      AttendantTitle.Add("display", "Medical Doctor");
+      record.AttendantTitle = AttendantTitle;
+      Assert.Equal("309343006", record.AttendantTitle["code"]);
+      Assert.Equal(CodeSystems.SCT, record.AttendantTitle["system"]);
+      Assert.Equal("Medical Doctor", record.AttendantTitle["display"]);
+      // test setting other Attendant Title
+      FetalDeathRecord record2 = new FetalDeathRecord();
+      record2.AttendantName = "Jessica Leung";
+      Assert.Equal("Jessica Leung", record2.AttendantName);
+      record2.AttendantTitleHelper = "Birth Clerk"; //set using Title helper
+      Assert.Equal("OTH", record2.AttendantTitle["code"]);
+      Assert.Equal(CodeSystems.NullFlavor_HL7_V3, record2.AttendantTitle["system"]);
+      Assert.Equal("Other", record2.AttendantTitle["display"]);
+      Assert.Equal("Birth Clerk", record2.AttendantTitle["text"]);
+      record2.AttendantOtherHelper = "Birth Clerk"; //set using Other helper
+      Assert.Equal("OTH", record2.AttendantTitle["code"]);
+      Assert.Equal(CodeSystems.NullFlavor_HL7_V3, record2.AttendantTitle["system"]);
+      Assert.Equal("Other", record2.AttendantTitle["display"]);
+      Assert.Equal("Birth Clerk", record2.AttendantTitle["text"]);
+      Assert.Equal("Birth Clerk", record2.AttendantOtherHelper);
+      // test IJE translations
+      IJEFetalDeath ije1 = new IJEFetalDeath(record);
+      Assert.Equal("Janet Seito", ije1.ATTEND_NAME.Trim());
+      Assert.Equal("123456789011", ije1.ATTEND_NPI);
+      Assert.Equal("1", ije1.ATTEND);
+      IJEFetalDeath ije2 = new IJEFetalDeath(record2);
+      Assert.Equal("Jessica Leung", ije2.ATTEND_NAME.Trim());
+      Assert.Equal("            ", ije2.ATTEND_NPI);
+      Assert.Equal("5", ije2.ATTEND);
+      Assert.Equal("Birth Clerk", ije2.ATTEND_OTH_TXT.Trim());
+      ije2.ATTEND_NPI = "89089090";
+      ije2.ATTEND_OTH_TXT = "Test";
+      ije2.ATTEND_NAME = "Name Test";
+      Assert.Equal("Name Test", ije2.ATTEND_NAME.Trim());
+      Assert.Equal("89089090", ije2.ATTEND_NPI.Trim());
+      Assert.Equal("Test", ije2.ATTEND_OTH_TXT.Trim());
+      record2 = ije2.ToRecord();
+      Assert.Equal("Name Test", record2.AttendantName);
+      Assert.Equal("89089090", record2.AttendantNPI);
+      Assert.Equal("Test", record2.AttendantTitle["text"]);
+      Assert.Equal("Test", record2.AttendantOtherHelper);
+    }
+
+    [Fact]
+    public void TestMotherHeightPropertiesSetter()
+    {
+      FetalDeathRecord record = new FetalDeathRecord();
+      IJEFetalDeath ije1 = new IJEFetalDeath(record);
+      // Height
+      Assert.Equal("99", ije1.HIN);
+      Assert.Equal("9", ije1.HFT);
+      ije1.HFT = "5";
+      Assert.Equal("5", ije1.HFT);
+      Assert.Equal("00", ije1.HIN);
+      ije1.HIN = "1";
+      Assert.Equal("5", ije1.HFT);
+      Assert.Equal("01", ije1.HIN);
+      ije1.HFT = "6";
+      Assert.Equal("6", ije1.HFT);
+      Assert.Equal("01", ije1.HIN);
+      ije1.HIN = "2";
+      Assert.Equal("6", ije1.HFT);
+      Assert.Equal("02", ije1.HIN);
+      ije1.HIN = "99";
+      Assert.Equal("99", ije1.HIN);
+      Assert.Equal("9", ije1.HFT);
+      // Edit Flag
+      Assert.Equal("", ije1.HGT_BYPASS);
+      ije1.HGT_BYPASS = "1";
+      Assert.Equal("1", ije1.HGT_BYPASS);
+      // FHIR translations
+      ije1.HFT = "5";
+      ije1.HIN = "3";
+      FetalDeathRecord record1 = new FetalDeathRecord(ije1.ToRecord().ToXML());
+      Assert.Equal(63, record1.MotherHeight);
+      Assert.Equal(VR.ValueSets.EditBypass01234.Edit_Failed_Data_Queried_And_Verified, record1.MotherHeightEditFlag["code"]);
+    }
+  }
 }
