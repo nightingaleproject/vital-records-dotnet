@@ -815,13 +815,6 @@ namespace VRDR.Tests
             ije.DSTATE = "YC";
             ije.FILENO = "123";
             ije.AUXNO = "500";
-            ije.DETHNIC1 = "Y";
-            ije.DETHNIC2 = "N";
-            ije.RACE1 = "Y";
-            ije.RACE2 = "N";
-            ije.RACE16 = "Cheyenne";
-            ije.RACE1E = "199";
-            ije.RACE16C = "B40";
             IndustryOccupationCodingMessage message = new IndustryOccupationCodingMessage(ije.ToRecord());
 
             var occ = new Dictionary<string, string>();
@@ -855,6 +848,38 @@ namespace VRDR.Tests
         }
 
         [Fact]
+        public void CreateIndustryOccupationCodingResponseWithCensusCodes()
+        {
+            // This test creates a response using the approach NCHS will use via IJE setters
+            IJEMortality ije = new IJEMortality();
+            ije.DOD_YR = "2022";
+            ije.DSTATE = "YC";
+            ije.FILENO = "123";
+            ije.AUXNO = "500";
+            ije.OCCUP = "Accountant";
+            ije.INDUST = "Accounting";
+            ije.OCCUPC4 = "0800";
+            ije.INDUSTC4 = "7280";
+            IndustryOccupationCodingMessage message = new IndustryOccupationCodingMessage(ije.ToDeathRecord());
+            Assert.Equal("0800", message.DeathRecord.UsualOccupationCoded["code"]);
+            Assert.Equal(VR.CodeSystems.OccupationCDCCensus2018, message.DeathRecord.UsualOccupationCoded["system"]);
+            Assert.Equal("7280", message.DeathRecord.UsualIndustryCoded["code"]);
+            Assert.Equal(VR.CodeSystems.IndustryCDCCensus2018, message.DeathRecord.UsualIndustryCoded["system"]);
+            message.MessageSource = "http://nchs.cdc.gov/vrdr_submission";
+            message.MessageDestination = "https://example.org/jurisdiction/endpoint";
+            Assert.Equal(IndustryOccupationCodingMessage.MESSAGE_TYPE, message.MessageType);
+            Assert.Equal("http://nchs.cdc.gov/vrdr_submission", message.MessageSource);
+            Assert.Equal("https://example.org/jurisdiction/endpoint", message.MessageDestination);
+            Assert.Equal((uint)123, message.CertNo);
+            Assert.Equal((uint)2022, message.DeathYear);
+            Assert.Equal("000000000500", message.StateAuxiliaryId);
+            Assert.Equal("2022YC000123", message.NCHSIdentifier);
+            Assert.Equal("VRDR_STU3_0", message.PayloadVersionId);
+            Assert.Equal("Accounting", message.DeathRecord.UsualIndustry);
+            Assert.Equal("Accountant", message.DeathRecord.UsualOccupation);
+        }
+
+        [Fact]
         public void CreateIndustryOccupationCodingResponseWithHelpers()
         {
             // This test creates a response using the approach NCHS will use via IJE setters
@@ -863,13 +888,6 @@ namespace VRDR.Tests
             ije.DSTATE = "YC";
             ije.FILENO = "123";
             ije.AUXNO = "500";
-            ije.DETHNIC1 = "Y";
-            ije.DETHNIC2 = "N";
-            ije.RACE1 = "Y";
-            ije.RACE2 = "N";
-            ije.RACE16 = "Cheyenne";
-            ije.RACE1E = "199";
-            ije.RACE16C = "B40";
             ije.OCCUP = "Accountant";
             ije.INDUST = "Accounting";
             // Some fields do not exist in IJE, so we set those after converting to a FHIR record
@@ -950,13 +968,6 @@ namespace VRDR.Tests
             ije.DSTATE = "YC";
             ije.FILENO = "123";
             ije.AUXNO = "500";
-            ije.DETHNIC1 = "Y";
-            ije.DETHNIC2 = "N";
-            ije.RACE1 = "Y";
-            ije.RACE2 = "N";
-            ije.RACE16 = "Cheyenne";
-            ije.RACE1E = "199";
-            ije.RACE16C = "B40";
             IndustryOccupationCodingUpdateMessage message = new IndustryOccupationCodingUpdateMessage(ije.ToRecord());
 
             var occ = new Dictionary<string, string>();

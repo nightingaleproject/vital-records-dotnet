@@ -461,13 +461,27 @@ ije.DOD_YR = "2022";
 ije.DSTATE = "YC";
 ije.FILENO = "123";
 ije.AUXNO = "500";
-ije.DETHNIC1 = "Y";
-ije.DETHNIC2 = "N";
-ije.RACE1 = "Y";
-ije.RACE2 = "N";
-ije.RACE16 = "Cheyenne";
-ije.RACE1E = "199";
-ije.RACE16C = "B40";
+ije.OCCUP = "Accountant";
+ije.INDUST = "Accounting";
+ije.OCCUPC4 = "0800";
+ije.INDUSTC4 = "7280";
+IndustryOccupationCodingMessage message = new IndustryOccupationCodingMessage(ije.ToDeathRecord());
+message.MessageSource = "http://nchs.cdc.gov/vrdr_submission";
+message.MessageDestination = "https://example.org/jurisdiction/endpoint";
+// The message can be converted to JSON when complete
+message.ToJson()
+```
+
+Alternatively, if the occupation and industry coding uses the SOC 2018 and NAICS 2017 code
+systems, the following approach can be used.
+
+```csharp
+// Create and populate the IJE record
+IJEMortality ije = new IJEMortality();
+ije.DOD_YR = "2022";
+ije.DSTATE = "YC";
+ije.FILENO = "123";
+ije.AUXNO = "500";
 ije.OCCUP = "Accountant";
 ije.INDUST = "Accounting";
 // Some fields do not exist in IJE, so we set those after converting to a FHIR record
