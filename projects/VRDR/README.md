@@ -450,6 +450,37 @@ message.MessageDestinations = "https://example.org/jurisdiction/endpoint,https:/
 string jsonMessage = message.ToJSON();
 ```
 
+##### Industry and Occupation Coding Message
+
+An `IndustryOccupationCodingMessage` can be created following this example:
+
+```csharp
+// Create and populate the IJE record
+IJEMortality ije = new IJEMortality();
+ije.DOD_YR = "2022";
+ije.DSTATE = "YC";
+ije.FILENO = "123";
+ije.AUXNO = "500";
+ije.DETHNIC1 = "Y";
+ije.DETHNIC2 = "N";
+ije.RACE1 = "Y";
+ije.RACE2 = "N";
+ije.RACE16 = "Cheyenne";
+ije.RACE1E = "199";
+ije.RACE16C = "B40";
+ije.OCCUP = "Accountant";
+ije.INDUST = "Accounting";
+// Some fields do not exist in IJE, so we set those after converting to a FHIR record
+DeathRecord record = ije.ToDeathRecord();
+record.UsualOccupationCDCSOC2018 = "13-2011";
+record.UsualIndustryNAICS2017 = "54121";
+IndustryOccupationCodingMessage message = new IndustryOccupationCodingMessage(record);
+message.MessageSource = "http://nchs.cdc.gov/vrdr_submission";
+message.MessageDestination = "https://example.org/jurisdiction/endpoint";
+// The message can be converted to JSON when complete
+message.ToJson()
+```
+
 ### VRDR.Tests
 
 This directory contains unit and functional tests for the VRDR library as well as scripts for testing via the CLI and translation microservice.
