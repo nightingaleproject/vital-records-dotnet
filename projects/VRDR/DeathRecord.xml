@@ -1352,10 +1352,10 @@
             <para>address.Add("addressCountry", "US");</para>
             <para>address.Add("addressPredir", "E");</para>
             <para>address.Add("addressPostDir", "SW");</para>
-            <para>address.Add("addressStname", "Test");</para> 
-            <para>address.Add("addressStnum", "123");</para> 
-            <para>address.Add("addressStdesig", "St");</para> 
-            <para>address.Add("addressUnitnum", "3");</para> 
+            <para>address.Add("addressStname", "Test");</para>
+            <para>address.Add("addressStnum", "123");</para>
+            <para>address.Add("addressStdesig", "St");</para>
+            <para>address.Add("addressUnitnum", "3");</para>
             <para>ExampleDeathRecord.CertifierAddress = address;</para>
             <para>// Getter:</para>
             <para>foreach(var pair in ExampleDeathRecord.CertifierAddress)</para>
@@ -2278,6 +2278,26 @@
             <para>Console.WriteLine($"UsualIndustryCoded: {ExampleDeathRecord.UsualIndustryCoded['display']}");</para>
             </example>
         </member>
+        <member name="P:VRDR.DeathRecord.UsualOccupationCDCSOC2018">
+            <summary>Decedent's Usual Occupation CDC SOC 2018 Code. This is a helper method, to obtain the full code use the UsualOccupationCoded method instead</summary>
+            <value>the decedent's usual occupation code</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleDeathRecord.UsualOccupationCDCSOC2018 = "13-2011";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"UsualOccupationCDCSOC2018: {ExampleDeathRecord.UsualOccupationCDCSOC2018}");</para>
+            </example>
+        </member>
+        <member name="P:VRDR.DeathRecord.UsualOccupationCensus2018">
+            <summary>Decedent's Usual Occupation CDC Census 2018 Code. This is a helper method, to obtain the full code use the UsualOccupationCoded method instead</summary>
+            <value>the decedent's usual occupation code</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleDeathRecord.UsualOccupationCensus2018 = "0800";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"UsualOccupationCensus2018: {ExampleDeathRecord.UsualOccupationCensus2018}");</para>
+            </example>
+        </member>
         <member name="P:VRDR.DeathRecord.UsualIndustryCoded">
             <summary>Decedent's Usual Industry (Coded).</summary>
             <value>the decedent's usual industry. A Dictionary representing a code, containing the following key/value pairs:
@@ -2294,6 +2314,26 @@
             <para>ExampleDeathRecord.MilitaryService = uind;</para>
             <para>// Getter:</para>
             <para>Console.WriteLine($"UsualIndustryCoded: {ExampleDeathRecord.UsualIndustryCoded['display']}");</para>
+            </example>
+        </member>
+        <member name="P:VRDR.DeathRecord.UsualIndustryCensus2018">
+            <summary>Decedent's Usual Industry CDC Census 2018 Code. This is a helper method, to obtain the full code use the UsualIndustryCoded method instead</summary>
+            <value>the decedent's usual occupation code</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleDeathRecord.UsualIndustryCensus2018 = "0800";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"UsualIndustryCensus2018: {ExampleDeathRecord.UsualIndustryCensus2018}");</para>
+            </example>
+        </member>
+        <member name="P:VRDR.DeathRecord.UsualIndustryNAICS2017">
+            <summary>Decedent's Usual Industry NAICS 2017 Code. This is a helper method, to obtain the full code use the UsualIndustryCoded method instead</summary>
+            <value>the decedent's usual occupation code</value>
+            <example>
+            <para>// Setter:</para>
+            <para>ExampleDeathRecord.UsualIndustryNAICS2017 = "0800";</para>
+            <para>// Getter:</para>
+            <para>Console.WriteLine($"UsualIndustryNAICS2017: {ExampleDeathRecord.UsualIndustryNAICS2017}");</para>
             </example>
         </member>
         <member name="P:VRDR.DeathRecord.MilitaryService">

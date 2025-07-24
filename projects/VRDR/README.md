@@ -157,6 +157,12 @@ deathRecord.ExaminerContactedHelper = VRDR.ValueSets.YesNoUnkown.Yes ;
 // Add DateOfDeath
 deathRecord.DateOfDeath = "2018-07-10T10:04:00+00:00";
 
+// Add occupation information
+deathRecord.UsualOccupation = "Tax accountant";
+deathRecord.UsualIndustry = "Tax preparation";
+deathRecord.UsualOccupationCensus2018 = "0800"; // or deathRecord.UsualOccupationCDCSOC2018 = "13-2011";
+deathRecord.UsualIndustryCensus2018 = "7280"; // or deathRecord.UsualIndustryNAICS2017 = "54121";
+
 // Print record as a JSON string
 Console.WriteLine(deathRecord.ToJSON());
 ```
@@ -258,6 +264,10 @@ are available to simplify setting coded values:
 * SpouseAliveHelper
 * EducationLevelHelper
 * EducationLevelEditFlagHelper
+* UsualOccupationCDCSOC2018
+* UsualOccupationCensus2018
+* UsualIndustryCensus2018
+* UsualIndustryNAICS2017
 * MilitaryServiceHelper
 * DecedentDispositionMethodHelper
 * AutopsyPerformedIndicatorHelper
@@ -438,6 +448,51 @@ message.MessageDestinations = "https://example.org/jurisdiction/endpoint,https:/
 
 // Create a JSON representation of the coding response message
 string jsonMessage = message.ToJSON();
+```
+
+##### Industry and Occupation Coding Message
+
+An `IndustryOccupationCodingMessage` can be created following this example:
+
+```csharp
+// Create and populate the IJE record
+IJEMortality ije = new IJEMortality();
+ije.DOD_YR = "2022";
+ije.DSTATE = "YC";
+ije.FILENO = "123";
+ije.AUXNO = "500";
+ije.OCCUP = "Accountant";
+ije.INDUST = "Accounting";
+ije.OCCUPC4 = "0800";
+ije.INDUSTC4 = "7280";
+IndustryOccupationCodingMessage message = new IndustryOccupationCodingMessage(ije.ToDeathRecord());
+message.MessageSource = "http://nchs.cdc.gov/vrdr_submission";
+message.MessageDestination = "https://example.org/jurisdiction/endpoint";
+// The message can be converted to JSON when complete
+message.ToJson()
+```
+
+Alternatively, if the occupation and industry coding uses the SOC 2018 and NAICS 2017 code
+systems, the following approach can be used.
+
+```csharp
+// Create and populate the IJE record
+IJEMortality ije = new IJEMortality();
+ije.DOD_YR = "2022";
+ije.DSTATE = "YC";
+ije.FILENO = "123";
+ije.AUXNO = "500";
+ije.OCCUP = "Accountant";
+ije.INDUST = "Accounting";
+// Some fields do not exist in IJE, so we set those after converting to a FHIR record
+DeathRecord record = ije.ToDeathRecord();
+record.UsualOccupationCDCSOC2018 = "13-2011";
+record.UsualIndustryNAICS2017 = "54121";
+IndustryOccupationCodingMessage message = new IndustryOccupationCodingMessage(record);
+message.MessageSource = "http://nchs.cdc.gov/vrdr_submission";
+message.MessageDestination = "https://example.org/jurisdiction/endpoint";
+// The message can be converted to JSON when complete
+message.ToJson()
 ```
 
 ### VRDR.Tests
