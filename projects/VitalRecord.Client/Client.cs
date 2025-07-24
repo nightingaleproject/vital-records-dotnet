@@ -119,12 +119,13 @@ namespace VR
 
         private string CreateUrlWithPath(string? optionalPath)
         {
-            string urlWithPath = this.Url;
+            Uri baseUri = new Uri(this.Url);
+            Uri fullUri = baseUri;
             if (optionalPath != null)
             {
-                urlWithPath = this.Url + "/" + optionalPath;
+                fullUri = new Uri(baseUri, optionalPath);
             }
-            return urlWithPath;
+            return fullUri.ToString();
         }
 
         /// <summary>Create the payload for submission to the NVSS FHIR API for bulk upload</summary>

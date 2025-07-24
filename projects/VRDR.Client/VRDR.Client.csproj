@@ -14,7 +14,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <PackageOutputPath>c:\users\vtripathi\local_nuget</PackageOutputPath>
+    <PackageOutputPath></PackageOutputPath>
   </PropertyGroup>
 
   <ItemGroup>

@@ -8,7 +8,6 @@ using System.Net.Http;
 namespace VRDR
 {
     /// <summary>Client library for interacting with the NVSS FHIR API</summary>
-    /// TODO: make this class a child of VitalRecord.Client and inherit methods
     public class Client
     {
         /// <summary>The API url</summary>
