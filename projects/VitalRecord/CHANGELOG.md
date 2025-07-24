@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+<a name="1.0.0-preview.9"></a>
+## [1.0.0-preview.9]() (2025-07-24)
+
+### Fixes
+
 <a name="1.0.0-preview.8"></a>
 ## [1.0.0-preview.8]() (2025-04-23)
 

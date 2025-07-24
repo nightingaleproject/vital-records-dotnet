@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+<a name="5.3.2"></a> 
+## 5.3.2 07-24-2025
+
+### Features
+
 <a name="5.3.1"></a> 
 ## 5.3.1 04-18-2025
 
