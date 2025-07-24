@@ -101,7 +101,8 @@ namespace BFDR
         [IJEField(1, 1, 4, "Date of Birth (Infant)--Year", "IDOB_YR", 1)]
         public string IDOB_YR
         {
-            get => GetYearIJEFormatted(record.DateOfBirth);
+            // For the getter we go through GetYear() since that can retrieve the year from the identifier if needed
+            get => record.GetYear()?.ToString() ?? "    ";
             set => record.DateOfBirth = AddYear(value, record.DateOfBirth);
         }
 
@@ -287,7 +288,7 @@ namespace BFDR
             }
         }
 
-        /// <summary>State, U.S. Territory or Canadian Province of Birth (Mother) - code</summary>
+        /// <summary>State, U.S. Territory or Canadian Province of Birth (Mother) - code (Note: setting the MBPLACE_ST_TER_TXT field will overwrite this field)</summary>
         [IJEField(18, 64, 2, "State, U.S. Territory or Canadian Province of Birth (Mother) - code", "BPLACEC_ST_TER", 1)]
         public string BPLACEC_ST_TER
         {
@@ -1896,7 +1897,6 @@ namespace BFDR
         {
             get => "  ";
             set { }
-
         }
 
         /// <summary>Date of Last Prenatal Care Visit--Day(NCHS DELETED THIS ITEM EFFECTIVE 2014/2015)</summary>
@@ -1949,31 +1949,24 @@ namespace BFDR
         {
             get
             {
-                // not using NumericAllowingUnknown_Get due to the length of the ije field (ft) being then imposed on FHIR field (in)
-                // string height_ft = NumericAllowingUnknown_Get("HFT", "MotherHeight");
-                IJEField info = FieldInfo("HFT");
-                int? value = (int?)Record.GetType().GetProperty("MotherHeight").GetValue(record);
-                if (value == -1 || value == null) return new String('9', info.Length); // Explicitly set to unknown
+                int? value = record.MotherHeight;
+                if (value == -1 || value == null) return new String('9', 1); // Explicitly set to unknown
                 var valueString = (value / 12).ToString();
-                return Truncate(valueString, info.Length).PadLeft(info.Length, '0');
+                return Truncate(valueString, 1);
             }
             set
             {
-                if (value != "9" && !string.IsNullOrWhiteSpace(value))
+                // Support explicitly setting to unknown; note that this sets both HIN and HFT to unknown
+                if (value == "9" || string.IsNullOrWhiteSpace(value))
                 {
-                    if (!string.IsNullOrWhiteSpace(HIN) && HIN != "-1")
-                    {
-                        record.MotherHeight = int.Parse(value) * 12 + int.Parse(HIN);
-                    }
-                    else
-                    {
-                        record.MotherHeight = int.Parse(value);
-                    }
-                    record.MotherHeight = int.Parse(value) * 12;
+                    record.MotherHeight = -1;
                 }
                 else
                 {
-                    record.MotherHeight = -1;
+                    // Set the value for feet without changing the value for inches (if set)
+                    int hin = HIN == "99" ? 0 : int.Parse(HIN);
+                    int totalInches = int.Parse(value) * 12 + hin;
+                    record.MotherHeight = totalInches;
                 }
             }
         }
@@ -1984,30 +1977,24 @@ namespace BFDR
         {
             get
             {
-                // not using NumericAllowingUnknown_Get due to the length of the ije field (%12 in) being then imposed on FHIR field (total in)
-                // string height_in = NumericAllowingUnknown_Get("HIN", "MotherHeight");
-                IJEField info = FieldInfo("HIN");
-                int? value = (int?)Record.GetType().GetProperty("MotherHeight").GetValue(record);
-                if (value == -1 || value == null) return new String('9', info.Length); // Explicitly set to unknown
+                int? value = record.MotherHeight;
+                if (value == -1 || value == null) return new String('9', 2); // Explicitly set to unknown
                 var valueString = (value % 12).ToString();
-                return Truncate(valueString, info.Length).PadLeft(info.Length, '0');
+                return Truncate(valueString, 2).PadLeft(2, '0');
             }
             set
             {
-                if (value != "99" && !string.IsNullOrWhiteSpace(value))
+                // Support explicitly setting to unknown; note that this sets both HIN and HFT to unknown
+                if (value == "99" || string.IsNullOrWhiteSpace(value))
                 {
-                    if (!string.IsNullOrWhiteSpace(HFT) && HFT != "-1")
-                    {
-                        record.MotherHeight = int.Parse(value) + (int.Parse(HFT) * 12);
-                    }
-                    else
-                    {
-                        record.MotherHeight = int.Parse(value);
-                    }
+                    record.MotherHeight = -1;
                 }
                 else
                 {
-                    record.MotherHeight = -1;
+                    // Set the value for inches without changing the value for feet (if set)
+                    int hft = HFT == "9" ? 0 : int.Parse(HFT);
+                    int totalInches = hft * 12 + int.Parse(value);
+                    record.MotherHeight = totalInches;
                 }
             }
         }
@@ -2863,12 +2850,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // Not implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // Note implemented in FHIR
             }
         }
 
@@ -3200,12 +3187,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // Not implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // Not implemented in FHIR
             }
         }
 
@@ -3257,12 +3244,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // Not implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // Not implemented in FHIR
             }
         }
 
@@ -3947,12 +3934,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // Not implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // Not implenented in FHIR
             }
         }
 
@@ -3996,12 +3983,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // Not implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // Not implemented in FHIR
             }
         }
 
@@ -4011,12 +3998,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // Not implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // Not implemented in FHIR
             }
         }
 
@@ -4026,12 +4013,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // Not implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // Not implemented in FHIR
             }
         }
 
@@ -4041,12 +4028,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // Not implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // Not implemented in FHIR
             }
         }
 
@@ -4056,12 +4043,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // Not implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // Not implemented in FHIR
             }
         }
 
@@ -4085,10 +4072,7 @@ namespace BFDR
         [IJEField(304, 2384, 20, "Attendant (\"Other\" specified text)", "ATTEND_OTH_TXT", 1)]
         public string ATTEND_OTH_TXT
         {
-            get
-            {
-                return LeftJustified_Get("ATTEND_OTH_TXT", "AttendantOtherHelper");
-            }
+            get => LeftJustified_Get("ATTEND_OTH_TXT", "AttendantOtherHelper");
             set
             {
                 if (!String.IsNullOrWhiteSpace(value))
@@ -4098,7 +4082,7 @@ namespace BFDR
             }
         }
 
-        /// <summary>State, U.S. Territory or Canadian Province of Birth (Mother) - literal</summary>
+        /// <summary>State, U.S. Territory or Canadian Province of Birth (Mother) - literal (Note: Setting this field will overwrite the BPLACEC_ST_TER field)</summary>
         [IJEField(305, 2404, 28, "State, U.S. Territory or Canadian Province of Birth (Mother) - literal", "MBPLACE_ST_TER_TXT", 1)]
         public string MBPLACE_ST_TER_TXT
         {
@@ -4417,12 +4401,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // Not implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // Not implemented in FHIR
             }
         }
 
@@ -4432,12 +4416,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // Not implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // Not implemented in FHIR
             }
         }
 
@@ -4447,12 +4431,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // Not implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // Not implemented in FHIR
             }
         }
 
@@ -4462,12 +4446,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // Not implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // Not implemented in FHIR
             }
         }
 
@@ -4475,28 +4459,16 @@ namespace BFDR
         [IJEField(326, 2777, 50, "Attendant's Name", "ATTEND_NAME", 1)]
         public string ATTEND_NAME
         {
-            get
-            {
-                return LeftJustified_Get("ATTEND_NAME", "AttendantName");
-            }
-            set
-            {
-                LeftJustified_Set("ATTEND_NAME", "AttendantName", value);
-            }
+            get => LeftJustified_Get("ATTEND_NAME", "AttendantName");
+            set => LeftJustified_Set("ATTEND_NAME", "AttendantName", value);
         }
 
         /// <summary>Attendant's NPI</summary>
         [IJEField(327, 2827, 12, "Attendant's NPI", "ATTEND_NPI", 1)]
         public string ATTEND_NPI
         {
-            get
-            {
-                return LeftJustified_Get("ATTEND_NPI", "AttendantNPI");
-            }
-            set
-            {
-                LeftJustified_Set("ATTEND_NPI", "AttendantNPI", value);
-            }
+            get => LeftJustified_Get("ATTEND_NPI", "AttendantNPI");
+            set => LeftJustified_Set("ATTEND_NPI", "AttendantNPI", value);
         }
 
         /// <summary>Certifier's Name</summary>
@@ -4649,12 +4621,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // Not implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // Not implemented in FHIR
             }
         }
 
@@ -4664,12 +4636,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // Not implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // Not implemented in FHIR
             }
         }
 
@@ -4679,12 +4651,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // Not implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // Not implemented in FHIR
             }
         }
 
@@ -4708,12 +4680,12 @@ namespace BFDR
         {
             get
             {
-                // TODO: Implement mapping from FHIR record location:
+                // Not implemented in FHIR
                 return "";
             }
             set
             {
-                // TODO: Implement mapping to FHIR record location:
+                // Not implemented in FHIR
             }
         }
 

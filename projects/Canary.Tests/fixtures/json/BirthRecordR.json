@@ -533,7 +533,7 @@
           "extension": [
             {
               "url": "http://hl7.org/fhir/StructureDefinition/patient-birthTime",
-              "valueDateTime": "2024-01-01T10:31:00"
+              "valueDateTime": "2024-01-01T10:31:00-05:00"
             }
           ]
         },

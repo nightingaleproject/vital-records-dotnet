@@ -4391,33 +4391,6 @@
         <member name="F:VRDR.Mappings.TransportationIncidentRole.FHIRToIJE">
             <summary>FHIR -> IJE Mapping for TransportationIncidentRole</summary>
         </member>
-        <member name="T:VRDR.PlaceCode">
-            <summary>Helper class providing more descriptive definitions for each PlaceCode field</summary>
-        </member>
-        <member name="P:VRDR.PlaceCode.State">
-            <summary>Two letter state abbreviation</summary>
-        </member>
-        <member name="P:VRDR.PlaceCode.County">
-            <summary>Unabbreviated county name</summary>
-        </member>
-        <member name="P:VRDR.PlaceCode.CountyCode">
-            <summary>Three digit county code</summary>
-        </member>
-        <member name="P:VRDR.PlaceCode.City">
-            <summary>Unabbreviated city name</summary>
-        </member>
-        <member name="P:VRDR.PlaceCode.Description">
-            <summary>Description, normally either blank or "City of", "Township of", etc</summary>
-        </member>
-        <member name="P:VRDR.PlaceCode.Code">
-            <summary>The representative PlaceCode corresponding to all other fields</summary>
-        </member>
-        <member name="M:VRDR.PlaceCode.#ctor">
-            <summary>The empty constructor, used by the Default case when performing LINQ queries and there is no match</summary>
-        </member>
-        <member name="M:VRDR.PlaceCode.#ctor(System.String,System.String,System.String,System.String,System.String,System.String)">
-            <summary>The complete constructor, normally used when declaring a PlaceCode</summary>
-        </member>
         <member name="T:VRDR.NvssRace">
             <summary> String representations of IJE Race fields </summary>
         </member>

@@ -5,7 +5,7 @@ using Hl7.Fhir.Model;
 namespace BFDR
 {
     /// <summary>
-    /// Class <c>BirthRecordParentalDemographicsCodingMessage</c> class that conveys the coded demographics information of a child.
+    /// Class <c>BirthRecordParentalDemographicsCodingMessage</c> class that conveys the coded demographics information of a child's parents.
     /// </summary>
     public class BirthRecordParentalDemographicsCodingMessage : BFDRParentalDemographicsCodingMessage
     {
@@ -50,7 +50,7 @@ namespace BFDR
     }
 
     /// <summary>
-    /// Class <c>FetalDeathRecordParentalDemographicsCodingMessage</c> class that conveys the coded demographics information of a decedent.
+    /// Class <c>FetalDeathRecordParentalDemographicsCodingMessage</c> class that conveys the coded demographics information of the parents for a fetal death.
     /// </summary>
     public class FetalDeathRecordParentalDemographicsCodingMessage : BFDRParentalDemographicsCodingMessage
     {
@@ -93,7 +93,7 @@ namespace BFDR
     }
     
     /// <summary>
-    /// Class <c>BirthRecordParentalDemographicsCodingUpdateMessage</c> class that conveys the coded demographics information of a child.
+    /// Class <c>BirthRecordParentalDemographicsCodingUpdateMessage</c> class that conveys the coded demographics information of a child's parents.
     /// </summary>
     public class BirthRecordParentalDemographicsCodingUpdateMessage : BFDRParentalDemographicsCodingUpdateMessage
     {
@@ -120,7 +120,7 @@ namespace BFDR
     }
 
     /// <summary>
-    /// Class <c>FetalDeathRecordParentalDemographicsCodingUpdateMessage</c> class that conveys the coded demographics information of a decedent.
+    /// Class <c>FetalDeathRecordParentalDemographicsCodingUpdateMessage</c> class that conveys the coded demographics information of the parents for a fetal death.
     /// </summary>
     public class FetalDeathRecordParentalDemographicsCodingUpdateMessage : BFDRParentalDemographicsCodingUpdateMessage
     {
@@ -146,7 +146,7 @@ namespace BFDR
     }
 
     /// <summary>
-    /// A <c>BFDRParentalDemographicsCodingMessage</c> base class that conveys the coded demographics information of a decedent.
+    /// A <c>BFDRParentalDemographicsCodingMessage</c> base class that conveys the coded demographics information of the parents for a fetal death.
     /// </summary>
     public abstract class BFDRParentalDemographicsCodingMessage : BFDRBaseMessage
     {
@@ -239,7 +239,7 @@ namespace BFDR
         {
             get
             {
-                return natalityRecord?.GetBundle();
+                return natalityRecord?.GetDemographicCodedContentBundle();
             }
         }
         /// <summary>The id of the birth record submission/update message that was coded to produce the content of this message</summary>
@@ -262,7 +262,7 @@ namespace BFDR
         }
     }
 
-    /// <summary>Class <c>BFDRParentalDemographicsCodingUpdateMessage</c> conveys an updated coded demographics of a decedent.</summary>
+    /// <summary>Class <c>BFDRParentalDemographicsCodingUpdateMessage</c> conveys an updated coded demographics of the parents for a fetal death.</summary>
     public abstract class BFDRParentalDemographicsCodingUpdateMessage : BFDRParentalDemographicsCodingMessage
     {
 

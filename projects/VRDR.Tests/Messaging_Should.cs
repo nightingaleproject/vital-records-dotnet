@@ -91,16 +91,16 @@ namespace VRDR.Tests
         {
             BaseMessage multipleDestinations = BaseMessage.Parse(FixtureStream("fixtures/json/MultipleDestinationsMessage.json"));
             Assert.Equal("test_one,test_two", multipleDestinations.MessageDestination);
-            Assert.Equal((new string[] {"test_one", "test_two"}).ToList(), multipleDestinations.MessageDestinations);
+            Assert.Equal((new string[] { "test_one", "test_two" }).ToList(), multipleDestinations.MessageDestinations);
             multipleDestinations.MessageDestination = "test_three,test_four";
             Assert.Equal("test_three,test_four", multipleDestinations.MessageDestination);
-            Assert.Equal((new string[] {"test_three", "test_four"}).ToList(), multipleDestinations.MessageDestinations);
-            multipleDestinations.MessageDestinations = (new string[] {"test_five", "test_six"}).ToList();
+            Assert.Equal((new string[] { "test_three", "test_four" }).ToList(), multipleDestinations.MessageDestinations);
+            multipleDestinations.MessageDestinations = (new string[] { "test_five", "test_six" }).ToList();
             Assert.Equal("test_five,test_six", multipleDestinations.MessageDestination);
-            Assert.Equal((new string[] {"test_five", "test_six"}).ToList(), multipleDestinations.MessageDestinations);
+            Assert.Equal((new string[] { "test_five", "test_six" }).ToList(), multipleDestinations.MessageDestinations);
             multipleDestinations.MessageDestination = "test_seven";
             Assert.Equal("test_seven", multipleDestinations.MessageDestination);
-            Assert.Equal((new string[] {"test_seven"}).ToList(), multipleDestinations.MessageDestinations);
+            Assert.Equal((new string[] { "test_seven" }).ToList(), multipleDestinations.MessageDestinations);
             Assert.Null(multipleDestinations.PayloadVersionId);
         }
 
@@ -158,7 +158,7 @@ namespace VRDR.Tests
             Assert.Equal(submission.NCHSIdentifier, parsed.NCHSIdentifier);
             Assert.Equal(submission.PayloadVersionId, parsed.PayloadVersionId);
         }
-		
+
         [Fact]
         public void CreateUpdate()
         {
@@ -272,6 +272,10 @@ namespace VRDR.Tests
             Assert.Equal(submission.CertNo, ack.CertNo);
             Assert.Equal(submission.NCHSIdentifier, ack.NCHSIdentifier);
             Assert.Equal(submission.PayloadVersionId, ack.PayloadVersionId);
+
+            string ackedId = Guid.NewGuid().ToString();
+            ack.AckedMessageId = ackedId;
+            Assert.Equal(ackedId, ack.AckedMessageId);
         }
 
         [Fact]
@@ -335,6 +339,9 @@ namespace VRDR.Tests
             Assert.Null(coding.StateAuxiliaryId);
             Assert.Null(coding.NCHSIdentifier);
             Assert.Equal("VRDR_STU3_0", coding.PayloadVersionId);
+            string extraMessageId = Guid.NewGuid().ToString();
+            coding.CodedMessageId = extraMessageId;
+            Assert.Equal(extraMessageId, coding.CodedMessageId);
 
             submission = new DeathRecordSubmissionMessage();
             coding = new DemographicsCodingMessage(submission);
@@ -436,36 +443,6 @@ namespace VRDR.Tests
             Assert.Equal(ValueSets.MannerOfDeath.Natural_Death, message.DeathRecord.MannerOfDeathTypeHelper);
         }
 
-     [Fact]
-        public void CreateIndustryOccupationCodingResponseFromJSON()
-        {
-            IndustryOccupationCodingMessage message = BaseMessage.Parse<IndustryOccupationCodingMessage>(FixtureStream("fixtures/json/IndustryOccupationCodingMessage.json"));
-            //BaseMessage message = BaseMessage.Parse<BaseMessage>(FixtureStream("fixtures/json/IndustryOccupationCodingMessage.json")); //IndustryOccupationCodingMessage.json"));
-
-
-            Assert.Equal("https://sos.ny.gov/vitalrecords", message.MessageDestination);
-            Assert.Equal((uint)123456, message.CertNo);
-            Assert.Equal((uint)2018, message.DeathYear);
-            Assert.Equal("abcdef10",message.StateAuxiliaryId);
-            Assert.Equal("2018NY123456", message.NCHSIdentifier);
-            Assert.Equal("VRDRSTU30",(message.PayloadVersionId));
-
-
-            switch (message)
-            {
-                // use C# pattern matching to cast message type
-                case IndustryOccupationCodingMessage codCodeMsg:
-                    Assert.NotNull(codCodeMsg);
-                    Assert.Equal("secretary", codCodeMsg.DeathRecord.UsualOccupation);
-                    Assert.Equal("State agency", codCodeMsg.DeathRecord.UsualIndustry);
-                    Assert.Equal(IndustryOccupationCodingMessage.MESSAGE_TYPE, codCodeMsg.MessageType);
-
-                    break;
-                default:
-                    Assert.Fail("Message was not a IndustryOccupationCodingMessage");
-                    break;
-            }
-        }
         [Fact]
         public void CreateCauseOfDeathCodingAcknowledgementFromJSON()
         {
@@ -828,7 +805,7 @@ namespace VRDR.Tests
             Assert.Equal("199", message.DeathRecord.FirstEditedRaceCodeHelper);
             Assert.Equal("B40", message.DeathRecord.FirstAmericanIndianRaceCodeHelper);
         }
-[Fact]
+        [Fact]
         public void CreateIndustryOccupationCodingResponse()
         {
             // This test creates a response using the approach NCHS will use via IJE setters
@@ -849,17 +826,17 @@ namespace VRDR.Tests
             var occ = new Dictionary<string, string>();
             occ["system"] = VR.CodeSystems.OccupationCDCSOC2018;
             occ["code"] = "13-2011";
-            occ["display"]= "Accountants and Auditors";
+            occ["display"] = "Accountants and Auditors";
             message.DeathRecord.UsualOccupationCoded = occ;
             var ind = new Dictionary<string, string>();
             ind["system"] = VR.CodeSystems.IndustryCDCNAICS2017;
             ind["code"] = "54121";
-            ind["display"]= "Accounting, Tax Preparation, Bookkeeping, and Payroll Services";
+            ind["display"] = "Accounting, Tax Preparation, Bookkeeping, and Payroll Services";
             message.DeathRecord.UsualIndustryCoded = ind;
             message.DeathRecord.UsualIndustry = "Accounting";
             message.DeathRecord.UsualOccupation = "Accountant";
             Assert.Equal("13-2011", message.DeathRecord.UsualOccupationCoded["code"]);
-            Assert.Equal(VR.CodeSystems.OccupationCDCSOC2018,message.DeathRecord.UsualOccupationCoded["system"]);
+            Assert.Equal(VR.CodeSystems.OccupationCDCSOC2018, message.DeathRecord.UsualOccupationCoded["system"]);
             Assert.Equal("54121", message.DeathRecord.UsualIndustryCoded["code"]);
             Assert.Equal(VR.CodeSystems.IndustryCDCNAICS2017, message.DeathRecord.UsualIndustryCoded["system"]);
             message.MessageSource = "http://nchs.cdc.gov/vrdr_submission";
@@ -875,6 +852,117 @@ namespace VRDR.Tests
             Assert.Equal("Accounting", message.DeathRecord.UsualIndustry);
             Assert.Equal("Accountant", message.DeathRecord.UsualOccupation);
         }
+
+        [Fact]
+        public void CreateIndustryOccupationCodingResponseFromJSON()
+        {
+            IndustryOccupationCodingMessage message = BaseMessage.Parse<IndustryOccupationCodingMessage>(FixtureStream("fixtures/json/IndustryOccupationCodingMessage.json"));
+
+            Assert.Equal("https://sos.ny.gov/vitalrecords", message.MessageDestination);
+            Assert.Equal((uint)123456, message.CertNo);
+            Assert.Equal((uint)2018, message.DeathYear);
+            Assert.Equal("abcdef10", message.StateAuxiliaryId);
+            Assert.Equal("2018NY123456", message.NCHSIdentifier);
+            Assert.Equal("VRDRSTU30", message.PayloadVersionId);
+            Assert.Equal("secretary", message.DeathRecord.UsualOccupation);
+            Assert.Equal("State agency", message.DeathRecord.UsualIndustry);
+            Assert.Equal(IndustryOccupationCodingMessage.MESSAGE_TYPE, message.MessageType);
+        }
+
+        [Fact]
+        public void CreateIndustryOccupationCodingResponseFromMessage()
+        {
+            DeathRecordSubmissionMessage submission = new DeathRecordSubmissionMessage();
+            IndustryOccupationCodingMessage message = new IndustryOccupationCodingMessage(submission);
+            Assert.Equal(submission.CertNo, message.CertNo);
+            Assert.Equal(submission.StateAuxiliaryId, message.StateAuxiliaryId);
+            Assert.Equal(submission.JurisdictionId, message.JurisdictionId);
+            Assert.Equal(submission.DeathYear, message.DeathYear);
+            Assert.Equal("VRDR_STU3_0", message.PayloadVersionId);
+            Assert.Equal(IndustryOccupationCodingMessage.MESSAGE_TYPE, message.MessageType);
+            Assert.Equal(submission.MessageId, message.CodedMessageId);
+            Assert.Equal(submission.MessageSource, message.MessageDestination);
+            Assert.Equal(submission.MessageDestination, message.MessageSource);
+        }
+
+        [Fact]
+        public void CreateIndustryOccupationCodingResponseFromParams()
+        {
+            string messageId = Guid.NewGuid().ToString();
+            IndustryOccupationCodingMessage message = new IndustryOccupationCodingMessage(messageId, "http://some.url.com/destination", "http://different.website.com/source");
+            Assert.Equal(messageId, message.CodedMessageId);
+            Assert.Equal("http://some.url.com/destination", message.MessageDestination);
+            Assert.Equal("http://different.website.com/source", message.MessageSource);
+            Assert.Equal(IndustryOccupationCodingMessage.MESSAGE_TYPE, message.MessageType);
+            string updatedId = Guid.NewGuid().ToString();
+            message.CodedMessageId = updatedId;
+            Assert.Equal(updatedId, message.CodedMessageId);
+        }
+
+        [Fact]
+        public void CreateIndustryOccupationCodingUpdateMessage()
+        {
+            // This test creates a response using the approach NCHS will use via IJE setters
+            IJEMortality ije = new IJEMortality();
+            ije.DOD_YR = "2022";
+            ije.DSTATE = "YC";
+            ije.FILENO = "123";
+            ije.AUXNO = "500";
+            ije.DETHNIC1 = "Y";
+            ije.DETHNIC2 = "N";
+            ije.RACE1 = "Y";
+            ije.RACE2 = "N";
+            ije.RACE16 = "Cheyenne";
+            ije.RACE1E = "199";
+            ije.RACE16C = "B40";
+            IndustryOccupationCodingUpdateMessage message = new IndustryOccupationCodingUpdateMessage(ije.ToRecord());
+
+            var occ = new Dictionary<string, string>();
+            occ["system"] = VR.CodeSystems.OccupationCDCSOC2018;
+            occ["code"] = "13-2011";
+            occ["display"] = "Accountants and Auditors";
+            message.DeathRecord.UsualOccupationCoded = occ;
+            var ind = new Dictionary<string, string>();
+            ind["system"] = VR.CodeSystems.IndustryCDCNAICS2017;
+            ind["code"] = "54121";
+            ind["display"] = "Accounting, Tax Preparation, Bookkeeping, and Payroll Services";
+            message.DeathRecord.UsualIndustryCoded = ind;
+            message.DeathRecord.UsualIndustry = "Accounting";
+            message.DeathRecord.UsualOccupation = "Accountant";
+            Assert.Equal("13-2011", message.DeathRecord.UsualOccupationCoded["code"]);
+            Assert.Equal(VR.CodeSystems.OccupationCDCSOC2018, message.DeathRecord.UsualOccupationCoded["system"]);
+            Assert.Equal("54121", message.DeathRecord.UsualIndustryCoded["code"]);
+            Assert.Equal(VR.CodeSystems.IndustryCDCNAICS2017, message.DeathRecord.UsualIndustryCoded["system"]);
+            message.MessageSource = "http://nchs.cdc.gov/vrdr_submission";
+            message.MessageDestination = "https://example.org/jurisdiction/endpoint";
+            Assert.Equal(IndustryOccupationCodingUpdateMessage.MESSAGE_TYPE, message.MessageType);
+            Assert.Equal("http://nchs.cdc.gov/vrdr_submission", message.MessageSource);
+            Assert.Equal("https://example.org/jurisdiction/endpoint", message.MessageDestination);
+            Assert.Equal((uint)123, message.CertNo);
+            Assert.Equal((uint)2022, message.DeathYear);
+            Assert.Equal("000000000500", message.StateAuxiliaryId);
+            Assert.Equal("2022YC000123", message.NCHSIdentifier);
+            Assert.Equal("VRDR_STU3_0", message.PayloadVersionId);
+            Assert.Equal("Accounting", message.DeathRecord.UsualIndustry);
+            Assert.Equal("Accountant", message.DeathRecord.UsualOccupation);
+        }
+
+        [Fact]
+        public void CreateIndustryOccupationCodingUpdateMessageFromJSON()
+        {
+            IndustryOccupationCodingUpdateMessage message = BaseMessage.Parse<IndustryOccupationCodingUpdateMessage>(FixtureStream("fixtures/json/IndustryOccupationCodingUpdateMessage.json"));
+
+            Assert.Equal("https://sos.ny.gov/vitalrecords", message.MessageDestination);
+            Assert.Equal((uint)123456, message.CertNo);
+            Assert.Equal((uint)2018, message.DeathYear);
+            Assert.Equal("abcdef10", message.StateAuxiliaryId);
+            Assert.Equal("2018NY123456", message.NCHSIdentifier);
+            Assert.Equal("VRDRSTU30", message.PayloadVersionId);
+            Assert.Equal("secretary", message.DeathRecord.UsualOccupation);
+            Assert.Equal("State agency", message.DeathRecord.UsualIndustry);
+            Assert.Equal(IndustryOccupationCodingUpdateMessage.MESSAGE_TYPE, message.MessageType);
+        }
+
         [Fact]
         public void CreateDeathRecordVoidMessage()
         {
@@ -933,6 +1021,14 @@ namespace VRDR.Tests
             Assert.Equal(submission.CertNo, status.CertNo);
             Assert.Equal(submission.NCHSIdentifier, status.NCHSIdentifier);
             Assert.Equal(submission.PayloadVersionId, status.PayloadVersionId);
+
+            status = new StatusMessage();
+            Assert.Null(status.Status);
+            Assert.Null(status.StatusedMessageId);
+            status.Status = "manualDemographicCoding";
+            status.StatusedMessageId = submission.MessageId;
+            Assert.Equal("manualDemographicCoding", status.Status);
+            Assert.Equal(submission.MessageId, status.StatusedMessageId);
         }
 
         [Fact]
@@ -1281,6 +1377,10 @@ namespace VRDR.Tests
             Assert.Null(err.NCHSIdentifier);
             Assert.Equal("VRDR_STU3_0", err.PayloadVersionId);
             Assert.Empty(err.Issues);
+
+            string failId = Guid.NewGuid().ToString();
+            err.FailedMessageId = failId;
+            Assert.Equal(failId, err.FailedMessageId);
         }
 
         [Fact]
@@ -1360,6 +1460,40 @@ namespace VRDR.Tests
             Assert.Null(submission.DeathRecord.UsualIndustry);
         }
 
+        [Theory]
+        [InlineData((uint)573)]
+        [InlineData((uint)24601)]
+        public void SetDeathYearNotFourDigits(uint year)
+        {
+            DeathRecordSubmissionMessage submission = new DeathRecordSubmissionMessage();
+            Assert.Throws<ArgumentException>(() => submission.DeathYear = year);
+        }
+
+        [Fact]
+        public void ParseBundleWrongType()
+        {
+            DeathRecordSubmissionMessage submission = new DeathRecordSubmissionMessage();
+            submission.DeathRecord = new DeathRecord();
+            submission.CertNo = 42;
+            submission.StateAuxiliaryId = "identifier";
+            Bundle submissionBundle = (Bundle)submission;
+
+            MessageParseException ex = Assert.Throws<MessageParseException>(() => BaseMessage.Parse<ExtractionErrorMessage>(submissionBundle));
+            Assert.Equal("The supplied message was of type VRDR.DeathRecordSubmissionMessage, expected VRDR.ExtractionErrorMessage or a subclass", ex.Message);
+        }
+
+        [Fact]
+        public void ParseStringWrongType()
+        {
+            DeathRecordSubmissionMessage submission = new DeathRecordSubmissionMessage();
+            submission.DeathRecord = new DeathRecord();
+            submission.CertNo = 42;
+            submission.StateAuxiliaryId = "identifier";
+            string submissionJson = submission.ToJson();
+            MessageParseException ex = Assert.Throws<MessageParseException>(() => BaseMessage.Parse<ExtractionErrorMessage>(submissionJson));
+            Assert.Equal("The supplied message was of type VRDR.DeathRecordSubmissionMessage, expected VRDR.ExtractionErrorMessage or a subclass", ex.Message);
+
+        }
 
         private string FixturePath(string filePath)
         {
