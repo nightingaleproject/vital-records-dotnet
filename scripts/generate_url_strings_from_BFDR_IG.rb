@@ -1,7 +1,12 @@
+#!/usr/bin/env ruby
+
 # This script takes the JSON files that are generated as part of the BFDR IG and creates an output
 # file with static URL strings for each StructureDefinition, Extension, and IG HTML page
 #
-# Usage: ruby scripts/generate_url_strings_from_BFDR_IG.rb <path-to-json-files> > projects/BFDR/URLs.cs
+# Usage: ruby generate_url_strings_from_BFDR_IG.rb <path-to-json-files> > <path-to-output-source-file>
+#
+# e.g. from the root directory of this repository:
+# ruby scripts/generate_url_strings_from_BFDR_IG.rb ~/Developer/fhir-bfdr > projects/BFDR/URLs.cs
 #
 # If you need to generate the concept map JSON files, first install sushi (https://github.com/FHIR/sushi) then
 #
@@ -105,4 +110,4 @@ EOT
 scriptname = __FILE__
 
 # Populate and print the template
-puts ERB.new(template, nil, '-').result(binding)
+puts ERB.new(template, trim_mode: '-').result(binding)

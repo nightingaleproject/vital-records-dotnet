@@ -1,7 +1,12 @@
+#!/usr/bin/env ruby
+
 # This script takes the JSON files that are generated as part of the VR IG and creates an output
 # file with static URL strings for each StructureDefinition, Extension, and IG HTML page
 #
-# Usage: ruby scripts/generate_url_strings_from_VR_IG.rb <path-to-json-files> > projects/VitalRecord/URLs.cs
+# Usage: ruby scripts/generate_url_strings_from_VR_IG.rb <path-to-json-files> > <path-to-output-source-file>
+#
+# e.g. from the root directory of this repository:
+# ruby scripts/generate_url_strings_from_VR_IG.rb ~/Developer/vr-common-library > projects/VitalRecord/URLs.cs
 #
 # If you need to generate the concept map JSON files, first install sushi (https://github.com/FHIR/sushi) then
 #
@@ -58,9 +63,9 @@ def structure_definition_url_to_ig_url(url)
 end
 # Helper method to determine whether a definition is an Extension or a Profile
 def url_type(name)
-  if name.include?('Extension') then 'extension' 
-  elsif name.include?('CodeSystem') then 'codesystem' 
-  else 'profile' 
+  if name.include?('Extension') then 'extension'
+  elsif name.include?('CodeSystem') then 'codesystem'
+  else 'profile'
   end
 end
 
@@ -107,10 +112,10 @@ namespace VR
 <% end -%>
 
         /// <summary>URL for PatientBirthTime as defined in the VitalRecords IG</summary>
-        public const string PatientBirthTime = "http://hl7.org/fhir/StructureDefinition/patient-birthTime";  
+        public const string PatientBirthTime = "http://hl7.org/fhir/StructureDefinition/patient-birthTime";
 
         /// <summary>URL for PartialDate Day as defined in the VitalRecords IG</summary>
-        public const string PartialDateDayVR = "day";     
+        public const string PartialDateDayVR = "day";
 
         /// <summary>URL for PartialDate Month as defined in the VitalRecords IG</summary>
         public const string PartialDateMonthVR = "month";
@@ -157,4 +162,4 @@ EOT
 scriptname = __FILE__
 
 # Populate and print the template
-puts ERB.new(template, nil, '-').result(binding)
+puts ERB.new(template, trim_mode: '-').result(binding)
