@@ -581,6 +581,8 @@ dotnet run --project VRDR.CLI filter VRDR.CLI/1coding.json
 
 ### VRDR.Client
 
+VRDR.Client is replaced with VitalRecord.Client, please refer to https://github.com/nightingaleproject/vital-records-dotnet/tree/main/projects/VRDR.Client.
+
 This directory contains classes and functions to connect to the [NVSS API server](https://github.com/nightingaleproject/Reference-NCHS-API), authenticate, manage authentication tokens, post records, and retrieve responses. For a full implementation of a client service that uses this library, see the [Reference Client Implementation](https://github.com/nightingaleproject/Reference-Client-API).
 
 *This package is not yet published on NuGet.*
