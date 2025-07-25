@@ -73,7 +73,7 @@ namespace BFDR
         /// <para>// Setter:</para>
         /// <para>Dictionary&lt;string, string&gt; occ = new Dictionary&lt;string, string&gt;();</para>
         /// <para>occ.Add("code", "27-2011");</para>
-        /// <para>occ.Add("system", "urn:oid:2.16.840.1.114222.4.11.8068");</para>
+        /// <para>occ.Add("system", "urn:oid:2.16.840.1.114222.4.5.338");</para>
         /// <para>occ.Add("display", "Actors");</para>
         /// <para>ExampleBirthRecord.MotherCodedOccupation = occ;</para>
         /// <para>// Getter:</para>
@@ -107,7 +107,7 @@ namespace BFDR
             {
                 if (!string.IsNullOrWhiteSpace(value))
                 {
-                    MotherCodedOccupation = new Dictionary<string, string> { { "code", value }, { "system", "urn:oid:2.16.840.1.114222.4.11.8068" } };
+                    MotherCodedOccupation = new Dictionary<string, string> { { "code", value }, { "system", $"urn:oid:{VR.CodeSystems.OccupationCDCSOC2018}" } };
                 }
             }
         }
@@ -118,7 +118,7 @@ namespace BFDR
         /// <para>// Setter:</para>
         /// <para>Dictionary&lt;string, string&gt; occ = new Dictionary&lt;string, string&gt;();</para>
         /// <para>occ.Add("code", "27-2011");</para>
-        /// <para>occ.Add("system", "urn:oid:2.16.840.1.114222.4.11.8068");</para>
+        /// <para>occ.Add("system", "urn:oid:2.16.840.1.114222.4.5.338");</para>
         /// <para>occ.Add("display", "Actors");</para>
         /// <para>ExampleBirthRecord.FatherCodedOccupation = occ;</para>
         /// <para>// Getter:</para>
@@ -152,7 +152,7 @@ namespace BFDR
             {
                 if (!string.IsNullOrWhiteSpace(value))
                 {
-                    FatherCodedOccupation = new Dictionary<string, string> { { "code", value }, { "system", "urn:oid:2.16.840.1.114222.4.11.8068" } };
+                    FatherCodedOccupation = new Dictionary<string, string> { { "code", value }, { "system", $"urn:oid:{VR.CodeSystems.OccupationCDCSOC2018}" } };
                 }
             }
         }
@@ -163,7 +163,7 @@ namespace BFDR
         /// <para>// Setter:</para>
         /// <para>Dictionary&lt;string, string&gt; ind = new Dictionary&lt;string, string&gt;();</para>
         /// <para>ind.Add("code", "336411");</para>
-        /// <para>ind.Add("system", "urn:oid:2.16.840.1.114222.4.11.8067");</para>
+        /// <para>ind.Add("system", "urn:oid:2.16.840.1.114222.4.5.337");</para>
         /// <para>ind.Add("display", "Aircraft Manufacturing");</para>
         /// <para>ExampleBirthRecord.MotherCodedIndustry = ind;</para>
         /// <para>// Getter:</para>
@@ -197,7 +197,7 @@ namespace BFDR
             {
                 if (!string.IsNullOrWhiteSpace(value))
                 {
-                    MotherCodedIndustry = new Dictionary<string, string> { { "code", value }, { "system", "urn:oid:2.16.840.1.114222.4.11.8067" } };
+                    MotherCodedIndustry = new Dictionary<string, string> { { "code", value }, { "system", $"urn:oid:{VR.CodeSystems.IndustryCDCNAICS2017}" } };
                 }
             }
         }
@@ -208,7 +208,7 @@ namespace BFDR
         /// <para>// Setter:</para>
         /// <para>Dictionary&lt;string, string&gt; ind = new Dictionary&lt;string, string&gt;();</para>
         /// <para>ind.Add("code", "336411");</para>
-        /// <para>ind.Add("system", "urn:oid:2.16.840.1.114222.4.11.8067");</para>
+        /// <para>ind.Add("system", "urn:oid:2.16.840.1.114222.4.5.337");</para>
         /// <para>ind.Add("display", "Aircraft Manufacturing");</para>
         /// <para>ExampleBirthRecord.FatherCodedIndustry = ind;</para>
         /// <para>// Getter:</para>
@@ -242,7 +242,7 @@ namespace BFDR
             {
                 if (!string.IsNullOrWhiteSpace(value))
                 {
-                    FatherCodedIndustry = new Dictionary<string, string> { { "code", value }, { "system", "urn:oid:2.16.840.1.114222.4.11.8067" } };
+                    FatherCodedIndustry = new Dictionary<string, string> { { "code", value }, { "system", $"urn:oid:{VR.CodeSystems.IndustryCDCNAICS2017}" } };
                 }
             }
         }
