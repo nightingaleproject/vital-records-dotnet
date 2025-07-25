@@ -2,16 +2,6 @@
 # an optional number of hours to use with the _since parameter; saves incoming messages to files and sends
 # acks as appropriate (saving those to files as well).
 
-require 'bundler/inline'
-
-gemfile do
-  source 'https://rubygems.org'
-
-  gem 'oauth2'
-  gem 'activesupport'
-  gem 'parallel'
-end
-
 require 'yaml'
 require 'oauth2'
 require 'active_support/time'

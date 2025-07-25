@@ -1,16 +1,6 @@
 # Submit messages to the NVSS API; takes as arguments the jurisdiction to submit for (e.g., MA) and the files
 # to send (must be valid FHIR messages)
 
-require 'bundler/inline'
-
-gemfile do
-  source 'https://rubygems.org'
-
-  gem 'oauth2'
-  gem 'activesupport'
-  gem 'parallel'
-end
-
 require 'yaml'
 require 'oauth2'
 require 'active_support/time'
