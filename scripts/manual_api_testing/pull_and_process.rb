@@ -7,14 +7,14 @@ require 'oauth2'
 require 'active_support/time'
 require 'parallel'
 
-CLI_PATH = File.join(__dir__, '..', '..', 'VRDR.CLI', 'bin', 'Debug', 'netcoreapp6.0', 'DeathRecord.CLI.dll')
-if (!File.exists?(CLI_PATH))
+CLI_PATH = File.join(__dir__, '..', '..', 'projects', 'VRDR.CLI', 'bin', 'Debug', 'netcoreapp6.0', 'VRDR.CLI.dll')
+if (!File.exist?(CLI_PATH))
   puts "Cannot find the CLI application at #{CLI_PATH}, you may need to build it"
   exit
 end
 
 CONFIG_PATH = File.join(__dir__, 'config.yml')
-if (!File.exists?(CONFIG_PATH))
+if (!File.exist?(CONFIG_PATH))
   puts "Cannot find the config file at #{CONFIG_PATH}, you may need to create it"
   puts "It should look something like this (including the ---):"
   puts ['client_id', 'client_secret', 'username', 'password'].inject({}) { |h, k| h[k] = k ; h }.to_yaml
