@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
 <a name="1.0.0-preview.9"></a>
-## [1.0.0-preview.9]() (2025-07-24)
+## [1.0.0-preview.9]() (2025-07-25)
 
 ### Features
 * Add a single VitalRecord Client that supports VRDR and BFDR messaging
