@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
 <a name="5.3.2"></a> 
-## 5.3.2 07-25-2025
+## [5.3.2](https://github.com/nightingaleproject/vital-records-dotnet/pull/272/commits/197538f61e9b2cc60258df33b115141298599449) 07-25-2025
 
 ### Features
 * Show the user IJE conversion issues when inspecting a FHIR record
