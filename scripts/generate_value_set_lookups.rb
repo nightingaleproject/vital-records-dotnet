@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 # This ruby script takes the concept map JSON files that are generated as part of the VRDR, BFDR, and VR Common IGs
 # and creates output files that includes a class describing each valueset
 #
@@ -11,7 +13,10 @@
 # Inputs:   <input directory of an IG download> <CodeSystems.cs>
 # Output:   <c# source code defining value set classes>
 #
-# Usage: ruby tools/generate_value_set_lookups.rb <path-to-value-sets> <path-to-code-systems> > <path-to-source-file>
+# Usage: ruby generate_value_set_lookups.rb <path-to-value-sets> <path-to-code-systems> > <path-to-output-source-file>
+#
+# e.g. from the root directory of this repository:
+# ruby scripts/generate_value_set_lookups.rb ~/Developer/vrdr projects/VRDR/CodeSystems.cs > projects/VRDR/CodeSystems.cs
 #
 # If you need to generate the value set JSON files, first install sushi (https://github.com/FHIR/sushi).
 # Then, to generate the value set lookup file for VRDR, first checkout the VRDR IG
@@ -51,7 +56,7 @@
 #     ruby generate_value_set_lookups.rb ../../vr-common-library/fsh-generated ../projects/VitalRecord/CodeSystems.cs >! ../projects/VitalRecord/ValueSets.cs
 #
 # Example of generated output:
-# 
+#
 # namespace VRDR
 # {
 #     public static class ValueSets
@@ -128,7 +133,7 @@ end
 #   valuesets['SexAssignedAtBirth']['compose']['include'] << {
 #     'system' => 'http://terminology.hl7.org/CodeSystem/v3-AdministrativeGender',
 #     'concept' => [ { 'code' => 'F', 'display' => 'Female' }, { 'code' => 'M', 'display' => 'Male' } ]
-#   }     
+#   }
 #   valuesets['SexAssignedAtBirth']['compose']['include'] << {
 #     'system' => "http://terminology.hl7.org/CodeSystem/v3-NullFlavor",
 #     'concept' => [ { 'code' => 'UNK', 'display' => 'unknown' } ]
@@ -239,7 +244,7 @@ if systems_without_constants.length > 0
   STDERR.puts "Suggestions:"
   STDERR.puts
   systems_without_constants.uniq.each do |system|
-    system_name = case system 
+    system_name = case system
                   when /CodeSystem\/CodeSystem-vr-/
                     system.match(/CodeSystem\/CodeSystem-vr-(.*)/)[1]
                   when /CodeSystem\/vrdr-/

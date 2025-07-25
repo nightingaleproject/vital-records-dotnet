@@ -1,13 +1,26 @@
-require 'parallel'
+#!/usr/bin/env ruby
 
 # Generate quantities of connectathon records
 #
 # Usage: ruby generate_bulk_connectathon_records.rb <StartCertificateNumber> <Count> <Directory>
 #
+# e.g. from the root directory of this repository:
+# ruby scripts/generate_bulk_connectathon_records.rb 1 500 ~/Desktop/records
+#
 # Generates <Count> records, starting with the specified <StartCertificateNumber>, rotating
 # through the 4 distinct connectathon records, and writing them to the specified <Directory>
 #
 # Uses the parallel gem to run using all cores
+
+require 'bundler/inline'
+
+gemfile do
+  source 'https://rubygems.org'
+
+  gem 'parallel'
+end
+
+require 'parallel'
 
 start_certificate_number = (ARGV.shift || 0).to_i
 count = (ARGV.shift || 0).to_i

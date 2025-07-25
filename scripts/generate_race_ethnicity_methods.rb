@@ -1,10 +1,15 @@
+#!/usr/bin/env ruby
+
 # This script generates code for all the race and ethnicity methods in DeathRecord.cs
 #
-# Usage: ruby tools/generate_race_ethnicity_methods.rb
+# Usage: ruby generate_race_ethnicity_methods.rb
+#
+# e.g. from the root directory of this repository:
+# ruby scripts/generate_race_ethnicity_methods.rb
 
 require 'json'
 require 'erb'
-require 'byebug'
+
 template = "
         /// <summary>#descrip#.</summary>
         /// <value>#descrip#. A Dictionary representing a code, containing the following key/value pairs:
@@ -101,7 +106,9 @@ race_methods.each do |prefix|
   stage4 = stage3.gsub("&descripnorace&", descripnorace)
   puts stage4
 end
+
 ethnicity_methods = ["Hispanic Code", "Hispanic Code For Literal"];
+
 ethnicity_methods.each do |prefix|
   descrip = prefix
   name = descrip.split(' ').join()

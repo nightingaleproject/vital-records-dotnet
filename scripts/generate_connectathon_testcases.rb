@@ -1,20 +1,28 @@
-# This script takes an excel file provided by NCHS (see FHIRTestCases*.xlsx in this directory)
+#!/usr/bin/env ruby
+
+# This script takes an excel file provided by NCHS (see FHIRTestCases.xlsx in this directory)
 # and produces csharp code for inclusion in the VRDR dot net library.
 # The process is semi-automated.
 # Other limitations/shortcuts taken:
 #   - the number of testcases is hardcoded to 3, so adding more test cases would involve changes to the code
 #   - the rows with the name information are hardcoded, rather than searched-for/found in the file, so changes to the structure of the input would require code changes.
 #
-# Usage: ruby tools/generate_connectathon_testcases.rb <path-to-excel-files>
+# Usage: ruby generate_connectathon_testcases.rb <path-to-excel-files>
+#
+# e.g. from the root directory of this repository:
+# ruby scripts/generate_connectathon_testcases.rb FHIRTestCases.xlsx
 #
 # Output is produced in the generated subdirectory and needs to be pasted into the Connectahon.cs file.  The Files are named connectathon_<name>.cs
-#
-#
 
-require "pry"
-require "roo"
-require "byebug"
+require 'bundler/inline'
 
+gemfile do
+  source 'https://rubygems.org'
+
+  gem 'roo'
+end
+
+require 'roo'
 
 def get_file_type(file)
   File.extname(file).gsub(".", "")
@@ -39,8 +47,6 @@ IJEName = 4
 GNAME = 7
 FNAME = 9
 record_col = [5,6,7]
-
-
 
 puts ARGV[0]
 

@@ -18,7 +18,8 @@ These scripts are generally used for generating test data or submitting test dat
 # Creating library support code from FHIR IGs
 
 These scripts are used to generate C# source code from FHIR IGs for things like IG URLs, code
-mappings, and value set listings.
+mappings, and value set listings. Details about usage and implementation are included at the top
+of each script.
 
 ## Generating C# source code files containing relevant URL string from IGs
 
@@ -26,14 +27,127 @@ mappings, and value set listings.
 * `generate_url_strings_from_VRDR_IG.rb`
 * `generate_url_strings_from_VR_IG.rb`
 
+See the header comment in each script for detailed usage instructions.
+
+For example, to generate an updated `URLs.cs` source file for the BFDR implementation, you would:
+
+1. Using git, clone the latest version of the BFDR FHIR Implementation Guide:
+
+```shell
+git clone https://github.com/HL7/fhir-bfdr.git
+cd fhir-bfdr
+```
+
+If you are targeting other versions of the IG than the latest, make sure to checkout the correct branch/tag, e.g.
+
+```shell
+git checkout 1.1.0
+```
+
+2. Make sure you have SUSHI installed and available. For instructions, see https://github.com/FHIR/sushi?tab=readme-ov-file#installation-for-sushi-users.
+
+3. Use SUSHI to generate the required artifacts from the IG source:
+
+```shell
+sushi
+```
+
+4. Now execute the script against the generated artifacts from the root of this repository, making sure to replace the `~/Developer/fhir-bfdr` with the location of the IG that you cloned:
+
+```shell
+ruby scripts/generate_url_strings_from_BFDR_IG.rb ~/Developer/fhir-bfdr > projects/BFDR/URLs.cs
+```
+
+The existing `URLs.cs` file is now overwritten with the latest. To quickly see changes, you can:
+
+```shell
+git diff
+```
+
 ## Generate C# source code files containing code mappings between FHIR and IJE for VR Common, VRDR, and BFDR
 
 * `generate_concept_mappings.rb`
+
+See the header comment in the script for detailed usage instructions.
+
+For example, to generate an updated `Mappings.cs` source file for the BFDR implementation, you would:
+
+1. Using git, clone the latest version of the BFDR FHIR Implementation Guide:
+
+```shell
+git clone https://github.com/HL7/fhir-bfdr.git
+cd fhir-bfdr
+```
+
+If you are targeting other versions of the IG than the latest, make sure to checkout the correct branch/tag, e.g.
+
+```shell
+git checkout 1.1.0
+```
+
+2. Make sure you have SUSHI installed and available. For instructions, see https://github.com/FHIR/sushi?tab=readme-ov-file#installation-for-sushi-users.
+
+3. Use SUSHI to generate the required artifacts from the IG source:
+
+```shell
+sushi
+```
+
+4. Now execute the script against the generated artifacts from the root of this repository, making sure to replace the `~/Developer/fhir-bfdr` with the location of the IG that you cloned:
+
+```shell
+ruby scripts/generate_concept_mappings.rb ~/Developer/fhir-bfdr > projects/BFDR/Mappings.cs
+```
+
+The existing `Mappings.cs` file is now overwritten with the latest. To quickly see changes, you can:
+
+```shell
+git diff
+```
 
 ## Generate C# source code files containing value set listings and helper static variables
 
 * `generate_value_set_lookups.rb`
 
+See the header comment in the script for detailed usage instructions.
+
+For example, to generate an updated `CodeSystems.cs` source file for the BFDR implementation, you would:
+
+1. Using git, clone the latest version of the BFDR FHIR Implementation Guide:
+
+```shell
+git clone https://github.com/HL7/fhir-bfdr.git
+cd fhir-bfdr
+```
+
+If you are targeting other versions of the IG than the latest, make sure to checkout the correct branch/tag, e.g.
+
+```shell
+git checkout 1.1.0
+```
+
+2. Make sure you have SUSHI installed and available. For instructions, see https://github.com/FHIR/sushi?tab=readme-ov-file#installation-for-sushi-users.
+
+3. Use SUSHI to generate the required artifacts from the IG source:
+
+```shell
+sushi
+```
+
+4. Now execute the script against the generated artifacts from the root of this repository, making sure to replace the `~/Developer/fhir-bfdr` with the location of the IG that you cloned:
+
+```shell
+ruby scripts/generate_concept_mappings.rb ~/Developer/fhir-bfdr projects/BFDR/CodeSystems.cs > projects/BFDR/CodeSystems.cs
+```
+
+The existing `CodeSystems.cs` file is now overwritten with the latest. To quickly see changes, you can:
+
+```shell
+git diff
+```
+
 ## Generate C# source code for handling race and ethnicity
 
 * `generate_race_ethnicity_methods.rb`
+
+See the header comment in the script for detailed usage instructions. The output of this script can be inserted where needed.
