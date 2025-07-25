@@ -1,0 +1,12 @@
+# frozen_string_literal: true
+
+source "https://rubygems.org"
+
+# For OAuth2 authentication with the API
+gem "oauth2"
+
+# For advanced time/date calculations (e.g., `hours.ago`)
+gem "activesupport"
+
+# For running network requests in parallel to speed up processing
+gem "parallel"
