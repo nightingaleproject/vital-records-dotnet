@@ -6,7 +6,16 @@ All notable changes to this project will be documented in this file. See [commit
 ## [1.0.0-preview.14]() (2025-07-24)
 
 ### Fixes
+* Fix padding on numeric fields to have leading zeroes
+* Fix IJE fields that were not returning the correct length
+* Remove fields that are were deleted by NCHS
+* Fix handling of Mother Height fields in IJE
+* Fix handling of null values for gestational type fields
+
 ### Features
+* Update timezone handling for datetime fields to align with the latest IG guidance
+* Add support for attendant fields for Fetal Death records
+* Add support for coded response message types
 
 <a name="1.0.0-preview.13"></a>
 ## [1.0.0-preview.13]() (2025-04-22)
