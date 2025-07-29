@@ -1,7 +1,18 @@
+#!/usr/bin/env ruby
 # coding: utf-8
 
 # This script takes statistical and literal tabular death datasets and converts them to IJE using an input file that defines
 # the mappings of IJE fields to the dataset headers. It then converts the IJE records to FHIR using the vrdr-dotnet CLI ije2json.
+
+require 'bundler/inline'
+
+gemfile do
+  source 'https://rubygems.org'
+
+  gem 'creek'
+  gem 'csv'
+  gem 'faker'
+end
 
 require 'creek'
 require 'csv'
@@ -36,7 +47,7 @@ ije_data_mappings = Creek::Book.new ije_data_mappings_file, with_headers: true
 data = Creek::Book.new death_stat_file, with_headers: true
 # Import literal CSV file.
 csv_file = File.read(death_lit_file)
-# Remove invalid non utf-8 characters such as †. 
+# Remove invalid non utf-8 characters such as †.
 csv_file = csv_file.scrub('')
 data_lit = CSV.parse(csv_file, headers: true, encoding: 'ISO-8859-1')
 # Import county name mappings CSV file.

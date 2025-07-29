@@ -1,3 +1,14 @@
+#!/usr/bin/env ruby
+
+require 'bundler/inline'
+
+gemfile do
+  source 'https://rubygems.org'
+
+  gem 'pp'
+  gem 'rexml'
+end
+
 require 'pp'
 require 'json'
 require 'rexml/document'
@@ -6,9 +17,9 @@ require 'rexml/formatters/pretty'
 # Other Changes that are missing from this script:
 # The BirthRecordIdentifier profile (http://hl7.org/fhir/us/vrdr/StructureDefinition/vrdr-birth-record-identifier) uses the code vrdr-observation-cs#childbirthrecordidentifier instead of http://terminology.hl7.org/CodeSystem/v2-0203#BR.
 
-#ruby tools/convertTestInstancesToSTU2.rb 
+#ruby tools/convertTestInstancesToSTU2.rb
 
-#create hash for mapping of links 
+#create hash for mapping of links
 urisSTU3toSTU2 = {
 'http://hl7.org/fhir/us/vr-common-library/StructureDefinition/BypassEditFlag' => 'http://hl7.org/fhir/us/vrdr/StructureDefinition/BypassEditFlag', # profile
 'http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags' => 'http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-bypass-edit-flag-cs', #codesystem
@@ -30,8 +41,8 @@ urisSTU3toSTU2 = {
 'http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-partial-date-time-vr' => 'http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDateTime', #extension
 'http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-partial-date-vr' => 'http://hl7.org/fhir/us/vrdr/StructureDefinition/PartialDate', #extension
 'http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-within-city-limits-indicator-vr' => 'http://hl7.org/fhir/us/vrdr/StructureDefinition/WithinCityLimitsIndicator', #extension
-'day' => 'http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Day', #extension 
-'month' => 'http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Month', #extension 
+'day' => 'http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Day', #extension
+'month' => 'http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Month', #extension
 'year' => 'http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Year', #extension
 'time' => 'http://hl7.org/fhir/us/vrdr/StructureDefinition/Date-Time', #extension
 'http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-local-observation-codes-vr' => 'http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs' , #codesystem
@@ -111,7 +122,7 @@ Dir.foreach(Dir.pwd + '/' + testInstancesBeforeConvertingFolder) do |filename|
     next if File.directory?(rpath)
     vOutputFile = File.open(Dir.pwd +  '/' + testInstancesAfterConvertingFolder + filename, "w")
     vInputFile = File.open(rpath)
-    # if filename.include? "Patient-Decedent-Example" 
+    # if filename.include? "Patient-Decedent-Example"
     #     vInputFile = exchangeURLs(vOutputFile, vInputFile, decedentOnlyUris) #exchange birthdate url in Decedent examples
     # end
     # if filename.include? "Bundle-DeathCertificateDocument-Example" or filename.include? "Bundle-MortalityRosterBundle-Example"
