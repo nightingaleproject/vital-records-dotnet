@@ -10,7 +10,7 @@ require 'json'
 require 'parallel'
 
 CONFIG_PATH = File.join(__dir__, 'config.yml')
-if (!File.exists?(CONFIG_PATH))
+if (!File.exist?(CONFIG_PATH))
   puts "Cannot find the config file at #{CONFIG_PATH}, you may need to create it"
   puts "It should look something like this (including the ---):"
   puts ['client_id', 'client_secret', 'username', 'password'].inject({}) { |h, k| h[k] = k ; h }.to_yaml
@@ -19,11 +19,16 @@ end
 
 credentials = YAML.load(File.read(CONFIG_PATH))
 
+# By default this script submits messages in bundles of 20 messages; the --single flag changes behavior to
+# submit the messages one at a time
 if ARGV.include?('--single')
   ARGV.delete('--single')
   single = true
 end
 
+# By default this script uses multiple CPU cores if available for submitting messages in parallel, increasing
+# submission speed and adding load to the API server; the --sequential flag changes behavior to submit all
+# messages sequentially using a single process
 if ARGV.include?('--sequential')
   ARGV.delete('--sequential')
   sequential = true
