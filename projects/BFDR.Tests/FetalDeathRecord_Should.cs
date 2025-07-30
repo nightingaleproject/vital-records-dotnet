@@ -2352,5 +2352,22 @@ namespace BFDR.Tests
         }
     }
 
+    [Fact]
+    public void TestEntryExistsProperties()
+    {
+        FetalDeathRecord record = new FetalDeathRecord();
+        // Test AbruptioPlacenta
+        Assert.False(record.AbruptioPlacenta);
+        record.AbruptioPlacenta = true;
+        Assert.True(record.AbruptioPlacenta);
+        record.AbruptioPlacenta = false;
+        Assert.False(record.AbruptioPlacenta);
+        // Test OtherCOD_AbruptioPlacenta
+        Assert.False(record.OtherCOD_AbruptioPlacenta);
+        record.OtherCOD_AbruptioPlacenta = true;
+        Assert.True(record.OtherCOD_AbruptioPlacenta);
+        record.OtherCOD_AbruptioPlacenta = false;
+        Assert.False(record.OtherCOD_AbruptioPlacenta);
+    }
   }
 }
