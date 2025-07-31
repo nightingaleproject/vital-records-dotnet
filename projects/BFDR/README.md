@@ -54,12 +54,12 @@ Interactions with NCHS are governed by the CI build version of the BFDR and Birt
 </tr>
 </tr>
 <tr>
-<td style="text-align: center;"><a href="https://build.fhir.org/ig/HL7/fhir-bfdr/branches/v2.0.0-preview3/ije_mapping_natality.html">STU2.0 v2.0.0-preview3</a></td>
-<td style="text-align: center;"><a href="https://nightingaleproject.github.io/vital_records_fhir_messaging_ig/v2.0.0-preview1/index.html">v2.0.0-preview1</a></td>
+<td style="text-align: center;"><a href="https://build.fhir.org/ig/HL7/fhir-bfdr/">STU2.0 v2.0.0</a></td>
+<td style="text-align: center;"><a href="https://nightingaleproject.github.io/vital_records_fhir_messaging_ig/v2.0.0/">v2.0.0</a></td>
 <td style="text-align: center;">R4</td>
 <td style="text-align: center;">V4.0.3</td>
-<td style="text-align: center;"><a href="">nuget</a> <a href=""> github</a></td>
-<td style="text-align: center;"><a href="">nuget</a> <a href=""> github</a></td>
+<td style="text-align: center;"><a href="https://www.nuget.org/packages/BFDR/1.0.0-preview.14">nuget</a> <a href="https://github.com/nightingaleproject/vital-records-dotnet/releases/tag/BFDR-1.0.0-preview.14"> github</a></td>
+<td style="text-align: center;"><a href="https://www.nuget.org/packages/BFDR.Messaging/1.0.0-preview.14">nuget</a> <a href="https://github.com/nightingaleproject/vital-records-dotnet/releases/tag/BFDR.Messaging-1.0.0-preview.14"> github</a></td>
 </tr>
 
 </tbody>
@@ -92,7 +92,7 @@ This package will be published on NuGet, so including it is as easy as:
 ```xml
 <ItemGroup>
   ...
-  <PackageReference Include="BFDR" Version="1.0.0-preview.13" />
+  <PackageReference Include="BFDR" Version="1.0.0-preview.14" />
   ...
 </ItemGroup>
 ```
@@ -237,7 +237,7 @@ This package is published on NuGet, so including it is as easy as:
 ```xml
 <ItemGroup>
   ...
-  <PackageReference Include="BFDR.Messaging" Version="1.0.0-preview.13" />
+  <PackageReference Include="BFDR.Messaging" Version="1.0.0-preview.14" />
   ...
 </ItemGroup>
 ```
