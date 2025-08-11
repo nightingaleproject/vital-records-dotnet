@@ -938,6 +938,19 @@ namespace BFDR.Tests
       Assert.Equal("1988-09-05", rec.MotherDateOfBirth);
       rec.MotherDateOfBirth = "1990-08-29";
       Assert.Equal("1990-08-29", rec.MotherDateOfBirth);
+
+      // Make sure setter does not override edit flag
+      Dictionary<string, string> editDict = new();
+      editDict.Add("code", "abc");
+      editDict.Add("system", "example.com");
+      editDict.Add("display", "ABC");
+      editDict.Add("text", "A B C");
+      rec.MotherDateOfBirthEditFlag = editDict;
+      Assert.Equal(editDict, rec.MotherDateOfBirthEditFlag);
+      rec.MotherDateOfBirth = "1980-01-01";
+      Assert.Equal("1980-01-01", rec.MotherDateOfBirth);
+      Assert.Equal(editDict, rec.MotherDateOfBirthEditFlag);
+
       rec.MotherDateOfBirth = null;
       Assert.Equal(27, rec.MotherReportedAgeAtDelivery);
       rec.MotherReportedAgeAtDelivery = null;
@@ -3004,6 +3017,30 @@ namespace BFDR.Tests
     }
 
     [Fact]
+    public void TestGestationalAgeAtDeliveryIsQuantity()
+    {
+      BirthRecord birthRecord = new();
+
+      // Start by setting edit flag
+      Dictionary<string, string> editDict = new();
+      editDict.Add("code", "0off");
+      editDict.Add("system", "http://hl7.org/fhir/us/vr-common-library/CodeSystem/CodeSystem-vr-edit-flags");
+      editDict.Add("display", "Off");
+      birthRecord.GestationalAgeAtDeliveryEditFlag = editDict;
+      Assert.Equal(editDict, birthRecord.GestationalAgeAtDeliveryEditFlag);
+
+      // Set value as a Quantity
+      Dictionary<string, string> ageDict = new Dictionary<string, string>
+      {
+          { "value", "12.5" },
+          { "code", "d" }
+      };
+      birthRecord.GestationalAgeAtDelivery = ageDict;
+      Assert.Equal(ageDict["value"], birthRecord.GestationalAgeAtDelivery["value"]);
+      Assert.Equal("d", birthRecord.GestationalAgeAtDelivery["code"]);
+    }
+
+    [Fact]
     public void TestFullBirthRecordImport()
     {
       BirthRecord birthRecord = new(File.ReadAllText(TestHelpers.FixturePath("fixtures/json/BasicBirthRecord.json")));
@@ -4212,7 +4249,220 @@ namespace BFDR.Tests
             }
             Assert.Equal(value, ((string)property.GetValue(ije)).Trim());
         }
-    }    
+    }
+
+    [Fact]
+    public void TestEntryExistsProperties()
+    {
+        BirthRecord record = new BirthRecord();
+        // Properties from NatalityRecord_submissionProperties.cs
+        Assert.False(record.NoCharacteristicsOfLaborAndDelivery);
+        record.NoCharacteristicsOfLaborAndDelivery = true;
+        Assert.True(record.NoCharacteristicsOfLaborAndDelivery);
+        record.NoCharacteristicsOfLaborAndDelivery = false;
+        Assert.False(record.NoCharacteristicsOfLaborAndDelivery);
+        Assert.False(record.EpiduralOrSpinalAnesthesia);
+        record.EpiduralOrSpinalAnesthesia = true;
+        Assert.True(record.EpiduralOrSpinalAnesthesia);
+        record.EpiduralOrSpinalAnesthesia = false;
+        Assert.False(record.EpiduralOrSpinalAnesthesia);
+        Assert.False(record.AugmentationOfLabor);
+        record.AugmentationOfLabor = true;
+        Assert.True(record.AugmentationOfLabor);
+        record.AugmentationOfLabor = false;
+        Assert.False(record.AugmentationOfLabor);
+        Assert.False(record.Chorioamnionitis);
+        record.Chorioamnionitis = true;
+        Assert.True(record.Chorioamnionitis);
+        record.Chorioamnionitis = false;
+        Assert.False(record.Chorioamnionitis);
+        Assert.False(record.AdministrationOfSteroidsForFetalLungMaturation);
+        record.AdministrationOfSteroidsForFetalLungMaturation = true;
+        Assert.True(record.AdministrationOfSteroidsForFetalLungMaturation);
+        record.AdministrationOfSteroidsForFetalLungMaturation = false;
+        Assert.False(record.AdministrationOfSteroidsForFetalLungMaturation);
+        Assert.False(record.NoSpecifiedAbnormalConditionsOfNewborn);
+        record.NoSpecifiedAbnormalConditionsOfNewborn = true;
+        Assert.True(record.NoSpecifiedAbnormalConditionsOfNewborn);
+        record.NoSpecifiedAbnormalConditionsOfNewborn = false;
+        Assert.False(record.NoSpecifiedAbnormalConditionsOfNewborn);
+        Assert.False(record.NICUAdmission);
+        record.NICUAdmission = true;
+        Assert.True(record.NICUAdmission);
+        record.NICUAdmission = false;
+        Assert.False(record.NICUAdmission);
+        Assert.False(record.AntibioticForSuspectedNeonatalSepsis);
+        record.AntibioticForSuspectedNeonatalSepsis = true;
+        Assert.True(record.AntibioticForSuspectedNeonatalSepsis);
+        record.AntibioticForSuspectedNeonatalSepsis = false;
+        Assert.False(record.AntibioticForSuspectedNeonatalSepsis);
+        Assert.False(record.AssistedVentilationMoreThanSixHours);
+        record.AssistedVentilationMoreThanSixHours = true;
+        Assert.True(record.AssistedVentilationMoreThanSixHours);
+        record.AssistedVentilationMoreThanSixHours = false;
+        Assert.False(record.AssistedVentilationMoreThanSixHours);
+        Assert.False(record.Seizure);
+        record.Seizure = true;
+        Assert.True(record.Seizure);
+        record.Seizure = false;
+        Assert.False(record.Seizure);
+        Assert.False(record.SurfactantReplacementTherapy);
+        record.SurfactantReplacementTherapy = true;
+        Assert.True(record.SurfactantReplacementTherapy);
+        record.SurfactantReplacementTherapy = false;
+        Assert.False(record.SurfactantReplacementTherapy);
+        Assert.False(record.NoInfectionsPresentDuringPregnancy);
+        record.NoInfectionsPresentDuringPregnancy = true;
+        Assert.True(record.NoInfectionsPresentDuringPregnancy);
+        record.NoInfectionsPresentDuringPregnancy = false;
+        Assert.False(record.NoInfectionsPresentDuringPregnancy);
+        Assert.False(record.HepatitisB);
+        record.HepatitisB = true;
+        Assert.True(record.HepatitisB);
+        record.HepatitisB = false;
+        Assert.False(record.HepatitisB);
+        Assert.False(record.HepatitisC);
+        record.HepatitisC = true;
+        Assert.True(record.HepatitisC);
+        record.HepatitisC = false;
+        Assert.False(record.HepatitisC);
+        Assert.False(record.MaternalTransfusion);
+        record.MaternalTransfusion = true;
+        Assert.True(record.MaternalTransfusion);
+        record.MaternalTransfusion = false;
+        Assert.False(record.MaternalTransfusion);
+        Assert.False(record.PerinealLaceration);
+        record.PerinealLaceration = true;
+        Assert.True(record.PerinealLaceration);
+        record.PerinealLaceration = false;
+        Assert.False(record.PerinealLaceration);
+        Assert.False(record.RupturedUterus);
+        record.RupturedUterus = true;
+        Assert.True(record.RupturedUterus);
+        record.RupturedUterus = false;
+        Assert.False(record.RupturedUterus);
+        Assert.False(record.UnplannedHysterectomy);
+        record.UnplannedHysterectomy = true;
+        Assert.True(record.UnplannedHysterectomy);
+        record.UnplannedHysterectomy = false;
+        Assert.False(record.UnplannedHysterectomy);
+        Assert.False(record.NoPregnancyRiskFactors);
+        record.NoPregnancyRiskFactors = true;
+        Assert.True(record.NoPregnancyRiskFactors);
+        record.NoPregnancyRiskFactors = false;
+        Assert.False(record.NoPregnancyRiskFactors);
+        Assert.False(record.GestationalDiabetes);
+        record.GestationalDiabetes = true;
+        Assert.True(record.GestationalDiabetes);
+        record.GestationalDiabetes = false;
+        Assert.False(record.GestationalDiabetes);
+        Assert.False(record.GestationalHypertension);
+        record.GestationalHypertension = true;
+        Assert.True(record.GestationalHypertension);
+        record.GestationalHypertension = false;
+        Assert.False(record.GestationalHypertension);
+        Assert.False(record.PrepregnancyDiabetes);
+        record.PrepregnancyDiabetes = true;
+        Assert.True(record.PrepregnancyDiabetes);
+        record.PrepregnancyDiabetes = false;
+        Assert.False(record.PrepregnancyDiabetes);
+        Assert.False(record.PrepregnancyHypertension);
+        record.PrepregnancyHypertension = true;
+        Assert.True(record.PrepregnancyHypertension);
+        record.PrepregnancyHypertension = false;
+        Assert.False(record.PrepregnancyHypertension);
+        Assert.False(record.PreviousCesarean);
+        record.PreviousCesarean = true;
+        Assert.True(record.PreviousCesarean);
+        record.PreviousCesarean = false;
+        Assert.False(record.PreviousCesarean);
+        Assert.False(record.AssistedReproductiveTechnology);
+        record.AssistedReproductiveTechnology = true;
+        Assert.True(record.AssistedReproductiveTechnology);
+        record.AssistedReproductiveTechnology = false;
+        Assert.False(record.AssistedReproductiveTechnology);
+        Assert.False(record.InfertilityTreatment);
+        record.InfertilityTreatment = true;
+        Assert.True(record.InfertilityTreatment);
+        record.InfertilityTreatment = false;
+        Assert.False(record.InfertilityTreatment);
+        // Properties from BirthRecord.cs
+        Assert.False(record.CleftLipWithOrWithoutCleftPalate);
+        record.CleftLipWithOrWithoutCleftPalate = true;
+        Assert.True(record.CleftLipWithOrWithoutCleftPalate);
+        record.CleftLipWithOrWithoutCleftPalate = false;
+        Assert.False(record.CleftLipWithOrWithoutCleftPalate);
+        Assert.False(record.CleftPalateAlone);
+        record.CleftPalateAlone = true;
+        Assert.True(record.CleftPalateAlone);
+        record.CleftPalateAlone = false;
+        Assert.False(record.CleftPalateAlone);
+        Assert.False(record.CongenitalDiaphragmaticHernia);
+        record.CongenitalDiaphragmaticHernia = true;
+        Assert.True(record.CongenitalDiaphragmaticHernia);
+        record.CongenitalDiaphragmaticHernia = false;
+        Assert.False(record.CongenitalDiaphragmaticHernia);
+        Assert.False(record.CyanoticCongenitalHeartDisease);
+        record.CyanoticCongenitalHeartDisease = true;
+        Assert.True(record.CyanoticCongenitalHeartDisease);
+        record.CyanoticCongenitalHeartDisease = false;
+        Assert.False(record.CyanoticCongenitalHeartDisease);
+        Assert.False(record.DownSyndrome);
+        record.DownSyndrome = true;
+        Assert.True(record.DownSyndrome);
+        record.DownSyndrome = false;
+        Assert.False(record.DownSyndrome);
+        Assert.False(record.Gastroschisis);
+        record.Gastroschisis = true;
+        Assert.True(record.Gastroschisis);
+        record.Gastroschisis = false;
+        Assert.False(record.Gastroschisis);
+        Assert.False(record.Hypospadias);
+        record.Hypospadias = true;
+        Assert.True(record.Hypospadias);
+        record.Hypospadias = false;
+        Assert.False(record.Hypospadias);
+        Assert.False(record.LimbReductionDefect);
+        record.LimbReductionDefect = true;
+        Assert.True(record.LimbReductionDefect);
+        record.LimbReductionDefect = false;
+        Assert.False(record.LimbReductionDefect);
+        Assert.False(record.Meningomyelocele);
+        record.Meningomyelocele = true;
+        Assert.True(record.Meningomyelocele);
+        record.Meningomyelocele = false;
+        Assert.False(record.Meningomyelocele);
+        Assert.False(record.Omphalocele);
+        record.Omphalocele = true;
+        Assert.True(record.Omphalocele);
+        record.Omphalocele = false;
+        Assert.False(record.Omphalocele);
+        Assert.False(record.SuspectedChromosomalDisorder);
+        record.SuspectedChromosomalDisorder = true;
+        Assert.True(record.SuspectedChromosomalDisorder);
+        record.SuspectedChromosomalDisorder = false;
+        Assert.False(record.SuspectedChromosomalDisorder);
+        Assert.False(record.Chlamydia);
+        record.Chlamydia = true;
+        Assert.True(record.Chlamydia);
+        record.Chlamydia = false;
+        Assert.False(record.Chlamydia);
+        Assert.False(record.Gonorrhea);
+        record.Gonorrhea = true;
+        Assert.True(record.Gonorrhea);
+        record.Gonorrhea = false;
+        Assert.False(record.Gonorrhea);
+        Assert.False(record.Syphilis);
+        record.Syphilis = true;
+        Assert.True(record.Syphilis);
+        record.Syphilis = false;
+        Assert.False(record.Syphilis);
+        Assert.False(record.PreviousPretermBirth);
+        record.PreviousPretermBirth = true;
+        Assert.True(record.PreviousPretermBirth);
+        record.PreviousPretermBirth = false;
+        Assert.False(record.PreviousPretermBirth);
+    }
 
   }
 }

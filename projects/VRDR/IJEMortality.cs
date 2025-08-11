@@ -2127,12 +2127,11 @@ namespace VRDR
         {
             get
             {
-                // NOTE: This is a placeholder, the IJE field OCCUPC4 is not currently implemented in FHIR
-                return "";
+                return LeftJustified_Get("OCCUPC4", "UsualOccupationCensus2018");
             }
             set
             {
-                // NOTE: This is a placeholder, the IJE field OCCUPC4 is not currently implemented in FHIR
+                LeftJustified_Set("OCCUPC4", "UsualOccupationCensus2018", value);
             }
         }
 
@@ -2142,12 +2141,11 @@ namespace VRDR
         {
             get
             {
-                // NOTE: This is a placeholder, the IJE field INDUSTC4 is not currently implemented in FHIR
-                return "";
+                return LeftJustified_Get("INDUSTC4", "UsualIndustryCensus2018");
             }
             set
             {
-                // NOTE: This is a placeholder, the IJE field INDUSTC4 is not currently implemented in FHIR
+                LeftJustified_Set("INDUSTC4", "UsualIndustryCensus2018", value);
             }
         }
 

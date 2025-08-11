@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using Bogus.Extensions.UnitedStates;
 using VRDR;
 using VR;
+using System.Linq;
 
 namespace canary.Models
 {
     /// <summary>Class <c>Faker</c> can be used to generate synthetic <c>DeathRecord</c>s. Various
     /// options are available to tailoring the records generated to specific use case by the class.
     /// </summary>
-    public class DeathRecordFaker : RecordFaker<DeathRecord> 
+    public class DeathRecordFaker : RecordFaker<DeathRecord>
     {
 
         /// <summary>Type of Cause of Death; Natural or Injury.</summary>
@@ -103,8 +104,8 @@ namespace canary.Models
             placeOfBirth.Add("addressCountry", "US");
             record.PlaceOfBirth = placeOfBirth;
             record.BirthRecordState = state;
-           
-           // Place of death
+
+            // Place of death
 
             record.DeathLocationName = "Bedford Hospital";
 
@@ -144,36 +145,32 @@ namespace canary.Models
             }
 
             // Race
-            Tuple<string, string>[] nvssRaces =
-            {
-                Tuple.Create(VR.NvssRace.AmericanIndianOrAlaskanNative, "Y"),
-                Tuple.Create(VR.NvssRace.AsianIndian, "Y"),
-                Tuple.Create(VR.NvssRace.BlackOrAfricanAmerican, "Y"),
-                Tuple.Create(VR.NvssRace.Chinese, "Y"),
-                Tuple.Create(VR.NvssRace.Filipino, "Y"),
-                Tuple.Create(VR.NvssRace.GuamanianOrChamorro, "Y"),
-                Tuple.Create(VR.NvssRace.Japanese, "Y"),
-                Tuple.Create(VR.NvssRace.Korean, "Y"),
-                Tuple.Create(VR.NvssRace.NativeHawaiian, "Y"),
-                Tuple.Create(VR.NvssRace.OtherAsian, "Y"),
-                Tuple.Create(VR.NvssRace.OtherPacificIslander, "Y"),
-                Tuple.Create(VR.NvssRace.OtherRace, "Y"),
-                Tuple.Create(VR.NvssRace.Samoan, "Y"),
-                Tuple.Create(VR.NvssRace.Vietnamese, "Y"),
-                Tuple.Create(VR.NvssRace.White, "Y"),
-            };
+            string[] nvssRaces = VR.NvssRace.GetBooleanRaceCodes().ToArray();
             if (!simple)
             {
-                Tuple<string, string> race1 = faker.Random.ArrayElement<Tuple<string, string>>(nvssRaces);
-                Tuple<string, string> race2 = faker.Random.ArrayElement<Tuple<string, string>>(nvssRaces);
-                Tuple<string, string> race3 = faker.Random.ArrayElement<Tuple<string, string>>(nvssRaces);
-                Tuple<string, string>[] race = { race1, race2, race3 };
-                record.Race = race;
+                string race1 = faker.Random.ArrayElement(nvssRaces);
+                string race2 = faker.Random.ArrayElement(nvssRaces);
+                string race3 = faker.Random.ArrayElement(nvssRaces);
+                record.Race = nvssRaces.Select(raceCode =>
+                {
+                    if (raceCode == race1 || raceCode == race2 || raceCode == race3)
+                    {
+                        return Tuple.Create(raceCode, "Y");
+                    }
+                    return Tuple.Create(raceCode, "N");
+                }).ToArray();
             }
             else
             {
-                Tuple<string, string> race1 = faker.Random.ArrayElement<Tuple<string, string>>(nvssRaces);
-                record.Race = new Tuple<string, string>[] { race1 };
+                string race1 = faker.Random.ArrayElement(nvssRaces);
+                record.Race = nvssRaces.Select(raceCode =>
+                {
+                    if (raceCode == race1)
+                    {
+                        return Tuple.Create(raceCode, "Y");
+                    }
+                    return Tuple.Create(raceCode, "N");
+                }).ToArray();
             }
 
             // Education level
@@ -239,7 +236,7 @@ namespace canary.Models
             certifierIdentifier.Add("system", "http://hl7.org/fhir/sid/us-npi");
             certifierIdentifier.Add("value", Convert.ToString(faker.Random.Number(999999)));
             record.CertifierIdentifier = certifierIdentifier;
-            
+
             record.CertifierFamilyName = faker.Name.LastName();
             record.CertifierGivenNames = new string[] { faker.Name.FirstName(Bogus.DataSets.Name.Gender.Female), faker.Name.FirstName(Bogus.DataSets.Name.Gender.Female) };
             record.CertifierSuffix = "MD";
@@ -414,12 +411,12 @@ namespace canary.Models
                     detailsOfInjuryAddr.Add("addressState", "MA");
                     detailsOfInjuryAddr.Add("addressCountry", "US");
                     record.InjuryLocationAddress = detailsOfInjuryAddr;
-                    
+
                     record.InjuryPlaceDescription = "Trade and Service Area";
                 }
                 else if (choice == 2)
                 {
-                    Tuple<string, string >[] causes =
+                    Tuple<string, string>[] causes =
                     {
                         Tuple.Create("Cerebral contusion", "minutes"),
                         Tuple.Create("Fractured skull", "minutes"),

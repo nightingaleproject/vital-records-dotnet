@@ -401,13 +401,37 @@ namespace BFDR
                 UpdateRecordIdentifier();
             }
 
-            // Scan through all Observations to make sure they all have codes!
-            foreach (var ob in Bundle.Entry.Where(entry => entry.Resource is Observation))
+            // Note: In VRDR RestoreReferences is used to set a bunch of instance variables based on the
+            // contents of various Observations, Conditions, etc within the Bundle, and then the various
+            // DeathRecord properties access those FHIR resources via the variables. BFDR uses a different
+            // approach where the BirthRecord and FetalDeathRecord properties access FHIR resources by just
+            // looking them up in the Bundle as needed. For that reason RestoreReferences just confirms that
+            // all the relevant resources within the Bundle have IDs so they can be looked up by ID
+
+            // Scan to make sure all observations, conditions, and procedures have codes
+            foreach (var entry in Bundle.Entry.Where(e => e.Resource is Observation || e.Resource is Condition || e.Resource is Procedure))
             {
-                Observation obs = (Observation)ob.Resource;
-                if (obs.Code == null || obs.Code.Coding == null || obs.Code.Coding.FirstOrDefault() == null || obs.Code.Coding.First().Code == null)
+                CodeableConcept codeToCheck = null;
+                string resourceType = entry.Resource.TypeName;
+
+                // Get the code
+                switch (entry.Resource)
                 {
-                    throw new System.ArgumentException("Found an Observation resource that did not contain a code. All Observations must include a code to specify what the Observation is referring to.");
+                    case Observation obs:
+                        codeToCheck = obs.Code;
+                        break;
+                    case Condition cond:
+                        codeToCheck = cond.Code;
+                        break;
+                    case Procedure proc:
+                        codeToCheck = proc.Code;
+                        break;
+                }
+
+                // Check if the Code, the Coding list, and at least one coding with a non-null Code value exist
+                if (codeToCheck?.Coding?.Any(c => c.Code != null) != true)
+                {
+                    throw new System.ArgumentException($"Found a {resourceType} resource that did not contain a valid code. All Observations, Conditions, and Procedures must include a code.");
                 }
             }
         }

@@ -38,6 +38,7 @@ namespace BFDR.CLI
   - compare: Compare an IJE record with a FHIR record by each IJE field (3 arguments: 'birth' or 'fetaldeath', IJE record, FHIR Record)
   - extract: Extract a FHIR record from a FHIR message (1 argument: FHIR message)
   - nre2json: Creates a Demographic Coding Bundle from a NRE Message (1 argument: TRX file)
+  - connectathon: prints one of the 3 connectathon records (1 argument: the number (1,2, or 3) of the connectathon record)
     ";
 
         static int Main(string[] args)
@@ -1091,6 +1092,12 @@ namespace BFDR.CLI
                 BirthRecordParentalDemographicsCodingMessage msg = new BirthRecordParentalDemographicsCodingMessage(br);
                 Console.WriteLine(msg.ToJson());
                 // there's something wrong with the ToJson call when converting the message to json to insert in the db
+                return 0;
+            }
+            else if (args.Length == 2 && args[0] == "connectathon")
+            {
+                BirthRecord b = Connectathon.FromId(Int16.Parse(args[1]), null, "TT");
+                Console.WriteLine(b.ToJson());
                 return 0;
             }
             else

@@ -48,6 +48,19 @@ namespace VR
         }
 
         /// <summary>
+        /// Construct the CommonMessage based on a FHIR Bundle.
+        /// </summary>
+        /// <param name="bundle">A FHIR Bundle</param>
+        /// <param name="ignoreMissingEntries"></param>
+        /// <param name="ignoreBundleType"></param>
+        /// <returns>The CommonMessage message object</returns>
+        public static CommonMessage Parse(Bundle bundle, bool ignoreMissingEntries = false, bool ignoreBundleType = false)
+        {
+            CommonMessage message = new CommonMessage(bundle, ignoreMissingEntries, ignoreBundleType);
+            return message;
+        }
+
+        /// <summary>
         /// Returns the typed element for getting FhirPath data from the bundle.
         /// </summary>
         /// <returns></returns>

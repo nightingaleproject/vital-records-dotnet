@@ -1,7 +1,17 @@
+#!/usr/bin/env ruby
+
 # coding: utf-8
 
 # Take an excel file from DACEB and convert it to FHIR records; we parse the excel file and extract the data
 # for each record, with the goal of a simple IJE mapping; we write one file per record
+
+require 'bundler/inline'
+
+gemfile do
+  source 'https://rubygems.org'
+
+  gem 'creek'
+end
 
 filename = ARGV.shift
 raise "Please provide the Excel file name as an argument to this script" unless filename

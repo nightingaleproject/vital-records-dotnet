@@ -1,7 +1,12 @@
+#!/usr/bin/env ruby
+
 # This script takes the JSON files that are generated as part of the VRDR IG and creates an output
 # file with static URL strings for each StructureDefinition, Extension, and IG HTML page
 #
-# Usage: ruby scripts/generate_url_strings_from_VRDR_IG.rb <path-to-json-files> > projects/VRDR/URLs.cs
+# Usage: ruby scripts/generate_url_strings_from_VRDR_IG.rb <path-to-json-files> > <path-to-output-source-file>
+#
+# e.g. from the root directory of this repository:
+# ruby scripts/generate_url_strings_from_VRDR_IG.rb ~/Developer/vrdr > projects/VRDR/URLs.cs
 #
 # If you need to generate the concept map JSON files, first install sushi (https://github.com/FHIR/sushi) then
 #
@@ -62,10 +67,10 @@ end
 # Helper method to determine whether a URL is an Extension or a Profile
 def url_type(url)
   type = 'unknown'
-  if url.include?('CodeSystem') then type = 'codesystem' 
+  if url.include?('CodeSystem') then type = 'codesystem'
   elsif url.include?('/vrdr-') || url.include?('industry-occupation') then type = 'profile'  # industry and occupation bundle lacks vrdr- prefix...sigh
   else type =  'extension' end
-  type 
+  type
 end
 
 # Helper method to extract a short name from an extension named according to conventions
@@ -137,4 +142,4 @@ EOT
 scriptname = __FILE__
 
 # Populate and print the template
-puts ERB.new(template, nil, '-').result(binding)
+puts ERB.new(template, trim_mode: '-').result(binding)

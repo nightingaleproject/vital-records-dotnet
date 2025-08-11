@@ -8,19 +8,35 @@ This repository includes .NET (C#) code for
 
 ## Table of Contents
 
-- [Versions](#versions)
-- [Requirements](#requirements)
-  - [Development & CLI Requirements](#development--cli-requirements)
-  - [Library Usage](#library-usage)
-- [Project Organization](#project-organization)
-  - [BFDR](#bfdr)
-  - [BFDR.Messaging](#bfdrmessaging)
-  - [BFDR.Tests](#bfdrtests)
-  - [BFDR.CLI](#bfdrcli)
-- [Additional Notes For Library Developers](#additional-notes-for-library-developers)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact Information](#contact-information)
+- [bfdr-dotnet](#bfdr-dotnet)
+  - [Table of Contents](#table-of-contents)
+  - [Versions](#versions)
+  - [Requirements](#requirements)
+    - [Development \& CLI Requirements](#development--cli-requirements)
+    - [Library Usage](#library-usage)
+  - [Project Organization](#project-organization)
+    - [BFDR](#bfdr)
+      - [Including This Package](#including-this-package)
+      - [Usage: Producing Example](#usage-producing-example)
+      - [Usage: Consuming Example](#usage-consuming-example)
+      - [Usage: FHIR BFDR record to/from IJE Natality format](#usage-fhir-bfdr-record-tofrom-ije-natality-format)
+      - [Specifying that a date or time is explicitly unknown](#specifying-that-a-date-or-time-is-explicitly-unknown)
+      - [Names in FHIR](#names-in-fhir)
+    - [BFDR.Messaging](#bfdrmessaging)
+      - [Including This Package](#including-this-package-1)
+      - [Return Coding Examples](#return-coding-examples)
+        - [Demographics Coding Messages](#demographics-coding-messages)
+        - [Coded Cause of Fetal Death Message](#coded-cause-of-fetal-death-message)
+        - [Parental Industry and Occupation Coding Message](#parental-industry-and-occupation-coding-message)
+    - [BFDR.Tests](#bfdrtests)
+      - [Usage: Running The Tests](#usage-running-the-tests)
+    - [BFDR.CLI](#bfdrcli)
+  - [Additional Notes For Library Developers](#additional-notes-for-library-developers)
+  - [Contributing](#contributing)
+      - [Release Pull Request](#release-pull-request)
+      - [Publishing a Version](#publishing-a-version)
+  - [License](#license)
+    - [Contact Information](#contact-information)
 
 ## Versions
 
@@ -38,12 +54,12 @@ Interactions with NCHS are governed by the CI build version of the BFDR and Birt
 </tr>
 </tr>
 <tr>
-<td style="text-align: center;"><a href="https://build.fhir.org/ig/HL7/fhir-bfdr/branches/v2.0.0-preview3/ije_mapping_natality.html">STU2.0 v2.0.0-preview3</a></td>
-<td style="text-align: center;"><a href="https://nightingaleproject.github.io/vital_records_fhir_messaging_ig/v2.0.0-preview1/index.html">v2.0.0-preview1</a></td>
+<td style="text-align: center;"><a href="https://build.fhir.org/ig/HL7/fhir-bfdr/">STU2.0 v2.0.0</a></td>
+<td style="text-align: center;"><a href="https://nightingaleproject.github.io/vital_records_fhir_messaging_ig/v2.0.0/">v2.0.0</a></td>
 <td style="text-align: center;">R4</td>
 <td style="text-align: center;">V4.0.3</td>
-<td style="text-align: center;"><a href="">nuget</a> <a href=""> github</a></td>
-<td style="text-align: center;"><a href="">nuget</a> <a href=""> github</a></td>
+<td style="text-align: center;"><a href="https://www.nuget.org/packages/BFDR/1.0.0-preview.14">nuget</a> <a href="https://github.com/nightingaleproject/vital-records-dotnet/releases/tag/BFDR-1.0.0-preview.14"> github</a></td>
+<td style="text-align: center;"><a href="https://www.nuget.org/packages/BFDR.Messaging/1.0.0-preview.14">nuget</a> <a href="https://github.com/nightingaleproject/vital-records-dotnet/releases/tag/BFDR.Messaging-1.0.0-preview.14"> github</a></td>
 </tr>
 
 </tbody>
@@ -76,7 +92,7 @@ This package will be published on NuGet, so including it is as easy as:
 ```xml
 <ItemGroup>
   ...
-  <PackageReference Include="BFDR" Version="1.0.0-preview.13" />
+  <PackageReference Include="BFDR" Version="1.0.0-preview.14" />
   ...
 </ItemGroup>
 ```
@@ -221,7 +237,7 @@ This package is published on NuGet, so including it is as easy as:
 ```xml
 <ItemGroup>
   ...
-  <PackageReference Include="BFDR.Messaging" Version="1.0.0-preview.13" />
+  <PackageReference Include="BFDR.Messaging" Version="1.0.0-preview.14" />
   ...
 </ItemGroup>
 ```
@@ -592,7 +608,7 @@ With each commit to the default branch, a release pull request will be automatic
 
 To create a new release of BFDR on NuGet:
 
-1. Bump the version of the libraries listed in the [Directory.Build.props](Directory.Build.props) file. Whenever a commit is merged into the master branch that changes the Directory.Build.props file, [Github Actions](.github/workflows/publish.yml) will automatically build and publish a new version of the package based on the value specified.
+1. Bump the version of the libraries listed in the [BFDR.csproj](./BFDR.csproj) and [BFDR.Messaging.csproj](../BFDR.Messaging/BFDR.Messaging.csproj) file. Whenever a commit is merged into the master branch that changes the .csproj files, [Github Actions](.github/workflows/nuget.yml) will automatically build and publish a new version of the package based on the value specified.
 1. Update the PayloadVersionID in BFDR.Messaging.csproj to match the IG version implemented by the library. See [Payload Version Identifier Values](https://nightingaleproject.github.io/vital_records_fhir_messaging_ig/v2.0.0-preview1/ValueSet-Payload-version-vs.html)
 1. Update the version numbers listed in this README
 1. Update the CHANGELOG.md file with information on what is changing in the release

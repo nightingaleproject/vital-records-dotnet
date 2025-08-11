@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+<a name="5.3.2"></a> 
+## [5.3.2](https://github.com/nightingaleproject/vital-records-dotnet/pull/272/commits/197538f61e9b2cc60258df33b115141298599449) 07-25-2025
+
+### Features
+* Show the user IJE conversion issues when inspecting a FHIR record
+* Add race and ethnicity information to the mother and father in sythetic records
+* Add a randomized initiating cause or condition to fetal death synthetic records
+
+### Fixes
+* Show success message when valid input text is submitted in Canary
+* Fix BFDR synthetic record generators to update state and sex correctly
+* Clean up how errors are displayed in Canary
+
 <a name="5.3.1"></a> 
 ## 5.3.1 04-18-2025
 

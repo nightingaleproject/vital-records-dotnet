@@ -784,10 +784,10 @@ namespace VRDR
         /// <para>address.Add("addressCountry", "US");</para>
         /// <para>address.Add("addressPredir", "E");</para>
         /// <para>address.Add("addressPostDir", "SW");</para>
-        /// <para>address.Add("addressStname", "Test");</para> 
-        /// <para>address.Add("addressStnum", "123");</para> 
-        /// <para>address.Add("addressStdesig", "St");</para> 
-        /// <para>address.Add("addressUnitnum", "3");</para> 
+        /// <para>address.Add("addressStname", "Test");</para>
+        /// <para>address.Add("addressStnum", "123");</para>
+        /// <para>address.Add("addressStdesig", "St");</para>
+        /// <para>address.Add("addressUnitnum", "3");</para>
         /// <para>ExampleDeathRecord.CertifierAddress = address;</para>
         /// <para>// Getter:</para>
         /// <para>foreach(var pair in ExampleDeathRecord.CertifierAddress)</para>
@@ -1154,7 +1154,7 @@ namespace VRDR
                 {
                     ((Observation.ComponentComponent)intervalComp).Value = new FhirString(value);
                 }
-                else 
+                else
                 {
                     Observation.ComponentComponent component = new Observation.ComponentComponent();
                     component.Code = new CodeableConcept(CodeSystems.LOINC, "69440-6", "Disease onset to death interval", null);
@@ -1923,7 +1923,7 @@ namespace VRDR
             {
                 if (Decedent != null && Decedent.BirthDateElement != null)
                 {
-                    return GetDateFragmentOrPartialDate(Decedent.BirthDateElement,VR.ExtensionURL.PartialDateYearVR); 
+                    return GetDateFragmentOrPartialDate(Decedent.BirthDateElement,VR.ExtensionURL.PartialDateYearVR);
                 }
                 return null;
             }
@@ -1974,7 +1974,7 @@ namespace VRDR
             {
                 if (Decedent != null && Decedent.BirthDateElement != null)
                 {
-                    return GetDateFragmentOrPartialDate(Decedent.BirthDateElement,VR.ExtensionURL.PartialDateMonthVR); 
+                    return GetDateFragmentOrPartialDate(Decedent.BirthDateElement,VR.ExtensionURL.PartialDateMonthVR);
                 }
                 return null;
             }
@@ -3843,7 +3843,7 @@ namespace VRDR
                     }
                 }
             }
-        }     
+        }
 
         /// <summary>Birth Record Identifier Child.</summary>
         /// <value>a birth record child identification string. Decedent is mother, link is cert from recent delivery</value>
@@ -4184,7 +4184,7 @@ namespace VRDR
                     {
                         return dict["text"];
                     }
-                } else if (UsualWork != null && UsualWork.Value != null && UsualWork.Value as FhirString != null)   {  
+                } else if (UsualWork != null && UsualWork.Value != null && UsualWork.Value as FhirString != null)   {
                         return (UsualWork.Value.ToString());
                 }
                 return null;
@@ -4315,6 +4315,74 @@ namespace VRDR
             }
         }
 
+        /// <summary>Decedent's Usual Occupation CDC SOC 2018 Code. This is a helper method, to obtain the full code use the UsualOccupationCoded method instead</summary>
+        /// <value>the decedent's usual occupation code</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleDeathRecord.UsualOccupationCDCSOC2018 = "13-2011";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"UsualOccupationCDCSOC2018: {ExampleDeathRecord.UsualOccupationCDCSOC2018}");</para>
+        /// </example>
+        [Property("Usual Occupation CDC SOC 2018 Code", Property.Types.String, "Decedent Demographics", "Decedent's Usual Occupation.", false, ProfileURL.DecedentUsualWork, true, 40)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='21843-8')", "")]
+        public string UsualOccupationCDCSOC2018
+        {
+            get
+            {
+                Dictionary<string, string> coding = UsualOccupationCoded;
+                if (coding.ContainsKey("code") && !string.IsNullOrWhiteSpace(coding["code"]) && coding.ContainsKey("system") && coding["system"] == CodeSystems.OccupationCDCSOC2018)
+                {
+                    return coding["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    UsualOccupationCoded = new Dictionary<string, string>
+                    {
+                        ["system"] = CodeSystems.OccupationCDCSOC2018,
+                        ["code"] = value
+                    };
+                }
+            }
+        }
+
+        /// <summary>Decedent's Usual Occupation CDC Census 2018 Code. This is a helper method, to obtain the full code use the UsualOccupationCoded method instead</summary>
+        /// <value>the decedent's usual occupation code</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleDeathRecord.UsualOccupationCensus2018 = "0800";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"UsualOccupationCensus2018: {ExampleDeathRecord.UsualOccupationCensus2018}");</para>
+        /// </example>
+        [Property("Usual Occupation CDC Census 2018 Code", Property.Types.String, "Decedent Demographics", "Decedent's Usual Occupation.", false, ProfileURL.DecedentUsualWork, true, 40)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='21843-8')", "")]
+        public string UsualOccupationCensus2018
+        {
+            get
+            {
+                Dictionary<string, string> coding = UsualOccupationCoded;
+                if (coding.ContainsKey("code") && !string.IsNullOrWhiteSpace(coding["code"]) && coding.ContainsKey("system") && coding["system"] == CodeSystems.OccupationCDCCensus2018)
+                {
+                    return coding["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    UsualOccupationCoded = new Dictionary<string, string>
+                    {
+                        ["system"] = CodeSystems.OccupationCDCCensus2018,
+                        ["code"] = value
+                    };
+                }
+            }
+        }
+
         /// <summary>Decedent's Usual Industry (Coded).</summary>
         /// <value>the decedent's usual industry. A Dictionary representing a code, containing the following key/value pairs:
         /// <para>"code" - the code</para>
@@ -4333,7 +4401,7 @@ namespace VRDR
         /// </example>
         [Property("Usual Industry (Coded)", Property.Types.Dictionary, "Decedent Demographics", "Decedent's Usual Industry.", true, ProfileURL.DecedentUsualWork, true, 44)]
         [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='21843-8')", "")]
-         public Dictionary<string, string>  UsualIndustryCoded
+        public Dictionary<string, string>  UsualIndustryCoded
         {
             get
             {
@@ -4345,7 +4413,7 @@ namespace VRDR
                         return CodeableConceptToDict((CodeableConcept)component.Value);
                     }
                 }
-                return null;
+                return EmptyCodeableDict();
             }
             set
             {
@@ -4375,7 +4443,74 @@ namespace VRDR
                 UsualWork.Component.Add(component);
 
             }
+        }
 
+        /// <summary>Decedent's Usual Industry CDC Census 2018 Code. This is a helper method, to obtain the full code use the UsualIndustryCoded method instead</summary>
+        /// <value>the decedent's usual occupation code</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleDeathRecord.UsualIndustryCensus2018 = "0800";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"UsualIndustryCensus2018: {ExampleDeathRecord.UsualIndustryCensus2018}");</para>
+        /// </example>
+        [Property("Usual Industry CDC Census 2018 Code", Property.Types.String, "Decedent Demographics", "Decedent's Usual Industry.", false, ProfileURL.DecedentUsualWork, true, 44)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='21843-8')", "")]
+        public string UsualIndustryCensus2018
+        {
+            get
+            {
+                Dictionary<string, string> coding = UsualIndustryCoded;
+                if (coding.ContainsKey("code") && !string.IsNullOrWhiteSpace(coding["code"]) && coding.ContainsKey("system") && coding["system"] == CodeSystems.IndustryCDCCensus2018)
+                {
+                    return coding["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    UsualIndustryCoded = new Dictionary<string, string>
+                    {
+                        ["system"] = CodeSystems.IndustryCDCCensus2018,
+                        ["code"] = value
+                    };
+                }
+            }
+        }
+
+        /// <summary>Decedent's Usual Industry NAICS 2017 Code. This is a helper method, to obtain the full code use the UsualIndustryCoded method instead</summary>
+        /// <value>the decedent's usual occupation code</value>
+        /// <example>
+        /// <para>// Setter:</para>
+        /// <para>ExampleDeathRecord.UsualIndustryNAICS2017 = "0800";</para>
+        /// <para>// Getter:</para>
+        /// <para>Console.WriteLine($"UsualIndustryNAICS2017: {ExampleDeathRecord.UsualIndustryNAICS2017}");</para>
+        /// </example>
+        [Property("Usual Industry CDC NAICS 2017 Code", Property.Types.String, "Decedent Demographics", "Decedent's Usual Industry.", false, ProfileURL.DecedentUsualWork, true, 44)]
+        [FHIRPath("Bundle.entry.resource.where($this is Observation).where(code.coding.code='21843-8')", "")]
+        public string UsualIndustryNAICS2017
+        {
+            get
+            {
+                Dictionary<string, string> coding = UsualIndustryCoded;
+                if (coding.ContainsKey("code") && !string.IsNullOrWhiteSpace(coding["code"]) && coding.ContainsKey("system") && coding["system"] == CodeSystems.IndustryCDCNAICS2017)
+                {
+                    return coding["code"];
+                }
+                return null;
+            }
+            set
+            {
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    UsualIndustryCoded = new Dictionary<string, string>
+                    {
+                        ["system"] = CodeSystems.IndustryCDCNAICS2017,
+                        ["code"] = value
+                    };
+                }
+            }
         }
 
         /// <summary>Decedent's Military Service.</summary>
@@ -4500,7 +4635,7 @@ namespace VRDR
                     CreateMortician();
                 }
                 updateGivenHumanName(value, Mortician.Name);
-            }            
+            }
         }
 
         /// <summary>Family name of mortician.</summary>
@@ -5260,7 +5395,7 @@ namespace VRDR
                     CreateDeathDateObs();
                 }
                 SetPartialTime(DeathDateObs.Value.Extension.Find(ext => ext.Url ==VR.ExtensionURL.PartialDateTime), value);
-            }   
+            }
         }
 
         /* START datetimePronouncedDead */
