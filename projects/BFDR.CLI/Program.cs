@@ -191,6 +191,7 @@ namespace BFDR.CLI
 
                 // Initiating Cause or Condition
                 fetaldeathRecord.PrematureRuptureOfMembranes = true;
+                fetaldeathRecord.MaternalConditionsDiseasesLiteral = "Diabetes Mellitus";
 
                 Dictionary<string, string> route = new Dictionary<string, string>();
                 route.Add("code", "700000006");
