@@ -292,7 +292,7 @@ namespace BFDR
         /// <summary>Initiating cause/condition, Other complications of placenta, cord, or membranes.</summary>
         [Property("Other Complications of Placenta, Cord, or Membranes", Property.Types.Bool, "Initiating Cause/Condition",
                   "Initiating Cause/Condition, Other Complications of Placenta, Cord, or Membranes", true, IGURL.ConditionFetalDeathInitiatingCauseOrCondition, true, 100)]
-        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "76060-3", code: "FCOD_membranes", section: FETUS_SECTION)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, codeSystem: CodeSystemURL.LocalBFDRCodes, categoryCode: "76060-3", code: "FCOD_membranes", section: FETUS_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.DecedentFetus)]
         public bool OtherComplicationsOfPlacentaCordOrMembranes
         {
@@ -314,7 +314,7 @@ namespace BFDR
         /// <summary>Initiating cause/condition, Maternal conditions/diseases literal.</summary>
         [Property("Maternal Conditions Diseases Literal", Property.Types.String, "Initiating Cause/Condition",
                   "Initiating Cause/Condition, Maternal Conditions Diseases Literal", true, IGURL.ConditionFetalDeathInitiatingCauseOrCondition, true, 100)]
-        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "76060-3", code: "FCOD_maternalconditions", section: FETUS_SECTION)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, codeSystem: CodeSystemURL.LocalBFDRCodes, categoryCode: "76060-3", code: "FCOD_maternalconditions", section: FETUS_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.DecedentFetus)]
         public string MaternalConditionsDiseasesLiteral
         {
@@ -637,7 +637,7 @@ namespace BFDR
         /// <summary>Initiating cause/condition, Other obstetrical or pregnancy complications literal.</summary>
         [Property("Other Obstetrical or Pregnancy Complications Literal", Property.Types.String, "Initiating Cause/Condition",
                   "Initiating Cause/Condition, Other Obstetrical or Pregnancy Complications Literal", true, IGURL.ConditionFetalDeathInitiatingCauseOrCondition, true, 100)]
-        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "76060-3", code: "FCOD_obstetricalcomplications", section: FETUS_SECTION)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, codeSystem: CodeSystemURL.LocalBFDRCodes, categoryCode: "76060-3", code: "FCOD_obstetricalcomplications", section: FETUS_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.DecedentFetus)]
         public string OtherObstetricalOrPregnancyComplicationsLiteral
         {
@@ -761,7 +761,7 @@ namespace BFDR
         /// <summary>Initiating cause/condition, Other fetal conditions/disorders literal.</summary>
         [Property("Other Fetal Conditions/Disorders Literal", Property.Types.String, "Initiating Cause/Condition",
                   "Initiating Cause/Condition, Other Fetal Conditions/Disorders Literal", true, IGURL.ConditionFetalDeathInitiatingCauseOrCondition, true, 100)]
-        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "76060-3", code: "FCOD_fetalconditions", section: FETUS_SECTION)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, codeSystem: CodeSystemURL.LocalBFDRCodes, categoryCode: "76060-3", code: "FCOD_fetalconditions", section: FETUS_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.DecedentFetus)]
         public string OtherFetalConditionsDisordersLiteral
         {
@@ -873,7 +873,7 @@ namespace BFDR
         /// <summary>Other significant causes or conditions, Maternal conditions/diseases literal.</summary>
         [Property("Maternal Conditions Diseases Literal", Property.Types.String, "Other Significant Cause/Condition",
                   "Other Significant Cause/Condition, Maternal Conditions Diseases Literal", true, IGURL.ConditionFetalDeathOtherCauseOrCondition, true, 100)]
-        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "76061-1", code: "FCOD_maternalconditions", section: FETUS_SECTION)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, codeSystem: CodeSystemURL.LocalBFDRCodes, categoryCode: "76061-1", code: "FCOD_maternalconditions", section: FETUS_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.DecedentFetus)]
         public string OtherCOD_MaternalConditionsDiseasesLiteral
         {
@@ -904,7 +904,7 @@ namespace BFDR
         /// <summary>Other significant causes or conditions, Other complications of placenta, cord, or membranes literal.</summary>
         [Property("Other Complications of Placenta Cord Membranes Literal", Property.Types.String, "Other Significant Cause/Condition",
                   "Other Significant Cause/Condition, Other Complications of Placenta Cord Membranes Literal", true, IGURL.ConditionFetalDeathOtherCauseOrCondition, true, 100)]
-        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "76061-1", code: "FCOD_membranes", section: FETUS_SECTION)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, codeSystem: CodeSystemURL.LocalBFDRCodes, categoryCode: "76061-1", code: "FCOD_membranes", section: FETUS_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.DecedentFetus)]
         public string OtherCOD_OtherComplicationsOfPlacentaCordMembranesLiteral
         {
@@ -935,7 +935,7 @@ namespace BFDR
         /// <summary>Other significant causes or conditions, Other obstetrical or pregnancy complications literal.</summary>
         [Property("Other Obstetrical or Pregnancy Complications Literal", Property.Types.String, "Other Significant Cause/Condition",
                   "Other Significant Cause/Condition, Other Obstetrical or Pregnancy Complications Literal", true, IGURL.ConditionFetalDeathOtherCauseOrCondition, true, 100)]
-        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "76061-1", code: "FCOD_obstetricalcomplications", section: FETUS_SECTION)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, codeSystem: CodeSystemURL.LocalBFDRCodes, categoryCode: "76061-1", code: "FCOD_obstetricalcomplications", section: FETUS_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.DecedentFetus)]
         public string OtherCOD_OtherObstetricalOrPregnancyComplicationsLiteral
         {
@@ -1059,7 +1059,7 @@ namespace BFDR
         /// <summary>Other significant causes or conditions, Other fetal conditions/disorders literal.</summary>
         [Property("Other Fetal Conditions/Disorders Literal", Property.Types.String, "Other Significant Cause/Condition",
                   "Other Significant Cause/Condition, Other Fetal Conditions/Disorders Literal", true, IGURL.ConditionFetalDeathOtherCauseOrCondition, true, 100)]
-        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "76061-1", code: "FCOD_fetalconditions", section: FETUS_SECTION)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, codeSystem: CodeSystemURL.LocalBFDRCodes, categoryCode: "76061-1", code: "FCOD_fetalconditions", section: FETUS_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.DecedentFetus)]
         public string OtherCOD_OtherFetalConditionsDisordersLiteral
         {
