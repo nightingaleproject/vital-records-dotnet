@@ -6,6 +6,7 @@ using System.Xml.Linq;
 using System.Reflection;
 using Hl7.FhirPath;
 using VR;
+using Hl7.Fhir.Specification;
 
 namespace BFDR.CLI
 {
@@ -39,6 +40,9 @@ namespace BFDR.CLI
   - extract: Extract a FHIR record from a FHIR message (1 argument: FHIR message)
   - nre2json: Creates a Demographic Coding Bundle from a NRE Message (1 argument: TRX file)
   - connectathon: prints one of the 3 connectathon records (1 argument: the number (1,2, or 3) of the connectathon record)
+  - ije2jsonfiles: Read IJE files from provided directory and generate JSON files in same directory (2 arguments: 'birth' or 'fetaldeath', path to IJE files directory)
+  - xml2jsonfiles: Read xml files from provided directory and generate JSON files in same directory (2 arguments: 'birth' or 'fetaldeath', path to xml files directory)
+  - 2ijefiles: Read xml or json files from provided directory and generate ije files in same directory (2 arguments: 'birth' or 'fetaldeath', path to json/xml fhir files directory)
     ";
 
         static int Main(string[] args)
@@ -1099,6 +1103,91 @@ namespace BFDR.CLI
             {
                 BirthRecord b = Connectathon.FromId(Int16.Parse(args[1]), null, "TT");
                 Console.WriteLine(b.ToJson());
+                return 0;
+            }
+            else if (args.Length == 3 && args[0] == "ije2jsonfiles" && (args[1] == "birth" || args[1] == "fetaldeath"))
+            {
+
+                var ijeFilesDirPath = args[2];
+                if (!Directory.Exists(ijeFilesDirPath))
+                {
+                    Console.WriteLine("Provided soruce folder does not exist");
+                    return 0;
+                }
+                foreach (var ijeFilePath in Directory.GetFiles(ijeFilesDirPath, "*.ije", SearchOption.TopDirectoryOnly))
+                {
+                    if (args[1] == "birth")
+                    {
+                        IJEBirth ije1 = new IJEBirth(File.ReadAllText(ijeFilePath));
+                        BirthRecord br = ije1.ToRecord();
+                        File.WriteAllText(Path.ChangeExtension(ijeFilePath, ".json"), br.ToJSON());
+                    }
+                    else if (args[1] == "fetaldeath")
+                    {
+                        IJEFetalDeath ije1 = new IJEFetalDeath(File.ReadAllText(ijeFilePath));
+                        FetalDeathRecord fdr = ije1.ToRecord();
+                        File.WriteAllText(Path.ChangeExtension(ijeFilePath, ".json"), fdr.ToJSON());
+
+                    }
+                    
+                }
+                return 0;
+            }
+            else if (args.Length == 3 && args[0] == "xml2jsonfiles" && (args[1] == "birth" || args[1] == "fetaldeath"))
+            {
+
+                var xmlFilesDirPath = args[2];
+                if (!Directory.Exists(xmlFilesDirPath))
+                {
+                    Console.WriteLine("Provided soruce folder does not exist");
+                    return 0;
+                }
+                foreach (var xmlFilePath in Directory.GetFiles(xmlFilesDirPath, "*.xml", SearchOption.TopDirectoryOnly))
+                {
+                    if (args[1] == "birth")
+                    {
+                        
+                        BirthRecord br = new BirthRecord(File.ReadAllText(xmlFilePath));
+                        File.WriteAllText(Path.ChangeExtension(xmlFilePath, ".json"), br.ToJSON());
+                    }
+                    else if (args[1] == "fetaldeath")
+                    {
+                        FetalDeathRecord fdr = new FetalDeathRecord(File.ReadAllText(xmlFilePath));
+                        File.WriteAllText(Path.ChangeExtension(xmlFilePath, ".json"), fdr.ToJSON());
+
+                    }
+
+                }
+                return 0;
+            }
+            else if (args.Length == 3 && args[0] == "2ijefiles" && (args[1] == "birth" || args[1] == "fetaldeath"))
+            {
+
+                var fhirFilesDirPath = args[2];
+                if (!Directory.Exists(fhirFilesDirPath))
+                {
+                    Console.WriteLine("Provided soruce folder does not exist");
+                    return 0;
+                }
+                foreach (var fhirFilePath in Directory.GetFiles(fhirFilesDirPath, "*.*", SearchOption.TopDirectoryOnly)
+                    .Where(f=>f.EndsWith(".xml",StringComparison.OrdinalIgnoreCase) ||
+                              f.EndsWith(".json",StringComparison.OrdinalIgnoreCase)))
+                {
+                    if (args[1] == "birth")
+                    {
+                        BirthRecord br = new BirthRecord(File.ReadAllText(fhirFilePath));
+                        IJEBirth ijeBr = new IJEBirth(br, false);
+                        File.WriteAllText(Path.ChangeExtension(fhirFilePath, ".ije"), ijeBr.ToString());
+                    }
+                    else if (args[1] == "fetaldeath")
+                    {
+                        FetalDeathRecord fdr = new FetalDeathRecord(File.ReadAllText(fhirFilePath));
+                        IJEFetalDeath ijeFdr = new IJEFetalDeath(fdr, false);
+                        File.WriteAllText(Path.ChangeExtension(fhirFilePath, ".ije"), ijeFdr.ToString());
+
+                    }
+
+                }
                 return 0;
             }
             else
