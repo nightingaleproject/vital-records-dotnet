@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Hl7.Fhir.Model;
 using VR;
@@ -242,7 +243,17 @@ namespace BFDR
         public bool PrematureRuptureOfMembranes
         {
             get => EntryExists();
-            set => UpdateEntry(value);
+            //set => UpdateEntry(value);
+            set
+            {
+                UpdateEntry(value); 
+                Condition cond = GetCondition();
+                //adding Meta Profile if not already present
+                cond.Meta = new Meta()
+                {
+                    Profile = new List<string>(){ BFDR.ProfileURL.ConditionFetalDeathInitiatingCauseOrCondition}
+                };
+            }
         }
 
         /// <summary>Initiating cause/condition, Abruptio placenta.</summary>
@@ -253,7 +264,17 @@ namespace BFDR
         public bool AbruptioPlacenta
         {
             get => EntryExists();
-            set => UpdateEntry(value);
+            //set => UpdateEntry(value);
+            set
+            {
+                UpdateEntry(value); 
+                Condition cond = GetCondition();
+                //adding Meta Profile if not already present
+                cond.Meta = new Meta()
+                {
+                    Profile = new List<string>(){ BFDR.ProfileURL.ConditionFetalDeathInitiatingCauseOrCondition}
+                };
+            }
         }
 
         /// <summary>Initiating cause/condition, Placental insufficiency.</summary>
@@ -264,7 +285,17 @@ namespace BFDR
         public bool PlacentalInsufficiency
         {
             get => EntryExists();
-            set => UpdateEntry(value);
+            //set => UpdateEntry(value);
+            set
+            {
+                UpdateEntry(value); 
+                Condition cond = GetCondition();
+                //adding Meta Profile if not already present
+                cond.Meta = new Meta()
+                {
+                    Profile = new List<string>(){ BFDR.ProfileURL.ConditionFetalDeathInitiatingCauseOrCondition}
+                };
+            }   
         }
 
         /// <summary>Initiating cause/condition, Prolapsed cord.</summary>
@@ -275,7 +306,17 @@ namespace BFDR
         public bool ProlapsedCord
         {
             get => EntryExists();
-            set => UpdateEntry(value);
+            //set => UpdateEntry(value);
+            set
+            {
+                UpdateEntry(value); 
+                Condition cond = GetCondition();
+                //adding Meta Profile if not already present
+                cond.Meta = new Meta()
+                {
+                    Profile = new List<string>(){ BFDR.ProfileURL.ConditionFetalDeathInitiatingCauseOrCondition}
+                };
+            }
         }
 
         /// <summary>Initiating cause/condition, Chorioamnionitis.</summary>
@@ -286,7 +327,17 @@ namespace BFDR
         public bool ChorioamnionitisCOD
         {
             get => EntryExists();
-            set => UpdateEntry(value);
+            //set => UpdateEntry(value);
+            set
+            {
+                UpdateEntry(value); 
+                Condition cond = GetCondition();
+                //adding Meta Profile if not already present
+                cond.Meta = new Meta()
+                {
+                    Profile = new List<string>(){ BFDR.ProfileURL.ConditionFetalDeathInitiatingCauseOrCondition}
+                };
+            }
         }
 
         /// <summary>Initiating cause/condition, Other complications of placenta, cord, or membranes.</summary>
@@ -297,7 +348,17 @@ namespace BFDR
         public bool OtherComplicationsOfPlacentaCordOrMembranes
         {
             get => EntryExists();
-            set => UpdateEntry(value);
+            //set => UpdateEntry(value);
+            set
+            {
+                UpdateEntry(value); 
+                Condition cond = GetCondition();
+                //adding Meta Profile if not already present
+                cond.Meta = new Meta()
+                {
+                    Profile = new List<string>(){ BFDR.ProfileURL.ConditionFetalDeathInitiatingCauseOrCondition}
+                };
+            }
         }
 
         /// <summary>Initiating cause/condition, Unknown.</summary>
@@ -308,7 +369,17 @@ namespace BFDR
         public bool InitiatingCauseOrConditionUnknown
         {
             get => EntryExists();
-            set => UpdateEntry(value);
+            //set => UpdateEntry(value);
+            set
+            {
+                UpdateEntry(value); 
+                Condition cond = GetCondition();
+                //adding Meta Profile if not already present
+                cond.Meta = new Meta()
+                {
+                    Profile = new List<string>(){ BFDR.ProfileURL.ConditionFetalDeathInitiatingCauseOrCondition}
+                };
+            }
         }
 
         /// <summary>Initiating cause/condition, Maternal conditions/diseases literal.</summary>
@@ -339,6 +410,11 @@ namespace BFDR
                     cond = (Condition)CreateEntry(GetFHIRPathAttribute(), SubjectId());
                 }
                 cond.Code.Text = value;
+                //adding Meta Profile if not already present
+                cond.Meta = new Meta()
+                {
+                    Profile = new List<string>(){ BFDR.ProfileURL.ConditionFetalDeathInitiatingCauseOrCondition}
+                };
             }
         }
 
@@ -606,7 +682,7 @@ namespace BFDR
         /// <summary>Initiating cause/condition, Other complications of placenta, cord, or membranes literal.</summary>
         [Property("Other Complications of Placenta Cord Membranes Literal", Property.Types.String, "Initiating Cause/Condition",
                   "Initiating Cause/Condition, Other Complications of Placenta Cord Membranes Literal", true, IGURL.ConditionFetalDeathInitiatingCauseOrCondition, true, 100)]
-        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "76060-3", code: "membranes", section: FETUS_SECTION)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Condition,codeSystem: CodeSystemURL.LocalBFDRCodes, categoryCode: "76060-3", code: "FCOD_membranes", section: FETUS_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.DecedentFetus)]
         public string OtherComplicationsOfPlacentaCordMembranesLiteral
         {
@@ -631,6 +707,10 @@ namespace BFDR
                     cond = (Condition)CreateEntry(GetFHIRPathAttribute(), SubjectId());
                 }
                 cond.Code.Text = value;
+                cond.Meta =  new Meta()
+                {
+                    Profile = new List<string>() { BFDR.ProfileURL.ConditionFetalDeathInitiatingCauseOrCondition }
+                };
             }
         }
 
@@ -662,6 +742,10 @@ namespace BFDR
                     cond = (Condition)CreateEntry(GetFHIRPathAttribute(), SubjectId());
                 }
                 cond.Code.Text = value;
+                cond.Meta =  new Meta()
+                {
+                    Profile = new List<string>() { BFDR.ProfileURL.ConditionFetalDeathInitiatingCauseOrCondition }
+                };
             }
         }
 
@@ -693,6 +777,11 @@ namespace BFDR
                     cond = (Condition)CreateEntry(GetFHIRPathAttribute(), SubjectId());
                 }
                 cond.Code.Text = value;
+                cond.Meta =  new Meta()
+                {
+                    Profile = new List<string>() { BFDR.ProfileURL.ConditionFetalDeathInitiatingCauseOrCondition }
+                } ;
+
             }
         }
 
@@ -724,6 +813,10 @@ namespace BFDR
                     cond = (Condition)CreateEntry(GetFHIRPathAttribute(), SubjectId());
                 }
                 cond.Code.Text = value;
+                cond.Meta =  new Meta()
+                {
+                    Profile = new List<string>() { BFDR.ProfileURL.ConditionFetalDeathInitiatingCauseOrCondition }
+                }   ;
             }
         }
 
@@ -755,6 +848,11 @@ namespace BFDR
                     cond = (Condition)CreateEntry(GetFHIRPathAttribute(), SubjectId());
                 }
                 cond.Code.Text = value;
+                //adding Meta Profile if not already present
+                cond.Meta = new Meta()
+                {
+                    Profile = new List<string>(){ BFDR.ProfileURL.ConditionFetalDeathInitiatingCauseOrCondition}
+                };
             }
         }
 
@@ -786,6 +884,11 @@ namespace BFDR
                     cond = (Condition)CreateEntry(GetFHIRPathAttribute(), SubjectId());
                 }
                 cond.Code.Text = value;
+                //adding Meta Profile if not already present
+                cond.Meta = new Meta()
+                {
+                    Profile = new List<string>(){ BFDR.ProfileURL.ConditionFetalDeathInitiatingCauseOrCondition}
+                };
             }
         }
 
@@ -801,7 +904,17 @@ namespace BFDR
         public bool OtherCOD_PrematureRuptureOfMembranes
         {
             get => EntryExists();
-            set => UpdateEntry(value);
+            //set => UpdateEntry(value);
+            set
+            {
+                UpdateEntry(value); 
+                Condition cond = GetCondition();
+                //adding Meta Profile if not already present
+                cond.Meta = new Meta()
+                {
+                    Profile = new List<string>(){ BFDR.ProfileURL.ConditionFetalDeathOtherCauseOrCondition}
+                };
+            }   
         }
 
         /// <summary>Other significant causes or conditions, Abruptio placenta.</summary>
@@ -812,7 +925,17 @@ namespace BFDR
         public bool OtherCOD_AbruptioPlacenta
         {
             get => EntryExists();
-            set => UpdateEntry(value);
+            //set => UpdateEntry(value);
+            set
+            {
+                UpdateEntry(value);
+                Condition cond = GetCondition();
+                //adding Meta Profile if not already present
+                cond.Meta = new Meta()
+                {
+                    Profile = new List<string>(){ BFDR.ProfileURL.ConditionFetalDeathOtherCauseOrCondition}
+                };
+            }
         }
 
         /// <summary>Other significant causes or conditions, Placental insufficiency.</summary>
@@ -823,7 +946,17 @@ namespace BFDR
         public bool OtherCOD_PlacentalInsufficiency
         {
             get => EntryExists();
-            set => UpdateEntry(value);
+            //set => UpdateEntry(value);
+            set
+            {
+                UpdateEntry(value);
+                Condition cond = GetCondition();
+                //adding Meta Profile if not already present
+                cond.Meta = new Meta()
+                {
+                    Profile = new List<string>(){ BFDR.ProfileURL.ConditionFetalDeathOtherCauseOrCondition}
+                };
+            }
         }
 
         /// <summary>Other significant causes or conditions, Prolapsed cord.</summary>
@@ -834,7 +967,17 @@ namespace BFDR
         public bool OtherCOD_ProlapsedCord
         {
             get => EntryExists();
-            set => UpdateEntry(value);
+            //set => UpdateEntry(value);
+            set
+            {
+                UpdateEntry(value);
+                Condition cond = GetCondition();
+                //adding Meta Profile if not already present
+                cond.Meta = new Meta()
+                {
+                    Profile = new List<string>(){ BFDR.ProfileURL.ConditionFetalDeathOtherCauseOrCondition}
+                };
+            }
         }
 
         /// <summary>Other significant causes or conditions, Chorioamnionitis.</summary>
@@ -845,18 +988,38 @@ namespace BFDR
         public bool OtherCOD_ChorioamnionitisCOD
         {
             get => EntryExists();
-            set => UpdateEntry(value);
+            //set => UpdateEntry(value);
+            set
+            {
+                UpdateEntry(value);
+                Condition cond = GetCondition();
+                //adding Meta Profile if not already present
+                cond.Meta = new Meta()
+                {
+                    Profile = new List<string>(){ BFDR.ProfileURL.ConditionFetalDeathOtherCauseOrCondition}
+                };
+            }
         }
 
         /// <summary>Other significant causes or conditions, Other complications of placenta, cord, or membranes.</summary>
         [Property("Other Complications of Placenta, Cord, or Membranes", Property.Types.Bool, "Other Significant Cause/Condition",
                   "Other Significant Cause/Condition, Other Complications of Placenta, Cord, or Membranes", true, IGURL.ConditionFetalDeathOtherCauseOrCondition, true, 100)]
-        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "76061-1", code: "membranes", section: FETUS_SECTION)]
+        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "76061-1", code: "FCOD_membranes", section: FETUS_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.DecedentFetus)]
         public bool OtherCOD_OtherComplicationsOfPlacentaCordOrMembranes
         {
             get => EntryExists();
-            set => UpdateEntry(value);
+            //set => UpdateEntry(value);
+            set
+            {
+                UpdateEntry(value);
+                Condition cond = GetCondition();
+                //adding Meta Profile if not already present
+                cond.Meta = new Meta()
+                {
+                    Profile = new List<string>(){ BFDR.ProfileURL.ConditionFetalDeathOtherCauseOrCondition}
+                };
+            }
         }
 
         /// <summary>Other significant causes or conditions, Unknown.</summary>
@@ -867,7 +1030,17 @@ namespace BFDR
         public bool OtherCOD_OtherCauseOrConditionUnknown
         {
             get => EntryExists();
-            set => UpdateEntry(value);
+            //set => UpdateEntry(value);
+            set
+            {
+                UpdateEntry(value);
+                Condition cond = GetCondition();
+                //adding Meta Profile if not already present
+                cond.Meta = new Meta()
+                {
+                    Profile = new List<string>(){ BFDR.ProfileURL.ConditionFetalDeathOtherCauseOrCondition}
+                };
+            }
         }
 
         /// <summary>Other significant causes or conditions, Maternal conditions/diseases literal.</summary>
@@ -898,6 +1071,11 @@ namespace BFDR
                     cond = (Condition)CreateEntry(GetFHIRPathAttribute(), SubjectId());
                 }
                 cond.Code.Text = value;
+                //adding Meta Profile if not already present
+                cond.Meta = new Meta()
+                {
+                    Profile = new List<string>(){ BFDR.ProfileURL.ConditionFetalDeathOtherCauseOrCondition}
+                };
             }
         }
 
@@ -929,6 +1107,11 @@ namespace BFDR
                     cond = (Condition)CreateEntry(GetFHIRPathAttribute(), SubjectId());
                 }
                 cond.Code.Text = value;
+                //adding Meta Profile if not already present
+                cond.Meta = new Meta()
+                {
+                    Profile = new List<string>(){ BFDR.ProfileURL.ConditionFetalDeathOtherCauseOrCondition}
+                };
             }
         }
 
@@ -960,6 +1143,11 @@ namespace BFDR
                     cond = (Condition)CreateEntry(GetFHIRPathAttribute(), SubjectId());
                 }
                 cond.Code.Text = value;
+                //adding Meta Profile if not already present
+                cond.Meta = new Meta()
+                {
+                    Profile = new List<string>(){ BFDR.ProfileURL.ConditionFetalDeathOtherCauseOrCondition}
+                };
             }
         }
 
@@ -991,6 +1179,11 @@ namespace BFDR
                     cond = (Condition)CreateEntry(GetFHIRPathAttribute(), SubjectId());
                 }
                 cond.Code.Text = value;
+                //adding Meta Profile if not already present
+                cond.Meta =  new Meta()
+                {
+                    Profile = new List<string>() { BFDR.ProfileURL.ConditionFetalDeathOtherCauseOrCondition }
+                };
             }
         }
 
@@ -1022,6 +1215,11 @@ namespace BFDR
                     cond = (Condition)CreateEntry(GetFHIRPathAttribute(), SubjectId());
                 }
                 cond.Code.Text = value;
+                //adding Meta Profile if not already present
+                cond.Meta =  new Meta()
+                {
+                    Profile = new List<string>() { BFDR.ProfileURL.ConditionFetalDeathOtherCauseOrCondition }
+                };
             }
         }
 
@@ -1053,6 +1251,11 @@ namespace BFDR
                     cond = (Condition)CreateEntry(GetFHIRPathAttribute(), SubjectId());
                 }
                 cond.Code.Text = value;
+                //adding Meta Profile if not already present
+                cond.Meta =  new Meta()
+                {
+                    Profile = new List<string>() { BFDR.ProfileURL.ConditionFetalDeathOtherCauseOrCondition }
+                };
             }
         }
 
@@ -1084,6 +1287,11 @@ namespace BFDR
                     cond = (Condition)CreateEntry(GetFHIRPathAttribute(), SubjectId());
                 }
                 cond.Code.Text = value;
+                //adding Meta Profile if not already present
+                cond.Meta = new Meta()
+                {
+                    Profile = new List<string>(){ BFDR.ProfileURL.ConditionFetalDeathOtherCauseOrCondition}
+                };
             }
         }
 
