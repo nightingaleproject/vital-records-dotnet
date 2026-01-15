@@ -72,6 +72,12 @@ namespace BFDR.CLI
                 birthRecord.AttendantNPI = "762310012345";
                 birthRecord.AttendantTitleHelper = "76231001";
 
+                //Birth Place
+                Dictionary<string, string> birthPhysicalLocation = new Dictionary<string, string>();
+                birthPhysicalLocation.Add("code", "OTH"); 
+                birthPhysicalLocation.Add("system", "http://hl7.org/fhir/v3/PlaceOfBirth");
+                birthPhysicalLocation.Add("display", "Other");
+                birthRecord.BirthPhysicalLocation =  birthPhysicalLocation;
 
                 birthRecord.EventLocationJurisdiction = "MA";
                 Dictionary<string, string> birthAddress = new Dictionary<string, string>();
@@ -145,10 +151,10 @@ namespace BFDR.CLI
             {
                 // 0. Set up a FetalDeathRecord object
                 FetalDeathRecord fetaldeathRecord = new FetalDeathRecord();
-                fetaldeathRecord.DateOfDelivery = "2023-01-01";
+                fetaldeathRecord.DateOfDelivery = "2024-01-01";
                 fetaldeathRecord.CertificateNumber = "100";
                 fetaldeathRecord.StateLocalIdentifier1 = "123";
-                fetaldeathRecord.DateOfDelivery = "2023-01-01";
+                fetaldeathRecord.DateOfDelivery = "2024-01-01";
                 fetaldeathRecord.FetalDeathSex = "M";
 
                 string[] fetusNames = { "Alexander", "Arlo" };
@@ -190,8 +196,9 @@ namespace BFDR.CLI
                 fetaldeathRecord.GestationalHypertension = true;
 
                 // Initiating Cause or Condition
-                fetaldeathRecord.PrematureRuptureOfMembranes = true;
-                fetaldeathRecord.MaternalConditionsDiseasesLiteral = "Diabetes Mellitus";
+                fetaldeathRecord.OtherCOD_AbruptioPlacenta = true;
+                fetaldeathRecord.MaternalConditionsDiseasesLiteral = "Severe Preeclampsia / Eclampsia";
+                fetaldeathRecord.OtherCOD_PlacentalInsufficiency = true;
 
                 Dictionary<string, string> route = new Dictionary<string, string>();
                 route.Add("code", "700000006");

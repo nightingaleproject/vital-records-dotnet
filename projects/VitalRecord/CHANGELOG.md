@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+<a name="1.0.0-preview.10"></a>
+## [1.0.0-preview.10]() (2026-01-14)
+
+### Fixes
+* Fix GetPhysicalLocationHelper function to return the code instead of the display information when Other is selected
+
 <a name="1.0.0-preview.9"></a>
 ## [1.0.0-preview.9](https://github.com/nightingaleproject/vital-records-dotnet/pull/272/commits/197538f61e9b2cc60258df33b115141298599449) (2025-07-25)
 
