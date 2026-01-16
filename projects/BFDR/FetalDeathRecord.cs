@@ -444,11 +444,6 @@ namespace BFDR
                 {
                     Profile = new List<string>(){ BFDR.ProfileURL.ConditionFetalDeathInitiatingCauseOrCondition}
                 };
-                //adding Meta Profile if not already present
-                cond.Meta = new Meta()
-                {
-                    Profile = new List<string>(){ BFDR.ProfileURL.ConditionFetalDeathInitiatingCauseOrCondition}
-                };
             }
         }
 
@@ -717,7 +712,6 @@ namespace BFDR
         [Property("Other Complications of Placenta Cord Membranes Literal", Property.Types.String, "Initiating Cause/Condition",
                   "Initiating Cause/Condition, Other Complications of Placenta Cord Membranes Literal", true, IGURL.ConditionFetalDeathInitiatingCauseOrCondition, true, 100)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition,codeSystem: CodeSystemURL.LocalBFDRCodes, categoryCode: "76060-3", code: "FCOD_membranes", section: FETUS_SECTION)]
-        [FHIRPath(fhirType: FHIRPath.FhirType.Condition,codeSystem: CodeSystemURL.LocalBFDRCodes, categoryCode: "76060-3", code: "FCOD_membranes", section: FETUS_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.DecedentFetus)]
         public string OtherComplicationsOfPlacentaCordMembranesLiteral
         {
@@ -742,10 +736,6 @@ namespace BFDR
                     cond = (Condition)CreateEntry(GetFHIRPathAttribute(), SubjectId());
                 }
                 cond.Code.Text = value;
-                cond.Meta =  new Meta()
-                {
-                    Profile = new List<string>() { BFDR.ProfileURL.ConditionFetalDeathInitiatingCauseOrCondition }
-                };
                 cond.Meta =  new Meta()
                 {
                     Profile = new List<string>() { BFDR.ProfileURL.ConditionFetalDeathInitiatingCauseOrCondition }
@@ -785,10 +775,6 @@ namespace BFDR
                 {
                     Profile = new List<string>() { BFDR.ProfileURL.ConditionFetalDeathInitiatingCauseOrCondition }
                 };
-                cond.Meta =  new Meta()
-                {
-                    Profile = new List<string>() { BFDR.ProfileURL.ConditionFetalDeathInitiatingCauseOrCondition }
-                };
             }
         }
 
@@ -823,13 +809,7 @@ namespace BFDR
                 cond.Meta =  new Meta()
                 {
                     Profile = new List<string>() { BFDR.ProfileURL.ConditionFetalDeathInitiatingCauseOrCondition }
-                } ;
-
-                cond.Meta =  new Meta()
-                {
-                    Profile = new List<string>() { BFDR.ProfileURL.ConditionFetalDeathInitiatingCauseOrCondition }
-                } ;
-
+                };
             }
         }
 
@@ -864,11 +844,7 @@ namespace BFDR
                 cond.Meta =  new Meta()
                 {
                     Profile = new List<string>() { BFDR.ProfileURL.ConditionFetalDeathInitiatingCauseOrCondition }
-                }   ;
-                cond.Meta =  new Meta()
-                {
-                    Profile = new List<string>() { BFDR.ProfileURL.ConditionFetalDeathInitiatingCauseOrCondition }
-                }   ;
+                };
             }
         }
 
@@ -905,11 +881,6 @@ namespace BFDR
                 {
                     Profile = new List<string>(){ BFDR.ProfileURL.ConditionFetalDeathInitiatingCauseOrCondition}
                 };
-                //adding Meta Profile if not already present
-                cond.Meta = new Meta()
-                {
-                    Profile = new List<string>(){ BFDR.ProfileURL.ConditionFetalDeathInitiatingCauseOrCondition}
-                };
             }
         }
 
@@ -941,11 +912,6 @@ namespace BFDR
                     cond = (Condition)CreateEntry(GetFHIRPathAttribute(), SubjectId());
                 }
                 cond.Code.Text = value;
-                //adding Meta Profile if not already present
-                cond.Meta = new Meta()
-                {
-                    Profile = new List<string>(){ BFDR.ProfileURL.ConditionFetalDeathInitiatingCauseOrCondition}
-                };
                 //adding Meta Profile if not already present
                 cond.Meta = new Meta()
                 {
@@ -1087,7 +1053,6 @@ namespace BFDR
         [Property("Other Complications of Placenta, Cord, or Membranes", Property.Types.Bool, "Other Significant Cause/Condition",
                   "Other Significant Cause/Condition, Other Complications of Placenta, Cord, or Membranes", true, IGURL.ConditionFetalDeathOtherCauseOrCondition, true, 100)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "76061-1", code: "FCOD_membranes", section: FETUS_SECTION)]
-        [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "76061-1", code: "FCOD_membranes", section: FETUS_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.DecedentFetus)]
         public bool OtherCOD_OtherComplicationsOfPlacentaCordOrMembranes
         {
@@ -1167,11 +1132,6 @@ namespace BFDR
                 {
                     Profile = new List<string>(){ BFDR.ProfileURL.ConditionFetalDeathOtherCauseOrCondition}
                 };
-                //adding Meta Profile if not already present
-                cond.Meta = new Meta()
-                {
-                    Profile = new List<string>(){ BFDR.ProfileURL.ConditionFetalDeathOtherCauseOrCondition}
-                };
             }
         }
 
@@ -1203,11 +1163,6 @@ namespace BFDR
                     cond = (Condition)CreateEntry(GetFHIRPathAttribute(), SubjectId());
                 }
                 cond.Code.Text = value;
-                //adding Meta Profile if not already present
-                cond.Meta = new Meta()
-                {
-                    Profile = new List<string>(){ BFDR.ProfileURL.ConditionFetalDeathOtherCauseOrCondition}
-                };
                 //adding Meta Profile if not already present
                 cond.Meta = new Meta()
                 {
@@ -1249,11 +1204,6 @@ namespace BFDR
                 {
                     Profile = new List<string>(){ BFDR.ProfileURL.ConditionFetalDeathOtherCauseOrCondition}
                 };
-                //adding Meta Profile if not already present
-                cond.Meta = new Meta()
-                {
-                    Profile = new List<string>(){ BFDR.ProfileURL.ConditionFetalDeathOtherCauseOrCondition}
-                };
             }
         }
 
@@ -1285,11 +1235,6 @@ namespace BFDR
                     cond = (Condition)CreateEntry(GetFHIRPathAttribute(), SubjectId());
                 }
                 cond.Code.Text = value;
-                //adding Meta Profile if not already present
-                cond.Meta =  new Meta()
-                {
-                    Profile = new List<string>() { BFDR.ProfileURL.ConditionFetalDeathOtherCauseOrCondition }
-                };
                 //adding Meta Profile if not already present
                 cond.Meta =  new Meta()
                 {
@@ -1331,11 +1276,6 @@ namespace BFDR
                 {
                     Profile = new List<string>() { BFDR.ProfileURL.ConditionFetalDeathOtherCauseOrCondition }
                 };
-                //adding Meta Profile if not already present
-                cond.Meta =  new Meta()
-                {
-                    Profile = new List<string>() { BFDR.ProfileURL.ConditionFetalDeathOtherCauseOrCondition }
-                };
             }
         }
 
@@ -1372,11 +1312,6 @@ namespace BFDR
                 {
                     Profile = new List<string>() { BFDR.ProfileURL.ConditionFetalDeathOtherCauseOrCondition }
                 };
-                //adding Meta Profile if not already present
-                cond.Meta =  new Meta()
-                {
-                    Profile = new List<string>() { BFDR.ProfileURL.ConditionFetalDeathOtherCauseOrCondition }
-                };
             }
         }
 
@@ -1408,11 +1343,6 @@ namespace BFDR
                     cond = (Condition)CreateEntry(GetFHIRPathAttribute(), SubjectId());
                 }
                 cond.Code.Text = value;
-                //adding Meta Profile if not already present
-                cond.Meta = new Meta()
-                {
-                    Profile = new List<string>(){ BFDR.ProfileURL.ConditionFetalDeathOtherCauseOrCondition}
-                };
                 //adding Meta Profile if not already present
                 cond.Meta = new Meta()
                 {
