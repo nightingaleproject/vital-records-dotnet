@@ -370,7 +370,7 @@ namespace BFDR.Tests
       Assert.Equal("", ije.R_DY.Trim());
       Assert.Equal("26", ije.MAGER);
       Assert.Equal("23", ije.FAGER);
-      Assert.Equal("N", ije.EHYPE);
+      Assert.Equal("Y", ije.EHYPE);
       // Assert.Equal("X", ije.INFT_DRG); // should this be X? we can't round trip X or U for these fields, consider changing to N for testing purposes and determine if this is an issue
       // Assert.Equal("X", ije.INFT_ART); // should this be X?
       Assert.Equal("2024", ije.DOR_YR);
@@ -383,22 +383,22 @@ namespace BFDR.Tests
       Assert.Equal("N", ije.COD18a5);
       Assert.Equal("N", ije.COD18a6);
       Assert.Equal("N", ije.COD18a7);
-      Assert.Equal("NO PRENATAL CARE", ije.COD18a8.Trim());
+      Assert.Equal("Severe Preeclampsia/Eclampsia", ije.COD18a8.Trim());
       Assert.Equal("", ije.COD18a9.Trim());
       Assert.Equal("", ije.COD18a10.Trim());
       Assert.Equal("", ije.COD18a11.Trim());
-      Assert.Equal("99          0", ije.COD18a12.Trim());
+      Assert.Equal("", ije.COD18a12.Trim());
       Assert.Equal("", ije.COD18a13.Trim());
       Assert.Equal("", ije.COD18a13.Trim());
       Assert.Equal("", ije.COD18a14.Trim());
       Assert.Equal("N", ije.COD18b1);
-      Assert.Equal("N", ije.COD18b2);
+      Assert.Equal("Y", ije.COD18b2);
       Assert.Equal("N", ije.COD18b3);
       Assert.Equal("N", ije.COD18b4);
       Assert.Equal("N", ije.COD18b5);
       Assert.Equal("N", ije.COD18b6);
       Assert.Equal("N", ije.COD18b7);
-      Assert.Equal("RECENT XXXXXXXXXXX", ije.COD18b8.Trim());
+      Assert.Equal("", ije.COD18b8.Trim());
       Assert.Equal("", ije.COD18b9.Trim());
       Assert.Equal("", ije.COD18b10.Trim());
       Assert.Equal("NONE IDENTIFIED", ije.COD18b11.Trim());
