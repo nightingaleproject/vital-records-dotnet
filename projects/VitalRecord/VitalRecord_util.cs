@@ -2083,7 +2083,7 @@ namespace VR
                     {
                         return locationDict["text"];
                     }
-                    return "Other";
+                    return code;//"Other"; When "Other" is returned, this value is not found in the Mapping class 
                 }
                 else if (!String.IsNullOrWhiteSpace(code))
                 {
