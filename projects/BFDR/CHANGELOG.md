@@ -3,11 +3,12 @@
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
 <a name="1.0.0-preview.16"></a>
-## [1.0.0-preview.16]() (2026-01-14)
+## [1.0.0-preview.16]() (2026-01-21)
 
 ### Fixes
 * Fix resource condition by adding the missing profile information
 * Update connectathon record to include more realistic data
+* Fix issue related to BPLACE when value set is other
 
 <a name="1.0.0-preview.15"></a>
 ## [1.0.0-preview.15]() (2025-12-15)
