@@ -303,7 +303,7 @@ namespace BFDR
                 this.Subject.BirthDateElement.SetExtension(VR.ExtensionURL.PatientBirthTime, new FhirDateTime(parsedDateTime));
                 return;
             }
-            throw new ArgumentException($"Could not parse given string, expected a complete DateTime string in the format 'yyyy-MM-ddTHH:mm zzz' including time zone. Given {value}.");
+            throw new ArgumentException($"Could not parse given string, expected a complete DateTime string in format 'yyyy-MM-dd HH:mm +/-HH:mm' (where +/-HH:mm is time zone). Given {value}.");
         }
 
         private static bool TryParseValidDateTime(string value, out DateTimeOffset parsedDateTime)
