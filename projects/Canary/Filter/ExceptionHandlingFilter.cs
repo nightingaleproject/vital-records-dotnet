@@ -10,9 +10,19 @@ namespace canary.Filter
         {
             var exception = context.Exception;
 
+            string msg;
+            if (exception.Message == "Exception has been thrown by the target of an invocation.")
+            {
+                msg = exception.InnerException.Message;
+            }
+            else
+            {
+                msg = exception.Message;
+            }
+
             var errorResponse = new
             {
-                ErrorDetails = exception.Message
+                ErrorDetails = msg // Was: exception.Message
             };
 
             context.Result = new JsonResult(errorResponse)
