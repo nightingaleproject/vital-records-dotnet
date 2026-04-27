@@ -431,6 +431,9 @@
         <member name="M:BFDR.Connectathon.NullMonroe">
             <summary>Generate the [Null] Monroe example record which is contains mostly null data</summary>
         </member>
+        <member name="M:BFDR.Connectathon.GabrielGarecia">
+            <summary>Generate the Gabriel Mateo Garcia example record</summary>
+        </member>
         <member name="M:BFDR.Connectathon.WriteRecordAsXml(VR.VitalRecord,System.String)">
             <summary>Of historical interest for writing a record to a file</summary>
         </member>
