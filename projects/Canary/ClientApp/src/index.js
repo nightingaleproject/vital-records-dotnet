@@ -18,6 +18,7 @@ window.VRDR_VERSION_DATE = 'August 15, 2023';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
+
 root.render(
   <BrowserRouter basename={baseUrl}>
     <App />
