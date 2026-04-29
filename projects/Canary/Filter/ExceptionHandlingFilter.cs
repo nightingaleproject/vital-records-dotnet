@@ -10,14 +10,13 @@ namespace canary.Filter
         {
             var exception = context.Exception;
 
-            string msg;
-            if (exception.Message == "Exception has been thrown by the target of an invocation.")
+            string msg = exception.Message;
+            if (msg == "Exception has been thrown by the target of an invocation.")
             {
-                msg = exception.InnerException.Message;
-            }
-            else
-            {
-                msg = exception.Message;
+                if (msg.Length > 38 && msg.Substring(0,38)== "Could not parse given string, expected")
+                {
+                    msg = exception.InnerException.Message;  // Replace generic exception message with message intended for UI which was loaded into InnerException
+                }
             }
 
             var errorResponse = new
