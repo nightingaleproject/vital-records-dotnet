@@ -422,14 +422,17 @@
         <member name="M:BFDR.Connectathon.FromId(System.Int32,System.Nullable{System.Int32},System.String,System.Nullable{System.Int32})">
             <summary>Generate a BirthRecord from one of 2 pre-set records, providing an optional certificate number and state</summary>
         </member>
-        <member name="M:BFDR.Connectathon.YytrfCardenasRomero">
-            <summary>Generate the Yytrf Cardenas Romero example record</summary>
+        <member name="M:BFDR.Connectathon.AdriaCardenasRomero">
+            <summary>Generate the Adria Cardenas Romero example record</summary>
         </member>
-        <member name="M:BFDR.Connectathon.XyugbnxZalbanaiz">
-            <summary>Generate the Xyugbnx Zalbanaiz example record</summary>
+        <member name="M:BFDR.Connectathon.AlderaanZalbanaiz">
+            <summary>Generate the Alderaan Zalbanaiz example record</summary>
         </member>
         <member name="M:BFDR.Connectathon.NullMonroe">
             <summary>Generate the [Null] Monroe example record which is contains mostly null data</summary>
+        </member>
+        <member name="M:BFDR.Connectathon.GabrielGarecia">
+            <summary>Generate the Gabriel Mateo Garcia example record</summary>
         </member>
         <member name="M:BFDR.Connectathon.WriteRecordAsXml(VR.VitalRecord,System.String)">
             <summary>Of historical interest for writing a record to a file</summary>

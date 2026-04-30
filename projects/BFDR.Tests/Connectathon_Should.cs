@@ -80,15 +80,15 @@ namespace BFDR.Tests
         }
 
         [Fact]
-        public void Should_Return_YytrfCardenasRomero_Record_When_YytrfCardenasRomero_Called()
+        public void Should_Return_AdriaCardenasRomero_Record_When_AdriaCardenasRomero_Called()
         {
-            var result = Connectathon.YytrfCardenasRomero();
+            var result = Connectathon.AdriaCardenasRomero();
 
             Assert.NotNull(result);
             Assert.IsType<BirthRecord>(result);
             // Verify some key properties from the IJE string
-            Assert.Equal("YYTRF", result.ChildGivenNames[0]);
-            Assert.Equal("CARDENAS ROMERO", result.ChildFamilyName);
+            Assert.Equal("Adria", result.ChildGivenNames[0]);
+            Assert.Equal("Cardenas Romero", result.ChildFamilyName);
             Assert.Equal("ALEJANDRA", result.MotherGivenNames[0]);
             Assert.Equal("ROMERO LEON", result.MotherFamilyName);
             Assert.Equal("RAMON", result.FatherGivenNames[0]);
@@ -96,15 +96,15 @@ namespace BFDR.Tests
         }
 
         [Fact]
-        public void Should_Return_XyugbnxZalbanaiz_Record_When_XyugbnxZalbanaiz_Called()
+        public void Should_Return_AlderaanZalbanaiz_Record_When_AlderaanZalbanaiz_Called()
         {
-            var result = Connectathon.XyugbnxZalbanaiz();
+            var result = Connectathon.AlderaanZalbanaiz();
 
             Assert.NotNull(result);
             Assert.IsType<BirthRecord>(result);
             // Verify some key properties from the IJE string
-            Assert.Equal("XYUGBNX", result.ChildGivenNames[0]);
-            Assert.Equal("ZALBANAIZ", result.ChildFamilyName);
+            Assert.Equal("Alderaan", result.ChildGivenNames[0]);
+            Assert.Equal("Zalbanaiz", result.ChildFamilyName);
             Assert.Equal("REEM", result.MotherGivenNames[0]);
             Assert.Equal("ALHAMADI", result.MotherFamilyName);
             Assert.Equal("OMAR", result.FatherGivenNames[0]);
@@ -128,7 +128,7 @@ namespace BFDR.Tests
             var result = Connectathon.BirthRecords;
 
             Assert.NotNull(result);
-            Assert.Equal(3, result.Length);
+            Assert.Equal(4, result.Length);
             Assert.All(result, record => Assert.IsType<BirthRecord>(record));
         }
 
@@ -308,7 +308,7 @@ namespace BFDR.Tests
 
         [Theory]
         [InlineData(0)]
-        [InlineData(4)]
+        [InlineData(5)]
         [InlineData(-1)]
         [InlineData(100)]
         public void Should_Return_Null_For_Invalid_BirthRecord_Ids(int id)

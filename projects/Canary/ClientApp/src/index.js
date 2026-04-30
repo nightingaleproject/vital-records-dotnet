@@ -13,7 +13,7 @@ window.API_URL = '';
 window.VERSION = '5.3.2';
 window.VERSION_DATE = 'July 25, 2025';
 window.VRDR_VERSION = '5.0.0';
-window.BFDR_VERSION = '1.0.0-preview.15';
+window.BFDR_VERSION = '1.0.0-preview.16';
 window.VRDR_VERSION_DATE = 'August 15, 2023'; 
 
 const container = document.getElementById('root');
