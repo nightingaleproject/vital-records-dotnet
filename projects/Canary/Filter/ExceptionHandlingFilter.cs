@@ -13,7 +13,7 @@ namespace canary.Filter
             string msg = exception.Message;
             if (msg == "Exception has been thrown by the target of an invocation.")
             {
-                if (msg.Length > 38 && msg.Substring(0,38)== "Could not parse given string, expected")
+                if (exception.InnerException.Message.Length > 38 && exception.InnerException.Message.Substring(0,38)== "Could not parse given string, expected")
                 {
                     msg = exception.InnerException.Message;  // Replace generic exception message with message intended for UI which was loaded into InnerException
                 }
