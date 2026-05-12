@@ -1,0 +1,16 @@
+{
+  "profiles": {
+    "DeathRecord.CLI": {
+      "commandName": "Project",
+      //"commandLineArgs": "fakerecord"
+      //"commandLineArgs": "ije2json C:\\Temp\\STU2.2_RoundTripTesting\\",
+      "commandLineArgs": "extract C:\\Temp\\TestBed_steps\\ExtractFromDB\\Test_message.txt"
+      //"commandLineArgs": "json2ije C:\\Temp\\STU2.2_RoundTripTesting\\ C:\\Temp\\STU2.2_RoundTripTesting\\json"
+      //"commandLineArgs": "roundtrip-ije C:\\Temp\\STU2.2_RoundTripTesting\\CODandCOUNTYCOther.json",
+      //"commandLineArgs": "ijefiles2jsonfiles C:\\Temp\\STU2.2_RoundTripTesting\\InputIJE_All\\Initial_IJEBeforeRoundTrip",
+      //"commandLineArgs": "jsonfiles2ijefiles C:\\Temp\\STU2.2_RoundTripTesting\\InputIJE_All\\_OutputJson_IntermediateStep"
+      //"commandLineArgs": "jsonfiles2ijefiles C:\\SC\\NightingaleProject\\vital-records-dotnet\\projects\\VRDR.Tests\\fixtures\\ije\\ToJson",
+
+    }
+  }
+}
