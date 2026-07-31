@@ -200,7 +200,7 @@ namespace BFDR.Tests
         [Fact]
         public void Should_Return_Test1_Record_When_Test1_Called()
         {
-            var result = Connectathon.Test1();
+            var result = Connectathon.ZekeAnwar();
 
             Assert.NotNull(result);
             Assert.IsType<FetalDeathRecord>(result);
@@ -215,7 +215,7 @@ namespace BFDR.Tests
             var result = Connectathon.FetalDeathRecords;
 
             Assert.NotNull(result);
-            Assert.Single(result);
+            Assert.Equal(5, result.Length);
             Assert.All(result, record => Assert.IsType<FetalDeathRecord>(record));
         }
 
