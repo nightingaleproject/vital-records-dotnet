@@ -68,6 +68,25 @@ namespace BFDR
                 return fetalDeathRecord?.GetCodedCauseOfFetalDeathBundle();
             }
         }
+
+        /// <summary>The id of the FetalDeath record submission/update message that was coded to produce the content of this message</summary>
+        /// <value>the message id.</value>
+        public string CodedMessageId
+        {
+            get
+            {
+                return Header?.Response?.Identifier;
+            }
+            set
+            {
+                if (Header.Response == null)
+                {
+                    Header.Response = new MessageHeader.ResponseComponent();
+                    Header.Response.Code = MessageHeader.ResponseType.Ok;
+                }
+                Header.Response.Identifier = value;
+            }
+        }
     }
 
     /// <summary>Class <c>CodedCauseOfFetalDeathUpdateMessage</c> supports the update of BFDR records.</summary>
