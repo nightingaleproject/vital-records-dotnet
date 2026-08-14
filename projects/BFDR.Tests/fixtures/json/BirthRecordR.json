@@ -1,6 +1,6 @@
 {
   "resourceType": "Bundle",
-  "id": "3572b0be-507c-4c44-aab0-bbd58871d0de",
+  "id": "1c714fa6-41d6-46e1-85dc-44dbef2dd34d",
   "meta": {
     "profile": [
       "http://hl7.org/fhir/us/bfdr/StructureDefinition/Bundle-document-birth-report"
@@ -10,20 +10,20 @@
     "extension": [
       {
         "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/CertificateNumber",
-        "valueString": "99991"
+        "valueString": "000001"
       }
     ],
     "system": "http://nchs.cdc.gov/bfdr_id",
-    "value": "2024XX099991"
+    "value": "2025TT000001"
   },
   "type": "document",
-  "timestamp": "2024-11-14T13:18:42.470213-05:00",
+  "timestamp": "2026-08-10T16:57:54.1467422-04:00",
   "entry": [
     {
-      "fullUrl": "urn:uuid:ee494910-85e3-450b-8cf9-7f2cf1b288f3",
+      "fullUrl": "urn:uuid:4ee6fe3a-d83e-45f6-8c50-78b715e5b054",
       "resource": {
         "resourceType": "Composition",
-        "id": "ee494910-85e3-450b-8cf9-7f2cf1b288f3",
+        "id": "4ee6fe3a-d83e-45f6-8c50-78b715e5b054",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Composition-jurisdiction-live-birth-report"
@@ -40,20 +40,20 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:d1390877-6cbc-4ee9-ac22-0b2850fd3154"
+          "reference": "urn:uuid:ec86123f-9ce0-4eb5-8e5f-67886d3b316e"
         },
         "encounter": {
           "extension": [
             {
               "url": "http://hl7.org/fhir/us/bfdr/StructureDefinition/Extension-encounter-maternity-reference",
               "valueReference": {
-                "reference": "urn:uuid:5b2ddd12-4e0f-4183-9e60-f4929dfae837"
+                "reference": "urn:uuid:ffdb8848-08f7-441a-a1f3-019557a6dc2c"
               }
             }
           ],
-          "reference": "urn:uuid:50bc3442-db0e-48bd-b236-bf28996281ef"
+          "reference": "urn:uuid:4b9034fb-0a1f-492e-b09c-81f2cbe1ca8b"
         },
-        "date": "2020-01-02",
+        "date": "2025-01-02",
         "title": "Birth Certificate",
         "attester": [
           {
@@ -81,163 +81,37 @@
               "coding": [
                 {
                   "system": "http://loinc.org",
-                  "code": "92014-0"
-                }
-              ]
-            },
-            "entry": [
-              {
-                "reference": "urn:uuid:a568b445-4fc5-421a-8bfb-a02305caf3b2"
-              },
-              {
-                "reference": "urn:uuid:13e455f1-aa9e-48a8-90e6-967904b6ca28"
-              },
-              {
-                "reference": "urn:uuid:21e35b82-19c6-4784-9a72-7ac351232d22"
-              }
-            ]
-          },
-          {
-            "code": {
-              "coding": [
-                {
-                  "system": "http://loinc.org",
-                  "code": "92013-2"
-                }
-              ]
-            },
-            "entry": [
-              {
-                "reference": "urn:uuid:2d0769d3-ed10-48f1-bc3c-c79cdd183232"
-              },
-              {
-                "reference": "urn:uuid:c18b9dd5-ab30-40f1-85f7-26f7b7228d77"
-              }
-            ]
-          },
-          {
-            "code": {
-              "coding": [
-                {
-                  "system": "http://loinc.org",
-                  "code": "68493-6"
-                }
-              ]
-            },
-            "entry": [
-              {
-                "reference": "urn:uuid:9c315119-d90c-475e-a00f-9220691af751"
-              }
-            ]
-          },
-          {
-            "code": {
-              "coding": [
-                {
-                  "system": "http://loinc.org",
                   "code": "57073-9"
                 }
               ]
             },
-            "entry": [
-              {
-                "reference": "urn:uuid:39323ab9-14f1-4d8f-916b-68a0ec897409"
-              },
-              {
-                "reference": "urn:uuid:1fe71e93-842b-4b10-b745-9c1e1b920bd6"
-              },
-              {
-                "reference": "urn:uuid:93ae3e5c-b545-4954-aebd-7894ca3cde4a"
-              },
-              {
-                "reference": "urn:uuid:49c692d8-65b2-4c00-b9ea-b0637522422d"
-              },
-              {
-                "reference": "urn:uuid:ad62ac3e-8d6e-44e3-a1d4-b54054334fa8"
-              },
-              {
-                "reference": "urn:uuid:83a44ed9-5720-44c2-bad1-ee846a55587b"
-              },
-              {
-                "reference": "urn:uuid:63f85c14-be37-42da-82d2-cf3f9313dc45"
-              },
-              {
-                "reference": "urn:uuid:e7bf6b8f-ffdb-49a9-9285-4c9fb70cd285"
-              }
-            ]
-          },
-          {
-            "code": {
-              "coding": [
-                {
-                  "system": "http://loinc.org",
-                  "code": "87303-4"
-                }
-              ]
+            "focus": {
+              "reference": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c"
             },
             "entry": [
               {
-                "reference": "urn:uuid:2e9e7909-c560-404e-b225-8846831f5ccf"
-              }
-            ]
-          },
-          {
-            "code": {
-              "coding": [
-                {
-                  "system": "http://loinc.org",
-                  "code": "11638-4"
-                }
-              ]
-            },
-            "entry": [
+                "reference": "urn:uuid:f3d0be70-829e-49a6-9ad1-bb288ac1175b"
+              },
               {
-                "reference": "urn:uuid:1506bf06-aa05-4a30-9420-be7c613bec42"
-              }
-            ]
-          },
-          {
-            "code": {
-              "coding": [
-                {
-                  "system": "http://loinc.org",
-                  "code": "68496-9"
-                }
-              ]
-            },
-            "entry": [
+                "reference": "urn:uuid:e8a1f4e5-5cfb-4280-b774-4f11bfcab98c"
+              },
               {
-                "reference": "urn:uuid:f749efef-d063-42f5-b3b7-2ad3683b3877"
-              }
-            ]
-          },
-          {
-            "code": {
-              "coding": [
-                {
-                  "system": "http://loinc.org",
-                  "code": "69043-8"
-                }
-              ]
-            },
-            "entry": [
+                "reference": "urn:uuid:40bcbad6-29d7-4100-8942-560c7bd4413d"
+              },
               {
-                "reference": "urn:uuid:565cf9ad-7009-406b-b8c0-b540c98b3a5b"
-              }
-            ]
-          },
-          {
-            "code": {
-              "coding": [
-                {
-                  "system": "http://loinc.org",
-                  "code": "68499-3"
-                }
-              ]
-            },
-            "entry": [
+                "reference": "urn:uuid:7527d1e0-db3a-4235-93d2-cd865a54c60b"
+              },
               {
-                "reference": "urn:uuid:663a3972-84db-4e15-a9ec-21ce25da6dd6"
+                "reference": "urn:uuid:b47393c1-3032-473f-a277-fe2ba9302567"
+              },
+              {
+                "reference": "urn:uuid:46f6cfae-3db2-43a8-ab16-f9a704cfd4e5"
+              },
+              {
+                "reference": "urn:uuid:5ebd5a0f-6d95-472e-a286-98287c437de1"
+              },
+              {
+                "reference": "urn:uuid:539f4f16-b0fd-4d89-abab-7549d51869d1"
               }
             ]
           },
@@ -251,32 +125,38 @@
               ]
             },
             "focus": {
-              "reference": "urn:uuid:7f22e644-c03c-42ff-8b98-06035bfd1e04"
+              "reference": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c"
             },
             "entry": [
               {
-                "reference": "urn:uuid:9720a191-17e7-4da7-8da9-2ae978bdd1c0"
+                "reference": "urn:uuid:d4d4ee5f-fd4b-426e-bbda-65ad17807c50"
               },
               {
-                "reference": "urn:uuid:7f8ec924-f032-4c55-ba13-60a044897cc7"
+                "reference": "urn:uuid:5491866b-eabe-4943-ad61-d5b2ef41f964"
               },
               {
-                "reference": "urn:uuid:2449cb23-9d46-4d94-9bd6-e23e8020d8dc"
+                "reference": "urn:uuid:0b7709bd-6fda-41d1-8329-6a6465588134"
               },
               {
-                "reference": "urn:uuid:57fd9eaf-0167-453a-ba90-74f8dced772b"
+                "reference": "urn:uuid:50812e72-1c06-42f2-b7a6-d0c5def7cdcc"
               },
               {
-                "reference": "urn:uuid:1bd35aba-6fd4-4a39-9cdb-c4e86bbcf46d"
+                "reference": "urn:uuid:50f5a689-e609-479b-bffe-826af6cc7736"
               },
               {
-                "reference": "urn:uuid:46d6589a-737e-4811-b74c-a44e219cb85e"
+                "reference": "urn:uuid:75624347-b865-42f2-8b42-8a7f0ee8a60d"
               },
               {
-                "reference": "urn:uuid:b7c5f757-f764-46fa-899d-b08a9a7b02b9"
+                "reference": "urn:uuid:7a5c5f20-6958-45b0-8c94-6e2c390dbf9b"
               },
               {
-                "reference": "urn:uuid:577be5d8-19f2-4c1d-b636-0b1d34c350f8"
+                "reference": "urn:uuid:27934dfd-aac2-4934-a928-b354929b231a"
+              },
+              {
+                "reference": "urn:uuid:6db2b7aa-3183-4361-a293-7c871835dd90"
+              },
+              {
+                "reference": "urn:uuid:3c9ba170-937c-46b4-8c00-00a0a26c61b1"
               }
             ]
           },
@@ -291,25 +171,187 @@
             },
             "entry": [
               {
-                "reference": "urn:uuid:4aab872a-a4ad-4dd7-920e-b17ea6ff826a"
+                "reference": "urn:uuid:7da760b8-f3bb-4e9f-9942-e6b3f7fb89ff"
               },
               {
-                "reference": "urn:uuid:280098ec-a60a-4de9-9b67-77c747b59416"
+                "reference": "urn:uuid:f2a34e5b-8804-4fe3-8a57-16db3cfbe8e5"
               },
               {
-                "reference": "urn:uuid:3d25612f-5946-4fea-aed5-c1fbeddcf45e"
+                "reference": "urn:uuid:b3c62370-083d-43b4-b712-db9c95f3c56d"
               },
               {
-                "reference": "urn:uuid:8e6738fa-dfc9-4daf-a9f0-f1b7ee6ccb86"
+                "reference": "urn:uuid:b2ab7193-3c50-4ddc-9f45-347d61ca03fe"
               },
               {
-                "reference": "urn:uuid:44928f38-6ae3-43ba-b9ba-f1b686d50524"
+                "reference": "urn:uuid:e55477d2-b05f-4eb6-ab69-a85a42dcbd7d"
               },
               {
-                "reference": "urn:uuid:d91910b8-d838-4535-97ca-e14c10f54c14"
+                "reference": "urn:uuid:0c78f09b-66eb-4ec6-813c-7369ea4c9f41"
               },
               {
-                "reference": "urn:uuid:f6190d29-279c-4334-8015-e4776aa8f694"
+                "reference": "urn:uuid:a742a5bf-d914-4793-84b2-d4a7e0d86526"
+              },
+              {
+                "reference": "urn:uuid:53c22258-541a-406e-952a-b0e12c92ad00"
+              },
+              {
+                "reference": "urn:uuid:c9986eef-e043-46cc-b599-631d92d95514"
+              },
+              {
+                "reference": "urn:uuid:5ca826f5-6c22-416c-a14e-ce9e52c5f046"
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "92014-0"
+                }
+              ]
+            },
+            "focus": {
+              "reference": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c"
+            },
+            "entry": [
+              {
+                "reference": "urn:uuid:ff494cce-22c6-42b6-8194-f5a2b9a3f4a0"
+              },
+              {
+                "reference": "urn:uuid:632810de-f637-4797-98d1-8d10e5c2b06e"
+              },
+              {
+                "reference": "urn:uuid:5a5239fb-b977-4a6f-98ac-e617d6215a50"
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "92013-2"
+                }
+              ]
+            },
+            "focus": {
+              "reference": "urn:uuid:a041a7e8-44de-4873-aef5-863d9a865e1b"
+            },
+            "entry": [
+              {
+                "reference": "urn:uuid:ac772638-777b-4147-8524-391cb54d32d7"
+              },
+              {
+                "reference": "urn:uuid:3024168d-68ae-4865-aa95-3023cbfdbe8f"
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "emergingIssues"
+                }
+              ]
+            },
+            "emptyReason": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/list-empty-reason",
+                  "code": "notasked"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "68493-6"
+                }
+              ]
+            },
+            "entry": [
+              {
+                "reference": "urn:uuid:df50e50f-b023-4d4a-9d87-263ff465ddbf"
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "87303-4"
+                }
+              ]
+            },
+            "entry": [
+              {
+                "reference": "urn:uuid:723a08a6-f4cf-44c2-9db2-5f1ac0f45215"
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "11638-4"
+                }
+              ]
+            },
+            "entry": [
+              {
+                "reference": "urn:uuid:3a912b83-562b-4533-a50e-8360e5c6381b"
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "68496-9"
+                }
+              ]
+            },
+            "entry": [
+              {
+                "reference": "urn:uuid:aa5521de-2a07-4c9d-b31c-5dd7ea1ea043"
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "69043-8"
+                }
+              ]
+            },
+            "entry": [
+              {
+                "reference": "urn:uuid:3591cfa1-d632-4179-a2b3-628ec2be3848"
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "68499-3"
+                }
+              ]
+            },
+            "entry": [
+              {
+                "reference": "urn:uuid:d8577897-ef28-4e71-9faf-5f8f79146264"
               }
             ]
           },
@@ -324,7 +366,7 @@
             },
             "entry": [
               {
-                "reference": "urn:uuid:1c771a2a-b0f7-4230-aac2-22b65221b522"
+                "reference": "urn:uuid:26b767d6-f6dd-4d2e-a99f-0a661e6970de"
               }
             ]
           },
@@ -339,46 +381,7 @@
             },
             "entry": [
               {
-                "reference": "urn:uuid:61fb29c6-db5f-4917-8879-75b32ac91848"
-              }
-            ]
-          },
-          {
-            "code": {
-              "coding": [
-                {
-                  "system": "http://loinc.org",
-                  "code": "emergingIssues"
-                }
-              ]
-            },
-            "entry": [
-              {
-                "reference": "urn:uuid:02bfa3e4-aae6-4507-baa8-dda2a84ea60b"
-              },
-              {
-                "reference": "urn:uuid:51cbd0ac-90c5-4749-a9cb-15f7fe333418"
-              },
-              {
-                "reference": "urn:uuid:31196691-0a71-4f0b-8f9d-1c6ec896722a"
-              },
-              {
-                "reference": "urn:uuid:b27275ce-3e5b-4bb5-8c2c-6e93d6d619e3"
-              },
-              {
-                "reference": "urn:uuid:34f43196-72cc-4639-92d6-ecf04147ca2b"
-              },
-              {
-                "reference": "urn:uuid:359a2b33-81ef-464a-9358-95303f095050"
-              },
-              {
-                "reference": "urn:uuid:ba9ebacf-e481-4159-88de-0018a63af7c0"
-              },
-              {
-                "reference": "urn:uuid:a8487711-ac37-4430-bdfb-b167905fd2bd"
-              },
-              {
-                "reference": "urn:uuid:b587dd9d-3416-4e9b-ad8e-6cd20263e206"
+                "reference": "urn:uuid:c184b813-78bf-463d-8057-45a5be2327f2"
               }
             ]
           },
@@ -393,7 +396,7 @@
             },
             "entry": [
               {
-                "reference": "urn:uuid:12f971e6-5c13-4fbf-9345-5b3694387e32"
+                "reference": "urn:uuid:1463013c-369d-4bc2-85ed-296ef463a662"
               }
             ]
           },
@@ -408,7 +411,7 @@
             },
             "entry": [
               {
-                "reference": "urn:uuid:6eeec927-b8cc-4873-9564-2f3c47798a64"
+                "reference": "urn:uuid:808f0133-d026-4d04-9378-8b926850c889"
               }
             ]
           }
@@ -416,10 +419,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:d1390877-6cbc-4ee9-ac22-0b2850fd3154",
+      "fullUrl": "urn:uuid:ec86123f-9ce0-4eb5-8e5f-67886d3b316e",
       "resource": {
         "resourceType": "Patient",
-        "id": "d1390877-6cbc-4ee9-ac22-0b2850fd3154",
+        "id": "ec86123f-9ce0-4eb5-8e5f-67886d3b316e",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Patient-child-vr"
@@ -429,6 +432,28 @@
           {
             "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
             "valueCode": "F"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/patient-birthPlace",
+            "valueAddress": {
+              "_district": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/DistrictCode",
+                    "valuePositiveInt": 19
+                  }
+                ]
+              },
+              "state": "TT",
+              "_state": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-jurisdiction-id-vr",
+                    "valueString": "TT"
+                  }
+                ]
+              }
+            }
           },
           {
             "extension": [
@@ -481,30 +506,6 @@
               }
             ],
             "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-reported-parent-age-at-delivery-vr"
-          },
-          {
-            "url": "http://hl7.org/fhir/StructureDefinition/patient-birthPlace",
-            "valueAddress": {
-              "city": "TUCSON",
-              "district": "PIMA",
-              "_district": {
-                "extension": [
-                  {
-                    "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/DistrictCode",
-                    "valuePositiveInt": 19
-                  }
-                ]
-              },
-              "state": "TT",
-              "_state": {
-                "extension": [
-                  {
-                    "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-jurisdiction-id-vr",
-                    "valueString": "TT"
-                  }
-                ]
-              }
-            }
           }
         ],
         "identifier": [
@@ -525,15 +526,18 @@
           {
             "use": "official",
             "family": "Cardenas Romero",
-            "given": ["Adria", "Luna"]
+            "given": [
+              "Adria",
+              "Luna"
+            ]
           }
         ],
-        "birthDate": "2024-01-01",
+        "birthDate": "2025-01-01",
         "_birthDate": {
           "extension": [
             {
               "url": "http://hl7.org/fhir/StructureDefinition/patient-birthTime",
-              "valueDateTime": "2024-01-01T10:31:00+00:00"
+              "valueDateTime": "2025-01-01T10:31:00-05:00"
             }
           ]
         },
@@ -564,10 +568,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:7f22e644-c03c-42ff-8b98-06035bfd1e04",
+      "fullUrl": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c",
       "resource": {
         "resourceType": "Patient",
-        "id": "7f22e644-c03c-42ff-8b98-06035bfd1e04",
+        "id": "f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Patient-mother-vr"
@@ -577,8 +581,16 @@
           {
             "url": "http://hl7.org/fhir/StructureDefinition/patient-birthPlace",
             "valueAddress": {
-              "country": "MX",
-              "state": "XX"
+              "state": "XX",
+              "_state": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-jurisdiction-id-vr",
+                    "valueString": "XX"
+                  }
+                ]
+              },
+              "country": "MX"
             }
           }
         ],
@@ -593,7 +605,7 @@
                 }
               ]
             },
-            "value": "888888888"
+            "value": "415856471"
           },
           {
             "type": {
@@ -612,14 +624,16 @@
           {
             "use": "official",
             "family": "ROMERO LEON",
-            "given": ["ALEJANDRA"]
+            "given": [
+              "ALEJANDRA"
+            ]
           },
           {
             "use": "maiden",
             "family": "ROMERO LEON"
           }
         ],
-        "birthDate": "1992-10-13",
+        "birthDate": "1995-10-13",
         "_birthDate": {
           "extension": [
             {
@@ -637,8 +651,32 @@
         },
         "address": [
           {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/StreetNumber",
+                "valueString": "9999"
+              },
+              {
+                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/PreDirectional",
+                "valueString": "North"
+              },
+              {
+                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/StreetName",
+                "valueString": "Priest"
+              },
+              {
+                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/StreetDesignator",
+                "valueString": "Rd"
+              },
+              {
+                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/UnitOrAptNumber",
+                "valueString": "236"
+              }
+            ],
             "use": "billing",
-            "line": ["9999 NORTH PRIEST RD236"],
+            "line": [
+              "9999 NORTH PRIEST RD236"
+            ],
             "city": "MESA",
             "state": "AZ",
             "_state": {
@@ -655,6 +693,10 @@
           {
             "extension": [
               {
+                "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/UnitOrAptNumber",
+                "valueString": "100"
+              },
+              {
                 "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-within-city-limits-indicator-vr",
                 "valueCoding": {
                   "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
@@ -664,7 +706,9 @@
               }
             ],
             "use": "home",
-            "line": ["6666 NORTH ORACLE ROAD100"],
+            "line": [
+              "6666 NORTH ORACLE ROAD100"
+            ],
             "city": "TUCSON",
             "_city": {
               "extension": [
@@ -699,10 +743,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:fde454c0-c489-40b2-a426-965ed19ca1c3",
+      "fullUrl": "urn:uuid:a041a7e8-44de-4873-aef5-863d9a865e1b",
       "resource": {
         "resourceType": "RelatedPerson",
-        "id": "fde454c0-c489-40b2-a426-965ed19ca1c3",
+        "id": "a041a7e8-44de-4873-aef5-863d9a865e1b",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/RelatedPerson-father-natural-vr"
@@ -713,6 +757,14 @@
             "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-relatedperson-birthplace-vr",
             "valueAddress": {
               "state": "ZZ",
+              "_state": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Extension-jurisdiction-id-vr",
+                    "valueString": "ZZ"
+                  }
+                ]
+              },
               "country": "MX"
             }
           }
@@ -728,7 +780,7 @@
                 }
               ]
             },
-            "value": "888888888"
+            "value": "278157568"
           }
         ],
         "relationship": [
@@ -745,10 +797,13 @@
           {
             "use": "official",
             "family": "CARDENAS OTERO",
-            "given": ["RAMON", "FELIPE"]
+            "given": [
+              "RAMON",
+              "FELIPE"
+            ]
           }
         ],
-        "birthDate": "1991-12-19",
+        "birthDate": "1994-12-19",
         "_birthDate": {
           "extension": [
             {
@@ -768,10 +823,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:11c16a54-c979-4708-9bfb-4f5aa3b397d6",
+      "fullUrl": "urn:uuid:12b805fb-8fd7-49a8-a50c-44163c6c4056",
       "resource": {
         "resourceType": "Practitioner",
-        "id": "11c16a54-c979-4708-9bfb-4f5aa3b397d6",
+        "id": "12b805fb-8fd7-49a8-a50c-44163c6c4056",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Practitioner-birth-certifier"
@@ -782,14 +837,34 @@
             "url": "http://hl7.org/fhir/us/bfdr/StructureDefinition/Extension-role",
             "valueCode": "certifier"
           }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "text": "Ava Bennett"
+          }
+        ],
+        "qualification": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-NullFlavor",
+                  "code": "OTH",
+                  "display": "Other"
+                }
+              ],
+              "text": "6"
+            }
+          }
         ]
       }
     },
     {
-      "fullUrl": "urn:uuid:fc7abb3e-0447-4ea3-b25a-6b5800cb3a87",
+      "fullUrl": "urn:uuid:60d37819-798b-4e4d-a9ff-b4c115e3b267",
       "resource": {
         "resourceType": "Practitioner",
-        "id": "fc7abb3e-0447-4ea3-b25a-6b5800cb3a87",
+        "id": "60d37819-798b-4e4d-a9ff-b4c115e3b267",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Practitioner-birth-attendant"
@@ -838,10 +913,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:5b2ddd12-4e0f-4183-9e60-f4929dfae837",
+      "fullUrl": "urn:uuid:ffdb8848-08f7-441a-a1f3-019557a6dc2c",
       "resource": {
         "resourceType": "Encounter",
-        "id": "5b2ddd12-4e0f-4183-9e60-f4929dfae837",
+        "id": "ffdb8848-08f7-441a-a1f3-019557a6dc2c",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Encounter-maternity"
@@ -873,7 +948,7 @@
               }
             ],
             "individual": {
-              "reference": "urn:uuid:11c16a54-c979-4708-9bfb-4f5aa3b397d6"
+              "reference": "urn:uuid:12b805fb-8fd7-49a8-a50c-44163c6c4056"
             }
           }
         ],
@@ -892,10 +967,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:f5d37bc1-72fd-4413-8d31-b15faf0e9a0c",
+      "fullUrl": "urn:uuid:e2f5c725-3e91-4a6e-a323-b1f84dbba90f",
       "resource": {
         "resourceType": "Coverage",
-        "id": "f5d37bc1-72fd-4413-8d31-b15faf0e9a0c",
+        "id": "e2f5c725-3e91-4a6e-a323-b1f84dbba90f",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Coverage-principal-payer-delivery"
@@ -913,10 +988,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:50bc3442-db0e-48bd-b236-bf28996281ef",
+      "fullUrl": "urn:uuid:4b9034fb-0a1f-492e-b09c-81f2cbe1ca8b",
       "resource": {
         "resourceType": "Encounter",
-        "id": "50bc3442-db0e-48bd-b236-bf28996281ef",
+        "id": "4b9034fb-0a1f-492e-b09c-81f2cbe1ca8b",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Encounter-birth"
@@ -932,6 +1007,24 @@
                   "code": "CHILD"
                 }
               ]
+            }
+          }
+        ],
+        "participant": [
+          {
+            "type": [
+              {
+                "coding": [
+                  {
+                    "system": "http://loinc.org",
+                    "code": "87287-9",
+                    "display": "Birth certifier"
+                  }
+                ]
+              }
+            ],
+            "period": {
+              "start": "2025-01-02"
             }
           }
         ],
@@ -963,10 +1056,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:94cd7b02-47c6-494c-ac6f-a381a2979eb6",
+      "fullUrl": "urn:uuid:753eccfe-a32e-4a7c-9077-e4dd748389db",
       "resource": {
         "resourceType": "Location",
-        "id": "94cd7b02-47c6-494c-ac6f-a381a2979eb6",
+        "id": "753eccfe-a32e-4a7c-9077-e4dd748389db",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Location-bfdr"
@@ -974,17 +1067,10 @@
         },
         "identifier": [
           {
-            "extension": [
-              {
-                "url": "http://hl7.org/fhir/us/bfdr/StructureDefinition/Extension-jurisdictional-facility-identifier",
-                "valueString": "1101"
-              }
-            ],
             "system": "http://hl7.org/fhir/sid/us-npi",
             "value": "1487607784"
           }
         ],
-        "name": "NORTHWEST MEDICAL CENTER",
         "type": [
           {
             "coding": [
@@ -998,10 +1084,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:a568b445-4fc5-421a-8bfb-a02305caf3b2",
+      "fullUrl": "urn:uuid:ff494cce-22c6-42b6-8194-f5a2b9a3f4a0",
       "resource": {
         "resourceType": "Observation",
-        "id": "a568b445-4fc5-421a-8bfb-a02305caf3b2",
+        "id": "ff494cce-22c6-42b6-8194-f5a2b9a3f4a0",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-mother-married-during-pregnancy"
@@ -1018,7 +1104,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:7f22e644-c03c-42ff-8b98-06035bfd1e04"
+          "reference": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c"
         },
         "valueCodeableConcept": {
           "coding": [
@@ -1032,10 +1118,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:2d0769d3-ed10-48f1-bc3c-c79cdd183232",
+      "fullUrl": "urn:uuid:ac772638-777b-4147-8524-391cb54d32d7",
       "resource": {
         "resourceType": "Observation",
-        "id": "2d0769d3-ed10-48f1-bc3c-c79cdd183232",
+        "id": "ac772638-777b-4147-8524-391cb54d32d7",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-paternity-acknowledgement-signed"
@@ -1052,7 +1138,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:7f22e644-c03c-42ff-8b98-06035bfd1e04"
+          "reference": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c"
         },
         "valueCodeableConcept": {
           "coding": [
@@ -1066,10 +1152,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:13e455f1-aa9e-48a8-90e6-967904b6ca28",
+      "fullUrl": "urn:uuid:632810de-f637-4797-98d1-8d10e5c2b06e",
       "resource": {
         "resourceType": "Observation",
-        "id": "13e455f1-aa9e-48a8-90e6-967904b6ca28",
+        "id": "632810de-f637-4797-98d1-8d10e5c2b06e",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Observation-education-level-vr"
@@ -1086,7 +1172,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:d1390877-6cbc-4ee9-ac22-0b2850fd3154"
+          "reference": "urn:uuid:ec86123f-9ce0-4eb5-8e5f-67886d3b316e"
         },
         "valueCodeableConcept": {
           "extension": [
@@ -1114,10 +1200,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:12b8dc3b-9aab-4baf-8226-46cb6da693fa",
+      "fullUrl": "urn:uuid:4cc9afa0-f6ee-4e68-a167-be35d25cfb58",
       "resource": {
         "resourceType": "Observation",
-        "id": "12b8dc3b-9aab-4baf-8226-46cb6da693fa",
+        "id": "4cc9afa0-f6ee-4e68-a167-be35d25cfb58",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/input-race-and-ethnicity-vr"
@@ -1134,7 +1220,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:d1390877-6cbc-4ee9-ac22-0b2850fd3154"
+          "reference": "urn:uuid:ec86123f-9ce0-4eb5-8e5f-67886d3b316e"
         },
         "component": [
           {
@@ -1401,10 +1487,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:c18b9dd5-ab30-40f1-85f7-26f7b7228d77",
+      "fullUrl": "urn:uuid:3024168d-68ae-4865-aa95-3023cbfdbe8f",
       "resource": {
         "resourceType": "Observation",
-        "id": "c18b9dd5-ab30-40f1-85f7-26f7b7228d77",
+        "id": "3024168d-68ae-4865-aa95-3023cbfdbe8f",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Observation-education-level-vr"
@@ -1421,7 +1507,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:7f22e644-c03c-42ff-8b98-06035bfd1e04"
+          "reference": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c"
         },
         "valueCodeableConcept": {
           "extension": [
@@ -1449,10 +1535,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:d415db63-fd97-42c5-836d-31621a6e0941",
+      "fullUrl": "urn:uuid:444971c7-2390-4379-8f9e-15d2b83340a0",
       "resource": {
         "resourceType": "Observation",
-        "id": "d415db63-fd97-42c5-836d-31621a6e0941",
+        "id": "444971c7-2390-4379-8f9e-15d2b83340a0",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/input-race-and-ethnicity-vr"
@@ -1469,7 +1555,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:d1390877-6cbc-4ee9-ac22-0b2850fd3154"
+          "reference": "urn:uuid:ec86123f-9ce0-4eb5-8e5f-67886d3b316e"
         },
         "component": [
           {
@@ -1736,10 +1822,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:9c315119-d90c-475e-a00f-9220691af751",
+      "fullUrl": "urn:uuid:df50e50f-b023-4d4a-9d87-263ff465ddbf",
       "resource": {
         "resourceType": "Observation",
-        "id": "9c315119-d90c-475e-a00f-9220691af751",
+        "id": "df50e50f-b023-4d4a-9d87-263ff465ddbf",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-number-prenatal-visits"
@@ -1766,7 +1852,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:7f22e644-c03c-42ff-8b98-06035bfd1e04"
+          "reference": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c"
         },
         "valueInteger": 0,
         "_valueInteger": {
@@ -1788,10 +1874,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:39323ab9-14f1-4d8f-916b-68a0ec897409",
+      "fullUrl": "urn:uuid:f3d0be70-829e-49a6-9ad1-bb288ac1175b",
       "resource": {
         "resourceType": "Observation",
-        "id": "39323ab9-14f1-4d8f-916b-68a0ec897409",
+        "id": "f3d0be70-829e-49a6-9ad1-bb288ac1175b",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-mother-height"
@@ -1799,14 +1885,6 @@
         },
         "status": "final",
         "category": [
-          {
-            "coding": [
-              {
-                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                "code": "vital-signs"
-              }
-            ]
-          },
           {
             "coding": [
               {
@@ -1834,11 +1912,11 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:7f22e644-c03c-42ff-8b98-06035bfd1e04"
+          "reference": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c"
         },
         "focus": [
           {
-            "reference": "urn:uuid:7f22e644-c03c-42ff-8b98-06035bfd1e04"
+            "reference": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c"
           }
         ],
         "valueQuantity": {
@@ -1863,10 +1941,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:1fe71e93-842b-4b10-b745-9c1e1b920bd6",
+      "fullUrl": "urn:uuid:e8a1f4e5-5cfb-4280-b774-4f11bfcab98c",
       "resource": {
         "resourceType": "Observation",
-        "id": "1fe71e93-842b-4b10-b745-9c1e1b920bd6",
+        "id": "e8a1f4e5-5cfb-4280-b774-4f11bfcab98c",
         "category": [
           {
             "coding": [
@@ -1886,7 +1964,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:7f22e644-c03c-42ff-8b98-06035bfd1e04"
+          "reference": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c"
         },
         "valueQuantity": {
           "extension": [
@@ -1910,10 +1988,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:93ae3e5c-b545-4954-aebd-7894ca3cde4a",
+      "fullUrl": "urn:uuid:40bcbad6-29d7-4100-8942-560c7bd4413d",
       "resource": {
         "resourceType": "Observation",
-        "id": "93ae3e5c-b545-4954-aebd-7894ca3cde4a",
+        "id": "40bcbad6-29d7-4100-8942-560c7bd4413d",
         "category": [
           {
             "coding": [
@@ -1933,7 +2011,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:7f22e644-c03c-42ff-8b98-06035bfd1e04"
+          "reference": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c"
         },
         "valueQuantity": {
           "extension": [
@@ -1957,10 +2035,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:2e9e7909-c560-404e-b225-8846831f5ccf",
+      "fullUrl": "urn:uuid:723a08a6-f4cf-44c2-9db2-5f1ac0f45215",
       "resource": {
         "resourceType": "Observation",
-        "id": "2e9e7909-c560-404e-b225-8846831f5ccf",
+        "id": "723a08a6-f4cf-44c2-9db2-5f1ac0f45215",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-mother-received-wic-food"
@@ -1977,11 +2055,11 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:7f22e644-c03c-42ff-8b98-06035bfd1e04"
+          "reference": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c"
         },
         "focus": [
           {
-            "reference": "urn:uuid:7f22e644-c03c-42ff-8b98-06035bfd1e04"
+            "reference": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c"
           }
         ],
         "valueCodeableConcept": {
@@ -1996,10 +2074,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:1506bf06-aa05-4a30-9420-be7c613bec42",
+      "fullUrl": "urn:uuid:3a912b83-562b-4533-a50e-8360e5c6381b",
       "resource": {
         "resourceType": "Observation",
-        "id": "1506bf06-aa05-4a30-9420-be7c613bec42",
+        "id": "3a912b83-562b-4533-a50e-8360e5c6381b",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-number-births-now-living"
@@ -2016,21 +2094,21 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:7f22e644-c03c-42ff-8b98-06035bfd1e04"
+          "reference": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c"
         },
         "focus": [
           {
-            "reference": "urn:uuid:7f22e644-c03c-42ff-8b98-06035bfd1e04"
+            "reference": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c"
           }
         ],
         "valueInteger": 3
       }
     },
     {
-      "fullUrl": "urn:uuid:f749efef-d063-42f5-b3b7-2ad3683b3877",
+      "fullUrl": "urn:uuid:aa5521de-2a07-4c9d-b31c-5dd7ea1ea043",
       "resource": {
         "resourceType": "Observation",
-        "id": "f749efef-d063-42f5-b3b7-2ad3683b3877",
+        "id": "aa5521de-2a07-4c9d-b31c-5dd7ea1ea043",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-number-births-now-dead"
@@ -2057,16 +2135,16 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:7f22e644-c03c-42ff-8b98-06035bfd1e04"
+          "reference": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c"
         },
         "valueInteger": 0
       }
     },
     {
-      "fullUrl": "urn:uuid:565cf9ad-7009-406b-b8c0-b540c98b3a5b",
+      "fullUrl": "urn:uuid:3591cfa1-d632-4179-a2b3-628ec2be3848",
       "resource": {
         "resourceType": "Observation",
-        "id": "565cf9ad-7009-406b-b8c0-b540c98b3a5b",
+        "id": "3591cfa1-d632-4179-a2b3-628ec2be3848",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-number-other-pregnancy-outcomes"
@@ -2093,16 +2171,16 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:7f22e644-c03c-42ff-8b98-06035bfd1e04"
+          "reference": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c"
         },
         "valueInteger": 0
       }
     },
     {
-      "fullUrl": "urn:uuid:663a3972-84db-4e15-a9ec-21ce25da6dd6",
+      "fullUrl": "urn:uuid:d8577897-ef28-4e71-9faf-5f8f79146264",
       "resource": {
         "resourceType": "Observation",
-        "id": "663a3972-84db-4e15-a9ec-21ce25da6dd6",
+        "id": "d8577897-ef28-4e71-9faf-5f8f79146264",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-date-of-last-live-birth"
@@ -2153,21 +2231,21 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:7f22e644-c03c-42ff-8b98-06035bfd1e04"
+          "reference": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c"
         },
         "focus": [
           {
-            "reference": "urn:uuid:7f22e644-c03c-42ff-8b98-06035bfd1e04"
+            "reference": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c"
           }
         ],
         "valueDateTime": "2015-06"
       }
     },
     {
-      "fullUrl": "urn:uuid:49c692d8-65b2-4c00-b9ea-b0637522422d",
+      "fullUrl": "urn:uuid:7527d1e0-db3a-4235-93d2-cd865a54c60b",
       "resource": {
         "resourceType": "Observation",
-        "id": "49c692d8-65b2-4c00-b9ea-b0637522422d",
+        "id": "7527d1e0-db3a-4235-93d2-cd865a54c60b",
         "code": {
           "coding": [
             {
@@ -2177,21 +2255,21 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:7f22e644-c03c-42ff-8b98-06035bfd1e04"
+          "reference": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c"
         },
         "focus": [
           {
-            "reference": "urn:uuid:d1390877-6cbc-4ee9-ac22-0b2850fd3154"
+            "reference": "urn:uuid:ec86123f-9ce0-4eb5-8e5f-67886d3b316e"
           }
         ],
         "valueInteger": 0
       }
     },
     {
-      "fullUrl": "urn:uuid:ad62ac3e-8d6e-44e3-a1d4-b54054334fa8",
+      "fullUrl": "urn:uuid:b47393c1-3032-473f-a277-fe2ba9302567",
       "resource": {
         "resourceType": "Observation",
-        "id": "ad62ac3e-8d6e-44e3-a1d4-b54054334fa8",
+        "id": "b47393c1-3032-473f-a277-fe2ba9302567",
         "code": {
           "coding": [
             {
@@ -2201,21 +2279,21 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:7f22e644-c03c-42ff-8b98-06035bfd1e04"
+          "reference": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c"
         },
         "focus": [
           {
-            "reference": "urn:uuid:d1390877-6cbc-4ee9-ac22-0b2850fd3154"
+            "reference": "urn:uuid:ec86123f-9ce0-4eb5-8e5f-67886d3b316e"
           }
         ],
         "valueInteger": 0
       }
     },
     {
-      "fullUrl": "urn:uuid:83a44ed9-5720-44c2-bad1-ee846a55587b",
+      "fullUrl": "urn:uuid:46f6cfae-3db2-43a8-ab16-f9a704cfd4e5",
       "resource": {
         "resourceType": "Observation",
-        "id": "83a44ed9-5720-44c2-bad1-ee846a55587b",
+        "id": "46f6cfae-3db2-43a8-ab16-f9a704cfd4e5",
         "code": {
           "coding": [
             {
@@ -2225,21 +2303,21 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:7f22e644-c03c-42ff-8b98-06035bfd1e04"
+          "reference": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c"
         },
         "focus": [
           {
-            "reference": "urn:uuid:d1390877-6cbc-4ee9-ac22-0b2850fd3154"
+            "reference": "urn:uuid:ec86123f-9ce0-4eb5-8e5f-67886d3b316e"
           }
         ],
         "valueInteger": 0
       }
     },
     {
-      "fullUrl": "urn:uuid:63f85c14-be37-42da-82d2-cf3f9313dc45",
+      "fullUrl": "urn:uuid:5ebd5a0f-6d95-472e-a286-98287c437de1",
       "resource": {
         "resourceType": "Observation",
-        "id": "63f85c14-be37-42da-82d2-cf3f9313dc45",
+        "id": "5ebd5a0f-6d95-472e-a286-98287c437de1",
         "code": {
           "coding": [
             {
@@ -2249,21 +2327,21 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:7f22e644-c03c-42ff-8b98-06035bfd1e04"
+          "reference": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c"
         },
         "focus": [
           {
-            "reference": "urn:uuid:d1390877-6cbc-4ee9-ac22-0b2850fd3154"
+            "reference": "urn:uuid:ec86123f-9ce0-4eb5-8e5f-67886d3b316e"
           }
         ],
         "valueInteger": 0
       }
     },
     {
-      "fullUrl": "urn:uuid:e7bf6b8f-ffdb-49a9-9285-4c9fb70cd285",
+      "fullUrl": "urn:uuid:539f4f16-b0fd-4d89-abab-7549d51869d1",
       "resource": {
         "resourceType": "Observation",
-        "id": "e7bf6b8f-ffdb-49a9-9285-4c9fb70cd285",
+        "id": "539f4f16-b0fd-4d89-abab-7549d51869d1",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-last-menstrual-period"
@@ -2280,16 +2358,16 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:7f22e644-c03c-42ff-8b98-06035bfd1e04"
+          "reference": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c"
         },
-        "valueDateTime": "2019-07-31"
+        "valueDateTime": "2024-07-31"
       }
     },
     {
-      "fullUrl": "urn:uuid:9720a191-17e7-4da7-8da9-2ae978bdd1c0",
+      "fullUrl": "urn:uuid:d4d4ee5f-fd4b-426e-bbda-65ad17807c50",
       "resource": {
         "resourceType": "Observation",
-        "id": "9720a191-17e7-4da7-8da9-2ae978bdd1c0",
+        "id": "d4d4ee5f-fd4b-426e-bbda-65ad17807c50",
         "code": {
           "coding": [
             {
@@ -2299,7 +2377,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:7f22e644-c03c-42ff-8b98-06035bfd1e04"
+          "reference": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c"
         },
         "valueCodeableConcept": {
           "coding": [
@@ -2312,10 +2390,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:7f8ec924-f032-4c55-ba13-60a044897cc7",
+      "fullUrl": "urn:uuid:5491866b-eabe-4943-ad61-d5b2ef41f964",
       "resource": {
         "resourceType": "Observation",
-        "id": "7f8ec924-f032-4c55-ba13-60a044897cc7",
+        "id": "5491866b-eabe-4943-ad61-d5b2ef41f964",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-number-previous-cesareans"
@@ -2332,11 +2410,11 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:7f22e644-c03c-42ff-8b98-06035bfd1e04"
+          "reference": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c"
         },
         "focus": [
           {
-            "reference": "urn:uuid:7f22e644-c03c-42ff-8b98-06035bfd1e04"
+            "reference": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c"
           }
         ],
         "valueInteger": 0,
@@ -2359,36 +2437,46 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:2449cb23-9d46-4d94-9bd6-e23e8020d8dc",
+      "fullUrl": "urn:uuid:0b7709bd-6fda-41d1-8329-6a6465588134",
       "resource": {
-        "resourceType": "Observation",
-        "id": "2449cb23-9d46-4d94-9bd6-e23e8020d8dc",
+        "resourceType": "Condition",
+        "id": "0b7709bd-6fda-41d1-8329-6a6465588134",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "problem-list-item"
+              }
+            ]
+          },
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "72519-2"
+              }
+            ]
+          }
+        ],
         "code": {
           "coding": [
             {
-              "system": "http://loinc.org",
-              "code": "72519-2"
+              "system": "http://snomed.info/sct",
+              "code": "50711007"
             }
           ]
         },
         "subject": {
-          "reference": "urn:uuid:7f22e644-c03c-42ff-8b98-06035bfd1e04"
-        },
-        "valueCodeableConcept": {
-          "coding": [
-            {
-              "system": "http://snomed.info/sct",
-              "code": "260413007"
-            }
-          ]
+          "reference": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c"
         }
       }
     },
     {
-      "fullUrl": "urn:uuid:57fd9eaf-0167-453a-ba90-74f8dced772b",
+      "fullUrl": "urn:uuid:50812e72-1c06-42f2-b7a6-d0c5def7cdcc",
       "resource": {
         "resourceType": "Observation",
-        "id": "57fd9eaf-0167-453a-ba90-74f8dced772b",
+        "id": "50812e72-1c06-42f2-b7a6-d0c5def7cdcc",
         "code": {
           "coding": [
             {
@@ -2398,7 +2486,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:7f22e644-c03c-42ff-8b98-06035bfd1e04"
+          "reference": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c"
         },
         "valueCodeableConcept": {
           "coding": [
@@ -2411,10 +2499,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:ed5e8ce2-00ae-4891-94b4-bd7177a02687",
+      "fullUrl": "urn:uuid:50f5a689-e609-479b-bffe-826af6cc7736",
       "resource": {
         "resourceType": "Observation",
-        "id": "ed5e8ce2-00ae-4891-94b4-bd7177a02687",
+        "id": "50f5a689-e609-479b-bffe-826af6cc7736",
         "code": {
           "coding": [
             {
@@ -2424,7 +2512,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:7f22e644-c03c-42ff-8b98-06035bfd1e04"
+          "reference": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c"
         },
         "valueCodeableConcept": {
           "coding": [
@@ -2437,10 +2525,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:1bd35aba-6fd4-4a39-9cdb-c4e86bbcf46d",
+      "fullUrl": "urn:uuid:75624347-b865-42f2-8b42-8a7f0ee8a60d",
       "resource": {
         "resourceType": "Procedure",
-        "id": "1bd35aba-6fd4-4a39-9cdb-c4e86bbcf46d",
+        "id": "75624347-b865-42f2-8b42-8a7f0ee8a60d",
         "category": {
           "coding": [
             {
@@ -2458,15 +2546,15 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:7f22e644-c03c-42ff-8b98-06035bfd1e04"
+          "reference": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c"
         }
       }
     },
     {
-      "fullUrl": "urn:uuid:46d6589a-737e-4811-b74c-a44e219cb85e",
+      "fullUrl": "urn:uuid:7a5c5f20-6958-45b0-8c94-6e2c390dbf9b",
       "resource": {
         "resourceType": "Observation",
-        "id": "46d6589a-737e-4811-b74c-a44e219cb85e",
+        "id": "7a5c5f20-6958-45b0-8c94-6e2c390dbf9b",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-fetal-presentation"
@@ -2483,7 +2571,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:7f22e644-c03c-42ff-8b98-06035bfd1e04"
+          "reference": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c"
         },
         "valueCodeableConcept": {
           "coding": [
@@ -2497,10 +2585,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:b7c5f757-f764-46fa-899d-b08a9a7b02b9",
+      "fullUrl": "urn:uuid:27934dfd-aac2-4934-a928-b354929b231a",
       "resource": {
         "resourceType": "Procedure",
-        "id": "b7c5f757-f764-46fa-899d-b08a9a7b02b9",
+        "id": "27934dfd-aac2-4934-a928-b354929b231a",
         "category": {
           "coding": [
             {
@@ -2519,15 +2607,41 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:7f22e644-c03c-42ff-8b98-06035bfd1e04"
+          "reference": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c"
         }
       }
     },
     {
-      "fullUrl": "urn:uuid:577be5d8-19f2-4c1d-b636-0b1d34c350f8",
+      "fullUrl": "urn:uuid:6db2b7aa-3183-4361-a293-7c871835dd90",
       "resource": {
         "resourceType": "Observation",
-        "id": "577be5d8-19f2-4c1d-b636-0b1d34c350f8",
+        "id": "6db2b7aa-3183-4361-a293-7c871835dd90",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-labor-trial-attempted"
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "73760-1",
+              "display": "Labor Trial Attempted"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c"
+        },
+        "valueBoolean": true
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:3c9ba170-937c-46b4-8c00-00a0a26c61b1",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "3c9ba170-937c-46b4-8c00-00a0a26c61b1",
         "code": {
           "coding": [
             {
@@ -2537,7 +2651,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:7f22e644-c03c-42ff-8b98-06035bfd1e04"
+          "reference": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c"
         },
         "valueCodeableConcept": {
           "coding": [
@@ -2550,10 +2664,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:4aab872a-a4ad-4dd7-920e-b17ea6ff826a",
+      "fullUrl": "urn:uuid:7da760b8-f3bb-4e9f-9942-e6b3f7fb89ff",
       "resource": {
         "resourceType": "Observation",
-        "id": "4aab872a-a4ad-4dd7-920e-b17ea6ff826a",
+        "id": "7da760b8-f3bb-4e9f-9942-e6b3f7fb89ff",
         "category": [
           {
             "coding": [
@@ -2573,7 +2687,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:d1390877-6cbc-4ee9-ac22-0b2850fd3154"
+          "reference": "urn:uuid:ec86123f-9ce0-4eb5-8e5f-67886d3b316e"
         },
         "valueQuantity": {
           "extension": [
@@ -2597,10 +2711,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:1c771a2a-b0f7-4230-aac2-22b65221b522",
+      "fullUrl": "urn:uuid:26b767d6-f6dd-4d2e-a99f-0a661e6970de",
       "resource": {
         "resourceType": "Observation",
-        "id": "1c771a2a-b0f7-4230-aac2-22b65221b522",
+        "id": "26b767d6-f6dd-4d2e-a99f-0a661e6970de",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-gestational-age-at-delivery"
@@ -2617,11 +2731,11 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:7f22e644-c03c-42ff-8b98-06035bfd1e04"
+          "reference": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c"
         },
         "focus": [
           {
-            "reference": "urn:uuid:7f22e644-c03c-42ff-8b98-06035bfd1e04"
+            "reference": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c"
           }
         ],
         "valueQuantity": {
@@ -2646,10 +2760,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:280098ec-a60a-4de9-9b67-77c747b59416",
+      "fullUrl": "urn:uuid:f2a34e5b-8804-4fe3-8a57-16db3cfbe8e5",
       "resource": {
         "resourceType": "Observation",
-        "id": "280098ec-a60a-4de9-9b67-77c747b59416",
+        "id": "f2a34e5b-8804-4fe3-8a57-16db3cfbe8e5",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-apgar-score"
@@ -2676,16 +2790,16 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:d1390877-6cbc-4ee9-ac22-0b2850fd3154"
+          "reference": "urn:uuid:ec86123f-9ce0-4eb5-8e5f-67886d3b316e"
         },
         "valueInteger": 1
       }
     },
     {
-      "fullUrl": "urn:uuid:3d25612f-5946-4fea-aed5-c1fbeddcf45e",
+      "fullUrl": "urn:uuid:b3c62370-083d-43b4-b712-db9c95f3c56d",
       "resource": {
         "resourceType": "Observation",
-        "id": "3d25612f-5946-4fea-aed5-c1fbeddcf45e",
+        "id": "b3c62370-083d-43b4-b712-db9c95f3c56d",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-apgar-score"
@@ -2712,16 +2826,16 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:d1390877-6cbc-4ee9-ac22-0b2850fd3154"
+          "reference": "urn:uuid:ec86123f-9ce0-4eb5-8e5f-67886d3b316e"
         },
         "valueInteger": 4
       }
     },
     {
-      "fullUrl": "urn:uuid:21e35b82-19c6-4784-9a72-7ac351232d22",
+      "fullUrl": "urn:uuid:5a5239fb-b977-4a6f-98ac-e617d6215a50",
       "resource": {
         "resourceType": "Observation",
-        "id": "21e35b82-19c6-4784-9a72-7ac351232d22",
+        "id": "5a5239fb-b977-4a6f-98ac-e617d6215a50",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-number-live-births-this-delivery"
@@ -2738,16 +2852,16 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:7f22e644-c03c-42ff-8b98-06035bfd1e04"
+          "reference": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c"
         },
-        "valueInteger": -1
+        "valueInteger": 1
       }
     },
     {
-      "fullUrl": "urn:uuid:46f9ec97-e060-46e3-8ee5-10b5ad3ae572",
+      "fullUrl": "urn:uuid:b2ab7193-3c50-4ddc-9f45-347d61ca03fe",
       "resource": {
         "resourceType": "Procedure",
-        "id": "46f9ec97-e060-46e3-8ee5-10b5ad3ae572",
+        "id": "b2ab7193-3c50-4ddc-9f45-347d61ca03fe",
         "category": {
           "coding": [
             {
@@ -2765,15 +2879,15 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:d1390877-6cbc-4ee9-ac22-0b2850fd3154"
+          "reference": "urn:uuid:ec86123f-9ce0-4eb5-8e5f-67886d3b316e"
         }
       }
     },
     {
-      "fullUrl": "urn:uuid:5e3917f9-a3b6-43bf-b545-9c52d2a1d017",
+      "fullUrl": "urn:uuid:e55477d2-b05f-4eb6-ab69-a85a42dcbd7d",
       "resource": {
         "resourceType": "Procedure",
-        "id": "5e3917f9-a3b6-43bf-b545-9c52d2a1d017",
+        "id": "e55477d2-b05f-4eb6-ab69-a85a42dcbd7d",
         "category": {
           "coding": [
             {
@@ -2791,15 +2905,15 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:d1390877-6cbc-4ee9-ac22-0b2850fd3154"
+          "reference": "urn:uuid:ec86123f-9ce0-4eb5-8e5f-67886d3b316e"
         }
       }
     },
     {
-      "fullUrl": "urn:uuid:24173c09-6527-485f-b7dd-c4dd38744f87",
+      "fullUrl": "urn:uuid:0c78f09b-66eb-4ec6-813c-7369ea4c9f41",
       "resource": {
         "resourceType": "Observation",
-        "id": "24173c09-6527-485f-b7dd-c4dd38744f87",
+        "id": "0c78f09b-66eb-4ec6-813c-7369ea4c9f41",
         "code": {
           "coding": [
             {
@@ -2809,7 +2923,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:d1390877-6cbc-4ee9-ac22-0b2850fd3154"
+          "reference": "urn:uuid:ec86123f-9ce0-4eb5-8e5f-67886d3b316e"
         },
         "valueCodeableConcept": {
           "coding": [
@@ -2822,10 +2936,36 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:44928f38-6ae3-43ba-b9ba-f1b686d50524",
+      "fullUrl": "urn:uuid:a742a5bf-d914-4793-84b2-d4a7e0d86526",
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "a742a5bf-d914-4793-84b2-d4a7e0d86526",
+        "category": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "73812-0"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "434621000124103"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:ec86123f-9ce0-4eb5-8e5f-67886d3b316e"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:53c22258-541a-406e-952a-b0e12c92ad00",
       "resource": {
         "resourceType": "Observation",
-        "id": "44928f38-6ae3-43ba-b9ba-f1b686d50524",
+        "id": "53c22258-541a-406e-952a-b0e12c92ad00",
         "code": {
           "coding": [
             {
@@ -2835,7 +2975,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:d1390877-6cbc-4ee9-ac22-0b2850fd3154"
+          "reference": "urn:uuid:ec86123f-9ce0-4eb5-8e5f-67886d3b316e"
         },
         "valueCodeableConcept": {
           "coding": [
@@ -2848,10 +2988,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:d91910b8-d838-4535-97ca-e14c10f54c14",
+      "fullUrl": "urn:uuid:c9986eef-e043-46cc-b599-631d92d95514",
       "resource": {
         "resourceType": "Observation",
-        "id": "d91910b8-d838-4535-97ca-e14c10f54c14",
+        "id": "c9986eef-e043-46cc-b599-631d92d95514",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-infant-living"
@@ -2868,16 +3008,16 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:d1390877-6cbc-4ee9-ac22-0b2850fd3154"
+          "reference": "urn:uuid:ec86123f-9ce0-4eb5-8e5f-67886d3b316e"
         },
         "valueBoolean": true
       }
     },
     {
-      "fullUrl": "urn:uuid:61fb29c6-db5f-4917-8879-75b32ac91848",
+      "fullUrl": "urn:uuid:c184b813-78bf-463d-8057-45a5be2327f2",
       "resource": {
         "resourceType": "Observation",
-        "id": "61fb29c6-db5f-4917-8879-75b32ac91848",
+        "id": "c184b813-78bf-463d-8057-45a5be2327f2",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-infant-breastfed-at-discharge"
@@ -2894,44 +3034,21 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:7f22e644-c03c-42ff-8b98-06035bfd1e04"
+          "reference": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c"
         },
         "focus": [
           {
-            "reference": "urn:uuid:7f22e644-c03c-42ff-8b98-06035bfd1e04"
+            "reference": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c"
           }
         ],
         "valueBoolean": false
       }
     },
     {
-      "fullUrl": "urn:uuid:69088320-3a3f-4d91-bb6d-33e7f89c7970",
-      "resource": {
-        "resourceType": "Location",
-        "id": "69088320-3a3f-4d91-bb6d-33e7f89c7970",
-        "meta": {
-          "profile": [
-            "http://hl7.org/fhir/us/bfdr/StructureDefinition/Location-bfdr"
-          ]
-        },
-        "name": "BANNER UNIVERSITY MEDICAL CENTER - TUCSON",
-        "type": [
-          {
-            "coding": [
-              {
-                "system": "http://hl7.org/fhir/us/bfdr/CodeSystem/CodeSystem-local-bfdr-codes",
-                "code": "loc_transfer-to"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "fullUrl": "urn:uuid:f6190d29-279c-4334-8015-e4776aa8f694",
+      "fullUrl": "urn:uuid:5ca826f5-6c22-416c-a14e-ce9e52c5f046",
       "resource": {
         "resourceType": "Observation",
-        "id": "f6190d29-279c-4334-8015-e4776aa8f694",
+        "id": "5ca826f5-6c22-416c-a14e-ce9e52c5f046",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-ssn-requested-for-child"
@@ -2948,358 +3065,16 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:d1390877-6cbc-4ee9-ac22-0b2850fd3154"
+          "reference": "urn:uuid:ec86123f-9ce0-4eb5-8e5f-67886d3b316e"
         },
         "valueBoolean": true
       }
     },
     {
-      "fullUrl": "urn:uuid:02bfa3e4-aae6-4507-baa8-dda2a84ea60b",
+      "fullUrl": "urn:uuid:1463013c-369d-4bc2-85ed-296ef463a662",
       "resource": {
         "resourceType": "Observation",
-        "id": "02bfa3e4-aae6-4507-baa8-dda2a84ea60b",
-        "meta": {
-          "profile": [
-            "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Observation-emerging-issues-vr.html"
-          ]
-        },
-        "status": "final",
-        "code": {
-          "coding": [
-            {
-              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs",
-              "code": "EmergingIssue1_1",
-              "display": "NCHS-required Parameter Slots for Emerging Issues"
-            }
-          ]
-        },
-        "subject": {
-          "reference": "urn:uuid:d1390877-6cbc-4ee9-ac22-0b2850fd3154"
-        },
-        "component": [
-          {
-            "code": {
-              "coding": [
-                {
-                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
-                  "code": "EmergingIssue1_1"
-                }
-              ]
-            },
-            "valueString": "X"
-          }
-        ]
-      }
-    },
-    {
-      "fullUrl": "urn:uuid:51cbd0ac-90c5-4749-a9cb-15f7fe333418",
-      "resource": {
-        "resourceType": "Observation",
-        "id": "51cbd0ac-90c5-4749-a9cb-15f7fe333418",
-        "meta": {
-          "profile": [
-            "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Observation-emerging-issues-vr.html"
-          ]
-        },
-        "status": "final",
-        "code": {
-          "coding": [
-            {
-              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs",
-              "code": "EmergingIssue1_2",
-              "display": "NCHS-required Parameter Slots for Emerging Issues"
-            }
-          ]
-        },
-        "subject": {
-          "reference": "urn:uuid:d1390877-6cbc-4ee9-ac22-0b2850fd3154"
-        },
-        "component": [
-          {
-            "code": {
-              "coding": [
-                {
-                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
-                  "code": "EmergingIssue1_2"
-                }
-              ]
-            },
-            "valueString": "X"
-          }
-        ]
-      }
-    },
-    {
-      "fullUrl": "urn:uuid:31196691-0a71-4f0b-8f9d-1c6ec896722a",
-      "resource": {
-        "resourceType": "Observation",
-        "id": "31196691-0a71-4f0b-8f9d-1c6ec896722a",
-        "meta": {
-          "profile": [
-            "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Observation-emerging-issues-vr.html"
-          ]
-        },
-        "status": "final",
-        "code": {
-          "coding": [
-            {
-              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs",
-              "code": "EmergingIssue1_3",
-              "display": "NCHS-required Parameter Slots for Emerging Issues"
-            }
-          ]
-        },
-        "subject": {
-          "reference": "urn:uuid:d1390877-6cbc-4ee9-ac22-0b2850fd3154"
-        },
-        "component": [
-          {
-            "code": {
-              "coding": [
-                {
-                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
-                  "code": "EmergingIssue1_3"
-                }
-              ]
-            },
-            "valueString": "X"
-          }
-        ]
-      }
-    },
-    {
-      "fullUrl": "urn:uuid:b27275ce-3e5b-4bb5-8c2c-6e93d6d619e3",
-      "resource": {
-        "resourceType": "Observation",
-        "id": "b27275ce-3e5b-4bb5-8c2c-6e93d6d619e3",
-        "meta": {
-          "profile": [
-            "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Observation-emerging-issues-vr.html"
-          ]
-        },
-        "status": "final",
-        "code": {
-          "coding": [
-            {
-              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs",
-              "code": "EmergingIssue1_4",
-              "display": "NCHS-required Parameter Slots for Emerging Issues"
-            }
-          ]
-        },
-        "subject": {
-          "reference": "urn:uuid:d1390877-6cbc-4ee9-ac22-0b2850fd3154"
-        },
-        "component": [
-          {
-            "code": {
-              "coding": [
-                {
-                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
-                  "code": "EmergingIssue1_4"
-                }
-              ]
-            },
-            "valueString": "X"
-          }
-        ]
-      }
-    },
-    {
-      "fullUrl": "urn:uuid:34f43196-72cc-4639-92d6-ecf04147ca2b",
-      "resource": {
-        "resourceType": "Observation",
-        "id": "34f43196-72cc-4639-92d6-ecf04147ca2b",
-        "meta": {
-          "profile": [
-            "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Observation-emerging-issues-vr.html"
-          ]
-        },
-        "status": "final",
-        "code": {
-          "coding": [
-            {
-              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs",
-              "code": "EmergingIssue1_5",
-              "display": "NCHS-required Parameter Slots for Emerging Issues"
-            }
-          ]
-        },
-        "subject": {
-          "reference": "urn:uuid:d1390877-6cbc-4ee9-ac22-0b2850fd3154"
-        },
-        "component": [
-          {
-            "code": {
-              "coding": [
-                {
-                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
-                  "code": "EmergingIssue1_5"
-                }
-              ]
-            },
-            "valueString": "X"
-          }
-        ]
-      }
-    },
-    {
-      "fullUrl": "urn:uuid:359a2b33-81ef-464a-9358-95303f095050",
-      "resource": {
-        "resourceType": "Observation",
-        "id": "359a2b33-81ef-464a-9358-95303f095050",
-        "meta": {
-          "profile": [
-            "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Observation-emerging-issues-vr.html"
-          ]
-        },
-        "status": "final",
-        "code": {
-          "coding": [
-            {
-              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs",
-              "code": "EmergingIssue1_6",
-              "display": "NCHS-required Parameter Slots for Emerging Issues"
-            }
-          ]
-        },
-        "subject": {
-          "reference": "urn:uuid:d1390877-6cbc-4ee9-ac22-0b2850fd3154"
-        },
-        "component": [
-          {
-            "code": {
-              "coding": [
-                {
-                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
-                  "code": "EmergingIssue1_6"
-                }
-              ]
-            },
-            "valueString": "X"
-          }
-        ]
-      }
-    },
-    {
-      "fullUrl": "urn:uuid:ba9ebacf-e481-4159-88de-0018a63af7c0",
-      "resource": {
-        "resourceType": "Observation",
-        "id": "ba9ebacf-e481-4159-88de-0018a63af7c0",
-        "meta": {
-          "profile": [
-            "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Observation-emerging-issues-vr.html"
-          ]
-        },
-        "status": "final",
-        "code": {
-          "coding": [
-            {
-              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs",
-              "code": "EmergingIssue8_1",
-              "display": "NCHS-required Parameter Slots for Emerging Issues"
-            }
-          ]
-        },
-        "subject": {
-          "reference": "urn:uuid:d1390877-6cbc-4ee9-ac22-0b2850fd3154"
-        },
-        "component": [
-          {
-            "code": {
-              "coding": [
-                {
-                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
-                  "code": "EmergingIssue8_1"
-                }
-              ]
-            },
-            "valueString": "XXXXXXXX"
-          }
-        ]
-      }
-    },
-    {
-      "fullUrl": "urn:uuid:a8487711-ac37-4430-bdfb-b167905fd2bd",
-      "resource": {
-        "resourceType": "Observation",
-        "id": "a8487711-ac37-4430-bdfb-b167905fd2bd",
-        "meta": {
-          "profile": [
-            "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Observation-emerging-issues-vr.html"
-          ]
-        },
-        "status": "final",
-        "code": {
-          "coding": [
-            {
-              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs",
-              "code": "EmergingIssue8_2",
-              "display": "NCHS-required Parameter Slots for Emerging Issues"
-            }
-          ]
-        },
-        "subject": {
-          "reference": "urn:uuid:d1390877-6cbc-4ee9-ac22-0b2850fd3154"
-        },
-        "component": [
-          {
-            "code": {
-              "coding": [
-                {
-                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
-                  "code": "EmergingIssue8_2"
-                }
-              ]
-            },
-            "valueString": "XXXXXXXX"
-          }
-        ]
-      }
-    },
-    {
-      "fullUrl": "urn:uuid:b587dd9d-3416-4e9b-ad8e-6cd20263e206",
-      "resource": {
-        "resourceType": "Observation",
-        "id": "b587dd9d-3416-4e9b-ad8e-6cd20263e206",
-        "meta": {
-          "profile": [
-            "http://build.fhir.org/ig/HL7/vr-common-library/StructureDefinition-Observation-emerging-issues-vr.html"
-          ]
-        },
-        "status": "final",
-        "code": {
-          "coding": [
-            {
-              "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-observations-cs",
-              "code": "EmergingIssue8_3",
-              "display": "NCHS-required Parameter Slots for Emerging Issues"
-            }
-          ]
-        },
-        "subject": {
-          "reference": "urn:uuid:d1390877-6cbc-4ee9-ac22-0b2850fd3154"
-        },
-        "component": [
-          {
-            "code": {
-              "coding": [
-                {
-                  "system": "http://hl7.org/fhir/us/vrdr/CodeSystem/vrdr-component-cs",
-                  "code": "EmergingIssue8_3"
-                }
-              ]
-            },
-            "valueString": "XXXXXXXX"
-          }
-        ]
-      }
-    },
-    {
-      "fullUrl": "urn:uuid:12f971e6-5c13-4fbf-9345-5b3694387e32",
-      "resource": {
-        "resourceType": "Observation",
-        "id": "12f971e6-5c13-4fbf-9345-5b3694387e32",
+        "id": "1463013c-369d-4bc2-85ed-296ef463a662",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/coded-race-and-ethnicity-vr"
@@ -3316,15 +3091,15 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:d1390877-6cbc-4ee9-ac22-0b2850fd3154"
+          "reference": "urn:uuid:ec86123f-9ce0-4eb5-8e5f-67886d3b316e"
         }
       }
     },
     {
-      "fullUrl": "urn:uuid:6eeec927-b8cc-4873-9564-2f3c47798a64",
+      "fullUrl": "urn:uuid:808f0133-d026-4d04-9378-8b926850c889",
       "resource": {
         "resourceType": "Observation",
-        "id": "6eeec927-b8cc-4873-9564-2f3c47798a64",
+        "id": "808f0133-d026-4d04-9378-8b926850c889",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/coded-race-and-ethnicity-vr"
@@ -3341,7 +3116,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:d1390877-6cbc-4ee9-ac22-0b2850fd3154"
+          "reference": "urn:uuid:ec86123f-9ce0-4eb5-8e5f-67886d3b316e"
         }
       }
     }

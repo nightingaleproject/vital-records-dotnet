@@ -306,18 +306,27 @@ namespace BFDR
             throw new ArgumentException($"Could not parse given string, expected a complete DateTime string in format 'yyyy-MM-dd HH:mm +/-HH:mm' (where +/-HH:mm is time zone). Given {value}.");
         }
 
+        /// <summary>
+        /// Tries to parse a valid DateTime string into a DateTimeOffset.
+        /// </summary>
+        /// <param name="value">The DateTime string to parse. MUST contain valid date and time with timezone information.</param>
+        /// <param name="parsedDateTime">The parsed DateTimeOffset if successful.</param>
+        /// <returns>True if parsing was successful, otherwise false.</returns>
         private static bool TryParseValidDateTime(string value, out DateTimeOffset parsedDateTime)
         {
+            // HH in format means all times are in 24 hour format.
+            // The timezone is required and can be either in +/-HH:mm format or "Z" only for zulu time.
             string[] formats = {
-                "yyyy-MM-ddTHH:mm:sszzz",
-                "yyyy-MM-dd HH:mm:ss zzz",
-                "yyyy-MM-ddTHH:mm:ssZ",
-                "yyyy-MM-dd HH:mm:ssZ",
-                "yyyy-MM-ddTHH:mmzzz",
-                "yyyy-MM-dd HH:mm zzz",
-                "yyyy-MM-ddTHH:mmZ",
-                "yyyy-MM-dd HH:mmZ"
+                "yyyy-MM-ddTHH:mm:sszzz",   // 1) sample: "2026-05-12T14:30:45-04:00"  <-- 
+                "yyyy-MM-dd HH:mm:ss zzz",  // 2) sample: "2026-05-12 14:30:45 -04:00" <--
+                "yyyy-MM-ddTHH:mm:ssZ",     // 3) sample: "2026-05-12T14:30:45Z"       <-- zulu time
+                "yyyy-MM-dd HH:mm:ssZ",     // 4) sample: "2026-05-12 14:30:45Z"       <-- zulu time
+                "yyyy-MM-ddTHH:mmzzz",      // 5) sample: "2026-05-12T14:30-04:00"     <--
+                "yyyy-MM-dd HH:mm zzz",     // 6) sample: "2026-05-12 14:30 -04:00"    <--
+                "yyyy-MM-ddTHH:mmZ",        // 7) sample: "2026-05-12T14:30Z"          <-- zulu time
+                "yyyy-MM-dd HH:mmZ"         // 8) sample: "2026-05-12 14:30Z"          <-- zulu time
             };
+                        
             if (DateTimeOffset.TryParseExact(value, formats, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTimeOffset pdt))
             {
                 parsedDateTime = pdt;

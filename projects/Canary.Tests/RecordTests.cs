@@ -41,7 +41,7 @@ namespace canary.tests
         [Fact]
         public async void TestConverter()
         {
-            var stream = new MemoryStream(Encoding.UTF8.GetBytes(romeroIje));
+            var stream = new MemoryStream(Encoding.UTF8.GetBytes(romeroIje));  // CWF note: Loads rec from fixtures/ije/romeroIje.ije
             var httpContext = new DefaultHttpContext()
             {
                 Request = { Body = stream, ContentLength = stream.Length }
@@ -49,16 +49,19 @@ namespace canary.tests
             _recController.ControllerContext.HttpContext = httpContext;
             var response = await _recController.NewPostAsync("bfdr-birth");
             ((BirthRecord)response.Item1.GetRecord()).EventLocationJurisdiction = "AZ";
-            ((BirthRecord)response.Item1.GetRecord()).CertificateNumber = "99991";
-            BirthRecord br = new BirthRecord(romeroJson);
+            //((BirthRecord)response.Item1.GetRecord()).CertificateNumber = "99991"; // CWF: This should be 6, not 5 characters. Should load from fixtures rec instead of hardcoding it here anyway.
+            
+            BirthRecord br = new BirthRecord(romeroJson);   // CWF: This is the expected record, loaded from the romeroJson JSON fixture file.
             br.EventLocationJurisdiction = "AZ";
-            br.CertificateNumber = "99991";
+            //br.CertificateNumber = "00001";   //was "99991" <- this is now loading from the romeroJson fixture file, so no need to hardcode it here.
+
             // The timezone has to be manually set here because the connectathon records are generated based on the local time zone. However, our test FHIR records have hard coded time zone data which must be updated to match the local time zone.
             string timeZoneOffset = TimeZoneInfo.Local.GetUtcOffset(new DateTime(2000, 1, 1)).ToString()[..6];
             if (timeZoneOffset == "00:00:")
             {
                 timeZoneOffset = "+00:00";
             }
+            // CWF: Expected value is br JSON object, and Actual value is response.Item1.Json object, which is converted here from romeroIje IJE record.  
             Assert.Equal(JsonConvert.SerializeObject(br).Replace("-05:00", timeZoneOffset), JsonConvert.SerializeObject(new BirthRecord(response.Item1.Json)));
         }
 

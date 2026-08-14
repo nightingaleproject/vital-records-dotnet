@@ -307,7 +307,9 @@ namespace VR
         /// <summary>Set a value on the VitalRecord whose IJE type is a right justified, zero filled string.</summary>
         protected void RightJustifiedZeroed_Set(string ijeFieldName, string fhirFieldName, string value)
         {
-            Record.GetType().GetProperty(fhirFieldName).SetValue(Record, value.TrimStart('0'));
+            //Record.GetType().GetProperty(fhirFieldName).SetValue(Record, value.TrimStart('0')); //CWF: this was the original logic, which does not do what the summary describes!
+            
+            Record.GetType().GetProperty(fhirFieldName).SetValue(Record, value.TrimStart('0').PadLeft(value.Length, '0'));  //CWF debugging -assign new value
         }
 
         /// <summary>Gets the Void IJE status.</summary>

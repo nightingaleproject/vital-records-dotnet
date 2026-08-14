@@ -149,9 +149,9 @@ namespace VR
             public readonly static Dictionary<string, string> IJEToFHIR = new Dictionary<string, string>
             {
             // Generate mappings, skipping special case of Marital Status T
-                               { "H", "Y" },  
-                   { "N", "N" },  
-                   { "U", "UNK" },  
+                { "H", "Y" },  
+                { "N", "N" },  
+                { "U", "UNK" },  
             };
             /// <summary>FHIR -> IJE Mapping for HispanicNoUnknown</summary>
             public readonly static Dictionary<string, string> FHIRToIJE = new Dictionary<string, string>

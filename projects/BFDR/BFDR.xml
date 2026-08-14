@@ -440,8 +440,20 @@
         <member name="M:BFDR.Connectathon.FetalDeathRecordFromId(System.Int32,System.Nullable{System.Int32},System.String,System.Nullable{System.Int32})">
             <summary>Generate a FetalDeathRecord from one of 2 pre-set records, providing an optional certificate number and state</summary>
         </member>
-        <member name="M:BFDR.Connectathon.Test1">
-            <summary>Generate Monroe example record</summary>
+        <member name="M:BFDR.Connectathon.ZekeAnwar">
+            <summary>Generate Anwar example record</summary>
+        </member>
+        <member name="M:BFDR.Connectathon.AxelHallman">
+            <summary>Generate Hallman example record</summary>
+        </member>
+        <member name="M:BFDR.Connectathon.EvelineRuskin">
+            <summary>Generate Ruskin example record</summary>
+        </member>
+        <member name="M:BFDR.Connectathon.NoraShin">
+            <summary>Generate Shin example record</summary>
+        </member>
+        <member name="M:BFDR.Connectathon.IsokratesKimberley">
+            <summary>Generate Kimberley example record</summary>
         </member>
         <member name="T:BFDR.FetalDeathRecord">
             <summary>Class <c>FetalDeathRecord</c> is a class designed to help consume and produce fetal death
@@ -3857,6 +3869,14 @@
             Sets the date-time of the delivery of the subject child or fetus.
             </summary>
             <param name="value"></param>
+        </member>
+        <member name="M:BFDR.NatalityRecord.TryParseValidDateTime(System.String,System.DateTimeOffset@)">
+            <summary>
+            Tries to parse a valid DateTime string into a DateTimeOffset.
+            </summary>
+            <param name="value">The DateTime string to parse. MUST contain valid date and time with timezone information.</param>
+            <param name="parsedDateTime">The parsed DateTimeOffset if successful.</param>
+            <returns>True if parsing was successful, otherwise false.</returns>
         </member>
         <member name="P:BFDR.NatalityRecord.MotherGivenNames">
             <summary>Mother's Legal Name - Given. Middle name should be the last entry.</summary>
