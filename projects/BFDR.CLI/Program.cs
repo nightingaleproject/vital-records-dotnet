@@ -6,6 +6,7 @@ using System.Xml.Linq;
 using System.Reflection;
 using Hl7.FhirPath;
 using VR;
+using BFDR;
 
 namespace BFDR.CLI
 {
@@ -37,7 +38,8 @@ namespace BFDR.CLI
   - ijebuilder: Create json record using IJE (natality) mapped fields (1 argument: 'birth' or 'fetaldeath')
   - compare: Compare an IJE record with a FHIR record by each IJE field (3 arguments: 'birth' or 'fetaldeath', IJE record, FHIR Record)
   - extract: Extract a FHIR record from a FHIR message (1 argument: FHIR message)
-  - nre2json: Creates a Demographic Coding Bundle from a NRE Message (1 argument: TRX file)
+  - nre2json: Creates a Demographic Coding Bundle from a NRE Message (1 argument: NRE file)
+  - cfd2json: Creates a Medical Coding Bundle from a Fetal death COD (FCOD) Message (1 argument: FCOD file)
   - connectathon: prints one of the 3 connectathon records (1 argument: the number (1,2, or 3) of the connectathon record)
     ";
 
@@ -1101,6 +1103,30 @@ namespace BFDR.CLI
                 Console.WriteLine(msg.ToJson());
                 // there's something wrong with the ToJson call when converting the message to json to insert in the db
                 return 0;
+            }
+            else if (args.Length == 1 && args[0] == "cfd2json")
+            {
+                IJEFetalDeath ijeCFD = new IJEFetalDeath();
+
+                //Populate the field with what came from the server-- ijeTRX name convention comes from IJE layout
+
+                ijeCFD.FDOD_YR = "2025";
+                ijeCFD.DSTATE = "MA";
+                ijeCFD.FILENO = "000101";
+
+                ijeCFD.ICOD = "P011 ";
+                ijeCFD.OCOD1 = "P011 ";
+                ijeCFD.OCOD2 = "";
+
+                ijeCFD.AUXNO = "0012345"; //Format AUXNO 
+
+                FetalDeathRecord fd = ijeCFD.ToRecord();
+                //CodedCauseOfFetalDeathMessage msg = new CodedCauseOfFetalDeathMessage(fd);
+                CodedCauseOfFetalDeathUpdateMessage msg = new CodedCauseOfFetalDeathUpdateMessage(fd);
+                msg.CodedMessageId = "d03fa59c-9dab-4b2d-bc62-8f6b2eebec89";
+                Console.WriteLine(msg.ToJson());
+                // there's something wrong with the ToJson call when converting the message to json to insert in the db
+                return 0;  
             }
             else if (args.Length == 2 && args[0] == "connectathon")
             {
