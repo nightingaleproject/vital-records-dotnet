@@ -330,7 +330,7 @@ namespace BFDR.Tests
 
         [Theory]
         [InlineData(0)]
-        [InlineData(2)]
+        //[InlineData(2)]  // 8-13-26: We now have more than 1 sample, so 2 is no longer invalid
         [InlineData(-1)]
         [InlineData(100)]
         public void Should_Return_Null_For_Invalid_FetalDeathRecord_Ids(int id)
