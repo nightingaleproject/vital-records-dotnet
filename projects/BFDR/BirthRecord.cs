@@ -391,7 +391,7 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Child Date of Birth: {ExampleBirthRecord.DateOfBirth}");</para>
         /// </example>
-        [Property("Date Of Birth", Property.Types.String, "Child Demographics", "Child's Date of Birth.", true, VR.IGURL.Child, true, 14)]
+        [Property("Date Of Birth", Property.Types.String, "Child Demographics", "Child's Date of Birth (valid FHIR format: yyyy, yyyy-MM, or yyyy-MM-dd)", true, VR.IGURL.Child, true, 14)]
         [FHIRPath("Bundle.entry.resource.where($this is Patient).birthDate", "")]
         public string DateOfBirth
         {
@@ -931,7 +931,8 @@ namespace BFDR
         /// <para>// Getter:</para>
         /// <para>Console.WriteLine($"Child Time of Birth: {ExampleBirthRecord.BirthTime}");</para>
         /// </example>
-        [Property("BirthTime", Property.Types.String, "Child Demographics", "Child's Time of Birth.", true, VR.IGURL.Child, true, 14)]
+        //[Property("BirthTime", Property.Types.String, "Child Demographics", "Child's Time of Birth; if used, overrides Birth Date (valid FHIR format: yyyy, yyyy-MM, or yyyy-MM-dd).", true, VR.IGURL.Child, true, 14)]
+        [Property("BirthTime", Property.Types.String, "Child Demographics", "Child's Time of Birth; if used, overrides Birth Date (valid FHIR format: 'yyyy-MM-dd HH:mm +/-HH:mm' (where +/-HH:mm is time zone).", true, VR.IGURL.Child, true, 14)]
         // How should FHIRPath work when the time could be in 1 of 2 different places (value in PatientBirthTime | PartialDateTime extension)
         [FHIRPath("Bundle.entry.resource.where($this is Patient).birthDate.extension.where(url='" + VR.ExtensionURL.PatientBirthTime + "')", "")]
         public string BirthDateTime
