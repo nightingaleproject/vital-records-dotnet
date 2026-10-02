@@ -7404,6 +7404,9 @@
         <member name="F:VR.Property.Types.StringDateTime">
             <summary>Parameter is like a string, but should be treated as a date and time.</summary>
         </member>
+        <member name="F:VR.Property.Types.StringDateTimeTypeNoFrac">
+            <summary>Parameter is a date-time string without fractional seconds and may be left empty.</summary>
+        </member>
         <member name="F:VR.Property.Types.Bool">
             <summary>Parameter is a bool.</summary>
         </member>
