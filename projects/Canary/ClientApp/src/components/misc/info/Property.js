@@ -7,6 +7,7 @@ import { CheckboxType } from './Types/CheckboxType';
 import { DeathRecordType } from './Types/DeathRecordType';
 import { DictionaryType } from './Types/DictionaryType';
 import { StringArrType } from './Types/StringArrType';
+import { StringDateTimeTypeNoFrac } from './Types/StringDateTimeTypeNoFrac';
 import { StringDateTimeType } from './Types/StringDateTimeType';
 import { StringType } from './Types/StringType';
 import { TupleArrType } from './Types/TupleArrType';
@@ -49,6 +50,20 @@ export class Property extends Component {
       return (
         <StringDateTimeType
           key={`${this.props.name}${value}`} // Key ensures re-render if value changes
+          name={this.props.name}
+          value={value}
+          description={description}
+          igurl={igurl}
+          updateProperty={this.updateProperty}
+          editable={this.props.editable}
+          testMode={this.props.testMode}
+          error={error}
+        />
+      );
+    } else if (type === 'StringDateTimeTypeNoFrac') {
+      return (
+        <StringDateTimeTypeNoFrac
+          key={`${this.props.name}${value}`}
           name={this.props.name}
           value={value}
           description={description}

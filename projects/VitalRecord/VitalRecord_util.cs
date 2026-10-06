@@ -1763,7 +1763,7 @@ namespace VR
                     // Set the property on the new VitalRecord based on its type
                     string propertyName = property.Key;
                     Object value = null;
-                    if (property.Value["Type"] == Property.Types.String || property.Value["Type"] == Property.Types.StringDateTime)
+                    if (property.Value["Type"] == Property.Types.String || property.Value["Type"] == Property.Types.StringDateTime || property.Value["Type"] == Property.Types.StringDateTimeTypeNoFrac)
                     {
                         value = property.Value["Value"].ToString();
                         if (String.IsNullOrWhiteSpace((string)value))
@@ -2228,6 +2228,8 @@ namespace VR
             StringArr,
             /// <summary>Parameter is like a string, but should be treated as a date and time.</summary>
             StringDateTime,
+            /// <summary>Parameter is a date-time string without fractional seconds and may be left empty.</summary>
+            StringDateTimeTypeNoFrac,
             /// <summary>Parameter is a bool.</summary>
             Bool,
             /// <summary>Parameter is a Dictionary.</summary>
