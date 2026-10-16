@@ -81,6 +81,7 @@ export default function App() {
       return (
         <WrappedComponent
           params={params}
+          recordTypeReadable={recordTypeReadable}
         />
       );
     };
