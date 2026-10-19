@@ -92,7 +92,7 @@ export function RecordTools(recordType, ijeType) {
     },
     {
       icon: "search",
-      title: `IJE ${ijeType} Record Inspector`,
+      title: `IJE ${recordType} ${ijeType} Record Inspector`,
       description: `Inspect an IJE ${ijeType} file and show details about the record and what it contains.`,
       route: "tool-ije-inspector"
     }
@@ -124,7 +124,7 @@ export function MessageTools(recordType) {
       list.push(
           {
               icon: "find",
-              title: `FHIR Message to FSH Converter`,
+              title: `FHIR ${recordType} Message to FSH Converter`,
               description: `Inspect a FSH record and show details about what it contains.`,
               route: "tool-message-to-fsh"
           }
@@ -133,7 +133,7 @@ export function MessageTools(recordType) {
       list.push(
           {
               icon: "find",
-              title: `FSH SUSHI Inspector`,
+              title: `FSH ${recordType} SUSHI Inspector`,
               description: `Inspect a FSH record and show details about what it contains.`,
               route: "tool-fsh-sushi-inspector"
           }
