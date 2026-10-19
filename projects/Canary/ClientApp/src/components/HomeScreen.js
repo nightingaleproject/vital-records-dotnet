@@ -35,7 +35,7 @@ export class HomeScreen extends Component {
           />
           
           <CanaryCard
-            title='(local) Vital Records Death Reporting'
+            title='(v5 preview) Vital Records Death Reporting'
             subtitle='VRDR 5.0.0 preview'
             link='/vrdr'
           />
