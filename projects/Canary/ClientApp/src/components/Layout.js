@@ -8,10 +8,16 @@ export function Layout(props) {
   return (
     <React.Fragment>
       <SemanticToastContainer />
-      <Navigation recordType={props.recordType} recordTypeReadable={props.recordTypeReadable} ijeType={props.ijeType}/>
-      <Container>
-        <Grid>{props.children}</Grid>
-      </Container>
+      <div className="canary-app-shell">
+        <header className="canary-app-header">
+          <Navigation recordType={props.recordType} recordTypeReadable={props.recordTypeReadable} ijeType={props.ijeType}/>
+        </header>
+        <main className="canary-app-content">
+          <Container>
+            <Grid>{props.children}</Grid>
+          </Container>
+        </main>
+      </div>
     </React.Fragment>
   );
 }

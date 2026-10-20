@@ -2,6 +2,39 @@ html {
     scroll-behavior: smooth;
   }
 
+html,
+body,
+#root {
+    height: 100%;
+}
+
+.canary-app-shell {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+}
+
+.canary-app-header {
+    flex: 0 0 auto;
+    z-index: 10;
+}
+
+.canary-app-content {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.canary-app-content .ui.grid > .row:has(> .ui.breadcrumb) {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: #fff;
+}
+
 .ui.items>.item>.content>.description {
     font-size: 1.1em !important;
 }
