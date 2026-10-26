@@ -226,7 +226,7 @@ export class MessageConnectathonProducing extends Component {
             <Grid.Row>
               <Container fluid>
                 <Divider horizontal />
-                <Header as="h2" dividing id="step-1">
+                <Header as="h2" dividing id="test-connectathon-msg-step-1" className="canary-scroll-target">
                   <Icon name="flag" />
                   <Header.Content>
                     Step 1: Set Certificate Number and Select Jurisdiction
@@ -255,7 +255,7 @@ export class MessageConnectathonProducing extends Component {
                 <Grid.Row>
                   <Container fluid>
                     <Divider horizontal />
-                    <Header as="h2" dividing id="step-2">
+                    <Header as="h2" dividing id="test-connectathon-msg-step-2" className="canary-scroll-target">
                       <Icon name="download" />
                       <Header.Content>
                         Step 2: Enter Connectathon Test Case Data Into Your EDRS
@@ -271,7 +271,7 @@ export class MessageConnectathonProducing extends Component {
                 <Grid.Row>
                   <Container fluid>
                     <Divider horizontal />
-                    <Header as="h2" dividing id="step-3">
+                    <Header as="h2" dividing id="test-connectathon-msg-step-3" className="canary-scroll-target">
                       <Icon name="mail" />
                       <Header.Content>
                         Step 3: Choose the Message Type

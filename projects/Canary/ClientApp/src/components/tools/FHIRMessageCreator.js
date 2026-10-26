@@ -79,7 +79,7 @@ export class FHIRMessageCreator extends Component {
           <Grid.Row>
             <Container fluid>
               <Divider horizontal />
-              <Header as="h2" dividing id="step-1">
+              <Header as="h2" dividing id="message-creation-top" className="canary-scroll-target">
                 <Icon name="mail" />
                 <Header.Content>
                   Step 1: Choose the Message Type
@@ -137,12 +137,12 @@ export class FHIRMessageCreator extends Component {
                 </Header.Content>
               </Header>
               <div className="p-b-10" />
-              <Button fluid size="huge" primary onClick={this.runTest} loading={this.state.running} disabled={!!!this.state.record || !!!this.state.messageType || !!!this.state.issues}>
+              <Button id="message-creation-generate" fluid size="huge" primary onClick={this.runTest} loading={this.state.running} disabled={!!!this.state.record || !!!this.state.messageType || !!!this.state.issues}>
                 Generate
               </Button>
             </Container>
           </Grid.Row>
-          <Grid.Row>
+          <Grid.Row id="message-creation-bottom">
             <Record record={this.state.message} issues={this.state.messageIssues} showSave hideIje showIssues />
           </Grid.Row>
         </Grid>
