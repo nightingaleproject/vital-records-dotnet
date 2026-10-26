@@ -21,6 +21,18 @@ body,
     z-index: 10;
 }
 
+.canary-page-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+}
+
+.canary-scroll-target {
+    scroll-margin-top: 3rem;
+}
+
 .canary-app-content {
     flex: 1 1 auto;
     min-height: 0;

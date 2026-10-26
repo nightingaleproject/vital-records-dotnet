@@ -31,6 +31,54 @@ export default function App() {
 
   // Get record type param.
   const { pathname } = useLocation()
+  const isMessageCreatorPage = !!matchPath(
+    {
+      path: "/:recordType/test-fhir-message-creation/*",
+    },
+    pathname
+  );
+  const isFHIRProducingPage = !!matchPath(
+    {
+      path: "/:recordType/test-fhir-producing/*",
+    },
+    pathname
+  );
+  const isFHIRConsumingPage = !!matchPath(                 //CWF 
+    {
+      path: "/:recordType/test-fhir-consuming/*",
+    },
+    pathname
+  );
+  const isConnectathonFHIRBFDRProducingPage = !!matchPath(                 //CWF 1.5
+    {
+      path: "/:recordType/test-connectathon/*",
+    },
+    pathname
+  );
+  const isValidateFHIRBFDRWithIJEPage = !!matchPath(                 //CWF 1.6
+    {
+      path: "/:recordType/test-fhir-ije-validator-producing/*",
+    },
+    pathname
+  );
+  const IsProdFHIRBFDRWithBirthMsg = !!matchPath(                 //CWF 2.1
+    {
+      path: "/:recordType/test-fhir-message-producing/*",
+    },
+    pathname
+  );
+  const isTestConnectathonMsgPage = !!matchPath(                 //CWF 2.2
+    {
+      path: "/:recordType/test-connectathon-messaging/*",
+    },
+    pathname
+  );
+  const isToolFhirBirthCreator = !!matchPath(                 //CWF 3.5
+    {
+      path: "/:recordType/tool-fhir-creator/*",
+    },
+    pathname
+  );
   const match = matchPath(
     {
       path: "/:recordType/*",
@@ -95,7 +143,13 @@ export default function App() {
 
   // conditional routes based on record type.
   return (
-    <Layout recordType={recordType} recordTypeReadable={recordTypeReadable} ijeType={ijeDataType}>
+    <Layout recordType={recordType} recordTypeReadable={recordTypeReadable} ijeType={ijeDataType}  
+          showMessageCreatorActions={isMessageCreatorPage} showFHIRProducingActions={isFHIRProducingPage} showFHIRConsumingActions={isFHIRConsumingPage}
+          showConnectathonFHIRBFDRProducingActions={isConnectathonFHIRBFDRProducingPage} showValidateFHIRBFDRWithIJEActions={isValidateFHIRBFDRWithIJEPage}
+          showProdFHIRBFDRWithBirthMsg={IsProdFHIRBFDRWithBirthMsg} showTestConnectathonMsgPage={isTestConnectathonMsgPage}
+          showToolFhirBirthCreator={isToolFhirBirthCreator}
+          >
+
       <Routes>
         <Route path="/" element={<HomeScreen />} />
         <Route path=":recordType/*">

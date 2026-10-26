@@ -2,10 +2,14 @@ import { faFeatherAlt, faMailBulk } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Dropdown, Menu } from 'semantic-ui-react';
+import { Button, Dropdown, Menu } from 'semantic-ui-react';
 import * as NavigationOptions from './NavigationOptions';
 
 export function Navigation(props) {
+
+  const scrollToSection = (targetId, block = 'start') => {
+    document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth', block });
+  };
 
   const recordTypeDropDowns = (recordType) => {
     const shouldDisplayRecordDropdowns = recordType === 'vrdr' || recordType === 'bfdr-birth' || recordType === 'bfdr-fetaldeath'
@@ -95,6 +99,107 @@ export function Navigation(props) {
         </Menu.Item>
         {recordTypeDropDowns(props.recordType)}
       </Menu>
+      {props.showFHIRProducingActions && (   //Item 1.1
+        <div className="canary-page-actions">
+          <Button size="small" onClick={() => scrollToSection('fhir-producing-step-1')}>
+            Go to -Step 1: Enter Details
+          </Button>
+          <Button size="small" onClick={() => scrollToSection('fhir-producing-step-2')}>
+            Go to -Step 2: Export Records
+          </Button>
+          <Button size="small" onClick={() => scrollToSection('fhir-producing-step-3')}>
+            Go to -Step 3: Calculate Results
+          </Button>
+        </div>
+      )}
+      {props.showFHIRConsumingActions && (  //Item 1.2
+        <div className="canary-page-actions">
+          <Button size="small" onClick={() => scrollToSection('fhir-consuming-step-1')}>
+            Go to -Step 1: Import Record
+          </Button>
+          <Button size="small" onClick={() => scrollToSection('fhir-consuming-step-2')}>
+            Go to -Step 2: Enter Details
+          </Button>
+          <Button size="small" onClick={() => scrollToSection('fhir-consuming-step-3')}>
+            Go to -Step 3: Calculate Results
+          </Button>
+        </div>
+      )}
+      {props.showConnectathonFHIRBFDRProducingActions && ( //Item 1.5
+        <div className="canary-page-actions">
+          <Button size="small" onClick={() => scrollToSection('connectathon-fhir-producing-step-1')}>
+            Go to -Step 1: Set Certificate Number and Select Jurisdiction
+          </Button>
+          <Button size="small" onClick={() => scrollToSection('connectathon-fhir-producing-step-2')}>
+            Go to -Step 2: Enter Details
+          </Button>
+          <Button size="small" onClick={() => scrollToSection('connectathon-fhir-producing-step-3')}>
+            Go to -Step 3: Export Record
+          </Button>
+          <Button size="small" onClick={() => scrollToSection('connectathon-fhir-producing-step-4')}>
+            Go to -Step 4: Calculate Results
+          </Button>
+        </div>
+      )}
+      {props.showValidateFHIRBFDRWithIJEActions && ( //Item 1.6
+        <div className="canary-page-actions">
+          <Button size="small" onClick={() => scrollToSection('validate-fhir-bfdr-with-ije-step-1')}>
+            Go to -Step 1: Upload IJE Record
+          </Button>
+          <Button size="small" onClick={() => scrollToSection('validate-fhir-bfdr-with-ije-step-2')}>
+            Go to -Step 2: Upload FHIR Record
+          </Button>
+          <Button size="small" onClick={() => scrollToSection('validate-fhir-bfdr-with-ije-step-3')}>
+            Go to -Step 3: Calculate Results
+          </Button>
+        </div>
+      )}
+      {props.showProdFHIRBFDRWithBirthMsg && ( //Item 2.1
+        <div className="canary-page-actions">
+          <Button size="small" onClick={() => scrollToSection('prod-fhir-bfdr-birth-msg-step-1')}>
+            Go to -Step 1: Import Record
+          </Button>
+          <Button size="small" onClick={() => scrollToSection('prod-fhir-bfdr-birth-msg-step-2')}>
+            Go to -Step 2: Choose Message Type
+          </Button>
+        </div>
+      )}
+      {props.showTestConnectathonMsgPage && ( //Item 2.2
+        <div className="canary-page-actions">
+          <Button size="small" onClick={() => scrollToSection('test-connectathon-msg-step-1')}>
+            Go to -Step 1: Set Certificate
+          </Button>
+          <Button size="small" onClick={() => scrollToSection('test-connectathon-msg-step-2')}>
+            Go to -Step 2: Enter Connection Test Case data Into Your EDRS
+          </Button>
+          <Button size="small" onClick={() => scrollToSection('test-connectathon-msg-step-3')}>
+            Go to -Step 3: Choose Message Type
+          </Button>
+        </div>
+      )}
+      {props.showToolFhirBirthCreator && ( //Item 2.2
+        <div className="canary-page-actions">
+          <Button size="small" onClick={() => scrollToSection('child-demographics')}>
+            Top
+          </Button>
+          <Button size="small" onClick={() => scrollToSection('generate-record')}>
+            Generate Record
+          </Button>
+        </div>
+      )}
+      {props.showMessageCreatorActions && (  //Item 4.2
+        <div className="canary-page-actions">
+          <Button size="small" onClick={() => scrollToSection('message-creation-top')}>
+            Step 1: Choose the Message Type
+          </Button>
+          <Button size="small" onClick={() => scrollToSection('message-creation-generate', 'center')}>
+            Step 2: Upload a Record
+          </Button>
+          <Button size="small" onClick={() => scrollToSection('message-creation-bottom', 'end')}>
+            Step 3: Generate Results
+          </Button>
+        </div>
+      )}
       <div className="p-b-30" />
     </React.Fragment>
   );
