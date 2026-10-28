@@ -79,7 +79,7 @@ export class FHIRMessageCreator extends Component {
           <Grid.Row>
             <Container fluid>
               <Divider horizontal />
-              <Header as="h2" dividing id="message-creation-top" className="canary-scroll-target">
+              <Header as="h2" dividing id="step-1" className="canary-scroll-target">
                 <Icon name="mail" />
                 <Header.Content>
                   Step 1: Choose the Message Type
@@ -106,7 +106,7 @@ export class FHIRMessageCreator extends Component {
           <Grid.Row>
             <Container fluid>
               <Divider horizontal />
-              <Header as="h2" dividing id="step-2">
+              <Header as="h2" dividing id="step-2" className="canary-scroll-target">
                 <Icon name="upload" />
                 <Header.Content>
                   Step 2: Upload a Record
@@ -127,7 +127,7 @@ export class FHIRMessageCreator extends Component {
           <Grid.Row>
             <Container fluid>
               <Divider horizontal />
-              <Header as="h2" dividing id="step-3">
+              <Header as="h2" dividing id="step-3" className="canary-scroll-target">
                 <Icon name="check circle" />
                 <Header.Content>
                   Step 3: Generate Results

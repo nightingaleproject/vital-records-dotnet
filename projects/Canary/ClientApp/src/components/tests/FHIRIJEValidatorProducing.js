@@ -148,7 +148,7 @@ export class FHIRIJEValidatorProducing extends Component {
               <Grid.Row data-testid={"ije-upload"}>
                 <Container fluid>
                   <Divider horizontal />
-                  <Header as="h2" dividing id="validate-fhir-bfdr-with-ije-step-1" className="canary-scroll-target">
+                  <Header as="h2" dividing id="step-1" className="canary-scroll-target">
                     <Icon name="upload" />
                     <Header.Content>
                       Step 1: Upload IJE Record
@@ -171,7 +171,7 @@ export class FHIRIJEValidatorProducing extends Component {
               <Grid.Row data-testid={"fhir-upload"}>
                 <Container fluid>
                   <Divider horizontal />
-                  <Header as="h2" dividing id="validate-fhir-bfdr-with-ije-step-2" className="canary-scroll-target">
+                  <Header as="h2" dividing id="step-2" className="canary-scroll-target">
                     <Icon name="upload" />
                     <Header.Content>
                       Step 2: Upload FHIR Record
@@ -192,7 +192,7 @@ export class FHIRIJEValidatorProducing extends Component {
               <Grid.Row>
                 <Container fluid>
                   <Divider horizontal />
-                  <Header as="h2" dividing className="p-b-5 canary-scroll-target" id="validate-fhir-bfdr-with-ije-step-3" >
+                  <Header as="h2" dividing className="p-b-5 canary-scroll-target" id="step-3" >
                     <Icon name="check circle" />
                     <Header.Content>
                       Step 3: Calculate Results
