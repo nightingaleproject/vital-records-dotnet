@@ -31,51 +31,63 @@ export default function App() {
 
   // Get record type param.
   const { pathname } = useLocation()
-  const isMessageCreatorPage = !!matchPath(
+  const isFHIRProducingActions = !!matchPath(
     {
-      path: "/:recordType/test-fhir-message-creation/*",
+      path: "/:recordType/test-fhir-producing/*",             // Item 1.1 
     },
     pathname
   );
-  const isFHIRProducingPage = !!matchPath(
-    {
-      path: "/:recordType/test-fhir-producing/*",
-    },
-    pathname
-  );
-  const isFHIRConsumingPage = !!matchPath(                 //CWF 
+  const isFHIRConsumingActions = !!matchPath(                 // Item 1.2
     {
       path: "/:recordType/test-fhir-consuming/*",
     },
     pathname
   );
-  const isConnectathonFHIRBFDRProducingPage = !!matchPath(                 //CWF 1.5
+  const isEDRSConsumingActions = !!matchPath(                 // Item 1.3
+    {
+      path: "/:recordType/test-edrs-roundtrip-consuming/*",
+    },
+    pathname
+  );
+  const isEDRSProducingActions = !!matchPath(                 // Item 1.4
+    {
+      path: "/:recordType/test-edrs-roundtrip-producing/*",
+    },
+    pathname
+  );
+  const isConnectathonFHIRProducingActions = !!matchPath(         //Item 1.5
     {
       path: "/:recordType/test-connectathon/*",
     },
     pathname
   );
-  const isValidateFHIRBFDRWithIJEPage = !!matchPath(                 //CWF 1.6
+  const isValidateFHIRWithIJEActions = !!matchPath(                 //Item 1.6
     {
       path: "/:recordType/test-fhir-ije-validator-producing/*",
     },
     pathname
   );
-  const IsProdFHIRBFDRWithBirthMsg = !!matchPath(                 //CWF 2.1
+  const IsProdFHIRWithMsg = !!matchPath(                 //Item 2.1
     {
       path: "/:recordType/test-fhir-message-producing/*",
     },
     pathname
   );
-  const isTestConnectathonMsgPage = !!matchPath(                 //CWF 2.2
+  const isTestConnectathonMsgPage = !!matchPath(                 //Item 2.2
     {
       path: "/:recordType/test-connectathon-messaging/*",
     },
     pathname
   );
-  const isToolFhirBirthCreator = !!matchPath(                 //CWF 3.5
+  const isToolFhirCreator = !!matchPath(                       //Item 3.5
     {
       path: "/:recordType/tool-fhir-creator/*",
+    },
+    pathname
+  );
+  const isMessageCreatorPage = !!matchPath(
+    {
+      path: "/:recordType/test-fhir-message-creation/*",       //Item 4.2
     },
     pathname
   );
@@ -144,11 +156,17 @@ export default function App() {
   // conditional routes based on record type.
   return (
     <Layout recordType={recordType} recordTypeReadable={recordTypeReadable} ijeType={ijeDataType}  
-          showMessageCreatorActions={isMessageCreatorPage} showFHIRProducingActions={isFHIRProducingPage} showFHIRConsumingActions={isFHIRConsumingPage}
-          showConnectathonFHIRBFDRProducingActions={isConnectathonFHIRBFDRProducingPage} showValidateFHIRBFDRWithIJEActions={isValidateFHIRBFDRWithIJEPage}
-          showProdFHIRBFDRWithBirthMsg={IsProdFHIRBFDRWithBirthMsg} showTestConnectathonMsgPage={isTestConnectathonMsgPage}
-          showToolFhirBirthCreator={isToolFhirBirthCreator}
-          >
+          showFHIRProducingActions={isFHIRProducingActions}                          // Item 1.1
+          showFHIRConsumingActions={isFHIRConsumingActions}                          // Item 1.2
+          showEDRSConsumingActions={isEDRSConsumingActions}                          // Item 1.3
+          showEDRSProducingActions={isEDRSProducingActions}                          // Item 1.4
+          showConnectathonFHIRProducingActions={isConnectathonFHIRProducingActions}  // Item 1.5
+          showValidateFHIRWithIJEActions={isValidateFHIRWithIJEActions}              // Item 1.6
+          showProdFHIRWithMsg={IsProdFHIRWithMsg}                                    // Item 2.1
+          showTestConnectathonMsgPage={isTestConnectathonMsgPage}                    // Item 2.2
+          showToolFhirCreator={isToolFhirCreator}                                    // Item 3.5
+          showMessageCreatorActions={isMessageCreatorPage}                           // Item 4.2
+      >
 
       <Routes>
         <Route path="/" element={<HomeScreen />} />

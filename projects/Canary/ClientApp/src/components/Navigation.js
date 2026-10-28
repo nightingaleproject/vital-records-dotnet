@@ -101,83 +101,109 @@ export function Navigation(props) {
       </Menu>
       {props.showFHIRProducingActions && (   //Item 1.1
         <div className="canary-page-actions">
-          <Button size="small" onClick={() => scrollToSection('fhir-producing-step-1')}>
+          <Button size="small" onClick={() => scrollToSection('step-1')}>
             Go to -Step 1: Enter Details
           </Button>
-          <Button size="small" onClick={() => scrollToSection('fhir-producing-step-2')}>
+          <Button size="small" onClick={() => scrollToSection('step-2')}>
             Go to -Step 2: Export Records
           </Button>
-          <Button size="small" onClick={() => scrollToSection('fhir-producing-step-3')}>
+          <Button size="small" onClick={() => scrollToSection('step-3')}>
             Go to -Step 3: Calculate Results
           </Button>
         </div>
       )}
       {props.showFHIRConsumingActions && (  //Item 1.2
         <div className="canary-page-actions">
-          <Button size="small" onClick={() => scrollToSection('fhir-consuming-step-1')}>
+          <Button size="small" onClick={() => scrollToSection('step-1')}>
             Go to -Step 1: Import Record
           </Button>
-          <Button size="small" onClick={() => scrollToSection('fhir-consuming-step-2')}>
+          <Button size="small" onClick={() => scrollToSection('step-2')}>
             Go to -Step 2: Enter Details
           </Button>
-          <Button size="small" onClick={() => scrollToSection('fhir-consuming-step-3')}>
+          <Button size="small" onClick={() => scrollToSection('step-3')}>
             Go to -Step 3: Calculate Results
           </Button>
         </div>
       )}
-      {props.showConnectathonFHIRBFDRProducingActions && ( //Item 1.5
+      {props.showEDRSConsumingActions && (  //Item 1.3     
         <div className="canary-page-actions">
-          <Button size="small" onClick={() => scrollToSection('connectathon-fhir-producing-step-1')}>
+          <Button size="small" onClick={() => scrollToSection('step-1')}>
+            Go to -Step 1: Import FHIR Record
+          </Button>
+          <Button size="small" onClick={() => scrollToSection('step-2')}>
+            Go to -Step 2: Export IJE Record
+          </Button>
+          <Button size="small" onClick={() => scrollToSection('step-3')}>
+            Go to -Step 3: Calculate Results
+          </Button>
+        </div>
+      )}
+      {props.showEDRSProducingActions && (  //Item 1.4
+        <div className="canary-page-actions">
+          <Button size="small" onClick={() => scrollToSection('step-1')}>
+            Go to -Step 1: Import IJE Record
+          </Button>
+          <Button size="small" onClick={() => scrollToSection('step-2')}>
+            Go to -Step 2: Export FHIR Record
+          </Button>
+          <Button size="small" onClick={() => scrollToSection('step-3')}>
+            Go to -Step 3: Calculate Results
+          </Button>
+        </div>
+      )}
+      {props.showConnectathonFHIRProducingActions && ( //Item 1.5
+        <div className="canary-page-actions">
+          <Button size="small" onClick={() => scrollToSection('step-1')}>
             Go to -Step 1: Set Certificate Number and Select Jurisdiction
           </Button>
-          <Button size="small" onClick={() => scrollToSection('connectathon-fhir-producing-step-2')}>
+          <Button size="small" onClick={() => scrollToSection('step-2')}>
             Go to -Step 2: Enter Details
           </Button>
-          <Button size="small" onClick={() => scrollToSection('connectathon-fhir-producing-step-3')}>
+          <Button size="small" onClick={() => scrollToSection('step-3')}>
             Go to -Step 3: Export Record
           </Button>
-          <Button size="small" onClick={() => scrollToSection('connectathon-fhir-producing-step-4')}>
+          <Button size="small" onClick={() => scrollToSection('step-4')}>
             Go to -Step 4: Calculate Results
           </Button>
         </div>
       )}
-      {props.showValidateFHIRBFDRWithIJEActions && ( //Item 1.6
+      {props.showValidateFHIRWithIJEActions && ( //Item 1.6
         <div className="canary-page-actions">
-          <Button size="small" onClick={() => scrollToSection('validate-fhir-bfdr-with-ije-step-1')}>
+          <Button size="small" onClick={() => scrollToSection('step-1')}>
             Go to -Step 1: Upload IJE Record
           </Button>
-          <Button size="small" onClick={() => scrollToSection('validate-fhir-bfdr-with-ije-step-2')}>
+          <Button size="small" onClick={() => scrollToSection('step-2')}>
             Go to -Step 2: Upload FHIR Record
           </Button>
-          <Button size="small" onClick={() => scrollToSection('validate-fhir-bfdr-with-ije-step-3')}>
+          <Button size="small" onClick={() => scrollToSection('step-3')}>
             Go to -Step 3: Calculate Results
           </Button>
         </div>
       )}
-      {props.showProdFHIRBFDRWithBirthMsg && ( //Item 2.1
+      {props.showProdFHIRWithMsg && (         //Item 2.1
         <div className="canary-page-actions">
-          <Button size="small" onClick={() => scrollToSection('prod-fhir-bfdr-birth-msg-step-1')}>
+          <Button size="small" onClick={() => scrollToSection('step-1')}>
             Go to -Step 1: Import Record
           </Button>
-          <Button size="small" onClick={() => scrollToSection('prod-fhir-bfdr-birth-msg-step-2')}>
+          <Button size="small" onClick={() => scrollToSection('step-2')}>
             Go to -Step 2: Choose Message Type
           </Button>
         </div>
       )}
       {props.showTestConnectathonMsgPage && ( //Item 2.2
         <div className="canary-page-actions">
-          <Button size="small" onClick={() => scrollToSection('test-connectathon-msg-step-1')}>
+          <Button size="small" onClick={() => scrollToSection('step-1')}>
             Go to -Step 1: Set Certificate
           </Button>
-          <Button size="small" onClick={() => scrollToSection('test-connectathon-msg-step-2')}>
+          <Button size="small" onClick={() => scrollToSection('step-2')}>
             Go to -Step 2: Enter Connection Test Case data Into Your EDRS
           </Button>
-          <Button size="small" onClick={() => scrollToSection('test-connectathon-msg-step-3')}>
+          <Button size="small" onClick={() => scrollToSection('step-3')}>
             Go to -Step 3: Choose Message Type
           </Button>
         </div>
       )}
-      {props.showToolFhirBirthCreator && ( //Item 2.2
+      {props.showToolFhirCreator && ( //Item 3.5
         <div className="canary-page-actions">
           <Button size="small" onClick={() => scrollToSection('child-demographics')}>
             Top
@@ -189,13 +215,13 @@ export function Navigation(props) {
       )}
       {props.showMessageCreatorActions && (  //Item 4.2
         <div className="canary-page-actions">
-          <Button size="small" onClick={() => scrollToSection('message-creation-top')}>
+          <Button size="small" onClick={() => scrollToSection('step-1')}>
             Step 1: Choose the Message Type
           </Button>
-          <Button size="small" onClick={() => scrollToSection('message-creation-generate', 'center')}>
+          <Button size="small" onClick={() => scrollToSection('step-2', 'center')}>
             Step 2: Upload a Record
           </Button>
-          <Button size="small" onClick={() => scrollToSection('message-creation-bottom', 'end')}>
+          <Button size="small" onClick={() => scrollToSection('step-3', 'end')}>
             Step 3: Generate Results
           </Button>
         </div>
