@@ -99,7 +99,7 @@ export class EDRSRoundtripProducing extends Component {
                 Dashboard
               </Breadcrumb.Section>
               <Breadcrumb.Divider icon="right chevron" />
-              <Breadcrumb.Section>{this.props.recordTypeReadable} Record Roundtrip (Producing)</Breadcrumb.Section> {/* CWF: tried putting BFDR Birth prefix here but it also goes on Death page, so can't do it that way */}
+              <Breadcrumb.Section>{this.props.recordTypeReadable} Record Roundtrip (Producing)</Breadcrumb.Section>
             </Breadcrumb>
           </Grid.Row>
           {!!this.state.test && this.state.test.completedBool && (
