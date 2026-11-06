@@ -48,11 +48,11 @@ namespace canary.tests
             };
             _recController.ControllerContext.HttpContext = httpContext;
             var response = await _recController.NewPostAsync("bfdr-birth");
-            ((BirthRecord)response.Item1.GetRecord()).EventLocationJurisdiction = "AZ";
-            //((BirthRecord)response.Item1.GetRecord()).CertificateNumber = "99991"; // CWF: This should be 6, not 5 characters. Should load from fixtures rec instead of hardcoding it here anyway.
-            
-            BirthRecord br = new BirthRecord(romeroJson);   // CWF: This is the expected record, loaded from the romeroJson JSON fixture file.
-            br.EventLocationJurisdiction = "AZ";
+            //((BirthRecord)response.Item1.GetRecord()).EventLocationJurisdiction = "AZ";
+            //((BirthRecord)response.Item1.GetRecord()).CertificateNumber = "99991"; // CWF: This should be 6, not 5 characters, per NatalityRecord field definition in NatailityRecord_submissionProperties. Should load from fixtures rec instead of hardcoding it here anyway.
+
+            BirthRecord br = new BirthRecord(romeroJson);   // CWF note: This is the EXPECTED record, loaded from the romeroJson JSON fixture file: fixtures/json/BirthRecordR.json 
+            //br.EventLocationJurisdiction = "AZ";
             //br.CertificateNumber = "00001";   //was "99991" <- this is now loading from the romeroJson fixture file, so no need to hardcode it here.
 
             // The timezone has to be manually set here because the connectathon records are generated based on the local time zone. However, our test FHIR records have hard coded time zone data which must be updated to match the local time zone.
