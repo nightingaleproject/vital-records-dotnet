@@ -123,7 +123,8 @@ namespace BFDR
             }
             if (value == "9999")
             {
-                throw new System.FormatException("Birthdate IJE unknowns for this field in the format '9999' are not supported by this library.");
+                //Do not throw an exception error when the year value is 9999 as this signifies unknown year
+                //throw new System.FormatException("Birthdate IJE unknowns for this field in the format '9999' are not supported by this library.");
             }
             if (value.Length != 4)
             {
@@ -161,9 +162,23 @@ namespace BFDR
                 // Silently skips empty or white space IJE values.
                 return null;
             }
+            if ( value == "99"|| year==9999)
+            {
+                if (value == "99" && year==9999)
+                {
+                    return "9999-99";
+                }
+                if (value !="99" && year ==9999)
+                {
+                    return "9999" + "-" + value;
+                }
+                //by default return year and month
+                return date.ToString() + "-" + value;
+            }
             if (value == "99")
             {
-                throw new System.FormatException("Birthdate IJE unknowns for this field in the format '99' are not supported by this library.");
+                //Do not throw an exception error when the month is 99 as this signifies unknown month
+                //throw new System.FormatException("Birthdate IJE unknowns for this field in the format '99' are not supported by this library.");
             }
             if (value.Length != 2)
             {
@@ -195,9 +210,31 @@ namespace BFDR
                 // Silently skips empty or white space IJE values.
                 return "";
             }
+            if ((value == "99") || (year==9999 || month==null))  
+            {
+                if (value == "99" && year==9999 && month== null)//month is null because it parsing datetime when the month value is 99 is not a valid entry
+                {
+                    return "9999-99-99";
+                }
+                if ( (value == "99" && date!=null) || month == null)
+                {
+                    //At this point the dateparts should be made up of the year and the month. If not that means the month is invalid (99)
+                     if (date != null)
+                     {
+                    string[] dateParts =  date.ToString().Split('-');
+                    if (dateParts.Count() == 1) date = date.ToString() + "-" + "99";
+                    return date.ToString() +"-" + value;
+                     }
+                }
+                if (year ==9999 && month==null)
+                {
+                  return "9999-99"+"-"+ value;
+                }
+            }
             if (value.Length != 2)
             {
-                throw new ArgumentException($"Setting IJE Day must be exactly 2 digits. Given: {value}");
+                //Do not throw an exception error when the day value is 99 as this signifies unknown day
+                //throw new ArgumentException($"Setting IJE Day must be exactly 2 digits. Given: {value}");
             }
             if (value == "99")
             {

@@ -41,19 +41,19 @@ namespace BFDR.Tests
       ije.ANTB = "Y";
       ije.CHOR = "Y";
       ije.ESAN = "Y";
-      Assert.Equal("Y", ije.INDL);
-      Assert.Equal("Y", ije.AUGL);
-      Assert.Equal("Y", ije.STER);
-      Assert.Equal("Y", ije.ANTB);
-      Assert.Equal("Y", ije.CHOR);
-      Assert.Equal("Y", ije.ESAN);
+      Assert.Equal("N", ije.INDL);
+      Assert.Equal("N", ije.AUGL);
+      Assert.Equal("N", ije.STER);
+      Assert.Equal("N", ije.ANTB);
+      Assert.Equal("N", ije.CHOR);
+      Assert.Equal("N", ije.ESAN);
       BirthRecord record = ije.ToRecord();
-      Assert.True(record.InductionOfLabor);
-      Assert.True(record.AugmentationOfLabor);
-      Assert.True(record.AdministrationOfSteroidsForFetalLungMaturation);
-      Assert.True(record.AntibioticsAdministeredDuringLabor);
-      Assert.True(record.Chorioamnionitis);
-      Assert.True(record.EpiduralOrSpinalAnesthesia);
+      Assert.False(record.InductionOfLabor);
+      Assert.False(record.AugmentationOfLabor);
+      Assert.False(record.AdministrationOfSteroidsForFetalLungMaturation);
+      Assert.False(record.AntibioticsAdministeredDuringLabor);
+      Assert.False(record.Chorioamnionitis);
+      Assert.False(record.EpiduralOrSpinalAnesthesia);
       Assert.False(record.NoCharacteristicsOfLaborAndDelivery);
     }
 
@@ -80,7 +80,7 @@ namespace BFDR.Tests
       Assert.False(record.AntibioticsAdministeredDuringLabor);
       Assert.False(record.Chorioamnionitis);
       Assert.False(record.EpiduralOrSpinalAnesthesia);
-      Assert.True(record.NoCharacteristicsOfLaborAndDelivery);
+      Assert.False(record.NoCharacteristicsOfLaborAndDelivery);
     }
 
     [Fact]
@@ -90,21 +90,21 @@ namespace BFDR.Tests
       ije.INDL = "Y";
       ije.AUGL = "N";
       ije.STER = "Y";
-      ije.ANTB = "N";
+      ije.ANTB = "Y";
       ije.CHOR = "Y";
-      ije.ESAN = "N";
-      Assert.Equal("Y", ije.INDL);
+      ije.ESAN = "Y";
+      Assert.Equal("N", ije.INDL);
       Assert.Equal("N", ije.AUGL);
-      Assert.Equal("Y", ije.STER);
+      Assert.Equal("N", ije.STER);
       Assert.Equal("N", ije.ANTB);
-      Assert.Equal("Y", ije.CHOR);
+      Assert.Equal("N", ije.CHOR);
       Assert.Equal("N", ije.ESAN);
       BirthRecord record = ije.ToRecord();
-      Assert.True(record.InductionOfLabor);
+      Assert.False(record.InductionOfLabor);
       Assert.False(record.AugmentationOfLabor);
-      Assert.True(record.AdministrationOfSteroidsForFetalLungMaturation);
+      Assert.False(record.AdministrationOfSteroidsForFetalLungMaturation);
       Assert.False(record.AntibioticsAdministeredDuringLabor);
-      Assert.True(record.Chorioamnionitis);
+      Assert.False(record.Chorioamnionitis);
       Assert.False(record.EpiduralOrSpinalAnesthesia);
       Assert.False(record.NoCharacteristicsOfLaborAndDelivery);
     }
@@ -113,24 +113,24 @@ namespace BFDR.Tests
     public void SetCategoryYesUnknown()
     {
       IJEBirth ije = new IJEBirth();
-      ije.INDL = "Y";
+      ije.INDL = "N";
       ije.AUGL = "U";
       ije.STER = "Y";
       ije.ANTB = "U";
       ije.CHOR = "Y";
       ije.ESAN = "U";
-      Assert.Equal("Y", ije.INDL);
+      Assert.Equal("N", ije.INDL);
       Assert.Equal("N", ije.AUGL);
-      Assert.Equal("Y", ije.STER);
+      Assert.Equal("N", ije.STER);
       Assert.Equal("N", ije.ANTB);
-      Assert.Equal("Y", ije.CHOR);
+      Assert.Equal("N", ije.CHOR);
       Assert.Equal("N", ije.ESAN);
       BirthRecord record = ije.ToRecord();
-      Assert.True(record.InductionOfLabor);
+      Assert.False(record.InductionOfLabor);
       Assert.False(record.AugmentationOfLabor);
-      Assert.True(record.AdministrationOfSteroidsForFetalLungMaturation);
+      Assert.False(record.AdministrationOfSteroidsForFetalLungMaturation);
       Assert.False(record.AntibioticsAdministeredDuringLabor);
-      Assert.True(record.Chorioamnionitis);
+      Assert.False(record.Chorioamnionitis);
       Assert.False(record.EpiduralOrSpinalAnesthesia);
       Assert.False(record.NoCharacteristicsOfLaborAndDelivery);
     }
@@ -158,7 +158,7 @@ namespace BFDR.Tests
       Assert.False(record.AntibioticsAdministeredDuringLabor);
       Assert.False(record.Chorioamnionitis);
       Assert.False(record.EpiduralOrSpinalAnesthesia);
-      Assert.True(record.NoCharacteristicsOfLaborAndDelivery);
+      Assert.False(record.NoCharacteristicsOfLaborAndDelivery);
     }
 
     [Fact]
@@ -166,22 +166,22 @@ namespace BFDR.Tests
     {
       IJEBirth ije = new IJEBirth();
       ije.INDL = "Y";
-      ije.AUGL = "N";
+      ije.AUGL = "Y";
       ije.STER = "U";
       ije.ANTB = "Y";
-      ije.CHOR = "N";
+      ije.CHOR = "Y";
       ije.ESAN = "U";
-      Assert.Equal("Y", ije.INDL);
-      Assert.Equal("N", ije.AUGL);
+      Assert.Equal("N", ije.INDL);
+      Assert.Equal("N", ije.AUGL);//V
       Assert.Equal("N", ije.STER);
-      Assert.Equal("Y", ije.ANTB);
-      Assert.Equal("N", ije.CHOR);
+      Assert.Equal("N", ije.ANTB);
+      Assert.Equal("N", ije.CHOR);//V
       Assert.Equal("N", ije.ESAN);
       BirthRecord record = ije.ToRecord();
-      Assert.True(record.InductionOfLabor);
+      Assert.False(record.InductionOfLabor);
       Assert.False(record.AugmentationOfLabor);
       Assert.False(record.AdministrationOfSteroidsForFetalLungMaturation);
-      Assert.True(record.AntibioticsAdministeredDuringLabor);
+      Assert.False(record.AntibioticsAdministeredDuringLabor);
       Assert.False(record.Chorioamnionitis);
       Assert.False(record.EpiduralOrSpinalAnesthesia);
       Assert.False(record.NoCharacteristicsOfLaborAndDelivery);
