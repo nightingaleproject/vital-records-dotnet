@@ -371,7 +371,7 @@ namespace canary.Models
                             category[property.Name]["Match"] = "false";
                         }
                     }
-                    else if (info.Type == Property.Types.StringDateTime)
+                    else if (info.Type == Property.Types.StringDateTime || info.Type == Property.Types.StringDateTimeTypeNoFrac)
                     {
                         DateTimeOffset referenceDateTime;
                         DateTimeOffset testDateTime;

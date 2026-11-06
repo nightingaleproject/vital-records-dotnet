@@ -129,7 +129,7 @@ export class Connectathon extends Component {
               Dashboard
             </Breadcrumb.Section>
             <Breadcrumb.Divider icon="right chevron" />
-            <Breadcrumb.Section>Connectathon FHIR {this.props.params.recordTypeReadable} Records</Breadcrumb.Section>
+            <Breadcrumb.Section>Connectathon FHIR {this.props.recordTypeReadable} Records</Breadcrumb.Section>
           </Breadcrumb>
         </Grid.Row>
         {!!this.state.test && this.state.test.completedBool && (

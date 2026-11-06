@@ -36,7 +36,7 @@ export class MessageFshConverter extends Component {
                 Dashboard
               </Breadcrumb.Section>
               <Breadcrumb.Divider icon="right chevron" />
-              <Breadcrumb.Section>FHIR Message to FSH Converter</Breadcrumb.Section>
+              <Breadcrumb.Section>FHIR {this.props.recordTypeReadable} Message to FSH Converter</Breadcrumb.Section>
             </Breadcrumb>
           </Grid.Row>
           <Grid.Row>

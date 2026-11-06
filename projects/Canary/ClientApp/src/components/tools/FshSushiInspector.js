@@ -38,7 +38,7 @@ export class FshSushiInspector extends Component {
                 Dashboard
               </Breadcrumb.Section>
               <Breadcrumb.Divider icon="right chevron" />
-              <Breadcrumb.Section>FSH {this.props.recordType.toUpperCase()} Inspector</Breadcrumb.Section>
+              <Breadcrumb.Section>FSH {this.props.recordType.toUpperCase()} SUSHI Inspector</Breadcrumb.Section>
             </Breadcrumb>
           </Grid.Row>
           <Grid.Row>

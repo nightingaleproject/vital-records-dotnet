@@ -43,7 +43,15 @@ export class IJEInspector extends Component {
   };
 
   render() {
-    const ijeDataType = this.props.recordType.toLowerCase() === 'vrdr' ? 'Mortality' : 'Natality';
+    const recType = this.props.recordType.toLowerCase();
+    let ijeDataType = '';
+    if (recType == 'vrdr') {
+      ijeDataType ='Mortality';
+    } else if (recType == 'bfdr-birth') {
+      ijeDataType = 'BFDR Birth'; //Was 'Natality';
+    } else {
+      ijeDataType ='BFDR Fetal Death';
+    }
     return (
       <React.Fragment>
         <Grid>
@@ -53,7 +61,7 @@ export class IJEInspector extends Component {
                 Dashboard
               </Breadcrumb.Section>
               <Breadcrumb.Divider icon="right chevron" />
-              <Breadcrumb.Section>IJE {ijeDataType} Record Inspector</Breadcrumb.Section>
+              <Breadcrumb.Section>IJE {this.props.recordTypeReadable} {ijeDataType} Record Inspector</Breadcrumb.Section>
             </Breadcrumb>
           </Grid.Row>
           <Grid.Row>
