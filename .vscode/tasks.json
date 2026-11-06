@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/projects/VRDR.CLI/VRDR.CLI.csproj",
+                "${workspaceFolder}/projects/BFDR.CLI/BFDR.CLI.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
