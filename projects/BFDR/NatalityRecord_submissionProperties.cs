@@ -1470,7 +1470,7 @@ namespace BFDR
 
         /// <summary>Specified Abnormal Conditions of Newborn, NICU Admission.</summary>
         [Property("NICU Admission", Property.Types.Bool, "Specified Abnormal Conditions of Newborn",
-                  "No Specified Abnormal Conditions of Newborn, NICU Admission", true, IGURL.ObservationNICUAdmission, true, 214)]
+                  "Specified Abnormal Conditions of Newborn, NICU Admission", true, IGURL.ObservationNICUAdmission, true, 214)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Observation, categoryCode: "73812-0", code: "830077005", section: NEWBORN_INFORMATION_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public bool NICUAdmission
@@ -1481,7 +1481,7 @@ namespace BFDR
 
         /// <summary>Specified Abnormal Conditions of Newborn, Antibiotic for Suspected Neonatal Sepsis.</summary>
         [Property("Antibiotic for Suspected Neonatal Sepsis", Property.Types.Bool, "Specified Abnormal Conditions of Newborn",
-                  "No Specified Abnormal Conditions of Newborn, Antibiotic for Suspected Neonatal Sepsis", true, IGURL.ProcedureAntibioticSuspectedNeonatalSepsis, true, 216)]
+                  "Specified Abnormal Conditions of Newborn, Antibiotic for Suspected Neonatal Sepsis", true, IGURL.ProcedureAntibioticSuspectedNeonatalSepsis, true, 216)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Procedure, categoryCode: "73812-0", code: "434621000124103", section: NEWBORN_INFORMATION_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public bool AntibioticForSuspectedNeonatalSepsis
@@ -1492,7 +1492,7 @@ namespace BFDR
 
         /// <summary>Specified Abnormal Conditions of Newborn, Assisted Ventilation Following Delivery.</summary>
         [Property("Assisted Ventilation Following Delivery", Property.Types.Bool, "Specified Abnormal Conditions of Newborn",
-                  "No Specified Abnormal Conditions of Newborn, Assisted Ventilation Following Delivery", true, IGURL.ProcedureAssistedVentilationFollowingDelivery, true, 212)]
+                  "Specified Abnormal Conditions of Newborn, Assisted Ventilation Following Delivery", true, IGURL.ProcedureAssistedVentilationFollowingDelivery, true, 212)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Procedure, categoryCode: "73812-0", code: "assistedventfollowingdelivery",
                   codeSystem: CodeSystemURL.LocalBFDRCodes, section: NEWBORN_INFORMATION_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.Newborn)]
@@ -1504,7 +1504,7 @@ namespace BFDR
 
         /// <summary>Specified Abnormal Conditions of Newborn, Assisted Ventilation More Than Six Hours.</summary>
         [Property("Assisted Ventilation More Than Six Hours", Property.Types.Bool, "Specified Abnormal Conditions of Newborn",
-                  "No Specified Abnormal Conditions of Newborn, Assisted Ventilation More Than Six Hours", true, IGURL.ProcedureAssistedVentilationMoreThanSixHours, true, 213)]
+                  "Specified Abnormal Conditions of Newborn, Assisted Ventilation More Than Six Hours", true, IGURL.ProcedureAssistedVentilationMoreThanSixHours, true, 213)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Procedure, categoryCode: "73812-0", code: "assistedventmorethan6hrs",
                   codeSystem: CodeSystemURL.LocalBFDRCodes, section: NEWBORN_INFORMATION_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.Newborn)]
@@ -1516,7 +1516,7 @@ namespace BFDR
 
         /// <summary>Specified Abnormal Conditions of Newborn, Seizure.</summary>
         [Property("Seizure", Property.Types.Bool, "Specified Abnormal Conditions of Newborn",
-                  "No Specified Abnormal Conditions of Newborn, Seizure", true, IGURL.ConditionSeizure, true, 217)]
+                  "Specified Abnormal Conditions of Newborn, Seizure", true, IGURL.ConditionSeizure, true, 217)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Condition, categoryCode: "73812-0", code: "91175000", section: NEWBORN_INFORMATION_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public bool Seizure
@@ -1527,7 +1527,7 @@ namespace BFDR
 
         /// <summary>Specified Abnormal Conditions of Newborn, Surfactant Replacement Therapy.</summary>
         [Property("Surfactant Replacement Therapy", Property.Types.Bool, "Specified Abnormal Conditions of Newborn",
-                  "No Specified Abnormal Conditions of Newborn, Surfactant Replacement Therapy", true, IGURL.ProcedureSurfactantReplacementTherapy, true, 215)]
+                  "Specified Abnormal Conditions of Newborn, Surfactant Replacement Therapy", true, IGURL.ProcedureSurfactantReplacementTherapy, true, 215)]
         [FHIRPath(fhirType: FHIRPath.FhirType.Procedure, categoryCode: "73812-0", code: "434701000124101", section: NEWBORN_INFORMATION_SECTION)]
         [FHIRSubject(FHIRSubject.Subject.Newborn)]
         public bool SurfactantReplacementTherapy
