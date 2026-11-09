@@ -254,7 +254,26 @@ namespace BFDR
         [IJEField(14, 55, 4, "Date of Birth (Mother)--Year", "MDOB_YR", 1)]
         public string MDOB_YR
         {
-            get => GetYearIJEFormatted(record.MotherDateOfBirth);
+            //get => GetYearIJEFormatted(record.MotherDateOfBirth);
+            get
+            {
+                string mdob_yr ="";
+                mdob_yr = GetYearIJEFormatted(record.MotherDateOfBirth);
+                if (String.IsNullOrWhiteSpace(mdob_yr))
+                {
+                    //check the BirthDateElement
+                   if (record != null && !String.IsNullOrWhiteSpace(record.MotherDateOfBirth)) 
+                   {
+                        string[] dateParts = record.MotherDateOfBirth.Split('-');
+                        if (dateParts.Length > 0 && dateParts[0].Length == 4)
+                        {
+                            mdob_yr = dateParts[0];
+                        }
+                        if (mdob_yr =="    ") return new String('9', 4);
+                   }
+                }
+                return mdob_yr;
+            }
             set => record.MotherDateOfBirth = AddYear(value, record.MotherDateOfBirth);
         }
 
@@ -262,7 +281,25 @@ namespace BFDR
         [IJEField(15, 59, 2, "Date of Birth (Mother)--Month", "MDOB_MO", 2)]
         public string MDOB_MO
         {
-            get => GetMonthIJEFormatted(record.MotherDateOfBirth);
+            //get => GetMonthIJEFormatted(record.MotherDateOfBirth);
+            get
+            {
+                string mdob_mo ="";
+                mdob_mo = GetMonthIJEFormatted(record.MotherDateOfBirth);
+                if (String.IsNullOrWhiteSpace(mdob_mo))
+                {
+                    if (record != null && !String.IsNullOrWhiteSpace(record.MotherDateOfBirth)) 
+                    {
+                        string[] dateParts = record.MotherDateOfBirth.Split('-');
+                        if (dateParts.Length > 0 && dateParts[1].Length == 2)
+                        {
+                            mdob_mo = dateParts[1];
+                        }
+                        if (mdob_mo =="  ") return new String('9', 2);
+                    }
+                }
+                return mdob_mo;
+            }
             set => record.MotherDateOfBirth = AddMonth(value, record.MotherDateOfBirth);
         }
 
@@ -270,7 +307,25 @@ namespace BFDR
         [IJEField(16, 61, 2, "Date of Birth (Mother)--Day", "MDOB_DY", 3)]
         public string MDOB_DY
         {
-            get => GetDayIJEFormatted(record.MotherDateOfBirth);
+            //get => GetDayIJEFormatted(record.MotherDateOfBirth);
+            get
+            {
+                string mdob_dy ="";
+                mdob_dy = GetDayIJEFormatted(record.MotherDateOfBirth);
+                if (String.IsNullOrWhiteSpace(mdob_dy))
+                {
+                   if (record != null && !String.IsNullOrWhiteSpace(record.MotherDateOfBirth)) 
+                   {
+                        string[] dateParts = record.MotherDateOfBirth.Split('-');
+                        if (dateParts.Length > 0 && dateParts[2].Length == 2)
+                        {
+                            mdob_dy = dateParts[2];
+                        }
+                        if (mdob_dy =="  ") return new String('9', 2);
+                   }
+                }
+                return mdob_dy;
+            }
             set => record.MotherDateOfBirth = AddDay(value, record.MotherDateOfBirth);
         }
 
@@ -412,7 +467,26 @@ namespace BFDR
         [IJEField(25, 81, 4, "Date of Birth (Father)--Year", "FDOB_YR", 1)]
         public string FDOB_YR
         {
-            get => GetYearIJEFormatted(record.FatherDateOfBirth);
+            //get => GetYearIJEFormatted(record.FatherDateOfBirth);
+            get
+            {
+                string fdob_yr ="";
+                fdob_yr = GetYearIJEFormatted(record.FatherDateOfBirth);
+                if (String.IsNullOrWhiteSpace(fdob_yr))
+                {
+                   //check the BirthDateElement
+                     if (record.FatherDateOfBirth != null && !String.IsNullOrWhiteSpace(record.FatherDateOfBirth)) 
+                     {
+                            string[] dateParts = record.FatherDateOfBirth.Split('-');
+                            if (dateParts.Length > 0 && dateParts[0].Length == 4)
+                            {
+                                fdob_yr = dateParts[0];
+                            }
+                      }
+                   if (fdob_yr =="    ") return new String('9', 4);
+                }
+                return fdob_yr;
+            }
             set => record.FatherDateOfBirth = AddYear(value, record.FatherDateOfBirth);
         }
 
@@ -420,7 +494,26 @@ namespace BFDR
         [IJEField(26, 85, 2, "Date of Birth (Father)--Month", "FDOB_MO", 2)]
         public string FDOB_MO
         {
-            get => GetMonthIJEFormatted(record.FatherDateOfBirth);
+            //get => GetMonthIJEFormatted(record.FatherDateOfBirth);
+            get
+            {
+                string fdob_mo = "";
+                fdob_mo = GetMonthIJEFormatted(record.FatherDateOfBirth);
+                if (String.IsNullOrWhiteSpace(fdob_mo))
+                {
+                    //check the BirthDateElement
+                    if (record.FatherDateOfBirth != null && !String.IsNullOrWhiteSpace(record.FatherDateOfBirth)) 
+                    {
+                        string[] dateParts = record.FatherDateOfBirth.Split('-');
+                        if (dateParts.Length > 0 && dateParts[1].Length == 2)
+                        {
+                            fdob_mo = dateParts[1];
+                        }
+                    }
+                    if (fdob_mo == "  ") return new String('9', 2);
+                }
+                return fdob_mo;
+            }
             set => record.FatherDateOfBirth = AddMonth(value, record.FatherDateOfBirth);
         }
 
@@ -428,7 +521,26 @@ namespace BFDR
         [IJEField(27, 87, 2, "Date of Birth (Father)--Day", "FDOB_DY", 3)]
         public string FDOB_DY
         {
-            get => GetDayIJEFormatted(record.FatherDateOfBirth);
+            //get => GetDayIJEFormatted(record.FatherDateOfBirth);
+            get
+            {
+                string fdob_dy = "";
+                fdob_dy = GetDayIJEFormatted(record.FatherDateOfBirth);
+                if (String.IsNullOrWhiteSpace(fdob_dy))
+                {
+                    //check the BirthDateElement
+                    if (record.FatherDateOfBirth != null && !String.IsNullOrWhiteSpace(record.FatherDateOfBirth)) 
+                    {
+                        string[] dateParts = record.FatherDateOfBirth.Split('-');
+                        if (dateParts.Length > 0 && dateParts[2].Length == 2)
+                        {
+                            fdob_dy = dateParts[2];
+                        }
+                    }
+                    if (fdob_dy == "  ") return new String('9', 2);
+                }
+                return fdob_dy;
+            }
             set => record.FatherDateOfBirth = AddDay(value, record.FatherDateOfBirth);
         }
 

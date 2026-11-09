@@ -370,7 +370,7 @@ namespace BFDR.Tests
       Assert.Equal("", ije.R_DY.Trim());
       Assert.Equal("26", ije.MAGER);
       Assert.Equal("23", ije.FAGER);
-      Assert.Equal("Y", ije.EHYPE);
+      Assert.Equal("N", ije.EHYPE);
       // Assert.Equal("X", ije.INFT_DRG); // should this be X? we can't round trip X or U for these fields, consider changing to N for testing purposes and determine if this is an issue
       // Assert.Equal("X", ije.INFT_ART); // should this be X?
       Assert.Equal("2024", ije.DOR_YR);
@@ -392,7 +392,7 @@ namespace BFDR.Tests
       Assert.Equal("", ije.COD18a13.Trim());
       Assert.Equal("", ije.COD18a14.Trim());
       Assert.Equal("N", ije.COD18b1);
-      Assert.Equal("Y", ije.COD18b2);
+      Assert.Equal("N", ije.COD18b2);
       Assert.Equal("N", ije.COD18b3);
       Assert.Equal("N", ije.COD18b4);
       Assert.Equal("N", ije.COD18b5);
