@@ -7104,6 +7104,11 @@
             reasons are present to note that the data is not in fact present). This method takes an optional flag to determine if this extension
             should include the time field, which is not always needed</summary>
         </member>
+        <member name="M:VR.VitalRecord.UnknownBlankPartialDateTimeExtension(System.String,System.Boolean)">
+            <summary>NewBlankPartialDateTimeExtension, Build a blank PartialDateTime extension (which means all the placeholder data absent
+            reasons are present to note that the data is not in fact present). This method takes an optional flag to determine if this extension
+            should include the time field, which is not always needed</summary>
+        </member>
         <member name="M:VR.VitalRecord.SetPartialDate(Hl7.Fhir.Model.Extension,System.String,System.Nullable{System.Int32})">
             <summary>Setter helper for anything that uses PartialDateTime, allowing a particular date field (year, month, or day) to be
             set in the extension. Arguments are the extension to poplulate, the part of the URL to populate, and the value to specify.
@@ -7288,6 +7293,9 @@
         <member name="M:VR.VitalRecord.AddBirthDateToPatient(Hl7.Fhir.Model.Patient,System.Boolean)">
             <summary>Add a BirthDateElement to the given Patient resource.</summary>
         </member>
+        <member name="M:VR.VitalRecord.AddUnknownBirthDateToPatient(System.String,Hl7.Fhir.Model.Patient,System.Boolean)">
+            <summary>Add Unknown BirthDateElement to the given Patient resource when birthday.</summary>
+        </member>
         <member name="M:VR.VitalRecord.SetPlaceOfBirth(Hl7.Fhir.Model.RelatedPerson,System.Collections.Generic.Dictionary{System.String,System.String})">
             <summary>Sets the given place of birth dictionary on the given patient.</summary>
         </member>
@@ -7327,6 +7335,29 @@
             <param name="value"></param>
             <param name="fHIRToIJEMapping"></param>
             <param name="valueSetCodes"></param>
+        </member>
+        <member name="M:VR.VitalRecord.UpdateRelatedPersonPartialDateTimeExtension(System.String,Hl7.Fhir.Model.RelatedPerson,System.String[])">
+            <summary>
+            Update relatedPerson Birthdate date element when either the year, the month or the day is unknown.
+            </summary>
+            <param name="dateStr"> Birhtdate date value in string</param>
+            <param name="relatedPerson"></param>
+            <param name="dateElements"> Birthdate date elements</param>
+        </member>
+        <member name="M:VR.VitalRecord.UpdatePatientPartialDateTimeExtension(System.String,Hl7.Fhir.Model.Patient,System.String[])">
+            <summary>
+            Update relatedPerson Birthdate date element when either the year, the month or the day is unknown.
+            </summary>
+            <param name="dateStr"> Birhtdate date value in string</param>
+            <param name="patient"></param>
+            <param name="dateElements"> Birthdate date elements</param>
+        </member>
+        <member name="M:VR.VitalRecord.ConvertUnconventionalDateParts(System.Nullable{System.Int32},System.String)">
+            <summary>
+            Convert unconventional dateparts to 9999 or 99.
+            </summary>
+            <param name="datepart"> Date component with unconventional value</param>
+            <param name="description">provide the description of the datepart which can be either,year, month or day</param>
         </member>
         <member name="T:VR.PropertyParam">
             <summary>Property attribute used to describe a VitalRecord property parameter,

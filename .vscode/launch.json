@@ -3,12 +3,15 @@
     "configurations": [
 
         {
-            "name": ".NET Core Launch VRDR.CLI",
+            "name": ".NET Core Launch BFDR.CLI",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build-cli",
-            "program": "${workspaceFolder}/projects/VRDR.CLI/bin/Debug/netcoreapp6.0/VRDR.CLI",
-            "args": ["help"],
+            "enableStepFiltering": false,
+            "program": "${workspaceFolder}/projects/BFDR.CLI/bin/Debug/netcoreapp6.0/BFDR.CLI",
+            "args": ["2ijecontent",
+                    "birth",
+                "${workspaceFolder}/projects/BFDR.CLI/vbNatRecord.json"],
             "cwd": "${workspaceFolder}",
             "stopAtEntry": false,
             "console": "internalConsole"

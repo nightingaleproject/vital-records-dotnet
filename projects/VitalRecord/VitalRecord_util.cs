@@ -57,6 +57,10 @@ namespace VR
         protected bool EntryExists([CallerMemberName] string propertyName = null)
         {
             FHIRPath fhirPath = GetFHIRPathAttribute(propertyName);
+            if(!fhirPath.GetType().HasElementType)
+            {
+                return false;//This indicates that entry is missing
+            }
             return GetFirstEntryFor(fhirPath) != null;
         }
 
@@ -716,7 +720,13 @@ namespace VR
         {
             return NewDataAbsentReasonPartialDateTimeExtension("temp-unknown", includeTime);
         }
-
+        /// <summary>NewBlankPartialDateTimeExtension, Build a blank PartialDateTime extension (which means all the placeholder data absent
+        /// reasons are present to note that the data is not in fact present). This method takes an optional flag to determine if this extension
+        /// should include the time field, which is not always needed</summary>
+        protected Extension UnknownBlankPartialDateTimeExtension(string value, bool includeTime = true)
+        {
+            return NewDataAbsentReasonPartialDateTimeExtension("unknown", includeTime);
+        }
         private Extension NewDataAbsentReasonPartialDateTimeExtension(string dataAbsentReason, bool includeTime = true)
         {
             Extension partialDateTime = new Extension(includeTime ? ExtensionURL.PartialDateTime : ExtensionURL.PartialDate, null);
@@ -2002,6 +2012,12 @@ namespace VR
             patient.BirthDateElement.Extension.Add(NewBlankPartialDateTimeExtension(includeTime));
         }
 
+         /// <summary>Add Unknown BirthDateElement to the given Patient resource when birthday.</summary>
+        protected void AddUnknownBirthDateToPatient(string dateStr,Patient patient, bool includeTime)
+        {
+            patient.BirthDateElement = new Date();
+            patient.BirthDateElement.Extension.Add(UnknownBlankPartialDateTimeExtension(dateStr,false));
+        }
 
         /// <summary>Sets the given place of birth dictionary on the given patient.</summary>
         protected void SetPlaceOfBirth(RelatedPerson person, Dictionary<string, string> value)
@@ -2117,6 +2133,93 @@ namespace VR
                 // normal path
                 SetPhysicalLocation(encounter, CreateCode(value, valueSetCodes));
             }
+        }
+         /// <summary>
+        /// Update relatedPerson Birthdate date element when either the year, the month or the day is unknown.
+        /// </summary>
+        /// <param name="dateStr"> Birhtdate date value in string</param>
+        /// <param name="relatedPerson"></param>
+        /// <param name="dateElements"> Birthdate date elements</param>
+        protected void UpdateRelatedPersonPartialDateTimeExtension (string dateStr,  Hl7.Fhir.Model.RelatedPerson relatedPerson, string[] dateElements)
+        {
+
+            relatedPerson.BirthDateElement = new Date();
+            relatedPerson.BirthDateElement.Extension.Add(UnknownBlankPartialDateTimeExtension(dateStr, false));
+            //update each partial date
+            string year = "";
+            string month = "";
+            string day = "";
+
+            if (dateElements.Count() == 3)
+            {
+                year = dateElements[0].Trim();
+                month = dateElements[1].Trim();
+                day = dateElements[2].Trim();
+                
+                if(int.TryParse(year, out  int intYear) && year !="9999")  
+                {
+                    SetPartialDate(relatedPerson.BirthDateElement.Extension.Find(ext => ext.Url == VR.ExtensionURL.PartialDate), VR.ExtensionURL.PartialDateYearVR, intYear); 
+                }
+                if(int.TryParse(month, out  int intMonth) && month !="99")  
+                {
+                    SetPartialDate(relatedPerson.BirthDateElement.Extension.Find(ext => ext.Url == VR.ExtensionURL.PartialDate), VR.ExtensionURL.PartialDateMonthVR, intMonth); 
+                }
+                if(int.TryParse(day, out  int intDay) && day !="99") 
+                {
+                    SetPartialDate(relatedPerson.BirthDateElement.Extension.Find(ext => ext.Url == VR.ExtensionURL.PartialDate), VR.ExtensionURL.PartialDateDayVR, intDay); 
+                }
+            }  
+        }
+
+        /// <summary>
+        /// Update relatedPerson Birthdate date element when either the year, the month or the day is unknown.
+        /// </summary>
+        /// <param name="dateStr"> Birhtdate date value in string</param>
+        /// <param name="patient"></param>
+        /// <param name="dateElements"> Birthdate date elements</param>
+        protected void UpdatePatientPartialDateTimeExtension (string dateStr,  Hl7.Fhir.Model.Patient patient, string[] dateElements)
+        {
+            
+            if ( patient !=null)
+            {
+                AddUnknownBirthDateToPatient(dateStr,patient,false);//Patient patient, bool includeTime
+            }
+            //update each partial date
+            string year = "";
+            string month = "";
+            string day = "";
+
+            if (dateElements.Count() == 3)
+            {
+                year = dateElements[0].Trim();
+                month = dateElements[1].Trim();
+                day = dateElements[2].Trim();              
+                
+                if(int.TryParse(year, out  int intYear) && year !="9999")  
+                {
+                    SetPartialDate(patient.BirthDateElement.Extension.Find(ext => ext.Url == VR.ExtensionURL.PartialDate), VR.ExtensionURL.PartialDateYearVR, intYear); 
+                }
+                if(int.TryParse(month, out  int intMonth) && month !="99")  
+                {
+                    SetPartialDate(patient.BirthDateElement.Extension.Find(ext => ext.Url == VR.ExtensionURL.PartialDate), VR.ExtensionURL.PartialDateMonthVR, intMonth); 
+                }
+                if(int.TryParse(day, out  int intDay) && day !="99") 
+                {
+                    SetPartialDate(patient.BirthDateElement.Extension.Find(ext => ext.Url == VR.ExtensionURL.PartialDate), VR.ExtensionURL.PartialDateDayVR, intDay); 
+                }
+            }    
+        }
+         /// <summary>
+        /// Convert unconventional dateparts to 9999 or 99.
+        /// </summary>
+        /// <param name="datepart"> Date component with unconventional value</param>
+        /// <param name="description">provide the description of the datepart which can be either,year, month or day</param>
+        protected int? ConvertUnconventionalDateParts(int? datepart,string description)
+        {
+            if (description =="year" && datepart == -1) return 9999;
+            if (description =="month" && datepart == -1) return 99;
+            if (description =="day" && datepart == -1) return 99;
+            return datepart;
         }
     }
 

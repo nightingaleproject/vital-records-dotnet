@@ -8,6 +8,7 @@ using Hl7.Fhir.Support;
 using static Hl7.Fhir.Model.Encounter;
 using System.Text.RegularExpressions;
 using System.Globalization;
+using Hl7.Fhir.Utility;
 
 // NatalityRecord_submissionProperties.cs
 // These fields are used primarily for submitting birth records to NCHS.
@@ -2176,7 +2177,27 @@ namespace BFDR
         public string MotherDateOfBirth
         {
             get
-            {
+            {   
+                if (this.Mother == null)
+                {
+                    return null;
+                }
+                bool hasElements = this.Mother.BirthDateElement.IsNullOrEmpty();
+                //check to see if BirthDateElement has extension
+                if (this.Mother.BirthDateElement !=null && this.Mother.BirthDateElement.HasExtensions())
+                {
+                    Extension birthDateExtension = this.Mother?.BirthDateElement?.Extension?.FirstOrDefault(ext => ext.Url == VR.ExtensionURL.PartialDate);
+                    //if partialdate extension is found
+                    if (birthDateExtension!= null)//.Count()> 0)
+                    {
+                        int? motherYear = GetPartialDate(birthDateExtension, VR.ExtensionURL.PartialDateYearVR);
+                        int? motherMonth = GetPartialDate(birthDateExtension, VR.ExtensionURL.PartialDateMonthVR);
+                        int? motherDay = GetPartialDate(birthDateExtension, VR.ExtensionURL.PartialDateDayVR);
+
+                        this.Mother.BirthDateElement = new Date(ConvertUnconventionalDateParts(motherYear,"year") ?? -1, ConvertUnconventionalDateParts(motherMonth,"month") ?? -1, ConvertUnconventionalDateParts(motherDay,"day") ?? -1);
+                        return this.Mother.BirthDateElement.ToString();
+                    }
+                }
                 if (this.Mother?.BirthDateElement == null)
                 {
                     return null;
@@ -2189,6 +2210,7 @@ namespace BFDR
                 {
                     return;
                 }
+                string[] dateParts = value.Split('-');
                 Date date = ConvertToDate(value);
                 if (date != null)
                 {
@@ -2198,7 +2220,18 @@ namespace BFDR
                 }
                 else
                 {
-                    throw new ArgumentException($"Could not parse given string, expected a Date string in the format YYYY-MM-DD. Given {value}.");
+                    if ((value =="9999-99-99")|| dateParts.Count() ==3)                                      
+                    {                                                                                                                                                                                                                                                          
+                        UpdatePatientPartialDateTimeExtension(value, Mother, dateParts);                     
+                    }                                                                                        
+                    if (value.Contains("9999") || value.Contains("99"))                                      
+                    {                                                                                        
+                                                                                                            
+                    }                                                                                        
+                    else                                                                                     
+                    {                                                                                        
+                        throw new ArgumentException($"Could not parse given string, expected a Date string in the format YYYY-MM-DD. Given {value}.");
+                    }
                 }
             }
         }
@@ -2349,6 +2382,10 @@ namespace BFDR
             }
             set
             {
+                if (Mother.BirthDateElement.IsNullOrEmpty())
+                {
+                    
+                }
                 Mother.BirthDateElement?.Extension.RemoveAll(ext => ext.Url == VR.ExtensionURL.BypassEditFlag);
                 if (Mother.BirthDateElement == null)
                 {
@@ -2410,6 +2447,24 @@ namespace BFDR
         {
             get
             {
+                if (this.Father == null)
+                {
+                    return null;
+                }
+                if (!this.Father.BirthDateElement.IsNullOrEmpty() && this.Father.BirthDateElement.HasExtensions())
+                {
+                    Extension birthDateExtension = this.Father?.BirthDateElement?.Extension?.FirstOrDefault(ext => ext.Url == VR.ExtensionURL.PartialDate);
+                    if (birthDateExtension != null)//.Count() > 0)
+                    {
+                        int? fdobYear = GetPartialDate(birthDateExtension, VR.ExtensionURL.PartialDateYearVR);
+                        int? fdobMonth = GetPartialDate(birthDateExtension, VR.ExtensionURL.PartialDateMonthVR);
+                        int? fdobDay = GetPartialDate(birthDateExtension, VR.ExtensionURL.PartialDateDayVR);
+
+                        this.Father.BirthDateElement = new Date(ConvertUnconventionalDateParts(fdobYear,"year") ?? -1, ConvertUnconventionalDateParts(fdobMonth,"month") ?? -1, ConvertUnconventionalDateParts(fdobDay,"day") ?? -1);
+                        return this.Father.BirthDateElement.ToString();
+                    }
+                }
+                
                 if (this.Father == null || this.Father.BirthDateElement == null)
                 {
                     return null;
@@ -2422,6 +2477,7 @@ namespace BFDR
                 {
                     return;
                 }
+                string[] dateParts = value.Split('-'); 
                 Date date = ConvertToDate(value);
                 if (date != null)
                 {
@@ -2431,7 +2487,20 @@ namespace BFDR
                 }
                 else
                 {
-                    throw new ArgumentException($"Could not parse given string, expected a Date string in the format YYYY-MM-DD. Given {value}.");
+                    if ((value =="9999-99-99")|| dateParts.Count() ==3)                                            
+                    {                                                                                              
+                        //Since the date may not be valid                                                          
+                        //this.Father.BirthDate =value;                                                            
+                        UpdateRelatedPersonPartialDateTimeExtension(value, Father, dateParts);                     
+                    }                                                                                              
+                    if (value.Contains("9999") || value.Contains("99"))                                            
+                    {                                                                                              
+                                                                                                                
+                    }                                                                                              
+                    else     
+                    {                                                                                      
+                        throw new ArgumentException($"Could not parse given string, expected a Date string in the format YYYY-MM-DD. Given {value}.");
+                    }
                 }
             }
         }
