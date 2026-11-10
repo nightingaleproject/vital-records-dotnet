@@ -1221,7 +1221,7 @@ namespace BFDR.Tests
         Assert.Equal("Y", ije3.FRACE3);
         Assert.Equal("N", ije3.FRACE4);
         Assert.Equal("N", ije3.FRACE5);
-        Assert.Equal("N", ije3.FRACE6);
+        Assert.Equal("N", ije3.FRACE6);   //CWF: possible issue with "N"?
         Assert.Equal("N", ije3.FRACE7);
         Assert.Equal("N", ije3.FRACE8);
         Assert.Equal("N", ije3.FRACE9);
@@ -2273,7 +2273,7 @@ namespace BFDR.Tests
             { "FRACE3", "Y" },
             { "FRACE4", "N" },
             { "FRACE5", "N" },
-            { "FRACE6", "N" },
+            { "FRACE6", "N" },      //CWF: possible issue with "N"?
             { "FRACE7", "N" },
             { "FRACE8", "N" },
             { "FRACE9", "N" },
