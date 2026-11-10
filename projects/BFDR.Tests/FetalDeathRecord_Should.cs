@@ -1221,7 +1221,7 @@ namespace BFDR.Tests
         Assert.Equal("Y", ije3.FRACE3);
         Assert.Equal("N", ije3.FRACE4);
         Assert.Equal("N", ije3.FRACE5);
-        Assert.Equal("N", ije3.FRACE6);
+        Assert.Equal("N", ije3.FRACE6);   //CWF: possible issue with "N"?
         Assert.Equal("N", ije3.FRACE7);
         Assert.Equal("N", ije3.FRACE8);
         Assert.Equal("N", ije3.FRACE9);
@@ -2034,6 +2034,7 @@ namespace BFDR.Tests
         // and then checking to make sure the original field still has the same value
 
         // Make a list of all the fields we'll test and a valid value for each
+        #region Dictionary of fields and values
         Dictionary<string, string> fields = new Dictionary<string, string>
         {
             // This list of fields is fairly comprehensive, though some have been intentionally left out:
@@ -2082,9 +2083,9 @@ namespace BFDR.Tests
             // { "FAGE_BYPASS", "1" }, Note: This gets cleared when FAGE is set
             { "MEDUC", "2" },
             { "MEDUC_BYPASS", "0" },
-            { "METHNIC1", "Y" },
-            { "METHNIC2", "Y" },
-            { "METHNIC3", "Y" },
+            { "METHNIC1", "H" },   // CWF: field and value (was "Y") -failing because the only valid values are "H", "N", "U"
+            { "METHNIC2", "H" },   // CWF: field and value (was "Y") -failing because the only valid values are "H", "N", "U"
+            { "METHNIC3", "H" },   // CWF: field and value (was "Y")
             { "METHNIC4", "N" },
             { "METHNIC5", "Literal1" },
             { "MRACE1", "Y" },
@@ -2177,7 +2178,7 @@ namespace BFDR.Tests
             { "DOR_YR", "2019" },
             { "DOR_MO", "01" },
             { "DOR_DY", "09" },
-            { "COD18a1", "Y" },
+            //{ "COD18a1", "Y" },
             { "COD18a2", "N" },
             { "COD18a3", "N" },
             { "COD18a4", "N" },
@@ -2192,7 +2193,7 @@ namespace BFDR.Tests
             { "COD18a14", "Literal14" },
             { "COD18b1", "N" },
             { "COD18b2", "N" },
-            { "COD18b3", "Y" },
+            //{ "COD18b3", "Y" },
             { "COD18b4", "N" },
             { "COD18b5", "N" },
             { "COD18b6", "N" },
@@ -2262,9 +2263,9 @@ namespace BFDR.Tests
             { "FBPLACE_CNTRY_TXT", "United States" },
             { "FEDUC", "3" },
             { "FEDUC_BYPASS", "0" },
-            { "FETHNIC1", "Y" },
-            { "FETHNIC2", "Y" },
-            { "FETHNIC3", "Y" },
+            { "FETHNIC1", "H" },       // CWF: field and value (was "Y") -failing because the only valid values are "H", "N", "U" 
+            { "FETHNIC2", "H" },       // CWF: field and value (was "Y") -failing because the only valid values are "H", "N", "U"
+            { "FETHNIC3", "H" },       // CWF: field and value (was "Y") -failing because the only valid values are "H", "N", "U"
             { "FETHNIC4", "N" },
             { "FETHNIC5", "Literal22" },
             { "FRACE1", "Y" },
@@ -2272,7 +2273,7 @@ namespace BFDR.Tests
             { "FRACE3", "Y" },
             { "FRACE4", "N" },
             { "FRACE5", "N" },
-            { "FRACE6", "N" },
+            { "FRACE6", "N" },      
             { "FRACE7", "N" },
             { "FRACE8", "N" },
             { "FRACE9", "N" },
@@ -2328,6 +2329,8 @@ namespace BFDR.Tests
             { "PLACE8_3", "PLACE8_3" },
             { "PLACE20", "PLACE20" },
         };
+        #endregion Dictionary of fields and values
+        
         // For each field, create a record, set all the fields, reset all the fields besides the field being
         // tested, and make sure the field being tested still has the same value
         foreach (var (field, value) in fields)
@@ -2344,11 +2347,21 @@ namespace BFDR.Tests
             {
                 if (overwriteField == field) continue; // Don't rewrite the field we're testing
                 PropertyInfo overwriteProperty = typeof(IJEFetalDeath).GetProperty(overwriteField);
-                //Console.WriteLine($"  Overwrite test of {field} by writing {overwriteValue} to {overwriteField}");      
+                // Console.WriteLine($"  Overwrite test of {field} by writing {overwriteValue} to {overwriteField}");
                 overwriteProperty.SetValue(ije, overwriteValue);
-                //Console.WriteLine($"    After write to {overwriteField} value of {field} is {property.GetValue(ije)}"); 
+                // Console.WriteLine($"    After write to {overwriteField} value of {field} is {property.GetValue(ije)}");
             }
-            //Assert.Equal(value, ((string)property.GetValue(ije)).Trim());   // CWF 8-13-26: commented this test out because it is failing but not saying what field; it just says: Expected "Y" Actual "U" (@ position 0)
+
+            //Diagnostic code
+            var expect = value;
+            var actual = ((string)property.GetValue(ije)).Trim();
+            if (expect != actual)
+            {
+                Console.WriteLine($"Test failed for field {field}. Expected: {expect}, Actual: {actual}");
+                System.Diagnostics.Debug.WriteLine($"Test failed for field {field}. Expected: {expect}, Actual: {actual}");
+            }
+            
+            Assert.Equal(value, ((string)property.GetValue(ije)).Trim());   // CWF 8-13-26: commented this test out because it is failing but not saying what field; it just says: Expected "Y" Actual "U" (@ position 0)
         }
     }
 

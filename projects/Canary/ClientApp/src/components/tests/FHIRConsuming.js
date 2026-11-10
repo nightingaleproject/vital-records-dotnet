@@ -161,7 +161,7 @@ export function FHIRConsuming(props) {
             <Grid.Row>
               <Container>
                 <Divider horizontal />
-                <Header as="h2" dividing id="step-1">
+                <Header as="h2" dividing id="step-1" className="canary-scroll-target">
                   <Icon name="download" />
                   <Header.Content>
                     Step 1: Import Record
@@ -178,7 +178,7 @@ export function FHIRConsuming(props) {
             <Grid.Row>
               <Container fluid>
                 <Divider horizontal />
-                <Header as="h2" dividing id="step-1">
+                <Header as="h2" dividing id="step-2" className="canary-scroll-target">
                   <Icon name="keyboard" />
                   <Header.Content>
                     Step 2: Enter Details
@@ -197,7 +197,7 @@ export function FHIRConsuming(props) {
             <Grid.Row>
               <Container fluid>
                 <Divider horizontal />
-                <Header as="h2" dividing className="p-b-5" id="step-1">
+                <Header as="h2" dividing className="p-b-5 canary-scroll-target" id="step-3">
                   <Icon name="check circle" />
                   <Header.Content>
                     Step 3: Calculate Results

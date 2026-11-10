@@ -31,6 +31,66 @@ export default function App() {
 
   // Get record type param.
   const { pathname } = useLocation()
+  const isFHIRProducingActions = !!matchPath(
+    {
+      path: "/:recordType/test-fhir-producing/*",             // Item 1.1 
+    },
+    pathname
+  );
+  const isFHIRConsumingActions = !!matchPath(                 // Item 1.2
+    {
+      path: "/:recordType/test-fhir-consuming/*",
+    },
+    pathname
+  );
+  const isEDRSConsumingActions = !!matchPath(                 // Item 1.3
+    {
+      path: "/:recordType/test-edrs-roundtrip-consuming/*",
+    },
+    pathname
+  );
+  const isEDRSProducingActions = !!matchPath(                 // Item 1.4
+    {
+      path: "/:recordType/test-edrs-roundtrip-producing/*",
+    },
+    pathname
+  );
+  const isConnectathonFHIRProducingActions = !!matchPath(         //Item 1.5
+    {
+      path: "/:recordType/test-connectathon/*",
+    },
+    pathname
+  );
+  const isValidateFHIRWithIJEActions = !!matchPath(                 //Item 1.6
+    {
+      path: "/:recordType/test-fhir-ije-validator-producing/*",
+    },
+    pathname
+  );
+  const IsProdFHIRWithMsg = !!matchPath(                 //Item 2.1
+    {
+      path: "/:recordType/test-fhir-message-producing/*",
+    },
+    pathname
+  );
+  const isTestConnectathonMsgPage = !!matchPath(                 //Item 2.2
+    {
+      path: "/:recordType/test-connectathon-messaging/*",
+    },
+    pathname
+  );
+  const isToolFhirCreator = !!matchPath(                       //Item 3.5
+    {
+      path: "/:recordType/tool-fhir-creator/*",
+    },
+    pathname
+  );
+  const isMessageCreatorPage = !!matchPath(
+    {
+      path: "/:recordType/test-fhir-message-creation/*",       //Item 4.2
+    },
+    pathname
+  );
   const match = matchPath(
     {
       path: "/:recordType/*",
@@ -95,7 +155,19 @@ export default function App() {
 
   // conditional routes based on record type.
   return (
-    <Layout recordType={recordType} recordTypeReadable={recordTypeReadable} ijeType={ijeDataType}>
+    <Layout recordType={recordType} recordTypeReadable={recordTypeReadable} ijeType={ijeDataType}  
+          showFHIRProducingActions={isFHIRProducingActions}                          // Item 1.1
+          showFHIRConsumingActions={isFHIRConsumingActions}                          // Item 1.2
+          showEDRSConsumingActions={isEDRSConsumingActions}                          // Item 1.3
+          showEDRSProducingActions={isEDRSProducingActions}                          // Item 1.4
+          showConnectathonFHIRProducingActions={isConnectathonFHIRProducingActions}  // Item 1.5
+          showValidateFHIRWithIJEActions={isValidateFHIRWithIJEActions}              // Item 1.6
+          showProdFHIRWithMsg={IsProdFHIRWithMsg}                                    // Item 2.1
+          showTestConnectathonMsgPage={isTestConnectathonMsgPage}                    // Item 2.2
+          showToolFhirCreator={isToolFhirCreator}                                    // Item 3.5
+          showMessageCreatorActions={isMessageCreatorPage}                           // Item 4.2
+      >
+
       <Routes>
         <Route path="/" element={<HomeScreen />} />
         <Route path=":recordType/*">

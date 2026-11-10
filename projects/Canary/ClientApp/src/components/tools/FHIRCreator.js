@@ -83,8 +83,9 @@ export class FHIRCreator extends Component {
           <Grid.Row>
             <Container fluid>
               <Form size="large">
+                <div id="child-demographics" className="canary-scroll-target" />
                 <FHIRInfo fhirInfo={this.state.fhirInfo} updateFhirInfo={this.updateFhirInfo} editable={true} hideSnippets />
-                <div className="p-b-10" />
+                <div id="generate-record" className="p-b-10 canary-scroll-target" />
                 <Button primary floated="right" fluid size="huge" onClick={this.updateRecord} loading={this.state.loading}>
                   <Icon name="magic" />
                   Generate Record

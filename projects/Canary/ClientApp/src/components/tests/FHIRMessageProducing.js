@@ -222,7 +222,7 @@ export function FHIRMessageProducing(props) {
             <Grid.Row>
               <Container fluid>
                 <Divider horizontal />
-                <Header as="h2" dividing id="step-1">
+                <Header as="h2" dividing id="step-1" className="canary-scroll-target">
                   <Icon name="download" />
                   <Header.Content>
                     Step 1: Import Record
@@ -239,7 +239,7 @@ export function FHIRMessageProducing(props) {
             <Grid.Row>
               <Container fluid>
                 <Divider horizontal />
-                <Header as="h2" dividing id="step-2">
+                <Header as="h2" dividing id="step-2" className="canary-scroll-target">
                   <Icon name="mail" />
                   <Header.Content>
                     Step 2: Choose the Message Type
