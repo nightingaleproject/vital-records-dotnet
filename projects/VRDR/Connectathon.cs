@@ -404,7 +404,7 @@ namespace VRDR
             ije.COD1A = "Motor vehicle accident";
             ije.INTERVAL1A = "30 minutes";
             ije.HOWINJ = "description";
-            ije.POILITRL = "Passenger"; //was "place";
+            ije.POILITRL = "place";
             DeathRecord record = ije.ToDeathRecord();
             return record;
         }
