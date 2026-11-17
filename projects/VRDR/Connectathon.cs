@@ -330,7 +330,9 @@ namespace VRDR
             ije.DSTATE = "CT";
             ije.FILENO = "000004";
             ije.MFILED = "0";
-            ije.GNAME = "Suja";      
+            ije.GNAME = "Suja";   
+            //ije.LNAME = "";   
+            //ije.FLNAME = "";
             ije.SEX = "M";
             ije.SSN = "429471210";
             ije.AGETYPE = "1";

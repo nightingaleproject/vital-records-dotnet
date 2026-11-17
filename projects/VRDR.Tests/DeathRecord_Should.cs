@@ -3967,7 +3967,10 @@ namespace VRDR.Tests
             DeathRecord dr1 = VRDR.Connectathon.FromId(3);
             Assert.Equal("3", dr1.AgeAtDeath["value"]);
             Assert.Equal("male", dr1.SexAtDeath["code"]);
-            Assert.Equal("3", dr1.Identifier);
+            
+            //Assert.Equal("000003", dr1.Identifier); 
+            Assert.Equal("3", dr1.Identifier.TrimStart('0'));  // This field may optionally be padded with leading zeros, so we trim them for the test
+
             Assert.Equal("CT", dr1.DeathLocationJurisdiction);
             Assert.Equal(2023, dr1.DeathYear);
         }

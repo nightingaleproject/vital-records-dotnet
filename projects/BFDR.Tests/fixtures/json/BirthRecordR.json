@@ -2854,7 +2854,7 @@
         "subject": {
           "reference": "urn:uuid:f654bb4c-f0cd-48a7-9053-dd0b2ede5f6c"
         },
-        "valueInteger": 1
+        "valueInteger": -1
       }
     },
     {
