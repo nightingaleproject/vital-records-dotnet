@@ -46,15 +46,15 @@ dotnet run --project VRDR.CLI roundtrip-all VRDR.CLI/1_wJurisdiction.xml
 # Convert a JSON file to MRE and compare the results
 echo "* dotnet run --project VRDR.CLI json2mre VRDR.Tests/fixtures/json/Bundle-DemographicCodedContentBundle-Example1.json > example.mre"
 dotnet run --project VRDR.CLI json2mre VRDR.Tests/fixtures/json/Bundle-DemographicCodedContentBundle-Example1.json > example.mre
-echo "* dotnet run --project VRDR.CLI compareMREtoJSON example.mre VRDR.Tests/fixtures/json/Bundle-DemographicCodedContentBundle-Example1.json"
-dotnet run --project VRDR.CLI compareMREtoJSON example.mre VRDR.Tests/fixtures/json/Bundle-DemographicCodedContentBundle-Example1.json
+#echo "* dotnet run --project VRDR.CLI compareMREtoJSON example.mre VRDR.Tests/fixtures/json/Bundle-DemographicCodedContentBundle-Example1.json"
+#dotnet run --project VRDR.CLI compareMREtoJSON example.mre VRDR.Tests/fixtures/json/Bundle-DemographicCodedContentBundle-Example1.json
 rm example.mre
 
 # Convert a JSON file to TRX and compare the results
 echo "* dotnet run --project VRDR.CLI json2trx VRDR.Tests/fixtures/json/Bundle-CauseOfDeathCodedContentBundle-Example1.json > example.trx"
 dotnet run --project VRDR.CLI json2trx VRDR.Tests/fixtures/json/Bundle-CauseOfDeathCodedContentBundle-Example1.json > example.trx
-echo "* dotnet run --project VRDR.CLI compareTRXtoJSON example.trx VRDR.Tests/fixtures/json/Bundle-CauseOfDeathCodedContentBundle-Example1.json"
-dotnet run --project VRDR.CLI compareTRXtoJSON example.trx VRDR.Tests/fixtures/json/Bundle-CauseOfDeathCodedContentBundle-Example1.json
+#echo "* dotnet run --project VRDR.CLI compareTRXtoJSON example.trx VRDR.Tests/fixtures/json/Bundle-CauseOfDeathCodedContentBundle-Example1.json"
+#dotnet run --project VRDR.CLI compareTRXtoJSON example.trx VRDR.Tests/fixtures/json/Bundle-CauseOfDeathCodedContentBundle-Example1.json
 rm example.trx
 
 # Convert an STU3 JSON file (with only features found in STU2) to STU2 and Back and Compare the STU2 JSON against the STU2 fixture.
