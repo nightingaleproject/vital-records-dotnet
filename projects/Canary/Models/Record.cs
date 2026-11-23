@@ -169,14 +169,14 @@ namespace canary.Models
                 foreach (PropertyInfo property in properties)
                 {
                     IJEField info = property.GetCustomAttribute<IJEField>();
-                    string field = ijeString.Substring(info.Location - 1, info.Length);
+                    string @field = ijeString.Substring(info.Location - 1, info.Length);
                     Dictionary<string, string> propInfo = new Dictionary<string, string>();
                     propInfo.Add("number", info.Field.ToString());
                     propInfo.Add("location", info.Location.ToString());
                     propInfo.Add("length", info.Length.ToString());
                     propInfo.Add("contents", info.Contents);
                     propInfo.Add("name", info.Name);
-                    propInfo.Add("value", field.Trim());
+                    propInfo.Add("value", @field.Trim());
                     propList.Add(propInfo);
                 }
                 return propList;
